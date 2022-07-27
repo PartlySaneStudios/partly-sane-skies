@@ -1,4 +1,4 @@
-package com.example.examplemod;
+package me.partlysanestudios.partlysaneskies;
 
 import net.minecraft.init.Blocks;
 import net.minecraftforge.fml.common.Mod;
