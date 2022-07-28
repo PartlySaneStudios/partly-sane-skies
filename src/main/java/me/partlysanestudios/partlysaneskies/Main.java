@@ -70,7 +70,7 @@ public class Main
 
     @SubscribeEvent
     public void chatAnalyzer(ClientChatReceivedEvent evnt) {
-        if(isDebugMode) System.out.println(evnt.message.toString());
+        if(isDebugMode) System.out.println(evnt.message.getFormattedText());
     }
 
     public static void visPrint(Object print) {
