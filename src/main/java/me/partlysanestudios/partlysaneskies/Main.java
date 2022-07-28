@@ -2,8 +2,8 @@ package me.partlysanestudios.partlysaneskies;
 
 import me.partlysanestudios.partlysaneskies.keybind.KeyInit;
 import net.minecraft.client.Minecraft;
+import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -20,15 +20,17 @@ public class Main
 
     public static boolean isHypixel;
     public static boolean isSkyblock;
+    public static boolean isDebugMode;
 
     
     public static Minecraft minecraft;
     
     @EventHandler
-    public void init(FMLInitializationEvent event) {
+    public void init(FMLInitializationEvent evnt) {
         System.out.println("Hallo World!");
         isHypixel = false;
         isSkyblock = false;
+        isDebugMode = false;
         minecraft = Minecraft.getMinecraft();
 
 
@@ -40,18 +42,18 @@ public class Main
     }
 
     @SubscribeEvent
-    public void joinServerEvent(ClientConnectedToServerEvent e) {
-        visPrint(minecraft.getCurrentServerData().serverIP);
+    public void joinServerEvent(ClientConnectedToServerEvent evnt) {
         if(minecraft.getCurrentServerData().serverIP.contains(".hypixel.net")) {
             isHypixel = true;
-            visPrint("CONNECTED TO HYPIXEL");
         }
     }
+
     @SubscribeEvent
-    public void clientTick(ClientTickEvent e) {
+    public void clientTick(ClientTickEvent evnt) {
         if(KeyInit.debugKey.isPressed()) {
             Main.visPrint(Main.detectScoreboardName("§lSKYBLOCK"));
             Main.visPrint(Main.minecraft.thePlayer.getWorldScoreboard().getObjectiveInDisplaySlot(1).getDisplayName());
+            isDebugMode = !isDebugMode;
         }
 
         try {
@@ -65,10 +67,10 @@ public class Main
 
         }
     }
-    
+
     @SubscribeEvent
-    public void worldSwitch(WorldEvent.Load e) {
-        
+    public void chatAnalyzer(ClientChatReceivedEvent evnt) {
+        if(isDebugMode) System.out.println(evnt.message.toString());
     }
 
     public static void visPrint(Object print) {
