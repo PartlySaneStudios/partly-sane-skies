@@ -25,6 +25,7 @@ hs_err_pid*
 .gradle
 **/build/
 !src/**/build/
+src\main\java\me\partlysanestudios\partlysaneskies\run
 
 # Ignore Gradle GUI config
 gradle-app.setting
