@@ -1,6 +1,8 @@
 package me.partlysanestudios.partlysaneskies;
 
 import me.partlysanestudios.partlysaneskies.keybind.KeyInit;
+import me.partlysanestudios.partlysaneskies.rngdroptitle.DropBannerDisplay;
+import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -35,7 +37,9 @@ public class Main
 
 
         MinecraftForge.EVENT_BUS.register(this);
+        
         KeyInit.init();
+        MinecraftForge.EVENT_BUS.register(new DropBannerDisplay());
 
 
         System.out.println("Partly Sane Skies has loaded.");
@@ -51,9 +55,12 @@ public class Main
     @SubscribeEvent
     public void clientTick(ClientTickEvent evnt) {
         if(KeyInit.debugKey.isPressed()) {
-            Main.visPrint(Main.detectScoreboardName("§lSKYBLOCK"));
-            Main.visPrint(Main.minecraft.thePlayer.getWorldScoreboard().getObjectiveInDisplaySlot(1).getDisplayName());
+            Utils.visPrint(Main.detectScoreboardName("§lSKYBLOCK"));
+            Utils.visPrint(Main.minecraft.thePlayer.getWorldScoreboard().getObjectiveInDisplaySlot(1).getDisplayName());
+            Utils.visPrint(Main.minecraft.displayWidth/2);
+            Utils.visPrint(Main.minecraft.displayHeight/4);
             isDebugMode = !isDebugMode;
+            Utils.visPrint("Debug mode: " + isDebugMode);
         }
 
         try {
@@ -71,10 +78,6 @@ public class Main
     @SubscribeEvent
     public void chatAnalyzer(ClientChatReceivedEvent evnt) {
         if(isDebugMode) System.out.println(evnt.message.getFormattedText());
-    }
-
-    public static void visPrint(Object print) {
-        System.out.println("\n\n\n" + print.toString() + "\n\n\n");
     }
 
     public static boolean detectScoreboardName(String desiredName) {
