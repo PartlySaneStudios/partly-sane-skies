@@ -1,4 +1,4 @@
-package me.partlysanestudios.partlysaneskies.rngdroptitle;
+package me.partlysanestudios.partlysaneskies;
 
 import net.minecraft.client.Minecraft;
 
@@ -9,15 +9,17 @@ public class Drop {
     public int magicFind;
     public long timeDropped;
     public int displayTime;
-    public int color;
+    public int dropCategoryColor;
+    public int dropNameHex;
 
-    public Drop(String name, String dropCategory, int amount, int magicFind, long timeDropped, int hex) {
+    public Drop(String name, String dropCategory, int amount, int magicFind, long timeDropped, int dropCategoryHex, int dropNameHex) {
         this.name = name;
         this.dropCategory = dropCategory;
         this.amount = amount;
         this.magicFind = magicFind;
         this.timeDropped = timeDropped;
-        this.color = hex;  
+        this.dropCategoryColor = dropCategoryHex;  
+        this.dropNameHex = dropNameHex;
     }
 
     public boolean isStillDisplay(long currentTime) {

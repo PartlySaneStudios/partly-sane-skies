@@ -1,7 +1,7 @@
 package me.partlysanestudios.partlysaneskies;
 
 import me.partlysanestudios.partlysaneskies.keybind.KeyInit;
-import me.partlysanestudios.partlysaneskies.rngdroptitle.DropBannerDisplay;
+// import me.partlysanestudios.partlysaneskies.rngdroptitle.DropBannerDisplay;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
@@ -39,6 +39,9 @@ public class Main
         MinecraftForge.EVENT_BUS.register(this);
         
         KeyInit.init();
+        Utils.init();
+
+ 
         MinecraftForge.EVENT_BUS.register(new DropBannerDisplay());
 
 
