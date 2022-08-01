@@ -1,7 +1,8 @@
-package me.partlysanestudios.partlysaneskies;
+package me.partlysanestudios.partlysaneskies.dropBanner;
 
 import org.lwjgl.opengl.GL11;
 
+import me.partlysanestudios.partlysaneskies.Main;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
