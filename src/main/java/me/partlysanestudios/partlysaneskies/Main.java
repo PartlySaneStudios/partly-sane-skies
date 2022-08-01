@@ -1,5 +1,6 @@
 package me.partlysanestudios.partlysaneskies;
 
+import me.partlysanestudios.partlysaneskies.configgui.ConfigScreen;
 import me.partlysanestudios.partlysaneskies.dropBanner.DropBannerDisplay;
 import me.partlysanestudios.partlysaneskies.keybind.KeyInit;
 // import me.partlysanestudios.partlysaneskies.rngdroptitle.DropBannerDisplay;
@@ -13,6 +14,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent.ClientConnectedToServerEvent;
+
 
 @Mod(modid = Main.MODID, version = Main.VERSION, name = Main.NAME)
 public class Main
@@ -36,7 +38,7 @@ public class Main
         isDebugMode = false;
         minecraft = Minecraft.getMinecraft();
 
-
+        
         MinecraftForge.EVENT_BUS.register(this);
         
         KeyInit.init();
@@ -44,7 +46,6 @@ public class Main
 
  
         MinecraftForge.EVENT_BUS.register(new DropBannerDisplay());
-
 
         System.out.println("Partly Sane Skies has loaded.");
     }
@@ -59,36 +60,24 @@ public class Main
     @SubscribeEvent
     public void clientTick(ClientTickEvent evnt) {
         if(KeyInit.debugKey.isPressed()) {
-            Utils.visPrint(Main.detectScoreboardName("§lSKYBLOCK"));
+            Utils.visPrint(Utils.detectScoreboardName("SKYBLOCK"));
             Utils.visPrint(Main.minecraft.thePlayer.getWorldScoreboard().getObjectiveInDisplaySlot(1).getDisplayName());
-            Utils.visPrint(Main.minecraft.displayWidth/2);
-            Utils.visPrint(Main.minecraft.displayHeight/4);
             isDebugMode = !isDebugMode;
             Utils.visPrint("Debug mode: " + isDebugMode);
+            minecraft.displayGuiScreen(new ConfigScreen());
         }
 
         try {
-            isSkyblock = Main.detectScoreboardName("§lSKYBLOCK");
+            isSkyblock = Utils.detectScoreboardName("§lSKYBLOCK");
             isHypixel = minecraft.getCurrentServerData().serverIP.contains(".hypixel.net");
         }
-        catch(NullPointerException expt) {
-
-        }
-        finally {
-
-        }
+        catch(NullPointerException expt) {}
+        finally {}
     }
 
     @SubscribeEvent
     public void chatAnalyzer(ClientChatReceivedEvent evnt) {
+        
         if(isDebugMode) System.out.println(evnt.message.getFormattedText());
-    }
-
-    public static boolean detectScoreboardName(String desiredName) {
-        String scoreboardName = minecraft.thePlayer.getWorldScoreboard().getObjectiveInDisplaySlot(1).getDisplayName();
-
-        if(scoreboardName.contains(desiredName)) return true;
-
-        return false;
     }
 }

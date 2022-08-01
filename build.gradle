@@ -7,9 +7,11 @@ buildscript {
             name = "forge"
             url = "http://files.minecraftforge.net/maven"
         }
+        
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT'
+        
     }
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
@@ -21,8 +23,8 @@ plugins {
 }
 */
 version = "1.0"
-group= "com.yourname.modid" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "modid"
+group= "me.partlysanestudios.partlysaneskies" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "partlysaneskies"
 
 minecraft {
     version = "1.8.9-11.15.1.2318-1.8.9"
@@ -36,7 +38,11 @@ minecraft {
     mappings = "stable_20"
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
 }
-
+repositories {
+    maven {
+            url = "https://repo.essential.gg/repository/maven-public"
+    }
+}
 dependencies {
     // you may put jars on which you depend on in ./libs
     // or you may define them like so..
@@ -58,7 +64,8 @@ dependencies {
     // for more info...
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
-
+    
+    compile 'gg.essential:elementa-1.8.9-forge:531'
 }
 
 processResources

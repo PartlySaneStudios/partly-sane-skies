@@ -29,7 +29,10 @@ public class Utils {
 
     public static void visPrint(Object print) {
         System.out.println("\n\n\n" + print.toString() + "\n\n\n");
-        Main.minecraft.ingameGUI.getChatGUI().printChatMessage( new ChatComponentText("\n" + print.toString() + "\n"));
+
+        try {Main.minecraft.ingameGUI.getChatGUI().printChatMessage( new ChatComponentText("\n            " + print.toString() + ""));}
+        catch(NullPointerException e) {}
+        finally {}
     }
     
     public static String colorCodes(String text) {
@@ -43,5 +46,13 @@ public class Utils {
             textBuilder.deleteCharAt(textBuilder.indexOf("§")+1);
         }
         return textBuilder.toString();
+    }
+
+    public static boolean detectScoreboardName(String desiredName) {
+        String scoreboardName = Main.minecraft.thePlayer.getWorldScoreboard().getObjectiveInDisplaySlot(1).getDisplayName();
+    
+        if(removeColorCodes(scoreboardName).contains(desiredName)) return true;
+    
+        return false;
     }
 }
