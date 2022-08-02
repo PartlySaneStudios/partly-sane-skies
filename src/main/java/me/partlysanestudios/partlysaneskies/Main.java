@@ -64,7 +64,7 @@ public class Main
             Utils.visPrint(Main.minecraft.thePlayer.getWorldScoreboard().getObjectiveInDisplaySlot(1).getDisplayName());
             isDebugMode = !isDebugMode;
             Utils.visPrint("Debug mode: " + isDebugMode);
-            minecraft.displayGuiScreen(new ConfigScreen());
+            minecraft.displayGuiScreen(new ConfigScreen().gui());
         }
 
         try {

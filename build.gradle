@@ -42,6 +42,10 @@ repositories {
     maven {
             url = "https://repo.essential.gg/repository/maven-public"
     }
+
+    maven {
+        url = "https://repo.essential.gg/repository/maven-public"
+    }
 }
 dependencies {
     // you may put jars on which you depend on in ./libs
@@ -66,6 +70,7 @@ dependencies {
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
     
     compile 'gg.essential:elementa-1.8.9-forge:531'
+    compile 'gg.essential:vigilance-1.8.9-forge:252'
 }
 
 processResources

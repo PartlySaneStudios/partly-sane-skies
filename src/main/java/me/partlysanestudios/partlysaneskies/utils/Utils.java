@@ -55,4 +55,19 @@ public class Utils {
     
         return false;
     }
+
+    public static double toPercentageOfWidth(double value) {
+        return value/(Main.minecraft.displayWidth/2);
+    }
+
+    public static double toPercentageOfHeight(double value) {
+        return value/(Main.minecraft.displayHeight/2);
+    }
+
+    public static double fromPercentageOfWidth(double value) {
+        return value*(Main.minecraft.displayWidth/2);
+    }
+    public static double fromPercentageOfHeight(double value) {
+        return value*(Main.minecraft.displayHeight/2);
+    }
 }
