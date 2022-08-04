@@ -27,18 +27,19 @@ public class Main
     public static boolean isSkyblock;
     public static boolean isDebugMode;
 
-    
+    public static ConfigScreen config;
     public static Minecraft minecraft;
     
     @EventHandler
     public void init(FMLInitializationEvent evnt) {
         System.out.println("Hallo World!");
-        isHypixel = false;
-        isSkyblock = false;
-        isDebugMode = false;
-        minecraft = Minecraft.getMinecraft();
+        Main.isHypixel = false;
+        Main.isSkyblock = false;
+        Main.isDebugMode = false;
+        Main.minecraft = Minecraft.getMinecraft();
 
-        
+        Main.config = new ConfigScreen();
+
         MinecraftForge.EVENT_BUS.register(this);
         
         KeyInit.init();
@@ -52,8 +53,9 @@ public class Main
 
     @SubscribeEvent
     public void joinServerEvent(ClientConnectedToServerEvent evnt) {
+        if(minecraft.getCurrentServerData() == null || minecraft.getCurrentServerData().serverIP == null) return;
         if(minecraft.getCurrentServerData().serverIP.contains(".hypixel.net")) {
-            isHypixel = true;
+            Main.isHypixel = true;
         }
     }
 
@@ -62,14 +64,16 @@ public class Main
         if(KeyInit.debugKey.isPressed()) {
             Utils.visPrint(Utils.detectScoreboardName("SKYBLOCK"));
             Utils.visPrint(Main.minecraft.thePlayer.getWorldScoreboard().getObjectiveInDisplaySlot(1).getDisplayName());
-            isDebugMode = !isDebugMode;
-            Utils.visPrint("Debug mode: " + isDebugMode);
-            minecraft.displayGuiScreen(new ConfigScreen().gui());
+            Main.isDebugMode = !Main.isDebugMode;
+            Utils.visPrint("Debug mode: " + Main.isDebugMode);
+        }
+        if(KeyInit.configKey.isPressed()) {
+            minecraft.displayGuiScreen(Main.config.gui());
         }
 
         try {
-            isSkyblock = Utils.detectScoreboardName("§lSKYBLOCK");
-            isHypixel = minecraft.getCurrentServerData().serverIP.contains(".hypixel.net");
+            Main.isSkyblock = Utils.detectScoreboardName("§lSKYBLOCK");
+            Main.isHypixel = minecraft.getCurrentServerData().serverIP.contains(".hypixel.net");
         }
         catch(NullPointerException expt) {}
         finally {}
@@ -78,6 +82,6 @@ public class Main
     @SubscribeEvent
     public void chatAnalyzer(ClientChatReceivedEvent evnt) {
         
-        if(isDebugMode) System.out.println(evnt.message.getFormattedText());
+        if(Main.isDebugMode) System.out.println(evnt.message.getFormattedText());
     }
 }

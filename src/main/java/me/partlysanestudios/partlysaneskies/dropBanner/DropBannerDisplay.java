@@ -29,7 +29,7 @@ public class DropBannerDisplay extends Gui {
 	
 	@SubscribeEvent
 	public void onChatMessage(ClientChatReceivedEvent event) {
-		if(event.message.getFormattedText().startsWith("§r§6§lRARE DROP! ") || event.message.getFormattedText().startsWith("§r§6§lPET DROP! ")) {
+		if((event.message.getFormattedText().startsWith("§r§6§lRARE DROP! ") || event.message.getFormattedText().startsWith("§r§6§lPET DROP! ")) && Main.config.rareDropBanner) {
             String unformatedMessage = event.message.getUnformattedText();
 			String formatedMessage = event.message.getFormattedText();
 

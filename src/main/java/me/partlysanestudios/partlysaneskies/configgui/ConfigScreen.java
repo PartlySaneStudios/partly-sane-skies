@@ -7,18 +7,21 @@ import gg.essential.vigilance.data.Property;
 import gg.essential.vigilance.data.PropertyType;
 
 public class ConfigScreen extends Vigilant{
+
     @Property(
-        type = PropertyType.NUMBER,
-        name = "Number",
-        description = "test",
-        category = "test2",
-        min = 0,
-        max = 10
+        type = PropertyType.SWITCH,
+        name = "Rare Drop Banner",
+        description = "On rare drop, get a Pumpkin Dicer like banner.",
+        category = "Skyblock"
     )
-    int demoNumber = 0;
+    public boolean rareDropBanner = false;
+    
+    
     public ConfigScreen() {
-        super(new File("./config/example.toml"));
-        
+        super(new File("./config/pss.toml"));
+        this.initialize();
+        this.loadData();
     }
+
     
 }
