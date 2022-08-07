@@ -1,4 +1,4 @@
-package me.partlysanestudios.partlysaneskies.dropBanner;
+package me.partlysanestudios.partlysaneskies.rngdropbanner;
 
 import net.minecraft.client.Minecraft;
 

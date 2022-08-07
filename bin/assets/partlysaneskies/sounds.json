@@ -1,0 +1,11 @@
+{
+    "rngdropjingle": {
+        "category": "player",
+        "sounds": [
+            {
+                "name": "partlysaneskies:rngdropjingle",
+                "stream": false
+            }
+        ]
+    }
+}

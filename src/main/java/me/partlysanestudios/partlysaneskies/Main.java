@@ -1,12 +1,14 @@
 package me.partlysanestudios.partlysaneskies;
 
 import me.partlysanestudios.partlysaneskies.configgui.ConfigScreen;
-import me.partlysanestudios.partlysaneskies.dropBanner.DropBannerDisplay;
 import me.partlysanestudios.partlysaneskies.keybind.KeyInit;
+import me.partlysanestudios.partlysaneskies.rngdropbanner.Drop;
+import me.partlysanestudios.partlysaneskies.rngdropbanner.DropBannerDisplay;
 // import me.partlysanestudios.partlysaneskies.rngdroptitle.DropBannerDisplay;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
+import net.minecraftforge.client.event.sound.SoundEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -19,7 +21,7 @@ import net.minecraftforge.fml.common.network.FMLNetworkEvent.ClientConnectedToSe
 @Mod(modid = Main.MODID, version = Main.VERSION, name = Main.NAME)
 public class Main
 {
-    public static final String MODID = "PartlySaneSkies";
+    public static final String MODID = "partlysaneskies";
     public static final String NAME = "Partly Sane Skies";
     public static final String VERSION = "1.0";
 
@@ -29,6 +31,7 @@ public class Main
 
     public static ConfigScreen config;
     public static Minecraft minecraft;
+    SoundEvent rng_drop_jingle;
     
     @EventHandler
     public void init(FMLInitializationEvent evnt) {
@@ -41,12 +44,10 @@ public class Main
         Main.config = new ConfigScreen();
 
         MinecraftForge.EVENT_BUS.register(this);
-        
+        MinecraftForge.EVENT_BUS.register(new DropBannerDisplay());
         KeyInit.init();
         Utils.init();
 
- 
-        MinecraftForge.EVENT_BUS.register(new DropBannerDisplay());
 
         System.out.println("Partly Sane Skies has loaded.");
     }
@@ -62,10 +63,10 @@ public class Main
     @SubscribeEvent
     public void clientTick(ClientTickEvent evnt) {
         if(KeyInit.debugKey.isPressed()) {
-            Utils.visPrint(Utils.detectScoreboardName("SKYBLOCK"));
-            Utils.visPrint(Main.minecraft.thePlayer.getWorldScoreboard().getObjectiveInDisplaySlot(1).getDisplayName());
             Main.isDebugMode = !Main.isDebugMode;
             Utils.visPrint("Debug mode: " + Main.isDebugMode);
+            DropBannerDisplay.drop = new Drop("test", "RARE DROP!", 1, 1, Minecraft.getSystemTime(), 0xFFAA00, 0xFF5555);
+            Main.minecraft.thePlayer.playSound("partlysaneskies:rngdropjingle", 100, 1);
         }
         if(KeyInit.configKey.isPressed()) {
             minecraft.displayGuiScreen(Main.config.gui());

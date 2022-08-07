@@ -3,7 +3,7 @@
   "modid": "partlysanestudios",
   "name": "Partly Sane Studios",
   "description": "Example placeholder mod.",
-  "version": "1",
+  "version": "prealpha-0.0.1",
   "mcversion": "1.8.9",
   "url": "",
   "updateUrl": "",
