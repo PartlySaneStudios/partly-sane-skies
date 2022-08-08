@@ -9,6 +9,17 @@ import gg.essential.vigilance.data.PropertyType;
 public class ConfigScreen extends Vigilant{
 
     @Property(
+        type = PropertyType.TEXT,
+        protectedText = true,
+        name = "API Key",
+        category = "General",
+        subcategory = "API",
+        description = "Do /api new to automatically set your API Key. Do not show your API key to anyone unless you know what you're doing."
+    )
+    public String apiKey = "";
+    
+
+    @Property(
         type = PropertyType.SWITCH,
         name = "Rare Drop Banner",
         subcategory = "General",
@@ -36,10 +47,13 @@ public class ConfigScreen extends Vigilant{
         category = "Skyblock"
     )
     public boolean rareDropBannerSound = false;
-    
+
+
     public ConfigScreen() {
         super(new File("./config/pss.toml"));
         this.initialize();
+
+        
     }
 
     

@@ -12,13 +12,11 @@ public class PartyManagerCommand implements ICommand{
 
     @Override
     public int compareTo(ICommand o) {
-        // TODO Auto-generated method stub
         return 0;
     }
 
     @Override
     public String getCommandName() {
-        // TODO Auto-generated method stub
         return "partymanager";
     }
 
