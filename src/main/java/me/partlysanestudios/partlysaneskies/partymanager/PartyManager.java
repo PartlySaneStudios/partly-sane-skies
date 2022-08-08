@@ -90,12 +90,11 @@ public class PartyManager {
 
         else if(isMembersListed && event.message.getUnformattedText().startsWith("-----------------------------------------------------")) {
             event.setCanceled(true);
-            isMembersListed = false;
-            isWaitingForMembers = false;
+            
         }
         else if(event.message.getUnformattedText().startsWith("You are not currently in a party.")) {
             event.setCanceled(true);
-            Utils.sendClientMessage(Utils.colorCodes("&9-----------------------------------------------------&r&cError: Could not run Party Manager.\n&r&cYou are not currently in a party.\n&r&9-----------------------------------------------------"));
+            Utils.sendClientMessage(Utils.colorCodes("&9&m-----------------------------------------------------\n&r&cError: Could not run Party Manager.\n&r&cYou are not currently in a party.\n&r&9&m-----------------------------------------------------"));
             isMembersListed = false;
             isWaitingForMembers = false;
         }
