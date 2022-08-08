@@ -41,7 +41,7 @@ public class PartyManager {
                 text = text.replace(rank, "");
             }
 
-            text = text.replace(' ', ' ');
+            text = text.replace(' ', '\0');
 
             for(String name : text.split("●")) {
                 Utils.visPrint(name);
@@ -58,7 +58,7 @@ public class PartyManager {
                 text = text.replace(rank, "");
             }
 
-            text = text.replace(' ', ' ');
+            text = text.replace(' ', '\0');
 
             for(String name : text.split("●")) {
                 Utils.visPrint(name);
@@ -75,7 +75,7 @@ public class PartyManager {
                 text = text.replace(rank, "");
             }
 
-            text = text.replace(' ', ' ');
+            text = text.replace(' ', '\0');
 
             for(String name : text.split("●")) {
                 Utils.visPrint(name);
