@@ -1,5 +1,8 @@
 package me.partlysanestudios.partlysaneskies.utils;
-
+import java.awt.Toolkit;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.util.HashMap;
 
 import me.partlysanestudios.partlysaneskies.Main;
@@ -31,6 +34,12 @@ public class Utils {
         System.out.println("\n\n\n" + print.toString() + "\n\n\n");
 
         try {Main.minecraft.ingameGUI.getChatGUI().printChatMessage( new ChatComponentText("\n            " + print.toString() + ""));}
+        catch(NullPointerException e) {}
+        finally {}
+    }
+
+    public static void sendClientMessage(String text) {
+        try {Main.minecraft.ingameGUI.getChatGUI().printChatMessage( new ChatComponentText(text));}
         catch(NullPointerException e) {}
         finally {}
     }
@@ -69,5 +78,31 @@ public class Utils {
     }
     public static double fromPercentageOfHeight(double value) {
         return value*(Main.minecraft.displayHeight/2);
+    }
+
+    public static void copyStringToClipboard(String string) {
+        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(getTransferableString(string), null);
+    }
+
+    private static Transferable getTransferableString(final String string) {
+        return new Transferable() {
+            @Override
+            public DataFlavor[] getTransferDataFlavors() {
+                return new DataFlavor[]{DataFlavor.stringFlavor};
+            }
+
+            @Override
+            public boolean isDataFlavorSupported(DataFlavor flavor) {
+                return DataFlavor.stringFlavor.equals(flavor);
+            }
+
+            @Override
+            public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException {
+                if (DataFlavor.stringFlavor.equals(flavor)) {
+                    return string;
+                }
+                throw new UnsupportedFlavorException(flavor);
+            }
+        };
     }
 }

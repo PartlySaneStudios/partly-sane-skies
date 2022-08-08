@@ -1,12 +1,18 @@
 package me.partlysanestudios.partlysaneskies;
 
+import java.util.Map;
+
 import me.partlysanestudios.partlysaneskies.configgui.ConfigScreen;
 import me.partlysanestudios.partlysaneskies.keybind.KeyInit;
+import me.partlysanestudios.partlysaneskies.partymanager.PartyManager;
+import me.partlysanestudios.partlysaneskies.partymanager.PartyManagerCommand;
 import me.partlysanestudios.partlysaneskies.rngdropbanner.Drop;
 import me.partlysanestudios.partlysaneskies.rngdropbanner.DropBannerDisplay;
 // import me.partlysanestudios.partlysaneskies.rngdroptitle.DropBannerDisplay;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.command.ICommand;
+import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.client.event.sound.SoundEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -45,12 +51,21 @@ public class Main
 
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new DropBannerDisplay());
+        MinecraftForge.EVENT_BUS.register(new PartyManager());
+        
+        ClientCommandHandler.instance.registerCommand(new PartyManagerCommand());
         KeyInit.init();
         Utils.init();
 
-
+        for(Map.Entry<String, ICommand> command : ClientCommandHandler.instance.getCommands().entrySet()) {
+            Utils.visPrint(command.getKey() + " _-_ " + command.getValue());
+        }
         System.out.println("Partly Sane Skies has loaded.");
     }
+
+
+
+
 
     @SubscribeEvent
     public void joinServerEvent(ClientConnectedToServerEvent evnt) {
@@ -67,6 +82,7 @@ public class Main
             Utils.visPrint("Debug mode: " + Main.isDebugMode);
             DropBannerDisplay.drop = new Drop("test", "RARE DROP!", 1, 1, Minecraft.getSystemTime(), 0xFFAA00, 0xFF5555);
             Main.minecraft.thePlayer.playSound("partlysaneskies:rngdropjingle", 100, 1);
+            PartyManager.startPartyManager();
         }
         if(KeyInit.configKey.isPressed()) {
             minecraft.displayGuiScreen(Main.config.gui());
