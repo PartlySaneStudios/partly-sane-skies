@@ -3,6 +3,11 @@ import java.awt.Toolkit;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.HashMap;
 
 import me.partlysanestudios.partlysaneskies.Main;
@@ -104,5 +109,34 @@ public class Utils {
                 throw new UnsupportedFlavorException(flavor);
             }
         };
+    }
+
+
+
+    public static String getRequest(String urlString) throws IOException {
+
+        URL url = new URL(urlString);
+        HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+        httpURLConnection.setRequestProperty("User-Agent", "Mozilla/5.0");
+        int responseCode = httpURLConnection.getResponseCode();
+        if (responseCode == HttpURLConnection.HTTP_OK) { // success
+            BufferedReader in = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
+            String inputLine;
+            StringBuffer response = new StringBuffer();
+
+            while ((inputLine = in .readLine()) != null) {
+                response.append(inputLine);
+            }
+            in .close();
+
+            httpURLConnection.disconnect();
+            return response.toString();
+
+        } else {
+            visPrint(httpURLConnection.getResponseMessage());
+            visPrint(httpURLConnection.getResponseCode());
+            httpURLConnection.disconnect();
+            return "Error" + responseCode;
+        }
     }
 }

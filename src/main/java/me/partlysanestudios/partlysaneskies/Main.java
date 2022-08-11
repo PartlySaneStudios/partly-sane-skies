@@ -41,6 +41,10 @@ public class Main
 
     @EventHandler
     public void init(FMLInitializationEvent evnt) {
+        
+        
+        
+
         System.out.println("Hallo World!");
         Main.isHypixel = false;
         Main.isSkyblock = false;
@@ -48,6 +52,9 @@ public class Main
         Main.minecraft = Minecraft.getMinecraft();
 
         Main.config = new ConfigScreen();
+        
+
+        
 
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new DropBannerDisplay());

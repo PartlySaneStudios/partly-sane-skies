@@ -2,7 +2,11 @@ package me.partlysanestudios.partlysaneskies.partymanager;
 
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import me.partlysanestudios.partlysaneskies.Main;
+import me.partlysanestudios.partlysaneskies.partymanager.PartyMember.PartyRank;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -12,6 +16,7 @@ public class PartyManager {
     private static boolean isMembersListed = false;
     private static String[] RANK_NAMES = {"[VIP]", "[VIP+]", "[MVP]", "[MVP+]", "[MVP++]", "[YOUTUBE]", "[MOJANG]", "[EVENTS]", "[MCP]", "[PIG]", "[PIG+]", "[PIG++]", "[PIG+++]", "[GM]", "[ADMIN]", "[OWNER]"};
 
+    public static List<PartyMember> partyList = new ArrayList<PartyMember>();
     public PartyManager() {
         
     }
@@ -44,7 +49,7 @@ public class PartyManager {
             text = text.replace(' ', '\0');
 
             for(String name : text.split("●")) {
-                Utils.visPrint(name);
+                partyList.add(new PartyMember(name, PartyRank.LEADER));
             }
 
             isMembersListed = true;
@@ -61,7 +66,7 @@ public class PartyManager {
             text = text.replace(' ', '\0');
 
             for(String name : text.split("●")) {
-                Utils.visPrint(name);
+                partyList.add(new PartyMember(name, PartyRank.MODERATOR));
             }
 
             isMembersListed = true;
@@ -78,7 +83,7 @@ public class PartyManager {
             text = text.replace(' ', '\0');
 
             for(String name : text.split("●")) {
-                Utils.visPrint(name);
+                partyList.add(new PartyMember(name, PartyRank.MEMBER));
             }
 
             isMembersListed = true;
