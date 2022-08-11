@@ -95,7 +95,8 @@ public class PartyManager {
 
         else if(isMembersListed && event.message.getUnformattedText().startsWith("-----------------------------------------------------")) {
             event.setCanceled(true);
-            
+            isMembersListed = false;
+            isWaitingForMembers = false;
         }
         else if(event.message.getUnformattedText().startsWith("You are not currently in a party.")) {
             event.setCanceled(true);
