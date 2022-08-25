@@ -35,12 +35,11 @@ public class PartyManager {
             return;
         };
 
-        if(event.message.getUnformattedText().startsWith("-----------------------------------------------------")) {
-            event.setCanceled(true);
-        }
+        Utils.visPrint(null);
         
-        else if (event.message.getUnformattedText().startsWith("Party Leader: ")) {
+        if (event.message.getUnformattedText().startsWith("Party Leader: ")) {
             event.setCanceled(true);
+            isMembersListed = true;
             String text = event.message.getUnformattedText();
             text = text.replace("Party Leader: ", "");
             for(String rank : RANK_NAMES) {
@@ -53,11 +52,12 @@ public class PartyManager {
                 partyList.add(new PartyMember(name, PartyRank.LEADER));
             }
 
-            isMembersListed = true;
+            
         }
 
         else if (event.message.getUnformattedText().startsWith("Party Moderators: ")) {
             event.setCanceled(true);
+            isMembersListed = true;
             String text = event.message.getUnformattedText();
             text = text.replace("Party Moderators: ", "");
             for(String rank : RANK_NAMES) {
@@ -70,12 +70,15 @@ public class PartyManager {
                 partyList.add(new PartyMember(name, PartyRank.MODERATOR));
             }
 
-            isMembersListed = true;
+            
         }
 
         else if (event.message.getUnformattedText().startsWith("Party Members: ")) {
             event.setCanceled(true);
+            isMembersListed = true;
+            Utils.visPrint(event.message.getUnformattedText());
             String text = event.message.getUnformattedText();
+            
             text = text.replace("Party Members: ", "");
             for(String rank : RANK_NAMES) {
                 text = text.replace(rank, "");
@@ -87,7 +90,7 @@ public class PartyManager {
                 partyList.add(new PartyMember(name, PartyRank.MEMBER));
             }
 
-            isMembersListed = true;
+            
         }
 
         else if (event.message.getUnformattedText().startsWith("Party Members (")) {
@@ -96,9 +99,13 @@ public class PartyManager {
 
         else if(isMembersListed && event.message.getUnformattedText().startsWith("-----------------------------------------------------")) {
             event.setCanceled(true);
+            Utils.visPrint("End of Party");
             isMembersListed = false;
             isWaitingForMembers = false;
             openGui();
+        }
+        if(event.message.getUnformattedText().startsWith("-----------------------------------------------------")) {
+            event.setCanceled(true);
         }
         else if(event.message.getUnformattedText().startsWith("You are not currently in a party.")) {
             event.setCanceled(true);
@@ -109,6 +116,7 @@ public class PartyManager {
     }
 
     public static void openGui() {
+        Utils.visPrint("Opening GUI");
         PartyManagerGui gui = new PartyManagerGui();
         Main.minecraft.displayGuiScreen(gui);
 
