@@ -35,7 +35,6 @@ public class PartyManager {
             return;
         };
 
-        Utils.visPrint(null);
         
         if (event.message.getUnformattedText().startsWith("Party Leader: ")) {
             event.setCanceled(true);
