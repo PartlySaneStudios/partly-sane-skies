@@ -2,6 +2,7 @@ package me.partlysanestudios.partlysaneskies.partymanager;
 
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -97,12 +98,33 @@ public class PartyManager {
             event.setCanceled(true);
             isMembersListed = false;
             isWaitingForMembers = false;
+            openGui();
         }
         else if(event.message.getUnformattedText().startsWith("You are not currently in a party.")) {
             event.setCanceled(true);
             Utils.sendClientMessage(Utils.colorCodes("&9&m-----------------------------------------------------\n&r&cError: Could not run Party Manager.\n&r&cYou are not currently in a party.\n&r&9&m-----------------------------------------------------"));
             isMembersListed = false;
             isWaitingForMembers = false;
+        }
+    }
+
+    public static void openGui() {
+        PartyManagerGui gui = new PartyManagerGui();
+        Main.minecraft.displayGuiScreen(gui);
+
+        getData();
+    
+        gui.populateGui(partyList);
+    }
+
+
+    public static void getData() {
+        for(PartyMember partyMember : partyList) {
+            try {
+                partyMember.getData();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

@@ -76,18 +76,7 @@ public class PartyMember {
         JsonObject slothpixelJson = (JsonObject) parser.parse(response);
         response = null;
 
-        response = Utils.getRequest("https://hypixel-api.senither.com/v1/profiles/" + uuid + "/latest?key=" + Main.config.apiKey);
-        if(response.startsWith("Error")) return -2;
-        JsonObject senitherJson = (JsonObject) parser.parse(response);
-
-
-        secretsCount = senitherJson.getAsJsonObject("data").getAsJsonObject("dungeons").get("secrets_found").getAsInt();
-        hypixelLevel = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("player").get("level").getAsFloat();
-        senitherWeight = senitherJson.getAsJsonObject("data").get("weight").getAsFloat();
-        senitherWeight = senitherJson.getAsJsonObject("data").get("weight_overflow").getAsFloat();
-        catacombsLevel = senitherJson.getAsJsonObject("data").getAsJsonObject("dungeons").getAsJsonObject("types").getAsJsonObject("catacombs").get("level").getAsFloat();
         combatLevel = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("skills").getAsJsonObject("combat").get("floatLevel").getAsFloat();
-        averageSkillLevel = senitherJson.getAsJsonObject("data").getAsJsonObject("skills").get("average_skills").getAsFloat();
 
         helmetName = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonArray("armor").get(0).getAsJsonObject().get("name").getAsString();
         chestplateName = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonArray("armor").get(1).getAsJsonObject().get("name").getAsString();
@@ -162,6 +151,19 @@ public class PartyMember {
         defense = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("attributes").get("defense").getAsFloat();
         effectHealth = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("attributes").get("effective_health").getAsFloat();
 
+
+        response = Utils.getRequest("https://hypixel-api.senither.com/v1/profiles/" + uuid + "/latest?key=" + Main.config.apiKey);
+        if(response.startsWith("Error")) return -2;
+        JsonObject senitherJson = (JsonObject) parser.parse(response);
+
+
+        secretsCount = senitherJson.getAsJsonObject("data").getAsJsonObject("dungeons").get("secrets_found").getAsInt();
+        hypixelLevel = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("player").get("level").getAsFloat();
+        senitherWeight = senitherJson.getAsJsonObject("data").get("weight").getAsFloat();
+        senitherWeight = senitherJson.getAsJsonObject("data").get("weight_overflow").getAsFloat();
+        catacombsLevel = senitherJson.getAsJsonObject("data").getAsJsonObject("dungeons").getAsJsonObject("types").getAsJsonObject("catacombs").get("level").getAsFloat();
+       
+        averageSkillLevel = senitherJson.getAsJsonObject("data").getAsJsonObject("skills").get("average_skills").getAsFloat();
         return 0;
     }
 }
