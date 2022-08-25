@@ -45,7 +45,7 @@ public class PartyManager {
                 text = text.replace(rank, "");
             }
 
-            text = text.replace(' ', '\0');
+            text = text.replace(" ", "");
 
             for(String name : text.split("●")) {
                 partyList.add(new PartyMember(name, PartyRank.LEADER));
@@ -63,7 +63,7 @@ public class PartyManager {
                 text = text.replace(rank, "");
             }
 
-            text = text.replace(' ', '\0');
+            text = text.replace(" ", "");
 
             for(String name : text.split("●")) {
                 partyList.add(new PartyMember(name, PartyRank.MODERATOR));
@@ -75,7 +75,6 @@ public class PartyManager {
         else if (event.message.getUnformattedText().startsWith("Party Members: ")) {
             event.setCanceled(true);
             isMembersListed = true;
-            Utils.visPrint(event.message.getUnformattedText());
             String text = event.message.getUnformattedText();
             
             text = text.replace("Party Members: ", "");
@@ -83,7 +82,7 @@ public class PartyManager {
                 text = text.replace(rank, "");
             }
 
-            text = text.replace(' ', '\0');
+            text = text.replace(" ", "");
 
             for(String name : text.split("●")) {
                 partyList.add(new PartyMember(name, PartyRank.MEMBER));
@@ -98,7 +97,6 @@ public class PartyManager {
 
         else if(isMembersListed && event.message.getUnformattedText().startsWith("-----------------------------------------------------")) {
             event.setCanceled(true);
-            Utils.visPrint("End of Party");
             isMembersListed = false;
             isWaitingForMembers = false;
             openGui();
@@ -115,7 +113,6 @@ public class PartyManager {
     }
 
     public static void openGui() {
-        Utils.visPrint("Opening GUI");
         PartyManagerGui gui = new PartyManagerGui();
         Main.minecraft.displayGuiScreen(gui);
 
