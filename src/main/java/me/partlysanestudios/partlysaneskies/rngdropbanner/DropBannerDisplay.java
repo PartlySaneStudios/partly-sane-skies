@@ -41,8 +41,8 @@ public class DropBannerDisplay extends Gui {
             String name = "";
             String dropCategory = unformatedMessage.substring(0, unformatedMessage.indexOf("! ") + 1);
 
-			int dropNameHex = Utils.colorCodeToHex.get(formatedMessage.subSequence(formatedMessage.indexOf(dropCategory)+ dropCategory.length() + 3, formatedMessage.indexOf(dropCategory)+ dropCategory.length() + 5));
-			int dropCategoryHex = Utils.colorCodeToHex.get(formatedMessage.substring(2,4));
+			Color dropNameHex = Utils.colorCodetoColor.get(formatedMessage.subSequence(formatedMessage.indexOf(dropCategory)+ dropCategory.length() + 3, formatedMessage.indexOf(dropCategory)+ dropCategory.length() + 5));
+			Color dropCategoryHex = Utils.colorCodetoColor.get(formatedMessage.substring(2,4));
             int magicFind = 0;
 
 			
@@ -111,8 +111,8 @@ public class DropBannerDisplay extends Gui {
 			dropNameString = "x" +drop.amount + " " + drop.name;
 			topString = drop.dropCategory;
 			magicFindString = " (+" + drop.magicFind + "% ✯ Magic Find)";
-			nameColor = Color.decode("" + drop.dropNameHex);
-			categoryColor = Color.decode("" + drop.dropCategoryColor);
+			nameColor = drop.dropNameColor;
+			categoryColor = drop.dropCategoryColor;
 			if(Minecraft.getSystemTime() - drop.timeDropped > (1f/3f * Main.config.rareDropBannerTime*1000) && Minecraft.getSystemTime() - drop.timeDropped < (10f/12f * Main.config.rareDropBannerTime*1000)) {
 				if(Math.round((drop.timeDropped - Minecraft.getSystemTime())/1000f*4) % 2 == 0) {
 					categoryColor = Color.white;

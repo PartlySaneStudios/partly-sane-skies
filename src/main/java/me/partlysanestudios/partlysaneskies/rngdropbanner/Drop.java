@@ -1,6 +1,7 @@
 package me.partlysanestudios.partlysaneskies.rngdropbanner;
 
 import net.minecraft.client.Minecraft;
+import java.awt.Color;
 
 public class Drop {
     public String name;
@@ -9,17 +10,17 @@ public class Drop {
     public int magicFind;
     public long timeDropped;
     public int displayTime;
-    public int dropCategoryColor;
-    public int dropNameHex;
+    public Color dropCategoryColor;
+    public Color dropNameColor;
 
-    public Drop(String name, String dropCategory, int amount, int magicFind, long timeDropped, int dropCategoryHex, int dropNameHex) {
+    public Drop(String name, String dropCategory, int amount, int magicFind, long timeDropped, Color dropCategoryColor, Color dropNameColor) {
         this.name = name;
         this.dropCategory = dropCategory;
         this.amount = amount;
         this.magicFind = magicFind;
         this.timeDropped = timeDropped;
-        this.dropCategoryColor = dropCategoryHex;  
-        this.dropNameHex = dropNameHex;
+        this.dropCategoryColor = dropCategoryColor;  
+        this.dropNameColor = dropNameColor;
     }
 
     public boolean isStillDisplay(long currentTime) {

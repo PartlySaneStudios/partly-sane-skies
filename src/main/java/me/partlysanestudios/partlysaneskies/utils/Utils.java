@@ -1,4 +1,5 @@
 package me.partlysanestudios.partlysaneskies.utils;
+import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
@@ -8,31 +9,52 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import me.partlysanestudios.partlysaneskies.Main;
 import net.minecraft.util.ChatComponentText;
 
 public class Utils {
     
-    public static HashMap<String, Integer> colorCodeToHex = new HashMap<String, Integer>();
+    public static HashMap<String, Color> colorCodetoColor = new HashMap<String, Color>();
 
     public static void init() {
-        colorCodeToHex.put("§4", 0xAA0000);
-        colorCodeToHex.put("§c", 0xFF5555);
-        colorCodeToHex.put("§6", 0xFFAA00);
-        colorCodeToHex.put("§e", 0xFFFF55);
-        colorCodeToHex.put("§a", 0x55FF55);
-        colorCodeToHex.put("§b", 0x55FFFF);
-        colorCodeToHex.put("§3", 0x00AAAA);
-        colorCodeToHex.put("§1", 0x0000AA);
-        colorCodeToHex.put("§9", 0x5555FF);
-        colorCodeToHex.put("§d", 0xFF55FF);
-        colorCodeToHex.put("§5", 0xAA00AA);
-        colorCodeToHex.put("§f", 0xFFFFFF);
-        colorCodeToHex.put("§7", 0xAAAAAA);
-        colorCodeToHex.put("§8", 0x555555);
-        colorCodeToHex.put("§0", 0x000000);
+        colorCodetoColor.put("§4", new Color(170, 0, 0));
+        colorCodetoColor.put("§c", new Color(255, 85, 85));
+        colorCodetoColor.put("§6", new Color(255, 170, 0));
+        colorCodetoColor.put("§e", new Color(255, 255, 85));
+        colorCodetoColor.put("§2", new Color(0, 170, 0));
+        colorCodetoColor.put("§a", new Color(85, 255, 85));
+        colorCodetoColor.put("§b", new Color(85, 255, 255));
+        colorCodetoColor.put("§3", new Color(0, 170, 170));
+        colorCodetoColor.put("§1", new Color(0, 0, 170));
+        colorCodetoColor.put("§9", new Color(85, 85, 255));
+        colorCodetoColor.put("§d", new Color(255, 85, 255));
+        colorCodetoColor.put("§5", new Color(170, 0, 170));
+        colorCodetoColor.put("§f", new Color(0, 0, 0));
+        colorCodetoColor.put("§7", new Color(170, 170, 170));
+        colorCodetoColor.put("§8", new Color(85, 85, 85));
+        colorCodetoColor.put("§0", new Color(0, 0, 0));
+
+
+        colorCodetoColor.put("&4", new Color(170, 0, 0));
+        colorCodetoColor.put("&c", new Color(255, 85, 85));
+        colorCodetoColor.put("&6", new Color(255, 170, 0));
+        colorCodetoColor.put("&e", new Color(255, 255, 85));
+        colorCodetoColor.put("&2", new Color(0, 170, 0));
+        colorCodetoColor.put("&a", new Color(85, 255, 85));
+        colorCodetoColor.put("&b", new Color(85, 255, 255));
+        colorCodetoColor.put("&3", new Color(0, 170, 170));
+        colorCodetoColor.put("&1", new Color(0, 0, 170));
+        colorCodetoColor.put("&9", new Color(85, 85, 255));
+        colorCodetoColor.put("&d", new Color(255, 85, 255));
+        colorCodetoColor.put("&5", new Color(170, 0, 170));
+        colorCodetoColor.put("&f", new Color(0, 0, 0));
+        colorCodetoColor.put("&7", new Color(170, 170, 170));
+        colorCodetoColor.put("&8", new Color(85, 85, 85));
+        colorCodetoColor.put("&0", new Color(0, 0, 0));
     }
 
     public static void visPrint(Object print) {
@@ -138,5 +160,76 @@ public class Utils {
             httpURLConnection.disconnect();
             return "Error" + responseCode;
         }
+    }
+
+
+    public static double round(double num, int decimalPlaces) {
+        return Math.round((num *((double) (Math.pow(10, decimalPlaces)))))/((double) (Math.pow(10, decimalPlaces)));
+    }
+
+
+    public static String wrapText(String text, int charNumber) {
+        char[] charArray = text.toCharArray();
+        List<String> words = new ArrayList<String>();
+        List<Character> chars = new ArrayList<Character>();
+        for(char c : charArray) {
+            if (c == ' ') {
+                words.add(charArrayToString(chars));
+                chars.clear();
+            }
+            else {
+                chars.add(c);
+            }
+        }
+        words.add(charArrayToString(chars));
+
+        // ----------------------------------------
+
+        int charsOnLine = 0;
+        String wrappedText = "";
+        List<String> line = new ArrayList<String>();
+        boolean wasPreviousCharFormatCode = false;
+        String previousFormatCode = "";
+        String currentLineFormatCode = "";
+        for(String word : words) {
+            charsOnLine += word.length();
+            if(charsOnLine >= charNumber) {
+                line.add(word);
+                String lineString = previousFormatCode;
+                for(String wordOnLine : line) {
+                    lineString += (wordOnLine +" ");
+                }
+                wrappedText += colorCodes(lineString) + "\n";
+                line.clear();
+                charsOnLine = 0;
+                previousFormatCode = currentLineFormatCode;
+            }
+            else {
+                line.add(word);
+            }
+            for (char c : word.toCharArray()) {
+                if(wasPreviousCharFormatCode) {
+                    currentLineFormatCode += c;
+                    wasPreviousCharFormatCode = false;
+                }
+                if (c == '&') {
+                    currentLineFormatCode += c;
+                    wasPreviousCharFormatCode = true;
+                }
+            }
+        }
+        String lineString = previousFormatCode;
+        for(String wordOnLine : line) {
+            lineString += (wordOnLine +" ");
+        }
+        wrappedText += colorCodes(lineString);
+        line.clear();
+        return wrappedText;
+    }
+
+    public static String charArrayToString(List<Character> chars) {
+        String string = "";
+        for (char c : chars) string += c;
+        return string;
     }
 }

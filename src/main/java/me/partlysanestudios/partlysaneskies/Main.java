@@ -3,6 +3,7 @@ package me.partlysanestudios.partlysaneskies;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.awt.Color;
 
 import me.partlysanestudios.partlysaneskies.configgui.ConfigScreen;
 import me.partlysanestudios.partlysaneskies.keybind.KeyInit;
@@ -87,7 +88,7 @@ public class Main
         if(KeyInit.debugKey.isPressed()) {
             Main.isDebugMode = !Main.isDebugMode;
             Utils.visPrint("Debug mode: " + Main.isDebugMode);
-            DropBannerDisplay.drop = new Drop("test", "RARE DROP!", 1, 1, Minecraft.getSystemTime(), 0xFFAA00, 0xFF5555);
+            DropBannerDisplay.drop = new Drop("test", "RARE DROP!", 1, 1, Minecraft.getSystemTime(), new Color(255, 170, 0), new Color(255, 85, 85));
             Main.minecraft.thePlayer.playSound("partlysaneskies:rngdropjingle", 100, 1);
             // PartyManager.startPartyManager();
 
