@@ -223,6 +223,6 @@ public class PartyMember {
     }
 
     public boolean isExpired() {
-        return this.timeDataGet + 30 * 60 * 1000 < Minecraft.getSystemTime();
+        return this.timeDataGet + Main.config.partyManagerCacheTime * 60 * 1000 < Minecraft.getSystemTime();
     }
 }

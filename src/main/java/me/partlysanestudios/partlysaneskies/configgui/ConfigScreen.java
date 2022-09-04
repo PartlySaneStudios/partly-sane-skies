@@ -48,7 +48,18 @@ public class ConfigScreen extends Vigilant{
     )
     public boolean rareDropBannerSound = false;
 
+    @Property(
+        type = PropertyType.SLIDER,
+        name = "Custom Rare Drop Sound",
+        min = 0,
+        max = 90,
+        subcategory = "Party Manager",
+        description = "Saves the data from other party members to save time upon loading Party Manager. The bigger the value the more time you will save but the less accurate your data will be.",
+        category = "Dungeons"
+    )
+    public int partyManagerCacheTime = 30;
 
+    
     public ConfigScreen() {
         super(new File("./config/pss.toml"));
         this.initialize();
