@@ -50,7 +50,7 @@ public class ConfigScreen extends Vigilant{
 
     @Property(
         type = PropertyType.SLIDER,
-        name = "Custom Rare Drop Sound",
+        name = "Party Manager Cache Time",
         min = 0,
         max = 90,
         subcategory = "Party Manager",
