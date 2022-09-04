@@ -26,7 +26,9 @@ public class PartyManager {
 
     public static void startPartyManager() {
         isWaitingForMembers = true;
-        if (Main.config.apiKey.equals("")) 
+        if (Main.config.apiKey.equals("")) {
+            Utils.sendClientMessage("No API Key detected. Party Manager will not work. Run /api new or add a key manually in the config");
+        }
         
         Main.minecraft.thePlayer.sendChatMessage("/party list");
         partyList.clear();
