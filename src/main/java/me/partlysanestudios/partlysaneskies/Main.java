@@ -101,6 +101,9 @@ public class Main
         if(KeyInit.configKey.isPressed()) {
             minecraft.displayGuiScreen(Main.config.gui());
         }
+        if(KeyInit.partyManagerKey.isPressed()) {
+            PartyManager.startPartyManager();
+        }
 
         try {
             Main.isSkyblock = Utils.detectScoreboardName("§lSKYBLOCK");

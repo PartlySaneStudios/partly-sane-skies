@@ -10,10 +10,12 @@ public final class KeyInit {
 
     public static KeyBinding debugKey;
     public static KeyBinding configKey;
+    public static KeyBinding partyManagerKey;
 
     public static void init() {
         debugKey = registerKey("Debug", "Partly Sane Skies", Keyboard.KEY_F4);
         configKey = registerKey("Config", "Partly Sane Skies", Keyboard.KEY_F7);
+        partyManagerKey = registerKey("Party Manager", "Partly Sane Skies", Keyboard.KEY_P);
     }
 
 
