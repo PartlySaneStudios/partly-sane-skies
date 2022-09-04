@@ -1,16 +1,11 @@
 package me.partlysanestudios.partlysaneskies;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.awt.Color;
 
 import me.partlysanestudios.partlysaneskies.configgui.ConfigScreen;
 import me.partlysanestudios.partlysaneskies.keybind.KeyInit;
 import me.partlysanestudios.partlysaneskies.partymanager.PartyManager;
 import me.partlysanestudios.partlysaneskies.partymanager.PartyManagerCommand;
-import me.partlysanestudios.partlysaneskies.partymanager.PartyManagerGui;
-import me.partlysanestudios.partlysaneskies.partymanager.PartyMember;
 import me.partlysanestudios.partlysaneskies.partymanager.PartyMember.PartyRank;
 import me.partlysanestudios.partlysaneskies.rngdropbanner.Drop;
 import me.partlysanestudios.partlysaneskies.rngdropbanner.DropBannerDisplay;
@@ -90,24 +85,12 @@ public class Main
             Utils.visPrint("Debug mode: " + Main.isDebugMode);
             DropBannerDisplay.drop = new Drop("test", "RARE DROP!", 1, 1, Minecraft.getSystemTime(), new Color(255, 170, 0), new Color(255, 85, 85));
             Main.minecraft.thePlayer.playSound("partlysaneskies:rngdropjingle", 100, 1);
-            // PartyManager.startPartyManager();
 
-            PartyManagerGui gui = new PartyManagerGui();
-            Main.minecraft.displayGuiScreen(gui);
-            List<PartyMember> partyList = new ArrayList<PartyMember>();
-            partyList.add(new PartyMember("Su386", PartyRank.LEADER));
-            partyList.add(new PartyMember("FlagMaster", PartyRank.MODERATOR));
-            partyList.add(new PartyMember("Cosvic", PartyRank.MEMBER));
+            PartyManager.addPartyMember("Su386", PartyRank.LEADER);
+            PartyManager.addPartyMember("FlagMaster", PartyRank.MODERATOR);
+            PartyManager.addPartyMember("Cosvic", PartyRank.MEMBER);
 
-            for(PartyMember partyMember : partyList) {
-                try {
-                    partyMember.getData();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            gui.populateGui(partyList);
+            PartyManager.openGui();
 
 
 

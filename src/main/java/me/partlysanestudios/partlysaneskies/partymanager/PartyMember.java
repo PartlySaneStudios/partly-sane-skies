@@ -7,6 +7,7 @@ import com.google.gson.JsonParser;
 
 import me.partlysanestudios.partlysaneskies.Main;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
+import net.minecraft.client.Minecraft;
 
 public class PartyMember {
     public enum PartyRank {
@@ -20,6 +21,7 @@ public class PartyMember {
 
 
     // Data
+    public long timeDataGet;
     public int secretsCount;
     public float hypixelLevel;
     public float senitherWeight;
@@ -62,11 +64,13 @@ public class PartyMember {
 
 
     public PartyMember(String username, PartyRank partyRank) {
+        this.timeDataGet = 0;
         this.username = username;
         this.rank = partyRank;
     }
 
     public int getData() throws IOException {
+        timeDataGet = Minecraft.getSystemTime();
         JsonParser parser = new JsonParser();
         JsonObject uuidJson = (JsonObject) parser.parse(Utils.getRequest("https://api.mojang.com/users/profiles/minecraft/" + username));
         String uuid = uuidJson.get("id").getAsString();
@@ -216,5 +220,9 @@ public class PartyMember {
 
         averageSkillLevel = senitherJson.getAsJsonObject("data").getAsJsonObject("skills").get("average_skills").getAsFloat();
         return 0;
+    }
+
+    public boolean isExpired() {
+        return this.timeDataGet + 30 * 60 * 1000 < Minecraft.getSystemTime();
     }
 }
