@@ -9,6 +9,7 @@ import gg.essential.elementa.UIComponent;
 import gg.essential.elementa.WindowScreen;
 import gg.essential.elementa.components.ScrollComponent;
 import gg.essential.elementa.components.UIBlock;
+import gg.essential.elementa.components.UIRoundedRectangle;
 import gg.essential.elementa.components.UIText;
 import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
@@ -64,7 +65,339 @@ public class PartyManagerGui extends WindowScreen{
     
     public void populateGui(List<PartyMember> partyMembers) {
         float scaleFactor = (list.getWidth()-20f)/967.5f;
-        float height = 10f*scaleFactor;
+        float height = 100f*scaleFactor;
+        UIComponent topBarBlock = new UIBlock()
+                .setWidth(new PixelConstraint(list.getWidth()-20f))
+                .setHeight(new ScaleConstraint(new PixelConstraint(95f), scaleFactor))
+                .setColor(new Color(42, 43, 46))
+                .setX(new CenterConstraint())
+                .setY(new PixelConstraint(10))
+                .setChildOf(list);
+        
+
+        
+        
+        UIComponent disbandButton = new UIRoundedRectangle(10f)
+                .setX(new PixelConstraint(10f*scaleFactor))
+                .setY(new CenterConstraint())
+                .setWidth(new PixelConstraint(75f*scaleFactor))
+                .setHeight(new PixelConstraint(55f * scaleFactor))
+                .setColor(new Color(212, 111, 98))
+                .setChildOf(topBarBlock);
+            
+        new UIText("Disband")
+            .setTextScale(new PixelConstraint(1.5f*scaleFactor))
+            .setX(new CenterConstraint())
+            .setY(new CenterConstraint())
+            .setColor(Color.white)
+            .setChildOf(disbandButton);
+
+
+        UIComponent kickOfflineButton = new UIRoundedRectangle(10f)
+            .setX(new PixelConstraint(95f*scaleFactor))
+            .setY(new CenterConstraint())
+            .setWidth(new PixelConstraint(100f*scaleFactor))
+            .setHeight(new PixelConstraint(55f * scaleFactor))
+            .setColor(new Color(61, 90, 181))
+            .setChildOf(topBarBlock);
+            
+        new UIText("Kick Offline")
+            .setTextScale(new PixelConstraint(1.5f*scaleFactor))
+            .setX(new CenterConstraint())
+            .setY(new CenterConstraint())
+            .setColor(Color.white)
+            .setChildOf(kickOfflineButton);
+
+        kickOfflineButton.onMouseClickConsumer(event -> {
+            Utils.visPrint("Test");
+        });
+
+
+        new UIText("Join Dungeon Floor:")
+            .setTextScale(new PixelConstraint(2*scaleFactor))
+            .setX(new PixelConstraint(206f * scaleFactor))
+            .setY(new CenterConstraint())
+            .setChildOf(topBarBlock);
+        
+        UIComponent f1Button = new UIRoundedRectangle(10f)
+            .setX(new PixelConstraint(450f*scaleFactor))
+            .setY(new PixelConstraint(5))
+            .setWidth(new PixelConstraint(55f*scaleFactor))
+            .setHeight(new PixelConstraint(35f * scaleFactor))
+            .setColor(new Color(61, 90, 181))
+            .setChildOf(topBarBlock);
+            
+        new UIText("Floor 1")
+            .setTextScale(new PixelConstraint(1.1f*scaleFactor))
+            .setX(new CenterConstraint())
+            .setY(new CenterConstraint())
+            .setColor(Color.white)
+            .setChildOf(f1Button);
+
+        f1Button.onMouseClickConsumer(event -> {
+            Utils.visPrint("Test");
+        });
+
+        UIComponent f2Button = new UIRoundedRectangle(10f)
+            .setX(new PixelConstraint(515f*scaleFactor))
+            .setY(new PixelConstraint(5))
+            .setWidth(new PixelConstraint(55f*scaleFactor))
+            .setHeight(new PixelConstraint(35f * scaleFactor))
+            .setColor(new Color(61, 90, 181))
+            .setChildOf(topBarBlock);
+            
+        new UIText("Floor 2")
+            .setTextScale(new PixelConstraint(1.1f*scaleFactor))
+            .setX(new CenterConstraint())
+            .setY(new CenterConstraint())
+            .setColor(Color.white)
+            .setChildOf(f2Button);
+
+        f2Button.onMouseClickConsumer(event -> {
+            Utils.visPrint("Test");
+        });
+
+        UIComponent f3Button = new UIRoundedRectangle(10f)
+            .setX(new PixelConstraint(580f*scaleFactor))
+            .setY(new PixelConstraint(5))
+            .setWidth(new PixelConstraint(55f*scaleFactor))
+            .setHeight(new PixelConstraint(35f * scaleFactor))
+            .setColor(new Color(61, 90, 181))
+            .setChildOf(topBarBlock);
+            
+        new UIText("Floor 3")
+            .setTextScale(new PixelConstraint(1.1f*scaleFactor))
+            .setX(new CenterConstraint())
+            .setY(new CenterConstraint())
+            .setColor(Color.white)
+            .setChildOf(f3Button);
+
+        f3Button.onMouseClickConsumer(event -> {
+            Utils.visPrint("Test");
+        });
+
+        UIComponent f4Button = new UIRoundedRectangle(10f)
+            .setX(new PixelConstraint(645f*scaleFactor))
+            .setY(new PixelConstraint(5))
+            .setWidth(new PixelConstraint(55f*scaleFactor))
+            .setHeight(new PixelConstraint(35f * scaleFactor))
+            .setColor(new Color(61, 90, 181))
+            .setChildOf(topBarBlock);
+            
+        new UIText("Floor 4")
+            .setTextScale(new PixelConstraint(1.1f*scaleFactor))
+            .setX(new CenterConstraint())
+            .setY(new CenterConstraint())
+            .setColor(Color.white)
+            .setChildOf(f4Button);
+
+        f4Button.onMouseClickConsumer(event -> {
+            Utils.visPrint("Test");
+        });
+
+        UIComponent f5Button = new UIRoundedRectangle(10f)
+            .setX(new PixelConstraint(710f*scaleFactor))
+            .setY(new PixelConstraint(5))
+            .setWidth(new PixelConstraint(55f*scaleFactor))
+            .setHeight(new PixelConstraint(35f * scaleFactor))
+            .setColor(new Color(61, 90, 181))
+            .setChildOf(topBarBlock);
+            
+        new UIText("Floor 5")
+            .setTextScale(new PixelConstraint(1.1f*scaleFactor))
+            .setX(new CenterConstraint())
+            .setY(new CenterConstraint())
+            .setColor(Color.white)
+            .setChildOf(f5Button);
+
+        f5Button.onMouseClickConsumer(event -> {
+            Utils.visPrint("Test");
+        });
+
+        UIComponent f6Button = new UIRoundedRectangle(10f)
+            .setX(new PixelConstraint(775f*scaleFactor))
+            .setY(new PixelConstraint(5))
+            .setWidth(new PixelConstraint(55f*scaleFactor))
+            .setHeight(new PixelConstraint(35f * scaleFactor))
+            .setColor(new Color(61, 90, 181))
+            .setChildOf(topBarBlock);
+            
+        new UIText("Floor 6")
+            .setTextScale(new PixelConstraint(1.1f*scaleFactor))
+            .setX(new CenterConstraint())
+            .setY(new CenterConstraint())
+            .setColor(Color.white)
+            .setChildOf(f6Button);
+
+        f6Button.onMouseClickConsumer(event -> {
+            Utils.visPrint("Test");
+        });
+
+        
+
+        UIComponent f7Button = new UIRoundedRectangle(10f)
+            .setX(new PixelConstraint(840f*scaleFactor))
+            .setY(new PixelConstraint(5))
+            .setWidth(new PixelConstraint(55f*scaleFactor))
+            .setHeight(new PixelConstraint(35f * scaleFactor))
+            .setColor(new Color(61, 90, 181))
+            .setChildOf(topBarBlock);
+            
+        new UIText("Floor 7")
+            .setTextScale(new PixelConstraint(1.1f*scaleFactor))
+            .setX(new CenterConstraint())
+            .setY(new CenterConstraint())
+            .setColor(Color.white)
+            .setChildOf(f7Button);
+
+        f7Button.onMouseClickConsumer(event -> {
+            Utils.visPrint("Test");
+        });
+
+
+
+
+
+
+
+        UIComponent m1Button = new UIRoundedRectangle(10f)
+            .setX(new PixelConstraint(450f*scaleFactor))
+            .setY(new PixelConstraint(45))
+            .setWidth(new PixelConstraint(55f*scaleFactor))
+            .setHeight(new PixelConstraint(35f * scaleFactor))
+            .setColor(new Color(61, 90, 181))
+            .setChildOf(topBarBlock);
+            
+        new UIText("Master 1")
+            .setTextScale(new PixelConstraint(1.1f*scaleFactor))
+            .setX(new CenterConstraint())
+            .setY(new CenterConstraint())
+            .setColor(Color.white)
+            .setChildOf(m1Button);
+
+        m1Button.onMouseClickConsumer(event -> {
+            Utils.visPrint("Test");
+        });
+
+        UIComponent m2Button = new UIRoundedRectangle(10f)
+            .setX(new PixelConstraint(515f*scaleFactor))
+            .setY(new PixelConstraint(45))
+            .setWidth(new PixelConstraint(55f*scaleFactor))
+            .setHeight(new PixelConstraint(35f * scaleFactor))
+            .setColor(new Color(61, 90, 181))
+            .setChildOf(topBarBlock);
+            
+        new UIText("Master 2")
+            .setTextScale(new PixelConstraint(1.1f*scaleFactor))
+            .setX(new CenterConstraint())
+            .setY(new CenterConstraint())
+            .setColor(Color.white)
+            .setChildOf(m2Button);
+
+        m2Button.onMouseClickConsumer(event -> {
+            Utils.visPrint("Test");
+        });
+
+        UIComponent m3Button = new UIRoundedRectangle(10f)
+            .setX(new PixelConstraint(580f*scaleFactor))
+            .setY(new PixelConstraint(45))
+            .setWidth(new PixelConstraint(55f*scaleFactor))
+            .setHeight(new PixelConstraint(35f * scaleFactor))
+            .setColor(new Color(61, 90, 181))
+            .setChildOf(topBarBlock);
+            
+        new UIText("Master 3")
+            .setTextScale(new PixelConstraint(1.1f*scaleFactor))
+            .setX(new CenterConstraint())
+            .setY(new CenterConstraint())
+            .setColor(Color.white)
+            .setChildOf(m3Button);
+
+        m3Button.onMouseClickConsumer(event -> {
+            Utils.visPrint("Test");
+        });
+
+        UIComponent m4Button = new UIRoundedRectangle(10f)
+            .setX(new PixelConstraint(645f*scaleFactor))
+            .setY(new PixelConstraint(45))
+            .setWidth(new PixelConstraint(55f*scaleFactor))
+            .setHeight(new PixelConstraint(35f * scaleFactor))
+            .setColor(new Color(61, 90, 181))
+            .setChildOf(topBarBlock);
+            
+        new UIText("Master 4")
+            .setTextScale(new PixelConstraint(1.1f*scaleFactor))
+            .setX(new CenterConstraint())
+            .setY(new CenterConstraint())
+            .setColor(Color.white)
+            .setChildOf(m4Button);
+
+        m4Button.onMouseClickConsumer(event -> {
+            Utils.visPrint("Test");
+        });
+
+        UIComponent m5Button = new UIRoundedRectangle(10f)
+            .setX(new PixelConstraint(710f*scaleFactor))
+            .setY(new PixelConstraint(45))
+            .setWidth(new PixelConstraint(55f*scaleFactor))
+            .setHeight(new PixelConstraint(35f * scaleFactor))
+            .setColor(new Color(61, 90, 181))
+            .setChildOf(topBarBlock);
+            
+        new UIText("Master 5")
+            .setTextScale(new PixelConstraint(1.1f*scaleFactor))
+            .setX(new CenterConstraint())
+            .setY(new CenterConstraint())
+            .setColor(Color.white)
+            .setChildOf(m5Button);
+
+        m5Button.onMouseClickConsumer(event -> {
+            Utils.visPrint("Test");
+        });
+
+        UIComponent m6Button = new UIRoundedRectangle(10f)
+            .setX(new PixelConstraint(775f*scaleFactor))
+            .setY(new PixelConstraint(45))
+            .setWidth(new PixelConstraint(55f*scaleFactor))
+            .setHeight(new PixelConstraint(35f * scaleFactor))
+            .setColor(new Color(61, 90, 181))
+            .setChildOf(topBarBlock);
+            
+        new UIText("Master 6")
+            .setTextScale(new PixelConstraint(1.1f*scaleFactor))
+            .setX(new CenterConstraint())
+            .setY(new CenterConstraint())
+            .setColor(Color.white)
+            .setChildOf(m6Button);
+
+        m6Button.onMouseClickConsumer(event -> {
+            Utils.visPrint("Test");
+        });
+
+        
+
+        UIComponent m7Button = new UIRoundedRectangle(10f)
+            .setX(new PixelConstraint(840f*scaleFactor))
+            .setY(new PixelConstraint(45))
+            .setWidth(new PixelConstraint(55f*scaleFactor))
+            .setHeight(new PixelConstraint(35f * scaleFactor))
+            .setColor(new Color(61, 90, 181))
+            .setChildOf(topBarBlock);
+            
+        new UIText("Master 7")
+            .setTextScale(new PixelConstraint(1.1f*scaleFactor))
+            .setX(new CenterConstraint())
+            .setY(new CenterConstraint())
+            .setColor(Color.white)
+            .setChildOf(m7Button);
+
+        m7Button.onMouseClickConsumer(event -> {
+            Utils.visPrint("Test");
+        });
+
+
+
+
         for(PartyMember member : partyMembers) {
 
             UIComponent memberBlock = new UIBlock()
@@ -301,7 +634,7 @@ public class PartyManagerGui extends WindowScreen{
 
 
 
-            // Coloumn 3 gear:
+            // Coloumn 4 gear:
 
             new UIText("Gear:")
                 .setTextScale(new PixelConstraint(2.5f*scaleFactor))
@@ -338,6 +671,72 @@ public class PartyManagerGui extends WindowScreen{
                 .setY(new PixelConstraint(155f*scaleFactor))
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
+
+
+
+
+            // Coloumn 5 Buttons
+            UIComponent kickButton = new UIRoundedRectangle(10f)
+                .setX(new PixelConstraint(800f*scaleFactor))
+                .setY(new PixelConstraint(15f * scaleFactor))
+                .setWidth(new PixelConstraint(125f*scaleFactor))
+                .setHeight(new PixelConstraint(55f * scaleFactor))
+                .setColor(new Color(61, 90, 181))
+                .setChildOf(memberBlock);
+            
+            new UIText("Kick")
+                .setTextScale(new PixelConstraint(2*scaleFactor))
+                .setX(new CenterConstraint())
+                .setY(new CenterConstraint())
+                .setColor(Color.white)
+                .setChildOf(kickButton);
+
+            kickButton.onMouseClickConsumer(event -> {
+                Utils.visPrint("Test");
+            });
+
+        
+
+            UIComponent promoteButton = new UIRoundedRectangle(10f)
+                .setX(new PixelConstraint(800f*scaleFactor))
+                .setY(new PixelConstraint(75 * scaleFactor))
+                .setWidth(new PixelConstraint(125f*scaleFactor))
+                .setHeight(new PixelConstraint(55f * scaleFactor))
+                .setColor(new Color(61, 90, 181))
+                .setChildOf(memberBlock);
+            
+            new UIText("Promote")
+
+                .setTextScale(new PixelConstraint(2*scaleFactor))
+                .setX(new CenterConstraint())
+                .setY(new CenterConstraint())
+                .setColor(Color.white)
+                .setChildOf(promoteButton);
+
+            promoteButton.onMouseClickConsumer(event -> {
+                Utils.visPrint("Test");
+            });
+
+
+
+            UIComponent transferButton = new UIRoundedRectangle(10f)
+                .setX(new PixelConstraint(800f*scaleFactor))
+                .setY(new PixelConstraint(135f * scaleFactor))
+                .setWidth(new PixelConstraint(125f*scaleFactor))
+                .setHeight(new PixelConstraint(55f * scaleFactor))
+                .setColor(new Color(61, 90, 181))
+                .setChildOf(memberBlock);
+            
+            new UIText("Transfer")
+                .setTextScale(new PixelConstraint(2*scaleFactor))
+                .setX(new CenterConstraint())
+                .setY(new CenterConstraint())
+                .setColor(Color.white)
+                .setChildOf(transferButton);
+
+            transferButton.onMouseClickConsumer(event -> {
+                Utils.visPrint("Test");
+            });
 
 
 
