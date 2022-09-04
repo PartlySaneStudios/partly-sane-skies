@@ -118,7 +118,7 @@ public class DropBannerDisplay extends Gui {
 					categoryColor = Color.white;
 				}
 				else {
-					categoryColor = Color.decode("" + drop.dropCategoryColor);
+					categoryColor = drop.dropCategoryColor;
 				}
 			}
 

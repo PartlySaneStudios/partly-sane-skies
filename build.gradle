@@ -38,6 +38,9 @@ minecraft {
     mappings = "stable_20"
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
 }
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
 repositories {
     maven {
             url = "https://repo.essential.gg/repository/maven-public"
