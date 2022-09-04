@@ -118,6 +118,7 @@ public class Main
         if(event.message.getUnformattedText().startsWith("Your new API key is ")) { 
             config.apiKey = event.message.getUnformattedText().replace("Your new API key is ", "");
             Utils.sendClientMessage(Utils.colorCodes("Saved new API key!"));
+            config.writeData();
         }
     }
 

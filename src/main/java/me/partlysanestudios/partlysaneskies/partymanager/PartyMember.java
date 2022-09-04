@@ -72,7 +72,7 @@ public class PartyMember {
     public int getData() throws IOException {
         timeDataGet = Minecraft.getSystemTime();
         JsonParser parser = new JsonParser();
-        String response =Utils.getRequest("https://api.mojang.com/users/profiles/minecraft/" + username);
+        String response = Utils.getRequest("https://api.mojang.com/users/profiles/minecraft/" + username);
         if(response.startsWith("Error")) {
             Utils.sendClientMessage(Utils.colorCodes("Error getting data for " + username + ". Maybe the player is nicked or there is an invalid API key. Try running /api new."));
             return -3;
@@ -80,7 +80,7 @@ public class PartyMember {
         JsonObject uuidJson = (JsonObject) parser.parse(response);
         
         String uuid = uuidJson.get("id").getAsString();
-
+        response = null;
         
         
         response =  Utils.getRequest("https://api.slothpixel.me/api/skyblock/profile/" + uuid);
@@ -93,56 +93,75 @@ public class PartyMember {
 
         combatLevel = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("skills").getAsJsonObject("combat").get("floatLevel").getAsFloat();
 
-        helmetName = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonArray("armor").get(3).getAsJsonObject().get("name").getAsString();
-        chestplateName = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonArray("armor").get(2).getAsJsonObject().get("name").getAsString();
-        leggingsName = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonArray("armor").get(1).getAsJsonObject().get("name").getAsString();
-        bootsName = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonArray("armor").get(0).getAsJsonObject().get("name").getAsString();
-        
-        
-        helmetName = helmetName.replaceAll("\\P{Print}", "");
-        chestplateName = chestplateName.replaceAll("\\P{Print}", "");
-        leggingsName = leggingsName.replaceAll("\\P{Print}", "");
-        bootsName = bootsName.replaceAll("\\P{Print}", "");
 
-
-
-        helmetName = helmetName.replace("✪", "*");
-        if(Character.isLowerCase(helmetName.charAt(0))|| Character.isDigit(helmetName.charAt(0)) || Character.isWhitespace(helmetName.charAt(0))) {
-            helmetName = new StringBuilder(helmetName)
-                .replace(0, 1, "")
-                .toString();
+        try {
+            helmetName = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonArray("armor").get(3).getAsJsonObject().get("name").getAsString();
+            helmetName = helmetName.replaceAll("\\P{Print}", "");
+            helmetName = helmetName.replace("✪", "*");
+            if(Character.isLowerCase(helmetName.charAt(0))|| Character.isDigit(helmetName.charAt(0)) || Character.isWhitespace(helmetName.charAt(0))) {
+                helmetName = new StringBuilder(helmetName)
+                    .replace(0, 1, "")
+                    .toString();
+            }
+            helmetName = helmetName.replaceAll("[0123456789]", "");
         }
-        helmetName = helmetName.replaceAll("[0123456789]", "");
-
-
-
-        chestplateName = chestplateName.replace("✪", "*");
-        if(Character.isLowerCase(chestplateName.charAt(0)) || Character.isDigit(chestplateName.charAt(0)) || Character.isWhitespace(chestplateName.charAt(0))) {
-            chestplateName = new StringBuilder(chestplateName)
-                .replace(0, 1, "")
-                .toString();
+        catch(NullPointerException e) {
+            e.printStackTrace();
         }
-        chestplateName = chestplateName.replaceAll("[0123456789]", "");
 
 
 
-        leggingsName = leggingsName.replace("✪", "*");
-        if(Character.isLowerCase(leggingsName.charAt(0))|| Character.isDigit(leggingsName.charAt(0)) || Character.isWhitespace(leggingsName.charAt(0))) {
-            leggingsName = new StringBuilder(leggingsName)
-                .replace(0, 1, "")
-                .toString();
+        try {
+            chestplateName = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonArray("armor").get(2).getAsJsonObject().get("name").getAsString();
+            chestplateName = chestplateName.replaceAll("\\P{Print}", "");
+            chestplateName = chestplateName.replace("✪", "*");
+            if(Character.isLowerCase(chestplateName.charAt(0)) || Character.isDigit(chestplateName.charAt(0)) || Character.isWhitespace(chestplateName.charAt(0))) {
+                chestplateName = new StringBuilder(chestplateName)
+                    .replace(0, 1, "")
+                    .toString();
+            }
+            chestplateName = chestplateName.replaceAll("[0123456789]", "");
         }
-        leggingsName = leggingsName.replaceAll("[0123456789]", "");
-
-
-
-        bootsName = bootsName.replace("✪", "*");
-        if(Character.isLowerCase(bootsName.charAt(0))|| Character.isDigit(bootsName.charAt(0)) || Character.isWhitespace(bootsName.charAt(0))) {
-            bootsName = new StringBuilder(bootsName)
-                .replace(0, 1, "")
-                .toString();
+        catch(NullPointerException e) {
+            e.printStackTrace();
         }
-        bootsName = bootsName.replaceAll("[0123456789]", "");
+
+
+
+        try {
+            leggingsName = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonArray("armor").get(1).getAsJsonObject().get("name").getAsString();
+            leggingsName = leggingsName.replaceAll("\\P{Print}", "");
+            leggingsName = leggingsName.replace("✪", "*");
+            if(Character.isLowerCase(leggingsName.charAt(0))|| Character.isDigit(leggingsName.charAt(0)) || Character.isWhitespace(leggingsName.charAt(0))) {
+                leggingsName = new StringBuilder(leggingsName)
+                    .replace(0, 1, "")
+                    .toString();
+            }
+            leggingsName = leggingsName.replaceAll("[0123456789]", "");
+        }
+        catch(NullPointerException e) {
+            e.printStackTrace();
+        }
+
+
+
+        try {
+            bootsName = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonArray("armor").get(0).getAsJsonObject().get("name").getAsString();
+            bootsName = bootsName.replaceAll("\\P{Print}", "");
+            bootsName = bootsName.replace("✪", "*");
+            if(Character.isLowerCase(bootsName.charAt(0))|| Character.isDigit(bootsName.charAt(0)) || Character.isWhitespace(bootsName.charAt(0))) {
+                bootsName = new StringBuilder(bootsName)
+                    .replace(0, 1, "")
+                    .toString();
+            }
+            bootsName = bootsName.replaceAll("[0123456789]", "");
+        }
+        catch(NullPointerException e) {
+            e.printStackTrace();
+        }
+
+
+
 
         selectedDungeonClass = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("dungeons").get("selected_dungeon_class").getAsString();
         selectedDungeonClass = new StringBuilder(selectedDungeonClass)
@@ -215,7 +234,8 @@ public class PartyMember {
         defense = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("attributes").get("defense").getAsFloat();
         effectHealth = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("attributes").get("effective_health").getAsFloat();
 
-
+        hypixelLevel = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("player").get("level").getAsFloat();
+        hypixelLevel = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).get("average_skill_level").getAsFloat();
         response = Utils.getRequest("https://hypixel-api.senither.com/v1/profiles/" + uuid + "/latest?key=" + Main.config.apiKey);
         if(response.startsWith("Error")) {
             Utils.sendClientMessage(Utils.colorCodes("Error getting data for " + username + ". Maybe the player is nicked or there is an invalid API key. Try running /api new."));
@@ -225,14 +245,11 @@ public class PartyMember {
 
 
         secretsCount = senitherJson.getAsJsonObject("data").getAsJsonObject("dungeons").get("secrets_found").getAsInt();
-        hypixelLevel = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("player").get("level").getAsFloat();
         senitherWeight = senitherJson.getAsJsonObject("data").get("weight").getAsFloat();
         senitherWeightOverflow = senitherJson.getAsJsonObject("data").get("weight_overflow").getAsFloat();
         catacombsLevel = senitherJson.getAsJsonObject("data").getAsJsonObject("dungeons").getAsJsonObject("types").getAsJsonObject("catacombs").get("level").getAsFloat();
         
         secretsPerRun = secretsCount/(f1Runs+f2Runs+f3Runs+f4Runs+f5Runs+f6Runs+f7Runs+m1Runs+m2Runs+m3Runs+m4Runs+m5Runs+m6Runs+m7Runs);
-
-        averageSkillLevel = senitherJson.getAsJsonObject("data").getAsJsonObject("skills").get("average_skills").getAsFloat();
         return 0;
     }
 

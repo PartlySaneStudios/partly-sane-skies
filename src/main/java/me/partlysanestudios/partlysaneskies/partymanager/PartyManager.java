@@ -146,6 +146,7 @@ public class PartyManager {
                     member.getData();
                 } catch (IOException e) {
                     e.printStackTrace();
+                    continue;
                 }
             }
             playerCache.put(member.username, member);
