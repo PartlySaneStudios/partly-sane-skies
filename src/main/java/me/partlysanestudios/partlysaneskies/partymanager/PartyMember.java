@@ -72,13 +72,22 @@ public class PartyMember {
     public int getData() throws IOException {
         timeDataGet = Minecraft.getSystemTime();
         JsonParser parser = new JsonParser();
-        JsonObject uuidJson = (JsonObject) parser.parse(Utils.getRequest("https://api.mojang.com/users/profiles/minecraft/" + username));
+        String response =Utils.getRequest("https://api.mojang.com/users/profiles/minecraft/" + username);
+        if(response.startsWith("Error")) {
+            Utils.sendClientMessage(Utils.colorCodes("Error getting data for " + username + ". Maybe the player is nicked or there is an invalid API key. Try running /api new."));
+            return -3;
+        }
+        JsonObject uuidJson = (JsonObject) parser.parse(response);
+        
         String uuid = uuidJson.get("id").getAsString();
 
         
         
-        String response =  Utils.getRequest("https://api.slothpixel.me/api/skyblock/profile/" + uuid);
-        if(response.startsWith("Error")) return -1;
+        response =  Utils.getRequest("https://api.slothpixel.me/api/skyblock/profile/" + uuid);
+        if(response.startsWith("Error")) {
+            Utils.sendClientMessage(Utils.colorCodes("Error getting data for " + username + ". Maybe the player is nicked or there is an invalid API key. Try running /api new."));
+            return -1;
+        }
         JsonObject slothpixelJson = (JsonObject) parser.parse(response);
         response = null;
 
@@ -206,7 +215,10 @@ public class PartyMember {
 
 
         response = Utils.getRequest("https://hypixel-api.senither.com/v1/profiles/" + uuid + "/latest?key=" + Main.config.apiKey);
-        if(response.startsWith("Error")) return -2;
+        if(response.startsWith("Error")) {
+            Utils.sendClientMessage(Utils.colorCodes("Error getting data for " + username + ". Maybe the player is nicked or there is an invalid API key. Try running /api new."));
+            return -2;
+        }
         JsonObject senitherJson = (JsonObject) parser.parse(response);
 
 

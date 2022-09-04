@@ -66,7 +66,7 @@ public class Utils {
     }
 
     public static void sendClientMessage(String text) {
-        try {Main.minecraft.ingameGUI.getChatGUI().printChatMessage( new ChatComponentText(text));}
+        try {Main.minecraft.ingameGUI.getChatGUI().printChatMessage( new ChatComponentText(colorCodes(Main.CHAT_PREFIX) + "" + text));}
         catch(NullPointerException e) {}
         finally {}
     }

@@ -114,7 +114,7 @@ public class Main
     public void newApiKey(ClientChatReceivedEvent event) {
         if(event.message.getUnformattedText().startsWith("Your new API key is ")) { 
             config.apiKey = event.message.getUnformattedText().replace("Your new API key is ", "");
-            Utils.sendClientMessage(Utils.colorCodes(CHAT_PREFIX + "Saved new API key!"));
+            Utils.sendClientMessage(Utils.colorCodes("Saved new API key!"));
         }
     }
 

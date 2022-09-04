@@ -26,6 +26,8 @@ public class PartyManager {
 
     public static void startPartyManager() {
         isWaitingForMembers = true;
+        if (Main.config.apiKey.equals("")) 
+        
         Main.minecraft.thePlayer.sendChatMessage("/party list");
         partyList.clear();
     }
