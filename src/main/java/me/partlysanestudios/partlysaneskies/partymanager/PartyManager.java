@@ -126,12 +126,10 @@ public class PartyManager {
 
     public static void addPartyMember(String username, PartyRank partyRank) {
         if(playerCache.containsKey(username)) {
-            Utils.visPrint(username + " is a cached member");
             PartyMember cachedMember = playerCache.get(username);
             partyList.add(cachedMember);
         }
         else {
-            Utils.visPrint(username + " is not a cached member");
             PartyMember member = new PartyMember(username, partyRank);
             partyList.add(member);
         }
@@ -140,7 +138,6 @@ public class PartyManager {
     public static void getData() {
         for(PartyMember member : partyList) {
             if(member.isExpired()) {
-                Utils.visPrint(member.username + " is expired");
                 try {
                     member.getData();
                 } catch (IOException e) {
