@@ -15,6 +15,7 @@ import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import gg.essential.elementa.constraints.ScaleConstraint;
 import gg.essential.universal.UMatrixStack;
+import me.partlysanestudios.partlysaneskies.Main;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 
 public class PartyManagerGui extends WindowScreen{
@@ -92,6 +93,10 @@ public class PartyManagerGui extends WindowScreen{
             .setColor(Color.white)
             .setChildOf(disbandButton);
 
+        disbandButton.onMouseClickConsumer(event -> {
+            Main.minecraft.thePlayer.sendChatMessage("/party disband");
+        });
+            
 
         UIComponent kickOfflineButton = new UIRoundedRectangle(10f)
             .setX(new PixelConstraint(95f*scaleFactor))
@@ -109,7 +114,7 @@ public class PartyManagerGui extends WindowScreen{
             .setChildOf(kickOfflineButton);
 
         kickOfflineButton.onMouseClickConsumer(event -> {
-            Utils.visPrint("Test");
+            Main.minecraft.thePlayer.sendChatMessage("/party kickoffline");
         });
 
 
@@ -135,7 +140,7 @@ public class PartyManagerGui extends WindowScreen{
             .setChildOf(f1Button);
 
         f1Button.onMouseClickConsumer(event -> {
-            Utils.visPrint("Test");
+            Main.minecraft.thePlayer.sendChatMessage("/joindungeon catacombs 0");
         });
 
         UIComponent f2Button = new UIRoundedRectangle(10f)
@@ -154,7 +159,7 @@ public class PartyManagerGui extends WindowScreen{
             .setChildOf(f2Button);
 
         f2Button.onMouseClickConsumer(event -> {
-            Utils.visPrint("Test");
+            Main.minecraft.thePlayer.sendChatMessage("/joindungeon catacombs 2");
         });
 
         UIComponent f3Button = new UIRoundedRectangle(10f)
@@ -173,7 +178,7 @@ public class PartyManagerGui extends WindowScreen{
             .setChildOf(f3Button);
 
         f3Button.onMouseClickConsumer(event -> {
-            Utils.visPrint("Test");
+            Main.minecraft.thePlayer.sendChatMessage("/joindungeon catacombs 3");
         });
 
         UIComponent f4Button = new UIRoundedRectangle(10f)
@@ -192,7 +197,7 @@ public class PartyManagerGui extends WindowScreen{
             .setChildOf(f4Button);
 
         f4Button.onMouseClickConsumer(event -> {
-            Utils.visPrint("Test");
+            Main.minecraft.thePlayer.sendChatMessage("/joindungeon catacombs 4");
         });
 
         UIComponent f5Button = new UIRoundedRectangle(10f)
@@ -211,7 +216,7 @@ public class PartyManagerGui extends WindowScreen{
             .setChildOf(f5Button);
 
         f5Button.onMouseClickConsumer(event -> {
-            Utils.visPrint("Test");
+            Main.minecraft.thePlayer.sendChatMessage("/joindungeon catacombs 5");
         });
 
         UIComponent f6Button = new UIRoundedRectangle(10f)
@@ -230,7 +235,7 @@ public class PartyManagerGui extends WindowScreen{
             .setChildOf(f6Button);
 
         f6Button.onMouseClickConsumer(event -> {
-            Utils.visPrint("Test");
+            Main.minecraft.thePlayer.sendChatMessage("/joindungeon catacombs 6");
         });
 
         
@@ -251,7 +256,7 @@ public class PartyManagerGui extends WindowScreen{
             .setChildOf(f7Button);
 
         f7Button.onMouseClickConsumer(event -> {
-            Utils.visPrint("Test");
+            Main.minecraft.thePlayer.sendChatMessage("/joindungeon catacombs 7");
         });
 
 
@@ -276,7 +281,7 @@ public class PartyManagerGui extends WindowScreen{
             .setChildOf(m1Button);
 
         m1Button.onMouseClickConsumer(event -> {
-            Utils.visPrint("Test");
+            Main.minecraft.thePlayer.sendChatMessage("/joindungeon master_catacombs 1");
         });
 
         UIComponent m2Button = new UIRoundedRectangle(10f)
@@ -295,7 +300,7 @@ public class PartyManagerGui extends WindowScreen{
             .setChildOf(m2Button);
 
         m2Button.onMouseClickConsumer(event -> {
-            Utils.visPrint("Test");
+            Main.minecraft.thePlayer.sendChatMessage("/joindungeon master_catacombs 2");
         });
 
         UIComponent m3Button = new UIRoundedRectangle(10f)
@@ -314,7 +319,7 @@ public class PartyManagerGui extends WindowScreen{
             .setChildOf(m3Button);
 
         m3Button.onMouseClickConsumer(event -> {
-            Utils.visPrint("Test");
+            Main.minecraft.thePlayer.sendChatMessage("/joindungeon master_catacombs 3");
         });
 
         UIComponent m4Button = new UIRoundedRectangle(10f)
@@ -333,7 +338,7 @@ public class PartyManagerGui extends WindowScreen{
             .setChildOf(m4Button);
 
         m4Button.onMouseClickConsumer(event -> {
-            Utils.visPrint("Test");
+            Main.minecraft.thePlayer.sendChatMessage("/joindungeon master_catacombs 4");
         });
 
         UIComponent m5Button = new UIRoundedRectangle(10f)
@@ -352,7 +357,7 @@ public class PartyManagerGui extends WindowScreen{
             .setChildOf(m5Button);
 
         m5Button.onMouseClickConsumer(event -> {
-            Utils.visPrint("Test");
+            Main.minecraft.thePlayer.sendChatMessage("/joindungeon master_catacombs 5");
         });
 
         UIComponent m6Button = new UIRoundedRectangle(10f)
@@ -371,7 +376,7 @@ public class PartyManagerGui extends WindowScreen{
             .setChildOf(m6Button);
 
         m6Button.onMouseClickConsumer(event -> {
-            Utils.visPrint("Test");
+            Main.minecraft.thePlayer.sendChatMessage("/joindungeon master_catacombs 6");
         });
 
         
@@ -392,7 +397,7 @@ public class PartyManagerGui extends WindowScreen{
             .setChildOf(m7Button);
 
         m7Button.onMouseClickConsumer(event -> {
-            Utils.visPrint("Test");
+            Main.minecraft.thePlayer.sendChatMessage("/joindungeon master_catacombs 7");
         });
 
 
@@ -692,7 +697,7 @@ public class PartyManagerGui extends WindowScreen{
                 .setChildOf(kickButton);
 
             kickButton.onMouseClickConsumer(event -> {
-                Utils.visPrint("Test");
+                Main.minecraft.thePlayer.sendChatMessage("/party kick " + member.username);
             });
 
         
@@ -714,7 +719,7 @@ public class PartyManagerGui extends WindowScreen{
                 .setChildOf(promoteButton);
 
             promoteButton.onMouseClickConsumer(event -> {
-                Utils.visPrint("Test");
+                Main.minecraft.thePlayer.sendChatMessage("/party promote " + member.username);
             });
 
 
@@ -735,7 +740,7 @@ public class PartyManagerGui extends WindowScreen{
                 .setChildOf(transferButton);
 
             transferButton.onMouseClickConsumer(event -> {
-                Utils.visPrint("Test");
+                Main.minecraft.thePlayer.sendChatMessage("/party transfer " + member.username);
             });
 
 
