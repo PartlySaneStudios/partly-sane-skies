@@ -145,7 +145,9 @@ public class PartyMember {
         bootsName = bootsName.replaceAll("[0123456789]", "");
 
         selectedDungeonClass = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("dungeons").get("selected_dungeon_class").getAsString();
-
+        selectedDungeonClass = new StringBuilder(selectedDungeonClass)
+            .replace(0, 1, "" + Character.toUpperCase(selectedDungeonClass.charAt(0)))
+            .toString();
 
 
         if(slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("dungeons").getAsJsonObject("dungeon_types").getAsJsonObject("catacombs").getAsJsonObject("tier_completions").get("1") == null)
