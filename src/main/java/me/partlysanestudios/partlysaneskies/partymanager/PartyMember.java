@@ -69,7 +69,7 @@ public class PartyMember {
         this.rank = partyRank;
     }
 
-    public int getData() throws IOException {
+    public int getData() throws IOException, NullPointerException {
         timeDataGet = Minecraft.getSystemTime();
         JsonParser parser = new JsonParser();
         String response = Utils.getRequest("https://api.mojang.com/users/profiles/minecraft/" + username);
@@ -80,7 +80,6 @@ public class PartyMember {
         JsonObject uuidJson = (JsonObject) parser.parse(response);
         
         String uuid = uuidJson.get("id").getAsString();
-        response = null;
         
         
         response =  Utils.getRequest("https://api.slothpixel.me/api/skyblock/profile/" + uuid);
@@ -89,10 +88,15 @@ public class PartyMember {
             return -1;
         }
         JsonObject slothpixelJson = (JsonObject) parser.parse(response);
-        response = null;
 
-        combatLevel = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("skills").getAsJsonObject("combat").get("floatLevel").getAsFloat();
+        try {
+            combatLevel = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("skills").getAsJsonObject("combat").get("floatLevel").getAsFloat();
+        } catch(NullPointerException e) {
+            combatLevel = 0; 
 
+        }
+        
+        
 
         try {
             helmetName = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonArray("armor").get(3).getAsJsonObject().get("name").getAsString();
@@ -162,16 +166,24 @@ public class PartyMember {
 
 
 
+        try {
+            selectedDungeonClass = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("dungeons").get("selected_dungeon_class").getAsString();
+            selectedDungeonClass = new StringBuilder(selectedDungeonClass)
+                .replace(0, 1, "" + Character.toUpperCase(selectedDungeonClass.charAt(0)))
+                .toString();
+        } catch(NullPointerException e) {
+            selectedDungeonClass = "None";
+        }
+       
 
-        selectedDungeonClass = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("dungeons").get("selected_dungeon_class").getAsString();
-        selectedDungeonClass = new StringBuilder(selectedDungeonClass)
-            .replace(0, 1, "" + Character.toUpperCase(selectedDungeonClass.charAt(0)))
-            .toString();
-
-
-        if(slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("dungeons").getAsJsonObject("dungeon_types").getAsJsonObject("catacombs").getAsJsonObject("tier_completions").get("1") == null)
+        try{
+            if(slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("dungeons").getAsJsonObject("dungeon_types").getAsJsonObject("catacombs").getAsJsonObject("tier_completions").get("1") == null)
+                f1Runs = 0;
+            else f1Runs = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("dungeons").getAsJsonObject("dungeon_types").getAsJsonObject("catacombs").getAsJsonObject("tier_completions").get("1").getAsInt();
+        } catch(NullPointerException e) {
             f1Runs = 0;
-        else f1Runs = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("dungeons").getAsJsonObject("dungeon_types").getAsJsonObject("catacombs").getAsJsonObject("tier_completions").get("1").getAsInt();
+        }
+        
 
         if(slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("dungeons").getAsJsonObject("dungeon_types").getAsJsonObject("catacombs").getAsJsonObject("tier_completions").get("2") == null)
             f2Runs = 0;
