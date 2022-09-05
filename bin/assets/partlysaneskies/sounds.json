@@ -7,5 +7,14 @@
                 "stream": false
             }
         ]
+    },
+    "airraidsiren": {
+        "category": "player",
+        "sounds": [
+            {
+                "name": "partlysaneskies:airraidsiren",
+                "stream": false
+            }
+        ]
     }
 }

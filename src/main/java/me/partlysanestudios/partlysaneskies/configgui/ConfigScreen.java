@@ -1,12 +1,11 @@
 package me.partlysanestudios.partlysaneskies.configgui;
 
+import java.awt.Color;
 import java.io.File;
 
 import gg.essential.vigilance.Vigilant;
 import gg.essential.vigilance.data.Property;
 import gg.essential.vigilance.data.PropertyType;
-
-import java.awt.Color;
 
 public class ConfigScreen extends Vigilant{
 
@@ -62,7 +61,7 @@ public class ConfigScreen extends Vigilant{
     public int partyManagerCacheTime = 30;
 
     @Property(
-        type = PropertyType.CHECKBOX,
+        type = PropertyType.SWITCH,
         name = "Watcher Ready Warning",
         subcategory = "Watcher Ready",
         description = "Sends a warning when the watcher is done spawning mobs.",
@@ -90,6 +89,14 @@ public class ConfigScreen extends Vigilant{
     )
     public float watcherReadyBannerTime = 3.5f;
 
+    @Property(
+        type = PropertyType.COLOR,
+        subcategory = "Watcher Ready",
+        name = "Watcher Ready Banner Colour",
+        description = "The colour of the watcher ready text",
+        category = "Dungeons"
+    )
+    public Color watcherReadyBannerColor = new Color(150, 45, 6);
 
     @Property(
         type = PropertyType.SWITCH,
@@ -111,14 +118,16 @@ public class ConfigScreen extends Vigilant{
     public String watcherChatMessage = "The watcher is done spawning mobs. Ready to clear";
 
 
+    
+
     @Property(
-        type = PropertyType.COLOR,
+        type = PropertyType.SWITCH,
         subcategory = "Watcher Ready",
-        name = "Watcher Ready Banner Colour",
-        description = "The colour of the watcher ready text",
+        name = "Watcher Ready Air Raid Siren",
+        description = "Plays a WWII air raid siren when the watcher is done spawning mobs.",
         category = "Dungeons"
     )
-    public Color watcherReadyBannerColor = new Color(150, 45, 6);
+    public boolean watcherReadyAirRaidSiren = false;
 
     public ConfigScreen() {
         super(new File("./config/pss.toml"));

@@ -46,6 +46,9 @@ public class WatcherReady {
             if(Main.config.watcherReadySound) {
 
             }
+            if(Main.config.watcherReadyAirRaidSiren) {
+                Main.minecraft.thePlayer.playSound("partlysaneskies:airraidsiren", 100, 1);
+            }
         }
     }
 
