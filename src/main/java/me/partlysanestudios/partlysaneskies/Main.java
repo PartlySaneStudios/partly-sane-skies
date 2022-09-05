@@ -6,7 +6,6 @@ import me.partlysanestudios.partlysaneskies.configgui.ConfigScreen;
 import me.partlysanestudios.partlysaneskies.dungeons.WatcherReady;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManager;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManagerCommand;
-import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyMember.PartyRank;
 import me.partlysanestudios.partlysaneskies.general.rngdropbanner.Drop;
 import me.partlysanestudios.partlysaneskies.general.rngdropbanner.DropBannerDisplay;
 import me.partlysanestudios.partlysaneskies.keybind.KeyInit;
@@ -87,12 +86,7 @@ public class Main
             Utils.visPrint("Debug mode: " + Main.isDebugMode);
             DropBannerDisplay.drop = new Drop("test", "RARE DROP!", 1, 1, Minecraft.getSystemTime(), new Color(255, 170, 0), new Color(255, 85, 85));
             Main.minecraft.thePlayer.playSound("partlysaneskies:rngdropjingle", 100, 1);
-
-            PartyManager.addPartyMember("Su386", PartyRank.LEADER);
-            PartyManager.addPartyMember("FlagMaster", PartyRank.MODERATOR);
-            PartyManager.addPartyMember("Cosvic", PartyRank.MEMBER);
-
-            PartyManager.openGui();
+            Main.minecraft.thePlayer.playSound("partlysaneskies:airraidsiren", 100, 1);
         }
         if(KeyInit.configKey.isPressed()) {
             minecraft.displayGuiScreen(Main.config.gui());
