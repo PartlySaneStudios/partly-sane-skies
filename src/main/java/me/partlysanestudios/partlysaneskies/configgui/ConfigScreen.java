@@ -6,6 +6,8 @@ import gg.essential.vigilance.Vigilant;
 import gg.essential.vigilance.data.Property;
 import gg.essential.vigilance.data.PropertyType;
 
+import java.awt.Color;
+
 public class ConfigScreen extends Vigilant{
 
     @Property(
@@ -34,7 +36,7 @@ public class ConfigScreen extends Vigilant{
         maxF = 7,
         subcategory = "General",
         name = "Rare Drop Banner Time",
-        description = "The amount of time the rare drop banner stays on",
+        description = "The amount of time the rare drop banner appears for.",
         category = "Skyblock"
     )
     public float rareDropBannerTime = 3.5f;
@@ -62,20 +64,61 @@ public class ConfigScreen extends Vigilant{
     @Property(
         type = PropertyType.CHECKBOX,
         name = "Watcher Ready Warning",
-        subcategory = "General",
-        description = "Sends a warning when the watcher is done spawning mobs",
+        subcategory = "Watcher Ready",
+        description = "Sends a warning when the watcher is done spawning mobs.",
         category = "Dungeons"
     )
-    public boolean watcherReadyWarning = false;
+    public boolean watcherReadyBanner = false;
 
     @Property(
-        type = PropertyType.CHECKBOX,
+        type = PropertyType.SWITCH,
         name = "Watcher Ready Sound",
-        subcategory = "General",
-        description = "Plays a sound when the watcher is done spawning mobs",
+        subcategory = "Watcher Ready",
+        description = "Plays a sound when the watcher is done spawning mobs.",
         category = "Dungeons"
     )
     public boolean watcherReadySound = false;
+
+    @Property(
+        type = PropertyType.DECIMAL_SLIDER,
+        minF = 1,
+        maxF = 7,
+        subcategory = "Watcher Ready",
+        name = "Watcher Ready Banner Time",
+        description = "The amount of time the watcher ready banner appears for.",
+        category = "Dungeons"
+    )
+    public float watcherReadyBannerTime = 3.5f;
+
+
+    @Property(
+        type = PropertyType.SWITCH,
+        name = "Watcher Ready Chat Message",
+        subcategory = "Watcher Ready",
+        description = "Send a message to your party when watcher is done spawning mobs.",
+        category = "Dungeons"
+    )
+    public boolean watcherReadyChatMessage = false;
+
+
+    @Property(
+        type = PropertyType.TEXT,
+        subcategory = "Watcher Ready",
+        name = "Watcher Ready Text",
+        description = "Message to send when the watcher is ready to clear.",
+        category = "Dungeons"
+    )
+    public String watcherChatMessage = "The watcher is done spawning mobs. Ready to clear";
+
+
+    @Property(
+        type = PropertyType.COLOR,
+        subcategory = "Watcher Ready",
+        name = "Watcher Ready Banner Colour",
+        description = "The colour of the watcher ready text",
+        category = "Dungeons"
+    )
+    public Color watcherReadyBannerColor = new Color(150, 45, 6);
 
     public ConfigScreen() {
         super(new File("./config/pss.toml"));

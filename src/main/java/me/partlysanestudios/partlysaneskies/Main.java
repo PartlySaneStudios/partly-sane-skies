@@ -3,6 +3,7 @@ package me.partlysanestudios.partlysaneskies;
 import java.awt.Color;
 
 import me.partlysanestudios.partlysaneskies.configgui.ConfigScreen;
+import me.partlysanestudios.partlysaneskies.dungeons.WatcherReady;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManager;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManagerCommand;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyMember.PartyRank;
@@ -58,6 +59,7 @@ public class Main
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new DropBannerDisplay());
         MinecraftForge.EVENT_BUS.register(new PartyManager());
+        MinecraftForge.EVENT_BUS.register(new WatcherReady());
         
         ClientCommandHandler.instance.registerCommand(new PartyManagerCommand());
         KeyInit.init();
