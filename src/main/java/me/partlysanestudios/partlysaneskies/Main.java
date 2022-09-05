@@ -3,10 +3,10 @@ package me.partlysanestudios.partlysaneskies;
 import java.awt.Color;
 
 import me.partlysanestudios.partlysaneskies.configgui.ConfigScreen;
+import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManager;
+import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManagerCommand;
+import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyMember.PartyRank;
 import me.partlysanestudios.partlysaneskies.keybind.KeyInit;
-import me.partlysanestudios.partlysaneskies.partymanager.PartyManager;
-import me.partlysanestudios.partlysaneskies.partymanager.PartyManagerCommand;
-import me.partlysanestudios.partlysaneskies.partymanager.PartyMember.PartyRank;
 import me.partlysanestudios.partlysaneskies.rngdropbanner.Drop;
 import me.partlysanestudios.partlysaneskies.rngdropbanner.DropBannerDisplay;
 // import me.partlysanestudios.partlysaneskies.rngdroptitle.DropBannerDisplay;
@@ -91,12 +91,6 @@ public class Main
             PartyManager.addPartyMember("Cosvic", PartyRank.MEMBER);
 
             PartyManager.openGui();
-
-
-
-            
-            
-            
         }
         if(KeyInit.configKey.isPressed()) {
             minecraft.displayGuiScreen(Main.config.gui());

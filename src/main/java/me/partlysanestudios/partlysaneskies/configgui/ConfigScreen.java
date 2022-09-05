@@ -59,7 +59,24 @@ public class ConfigScreen extends Vigilant{
     )
     public int partyManagerCacheTime = 30;
 
-    
+    @Property(
+        type = PropertyType.CHECKBOX,
+        name = "Watcher Ready Warning",
+        subcategory = "General",
+        description = "Sends a warning when the watcher is done spawning mobs",
+        category = "Dungeons"
+    )
+    public boolean watcherReadyWarning = false;
+
+    @Property(
+        type = PropertyType.CHECKBOX,
+        name = "Watcher Ready Sound",
+        subcategory = "General",
+        description = "Plays a sound when the watcher is done spawning mobs",
+        category = "Dungeons"
+    )
+    public boolean watcherReadySound = false;
+
     public ConfigScreen() {
         super(new File("./config/pss.toml"));
         this.initialize();

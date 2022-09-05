@@ -1,4 +1,4 @@
-package me.partlysanestudios.partlysaneskies.partymanager;
+package me.partlysanestudios.partlysaneskies.dungeons.partymanager;
 
 
 
@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import me.partlysanestudios.partlysaneskies.Main;
-import me.partlysanestudios.partlysaneskies.partymanager.PartyMember.PartyRank;
+import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyMember.PartyRank;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;

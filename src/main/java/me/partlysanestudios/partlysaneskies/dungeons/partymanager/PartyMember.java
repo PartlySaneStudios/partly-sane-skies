@@ -1,4 +1,4 @@
-package me.partlysanestudios.partlysaneskies.partymanager;
+package me.partlysanestudios.partlysaneskies.dungeons.partymanager;
 
 import java.io.IOException;
 
