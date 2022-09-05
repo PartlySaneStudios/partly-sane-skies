@@ -1,4 +1,4 @@
-package me.partlysanestudios.partlysaneskies.rngdropbanner;
+package me.partlysanestudios.partlysaneskies.general.rngdropbanner;
 
 import net.minecraft.client.Minecraft;
 import java.awt.Color;
