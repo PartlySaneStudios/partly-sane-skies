@@ -9,8 +9,8 @@ import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManagerCo
 import me.partlysanestudios.partlysaneskies.general.WormWarning;
 import me.partlysanestudios.partlysaneskies.general.rngdropbanner.Drop;
 import me.partlysanestudios.partlysaneskies.general.rngdropbanner.DropBannerDisplay;
+import me.partlysanestudios.partlysaneskies.helpcommand.Help;
 import me.partlysanestudios.partlysaneskies.keybind.KeyInit;
-// import me.partlysanestudios.partlysaneskies.rngdroptitle.DropBannerDisplay;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.ClientCommandHandler;
@@ -95,6 +95,9 @@ public class Main
         }
         if(KeyInit.partyManagerKey.isPressed()) {
             PartyManager.startPartyManager();
+        }
+        if(KeyInit.helpKey.isPressed()) {
+            Help.printHelpMessage();
         }
 
         try {
