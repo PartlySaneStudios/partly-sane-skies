@@ -6,6 +6,7 @@ import me.partlysanestudios.partlysaneskies.configgui.ConfigScreen;
 import me.partlysanestudios.partlysaneskies.dungeons.WatcherReady;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManager;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManagerCommand;
+import me.partlysanestudios.partlysaneskies.general.WormWarning;
 import me.partlysanestudios.partlysaneskies.general.rngdropbanner.Drop;
 import me.partlysanestudios.partlysaneskies.general.rngdropbanner.DropBannerDisplay;
 import me.partlysanestudios.partlysaneskies.keybind.KeyInit;
@@ -59,7 +60,8 @@ public class Main
         MinecraftForge.EVENT_BUS.register(new DropBannerDisplay());
         MinecraftForge.EVENT_BUS.register(new PartyManager());
         MinecraftForge.EVENT_BUS.register(new WatcherReady());
-        
+        MinecraftForge.EVENT_BUS.register(new WormWarning());
+
         ClientCommandHandler.instance.registerCommand(new PartyManagerCommand());
         KeyInit.init();
         Utils.init();

@@ -24,7 +24,7 @@ public class WatcherReady {
     Window window= new Window(ElementaVersion.V2);
 
     UIComponent watcherReadyUIText = new UIText("")
-        .setTextScale(new PixelConstraint(2))
+        .setTextScale(new PixelConstraint(3))
         .setX(new CenterConstraint())
         .setY(new PixelConstraint(window.getHeight()*.333f))
         .setColor(Color.white)

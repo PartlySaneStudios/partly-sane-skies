@@ -20,10 +20,17 @@ public class ConfigScreen extends Vigilant{
     public String apiKey = "";
     
 
+
+
+
+
+
+    // ----------------- Category: Skyblock -------------------
+    // Rare Drop
     @Property(
         type = PropertyType.SWITCH,
         name = "Rare Drop Banner",
-        subcategory = "General",
+        subcategory = "Rare Drop",
         description = "On rare drop, get a Pumpkin Dicer like banner.",
         category = "Skyblock"
     )
@@ -33,7 +40,7 @@ public class ConfigScreen extends Vigilant{
         type = PropertyType.DECIMAL_SLIDER,
         minF = 1,
         maxF = 7,
-        subcategory = "General",
+        subcategory = "Rare Drop",
         name = "Rare Drop Banner Time",
         description = "The amount of time the rare drop banner appears for.",
         category = "Skyblock"
@@ -43,12 +50,62 @@ public class ConfigScreen extends Vigilant{
     @Property(
         type = PropertyType.SWITCH,
         name = "Custom Rare Drop Sound",
-        subcategory = "General",
+        subcategory = "Rare Drop",
         description = "Plays a custom sound when you get a rare drop.",
         category = "Skyblock"
     )
     public boolean rareDropBannerSound = false;
 
+
+
+    // -------------- Category: Mining -------------- 
+    // Worm Warning
+    @Property(
+        type = PropertyType.SWITCH,
+        name = "Worm Warning Banner",
+        subcategory = "Worm Warning",
+        description = "A banner appears on your screen when a worm spawns.",
+        category = "Mining"
+    )
+    public boolean wormWarningBanner = false;
+
+    @Property(
+        type = PropertyType.COLOR,
+        subcategory = "Watcher Ready",
+        name = "Watcher Ready Banner Colour",
+        description = "The colour of the watcher ready text",
+        category = "Dungeons"
+    )
+    public Color wormWarningBannerColor = new Color(34, 255, 0);
+
+
+    @Property(
+        type = PropertyType.DECIMAL_SLIDER,
+        minF = 1,
+        maxF = 7,
+        subcategory = "Worm Warning",
+        name = "Worm Warning Banner Time",
+        description = "The amount of time the worm warning banner appears for.",
+        category = "Mining"
+    )
+    public float wormWarningBannerTime = 3.5f;
+    
+    @Property(
+        type = PropertyType.SWITCH,
+        name = "Worm Warning Sound",
+        subcategory = "Worm Warning",
+        description = "Plays a sound when a worm spawns.",
+        category = "Mining"
+    )
+    public boolean wormWarningBannerSound = false;
+
+    
+
+
+
+
+    // ------------- Category: Dungeons ---------------------------------
+    // Party Manager
     @Property(
         type = PropertyType.SLIDER,
         name = "Party Manager Cache Time",
@@ -60,6 +117,9 @@ public class ConfigScreen extends Vigilant{
     )
     public int partyManagerCacheTime = 30;
 
+
+
+    // Watcher Ready Warning
     @Property(
         type = PropertyType.SWITCH,
         name = "Watcher Ready Warning",
@@ -128,6 +188,19 @@ public class ConfigScreen extends Vigilant{
         category = "Dungeons"
     )
     public boolean watcherReadyAirRaidSiren = false;
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public ConfigScreen() {
         super(new File("./config/pss.toml"));
