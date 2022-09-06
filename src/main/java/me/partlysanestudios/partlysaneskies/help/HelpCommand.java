@@ -1,4 +1,4 @@
-package me.partlysanestudios.partlysaneskies.helpcommand;
+package me.partlysanestudios.partlysaneskies.help;
 
 import java.util.Arrays;
 import java.util.List;

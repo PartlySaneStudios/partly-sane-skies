@@ -1,4 +1,4 @@
-package me.partlysanestudios.partlysaneskies.helpcommand;
+package me.partlysanestudios.partlysaneskies.help;
 
 import org.lwjgl.input.Keyboard;
 

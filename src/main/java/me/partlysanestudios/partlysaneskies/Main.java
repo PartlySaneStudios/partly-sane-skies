@@ -9,7 +9,8 @@ import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManagerCo
 import me.partlysanestudios.partlysaneskies.general.WormWarning;
 import me.partlysanestudios.partlysaneskies.general.rngdropbanner.Drop;
 import me.partlysanestudios.partlysaneskies.general.rngdropbanner.DropBannerDisplay;
-import me.partlysanestudios.partlysaneskies.helpcommand.Help;
+import me.partlysanestudios.partlysaneskies.help.Help;
+import me.partlysanestudios.partlysaneskies.help.HelpCommand;
 import me.partlysanestudios.partlysaneskies.keybind.KeyInit;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.Minecraft;
@@ -63,6 +64,7 @@ public class Main
         MinecraftForge.EVENT_BUS.register(new WormWarning());
 
         ClientCommandHandler.instance.registerCommand(new PartyManagerCommand());
+        ClientCommandHandler.instance.registerCommand(new HelpCommand());
         KeyInit.init();
         Utils.init();
 
