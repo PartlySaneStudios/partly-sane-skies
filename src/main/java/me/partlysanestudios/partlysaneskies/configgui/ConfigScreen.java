@@ -124,7 +124,7 @@ public class ConfigScreen extends Vigilant{
         type = PropertyType.SWITCH,
         subcategory = "Watcher Ready",
         name = "Watcher Ready Air Raid Siren",
-        description = "Plays a WWII air raid siren when the watcher is done spawning mobs. \n",
+        description = "Plays a WWII air raid siren when the watcher is done spawning mobs. \nPros: \nKeeps you up at light night grinds \n(RECOMMENDED)",
         category = "Dungeons"
     )
     public boolean watcherReadyAirRaidSiren = false;
