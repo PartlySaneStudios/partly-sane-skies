@@ -44,7 +44,7 @@ public class WatcherReady {
                 Main.minecraft.thePlayer.sendChatMessage("/pc " + Main.config.watcherChatMessage);
             }
             if(Main.config.watcherReadySound) {
-
+                Main.minecraft.thePlayer.playSound("partlysaneskies:bell", 100, 1);
             }
             if(Main.config.watcherReadyAirRaidSiren) {
                 Main.minecraft.thePlayer.playSound("partlysaneskies:airraidsiren", 100, 1);

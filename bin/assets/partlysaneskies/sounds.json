@@ -16,5 +16,14 @@
                 "stream": false
             }
         ]
+    },
+    "bell": {
+        "category": "player",
+        "sounds":[
+            {
+                "name": "partlysaneskies:bell",
+                "stream": false
+            }
+        ]
     }
 }
