@@ -100,14 +100,7 @@ public class PartyMember {
 
         try {
             helmetName = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonArray("armor").get(3).getAsJsonObject().get("name").getAsString();
-            helmetName = helmetName.replaceAll("\\P{Print}", "");
-            helmetName = helmetName.replace("✪", "*");
-            if(Character.isLowerCase(helmetName.charAt(0))|| Character.isDigit(helmetName.charAt(0)) || Character.isWhitespace(helmetName.charAt(0))) {
-                helmetName = new StringBuilder(helmetName)
-                    .replace(0, 1, "")
-                    .toString();
-            }
-            helmetName = helmetName.replaceAll("[0123456789]", "");
+            helmetName = formatText(helmetName);
         }
         catch(NullPointerException e) {
             e.printStackTrace();
@@ -117,14 +110,7 @@ public class PartyMember {
 
         try {
             chestplateName = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonArray("armor").get(2).getAsJsonObject().get("name").getAsString();
-            chestplateName = chestplateName.replaceAll("\\P{Print}", "");
-            chestplateName = chestplateName.replace("✪", "*");
-            if(Character.isLowerCase(chestplateName.charAt(0)) || Character.isDigit(chestplateName.charAt(0)) || Character.isWhitespace(chestplateName.charAt(0))) {
-                chestplateName = new StringBuilder(chestplateName)
-                    .replace(0, 1, "")
-                    .toString();
-            }
-            chestplateName = chestplateName.replaceAll("[0123456789]", "");
+            chestplateName = formatText(chestplateName);
         }
         catch(NullPointerException e) {
             e.printStackTrace();
@@ -134,14 +120,7 @@ public class PartyMember {
 
         try {
             leggingsName = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonArray("armor").get(1).getAsJsonObject().get("name").getAsString();
-            leggingsName = leggingsName.replaceAll("\\P{Print}", "");
-            leggingsName = leggingsName.replace("✪", "*");
-            if(Character.isLowerCase(leggingsName.charAt(0))|| Character.isDigit(leggingsName.charAt(0)) || Character.isWhitespace(leggingsName.charAt(0))) {
-                leggingsName = new StringBuilder(leggingsName)
-                    .replace(0, 1, "")
-                    .toString();
-            }
-            leggingsName = leggingsName.replaceAll("[0123456789]", "");
+            leggingsName = formatText(leggingsName);
         }
         catch(NullPointerException e) {
             e.printStackTrace();
@@ -151,14 +130,7 @@ public class PartyMember {
 
         try {
             bootsName = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonArray("armor").get(0).getAsJsonObject().get("name").getAsString();
-            bootsName = bootsName.replaceAll("\\P{Print}", "");
-            bootsName = bootsName.replace("✪", "*");
-            if(Character.isLowerCase(bootsName.charAt(0))|| Character.isDigit(bootsName.charAt(0)) || Character.isWhitespace(bootsName.charAt(0))) {
-                bootsName = new StringBuilder(bootsName)
-                    .replace(0, 1, "")
-                    .toString();
-            }
-            bootsName = bootsName.replaceAll("[0123456789]", "");
+            bootsName = formatText(bootsName);
         }
         catch(NullPointerException e) {
             e.printStackTrace();
@@ -168,9 +140,7 @@ public class PartyMember {
 
         try {
             selectedDungeonClass = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("dungeons").get("selected_dungeon_class").getAsString();
-            selectedDungeonClass = new StringBuilder(selectedDungeonClass)
-                .replace(0, 1, "" + Character.toUpperCase(selectedDungeonClass.charAt(0)))
-                .toString();
+            selectedDungeonClass = formatText(selectedDungeonClass);
         } catch(NullPointerException e) {
             selectedDungeonClass = "None";
         }
@@ -267,5 +237,20 @@ public class PartyMember {
 
     public boolean isExpired() {
         return this.timeDataGet + Main.config.partyManagerCacheTime * 60 * 1000 < Minecraft.getSystemTime();
+    }
+
+    private String formatText(String text) { 
+        text = text.replace("✪", "*");
+        text = text.replaceAll("\\P{Print}", "");
+        while(Character.isWhitespace(text.charAt(0))) {
+            text = new StringBuilder(text)
+                    .replace(0, 1, "")
+                    .toString();
+        }
+        text = text.replaceAll("[0123456789]", "");
+        text = new StringBuilder(text)
+                    .replace(0, 1, "" + Character.toUpperCase(text.charAt(0)))
+                    .toString();
+        return text; 
     }
 }
