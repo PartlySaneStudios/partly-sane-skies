@@ -105,6 +105,26 @@ public class SkillUpgradeRecommendation {
         return sortedMap;
     }
 
+    public static void printMessage(HashMap<Skills, Double> map) {
+        String message = "Recommended skills to upgrade (In Order): \nNote: Catacombs is often first, but it takes a very long time to level up.\n(Skill) : (Weight added by leveling to next level)";
+        for(Entry<Skills, Double> entry : map.entrySet()) {
+            message += "\n" + formatWord(entry.getKey().toString()) + " : " + Utils.round(entry.getValue(), 2);
+        }
 
+        Utils.sendClientMessage(message);
+    }
     
+
+    private static String formatWord(String text) {
+        while(Character.isWhitespace(text.charAt(0))) {
+            text = new StringBuilder(text)
+                    .replace(0, 1, "")
+                    .toString();
+        }
+        text = text.toLowerCase();
+        text = new StringBuilder(text)
+                    .replace(0, 1, "" + Character.toUpperCase(text.charAt(0)))
+                    .toString();
+        return text; 
+    }
 }

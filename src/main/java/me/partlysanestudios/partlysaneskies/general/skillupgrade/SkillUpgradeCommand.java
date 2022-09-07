@@ -2,9 +2,11 @@ package me.partlysanestudios.partlysaneskies.general.skillupgrade;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import me.partlysanestudios.partlysaneskies.Main;
+import me.partlysanestudios.partlysaneskies.general.skillupgrade.SkillUpgradeRecommendation.Skills;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommand;
@@ -34,20 +36,25 @@ public class SkillUpgradeCommand implements ICommand{
 
     @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
+        HashMap<Skills, Double> map;
         if(args.length > 0) {
             try {
-                SkillUpgradeRecommendation.getRecomendedSkills(args[0]);
+                map = SkillUpgradeRecommendation.getRecomendedSkills(args[0]);
             } catch (IOException e) {
                 Utils.sendClientMessage(Utils.colorCodes("Error getting data for " + args[0] + ". Maybe the player is nicked or there is an invalid API key. Try running /api new."));
+                return;
             }
         }
         else { 
             try {
-                SkillUpgradeRecommendation.getRecomendedSkills(Main.minecraft.thePlayer.getName());
+                map = SkillUpgradeRecommendation.getRecomendedSkills(Main.minecraft.thePlayer.getName());
             } catch (IOException e) {
                 Utils.sendClientMessage(Utils.colorCodes("Error getting data for " + Main.minecraft.thePlayer.getName() + ". Maybe the player is nicked or there is an invalid API key. Try running /api new."));
+                return;
             }
         }
+
+        SkillUpgradeRecommendation.printMessage(map);
     }
 
     @Override

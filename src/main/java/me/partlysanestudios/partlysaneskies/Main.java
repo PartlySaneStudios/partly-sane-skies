@@ -9,6 +9,7 @@ import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManagerCo
 import me.partlysanestudios.partlysaneskies.general.WormWarning;
 import me.partlysanestudios.partlysaneskies.general.rngdropbanner.Drop;
 import me.partlysanestudios.partlysaneskies.general.rngdropbanner.DropBannerDisplay;
+import me.partlysanestudios.partlysaneskies.general.skillupgrade.SkillUpgradeCommand;
 import me.partlysanestudios.partlysaneskies.help.Help;
 import me.partlysanestudios.partlysaneskies.help.HelpCommand;
 import me.partlysanestudios.partlysaneskies.keybind.KeyInit;
@@ -65,6 +66,7 @@ public class Main
 
         ClientCommandHandler.instance.registerCommand(new PartyManagerCommand());
         ClientCommandHandler.instance.registerCommand(new HelpCommand());
+        ClientCommandHandler.instance.registerCommand(new SkillUpgradeCommand());
         KeyInit.init();
         Utils.init();
 

@@ -13,6 +13,7 @@ public class Help {
         try {
             Main.minecraft.ingameGUI.getChatGUI().printChatMessage(new ChatComponentText(Utils.colorCodes(
 "&3&m-----------------------------------------------------&r"+
+"\n"+
 "\n&b&l&nWelcome to Partly Sane Skies!&r"+
 "\nPartly Sane Skies is a mod developed by Su386 and FlagMaster. This mod aims to be a quality of life mod for Hypixel Skyblock."+
 "\n"+
