@@ -106,12 +106,19 @@ public class SkillUpgradeRecommendation {
     }
 
     public static void printMessage(HashMap<Skills, Double> map) {
-        String message = "Recommended skills to upgrade (In Order): \nNote: Catacombs is often first, but it takes a very long time to level up.\n(Skill) : (Weight added by leveling to next level)";
+        String message = 
+        "&3&m-----------------------------------------------------&r\n"+
+        "&b&l&nRecommended skills to level up (In Order):&r" +
+        "\n\n&7This calculation is based off of the amount of weight each skill will add when you level it up. Lower level skills will be prioritized.&r" + 
+        "\n&7&oNote: Catacombs is often first, but it takes a very long time to level up. \n" + 
+        "\n\n&8(Skill) : (Weight added at next level)\n";
+
         for(Entry<Skills, Double> entry : map.entrySet()) {
-            message += "\n" + formatWord(entry.getKey().toString()) + " : " + Utils.round(entry.getValue(), 2);
+            message += "\n" + formatWord(entry.getKey().toString()) + " : " + Utils.round(entry.getValue()*-1d, 2);
         }
 
-        Utils.sendClientMessage(message);
+        message = message + "\n&3&m-----------------------------------------------------&r";
+        Utils.sendClientMessage(Utils.colorCodes(message));
     }
     
 
