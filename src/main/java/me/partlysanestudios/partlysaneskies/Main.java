@@ -2,7 +2,7 @@ package me.partlysanestudios.partlysaneskies;
 
 import java.awt.Color;
 
-import me.partlysanestudios.partlysaneskies.configgui.ConfigScreen;
+import gg.essential.elementa.ElementaVersion;
 import me.partlysanestudios.partlysaneskies.dungeons.WatcherReady;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManager;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManagerCommand;
@@ -63,6 +63,7 @@ public class Main
         MinecraftForge.EVENT_BUS.register(new PartyManager());
         MinecraftForge.EVENT_BUS.register(new WatcherReady());
         MinecraftForge.EVENT_BUS.register(new WormWarning());
+        MinecraftForge.EVENT_BUS.register(new PartlySaneSkiesMainMenu(ElementaVersion.V2));
 
         ClientCommandHandler.instance.registerCommand(new PartyManagerCommand());
         ClientCommandHandler.instance.registerCommand(new HelpCommand());

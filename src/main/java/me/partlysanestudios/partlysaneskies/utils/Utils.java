@@ -12,6 +12,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 import me.partlysanestudios.partlysaneskies.Main;
 import net.minecraft.util.ChatComponentText;
@@ -231,5 +232,9 @@ public class Utils {
         String string = "";
         for (char c : chars) string += c;
         return string;
+    }
+
+    public static int randint(int min, int max){
+        return ThreadLocalRandom.current().nextInt(min, max + 1);
     }
 }
