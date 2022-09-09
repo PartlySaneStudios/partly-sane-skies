@@ -2,8 +2,8 @@ package me.partlysanestudios.partlysaneskies.help;
 
 import org.lwjgl.input.Keyboard;
 
+import me.partlysanestudios.partlysaneskies.KeyInit;
 import me.partlysanestudios.partlysaneskies.Main;
-import me.partlysanestudios.partlysaneskies.keybind.KeyInit;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.util.ChatComponentText;
 
@@ -29,7 +29,7 @@ public class Help {
 "\n    &1> &9To recieve any future updates"+
 "\n"+
 "\n &5> Visit the GitHub"+
-"\n    &5> 7dAll of the features wouldn't fit in this message, so check out the GitHub to see all of the features."+
+"\n    &5> &dAll of the features wouldn't fit in this message, so check out the GitHub to see all of the features."+
 "\n&3&m-----------------------------------------------------&r"+
 "\nCommands:"+
 "\n > /pss"+

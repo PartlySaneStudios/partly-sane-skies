@@ -1,4 +1,4 @@
-package me.partlysanestudios.partlysaneskies.keybind;
+package me.partlysanestudios.partlysaneskies;
 
 import org.lwjgl.input.Keyboard;
 
@@ -14,6 +14,10 @@ public final class KeyInit {
     public static KeyBinding configKey;
     public static KeyBinding partyManagerKey;
     public static KeyBinding helpKey;
+    public static KeyBinding wardrobeKeybind;
+    public static KeyBinding petKeybind;
+    public static KeyBinding craftKeybind;
+    public static KeyBinding storageKeybind;
 
 
 
@@ -22,6 +26,10 @@ public final class KeyInit {
         configKey = registerKey("Config", PSS_CATEGORY, Keyboard.KEY_F7);
         partyManagerKey = registerKey("Party Manager", PSS_CATEGORY, Keyboard.KEY_P);
         helpKey = registerKey("Help", PSS_CATEGORY, Keyboard.KEY_H);
+        wardrobeKeybind = registerKey("Open Wardrobe", PSS_CATEGORY, Keyboard.CHAR_NONE);
+        petKeybind = registerKey("Open Pets Menu", PSS_CATEGORY, Keyboard.CHAR_NONE);
+        craftKeybind = registerKey("Open Crafting Table", PSS_CATEGORY, Keyboard.CHAR_NONE);
+        storageKeybind = registerKey("Open Storage Menu", PSS_CATEGORY, Keyboard.CHAR_NONE);
     }
 
 
