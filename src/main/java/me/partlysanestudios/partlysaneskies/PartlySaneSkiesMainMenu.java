@@ -40,12 +40,14 @@ public class PartlySaneSkiesMainMenu extends WindowScreen{
 
     private UIComponent background;
     private UIComponent middleMenuBar;
+    private UIComponent middleLeftBar;
+    private UIComponent middleRightBar;
     private UIComponent titleImage;
 
     private UIComponent singleplayerButton;
     private UIComponent multiplayerButton;
     private UIComponent modsButton;
-    private UIComponent optionButton;
+    private UIComponent optionsButton;
     private UIComponent quitButton;
 
     private UIComponent singleplayerText;
@@ -102,8 +104,24 @@ public class PartlySaneSkiesMainMenu extends WindowScreen{
             .setY(new CenterConstraint())
             .setHeight(new PixelConstraint(getWindow().getHeight()))
             .setWidth(new PixelConstraint(125*scaleFactor))
-            .setColor(new Color(210, 204, 204, 50))
+            .setColor(new Color(0, 0, 0, 75))
             .setChildOf(background);
+
+        middleLeftBar = new UIBlock()
+            .setX(new PixelConstraint(-2*scaleFactor))
+            .setY(new CenterConstraint())
+            .setHeight(new PixelConstraint(middleMenuBar.getHeight()))
+            .setWidth(new PixelConstraint(2*scaleFactor))
+            .setColor(new Color(62, 168, 250))
+            .setChildOf(middleMenuBar);
+
+        middleRightBar = new UIBlock()
+            .setX(new PixelConstraint(middleMenuBar.getWidth()))
+            .setY(new CenterConstraint())
+            .setHeight(new PixelConstraint(middleMenuBar.getHeight()))
+            .setWidth(new PixelConstraint(2*scaleFactor))
+            .setColor(new Color(62, 168, 250))
+            .setChildOf(middleMenuBar);
         
         float titleHeight = 75;
         float titleWidth = titleHeight*(928/124);
@@ -121,7 +139,7 @@ public class PartlySaneSkiesMainMenu extends WindowScreen{
             .setY(new PixelConstraint(200*scaleFactor))
             .setHeight(new PixelConstraint(40*scaleFactor))
             .setWidth(new PixelConstraint(middleMenuBar.getWidth()))
-            .setColor(new Color(0, 0, 0, 50))
+            .setColor(new Color(0, 0, 0, 0))
             .setChildOf(middleMenuBar);
 
         singleplayerText = new UIText("Singleplayer")
@@ -134,6 +152,14 @@ public class PartlySaneSkiesMainMenu extends WindowScreen{
             this.mc.displayGuiScreen(new GuiSelectWorld(this));
         });
 
+        singleplayerButton.onMouseEnterRunnable(() -> {
+            singleplayerText.setColor(new Color(200, 200, 200));
+        });
+
+        singleplayerButton.onMouseLeaveRunnable(() -> {
+            singleplayerText.setColor(new Color(255, 255, 255));
+        });
+
 
 
         multiplayerButton = new UIBlock()
@@ -141,7 +167,7 @@ public class PartlySaneSkiesMainMenu extends WindowScreen{
             .setY(new PixelConstraint(260*scaleFactor))
             .setHeight(new PixelConstraint(40*scaleFactor))
             .setWidth(new PixelConstraint(middleMenuBar.getWidth()))
-            .setColor(new Color(0, 0, 0, 50))
+            .setColor(new Color(0, 0, 0, 0))
             .setChildOf(middleMenuBar);
 
         multiplayerText = new UIText("Multiplayer")
@@ -154,6 +180,14 @@ public class PartlySaneSkiesMainMenu extends WindowScreen{
             this.mc.displayGuiScreen(new GuiMultiplayer(this));
         });
 
+        multiplayerButton.onMouseEnterRunnable(() -> {
+            multiplayerText.setColor(new Color(200, 200, 200));
+        });
+
+        multiplayerButton.onMouseLeaveRunnable(() -> {
+            multiplayerText.setColor(new Color(255, 255, 255));
+        });
+
 
 
         modsButton = new UIBlock()
@@ -161,7 +195,7 @@ public class PartlySaneSkiesMainMenu extends WindowScreen{
             .setY(new PixelConstraint(320*scaleFactor))
             .setHeight(new PixelConstraint(40*scaleFactor))
             .setWidth(new PixelConstraint(middleMenuBar.getWidth()))
-            .setColor(new Color(0, 0, 0, 50))
+            .setColor(new Color(0, 0, 0, 0))
             .setChildOf(middleMenuBar);
 
         modsText = new UIText("Mods")
@@ -174,24 +208,39 @@ public class PartlySaneSkiesMainMenu extends WindowScreen{
             this.mc.displayGuiScreen(new GuiModList(this));
         });
 
+        modsButton.onMouseEnterRunnable(() -> {
+            modsText.setColor(new Color(200, 200, 200));
+        });
+
+        modsButton.onMouseLeaveRunnable(() -> {
+            modsText.setColor(new Color(255, 255, 255));
+        });
 
 
-        optionButton = new UIBlock()
+        optionsButton = new UIBlock()
             .setX(new CenterConstraint())
             .setY(new PixelConstraint(380*scaleFactor))
             .setHeight(new PixelConstraint(40*scaleFactor))
             .setWidth(new PixelConstraint(middleMenuBar.getWidth()))
-            .setColor(new Color(0, 0, 0, 50))
+            .setColor(new Color(0, 0, 0, 0))
             .setChildOf(middleMenuBar);
 
         optionsText = new UIText("Options")
             .setX(new CenterConstraint())
             .setY(new CenterConstraint())
             .setTextScale(new PixelConstraint(1*scaleFactor))
-            .setChildOf(optionButton);
+            .setChildOf(optionsButton);
 
-        optionButton.onMouseClickConsumer(event -> {
+        optionsButton.onMouseClickConsumer(event -> {
             this.mc.displayGuiScreen(new GuiOptions(this, this.mc.gameSettings));
+        });
+
+        optionsButton.onMouseEnterRunnable(() -> {
+            optionsText.setColor(new Color(200, 200, 200));
+        });
+
+        optionsButton.onMouseLeaveRunnable(() -> {
+            optionsText.setColor(new Color(255, 255, 255));
         });
 
         
@@ -201,7 +250,7 @@ public class PartlySaneSkiesMainMenu extends WindowScreen{
             .setY(new PixelConstraint(440*scaleFactor))
             .setHeight(new PixelConstraint(40*scaleFactor))
             .setWidth(new PixelConstraint(middleMenuBar.getWidth()))
-            .setColor(new Color(0, 0, 0, 50))
+            .setColor(new Color(0, 0, 0, 0))
             .setChildOf(middleMenuBar);
 
         quitText = new UIText("Quit Game")
@@ -212,6 +261,14 @@ public class PartlySaneSkiesMainMenu extends WindowScreen{
 
         quitButton.onMouseClickConsumer(event -> {
             this.mc.shutdown();
+        });
+
+        quitButton.onMouseEnterRunnable(() -> {
+            quitText.setColor(new Color(200, 200, 200));
+        });
+
+        quitButton.onMouseLeaveRunnable(() -> {
+            quitText.setColor(new Color(255, 255, 255));
         });
     }
 
@@ -229,6 +286,18 @@ public class PartlySaneSkiesMainMenu extends WindowScreen{
             .setX(new PixelConstraint(300*scaleFactor))
             .setHeight(new PixelConstraint(getWindow().getHeight()))
             .setWidth(new PixelConstraint(125*scaleFactor));
+
+        middleLeftBar
+            .setX(new PixelConstraint(-2*scaleFactor))
+            .setY(new CenterConstraint())
+            .setHeight(new PixelConstraint(middleMenuBar.getHeight()))
+            .setWidth(new PixelConstraint(2*scaleFactor));
+
+        middleRightBar
+            .setX(new PixelConstraint(middleMenuBar.getWidth()))
+            .setY(new CenterConstraint())
+            .setHeight(new PixelConstraint(middleMenuBar.getHeight()))
+            .setWidth(new PixelConstraint(2*scaleFactor));
 
         float titleHeight = 75;
         float titleWidth = titleHeight*(928/124);
@@ -248,7 +317,6 @@ public class PartlySaneSkiesMainMenu extends WindowScreen{
         
 
         multiplayerButton
-
             .setY(new PixelConstraint(260*scaleFactor))
             .setHeight(new PixelConstraint(40*scaleFactor))
             .setWidth(new PixelConstraint(middleMenuBar.getWidth()));
@@ -266,7 +334,7 @@ public class PartlySaneSkiesMainMenu extends WindowScreen{
             .setTextScale(new PixelConstraint(1*scaleFactor));
         
 
-        optionButton
+        optionsButton
             .setY(new PixelConstraint(380*scaleFactor))
             .setHeight(new PixelConstraint(40*scaleFactor))
             .setWidth(new PixelConstraint(middleMenuBar.getWidth()));
