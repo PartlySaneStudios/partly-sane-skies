@@ -48,12 +48,16 @@ public class PartlySaneSkiesMainMenu extends WindowScreen{
     private UIComponent multiplayerButton;
     private UIComponent modsButton;
     private UIComponent optionsButton;
+    private UIComponent pssOptionsButton;
     private UIComponent quitButton;
+    
+    private UIComponent optionsButtonSplitBar;
 
     private UIComponent singleplayerText;
     private UIComponent multiplayerText;
     private UIComponent modsText;
     private UIComponent optionsText;
+    private UIComponent pssOptionsText;
     private UIComponent quitText;
 
 
@@ -218,9 +222,9 @@ public class PartlySaneSkiesMainMenu extends WindowScreen{
 
 
         optionsButton = new UIBlock()
-            .setX(new CenterConstraint())
+            .setX(new PixelConstraint(0))
             .setY(new PixelConstraint(380*scaleFactor))
-            .setHeight(new PixelConstraint(40*scaleFactor))
+            .setHeight(new PixelConstraint(20*scaleFactor))
             .setWidth(new PixelConstraint(middleMenuBar.getWidth()))
             .setColor(new Color(0, 0, 0, 0))
             .setChildOf(middleMenuBar);
@@ -228,7 +232,7 @@ public class PartlySaneSkiesMainMenu extends WindowScreen{
         optionsText = new UIText("Options")
             .setX(new CenterConstraint())
             .setY(new CenterConstraint())
-            .setTextScale(new PixelConstraint(1*scaleFactor))
+            .setTextScale(new PixelConstraint(.75f*scaleFactor))
             .setChildOf(optionsButton);
 
         optionsButton.onMouseClickConsumer(event -> {
@@ -243,7 +247,43 @@ public class PartlySaneSkiesMainMenu extends WindowScreen{
             optionsText.setColor(new Color(255, 255, 255));
         });
 
-        
+
+        optionsButtonSplitBar = new UIBlock()
+            .setX(new CenterConstraint())
+            .setY(new PixelConstraint(400f * scaleFactor))
+            .setHeight(new PixelConstraint(1*scaleFactor))
+            .setWidth(new PixelConstraint(middleMenuBar.getWidth()*.90f))
+            .setColor(new Color(62, 168, 250))
+            .setChildOf(middleMenuBar);
+
+
+        pssOptionsButton = new UIBlock()
+            .setX(new CenterConstraint())
+            .setY(new PixelConstraint(400*scaleFactor))
+            .setHeight(new PixelConstraint(20*scaleFactor))
+            .setWidth(new PixelConstraint(middleMenuBar.getWidth()))
+            .setColor(new Color(0, 0, 0, 0))
+            .setChildOf(middleMenuBar);
+
+            
+        pssOptionsText = new UIText("Partly Sane Skies Config")
+            .setX(new CenterConstraint())
+            .setY(new CenterConstraint())
+            .setTextScale(new PixelConstraint(.735f*scaleFactor))
+            .setChildOf(pssOptionsButton);
+
+        pssOptionsButton.onMouseClickConsumer(event -> {
+            this.mc.displayGuiScreen(Main.config.gui());
+        });
+
+        pssOptionsButton.onMouseEnterRunnable(() -> {
+            pssOptionsText.setColor(new Color(200, 200, 200));
+        });
+
+        pssOptionsButton.onMouseLeaveRunnable(() -> {
+            pssOptionsText.setColor(new Color(255, 255, 255));
+        });
+
         
         quitButton = new UIBlock()
             .setX(new CenterConstraint())
@@ -270,6 +310,9 @@ public class PartlySaneSkiesMainMenu extends WindowScreen{
         quitButton.onMouseLeaveRunnable(() -> {
             quitText.setColor(new Color(255, 255, 255));
         });
+
+
+
     }
 
 
@@ -335,18 +378,35 @@ public class PartlySaneSkiesMainMenu extends WindowScreen{
         
 
         optionsButton
+            .setX(new PixelConstraint(0))
             .setY(new PixelConstraint(380*scaleFactor))
-            .setHeight(new PixelConstraint(40*scaleFactor))
+            .setHeight(new PixelConstraint(20*scaleFactor))
             .setWidth(new PixelConstraint(middleMenuBar.getWidth()));
         
         optionsText
-            .setTextScale(new PixelConstraint(1*scaleFactor));
+            .setTextScale(new PixelConstraint(.75f*scaleFactor));
+
+
+        optionsButtonSplitBar
+            .setX(new CenterConstraint())
+            .setY(new PixelConstraint(400f * scaleFactor))
+            .setHeight(new PixelConstraint(1*scaleFactor))
+            .setWidth(new PixelConstraint(middleMenuBar.getWidth()*.90f));
+
+        pssOptionsButton
+            .setY(new PixelConstraint(400*scaleFactor))
+            .setHeight(new PixelConstraint(20*scaleFactor))
+            .setWidth(new PixelConstraint(middleMenuBar.getWidth()));
+
+        pssOptionsText
+            .setTextScale(new PixelConstraint(.735f*scaleFactor));
+
 
         quitButton
-            .setY(new PixelConstraint(440*scaleFactor))
-            .setHeight(new PixelConstraint(40*scaleFactor))
+            .setY(new PixelConstraint(440f*scaleFactor))
+            .setHeight(new PixelConstraint(40f*scaleFactor))
             .setWidth(new PixelConstraint(middleMenuBar.getWidth()));
-        
+
         quitText
             .setTextScale(new PixelConstraint(1*scaleFactor));
     }
