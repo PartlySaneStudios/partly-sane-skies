@@ -34,7 +34,15 @@ public class ConfigScreen extends Vigilant{
 
     @Property(
         type = PropertyType.SELECTOR,
-        options = {"Random Image", "Image 1"},
+        options = {
+                    "Random Image",
+                    "View of Main Hub Mountain",
+                    "Aerial View of Hub from Community House",
+                    "Stunning Aerial View of Hub",
+                    "View from Hub Portal (Day)",
+                    "Hub Portal (Night)",
+                    "Wolf Ruins"
+                },
         category = "General",
         subcategory = "Main Menu",
         name = "Show a custom Minecraft Main Menu"

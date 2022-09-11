@@ -30,24 +30,29 @@ public class PartlySaneSkiesMainMenu extends WindowScreen{
     HashMap<Integer, String> imageIdMap = new HashMap<Integer, String>();
 
     public void populateMap() { 
-        imageIdMap.put(1, "/assets/partlysaneskies/textures/gui/main_menu/image_1.png");
+        imageIdMap.put(1, "image_1.png");
+        imageIdMap.put(2, "image_2.png");
+        imageIdMap.put(3, "image_3.png");
+        imageIdMap.put(4, "image_4.png");
+        imageIdMap.put(5, "image_5.png");
+        imageIdMap.put(6, "image_6.png");
     }
 
-    UIComponent background;
-    UIComponent middleMenuBar;
-    UIComponent titleImage;
+    private UIComponent background;
+    private UIComponent middleMenuBar;
+    private UIComponent titleImage;
 
-    UIComponent singleplayerButton;
-    UIComponent multiplayerButton;
-    UIComponent modsButton;
-    UIComponent optionButton;
-    UIComponent quitButton;
+    private UIComponent singleplayerButton;
+    private UIComponent multiplayerButton;
+    private UIComponent modsButton;
+    private UIComponent optionButton;
+    private UIComponent quitButton;
 
-    UIComponent singleplayerText;
-    UIComponent multiplayerText;
-    UIComponent modsText;
-    UIComponent optionsText;
-    UIComponent quitText;
+    private UIComponent singleplayerText;
+    private UIComponent multiplayerText;
+    private UIComponent modsText;
+    private UIComponent optionsText;
+    private UIComponent quitText;
 
 
 
@@ -56,7 +61,7 @@ public class PartlySaneSkiesMainMenu extends WindowScreen{
         if (!(Main.config.customMainMenu)) return;
         if (!(e.gui instanceof GuiMainMenu)) return;
         e.setCanceled(true);
-        Main.minecraft.displayGuiScreen(this);
+        Main.minecraft.displayGuiScreen(new PartlySaneSkiesMainMenu(ElementaVersion.V2));
 
     
     }
@@ -85,7 +90,7 @@ public class PartlySaneSkiesMainMenu extends WindowScreen{
         }
         else image = imageIdMap.get(Main.config.customMainMenuImage);
 
-        background = UIImage.ofResource(image)
+        background = UIImage.ofResource("/assets/partlysaneskies/textures/gui/main_menu/" + image)
             .setX(new CenterConstraint())
             .setY(new CenterConstraint())
             .setWidth(new PixelConstraint(getWindow().getWidth()))
