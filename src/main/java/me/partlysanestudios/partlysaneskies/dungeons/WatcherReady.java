@@ -11,6 +11,8 @@ import gg.essential.elementa.constraints.PixelConstraint;
 import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.Main;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.PositionedSoundRecord;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -44,10 +46,13 @@ public class WatcherReady {
                 Main.minecraft.thePlayer.sendChatMessage("/pc " + Main.config.watcherChatMessage);
             }
             if(Main.config.watcherReadySound) {
-                Main.minecraft.thePlayer.playSound("partlysaneskies:bell", 100, 1);
+                Main.minecraft.getSoundHandler().playSound(PositionedSoundRecord.create(new ResourceLocation("partlysaneskies", "bell")));
             }
             if(Main.config.watcherReadyAirRaidSiren) {
-                Main.minecraft.thePlayer.playSound("partlysaneskies:airraidsiren", 100, 1);
+                // Main.minecraft.theWorld.playSoundAtEntity(Main.minecraft.thePlayer, "partlysaneskies:airraidsiren", 100, 1);
+                // Main.minecraft.thePlayer.playSound("partlysaneskies:airraidsiren", 100, 1);
+
+                Main.minecraft.getSoundHandler().playSound(PositionedSoundRecord.create(new ResourceLocation("partlysaneskies", "airraidsiren")));
             }
         }
     }

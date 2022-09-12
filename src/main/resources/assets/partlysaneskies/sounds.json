@@ -1,6 +1,6 @@
 {
     "rngdropjingle": {
-        "category": "player",
+        "category": "master",
         "sounds": [
             {
                 "name": "partlysaneskies:rngdropjingle",
@@ -9,7 +9,7 @@
         ]
     },
     "airraidsiren": {
-        "category": "player",
+        "category": "master",
         "sounds": [
             {
                 "name": "partlysaneskies:airraidsiren",
@@ -18,7 +18,7 @@
         ]
     },
     "bell": {
-        "category": "player",
+        "category": "master",
         "sounds":[
             {
                 "name": "partlysaneskies:bell",

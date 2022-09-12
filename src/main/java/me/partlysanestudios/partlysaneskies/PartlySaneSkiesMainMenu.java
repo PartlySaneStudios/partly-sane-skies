@@ -12,10 +12,12 @@ import gg.essential.elementa.components.UIText;
 import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
+import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.gui.GuiMultiplayer;
 import net.minecraft.client.gui.GuiOptions;
 import net.minecraft.client.gui.GuiSelectWorld;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.fml.client.GuiModList;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -68,8 +70,7 @@ public class PartlySaneSkiesMainMenu extends WindowScreen{
         if (!(e.gui instanceof GuiMainMenu)) return;
         e.setCanceled(true);
         Main.minecraft.displayGuiScreen(new PartlySaneSkiesMainMenu(ElementaVersion.V2));
-
-    
+        Main.minecraft.getSoundHandler().playSound(PositionedSoundRecord.create(new ResourceLocation("partlysaneskies", "bell")));
     }
 
     @Override
@@ -310,9 +311,6 @@ public class PartlySaneSkiesMainMenu extends WindowScreen{
         quitButton.onMouseLeaveRunnable(() -> {
             quitText.setColor(new Color(255, 255, 255));
         });
-
-
-
     }
 
 
