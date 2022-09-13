@@ -1,6 +1,7 @@
 package me.partlysanestudios.partlysaneskies;
 
 import java.awt.Color;
+import java.io.IOException;
 
 import gg.essential.elementa.ElementaVersion;
 import me.partlysanestudios.partlysaneskies.dungeons.WatcherReady;
@@ -55,7 +56,12 @@ public class Main
 
         Main.config = new ConfigScreen();
         
-
+        try {
+            PartyManager.loadPersonalPlayerData();
+        } catch (IOException e) {
+            System.out.println("Partly Sane Skies: Unable to load player data.");
+            e.printStackTrace();
+        }
 
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new DropBannerDisplay());

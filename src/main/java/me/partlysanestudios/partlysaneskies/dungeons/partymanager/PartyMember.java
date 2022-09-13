@@ -18,6 +18,7 @@ public class PartyMember {
 
     public String username;
     public PartyRank rank;
+    public boolean isPlayer = false;
 
 
     // Data
@@ -66,6 +67,10 @@ public class PartyMember {
     public PartyMember(String username, PartyRank partyRank) {
         this.timeDataGet = 0;
         this.username = username;
+        this.rank = partyRank;
+    }
+
+    public void setRank(PartyRank partyRank) {
         this.rank = partyRank;
     }
 
@@ -236,8 +241,11 @@ public class PartyMember {
     }
 
     public boolean isExpired() {
+        if(isPlayer) return this.timeDataGet + Main.config.partyManagerCacheTime * 60 * 1000 * 2 < Minecraft.getSystemTime();
         return this.timeDataGet + Main.config.partyManagerCacheTime * 60 * 1000 < Minecraft.getSystemTime();
     }
+
+    
 
     private String formatText(String text) { 
         text = text.replace("✪", "*");
