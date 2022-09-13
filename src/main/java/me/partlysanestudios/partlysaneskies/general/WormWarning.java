@@ -1,7 +1,5 @@
 package me.partlysanestudios.partlysaneskies.general;
 
-import java.awt.Color;
-
 import gg.essential.elementa.ElementaVersion;
 import gg.essential.elementa.UIComponent;
 import gg.essential.elementa.components.UIText;
@@ -27,7 +25,7 @@ public class WormWarning {
         .setTextScale(new PixelConstraint(3))
         .setX(new CenterConstraint())
         .setY(new PixelConstraint(window.getHeight()*.333f))
-        .setColor(Color.white)
+        .setColor(Main.config.wormWarningBannerColor)
         .setChildOf(window);
 
     String wormWarnignString = "";

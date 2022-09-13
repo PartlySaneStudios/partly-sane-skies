@@ -186,7 +186,7 @@ public class ConfigScreen extends Vigilant{
         description = "The colour of the watcher ready text",
         category = "Dungeons"
     )
-    public Color watcherReadyBannerColor = new Color(150, 45, 6);
+    public Color watcherReadyBannerColor = new Color(255, 45, 6);
 
     @Property(
         type = PropertyType.SWITCH,
