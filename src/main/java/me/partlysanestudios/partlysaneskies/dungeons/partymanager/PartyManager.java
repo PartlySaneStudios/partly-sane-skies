@@ -18,8 +18,9 @@ public class PartyManager {
     private static boolean isMembersListed = false;
     private static String[] RANK_NAMES = {"[VIP]", "[VIP+]", "[MVP]", "[MVP+]", "[MVP++]", "[YOUTUBE]", "[MOJANG]", "[EVENTS]", "[MCP]", "[PIG]", "[PIG+]", "[PIG++]", "[PIG+++]", "[GM]", "[ADMIN]", "[OWNER]"};
     
-    public static HashMap<String, PartyMember> playerCache = new HashMap<String, PartyMember> ();
-    public static List<PartyMember> partyList = new ArrayList<PartyMember>();
+    private static HashMap<String, PartyMember> playerCache = new HashMap<String, PartyMember> ();
+    private static List<PartyMember> partyList = new ArrayList<PartyMember>();
+    private static boolean isLeader;
     public PartyManager() {
         
     }
@@ -125,7 +126,7 @@ public class PartyManager {
 
         getData();
     
-        gui.populateGui(partyList);
+        gui.populateGui(partyList, isLeader);
     }
 
     public static void addPartyMember(String username, PartyRank partyRank) {

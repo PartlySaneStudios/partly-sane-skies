@@ -65,7 +65,7 @@ public class PartyManagerGui extends WindowScreen{
     }
     
     
-    public void populateGui(List<PartyMember> partyMembers) {
+    public void populateGui(List<PartyMember> partyMembers, boolean isLeader) {
         float scaleFactor = (list.getWidth()-20f)/967.5f;
         float height = 100f*scaleFactor;
         UIComponent topBarBlock = new UIBlock()
@@ -698,7 +698,8 @@ public class PartyManagerGui extends WindowScreen{
                 .setChildOf(kickButton);
 
             kickButton.onMouseClickConsumer(event -> {
-                Main.minecraft.thePlayer.sendChatMessage("/party kick " + member.username);
+                if(isLeader) Main.minecraft.thePlayer.sendChatMessage("/party kick " + member.username);
+                else Main.minecraft.thePlayer.sendChatMessage("/pc Recommend you kick " + member.username);
             });
 
         
