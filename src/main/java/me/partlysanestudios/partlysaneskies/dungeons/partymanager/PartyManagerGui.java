@@ -1,6 +1,7 @@
 package me.partlysanestudios.partlysaneskies.dungeons.partymanager;
 
 import java.awt.Color;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -741,6 +742,22 @@ public class PartyManagerGui extends WindowScreen{
 
             transferButton.onMouseClickConsumer(event -> {
                 Main.minecraft.thePlayer.sendChatMessage("/party transfer " + member.username);
+            });
+
+            UIComponent refreshButton = new UIRoundedRectangle(10f)
+                .setX(new PixelConstraint(memberBlock.getWidth()-30f*scaleFactor))
+                .setY(new PixelConstraint(10f*scaleFactor))
+                .setWidth(new PixelConstraint(20f*scaleFactor))
+                .setHeight(new PixelConstraint(20f*scaleFactor))
+                .setColor(new Color(60, 222, 79))
+                .setChildOf(memberBlock);
+            
+            refreshButton.onMouseClickConsumer(event ->{
+                try {
+                    member.getData();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             });
 
 
