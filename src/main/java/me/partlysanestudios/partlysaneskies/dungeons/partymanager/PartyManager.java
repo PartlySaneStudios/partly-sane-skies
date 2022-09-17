@@ -18,9 +18,8 @@ public class PartyManager {
     private static boolean isMembersListed = false;
     private static String[] RANK_NAMES = {"[VIP]", "[VIP+]", "[MVP]", "[MVP+]", "[MVP++]", "[YOUTUBE]", "[MOJANG]", "[EVENTS]", "[MCP]", "[PIG]", "[PIG+]", "[PIG++]", "[PIG+++]", "[GM]", "[ADMIN]", "[OWNER]"};
     
-    private static HashMap<String, PartyMember> playerCache = new HashMap<String, PartyMember> ();
+    public static HashMap<String, PartyMember> playerCache = new HashMap<String, PartyMember> ();
     private static List<PartyMember> partyList = new ArrayList<PartyMember>();
-    private static boolean isLeader;
     public PartyManager() {
         
     }
@@ -123,10 +122,8 @@ public class PartyManager {
     public static void openGui() {
         PartyManagerGui gui = new PartyManagerGui();
         Main.minecraft.displayGuiScreen(gui);
-
-        getData();
     
-        gui.populateGui(partyList, isLeader);
+        gui.populateGui(partyList);
     }
 
     public static void addPartyMember(String username, PartyRank partyRank) {
@@ -141,26 +138,34 @@ public class PartyManager {
         }
     }
 
-    public static void getData() {
-        for(PartyMember member : partyList) {
-            if(member.isExpired()) {
-                try {
-                    member.getData();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    continue;
-                }
-            }
-            playerCache.put(member.username, member);
-        }
-    }
-
     public static void loadPersonalPlayerData() throws IOException {
         String username = Main.minecraft.getSession().getUsername();
         PartyMember player = new PartyMember(username, PartyRank.LEADER);
         player.getData();
         player.isPlayer = true;
         playerCache.put(username, player);
+    }
 
+    public static void reparty(List<PartyMember> partyMembers) {
+        Main.minecraft.thePlayer.sendChatMessage("/party disband");
+        Long timeDelay = 500l;
+
+        for(PartyMember member : partyMembers) {   
+            final long finalTimeDelay = timeDelay.longValue();
+            new Thread() {
+                @Override
+                public void run() {
+                    try {
+
+                        Thread.sleep(finalTimeDelay);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    Main.minecraft.thePlayer.sendChatMessage("/party invite " + member.username);
+                }
+            }.start();
+
+            timeDelay += 500l;
+        }
     }
 }
