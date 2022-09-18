@@ -107,7 +107,11 @@ public class PartyMember {
 
         }
         
-        
+        try {
+            averageSkillLevel = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).get("average_skill_level").getAsFloat();
+        } catch(NullPointerException e) {
+            averageSkillLevel = 0;
+        } 
 
         try {
             helmetName = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonArray("armor").get(3).getAsJsonObject().get("name").getAsString();

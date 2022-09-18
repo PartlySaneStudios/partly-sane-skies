@@ -56,7 +56,7 @@ public class PartyManagerGui extends WindowScreen{
     public void populateGui(List<PartyMember> partyMembers) {
         ((ScrollComponent) list).setScrollBarComponent(scrollBar, false, false);;
         float scaleFactor = (list.getWidth()-20f)/967.5f;
-        float height = 160f*scaleFactor;
+        float height = 180f*scaleFactor;
         UIComponent topBarBlock = new UIBlock()
             .setWidth(new PixelConstraint(list.getWidth()-20f))
             .setHeight(new ScaleConstraint(new PixelConstraint(150f), scaleFactor))
