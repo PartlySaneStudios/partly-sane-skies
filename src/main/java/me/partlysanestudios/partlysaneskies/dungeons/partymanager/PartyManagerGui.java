@@ -17,7 +17,6 @@ import gg.essential.elementa.constraints.PixelConstraint;
 import gg.essential.elementa.constraints.ScaleConstraint;
 import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.Main;
-import me.partlysanestudios.partlysaneskies.utils.Utils;
 
 public class PartyManagerGui extends WindowScreen{
 
@@ -65,7 +64,6 @@ public class PartyManagerGui extends WindowScreen{
             .setY(new PixelConstraint(10))
             .setChildOf(list);
 
-        Utils.visPrint(list.getWidth()-20);
         createPartyManagementButtons(topBarBlock, scaleFactor, partyMembers);
         createJoinFloorButtons(topBarBlock, scaleFactor);
 
@@ -183,6 +181,13 @@ public class PartyManagerGui extends WindowScreen{
         readyRequestButton.onMouseClickConsumer(event -> {
             Main.minecraft.thePlayer.sendChatMessage("/pc Everyone Ready?");
         });
+
+        new UIText("Party Size: " + partyMembers.size())
+            .setTextScale(new PixelConstraint(2f*scaleFactor))
+            .setX(new PixelConstraint(425f*scaleFactor))
+            .setY(new PixelConstraint(10f*scaleFactor))
+            .setColor(Color.white)
+            .setChildOf(topBarBlock);
     }
 
 

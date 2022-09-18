@@ -36,25 +36,33 @@ public class SkillUpgradeCommand implements ICommand{
 
     @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
-        HashMap<Skills, Double> map;
-        if(args.length > 0) {
-            try {
-                map = SkillUpgradeRecommendation.getRecomendedSkills(args[0]);
-            } catch (IOException e) {
-                Utils.sendClientMessage(Utils.colorCodes("Error getting data for " + args[0] + ". Maybe the player is nicked or there is an invalid API key. Try running /api new."));
-                return;
-            }
-        }
-        else { 
-            try {
-                map = SkillUpgradeRecommendation.getRecomendedSkills(Main.minecraft.thePlayer.getName());
-            } catch (IOException e) {
-                Utils.sendClientMessage(Utils.colorCodes("Error getting data for " + Main.minecraft.thePlayer.getName() + ". Maybe the player is nicked or there is an invalid API key. Try running /api new."));
-                return;
-            }
-        }
+        Utils.sendClientMessage("Loading...");
 
-        SkillUpgradeRecommendation.printMessage(map);
+        new Thread() {
+            @Override
+            public void run() {
+                HashMap<Skills, Double> map;
+                if(args.length > 0) {
+                    try {
+                        map = SkillUpgradeRecommendation.getRecomendedSkills(args[0]);
+                    } catch (IOException e) {
+                        Utils.sendClientMessage(Utils.colorCodes("Error getting data for " + args[0] + ". Maybe the player is nicked or there is an invalid API key. Try running /api new."));
+                        return;
+                    }
+                }
+                else { 
+                    try {
+                        map = SkillUpgradeRecommendation.getRecomendedSkills(Main.minecraft.thePlayer.getName());
+                    } catch (IOException e) {
+                        Utils.sendClientMessage(Utils.colorCodes("Error getting data for " + Main.minecraft.thePlayer.getName() + ". Maybe the player is nicked or there is an invalid API key. Try running /api new."));
+                        return;
+                    }
+                }
+
+                SkillUpgradeRecommendation.printMessage(map);
+            }
+        }.start();
+        
     }
 
     @Override
