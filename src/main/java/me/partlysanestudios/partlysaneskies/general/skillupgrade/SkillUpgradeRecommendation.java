@@ -68,39 +68,40 @@ public class SkillUpgradeRecommendation {
         }
         if (skills.getAsJsonObject("foraging").get("level").getAsDouble() < 50) {
             double level = skills.getAsJsonObject("foraging").get("level").getAsDouble();
-            if(level < 5) map.put(Skills.FORAGING, 100000000d);
+            if(level < 5) map.put(Skills.FORAGING, -100000d);
             else map.put(Skills.FORAGING, ((50 - level)) / (calculateSkillWeight(level, FORAGING_CONSTANT) - calculateSkillWeight(Math.ceil(level), FORAGING_CONSTANT)) * 1.00 + 10);
         }
         if (skills.getAsJsonObject("enchanting").get("level").getAsDouble() < 60) {
             double level = skills.getAsJsonObject("enchanting").get("level").getAsDouble();
-            if(level < 5) map.put(Skills.ENCHANTING, 100000d);
+            if(level < 5) map.put(Skills.ENCHANTING, -100000d);
             else map.put(Skills.ENCHANTING, ((60 - level)) / (calculateSkillWeight(level, ENCHANTING_CONSTANT) - calculateSkillWeight(Math.ceil(level), ENCHANTING_CONSTANT)) * 1.00 + 10);
         }
         if (skills.getAsJsonObject("farming").get("level").getAsDouble() < 60) {
             double level = skills.getAsJsonObject("farming").get("level").getAsDouble();
-            if(level < 5) map.put(Skills.FARMING, 100000d);
+            if(level < 5) map.put(Skills.FARMING, -100000d);
             else map.put(Skills.FARMING, ((60 - level)) / (calculateSkillWeight(level, FARMING_CONSTANT) - calculateSkillWeight(Math.ceil(level), FARMING_CONSTANT)) * 1.00 + 10);
         }
         if (skills.getAsJsonObject("combat").get("level").getAsDouble() < 60) {
             double level = skills.getAsJsonObject("combat").get("level").getAsDouble();
-            if(level < 5) map.put(Skills.COMBAT, 100000d);
+            if(level < 5) map.put(Skills.COMBAT, -100000d);
             else map.put(Skills.COMBAT, ((60 - level)) / (calculateSkillWeight(level, COMBAT_CONSTANT) - calculateSkillWeight(Math.ceil(level), COMBAT_CONSTANT)) * 1.00 + 10);
         }
         if (skills.getAsJsonObject("fishing").get("level").getAsDouble() < 50) {
             double level = skills.getAsJsonObject("fishing").get("level").getAsDouble();
-            if(level < 5) map.put(Skills.FISHING, 100000d);
+            if(level < 5) map.put(Skills.FISHING, -100000d);
             else map.put(Skills.FISHING, ((50 - level)) / (calculateSkillWeight(level, FISHING_CONSTANT) - calculateSkillWeight(Math.ceil(level), FISHING_CONSTANT)) * 1.00 + 10);
         }
         if (skills.getAsJsonObject("alchemy").get("level").getAsDouble() < 50) {
             
             double level = skills.getAsJsonObject("alchemy").get("level").getAsDouble();
-            if(level < 5) map.put(Skills.ALCHEMY, 100000d);
+            if(level < 5) map.put(Skills.ALCHEMY, -100000d);
             else map.put(Skills.ALCHEMY, ((50 - level)) / (calculateSkillWeight(level, ALCHEMY_CONSTANT) - calculateSkillWeight(Math.ceil(level), ALCHEMY_CONSTANT)) * .90 + 10);
         }
 
         if (senitherJson.getAsJsonObject("data").getAsJsonObject("dungeons").getAsJsonObject("types").getAsJsonObject("catacombs").get("level").getAsDouble() < 50){
             double level = senitherJson.getAsJsonObject("data").getAsJsonObject("dungeons").getAsJsonObject("types").getAsJsonObject("catacombs").get("level").getAsDouble();
-            map.put(Skills.CATACOMBS, ((50 - level)) / (calculateCatacombsWeight(level) - calculateCatacombsWeight(Math.ceil(level))) * 1.10 + 10);
+            if(level < 5) map.put(Skills.CATACOMBS, -100000d);
+            else map.put(Skills.CATACOMBS, ((50 - level)) / (calculateCatacombsWeight(level) - calculateCatacombsWeight(Math.ceil(level))) * 1.10 + 10);
         }
 
         LinkedHashMap<Skills, Double> sortedMap = new LinkedHashMap<Skills, Double>();

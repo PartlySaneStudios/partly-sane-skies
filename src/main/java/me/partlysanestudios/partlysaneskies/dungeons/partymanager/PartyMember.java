@@ -7,6 +7,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import gg.essential.elementa.UIComponent;
+import gg.essential.elementa.components.UIImage;
 import gg.essential.elementa.components.UIRoundedRectangle;
 import gg.essential.elementa.components.UIText;
 import gg.essential.elementa.constraints.CenterConstraint;
@@ -589,6 +590,13 @@ public class PartyMember {
             .setColor(new Color(60, 222, 79))
             .setChildOf(memberBlock);
         
+        UIImage.ofResource("/assets/partlysaneskies/textures/gui/party_finder/refresh.png")
+            .setX(new CenterConstraint())
+            .setY(new CenterConstraint())
+            .setWidth(new PixelConstraint(20f*scaleFactor))
+            .setHeight(new PixelConstraint(20f*scaleFactor))
+            .setChildOf(refreshButton);
+
         refreshButton.onMouseClickConsumer(event ->{
             try {
                 this.getData();
