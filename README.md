@@ -1,4 +1,4 @@
-## **Partly Sane Studios Presents:** *Partly Sane Skies!*
+**Partly Sane Studios Presents:** *Partly Sane Skies!*
 <br>
 <br>
 Current Version: **0.0.4**
@@ -10,3 +10,7 @@ This is a Mod for Hypixle Skyblock made, designed, and coded by **Su386** and **
 The list of the features are the following:
 <br>
 <br>
+## General/Miscellaneous
+<br>
+* Custom Main Menu with 5 different options from Skyblock-themed backrounds
+
