@@ -1,12 +1,14 @@
 package me.partlysanestudios.partlysaneskies;
 
 import java.awt.Color;
+import java.io.File;
 import java.io.IOException;
 
 import gg.essential.elementa.ElementaVersion;
 import me.partlysanestudios.partlysaneskies.dungeons.WatcherReady;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManager;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManagerCommand;
+import me.partlysanestudios.partlysaneskies.dungeons.permpartyselector.PermPartyManager;
 import me.partlysanestudios.partlysaneskies.general.WormWarning;
 import me.partlysanestudios.partlysaneskies.general.rngdropbanner.Drop;
 import me.partlysanestudios.partlysaneskies.general.rngdropbanner.DropBannerDisplay;
@@ -54,8 +56,18 @@ public class Main
         Main.isDebugMode = false;
         Main.minecraft = Minecraft.getMinecraft();
 
+       
+
         Main.config = new ConfigScreen();
-        
+        new File("./config/partly-sane-skies/").mkdirs();
+        try {
+            PermPartyManager.permPartyMap = PermPartyManager.load();
+            Utils.visPrint(PermPartyManager.permPartyMap.get("test").name);
+        } catch (IOException e) {
+
+            e.printStackTrace();
+        }
+
         try {
             PartyManager.loadPersonalPlayerData();
         } catch (IOException e) {

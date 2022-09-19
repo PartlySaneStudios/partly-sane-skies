@@ -233,7 +233,7 @@ public class ConfigScreen extends Vigilant{
 
 
     public ConfigScreen() {
-        super(new File("./config/pss.toml"));
+        super(new File("./config/partly-sane-skies/pss.toml"));
         this.initialize();
 
         
