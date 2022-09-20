@@ -2,7 +2,7 @@
 Current Version: **Prealpha 0.0.4**
 <br>
 
-This is a Mod for Hypixel Skyblock made, designed, and coded by **Su386** and **FlagMaster (FlagHater)**
+This is a Minecraft mod for Hypixel Skyblock, designed, built, and programmed by **Su386** and **FlagMaster (FlagHater)**
 <br>
 ### Download:
 https://github.com/Su386yt/partly-sane-skies/releases
