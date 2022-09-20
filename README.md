@@ -12,6 +12,10 @@ Open the assets dropdown for the latest version and dowload "partly-sane-skies" 
 ### Discord:
 
 Join the discord for help, support, giveaways, and updates as they happen.
+# Commands
+``/pss``: A help command for Partly Sane Skies
+``/skillup``: Command to use the skill upgrade recommandation feature. (See Features)
+``/pm``: Command to open the Party Manager.
 
 # Features:
 
@@ -23,10 +27,10 @@ General and miscellaneous features.
 Upon start up of Minecraft, a nice, Skyblock themed main menu will display. There are various configurable options from Skyblock-themed backrounds, along with an option to select a random background.
 
 ### Skill Upgrade Reccomendation
-A helpfull comand to help recommend what skill you should upgrade less. Using ``/skillup <username>`` or ``/su <username>`` will provide a list of 
+A helpful command to help recommend what skill you should upgrade less. Using ``/skillup <username>`` or ``/su <username>`` will provide a list of 
 
 ### RNG Drop banner and sound
 When you get a rare drop, a Pumpkin Dicer or Melon Slicer like pop-up banner will appear, along with a sound, celebrating your drop.
 
 ### Party Manager
-Manage your party and join dungeons with a helpful party manager, with features such as viewing stats, kicking, party transfer buttons, and etc. Included in the Party Manager GUI.
+Manage your party and join dungeons with a helpful party manager, with features such as viewing stats, kicking, party transfer buttons, and etc. Included in the Party Manager GUI. You can open it by typing the command ``/pm`` or by using the keybind. Default: ``P``
