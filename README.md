@@ -9,10 +9,10 @@ This is a Mod for Hypixle Skyblock made, designed, and coded by **Su386** and **
 Features
 ## General/Miscellaneous
 <br>
-* Custom Main Menu 
+### **Custom Main Menu**
 <br>
----- 5 configurable options from Skyblock-themed backrounds
+5 configurable options from Skyblock-themed backrounds
 <br>
-**Skill Upgrade Reccomendation**
+### **Skill Upgrade Reccomendation**
 <br>
----- Recommends to you what skills to upgrade next 
+Recommends to you what skills to upgrade next 
