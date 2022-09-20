@@ -56,15 +56,12 @@ public class Main
         Main.isDebugMode = false;
         Main.minecraft = Minecraft.getMinecraft();
 
-       
-
         Main.config = new ConfigScreen();
         new File("./config/partly-sane-skies/").mkdirs();
         try {
             PermPartyManager.permPartyMap = PermPartyManager.load();
             Utils.visPrint(PermPartyManager.permPartyMap.get("test").name);
         } catch (IOException e) {
-
             e.printStackTrace();
         }
 
