@@ -14,7 +14,9 @@ Open the assets dropdown for the latest version and dowload "partly-sane-skies" 
 Join the discord for help, support, giveaways, and updates as they happen.
 # Commands
 ``/pss``: A help command for Partly Sane Skies
+
 ``/skillup``: Command to use the skill upgrade recommandation feature. (See Features)
+
 ``/pm``: Command to open the Party Manager.
 
 # Features:
