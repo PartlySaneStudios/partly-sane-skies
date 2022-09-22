@@ -15,8 +15,11 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.internal.LinkedTreeMap;
 
+import me.partlysanestudios.partlysaneskies.utils.Utils;
+
 public class PermPartyManager {
     public static HashMap<String, PermParty> permPartyMap = new HashMap<String, PermParty>(); 
+    public static PermParty favouriteParty;
 
     public static HashMap<String, PermParty> load() throws IOException {
         File file = new File("./config/partly-sane-skies/permPartyData.json");
@@ -58,5 +61,51 @@ public class PermPartyManager {
         writer.write(json);
         writer.close();
         return permPartyMap;
+    }
+
+    public static boolean deleteParty(String name) {
+        permPartyMap.remove(name);
+        
+        try {
+            save();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Utils.sendClientMessage("Could not save Permanent Party Data.");
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean addParty(String name, List<String> partyMembers) {
+        permPartyMap.put(name, new PermParty(name, partyMembers));
+        try {
+            save();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Utils.sendClientMessage("Could not save Permanent Party Data.");
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean favouriteParty(String name) {
+        for(Entry<String, PermParty> en : permPartyMap.entrySet()) {
+            PermParty party = en.getValue();
+            party.isFavourite = false;
+            permPartyMap.put(en.getKey(), party);
+        }
+        PermParty party = permPartyMap.get(name);
+        party.isFavourite = true;
+        permPartyMap.put(name, party);
+        favouriteParty = party;
+
+        try {
+            save();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Utils.sendClientMessage("Could not save Permanent Party Data.");
+            return false;
+        }
+        return true;
     }
 }
