@@ -10,8 +10,10 @@ https://github.com/Su386yt/partly-sane-skies/releases
 Open the assets dropdown for the latest version and dowload "partly-sane-skies" .jar file.
 
 ### Discord:
+https://discord.gg/v4PU3WeH7z
 
 Join the discord for help, support, giveaways, and updates as they happen.
+
 # Commands
 ``/pss``: A help command for Partly Sane Skies
 
