@@ -19,6 +19,8 @@ Join the discord for help, support, giveaways, and updates as they happen.
 
 ``/pm``: Command to open the Party Manager.
 
+``/pp``: Command to use Permanent Dungeon Party Selector. (See Features)
+
 # Features:
 
 **Everything is in this list can be configured in the config menu. Default Keybind: ``F7``. The config menu can also be accessed through the custom skyblock main menu.**
