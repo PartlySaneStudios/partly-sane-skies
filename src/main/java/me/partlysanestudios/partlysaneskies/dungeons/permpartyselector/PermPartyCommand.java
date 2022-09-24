@@ -39,7 +39,7 @@ public class PermPartyCommand implements ICommand{
                 Utils.colorCodes(
                     "&3/pp <partyid>\n&7Parties everyone in the perm party."+
                     "\n&3/pp add <partyid> <playerusername>\n&7Adds a player to the perm party."+
-                    "\n&3/pp list {partyid}\n&7Lists all of the members in a given party. If not party is specified, lists all perm parties."+
+                    "\n&3/pp list {partyid}\n&7Lists all of the members in a given party. If no party is specified, lists all perm parties."+
                     "\n&3/pp delete <partyid>\n&7Deletes a perm party. (Note: There is no way to undo this action)."+
                     "\n&3/pp new <partyid> {partymembers}\n&7Creates a new perm party."+
                     "\n&3/pp fav {partyid}\n&7Sets party as favourite. If no party is specified, parties everyone in the favourite perm party."
@@ -101,7 +101,7 @@ public class PermPartyCommand implements ICommand{
                     Utils.sendClientMessage(party.name + " | Members: " + party.getMemberString());
                 }
                 else {
-                    Utils.sendClientMessage(Utils.colorCodes("&cNo party was found with the ID " + args[1] + ".\n&cCorrect usage: /pp list {partyid}\n&7Lists all of the members in a given party. If not party is specified, lists all parties."));
+                    Utils.sendClientMessage(Utils.colorCodes("&cNo party was found with the ID " + args[1] + ".\n&cCorrect usage: /pp list {partyid}\n&7Lists all of the members in a given party. If no party is specified, lists all parties."));
                 }
             }
         }
