@@ -8,6 +8,7 @@ import gg.essential.elementa.ElementaVersion;
 import me.partlysanestudios.partlysaneskies.dungeons.WatcherReady;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManager;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManagerCommand;
+import me.partlysanestudios.partlysaneskies.dungeons.permpartyselector.PermPartyCommand;
 import me.partlysanestudios.partlysaneskies.dungeons.permpartyselector.PermPartyManager;
 import me.partlysanestudios.partlysaneskies.general.WormWarning;
 import me.partlysanestudios.partlysaneskies.general.rngdropbanner.Drop;
@@ -60,7 +61,7 @@ public class Main
         new File("./config/partly-sane-skies/").mkdirs();
         try {
             PermPartyManager.permPartyMap = PermPartyManager.load();
-            Utils.visPrint(PermPartyManager.permPartyMap.get("test").name);
+            PermPartyManager.loadFavouriteParty();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -82,6 +83,7 @@ public class Main
         ClientCommandHandler.instance.registerCommand(new PartyManagerCommand());
         ClientCommandHandler.instance.registerCommand(new HelpCommand());
         ClientCommandHandler.instance.registerCommand(new SkillUpgradeCommand());
+        ClientCommandHandler.instance.registerCommand(new PermPartyCommand());
         KeyInit.init();
         Utils.init();
 

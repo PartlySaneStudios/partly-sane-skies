@@ -29,12 +29,12 @@ public class PermPartyManager {
             writer.write(new Gson().toJson(new ArrayList<PermParty>()));
             writer.close();
         }
+        
         file.setWritable(true);
         Reader reader;
         reader = Files.newBufferedReader(Paths.get(file.getPath()));
         
         @SuppressWarnings("unchecked")
-        
         List<LinkedTreeMap<String, String>> map = new Gson().fromJson(reader, ((List<LinkedTreeMap<String, String>>) new ArrayList<LinkedTreeMap<String, String>>()).getClass());
         HashMap<String, PermParty> finalMap = new HashMap<String, PermParty>();
         for(LinkedTreeMap<String, String> key : map) {
@@ -107,5 +107,14 @@ public class PermPartyManager {
             return false;
         }
         return true;
+    }
+
+    public static void loadFavouriteParty() {
+        for(Entry<String, PermParty> en : permPartyMap.entrySet()) {
+            PermParty party = en.getValue();
+            if(party.isFavourite) {
+                favouriteParty = party;
+            }
+        }
     }
 }

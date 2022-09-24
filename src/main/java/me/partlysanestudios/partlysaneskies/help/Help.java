@@ -38,6 +38,9 @@ public class Help {
 "\n > /pm, /partymanager"+
 "\n    > Opens the Party Manager"+
 "\n"+
+"\n > /permparty, /permp, /pp"+
+"\n    > Allows you to auto party permanent parties"+
+"\n"+
 "\n > /skillup <username>, /su <username> "+
 "\n    > Recommends which skill you should upgrade next."+
 "\n&3&m-----------------------------------------------------&r"
