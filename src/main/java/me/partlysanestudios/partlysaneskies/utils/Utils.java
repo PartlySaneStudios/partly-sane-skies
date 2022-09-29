@@ -85,14 +85,6 @@ public class Utils {
         return textBuilder.toString();
     }
 
-    public static boolean detectScoreboardName(String desiredName) {
-        String scoreboardName = Main.minecraft.thePlayer.getWorldScoreboard().getObjectiveInDisplaySlot(1).getDisplayName();
-    
-        if(removeColorCodes(scoreboardName).contains(desiredName)) return true;
-    
-        return false;
-    }
-
     public static double toPercentageOfWidth(double value) {
         return value/(Main.minecraft.displayWidth/2);
     }

@@ -87,6 +87,27 @@ public class ConfigScreen extends Vigilant{
     public boolean rareDropBannerSound = false;
 
 
+    @Property(
+        type = PropertyType.SWITCH,
+        name = "Rare Drop Banner",
+        subcategory = "Location Banner",
+        description = "An MMO RPG style banner shows up when you switch locations.",
+        category = "Skyblock"
+    )
+    public boolean locationBannerDisplay = false;
+
+    @Property(
+        type = PropertyType.DECIMAL_SLIDER,
+        minF = 1,
+        maxF = 7,
+        subcategory = "Location Banner",
+        name = "Location Banner Time",
+        description = "The amount of time the location banner appears for.",
+        category = "Skyblock"
+    )
+    public float locationBannerTime = 3.5f;
+
+
 
     // -------------- Category: Mining -------------- 
     // Worm Warning

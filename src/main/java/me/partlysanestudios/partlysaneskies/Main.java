@@ -1,8 +1,10 @@
 package me.partlysanestudios.partlysaneskies;
 
-import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import gg.essential.elementa.ElementaVersion;
 import me.partlysanestudios.partlysaneskies.dungeons.WatcherReady;
@@ -11,13 +13,17 @@ import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManagerCo
 import me.partlysanestudios.partlysaneskies.dungeons.permpartyselector.PermPartyCommand;
 import me.partlysanestudios.partlysaneskies.dungeons.permpartyselector.PermPartyManager;
 import me.partlysanestudios.partlysaneskies.general.WormWarning;
-import me.partlysanestudios.partlysaneskies.general.rngdropbanner.Drop;
+import me.partlysanestudios.partlysaneskies.general.locationbanner.LocationBannerDisplay;
 import me.partlysanestudios.partlysaneskies.general.rngdropbanner.DropBannerDisplay;
 import me.partlysanestudios.partlysaneskies.general.skillupgrade.SkillUpgradeCommand;
 import me.partlysanestudios.partlysaneskies.help.Help;
 import me.partlysanestudios.partlysaneskies.help.HelpCommand;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.scoreboard.Score;
+import net.minecraft.scoreboard.ScoreObjective;
+import net.minecraft.scoreboard.ScorePlayerTeam;
+import net.minecraft.scoreboard.Scoreboard;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -44,13 +50,11 @@ public class Main
     public static boolean isSkyblock;
     public static boolean isDebugMode;
 
+    private LocationBannerDisplay locationBannerDisplay;
+
 
     @EventHandler
     public void init(FMLInitializationEvent evnt) {
-        
-        
-        
-
         System.out.println("Hallo World!");
         Main.isHypixel = false;
         Main.isSkyblock = false;
@@ -80,6 +84,9 @@ public class Main
         MinecraftForge.EVENT_BUS.register(new WormWarning());
         MinecraftForge.EVENT_BUS.register(new PartlySaneSkiesMainMenu(ElementaVersion.V2));
 
+        locationBannerDisplay = new LocationBannerDisplay();
+        MinecraftForge.EVENT_BUS.register(locationBannerDisplay);
+
         ClientCommandHandler.instance.registerCommand(new PartyManagerCommand());
         ClientCommandHandler.instance.registerCommand(new HelpCommand());
         ClientCommandHandler.instance.registerCommand(new SkillUpgradeCommand());
@@ -107,9 +114,8 @@ public class Main
         if(KeyInit.debugKey.isPressed()) {
             Main.isDebugMode = !Main.isDebugMode;
             Utils.visPrint("Debug mode: " + Main.isDebugMode);
-            DropBannerDisplay.drop = new Drop("test", "RARE DROP!", 1, 1, Minecraft.getSystemTime(), new Color(255, 170, 0), new Color(255, 85, 85));
-            Main.minecraft.thePlayer.playSound("partlysaneskies:rngdropjingle", 100, 1);
-            Main.minecraft.thePlayer.playSound("partlysaneskies:airraidsiren", 100, 1);
+            Utils.visPrint(getRegionName());
+            locationBannerDisplay.lastLocationTime = Minecraft.getSystemTime();
         }
         if(KeyInit.configKey.isPressed()) {
             minecraft.displayGuiScreen(Main.config.gui());
@@ -133,13 +139,18 @@ public class Main
             minecraft.thePlayer.sendChatMessage("/storage");
         }
 
+
         try {
-            Main.isSkyblock = Utils.detectScoreboardName("§lSKYBLOCK");
+            Main.isSkyblock = Main.detectScoreboardName("§lSKYBLOCK");
             Main.isHypixel = minecraft.getCurrentServerData().serverIP.contains(".hypixel.net");
         }
         catch(NullPointerException expt) {}
         finally {}
+
+
+        locationBannerDisplay.checkLocation();
     }
+
 
     @SubscribeEvent
     public void newApiKey(ClientChatReceivedEvent event) {
@@ -150,9 +161,58 @@ public class Main
         }
     }
 
+
     @SubscribeEvent
     public void chatAnalyzer(ClientChatReceivedEvent evnt) {
         
         if(Main.isDebugMode) System.out.println(evnt.message.getFormattedText());
     }
+
+
+    public static boolean detectScoreboardName(String desiredName) {
+        String scoreboardName = minecraft.thePlayer.getWorldScoreboard().getObjectiveInDisplaySlot(1).getDisplayName();
+    
+        if(Utils.removeColorCodes(scoreboardName).contains(desiredName)) return true;
+    
+        return false;
+    }
+
+
+    public static List<String> getScoreboardLines() {
+        Scoreboard scoreboard = minecraft.theWorld.getScoreboard();
+        ScoreObjective objective = scoreboard.getObjectiveInDisplaySlot(1);
+        Collection<Score> scoreCollection = scoreboard.getSortedScores(objective);
+
+        List<String> scoreLines = new ArrayList<String>();
+        for(Score score : scoreCollection) {
+            scoreLines.add(ScorePlayerTeam.formatPlayerName(scoreboard.getPlayersTeam(score.getPlayerName()), score.getPlayerName()));
+        }
+        
+        return scoreLines;
+    }
+
+
+    public static String getRegionName() {
+        if(!isSkyblock) {
+            return "";
+        }
+
+        List<String> scoreboard = getScoreboardLines();
+
+        String location = null;
+
+        for(String line : scoreboard) {
+            if (line.stripLeading().contains("⏣")) {
+                location = line.stripLeading().replace("⏣", "").stripLeading().stripTrailing();
+            }
+        }
+
+        if (location == null) {
+            return "";
+        }
+
+        return location;
+    }
+
+
 }
