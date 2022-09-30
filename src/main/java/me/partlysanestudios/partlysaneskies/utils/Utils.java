@@ -229,4 +229,14 @@ public class Utils {
     public static int randint(int min, int max){
         return ThreadLocalRandom.current().nextInt(min, max + 1);
     }
+
+    public static String stripLeading(String str) {
+        String s = new StringBuilder(str).toString(); // Cloning string
+        if(Character.isWhitespace(s.charAt(0))) {
+            s = new StringBuilder(s).replace(0, 1, "").toString();
+            s = stripLeading(s);
+        }
+
+        return s;
+    }
 }

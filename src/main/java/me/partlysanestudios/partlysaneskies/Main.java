@@ -172,8 +172,9 @@ public class Main
         String location = null;
 
         for(String line : scoreboard) {
-            if (line.stripLeading().contains("⏣")) {
-                location = line.stripLeading().replace("⏣", "").stripLeading().stripTrailing();
+            if (Utils.stripLeading(line).contains("⏣")) {
+                location = Utils.stripLeading(line).replace("⏣", "");
+                location = Utils.stripLeading(line);
             }
         }
 
