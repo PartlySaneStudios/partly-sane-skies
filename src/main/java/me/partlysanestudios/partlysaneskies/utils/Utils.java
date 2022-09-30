@@ -79,8 +79,8 @@ public class Utils {
     public static String removeColorCodes(String text) {
         StringBuilder textBuilder = new StringBuilder(text);
         while(textBuilder.indexOf("§") != -1) {
+            textBuilder.deleteCharAt(textBuilder.indexOf("§")+1);
             textBuilder.deleteCharAt(textBuilder.indexOf("§"));
-            textBuilder.deleteCharAt(textBuilder.indexOf("§")+2);
         }
         return textBuilder.toString();
     }

@@ -111,16 +111,12 @@ public class Main
 
     @SubscribeEvent
     public void chatAnalyzer(ClientChatReceivedEvent evnt) {
-        
         if(Main.isDebugMode) System.out.println(evnt.message.getFormattedText());
     }
 
 
     public static String getScoreboardName() {
         String scoreboardName = minecraft.thePlayer.getWorldScoreboard().getObjectiveInDisplaySlot(1).getDisplayName();
-    
-        
-    
         return Utils.removeColorCodes(scoreboardName);
     }
 
@@ -171,6 +167,7 @@ public class Main
         }
         return false;
     }
+
 
     public static boolean isHypixel() {
         try {
