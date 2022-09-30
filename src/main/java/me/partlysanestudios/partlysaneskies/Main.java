@@ -16,7 +16,6 @@ import me.partlysanestudios.partlysaneskies.general.WormWarning;
 import me.partlysanestudios.partlysaneskies.general.locationbanner.LocationBannerDisplay;
 import me.partlysanestudios.partlysaneskies.general.rngdropbanner.DropBannerDisplay;
 import me.partlysanestudios.partlysaneskies.general.skillupgrade.SkillUpgradeCommand;
-import me.partlysanestudios.partlysaneskies.help.Help;
 import me.partlysanestudios.partlysaneskies.help.HelpCommand;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.Minecraft;
@@ -50,7 +49,7 @@ public class Main
     public static boolean isSkyblock;
     public static boolean isDebugMode;
 
-    private LocationBannerDisplay locationBannerDisplay;
+    public static LocationBannerDisplay locationBannerDisplay;
 
 
     @EventHandler
@@ -111,35 +110,6 @@ public class Main
 
     @SubscribeEvent
     public void clientTick(ClientTickEvent evnt) {
-        if(KeyInit.debugKey.isPressed()) {
-            Main.isDebugMode = !Main.isDebugMode;
-            Utils.visPrint("Debug mode: " + Main.isDebugMode);
-            Utils.visPrint(getRegionName());
-            locationBannerDisplay.lastLocationTime = Minecraft.getSystemTime();
-        }
-        if(KeyInit.configKey.isPressed()) {
-            minecraft.displayGuiScreen(Main.config.gui());
-        }
-        if(KeyInit.partyManagerKey.isPressed()) {
-            PartyManager.startPartyManager();
-        }
-        if(KeyInit.helpKey.isPressed()) {
-            Help.printHelpMessage();
-        }
-        if(KeyInit.craftKeybind.isPressed()) {
-            minecraft.thePlayer.sendChatMessage("/craft");
-        }
-        if(KeyInit.petKeybind.isPressed()) {
-            minecraft.thePlayer.sendChatMessage("/pets");
-        }
-        if(KeyInit.wardrobeKeybind.isPressed()) {
-            minecraft.thePlayer.sendChatMessage("/wardrobe");
-        }
-        if(KeyInit.storageKeybind.isPressed()) {
-            minecraft.thePlayer.sendChatMessage("/storage");
-        }
-
-
         try {
             Main.isSkyblock = Main.detectScoreboardName("§lSKYBLOCK");
             Main.isHypixel = minecraft.getCurrentServerData().serverIP.contains(".hypixel.net");
