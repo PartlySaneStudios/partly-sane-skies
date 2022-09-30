@@ -137,7 +137,7 @@ public class Main
 
     public static String getRegionName() {
         if(!isSkyblock()) {
-            return "Not Skyblock";
+            return "";
         }
 
         List<String> scoreboard = getScoreboardLines();
@@ -152,7 +152,7 @@ public class Main
         }
 
         if (location == null) {
-            return "No location found";
+            return "";
         }
 
         return location;
