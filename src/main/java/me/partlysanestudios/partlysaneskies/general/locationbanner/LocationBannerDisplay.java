@@ -44,12 +44,13 @@ public class LocationBannerDisplay extends Gui {
 		}
 		
 		displayString = regionName;
+		lastLocation = regionName;
 		lastLocationTime = Minecraft.getSystemTime();
 	}
 
 
 	private boolean checkExpire() {
-		return lastLocationTime+Main.config.rareDropBannerTime*1000 < Minecraft.getSystemTime();
+		return lastLocationTime+Main.config.locationBannerTime*1000 < Minecraft.getSystemTime();
 	}
 
 

@@ -147,7 +147,7 @@ public class Main
         for(String line : scoreboard) {
             if (Utils.stripLeading(line).contains("⏣")) {
                 location = Utils.stripLeading(line).replace("⏣", "");
-                location = Utils.stripLeading(line);
+                location = Utils.stripLeading(location);
             }
         }
 
