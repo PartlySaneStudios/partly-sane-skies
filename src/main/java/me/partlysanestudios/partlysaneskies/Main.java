@@ -82,6 +82,7 @@ public class Main
         MinecraftForge.EVENT_BUS.register(new WatcherReady());
         MinecraftForge.EVENT_BUS.register(new WormWarning());
         MinecraftForge.EVENT_BUS.register(new PartlySaneSkiesMainMenu(ElementaVersion.V2));
+        MinecraftForge.EVENT_BUS.register(new KeyInit());
 
         locationBannerDisplay = new LocationBannerDisplay();
         MinecraftForge.EVENT_BUS.register(locationBannerDisplay);
