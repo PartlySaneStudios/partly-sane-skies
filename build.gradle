@@ -1,5 +1,4 @@
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+
 // For those who want the bleeding edge
 buildscript {
     repositories {
@@ -39,7 +38,8 @@ minecraft {
     mappings = "stable_20"
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
 }
-
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 repositories {
     maven {
