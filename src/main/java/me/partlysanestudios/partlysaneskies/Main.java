@@ -31,7 +31,6 @@ import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
-import net.minecraftforge.fml.common.network.FMLNetworkEvent.ClientConnectedToServerEvent;
 
 
 @Mod(modid = Main.MODID, version = Main.VERSION, name = Main.NAME)
@@ -45,8 +44,6 @@ public class Main
     public static ConfigScreen config;
     public static Minecraft minecraft;
 
-    public static boolean isHypixel;
-    public static boolean isSkyblock;
     public static boolean isDebugMode;
 
     public static LocationBannerDisplay locationBannerDisplay;
@@ -55,8 +52,6 @@ public class Main
     @EventHandler
     public void init(FMLInitializationEvent evnt) {
         System.out.println("Hallo World!");
-        Main.isHypixel = false;
-        Main.isSkyblock = false;
         Main.isDebugMode = false;
         Main.minecraft = Minecraft.getMinecraft();
 
@@ -98,27 +93,8 @@ public class Main
     }
 
 
-
-
-
-    @SubscribeEvent
-    public void joinServerEvent(ClientConnectedToServerEvent evnt) {
-        if(minecraft.getCurrentServerData() == null || minecraft.getCurrentServerData().serverIP == null) return;
-        if(minecraft.getCurrentServerData().serverIP.contains(".hypixel.net")) {
-            Main.isHypixel = true;
-        }
-    }
-
     @SubscribeEvent
     public void clientTick(ClientTickEvent evnt) {
-        try {
-            Main.isSkyblock = Main.detectScoreboardName("§lSKYBLOCK");
-            Main.isHypixel = minecraft.getCurrentServerData().serverIP.contains(".hypixel.net");
-        }
-        catch(NullPointerException expt) {}
-        finally {}
-
-
         locationBannerDisplay.checkLocation();
     }
 
@@ -140,12 +116,12 @@ public class Main
     }
 
 
-    public static boolean detectScoreboardName(String desiredName) {
+    public static String getScoreboardName() {
         String scoreboardName = minecraft.thePlayer.getWorldScoreboard().getObjectiveInDisplaySlot(1).getDisplayName();
     
-        if(Utils.removeColorCodes(scoreboardName).contains(desiredName)) return true;
+        
     
-        return false;
+        return Utils.removeColorCodes(scoreboardName);
     }
 
 
@@ -164,8 +140,8 @@ public class Main
 
 
     public static String getRegionName() {
-        if(!isSkyblock) {
-            return "";
+        if(!isSkyblock()) {
+            return "Not Skyblock";
         }
 
         List<String> scoreboard = getScoreboardLines();
@@ -180,11 +156,28 @@ public class Main
         }
 
         if (location == null) {
-            return "";
+            return "No location found";
         }
 
         return location;
     }
 
 
+    public static boolean isSkyblock() {
+        try {
+            if(getScoreboardName().toLowerCase().contains("skyblock")) return true;
+        }
+        catch (NullPointerException expt) {
+        }
+        return false;
+    }
+
+    public static boolean isHypixel() {
+        try {
+            return minecraft.getCurrentServerData().serverIP.contains(".hypixel.net");
+        }
+        catch(NullPointerException expt) {}
+        finally {}
+        return false;
+    }
 }
