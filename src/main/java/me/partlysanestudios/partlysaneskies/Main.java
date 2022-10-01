@@ -161,9 +161,12 @@ public class Main
 
     public static boolean isSkyblock() {
         try {
-            if(getScoreboardName().toLowerCase().contains("skyblock")) return true;
+            if(getScoreboardName().toLowerCase().contains("skyblock")) {
+                return true;
+            } 
         }
         catch (NullPointerException expt) {
+            return false;
         }
         return false;
     }
