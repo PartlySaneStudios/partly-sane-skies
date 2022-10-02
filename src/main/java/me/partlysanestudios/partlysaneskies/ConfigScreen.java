@@ -1,4 +1,4 @@
-package me.partlysanestudios.partlysaneskies;
+    package me.partlysanestudios.partlysaneskies;
 
 import java.awt.Color;
 import java.io.File;
@@ -106,6 +106,16 @@ public class ConfigScreen extends Vigilant{
         category = "Skyblock"
     )
     public float locationBannerTime = 3.5f;
+
+
+    @Property (
+        type = PropertyType.SWITCH,
+        name = "Open Wiki Automatically",
+        category = "Skyblock",
+        description = "When the Open Wiki Article Keybind is used, automatically open the article without confirmation first.",
+        subcategory = "Open Wiki"
+    )
+    public boolean openWikiAutomatically = true;
 
 
 

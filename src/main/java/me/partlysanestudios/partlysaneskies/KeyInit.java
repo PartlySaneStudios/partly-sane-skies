@@ -3,7 +3,6 @@ package me.partlysanestudios.partlysaneskies;
 import org.lwjgl.input.Keyboard;
 
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManager;
-import me.partlysanestudios.partlysaneskies.general.WikiArticleOpener;
 import me.partlysanestudios.partlysaneskies.help.Help;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.settings.KeyBinding;
@@ -24,6 +23,7 @@ public final class KeyInit {
     public static KeyBinding petKeybind;
     public static KeyBinding craftKeybind;
     public static KeyBinding storageKeybind;
+    public static KeyBinding wikiKeybind;
 
 
 
@@ -36,6 +36,7 @@ public final class KeyInit {
         petKeybind = registerKey("Open Pets Menu", PSS_CATEGORY, Keyboard.CHAR_NONE);
         craftKeybind = registerKey("Open Crafting Table", PSS_CATEGORY, Keyboard.CHAR_NONE);
         storageKeybind = registerKey("Open Storage Menu", PSS_CATEGORY, Keyboard.CHAR_NONE);
+        wikiKeybind = registerKey("Open Wiki Article", PSS_CATEGORY, Keyboard.KEY_X);
     }
 
 
@@ -50,7 +51,7 @@ public final class KeyInit {
         if(debugKey.isPressed()) {
             Main.isDebugMode = !Main.isDebugMode;
             Utils.visPrint("Debug mode: " + Main.isDebugMode);
-            WikiArticleOpener.getArticle(WikiArticleOpener.getItemId(Main.minecraft.thePlayer.inventory.getCurrentItem()));
+            
         }
         if(configKey.isPressed()) {
             Main.minecraft.displayGuiScreen(Main.config.gui());
