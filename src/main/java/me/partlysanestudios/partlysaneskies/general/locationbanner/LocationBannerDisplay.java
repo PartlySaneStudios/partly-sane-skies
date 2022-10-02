@@ -30,7 +30,7 @@ public class LocationBannerDisplay extends Gui {
 	UIComponent displayText = new UIText(displayString)
 		.setTextScale(new PixelConstraint(TEXT_SCALE))
 		.setX(new CenterConstraint())
-		.setY(new PixelConstraint(window.getHeight()*.15f))
+		.setY(new PixelConstraint(window.getHeight()*.125f))
 		.setColor(Color.white)
 		.setChildOf(window);
 
@@ -73,7 +73,7 @@ public class LocationBannerDisplay extends Gui {
 		((UIText) displayText)
 			.setText(displayString)
 			.setX(new CenterConstraint())
-			.setY(new PixelConstraint(window.getHeight()*.2f))
+			.setY(new PixelConstraint(window.getHeight()*.125f))
 			.setColor(color);
 			window.draw(new UMatrixStack());
 
