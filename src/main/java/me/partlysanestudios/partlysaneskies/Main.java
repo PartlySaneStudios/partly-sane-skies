@@ -12,6 +12,7 @@ import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManager;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManagerCommand;
 import me.partlysanestudios.partlysaneskies.dungeons.permpartyselector.PermPartyCommand;
 import me.partlysanestudios.partlysaneskies.dungeons.permpartyselector.PermPartyManager;
+import me.partlysanestudios.partlysaneskies.general.WikiArticleOpener;
 import me.partlysanestudios.partlysaneskies.general.WormWarning;
 import me.partlysanestudios.partlysaneskies.general.locationbanner.LocationBannerDisplay;
 import me.partlysanestudios.partlysaneskies.general.partyfriend.PartyFriendManager;
@@ -81,6 +82,7 @@ public class Main
         MinecraftForge.EVENT_BUS.register(new PartlySaneSkiesMainMenu(ElementaVersion.V2));
         MinecraftForge.EVENT_BUS.register(new KeyInit());
         MinecraftForge.EVENT_BUS.register(new PartyFriendManager());
+        MinecraftForge.EVENT_BUS.register(new WikiArticleOpener());
 
         locationBannerDisplay = new LocationBannerDisplay();
         MinecraftForge.EVENT_BUS.register(locationBannerDisplay);

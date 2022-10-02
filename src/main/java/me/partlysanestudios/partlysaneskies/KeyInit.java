@@ -3,7 +3,7 @@ package me.partlysanestudios.partlysaneskies;
 import org.lwjgl.input.Keyboard;
 
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManager;
-import me.partlysanestudios.partlysaneskies.general.partyfriend.PartyFriendManager;
+import me.partlysanestudios.partlysaneskies.general.WikiArticleOpener;
 import me.partlysanestudios.partlysaneskies.help.Help;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.settings.KeyBinding;
@@ -50,7 +50,7 @@ public final class KeyInit {
         if(debugKey.isPressed()) {
             Main.isDebugMode = !Main.isDebugMode;
             Utils.visPrint("Debug mode: " + Main.isDebugMode);
-            PartyFriendManager.startPartyManager();
+            WikiArticleOpener.getArticle(WikiArticleOpener.getItemId(Main.minecraft.thePlayer.inventory.getCurrentItem()));
         }
         if(configKey.isPressed()) {
             Main.minecraft.displayGuiScreen(Main.config.gui());
