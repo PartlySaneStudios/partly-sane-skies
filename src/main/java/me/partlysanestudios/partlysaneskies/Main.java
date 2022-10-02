@@ -14,6 +14,8 @@ import me.partlysanestudios.partlysaneskies.dungeons.permpartyselector.PermParty
 import me.partlysanestudios.partlysaneskies.dungeons.permpartyselector.PermPartyManager;
 import me.partlysanestudios.partlysaneskies.general.WormWarning;
 import me.partlysanestudios.partlysaneskies.general.locationbanner.LocationBannerDisplay;
+import me.partlysanestudios.partlysaneskies.general.partyfriend.PartyFriendManager;
+import me.partlysanestudios.partlysaneskies.general.partyfriend.PartyFriendManagerCommand;
 import me.partlysanestudios.partlysaneskies.general.rngdropbanner.DropBannerDisplay;
 import me.partlysanestudios.partlysaneskies.general.skillupgrade.SkillUpgradeCommand;
 import me.partlysanestudios.partlysaneskies.help.HelpCommand;
@@ -78,6 +80,7 @@ public class Main
         MinecraftForge.EVENT_BUS.register(new WormWarning());
         MinecraftForge.EVENT_BUS.register(new PartlySaneSkiesMainMenu(ElementaVersion.V2));
         MinecraftForge.EVENT_BUS.register(new KeyInit());
+        MinecraftForge.EVENT_BUS.register(new PartyFriendManager());
 
         locationBannerDisplay = new LocationBannerDisplay();
         MinecraftForge.EVENT_BUS.register(locationBannerDisplay);
@@ -86,6 +89,7 @@ public class Main
         ClientCommandHandler.instance.registerCommand(new HelpCommand());
         ClientCommandHandler.instance.registerCommand(new SkillUpgradeCommand());
         ClientCommandHandler.instance.registerCommand(new PermPartyCommand());
+        ClientCommandHandler.instance.registerCommand(new PartyFriendManagerCommand());
         KeyInit.init();
         Utils.init();
 

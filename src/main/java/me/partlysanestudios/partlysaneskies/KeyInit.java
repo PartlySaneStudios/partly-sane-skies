@@ -3,9 +3,9 @@ package me.partlysanestudios.partlysaneskies;
 import org.lwjgl.input.Keyboard;
 
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManager;
+import me.partlysanestudios.partlysaneskies.general.partyfriend.PartyFriendManager;
 import me.partlysanestudios.partlysaneskies.help.Help;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -50,8 +50,7 @@ public final class KeyInit {
         if(debugKey.isPressed()) {
             Main.isDebugMode = !Main.isDebugMode;
             Utils.visPrint("Debug mode: " + Main.isDebugMode);
-            Utils.visPrint(Main.getRegionName());
-            Main.locationBannerDisplay.lastLocationTime = Minecraft.getSystemTime();
+            PartyFriendManager.startPartyManager();
         }
         if(configKey.isPressed()) {
             Main.minecraft.displayGuiScreen(Main.config.gui());
