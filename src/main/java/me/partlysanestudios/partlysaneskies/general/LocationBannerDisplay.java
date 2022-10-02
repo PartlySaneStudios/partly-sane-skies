@@ -1,4 +1,4 @@
-package me.partlysanestudios.partlysaneskies.general.locationbanner;
+package me.partlysanestudios.partlysaneskies.general;
 
 import java.awt.Color;
 
