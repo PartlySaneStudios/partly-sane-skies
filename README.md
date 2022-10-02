@@ -1,5 +1,5 @@
 # **Partly Sane Studios Presents:** *Partly Sane Skies!*
-Current Version: **Prealpha 0.0.4**
+Current Version: **Prealpha 0.0.5**
 <br>
 
 This is a Minecraft mod for Hypixel Skyblock, designed, built, and programmed by **Su386** and **FlagMaster (FlagHater)**
@@ -7,7 +7,7 @@ This is a Minecraft mod for Hypixel Skyblock, designed, built, and programmed by
 ### Download:
 https://github.com/Su386yt/partly-sane-skies/releases
 
-Open the assets dropdown for the latest version and dowload "partly-sane-skies" .jar file.
+Open the assets drop down for the latest version and download "partly-sane-skies" .jar file.
 
 ### Discord:
 https://discord.gg/v4PU3WeH7z
