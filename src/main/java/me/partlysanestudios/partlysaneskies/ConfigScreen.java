@@ -117,6 +117,48 @@ public class ConfigScreen extends Vigilant{
     )
     public boolean openWikiAutomatically = true;
 
+    @Property(
+        type = PropertyType.SWITCH,
+        name = "Excessive Coin and No Booster Cookie",
+        category = "Skyblock",
+        description = "Warns you if you have a lot of coins in your purse and no booster cookie.",
+        subcategory = "Excessive Coin Warning"
+    )
+    public boolean noCookieWarning = false;
+
+    @Property(
+        type = PropertyType.NUMBER,
+        min = 0,
+        max = Integer.MAX_VALUE,
+        name = "Maximum Allowed Amount Without Booster Cookie",
+        category = "Skyblock",
+        description = "The maximum allowed amount of money allowed before it warns you about having no booster cookie.",
+        subcategory = "Excessive Coin Warning",
+        increment = 25000
+    )
+    public int maxWithoutCookie = 750000;
+
+    @Property(
+        type = PropertyType.DECIMAL_SLIDER,
+        minF = 1,
+        maxF = 7,
+        subcategory = "Excessive Coin Warning",
+        name = "Excessive Coin Warning Time",
+        description = "The amount of time the warning appears for appears for.",
+        category = "Skyblock"
+    )
+    public float noCookieWarnTime = 3.5f;
+
+    @Property(
+        type = PropertyType.SLIDER,
+        min = 1,
+        max = 300,
+        subcategory = "Excessive Coin Warning",
+        name = "Excessive Coin Warn Cooldown",
+        description = "The amount of time between each warning",
+        category = "Skyblock"
+    )
+    public int noCookieWarnCooldown = 20;
 
 
     // -------------- Category: Mining -------------- 

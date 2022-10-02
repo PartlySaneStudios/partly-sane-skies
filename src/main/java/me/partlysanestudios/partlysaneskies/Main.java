@@ -13,6 +13,7 @@ import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManagerCo
 import me.partlysanestudios.partlysaneskies.dungeons.permpartyselector.PermPartyCommand;
 import me.partlysanestudios.partlysaneskies.dungeons.permpartyselector.PermPartyManager;
 import me.partlysanestudios.partlysaneskies.general.LocationBannerDisplay;
+import me.partlysanestudios.partlysaneskies.general.NoCookieWarning;
 import me.partlysanestudios.partlysaneskies.general.WikiArticleOpener;
 import me.partlysanestudios.partlysaneskies.general.WormWarning;
 import me.partlysanestudios.partlysaneskies.general.partyfriend.PartyFriendManager;
@@ -83,6 +84,7 @@ public class Main
         MinecraftForge.EVENT_BUS.register(new KeyInit());
         MinecraftForge.EVENT_BUS.register(new PartyFriendManager());
         MinecraftForge.EVENT_BUS.register(new WikiArticleOpener());
+        MinecraftForge.EVENT_BUS.register(new NoCookieWarning());
 
         locationBannerDisplay = new LocationBannerDisplay();
         MinecraftForge.EVENT_BUS.register(locationBannerDisplay);
@@ -154,6 +156,7 @@ public class Main
             if (Utils.stripLeading(line).contains("⏣")) {
                 location = Utils.stripLeading(line).replace("⏣", "");
                 location = Utils.stripLeading(location);
+                break;
             }
         }
 
@@ -162,6 +165,39 @@ public class Main
         }
 
         return location;
+    }
+
+    public static long getCoins() {
+        if(!isSkyblock()) {
+            return 0l;
+        }
+
+        List<String> scoreboard = getScoreboardLines();
+
+        String money = null;
+
+        for(String line : scoreboard) {
+            if (Utils.stripLeading(line).contains("Piggy:") || Utils.stripLeading(line).contains("Purse:")) {
+                money = Utils.stripLeading(Utils.removeColorCodes(line)).replace("Piggy: ", "");
+                money = Utils.stripLeading(Utils.removeColorCodes(line)).replace("Purse: ", "");
+                money = Utils.stripLeading(money);
+                money = money.replace(",", "");
+                money = money.replaceAll("\\P{Print}", "");
+                break;
+            }
+        }
+
+        if (money == null) {
+            return 0l;
+        }
+        try {
+            return Long.parseLong(money);
+        }
+        catch (NumberFormatException event) {
+            Utils.visPrint(money);
+            event.printStackTrace();
+            return 0;
+        }
     }
 
 

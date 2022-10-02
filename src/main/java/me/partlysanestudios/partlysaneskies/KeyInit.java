@@ -3,6 +3,7 @@ package me.partlysanestudios.partlysaneskies;
 import org.lwjgl.input.Keyboard;
 
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManager;
+import me.partlysanestudios.partlysaneskies.general.NoCookieWarning;
 import me.partlysanestudios.partlysaneskies.help.Help;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.settings.KeyBinding;
@@ -51,7 +52,7 @@ public final class KeyInit {
         if(debugKey.isPressed()) {
             Main.isDebugMode = !Main.isDebugMode;
             Utils.visPrint("Debug mode: " + Main.isDebugMode);
-            
+            NoCookieWarning.getFooter();
         }
         if(configKey.isPressed()) {
             Main.minecraft.displayGuiScreen(Main.config.gui());

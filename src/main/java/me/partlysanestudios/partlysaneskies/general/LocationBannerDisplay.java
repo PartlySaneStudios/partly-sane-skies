@@ -65,7 +65,7 @@ public class LocationBannerDisplay extends Gui {
 
 	@SubscribeEvent
 	public void renderText(RenderGameOverlayEvent.Text event) {
-		short alpha = getAlpha();
+		short alpha = getAlpha(getTimeSinceLastChange(), Main.config.locationBannerTime);
 
 		if(color == null) color = Color.gray;
 		else color = new Color(color.getRed(), color.getGreen(), color.getBlue(), (short) alpha);
@@ -84,9 +84,9 @@ public class LocationBannerDisplay extends Gui {
 		return Minecraft.getSystemTime() - lastLocationTime;
 	}
 
-	private short getAlpha() {
-		long time = getTimeSinceLastChange();
-		double displayLength = Main.config.locationBannerTime * 1000;
+	public static short getAlpha(long timeSinceLastChangeMs, double displayLenghtSeconds) {
+		long time = timeSinceLastChangeMs;
+		double displayLength = displayLenghtSeconds * 1000;
 		double fadeLength = displayLength*(1 / 6d);
 		
 		if(0 > time) {

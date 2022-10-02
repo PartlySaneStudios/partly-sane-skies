@@ -616,7 +616,7 @@ public class PartyMember {
 
     
 
-    private String formatText(String text) { 
+    private static String formatText(String text) { 
         text = Utils.removeColorCodes(text);
         text = text.replace("✪", "*");
         text = text.replaceAll("\\P{Print}", "");
