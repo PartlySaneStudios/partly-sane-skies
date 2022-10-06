@@ -241,13 +241,27 @@ public class PartyMember {
         }
         JsonObject senitherJson = (JsonObject) parser.parse(response);
 
+        try{
+            secretsCount = senitherJson.getAsJsonObject("data").getAsJsonObject("dungeons").get("secrets_found").getAsInt();
+        } catch(NullPointerException e){ }
 
-        secretsCount = senitherJson.getAsJsonObject("data").getAsJsonObject("dungeons").get("secrets_found").getAsInt();
-        senitherWeight = senitherJson.getAsJsonObject("data").get("weight").getAsFloat();
-        senitherWeightOverflow = senitherJson.getAsJsonObject("data").get("weight_overflow").getAsFloat();
-        catacombsLevel = senitherJson.getAsJsonObject("data").getAsJsonObject("dungeons").getAsJsonObject("types").getAsJsonObject("catacombs").get("level").getAsFloat();
-        
-        secretsPerRun = secretsCount/(f1Runs+f2Runs+f3Runs+f4Runs+f5Runs+f6Runs+f7Runs+m1Runs+m2Runs+m3Runs+m4Runs+m5Runs+m6Runs+m7Runs);
+
+        try{
+            senitherWeight = senitherJson.getAsJsonObject("data").get("weight").getAsFloat();
+        } catch(NullPointerException e){ }
+
+
+        try{
+            senitherWeightOverflow = senitherJson.getAsJsonObject("data").get("weight_overflow").getAsFloat();
+        } catch(NullPointerException e){ }
+
+
+        try{
+            catacombsLevel = senitherJson.getAsJsonObject("data").getAsJsonObject("dungeons").getAsJsonObject("types").getAsJsonObject("catacombs").get("level").getAsFloat();
+        } catch(NullPointerException e){ }
+        try{
+            secretsPerRun = secretsCount/(f1Runs+f2Runs+f3Runs+f4Runs+f5Runs+f6Runs+f7Runs+m1Runs+m2Runs+m3Runs+m4Runs+m5Runs+m6Runs+m7Runs);
+        } catch(NullPointerException e) { }
         return 0;
     }
 
