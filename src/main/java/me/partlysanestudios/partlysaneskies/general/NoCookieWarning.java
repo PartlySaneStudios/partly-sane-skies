@@ -71,11 +71,9 @@ public class NoCookieWarning {
             if(Utils.removeColorCodes(chatComponent.getFormattedText()).toLowerCase().contains("not active! obtain booster cookies")) {
                 return 0;
             }
-            else {
-                return 1;
-            }
         }
-        return -1;
+        if(getFooter().getSiblings().size() == 0) return -1;
+        return 1;
     }
 
     public static boolean hasLotsOfCoins() {

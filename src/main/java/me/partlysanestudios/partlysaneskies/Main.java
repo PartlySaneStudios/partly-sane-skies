@@ -194,8 +194,6 @@ public class Main
             return Long.parseLong(money);
         }
         catch (NumberFormatException event) {
-            Utils.visPrint(money);
-            event.printStackTrace();
             return 0;
         }
     }
