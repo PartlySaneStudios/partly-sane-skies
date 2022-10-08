@@ -42,10 +42,6 @@ public class NoCookieWarning {
         lastWarnTime = Minecraft.getSystemTime();
     }
 
-    public static GuiPlayerTabOverlay getTab() {
-        return Main.minecraft.ingameGUI.getTabList();
-    }
-
 
     public static IChatComponent getFooter() {
         GuiPlayerTabOverlay tabList = Minecraft.getMinecraft().ingameGUI.getTabList();
