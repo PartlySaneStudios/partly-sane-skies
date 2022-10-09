@@ -3,10 +3,8 @@ package me.partlysanestudios.partlysaneskies;
 import org.lwjgl.input.Keyboard;
 
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManager;
-import me.partlysanestudios.partlysaneskies.general.NoCookieWarning;
 import me.partlysanestudios.partlysaneskies.general.WikiArticleOpener;
 import me.partlysanestudios.partlysaneskies.help.Help;
-import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.client.event.GuiScreenEvent.KeyboardInputEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -53,9 +51,7 @@ public final class Keybinds {
     @SubscribeEvent
     public void keybindWhileInGui(KeyboardInputEvent.Post event) {
         if(Keyboard.isKeyDown(debugKey.getKeyCode())) {
-            Main.isDebugMode = !Main.isDebugMode;
-            Utils.visPrint("Debug mode: " + Main.isDebugMode);
-            NoCookieWarning.getFooter();
+            Main.debugMode();
         }
 
         if(Keyboard.isKeyDown(Keybinds.wikiKeybind.getKeyCode())) {
@@ -67,7 +63,9 @@ public final class Keybinds {
 
     @SubscribeEvent
     public void checkKeyBinds(KeyInputEvent event) {
-        
+        if(debugKey.isPressed()) {
+            Main.debugMode();
+        }
         if(configKey.isPressed()) {
             Main.minecraft.displayGuiScreen(Main.config.gui());
         }

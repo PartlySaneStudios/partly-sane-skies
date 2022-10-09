@@ -129,6 +129,11 @@ public class Main
     }
 
 
+    public static void debugMode() {
+        Main.isDebugMode = !Main.isDebugMode;
+        Utils.visPrint("Debug mode: " + Main.isDebugMode);
+    }
+
     public static List<String> getScoreboardLines() {
         Scoreboard scoreboard = minecraft.theWorld.getScoreboard();
         ScoreObjective objective = scoreboard.getObjectiveInDisplaySlot(1);
