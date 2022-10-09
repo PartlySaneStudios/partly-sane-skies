@@ -3,9 +3,6 @@ package me.partlysanestudios.partlysaneskies.general;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import org.lwjgl.input.Keyboard;
-
-import me.partlysanestudios.partlysaneskies.Keybinds;
 import me.partlysanestudios.partlysaneskies.Main;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -13,7 +10,6 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
-import net.minecraftforge.client.event.GuiScreenEvent.KeyboardInputEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class WikiArticleOpener {
@@ -66,11 +62,7 @@ public class WikiArticleOpener {
         }
     }
 
-    @SubscribeEvent
-    public void checkKeybind(KeyboardInputEvent.Post event) {
-        if(!Keyboard.isKeyDown(Keybinds.wikiKeybind.getKeyCode())) {
-            return;
-        }
+    public static void keyDown() {
         if(!Main.isSkyblock()) {
             return;
         }

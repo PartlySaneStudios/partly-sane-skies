@@ -4,6 +4,7 @@ import org.lwjgl.input.Keyboard;
 
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManager;
 import me.partlysanestudios.partlysaneskies.general.NoCookieWarning;
+import me.partlysanestudios.partlysaneskies.general.WikiArticleOpener;
 import me.partlysanestudios.partlysaneskies.help.Help;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.settings.KeyBinding;
@@ -53,6 +54,10 @@ public final class Keybinds {
             Main.isDebugMode = !Main.isDebugMode;
             Utils.visPrint("Debug mode: " + Main.isDebugMode);
             NoCookieWarning.getFooter();
+        }
+
+        if(Keyboard.isKeyDown(Keybinds.wikiKeybind.getKeyCode())) {
+            WikiArticleOpener.keyDown();
         }
     }
     @SubscribeEvent
