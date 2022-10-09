@@ -81,7 +81,7 @@ public class Main
         MinecraftForge.EVENT_BUS.register(new WatcherReady());
         MinecraftForge.EVENT_BUS.register(new WormWarning());
         MinecraftForge.EVENT_BUS.register(new PartlySaneSkiesMainMenu(ElementaVersion.V2));
-        MinecraftForge.EVENT_BUS.register(new KeyInit());
+        MinecraftForge.EVENT_BUS.register(new Keybinds());
         MinecraftForge.EVENT_BUS.register(new PartyFriendManager());
         MinecraftForge.EVENT_BUS.register(new WikiArticleOpener());
         MinecraftForge.EVENT_BUS.register(new NoCookieWarning());
@@ -94,7 +94,7 @@ public class Main
         ClientCommandHandler.instance.registerCommand(new SkillUpgradeCommand());
         ClientCommandHandler.instance.registerCommand(new PermPartyCommand());
         ClientCommandHandler.instance.registerCommand(new PartyFriendManagerCommand());
-        KeyInit.init();
+        Keybinds.init();
         Utils.init();
 
         System.out.println("Partly Sane Skies has loaded.");

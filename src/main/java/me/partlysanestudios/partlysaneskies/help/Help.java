@@ -2,7 +2,7 @@ package me.partlysanestudios.partlysaneskies.help;
 
 import org.lwjgl.input.Keyboard;
 
-import me.partlysanestudios.partlysaneskies.KeyInit;
+import me.partlysanestudios.partlysaneskies.Keybinds;
 import me.partlysanestudios.partlysaneskies.Main;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.util.ChatComponentText;
@@ -18,7 +18,7 @@ public class Help {
 "\nPartly Sane Skies is a mod developed by Su386 and FlagMaster. This mod aims to be a quality of life mod for Hypixel Skyblock."+
 "\n"+
 "\n &6> Open the config: "+
-"\n    &6> &eDefault " + Keyboard.getKeyName(KeyInit.helpKey.getKeyCode())+
+"\n    &6> &eDefault " + Keyboard.getKeyName(Keybinds.helpKey.getKeyCode())+
 "\n    &6> &eMost features are turned off by default so to use the mod, you will need to configure the settings"+
 "\n    &6> &eTo change the keybinding, press Esc, Options, Video Settings, Controls, and scroll down to \"Partly Sane Skies\"."+
 "\n"+

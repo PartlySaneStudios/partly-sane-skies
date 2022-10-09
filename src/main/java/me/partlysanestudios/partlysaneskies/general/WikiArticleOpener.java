@@ -5,7 +5,7 @@ import java.net.URISyntaxException;
 
 import org.lwjgl.input.Keyboard;
 
-import me.partlysanestudios.partlysaneskies.KeyInit;
+import me.partlysanestudios.partlysaneskies.Keybinds;
 import me.partlysanestudios.partlysaneskies.Main;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -68,7 +68,7 @@ public class WikiArticleOpener {
 
     @SubscribeEvent
     public void checkKeybind(KeyboardInputEvent.Post event) {
-        if(!Keyboard.isKeyDown(KeyInit.wikiKeybind.getKeyCode())) {
+        if(!Keyboard.isKeyDown(Keybinds.wikiKeybind.getKeyCode())) {
             return;
         }
         if(!Main.isSkyblock()) {

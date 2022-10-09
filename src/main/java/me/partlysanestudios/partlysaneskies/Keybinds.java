@@ -11,7 +11,7 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent;
 
-public final class KeyInit {
+public final class Keybinds {
     
 
     private final static String PSS_CATEGORY = "Partly Sane Skies";
