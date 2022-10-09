@@ -49,6 +49,8 @@ public final class Keybinds {
         return key;
     }
 
+
+    @SubscribeEvent
     public void keybindWhileInGui(KeyboardInputEvent.Post event) {
         if(Keyboard.isKeyDown(debugKey.getKeyCode())) {
             Main.isDebugMode = !Main.isDebugMode;
