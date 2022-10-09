@@ -7,6 +7,7 @@ import me.partlysanestudios.partlysaneskies.general.NoCookieWarning;
 import me.partlysanestudios.partlysaneskies.help.Help;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.settings.KeyBinding;
+import net.minecraftforge.client.event.GuiScreenEvent.KeyboardInputEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent;
@@ -47,13 +48,16 @@ public final class Keybinds {
         return key;
     }
 
-    @SubscribeEvent
-    public void checkKeyBinds(KeyInputEvent event) {
-        if(debugKey.isPressed()) {
+    public void keybindWhileInGui(KeyboardInputEvent.Post event) {
+        if(Keyboard.isKeyDown(debugKey.getKeyCode())) {
             Main.isDebugMode = !Main.isDebugMode;
             Utils.visPrint("Debug mode: " + Main.isDebugMode);
             NoCookieWarning.getFooter();
         }
+    }
+    @SubscribeEvent
+    public void checkKeyBinds(KeyInputEvent event) {
+        
         if(configKey.isPressed()) {
             Main.minecraft.displayGuiScreen(Main.config.gui());
         }
