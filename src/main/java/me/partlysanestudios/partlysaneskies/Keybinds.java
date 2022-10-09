@@ -60,6 +60,9 @@ public final class Keybinds {
             WikiArticleOpener.keyDown();
         }
     }
+
+
+
     @SubscribeEvent
     public void checkKeyBinds(KeyInputEvent event) {
         
