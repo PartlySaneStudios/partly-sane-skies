@@ -114,15 +114,15 @@ public class AhSniper {
     }
 
 
-    private static int convertChestCoordinateToSlot(int x, int y) {
-        return x + 9 * y - 10;
-    }
+    // private static int convertChestCoordinateToSlot(int x, int y) {
+    //     return x + 9 * y - 10;
+    // }
     
-    private static int convertAhCoordinateToSlot(int x, int y) {
-        x += 2;
-        y += 1;
-        return x + 9 * y - 10;
-    }
+    // private static int convertAhCoordinateToSlot(int x, int y) {
+    //     x += 2;
+    //     y += 1;
+    //     return x + 9 * y - 10;
+    // }
 
     private static int[] convertSlotToChestCoordinate(int slot) {
         int x = (slot + 1) % 9;
