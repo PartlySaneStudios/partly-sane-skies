@@ -18,10 +18,6 @@ public class WikiArticleOpener {
         return item.getTagCompound().getCompoundTag("ExtraAttributes");
     }
 
-    public static String getItemId(ItemStack item) {
-        return getItemAttributes(item).getString("id");
-    }
-
     public static void getArticle(String id) {
         isWaitingForArticle = true;
         Main.minecraft.thePlayer.sendChatMessage("/wiki " + id);
@@ -79,9 +75,9 @@ public class WikiArticleOpener {
             return;
         }
 
-        if (getItemId(item).equals("")) {
+        if (Utils.getItemId(item).equals("")) {
             return;
         }
-        WikiArticleOpener.getArticle(WikiArticleOpener.getItemId(item));
+        WikiArticleOpener.getArticle(Utils.getItemId(item));
     }
 }

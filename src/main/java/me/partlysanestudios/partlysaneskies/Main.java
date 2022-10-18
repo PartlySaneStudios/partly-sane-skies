@@ -16,6 +16,8 @@ import me.partlysanestudios.partlysaneskies.general.LocationBannerDisplay;
 import me.partlysanestudios.partlysaneskies.general.NoCookieWarning;
 import me.partlysanestudios.partlysaneskies.general.WikiArticleOpener;
 import me.partlysanestudios.partlysaneskies.general.WormWarning;
+import me.partlysanestudios.partlysaneskies.general.economy.ItemLowestBin;
+import me.partlysanestudios.partlysaneskies.general.economy.AhSniper.AhSniper;
 import me.partlysanestudios.partlysaneskies.general.partyfriend.PartyFriendManager;
 import me.partlysanestudios.partlysaneskies.general.partyfriend.PartyFriendManagerCommand;
 import me.partlysanestudios.partlysaneskies.general.rngdropbanner.DropBannerDisplay;
@@ -67,6 +69,7 @@ public class Main
         } catch (IOException e) {
             e.printStackTrace();
         }
+        ItemLowestBin.updateAh();
 
         try {
             PartyManager.loadPersonalPlayerData();
@@ -104,6 +107,7 @@ public class Main
     @SubscribeEvent
     public void clientTick(ClientTickEvent evnt) {
         locationBannerDisplay.checkLocation();
+        ItemLowestBin.runUpdater();
     }
 
 
@@ -132,6 +136,7 @@ public class Main
     public static void debugMode() {
         Main.isDebugMode = !Main.isDebugMode;
         Utils.visPrint("Debug mode: " + Main.isDebugMode);
+        AhSniper.runAlgorithm();
     }
 
     public static List<String> getScoreboardLines() {

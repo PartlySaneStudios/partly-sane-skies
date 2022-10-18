@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 import me.partlysanestudios.partlysaneskies.Main;
+import me.partlysanestudios.partlysaneskies.general.WikiArticleOpener;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
 
 public class Utils {
@@ -238,5 +240,27 @@ public class Utils {
         }
 
         return s;
+    }
+
+    public static String getDecodedFieldName(String codedName) {
+        return new HashMap<String,String>() {{
+        put("footer", "field_175255_h");
+        put("header", "field_175256_i");
+        put("upperChestInventory", "field_147015_w");
+        put("lowerChestInventory", "field_147016_v");
+        put("persistantChatGUI", "field_73840_e");
+        put("sentMessages", "field_146248_g");
+        put("streamIndicator", "field_152127_m");
+        put("updateCounter", "field_73837_f");
+        put("overlayPlayerList", "field_175196_v");
+        put("guiIngame", "field_175251_g");
+        put("chatMessages", "field_146253_i");
+        put("theSlot","field_147006_u");
+        put("stackTagCompound","field_77990_d");
+        }}.get(codedName);
+    }
+
+    public static String getItemId(ItemStack item) {
+        return WikiArticleOpener.getItemAttributes(item).getString("id");
     }
 }
