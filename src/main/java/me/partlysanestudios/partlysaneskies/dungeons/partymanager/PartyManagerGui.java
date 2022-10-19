@@ -28,10 +28,10 @@ public class PartyManagerGui extends WindowScreen{
         .setWidth(new PixelConstraint(getWindow().getWidth()*.9f))
         .setHeight(new PixelConstraint(getWindow().getHeight()*.9f))
         .setChildOf(getWindow())
-        .setColor(new Color(32, 33, 36));
+        .setColor(Main.BASE_DARK_COLOR);
 
     
-    UIComponent list = new ScrollComponent("", 0f, new Color(85, 85 ,88), false, true, false, false, 15f, 1f, null)
+    UIComponent list = new ScrollComponent("", 0f, Main.BASE_LIGHT_COLOR, false, true, false, false, 15f, 1f, null)
         .setWidth(new PixelConstraint(background.getWidth()))
         .setHeight(new PixelConstraint(background.getHeight()))
         .setChildOf(background);
@@ -42,7 +42,7 @@ public class PartyManagerGui extends WindowScreen{
         .setChildOf(list);
 
     UIComponent scrollBar = new UIBlock()
-        .setColor(new Color(85, 85 ,88))
+        .setColor(Main.BASE_LIGHT_COLOR)
         .setChildOf(list);
 
     
@@ -59,7 +59,7 @@ public class PartyManagerGui extends WindowScreen{
         UIComponent topBarBlock = new UIBlock()
             .setWidth(new PixelConstraint(list.getWidth()-20f))
             .setHeight(new ScaleConstraint(new PixelConstraint(150f), scaleFactor))
-            .setColor(new Color(42, 43, 46))
+            .setColor(Main.BASE_COLOR)
             .setX(new CenterConstraint())
             .setY(new PixelConstraint(10))
             .setChildOf(list);
@@ -72,7 +72,7 @@ public class PartyManagerGui extends WindowScreen{
             UIComponent memberBlock = new UIBlock()
                 .setWidth(new PixelConstraint(list.getWidth()-20f))
                 .setHeight(new ScaleConstraint(new PixelConstraint(200f), scaleFactor))
-                .setColor(new Color(42, 43, 46))
+                .setColor(Main.BASE_COLOR)
                 .setX(new CenterConstraint())
                 .setY(new PixelConstraint(height))
                 .setChildOf(list);
@@ -129,7 +129,7 @@ public class PartyManagerGui extends WindowScreen{
             .setY(new PixelConstraint(10f*scaleFactor))
             .setWidth(new PixelConstraint(100f*scaleFactor))
             .setHeight(new PixelConstraint(55f * scaleFactor))
-            .setColor(new Color(61, 90, 181))
+            .setColor(Main.DARK_ACCENT_COLOR)
             .setChildOf(topBarBlock);
             
         new UIText("Kick Offline")
@@ -148,7 +148,7 @@ public class PartyManagerGui extends WindowScreen{
             .setY(new PixelConstraint(10f*scaleFactor))
             .setWidth(new PixelConstraint(100f*scaleFactor))
             .setHeight(new PixelConstraint(55f*scaleFactor))
-            .setColor(new Color(61, 90, 181))
+            .setColor(Main.DARK_ACCENT_COLOR)
             .setChildOf(topBarBlock);
         
         new UIText("Reparty")
@@ -168,7 +168,7 @@ public class PartyManagerGui extends WindowScreen{
             .setY(new PixelConstraint(10f*scaleFactor))
             .setWidth(new PixelConstraint(100f*scaleFactor))
             .setHeight(new PixelConstraint(55f*scaleFactor))
-            .setColor(new Color(61, 90, 181))
+            .setColor(Main.DARK_ACCENT_COLOR)
             .setChildOf(topBarBlock);
         
         new UIText("Ask if ready")
@@ -203,7 +203,7 @@ public class PartyManagerGui extends WindowScreen{
             .setY(new PixelConstraint(100*scaleFactor))
             .setWidth(new PixelConstraint(35f*scaleFactor))
             .setHeight(new PixelConstraint(35f * scaleFactor))
-            .setColor(new Color(61, 90, 181))
+            .setColor(Main.DARK_ACCENT_COLOR)
             .setChildOf(topBarBlock);
             
         new UIText("F1")
@@ -222,7 +222,7 @@ public class PartyManagerGui extends WindowScreen{
             .setY(new PixelConstraint(100*scaleFactor))
             .setWidth(new PixelConstraint(35f*scaleFactor))
             .setHeight(new PixelConstraint(35f * scaleFactor))
-            .setColor(new Color(61, 90, 181))
+            .setColor(Main.DARK_ACCENT_COLOR)
             .setChildOf(topBarBlock);
             
         new UIText("F2")
@@ -241,7 +241,7 @@ public class PartyManagerGui extends WindowScreen{
             .setY(new PixelConstraint(100*scaleFactor))
             .setWidth(new PixelConstraint(35f*scaleFactor))
             .setHeight(new PixelConstraint(35f * scaleFactor))
-            .setColor(new Color(61, 90, 181))
+            .setColor(Main.DARK_ACCENT_COLOR)
             .setChildOf(topBarBlock);
             
         new UIText("F3")
@@ -260,7 +260,7 @@ public class PartyManagerGui extends WindowScreen{
             .setY(new PixelConstraint(100*scaleFactor))
             .setWidth(new PixelConstraint(35f*scaleFactor))
             .setHeight(new PixelConstraint(35f * scaleFactor))
-            .setColor(new Color(61, 90, 181))
+            .setColor(Main.DARK_ACCENT_COLOR)
             .setChildOf(topBarBlock);
             
         new UIText("F4")
@@ -279,7 +279,7 @@ public class PartyManagerGui extends WindowScreen{
             .setY(new PixelConstraint(100*scaleFactor))
             .setWidth(new PixelConstraint(35f*scaleFactor))
             .setHeight(new PixelConstraint(35f * scaleFactor))
-            .setColor(new Color(61, 90, 181))
+            .setColor(Main.DARK_ACCENT_COLOR)
             .setChildOf(topBarBlock);
             
         new UIText("F5")
@@ -298,7 +298,7 @@ public class PartyManagerGui extends WindowScreen{
             .setY(new PixelConstraint(100*scaleFactor))
             .setWidth(new PixelConstraint(35f*scaleFactor))
             .setHeight(new PixelConstraint(35f * scaleFactor))
-            .setColor(new Color(61, 90, 181))
+            .setColor(Main.DARK_ACCENT_COLOR)
             .setChildOf(topBarBlock);
             
         new UIText("F6")
@@ -319,7 +319,7 @@ public class PartyManagerGui extends WindowScreen{
             .setY(new PixelConstraint(100*scaleFactor))
             .setWidth(new PixelConstraint(35f*scaleFactor))
             .setHeight(new PixelConstraint(35f * scaleFactor))
-            .setColor(new Color(61, 90, 181))
+            .setColor(Main.DARK_ACCENT_COLOR)
             .setChildOf(topBarBlock);
             
         new UIText("F7")
@@ -344,7 +344,7 @@ public class PartyManagerGui extends WindowScreen{
             .setY(new PixelConstraint(100*scaleFactor))
             .setWidth(new PixelConstraint(35f*scaleFactor))
             .setHeight(new PixelConstraint(35f * scaleFactor))
-            .setColor(new Color(61, 90, 181))
+            .setColor(Main.DARK_ACCENT_COLOR)
             .setChildOf(topBarBlock);
             
         new UIText("M1")
@@ -363,7 +363,7 @@ public class PartyManagerGui extends WindowScreen{
             .setY(new PixelConstraint(100*scaleFactor))
             .setWidth(new PixelConstraint(35f*scaleFactor))
             .setHeight(new PixelConstraint(35f * scaleFactor))
-            .setColor(new Color(61, 90, 181))
+            .setColor(Main.DARK_ACCENT_COLOR)
             .setChildOf(topBarBlock);
             
         new UIText("M2")
@@ -382,7 +382,7 @@ public class PartyManagerGui extends WindowScreen{
             .setY(new PixelConstraint(100*scaleFactor))
             .setWidth(new PixelConstraint(35f*scaleFactor))
             .setHeight(new PixelConstraint(35f * scaleFactor))
-            .setColor(new Color(61, 90, 181))
+            .setColor(Main.DARK_ACCENT_COLOR)
             .setChildOf(topBarBlock);
             
         new UIText("M3")
@@ -401,7 +401,7 @@ public class PartyManagerGui extends WindowScreen{
             .setY(new PixelConstraint(100*scaleFactor))
             .setWidth(new PixelConstraint(35f*scaleFactor))
             .setHeight(new PixelConstraint(35f * scaleFactor))
-            .setColor(new Color(61, 90, 181))
+            .setColor(Main.DARK_ACCENT_COLOR)
             .setChildOf(topBarBlock);
             
         new UIText("M4")
@@ -420,7 +420,7 @@ public class PartyManagerGui extends WindowScreen{
             .setY(new PixelConstraint(100*scaleFactor))
             .setWidth(new PixelConstraint(35f*scaleFactor))
             .setHeight(new PixelConstraint(35f * scaleFactor))
-            .setColor(new Color(61, 90, 181))
+            .setColor(Main.DARK_ACCENT_COLOR)
             .setChildOf(topBarBlock);
             
         new UIText("M5")
@@ -439,7 +439,7 @@ public class PartyManagerGui extends WindowScreen{
             .setY(new PixelConstraint(100*scaleFactor))
             .setWidth(new PixelConstraint(35f*scaleFactor))
             .setHeight(new PixelConstraint(35f * scaleFactor))
-            .setColor(new Color(61, 90, 181))
+            .setColor(Main.DARK_ACCENT_COLOR)
             .setChildOf(topBarBlock);
             
         new UIText("M6")
@@ -458,7 +458,7 @@ public class PartyManagerGui extends WindowScreen{
             .setY(new PixelConstraint(100*scaleFactor))
             .setWidth(new PixelConstraint(35f*scaleFactor))
             .setHeight(new PixelConstraint(35f * scaleFactor))
-            .setColor(new Color(61, 90, 181))
+            .setColor(Main.DARK_ACCENT_COLOR)
             .setChildOf(topBarBlock);
             
         new UIText("M7")

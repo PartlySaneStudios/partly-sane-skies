@@ -57,7 +57,8 @@ public class Main
     public static LocationBannerDisplay locationBannerDisplay;
 
     public static Color BASE_DARK_COLOR = new Color(32, 33, 36);
-    public static Color BASE_LIGHT_COLOR = new Color(42, 43, 46);
+    public static Color BASE_COLOR = new Color(42, 43, 46);
+    public static Color BASE_LIGHT_COLOR = new Color(85, 85 ,88);
     public static Color ACCENT_COLOR = new Color(1, 255, 255);
     public static Color DARK_ACCENT_COLOR = new Color (1, 122, 122);
 

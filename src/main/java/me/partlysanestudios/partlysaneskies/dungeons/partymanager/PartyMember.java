@@ -538,7 +538,7 @@ public class PartyMember {
         .setY(new PixelConstraint(15f * scaleFactor))
         .setWidth(new PixelConstraint(125f*scaleFactor))
         .setHeight(new PixelConstraint(55f * scaleFactor))
-        .setColor(new Color(61, 90, 181))
+        .setColor(Main.DARK_ACCENT_COLOR)
         .setChildOf(memberBlock);
     
         new UIText("Kick")
@@ -560,7 +560,7 @@ public class PartyMember {
             .setY(new PixelConstraint(75 * scaleFactor))
             .setWidth(new PixelConstraint(125f*scaleFactor))
             .setHeight(new PixelConstraint(55f * scaleFactor))
-            .setColor(new Color(61, 90, 181))
+            .setColor(Main.DARK_ACCENT_COLOR)
             .setChildOf(memberBlock);
         
         new UIText("Promote")
@@ -582,7 +582,7 @@ public class PartyMember {
             .setY(new PixelConstraint(135f * scaleFactor))
             .setWidth(new PixelConstraint(125f*scaleFactor))
             .setHeight(new PixelConstraint(55f * scaleFactor))
-            .setColor(new Color(61, 90, 181))
+            .setColor(Main.DARK_ACCENT_COLOR)
             .setChildOf(memberBlock);
         
         new UIText("Transfer")
