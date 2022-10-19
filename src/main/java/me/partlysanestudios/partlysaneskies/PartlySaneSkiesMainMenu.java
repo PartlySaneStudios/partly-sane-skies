@@ -117,7 +117,7 @@ public class PartlySaneSkiesMainMenu extends WindowScreen{
             .setY(new CenterConstraint())
             .setHeight(new PixelConstraint(middleMenuBar.getHeight()))
             .setWidth(new PixelConstraint(2*scaleFactor))
-            .setColor(new Color(62, 168, 250))
+            .setColor(Main.ACCENT_COLOR)
             .setChildOf(middleMenuBar);
 
         middleRightBar = new UIBlock()
@@ -125,7 +125,7 @@ public class PartlySaneSkiesMainMenu extends WindowScreen{
             .setY(new CenterConstraint())
             .setHeight(new PixelConstraint(middleMenuBar.getHeight()))
             .setWidth(new PixelConstraint(2*scaleFactor))
-            .setColor(new Color(62, 168, 250))
+            .setColor(Main.ACCENT_COLOR)
             .setChildOf(middleMenuBar);
         
         float titleHeight = 75;
@@ -254,7 +254,7 @@ public class PartlySaneSkiesMainMenu extends WindowScreen{
             .setY(new PixelConstraint(400f * scaleFactor))
             .setHeight(new PixelConstraint(1*scaleFactor))
             .setWidth(new PixelConstraint(middleMenuBar.getWidth()*.90f))
-            .setColor(new Color(62, 168, 250))
+            .setColor(Main.ACCENT_COLOR)
             .setChildOf(middleMenuBar);
 
 
