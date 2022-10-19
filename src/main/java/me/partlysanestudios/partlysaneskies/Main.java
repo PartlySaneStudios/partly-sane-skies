@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.awt.Color;
 
 import gg.essential.elementa.ElementaVersion;
 import me.partlysanestudios.partlysaneskies.dungeons.WatcherReady;
@@ -17,6 +18,7 @@ import me.partlysanestudios.partlysaneskies.general.NoCookieWarning;
 import me.partlysanestudios.partlysaneskies.general.WikiArticleOpener;
 import me.partlysanestudios.partlysaneskies.general.WormWarning;
 import me.partlysanestudios.partlysaneskies.general.economy.ItemLowestBin;
+import me.partlysanestudios.partlysaneskies.general.economy.AhSniper.AhGui;
 import me.partlysanestudios.partlysaneskies.general.economy.AhSniper.AhSniper;
 import me.partlysanestudios.partlysaneskies.general.partyfriend.PartyFriendManager;
 import me.partlysanestudios.partlysaneskies.general.partyfriend.PartyFriendManagerCommand;
@@ -53,6 +55,11 @@ public class Main
     public static boolean isDebugMode;
 
     public static LocationBannerDisplay locationBannerDisplay;
+
+    public static Color BASE_DARK_COLOR = new Color(32, 33, 36);
+    public static Color BASE_LIGHT_COLOR = new Color(42, 43, 46);
+    public static Color ACCENT_COLOR = new Color(1, 255, 255);
+    public static Color DARK_ACCENT_COLOR = new Color (1, 122, 122);
 
 
     @EventHandler
@@ -137,7 +144,16 @@ public class Main
         Main.isDebugMode = !Main.isDebugMode;
         Utils.visPrint("Debug mode: " + Main.isDebugMode);
         AhSniper.runAlgorithm();
+        AhGui gui = new AhGui(ElementaVersion.V2);
+        Main.minecraft.displayGuiScreen(gui);
+        Utils.visPrint(gui.getWindow().getHeight());
     }
+
+
+
+
+
+
 
     public static List<String> getScoreboardLines() {
         Scoreboard scoreboard = minecraft.theWorld.getScoreboard();
