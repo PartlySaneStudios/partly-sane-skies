@@ -1,11 +1,11 @@
 package me.partlysanestudios.partlysaneskies;
 
-import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.awt.Color;
 
 import gg.essential.elementa.ElementaVersion;
 import me.partlysanestudios.partlysaneskies.dungeons.WatcherReady;
@@ -18,6 +18,7 @@ import me.partlysanestudios.partlysaneskies.general.NoCookieWarning;
 import me.partlysanestudios.partlysaneskies.general.WikiArticleOpener;
 import me.partlysanestudios.partlysaneskies.general.WormWarning;
 import me.partlysanestudios.partlysaneskies.general.economy.ItemLowestBin;
+import me.partlysanestudios.partlysaneskies.general.economy.AhSniper.AhGui;
 import me.partlysanestudios.partlysaneskies.general.economy.AhSniper.AhSniper;
 import me.partlysanestudios.partlysaneskies.general.partyfriend.PartyFriendManager;
 import me.partlysanestudios.partlysaneskies.general.partyfriend.PartyFriendManagerCommand;
@@ -144,9 +145,9 @@ public class Main
         Main.isDebugMode = !Main.isDebugMode;
         Utils.visPrint("Debug mode: " + Main.isDebugMode);
         AhSniper.runAlgorithm();
-        // AhGui gui = new AhGui(ElementaVersion.V2);
-        // Main.minecraft.displayGuiScreen(gui);
-        // Utils.visPrint(gui.getWindow().getHeight());
+        AhGui gui = new AhGui(ElementaVersion.V2);
+        Main.minecraft.displayGuiScreen(gui);
+        Utils.visPrint(gui.getWindow().getHeight());
     }
 
 
