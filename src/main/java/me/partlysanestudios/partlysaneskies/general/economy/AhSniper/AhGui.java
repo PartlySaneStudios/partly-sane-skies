@@ -23,7 +23,7 @@ public class AhGui extends WindowScreen {
         super(version);
     }
 
-    public void displayItem(float x, float y, ItemStack item, UIComponent parent) {
+    public void displayItem(float x, float y, ItemStack item) {
         itemRender.renderItemIntoGUI(item, (int) x, (int) y);
     }
 
@@ -34,7 +34,7 @@ public class AhGui extends WindowScreen {
 
     public float getWindowWidth() {
         return this.getWindow().getWidth();
-    };
+    }
 
     private float getWidthScaleFactor() {
         return this.getWindow().getWidth() / 1097f;
