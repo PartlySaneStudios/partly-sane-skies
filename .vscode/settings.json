@@ -1,4 +1,5 @@
 {
     "java.dependency.packagePresentation": "hierarchical",
-    "java.configuration.updateBuildConfiguration": "interactive"
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.import.gradle.enabled": true
 }
