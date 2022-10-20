@@ -8,7 +8,7 @@ import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.BlockPos;
 
-public class PartyFriendManagerCommand implements ICommand{
+public class PartyFriendManagerCommand implements ICommand {
 
     @Override
     public int compareTo(ICommand o) {

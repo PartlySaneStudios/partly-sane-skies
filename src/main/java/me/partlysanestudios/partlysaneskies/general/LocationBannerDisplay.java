@@ -22,33 +22,32 @@ public class LocationBannerDisplay extends Gui {
 	String lastLocation = "";
 	public long lastLocationTime = Minecraft.getSystemTime();
 
-	Window window= new Window(ElementaVersion.V2);
+	Window window = new Window(ElementaVersion.V2);
 	String displayString = "empty";
 
 	Color color = Color.white;
 
 	UIComponent displayText = new UIText(displayString)
-		.setTextScale(new PixelConstraint(TEXT_SCALE))
-		.setX(new CenterConstraint())
-		.setY(new PixelConstraint(window.getHeight()*.125f))
-		.setColor(Color.white)
-		.setChildOf(window);
-
+			.setTextScale(new PixelConstraint(TEXT_SCALE))
+			.setX(new CenterConstraint())
+			.setY(new PixelConstraint(window.getHeight() * .125f))
+			.setColor(Color.white)
+			.setChildOf(window);
 
 	public LocationBannerDisplay() {
 	}
 
-
 	public void checkLocation() {
-		if(!Main.config.locationBannerDisplay) return;
-		
+		if (!Main.config.locationBannerDisplay)
+			return;
+
 		String regionName = Main.getRegionName();
 		String noColorCodeRegionName = Utils.removeColorCodes(regionName);
 
 		if (lastLocation.equals(noColorCodeRegionName)) {
 			return;
 		}
-		if(!regionName.equals("")) {
+		if (!regionName.equals("")) {
 			color = Utils.colorCodetoColor.get(regionName.substring(3, 5));
 		}
 
@@ -57,27 +56,28 @@ public class LocationBannerDisplay extends Gui {
 		lastLocationTime = Minecraft.getSystemTime();
 	}
 
-
 	private boolean checkExpire() {
-		return getTimeSinceLastChange() > Main.config.locationBannerTime*1000;
+		return getTimeSinceLastChange() > Main.config.locationBannerTime * 1000;
 	}
-
 
 	@SubscribeEvent
 	public void renderText(RenderGameOverlayEvent.Text event) {
 		short alpha = getAlpha(getTimeSinceLastChange(), Main.config.locationBannerTime);
 
-		if(color == null) color = Color.gray;
-		else color = new Color(color.getRed(), color.getGreen(), color.getBlue(), (short) alpha);
+		if (color == null)
+			color = Color.gray;
+		else
+			color = new Color(color.getRed(), color.getGreen(), color.getBlue(), (short) alpha);
 
 		((UIText) displayText)
-			.setText(displayString)
-			.setX(new CenterConstraint())
-			.setY(new PixelConstraint(window.getHeight()*.125f))
-			.setColor(color);
-			window.draw(new UMatrixStack());
+				.setText(displayString)
+				.setX(new CenterConstraint())
+				.setY(new PixelConstraint(window.getHeight() * .125f))
+				.setColor(color);
+		window.draw(new UMatrixStack());
 
-		if(checkExpire()) displayString = "";
+		if (checkExpire())
+			displayString = "";
 	}
 
 	private long getTimeSinceLastChange() {
@@ -87,22 +87,18 @@ public class LocationBannerDisplay extends Gui {
 	public static short getAlpha(long timeSinceLastChangeMs, double displayLenghtSeconds) {
 		long time = timeSinceLastChangeMs;
 		double displayLength = displayLenghtSeconds * 1000;
-		double fadeLength = displayLength*(1 / 6d);
-		
-		if(0 > time) {
+		double fadeLength = displayLength * (1 / 6d);
+
+		if (0 > time) {
 			return 0;
-		}
-		else if(0 < time && time < fadeLength) {
-			return (short) Math.round(time / fadeLength*255);
-		}
-		else if (fadeLength < time && time <= displayLength - fadeLength){
+		} else if (0 < time && time < fadeLength) {
+			return (short) Math.round(time / fadeLength * 255);
+		} else if (fadeLength < time && time <= displayLength - fadeLength) {
 			return 255;
-		}
-		else if (displayLength - fadeLength < time && time <= displayLength) {
-			return (short) Math.round((-time + displayLength)/fadeLength*255);
-		}
-		else {
-			
+		} else if (displayLength - fadeLength < time && time <= displayLength) {
+			return (short) Math.round((-time + displayLength) / fadeLength * 255);
+		} else {
+
 			return 0;
 		}
 
