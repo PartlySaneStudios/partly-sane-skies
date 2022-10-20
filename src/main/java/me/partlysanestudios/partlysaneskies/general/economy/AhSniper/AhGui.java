@@ -8,7 +8,6 @@ import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import me.partlysanestudios.partlysaneskies.Main;
 import net.minecraft.item.ItemStack;
-import scala.swing.Applet.UI;
 
 public class AhGui extends WindowScreen {
 
