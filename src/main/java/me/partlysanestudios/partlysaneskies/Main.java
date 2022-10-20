@@ -40,10 +40,8 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 
-
 @Mod(modid = Main.MODID, version = Main.VERSION, name = Main.NAME)
-public class Main
-{
+public class Main {
     public static final String MODID = "partlysaneskies";
     public static final String NAME = "Partly Sane Skies";
     public static final String VERSION = "1.0";
@@ -58,10 +56,9 @@ public class Main
 
     public static Color BASE_DARK_COLOR = new Color(32, 33, 36);
     public static Color BASE_COLOR = new Color(42, 43, 46);
-    public static Color BASE_LIGHT_COLOR = new Color(85, 85 ,88);
+    public static Color BASE_LIGHT_COLOR = new Color(85, 85, 88);
     public static Color ACCENT_COLOR = new Color(1, 255, 255);
-    public static Color DARK_ACCENT_COLOR = new Color (1, 122, 122);
-
+    public static Color DARK_ACCENT_COLOR = new Color(1, 122, 122);
 
     @EventHandler
     public void init(FMLInitializationEvent evnt) {
@@ -111,35 +108,31 @@ public class Main
         System.out.println("Partly Sane Skies has loaded.");
     }
 
-
     @SubscribeEvent
     public void clientTick(ClientTickEvent evnt) {
         locationBannerDisplay.checkLocation();
         ItemLowestBin.runUpdater();
     }
 
-
     @SubscribeEvent
     public void newApiKey(ClientChatReceivedEvent event) {
-        if(event.message.getUnformattedText().startsWith("Your new API key is ")) { 
+        if (event.message.getUnformattedText().startsWith("Your new API key is ")) {
             config.apiKey = event.message.getUnformattedText().replace("Your new API key is ", "");
             Utils.sendClientMessage(Utils.colorCodes("Saved new API key!"));
             config.writeData();
         }
     }
 
-
     @SubscribeEvent
     public void chatAnalyzer(ClientChatReceivedEvent evnt) {
-        if(Main.isDebugMode) System.out.println(evnt.message.getFormattedText());
+        if (Main.isDebugMode)
+            System.out.println(evnt.message.getFormattedText());
     }
-
 
     public static String getScoreboardName() {
         String scoreboardName = minecraft.thePlayer.getWorldScoreboard().getObjectiveInDisplaySlot(1).getDisplayName();
         return Utils.removeColorCodes(scoreboardName);
     }
-
 
     public static void debugMode() {
         Main.isDebugMode = !Main.isDebugMode;
@@ -150,28 +143,22 @@ public class Main
         Utils.visPrint(gui.getWindow().getHeight());
     }
 
-
-
-
-
-
-
     public static List<String> getScoreboardLines() {
         Scoreboard scoreboard = minecraft.theWorld.getScoreboard();
         ScoreObjective objective = scoreboard.getObjectiveInDisplaySlot(1);
         Collection<Score> scoreCollection = scoreboard.getSortedScores(objective);
 
         List<String> scoreLines = new ArrayList<String>();
-        for(Score score : scoreCollection) {
-            scoreLines.add(ScorePlayerTeam.formatPlayerName(scoreboard.getPlayersTeam(score.getPlayerName()), score.getPlayerName()));
+        for (Score score : scoreCollection) {
+            scoreLines.add(ScorePlayerTeam.formatPlayerName(scoreboard.getPlayersTeam(score.getPlayerName()),
+                    score.getPlayerName()));
         }
-        
+
         return scoreLines;
     }
 
-
     public static String getRegionName() {
-        if(!isSkyblock()) {
+        if (!isSkyblock()) {
             return "";
         }
 
@@ -179,7 +166,7 @@ public class Main
 
         String location = null;
 
-        for(String line : scoreboard) {
+        for (String line : scoreboard) {
             if (Utils.stripLeading(line).contains("⏣")) {
                 location = Utils.stripLeading(line).replace("⏣", "");
                 location = Utils.stripLeading(location);
@@ -195,7 +182,7 @@ public class Main
     }
 
     public static long getCoins() {
-        if(!isSkyblock()) {
+        if (!isSkyblock()) {
             return 0l;
         }
 
@@ -203,7 +190,7 @@ public class Main
 
         String money = null;
 
-        for(String line : scoreboard) {
+        for (String line : scoreboard) {
             if (Utils.stripLeading(line).contains("Piggy:") || Utils.stripLeading(line).contains("Purse:")) {
                 money = Utils.stripLeading(Utils.removeColorCodes(line)).replace("Piggy: ", "");
                 money = Utils.stripLeading(Utils.removeColorCodes(line)).replace("Purse: ", "");
@@ -219,32 +206,28 @@ public class Main
         }
         try {
             return Long.parseLong(money);
-        }
-        catch (NumberFormatException event) {
+        } catch (NumberFormatException event) {
             return 0;
         }
     }
 
-
     public static boolean isSkyblock() {
         try {
-            if(getScoreboardName().toLowerCase().contains("skyblock")) {
+            if (getScoreboardName().toLowerCase().contains("skyblock")) {
                 return true;
-            } 
-        }
-        catch (NullPointerException expt) {
+            }
+        } catch (NullPointerException expt) {
             return false;
         }
         return false;
     }
 
-
     public static boolean isHypixel() {
         try {
             return minecraft.getCurrentServerData().serverIP.contains(".hypixel.net");
+        } catch (NullPointerException expt) {
+        } finally {
         }
-        catch(NullPointerException expt) {}
-        finally {}
         return false;
     }
 }

@@ -12,7 +12,6 @@ public class ItemLowestBin {
     public static HashMap<String, Float> lowestBin;
     public static long lastAhUpdateTime = 0;
 
-
     public static void runUpdater() {
         if (checkLastUpdate()) {
             lastAhUpdateTime = Minecraft.getSystemTime();
@@ -27,18 +26,20 @@ public class ItemLowestBin {
                 try {
                     String request = Utils.getRequest("http://moulberry.codes/lowestbin.json");
                     @SuppressWarnings("unchecked")
-                    HashMap<String, Float> map = (HashMap<String, Float>) new Gson().fromJson(request, lowestBin.getClass());
+                    HashMap<String, Float> map = (HashMap<String, Float>) new Gson().fromJson(request,
+                            lowestBin.getClass());
 
                     lowestBin = map;
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
-        }.start();;
+        }.start();
+        ;
     }
 
     public static boolean checkLastUpdate() {
-        if (Minecraft.getSystemTime() < lastAhUpdateTime + 1000*60*3) {
+        if (Minecraft.getSystemTime() < lastAhUpdateTime + 1000 * 60 * 3) {
             return true;
         }
 

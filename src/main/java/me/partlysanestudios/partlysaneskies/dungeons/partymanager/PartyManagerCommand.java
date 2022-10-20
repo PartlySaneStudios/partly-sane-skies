@@ -8,7 +8,7 @@ import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.BlockPos;
 
-public class PartyManagerCommand implements ICommand{
+public class PartyManagerCommand implements ICommand {
 
     @Override
     public int compareTo(ICommand o) {
@@ -49,5 +49,5 @@ public class PartyManagerCommand implements ICommand{
     public boolean isUsernameIndex(String[] args, int index) {
         return false;
     }
-    
+
 }

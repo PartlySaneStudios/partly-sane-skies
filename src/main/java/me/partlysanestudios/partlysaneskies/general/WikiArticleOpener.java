@@ -14,6 +14,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class WikiArticleOpener {
     public static boolean isWaitingForArticle = false;
+
     public static NBTTagCompound getItemAttributes(ItemStack item) {
         return item.getTagCompound().getCompoundTag("ExtraAttributes");
     }
@@ -25,29 +26,28 @@ public class WikiArticleOpener {
 
     @SubscribeEvent
     public void openArticle(ClientChatReceivedEvent e) {
-        if(!isWaitingForArticle) {
+        if (!isWaitingForArticle) {
             return;
         }
         if (Utils.removeColorCodes(e.message.getFormattedText()).contains("Invalid")) {
             isWaitingForArticle = false;
             return;
         }
-        if(!Utils.removeColorCodes(e.message.getFormattedText()).contains("Click HERE")) {
+        if (!Utils.removeColorCodes(e.message.getFormattedText()).contains("Click HERE")) {
             return;
         }
-        
+
         isWaitingForArticle = false;
         String wikiLink = e.message.getChatStyle().getChatClickEvent().getValue();
-        if(Main.config.openWikiAutomatically) {
+        if (Main.config.openWikiAutomatically) {
             URI uri;
             try {
                 uri = new URI(wikiLink);
                 try {
                     Class<?> oclass = Class.forName("java.awt.Desktop");
-                    Object object = oclass.getMethod("getDesktop", new Class[0]).invoke((Object)null, new Object[0]);
-                    oclass.getMethod("browse", new Class[] {URI.class}).invoke(object, new Object[] {uri});
-                }
-                catch (Throwable throwable) {
+                    Object object = oclass.getMethod("getDesktop", new Class[0]).invoke((Object) null, new Object[0]);
+                    oclass.getMethod("browse", new Class[] { URI.class }).invoke(object, new Object[] { uri });
+                } catch (Throwable throwable) {
                     Utils.sendClientMessage("Couldn\'t open link");
                     throwable.printStackTrace();
                 }
@@ -59,7 +59,7 @@ public class WikiArticleOpener {
     }
 
     public static void keyDown() {
-        if(!Main.isSkyblock()) {
+        if (!Main.isSkyblock()) {
             return;
         }
         ItemStack item;
@@ -68,10 +68,11 @@ public class WikiArticleOpener {
         }
         GuiContainer container = (GuiContainer) Main.minecraft.currentScreen;
         Slot slot = container.getSlotUnderMouse();
-        if(slot == null) return;
+        if (slot == null)
+            return;
         item = slot.getStack();
 
-        if(item == null) {
+        if (item == null) {
             return;
         }
 

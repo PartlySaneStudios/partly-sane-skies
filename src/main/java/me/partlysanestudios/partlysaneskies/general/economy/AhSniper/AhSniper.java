@@ -16,7 +16,7 @@ import net.minecraft.nbt.NBTTagList;
 
 public class AhSniper {
     public static void runAlgorithm() {
-        if(!isAhGui()){
+        if (!isAhGui()) {
             return;
         }
 
@@ -35,7 +35,7 @@ public class AhSniper {
             long sellingPrice = getPrice(itemStack);
             float averageAhPrice = ItemLowestBin.lowestBin.get(Utils.getItemId(itemStack));
 
-            if (sellingPrice*.60 <= averageAhPrice){
+            if (sellingPrice * .60 <= averageAhPrice) {
                 lowBinItems.add(itemStack);
             }
         }
@@ -55,7 +55,7 @@ public class AhSniper {
 
     private static boolean isBin(ItemStack itemStack) {
         List<String> loreList = getLore(itemStack);
-        for(String line : loreList) {
+        for (String line : loreList) {
             if (Utils.removeColorCodes(line).contains("Buy it now: ")) {
                 return true;
             }
@@ -67,7 +67,7 @@ public class AhSniper {
         List<String> loreList = getLore(itemStack);
         String buyItNowPrice = "";
 
-        for(String line : loreList) {
+        for (String line : loreList) {
             if (Utils.removeColorCodes(line).contains("Buy it now: ")) {
                 buyItNowPrice = Utils.removeColorCodes(line).replaceAll("[^0-9]", "");
             }
@@ -76,8 +76,8 @@ public class AhSniper {
         return Long.parseLong(buyItNowPrice);
     }
 
-    private static boolean isAhGui(){ 
-        if(!(Main.minecraft.currentScreen instanceof GuiChest)){
+    private static boolean isAhGui() {
+        if (!(Main.minecraft.currentScreen instanceof GuiChest)) {
             return false;
         }
 
@@ -85,26 +85,27 @@ public class AhSniper {
         return Utils.removeColorCodes(upper.getDisplayName().getFormattedText()).contains("Auction Browser");
     }
 
-
     private static IInventory[] getSeparateUpperLowerGui(GuiScreen gui) {
         IInventory upperInventory;
         IInventory lowerInventory;
         try {
-            upperInventory = (IInventory) FieldUtils.readDeclaredField(gui, Utils.getDecodedFieldName("upperChestInventory"), true);
-            lowerInventory = (IInventory) FieldUtils.readDeclaredField(gui, Utils.getDecodedFieldName("lowerChestInventory"), true);
+            upperInventory = (IInventory) FieldUtils.readDeclaredField(gui,
+                    Utils.getDecodedFieldName("upperChestInventory"), true);
+            lowerInventory = (IInventory) FieldUtils.readDeclaredField(gui,
+                    Utils.getDecodedFieldName("lowerChestInventory"), true);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
             return null;
         }
 
-        return new IInventory[] {upperInventory, lowerInventory};
-    }   
-
+        return new IInventory[] { upperInventory, lowerInventory };
+    }
 
     private static List<ItemStack> getAuctionContents(IInventory inventory) {
         List<ItemStack> list = new ArrayList<ItemStack>();
-        for(int i = 0 ; i < 54 ; i++) {
-            if(convertSlotToChestCoordinate(i)[0] <= 2 || convertSlotToChestCoordinate(i)[0] == 9 || convertSlotToChestCoordinate(i)[1] == 1 || convertSlotToChestCoordinate(i)[1] == 6) {
+        for (int i = 0; i < 54; i++) {
+            if (convertSlotToChestCoordinate(i)[0] <= 2 || convertSlotToChestCoordinate(i)[0] == 9
+                    || convertSlotToChestCoordinate(i)[1] == 1 || convertSlotToChestCoordinate(i)[1] == 6) {
                 continue;
             }
             list.add(inventory.getStackInSlot(i));
@@ -113,22 +114,22 @@ public class AhSniper {
         return list;
     }
 
-
     // private static int convertChestCoordinateToSlot(int x, int y) {
-    //     return x + 9 * y - 10;
+    // return x + 9 * y - 10;
     // }
-    
+
     // private static int convertAhCoordinateToSlot(int x, int y) {
-    //     x += 2;
-    //     y += 1;
-    //     return x + 9 * y - 10;
+    // x += 2;
+    // y += 1;
+    // return x + 9 * y - 10;
     // }
 
     private static int[] convertSlotToChestCoordinate(int slot) {
         int x = (slot + 1) % 9;
-        if (x == 0) x = 9;
+        if (x == 0)
+            x = 9;
         int y = (slot + 1) / 9 + 1;
 
-        return new int[]{x, y};
+        return new int[] { x, y };
     }
 }
