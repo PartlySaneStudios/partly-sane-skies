@@ -38,7 +38,7 @@ public class PermParty {
 
     public void partyAll() {
         Long timeDelay = 000l;
-        for(String member : this.partyMembers) {
+        for (String member : this.partyMembers) {
             final long finalTimeDelay = timeDelay.longValue();
             new Thread() {
                 @Override
@@ -63,11 +63,11 @@ public class PermParty {
 
     public String getMemberString() {
         String str = "";
-        for(String name : partyMembers) {
+        for (String name : partyMembers) {
             str += name + ", ";
         }
-        if(str.endsWith(", "))
-            str = new StringBuilder(str).replace(str.length()-2, str.length()-1, "").toString();
+        if (str.endsWith(", "))
+            str = new StringBuilder(str).replace(str.length() - 2, str.length() - 1, "").toString();
         return str;
     }
 }

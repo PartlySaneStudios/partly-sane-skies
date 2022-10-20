@@ -12,7 +12,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent;
 
 public final class Keybinds {
-    
 
     private final static String PSS_CATEGORY = "Partly Sane Skies";
 
@@ -26,8 +25,6 @@ public final class Keybinds {
     public static KeyBinding storageKeybind;
     public static KeyBinding wikiKeybind;
 
-
-
     public static void init() {
         debugKey = registerKey("Debug", PSS_CATEGORY, Keyboard.KEY_F4);
         configKey = registerKey("Config", PSS_CATEGORY, Keyboard.KEY_F7);
@@ -40,52 +37,48 @@ public final class Keybinds {
         wikiKeybind = registerKey("Open Wiki Article", PSS_CATEGORY, Keyboard.KEY_X);
     }
 
-
     private static KeyBinding registerKey(String name, String category, int keycode) {
         final KeyBinding key = new KeyBinding(name, keycode, category);
         ClientRegistry.registerKeyBinding(key);
         return key;
     }
 
-
     @SubscribeEvent
     public void keybindWhileInGui(KeyboardInputEvent.Post event) {
-        if(Keyboard.isKeyDown(debugKey.getKeyCode())) {
+        if (Keyboard.isKeyDown(debugKey.getKeyCode())) {
             Main.debugMode();
         }
 
-        if(Keyboard.isKeyDown(Keybinds.wikiKeybind.getKeyCode())) {
+        if (Keyboard.isKeyDown(Keybinds.wikiKeybind.getKeyCode())) {
             WikiArticleOpener.keyDown();
         }
     }
 
-
-
     @SubscribeEvent
     public void checkKeyBinds(KeyInputEvent event) {
-        if(debugKey.isPressed()) {
+        if (debugKey.isPressed()) {
             Main.debugMode();
         }
-        if(configKey.isPressed()) {
+        if (configKey.isPressed()) {
             Main.minecraft.displayGuiScreen(Main.config.gui());
         }
-        if(partyManagerKey.isPressed()) {
+        if (partyManagerKey.isPressed()) {
             PartyManager.startPartyManager();
         }
-        if(helpKey.isPressed()) {
+        if (helpKey.isPressed()) {
             Help.printHelpMessage();
         }
-        if(craftKeybind.isPressed()) {
+        if (craftKeybind.isPressed()) {
             Main.minecraft.thePlayer.sendChatMessage("/craft");
         }
-        if(petKeybind.isPressed()) {
+        if (petKeybind.isPressed()) {
             Main.minecraft.thePlayer.sendChatMessage("/pets");
         }
-        if(wardrobeKeybind.isPressed()) {
+        if (wardrobeKeybind.isPressed()) {
             Main.minecraft.thePlayer.sendChatMessage("/wardrobe");
         }
-        if(storageKeybind.isPressed()) {
+        if (storageKeybind.isPressed()) {
             Main.minecraft.thePlayer.sendChatMessage("/storage");
         }
-    } 
+    }
 }

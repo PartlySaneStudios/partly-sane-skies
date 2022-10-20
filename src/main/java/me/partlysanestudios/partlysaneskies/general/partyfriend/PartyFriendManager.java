@@ -12,6 +12,7 @@ public class PartyFriendManager {
     private static boolean isWaitingForMembers = false;
     private static List<String> partyList = new ArrayList<String>();
     private static int page = 0;
+
     public static void startPartyManager() {
         isWaitingForMembers = true;
         page = 1;
@@ -23,8 +24,9 @@ public class PartyFriendManager {
     public void getMembers(ClientChatReceivedEvent event) {
         if (!isWaitingForMembers) {
             return;
-        };
-        if(event.message.getUnformattedText().startsWith("-----------------------------------------------------")) {
+        }
+        ;
+        if (event.message.getUnformattedText().startsWith("-----------------------------------------------------")) {
             isWaitingForMembers = false;
         }
         String message = Utils.removeColorCodes(event.message.getFormattedText());
@@ -32,23 +34,22 @@ public class PartyFriendManager {
         String[] rows = message.split("\n");
 
         boolean isEndOfPage = false;
-        for(String row : rows) {
+        for (String row : rows) {
             Utils.visPrint(rows);
             Utils.visPrint(row);
             if (row.contains(" is in")) {
                 partyList.add(row.substring(0, row.indexOf(" is in")));
             }
 
-            if(row.contains(" is curr")){
+            if (row.contains(" is curr")) {
                 isEndOfPage = true;
                 break;
             }
         }
         Utils.visPrint(partyList);
-        if(isEndOfPage) {
+        if (isEndOfPage) {
             partyAll();
-        }
-        else {
+        } else {
             isWaitingForMembers = true;
             page++;
             Main.minecraft.thePlayer.sendChatMessage("/friend list " + page);
@@ -58,7 +59,7 @@ public class PartyFriendManager {
     public static void partyAll() {
         Long timeDelay = 500l;
 
-        for(String member : partyList) {   
+        for (String member : partyList) {
             final long finalTimeDelay = timeDelay.longValue();
             new Thread() {
                 @Override

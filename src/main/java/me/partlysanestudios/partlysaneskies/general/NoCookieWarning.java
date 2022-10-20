@@ -29,19 +29,17 @@ public class NoCookieWarning {
     private static String displayString = "";
     private static long lastWarnTime;
 
-    private static Window window= new Window(ElementaVersion.V2);
+    private static Window window = new Window(ElementaVersion.V2);
     private static UIComponent displayText = new UIText(displayString)
-		.setTextScale(new PixelConstraint(TEXT_SCALE))
-		.setX(new CenterConstraint())
-		.setY(new PixelConstraint(window.getHeight()*.2f))
-		.setColor(Color.white)
-		.setChildOf(window);
-
+            .setTextScale(new PixelConstraint(TEXT_SCALE))
+            .setX(new CenterConstraint())
+            .setY(new PixelConstraint(window.getHeight() * .2f))
+            .setColor(Color.white)
+            .setChildOf(window);
 
     public NoCookieWarning() {
         lastWarnTime = Minecraft.getSystemTime();
     }
-
 
     public static IChatComponent getFooter() {
         GuiPlayerTabOverlay tabList = Minecraft.getMinecraft().ingameGUI.getTabList();
@@ -61,22 +59,24 @@ public class NoCookieWarning {
         return footer;
     }
 
-    // Returns 1 if it has a cookie, 0 if it doesn't and -1 if it cannot be determined
+    // Returns 1 if it has a cookie, 0 if it doesn't and -1 if it cannot be
+    // determined
     public static int hasBoosterCookie() {
-        for(IChatComponent chatComponent : getFooter().getSiblings()) {
-            if(Utils.removeColorCodes(chatComponent.getFormattedText()).toLowerCase().contains("not active! obtain booster cookies")) {
+        for (IChatComponent chatComponent : getFooter().getSiblings()) {
+            if (Utils.removeColorCodes(chatComponent.getFormattedText()).toLowerCase()
+                    .contains("not active! obtain booster cookies")) {
                 return 0;
             }
         }
-        if(getFooter().getSiblings().size() == 0) return -1;
+        if (getFooter().getSiblings().size() == 0)
+            return -1;
         return 1;
     }
 
     public static boolean hasLotsOfCoins() {
         if (Main.getCoins() > Main.config.maxWithoutCookie) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -85,7 +85,8 @@ public class NoCookieWarning {
         lastWarnTime = Minecraft.getSystemTime();
         color = Color.red;
         displayString = "No Booster Cookie. You will loose your coins on death";
-        Main.minecraft.getSoundHandler().playSound(PositionedSoundRecord.create(new ResourceLocation("partlysaneskies", "bell")));
+        Main.minecraft.getSoundHandler()
+                .playSound(PositionedSoundRecord.create(new ResourceLocation("partlysaneskies", "bell")));
     }
 
     public static long getTimeSinceLastWarn() {
@@ -93,11 +94,11 @@ public class NoCookieWarning {
     }
 
     public static boolean checkExpire() {
-        return getTimeSinceLastWarn() > Main.config.noCookieWarnTime*1000;
+        return getTimeSinceLastWarn() > Main.config.noCookieWarnTime * 1000;
     }
 
     public static boolean checkWarnAgain() {
-        if(getTimeSinceLastWarn() > Main.config.noCookieWarnCooldown*1000) {
+        if (getTimeSinceLastWarn() > Main.config.noCookieWarnCooldown * 1000) {
             return true;
         }
 
@@ -107,23 +108,25 @@ public class NoCookieWarning {
     }
 
     @SubscribeEvent
-	public void renderText(RenderGameOverlayEvent.Text event) {
-		short alpha = LocationBannerDisplay.getAlpha(getTimeSinceLastWarn(), Main.config.noCookieWarnTime);
+    public void renderText(RenderGameOverlayEvent.Text event) {
+        short alpha = LocationBannerDisplay.getAlpha(getTimeSinceLastWarn(), Main.config.noCookieWarnTime);
 
-		if(color == null) color = Color.gray;
-		else color = new Color(color.getRed(), color.getGreen(), color.getBlue(), (short) alpha);
-        float scaleFactor = (window.getWidth())/1075f;
-		((UIText) displayText)
-			.setText(displayString)
-            .setTextScale(new PixelConstraint(TEXT_SCALE*scaleFactor))
-			.setX(new CenterConstraint())
-			.setY(new PixelConstraint(window.getHeight()*.125f))
-			.setColor(color);
-			window.draw(new UMatrixStack());
+        if (color == null)
+            color = Color.gray;
+        else
+            color = new Color(color.getRed(), color.getGreen(), color.getBlue(), (short) alpha);
+        float scaleFactor = (window.getWidth()) / 1075f;
+        ((UIText) displayText)
+                .setText(displayString)
+                .setTextScale(new PixelConstraint(TEXT_SCALE * scaleFactor))
+                .setX(new CenterConstraint())
+                .setY(new PixelConstraint(window.getHeight() * .125f))
+                .setColor(color);
+        window.draw(new UMatrixStack());
 
-		if(checkExpire()) displayString = "";
-	}
-
+        if (checkExpire())
+            displayString = "";
+    }
 
     @SubscribeEvent
     public void checkCoinsTick(ClientTickEvent event) {
@@ -149,5 +152,4 @@ public class NoCookieWarning {
         lastWarnTime = Minecraft.getSystemTime();
     }
 
-    
 }
