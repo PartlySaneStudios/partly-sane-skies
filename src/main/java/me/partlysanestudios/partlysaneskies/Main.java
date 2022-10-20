@@ -182,7 +182,7 @@ public class Main {
     }
 
     public static long getCoins() {
-        if (!isSkyblock()) {
+        if (! isSkyblock()) {
             return 0l;
         }
 
