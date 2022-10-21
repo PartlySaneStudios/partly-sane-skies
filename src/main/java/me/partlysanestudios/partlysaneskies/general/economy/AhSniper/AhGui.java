@@ -9,7 +9,6 @@ import gg.essential.elementa.components.UIBlock;
 import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import me.partlysanestudios.partlysaneskies.Main;
-import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.item.ItemStack;
 
 public class AhGui extends WindowScreen {
@@ -72,12 +71,6 @@ public class AhGui extends WindowScreen {
         // itemBox.getTop());
     }
 
-    public static void clickOnSlot(int slot) {
-        PlayerControllerMP controller = Main.minecraft.playerController;
-
-        controller.windowClick(Main.minecraft.thePlayer.openContainer.windowId, slot, 0, 3, Main.minecraft.thePlayer);
-    }
-
     public float getWindowWidth() {
         return this.getWindow().getWidth();
     }
@@ -86,15 +79,15 @@ public class AhGui extends WindowScreen {
         return this.getWindow().getWidth() / 1097f;
     }
 
-    private float getHeightScaleFactor() {
-        return this.getWindow().getHeight() / 582f;
-    }
+    // private float getHeightScaleFactor() {
+    //     return this.getWindow().getHeight() / 582f;
+    // }
 
     private PixelConstraint widthScaledConstraint(float value) {
         return new PixelConstraint(value * getWidthScaleFactor());
     }
 
-    private PixelConstraint heightScaledConstraint(float value) {
-        return new PixelConstraint(value * getHeightScaleFactor());
-    }
+    // private PixelConstraint heightScaledConstraint(float value) {
+    //     return new PixelConstraint(value * getHeightScaleFactor());
+    // }
 }

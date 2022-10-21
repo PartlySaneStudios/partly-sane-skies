@@ -11,8 +11,6 @@ import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagList;
 
 public class AhSniper {
     public static void runAlgorithm() {
@@ -25,55 +23,22 @@ public class AhSniper {
 
         IInventory upper = separateInventory[0];
 
-        List<ItemStack> items = getAuctionContents(upper);
+        List<Auction> items = getAuctionContents(upper);
 
-        List<ItemStack> lowBinItems = new ArrayList<ItemStack>();
-        for (ItemStack itemStack : items) {
-            if (isBin(itemStack)) {
+        List<Auction> lowBinItems = new ArrayList<Auction>();
+        for (Auction auction : items) {
+            if (auction.isBin()) {
                 continue;
             }
-            long sellingPrice = getPrice(itemStack);
-            float averageAhPrice = ItemLowestBin.lowestBin.get(Utils.getItemId(itemStack));
+            long sellingPrice = auction.getPrice();
+            float averageAhPrice = ItemLowestBin.lowestBin.get(Utils.getItemId(auction.getItem()));
 
             if (sellingPrice * .60 <= averageAhPrice) {
-                lowBinItems.add(itemStack);
+                lowBinItems.add(auction);
             }
         }
 
         Utils.visPrint(lowBinItems);
-    }
-
-    private static List<String> getLore(ItemStack itemStack) {
-        NBTTagList tagList = itemStack.getTagCompound().getCompoundTag("display").getTagList("Lore", 8);
-        ArrayList<String> loreList = new ArrayList<String>();
-        for (int i = 0; i < tagList.tagCount(); i++) {
-            loreList.add(tagList.getStringTagAt(i));
-        }
-
-        return loreList;
-    }
-
-    private static boolean isBin(ItemStack itemStack) {
-        List<String> loreList = getLore(itemStack);
-        for (String line : loreList) {
-            if (Utils.removeColorCodes(line).contains("Buy it now: ")) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private static long getPrice(ItemStack itemStack) {
-        List<String> loreList = getLore(itemStack);
-        String buyItNowPrice = "";
-
-        for (String line : loreList) {
-            if (Utils.removeColorCodes(line).contains("Buy it now: ")) {
-                buyItNowPrice = Utils.removeColorCodes(line).replaceAll("[^0-9]", "");
-            }
-        }
-
-        return Long.parseLong(buyItNowPrice);
     }
 
     private static boolean isAhGui() {
@@ -101,14 +66,16 @@ public class AhSniper {
         return new IInventory[] { upperInventory, lowerInventory };
     }
 
-    private static List<ItemStack> getAuctionContents(IInventory inventory) {
-        List<ItemStack> list = new ArrayList<ItemStack>();
+    private static List<Auction> getAuctionContents(IInventory inventory) {
+        List<Auction> list = new ArrayList<Auction>();
         for (int i = 0; i < 54; i++) {
             if (convertSlotToChestCoordinate(i)[0] <= 2 || convertSlotToChestCoordinate(i)[0] == 9
                     || convertSlotToChestCoordinate(i)[1] == 1 || convertSlotToChestCoordinate(i)[1] == 6) {
                 continue;
             }
-            list.add(inventory.getStackInSlot(i));
+
+            // TODO: Get auction seller 
+            list.add(new Auction(null, i, inventory.getStackInSlot(i)));
         }
 
         return list;

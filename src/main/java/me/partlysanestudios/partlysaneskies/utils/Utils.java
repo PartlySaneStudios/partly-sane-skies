@@ -16,7 +16,9 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import me.partlysanestudios.partlysaneskies.Main;
 import me.partlysanestudios.partlysaneskies.general.WikiArticleOpener;
+import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.ChatComponentText;
 
 public class Utils {
@@ -262,5 +264,21 @@ public class Utils {
 
     public static String getItemId(ItemStack item) {
         return WikiArticleOpener.getItemAttributes(item).getString("id");
+    }
+
+    public static void clickOnSlot(int slot) {
+        PlayerControllerMP controller = Main.minecraft.playerController;
+    
+        controller.windowClick(Main.minecraft.thePlayer.openContainer.windowId, slot, 0, 3, Main.minecraft.thePlayer);
+    }
+
+    public static List<String> getLore(ItemStack itemStack) {
+        NBTTagList tagList = itemStack.getTagCompound().getCompoundTag("display").getTagList("Lore", 8);
+        ArrayList<String> loreList = new ArrayList<String>();
+        for (int i = 0; i < tagList.tagCount(); i++) {
+            loreList.add(tagList.getStringTagAt(i));
+        }
+    
+        return loreList;
     }
 }
