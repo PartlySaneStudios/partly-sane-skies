@@ -3,20 +3,22 @@ package me.partlysanestudios.partlysaneskies.general.economy.AhSniper;
 import java.util.List;
 
 import gg.essential.elementa.UIComponent;
+import me.partlysanestudios.partlysaneskies.general.economy.ItemLowestBin;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.item.ItemStack;
 
 public class Auction {
-    private String seller;
+    // private String seller;
     private int slot;
     private ItemStack item;
     private UIComponent box;
+    private String itemId;
 
 
-    public Auction(String seller, int slot, ItemStack item) {
-        this.seller = seller;
+    public Auction(int slot, ItemStack item) {
         this.slot = slot;
         this.item = item;
+        this.itemId = Utils.getItemId(item);
     }
 
     public void selectAuction() {
@@ -57,5 +59,46 @@ public class Auction {
 
     public UIComponent getBox() {
         return this.box;
+    }
+
+    public boolean shouldHighlight() {
+        if (!isBin()) {
+            return false;
+        }
+        else if (isCheapAuction()) {
+            return true;
+        }
+        return false;
+        
+    }
+
+    private boolean isCheapAuction() {
+        long sellingPrice = getPrice();
+        if(ItemLowestBin.lowestBin == null) {
+            return false;
+        }
+        if (!ItemLowestBin.lowestBin.containsKey(itemId)) {
+            return false;
+        }
+        float averageAhPrice = ItemLowestBin.lowestBin.get(itemId);
+        
+
+        if (sellingPrice * .60 <= averageAhPrice) {
+            return true;
+        }
+        return false;
+    }
+
+    public int getItemQuantity() {
+        return item.stackSize;
+    }
+
+    public int getSlot() {
+        return slot;
+    }
+
+
+    public String getName() {
+        return item.getDisplayName();
     }
 }

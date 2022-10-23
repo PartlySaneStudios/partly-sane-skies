@@ -27,7 +27,7 @@ public class ItemLowestBin {
                     String request = Utils.getRequest("http://moulberry.codes/lowestbin.json");
                     @SuppressWarnings("unchecked")
                     HashMap<String, Float> map = (HashMap<String, Float>) new Gson().fromJson(request,
-                            lowestBin.getClass());
+                    new HashMap<String, Float>().getClass());
 
                     lowestBin = map;
                 } catch (IOException e) {

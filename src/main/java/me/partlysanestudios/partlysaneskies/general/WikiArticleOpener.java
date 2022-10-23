@@ -4,6 +4,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import me.partlysanestudios.partlysaneskies.Main;
+import me.partlysanestudios.partlysaneskies.general.economy.AhSniper.AhGui;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Slot;
@@ -64,6 +65,9 @@ public class WikiArticleOpener {
         }
         ItemStack item;
         if (!(Main.minecraft.currentScreen instanceof GuiContainer)) {
+            return;
+        }
+        if (Main.minecraft.currentScreen instanceof AhGui) {
             return;
         }
         GuiContainer container = (GuiContainer) Main.minecraft.currentScreen;

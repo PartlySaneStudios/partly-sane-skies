@@ -269,7 +269,8 @@ public class Utils {
     public static void clickOnSlot(int slot) {
         PlayerControllerMP controller = Main.minecraft.playerController;
     
-        controller.windowClick(Main.minecraft.thePlayer.openContainer.windowId, slot, 0, 3, Main.minecraft.thePlayer);
+        // controller.windowClick(Main.minecraft.thePlayer.openContainer.windowId, slot, 2, 3, Main.minecraft.thePlayer);
+        controller.windowClick(Main.minecraft.thePlayer.openContainer.windowId, slot, 0, 0, Main.minecraft.thePlayer);
     }
 
     public static List<String> getLore(ItemStack itemStack) {

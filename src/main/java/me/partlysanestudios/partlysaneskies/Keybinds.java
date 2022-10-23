@@ -4,7 +4,9 @@ import org.lwjgl.input.Keyboard;
 
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManager;
 import me.partlysanestudios.partlysaneskies.general.WikiArticleOpener;
+import me.partlysanestudios.partlysaneskies.general.economy.AhSniper.AhGui;
 import me.partlysanestudios.partlysaneskies.help.Help;
+import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.client.event.GuiScreenEvent.KeyboardInputEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -51,6 +53,18 @@ public final class Keybinds {
 
         if (Keyboard.isKeyDown(Keybinds.wikiKeybind.getKeyCode())) {
             WikiArticleOpener.keyDown();
+        }
+
+        if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
+            if (Main.minecraft.currentScreen instanceof AhGui) {
+                Utils.clickOnSlot(46);
+            }
+        }
+
+        if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
+            if (Main.minecraft.currentScreen instanceof AhGui) {
+                Utils.clickOnSlot(53);
+            }
         }
     }
 
