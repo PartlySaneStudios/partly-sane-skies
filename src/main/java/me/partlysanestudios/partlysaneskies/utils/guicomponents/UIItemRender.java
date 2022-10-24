@@ -1,6 +1,7 @@
 package me.partlysanestudios.partlysaneskies.utils.guicomponents;
 
 import gg.essential.elementa.UIComponent;
+import gg.essential.elementa.constraints.PixelConstraint;
 import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.Main;
 import net.minecraft.client.renderer.GlStateManager;
@@ -9,6 +10,8 @@ import net.minecraft.item.ItemStack;
 
 public class UIItemRender extends UIComponent {
     ItemStack item;
+    float itemScale = 1;
+
     public UIItemRender(ItemStack item) {
         this.item = item;
     }
@@ -16,29 +19,29 @@ public class UIItemRender extends UIComponent {
     @Override
     public void draw(UMatrixStack matrixStack) {
         beforeDrawCompat(matrixStack);
-
-        drawItemStack(item, Math.round(this.getLeft()), Math.round(this.getTop()), getComponentName());
-
-
         super.draw(matrixStack);
+        drawItemStack(item, Math.round(this.getLeft()), Math.round(this.getTop()), getComponentName());
+        super.afterDraw(matrixStack);
     }
 
-    public void drawItemStack(ItemStack stack, int x, int y, String altText)
-    {
+    private void drawItemStack(ItemStack stack, int x, int y, String altText) {
         RenderItem itemRenderer = Main.minecraft.getRenderItem();
-        
-        
-        
-        GlStateManager.translate(0.0F, 0.0F, 32.0F);
-        itemRenderer.zLevel = 200.0F;
-        itemRenderer.zLevel = 200.0F;
+
+        GlStateManager.pushMatrix();
+        GlStateManager.scale(itemScale, itemScale, 1);
+        itemRenderer.zLevel = 200f;
         net.minecraft.client.gui.FontRenderer font = null;
-        if (stack != null) font = stack.getItem().getFontRenderer(stack);
-        if (font == null) font = Main.minecraft.fontRendererObj;
-        ItemStack draggedStack = null;
-        itemRenderer.renderItemAndEffectIntoGUI(stack, x, y);
-        itemRenderer.renderItemOverlayIntoGUI(font, stack, x, y - (draggedStack == null ? 0 : 8), altText);
-        itemRenderer.zLevel = 0.0F;
-        itemRenderer.zLevel = 0.0F;
+        if (stack != null)
+            font = stack.getItem().getFontRenderer(stack);
+        if (font == null)
+            font = Main.minecraft.fontRendererObj;
+        itemRenderer.renderItemAndEffectIntoGUI(stack, Math.round(x / itemScale), Math.round(y / itemScale));
+        GlStateManager.popMatrix();
+
+    }
+
+    public UIComponent setItemScale(PixelConstraint constraint) {
+        this.itemScale = constraint.getValue();
+        return this;
     }
 }

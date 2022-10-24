@@ -14,7 +14,6 @@ public class Auction {
     private UIComponent box;
     private String itemId;
 
-
     public Auction(int slot, ItemStack item) {
         this.slot = slot;
         this.item = item;
@@ -38,13 +37,13 @@ public class Auction {
     public long getPrice() {
         List<String> loreList = Utils.getLore(item);
         String buyItNowPrice = "";
-    
+
         for (String line : loreList) {
             if (Utils.removeColorCodes(line).contains("Buy it now: ")) {
                 buyItNowPrice = Utils.removeColorCodes(line).replaceAll("[^0-9]", "");
             }
         }
-    
+
         return Long.parseLong(buyItNowPrice);
     }
 
@@ -64,26 +63,24 @@ public class Auction {
     public boolean shouldHighlight() {
         if (!isBin()) {
             return false;
-        }
-        else if (isCheapAuction()) {
+        } else if (isCheapBin()) {
             return true;
         }
         return false;
-        
+
     }
 
-    private boolean isCheapAuction() {
+    private boolean isCheapBin() {
         long sellingPrice = getPrice();
-        if(ItemLowestBin.lowestBin == null) {
+        if (ItemLowestBin.avgLowestBin == null) {
             return false;
         }
-        if (!ItemLowestBin.lowestBin.containsKey(itemId)) {
+        if (!ItemLowestBin.avgLowestBin.containsKey(itemId)) {
             return false;
         }
-        float averageAhPrice = ItemLowestBin.lowestBin.get(itemId);
-        
+        double averageAhPrice = ItemLowestBin.lowestBin.get(itemId);
 
-        if (sellingPrice * .60 <= averageAhPrice) {
+        if (sellingPrice <= averageAhPrice * .60) {
             return true;
         }
         return false;
@@ -96,7 +93,6 @@ public class Auction {
     public int getSlot() {
         return slot;
     }
-
 
     public String getName() {
         return item.getDisplayName();

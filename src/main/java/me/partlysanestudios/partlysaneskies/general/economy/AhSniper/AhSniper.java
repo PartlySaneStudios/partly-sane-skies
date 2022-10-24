@@ -15,16 +15,20 @@ import net.minecraft.inventory.IInventory;
 public class AhSniper {
 
     private static boolean guiAlreadyOpen;
+
+    static AhGui gui;
+    static IInventory inventory;
+
     public static void runDisplayGuiCheck() {
+
         if (!isAhGui()) {
             return;
         }
-
         if (Main.minecraft.currentScreen instanceof AhGui) {
             guiAlreadyOpen = true;
-        }
-        else {
+        } else {
             guiAlreadyOpen = false;
+            gui = null;
         }
 
         if (guiAlreadyOpen) {
@@ -34,9 +38,26 @@ public class AhSniper {
         if (Main.isDebugMode) {
             return;
         }
+        guiAlreadyOpen = true;
+        inventory = getSeparateUpperLowerGui(Main.minecraft.currentScreen)[0];
+        boolean loaded = ahChestFullyLoaded(inventory);
+        gui = new AhGui(ElementaVersion.V2);
+        new Thread() {
+            @Override
+            public void run() {
+                if (!loaded) {
+                    try {
+                        Thread.sleep(100);
+                        inventory = getSeparateUpperLowerGui(Main.minecraft.currentScreen)[0];
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
 
-        AhGui gui = new AhGui(ElementaVersion.V2);
-        Main.minecraft.displayGuiScreen(gui);
+                Main.minecraft.displayGuiScreen(gui);
+                gui.refreshGui(inventory);
+            }
+        }.start();
     }
 
     public static boolean isAhGui() {
@@ -50,14 +71,14 @@ public class AhSniper {
 
     static int TOTAL_ROWS = 4;
     static int TOTAL_COLUMNS = 6;
+    static IInventory[] separateInventories;
 
-    public static Auction[][] getAuctions() {
+    public static Auction[][] getAuctions(IInventory inventory) {
         GuiScreen screen = Main.minecraft.currentScreen;
-        IInventory[] separateInventory = getSeparateUpperLowerGui(screen);
-
-        IInventory upper = separateInventory[0];
-
-        List<Auction> items = getAuctionContents(upper);
+        if (isAhGui()) {
+            separateInventories = getSeparateUpperLowerGui(screen);
+        }
+        List<Auction> items = getAuctionContents(inventory);
 
         Auction[][] auctions = new Auction[TOTAL_ROWS][TOTAL_COLUMNS];
 
@@ -78,6 +99,21 @@ public class AhSniper {
         }
 
         return auctions;
+    }
+
+    private static boolean ahChestFullyLoaded(IInventory inventory) {
+        for (int i = 0; i < 54; i++) {
+            if (convertSlotToChestCoordinate(i)[0] <= 2
+                    || convertSlotToChestCoordinate(i)[0] == 9
+                    || convertSlotToChestCoordinate(i)[1] == 1
+                    || convertSlotToChestCoordinate(i)[1] == 6) {
+                continue;
+            }
+            if (inventory.getStackInSlot(i) == null) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private static IInventory[] getSeparateUpperLowerGui(GuiScreen gui) {
