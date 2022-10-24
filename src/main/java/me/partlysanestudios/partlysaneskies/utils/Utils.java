@@ -272,6 +272,12 @@ public class Utils {
         // controller.windowClick(Main.minecraft.thePlayer.openContainer.windowId, slot, 2, 3, Main.minecraft.thePlayer);
         controller.windowClick(Main.minecraft.thePlayer.openContainer.windowId, slot, 0, 0, Main.minecraft.thePlayer);
     }
+    public static void rightClickOnSlot(int slot) {
+        PlayerControllerMP controller = Main.minecraft.playerController;
+    
+        // controller.windowClick(Main.minecraft.thePlayer.openContainer.windowId, slot, 2, 3, Main.minecraft.thePlayer);
+        controller.windowClick(Main.minecraft.thePlayer.openContainer.windowId, slot, 0, 0, Main.minecraft.thePlayer);
+    }
 
     public static List<String> getLore(ItemStack itemStack) {
         NBTTagList tagList = itemStack.getTagCompound().getCompoundTag("display").getTagList("Lore", 8);
@@ -281,5 +287,10 @@ public class Utils {
         }
     
         return loreList;
+    }
+
+
+    public static Color applyOpacityToColor(Color color, int opacity) {
+        return new Color(color.getRed(), color.getGreen(), color.getBlue(), opacity);
     }
 }
