@@ -300,7 +300,7 @@ public class AhGui extends WindowScreen {
                 .setColor(new Color(0,0,0,0))
                 .setChildOf(bottomBar);
         rarityIcon.onMouseClickConsumer(event -> {
-            if (event.getMouseButton() == 1){
+            if (event.getMouseButton() == 0){
                 Utils.clickOnSlot(51);
             }
             else {
@@ -322,7 +322,7 @@ public class AhGui extends WindowScreen {
                 .setColor(new Color(0,0,0,0))
                 .setChildOf(bottomBar);
         binFilterIcon.onMouseClickConsumer(event -> {
-            if (event.getMouseButton() == 1){
+            if (event.getMouseButton() == 0){
                 Utils.clickOnSlot(52);
             }
             else {
