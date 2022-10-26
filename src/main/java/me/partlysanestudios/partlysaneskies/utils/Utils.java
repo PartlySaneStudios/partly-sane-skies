@@ -336,7 +336,7 @@ public class Utils {
         }
 
         String decimalPlaceFormat = "";
-        switch (Main.config.hundredsPlaceFormat) {
+        switch (Main.config.decimalPlaceFormat) {
             case 0:
                 decimalPlaceFormat = ",";
                 break;
@@ -346,8 +346,9 @@ public class Utils {
                 break;
         }
         String formattedNum = decimalFormat.format(num);
-        formattedNum = formattedNum.replace(",", hundredsPlaceFormat);
+        formattedNum = formattedNum.replace(",", "_");
         formattedNum = formattedNum.replace(".", decimalPlaceFormat);
+        formattedNum = formattedNum.replace("_", hundredsPlaceFormat);
         return formattedNum;
     }
 }
