@@ -14,6 +14,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+import gg.essential.elementa.UIComponent;
+import gg.essential.elementa.components.UIImage;
+import gg.essential.elementa.constraints.CenterConstraint;
+import gg.essential.elementa.constraints.PixelConstraint;
 import me.partlysanestudios.partlysaneskies.Main;
 import me.partlysanestudios.partlysaneskies.general.WikiArticleOpener;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
@@ -292,5 +296,15 @@ public class Utils {
 
     public static Color applyOpacityToColor(Color color, int opacity) {
         return new Color(color.getRed(), color.getGreen(), color.getBlue(), opacity);
+    }
+
+
+    public static UIImage applyBackground(UIComponent component) {
+        return (UIImage) UIImage.ofResource("/assets/partlysaneskies/textures/gui/base_color_background.png")
+            .setX(new CenterConstraint())
+            .setY(new CenterConstraint())
+            .setWidth(new PixelConstraint(component.getWidth()))
+            .setHeight(new PixelConstraint(component.getHeight()))
+            .setChildOf(component);
     }
 }

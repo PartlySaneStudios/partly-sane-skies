@@ -51,7 +51,10 @@ public class AhGui extends WindowScreen {
 
     public AhGui(ElementaVersion version) {
         super(version);
-
+        
+        Utils.applyBackground(mainBox);
+        Utils.applyBackground(bottomBar);
+        Utils.applyBackground(topBar);
     }
 
     public void refreshGui(IInventory inventory) {
