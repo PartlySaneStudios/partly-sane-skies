@@ -396,12 +396,12 @@ public class AhGui extends WindowScreen {
             default:
 
                 Utils.visPrint("none " + paneType);
-        }
+        } 
     }
 
     
 
-    UIComponent itemName = new UIWrappedText("Empty", true, null, true)
+    UIComponent itemName = new UIWrappedText("", true, null, true)
             .setTextScale(widthScaledConstraint(1.5f))
             .setX(new CenterConstraint())
             .setY(widthScaledConstraint(30))
@@ -409,7 +409,7 @@ public class AhGui extends WindowScreen {
             .setColor(Color.white)
             .setChildOf(leftWindow);
 
-    UIComponent itemLore = new UIWrappedText("Empty", true, null, true)
+    UIComponent itemLore = new UIWrappedText("", true, null, true)
             .setX(new CenterConstraint())
             .setY(widthScaledConstraint(50 * 1.5f))
             .setWidth(widthScaledConstraint(170))
@@ -418,7 +418,7 @@ public class AhGui extends WindowScreen {
 
     
 
-    UIComponent itemInfoHeader = new UIWrappedText("Empty", true, null, true)
+    UIComponent itemInfoHeader = new UIWrappedText("", true, null, true)
             .setTextScale(widthScaledConstraint(1.5f))
             .setX(new CenterConstraint())
             .setY(widthScaledConstraint(30))
@@ -426,7 +426,7 @@ public class AhGui extends WindowScreen {
             .setColor(Color.white)
             .setChildOf(rightWindow);
 
-    UIComponent itemInfoText = new UIWrappedText("Empty", true, null, true)
+    UIComponent itemInfoText = new UIWrappedText("", true, null, true)
             .setX(new CenterConstraint())
             .setY(widthScaledConstraint(50 * 1.5f))
             .setWidth(widthScaledConstraint(170))
@@ -492,11 +492,11 @@ public class AhGui extends WindowScreen {
         });
 
         backgroundBox.onMouseLeaveRunnable(() -> {
-            ((UIWrappedText) itemName).setText("Empty");
-            ((UIWrappedText) itemLore).setText("Empty");
+            ((UIWrappedText) itemName).setText("");
+            ((UIWrappedText) itemLore).setText("");
 
-            ((UIWrappedText) itemInfoHeader).setText("Empty");
-            ((UIWrappedText) itemInfoText).setText("Empty");
+            ((UIWrappedText) itemInfoHeader).setText("");
+            ((UIWrappedText) itemInfoText).setText("");
         });
 
         new UIItemRender(auction.getItem())
