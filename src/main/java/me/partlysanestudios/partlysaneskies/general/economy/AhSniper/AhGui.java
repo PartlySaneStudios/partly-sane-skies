@@ -396,10 +396,8 @@ public class AhGui extends WindowScreen {
             default:
 
                 Utils.visPrint("none " + paneType);
-        } 
+        }
     }
-
-    
 
     UIComponent itemName = new UIWrappedText("", true, null, true)
             .setTextScale(widthScaledConstraint(1.5f))
@@ -415,8 +413,6 @@ public class AhGui extends WindowScreen {
             .setWidth(widthScaledConstraint(170))
             .setColor(Color.white)
             .setChildOf(leftWindow);
-
-    
 
     UIComponent itemInfoHeader = new UIWrappedText("", true, null, true)
             .setTextScale(widthScaledConstraint(1.5f))
@@ -481,7 +477,7 @@ public class AhGui extends WindowScreen {
                     + Utils.formatNumber(Utils.round(auction.getAverageLowestBin(), 2)) + "\n\n\n";
             info += "Inflation of item: "
                     + Utils.formatNumber(
-                            Utils.round((auction.getLowestBin() / auction.getAverageLowestBin()) * 100d, 2)-100)
+                            Utils.round((auction.getLowestBin() / auction.getAverageLowestBin()) * 100d, 2) - 100)
                     + "%\n\n";
             info += "Mark up of item: " + Utils.formatNumber(Utils.round(
                     (auction.getPrice() / auction.getLowestBin()) * 100 - 100,

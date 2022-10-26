@@ -44,13 +44,14 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 public class Main {
 
     public static void main(String[] args) {
-        
-        DecimalFormat df=new DecimalFormat("#,###.00");
- 
+
+        DecimalFormat df = new DecimalFormat("#,###.00");
+
         double d = 2000000;
         String formattedNumberWithComma = df.format(d);
-        System.out.println("Formatted number with commas: "+formattedNumberWithComma);
+        System.out.println("Formatted number with commas: " + formattedNumberWithComma);
     }
+
     public static final String MODID = "partlysaneskies";
     public static final String NAME = "Partly Sane Skies";
     public static final String VERSION = "1.0";
@@ -113,8 +114,6 @@ public class Main {
         ClientCommandHandler.instance.registerCommand(new PartyFriendManagerCommand());
         Keybinds.init();
         Utils.init();
-
-        
 
         System.out.println("Partly Sane Skies has loaded.");
     }

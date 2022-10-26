@@ -15,15 +15,15 @@ public class ConfigScreen extends Vigilant {
     public String apiKey = "";
 
     @Property(type = PropertyType.SELECTOR, options = {
-        "Commas (1,000,000)",
-        "Spaces (1 000 000)",
-        "Periods (1.000.000)",
-}, category = "General", subcategory = "Appearance", name = "Hundreds Place Format", description = "The seperator between different hundreds places.")
-public int hundredsPlaceFormat = 1;
+            "Commas (1,000,000)",
+            "Spaces (1 000 000)",
+            "Periods (1.000.000)",
+    }, category = "General", subcategory = "Appearance", name = "Hundreds Place Format", description = "The seperator between different hundreds places.")
+    public int hundredsPlaceFormat = 1;
 
     @Property(type = PropertyType.SELECTOR, options = {
-        "Commas (1,52)",
-        "Periods (1.52)",
+            "Commas (1,52)",
+            "Periods (1.52)",
     }, category = "General", subcategory = "Appearance", name = "Decimal Place Format", description = "The character to represent decimal places.")
     public int decimalPlaceFormat = 1;
 

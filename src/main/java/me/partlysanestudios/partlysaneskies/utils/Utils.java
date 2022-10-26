@@ -317,7 +317,7 @@ public class Utils {
     }
 
     public static String formatNumber(double num) {
-        
+
         DecimalFormat decimalFormat = new DecimalFormat("#,###.00");
 
         String hundredsPlaceFormat = "";
