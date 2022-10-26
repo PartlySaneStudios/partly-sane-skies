@@ -12,7 +12,7 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.inventory.IInventory;
 
-public class AhSniper {
+public class AhManager {
 
     private static boolean guiAlreadyOpen;
 
