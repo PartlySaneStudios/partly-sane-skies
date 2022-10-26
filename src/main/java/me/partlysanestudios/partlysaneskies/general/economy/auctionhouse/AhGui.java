@@ -1,4 +1,4 @@
-package me.partlysanestudios.partlysaneskies.general.economy.AhSniper;
+package me.partlysanestudios.partlysaneskies.general.economy.auctionhouse;
 
 import java.awt.Color;
 
@@ -76,7 +76,7 @@ public class AhGui extends WindowScreen {
     }
 
     public void refreshGui(IInventory inventory) {
-        Auction[][] auctions = AhSniper.getAuctions(inventory);
+        Auction[][] auctions = AhManager.getAuctions(inventory);
         for (int row = 0; row < numOfRows; row++) {
             for (int column = 0; column < numOfColumns; column++) {
                 float x = (boxSide + pad) * column + pad / 4;

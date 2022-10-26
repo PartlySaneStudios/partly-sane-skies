@@ -4,7 +4,7 @@ import org.lwjgl.input.Keyboard;
 
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManager;
 import me.partlysanestudios.partlysaneskies.general.WikiArticleOpener;
-import me.partlysanestudios.partlysaneskies.general.economy.AhSniper.AhGui;
+import me.partlysanestudios.partlysaneskies.general.economy.auctionhouse.AhGui;
 import me.partlysanestudios.partlysaneskies.help.Help;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.settings.KeyBinding;

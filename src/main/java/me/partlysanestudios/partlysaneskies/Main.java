@@ -19,7 +19,7 @@ import me.partlysanestudios.partlysaneskies.general.NoCookieWarning;
 import me.partlysanestudios.partlysaneskies.general.WikiArticleOpener;
 import me.partlysanestudios.partlysaneskies.general.WormWarning;
 import me.partlysanestudios.partlysaneskies.general.economy.ItemLowestBin;
-import me.partlysanestudios.partlysaneskies.general.economy.AhSniper.AhSniper;
+import me.partlysanestudios.partlysaneskies.general.economy.auctionhouse.AhManager;
 import me.partlysanestudios.partlysaneskies.general.partyfriend.PartyFriendManager;
 import me.partlysanestudios.partlysaneskies.general.partyfriend.PartyFriendManagerCommand;
 import me.partlysanestudios.partlysaneskies.general.rngdropbanner.DropBannerDisplay;
@@ -122,7 +122,7 @@ public class Main {
     public void clientTick(ClientTickEvent evnt) {
         locationBannerDisplay.checkLocation();
         ItemLowestBin.runUpdater();
-        AhSniper.runDisplayGuiCheck();
+        AhManager.runDisplayGuiCheck();
     }
 
     @SubscribeEvent

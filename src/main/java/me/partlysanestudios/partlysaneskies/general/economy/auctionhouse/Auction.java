@@ -1,4 +1,4 @@
-package me.partlysanestudios.partlysaneskies.general.economy.AhSniper;
+package me.partlysanestudios.partlysaneskies.general.economy.auctionhouse;
 
 import java.util.List;
 
