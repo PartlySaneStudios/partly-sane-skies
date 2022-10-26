@@ -39,7 +39,9 @@ public class Auction {
         String buyItNowPrice = "";
 
         for (String line : loreList) {
-            if (Utils.removeColorCodes(line).contains("Buy it now: ")) {
+            if (Utils.removeColorCodes(line).contains("Buy it now:")
+                    || Utils.removeColorCodes(line).contains("Top Bid:")
+                    || Utils.removeColorCodes(line).contains("Starting Bid:")) {
                 buyItNowPrice = Utils.removeColorCodes(line).replaceAll("[^0-9]", "");
             }
         }
@@ -78,7 +80,7 @@ public class Auction {
         if (!ItemLowestBin.avgLowestBin.containsKey(itemId)) {
             return false;
         }
-        double averageAhPrice = ItemLowestBin.lowestBin.get(itemId);
+        double averageAhPrice = ItemLowestBin.avgLowestBin.get(itemId);
 
         if (sellingPrice <= averageAhPrice * .60) {
             return true;
@@ -97,4 +99,50 @@ public class Auction {
     public String getName() {
         return item.getDisplayName();
     }
+
+    public String getLore() {
+        List<String> loreList = Utils.getLore(this.item);
+        String loreString = "";
+        for (String loreLine : loreList) {
+            loreString += loreLine + "\n";
+        }
+
+        return loreString;
+    }
+
+    public double getAverageLowestBin() {
+        if (ItemLowestBin.avgLowestBin == null) {
+            return 0;
+        }
+        if (!ItemLowestBin.avgLowestBin.containsKey(itemId)) {
+            return 0;
+        }
+        return ItemLowestBin.avgLowestBin.get(itemId);
+    }
+
+    public double getLowestBin() {
+        if (ItemLowestBin.lowestBin == null) {
+            return 0;
+        }
+        if (!ItemLowestBin.lowestBin.containsKey(itemId)) {
+            return 0;
+        }
+        return ItemLowestBin.lowestBin.get(itemId);
+    }
+
+    public String getFormattedEndingTime() {
+        List<String> loreList = Utils.getLore(item);
+
+        for (String loreLine : loreList) {
+            if (Utils.removeColorCodes(loreLine).contains("Ends in:")) {
+                return Utils.removeColorCodes(loreLine).replace("Ends in: ", "");
+            }
+            if (Utils.removeColorCodes(loreLine).contains("Ending Soon")) {
+                return Utils.removeColorCodes(loreLine);
+            }
+        }
+
+        return "";
+    }
+
 }
