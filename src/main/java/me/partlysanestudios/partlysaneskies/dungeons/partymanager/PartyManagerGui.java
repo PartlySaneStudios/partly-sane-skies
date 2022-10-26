@@ -17,6 +17,7 @@ import gg.essential.elementa.constraints.PixelConstraint;
 import gg.essential.elementa.constraints.ScaleConstraint;
 import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.Main;
+import me.partlysanestudios.partlysaneskies.utils.Utils;
 
 public class PartyManagerGui extends WindowScreen {
 
@@ -46,6 +47,7 @@ public class PartyManagerGui extends WindowScreen {
 
     public PartyManagerGui() {
         super(ElementaVersion.V2);
+        Utils.applyBackground(background);
         ((ScrollComponent) list).setScrollBarComponent(scrollBar, false, false);
     }
 
@@ -61,6 +63,8 @@ public class PartyManagerGui extends WindowScreen {
                 .setX(new CenterConstraint())
                 .setY(new PixelConstraint(10))
                 .setChildOf(list);
+        
+        Utils.applyBackground(topBarBlock);
 
         createPartyManagementButtons(topBarBlock, scaleFactor, partyMembers);
         createJoinFloorButtons(topBarBlock, scaleFactor);
@@ -73,6 +77,8 @@ public class PartyManagerGui extends WindowScreen {
                     .setX(new CenterConstraint())
                     .setY(new PixelConstraint(height))
                     .setChildOf(list);
+
+            Utils.applyBackground(memberBlock);
 
             new Thread() {
                 @Override

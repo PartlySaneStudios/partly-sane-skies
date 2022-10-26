@@ -1,11 +1,12 @@
 package me.partlysanestudios.partlysaneskies;
 
+import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.awt.Color;
 
 import gg.essential.elementa.ElementaVersion;
 import me.partlysanestudios.partlysaneskies.dungeons.WatcherReady;
@@ -18,8 +19,7 @@ import me.partlysanestudios.partlysaneskies.general.NoCookieWarning;
 import me.partlysanestudios.partlysaneskies.general.WikiArticleOpener;
 import me.partlysanestudios.partlysaneskies.general.WormWarning;
 import me.partlysanestudios.partlysaneskies.general.economy.ItemLowestBin;
-import me.partlysanestudios.partlysaneskies.general.economy.AhSniper.AhGui;
-import me.partlysanestudios.partlysaneskies.general.economy.AhSniper.AhSniper;
+import me.partlysanestudios.partlysaneskies.general.economy.auctionhouse.AhManager;
 import me.partlysanestudios.partlysaneskies.general.partyfriend.PartyFriendManager;
 import me.partlysanestudios.partlysaneskies.general.partyfriend.PartyFriendManagerCommand;
 import me.partlysanestudios.partlysaneskies.general.rngdropbanner.DropBannerDisplay;
@@ -42,6 +42,16 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 
 @Mod(modid = Main.MODID, version = Main.VERSION, name = Main.NAME)
 public class Main {
+
+    public static void main(String[] args) {
+
+        DecimalFormat df = new DecimalFormat("#,###.00");
+
+        double d = 2000000;
+        String formattedNumberWithComma = df.format(d);
+        System.out.println("Formatted number with commas: " + formattedNumberWithComma);
+    }
+
     public static final String MODID = "partlysaneskies";
     public static final String NAME = "Partly Sane Skies";
     public static final String VERSION = "1.0";
@@ -112,6 +122,7 @@ public class Main {
     public void clientTick(ClientTickEvent evnt) {
         locationBannerDisplay.checkLocation();
         ItemLowestBin.runUpdater();
+        AhManager.runDisplayGuiCheck();
     }
 
     @SubscribeEvent
@@ -137,10 +148,6 @@ public class Main {
     public static void debugMode() {
         Main.isDebugMode = !Main.isDebugMode;
         Utils.visPrint("Debug mode: " + Main.isDebugMode);
-        AhSniper.runAlgorithm();
-        AhGui gui = new AhGui(ElementaVersion.V2);
-        Main.minecraft.displayGuiScreen(gui);
-        Utils.visPrint(gui.getWindow().getHeight());
     }
 
     public static List<String> getScoreboardLines() {

@@ -365,49 +365,49 @@ public class PartyMember {
     }
 
     private void createMemberBlockColumnOne(UIComponent memberBlock, float scaleFactor) {
-        new UIText("❤ " + Math.round(this.health))
+        new UIText("❤ " + Utils.formatNumber(Math.round(this.health)))
                 .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
                 .setX(new PixelConstraint(20f * scaleFactor))
                 .setY(new PixelConstraint(75f * scaleFactor))
                 .setColor(Utils.colorCodetoColor.get("&c"))
                 .setChildOf(memberBlock);
 
-        new UIText("❈ " + Math.round(this.defense))
+        new UIText("❈ " + Utils.formatNumber(Math.round(this.defense)))
                 .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
                 .setX(new PixelConstraint(20f * scaleFactor))
                 .setY(new PixelConstraint(90f * scaleFactor))
                 .setColor(Utils.colorCodetoColor.get("&a"))
                 .setChildOf(memberBlock);
 
-        new UIText("EHP " + Math.round(this.effectHealth))
+        new UIText("EHP " + Utils.formatNumber(Math.round(this.effectHealth)))
                 .setTextScale((new PixelConstraint(1.3f * scaleFactor)))
                 .setX(new PixelConstraint(20f * scaleFactor))
                 .setY(new PixelConstraint(105f * scaleFactor))
                 .setColor(new Color(45, 133, 48))
                 .setChildOf(memberBlock);
 
-        new UIText("✎ " + Math.round(this.intelligence))
+        new UIText("✎ " + Utils.formatNumber(Math.round(this.intelligence)))
                 .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
                 .setX(new PixelConstraint(20f * scaleFactor))
                 .setY(new PixelConstraint(120f * scaleFactor))
                 .setColor(Utils.colorCodetoColor.get("&b"))
                 .setChildOf(memberBlock);
 
-        new UIText("Catacombs Level: " + Utils.round(this.catacombsLevel, 2))
+        new UIText("Catacombs Level: " + Utils.formatNumber(Utils.round(this.catacombsLevel, 2)))
                 .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
                 .setX(new PixelConstraint(20f * scaleFactor))
                 .setY(new PixelConstraint(135f * scaleFactor))
                 .setColor(Utils.colorCodetoColor.get("&c"))
                 .setChildOf(memberBlock);
 
-        new UIText("Average Skill Level " + Utils.round(this.averageSkillLevel, 2))
+        new UIText("Average Skill Level " + Utils.formatNumber(Utils.round(this.averageSkillLevel, 2)))
                 .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
                 .setX(new PixelConstraint(20f * scaleFactor))
                 .setY(new PixelConstraint(150f * scaleFactor))
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
-        new UIText("Combat Level: " + Utils.round(this.combatLevel, 2))
+        new UIText("Combat Level: " + Utils.formatNumber(Utils.round(this.combatLevel, 2)))
                 .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
                 .setX(new PixelConstraint(20f * scaleFactor))
                 .setY(new PixelConstraint(165f * scaleFactor))
@@ -416,34 +416,34 @@ public class PartyMember {
     }
 
     private void createMemberBlockColumnTwo(UIComponent memberBlock, float scaleFactor) {
-        new UIText("Secrets: " + this.secretsCount)
+        new UIText("Secrets: " + Utils.formatNumber(this.secretsCount))
                 .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
                 .setX(new PixelConstraint(150f * scaleFactor))
                 .setY(new PixelConstraint(74f * scaleFactor))
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
-        new UIText("Secrets Per Run: " + Utils.round(this.secretsPerRun, 2))
+        new UIText("Secrets Per Run: " + Utils.formatNumber(Utils.round(this.secretsPerRun, 2)))
                 .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
                 .setX(new PixelConstraint(150f * scaleFactor))
                 .setY(new PixelConstraint(90f * scaleFactor))
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
-        new UIText("Total Weight: " + Utils.round((this.senitherWeight + this.senitherWeightOverflow), 2))
+        new UIText("Total Weight: " + Utils.formatNumber(Utils.round((this.senitherWeight + this.senitherWeightOverflow), 2)))
                 .setTextScale((new PixelConstraint(1.2f * scaleFactor)))
                 .setX(new PixelConstraint(150f * scaleFactor))
                 .setY(new PixelConstraint(105f * scaleFactor))
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
-        new UIText("Sentiher Weight: " + Utils.round((this.senitherWeight), 3))
+        new UIText("Sentiher Weight: " + Utils.formatNumber(Utils.round((this.senitherWeight), 3)))
                 .setTextScale((new PixelConstraint(.9f * scaleFactor)))
                 .setX(new PixelConstraint(150f * scaleFactor))
                 .setY(new PixelConstraint(115f * scaleFactor))
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
-        new UIText("Overflow Weight: " + Utils.round((this.senitherWeightOverflow), 3))
+        new UIText("Overflow Weight: " + Utils.formatNumber(Utils.round((this.senitherWeightOverflow), 3)))
                 .setTextScale((new PixelConstraint(.9f * scaleFactor)))
                 .setX(new PixelConstraint(150f * scaleFactor))
                 .setY(new PixelConstraint(125f * scaleFactor))
@@ -459,21 +459,21 @@ public class PartyMember {
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
-        new UIText("Floor 1: " + Math.round(this.f1Runs))
+        new UIText("Floor 1: " + Utils.formatNumber(Math.round(this.f1Runs)))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(340f * scaleFactor))
                 .setY(new PixelConstraint(50f * scaleFactor))
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
-        new UIText("Floor 2: " + Math.round(this.f2Runs))
+        new UIText("Floor 2: " + Utils.formatNumber(Math.round(this.f2Runs)))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(340f * scaleFactor))
                 .setY(new PixelConstraint(70f * scaleFactor))
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
-        new UIText("Floor 3: " + Math.round(this.f3Runs))
+        new UIText("Floor 3: " + Utils.formatNumber(Math.round(this.f3Runs)))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(340f * scaleFactor))
                 .setY(new PixelConstraint(90f * scaleFactor))
@@ -487,70 +487,70 @@ public class PartyMember {
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
-        new UIText("Floor 5: " + Math.round(this.f5Runs))
+        new UIText("Floor 5: " + Utils.formatNumber(Math.round(this.f5Runs)))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(340f * scaleFactor))
                 .setY(new PixelConstraint(130f * scaleFactor))
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
-        new UIText("Floor 6: " + Math.round(this.f6Runs))
+        new UIText("Floor 6: " + Utils.formatNumber(Math.round(this.f6Runs)))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(340f * scaleFactor))
                 .setY(new PixelConstraint(150f * scaleFactor))
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
-        new UIText("Floor 7: " + Math.round(this.f7Runs))
+        new UIText("Floor 7: " + Utils.formatNumber(Math.round(this.f7Runs)))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(340f * scaleFactor))
                 .setY(new PixelConstraint(170f * scaleFactor))
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
-        new UIText("Master 1: " + Math.round(this.m1Runs))
+        new UIText("Master 1: " + Utils.formatNumber(Math.round(this.m1Runs)))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(460f * scaleFactor))
                 .setY(new PixelConstraint(50f * scaleFactor))
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
-        new UIText("Master 2: " + Math.round(this.m2Runs))
+        new UIText("Master 2: " + Utils.formatNumber(Math.round(this.m2Runs)))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(460f * scaleFactor))
                 .setY(new PixelConstraint(70f * scaleFactor))
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
-        new UIText("Master 3: " + Math.round(this.m3Runs))
+        new UIText("Master 3: " + Utils.formatNumber(Math.round(this.m3Runs)))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(460f * scaleFactor))
                 .setY(new PixelConstraint(90f * scaleFactor))
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
-        new UIText("Master 4: " + Math.round(this.m4Runs))
+        new UIText("Master 4: " + Utils.formatNumber(Math.round(this.m4Runs)))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(460f * scaleFactor))
                 .setY(new PixelConstraint(110f * scaleFactor))
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
-        new UIText("Master 5: " + Math.round(this.m5Runs))
+        new UIText("Master 5: " + Utils.formatNumber(Math.round(this.m5Runs)))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(460f * scaleFactor))
                 .setY(new PixelConstraint(130f * scaleFactor))
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
-        new UIText("Master 6: " + Math.round(this.m6Runs))
+        new UIText("Master 6: " + Utils.formatNumber(Math.round(this.m6Runs)))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(460f * scaleFactor))
                 .setY(new PixelConstraint(150f * scaleFactor))
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
-        new UIText("Master 7: " + Math.round(this.m7Runs))
+        new UIText("Master 7: " + Utils.formatNumber(Math.round(this.m7Runs)))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(460f * scaleFactor))
                 .setY(new PixelConstraint(170f * scaleFactor))

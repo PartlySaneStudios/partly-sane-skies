@@ -14,6 +14,19 @@ public class ConfigScreen extends Vigilant {
     @Property(type = PropertyType.TEXT, protectedText = true, name = "API Key", category = "General", subcategory = "API", description = "Do /api new to automatically set your API Key. Do not show your API key to anyone unless you know what you're doing.")
     public String apiKey = "";
 
+    @Property(type = PropertyType.SELECTOR, options = {
+            "Commas (1,000,000)",
+            "Spaces (1 000 000)",
+            "Periods (1.000.000)",
+    }, category = "General", subcategory = "Appearance", name = "Hundreds Place Format", description = "The seperator between different hundreds places.")
+    public int hundredsPlaceFormat = 1;
+
+    @Property(type = PropertyType.SELECTOR, options = {
+            "Commas (1,52)",
+            "Periods (1.52)",
+    }, category = "General", subcategory = "Appearance", name = "Decimal Place Format", description = "The character to represent decimal places.")
+    public int decimalPlaceFormat = 1;
+
     // Main Menu
     @Property(type = PropertyType.SWITCH, category = "General", subcategory = "Main Menu", name = "Show a custom Minecraft Main Menu")
     public boolean customMainMenu = true;
