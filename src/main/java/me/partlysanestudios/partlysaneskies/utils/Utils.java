@@ -327,7 +327,7 @@ public class Utils {
                 break;
 
             case 1:
-                hundredsPlaceFormat = ",";
+                hundredsPlaceFormat = " ";
                 break;
 
             case 2:
@@ -345,6 +345,9 @@ public class Utils {
                 decimalPlaceFormat = ".";
                 break;
         }
-        return decimalFormat.format(num).replace(",", hundredsPlaceFormat).replace(".", decimalPlaceFormat);
+        String formattedNum = decimalFormat.format(num);
+        formattedNum = formattedNum.replace(",", hundredsPlaceFormat);
+        formattedNum = formattedNum.replace(".", decimalPlaceFormat);
+        return formattedNum;
     }
 }
