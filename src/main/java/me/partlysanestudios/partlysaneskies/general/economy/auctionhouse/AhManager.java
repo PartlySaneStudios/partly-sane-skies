@@ -38,6 +38,9 @@ public class AhManager {
         if (Main.isDebugMode) {
             return;
         }
+        if (!Main.config.customAhGui) {
+            return;
+        }
         guiAlreadyOpen = true;
         inventory = getSeparateUpperLowerGui(Main.minecraft.currentScreen)[0];
         boolean loaded = ahChestFullyLoaded(inventory);
