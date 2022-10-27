@@ -100,16 +100,6 @@ public class Auction {
         return item.getDisplayName();
     }
 
-    public String getLore() {
-        List<String> loreList = Utils.getLore(this.item);
-        String loreString = "";
-        for (String loreLine : loreList) {
-            loreString += loreLine + "\n";
-        }
-
-        return loreString;
-    }
-
     public double getAverageLowestBin() {
         if (ItemLowestBin.avgLowestBin == null) {
             return 0;
@@ -143,6 +133,10 @@ public class Auction {
         }
 
         return "";
+    }
+
+    public String getLore() {
+        return Utils.getLoreAsString(this.item);
     }
 
 }
