@@ -114,6 +114,14 @@ public class AhGui extends WindowScreen {
         weaponsIcon.onMouseClickConsumer(event -> {
             Utils.clickOnSlot(0);
         });
+        weaponsIcon.onMouseEnterRunnable(() -> {
+            ((UIWrappedText) itemName).setText(inventory.getStackInSlot(0).getDisplayName());
+            ((UIWrappedText) itemLore).setText(Utils.getLoreAsString(inventory.getStackInSlot(0)));
+        });
+        weaponsIcon.onMouseLeaveRunnable(() -> {
+            ((UIWrappedText) itemName).setText("");
+            ((UIWrappedText) itemLore).setText("");
+        });
         UIImage.ofResource("/assets/partlysaneskies/textures/gui/custom_ah/weapons_icon.png")
                 .setX(new CenterConstraint())
                 .setY(new CenterConstraint())
@@ -130,6 +138,14 @@ public class AhGui extends WindowScreen {
                 .setChildOf(topBar);
         armorIcon.onMouseClickConsumer(event -> {
             Utils.clickOnSlot(9);
+        });
+        armorIcon.onMouseEnterRunnable(() -> {
+            ((UIWrappedText) itemName).setText(inventory.getStackInSlot(9).getDisplayName());
+            ((UIWrappedText) itemLore).setText(Utils.getLoreAsString(inventory.getStackInSlot(9)));
+        });
+        armorIcon.onMouseLeaveRunnable(() -> {
+            ((UIWrappedText) itemName).setText("");
+            ((UIWrappedText) itemLore).setText("");
         });
         UIImage.ofResource("/assets/partlysaneskies/textures/gui/custom_ah/armor_icon.png")
                 .setX(new CenterConstraint())
@@ -148,6 +164,14 @@ public class AhGui extends WindowScreen {
         accessoriesIcon.onMouseClickConsumer(event -> {
             Utils.clickOnSlot(18);
         });
+        accessoriesIcon.onMouseEnterRunnable(() -> {
+            ((UIWrappedText) itemName).setText(inventory.getStackInSlot(18).getDisplayName());
+            ((UIWrappedText) itemLore).setText(Utils.getLoreAsString(inventory.getStackInSlot(18)));
+        });
+        accessoriesIcon.onMouseLeaveRunnable(() -> {
+            ((UIWrappedText) itemName).setText("");
+            ((UIWrappedText) itemLore).setText("");
+        });
         UIImage.ofResource("/assets/partlysaneskies/textures/gui/custom_ah/accessories_icon.png")
                 .setX(new CenterConstraint())
                 .setY(new CenterConstraint())
@@ -164,6 +188,14 @@ public class AhGui extends WindowScreen {
                 .setChildOf(topBar);
         consumablesIcon.onMouseClickConsumer(event -> {
             Utils.clickOnSlot(27);
+        });
+        consumablesIcon.onMouseEnterRunnable(() -> {
+            ((UIWrappedText) itemName).setText(inventory.getStackInSlot(27).getDisplayName());
+            ((UIWrappedText) itemLore).setText(Utils.getLoreAsString(inventory.getStackInSlot(27)));
+        });
+        consumablesIcon.onMouseLeaveRunnable(() -> {
+            ((UIWrappedText) itemName).setText("");
+            ((UIWrappedText) itemLore).setText("");
         });
         UIImage.ofResource("/assets/partlysaneskies/textures/gui/custom_ah/consumables_icon.png")
                 .setX(new CenterConstraint())
@@ -182,6 +214,14 @@ public class AhGui extends WindowScreen {
         blocksIcon.onMouseClickConsumer(event -> {
             Utils.clickOnSlot(36);
         });
+        blocksIcon.onMouseEnterRunnable(() -> {
+            ((UIWrappedText) itemName).setText(inventory.getStackInSlot(36).getDisplayName());
+            ((UIWrappedText) itemLore).setText(Utils.getLoreAsString(inventory.getStackInSlot(36)));
+        });
+        blocksIcon.onMouseLeaveRunnable(() -> {
+            ((UIWrappedText) itemName).setText("");
+            ((UIWrappedText) itemLore).setText("");
+        });
         UIImage.ofResource("/assets/partlysaneskies/textures/gui/custom_ah/block_icon.png")
                 .setX(new CenterConstraint())
                 .setY(new CenterConstraint())
@@ -198,6 +238,14 @@ public class AhGui extends WindowScreen {
                 .setChildOf(topBar);
         miscIcon.onMouseClickConsumer(event -> {
             Utils.clickOnSlot(45);
+        });
+        miscIcon.onMouseEnterRunnable(() -> {
+            ((UIWrappedText) itemName).setText(inventory.getStackInSlot(45).getDisplayName());
+            ((UIWrappedText) itemLore).setText(Utils.getLoreAsString(inventory.getStackInSlot(45)));
+        });
+        miscIcon.onMouseLeaveRunnable(() -> {
+            ((UIWrappedText) itemName).setText("");
+            ((UIWrappedText) itemLore).setText("");
         });
         UIImage.ofResource("/assets/partlysaneskies/textures/gui/custom_ah/misc_icon.png")
                 .setX(new CenterConstraint())
@@ -229,6 +277,14 @@ public class AhGui extends WindowScreen {
         leftArrowIcon.onMouseClickConsumer(event -> {
             Utils.clickOnSlot(46);
         });
+        leftArrowIcon.onMouseEnterRunnable(() -> {
+            ((UIWrappedText) itemName).setText(inventory.getStackInSlot(46).getDisplayName());
+            ((UIWrappedText) itemLore).setText(Utils.getLoreAsString(inventory.getStackInSlot(46)));
+        });
+        leftArrowIcon.onMouseLeaveRunnable(() -> {
+            ((UIWrappedText) itemName).setText("");
+            ((UIWrappedText) itemLore).setText("");
+        });
         UIImage.ofResource("/assets/partlysaneskies/textures/gui/custom_ah/left_arrow_icon.png")
                 .setX(new CenterConstraint())
                 .setY(new CenterConstraint())
@@ -245,6 +301,14 @@ public class AhGui extends WindowScreen {
                 .setChildOf(bottomBar);
         resetIcon.onMouseClickConsumer(event -> {
             Utils.clickOnSlot(47);
+        });
+        resetIcon.onMouseEnterRunnable(() -> {
+            ((UIWrappedText) itemName).setText(inventory.getStackInSlot(47).getDisplayName());
+            ((UIWrappedText) itemLore).setText(Utils.getLoreAsString(inventory.getStackInSlot(47)));
+        });
+        resetIcon.onMouseLeaveRunnable(() -> {
+            ((UIWrappedText) itemName).setText("");
+            ((UIWrappedText) itemLore).setText("");
         });
         UIImage.ofResource("/assets/partlysaneskies/textures/gui/custom_ah/reset_icon.png")
                 .setX(new CenterConstraint())
@@ -263,6 +327,14 @@ public class AhGui extends WindowScreen {
         searchIcon.onMouseClickConsumer(event -> {
             Utils.clickOnSlot(48);
         });
+        searchIcon.onMouseEnterRunnable(() -> {
+            ((UIWrappedText) itemName).setText(inventory.getStackInSlot(48).getDisplayName());
+            ((UIWrappedText) itemLore).setText(Utils.getLoreAsString(inventory.getStackInSlot(48)));
+        });
+        searchIcon.onMouseLeaveRunnable(() -> {
+            ((UIWrappedText) itemName).setText("");
+            ((UIWrappedText) itemLore).setText("");
+        });
         UIImage.ofResource("/assets/partlysaneskies/textures/gui/custom_ah/search_icon.png")
                 .setX(new CenterConstraint())
                 .setY(new CenterConstraint())
@@ -280,6 +352,14 @@ public class AhGui extends WindowScreen {
         goBackIcon.onMouseClickConsumer(event -> {
             Utils.clickOnSlot(49);
         });
+        goBackIcon.onMouseEnterRunnable(() -> {
+            ((UIWrappedText) itemName).setText(inventory.getStackInSlot(49).getDisplayName());
+            ((UIWrappedText) itemLore).setText(Utils.getLoreAsString(inventory.getStackInSlot(49)));
+        });
+        goBackIcon.onMouseLeaveRunnable(() -> {
+            ((UIWrappedText) itemName).setText("");
+            ((UIWrappedText) itemLore).setText("");
+        });
         UIImage.ofResource("/assets/partlysaneskies/textures/gui/custom_ah/go_back_icon.png")
                 .setX(new CenterConstraint())
                 .setY(new CenterConstraint())
@@ -296,6 +376,14 @@ public class AhGui extends WindowScreen {
                 .setChildOf(bottomBar);
         filterIcon.onMouseClickConsumer(event -> {
             Utils.clickOnSlot(50);
+        });
+        filterIcon.onMouseEnterRunnable(() -> {
+            ((UIWrappedText) itemName).setText(inventory.getStackInSlot(50).getDisplayName());
+            ((UIWrappedText) itemLore).setText(Utils.getLoreAsString(inventory.getStackInSlot(50)));
+        });
+        filterIcon.onMouseLeaveRunnable(() -> {
+            ((UIWrappedText) itemName).setText("");
+            ((UIWrappedText) itemLore).setText("");
         });
         UIImage.ofResource("/assets/partlysaneskies/textures/gui/custom_ah/filter_icon.png")
                 .setX(new CenterConstraint())
@@ -318,6 +406,14 @@ public class AhGui extends WindowScreen {
                 Utils.rightClickOnSlot(51);
             }
         });
+        rarityIcon.onMouseEnterRunnable(() -> {
+            ((UIWrappedText) itemName).setText(inventory.getStackInSlot(51).getDisplayName());
+            ((UIWrappedText) itemLore).setText(Utils.getLoreAsString(inventory.getStackInSlot(51)));
+        });
+        rarityIcon.onMouseLeaveRunnable(() -> {
+            ((UIWrappedText) itemName).setText("");
+            ((UIWrappedText) itemLore).setText("");
+        });
         UIImage.ofResource("/assets/partlysaneskies/textures/gui/custom_ah/rarity_icon.png")
                 .setX(new CenterConstraint())
                 .setY(new CenterConstraint())
@@ -339,6 +435,14 @@ public class AhGui extends WindowScreen {
                 Utils.rightClickOnSlot(52);
             }
         });
+        binFilterIcon.onMouseEnterRunnable(() -> {
+            ((UIWrappedText) itemName).setText(inventory.getStackInSlot(52).getDisplayName());
+            ((UIWrappedText) itemLore).setText(Utils.getLoreAsString(inventory.getStackInSlot(52)));
+        });
+        binFilterIcon.onMouseLeaveRunnable(() -> {
+            ((UIWrappedText) itemName).setText("");
+            ((UIWrappedText) itemLore).setText("");
+        });
         UIImage.ofResource("/assets/partlysaneskies/textures/gui/custom_ah/bin_filter_icon.png")
                 .setX(new CenterConstraint())
                 .setY(new CenterConstraint())
@@ -355,6 +459,14 @@ public class AhGui extends WindowScreen {
                 .setChildOf(bottomBar);
         rightArrowIcon.onMouseClickConsumer(event -> {
             Utils.clickOnSlot(53);
+        });
+        rightArrowIcon.onMouseEnterRunnable(() -> {
+            ((UIWrappedText) itemName).setText(inventory.getStackInSlot(53).getDisplayName());
+            ((UIWrappedText) itemLore).setText(Utils.getLoreAsString(inventory.getStackInSlot(53)));
+        });
+        rightArrowIcon.onMouseLeaveRunnable(() -> {
+            ((UIWrappedText) itemName).setText("");
+            ((UIWrappedText) itemLore).setText("");
         });
         UIImage.ofResource("/assets/partlysaneskies/textures/gui/custom_ah/right_arrow_icon.png")
                 .setX(new CenterConstraint())

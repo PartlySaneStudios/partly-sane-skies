@@ -351,4 +351,14 @@ public class Utils {
         formattedNum = formattedNum.replace("_", hundredsPlaceFormat);
         return formattedNum;
     }
+
+    public static String getLoreAsString(ItemStack item) {
+        List<String> loreList = getLore(item);
+        String loreString = "";
+        for (String loreLine : loreList) {
+            loreString += loreLine + "\n";
+        }
+    
+        return loreString;
+    }
 }
