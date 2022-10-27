@@ -3,6 +3,7 @@ package me.partlysanestudios.partlysaneskies.general.economy.auctionhouse;
 import java.util.List;
 
 import gg.essential.elementa.UIComponent;
+import me.partlysanestudios.partlysaneskies.Main;
 import me.partlysanestudios.partlysaneskies.general.economy.ItemLowestBin;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.item.ItemStack;
@@ -82,7 +83,7 @@ public class Auction {
         }
         double averageAhPrice = ItemLowestBin.avgLowestBin.get(itemId);
 
-        if (sellingPrice <= averageAhPrice * .60) {
+        if (sellingPrice <= averageAhPrice * Main.config.binSniperPercent) {
             return true;
         }
         return false;

@@ -59,7 +59,7 @@ public class ConfigScreen extends Vigilant {
     @Property(type = PropertyType.DECIMAL_SLIDER, minF = 1, maxF = 7, subcategory = "Location Banner", name = "Location Banner Time", description = "The amount of time the location banner appears for.", category = "Skyblock")
     public float locationBannerTime = 3.5f;
 
-    @Property(type = PropertyType.SWITCH, name = "Open Wiki Automatically", category = "Skyblock", description = "When the Open Wiki Article Keybind is used, automatically open the article without confirmation first.", subcategory = "Open Wiki")
+    @Property(type = PropertyType.SWITCH, name = "Open Wiki Automatically", category = "Skyblock", description = "When the Open Wiki Article KeyBINd is used, automatically open the article without confirmation first.", subcategory = "Open Wiki")
     public boolean openWikiAutomatically = true;
 
     @Property(type = PropertyType.SWITCH, name = "Excessive Coin and No Booster Cookie", category = "Skyblock", description = "Warns you if you have a lot of coins in your purse and no booster cookie.", subcategory = "Excessive Coin Warning")
@@ -73,6 +73,12 @@ public class ConfigScreen extends Vigilant {
 
     @Property(type = PropertyType.SLIDER, min = 1, max = 300, subcategory = "Excessive Coin Warning", name = "Excessive Coin Warn Cooldown", description = "The amount of time between each warning", category = "Skyblock")
     public int noCookieWarnCooldown = 20;
+    // Auction House
+    @Property(type = PropertyType.SWITCH, name = "Custom Auction House GUI", category = "Skyblock", subcategory = "Auction House", description = "Toggle using the custom Auction House GUI and BIN Sniper Helper.")
+    public boolean customAhGui = true;
+
+    @Property(type = PropertyType.PERCENT_SLIDER, minF = 0, maxF = 1, category = "Skyblock", subcategory = "Auction House", name = "BIN Snipe Percentage", description = "The percent of the price that the BIN sniper considers a \"snipe\". Example: 85%, Lowest BIN: 1 000 000, will look for a price of 850000 or less.")
+    public float BINSniperPercent = .87f;
 
     // -------------- Category: Mining --------------
     // Worm Warning
