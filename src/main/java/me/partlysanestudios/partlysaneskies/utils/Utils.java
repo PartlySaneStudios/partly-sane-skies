@@ -346,9 +346,25 @@ public class Utils {
                 break;
         }
         String formattedNum = decimalFormat.format(num);
+
+        if (formattedNum.charAt(0) == '.') {
+            formattedNum = formattedNum.replaceFirst(".", "");
+        }
+
+        if (formattedNum.endsWith(".00")) {
+            formattedNum = formattedNum.replace(".00", "");
+        }
+
+        if (formattedNum.equalsIgnoreCase("00")) {
+            formattedNum = "0";
+        }
+
         formattedNum = formattedNum.replace(",", "_");
         formattedNum = formattedNum.replace(".", decimalPlaceFormat);
         formattedNum = formattedNum.replace("_", hundredsPlaceFormat);
+
+        
+
         return formattedNum;
     }
 
