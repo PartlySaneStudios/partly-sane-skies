@@ -83,7 +83,7 @@ public class Auction {
         }
         double averageAhPrice = ItemLowestBin.avgLowestBin.get(itemId);
 
-        if (sellingPrice <= averageAhPrice * Main.config.binSniperPercent) {
+        if (sellingPrice <= averageAhPrice * Main.config.BINSniperPercent) {
             return true;
         }
         return false;

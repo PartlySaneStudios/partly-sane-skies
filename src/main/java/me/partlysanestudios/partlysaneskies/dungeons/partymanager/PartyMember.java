@@ -2,7 +2,9 @@ package me.partlysanestudios.partlysaneskies.dungeons.partymanager;
 
 import java.awt.Color;
 import java.io.IOException;
+import java.util.Map.Entry;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -32,7 +34,6 @@ public class PartyMember {
     public int secretsCount;
     public float hypixelLevel;
     public float senitherWeight;
-    public float senitherWeightOverflow;
     public float catacombsLevel;
     public float combatLevel;
     public float secretsPerRun;
@@ -81,208 +82,113 @@ public class PartyMember {
     public int getData() throws IOException, NullPointerException {
         timeDataGet = Minecraft.getSystemTime();
         JsonParser parser = new JsonParser();
-        String response = Utils.getRequest("https://api.mojang.com/users/profiles/minecraft/" + username);
+        String response = Utils.getRequest("https://sky.shiiyu.moe/api/v2/profile/" + this.username);
+        if (response.startsWith("Error")) {
+            Utils.sendClientMessage(Utils.colorCodes("Error getting data for " + username
+                    + ". Maybe the player is nicked or there is an invalid API key. Try running /api new."));
+            return -2;
+        }
+        JsonObject skycryptJson = (JsonObject) parser.parse(response);
+        String currentProfileId = "";
+
+        for (Entry<String, JsonElement> en : skycryptJson.getAsJsonObject("profiles").entrySet()) {
+            if (en.getValue().getAsJsonObject().get("current").getAsBoolean()) {
+                currentProfileId = en.getKey();
+            }
+        }
+
+        JsonObject profileData = skycryptJson.getAsJsonObject("profiles").getAsJsonObject(currentProfileId).getAsJsonObject("data");
+
+        senitherWeight = profileData.getAsJsonObject("weight").getAsJsonObject("senither")
+                .get("overall").getAsFloat();
+
+        secretsCount = profileData.getAsJsonObject("dungeons").get("secrets_found").getAsInt();
+
+        catacombsLevel = profileData.getAsJsonObject("dungeons").getAsJsonObject("catacombs")
+                .getAsJsonObject("level").get("levelWithProgress").getAsFloat();
+
+        combatLevel = profileData.getAsJsonObject("levels").getAsJsonObject("combat").get("levelWithProgress").getAsFloat();
+
+        averageSkillLevel =  profileData.get("average_level").getAsFloat();
+
+        JsonObject profileItems = skycryptJson.getAsJsonObject("profiles").getAsJsonObject(currentProfileId).getAsJsonObject("items");
+        try {
+            helmetName = profileItems.getAsJsonArray("armor").get(3).getAsJsonObject().get("display_name").getAsString();
+            helmetName = formatText(helmetName);
+        } catch (NullPointerException e) {
+            helmetName = "";
+            e.printStackTrace();
+        }
+
+        try {
+            chestplateName = profileItems.getAsJsonArray("armor").get(2).getAsJsonObject().get("display_name").getAsString();
+            chestplateName = formatText(chestplateName);
+        } catch (NullPointerException e) {
+            chestplateName = "";
+            e.printStackTrace();
+        }
+
+        try {
+            leggingsName = profileItems.getAsJsonArray("armor").get(1).getAsJsonObject().get("display_name").getAsString();
+            leggingsName = formatText(leggingsName);
+        } catch (NullPointerException e) {
+            leggingsName = "";
+            e.printStackTrace();
+        }
+
+        try {
+            bootsName = profileItems.getAsJsonArray("armor").get(0).getAsJsonObject().get("display_name").getAsString();
+            bootsName = formatText(bootsName);
+        } catch (NullPointerException e) {
+            bootsName = "";
+            e.printStackTrace();
+        }
+
+        try {
+            selectedDungeonClass = profileData.getAsJsonObject("dungeons").getAsJsonObject("classes").get("selected_class").getAsString();
+            selectedDungeonClass = formatText(selectedDungeonClass);
+        } catch (NullPointerException e) {
+            selectedDungeonClass = "None";
+        }
+        
+
+        f1Runs = getFloorRuns("1", profileData);
+        f2Runs = getFloorRuns("2", profileData);
+        f3Runs = getFloorRuns("3", profileData);
+        f4Runs = getFloorRuns("4", profileData);
+        f5Runs = getFloorRuns("5", profileData);
+        f6Runs = getFloorRuns("6", profileData);
+        f7Runs = getFloorRuns("7", profileData);
+
+        m1Runs = getMasterFloorRuns("1", profileData);
+        m2Runs = getMasterFloorRuns("2", profileData);
+        m3Runs = getMasterFloorRuns("3", profileData);
+        m4Runs = getMasterFloorRuns("4", profileData);
+        m5Runs = getMasterFloorRuns("5", profileData);
+        m6Runs = getMasterFloorRuns("6", profileData);
+        m7Runs = getMasterFloorRuns("7", profileData);
+
+
+        response = Utils
+                .getRequest("https://api.mojang.com/users/profiles/minecraft/" + username);
         if (response.startsWith("Error")) {
             Utils.sendClientMessage(Utils.colorCodes("Error getting data for " + username
                     + ". Maybe the player is nicked or there is an invalid API key. Try running /api new."));
             return -3;
         }
+
+
         JsonObject uuidJson = (JsonObject) parser.parse(response);
 
         String uuid = uuidJson.get("id").getAsString();
 
-        response = Utils.getRequest("https://api.slothpixel.me/api/skyblock/profile/" + uuid);
+        response = Utils.getRequest("https://api.slothpixel.me/api/skyblock/profile/" + uuid+ "/" + currentProfileId);
         if (response.startsWith("Error")) {
             Utils.sendClientMessage(Utils.colorCodes("Error getting data for " + username
                     + ". Maybe the player is nicked or there is an invalid API key. Try running /api new."));
             return -1;
         }
         JsonObject slothpixelJson = (JsonObject) parser.parse(response);
-
-        try {
-            combatLevel = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("skills")
-                    .getAsJsonObject("combat").get("floatLevel").getAsFloat();
-        } catch (NullPointerException e) {
-            combatLevel = 0;
-
-        }
-
-        try {
-            averageSkillLevel = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid)
-                    .get("average_skill_level").getAsFloat();
-        } catch (NullPointerException e) {
-            averageSkillLevel = 0;
-        }
-
-        try {
-            helmetName = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonArray("armor").get(3)
-                    .getAsJsonObject().get("name").getAsString();
-            helmetName = formatText(helmetName);
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            chestplateName = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonArray("armor")
-                    .get(2).getAsJsonObject().get("name").getAsString();
-            chestplateName = formatText(chestplateName);
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            leggingsName = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonArray("armor")
-                    .get(1).getAsJsonObject().get("name").getAsString();
-            leggingsName = formatText(leggingsName);
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            bootsName = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonArray("armor").get(0)
-                    .getAsJsonObject().get("name").getAsString();
-            bootsName = formatText(bootsName);
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            selectedDungeonClass = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid)
-                    .getAsJsonObject("dungeons").get("selected_dungeon_class").getAsString();
-            selectedDungeonClass = formatText(selectedDungeonClass);
-        } catch (NullPointerException e) {
-            selectedDungeonClass = "None";
-        }
-
-        try {
-            if (slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("dungeons")
-                    .getAsJsonObject("dungeon_types").getAsJsonObject("catacombs").getAsJsonObject("tier_completions")
-                    .get("1") == null)
-                f1Runs = 0;
-            else
-                f1Runs = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("dungeons")
-                        .getAsJsonObject("dungeon_types").getAsJsonObject("catacombs")
-                        .getAsJsonObject("tier_completions").get("1").getAsInt();
-        } catch (NullPointerException e) {
-            f1Runs = 0;
-        }
-
-        if (slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("dungeons")
-                .getAsJsonObject("dungeon_types").getAsJsonObject("catacombs").getAsJsonObject("tier_completions")
-                .get("2") == null)
-            f2Runs = 0;
-        else
-            f2Runs = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("dungeons")
-                    .getAsJsonObject("dungeon_types").getAsJsonObject("catacombs").getAsJsonObject("tier_completions")
-                    .get("2").getAsInt();
-
-        if (slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("dungeons")
-                .getAsJsonObject("dungeon_types").getAsJsonObject("catacombs").getAsJsonObject("tier_completions")
-                .get("3") == null)
-            f3Runs = 0;
-        else
-            f3Runs = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("dungeons")
-                    .getAsJsonObject("dungeon_types").getAsJsonObject("catacombs").getAsJsonObject("tier_completions")
-                    .get("3").getAsInt();
-
-        if (slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("dungeons")
-                .getAsJsonObject("dungeon_types").getAsJsonObject("catacombs").getAsJsonObject("tier_completions")
-                .get("4") == null)
-            f4Runs = 0;
-        else
-            f4Runs = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("dungeons")
-                    .getAsJsonObject("dungeon_types").getAsJsonObject("catacombs").getAsJsonObject("tier_completions")
-                    .get("4").getAsInt();
-
-        if (slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("dungeons")
-                .getAsJsonObject("dungeon_types").getAsJsonObject("catacombs").getAsJsonObject("tier_completions")
-                .get("5") == null)
-            f5Runs = 0;
-        else
-            f5Runs = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("dungeons")
-                    .getAsJsonObject("dungeon_types").getAsJsonObject("catacombs").getAsJsonObject("tier_completions")
-                    .get("5").getAsInt();
-
-        if (slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("dungeons")
-                .getAsJsonObject("dungeon_types").getAsJsonObject("catacombs").getAsJsonObject("tier_completions")
-                .get("6") == null)
-            f6Runs = 0;
-        else
-            f6Runs = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("dungeons")
-                    .getAsJsonObject("dungeon_types").getAsJsonObject("catacombs").getAsJsonObject("tier_completions")
-                    .get("6").getAsInt();
-
-        if (slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("dungeons")
-                .getAsJsonObject("dungeon_types").getAsJsonObject("catacombs").getAsJsonObject("tier_completions")
-                .get("7") == null)
-            f7Runs = 0;
-        else
-            f7Runs = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("dungeons")
-                    .getAsJsonObject("dungeon_types").getAsJsonObject("catacombs").getAsJsonObject("tier_completions")
-                    .get("7").getAsInt();
-
-        if (slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("dungeons")
-                .getAsJsonObject("dungeon_types").getAsJsonObject("master_catacombs")
-                .getAsJsonObject("tier_completions").get("1") == null)
-            m1Runs = 0;
-        else
-            m1Runs = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("dungeons")
-                    .getAsJsonObject("dungeon_types").getAsJsonObject("master_catacombs")
-                    .getAsJsonObject("tier_completions").get("1").getAsInt();
-
-        if (slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("dungeons")
-                .getAsJsonObject("dungeon_types").getAsJsonObject("master_catacombs")
-                .getAsJsonObject("tier_completions").get("2") == null)
-            m2Runs = 0;
-        else
-            m2Runs = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("dungeons")
-                    .getAsJsonObject("dungeon_types").getAsJsonObject("master_catacombs")
-                    .getAsJsonObject("tier_completions").get("2").getAsInt();
-
-        if (slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("dungeons")
-                .getAsJsonObject("dungeon_types").getAsJsonObject("master_catacombs")
-                .getAsJsonObject("tier_completions").get("3") == null)
-            m3Runs = 0;
-        else
-            m3Runs = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("dungeons")
-                    .getAsJsonObject("dungeon_types").getAsJsonObject("master_catacombs")
-                    .getAsJsonObject("tier_completions").get("3").getAsInt();
-
-        if (slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("dungeons")
-                .getAsJsonObject("dungeon_types").getAsJsonObject("master_catacombs")
-                .getAsJsonObject("tier_completions").get("4") == null)
-            m4Runs = 0;
-        else
-            m4Runs = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("dungeons")
-                    .getAsJsonObject("dungeon_types").getAsJsonObject("master_catacombs")
-                    .getAsJsonObject("tier_completions").get("4").getAsInt();
-
-        if (slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("dungeons")
-                .getAsJsonObject("dungeon_types").getAsJsonObject("master_catacombs")
-                .getAsJsonObject("tier_completions").get("5") == null)
-            m5Runs = 0;
-        else
-            m5Runs = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("dungeons")
-                    .getAsJsonObject("dungeon_types").getAsJsonObject("master_catacombs")
-                    .getAsJsonObject("tier_completions").get("5").getAsInt();
-
-        if (slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("dungeons")
-                .getAsJsonObject("dungeon_types").getAsJsonObject("master_catacombs")
-                .getAsJsonObject("tier_completions").get("6") == null)
-            m6Runs = 0;
-        else
-            m6Runs = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("dungeons")
-                    .getAsJsonObject("dungeon_types").getAsJsonObject("master_catacombs")
-                    .getAsJsonObject("tier_completions").get("6").getAsInt();
-
-        if (slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("dungeons")
-                .getAsJsonObject("dungeon_types").getAsJsonObject("master_catacombs")
-                .getAsJsonObject("tier_completions").get("7") == null)
-            m7Runs = 0;
-        else
-            m7Runs = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("dungeons")
-                    .getAsJsonObject("dungeon_types").getAsJsonObject("master_catacombs")
-                    .getAsJsonObject("tier_completions").get("7").getAsInt();
 
         slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("attributes").get("health")
                 .getAsFloat();
@@ -295,44 +201,44 @@ public class PartyMember {
 
         hypixelLevel = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("player")
                 .get("level").getAsFloat();
-        hypixelLevel = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).get("average_skill_level")
-                .getAsFloat();
-        response = Utils.getRequest(
-                "https://hypixel-api.senither.com/v1/profiles/" + uuid + "/latest?key=" + Main.config.apiKey);
-        if (response.startsWith("Error")) {
-            Utils.sendClientMessage(Utils.colorCodes("Error getting data for " + username
-                    + ". Maybe the player is nicked or there is an invalid API key. Try running /api new."));
-            return -2;
-        }
-        JsonObject senitherJson = (JsonObject) parser.parse(response);
+        // hypixelLevel = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).get("average_skill_level")
+        //         .getAsFloat();
 
-        try {
-            secretsCount = senitherJson.getAsJsonObject("data").getAsJsonObject("dungeons").get("secrets_found")
-                    .getAsInt();
-        } catch (NullPointerException e) {
-        }
-
-        try {
-            senitherWeight = senitherJson.getAsJsonObject("data").get("weight").getAsFloat();
-        } catch (NullPointerException e) {
-        }
-
-        try {
-            senitherWeightOverflow = senitherJson.getAsJsonObject("data").get("weight_overflow").getAsFloat();
-        } catch (NullPointerException e) {
-        }
-
-        try {
-            catacombsLevel = senitherJson.getAsJsonObject("data").getAsJsonObject("dungeons").getAsJsonObject("types")
-                    .getAsJsonObject("catacombs").get("level").getAsFloat();
-        } catch (NullPointerException e) {
-        }
         try {
             secretsPerRun = secretsCount / (f1Runs + f2Runs + f3Runs + f4Runs + f5Runs + f6Runs + f7Runs + m1Runs
                     + m2Runs + m3Runs + m4Runs + m5Runs + m6Runs + m7Runs);
         } catch (NullPointerException e) {
         }
+
         return 0;
+    }
+
+    public int getFloorRuns(String floor, JsonObject profileData) {
+        JsonElement runsElement; 
+        try{
+            runsElement = profileData.getAsJsonObject("dungeons").getAsJsonObject("catacombs").getAsJsonObject("floors").getAsJsonObject(floor).getAsJsonObject("stats").get("tier_completions");
+        } catch(NullPointerException e) {
+            runsElement = null; 
+        }
+        int runs = 0;
+        if (runsElement != null) {
+            runs = runsElement.getAsInt();
+        }
+        return runs;
+    }
+
+    public int getMasterFloorRuns(String floor, JsonObject profileData) {
+        JsonElement runsElement; 
+        try{
+            runsElement = profileData.getAsJsonObject("dungeons").getAsJsonObject("master_catacombs").getAsJsonObject("floors").getAsJsonObject(floor).getAsJsonObject("stats").get("tier_completions");
+        } catch(NullPointerException e) {
+            runsElement = null; 
+        }
+        int runs = 0;
+        if (runsElement != null) {
+            runs = runsElement.getAsInt();
+        }
+        return runs;
     }
 
     public void createBlock(UIComponent memberBlock, float scaleFactor) {
@@ -379,7 +285,7 @@ public class PartyMember {
                 .setColor(Utils.colorCodetoColor.get("&a"))
                 .setChildOf(memberBlock);
 
-        new UIText("EHP " + Utils.formatNumber(Math.round(this.effectHealth)))
+        new UIText("EHP: " + Utils.formatNumber(Math.round(this.effectHealth)))
                 .setTextScale((new PixelConstraint(1.3f * scaleFactor)))
                 .setX(new PixelConstraint(20f * scaleFactor))
                 .setY(new PixelConstraint(105f * scaleFactor))
@@ -430,23 +336,10 @@ public class PartyMember {
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
-        new UIText("Total Weight: " + Utils.formatNumber(Utils.round((this.senitherWeight + this.senitherWeightOverflow), 2)))
+        new UIText("Senither Weight: " + Utils.formatNumber(Utils.round((this.senitherWeight), 2)))
                 .setTextScale((new PixelConstraint(1.2f * scaleFactor)))
                 .setX(new PixelConstraint(150f * scaleFactor))
                 .setY(new PixelConstraint(105f * scaleFactor))
-                .setColor(Color.white)
-                .setChildOf(memberBlock);
-        new UIText("Sentiher Weight: " + Utils.formatNumber(Utils.round((this.senitherWeight), 3)))
-                .setTextScale((new PixelConstraint(.9f * scaleFactor)))
-                .setX(new PixelConstraint(150f * scaleFactor))
-                .setY(new PixelConstraint(115f * scaleFactor))
-                .setColor(Color.white)
-                .setChildOf(memberBlock);
-
-        new UIText("Overflow Weight: " + Utils.formatNumber(Utils.round((this.senitherWeightOverflow), 3)))
-                .setTextScale((new PixelConstraint(.9f * scaleFactor)))
-                .setX(new PixelConstraint(150f * scaleFactor))
-                .setY(new PixelConstraint(125f * scaleFactor))
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
     }
@@ -480,7 +373,7 @@ public class PartyMember {
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
-        new UIText("Floor 4: " + Math.round(this.f4Runs))
+        new UIText("Floor 4: " + Utils.formatNumber(Math.round(this.f4Runs)))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(340f * scaleFactor))
                 .setY(new PixelConstraint(110f * scaleFactor))
