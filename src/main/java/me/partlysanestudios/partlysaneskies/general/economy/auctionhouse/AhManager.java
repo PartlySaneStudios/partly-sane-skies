@@ -69,7 +69,7 @@ public class AhManager {
         }
 
         IInventory upper = getSeparateUpperLowerGui(Main.minecraft.currentScreen)[0];
-        return Utils.removeColorCodes(upper.getDisplayName().getFormattedText()).contains("Auctions Browser");
+        return Utils.removeColorCodes(upper.getDisplayName().getFormattedText()).contains("Auctions Browser") || Utils.removeColorCodes(upper.getDisplayName().getFormattedText()).contains("Auctions: \"");
     }
 
     static int TOTAL_ROWS = 4;
