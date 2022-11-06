@@ -145,7 +145,7 @@ public class PartyMember {
         }
 
         try {
-            selectedDungeonClass = profileData.getAsJsonObject("dungeons").getAsJsonObject("classes").get("selected_class").getAsString();
+            selectedDungeonClass = profileData.getAsJsonObject("dungeons").get("selected_class").getAsString();
             selectedDungeonClass = formatText(selectedDungeonClass);
         } catch (NullPointerException e) {
             selectedDungeonClass = "None";
