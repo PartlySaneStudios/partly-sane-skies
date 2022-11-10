@@ -137,7 +137,7 @@ public class PartyManager {
     public static void loadPersonalPlayerData() throws IOException {
         String username = Main.minecraft.getSession().getUsername();
         PartyMember player = new PartyMember(username, PartyRank.LEADER);
-        player.getData();
+        player.getSkycryptData();
         player.isPlayer = true;
         playerCache.put(username, player);
     }
