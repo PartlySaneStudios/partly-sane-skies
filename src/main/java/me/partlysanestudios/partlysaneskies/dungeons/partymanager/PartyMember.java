@@ -28,6 +28,7 @@ public class PartyMember {
     public String username;
     public PartyRank rank;
     public boolean isPlayer = false;
+    public boolean refresh = false;
 
     // Data
     public long timeDataGet;
@@ -79,14 +80,17 @@ public class PartyMember {
         this.rank = partyRank;
     }
 
-    public int getData() throws IOException, NullPointerException {
+    public void resetExpire() {
         timeDataGet = Minecraft.getSystemTime();
+    }
+    public String getSkycryptData() throws IOException, NullPointerException {
+        
         JsonParser parser = new JsonParser();
         String response = Utils.getRequest("https://sky.shiiyu.moe/api/v2/profile/" + this.username);
         if (response.startsWith("Error")) {
             Utils.sendClientMessage(Utils.colorCodes("Error getting data for " + username
                     + ". Maybe the player is nicked or there is an invalid API key. Try running /api new."));
-            return -2;
+            return "-2";
         }
         JsonObject skycryptJson = (JsonObject) parser.parse(response);
         String currentProfileId = "";
@@ -169,6 +173,19 @@ public class PartyMember {
         m7Runs = getMasterFloorRuns("7", profileData);
 
 
+        try {
+            secretsPerRun = secretsCount / (f1Runs + f2Runs + f3Runs + f4Runs + f5Runs + f6Runs + f7Runs + m1Runs
+                    + m2Runs + m3Runs + m4Runs + m5Runs + m6Runs + m7Runs);
+        } catch (NullPointerException e) {
+        }
+
+        return currentProfileId;
+    }
+
+    public int getSlothpixelData(String currentProfileId) throws IOException {
+        JsonParser parser = new JsonParser();
+
+        String response = "";
         response = Utils
                 .getRequest("https://api.mojang.com/users/profiles/minecraft/" + username);
         if (response.startsWith("Error")) {
@@ -176,7 +193,6 @@ public class PartyMember {
                     + ". Maybe the player is nicked or there is an invalid API key. Try running /api new."));
             return -3;
         }
-
 
         JsonObject uuidJson = (JsonObject) parser.parse(response);
 
@@ -188,6 +204,9 @@ public class PartyMember {
                     + ". Maybe the player is nicked or there is an invalid API key. Try running /api new."));
             return -1;
         }
+
+        
+
         JsonObject slothpixelJson = (JsonObject) parser.parse(response);
 
         slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("attributes").get("health")
@@ -203,13 +222,6 @@ public class PartyMember {
                 .get("level").getAsFloat();
         // hypixelLevel = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).get("average_skill_level")
         //         .getAsFloat();
-
-        try {
-            secretsPerRun = secretsCount / (f1Runs + f2Runs + f3Runs + f4Runs + f5Runs + f6Runs + f7Runs + m1Runs
-                    + m2Runs + m3Runs + m4Runs + m5Runs + m6Runs + m7Runs);
-        } catch (NullPointerException e) {
-        }
-
         return 0;
     }
 
@@ -250,12 +262,7 @@ public class PartyMember {
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
-        new UIText("Hypixel Level: " + Utils.round(this.hypixelLevel, 1))
-                .setTextScale(new PixelConstraint(1f * scaleFactor))
-                .setX(new PixelConstraint(20f * scaleFactor))
-                .setY(new PixelConstraint(50f * scaleFactor))
-                .setColor(Color.white)
-                .setChildOf(memberBlock);
+        
 
         new UIText(this.selectedDungeonClass + "")
                 .setTextScale(new PixelConstraint(1f * scaleFactor))
@@ -271,33 +278,7 @@ public class PartyMember {
     }
 
     private void createMemberBlockColumnOne(UIComponent memberBlock, float scaleFactor) {
-        new UIText("❤ " + Utils.formatNumber(Math.round(this.health)))
-                .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
-                .setX(new PixelConstraint(20f * scaleFactor))
-                .setY(new PixelConstraint(75f * scaleFactor))
-                .setColor(Utils.colorCodetoColor.get("&c"))
-                .setChildOf(memberBlock);
-
-        new UIText("❈ " + Utils.formatNumber(Math.round(this.defense)))
-                .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
-                .setX(new PixelConstraint(20f * scaleFactor))
-                .setY(new PixelConstraint(90f * scaleFactor))
-                .setColor(Utils.colorCodetoColor.get("&a"))
-                .setChildOf(memberBlock);
-
-        new UIText("EHP: " + Utils.formatNumber(Math.round(this.effectHealth)))
-                .setTextScale((new PixelConstraint(1.3f * scaleFactor)))
-                .setX(new PixelConstraint(20f * scaleFactor))
-                .setY(new PixelConstraint(105f * scaleFactor))
-                .setColor(new Color(45, 133, 48))
-                .setChildOf(memberBlock);
-
-        new UIText("✎ " + Utils.formatNumber(Math.round(this.intelligence)))
-                .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
-                .setX(new PixelConstraint(20f * scaleFactor))
-                .setY(new PixelConstraint(120f * scaleFactor))
-                .setColor(Utils.colorCodetoColor.get("&b"))
-                .setChildOf(memberBlock);
+        
 
         new UIText("Catacombs Level: " + Utils.formatNumber(Utils.round(this.catacombsLevel, 2)))
                 .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
@@ -567,19 +548,56 @@ public class PartyMember {
                 .setChildOf(refreshButton);
 
         refreshButton.onMouseClickConsumer(event -> {
-            try {
-                this.getData();
-                Main.minecraft.displayGuiScreen(null);
-                PartyManager.startPartyManager();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            this.refresh = true;
+            Main.minecraft.displayGuiScreen(null);
+            PartyManager.startPartyManager();
         });
     }
 
+    public void createSlothpixelBlock(UIComponent memberBlock, float scaleFactor) {
+        new UIText("Hypixel Level: " + Utils.round(this.hypixelLevel, 1))
+                .setTextScale(new PixelConstraint(1f * scaleFactor))
+                .setX(new PixelConstraint(20f * scaleFactor))
+                .setY(new PixelConstraint(50f * scaleFactor))
+                .setColor(Color.white)
+                .setChildOf(memberBlock);
+
+        new UIText("❤ " + Utils.formatNumber(Math.round(this.health)))
+                .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
+                .setX(new PixelConstraint(20f * scaleFactor))
+                .setY(new PixelConstraint(75f * scaleFactor))
+                .setColor(Utils.colorCodetoColor.get("&c"))
+                .setChildOf(memberBlock);
+
+        new UIText("❈ " + Utils.formatNumber(Math.round(this.defense)))
+                .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
+                .setX(new PixelConstraint(20f * scaleFactor))
+                .setY(new PixelConstraint(90f * scaleFactor))
+                .setColor(Utils.colorCodetoColor.get("&a"))
+                .setChildOf(memberBlock);
+
+        new UIText("EHP: " + Utils.formatNumber(Math.round(this.effectHealth)))
+                .setTextScale((new PixelConstraint(1.3f * scaleFactor)))
+                .setX(new PixelConstraint(20f * scaleFactor))
+                .setY(new PixelConstraint(105f * scaleFactor))
+                .setColor(new Color(45, 133, 48))
+                .setChildOf(memberBlock);
+
+        new UIText("✎ " + Utils.formatNumber(Math.round(this.intelligence)))
+                .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
+                .setX(new PixelConstraint(20f * scaleFactor))
+                .setY(new PixelConstraint(120f * scaleFactor))
+                .setColor(Utils.colorCodetoColor.get("&b"))
+                .setChildOf(memberBlock);
+    }
+
     public boolean isExpired() {
-        if (this.rank.equals(PartyRank.LEADER))
+        if (this.rank.equals(PartyRank.LEADER) && this.isPlayer)
             return this.timeDataGet + Main.config.partyManagerCacheTime * 60 * 1000 * 2 < Minecraft.getSystemTime();
+        if (this.refresh) {
+            this.refresh = false;
+            return true;
+        }
         return this.timeDataGet + Main.config.partyManagerCacheTime * 60 * 1000 < Minecraft.getSystemTime();
     }
 

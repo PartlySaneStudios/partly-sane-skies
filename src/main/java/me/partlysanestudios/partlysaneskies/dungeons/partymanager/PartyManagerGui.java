@@ -83,14 +83,31 @@ public class PartyManagerGui extends WindowScreen {
             new Thread() {
                 @Override
                 public void run() {
+                    String currentProfileId = "";
                     if (member.isExpired()) {
+
+                        
                         try {
-                            member.getData();
+                            currentProfileId = member.getSkycryptData();
+                            
+                            
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
                     member.createBlock(memberBlock, scaleFactor);
+                    if (member.isExpired()){
+                        try {
+                            member.getSlothpixelData(currentProfileId);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        member.resetExpire();
+                    }
+                    member.createSlothpixelBlock(memberBlock, scaleFactor);
+                    
+                    
+                    
                     PartyManager.playerCache.put(member.username, member);
                 }
 
