@@ -6,5 +6,6 @@
     "editor.detectIndentation": false,
     "githubPullRequests.ignoredPullRequestBranches": [
         "main"
-    ]
+    ],
+    "java.format.settings.url": "eclipse-formatter.xml"
 }
