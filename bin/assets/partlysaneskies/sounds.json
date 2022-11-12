@@ -19,9 +19,18 @@
     },
     "bell": {
         "category": "master",
-        "sounds":[
+        "sounds": [
             {
                 "name": "partlysaneskies:bell",
+                "stream": false
+            }
+        ]
+    },
+    "flute_scale": {
+        "category": "master",
+        "sounds": [
+            {
+                "name": "partlysaneskies:flute_scale",
                 "stream": false
             }
         ]

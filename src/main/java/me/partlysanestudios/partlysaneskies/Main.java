@@ -17,6 +17,8 @@ import me.partlysanestudios.partlysaneskies.general.LocationBannerDisplay;
 import me.partlysanestudios.partlysaneskies.general.NoCookieWarning;
 import me.partlysanestudios.partlysaneskies.general.WikiArticleOpener;
 import me.partlysanestudios.partlysaneskies.general.WormWarning;
+import me.partlysanestudios.partlysaneskies.general.chatalerts.ChatAlertsCommand;
+import me.partlysanestudios.partlysaneskies.general.chatalerts.ChatAlertsManager;
 import me.partlysanestudios.partlysaneskies.general.economy.ItemLowestBin;
 import me.partlysanestudios.partlysaneskies.general.economy.auctionhouse.AhManager;
 import me.partlysanestudios.partlysaneskies.general.partyfriend.PartyFriendManager;
@@ -64,14 +66,21 @@ public class Main {
     public static Color ACCENT_COLOR = new Color(1, 255, 255);
     public static Color DARK_ACCENT_COLOR = new Color(1, 122, 122);
 
+    // Method runs at mod initialization
     @EventHandler
     public void init(FMLInitializationEvent evnt) {
         System.out.println("Hallo World!");
         Main.isDebugMode = false;
         Main.minecraft = Minecraft.getMinecraft();
 
-        Main.config = new ConfigScreen();
+        // Creates the partly-sane-skies directory if not already made
         new File("./config/partly-sane-skies/").mkdirs();
+        
+        // Loads the config files and options
+        Main.config = new ConfigScreen();
+        
+
+        // Loads perm party data
         try {
             PermPartyManager.permPartyMap = PermPartyManager.load();
             PermPartyManager.loadFavouriteParty();
@@ -80,6 +89,14 @@ public class Main {
         }
         ItemLowestBin.updateAh();
 
+        // Loads chat alerts data
+        try {
+            ChatAlertsManager.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Loads user player data for PartyManager
         try {
             PartyManager.loadPersonalPlayerData();
         } catch (IOException e) {
@@ -87,6 +104,7 @@ public class Main {
             e.printStackTrace();
         }
 
+        // Registers all of the events
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new DropBannerDisplay());
         MinecraftForge.EVENT_BUS.register(new PartyManager());
@@ -97,28 +115,43 @@ public class Main {
         MinecraftForge.EVENT_BUS.register(new PartyFriendManager());
         MinecraftForge.EVENT_BUS.register(new WikiArticleOpener());
         MinecraftForge.EVENT_BUS.register(new NoCookieWarning());
-
         locationBannerDisplay = new LocationBannerDisplay();
         MinecraftForge.EVENT_BUS.register(locationBannerDisplay);
+        MinecraftForge.EVENT_BUS.register(new ChatAlertsManager());
 
+        // Registers all client side commands
         ClientCommandHandler.instance.registerCommand(new PartyManagerCommand());
         ClientCommandHandler.instance.registerCommand(new HelpCommand());
         ClientCommandHandler.instance.registerCommand(new SkillUpgradeCommand());
         ClientCommandHandler.instance.registerCommand(new PermPartyCommand());
         ClientCommandHandler.instance.registerCommand(new PartyFriendManagerCommand());
+        ClientCommandHandler.instance.registerCommand(new ChatAlertsCommand());
+
+        // Initialises keybinds
         Keybinds.init();
+
+        // Itialises Utils class
         Utils.init();
 
+        // Finished loading
         System.out.println("Partly Sane Skies has loaded.");
     }
 
+    // Method runs every tick
     @SubscribeEvent
     public void clientTick(ClientTickEvent evnt) {
+        // Checks if the current location is the same as the previous location for the location banner display
         locationBannerDisplay.checkLocation();
+
+        // Updates item lowest bin price
         ItemLowestBin.runUpdater();
+
+        // Checks if the current screen is the auciton house to run AHManager
         AhManager.runDisplayGuiCheck();
     }
 
+    // Runs when the chat message starts with "Your new API key is "
+    // Updates the API key to the nwe API key
     @SubscribeEvent
     public void newApiKey(ClientChatReceivedEvent event) {
         if (event.message.getUnformattedText().startsWith("Your new API key is ")) {
@@ -128,22 +161,27 @@ public class Main {
         }
     }
 
+    // Runs chat analyzer for debug mode
     @SubscribeEvent
     public void chatAnalyzer(ClientChatReceivedEvent evnt) {
         if (Main.isDebugMode)
             System.out.println(evnt.message.getFormattedText());
     }
 
+    // Returns the name of the scoreboard without colorcodes
     public static String getScoreboardName() {
         String scoreboardName = minecraft.thePlayer.getWorldScoreboard().getObjectiveInDisplaySlot(1).getDisplayName();
         return Utils.removeColorCodes(scoreboardName);
     }
 
+    // Runs when debug key is pressed
     public static void debugMode() {
         Main.isDebugMode = !Main.isDebugMode;
         Utils.visPrint("Debug mode: " + Main.isDebugMode);
     }
 
+    // Returns a list of lines on the scoreboard,
+    // where each line is a new entry
     public static List<String> getScoreboardLines() {
         Scoreboard scoreboard = minecraft.theWorld.getScoreboard();
         ScoreObjective objective = scoreboard.getObjectiveInDisplaySlot(1);
@@ -158,6 +196,7 @@ public class Main {
         return scoreLines;
     }
 
+    // Gets the current skyblock region from the scoreboard
     public static String getRegionName() {
         if (!isSkyblock()) {
             return "";
@@ -182,6 +221,7 @@ public class Main {
         return location;
     }
 
+    // Gets the amount of coins in your purse from the scoreboard
     public static long getCoins() {
         if (!isSkyblock()) {
             return 0l;
@@ -212,6 +252,7 @@ public class Main {
         }
     }
 
+    // Returns if the current gamemode is skyblock
     public static boolean isSkyblock() {
         try {
             if (getScoreboardName().toLowerCase().contains("skyblock")) {
@@ -223,6 +264,7 @@ public class Main {
         return false;
     }
 
+    // Returns if the current server is hypixel
     public static boolean isHypixel() {
         try {
             return minecraft.getCurrentServerData().serverIP.contains(".hypixel.net");
