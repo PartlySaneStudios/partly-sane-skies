@@ -80,8 +80,9 @@ public class Utils {
 
     public static void sendClientMessage(String text) {
         try {
-            Main.minecraft.ingameGUI.getChatGUI()
-                    .printChatMessage(new ChatComponentText(colorCodes(Main.CHAT_PREFIX) + "" + text));
+            Main.minecraft.ingameGUI
+                    .getChatGUI()
+                    .printChatMessage(new ChatComponentText(colorCodes(Main.CHAT_PREFIX) + "" + Utils.colorCodes(text)));
         } catch (NullPointerException e) {
         } finally {
         }
@@ -242,10 +243,20 @@ public class Utils {
     }
 
     public static String stripLeading(String str) {
-        String s = new StringBuilder(str).toString(); // Cloning string
+        String s = new String(str); // Cloning string
         if (Character.isWhitespace(s.charAt(0))) {
             s = new StringBuilder(s).replace(0, 1, "").toString();
             s = stripLeading(s);
+        }
+
+        return s;
+    }
+
+    public static String stripTrailing(String str) {
+        String s = new String(str); // Cloning string
+        if (Character.isWhitespace(s.charAt(s.length() - 1))) {
+            s = new StringBuilder(s).replace(s.length() - 1, s.length(), "").toString();
+            s = stripTrailing(s);
         }
 
         return s;
