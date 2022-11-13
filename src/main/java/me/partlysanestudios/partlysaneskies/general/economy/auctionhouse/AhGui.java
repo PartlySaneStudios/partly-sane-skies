@@ -95,6 +95,7 @@ public class AhGui extends WindowScreen {
         }
 
         float itemBarLocationStep = (mainBoxWidth - 100) / 6f;
+        float itemBlockWidth = itemBarLocationStep*.75f;
         for (int itemBar = 1; itemBar < 6; itemBar++) {
             new UIBlock()
                     .setX(widthScaledConstraint(itemBarLocationStep * itemBar))
@@ -105,9 +106,9 @@ public class AhGui extends WindowScreen {
                     .setChildOf(topBar);
         }
         UIComponent weaponsIcon = new UIBlock()
-                .setX(widthScaledConstraint(itemBarLocationStep * 0))
+                .setX(widthScaledConstraint(itemBarLocationStep * 0 + (itemBarLocationStep - itemBlockWidth)/2))
                 .setY(new CenterConstraint())
-                .setWidth(widthScaledConstraint(itemBarLocationStep))
+                .setWidth(widthScaledConstraint(itemBlockWidth))
                 .setHeight(new PixelConstraint(topBar.getHeight()))
                 .setColor(new Color(0, 0, 0, 0))
                 .setChildOf(topBar);
@@ -130,9 +131,9 @@ public class AhGui extends WindowScreen {
                 .setChildOf(weaponsIcon);
 
         UIComponent armorIcon = new UIBlock()
-                .setX(widthScaledConstraint(itemBarLocationStep * 1))
+                .setX(widthScaledConstraint(itemBarLocationStep * 1 + (itemBarLocationStep - itemBlockWidth)/2))
                 .setY(new CenterConstraint())
-                .setWidth(widthScaledConstraint(itemBarLocationStep))
+                .setWidth(widthScaledConstraint(itemBlockWidth))
                 .setHeight(new PixelConstraint(topBar.getHeight()))
                 .setColor(new Color(0, 0, 0, 0))
                 .setChildOf(topBar);
@@ -155,9 +156,9 @@ public class AhGui extends WindowScreen {
                 .setChildOf(armorIcon);
 
         UIComponent accessoriesIcon = new UIBlock()
-                .setX(widthScaledConstraint(itemBarLocationStep * 2))
+                .setX(widthScaledConstraint(itemBarLocationStep * 2 + (itemBarLocationStep - itemBlockWidth)/2))
                 .setY(new CenterConstraint())
-                .setWidth(widthScaledConstraint(itemBarLocationStep))
+                .setWidth(widthScaledConstraint(itemBlockWidth))
                 .setHeight(new PixelConstraint(topBar.getHeight()))
                 .setColor(new Color(0, 0, 0, 0))
                 .setChildOf(topBar);
@@ -180,9 +181,9 @@ public class AhGui extends WindowScreen {
                 .setChildOf(accessoriesIcon);
 
         UIComponent consumablesIcon = new UIBlock()
-                .setX(widthScaledConstraint(itemBarLocationStep * 3))
+                .setX(widthScaledConstraint(itemBarLocationStep * 3+  (itemBarLocationStep - itemBlockWidth)/2))
                 .setY(new CenterConstraint())
-                .setWidth(widthScaledConstraint(itemBarLocationStep))
+                .setWidth(widthScaledConstraint(itemBlockWidth))
                 .setHeight(new PixelConstraint(topBar.getHeight()))
                 .setColor(new Color(0, 0, 0, 0))
                 .setChildOf(topBar);
@@ -205,9 +206,9 @@ public class AhGui extends WindowScreen {
                 .setChildOf(consumablesIcon);
 
         UIComponent blocksIcon = new UIBlock()
-                .setX(widthScaledConstraint(itemBarLocationStep * 4))
+                .setX(widthScaledConstraint(itemBarLocationStep * 4 + (itemBarLocationStep - itemBlockWidth)/2))
                 .setY(new CenterConstraint())
-                .setWidth(widthScaledConstraint(itemBarLocationStep))
+                .setWidth(widthScaledConstraint(itemBlockWidth))
                 .setHeight(new PixelConstraint(topBar.getHeight()))
                 .setColor(new Color(0, 0, 0, 0))
                 .setChildOf(topBar);
@@ -230,9 +231,9 @@ public class AhGui extends WindowScreen {
                 .setChildOf(blocksIcon);
 
         UIComponent miscIcon = new UIBlock()
-                .setX(widthScaledConstraint(itemBarLocationStep * 5))
+                .setX(widthScaledConstraint(itemBarLocationStep * 5 + (itemBarLocationStep - itemBlockWidth)/2))
                 .setY(new CenterConstraint())
-                .setWidth(widthScaledConstraint(itemBarLocationStep))
+                .setWidth(widthScaledConstraint(itemBlockWidth))
                 .setHeight(new PixelConstraint(topBar.getHeight()))
                 .setColor(new Color(0, 0, 0, 0))
                 .setChildOf(topBar);
@@ -257,6 +258,7 @@ public class AhGui extends WindowScreen {
         // Bottom Bar
 
         itemBarLocationStep = (mainBoxWidth - 100) / 8f;
+        itemBlockWidth = itemBarLocationStep*.75f;
         for (int itemBar = 1; itemBar < 8; itemBar++) {
             new UIBlock()
                     .setX(widthScaledConstraint(itemBarLocationStep * itemBar))
@@ -268,9 +270,9 @@ public class AhGui extends WindowScreen {
         }
 
         UIComponent leftArrowIcon = new UIBlock()
-                .setX(widthScaledConstraint(itemBarLocationStep * 0))
+                .setX(widthScaledConstraint(itemBarLocationStep * 0 + (itemBarLocationStep - itemBlockWidth)/2))
                 .setY(new CenterConstraint())
-                .setWidth(widthScaledConstraint(itemBarLocationStep))
+                .setWidth(widthScaledConstraint(itemBlockWidth))
                 .setHeight(new PixelConstraint(topBar.getHeight()))
                 .setColor(new Color(0, 0, 0, 0))
                 .setChildOf(bottomBar);
@@ -293,9 +295,9 @@ public class AhGui extends WindowScreen {
                 .setChildOf(leftArrowIcon);
 
         UIComponent resetIcon = new UIBlock()
-                .setX(widthScaledConstraint(itemBarLocationStep * 1))
+                .setX(widthScaledConstraint(itemBarLocationStep * 1 + (itemBarLocationStep - itemBlockWidth)/2))
                 .setY(new CenterConstraint())
-                .setWidth(widthScaledConstraint(itemBarLocationStep))
+                .setWidth(widthScaledConstraint(itemBlockWidth))
                 .setHeight(new PixelConstraint(topBar.getHeight()))
                 .setColor(new Color(0, 0, 0, 0))
                 .setChildOf(bottomBar);
@@ -318,9 +320,9 @@ public class AhGui extends WindowScreen {
                 .setChildOf(resetIcon);
 
         UIComponent searchIcon = new UIBlock()
-                .setX(widthScaledConstraint(itemBarLocationStep * 2))
+                .setX(widthScaledConstraint(itemBarLocationStep * 2 + (itemBarLocationStep - itemBlockWidth)/2))
                 .setY(new CenterConstraint())
-                .setWidth(widthScaledConstraint(itemBarLocationStep))
+                .setWidth(widthScaledConstraint(itemBlockWidth))
                 .setHeight(new PixelConstraint(topBar.getHeight()))
                 .setColor(new Color(0, 0, 0, 0))
                 .setChildOf(bottomBar);
@@ -343,9 +345,9 @@ public class AhGui extends WindowScreen {
                 .setChildOf(searchIcon);
 
         UIComponent goBackIcon = new UIBlock()
-                .setX(widthScaledConstraint(itemBarLocationStep * 3))
+                .setX(widthScaledConstraint(itemBarLocationStep * 3 + (itemBarLocationStep - itemBlockWidth)/2))
                 .setY(new CenterConstraint())
-                .setWidth(widthScaledConstraint(itemBarLocationStep))
+                .setWidth(widthScaledConstraint(itemBlockWidth))
                 .setHeight(new PixelConstraint(topBar.getHeight()))
                 .setColor(new Color(0, 0, 0, 0))
                 .setChildOf(bottomBar);
@@ -368,9 +370,9 @@ public class AhGui extends WindowScreen {
                 .setChildOf(goBackIcon);
 
         UIComponent filterIcon = new UIBlock()
-                .setX(widthScaledConstraint(itemBarLocationStep * 4))
+                .setX(widthScaledConstraint(itemBarLocationStep * 4 + (itemBarLocationStep - itemBlockWidth)/2))
                 .setY(new CenterConstraint())
-                .setWidth(widthScaledConstraint(itemBarLocationStep))
+                .setWidth(widthScaledConstraint(itemBlockWidth))
                 .setHeight(new PixelConstraint(topBar.getHeight()))
                 .setColor(new Color(0, 0, 0, 0))
                 .setChildOf(bottomBar);
@@ -393,9 +395,9 @@ public class AhGui extends WindowScreen {
                 .setChildOf(filterIcon);
 
         UIComponent rarityIcon = new UIBlock()
-                .setX(widthScaledConstraint(itemBarLocationStep * 5))
+                .setX(widthScaledConstraint(itemBarLocationStep * 5 + (itemBarLocationStep - itemBlockWidth)/2))
                 .setY(new CenterConstraint())
-                .setWidth(widthScaledConstraint(itemBarLocationStep))
+                .setWidth(widthScaledConstraint(itemBlockWidth))
                 .setHeight(new PixelConstraint(topBar.getHeight()))
                 .setColor(new Color(0, 0, 0, 0))
                 .setChildOf(bottomBar);
@@ -422,9 +424,9 @@ public class AhGui extends WindowScreen {
                 .setChildOf(rarityIcon);
 
         UIComponent binFilterIcon = new UIBlock()
-                .setX(widthScaledConstraint(itemBarLocationStep * 6))
+                .setX(widthScaledConstraint(itemBarLocationStep * 6 + (itemBarLocationStep - itemBlockWidth)/2))
                 .setY(new CenterConstraint())
-                .setWidth(widthScaledConstraint(itemBarLocationStep))
+                .setWidth(widthScaledConstraint(itemBlockWidth))
                 .setHeight(new PixelConstraint(topBar.getHeight()))
                 .setColor(new Color(0, 0, 0, 0))
                 .setChildOf(bottomBar);
@@ -451,9 +453,9 @@ public class AhGui extends WindowScreen {
                 .setChildOf(binFilterIcon);
 
         UIComponent rightArrowIcon = new UIBlock()
-                .setX(widthScaledConstraint(itemBarLocationStep * 7))
+                .setX(widthScaledConstraint(itemBarLocationStep * 7 + (itemBarLocationStep - itemBlockWidth)/2))
                 .setY(new CenterConstraint())
-                .setWidth(widthScaledConstraint(itemBarLocationStep))
+                .setWidth(widthScaledConstraint(itemBlockWidth))
                 .setHeight(new PixelConstraint(topBar.getHeight()))
                 .setColor(new Color(0, 0, 0, 0))
                 .setChildOf(bottomBar);
