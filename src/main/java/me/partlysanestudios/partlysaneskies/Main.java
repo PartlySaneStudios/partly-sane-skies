@@ -58,7 +58,7 @@ public class Main {
 
     public static boolean isDebugMode;
 
-    public static LocationBannerDisplay locationBannerDisplay;
+    private static LocationBannerDisplay locationBannerDisplay;
 
     public static Color BASE_DARK_COLOR = new Color(32, 33, 36);
     public static Color BASE_COLOR = new Color(42, 43, 46);
