@@ -9,115 +9,151 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 
 public class SkillUpgradeRecommendation {
-    public enum Skills {
-        MINING,
-        FORAGING,
-        ENCHANTING,
-        FARMING,
-        COMBAT,
-        FISHING,
-        ALCHEMY,
-        CATACOMBS
+
+    private static HashMap<String, Double> weightConstants = new HashMap<String, Double>();
+
+    public static LinkedHashMap<String, Double> getRecomendedSkills(String username) throws IOException {
+        HashMap<String, Double> map = new HashMap<String, Double>();
+
+        JsonObject profileData = getCurrentProfileData(username);
+
+        for (String skill : weightConstants.keySet()) {
+            if (getSkillLevel(skill, profileData) == getMaxSkillLevel(skill, profileData)) {
+                continue;
+            }
+            double level = getSkillLevel(skill, profileData);
+
+            // If level is under 5, all levels have equals importance
+            if (level < 5) {
+                map.put(skill, 100000d);
+                continue;
+            }
+
+            double score = calculateScore(skill, profileData);
+            map.put(skill, score);
+        }
+
+        double catacombsLevel = profileData
+                .getAsJsonObject("dungeons")
+                .getAsJsonObject("catacombs")
+                .getAsJsonObject("level")
+                .get("levelWithProgress")
+                .getAsDouble();
+
+        double maxCatacombsLevel = profileData
+                .getAsJsonObject("dungeons")
+                .getAsJsonObject("catacombs")
+                .getAsJsonObject("level")
+                .get("maxLevel")
+                .getAsDouble();
+
+        if (catacombsLevel < maxCatacombsLevel) {
+            if (catacombsLevel < 5) {
+                map.put("catacombs", 100000d);
+            } else {
+                map.put("catacombs", (maxCatacombsLevel - catacombsLevel) / (calculateCatacombsWeight(catacombsLevel)
+                        - calculateCatacombsWeight(Math.ceil(catacombsLevel))) * 1.10 + 10);
+            }
+        }
+
+        LinkedHashMap<String, Double> sortedMap = sortWeightMap(map);
+
+        return sortedMap;
     }
 
-    private final static double MINING_CONSTANT = 1.68207448;
-    private final static double FORAGING_CONSTANT = 1.732826;
-    private final static double ENCHANTING_CONSTANT = 1.46976583;
-    private final static double FARMING_CONSTANT = 1.717848139;
-    private final static double COMBAT_CONSTANT = 1.65797687265;
-    private final static double FISHING_CONSTANT = 1.906418;
-    private final static double ALCHEMY_CONSTANT = 1.5;
+    // Prints the final message with the weight.
+    public static void printMessage(HashMap<String, Double> map) {
+        // Message header
+        String message = "&3&m-----------------------------------------------------&r\n" +
+                "&b&l&nRecommended skills to level up (In Order):&r" +
+                "\n\n&7This calculation is based off of the amount of weight each skill will add when you level it up. Lower level skills will be prioritized.&r"
+                +
+                "\n&7&oNote: Sometimes, low level skills such as alchemy will show up first. These skills are less important but due to the mathematical approach, they will appear first. \n"
+                +
+                "\n\n&8(Skill) : (Upgrade Importance Score)\n";
 
-    public static LinkedHashMap<Skills, Double> getRecomendedSkills(String username) throws IOException {
-        HashMap<Skills, Double> map = new HashMap<Skills, Double>();
+        // Convert the entry set to an array for easier handling
+        @SuppressWarnings("unchecked")
+        Entry<String, Double>[] entryArray = new Entry[map.size()];
+        entryArray = map.entrySet().toArray(entryArray);
 
+        // Loops through the array backwards to get the biggest value first
+        for (int i = entryArray.length - 1; i >= 0; i--) {
+            Entry<String, Double> entry = entryArray[i];
+            message += "\n" + formatWord(entry.getKey()) + " : " + Utils.round(entry.getValue(), 2);
+        }
+
+        message = message + "\n&3&m-----------------------------------------------------&r";
+
+        // Send message
+        Utils.sendClientMessage(Utils.colorCodes(message));
+    }
+
+    // Populates the constant hashmap
+    public static void populateSkillMap() {
+        weightConstants.put("mining", 1.68207448);
+        weightConstants.put("foraging", 1.732826);
+        weightConstants.put("enchanting", 1.46976583);
+        weightConstants.put("combat", 1.65797687265);
+        weightConstants.put("fishing", 1.906418);
+        weightConstants.put("alchemy", 1.5);
+    }
+
+    // Gets the skycrypt data for a given player username
+    private static JsonObject getSkycryptData(String username) throws IOException {
         JsonParser parser = new JsonParser();
-        
-        String response = "";
- 
-        response = Utils.getRequest("https://api.mojang.com/users/profiles/minecraft/" + username);
-    
-        if(response.startsWith("Error")) {
-            Utils.sendClientMessage(Utils.colorCodes("Error getting data for " + username +". Maybe the player is nicked or there is an invalid API key. Try running /api new."));
+        // Requests username from API
+        String response = Utils.getRequest("https://sky.shiiyu.moe/api/v2/profile/" + username);
+
+        // If error, warn plauer
+        if (response.startsWith("Error")) {
+            Utils.sendClientMessage(Utils.colorCodes("Error getting data for " + username + ". Maybe the player is nicked or the API is down."));
             return null;
         }
-        JsonObject uuidJson = (JsonObject) parser.parse(response);
-        
-        String uuid = uuidJson.get("id").getAsString();
+        return (JsonObject) parser.parse(response);
+    }
 
-        response = Utils.getRequest("https://hypixel-api.senither.com/v1/profiles/" + uuid + "/latest?key=8329f5b9-ee7b-43e9-985e-6a6d5f0aa870");
+    // Gets the player's current active skill profile
+    private static JsonObject getCurrentProfileData(String username) throws IOException {
 
-        if(response.startsWith("Error")) {
-            Utils.sendClientMessage(Utils.colorCodes("Error getting data for " + username + ". Maybe the player is nicked or there is an invalid API key. Try running /api new."));
-            return null;
-        }
+        JsonObject skycryptJson = getSkycryptData(username);
 
-        JsonObject senitherJson = (JsonObject) parser.parse(response);
-        JsonObject skills = senitherJson.getAsJsonObject("data").getAsJsonObject("skills");
+        String currentProfileId = "";
 
-
-        if (skills.getAsJsonObject("mining").get("level").getAsDouble() < 60) {
-            double level = skills.getAsJsonObject("mining").get("level").getAsDouble();
-            map.put(Skills.MINING, ((60 - level)) / (calculateSkillWeight(level, MINING_CONSTANT) - calculateSkillWeight(Math.ceil(level), MINING_CONSTANT)) * 1.00 + 10);
-        }
-        if (skills.getAsJsonObject("foraging").get("level").getAsDouble() < 50) {
-            double level = skills.getAsJsonObject("foraging").get("level").getAsDouble();
-            if(level < 5) map.put(Skills.FORAGING, -100000d);
-            else map.put(Skills.FORAGING, ((50 - level)) / (calculateSkillWeight(level, FORAGING_CONSTANT) - calculateSkillWeight(Math.ceil(level), FORAGING_CONSTANT)) * 1.00 + 10);
-        }
-        if (skills.getAsJsonObject("enchanting").get("level").getAsDouble() < 60) {
-            double level = skills.getAsJsonObject("enchanting").get("level").getAsDouble();
-            if(level < 5) map.put(Skills.ENCHANTING, -100000d);
-            else map.put(Skills.ENCHANTING, ((60 - level)) / (calculateSkillWeight(level, ENCHANTING_CONSTANT) - calculateSkillWeight(Math.ceil(level), ENCHANTING_CONSTANT)) * 1.00 + 10);
-        }
-        if (skills.getAsJsonObject("farming").get("level").getAsDouble() < 60) {
-            double level = skills.getAsJsonObject("farming").get("level").getAsDouble();
-            if(level < 5) map.put(Skills.FARMING, -100000d);
-            else map.put(Skills.FARMING, ((60 - level)) / (calculateSkillWeight(level, FARMING_CONSTANT) - calculateSkillWeight(Math.ceil(level), FARMING_CONSTANT)) * 1.00 + 10);
-        }
-        if (skills.getAsJsonObject("combat").get("level").getAsDouble() < 60) {
-            double level = skills.getAsJsonObject("combat").get("level").getAsDouble();
-            if(level < 5) map.put(Skills.COMBAT, -100000d);
-            else map.put(Skills.COMBAT, ((60 - level)) / (calculateSkillWeight(level, COMBAT_CONSTANT) - calculateSkillWeight(Math.ceil(level), COMBAT_CONSTANT)) * 1.00 + 10);
-        }
-        if (skills.getAsJsonObject("fishing").get("level").getAsDouble() < 50) {
-            double level = skills.getAsJsonObject("fishing").get("level").getAsDouble();
-            if(level < 5) map.put(Skills.FISHING, -100000d);
-            else map.put(Skills.FISHING, ((50 - level)) / (calculateSkillWeight(level, FISHING_CONSTANT) - calculateSkillWeight(Math.ceil(level), FISHING_CONSTANT)) * 1.00 + 10);
-        }
-        if (skills.getAsJsonObject("alchemy").get("level").getAsDouble() < 50) {
-            
-            double level = skills.getAsJsonObject("alchemy").get("level").getAsDouble();
-            if(level < 5) map.put(Skills.ALCHEMY, -100000d);
-            else map.put(Skills.ALCHEMY, ((50 - level)) / (calculateSkillWeight(level, ALCHEMY_CONSTANT) - calculateSkillWeight(Math.ceil(level), ALCHEMY_CONSTANT)) * .90 + 10);
+        for (Entry<String, JsonElement> en : skycryptJson.getAsJsonObject("profiles").entrySet()) {
+            if (en.getValue().getAsJsonObject().get("current").getAsBoolean()) {
+                currentProfileId = en.getKey();
+            }
         }
 
-        if (senitherJson.getAsJsonObject("data").getAsJsonObject("dungeons").getAsJsonObject("types").getAsJsonObject("catacombs").get("level").getAsDouble() < 50){
-            double level = senitherJson.getAsJsonObject("data").getAsJsonObject("dungeons").getAsJsonObject("types").getAsJsonObject("catacombs").get("level").getAsDouble();
-            if(level < 5) map.put(Skills.CATACOMBS, -100000d);
-            else map.put(Skills.CATACOMBS, ((50 - level)) / (calculateCatacombsWeight(level) - calculateCatacombsWeight(Math.ceil(level))) * 1.10 + 10);
+        return skycryptJson.getAsJsonObject("profiles").getAsJsonObject(currentProfileId).getAsJsonObject("data");
+    }
+
+    // Sorts a double hashmap by its values
+    private static LinkedHashMap<String, Double> sortWeightMap(HashMap<String, Double> unsortedHashMap) {
+        LinkedHashMap<String, Double> sortedMap = new LinkedHashMap<String, Double>();
+        ArrayList<Double> valueList = new ArrayList<>();
+        for (Map.Entry<String, Double> entry : unsortedHashMap.entrySet()) {
+            valueList.add(entry.getValue());
         }
 
-        LinkedHashMap<Skills, Double> sortedMap = new LinkedHashMap<Skills, Double>();
-        ArrayList<Double> list = new ArrayList<>();
-        for (Map.Entry<Skills, Double> entry : map.entrySet()) {
-            list.add(entry.getValue());
-        }
-        Collections.sort(list, new Comparator<Double>() {
-            public int compare(Double str, Double str1) {
-                return (str).compareTo(str1);
+        Collections.sort(valueList, new Comparator<Double>() {
+            public int compare(Double value, Double value1) {
+                return (value).compareTo(value1);
             }
         });
-        for (Double str : list) {
-            for (Entry<Skills, Double> entry : map.entrySet()) {
-                if (entry.getValue().equals(str)) {
-                    sortedMap.put(entry.getKey(), str);
+
+        for (Double value : valueList) {
+            for (Entry<String, Double> entry : unsortedHashMap.entrySet()) {
+                if (entry.getValue().equals(value)) {
+                    sortedMap.put(entry.getKey(), value);
                 }
             }
         }
@@ -125,41 +161,56 @@ public class SkillUpgradeRecommendation {
         return sortedMap;
     }
 
-    public static void printMessage(HashMap<Skills, Double> map) {
-        String message = 
-        "&3&m-----------------------------------------------------&r\n"+
-        "&b&l&nRecommended skills to level up (In Order):&r" +
-        "\n\n&7This calculation is based off of the amount of weight each skill will add when you level it up. Lower level skills will be prioritized.&r" + 
-        "\n&7&oNote: Sometimes, low level skills such as alchemy will show up first. These skills are less important but due to the mathematical approach, they will appear first. \n" + 
-        "\n\n&8(Skill) : (Upgrade Importance Score)\n";
-
-        for(Entry<Skills, Double> entry : map.entrySet()) {
-            message += "\n" + formatWord(entry.getKey().toString()) + " : " + Utils.round(entry.getValue()*-1d, 2);
-        }
-
-        message = message + "\n&3&m-----------------------------------------------------&r";
-        Utils.sendClientMessage(Utils.colorCodes(message));
+    // Gets the current player's skill level.
+    private static float getSkillLevel(String skillName, JsonObject profileData) {
+        return profileData.getAsJsonObject("levels").getAsJsonObject(skillName).get("levelWithProgress").getAsFloat();
     }
-    
 
+    // Gets the max possible skill level for a given skill
+    private static int getMaxSkillLevel(String skillName, JsonObject profileData) {
+        return profileData.getAsJsonObject("levels").getAsJsonObject(skillName).get("maxLevel").getAsInt();
+    }
+
+    // Returns the weight contributed to a given skill given their constant
+    private static double calculateSkillWeight(double level, double constant) {
+        return Math.pow(level * 10, constant + level / 100) / 1250;
+    }
+
+    // Returns the weight contributated to catacombs by a given skill
+    private static double calculateCatacombsWeight(double level) {
+        return Math.pow(level, 4.5) * 0.0002149604615;
+    }
+
+    // Calculates the importance of upgrading skill.
+    private static double calculateScore(String skill, JsonObject profileData) {
+        // Current skill level
+        double currentSkillLevel = getSkillLevel(skill, profileData);
+
+        // Senither weight constant
+        double weightConstant = weightConstants.get(skill);
+
+        // Math
+        double awayFromMaxComponent = getMaxSkillLevel(skill, profileData) - 60;
+        double currentSenitherWeight = calculateSkillWeight(currentSkillLevel - 5, weightConstant);
+        double nextLevelSenitherWeight = calculateSkillWeight(Math.ceil(currentSkillLevel - 5), weightConstant);
+        double levelUpSenitherWeightComponent = currentSenitherWeight - nextLevelSenitherWeight;
+
+        double score = awayFromMaxComponent / levelUpSenitherWeightComponent + 10;
+
+        return score;
+    }
+
+    // Formats a word to have correct capitalization
     private static String formatWord(String text) {
-        while(Character.isWhitespace(text.charAt(0))) {
+        while (Character.isWhitespace(text.charAt(0))) {
             text = new StringBuilder(text)
                     .replace(0, 1, "")
                     .toString();
         }
         text = text.toLowerCase();
         text = new StringBuilder(text)
-                    .replace(0, 1, "" + Character.toUpperCase(text.charAt(0)))
-                    .toString();
-        return text; 
-    }
-
-    public static double calculateSkillWeight(double level, double constant){
-        return Math.pow(level * 10, constant + level / 100) / 1250;
-    }
-
-    public static double calculateCatacombsWeight(double level) {
-        return Math.pow(level, 4.5) * 0.0002149604615;
+                .replace(0, 1, "" + Character.toUpperCase(text.charAt(0)))
+                .toString();
+        return text;
     }
 }

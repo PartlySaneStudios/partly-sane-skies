@@ -23,7 +23,6 @@ public class ChatAlertsCommand implements ICommand {
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        // TODO Auto-generated method stub
         return null;
     }
 
