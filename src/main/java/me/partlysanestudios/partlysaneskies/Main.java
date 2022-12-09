@@ -25,6 +25,7 @@ import me.partlysanestudios.partlysaneskies.general.partyfriend.PartyFriendManag
 import me.partlysanestudios.partlysaneskies.general.partyfriend.PartyFriendManagerCommand;
 import me.partlysanestudios.partlysaneskies.general.rngdropbanner.DropBannerDisplay;
 import me.partlysanestudios.partlysaneskies.general.skillupgrade.SkillUpgradeCommand;
+import me.partlysanestudios.partlysaneskies.general.skillupgrade.SkillUpgradeRecommendation;
 import me.partlysanestudios.partlysaneskies.help.HelpCommand;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.Minecraft;
@@ -132,6 +133,10 @@ public class Main {
 
         // Itialises Utils class
         Utils.init();
+
+        // Initializes skill upgrade recommendation
+        SkillUpgradeRecommendation.populateSkillMap();
+
 
         // Finished loading
         System.out.println("Partly Sane Skies has loaded.");

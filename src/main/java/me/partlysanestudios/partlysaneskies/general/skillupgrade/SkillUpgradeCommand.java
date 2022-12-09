@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import me.partlysanestudios.partlysaneskies.Main;
-import me.partlysanestudios.partlysaneskies.general.skillupgrade.SkillUpgradeRecommendation.Skills;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommand;
@@ -41,7 +40,7 @@ public class SkillUpgradeCommand implements ICommand {
         new Thread() {
             @Override
             public void run() {
-                HashMap<Skills, Double> map;
+                HashMap<String, Double> map;
                 if (args.length > 0) {
                     try {
                         map = SkillUpgradeRecommendation.getRecomendedSkills(args[0]);
