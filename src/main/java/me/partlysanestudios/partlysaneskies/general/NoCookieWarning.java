@@ -136,6 +136,9 @@ public class NoCookieWarning {
         if (!Main.config.noCookieWarning) {
             return;
         }
+        if (Main.getCoins() < Main.config.maxWithoutCookie) {
+            return;
+        }
         if (hasBoosterCookie() == 1) {
             return;
         }
