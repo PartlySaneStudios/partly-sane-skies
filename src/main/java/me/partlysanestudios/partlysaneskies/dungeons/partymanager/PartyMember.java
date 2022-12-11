@@ -121,7 +121,8 @@ public class PartyMember {
             helmetName = formatText(helmetName);
         } catch (NullPointerException e) {
             helmetName = "";
-            e.printStackTrace();
+        } catch (IndexOutOfBoundsException e) {
+            helmetName = "";
         }
 
         try {
@@ -129,7 +130,8 @@ public class PartyMember {
             chestplateName = formatText(chestplateName);
         } catch (NullPointerException e) {
             chestplateName = "";
-            e.printStackTrace();
+        } catch (IndexOutOfBoundsException e) {
+            chestplateName = "";
         }
 
         try {
@@ -137,7 +139,8 @@ public class PartyMember {
             leggingsName = formatText(leggingsName);
         } catch (NullPointerException e) {
             leggingsName = "";
-            e.printStackTrace();
+        } catch (IndexOutOfBoundsException e) {
+            leggingsName = "";
         }
 
         try {
@@ -145,7 +148,8 @@ public class PartyMember {
             bootsName = formatText(bootsName);
         } catch (NullPointerException e) {
             bootsName = "";
-            e.printStackTrace();
+        } catch (IndexOutOfBoundsException e) {
+            bootsName = "";
         }
 
         try {
