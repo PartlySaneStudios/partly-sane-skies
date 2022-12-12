@@ -41,8 +41,8 @@ public class Auction {
 
         for (String line : loreList) {
             if (Utils.removeColorCodes(line).contains("Buy it now:")
-                    || Utils.removeColorCodes(line).contains("Top Bid:")
-                    || Utils.removeColorCodes(line).contains("Starting Bid:")) {
+                    || Utils.removeColorCodes(line).contains("Top bid:")
+                    || Utils.removeColorCodes(line).contains("Starting bid:")) {
                 buyItNowPrice = Utils.removeColorCodes(line).replaceAll("[^0-9]", "");
             }
         }

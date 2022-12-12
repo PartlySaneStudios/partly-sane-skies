@@ -604,20 +604,26 @@ public class AhGui extends WindowScreen {
             ((UIWrappedText) itemInfoHeader).setText(header);
 
             String info = "";
-            info += "Selling Price: " + Utils.formatNumber(auction.getPrice()) + "\n\n\n";
-            info += "Current Lowest Bin: " + Utils.formatNumber(Utils.round(auction.getLowestBin(), 2)) + "\n\n";
-            info += "Average Lowest Bin (24 Hours): "
-                    + Utils.formatNumber(Utils.round(auction.getAverageLowestBin(), 2)) + "\n\n\n";
-            info += "Inflation of item: "
+            info += "&6Offer Information:\n\n\n";
+            info += "&eSelling Price: \n&6" + Utils.formatNumber(auction.getPrice()) + "\n\n";
+            info += "&eEnding In: \n&6" + auction.getFormattedEndingTime();
+
+            info += "\n\n\n\n\n\n";
+
+            info += "&eMarket Stats:\n\n\n";
+            info += "&bCurrent Lowest Bin: \n&e" + Utils.formatNumber(Utils.round(auction.getLowestBin(), 2)) + "\n\n";
+            info += "&bAverage Lowest Bin (Last Day): \n&e"
+                    + Utils.formatNumber(Utils.round(auction.getAverageLowestBin(), 2)) + "\n\n";
+            info += "&bItem Inflation: \n&e"
                     + Utils.formatNumber(
                             Utils.round((auction.getLowestBin() / auction.getAverageLowestBin()) * 100d, 2) - 100)
                     + "%\n\n";
-            info += "Mark up of item: " + Utils.formatNumber(Utils.round(
+            info += "&bItem Mark up: \n&e" + Utils.formatNumber(Utils.round(
                     (auction.getPrice() / auction.getLowestBin()) * 100 - 100,
-                    2)) + "%\n\n\n\n";
+                    2)) + "%\n";
 
-            info += "Ending In: " + auction.getFormattedEndingTime();
-            ((UIWrappedText) itemInfoText).setText(info);
+            
+            ((UIWrappedText) itemInfoText).setText(Utils.colorCodes(info));
         });
 
         backgroundBox.onMouseLeaveRunnable(() -> {
