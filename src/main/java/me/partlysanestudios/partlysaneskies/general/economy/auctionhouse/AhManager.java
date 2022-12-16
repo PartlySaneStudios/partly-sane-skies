@@ -11,6 +11,7 @@ import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
 
 public class AhManager {
 
@@ -43,22 +44,25 @@ public class AhManager {
         }
         guiAlreadyOpen = true;
         inventory = getSeparateUpperLowerGui(Main.minecraft.currentScreen)[0];
-        boolean loaded = ahChestFullyLoaded(inventory);
+        boolean preloaded = ahChestFullyLoaded(inventory);
         gui = new AhGui(ElementaVersion.V2);
         new Thread() {
             @Override
             public void run() {
-                if (!loaded) {
+                boolean loaded = preloaded;
+                while (!loaded) {
                     try {
-                        Thread.sleep(100);
-                        inventory = getSeparateUpperLowerGui(Main.minecraft.currentScreen)[0];
+                        Thread.sleep(10);
+                        loaded = ahChestFullyLoaded(inventory);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
 
+                inventory = getSeparateUpperLowerGui(Main.minecraft.currentScreen)[0];
+
                 Main.minecraft.displayGuiScreen(gui);
-                gui.refreshGui(inventory);
+                gui.loadGui(inventory);
             }
         }.start();
     }
@@ -112,8 +116,16 @@ public class AhManager {
                     || convertSlotToChestCoordinate(i)[1] == 6) {
                 continue;
             }
+            // If its equal to null and the stack is an arrow (not the end of the page)
+            // Then Return
             if (inventory.getStackInSlot(i) == null) {
+                if(inventory.getStackInSlot(53) == null){
+                    return false;
+                } else if (Item.getIdFromItem(inventory.getStackInSlot(53).getItem()) != 264) {
+                    continue;
+                }
                 return false;
+                
             }
         }
         return true;

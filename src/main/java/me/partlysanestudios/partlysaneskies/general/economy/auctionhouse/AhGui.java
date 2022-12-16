@@ -20,45 +20,15 @@ public class AhGui extends WindowScreen {
     float mainBoxHeight = 407.4f;
     float mainBoxWidth = mainBoxHeight * (6f / 4f);
 
-    UIComponent mainBox = new UIBlock()
-            .setX(new CenterConstraint())
-            .setY(new CenterConstraint())
-            .setWidth(widthScaledConstraint(mainBoxWidth))
-            .setHeight(widthScaledConstraint(mainBoxHeight))
-            .setColor(Main.BASE_COLOR)
-            .setChildOf(getWindow());
+    UIComponent mainBox;
 
-    UIComponent bottomBar = new UIBlock()
-            .setX(new CenterConstraint())
-            .setY(new PixelConstraint(mainBox.getBottom() + widthScaledConstraint(15).getValue()))
-            .setWidth(widthScaledConstraint(mainBoxWidth - 100))
-            .setHeight(widthScaledConstraint(40))
-            .setColor(Main.BASE_DARK_COLOR)
-            .setChildOf(getWindow());
+    UIComponent bottomBar;
 
-    UIComponent topBar = new UIBlock()
-            .setX(new CenterConstraint())
-            .setY(new PixelConstraint(mainBox.getTop() - widthScaledConstraint(15 + 40).getValue()))
-            .setWidth(widthScaledConstraint(mainBoxWidth - 100))
-            .setHeight(widthScaledConstraint(40))
-            .setColor(Main.BASE_DARK_COLOR)
-            .setChildOf(getWindow());
+    UIComponent topBar;
 
-    UIComponent rightWindow = new UIBlock()
-            .setX(new PixelConstraint(mainBox.getRight() + widthScaledConstraint(15).getValue()))
-            .setY(new CenterConstraint())
-            .setWidth(widthScaledConstraint(180))
-            .setHeight(new PixelConstraint(bottomBar.getBottom() - topBar.getHeight()))
-            .setColor(Main.BASE_DARK_COLOR)
-            .setChildOf(getWindow());
+    UIComponent rightWindow;
 
-    UIComponent leftWindow = new UIBlock()
-            .setX(new PixelConstraint(mainBox.getLeft() - widthScaledConstraint(15 + 180).getValue()))
-            .setY(new CenterConstraint())
-            .setWidth(widthScaledConstraint(180))
-            .setHeight(new PixelConstraint(bottomBar.getBottom() - topBar.getHeight()))
-            .setColor(Main.BASE_DARK_COLOR)
-            .setChildOf(getWindow());
+    UIComponent leftWindow;
 
     int numOfColumns = 6;
     int numOfRows = 4;
@@ -67,15 +37,86 @@ public class AhGui extends WindowScreen {
 
     public AhGui(ElementaVersion version) {
         super(version);
+    }
 
+    public void loadGui(IInventory inventory) {
+        mainBox = new UIBlock()
+            .setX(new CenterConstraint())
+            .setY(new CenterConstraint())
+            .setWidth(widthScaledConstraint(mainBoxWidth))
+            .setHeight(widthScaledConstraint(mainBoxHeight))
+            .setColor(Main.BASE_COLOR)
+            .setChildOf(getWindow());
+        
+
+        bottomBar = new UIBlock()
+        .setX(new CenterConstraint())
+        .setY(new PixelConstraint(mainBox.getBottom() + widthScaledConstraint(15).getValue()))
+        .setWidth(widthScaledConstraint(mainBoxWidth - 100))
+        .setHeight(widthScaledConstraint(40))
+        .setColor(Main.BASE_DARK_COLOR)
+        .setChildOf(getWindow());
+
+        topBar = new UIBlock()
+            .setX(new CenterConstraint())
+            .setY(new PixelConstraint(mainBox.getTop() - widthScaledConstraint(15 + 40).getValue()))
+            .setWidth(widthScaledConstraint(mainBoxWidth - 100))
+            .setHeight(widthScaledConstraint(40))
+            .setColor(Main.BASE_DARK_COLOR)
+            .setChildOf(getWindow());
+
+        rightWindow = new UIBlock()
+            .setX(new PixelConstraint(mainBox.getRight() + widthScaledConstraint(15).getValue()))
+            .setY(new CenterConstraint())
+            .setWidth(widthScaledConstraint(180))
+            .setHeight(new PixelConstraint(bottomBar.getBottom() - topBar.getHeight()))
+            .setColor(Main.BASE_DARK_COLOR)
+            .setChildOf(getWindow());
+
+        leftWindow = new UIBlock()
+            .setX(new PixelConstraint(mainBox.getLeft() - widthScaledConstraint(15 + 180).getValue()))
+            .setY(new CenterConstraint())
+            .setWidth(widthScaledConstraint(180))
+            .setHeight(new PixelConstraint(bottomBar.getBottom() - topBar.getHeight()))
+            .setColor(Main.BASE_DARK_COLOR)
+            .setChildOf(getWindow());
+
+        itemInfoText = new UIWrappedText("", true, null, true)
+            .setX(new CenterConstraint())
+            .setY(widthScaledConstraint(50 * 1.5f))
+            .setWidth(widthScaledConstraint(170))
+            .setColor(Color.white)
+            .setChildOf(rightWindow);
+
+        itemInfoHeader = new UIWrappedText("", true, null, true)
+            .setTextScale(widthScaledConstraint(1.5f))
+            .setX(new CenterConstraint())
+            .setY(widthScaledConstraint(30))
+            .setWidth(widthScaledConstraint(170))
+            .setColor(Color.white)
+            .setChildOf(rightWindow);
+        itemLore = new UIWrappedText("", true, null, true)
+            .setX(new CenterConstraint())
+            .setY(widthScaledConstraint(50 * 1.5f))
+            .setWidth(widthScaledConstraint(170))
+            .setColor(Color.white)
+            .setChildOf(leftWindow);
+        itemName = new UIWrappedText("", true, null, true)
+            .setTextScale(widthScaledConstraint(1.5f))
+            .setX(new CenterConstraint())
+            .setY(widthScaledConstraint(30))
+            .setWidth(widthScaledConstraint(170))
+            .setColor(Color.white)
+            .setChildOf(leftWindow);;
+        
         Utils.applyBackground(mainBox);
         Utils.applyBackground(bottomBar);
         Utils.applyBackground(topBar);
         Utils.applyBackground(leftWindow);
         Utils.applyBackground(rightWindow);
-    }
 
-    public void refreshGui(IInventory inventory) {
+
+        
         Auction[][] auctions = AhManager.getAuctions(inventory);
         for (int row = 0; row < numOfRows; row++) {
             for (int column = 0; column < numOfColumns; column++) {
@@ -513,35 +554,13 @@ public class AhGui extends WindowScreen {
         }
     }
 
-    UIComponent itemName = new UIWrappedText("", true, null, true)
-            .setTextScale(widthScaledConstraint(1.5f))
-            .setX(new CenterConstraint())
-            .setY(widthScaledConstraint(30))
-            .setWidth(widthScaledConstraint(170))
-            .setColor(Color.white)
-            .setChildOf(leftWindow);
+    UIComponent itemName;
 
-    UIComponent itemLore = new UIWrappedText("", true, null, true)
-            .setX(new CenterConstraint())
-            .setY(widthScaledConstraint(50 * 1.5f))
-            .setWidth(widthScaledConstraint(170))
-            .setColor(Color.white)
-            .setChildOf(leftWindow);
+    UIComponent itemLore;
 
-    UIComponent itemInfoHeader = new UIWrappedText("", true, null, true)
-            .setTextScale(widthScaledConstraint(1.5f))
-            .setX(new CenterConstraint())
-            .setY(widthScaledConstraint(30))
-            .setWidth(widthScaledConstraint(170))
-            .setColor(Color.white)
-            .setChildOf(rightWindow);
+    UIComponent itemInfoHeader;
 
-    UIComponent itemInfoText = new UIWrappedText("", true, null, true)
-            .setX(new CenterConstraint())
-            .setY(widthScaledConstraint(50 * 1.5f))
-            .setWidth(widthScaledConstraint(170))
-            .setColor(Color.white)
-            .setChildOf(rightWindow);
+    UIComponent itemInfoText;
 
     public void makeItemBox(Auction auction, float x, float y, UIComponent parent) throws NullPointerException {
         Color boxColor;
@@ -585,20 +604,26 @@ public class AhGui extends WindowScreen {
             ((UIWrappedText) itemInfoHeader).setText(header);
 
             String info = "";
-            info += "Selling Price: " + Utils.formatNumber(auction.getPrice()) + "\n\n\n";
-            info += "Current Lowest Bin: " + Utils.formatNumber(Utils.round(auction.getLowestBin(), 2)) + "\n\n";
-            info += "Average Lowest Bin (24 Hours): "
-                    + Utils.formatNumber(Utils.round(auction.getAverageLowestBin(), 2)) + "\n\n\n";
-            info += "Inflation of item: "
+            info += "&6Offer Information:\n\n\n";
+            info += "&eSelling Price: \n&6" + Utils.formatNumber(auction.getPrice()) + "\n\n";
+            info += "&eEnding In: \n&6" + auction.getFormattedEndingTime();
+
+            info += "\n\n\n\n\n\n";
+
+            info += "&eMarket Stats:\n\n\n";
+            info += "&bCurrent Lowest Bin: \n&e" + Utils.formatNumber(Utils.round(auction.getLowestBin(), 2)) + "\n\n";
+            info += "&bAverage Lowest Bin (Last Day): \n&e"
+                    + Utils.formatNumber(Utils.round(auction.getAverageLowestBin(), 2)) + "\n\n";
+            info += "&bItem Inflation: \n&e"
                     + Utils.formatNumber(
                             Utils.round((auction.getLowestBin() / auction.getAverageLowestBin()) * 100d, 2) - 100)
                     + "%\n\n";
-            info += "Mark up of item: " + Utils.formatNumber(Utils.round(
+            info += "&bItem Mark up: \n&e" + Utils.formatNumber(Utils.round(
                     (auction.getPrice() / auction.getLowestBin()) * 100 - 100,
-                    2)) + "%\n\n\n\n";
+                    2)) + "%\n";
 
-            info += "Ending In: " + auction.getFormattedEndingTime();
-            ((UIWrappedText) itemInfoText).setText(info);
+            
+            ((UIWrappedText) itemInfoText).setText(Utils.colorCodes(info));
         });
 
         backgroundBox.onMouseLeaveRunnable(() -> {
