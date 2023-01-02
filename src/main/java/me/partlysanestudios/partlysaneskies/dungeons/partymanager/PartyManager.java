@@ -35,8 +35,20 @@ public class PartyManager {
             kickOffline();
         }
 
-        Main.minecraft.thePlayer.sendChatMessage("/party list");
-        partyList.clear();
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                Main.minecraft.thePlayer.sendChatMessage("/party list");
+                partyList.clear();
+            }
+            
+        }.start();;
+        
     }
 
     @SubscribeEvent
