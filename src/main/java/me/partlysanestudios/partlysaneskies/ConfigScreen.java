@@ -255,6 +255,15 @@ public class ConfigScreen extends Vigilant {
     // ------------- Category: Dungeons ---------------------------------
     // Party Manager
     @Property(
+        type = PropertyType.SWITCH, 
+        name = "Automatically kick offline on party manager load", 
+        subcategory = "Party Manager", 
+        description = "Automatically kicks offline members in your party when you open party manager.", 
+        category = "Dungeons"
+    )
+    public boolean autoKickOfflinePartyManager = false;
+
+    @Property(
         type = PropertyType.SLIDER, 
         name = "Party Manager Cache Time", 
         min = 0, 
