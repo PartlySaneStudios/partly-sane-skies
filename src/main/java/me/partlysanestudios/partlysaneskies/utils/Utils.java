@@ -79,10 +79,11 @@ public class Utils {
     }
 
     public static void sendClientMessage(String text) {
+        text = Utils.colorCodes(text);
         try {
             Main.minecraft.ingameGUI
                     .getChatGUI()
-                    .printChatMessage(new ChatComponentText(colorCodes(Main.CHAT_PREFIX) + "" + Utils.colorCodes(text)));
+                    .printChatMessage(new ChatComponentText(colorCodes(Main.CHAT_PREFIX) + "" + text));
         } catch (NullPointerException e) {
         } finally {
         }

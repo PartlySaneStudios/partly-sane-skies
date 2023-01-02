@@ -105,6 +105,7 @@ public class ConfigScreen extends Vigilant {
     )
     public boolean rareDropBannerSound = false;
 
+    // Location Banner
     @Property(
         type = PropertyType.SWITCH, 
         name = "Rare Drop Banner", 
@@ -125,6 +126,7 @@ public class ConfigScreen extends Vigilant {
     )
     public float locationBannerTime = 3.5f;
 
+    // Open Wiki
     @Property(
         type = PropertyType.SWITCH, 
         name = "Open Wiki Automatically", 
@@ -134,6 +136,7 @@ public class ConfigScreen extends Vigilant {
     )
     public boolean openWikiAutomatically = true;
 
+    // Execessive Coin warning
     @Property(
         type = PropertyType.SWITCH, 
         name = "Excessive Coin and No Booster Cookie", 
@@ -176,6 +179,7 @@ public class ConfigScreen extends Vigilant {
         category = "Skyblock"
     )
     public int noCookieWarnCooldown = 20;
+
     // Auction House
     @Property(
         type = PropertyType.SWITCH, 
@@ -197,6 +201,16 @@ public class ConfigScreen extends Vigilant {
     )
     public float BINSniperPercent = .87f;
 
+    // Pet Minion Alert
+    @Property(
+        type = PropertyType.TEXT,
+        category = "Skyblock",
+        subcategory = "Incorrect Pet for Minion Alert",
+        name = "Selected Pet",
+        description = "The selected pet that will be used for minion collecting (Use /pets and click the pet keybind to select",
+        protectedText =  true
+    )
+    public String selectectedPet = "";
 
     // -------------- Category: Mining --------------
     // Worm Warning

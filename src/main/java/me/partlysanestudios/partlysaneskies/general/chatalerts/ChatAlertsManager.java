@@ -199,7 +199,7 @@ public class ChatAlertsManager {
             charsToAdd = Utils.colorCodes("&d").toCharArray();
             messageBuilder.insert(alertIndexFormatted, charsToAdd, 0, charsToAdd.length);
 
-            // Plays a bell sound 
+            // Plays a flute sound 
             Main.minecraft
                     .getSoundHandler()
                     .playSound(PositionedSoundRecord.create(new ResourceLocation("partlysaneskies", "flute_scale")));

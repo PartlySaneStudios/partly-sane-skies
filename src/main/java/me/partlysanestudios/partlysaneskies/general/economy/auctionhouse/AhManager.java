@@ -3,8 +3,6 @@ package me.partlysanestudios.partlysaneskies.general.economy.auctionhouse;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang3.reflect.FieldUtils;
-
 import gg.essential.elementa.ElementaVersion;
 import me.partlysanestudios.partlysaneskies.Main;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
@@ -42,7 +40,7 @@ public class AhManager {
             return;
         }
         guiAlreadyOpen = true;
-        inventory = getSeparateUpperLowerGui(Main.minecraft.currentScreen)[0];
+        inventory = Main.getSeparateUpperLowerInventories(Main.minecraft.currentScreen)[0];
         boolean loaded = ahChestFullyLoaded(inventory);
         gui = new AhGui(ElementaVersion.V2);
         new Thread() {
@@ -51,7 +49,7 @@ public class AhManager {
                 if (!loaded) {
                     try {
                         Thread.sleep(100);
-                        inventory = getSeparateUpperLowerGui(Main.minecraft.currentScreen)[0];
+                        inventory = Main.getSeparateUpperLowerInventories(Main.minecraft.currentScreen)[0];
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -68,7 +66,7 @@ public class AhManager {
             return false;
         }
 
-        IInventory upper = getSeparateUpperLowerGui(Main.minecraft.currentScreen)[0];
+        IInventory upper = Main.getSeparateUpperLowerInventories(Main.minecraft.currentScreen)[0];
         return Utils.removeColorCodes(upper.getDisplayName().getFormattedText()).contains("Auctions Browser") || Utils.removeColorCodes(upper.getDisplayName().getFormattedText()).contains("Auctions: \"");
     }
 
@@ -79,7 +77,7 @@ public class AhManager {
     public static Auction[][] getAuctions(IInventory inventory) {
         GuiScreen screen = Main.minecraft.currentScreen;
         if (isAhGui()) {
-            separateInventories = getSeparateUpperLowerGui(screen);
+            separateInventories = Main.getSeparateUpperLowerInventories(screen);
         }
         List<Auction> items = getAuctionContents(inventory);
 
@@ -117,22 +115,6 @@ public class AhManager {
             }
         }
         return true;
-    }
-
-    private static IInventory[] getSeparateUpperLowerGui(GuiScreen gui) {
-        IInventory upperInventory;
-        IInventory lowerInventory;
-        try {
-            upperInventory = (IInventory) FieldUtils.readDeclaredField(gui,
-                    Utils.getDecodedFieldName("upperChestInventory"), true);
-            lowerInventory = (IInventory) FieldUtils.readDeclaredField(gui,
-                    Utils.getDecodedFieldName("lowerChestInventory"), true);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-            return null;
-        }
-
-        return new IInventory[] { upperInventory, lowerInventory };
     }
 
     private static List<Auction> getAuctionContents(IInventory inventory) {
