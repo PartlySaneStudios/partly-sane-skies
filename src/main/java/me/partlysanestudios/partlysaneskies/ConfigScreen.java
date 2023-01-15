@@ -91,7 +91,7 @@ public class ConfigScreen extends Vigilant {
         maxF = 7, 
         subcategory = "Rare Drop", 
         name = "Rare Drop Banner Time", 
-        description = "The amount of time the rare drop banner appears for.", 
+        description = "The amount of seconds the rare drop banner appears for.", 
         category = "Skyblock"
     )
     public float rareDropBannerTime = 3.5f;
@@ -121,7 +121,7 @@ public class ConfigScreen extends Vigilant {
         maxF = 7, 
         subcategory = "Location Banner", 
         name = "Location Banner Time", 
-        description = "The amount of time the location banner appears for.", 
+        description = "The amount of seconds the location banner appears for.", 
         category = "Skyblock"
     )
     public float locationBannerTime = 3.5f;
@@ -164,7 +164,7 @@ public class ConfigScreen extends Vigilant {
         maxF = 7, 
         subcategory = "Excessive Coin Warning", 
         name = "Excessive Coin Warning Time", 
-        description = "The amount of time the warning appears for appears for.", 
+        description = "The amount of seconds the warning appears for appears for.", 
         category = "Skyblock"
     )
     public float noCookieWarnTime = 3.5f;
@@ -175,7 +175,7 @@ public class ConfigScreen extends Vigilant {
         max = 300, 
         subcategory = "Excessive Coin Warning", 
         name = "Excessive Coin Warn Cooldown", 
-        description = "The amount of time between each warning", 
+        description = "The amount of seconds between each warning", 
         category = "Skyblock"
     )
     public int noCookieWarnCooldown = 20;
@@ -215,10 +215,10 @@ public class ConfigScreen extends Vigilant {
     @Property(
         type = PropertyType.DECIMAL_SLIDER, 
         minF = 1, 
-        maxF = 7, 
+        maxF = 15, 
         subcategory = "Incorrect Pet for Minion Alert", 
         name = "Mute Time", 
-        description = "The amount of time the pet alert will mute for when you mute it.", 
+        description = "The amount of minutes the pet alert will mute for when you mute it.", 
         category = "Skyblock"
     )
     public float petAlertMuteTime = 7.5f;
@@ -249,7 +249,7 @@ public class ConfigScreen extends Vigilant {
         maxF = 7, 
         subcategory = "Worm Warning", 
         name = "Worm Warning Banner Time", 
-        description = "The amount of time the worm warning banner appears for.", 
+        description = "The amount of seconds the worm warning banner appears for.", 
         category = "Mining"
     )
     public float wormWarningBannerTime = 3.5f;
@@ -280,7 +280,7 @@ public class ConfigScreen extends Vigilant {
         min = 0, 
         max = 90, 
         subcategory = "Party Manager", 
-        description = "Saves the data from other party members to save time upon loading Party Manager. The bigger the value the more time you will save but the less accurate your data will be.", 
+        description = "Saves the data from other party members to save time upon loading Party Manager. The bigger the value the more minutes you will save but the less accurate your data will be.", 
         category = "Dungeons"
     )
     public int partyManagerCacheTime = 30;
@@ -310,7 +310,7 @@ public class ConfigScreen extends Vigilant {
         maxF = 7, 
         subcategory = "Watcher Ready", 
         name = "Watcher Ready Banner Time", 
-        description = "The amount of time the watcher ready banner appears for.", 
+        description = "The amount of seconds the watcher ready banner appears for.", 
         category = "Dungeons"
     )
     public float watcherReadyBannerTime = 3.5f;
