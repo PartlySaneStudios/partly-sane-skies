@@ -491,10 +491,7 @@ public class PartyMember {
                 .setChildOf(kickButton);
 
         kickButton.onMouseClickConsumer(event -> {
-            if (this.rank.equals(PartyRank.LEADER))
-                Main.minecraft.thePlayer.sendChatMessage("/party kick " + this.username);
-            else
-                Main.minecraft.thePlayer.sendChatMessage("/pc Recommend you kick " + this.username);
+            Main.minecraft.thePlayer.sendChatMessage("/party kick " + this.username);
         });
 
         UIComponent promoteButton = new UIRoundedRectangle(10f)
@@ -552,7 +549,7 @@ public class PartyMember {
                 .setChildOf(refreshButton);
 
         refreshButton.onMouseClickConsumer(event -> {
-            this.refresh = true;
+            this.timeDataGet = 0;
             Main.minecraft.displayGuiScreen(null);
             PartyManager.startPartyManager();
         });

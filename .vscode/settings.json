@@ -7,5 +7,6 @@
     "githubPullRequests.ignoredPullRequestBranches": [
         "main"
     ],
-    "java.format.settings.url": "eclipse-formatter.xml"
+    "java.format.settings.url": "eclipse-formatter.xml",
+    "java.compile.nullAnalysis.mode": "automatic"
 }
