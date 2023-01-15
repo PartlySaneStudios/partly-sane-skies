@@ -3,7 +3,7 @@ package me.partlysanestudios.partlysaneskies.general.petalert;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jcp.xml.dsig.internal.dom.Utils;
+import me.partlysanestudios.partlysaneskies.utils.Utils;
 
 import me.partlysanestudios.partlysaneskies.Main;
 import me.partlysanestudios.partlysaneskies.general.economy.auctionhouse.AhGui;
@@ -19,6 +19,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.entity.Entity;
+import net.minecraft.event.ClickEvent.Action;
 
 public class PetAlert {
 
