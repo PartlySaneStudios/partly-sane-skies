@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.jcp.xml.dsig.internal.dom.Utils;
 
 import gg.essential.elementa.ElementaVersion;
 import me.partlysanestudios.partlysaneskies.dungeons.WatcherReady;
@@ -31,7 +32,6 @@ import me.partlysanestudios.partlysaneskies.general.rngdropbanner.DropBannerDisp
 import me.partlysanestudios.partlysaneskies.general.skillupgrade.SkillUpgradeCommand;
 import me.partlysanestudios.partlysaneskies.general.skillupgrade.SkillUpgradeRecommendation;
 import me.partlysanestudios.partlysaneskies.help.HelpCommand;
-import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.inventory.IInventory;

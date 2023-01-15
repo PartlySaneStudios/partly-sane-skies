@@ -3,17 +3,16 @@ package me.partlysanestudios.partlysaneskies.general.petalert;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jcp.xml.dsig.internal.dom.Utils;
+
 import me.partlysanestudios.partlysaneskies.Main;
 import me.partlysanestudios.partlysaneskies.general.economy.auctionhouse.AhGui;
-import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityArmorStand;
 import net.minecraft.event.ClickEvent;
-import net.minecraft.event.ClickEvent.Action;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
