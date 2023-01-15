@@ -147,7 +147,6 @@ public class NoCookieWarning {
         }
 
         if (!hasLotsOfCoins()) {
-            lastWarnTime = Minecraft.getSystemTime();
             return;
         }
 

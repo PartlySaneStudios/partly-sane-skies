@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.apache.commons.lang3.reflect.FieldUtils;
+import me.partlysanestudios.partlysaneskies.utils.Utils;
 import gg.essential.elementa.ElementaVersion;
 import me.partlysanestudios.partlysaneskies.dungeons.WatcherReady;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManager;
@@ -23,12 +25,15 @@ import me.partlysanestudios.partlysaneskies.general.economy.ItemLowestBin;
 import me.partlysanestudios.partlysaneskies.general.economy.auctionhouse.AhManager;
 import me.partlysanestudios.partlysaneskies.general.partyfriend.PartyFriendManager;
 import me.partlysanestudios.partlysaneskies.general.partyfriend.PartyFriendManagerCommand;
+import me.partlysanestudios.partlysaneskies.general.petalert.PetAlert;
+import me.partlysanestudios.partlysaneskies.general.petalert.PetAlertMuteCommand;
 import me.partlysanestudios.partlysaneskies.general.rngdropbanner.DropBannerDisplay;
 import me.partlysanestudios.partlysaneskies.general.skillupgrade.SkillUpgradeCommand;
 import me.partlysanestudios.partlysaneskies.general.skillupgrade.SkillUpgradeRecommendation;
 import me.partlysanestudios.partlysaneskies.help.HelpCommand;
-import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.scoreboard.Score;
 import net.minecraft.scoreboard.ScoreObjective;
 import net.minecraft.scoreboard.ScorePlayerTeam;
@@ -127,6 +132,7 @@ public class Main {
         ClientCommandHandler.instance.registerCommand(new PermPartyCommand());
         ClientCommandHandler.instance.registerCommand(new PartyFriendManagerCommand());
         ClientCommandHandler.instance.registerCommand(new ChatAlertsCommand());
+        ClientCommandHandler.instance.registerCommand(new PetAlertMuteCommand());
 
         // Initialises keybinds
         Keybinds.init();
@@ -153,6 +159,9 @@ public class Main {
 
         // Checks if the current screen is the auciton house to run AHManager
         AhManager.runDisplayGuiCheck();
+
+        // Checks if the player is collecting minions
+        PetAlert.runPetAlert();
     }
 
     // Runs when the chat message starts with "Your new API key is "
@@ -173,6 +182,25 @@ public class Main {
             System.out.println(evnt.message.getFormattedText());
     }
 
+    // Returns an array of length 2, where the 1st index is the upper invetory, 
+    // and the 2nd index is the lower inventory.s]
+    // Retuns null if there is no inventory, also returns null if there is no access to inventory
+    public static IInventory[] getSeparateUpperLowerInventories(GuiScreen gui) {
+        IInventory upperInventory;
+        IInventory lowerInventory;
+        try {
+            upperInventory = (IInventory) FieldUtils.readDeclaredField(gui,
+                    Utils.getDecodedFieldName("upperChestInventory"), true);
+            lowerInventory = (IInventory) FieldUtils.readDeclaredField(gui,
+                    Utils.getDecodedFieldName("lowerChestInventory"), true);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+            return null;
+        }
+    
+        return new IInventory[] { upperInventory, lowerInventory };
+    }
+
     // Returns the name of the scoreboard without colorcodes
     public static String getScoreboardName() {
         String scoreboardName = minecraft.thePlayer.getWorldScoreboard().getObjectiveInDisplaySlot(1).getDisplayName();
@@ -183,6 +211,7 @@ public class Main {
     public static void debugMode() {
         Main.isDebugMode = !Main.isDebugMode;
         Utils.visPrint("Debug mode: " + Main.isDebugMode);
+        Utils.visPrint(PetAlert.parsePetNameFromEntity(PetAlert.getUsersPet("Su386").getName()));
     }
 
     // Returns a list of lines on the scoreboard,

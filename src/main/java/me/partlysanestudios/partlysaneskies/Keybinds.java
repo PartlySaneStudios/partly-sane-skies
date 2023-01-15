@@ -5,6 +5,7 @@ import org.lwjgl.input.Keyboard;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManager;
 import me.partlysanestudios.partlysaneskies.general.WikiArticleOpener;
 import me.partlysanestudios.partlysaneskies.general.economy.auctionhouse.AhGui;
+import me.partlysanestudios.partlysaneskies.general.petalert.PetAlert;
 import me.partlysanestudios.partlysaneskies.help.Help;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.settings.KeyBinding;
@@ -26,6 +27,7 @@ public final class Keybinds {
     public static KeyBinding craftKeybind;
     public static KeyBinding storageKeybind;
     public static KeyBinding wikiKeybind;
+    public static KeyBinding favouritePetKeybind;
 
     public static void init() {
         debugKey = registerKey("Debug", PSS_CATEGORY, Keyboard.KEY_F4);
@@ -37,6 +39,8 @@ public final class Keybinds {
         craftKeybind = registerKey("Open Crafting Table", PSS_CATEGORY, Keyboard.CHAR_NONE);
         storageKeybind = registerKey("Open Storage Menu", PSS_CATEGORY, Keyboard.CHAR_NONE);
         wikiKeybind = registerKey("Open Wiki Article", PSS_CATEGORY, Keyboard.KEY_X);
+        favouritePetKeybind = registerKey("Favourite Pet", PSS_CATEGORY, Keyboard.KEY_F);
+
     }
 
     private static KeyBinding registerKey(String name, String category, int keycode) {
@@ -51,8 +55,12 @@ public final class Keybinds {
             Main.debugMode();
         }
 
-        if (Keyboard.isKeyDown(Keybinds.wikiKeybind.getKeyCode())) {
+        if (Keyboard.isKeyDown(wikiKeybind.getKeyCode())) {
             WikiArticleOpener.keyDown();
+        }
+
+        if (Keyboard.isKeyDown(favouritePetKeybind.getKeyCode())) {
+            PetAlert.favouritePet();
         }
 
         if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
