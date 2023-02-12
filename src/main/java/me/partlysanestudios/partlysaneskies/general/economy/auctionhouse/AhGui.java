@@ -585,9 +585,6 @@ public class AhGui extends WindowScreen {
         else if (binSelectedLine.toLowerCase().contains("auctions only")) {
             binimageName = "auction_only";
         } 
-        Utils.visPrint(binimageName);
-        Utils.visPrint(binSelectedLine);
-        Utils.visPrint(binLoreList);
 
         UIImage.ofResource("/assets/partlysaneskies/textures/gui/custom_ah/type/" + binimageName + ".png")
                 .setX(new CenterConstraint())
