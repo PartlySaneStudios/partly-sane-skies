@@ -1,6 +1,7 @@
 package me.partlysanestudios.partlysaneskies.general.economy.auctionhouse;
 
 import java.awt.Color;
+import java.util.List;
 
 import gg.essential.elementa.ElementaVersion;
 import gg.essential.elementa.UIComponent;
@@ -428,7 +429,35 @@ public class AhGui extends WindowScreen {
             ((UIWrappedText) itemName).setText("");
             ((UIWrappedText) itemLore).setText("");
         });
-        UIImage.ofResource("/assets/partlysaneskies/textures/gui/custom_ah/filter_icon.png")
+        List<String> sortLoreList = Utils.getLore(inventory.getStackInSlot(50));
+
+        String sortSelectedLine = "";
+
+        String sortImageName = "";
+
+        for (String line : sortLoreList) {
+            if (line.contains("▶")) {
+                sortSelectedLine = line;
+                break;
+            }
+        }
+        sortSelectedLine = Utils.removeColorCodes(sortSelectedLine);
+
+        if (sortSelectedLine.toLowerCase().contains("highest")) {
+            sortImageName = "price_high_low";
+        } 
+        else if (sortSelectedLine.toLowerCase().contains("lowest")) {
+            sortImageName = "price_low_high";
+        }
+        else if (sortSelectedLine.toLowerCase().contains("soon")) {
+            sortImageName = "ending_soon";
+        }
+        else if (sortSelectedLine.toLowerCase().contains("most")) {
+            sortImageName = "random";
+        }
+        
+
+        UIImage.ofResource("/assets/partlysaneskies/textures/gui/custom_ah/sort_filter/" + sortImageName + ".png")
                 .setX(new CenterConstraint())
                 .setY(new CenterConstraint())
                 .setWidth(widthScaledConstraint(30))
@@ -457,7 +486,55 @@ public class AhGui extends WindowScreen {
             ((UIWrappedText) itemName).setText("");
             ((UIWrappedText) itemLore).setText("");
         });
-        UIImage.ofResource("/assets/partlysaneskies/textures/gui/custom_ah/rarity_icon.png")
+            // ▶
+        
+        sortLoreList = Utils.getLore(inventory.getStackInSlot(51));
+
+        sortSelectedLine = "";
+
+        sortImageName = "no_filter";
+
+        for (String line : sortLoreList) {
+            if (line.contains("▶")) {
+                sortSelectedLine = line;
+                break;
+            }
+        }
+        sortSelectedLine = Utils.removeColorCodes(sortSelectedLine);
+
+        
+        if (sortSelectedLine.toLowerCase().contains("uncommon")) {
+            sortImageName = "uncommon";
+        }
+        else if (sortSelectedLine.toLowerCase().contains("common")) {
+            sortImageName = "common";
+        } 
+        else if (sortSelectedLine.toLowerCase().contains("rare")) {
+            sortImageName = "rare";
+        }
+        else if (sortSelectedLine.toLowerCase().contains("epic")) {
+            sortImageName = "epic";
+        }
+        else if (sortSelectedLine.toLowerCase().contains("legendary")) {
+            sortImageName = "legendary";
+        }
+        else if (sortSelectedLine.toLowerCase().contains("special")) {
+            sortImageName = "special";
+        }
+        else if (sortSelectedLine.toLowerCase().contains("very special")) {
+            sortImageName = "special";
+        }
+        else if (sortSelectedLine.toLowerCase().contains("divine")) {
+            sortImageName = "divine";
+        }
+        else if (sortSelectedLine.toLowerCase().contains("mythic")) {
+            sortImageName = "mythic";
+        }
+        else if (sortSelectedLine.toLowerCase().contains("unobtainable")) {
+            sortImageName = "unobtainable";
+        }
+
+        UIImage.ofResource("/assets/partlysaneskies/textures/gui/custom_ah/rarirty_filter/" + sortImageName + ".png")
                 .setX(new CenterConstraint())
                 .setY(new CenterConstraint())
                 .setWidth(widthScaledConstraint(30))
@@ -486,7 +563,33 @@ public class AhGui extends WindowScreen {
             ((UIWrappedText) itemName).setText("");
             ((UIWrappedText) itemLore).setText("");
         });
-        UIImage.ofResource("/assets/partlysaneskies/textures/gui/custom_ah/bin_filter_icon.png")
+
+        List<String> binLoreList = Utils.getLore(inventory.getStackInSlot(52));
+
+        String binSelectedLine = "";
+
+        String binimageName = "all";
+
+        for (String line : binLoreList) {
+            if (line.contains("▶")) {
+                binSelectedLine = line;
+                break;
+            }
+        }
+        binSelectedLine = Utils.removeColorCodes(binSelectedLine);
+
+        
+        if (binSelectedLine.toLowerCase().contains("bin only")) {
+            binimageName = "bin_only";
+        }
+        else if (binSelectedLine.toLowerCase().contains("auctions only")) {
+            binimageName = "auction_only";
+        } 
+        Utils.visPrint(binimageName);
+        Utils.visPrint(binSelectedLine);
+        Utils.visPrint(binLoreList);
+
+        UIImage.ofResource("/assets/partlysaneskies/textures/gui/custom_ah/type/" + binimageName + ".png")
                 .setX(new CenterConstraint())
                 .setY(new CenterConstraint())
                 .setWidth(widthScaledConstraint(30))
