@@ -2,7 +2,9 @@ package me.partlysanestudios.partlysaneskies.utils;
 
 import java.awt.Color;
 import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.BufferedReader;
@@ -73,6 +75,9 @@ public class Utils {
         try {
             Main.minecraft.ingameGUI.getChatGUI()
                     .printChatMessage(new ChatComponentText("\n            " + print.toString() + ""));
+            StringSelection stringSelection = new StringSelection(print.toString());
+            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+            clipboard.setContents(stringSelection, null);
         } catch (NullPointerException e) {
         } finally {
         }
