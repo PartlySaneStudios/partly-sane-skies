@@ -23,6 +23,7 @@ public class PartyManagerGui extends WindowScreen {
 
     public HashMap<String, UIComponent> uiComponentMap = new HashMap<String, UIComponent>();
 
+    // Creates the background
     UIComponent background = new UIBlock()
             .setX(new CenterConstraint())
             .setY(new CenterConstraint())
@@ -31,30 +32,24 @@ public class PartyManagerGui extends WindowScreen {
             .setChildOf(getWindow())
             .setColor(Main.BASE_DARK_COLOR);
 
+    // Creates the scrollable list
     UIComponent list = new ScrollComponent("", 0f, Main.BASE_LIGHT_COLOR, false, true, false, false, 15f, 1f, null)
             .setWidth(new PixelConstraint(background.getWidth()))
             .setHeight(new PixelConstraint(background.getHeight()))
             .setChildOf(background);
 
-    UIComponent loadingText = new UIText("Loading...")
-            .setX(new CenterConstraint())
-            .setY(new CenterConstraint())
-            .setChildOf(list);
 
-    UIComponent scrollBar = new UIBlock()
-            .setColor(Main.BASE_LIGHT_COLOR)
-            .setChildOf(list);
-
+    // Applies the standard PSS background the the GUI
     public PartyManagerGui() {
         super(ElementaVersion.V2);
         Utils.applyBackground(background);
-        ((ScrollComponent) list).setScrollBarComponent(scrollBar, false, false);
     }
 
     public void populateGui(List<PartyMember> partyMembers) {
-        ((ScrollComponent) list).setScrollBarComponent(scrollBar, false, false);
-        ;
+
+        // Creates a scale factor to multiply the base componenets by, based on the original creator's (Su386yt's) screensize
         float scaleFactor = (list.getWidth() - 20f) / 967.5f;
+        // Sets the height of each of the the blocks
         float height = 180f * scaleFactor;
         UIComponent topBarBlock = new UIBlock()
                 .setWidth(new PixelConstraint(list.getWidth() - 20f))
@@ -113,12 +108,9 @@ public class PartyManagerGui extends WindowScreen {
 
             }.start();
 
-            loadingText.hide();
-
             height += 220f * scaleFactor;
         }
 
-        loadingText.hide();
         this.getWindow().draw(new UMatrixStack());
     }
 

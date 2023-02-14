@@ -105,7 +105,7 @@ public class Main {
 
         // Loads user player data for PartyManager
         try {
-            PartyManager.loadPersonalPlayerData();
+            PartyManager.loadPlayerData(Main.minecraft.getSession().getUsername());
         } catch (IOException e) {
             System.out.println("Partly Sane Skies: Unable to load player data.");
             e.printStackTrace();
