@@ -55,7 +55,7 @@ When you are mining in the crystal hollows and a worm or scatha spawns, you get 
 
 When switching to a new location region on skyblock, an MMO RPG style banner will appear, informing you that you have switched to a new region. *(Added in v0.0.6)*
 
-### Chat Alerts 
+### Chat Alerts
 
 Using ``/ca``, you can add and remove specific phrases that will be highlighted when someone says them. Example: If you add the word "``flag``" (using ``/ca add flag``) to the chat alerts, it will highlight the word and play a notification when someone says it.
 

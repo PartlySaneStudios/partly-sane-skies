@@ -30,6 +30,7 @@ import me.partlysanestudios.partlysaneskies.general.petalert.PetAlertMuteCommand
 import me.partlysanestudios.partlysaneskies.general.rngdropbanner.DropBannerDisplay;
 import me.partlysanestudios.partlysaneskies.general.skillupgrade.SkillUpgradeCommand;
 import me.partlysanestudios.partlysaneskies.general.skillupgrade.SkillUpgradeRecommendation;
+import me.partlysanestudios.partlysaneskies.help.DiscordCommand;
 import me.partlysanestudios.partlysaneskies.help.HelpCommand;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
@@ -133,6 +134,7 @@ public class Main {
         ClientCommandHandler.instance.registerCommand(new PartyFriendManagerCommand());
         ClientCommandHandler.instance.registerCommand(new ChatAlertsCommand());
         ClientCommandHandler.instance.registerCommand(new PetAlertMuteCommand());
+        ClientCommandHandler.instance.registerCommand(new DiscordCommand());
 
         // Initialises keybinds
         Keybinds.init();
