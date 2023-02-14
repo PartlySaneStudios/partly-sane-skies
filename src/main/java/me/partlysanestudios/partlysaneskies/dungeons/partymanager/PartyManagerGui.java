@@ -51,6 +51,7 @@ public class PartyManagerGui extends WindowScreen {
         float scaleFactor = (list.getWidth() - 20f) / 967.5f;
         // Sets the height of each of the the blocks
         float height = 180f * scaleFactor;
+        // Creates the first top black
         UIComponent topBarBlock = new UIBlock()
                 .setWidth(new PixelConstraint(list.getWidth() - 20f))
                 .setHeight(new ScaleConstraint(new PixelConstraint(150f), scaleFactor))
@@ -58,6 +59,7 @@ public class PartyManagerGui extends WindowScreen {
                 .setX(new CenterConstraint())
                 .setY(new PixelConstraint(10))
                 .setChildOf(list);
+        
         
         Utils.applyBackground(topBarBlock);
 
