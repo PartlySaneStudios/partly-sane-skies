@@ -169,8 +169,7 @@ public class Utils {
             return response.toString();
 
         } else {
-            visPrint(httpURLConnection.getResponseMessage());
-            visPrint(httpURLConnection.getResponseCode());
+            sendClientMessage("Error: " + httpURLConnection.getResponseMessage() + ":" + httpURLConnection.getResponseCode() + "\nContact PSS admins for more information");
             httpURLConnection.disconnect();
             return "Error" + responseCode;
         }

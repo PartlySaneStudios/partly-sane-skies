@@ -35,8 +35,6 @@ public class PartyFriendManager {
 
         boolean isEndOfPage = false;
         for (String row : rows) {
-            Utils.visPrint(rows);
-            Utils.visPrint(row);
             if (row.contains(" is in")) {
                 partyList.add(row.substring(0, row.indexOf(" is in")));
             }
@@ -46,7 +44,7 @@ public class PartyFriendManager {
                 break;
             }
         }
-        Utils.visPrint(partyList);
+
         if (isEndOfPage) {
             partyAll();
         } else {

@@ -210,8 +210,7 @@ public class Main {
     // Runs when debug key is pressed
     public static void debugMode() {
         Main.isDebugMode = !Main.isDebugMode;
-        Utils.visPrint("Debug mode: " + Main.isDebugMode);
-        Utils.visPrint(PetAlert.parsePetNameFromEntity(PetAlert.getUsersPet("Su386").getName()));
+        Utils.sendClientMessage("Debug mode: " + Main.isDebugMode);
     }
 
     // Returns a list of lines on the scoreboard,
