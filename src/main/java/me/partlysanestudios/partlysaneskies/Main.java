@@ -89,7 +89,7 @@ public class Main {
 
         // Loads perm party data
         try {
-            PermPartyManager.permPartyMap = PermPartyManager.load();
+            PermPartyManager.load();
             PermPartyManager.loadFavouriteParty();
         } catch (IOException e) {
             e.printStackTrace();

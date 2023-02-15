@@ -46,6 +46,7 @@ public class PermPartyManager {
             PermParty instance = new Gson().fromJson(key.toString(), PermParty.class);
             finalMap.put(instance.name, instance);
         }
+
         permPartyMap = finalMap;
     }
 

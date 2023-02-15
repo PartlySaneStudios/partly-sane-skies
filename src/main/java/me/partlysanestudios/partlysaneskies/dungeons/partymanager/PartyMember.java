@@ -215,12 +215,13 @@ public class PartyMember {
         String uuid = getUUID(username);
 
         // Gets the player's Slothpixel data
-        response = Utils.getRequest("https://api.slothpixel.me/api/skyblock/profile/" + uuid+ "/" + currentProfileId);
+        String response = Utils.getRequest("https://api.slothpixel.me/api/skyblock/profile/" + uuid+ "/" + currentProfileId);
         if (response.startsWith("Error")) {
             Utils.sendClientMessage(Utils.colorCodes("Error getting data for " + username + ". Maybe the player is nicked."));
             return -1;
         }
 
+        JsonParser parser = new JsonParser();
         JsonObject slothpixelJson = (JsonObject) parser.parse(response);
         slothpixelJson.getAsJsonObject("members")
                 .getAsJsonObject(uuid)
@@ -246,16 +247,15 @@ public class PartyMember {
         return 0;
     }
 
-    public static String getUUID(String username) {
+    public static String getUUID(String username) throws IOException {
         // Creates a Json parser to parse the json data
         JsonParser parser = new JsonParser();
 
         // Gets the player's UUID
-        String response = "";
-        response = Utils.getRequest("https://api.mojang.com/users/profiles/minecraft/" + username);
+        String response = Utils.getRequest("https://api.mojang.com/users/profiles/minecraft/" + username);
         if (response.startsWith("Error")) {
             Utils.sendClientMessage(Utils.colorCodes("Error getting data for " + username + ". Maybe the player is nicked."));
-            return -3;
+            return "";
         }
 
         // Returns the player's UUID
