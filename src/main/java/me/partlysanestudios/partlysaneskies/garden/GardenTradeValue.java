@@ -14,8 +14,7 @@ import gg.essential.elementa.components.Window;
 import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import gg.essential.universal.UMatrixStack;
-import me.partlysanestudios.partlysaneskies.IdManager;
-import me.partlysanestudios.partlysaneskies.ItemPrice;
+import me.partlysanestudios.partlysaneskies.SkyblockItem;
 import me.partlysanestudios.partlysaneskies.Main;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.gui.inventory.GuiChest;
@@ -171,10 +170,10 @@ public class GardenTradeValue {
     }
 
     public static double getItemCost(String itemId, int quantity) {
-        if (!ItemPrice.containsPrice(itemId)) {
+        if (!SkyblockItem.getItem(itemId).hasPrice()) {
             return -1;
         }
-        return quantity * ItemPrice.getPrice(itemId);
+        return quantity * SkyblockItem.getItem(itemId).getPrice();
     }
 
     public static HashMap<String, Double> getCoinCostMap() {
@@ -182,7 +181,7 @@ public class GardenTradeValue {
 
         HashMap<String, Double> coinMap = new HashMap<String, Double>();
         for (Map.Entry<String, Integer> en : quantityMap.entrySet()) {
-            String id = IdManager.getId(en.getKey());
+            String id = SkyblockItem.getId(en.getKey());
             double price = getItemCost(id, en.getValue());
             coinMap.put(en.getKey(), price);
         }

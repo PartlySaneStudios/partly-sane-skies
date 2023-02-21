@@ -95,8 +95,13 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        ItemPrice.updateAh();
-        ItemPrice.updateBz();
+        
+        new Thread() {
+            @Override
+            public void run() {
+                SkyblockItem.updateAll();
+            }
+        }.start();
 
         // Loads chat alerts data
         try {
@@ -145,7 +150,7 @@ public class Main {
         Utils.init();
 
         try {
-            IdManager.init();
+            SkyblockItem.init();
         } catch (IOException e) {
             e.printStackTrace();
             Utils.visPrint("Could not load client Ids");
@@ -166,7 +171,7 @@ public class Main {
         locationBannerDisplay.checkLocation();
 
         // Updates item lowest bin price
-        ItemPrice.runUpdater();
+        SkyblockItem.runUpdater();
 
         // Checks if the current screen is the auciton house to run AHManager
         AhManager.runDisplayGuiCheck();
@@ -223,7 +228,7 @@ public class Main {
         Main.isDebugMode = !Main.isDebugMode;
         Utils.visPrint("Debug mode: " + Main.isDebugMode);
         for (Map.Entry<String, Integer> en : GardenTradeValue.getQuantityCostMap().entrySet()) {
-            String itemId = IdManager.getId(en.getKey());
+            String itemId = SkyblockItem.getId(en.getKey());
             double totalPrice = GardenTradeValue.getItemCost(itemId, en.getValue());
             Utils.visPrint(itemId + " : " + totalPrice);
         }

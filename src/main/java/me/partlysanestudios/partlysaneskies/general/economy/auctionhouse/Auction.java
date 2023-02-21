@@ -3,8 +3,8 @@ package me.partlysanestudios.partlysaneskies.general.economy.auctionhouse;
 import java.util.List;
 
 import gg.essential.elementa.UIComponent;
-import me.partlysanestudios.partlysaneskies.ItemPrice;
 import me.partlysanestudios.partlysaneskies.Main;
+import me.partlysanestudios.partlysaneskies.SkyblockItem;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.item.ItemStack;
 
@@ -75,10 +75,10 @@ public class Auction {
 
     private boolean isCheapBin() {
         long sellingPrice = getPrice();
-        if (!ItemPrice.containsAverageLowestBin(itemId)) {
+        if (!SkyblockItem.getItem(itemId).hasPrice()) {
             return false;
         }
-        double averageAhPrice = ItemPrice.getAverageLowestBin(itemId);
+        double averageAhPrice = SkyblockItem.getItem(itemId).getPrice();
 
         if (sellingPrice <= averageAhPrice * Main.config.BINSniperPercent) {
             return true;
@@ -99,18 +99,18 @@ public class Auction {
     }
 
     public double getAverageLowestBin() {
-        if (!ItemPrice.containsAverageLowestBin(itemId)) {
+        if (!SkyblockItem.getItem(itemId).hasAverageLowestBin()) {
             return 0;
         }
-        return ItemPrice.getAverageLowestBin(itemId);
+        return SkyblockItem.getItem(itemId).getAverageLowestBin();
     }
 
     public double getLowestBin() {
-        if (!ItemPrice.containsPrice(itemId)) {
+        if (!SkyblockItem.getItem(itemId).hasPrice()) {
             return 0;
         }
         
-        return ItemPrice.getPrice(itemId);
+        return SkyblockItem.getItem(itemId).getPrice();
     }
 
     public String getFormattedEndingTime() {
