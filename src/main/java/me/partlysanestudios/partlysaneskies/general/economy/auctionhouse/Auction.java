@@ -3,8 +3,8 @@ package me.partlysanestudios.partlysaneskies.general.economy.auctionhouse;
 import java.util.List;
 
 import gg.essential.elementa.UIComponent;
+import me.partlysanestudios.partlysaneskies.ItemPrice;
 import me.partlysanestudios.partlysaneskies.Main;
-import me.partlysanestudios.partlysaneskies.general.economy.ItemLowestBin;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.item.ItemStack;
 
@@ -75,13 +75,10 @@ public class Auction {
 
     private boolean isCheapBin() {
         long sellingPrice = getPrice();
-        if (ItemLowestBin.avgLowestBin == null) {
+        if (!ItemPrice.containsAverageLowestBin(itemId)) {
             return false;
         }
-        if (!ItemLowestBin.avgLowestBin.containsKey(itemId)) {
-            return false;
-        }
-        double averageAhPrice = ItemLowestBin.avgLowestBin.get(itemId);
+        double averageAhPrice = ItemPrice.getAverageLowestBin(itemId);
 
         if (sellingPrice <= averageAhPrice * Main.config.BINSniperPercent) {
             return true;
@@ -102,23 +99,18 @@ public class Auction {
     }
 
     public double getAverageLowestBin() {
-        if (ItemLowestBin.avgLowestBin == null) {
+        if (!ItemPrice.containsAverageLowestBin(itemId)) {
             return 0;
         }
-        if (!ItemLowestBin.avgLowestBin.containsKey(itemId)) {
-            return 0;
-        }
-        return ItemLowestBin.avgLowestBin.get(itemId);
+        return ItemPrice.getAverageLowestBin(itemId);
     }
 
     public double getLowestBin() {
-        if (ItemLowestBin.lowestBin == null) {
+        if (!ItemPrice.containsPrice(itemId)) {
             return 0;
         }
-        if (!ItemLowestBin.lowestBin.containsKey(itemId)) {
-            return 0;
-        }
-        return ItemLowestBin.lowestBin.get(itemId);
+        
+        return ItemPrice.getPrice(itemId);
     }
 
     public String getFormattedEndingTime() {

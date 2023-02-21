@@ -6,22 +6,23 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
-import me.partlysanestudios.partlysaneskies.utils.Utils;
+
 import gg.essential.elementa.ElementaVersion;
 import me.partlysanestudios.partlysaneskies.dungeons.WatcherReady;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManager;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManagerCommand;
 import me.partlysanestudios.partlysaneskies.dungeons.permpartyselector.PermPartyCommand;
 import me.partlysanestudios.partlysaneskies.dungeons.permpartyselector.PermPartyManager;
+import me.partlysanestudios.partlysaneskies.garden.GardenTradeValue;
 import me.partlysanestudios.partlysaneskies.general.LocationBannerDisplay;
 import me.partlysanestudios.partlysaneskies.general.NoCookieWarning;
 import me.partlysanestudios.partlysaneskies.general.WikiArticleOpener;
 import me.partlysanestudios.partlysaneskies.general.WormWarning;
 import me.partlysanestudios.partlysaneskies.general.chatalerts.ChatAlertsCommand;
 import me.partlysanestudios.partlysaneskies.general.chatalerts.ChatAlertsManager;
-import me.partlysanestudios.partlysaneskies.general.economy.ItemLowestBin;
 import me.partlysanestudios.partlysaneskies.general.economy.auctionhouse.AhManager;
 import me.partlysanestudios.partlysaneskies.general.partyfriend.PartyFriendManager;
 import me.partlysanestudios.partlysaneskies.general.partyfriend.PartyFriendManagerCommand;
@@ -31,6 +32,7 @@ import me.partlysanestudios.partlysaneskies.general.rngdropbanner.DropBannerDisp
 import me.partlysanestudios.partlysaneskies.general.skillupgrade.SkillUpgradeCommand;
 import me.partlysanestudios.partlysaneskies.general.skillupgrade.SkillUpgradeRecommendation;
 import me.partlysanestudios.partlysaneskies.help.HelpCommand;
+import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.inventory.IInventory;
@@ -93,7 +95,8 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        ItemLowestBin.updateAh();
+        ItemPrice.updateAh();
+        ItemPrice.updateBz();
 
         // Loads chat alerts data
         try {
@@ -124,6 +127,7 @@ public class Main {
         locationBannerDisplay = new LocationBannerDisplay();
         MinecraftForge.EVENT_BUS.register(locationBannerDisplay);
         MinecraftForge.EVENT_BUS.register(new ChatAlertsManager());
+        MinecraftForge.EVENT_BUS.register(new GardenTradeValue());
 
         // Registers all client side commands
         ClientCommandHandler.instance.registerCommand(new PartyManagerCommand());
@@ -140,6 +144,13 @@ public class Main {
         // Itialises Utils class
         Utils.init();
 
+        try {
+            IdManager.init();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Utils.visPrint("Could not load client Ids");
+        }
+
         // Initializes skill upgrade recommendation
         SkillUpgradeRecommendation.populateSkillMap();
 
@@ -155,7 +166,7 @@ public class Main {
         locationBannerDisplay.checkLocation();
 
         // Updates item lowest bin price
-        ItemLowestBin.runUpdater();
+        ItemPrice.runUpdater();
 
         // Checks if the current screen is the auciton house to run AHManager
         AhManager.runDisplayGuiCheck();
@@ -211,7 +222,12 @@ public class Main {
     public static void debugMode() {
         Main.isDebugMode = !Main.isDebugMode;
         Utils.visPrint("Debug mode: " + Main.isDebugMode);
-        Utils.visPrint(PetAlert.parsePetNameFromEntity(PetAlert.getUsersPet("Su386").getName()));
+        for (Map.Entry<String, Integer> en : GardenTradeValue.getQuantityCostMap().entrySet()) {
+            String itemId = IdManager.getId(en.getKey());
+            double totalPrice = GardenTradeValue.getItemCost(itemId, en.getValue());
+            Utils.visPrint(itemId + " : " + totalPrice);
+        }
+
     }
 
     // Returns a list of lines on the scoreboard,

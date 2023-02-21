@@ -169,8 +169,7 @@ public class Utils {
             return response.toString();
 
         } else {
-            visPrint(httpURLConnection.getResponseMessage());
-            visPrint(httpURLConnection.getResponseCode());
+            sendClientMessage("Error: " + httpURLConnection.getResponseMessage() + ":" + httpURLConnection.getResponseCode() + "\nContact PSS admins for more information");
             httpURLConnection.disconnect();
             return "Error" + responseCode;
         }
@@ -308,7 +307,7 @@ public class Utils {
         controller.windowClick(Main.minecraft.thePlayer.openContainer.windowId, slot, 0, 0, Main.minecraft.thePlayer);
     }
 
-    public static List<String> getLore(ItemStack itemStack) {
+    public static ArrayList<String> getLore(ItemStack itemStack) {
         NBTTagList tagList = itemStack.getTagCompound().getCompoundTag("display").getTagList("Lore", 8);
         ArrayList<String> loreList = new ArrayList<String>();
         for (int i = 0; i < tagList.tagCount(); i++) {
@@ -322,7 +321,7 @@ public class Utils {
         return new Color(color.getRed(), color.getGreen(), color.getBlue(), opacity);
     }
 
-    public static UIImage applyBackground(UIComponent component) {
+    public static UIComponent applyBackground(UIComponent component) {
         UIImage image = (UIImage) UIImage.ofResource("/assets/partlysaneskies/textures/gui/base_color_background.png")
                 .setX(new CenterConstraint())
                 .setY(new CenterConstraint())
@@ -330,7 +329,7 @@ public class Utils {
                 .setHeight(new PixelConstraint(component.getHeight()));
 
         component.insertChildAt(image, 0);
-        return image;
+        return component;
     }
 
     public static String formatNumber(double num) {
