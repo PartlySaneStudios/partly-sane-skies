@@ -6,7 +6,7 @@ import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManager;
 import me.partlysanestudios.partlysaneskies.general.WikiArticleOpener;
 import me.partlysanestudios.partlysaneskies.general.economy.auctionhouse.AhGui;
 import me.partlysanestudios.partlysaneskies.general.petalert.PetAlert;
-import me.partlysanestudios.partlysaneskies.help.Help;
+import me.partlysanestudios.partlysaneskies.help.HelpCommand;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.client.event.GuiScreenEvent.KeyboardInputEvent;
@@ -88,7 +88,7 @@ public final class Keybinds {
             PartyManager.startPartyManager();
         }
         if (helpKey.isPressed()) {
-            Help.printHelpMessage();
+            HelpCommand.printHelpMessage();
         }
         if (craftKeybind.isPressed()) {
             Main.minecraft.thePlayer.sendChatMessage("/craft");

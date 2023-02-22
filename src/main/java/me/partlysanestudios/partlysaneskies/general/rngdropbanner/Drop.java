@@ -13,8 +13,7 @@ public class Drop {
     public Color dropCategoryColor;
     public Color dropNameColor;
 
-    public Drop(String name, String dropCategory, int amount, int magicFind, long timeDropped, Color dropCategoryColor,
-            Color dropNameColor) {
+    public Drop(String name, String dropCategory, int amount, int magicFind, long timeDropped, Color dropCategoryColor, Color dropNameColor) {
         this.name = name;
         this.dropCategory = dropCategory;
         this.amount = amount;

@@ -70,6 +70,7 @@ public class PartyMember {
     public float intelligence;
     public float effectHealth;
 
+    // Creates a new party member based on the username and partyRank
     public PartyMember(String username, PartyRank partyRank) {
         this.timeDataGet = 0;
         this.username = username;
@@ -83,39 +84,54 @@ public class PartyMember {
     public void resetExpire() {
         timeDataGet = Minecraft.getSystemTime();
     }
+
+    // Uses the username to request data from the Skycrypt API
     public String getSkycryptData() throws IOException, NullPointerException {
-        
+        // Creates a JSON parser to parse the Json returned by the request
         JsonParser parser = new JsonParser();
+
+        // Requests the Skycrypt API
         String response = Utils.getRequest("https://sky.shiiyu.moe/api/v2/profile/" + this.username);
+        // If the response is in error, send error message and exit
         if (response.startsWith("Error")) {
-            Utils.sendClientMessage(Utils.colorCodes("Error getting data for " + username
-                    + ". Maybe the player is nicked or there is an invalid API key. Try running /api new."));
+            Utils.sendClientMessage(Utils.colorCodes("Error getting data for " + username + ". Maybe the player is nicked."));
             return "-2";
         }
+        // Creates a Json object based on the response
         JsonObject skycryptJson = (JsonObject) parser.parse(response);
-        String currentProfileId = "";
 
+        String currentProfileId = "";
+        // Finds the id of the current profile
         for (Entry<String, JsonElement> en : skycryptJson.getAsJsonObject("profiles").entrySet()) {
             if (en.getValue().getAsJsonObject().get("current").getAsBoolean()) {
                 currentProfileId = en.getKey();
             }
         }
 
+        // Creates a new json object with just the current profiles data
         JsonObject profileData = skycryptJson.getAsJsonObject("profiles").getAsJsonObject(currentProfileId).getAsJsonObject("data");
 
+        // Gets the player's senither weight 
         senitherWeight = profileData.getAsJsonObject("weight").getAsJsonObject("senither")
                 .get("overall").getAsFloat();
 
+        // Gets the player's secret count
         secretsCount = profileData.getAsJsonObject("dungeons").get("secrets_found").getAsInt();
 
+        // Gets the player's catacombs level
         catacombsLevel = profileData.getAsJsonObject("dungeons").getAsJsonObject("catacombs")
                 .getAsJsonObject("level").get("levelWithProgress").getAsFloat();
 
+        // Gets the player's combat level
         combatLevel = profileData.getAsJsonObject("levels").getAsJsonObject("combat").get("levelWithProgress").getAsFloat();
 
+        // Gets the player's average skill level
         averageSkillLevel =  profileData.get("average_level").getAsFloat();
 
+        // Creates a new json object with just the current profles items
         JsonObject profileItems = skycryptJson.getAsJsonObject("profiles").getAsJsonObject(currentProfileId).getAsJsonObject("items");
+        // Attempts to get the helmet slot
+
         try {
             helmetName = profileItems.getAsJsonArray("armor").get(3).getAsJsonObject().get("display_name").getAsString();
             helmetName = formatText(helmetName);
@@ -125,6 +141,7 @@ public class PartyMember {
             helmetName = "";
         }
 
+        // Attempts to get the chestplate slot
         try {
             chestplateName = profileItems.getAsJsonArray("armor").get(2).getAsJsonObject().get("display_name").getAsString();
             chestplateName = formatText(chestplateName);
@@ -134,6 +151,7 @@ public class PartyMember {
             chestplateName = "";
         }
 
+        // Attempts to get the legging slot
         try {
             leggingsName = profileItems.getAsJsonArray("armor").get(1).getAsJsonObject().get("display_name").getAsString();
             leggingsName = formatText(leggingsName);
@@ -143,6 +161,7 @@ public class PartyMember {
             leggingsName = "";
         }
 
+        // Attempts to get the boots slot
         try {
             bootsName = profileItems.getAsJsonArray("armor").get(0).getAsJsonObject().get("display_name").getAsString();
             bootsName = formatText(bootsName);
@@ -152,6 +171,7 @@ public class PartyMember {
             bootsName = "";
         }
 
+        // Attempts to get the selected dungeon class
         try {
             selectedDungeonClass = profileData.getAsJsonObject("dungeons").get("selected_class").getAsString();
             selectedDungeonClass = formatText(selectedDungeonClass);
@@ -160,6 +180,7 @@ public class PartyMember {
         }
         
 
+        // Gets all of the floor runs
         f1Runs = getFloorRuns("1", profileData);
         f2Runs = getFloorRuns("2", profileData);
         f3Runs = getFloorRuns("3", profileData);
@@ -168,6 +189,7 @@ public class PartyMember {
         f6Runs = getFloorRuns("6", profileData);
         f7Runs = getFloorRuns("7", profileData);
 
+        // Gets all of the master floor runs
         m1Runs = getMasterFloorRuns("1", profileData);
         m2Runs = getMasterFloorRuns("2", profileData);
         m3Runs = getMasterFloorRuns("3", profileData);
@@ -177,6 +199,7 @@ public class PartyMember {
         m7Runs = getMasterFloorRuns("7", profileData);
 
 
+        // Attempts to get the average secrets per run
         try {
             secretsPerRun = secretsCount / (f1Runs + f2Runs + f3Runs + f4Runs + f5Runs + f6Runs + f7Runs + m1Runs
                     + m2Runs + m3Runs + m4Runs + m5Runs + m6Runs + m7Runs);
@@ -186,47 +209,58 @@ public class PartyMember {
         return currentProfileId;
     }
 
+
     public int getSlothpixelData(String currentProfileId) throws IOException {
-        JsonParser parser = new JsonParser();
+        // Get's the player's UUID
+        String uuid = getUUID(username);
 
-        String response = "";
-        response = Utils
-                .getRequest("https://api.mojang.com/users/profiles/minecraft/" + username);
+        // Gets the player's Slothpixel data
+        String response = Utils.getRequest("https://api.slothpixel.me/api/skyblock/profile/" + uuid+ "/" + currentProfileId);
         if (response.startsWith("Error")) {
-            Utils.sendClientMessage(Utils.colorCodes("Error getting data for " + username
-                    + ". Maybe the player is nicked or there is an invalid API key. Try running /api new."));
-            return -3;
-        }
-
-        JsonObject uuidJson = (JsonObject) parser.parse(response);
-
-        String uuid = uuidJson.get("id").getAsString();
-
-        response = Utils.getRequest("https://api.slothpixel.me/api/skyblock/profile/" + uuid+ "/" + currentProfileId);
-        if (response.startsWith("Error")) {
-            Utils.sendClientMessage(Utils.colorCodes("Error getting data for " + username
-                    + ". Maybe the player is nicked or there is an invalid API key. Try running /api new."));
+            Utils.sendClientMessage(Utils.colorCodes("Error getting data for " + username + ". Maybe the player is nicked."));
             return -1;
         }
 
-        
-
+        JsonParser parser = new JsonParser();
         JsonObject slothpixelJson = (JsonObject) parser.parse(response);
-
-        slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("attributes").get("health")
-                .getAsFloat();
-        intelligence = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("attributes")
+        slothpixelJson.getAsJsonObject("members")
+                .getAsJsonObject(uuid)
+                .getAsJsonObject("attributes")
+                .get("health").getAsFloat();
+        intelligence = slothpixelJson.getAsJsonObject("members")
+                .getAsJsonObject(uuid)
+                .getAsJsonObject("attributes")
                 .get("intelligence").getAsFloat();
-        defense = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("attributes")
+        defense = slothpixelJson.getAsJsonObject("members")
+                .getAsJsonObject(uuid)
+                .getAsJsonObject("attributes")
                 .get("defense").getAsFloat();
-        effectHealth = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("attributes")
+        effectHealth = slothpixelJson.getAsJsonObject("members")
+                .getAsJsonObject(uuid)
+                .getAsJsonObject("attributes")
                 .get("effective_health").getAsFloat();
 
-        hypixelLevel = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).getAsJsonObject("player")
+        hypixelLevel = slothpixelJson.getAsJsonObject("members")
+                .getAsJsonObject(uuid)
+                .getAsJsonObject("player")
                 .get("level").getAsFloat();
-        // hypixelLevel = slothpixelJson.getAsJsonObject("members").getAsJsonObject(uuid).get("average_skill_level")
-        //         .getAsFloat();
         return 0;
+    }
+
+    public static String getUUID(String username) throws IOException {
+        // Creates a Json parser to parse the json data
+        JsonParser parser = new JsonParser();
+
+        // Gets the player's UUID
+        String response = Utils.getRequest("https://api.mojang.com/users/profiles/minecraft/" + username);
+        if (response.startsWith("Error")) {
+            Utils.sendClientMessage(Utils.colorCodes("Error getting data for " + username + ". Maybe the player is nicked."));
+            return "";
+        }
+
+        // Returns the player's UUID
+        JsonObject uuidJson = (JsonObject) parser.parse(response);
+        return uuidJson.get("id").getAsString();
     }
 
     public int getFloorRuns(String floor, JsonObject profileData) {
@@ -282,7 +316,6 @@ public class PartyMember {
     }
 
     private void createMemberBlockColumnOne(UIComponent memberBlock, float scaleFactor) {
-        
 
         new UIText("Catacombs Level: " + Utils.formatNumber(Utils.round(this.catacombsLevel, 2)))
                 .setTextScale((new PixelConstraint(1.333f * scaleFactor)))

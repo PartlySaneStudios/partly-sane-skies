@@ -21,47 +21,49 @@ public class DropBannerDisplay extends Gui {
 	public static Drop drop;
 
 	public DropBannerDisplay() {
-
 	}
 
-	// private void verifyRenderer() {
-	// if (fontRenderer != null) return;
-	// fontRenderer = Main.minecraft.fontRendererObj;
-	// }
-
+    // Waits to detect the rarte drop
 	@SubscribeEvent
 	public void onChatMessage(ClientChatReceivedEvent event) {
-		if ((event.message.getFormattedText().startsWith("§r§6§lRARE DROP! ")
-				|| event.message.getFormattedText().startsWith("§r§6§lPET DROP! "))
-				&& Main.config.rareDropBannerSound) {
+        String formattedMessage = event.message.getFormattedText();
+		if (isRareDrop(formattedMessage) && Main.config.rareDropBannerSound) {
 			Main.minecraft.thePlayer.playSound("partlysaneskies:rngdropjingle", 100, 1);
 		}
-		if ((event.message.getFormattedText().startsWith("§r§6§lRARE DROP! ")
-				|| event.message.getFormattedText().startsWith("§r§6§lPET DROP! ")) && Main.config.rareDropBanner) {
+
+		if (isRareDrop(formattedMessage) && Main.config.rareDropBanner) {
 			String unformatedMessage = event.message.getUnformattedText();
-			String formatedMessage = event.message.getFormattedText();
+
 
 			String name = "";
-			String dropCategory = unformatedMessage.substring(0, unformatedMessage.indexOf("! ") + 1);
+			// Gets the name of teh drop category
+            String dropCategory = unformatedMessage.substring(0, unformatedMessage.indexOf("! ") + 1);
 
+            // Gets the colour of item rarity
 			Color dropNameHex = Utils.colorCodetoColor
-					.get(formatedMessage.subSequence(formatedMessage.indexOf(dropCategory) + dropCategory.length() + 3,
-							formatedMessage.indexOf(dropCategory) + dropCategory.length() + 5));
-			Color dropCategoryHex = Utils.colorCodetoColor.get(formatedMessage.substring(2, 4));
-			int magicFind = 0;
+					.get(formattedMessage.subSequence(formattedMessage.indexOf(dropCategory) + dropCategory.length() + 3,
+							formattedMessage.indexOf(dropCategory) + dropCategory.length() + 5));
+            // Gets the colour of the drop category
+			Color dropCategoryHex = Utils.colorCodetoColor.get(formattedMessage.substring(2, 4));
 
+            // Finds the amount of magic find
+			int magicFind = 0;
+            // Finds the amount of  magic find from the message
 			if (unformatedMessage.contains("Magic Find")) {
 				name = unformatedMessage.substring(dropCategory.length(), unformatedMessage.indexOf(" (+"));
-				magicFind = Integer.parseInt(unformatedMessage.substring(unformatedMessage.indexOf("(+") + 2,
-						unformatedMessage.indexOf("% ")));
-			} else {
+				magicFind = Integer.parseInt(unformatedMessage.substring(unformatedMessage.indexOf("(+") + 2, unformatedMessage.indexOf("% ")));
+			} else { // If no magic find, ignore and keep 0
 				name = unformatedMessage.substring(dropCategory.length());
 			}
 
-			DropBannerDisplay.drop = new Drop(name, dropCategory, 1, magicFind, Minecraft.getSystemTime(),
-					dropCategoryHex, dropNameHex);
+			DropBannerDisplay.drop = new Drop(name, dropCategory, 1, magicFind, Minecraft.getSystemTime(), dropCategoryHex, dropNameHex);
 		}
 	}
+
+    public static boolean isRareDrop(String formattedMessage) {
+        return formattedMessage.startsWith("§r§6§lRARE DROP! ")
+        || formattedMessage.startsWith("§r§6§lPET DROP! ");
+    }
 
 	float SMALL_TEXT_SCALE = 2.5f;
 	float BIG_TEXT_SCALE = 5f;

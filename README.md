@@ -173,5 +173,5 @@ A keybind shortcut to open the storage menu. Customisable in the vanilla options
 ### Party All Friends
 
 A command to party all of your active friends. Using ``/fp``, it will party every online member on your friends list.
-
 </details>
+
