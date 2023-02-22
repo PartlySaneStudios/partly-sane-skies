@@ -69,7 +69,7 @@ public class SkyblockItem {
             return getLowestBin();
         }
         if (getNpcSellPrice() != -1) {
-            return this.npcSellPrice;
+            return getAverageLowestBin();
         }
         return -1;
     }
