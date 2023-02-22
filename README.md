@@ -50,9 +50,16 @@ This is a Minecraft mod for Hypixel Skyblock, designed, built, and programmed by
 
 ## Features
 
-**Everything is in this list can be configured in the config menu. Command: ``/pss config`` Default Keybind: ``F7``. The config menu can also be accessed through the custom skyblock main menu.**
+(Click the arrows to see more)
 
-![Config Menu](images/config_menu.png)
+<details>
+  <summary> <b>Everything is in this list can be configured in the config menu. Command: ``/pss config`` Default Keybind: ``F7``. The config menu can also be accessed through the custom skyblock main menu. </b> </summary>
+
+  ![Config Menu](images/config_menu.png)
+
+</details>
+
+<br>
 
 <details>
   <summary> General/Miscellaneous Features </summary>
