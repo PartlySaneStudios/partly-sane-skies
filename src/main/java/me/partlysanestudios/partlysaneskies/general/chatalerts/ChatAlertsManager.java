@@ -130,7 +130,7 @@ public class ChatAlertsManager {
     }
 
     // All of the different message prefixes
-    static String[] MESSAGE_PREFIXES = new String[] {"§r§7: ", "§r§f: "};
+    static String[] MESSAGE_PREFIXES = new String[] {"§r§7: ", "§r§f: ", "§f: "};
 
     // Runs when a chat message is recieved
     @SubscribeEvent
