@@ -143,6 +143,11 @@ Never lose your coins to the void again! When the mod detects you do not have a 
 A brand new auction house menu that gives you more information on prices, instant inflation, and mark up. Using that information, the menu highlights BIN items that are significantly below their  value (Default: 13% below).
 ![Custom Main Menu](images/custom_ah.png)
 
+### Garden Shop Trade Cost
+
+Shows you information about the garden shop trades.
+![Custom Main Menu](images/garden_trade_cost.png)
+
 </details>
 
 <details>
