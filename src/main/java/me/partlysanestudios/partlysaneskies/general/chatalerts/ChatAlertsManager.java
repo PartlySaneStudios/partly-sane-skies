@@ -130,7 +130,7 @@ public class ChatAlertsManager {
     }
 
     // All of the different message prefixes
-    static String[] MESSAGE_PREFIXES = new String[] {"§r§7: ", "§r§f: "};
+    static String[] MESSAGE_PREFIXES = new String[] {"§r§7: ", "§r§f: ", "§f: "};
 
     // Runs when a chat message is recieved
     @SubscribeEvent
@@ -192,7 +192,6 @@ public class ChatAlertsManager {
 
             // Inserts the previous color code right after the alert
             char[] charsToAdd = getLastColorCode(formattedMessage.substring(0, alertIndexFormatted + 1)).toCharArray();
-            // Syntax: StringBuilder.insert(index, charsToAdd, offset, lengthOfCharsToAdd)
             messageBuilder.insert(alertIndexFormatted + alert.length(), charsToAdd, 0, charsToAdd.length);
             
             // Inserts a purple color code to highlight the message right before the alert

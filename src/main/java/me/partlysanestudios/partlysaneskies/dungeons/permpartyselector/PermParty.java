@@ -16,26 +16,19 @@ public class PermParty {
         this.partyMembers = partyMemberNames;
     }
 
+    // Adds a new member to the perm party
     public void addMember(String memberName) {
         this.partyMembers.add(memberName);
-        try {
-            PermPartyManager.save();
-        } catch (IOException e) {
-            e.printStackTrace();
-            Utils.sendClientMessage("Could not save Permanent Party Data.");
-        }
+        save();
     }
 
+    // Removes a member from the perm party
     public void removeMember(String memberName) {
         this.partyMembers.remove(memberName);
-        try {
-            PermPartyManager.save();
-        } catch (IOException e) {
-            e.printStackTrace();
-            Utils.sendClientMessage("Could not save Permanent Party Data.");
-        }
+        save();
     }
 
+    // Parties all of the members of the perm party
     public void partyAll() {
         Long timeDelay = 000l;
         for (String member : this.partyMembers) {
@@ -57,10 +50,13 @@ public class PermParty {
         }
     }
 
+    // Sets the current permParty as the favourite
     public void setFavourite(boolean setFavourite) {
         this.isFavourite = setFavourite;
+        save();
     }
 
+    // Gets all of the members of the perm party in a string
     public String getMemberString() {
         String str = "";
         for (String name : partyMembers) {
@@ -69,5 +65,14 @@ public class PermParty {
         if (str.endsWith(", "))
             str = new StringBuilder(str).replace(str.length() - 2, str.length() - 1, "").toString();
         return str;
+    }
+
+    public void save() {
+        try {
+            PermPartyManager.save();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Utils.sendClientMessage("Could not save Permanent Party Data.");
+        }
     }
 }

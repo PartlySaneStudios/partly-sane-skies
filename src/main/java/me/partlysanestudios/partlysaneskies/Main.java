@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
 
@@ -31,6 +30,8 @@ import me.partlysanestudios.partlysaneskies.general.petalert.PetAlertMuteCommand
 import me.partlysanestudios.partlysaneskies.general.rngdropbanner.DropBannerDisplay;
 import me.partlysanestudios.partlysaneskies.general.skillupgrade.SkillUpgradeCommand;
 import me.partlysanestudios.partlysaneskies.general.skillupgrade.SkillUpgradeRecommendation;
+import me.partlysanestudios.partlysaneskies.help.ConfigCommand;
+import me.partlysanestudios.partlysaneskies.help.DiscordCommand;
 import me.partlysanestudios.partlysaneskies.help.HelpCommand;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.Minecraft;
@@ -97,7 +98,7 @@ public class Main {
 
         // Loads perm party data
         try {
-            PermPartyManager.permPartyMap = PermPartyManager.load();
+            PermPartyManager.load();
             PermPartyManager.loadFavouriteParty();
         } catch (IOException e) {
             e.printStackTrace();
@@ -113,7 +114,7 @@ public class Main {
 
         // Loads user player data for PartyManager
         try {
-            PartyManager.loadPersonalPlayerData();
+            PartyManager.loadPlayerData(Main.minecraft.getSession().getUsername());
         } catch (IOException e) {
             System.out.println("Partly Sane Skies: Unable to load player data.");
             e.printStackTrace();
@@ -143,6 +144,8 @@ public class Main {
         ClientCommandHandler.instance.registerCommand(new PartyFriendManagerCommand());
         ClientCommandHandler.instance.registerCommand(new ChatAlertsCommand());
         ClientCommandHandler.instance.registerCommand(new PetAlertMuteCommand());
+        ClientCommandHandler.instance.registerCommand(new DiscordCommand());
+        ClientCommandHandler.instance.registerCommand(new ConfigCommand());
 
         // Initialises keybinds
         Keybinds.init();
@@ -227,13 +230,7 @@ public class Main {
     // Runs when debug key is pressed
     public static void debugMode() {
         Main.isDebugMode = !Main.isDebugMode;
-        Utils.visPrint("Debug mode: " + Main.isDebugMode);
-        for (Map.Entry<String, Integer> en : GardenTradeValue.getQuantityCostMap().entrySet()) {
-            String itemId = SkyblockItem.getId(en.getKey());
-            double totalPrice = GardenTradeValue.getItemCost(itemId, en.getValue());
-            Utils.visPrint(itemId + " : " + totalPrice);
-        }
-
+        Utils.sendClientMessage("Debug mode: " + Main.isDebugMode);
     }
 
     // Returns a list of lines on the scoreboard,

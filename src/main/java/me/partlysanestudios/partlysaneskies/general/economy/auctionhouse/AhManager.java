@@ -94,9 +94,6 @@ public class AhManager {
                 row++;
                 column = 0;
             }
-            // if (row > 4-1) {
-            // break;
-            // }
 
             auctions[row][column] = auction;
             column++;
@@ -146,16 +143,6 @@ public class AhManager {
 
         return list;
     }
-
-    // private static int convertChestCoordinateToSlot(int x, int y) {
-    // return x + 9 * y - 10;
-    // }
-
-    // private static int convertAhCoordinateToSlot(int x, int y) {
-    // x += 2;
-    // y += 1;
-    // return x + 9 * y - 10;
-    // }
 
     public static int[] convertSlotToChestCoordinate(int slot) {
         int x = (slot + 1) % 9;

@@ -130,7 +130,6 @@ public class AhGui extends WindowScreen {
                     makeItemBox(auctions[row][column], x, y, mainBox);
                 } catch (NullPointerException e) {
                     e.printStackTrace();
-                    Utils.visPrint("Slot " + x + ", " + y + "had an exception.");
                 }
 
             }
@@ -649,8 +648,7 @@ public class AhGui extends WindowScreen {
                 break;
 
             default:
-
-                Utils.visPrint("none " + paneType);
+                break;
         }
     }
 
