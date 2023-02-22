@@ -28,7 +28,7 @@ This is a Minecraft mod for Hypixel Skyblock, designed, built, and programmed by
 <details>
   <summary> Commands </summary>
 
-## Commands
+## Commands'
 
 ``/pss``: A help command for Partly Sane Skies
 ``/pss config``, ``/pssconfig``: A command to open the PSS Config menu. It can also be keybinded in the vanilla options menu. Default: ``F7``
@@ -50,10 +50,10 @@ This is a Minecraft mod for Hypixel Skyblock, designed, built, and programmed by
 
 ## Features
 
-(Click the arrows to see more)
+(Click the drop down arrows to see more)
 
 <details>
-  <summary> <b>Everything is in this list can be configured in the config menu. Command: ``/pss config`` Default Keybind: ``F7``. The config menu can also be accessed through the custom skyblock main menu. </b> </summary>
+  <summary> <b> Everything is in this list can be configured in the config menu. Command:  <code> /pss config </code> Default Keybind:  <code> F7 </code>. The config menu can also be accessed through the custom skyblock main menu. </b> </summary>
 
   ![Config Menu](images/config_menu.png)
 
