@@ -70,29 +70,29 @@ General and miscellaneous features.
 
 ### Custom Main Menu
 
-Upon start up of Minecraft, a nice, Skyblock themed main menu will display. There are various configurable options from Skyblock-themed backrounds, along with an option to select a random background.*(Added in v0.0.3)*
+Upon start up of Minecraft, a nice, Skyblock themed main menu will display. There are various configurable options from Skyblock-themed backrounds, along with an option to select a random background.
 
 ![Custom Main Menu](images/custom_main_menu.png)
 
 ### Skill Upgrade Recommendation
 
-A helpful command to help recommend what skill you should upgrade less. Using ``/skillup <username>`` or ``/su <username>`` will provide a list of recommended skills to upgrade. *(Added in v0.0.3)*
+A helpful command to help recommend what skill you should upgrade less. Using ``/skillup <username>`` or ``/su <username>`` will provide a list of recommended skills to upgrade.
 
 ![Location Banner](images/skill_upgrade.png)
 
 ### RNG Drop Banner and Sound
 
-When you get a rare drop, a Pumpkin Dicer or Melon Slicer like pop-up banner will appear, along with a sound, celebrating your drop. *(Added in v0.0.1)*
+When you get a rare drop, a Pumpkin Dicer or Melon Slicer like pop-up banner will appear, along with a sound, celebrating your drop.
 
 ![Custom Main Menu](images/rng_drop_banner.png)
 
 ### Worm Warning
 
-When you are mining in the crystal hollows and a worm or scatha spawns, you get a message on screen, along with a sound, warning you that a worm has spawned. *(Added in v0.0.3)*
+When you are mining in the crystal hollows and a worm or scatha spawns, you get a message on screen, along with a sound, warning you that a worm has spawned.
 
 ### Location Banner
 
-When switching to a new location region on skyblock, an MMO RPG style banner will appear, informing you that you have switched to a new region. *(Added in v0.0.6)*
+When switching to a new location region on skyblock, an MMO RPG style banner will appear, informing you that you have switched to a new region.
 
 ![Location Banner](images/location_banner.png)
 
@@ -101,6 +101,10 @@ When switching to a new location region on skyblock, an MMO RPG style banner wil
 Using ``/ca``, you can add and remove specific phrases that will be highlighted when someone says them. Example: If you add the word "``flag``" (using ``/ca add flag``) to the chat alerts, it will highlight the word and play a notification when someone says it.
 
 ![Chat Alerts](images/chat_alerts.png)
+
+### Incorrect Pet for Minion Alert
+
+Warns you if you don't have the right pet for leveling up the minions, that way you never lose any pet EXP because you still have your pet level 100 dungeon pet activated.
 
 </details>
 
@@ -111,17 +115,17 @@ Using ``/ca``, you can add and remove specific phrases that will be highlighted 
 
 ### Party Manager
 
-Manage your party and join dungeons with a helpful party manager, with features such as viewing stats, kicking, party transfer buttons, and etc. Included in the Party Manager GUI. You can open it by typing the command ``/pm`` or by using the keybind. Default: ``P`` *(Added in v0.0.2)*
+Manage your party and join dungeons with a helpful party manager, with features such as viewing stats, kicking, party transfer buttons, and etc. Included in the Party Manager GUI. You can open it by typing the command ``/pm`` or by using the keybind. Default: ``P``
 
 ![Custom Main Menu](images/party_manager.png)
 
 ### Watcher Ready, Message, Warning, Siren and Sound
 
-When the watcher is done spawning mobs, a message will appear on your screen, along with an optional sound, party message and World War II (1938-1945) air raid siren incase the previous two don't get your attention.. *(Added in v0.0.3)*
+When the watcher is done spawning mobs, a message will appear on your screen, along with an optional sound, party message and World War II (1938-1945) air raid siren incase the previous two don't get your attention..
 
 ### Permanent Dungeon Party Selector
 
-Automatically parties everyone in a permanent dungeon party. Using ``/pp`` or ``/permparty``, you have the option to create, party, delete, and add and remove members from your permanent party. You can even add different parties such as an f6Party or a jujuNonCarry party. *(Added in v0.0.5)*
+Automatically parties everyone in a permanent dungeon party. Using ``/pp`` or ``/permparty``, you have the option to create, party, delete, and add and remove members from your permanent party. You can even add different parties such as an f6Party or a jujuNonCarry party.
 
 </details>
 
@@ -132,11 +136,11 @@ Automatically parties everyone in a permanent dungeon party. Using ``/pp`` or ``
 
 ### No Cookie Warning
 
-Never lose your coins to the void again! When the mod detects you do not have a cookie active, it will warn you to buy a new one. Optionally, it can warn you only if you have a lot of coins in your purse. *(Added in v0.0.6)*
+Never lose your coins to the void again! When the mod detects you do not have a cookie active, it will warn you to buy a new one. Optionally, it can warn you only if you have a lot of coins in your purse.
 
 ### Enhanced Auction Menu and BIN Sniper
 
-A brand new auction house menu that gives you more information on prices, instant inflation, and mark up. Using that information, the menu highlights BIN items that are significantly below their  value (Default: 13% below). *(Added in v0.0.7)*
+A brand new auction house menu that gives you more information on prices, instant inflation, and mark up. Using that information, the menu highlights BIN items that are significantly below their  value (Default: 13% below).
 ![Custom Main Menu](images/custom_ah.png)
 
 </details>
@@ -146,24 +150,28 @@ A brand new auction house menu that gives you more information on prices, instan
 
 ## Shortcuts
 
+### Open Wiki Keybind
+
+Using the keybind, it will automatically look up the wiki article for the item you are hovering over. (``NONE`` key by default)
+
 ### Pets Menu Keybind
 
-A keybind shortcut to open the pets menu. Customisable in the vanilla options menu. (``NONE`` key by default) *(Added in v0.0.2)*
+A keybind shortcut to open the pets menu. Customisable in the vanilla options menu. (``NONE`` key by default)
 
 ### Crafting Table Menu Keybind
 
-A keybind shortcut to open the crafting table menu. Customisable in the vanilla options menu. (``NONE`` key by default) *(Added in v0.0.2)*
+A keybind shortcut to open the crafting table menu. Customisable in the vanilla options menu. (``NONE`` key by default)
 
 ### Wardrobe Menu Keybind
 
-A keybind shortcut to open the wardrobe menu. Customisable in the vanilla options menu. (``NONE`` key by default) *(Added in v0.0.2)*
+A keybind shortcut to open the wardrobe menu. Customisable in the vanilla options menu. (``NONE`` key by default)
 
 ### Storage Menu Keybind
 
-A keybind shortcut to open the storage menu. Customisable in the vanilla options menu. (``NONE`` key by default) *(Added in v0.0.2)*
+A keybind shortcut to open the storage menu. Customisable in the vanilla options menu. (``NONE`` key by default)
 
 ### Party All Friends
 
-A command to party all of your active friends. Using ``/fp``, it will party every online member on your friends list. *(Added in v0.0.6)*
+A command to party all of your active friends. Using ``/fp``, it will party every online member on your friends list.
 
 </details>
