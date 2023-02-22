@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
-import me.partlysanestudios.partlysaneskies.utils.Utils;
+
 import gg.essential.elementa.ElementaVersion;
 import me.partlysanestudios.partlysaneskies.dungeons.WatcherReady;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManager;
@@ -30,8 +30,10 @@ import me.partlysanestudios.partlysaneskies.general.petalert.PetAlertMuteCommand
 import me.partlysanestudios.partlysaneskies.general.rngdropbanner.DropBannerDisplay;
 import me.partlysanestudios.partlysaneskies.general.skillupgrade.SkillUpgradeCommand;
 import me.partlysanestudios.partlysaneskies.general.skillupgrade.SkillUpgradeRecommendation;
+import me.partlysanestudios.partlysaneskies.help.ConfigCommand;
 import me.partlysanestudios.partlysaneskies.help.DiscordCommand;
 import me.partlysanestudios.partlysaneskies.help.HelpCommand;
+import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.inventory.IInventory;
@@ -135,6 +137,7 @@ public class Main {
         ClientCommandHandler.instance.registerCommand(new ChatAlertsCommand());
         ClientCommandHandler.instance.registerCommand(new PetAlertMuteCommand());
         ClientCommandHandler.instance.registerCommand(new DiscordCommand());
+        ClientCommandHandler.instance.registerCommand(new ConfigCommand());
 
         // Initialises keybinds
         Keybinds.init();

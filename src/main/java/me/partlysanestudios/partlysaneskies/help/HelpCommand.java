@@ -35,8 +35,24 @@ public class HelpCommand implements ICommand {
         return Arrays.asList("helpss", "help");
     }
 
+    List<String> configAliases = Arrays.asList("conf", "c", "config");
     @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
+        if (args.length > 0 && configAliases.contains(args[0].toLowerCase())) {
+            Utils.sendClientMessage("Opening config GUI...");
+            new Thread() {
+                @Override
+                public void run() {
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                    }
+                    Main.minecraft.displayGuiScreen(Main.config.gui());
+                }
+            }.start();
+            return;
+        }
+        
         printHelpMessage();
     }
 
