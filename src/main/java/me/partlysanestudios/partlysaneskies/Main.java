@@ -53,7 +53,14 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 public class Main {
 
     public static void main(String[] args) {
-
+        try {
+            SkyblockItem.init();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        SkyblockItem.updateAll();
+        System.out.println(SkyblockItem.getItem(SkyblockItem.getId("Enchanted Golden Carrot")).getPrice());
     }
 
     public static final String MODID = "partlysaneskies";
@@ -96,12 +103,6 @@ public class Main {
             e.printStackTrace();
         }
         
-        new Thread() {
-            @Override
-            public void run() {
-                SkyblockItem.updateAll();
-            }
-        }.start();
 
         // Loads chat alerts data
         try {
@@ -149,16 +150,16 @@ public class Main {
         // Itialises Utils class
         Utils.init();
 
-        try {
-            SkyblockItem.init();
-        } catch (IOException e) {
-            e.printStackTrace();
-            Utils.visPrint("Could not load client Ids");
-        }
 
         // Initializes skill upgrade recommendation
         SkillUpgradeRecommendation.populateSkillMap();
 
+        try {
+            SkyblockItem.init();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        SkyblockItem.updateAll();
 
         // Finished loading
         System.out.println("Partly Sane Skies has loaded.");

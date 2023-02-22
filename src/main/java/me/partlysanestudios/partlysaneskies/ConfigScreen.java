@@ -74,6 +74,8 @@ public class ConfigScreen extends Vigilant {
     )
     public int customMainMenuImage = 1;
 
+
+
     // ----------------- Category: Skyblock -------------------
     // Rare Drop
     @Property(
@@ -135,72 +137,7 @@ public class ConfigScreen extends Vigilant {
         subcategory = "Open Wiki"
     )
     public boolean openWikiAutomatically = true;
-
-    // Execessive Coin warning
-    @Property(
-        type = PropertyType.SWITCH, 
-        name = "Excessive Coin and No Booster Cookie", 
-        category = "Skyblock", 
-        description = "Warns you if you have a lot of coins in your purse and no booster cookie.", 
-        subcategory = "Excessive Coin Warning"
-    )
-    public boolean noCookieWarning = false;
-
-    @Property(
-        type = PropertyType.NUMBER, 
-        min = 0, 
-        max = Integer.MAX_VALUE, 
-        name = "Maximum Allowed Amount Without Booster Cookie", 
-        category = "Skyblock", 
-        description = "The maximum allowed amount of money allowed before it warns you about having no booster cookie.", 
-        subcategory = "Excessive Coin Warning", 
-        increment = 25000
-    )
-    public int maxWithoutCookie = 750000;
-
-    @Property(
-        type = PropertyType.DECIMAL_SLIDER, 
-        minF = 1, 
-        maxF = 7, 
-        subcategory = "Excessive Coin Warning", 
-        name = "Excessive Coin Warning Time", 
-        description = "The amount of seconds the warning appears for appears for.", 
-        category = "Skyblock"
-    )
-    public float noCookieWarnTime = 3.5f;
-
-    @Property(
-        type = PropertyType.SLIDER, 
-        min = 1, 
-        max = 300, 
-        subcategory = "Excessive Coin Warning", 
-        name = "Excessive Coin Warn Cooldown", 
-        description = "The amount of seconds between each warning", 
-        category = "Skyblock"
-    )
-    public int noCookieWarnCooldown = 20;
-
-    // Auction House
-    @Property(
-        type = PropertyType.SWITCH, 
-        name = "Custom Auction House GUI", 
-        category = "Skyblock", 
-        subcategory = "Auction House", 
-        description = "Toggle using the custom Auction House GUI and BIN Sniper Helper."
-    )
-    public boolean customAhGui = true;
-
-    @Property(
-        type = PropertyType.PERCENT_SLIDER, 
-        minF = 0, 
-        maxF = 1, 
-        category = "Skyblock", 
-        subcategory = "Auction House", 
-        name = "BIN Snipe Percentage", 
-        description = "The percent of the price that the BIN sniper considers a \"snipe\". Example: 85%, Lowest BIN: 1 000 000, will look for a price of 850000 or less."
-    )
-    public float BINSniperPercent = .87f;
-
+   
     // Pet Minion Alert
     @Property(
         type = PropertyType.TEXT,
@@ -222,6 +159,8 @@ public class ConfigScreen extends Vigilant {
         category = "Skyblock"
     )
     public float petAlertMuteTime = 7.5f;
+
+
 
     // -------------- Category: Mining --------------
     // Worm Warning
@@ -262,6 +201,8 @@ public class ConfigScreen extends Vigilant {
         category = "Mining"
     )
     public boolean wormWarningBannerSound = false;
+
+
 
     // ------------- Category: Dungeons ---------------------------------
     // Party Manager
@@ -351,6 +292,86 @@ public class ConfigScreen extends Vigilant {
     )
     public boolean watcherReadyAirRaidSiren = false;
 
+
+
+    // ------------- Category: Economy ---------------------------------
+    // Garden
+    @Property(
+        type = PropertyType.SWITCH, 
+        subcategory = "Garden", 
+        name = "Garden Shop Trade Cost", 
+        description = "Gives you information about the cost of garden shop trades.", 
+        category = "Economy"
+    )
+    public boolean gardenShopTradeInfo = false;
+
+     // Auction House
+     @Property(
+        type = PropertyType.SWITCH, 
+        name = "Custom Auction House GUI", 
+        category = "Economy", 
+        subcategory = "Auction House", 
+        description = "Toggle using the custom Auction House GUI and BIN Sniper Helper."
+    )
+    public boolean customAhGui = true;
+
+    @Property(
+        type = PropertyType.PERCENT_SLIDER, 
+        minF = 0, 
+        maxF = 1, 
+        category = "Economy", 
+        subcategory = "Auction House", 
+        name = "BIN Snipe Percentage", 
+        description = "The percent of the price that the BIN sniper considers a \"snipe\". Example: 85%, Lowest BIN: 1 000 000, will look for a price of 850000 or less."
+    )
+    public float BINSniperPercent = .87f;
+
+
+    // Execessive Coin warning
+    @Property(
+        type = PropertyType.SWITCH, 
+        name = "Excessive Coin and No Booster Cookie", 
+        category = "Economy", 
+        description = "Warns you if you have a lot of coins in your purse and no booster cookie.", 
+        subcategory = "Excessive Coin Warning"
+    )
+    public boolean noCookieWarning = false;
+
+    @Property(
+        type = PropertyType.NUMBER, 
+        min = 0, 
+        max = Integer.MAX_VALUE, 
+        name = "Maximum Allowed Amount Without Booster Cookie", 
+        category = "Economy", 
+        description = "The maximum allowed amount of money allowed before it warns you about having no booster cookie.", 
+        subcategory = "Excessive Coin Warning", 
+        increment = 25000
+    )
+    public int maxWithoutCookie = 750000;
+
+    @Property(
+        type = PropertyType.DECIMAL_SLIDER, 
+        minF = 1, 
+        maxF = 7, 
+        subcategory = "Excessive Coin Warning", 
+        name = "Excessive Coin Warning Time", 
+        description = "The amount of seconds the warning appears for appears for.", 
+        category = "Economy"
+    )
+    public float noCookieWarnTime = 3.5f;
+
+    @Property(
+        type = PropertyType.SLIDER, 
+        min = 1, 
+        max = 300, 
+        subcategory = "Excessive Coin Warning", 
+        name = "Excessive Coin Warn Cooldown", 
+        description = "The amount of seconds between each warning", 
+        category = "Economy"
+    )
+
+    
+    public int noCookieWarnCooldown = 20;
     public ConfigScreen() {
         super(new File("./config/partly-sane-skies/pss.toml"));
         this.initialize();

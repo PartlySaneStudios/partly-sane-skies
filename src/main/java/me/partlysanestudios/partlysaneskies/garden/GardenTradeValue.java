@@ -92,10 +92,19 @@ public class GardenTradeValue {
             // so the name is up until the last 'x', and the cost starts
             // after the x
             int costStartIndex = costLine.lastIndexOf("x");
-
+            // If the item does not have a multiple, it means it only has one
+            boolean singleItem = false;
+            String amountString;
             // If there is no x, pass
             if (costStartIndex == -1) {
-                continue;
+                if (costLine.length() > 5) {
+                    singleItem = true;
+                    costStartIndex = costLine.length();
+                }
+                else{
+                    continue;
+                }
+                
             }
 
             // Gets the name of ihe item and formats it
@@ -103,12 +112,20 @@ public class GardenTradeValue {
             name = Utils.stripLeading(name);
             name = Utils.stripTrailing(name);
 
-            // Gets the cost of the item and converts it to an integer
-            String amountString = costLine.substring(costStartIndex + 1);
-            // Replaces all non numeric characters in the string
-            amountString.replaceAll("[^\\d.]", "");
+            int amount;
+            if (singleItem) {
+                amount = 1;
+            }
+            else {
+                // Gets the cost of the item and converts it to an integer
+                amountString = costLine.substring(costStartIndex + 1);
+                // Replaces all non numeric characters in the string
+                amountString.replaceAll("[^\\d.]", "");
 
-            int amount = Integer.parseInt(amountString);
+                amount = Integer.parseInt(amountString);
+            }
+
+            
 
             // Adds it to the cost map
             costMap.put(name, amount);
@@ -170,9 +187,10 @@ public class GardenTradeValue {
     }
 
     public static double getItemCost(String itemId, int quantity) {
-        if (!SkyblockItem.getItem(itemId).hasPrice()) {
-            return -1;
+        if (SkyblockItem.getItem(itemId) == null ) {
+            return 0;
         }
+        
         return quantity * SkyblockItem.getItem(itemId).getPrice();
     }
 
@@ -210,10 +228,14 @@ public class GardenTradeValue {
     float pad = 5;
     UIWrappedText textComponent = (UIWrappedText) new UIWrappedText()
         .setChildOf(box);
+
     @SubscribeEvent
     public void renderInformation(GuiScreenEvent.BackgroundDrawnEvent event) {
         if (!isTrade()) {
             box.hide();
+            return;
+        }
+        if (!Main.config.gardenShopTradeInfo) {
             return;
         }
 
@@ -249,7 +271,12 @@ public class GardenTradeValue {
 
         textString += "&e&lPrice Breakdown:&r\n";
         textString += priceBreakdown;
-        textString += "\n";
+        textString += "\n\n";
+
+        textString += "&e&lRewards:&r\n";
+        for (String line : getRewardsLore()) {
+            textString += line + "\n";
+        }
 
         textString = Utils.colorCodes(textString);
 

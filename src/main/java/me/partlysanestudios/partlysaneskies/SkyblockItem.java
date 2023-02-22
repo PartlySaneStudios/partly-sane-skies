@@ -161,13 +161,13 @@ public class SkyblockItem {
     public static void runUpdater() {
         if (checkLastUpdate()) {
             lastAhUpdateTime = Minecraft.getSystemTime();
+            Utils.visPrint("UPDATING" + checkLastUpdate() + lastAhUpdateTime);
             new Thread() {
                 @Override
                 public void run() {
                     updateAll();
                 }
             }.start();
-            
         }
     }
     
@@ -180,12 +180,18 @@ public class SkyblockItem {
     public static void updateLowestBin() {
         try {
             String request = Utils.getRequest("http://moulberry.codes/lowestbin.json");
+            if (request.startsWith("Error")) {
+                return;
+            }
             @SuppressWarnings("unchecked")
             HashMap<String, Double> map = (HashMap<String, Double>) new Gson().fromJson(request,
                     new HashMap<String, Double>().getClass());
 
-            for (Map.Entry<String, Double> en : map.entrySet()) {
-                getItem(en.getKey()).setLowestBinPrice(en.getValue());
+            for (Map.Entry<String, SkyblockItem> en : idToItemMap.entrySet()) {
+                if (!map.containsKey(en.getKey())) {
+                    continue;
+                }
+                en.getValue().setLowestBinPrice(map.get(en.getKey()));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -196,12 +202,18 @@ public class SkyblockItem {
     public static void updateAverageLowestBin() {
         try {
             String request = Utils.getRequest("https://moulberry.codes/auction_averages_lbin/1day.json");
+            if (request.startsWith("Error")) {
+                return;
+            }
             @SuppressWarnings("unchecked")
             HashMap<String, Double> map = (HashMap<String, Double>) new Gson().fromJson(request,
                     new HashMap<String, Double>().getClass());
 
-            for (Map.Entry<String, Double> en : map.entrySet()) {
-                getItem(en.getKey()).setAverageLowestBinPrice(en.getValue());
+            for (Map.Entry<String, SkyblockItem> en : idToItemMap.entrySet()) {
+                if (!map.containsKey(en.getKey())) {
+                    continue;
+                }
+                en.getValue().setAverageLowestBinPrice(map.get(en.getKey()));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -211,13 +223,16 @@ public class SkyblockItem {
     public static void updateBz() {
         try{
             String requestResponse = Utils.getRequest("https://sky.shiiyu.moe/api/v2/bazaar");
+            if (requestResponse.startsWith("Error")) {
+                return;
+            }
             JsonObject object = new JsonParser().parse(requestResponse).getAsJsonObject();
 
-            for (Map.Entry<String, JsonElement> en: object.entrySet()) {
-                JsonObject jsonObj = en.getValue().getAsJsonObject();
-                double price = jsonObj.get("price").getAsDouble();
-
-                getItem(en.getKey()).setBazaarPrice(price);
+            for (Map.Entry<String, SkyblockItem> en : idToItemMap.entrySet()) {
+                if (!object.has(en.getKey())) {
+                    continue;
+                }
+                en.getValue().setLowestBinPrice(object.getAsJsonObject(en.getKey()).get("price").getAsDouble());
             }
 
         } catch (IOException e) {
@@ -226,7 +241,7 @@ public class SkyblockItem {
     }
 
     public static boolean checkLastUpdate() {
-        if (Minecraft.getSystemTime() < lastAhUpdateTime + 1000 * 60 * 3) {
+        if (Minecraft.getSystemTime() < lastAhUpdateTime + (1000 * 60 * 5)) {
             return true;
         }
 
