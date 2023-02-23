@@ -104,7 +104,7 @@ Using ``/ca``, you can add and remove specific phrases that will be highlighted 
 
 ### Incorrect Pet for Minion Alert
 
-Warns you if you don't have the right pet for leveling up the minions, that way you never lose any pet EXP because you still have your pet level 100 dungeon pet activated.
+Warns you if you don't have the right pet for leveling up the minions, that way you never lose any pet EXP because you still have your level 100 dungeon pet activated.
 
 </details>
 
