@@ -14,10 +14,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class PartyManager {
     private static boolean isWaitingForMembers = false;
     private static boolean isMembersListed = false;
-    // Names of all of the ranks to remove from people's names
-    private static String[] RANK_NAMES = { "[VIP]", "[VIP+]", "[MVP]", "[MVP+]", "[MVP++]", "[YOUTUBE]", "[MOJANG]",
-            "[EVENTS]", "[MCP]", "[PIG]", "[PIG+]", "[PIG++]", "[PIG+++]", "[GM]", "[ADMIN]", "[OWNER]" };
-
     public static HashMap<String, PartyMember> playerCache = new HashMap<String, PartyMember>();
     private static List<PartyMember> partyList = new ArrayList<PartyMember>();
 
@@ -140,7 +136,7 @@ public class PartyManager {
         isMembersListed = true;
 
         // Removes the rank from the name if it is contained
-        for (String playerRank : RANK_NAMES) {
+        for (String playerRank : Main.RANK_NAMES) {
             str = str.replace(playerRank, "");
         }
 

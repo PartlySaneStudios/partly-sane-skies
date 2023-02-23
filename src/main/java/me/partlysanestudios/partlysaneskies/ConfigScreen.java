@@ -85,6 +85,15 @@ public class ConfigScreen extends Vigilant {
 
     @Property(
         type = PropertyType.SWITCH,
+        name = "Color Nons Messages", 
+        category = "General", 
+        subcategory = "Chat Color", 
+        description = "Color messages from the non-ranked players to white to make them more visable in busy lobbies."
+    )
+    public boolean colorNonMessages = false;
+
+    @Property(
+        type = PropertyType.SWITCH,
         name = "Color Party Chat", 
         category = "General", 
         subcategory = "Chat Color", 
@@ -220,9 +229,9 @@ public class ConfigScreen extends Vigilant {
 
     @Property(
         type = PropertyType.COLOR, 
-        subcategory = "Watcher Ready", 
-        name = "Watcher Ready Banner Colour", 
-        description = "The colour of the watcher ready text", 
+        subcategory = "Worm Warning", 
+        name = "Worm Warning Banner Color", 
+        description = "The color of the worm warning text", 
         category = "Dungeons"
     )
     public Color wormWarningBannerColor = new Color(34, 255, 0);
@@ -304,8 +313,8 @@ public class ConfigScreen extends Vigilant {
     @Property(
         type = PropertyType.COLOR, 
         subcategory = "Watcher Ready", 
-        name = "Watcher Ready Banner Colour", 
-        description = "The colour of the watcher ready text", 
+        name = "Watcher Ready Banner Color", 
+        description = "The color of the watcher ready text", 
         category = "Dungeons"
     )
     public Color watcherReadyBannerColor = new Color(255, 45, 6);

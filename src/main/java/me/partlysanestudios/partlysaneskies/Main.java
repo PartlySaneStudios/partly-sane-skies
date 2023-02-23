@@ -50,14 +50,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 public class Main {
 
     public static void main(String[] args) {
-        String message = "§r§9Party §8> §b[MVP§2+§b] Su386§f: §r§bHalloo§r";
-        String prefix = ChatColors.getPrefix(message);
-        System.out.println(prefix);
-        String color = ChatColors.getChatColour(prefix);
-        System.out.println(color);
-        message = ChatColors.insertColour(message, color);
         
-        System.out.println(message);
     }
 
     public static final String MODID = "partlysaneskies";
@@ -77,6 +70,9 @@ public class Main {
     public static Color BASE_LIGHT_COLOR = new Color(85, 85, 88);
     public static Color ACCENT_COLOR = new Color(1, 255, 255);
     public static Color DARK_ACCENT_COLOR = new Color(1, 122, 122);
+    // Names of all of the ranks to remove from people's names
+    public static String[] RANK_NAMES = { "[VIP]", "[VIP+]", "[MVP]", "[MVP+]", "[MVP++]", "[YOUTUBE]", "[MOJANG]",
+            "[EVENTS]", "[MCP]", "[PIG]", "[PIG+]", "[PIG++]", "[PIG+++]", "[GM]", "[ADMIN]", "[OWNER]", "[NPC]" };
 
     // Method runs at mod initialization
     @EventHandler

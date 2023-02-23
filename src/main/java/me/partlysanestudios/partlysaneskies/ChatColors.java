@@ -7,19 +7,55 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class ChatColors {
     
     @SubscribeEvent
-    public void onMessageSend(ClientChatReceivedEvent event) {
+    public void detectColorMessage(ClientChatReceivedEvent event) {
         String formattedMessage = event.message.getFormattedText();
-        
         String prefix = getPrefix(formattedMessage);
         if (prefix.equals("")) {
             return;
         }
 
         event.setCanceled(true);
-
         String color = getChatColour(prefix);
-
         Utils.sendClientMessage(insertColour(formattedMessage, color), true);
+    }
+
+    @SubscribeEvent
+    public void detectNonMessage(ClientChatReceivedEvent event) {
+        //§8[§a99§8] §7ScorchDzn§7§r§7: Selling necromancer sword on my AH§r
+        if (!Main.config.colorNonMessages) {
+            return;
+        }
+
+        String formattedMessage = event.message.getFormattedText();
+        // if it's not a non message, return
+        if (!formattedMessage.contains("§r§7: ")) {
+            return;
+        }
+
+        // If its a private message, return
+        if (formattedMessage.startsWith("§dTo ") || formattedMessage.startsWith("§dFrom ")) {
+            return;
+        }
+
+        // Checks to see if the message has a rank
+        boolean containsRankNames = false;
+        String unformattedMessage = event.message.getUnformattedText();
+        for (String rank : Main.RANK_NAMES) {
+            if (!unformattedMessage.contains(rank)) {
+                continue;
+            }
+            containsRankNames = true;
+            break;
+        }
+
+        // If it has a rank return
+        if (containsRankNames) {
+            return;
+        }
+        
+        // If it does not, it highlights the nons message
+        event.setCanceled(true);
+        Utils.sendClientMessage(insertColour(formattedMessage, "&r"), true);
     }
 
     public static String getChatColour(String prefix) {
@@ -97,7 +133,7 @@ public class ChatColors {
         int messageStartIndex = message.indexOf(": ");
 
         if (messageStartIndex == -1) {
-            return "";
+            return message;
         }
 
         String messageString = message.substring(messageStartIndex);
