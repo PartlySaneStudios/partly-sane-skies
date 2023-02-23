@@ -50,14 +50,14 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 public class Main {
 
     public static void main(String[] args) {
-        try {
-            SkyblockItem.init();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        SkyblockItem.updateAll();
-        System.out.println(SkyblockItem.getItem(SkyblockItem.getId("Enchanted Golden Carrot")).getPrice());
+        String message = "§r§9Party §8> §b[MVP§2+§b] Su386§f: §r§bHalloo§r";
+        String prefix = ChatColors.getPrefix(message);
+        System.out.println(prefix);
+        String color = ChatColors.getChatColour(prefix);
+        System.out.println(color);
+        message = ChatColors.insertColour(message, color);
+        
+        System.out.println(message);
     }
 
     public static final String MODID = "partlysaneskies";
@@ -131,6 +131,7 @@ public class Main {
         MinecraftForge.EVENT_BUS.register(locationBannerDisplay);
         MinecraftForge.EVENT_BUS.register(new ChatAlertsManager());
         MinecraftForge.EVENT_BUS.register(new GardenTradeValue());
+        MinecraftForge.EVENT_BUS.register(new ChatColors());
 
         // Registers all client side commands
         ClientCommandHandler.instance.registerCommand(new PartyManagerCommand());

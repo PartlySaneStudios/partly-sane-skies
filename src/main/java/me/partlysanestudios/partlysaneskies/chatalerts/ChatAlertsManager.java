@@ -15,7 +15,6 @@ import com.google.gson.GsonBuilder;
 import me.partlysanestudios.partlysaneskies.Main;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.audio.PositionedSoundRecord;
-import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -204,9 +203,7 @@ public class ChatAlertsManager {
                     .playSound(PositionedSoundRecord.create(new ResourceLocation("partlysaneskies", "flute_scale")));
 
             // Shows message to user
-            Main.minecraft.ingameGUI
-                    .getChatGUI()
-                    .printChatMessage(new ChatComponentText(messageBuilder.toString()));
+            Utils.sendClientMessage(messageBuilder.toString(), true);
 
             // Exists loop
             break;

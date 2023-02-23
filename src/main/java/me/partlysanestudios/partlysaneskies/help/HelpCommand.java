@@ -12,7 +12,6 @@ import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.ChatComponentText;
 
 public class HelpCommand implements ICommand {
     @Override
@@ -72,7 +71,7 @@ public class HelpCommand implements ICommand {
     }
     
     public static void printHelpMessage() {
-        Main.minecraft.ingameGUI.getChatGUI().printChatMessage(new ChatComponentText(Utils.colorCodes(
+        Utils.sendClientMessage(Utils.colorCodes(
                 "&3&m-----------------------------------------------------&r" +
                 "\n" +
                 "\n&b&l&nWelcome to Partly Sane Skies!&r" +
@@ -113,6 +112,6 @@ public class HelpCommand implements ICommand {
                 "\n /chatalert" +
                 "\n    > Allows you to recieve alerts when certain messages are sent in chat. See github for more information" +
                 "\n&3&m-----------------------------------------------------&r"
-        )));
+        ), true);
     }
 }

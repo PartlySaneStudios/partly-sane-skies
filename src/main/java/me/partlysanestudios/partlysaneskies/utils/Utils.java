@@ -73,8 +73,7 @@ public class Utils {
         System.out.println("\n\n\n" + print.toString() + "\n\n\n");
 
         try {
-            Main.minecraft.ingameGUI.getChatGUI()
-                    .printChatMessage(new ChatComponentText("\n            " + print.toString() + ""));
+            sendClientMessage("\n            " + print.toString() + "", true);
             StringSelection stringSelection = new StringSelection(print.toString());
             Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
             clipboard.setContents(stringSelection, null);
@@ -84,13 +83,29 @@ public class Utils {
     }
 
     public static void sendClientMessage(String text) {
+        sendClientMessage(text, false);
+    }
+
+    // If true, Sends a message discretely without the Prefix Partly Sane Skies >:
+    public static void sendClientMessage(String text, boolean silent) {
+
         text = Utils.colorCodes(text);
-        try {
+        if (silent) {
+            try {
             Main.minecraft.ingameGUI
                     .getChatGUI()
-                    .printChatMessage(new ChatComponentText(colorCodes(Main.CHAT_PREFIX) + "" + text));
-        } catch (NullPointerException e) {
-        } finally {
+                    .printChatMessage(new ChatComponentText(text));
+
+            } catch (NullPointerException e) {
+            }
+        }
+        else {
+            try {
+                Main.minecraft.ingameGUI
+                        .getChatGUI()
+                        .printChatMessage(new ChatComponentText(colorCodes(Main.CHAT_PREFIX) + "" + text));
+            } catch (NullPointerException e) {
+            } 
         }
     }
 
