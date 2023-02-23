@@ -106,6 +106,7 @@ Using ``/ca``, you can add and remove specific phrases that will be highlighted 
 ### Chat Color
 
 Private messages and messages that are sent in the Party, Guild, Guild Officer, or Skyblock Co-op channels will now have the color of the channel they are sent in.
+
 ![Chat Colors](images/chat_color.png)
 
 ### Incorrect Pet for Minion Alert
