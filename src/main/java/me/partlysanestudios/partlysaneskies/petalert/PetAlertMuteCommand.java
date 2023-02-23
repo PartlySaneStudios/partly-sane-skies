@@ -3,7 +3,7 @@ package me.partlysanestudios.partlysaneskies.petalert;
 import java.util.Arrays;
 import java.util.List;
 
-import me.partlysanestudios.partlysaneskies.Main;
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandException;
@@ -35,7 +35,7 @@ public class PetAlertMuteCommand implements ICommand {
 
     @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
-        Utils.sendClientMessage("&dPet alert has been muted for " +  Main.config.petAlertMuteTime + " minutes.");
+        Utils.sendClientMessage("&dPet alert has been muted for " +  PartlySaneSkies.config.petAlertMuteTime + " minutes.");
         PetAlert.lastMuteTime = Minecraft.getSystemTime();
     }
 

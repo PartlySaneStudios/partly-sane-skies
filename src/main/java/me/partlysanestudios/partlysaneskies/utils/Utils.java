@@ -22,7 +22,7 @@ import gg.essential.elementa.UIComponent;
 import gg.essential.elementa.components.UIImage;
 import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
-import me.partlysanestudios.partlysaneskies.Main;
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.WikiArticleOpener;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.item.ItemStack;
@@ -92,7 +92,7 @@ public class Utils {
         text = Utils.colorCodes(text);
         if (silent) {
             try {
-            Main.minecraft.ingameGUI
+            PartlySaneSkies.minecraft.ingameGUI
                     .getChatGUI()
                     .printChatMessage(new ChatComponentText(text));
 
@@ -101,9 +101,9 @@ public class Utils {
         }
         else {
             try {
-                Main.minecraft.ingameGUI
+                PartlySaneSkies.minecraft.ingameGUI
                         .getChatGUI()
-                        .printChatMessage(new ChatComponentText(colorCodes(Main.CHAT_PREFIX) + "" + text));
+                        .printChatMessage(new ChatComponentText(colorCodes(PartlySaneSkies.CHAT_PREFIX) + "" + text));
             } catch (NullPointerException e) {
             } 
         }
@@ -123,19 +123,19 @@ public class Utils {
     }
 
     public static double toPercentageOfWidth(double value) {
-        return value / (Main.minecraft.displayWidth / 2);
+        return value / (PartlySaneSkies.minecraft.displayWidth / 2);
     }
 
     public static double toPercentageOfHeight(double value) {
-        return value / (Main.minecraft.displayHeight / 2);
+        return value / (PartlySaneSkies.minecraft.displayHeight / 2);
     }
 
     public static double fromPercentageOfWidth(double value) {
-        return value * (Main.minecraft.displayWidth / 2);
+        return value * (PartlySaneSkies.minecraft.displayWidth / 2);
     }
 
     public static double fromPercentageOfHeight(double value) {
-        return value * (Main.minecraft.displayHeight / 2);
+        return value * (PartlySaneSkies.minecraft.displayHeight / 2);
     }
 
     public static void copyStringToClipboard(String string) {
@@ -307,19 +307,19 @@ public class Utils {
     }
 
     public static void clickOnSlot(int slot) {
-        PlayerControllerMP controller = Main.minecraft.playerController;
+        PlayerControllerMP controller = PartlySaneSkies.minecraft.playerController;
 
         // controller.windowClick(Main.minecraft.thePlayer.openContainer.windowId, slot,
         // 2, 3, Main.minecraft.thePlayer);
-        controller.windowClick(Main.minecraft.thePlayer.openContainer.windowId, slot, 0, 0, Main.minecraft.thePlayer);
+        controller.windowClick(PartlySaneSkies.minecraft.thePlayer.openContainer.windowId, slot, 0, 0, PartlySaneSkies.minecraft.thePlayer);
     }
 
     public static void rightClickOnSlot(int slot) {
-        PlayerControllerMP controller = Main.minecraft.playerController;
+        PlayerControllerMP controller = PartlySaneSkies.minecraft.playerController;
 
         // controller.windowClick(Main.minecraft.thePlayer.openContainer.windowId, slot,
         // 2, 3, Main.minecraft.thePlayer);
-        controller.windowClick(Main.minecraft.thePlayer.openContainer.windowId, slot, 0, 0, Main.minecraft.thePlayer);
+        controller.windowClick(PartlySaneSkies.minecraft.thePlayer.openContainer.windowId, slot, 0, 0, PartlySaneSkies.minecraft.thePlayer);
     }
 
     public static ArrayList<String> getLore(ItemStack itemStack) {
@@ -352,7 +352,7 @@ public class Utils {
         DecimalFormat decimalFormat = new DecimalFormat("#,###.00");
 
         String hundredsPlaceFormat = "";
-        switch (Main.config.hundredsPlaceFormat) {
+        switch (PartlySaneSkies.config.hundredsPlaceFormat) {
             case 0:
                 hundredsPlaceFormat = ",";
                 break;
@@ -367,7 +367,7 @@ public class Utils {
         }
 
         String decimalPlaceFormat = "";
-        switch (Main.config.decimalPlaceFormat) {
+        switch (PartlySaneSkies.config.decimalPlaceFormat) {
             case 0:
                 decimalPlaceFormat = ",";
                 break;

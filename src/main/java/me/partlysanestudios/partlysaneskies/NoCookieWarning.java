@@ -73,7 +73,7 @@ public class NoCookieWarning {
     }
 
     public static boolean hasLotsOfCoins() {
-        if (Main.getCoins() > Main.config.maxWithoutCookie) {
+        if (PartlySaneSkies.getCoins() > PartlySaneSkies.config.maxWithoutCookie) {
             return true;
         } else {
             return false;
@@ -84,7 +84,7 @@ public class NoCookieWarning {
         lastWarnTime = Minecraft.getSystemTime();
         color = Color.red;
         displayString = "No Booster Cookie. You will loose your coins on death";
-        Main.minecraft.getSoundHandler()
+        PartlySaneSkies.minecraft.getSoundHandler()
                 .playSound(PositionedSoundRecord.create(new ResourceLocation("partlysaneskies", "bell")));
     }
 
@@ -93,11 +93,11 @@ public class NoCookieWarning {
     }
 
     public static boolean checkExpire() {
-        return getTimeSinceLastWarn() > Main.config.noCookieWarnTime * 1000;
+        return getTimeSinceLastWarn() > PartlySaneSkies.config.noCookieWarnTime * 1000;
     }
 
     public static boolean checkWarnAgain() {
-        if (getTimeSinceLastWarn() > Main.config.noCookieWarnCooldown * 1000) {
+        if (getTimeSinceLastWarn() > PartlySaneSkies.config.noCookieWarnCooldown * 1000) {
             return true;
         }
 
@@ -108,7 +108,7 @@ public class NoCookieWarning {
 
     @SubscribeEvent
     public void renderText(RenderGameOverlayEvent.Text event) {
-        short alpha = LocationBannerDisplay.getAlpha(getTimeSinceLastWarn(), Main.config.noCookieWarnTime);
+        short alpha = LocationBannerDisplay.getAlpha(getTimeSinceLastWarn(), PartlySaneSkies.config.noCookieWarnTime);
 
         if (color == null)
             color = Color.gray;
@@ -129,13 +129,13 @@ public class NoCookieWarning {
 
     @SubscribeEvent
     public void checkCoinsTick(ClientTickEvent event) {
-        if (!Main.isSkyblock()) {
+        if (!PartlySaneSkies.isSkyblock()) {
             return;
         }
-        if (!Main.config.noCookieWarning) {
+        if (!PartlySaneSkies.config.noCookieWarning) {
             return;
         }
-        if (Main.getCoins() < Main.config.maxWithoutCookie) {
+        if (PartlySaneSkies.getCoins() < PartlySaneSkies.config.maxWithoutCookie) {
             return;
         }
         if (hasBoosterCookie() == 1) {

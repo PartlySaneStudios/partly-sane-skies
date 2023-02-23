@@ -3,7 +3,7 @@ package me.partlysanestudios.partlysaneskies.auctionhouse;
 import java.util.List;
 
 import gg.essential.elementa.UIComponent;
-import me.partlysanestudios.partlysaneskies.Main;
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.SkyblockItem;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.item.ItemStack;
@@ -80,7 +80,7 @@ public class Auction {
         }
         double averageAhPrice = SkyblockItem.getItem(itemId).getPrice();
 
-        if (sellingPrice <= averageAhPrice * Main.config.BINSniperPercent) {
+        if (sellingPrice <= averageAhPrice * PartlySaneSkies.config.BINSniperPercent) {
             return true;
         }
         return false;

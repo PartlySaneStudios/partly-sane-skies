@@ -12,7 +12,7 @@ import java.util.List;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import me.partlysanestudios.partlysaneskies.Main;
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.util.ResourceLocation;
@@ -198,7 +198,7 @@ public class ChatAlertsManager {
             messageBuilder.insert(alertIndexFormatted, charsToAdd, 0, charsToAdd.length);
 
             // Plays a flute sound 
-            Main.minecraft
+            PartlySaneSkies.minecraft
                     .getSoundHandler()
                     .playSound(PositionedSoundRecord.create(new ResourceLocation("partlysaneskies", "flute_scale")));
 

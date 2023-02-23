@@ -15,7 +15,7 @@ import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.SkyblockItem;
-import me.partlysanestudios.partlysaneskies.Main;
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.inventory.IInventory;
@@ -27,14 +27,14 @@ public class GardenTradeValue {
     private static Window window = new Window(ElementaVersion.V2);
     // Returns if the player is currently viewing a trading screen
     public static boolean isTrade() {
-        if (Main.minecraft.currentScreen == null) {
+        if (PartlySaneSkies.minecraft.currentScreen == null) {
             return false;
         }
-        if (!(Main.minecraft.currentScreen instanceof GuiChest)) {
+        if (!(PartlySaneSkies.minecraft.currentScreen instanceof GuiChest)) {
             return false;
         }
 
-        IInventory[] inventories = Main.getSeparateUpperLowerInventories(Main.minecraft.currentScreen);
+        IInventory[] inventories = PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen);
         IInventory trader = inventories[0];
 
         // Slots 29 and 33 are where the buttons should be
@@ -64,7 +64,7 @@ public class GardenTradeValue {
 
     // Returns a hashmap containing the name of an item and the quanitity
     public static HashMap<String, Integer> getQuantityCostMap() {
-        IInventory[] inventories = Main.getSeparateUpperLowerInventories(Main.minecraft.currentScreen);
+        IInventory[] inventories = PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen);
         IInventory trader = inventories[0];
 
         // Slots 29 is where the accept buttons is
@@ -137,7 +137,7 @@ public class GardenTradeValue {
     }
 
     public static List<String> getRewardsLore() {
-        IInventory[] inventories = Main.getSeparateUpperLowerInventories(Main.minecraft.currentScreen);
+        IInventory[] inventories = PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen);
         IInventory trader = inventories[0];
 
         // Slots 29 is where the accept buttons is
@@ -237,7 +237,7 @@ public class GardenTradeValue {
             box.hide();
             return;
         }
-        if (!Main.config.gardenShopTradeInfo) {
+        if (!PartlySaneSkies.config.gardenShopTradeInfo) {
             return;
         }
 

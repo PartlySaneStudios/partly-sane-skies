@@ -20,7 +20,7 @@ public class ChatColors {
 
     @SubscribeEvent
     public void detectNonMessage(ClientChatReceivedEvent event) {
-        if (!Main.config.colorNonMessages) {
+        if (!PartlySaneSkies.config.colorNonMessages) {
             return;
         }
 
@@ -38,7 +38,7 @@ public class ChatColors {
         // Checks to see if the message has a rank
         boolean containsRankNames = false;
         String unformattedMessage = event.message.getUnformattedText();
-        for (String rank : Main.RANK_NAMES) {
+        for (String rank : PartlySaneSkies.RANK_NAMES) {
             if (!unformattedMessage.contains(rank)) {
                 continue;
             }
@@ -59,37 +59,37 @@ public class ChatColors {
     public static String getChatColor(String prefix) {
         switch (prefix.toLowerCase()) {
             case "party":
-                if (!Main.config.colorPartyChat) {
+                if (!PartlySaneSkies.config.colorPartyChat) {
                     return "";
                 }
                 return Utils.colorCodes("&9");
 
             case "guild":
-                if (!Main.config.colorGuildChat) {
+                if (!PartlySaneSkies.config.colorGuildChat) {
                     return "";
                 }
                 return Utils.colorCodes("&2");
 
             case "officer":
-                if (!Main.config.colorOfficerChat) {
+                if (!PartlySaneSkies.config.colorOfficerChat) {
                     return "";
                 }
                 return Utils.colorCodes("&3");
 
             case "to":
-                if (!Main.config.colorPrivateMessages) {
+                if (!PartlySaneSkies.config.colorPrivateMessages) {
                     return "";
                 }
                 return Utils.colorCodes("&d");
 
             case "from":
-                if (!Main.config.colorPrivateMessages) {
+                if (!PartlySaneSkies.config.colorPrivateMessages) {
                     return "";
                 }
                 return Utils.colorCodes("&d");
 
             case "co-op":
-                if (!Main.config.colorCoopChat) {
+                if (!PartlySaneSkies.config.colorCoopChat) {
                     return "";
                 }
                 return Utils.colorCodes("&b");

@@ -6,7 +6,7 @@ import java.util.List;
 import org.lwjgl.input.Keyboard;
 
 import me.partlysanestudios.partlysaneskies.Keybinds;
-import me.partlysanestudios.partlysaneskies.Main;
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommand;
@@ -46,7 +46,7 @@ public class HelpCommand implements ICommand {
                         Thread.sleep(100);
                     } catch (InterruptedException e) {
                     }
-                    Main.minecraft.displayGuiScreen(Main.config.gui());
+                    PartlySaneSkies.minecraft.displayGuiScreen(PartlySaneSkies.config.gui());
                 }
             }.start();
             return;

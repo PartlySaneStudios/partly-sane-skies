@@ -63,13 +63,13 @@ public class PartlySaneSkiesMainMenu extends WindowScreen {
 
     @SubscribeEvent
     public void openCustomMainMenu(GuiOpenEvent e) {
-        if (!(Main.config.customMainMenu))
+        if (!(PartlySaneSkies.config.customMainMenu))
             return;
         if (!(e.gui instanceof GuiMainMenu))
             return;
         e.setCanceled(true);
-        Main.minecraft.displayGuiScreen(new PartlySaneSkiesMainMenu(ElementaVersion.V2));
-        Main.minecraft.getSoundHandler()
+        PartlySaneSkies.minecraft.displayGuiScreen(new PartlySaneSkiesMainMenu(ElementaVersion.V2));
+        PartlySaneSkies.minecraft.getSoundHandler()
                 .playSound(PositionedSoundRecord.create(new ResourceLocation("partlysaneskies", "bell")));
     }
 
@@ -89,10 +89,10 @@ public class PartlySaneSkiesMainMenu extends WindowScreen {
 
         String image;
 
-        if (Main.config.customMainMenuImage == 0) {
+        if (PartlySaneSkies.config.customMainMenuImage == 0) {
             image = imageIdMap.get(Utils.randint(1, imageIdMap.size()));
         } else
-            image = imageIdMap.get(Main.config.customMainMenuImage);
+            image = imageIdMap.get(PartlySaneSkies.config.customMainMenuImage);
 
         background = UIImage.ofResource("/assets/partlysaneskies/textures/gui/main_menu/" + image)
                 .setX(new CenterConstraint())
@@ -114,7 +114,7 @@ public class PartlySaneSkiesMainMenu extends WindowScreen {
                 .setY(new CenterConstraint())
                 .setHeight(new PixelConstraint(middleMenuBar.getHeight()))
                 .setWidth(new PixelConstraint(2 * scaleFactor))
-                .setColor(Main.ACCENT_COLOR)
+                .setColor(PartlySaneSkies.ACCENT_COLOR)
                 .setChildOf(middleMenuBar);
 
         middleRightBar = new UIBlock()
@@ -122,7 +122,7 @@ public class PartlySaneSkiesMainMenu extends WindowScreen {
                 .setY(new CenterConstraint())
                 .setHeight(new PixelConstraint(middleMenuBar.getHeight()))
                 .setWidth(new PixelConstraint(2 * scaleFactor))
-                .setColor(Main.ACCENT_COLOR)
+                .setColor(PartlySaneSkies.ACCENT_COLOR)
                 .setChildOf(middleMenuBar);
 
         float titleHeight = 75;
@@ -243,7 +243,7 @@ public class PartlySaneSkiesMainMenu extends WindowScreen {
                 .setY(new PixelConstraint(400f * scaleFactor))
                 .setHeight(new PixelConstraint(1 * scaleFactor))
                 .setWidth(new PixelConstraint(middleMenuBar.getWidth() * .90f))
-                .setColor(Main.ACCENT_COLOR)
+                .setColor(PartlySaneSkies.ACCENT_COLOR)
                 .setChildOf(middleMenuBar);
 
         pssOptionsButton = new UIBlock()
@@ -261,7 +261,7 @@ public class PartlySaneSkiesMainMenu extends WindowScreen {
                 .setChildOf(pssOptionsButton);
 
         pssOptionsButton.onMouseClickConsumer(event -> {
-            this.mc.displayGuiScreen(Main.config.gui());
+            this.mc.displayGuiScreen(PartlySaneSkies.config.gui());
         });
 
         pssOptionsButton.onMouseEnterRunnable(() -> {

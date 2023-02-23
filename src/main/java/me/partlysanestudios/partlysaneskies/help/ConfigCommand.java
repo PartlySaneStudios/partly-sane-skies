@@ -3,7 +3,7 @@ package me.partlysanestudios.partlysaneskies.help;
 import java.util.Arrays;
 import java.util.List;
 
-import me.partlysanestudios.partlysaneskies.Main;
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommand;
@@ -43,7 +43,7 @@ public class ConfigCommand implements ICommand {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
                 }
-                Main.minecraft.displayGuiScreen(Main.config.gui());
+                PartlySaneSkies.minecraft.displayGuiScreen(PartlySaneSkies.config.gui());
             }
         }.start();
         

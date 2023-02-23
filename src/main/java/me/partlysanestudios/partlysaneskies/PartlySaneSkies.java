@@ -63,8 +63,8 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 
-@Mod(modid = Main.MODID, version = Main.VERSION, name = Main.NAME)
-public class Main {
+@Mod(modid = PartlySaneSkies.MODID, version = PartlySaneSkies.VERSION, name = PartlySaneSkies.NAME)
+public class PartlySaneSkies {
 
     public static void main(String[] args) {
         
@@ -95,14 +95,14 @@ public class Main {
     @EventHandler
     public void init(FMLInitializationEvent evnt) {
         System.out.println("Hallo World!");
-        Main.isDebugMode = false;
-        Main.minecraft = Minecraft.getMinecraft();
+        PartlySaneSkies.isDebugMode = false;
+        PartlySaneSkies.minecraft = Minecraft.getMinecraft();
 
         // Creates the partly-sane-skies directory if not already made
         new File("./config/partly-sane-skies/").mkdirs();
         
         // Loads the config files and options
-        Main.config = new ConfigScreen();
+        PartlySaneSkies.config = new ConfigScreen();
         
 
         // Loads perm party data
@@ -123,7 +123,7 @@ public class Main {
 
         // Loads user player data for PartyManager
         try {
-            PartyManager.loadPlayerData(Main.minecraft.getSession().getUsername());
+            PartyManager.loadPlayerData(PartlySaneSkies.minecraft.getSession().getUsername());
         } catch (IOException e) {
             System.out.println("Partly Sane Skies: Unable to load player data.");
             e.printStackTrace();
@@ -208,7 +208,7 @@ public class Main {
     // Runs chat analyzer for debug mode
     @SubscribeEvent
     public void chatAnalyzer(ClientChatReceivedEvent evnt) {
-        if (Main.isDebugMode)
+        if (PartlySaneSkies.isDebugMode)
             System.out.println(evnt.message.getFormattedText());
     }
 
@@ -239,8 +239,8 @@ public class Main {
 
     // Runs when debug key is pressed
     public static void debugMode() {
-        Main.isDebugMode = !Main.isDebugMode;
-        Utils.sendClientMessage("Debug mode: " + Main.isDebugMode);
+        PartlySaneSkies.isDebugMode = !PartlySaneSkies.isDebugMode;
+        Utils.sendClientMessage("Debug mode: " + PartlySaneSkies.isDebugMode);
     }
 
     // Returns a list of lines on the scoreboard,

@@ -3,7 +3,7 @@ package me.partlysanestudios.partlysaneskies.utils.guicomponents;
 import gg.essential.elementa.UIComponent;
 import gg.essential.elementa.constraints.PixelConstraint;
 import gg.essential.universal.UMatrixStack;
-import me.partlysanestudios.partlysaneskies.Main;
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.item.ItemStack;
@@ -25,7 +25,7 @@ public class UIItemRender extends UIComponent {
     }
 
     private void drawItemStack(ItemStack stack, int x, int y, String altText) {
-        RenderItem itemRenderer = Main.minecraft.getRenderItem();
+        RenderItem itemRenderer = PartlySaneSkies.minecraft.getRenderItem();
 
         GlStateManager.pushMatrix();
         GlStateManager.scale(itemScale, itemScale, 1);
@@ -34,7 +34,7 @@ public class UIItemRender extends UIComponent {
         if (stack != null)
             font = stack.getItem().getFontRenderer(stack);
         if (font == null)
-            font = Main.minecraft.fontRendererObj;
+            font = PartlySaneSkies.minecraft.fontRendererObj;
         itemRenderer.renderItemAndEffectIntoGUI(stack, Math.round(x / itemScale), Math.round(y / itemScale));
         GlStateManager.popMatrix();
 

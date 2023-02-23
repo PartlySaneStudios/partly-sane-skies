@@ -16,7 +16,7 @@ import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import gg.essential.elementa.constraints.ScaleConstraint;
 import gg.essential.universal.UMatrixStack;
-import me.partlysanestudios.partlysaneskies.Main;
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 
 public class PartyManagerGui extends WindowScreen {
@@ -30,10 +30,10 @@ public class PartyManagerGui extends WindowScreen {
             .setWidth(new PixelConstraint(getWindow().getWidth() * .9f))
             .setHeight(new PixelConstraint(getWindow().getHeight() * .9f))
             .setChildOf(getWindow())
-            .setColor(Main.BASE_DARK_COLOR);
+            .setColor(PartlySaneSkies.BASE_DARK_COLOR);
 
     // Creates the scrollable list
-    UIComponent list = new ScrollComponent("", 0f, Main.BASE_LIGHT_COLOR, false, true, false, false, 15f, 1f, null)
+    UIComponent list = new ScrollComponent("", 0f, PartlySaneSkies.BASE_LIGHT_COLOR, false, true, false, false, 15f, 1f, null)
             .setWidth(new PixelConstraint(background.getWidth()))
             .setHeight(new PixelConstraint(background.getHeight()))
             .setChildOf(background);
@@ -55,7 +55,7 @@ public class PartyManagerGui extends WindowScreen {
         UIComponent topBarBlock = new UIBlock()
                 .setWidth(new PixelConstraint(list.getWidth() - 20f))
                 .setHeight(new ScaleConstraint(new PixelConstraint(150f), scaleFactor))
-                .setColor(Main.BASE_COLOR)
+                .setColor(PartlySaneSkies.BASE_COLOR)
                 .setX(new CenterConstraint())
                 .setY(new PixelConstraint(10))
                 .setChildOf(list);
@@ -70,7 +70,7 @@ public class PartyManagerGui extends WindowScreen {
             UIComponent memberBlock = new UIBlock()
                     .setWidth(new PixelConstraint(list.getWidth() - 20f))
                     .setHeight(new ScaleConstraint(new PixelConstraint(200f), scaleFactor))
-                    .setColor(Main.BASE_COLOR)
+                    .setColor(PartlySaneSkies.BASE_COLOR)
                     .setX(new CenterConstraint())
                     .setY(new PixelConstraint(height))
                     .setChildOf(list);
@@ -118,7 +118,7 @@ public class PartyManagerGui extends WindowScreen {
                 .setChildOf(disbandButton);
 
         disbandButton.onMouseClickConsumer(event -> {
-            Main.minecraft.thePlayer.sendChatMessage("/party disband");
+            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party disband");
         });
 
         UIComponent kickOfflineButton = new UIRoundedRectangle(10f)
@@ -126,7 +126,7 @@ public class PartyManagerGui extends WindowScreen {
                 .setY(new PixelConstraint(10f * scaleFactor))
                 .setWidth(new PixelConstraint(100f * scaleFactor))
                 .setHeight(new PixelConstraint(55f * scaleFactor))
-                .setColor(Main.DARK_ACCENT_COLOR)
+                .setColor(PartlySaneSkies.DARK_ACCENT_COLOR)
                 .setChildOf(topBarBlock);
 
         new UIText("Kick Offline")
@@ -137,7 +137,7 @@ public class PartyManagerGui extends WindowScreen {
                 .setChildOf(kickOfflineButton);
 
         kickOfflineButton.onMouseClickConsumer(event -> {
-            Main.minecraft.thePlayer.sendChatMessage("/party kickoffline");
+            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party kickoffline");
         });
 
         UIComponent repartyButton = new UIRoundedRectangle(10f)
@@ -145,7 +145,7 @@ public class PartyManagerGui extends WindowScreen {
                 .setY(new PixelConstraint(10f * scaleFactor))
                 .setWidth(new PixelConstraint(100f * scaleFactor))
                 .setHeight(new PixelConstraint(55f * scaleFactor))
-                .setColor(Main.DARK_ACCENT_COLOR)
+                .setColor(PartlySaneSkies.DARK_ACCENT_COLOR)
                 .setChildOf(topBarBlock);
 
         new UIText("Reparty")
@@ -164,7 +164,7 @@ public class PartyManagerGui extends WindowScreen {
                 .setY(new PixelConstraint(10f * scaleFactor))
                 .setWidth(new PixelConstraint(100f * scaleFactor))
                 .setHeight(new PixelConstraint(55f * scaleFactor))
-                .setColor(Main.DARK_ACCENT_COLOR)
+                .setColor(PartlySaneSkies.DARK_ACCENT_COLOR)
                 .setChildOf(topBarBlock);
 
         new UIText("Ask if ready")
@@ -175,7 +175,7 @@ public class PartyManagerGui extends WindowScreen {
                 .setChildOf(readyRequestButton);
 
         readyRequestButton.onMouseClickConsumer(event -> {
-            Main.minecraft.thePlayer.sendChatMessage("/pc Everyone Ready?");
+            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/pc Everyone Ready?");
         });
 
         new UIText("Party Size: " + partyMembers.size())
@@ -198,7 +198,7 @@ public class PartyManagerGui extends WindowScreen {
                 .setY(new PixelConstraint(100 * scaleFactor))
                 .setWidth(new PixelConstraint(35f * scaleFactor))
                 .setHeight(new PixelConstraint(35f * scaleFactor))
-                .setColor(Main.DARK_ACCENT_COLOR)
+                .setColor(PartlySaneSkies.DARK_ACCENT_COLOR)
                 .setChildOf(topBarBlock);
 
         new UIText("F1")
@@ -209,7 +209,7 @@ public class PartyManagerGui extends WindowScreen {
                 .setChildOf(f1Button);
 
         f1Button.onMouseClickConsumer(event -> {
-            Main.minecraft.thePlayer.sendChatMessage("/joindungeon catacombs 0");
+            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon catacombs 0");
         });
 
         UIComponent f2Button = new UIRoundedRectangle(10f)
@@ -217,7 +217,7 @@ public class PartyManagerGui extends WindowScreen {
                 .setY(new PixelConstraint(100 * scaleFactor))
                 .setWidth(new PixelConstraint(35f * scaleFactor))
                 .setHeight(new PixelConstraint(35f * scaleFactor))
-                .setColor(Main.DARK_ACCENT_COLOR)
+                .setColor(PartlySaneSkies.DARK_ACCENT_COLOR)
                 .setChildOf(topBarBlock);
 
         new UIText("F2")
@@ -228,7 +228,7 @@ public class PartyManagerGui extends WindowScreen {
                 .setChildOf(f2Button);
 
         f2Button.onMouseClickConsumer(event -> {
-            Main.minecraft.thePlayer.sendChatMessage("/joindungeon catacombs 2");
+            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon catacombs 2");
         });
 
         UIComponent f3Button = new UIRoundedRectangle(10f)
@@ -236,7 +236,7 @@ public class PartyManagerGui extends WindowScreen {
                 .setY(new PixelConstraint(100 * scaleFactor))
                 .setWidth(new PixelConstraint(35f * scaleFactor))
                 .setHeight(new PixelConstraint(35f * scaleFactor))
-                .setColor(Main.DARK_ACCENT_COLOR)
+                .setColor(PartlySaneSkies.DARK_ACCENT_COLOR)
                 .setChildOf(topBarBlock);
 
         new UIText("F3")
@@ -247,7 +247,7 @@ public class PartyManagerGui extends WindowScreen {
                 .setChildOf(f3Button);
 
         f3Button.onMouseClickConsumer(event -> {
-            Main.minecraft.thePlayer.sendChatMessage("/joindungeon catacombs 3");
+            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon catacombs 3");
         });
 
         UIComponent f4Button = new UIRoundedRectangle(10f)
@@ -255,7 +255,7 @@ public class PartyManagerGui extends WindowScreen {
                 .setY(new PixelConstraint(100 * scaleFactor))
                 .setWidth(new PixelConstraint(35f * scaleFactor))
                 .setHeight(new PixelConstraint(35f * scaleFactor))
-                .setColor(Main.DARK_ACCENT_COLOR)
+                .setColor(PartlySaneSkies.DARK_ACCENT_COLOR)
                 .setChildOf(topBarBlock);
 
         new UIText("F4")
@@ -266,7 +266,7 @@ public class PartyManagerGui extends WindowScreen {
                 .setChildOf(f4Button);
 
         f4Button.onMouseClickConsumer(event -> {
-            Main.minecraft.thePlayer.sendChatMessage("/joindungeon catacombs 4");
+            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon catacombs 4");
         });
 
         UIComponent f5Button = new UIRoundedRectangle(10f)
@@ -274,7 +274,7 @@ public class PartyManagerGui extends WindowScreen {
                 .setY(new PixelConstraint(100 * scaleFactor))
                 .setWidth(new PixelConstraint(35f * scaleFactor))
                 .setHeight(new PixelConstraint(35f * scaleFactor))
-                .setColor(Main.DARK_ACCENT_COLOR)
+                .setColor(PartlySaneSkies.DARK_ACCENT_COLOR)
                 .setChildOf(topBarBlock);
 
         new UIText("F5")
@@ -285,7 +285,7 @@ public class PartyManagerGui extends WindowScreen {
                 .setChildOf(f5Button);
 
         f5Button.onMouseClickConsumer(event -> {
-            Main.minecraft.thePlayer.sendChatMessage("/joindungeon catacombs 5");
+            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon catacombs 5");
         });
 
         UIComponent f6Button = new UIRoundedRectangle(10f)
@@ -293,7 +293,7 @@ public class PartyManagerGui extends WindowScreen {
                 .setY(new PixelConstraint(100 * scaleFactor))
                 .setWidth(new PixelConstraint(35f * scaleFactor))
                 .setHeight(new PixelConstraint(35f * scaleFactor))
-                .setColor(Main.DARK_ACCENT_COLOR)
+                .setColor(PartlySaneSkies.DARK_ACCENT_COLOR)
                 .setChildOf(topBarBlock);
 
         new UIText("F6")
@@ -304,7 +304,7 @@ public class PartyManagerGui extends WindowScreen {
                 .setChildOf(f6Button);
 
         f6Button.onMouseClickConsumer(event -> {
-            Main.minecraft.thePlayer.sendChatMessage("/joindungeon catacombs 6");
+            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon catacombs 6");
         });
 
         UIComponent f7Button = new UIRoundedRectangle(10f)
@@ -312,7 +312,7 @@ public class PartyManagerGui extends WindowScreen {
                 .setY(new PixelConstraint(100 * scaleFactor))
                 .setWidth(new PixelConstraint(35f * scaleFactor))
                 .setHeight(new PixelConstraint(35f * scaleFactor))
-                .setColor(Main.DARK_ACCENT_COLOR)
+                .setColor(PartlySaneSkies.DARK_ACCENT_COLOR)
                 .setChildOf(topBarBlock);
 
         new UIText("F7")
@@ -323,7 +323,7 @@ public class PartyManagerGui extends WindowScreen {
                 .setChildOf(f7Button);
 
         f7Button.onMouseClickConsumer(event -> {
-            Main.minecraft.thePlayer.sendChatMessage("/joindungeon catacombs 7");
+            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon catacombs 7");
         });
 
         UIComponent m1Button = new UIRoundedRectangle(10f)
@@ -331,7 +331,7 @@ public class PartyManagerGui extends WindowScreen {
                 .setY(new PixelConstraint(100 * scaleFactor))
                 .setWidth(new PixelConstraint(35f * scaleFactor))
                 .setHeight(new PixelConstraint(35f * scaleFactor))
-                .setColor(Main.DARK_ACCENT_COLOR)
+                .setColor(PartlySaneSkies.DARK_ACCENT_COLOR)
                 .setChildOf(topBarBlock);
 
         new UIText("M1")
@@ -342,7 +342,7 @@ public class PartyManagerGui extends WindowScreen {
                 .setChildOf(m1Button);
 
         m1Button.onMouseClickConsumer(event -> {
-            Main.minecraft.thePlayer.sendChatMessage("/joindungeon master_catacombs 1");
+            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon master_catacombs 1");
         });
 
         UIComponent m2Button = new UIRoundedRectangle(10f)
@@ -350,7 +350,7 @@ public class PartyManagerGui extends WindowScreen {
                 .setY(new PixelConstraint(100 * scaleFactor))
                 .setWidth(new PixelConstraint(35f * scaleFactor))
                 .setHeight(new PixelConstraint(35f * scaleFactor))
-                .setColor(Main.DARK_ACCENT_COLOR)
+                .setColor(PartlySaneSkies.DARK_ACCENT_COLOR)
                 .setChildOf(topBarBlock);
 
         new UIText("M2")
@@ -361,7 +361,7 @@ public class PartyManagerGui extends WindowScreen {
                 .setChildOf(m2Button);
 
         m2Button.onMouseClickConsumer(event -> {
-            Main.minecraft.thePlayer.sendChatMessage("/joindungeon master_catacombs 2");
+            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon master_catacombs 2");
         });
 
         UIComponent m3Button = new UIRoundedRectangle(10f)
@@ -369,7 +369,7 @@ public class PartyManagerGui extends WindowScreen {
                 .setY(new PixelConstraint(100 * scaleFactor))
                 .setWidth(new PixelConstraint(35f * scaleFactor))
                 .setHeight(new PixelConstraint(35f * scaleFactor))
-                .setColor(Main.DARK_ACCENT_COLOR)
+                .setColor(PartlySaneSkies.DARK_ACCENT_COLOR)
                 .setChildOf(topBarBlock);
 
         new UIText("M3")
@@ -380,7 +380,7 @@ public class PartyManagerGui extends WindowScreen {
                 .setChildOf(m3Button);
 
         m3Button.onMouseClickConsumer(event -> {
-            Main.minecraft.thePlayer.sendChatMessage("/joindungeon master_catacombs 3");
+            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon master_catacombs 3");
         });
 
         UIComponent m4Button = new UIRoundedRectangle(10f)
@@ -388,7 +388,7 @@ public class PartyManagerGui extends WindowScreen {
                 .setY(new PixelConstraint(100 * scaleFactor))
                 .setWidth(new PixelConstraint(35f * scaleFactor))
                 .setHeight(new PixelConstraint(35f * scaleFactor))
-                .setColor(Main.DARK_ACCENT_COLOR)
+                .setColor(PartlySaneSkies.DARK_ACCENT_COLOR)
                 .setChildOf(topBarBlock);
 
         new UIText("M4")
@@ -399,7 +399,7 @@ public class PartyManagerGui extends WindowScreen {
                 .setChildOf(m4Button);
 
         m4Button.onMouseClickConsumer(event -> {
-            Main.minecraft.thePlayer.sendChatMessage("/joindungeon master_catacombs 4");
+            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon master_catacombs 4");
         });
 
         UIComponent m5Button = new UIRoundedRectangle(10f)
@@ -407,7 +407,7 @@ public class PartyManagerGui extends WindowScreen {
                 .setY(new PixelConstraint(100 * scaleFactor))
                 .setWidth(new PixelConstraint(35f * scaleFactor))
                 .setHeight(new PixelConstraint(35f * scaleFactor))
-                .setColor(Main.DARK_ACCENT_COLOR)
+                .setColor(PartlySaneSkies.DARK_ACCENT_COLOR)
                 .setChildOf(topBarBlock);
 
         new UIText("M5")
@@ -418,7 +418,7 @@ public class PartyManagerGui extends WindowScreen {
                 .setChildOf(m5Button);
 
         m5Button.onMouseClickConsumer(event -> {
-            Main.minecraft.thePlayer.sendChatMessage("/joindungeon master_catacombs 5");
+            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon master_catacombs 5");
         });
 
         UIComponent m6Button = new UIRoundedRectangle(10f)
@@ -426,7 +426,7 @@ public class PartyManagerGui extends WindowScreen {
                 .setY(new PixelConstraint(100 * scaleFactor))
                 .setWidth(new PixelConstraint(35f * scaleFactor))
                 .setHeight(new PixelConstraint(35f * scaleFactor))
-                .setColor(Main.DARK_ACCENT_COLOR)
+                .setColor(PartlySaneSkies.DARK_ACCENT_COLOR)
                 .setChildOf(topBarBlock);
 
         new UIText("M6")
@@ -437,7 +437,7 @@ public class PartyManagerGui extends WindowScreen {
                 .setChildOf(m6Button);
 
         m6Button.onMouseClickConsumer(event -> {
-            Main.minecraft.thePlayer.sendChatMessage("/joindungeon master_catacombs 6");
+            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon master_catacombs 6");
         });
 
         UIComponent m7Button = new UIRoundedRectangle(10f)
@@ -445,7 +445,7 @@ public class PartyManagerGui extends WindowScreen {
                 .setY(new PixelConstraint(100 * scaleFactor))
                 .setWidth(new PixelConstraint(35f * scaleFactor))
                 .setHeight(new PixelConstraint(35f * scaleFactor))
-                .setColor(Main.DARK_ACCENT_COLOR)
+                .setColor(PartlySaneSkies.DARK_ACCENT_COLOR)
                 .setChildOf(topBarBlock);
 
         new UIText("M7")
@@ -456,7 +456,7 @@ public class PartyManagerGui extends WindowScreen {
                 .setChildOf(m7Button);
 
         m7Button.onMouseClickConsumer(event -> {
-            Main.minecraft.thePlayer.sendChatMessage("/joindungeon master_catacombs 7");
+            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon master_catacombs 7");
         });
     }
 

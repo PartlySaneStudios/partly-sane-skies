@@ -21,7 +21,7 @@ public class WikiArticleOpener {
 
     public static void getArticle(String id) {
         isWaitingForArticle = true;
-        Main.minecraft.thePlayer.sendChatMessage("/wiki " + id);
+        PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/wiki " + id);
     }
 
     @SubscribeEvent
@@ -39,7 +39,7 @@ public class WikiArticleOpener {
 
         isWaitingForArticle = false;
         String wikiLink = e.message.getChatStyle().getChatClickEvent().getValue();
-        if (Main.config.openWikiAutomatically) {
+        if (PartlySaneSkies.config.openWikiAutomatically) {
             URI uri;
             try {
                 uri = new URI(wikiLink);
@@ -59,17 +59,17 @@ public class WikiArticleOpener {
     }
 
     public static void keyDown() {
-        if (!Main.isSkyblock()) {
+        if (!PartlySaneSkies.isSkyblock()) {
             return;
         }
         ItemStack item;
-        if (!(Main.minecraft.currentScreen instanceof GuiContainer)) {
+        if (!(PartlySaneSkies.minecraft.currentScreen instanceof GuiContainer)) {
             return;
         }
-        if (Main.minecraft.currentScreen instanceof AhGui) {
+        if (PartlySaneSkies.minecraft.currentScreen instanceof AhGui) {
             return;
         }
-        GuiContainer container = (GuiContainer) Main.minecraft.currentScreen;
+        GuiContainer container = (GuiContainer) PartlySaneSkies.minecraft.currentScreen;
         Slot slot = container.getSlotUnderMouse();
         if (slot == null)
             return;

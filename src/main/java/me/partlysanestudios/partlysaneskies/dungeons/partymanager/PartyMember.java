@@ -14,7 +14,7 @@ import gg.essential.elementa.components.UIRoundedRectangle;
 import gg.essential.elementa.components.UIText;
 import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
-import me.partlysanestudios.partlysaneskies.Main;
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.Minecraft;
 
@@ -551,7 +551,7 @@ public class PartyMember {
                 .setY(new PixelConstraint(15f * scaleFactor))
                 .setWidth(new PixelConstraint(125f * scaleFactor))
                 .setHeight(new PixelConstraint(55f * scaleFactor))
-                .setColor(Main.DARK_ACCENT_COLOR)
+                .setColor(PartlySaneSkies.DARK_ACCENT_COLOR)
                 .setChildOf(memberBlock);
 
         new UIText("Kick")
@@ -562,7 +562,7 @@ public class PartyMember {
                 .setChildOf(kickButton);
 
         kickButton.onMouseClickConsumer(event -> {
-            Main.minecraft.thePlayer.sendChatMessage("/party kick " + this.username);
+            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party kick " + this.username);
         });
 
         UIComponent promoteButton = new UIRoundedRectangle(10f)
@@ -570,7 +570,7 @@ public class PartyMember {
                 .setY(new PixelConstraint(75 * scaleFactor))
                 .setWidth(new PixelConstraint(125f * scaleFactor))
                 .setHeight(new PixelConstraint(55f * scaleFactor))
-                .setColor(Main.DARK_ACCENT_COLOR)
+                .setColor(PartlySaneSkies.DARK_ACCENT_COLOR)
                 .setChildOf(memberBlock);
 
         new UIText("Promote")
@@ -582,7 +582,7 @@ public class PartyMember {
                 .setChildOf(promoteButton);
 
         promoteButton.onMouseClickConsumer(event -> {
-            Main.minecraft.thePlayer.sendChatMessage("/party promote " + this.username);
+            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party promote " + this.username);
         });
 
         UIComponent transferButton = new UIRoundedRectangle(10f)
@@ -590,7 +590,7 @@ public class PartyMember {
                 .setY(new PixelConstraint(135f * scaleFactor))
                 .setWidth(new PixelConstraint(125f * scaleFactor))
                 .setHeight(new PixelConstraint(55f * scaleFactor))
-                .setColor(Main.DARK_ACCENT_COLOR)
+                .setColor(PartlySaneSkies.DARK_ACCENT_COLOR)
                 .setChildOf(memberBlock);
 
         new UIText("Transfer")
@@ -601,7 +601,7 @@ public class PartyMember {
                 .setChildOf(transferButton);
 
         transferButton.onMouseClickConsumer(event -> {
-            Main.minecraft.thePlayer.sendChatMessage("/party transfer " + this.username);
+            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party transfer " + this.username);
         });
 
         UIComponent refreshButton = new UIRoundedRectangle(10f)
@@ -621,7 +621,7 @@ public class PartyMember {
 
         refreshButton.onMouseClickConsumer(event -> {
             this.timeDataGet = 0;
-            Main.minecraft.displayGuiScreen(null);
+            PartlySaneSkies.minecraft.displayGuiScreen(null);
             PartyManager.startPartyManager();
         });
     }
@@ -629,12 +629,12 @@ public class PartyMember {
 
     public boolean isExpired() {
         if (this.rank.equals(PartyRank.LEADER) && this.isPlayer)
-            return this.timeDataGet + Main.config.partyManagerCacheTime * 60 * 1000 * 2 < Minecraft.getSystemTime();
+            return this.timeDataGet + PartlySaneSkies.config.partyManagerCacheTime * 60 * 1000 * 2 < Minecraft.getSystemTime();
         if (this.refresh) {
             this.refresh = false;
             return true;
         }
-        return this.timeDataGet + Main.config.partyManagerCacheTime * 60 * 1000 < Minecraft.getSystemTime();
+        return this.timeDataGet + PartlySaneSkies.config.partyManagerCacheTime * 60 * 1000 < Minecraft.getSystemTime();
     }
 
     private static String formatText(String text) {

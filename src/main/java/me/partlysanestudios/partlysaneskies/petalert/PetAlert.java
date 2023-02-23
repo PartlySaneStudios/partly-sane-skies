@@ -5,7 +5,7 @@ import java.util.List;
 
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 
-import me.partlysanestudios.partlysaneskies.Main;
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.auctionhouse.AhGui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
@@ -31,25 +31,25 @@ public class PetAlert {
         if (!isMinionGui()) {
             return;
         }
-        Entity usersPet = getUsersPet(Main.minecraft.thePlayer.getName());
+        Entity usersPet = getUsersPet(PartlySaneSkies.minecraft.thePlayer.getName());
         String petName = "";
         if (usersPet != null) {
             petName = parsePetNameFromEntity(usersPet.getName());
         
         }
         
-        String selectedPetName = Main.config.selectectedPet;
+        String selectedPetName = PartlySaneSkies.config.selectectedPet;
         
         if (petName.equalsIgnoreCase(selectedPetName)) {
             return;
         }
 
-        if (onCooldown(lastMuteTime, (long) (Main.config.petAlertMuteTime * 60l * 1000l))) {
+        if (onCooldown(lastMuteTime, (long) (PartlySaneSkies.config.petAlertMuteTime * 60l * 1000l))) {
             return;
         }
         
         if (!onCooldown(lastSoundTime, 750)) {
-            Main.minecraft.getSoundHandler()
+            PartlySaneSkies.minecraft.getSoundHandler()
                 .playSound(
                     PositionedSoundRecord
                     .create(new ResourceLocation("partlysaneskies", "bell"))
@@ -58,10 +58,10 @@ public class PetAlert {
             lastSoundTime = Minecraft.getSystemTime();
         }
         if (!onCooldown(lastMessageSendTime,3000)) {
-            IChatComponent message = new ChatComponentText(Main.CHAT_PREFIX + Utils.colorCodes("&cYOU CURRENTLY HAVE " + petName + " SELECTED AS YOUR PET. YOU WANTED TO UPGRADE " + selectedPetName + "." +
-            "\n&dClick this message or run /mutepetalert to mute the alert for " + Main.config.petAlertMuteTime + " minutes."));
+            IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + Utils.colorCodes("&cYOU CURRENTLY HAVE " + petName + " SELECTED AS YOUR PET. YOU WANTED TO UPGRADE " + selectedPetName + "." +
+            "\n&dClick this message or run /mutepetalert to mute the alert for " + PartlySaneSkies.config.petAlertMuteTime + " minutes."));
             message.getChatStyle().setChatClickEvent(new ClickEvent(Action.RUN_COMMAND, "/mutepetalert"));
-            Main.minecraft.ingameGUI.getChatGUI().printChatMessage(message);
+            PartlySaneSkies.minecraft.ingameGUI.getChatGUI().printChatMessage(message);
             lastMessageSendTime = Minecraft.getSystemTime();
         }
         
@@ -75,18 +75,18 @@ public class PetAlert {
     }
 
     public static void favouritePet() {
-        if (!Main.isSkyblock()) {
+        if (!PartlySaneSkies.isSkyblock()) {
             return;
         }
         ItemStack item;
         if (!isPetGui()) {
             return;
         }
-        if (Main.minecraft.currentScreen instanceof AhGui) {
+        if (PartlySaneSkies.minecraft.currentScreen instanceof AhGui) {
             return;
         }
 
-        GuiContainer container = (GuiContainer) Main.minecraft.currentScreen;
+        GuiContainer container = (GuiContainer) PartlySaneSkies.minecraft.currentScreen;
         Slot slot = container.getSlotUnderMouse();
         if (slot == null)
             return;
@@ -100,9 +100,9 @@ public class PetAlert {
             return;
         }
         String petName = parsePetNameFromItem(item.getDisplayName());
-        Main.config.selectectedPet = petName;
+        PartlySaneSkies.config.selectectedPet = petName;
         Utils.sendClientMessage("Set " + petName + " as your favourite pet.");
-        Main.config.writeData();
+        PartlySaneSkies.config.writeData();
     }
 
     // Parses a pet's name from the armor stand string. Ex: "[Lv100] Su386's *Black Cat*"
@@ -119,21 +119,21 @@ public class PetAlert {
     }
 
     public static boolean isPetGui() {
-        if (!(Main.minecraft.currentScreen instanceof GuiChest)) {
+        if (!(PartlySaneSkies.minecraft.currentScreen instanceof GuiChest)) {
             return false;
         }
 
-        IInventory upper = Main.getSeparateUpperLowerInventories(Main.minecraft.currentScreen)[0];
+        IInventory upper = PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen)[0];
         return Utils.removeColorCodes(upper.getDisplayName().getFormattedText()).contains("Pets");
     }
 
 
     public static boolean isMinionGui() {
-        if (!(Main.minecraft.currentScreen instanceof GuiChest)) {
+        if (!(PartlySaneSkies.minecraft.currentScreen instanceof GuiChest)) {
             return false;
         }
 
-        IInventory upper = Main.getSeparateUpperLowerInventories(Main.minecraft.currentScreen)[0];
+        IInventory upper = PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen)[0];
         return Utils.removeColorCodes(upper.getDisplayName().getFormattedText()).contains("Minion");
     }
 
@@ -182,6 +182,6 @@ public class PetAlert {
     
     // Returns a list of all loaded entities in the world
     private static List<Entity> getAllEntitesInWorld() {
-        return Main.minecraft.theWorld.getLoadedEntityList();
+        return PartlySaneSkies.minecraft.theWorld.getLoadedEntityList();
     }
 }

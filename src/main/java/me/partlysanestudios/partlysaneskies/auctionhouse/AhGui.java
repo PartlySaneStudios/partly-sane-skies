@@ -11,7 +11,7 @@ import gg.essential.elementa.components.UIImage;
 import gg.essential.elementa.components.UIWrappedText;
 import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
-import me.partlysanestudios.partlysaneskies.Main;
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import me.partlysanestudios.partlysaneskies.utils.guicomponents.UIItemRender;
 import net.minecraft.inventory.IInventory;
@@ -46,7 +46,7 @@ public class AhGui extends WindowScreen {
             .setY(new CenterConstraint())
             .setWidth(widthScaledConstraint(mainBoxWidth))
             .setHeight(widthScaledConstraint(mainBoxHeight))
-            .setColor(Main.BASE_COLOR)
+            .setColor(PartlySaneSkies.BASE_COLOR)
             .setChildOf(getWindow());
         
 
@@ -55,7 +55,7 @@ public class AhGui extends WindowScreen {
         .setY(new PixelConstraint(mainBox.getBottom() + widthScaledConstraint(15).getValue()))
         .setWidth(widthScaledConstraint(mainBoxWidth - 100))
         .setHeight(widthScaledConstraint(40))
-        .setColor(Main.BASE_DARK_COLOR)
+        .setColor(PartlySaneSkies.BASE_DARK_COLOR)
         .setChildOf(getWindow());
 
         topBar = new UIBlock()
@@ -63,7 +63,7 @@ public class AhGui extends WindowScreen {
             .setY(new PixelConstraint(mainBox.getTop() - widthScaledConstraint(15 + 40).getValue()))
             .setWidth(widthScaledConstraint(mainBoxWidth - 100))
             .setHeight(widthScaledConstraint(40))
-            .setColor(Main.BASE_DARK_COLOR)
+            .setColor(PartlySaneSkies.BASE_DARK_COLOR)
             .setChildOf(getWindow());
 
         rightWindow = new UIBlock()
@@ -71,7 +71,7 @@ public class AhGui extends WindowScreen {
             .setY(new CenterConstraint())
             .setWidth(widthScaledConstraint(180))
             .setHeight(new PixelConstraint(bottomBar.getBottom() - topBar.getHeight()))
-            .setColor(Main.BASE_DARK_COLOR)
+            .setColor(PartlySaneSkies.BASE_DARK_COLOR)
             .setChildOf(getWindow());
 
         leftWindow = new UIBlock()
@@ -79,7 +79,7 @@ public class AhGui extends WindowScreen {
             .setY(new CenterConstraint())
             .setWidth(widthScaledConstraint(180))
             .setHeight(new PixelConstraint(bottomBar.getBottom() - topBar.getHeight()))
-            .setColor(Main.BASE_DARK_COLOR)
+            .setColor(PartlySaneSkies.BASE_DARK_COLOR)
             .setChildOf(getWindow());
 
         itemInfoText = new UIWrappedText("", true, null, true)
@@ -143,7 +143,7 @@ public class AhGui extends WindowScreen {
                     .setY(new CenterConstraint())
                     .setWidth(widthScaledConstraint(2))
                     .setHeight(widthScaledConstraint(25))
-                    .setColor(Main.DARK_ACCENT_COLOR)
+                    .setColor(PartlySaneSkies.DARK_ACCENT_COLOR)
                     .setChildOf(topBar);
         }
         UIComponent weaponsIcon = new UIBlock()
@@ -306,7 +306,7 @@ public class AhGui extends WindowScreen {
                     .setY(new CenterConstraint())
                     .setWidth(widthScaledConstraint(2))
                     .setHeight(widthScaledConstraint(25))
-                    .setColor(Main.DARK_ACCENT_COLOR)
+                    .setColor(PartlySaneSkies.DARK_ACCENT_COLOR)
                     .setChildOf(bottomBar);
         }
 
@@ -629,22 +629,22 @@ public class AhGui extends WindowScreen {
         switch (paneType) {
 
             case 1:
-                weaponsIcon.setColor(Utils.applyOpacityToColor(Main.ACCENT_COLOR, 75));
+                weaponsIcon.setColor(Utils.applyOpacityToColor(PartlySaneSkies.ACCENT_COLOR, 75));
                 break;
             case 11:
-                armorIcon.setColor(Utils.applyOpacityToColor(Main.ACCENT_COLOR, 75));
+                armorIcon.setColor(Utils.applyOpacityToColor(PartlySaneSkies.ACCENT_COLOR, 75));
                 break;
             case 13:
-                accessoriesIcon.setColor(Utils.applyOpacityToColor(Main.ACCENT_COLOR, 75));
+                accessoriesIcon.setColor(Utils.applyOpacityToColor(PartlySaneSkies.ACCENT_COLOR, 75));
                 break;
             case 14:
-                consumablesIcon.setColor(Utils.applyOpacityToColor(Main.ACCENT_COLOR, 75));
+                consumablesIcon.setColor(Utils.applyOpacityToColor(PartlySaneSkies.ACCENT_COLOR, 75));
                 break;
             case 12:
-                blocksIcon.setColor(Utils.applyOpacityToColor(Main.ACCENT_COLOR, 75));
+                blocksIcon.setColor(Utils.applyOpacityToColor(PartlySaneSkies.ACCENT_COLOR, 75));
                 break;
             case 10:
-                miscIcon.setColor(Utils.applyOpacityToColor(Main.ACCENT_COLOR, 75));
+                miscIcon.setColor(Utils.applyOpacityToColor(PartlySaneSkies.ACCENT_COLOR, 75));
                 break;
 
             default:
@@ -664,9 +664,9 @@ public class AhGui extends WindowScreen {
         Color boxColor;
 
         if (auction.shouldHighlight()) {
-            boxColor = Main.ACCENT_COLOR;
+            boxColor = PartlySaneSkies.ACCENT_COLOR;
         } else {
-            boxColor = Main.BASE_LIGHT_COLOR;
+            boxColor = PartlySaneSkies.BASE_LIGHT_COLOR;
         }
 
         UIComponent backgroundBox = new UIBlock()
