@@ -95,9 +95,10 @@ public class PartyMember {
         // If the response is in error, send error message and exit
         if (response.startsWith("Error")) {
             Utils.sendClientMessage(Utils.colorCodes("Error getting data for " + username + ". Maybe the player is nicked."));
+            return;
         }
         // Creates a Json object based on the response
-        JsonObject skycryptJson = (JsonObject) parser.parse(response);
+        JsonObject skycryptJson = parser.parse(response).getAsJsonObject();
 
         String currentProfileId = "";
         // Finds the id of the current profile
