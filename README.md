@@ -115,7 +115,7 @@ Warns you if you don't have the right pet for leveling up the minions, that way 
 
 ### Party Manager
 
-Manage your party and join dungeons with a helpful party manager, with features such as viewing stats, kicking, party transfer buttons, and etc. Included in the Party Manager GUI. You can open it by typing the command ``/pm`` or by using the keybind. Default: ``P``
+Manage your party and join dungeons with a helpful party manager, with features such as viewing stats, kicking, party transfer buttons, and etc. Included in the Party Manager GUI. You can open it by typing the command ``/pm`` or by using the keybind. Default: ``M``
 
 ![Custom Main Menu](images/party_manager.png)
 
