@@ -193,8 +193,8 @@ public class ChatAlertsManager {
             char[] charsToAdd = getLastColorCode(formattedMessage.substring(0, alertIndexFormatted + 1)).toCharArray();
             messageBuilder.insert(alertIndexFormatted + alert.length(), charsToAdd, 0, charsToAdd.length);
             
-            // Inserts a purple color code to highlight the message right before the alert
-            charsToAdd = Utils.colorCodes("&d").toCharArray();
+            // Inserts a purple and bold color code to highlight the message right before the alert
+            charsToAdd = Utils.colorCodes("&d&l").toCharArray();
             messageBuilder.insert(alertIndexFormatted, charsToAdd, 0, charsToAdd.length);
 
             // Plays a flute sound 
