@@ -25,21 +25,39 @@ public class ChatColors {
     public static String getChatColour(String prefix) {
         switch (prefix.toLowerCase()) {
             case "party":
+                if (!Main.config.colorPartyChat) {
+                    return "";
+                }
                 return Utils.colorCodes("&9");
 
             case "guild":
+                if (!Main.config.colorGuildChat) {
+                    return "";
+                }
                 return Utils.colorCodes("&2");
 
             case "officer":
+                if (!Main.config.colorOfficerChat) {
+                    return "";
+                }
                 return Utils.colorCodes("&3");
 
             case "to":
+                if (!Main.config.colorPrivateMessages) {
+                    return "";
+                }
                 return Utils.colorCodes("&d");
 
             case "from":
+                if (!Main.config.colorPrivateMessages) {
+                    return "";
+                }
                 return Utils.colorCodes("&d");
 
             case "co-op":
+                if (!Main.config.colorCoopChat) {
+                    return "";
+                }
                 return Utils.colorCodes("&b");
 
             default:

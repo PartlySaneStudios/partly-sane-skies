@@ -74,6 +74,51 @@ public class ConfigScreen extends Vigilant {
     )
     public int customMainMenuImage = 1;
 
+    @Property(
+        type = PropertyType.SWITCH,
+        name = "Color Private Messages", 
+        category = "General", 
+        subcategory = "Chat Color", 
+        description = "Private messages pink to make them more visable in busy lobbies."
+    )
+    public boolean colorPrivateMessages = false;
+
+    @Property(
+        type = PropertyType.SWITCH,
+        name = "Color Party Chat", 
+        category = "General", 
+        subcategory = "Chat Color", 
+        description = "Color messages from the party chat blue to make them more visable in busy lobbies."
+    )
+    public boolean colorPartyChat = false;
+
+    @Property(
+        type = PropertyType.SWITCH,
+        name = "Color Guild Chat", 
+        category = "General", 
+        subcategory = "Chat Color", 
+        description = "Color messages from the guild chat green to make them more visable in busy lobbies."
+    )
+    public boolean colorGuildChat = false;
+
+    @Property(
+        type = PropertyType.SWITCH,
+        name = "Color Guild Officer Chat", 
+        category = "General", 
+        subcategory = "Chat Color", 
+        description = "Color messages from the guild officer chat aqua to make them more visable in busy lobbies."
+    )
+    public boolean colorOfficerChat = false;
+
+    @Property(
+        type = PropertyType.SWITCH,
+        name = "Skyblock Co-op Chat", 
+        category = "General", 
+        subcategory = "Chat Color", 
+        description = "Color messages from the skyblock coop chat aqua to make them more visable in busy lobbies."
+    )
+    public boolean colorCoopChat = false;
+
 
 
     // ----------------- Category: Skyblock -------------------
