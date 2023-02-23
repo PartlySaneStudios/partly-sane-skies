@@ -758,15 +758,8 @@ public class AhGui extends WindowScreen {
         return this.getWindow().getWidth() / 1097f;
     }
 
-    // private float getHeightScaleFactor() {
-    // return this.getWindow().getHeight() / 582f;
-    // }
-
     private PixelConstraint widthScaledConstraint(float value) {
         return new PixelConstraint(value * getWidthScaleFactor());
     }
 
-    // private PixelConstraint heightScaledConstraint(float value) {
-    // return new PixelConstraint(value * getHeightScaleFactor());
-    // }
 }

@@ -15,13 +15,13 @@ import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManager;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManagerCommand;
 import me.partlysanestudios.partlysaneskies.dungeons.permpartyselector.PermPartyCommand;
 import me.partlysanestudios.partlysaneskies.dungeons.permpartyselector.PermPartyManager;
+import me.partlysanestudios.partlysaneskies.garden.GardenTradeValue;
 import me.partlysanestudios.partlysaneskies.general.LocationBannerDisplay;
 import me.partlysanestudios.partlysaneskies.general.NoCookieWarning;
 import me.partlysanestudios.partlysaneskies.general.WikiArticleOpener;
 import me.partlysanestudios.partlysaneskies.general.WormWarning;
 import me.partlysanestudios.partlysaneskies.general.chatalerts.ChatAlertsCommand;
 import me.partlysanestudios.partlysaneskies.general.chatalerts.ChatAlertsManager;
-import me.partlysanestudios.partlysaneskies.general.economy.ItemLowestBin;
 import me.partlysanestudios.partlysaneskies.general.economy.auctionhouse.AhManager;
 import me.partlysanestudios.partlysaneskies.general.partyfriend.PartyFriendManager;
 import me.partlysanestudios.partlysaneskies.general.partyfriend.PartyFriendManagerCommand;
@@ -54,7 +54,14 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 public class Main {
 
     public static void main(String[] args) {
-
+        try {
+            SkyblockItem.init();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        SkyblockItem.updateAll();
+        System.out.println(SkyblockItem.getItem(SkyblockItem.getId("Enchanted Golden Carrot")).getPrice());
     }
 
     public static final String MODID = "partlysaneskies";
@@ -96,7 +103,7 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        ItemLowestBin.updateAh();
+        
 
         // Loads chat alerts data
         try {
@@ -127,6 +134,7 @@ public class Main {
         locationBannerDisplay = new LocationBannerDisplay();
         MinecraftForge.EVENT_BUS.register(locationBannerDisplay);
         MinecraftForge.EVENT_BUS.register(new ChatAlertsManager());
+        MinecraftForge.EVENT_BUS.register(new GardenTradeValue());
 
         // Registers all client side commands
         ClientCommandHandler.instance.registerCommand(new PartyManagerCommand());
@@ -145,9 +153,16 @@ public class Main {
         // Itialises Utils class
         Utils.init();
 
+
         // Initializes skill upgrade recommendation
         SkillUpgradeRecommendation.populateSkillMap();
 
+        try {
+            SkyblockItem.init();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        SkyblockItem.updateAll();
 
         // Finished loading
         System.out.println("Partly Sane Skies has loaded.");
@@ -160,7 +175,7 @@ public class Main {
         locationBannerDisplay.checkLocation();
 
         // Updates item lowest bin price
-        ItemLowestBin.runUpdater();
+        SkyblockItem.runUpdater();
 
         // Checks if the current screen is the auciton house to run AHManager
         AhManager.runDisplayGuiCheck();
