@@ -73,7 +73,7 @@ public class GardenTradeValue {
         ArrayList<String> formattedAcceptButtonLore = Utils.getLore(acceptButton);
         
         // Removes all the format codes from lore
-        ArrayList<String> unforrmattedAcceptButtonLore = removeColourCodesFromList(formattedAcceptButtonLore);
+        ArrayList<String> unforrmattedAcceptButtonLore = removeColorCodesFromList(formattedAcceptButtonLore);
 
         int costLineIndex = unforrmattedAcceptButtonLore.indexOf("Items Required:");
         int rewardsStartIndex = unforrmattedAcceptButtonLore.indexOf("Rewards:");
@@ -146,7 +146,7 @@ public class GardenTradeValue {
         ArrayList<String> formattedAcceptButtonLore = Utils.getLore(acceptButton);
 
         // Removes all the format codes from lore
-        ArrayList<String> unforrmattedAcceptButtonLore = removeColourCodesFromList(formattedAcceptButtonLore);
+        ArrayList<String> unforrmattedAcceptButtonLore = removeColorCodesFromList(formattedAcceptButtonLore);
 
         int rewardsStartIndex = unforrmattedAcceptButtonLore.indexOf("Rewards:");
 
@@ -157,7 +157,7 @@ public class GardenTradeValue {
         
 
         
-        List<String> unformattedRewardsLore = removeColourCodesFromList(getRewardsLore());
+        List<String> unformattedRewardsLore = removeColorCodesFromList(getRewardsLore());
 
         for (String line : unformattedRewardsLore) {
             if (!line.contains(" Copper")) {
@@ -178,7 +178,7 @@ public class GardenTradeValue {
     }
 
     // Returns a new list with all format codes removed
-    public static ArrayList<String> removeColourCodesFromList(List<String> list) {
+    public static ArrayList<String> removeColorCodesFromList(List<String> list) {
         ArrayList<String> newList = new ArrayList<String>();
 
         for (String oldLine : list) {

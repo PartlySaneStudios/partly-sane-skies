@@ -15,8 +15,8 @@ public class ChatColors {
         }
 
         event.setCanceled(true);
-        String color = getChatColour(prefix);
-        Utils.sendClientMessage(insertColour(formattedMessage, color), true);
+        String color = getChatColor(prefix);
+        Utils.sendClientMessage(insertColor(formattedMessage, color), true);
     }
 
     @SubscribeEvent
@@ -55,10 +55,10 @@ public class ChatColors {
         
         // If it does not, it highlights the nons message
         event.setCanceled(true);
-        Utils.sendClientMessage(insertColour(formattedMessage, "&r"), true);
+        Utils.sendClientMessage(insertColor(formattedMessage, "&r"), true);
     }
 
-    public static String getChatColour(String prefix) {
+    public static String getChatColor(String prefix) {
         switch (prefix.toLowerCase()) {
             case "party":
                 if (!Main.config.colorPartyChat) {
@@ -129,7 +129,7 @@ public class ChatColors {
         return "";
     }
 
-    public static String insertColour(String message, String colour) {
+    public static String insertColor(String message, String color) {
         int messageStartIndex = message.indexOf(": ");
 
         if (messageStartIndex == -1) {
@@ -140,7 +140,7 @@ public class ChatColors {
         String preMessageString = message.substring(0, messageStartIndex);
 
         messageString = Utils.removeColorCodes(messageString);
-        messageString = colour + messageString;
+        messageString = color + messageString;
         
         return preMessageString + messageString;
     }
