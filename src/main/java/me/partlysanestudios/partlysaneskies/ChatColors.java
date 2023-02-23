@@ -5,7 +5,6 @@ import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class ChatColors {
-    
     @SubscribeEvent
     public void detectColorMessage(ClientChatReceivedEvent event) {
         String formattedMessage = event.message.getFormattedText();
@@ -21,7 +20,6 @@ public class ChatColors {
 
     @SubscribeEvent
     public void detectNonMessage(ClientChatReceivedEvent event) {
-        //§8[§a99§8] §7ScorchDzn§7§r§7: Selling necromancer sword on my AH§r
         if (!Main.config.colorNonMessages) {
             return;
         }

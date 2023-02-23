@@ -1,3 +1,20 @@
+/*
+ * Partly Sane Skies: A Hypixel Skyblock QOL and Economy mod
+ * 
+ * Created by Su386#9878 (Su386yt) and FlagMaster#1516 (FlagHater), the Partly Sane Studios team
+ * Copyright (C) ©️ Su386 and FlagMaster 2023
+ * 
+ * Partly Sane Skies would not be possible with out the help of these projects:
+ * Minecraft Forge
+ * Skytils
+ * Not Enough Updates
+ * GSON
+ * Elementa
+ * Vigilance
+ * SkyCrypt
+ * 
+ */
+
 package me.partlysanestudios.partlysaneskies;
 
 import java.awt.Color;
