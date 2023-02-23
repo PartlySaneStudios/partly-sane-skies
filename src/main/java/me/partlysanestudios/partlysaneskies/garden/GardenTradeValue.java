@@ -120,9 +120,9 @@ public class GardenTradeValue {
                 // Gets the cost of the item and converts it to an integer
                 amountString = costLine.substring(costStartIndex + 1);
                 // Replaces all non numeric characters in the string
-                amountString.replaceAll("[^\\d.]", "");
-                amountString.replace(",", "");
-                amountString.replace(".", "");
+                amountString = amountString.replaceAll("[^\\d.]", "");
+                amountString = amountString.replace(",", "");
+                amountString = amountString.replace(".", "");
 
                 amount = Integer.parseInt(amountString);
             }
