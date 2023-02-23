@@ -44,8 +44,7 @@ This is a Minecraft mod for Hypixel Skyblock, designed, built, and programmed by
 
 ``/fp``, ``/pf``: Command to use Party All Friends. (See Features)
 
-``/chatalert``, ``/ca``: Command to use the chat alerts system. (See Features)
-
+``/chatalert``, ``/ca``: Command to use the Chat Alerts System. (See Features)
 
 </details>
 
@@ -67,7 +66,7 @@ This is a Minecraft mod for Hypixel Skyblock, designed, built, and programmed by
   
 ## General/Miscellaneous Features
 
-General and miscellaneous features.
+General and Miscellaneous features.
 
 ### Custom Main Menu
 
@@ -89,7 +88,7 @@ When you get a rare drop, a Pumpkin Dicer or Melon Slicer like pop-up banner wil
 
 ### Worm Warning
 
-When you are mining in the crystal hollows and a worm or scatha spawns, you get a message on screen, along with a sound, warning you that a worm has spawned.
+When you are mining in the Crystal Hollows and a worm or Scatha spawns, you get a message on screen, along with a sound, warning you that a worm has spawned.
 
 ### Location Banner
 
@@ -99,7 +98,7 @@ When switching to a new location region on skyblock, an MMO RPG style banner wil
 
 ### Chat Alerts
 
-Using ``/ca``, you can add and remove specific phrases that will be highlighted when someone says them. Example: If you add the word "``flag``" (using ``/ca add flag``) to the chat alerts, it will highlight the word and play a notification when someone says it.
+Using ``/ca``, you can add and remove specific phrases that will be highlighted when someone says them. Example: If you add the word "``flag``" (using ``/ca add flag``) to Chat Alerts, it will highlight the word and play a notification when someone says it.
 
 ![Chat Alerts](images/chat_alerts.png)
 
@@ -111,11 +110,11 @@ Private messages and messages that are sent in the Party, Guild, Guild Officer, 
 
 ### Incorrect Pet for Minion Alert
 
-Warns you if you don't have the right pet for leveling up the minions, that way you never lose any pet EXP because you still have your level 100 dungeon pet activated.
+If you do not the right pet selected for leveling up minions, you will be warned so that you never lose any pet EXP because you still have your level 100 dungeon pet activated.
 
 ### Non Chat Color
 
-Messages sent by nons (non ranked players) can be configured to have the same white as the rest of the chat. This option is off by default but can be turned on.
+Messages sent by nons (non ranked players) can be configured to have the same white as the rest of the chat. This option is off by default but can be turned on in the PSS Config menu.
 
 </details>
 
