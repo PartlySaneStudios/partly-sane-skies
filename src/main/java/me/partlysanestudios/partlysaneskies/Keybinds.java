@@ -2,11 +2,10 @@ package me.partlysanestudios.partlysaneskies;
 
 import org.lwjgl.input.Keyboard;
 
+import me.partlysanestudios.partlysaneskies.auctionhouse.AhGui;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManager;
-import me.partlysanestudios.partlysaneskies.general.WikiArticleOpener;
-import me.partlysanestudios.partlysaneskies.general.economy.auctionhouse.AhGui;
-import me.partlysanestudios.partlysaneskies.general.petalert.PetAlert;
 import me.partlysanestudios.partlysaneskies.help.HelpCommand;
+import me.partlysanestudios.partlysaneskies.petalert.PetAlert;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.client.event.GuiScreenEvent.KeyboardInputEvent;

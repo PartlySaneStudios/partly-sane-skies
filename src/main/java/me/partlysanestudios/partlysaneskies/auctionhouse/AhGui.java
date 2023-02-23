@@ -1,4 +1,4 @@
-package me.partlysanestudios.partlysaneskies.general.economy.auctionhouse;
+package me.partlysanestudios.partlysaneskies.auctionhouse;
 
 import java.awt.Color;
 import java.util.List;

@@ -23,7 +23,7 @@ import gg.essential.elementa.components.UIImage;
 import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import me.partlysanestudios.partlysaneskies.Main;
-import me.partlysanestudios.partlysaneskies.general.WikiArticleOpener;
+import me.partlysanestudios.partlysaneskies.WikiArticleOpener;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagList;

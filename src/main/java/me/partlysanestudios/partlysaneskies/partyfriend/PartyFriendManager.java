@@ -1,4 +1,4 @@
-package me.partlysanestudios.partlysaneskies.general.partyfriend;
+package me.partlysanestudios.partlysaneskies.partyfriend;
 
 import java.util.ArrayList;
 import java.util.List;

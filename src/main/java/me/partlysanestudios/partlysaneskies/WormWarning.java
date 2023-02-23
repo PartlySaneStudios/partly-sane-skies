@@ -1,4 +1,4 @@
-package me.partlysanestudios.partlysaneskies.general;
+package me.partlysanestudios.partlysaneskies;
 
 import gg.essential.elementa.ElementaVersion;
 import gg.essential.elementa.UIComponent;
@@ -7,7 +7,6 @@ import gg.essential.elementa.components.Window;
 import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import gg.essential.universal.UMatrixStack;
-import me.partlysanestudios.partlysaneskies.Main;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;

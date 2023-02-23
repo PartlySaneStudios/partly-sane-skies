@@ -1,4 +1,4 @@
-package me.partlysanestudios.partlysaneskies.general.chatalerts;
+package me.partlysanestudios.partlysaneskies.chatalerts;
 
 import java.io.File;
 import java.io.FileWriter;

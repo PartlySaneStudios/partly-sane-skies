@@ -1,4 +1,4 @@
-package me.partlysanestudios.partlysaneskies.general.petalert;
+package me.partlysanestudios.partlysaneskies.petalert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 
 import me.partlysanestudios.partlysaneskies.Main;
-import me.partlysanestudios.partlysaneskies.general.economy.auctionhouse.AhGui;
+import me.partlysanestudios.partlysaneskies.auctionhouse.AhGui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.inventory.GuiChest;

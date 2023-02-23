@@ -1,4 +1,4 @@
-package me.partlysanestudios.partlysaneskies.general.rngdropbanner;
+package me.partlysanestudios.partlysaneskies.rngdropbanner;
 
 import java.awt.Color;
 

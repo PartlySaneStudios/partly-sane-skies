@@ -1,4 +1,4 @@
-package me.partlysanestudios.partlysaneskies.general.skillupgrade;
+package me.partlysanestudios.partlysaneskies.skillupgrade;
 
 import java.io.IOException;
 import java.util.Arrays;

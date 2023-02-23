@@ -1,4 +1,4 @@
-package me.partlysanestudios.partlysaneskies.general;
+package me.partlysanestudios.partlysaneskies;
 
 import java.awt.Color;
 
@@ -9,7 +9,6 @@ import gg.essential.elementa.components.Window;
 import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import gg.essential.universal.UMatrixStack;
-import me.partlysanestudios.partlysaneskies.Main;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;

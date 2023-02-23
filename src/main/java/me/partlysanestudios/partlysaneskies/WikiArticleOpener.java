@@ -1,10 +1,9 @@
-package me.partlysanestudios.partlysaneskies.general;
+package me.partlysanestudios.partlysaneskies;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import me.partlysanestudios.partlysaneskies.Main;
-import me.partlysanestudios.partlysaneskies.general.economy.auctionhouse.AhGui;
+import me.partlysanestudios.partlysaneskies.auctionhouse.AhGui;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Slot;

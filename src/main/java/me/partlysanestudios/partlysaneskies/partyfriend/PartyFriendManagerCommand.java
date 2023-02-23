@@ -1,17 +1,14 @@
-package me.partlysanestudios.partlysaneskies.general.petalert;
+package me.partlysanestudios.partlysaneskies.partyfriend;
 
 import java.util.Arrays;
 import java.util.List;
 
-import me.partlysanestudios.partlysaneskies.Main;
-import me.partlysanestudios.partlysaneskies.utils.Utils;
-import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.BlockPos;
 
-public class PetAlertMuteCommand implements ICommand {
+public class PartyFriendManagerCommand implements ICommand {
 
     @Override
     public int compareTo(ICommand o) {
@@ -20,23 +17,22 @@ public class PetAlertMuteCommand implements ICommand {
 
     @Override
     public String getCommandName() {
-        return "mutepetalert";
+        return "friendparty";
     }
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return "";
+        return "Party Friend";
     }
 
     @Override
     public List<String> getCommandAliases() {
-        return Arrays.asList("");
+        return Arrays.asList("fp", "pf");
     }
 
     @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
-        Utils.sendClientMessage("&dPet alert has been muted for " +  Main.config.petAlertMuteTime + " minutes.");
-        PetAlert.lastMuteTime = Minecraft.getSystemTime();
+        PartyFriendManager.startPartyManager();
     }
 
     @Override
@@ -53,5 +49,4 @@ public class PetAlertMuteCommand implements ICommand {
     public boolean isUsernameIndex(String[] args, int index) {
         return false;
     }
-    
 }
