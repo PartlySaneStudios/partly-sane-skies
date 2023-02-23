@@ -1,4 +1,4 @@
-package me.partlysanestudios.partlysaneskies.general;
+package me.partlysanestudios.partlysaneskies;
 
 import java.awt.Color;
 
@@ -9,7 +9,6 @@ import gg.essential.elementa.components.Window;
 import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import gg.essential.universal.UMatrixStack;
-import me.partlysanestudios.partlysaneskies.Main;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
@@ -38,10 +37,10 @@ public class LocationBannerDisplay extends Gui {
 	}
 
 	public void checkLocation() {
-		if (!Main.config.locationBannerDisplay)
+		if (!PartlySaneSkies.config.locationBannerDisplay)
 			return;
 
-		String regionName = Main.getRegionName();
+		String regionName = PartlySaneSkies.getRegionName();
 		String noColorCodeRegionName = Utils.removeColorCodes(regionName);
 
 		if (lastLocation.equals(noColorCodeRegionName)) {
@@ -57,12 +56,12 @@ public class LocationBannerDisplay extends Gui {
 	}
 
 	private boolean checkExpire() {
-		return getTimeSinceLastChange() > Main.config.locationBannerTime * 1000;
+		return getTimeSinceLastChange() > PartlySaneSkies.config.locationBannerTime * 1000;
 	}
 
 	@SubscribeEvent
 	public void renderText(RenderGameOverlayEvent.Text event) {
-		short alpha = getAlpha(getTimeSinceLastChange(), Main.config.locationBannerTime);
+		short alpha = getAlpha(getTimeSinceLastChange(), PartlySaneSkies.config.locationBannerTime);
 
 		if (color == null)
 			color = Color.gray;

@@ -74,6 +74,60 @@ public class ConfigScreen extends Vigilant {
     )
     public int customMainMenuImage = 1;
 
+    @Property(
+        type = PropertyType.SWITCH,
+        name = "Color Private Messages", 
+        category = "General", 
+        subcategory = "Chat Color", 
+        description = "Private messages pink to make them more visable in busy lobbies."
+    )
+    public boolean colorPrivateMessages = false;
+
+    @Property(
+        type = PropertyType.SWITCH,
+        name = "Color Nons Messages", 
+        category = "General", 
+        subcategory = "Chat Color", 
+        description = "Color messages from the non-ranked players to white to make them more visable in busy lobbies."
+    )
+    public boolean colorNonMessages = false;
+
+    @Property(
+        type = PropertyType.SWITCH,
+        name = "Color Party Chat", 
+        category = "General", 
+        subcategory = "Chat Color", 
+        description = "Color messages from the party chat blue to make them more visable in busy lobbies."
+    )
+    public boolean colorPartyChat = false;
+
+    @Property(
+        type = PropertyType.SWITCH,
+        name = "Color Guild Chat", 
+        category = "General", 
+        subcategory = "Chat Color", 
+        description = "Color messages from the guild chat green to make them more visable in busy lobbies."
+    )
+    public boolean colorGuildChat = false;
+
+    @Property(
+        type = PropertyType.SWITCH,
+        name = "Color Guild Officer Chat", 
+        category = "General", 
+        subcategory = "Chat Color", 
+        description = "Color messages from the guild officer chat aqua to make them more visable in busy lobbies."
+    )
+    public boolean colorOfficerChat = false;
+
+    @Property(
+        type = PropertyType.SWITCH,
+        name = "Skyblock Co-op Chat", 
+        category = "General", 
+        subcategory = "Chat Color", 
+        description = "Color messages from the skyblock coop chat aqua to make them more visable in busy lobbies."
+    )
+    public boolean colorCoopChat = false;
+
 
 
     // ----------------- Category: Skyblock -------------------
@@ -175,9 +229,9 @@ public class ConfigScreen extends Vigilant {
 
     @Property(
         type = PropertyType.COLOR, 
-        subcategory = "Watcher Ready", 
-        name = "Watcher Ready Banner Colour", 
-        description = "The colour of the watcher ready text", 
+        subcategory = "Worm Warning", 
+        name = "Worm Warning Banner Color", 
+        description = "The color of the worm warning text", 
         category = "Dungeons"
     )
     public Color wormWarningBannerColor = new Color(34, 255, 0);
@@ -259,8 +313,8 @@ public class ConfigScreen extends Vigilant {
     @Property(
         type = PropertyType.COLOR, 
         subcategory = "Watcher Ready", 
-        name = "Watcher Ready Banner Colour", 
-        description = "The colour of the watcher ready text", 
+        name = "Watcher Ready Banner Color", 
+        description = "The color of the watcher ready text", 
         category = "Dungeons"
     )
     public Color watcherReadyBannerColor = new Color(255, 45, 6);

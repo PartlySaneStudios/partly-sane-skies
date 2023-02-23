@@ -1,9 +1,9 @@
-package me.partlysanestudios.partlysaneskies.general.partyfriend;
+package me.partlysanestudios.partlysaneskies.partyfriend;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import me.partlysanestudios.partlysaneskies.Main;
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -16,7 +16,7 @@ public class PartyFriendManager {
     public static void startPartyManager() {
         isWaitingForMembers = true;
         page = 1;
-        Main.minecraft.thePlayer.sendChatMessage("/friend list");
+        PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/friend list");
         partyList.clear();
     }
 
@@ -50,7 +50,7 @@ public class PartyFriendManager {
         } else {
             isWaitingForMembers = true;
             page++;
-            Main.minecraft.thePlayer.sendChatMessage("/friend list " + page);
+            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/friend list " + page);
         }
     }
 
@@ -68,7 +68,7 @@ public class PartyFriendManager {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    Main.minecraft.thePlayer.sendChatMessage("/party invite " + member);
+                    PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party invite " + member);
                 }
             }.start();
 

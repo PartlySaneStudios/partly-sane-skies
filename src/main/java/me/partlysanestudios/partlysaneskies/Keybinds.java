@@ -2,11 +2,10 @@ package me.partlysanestudios.partlysaneskies;
 
 import org.lwjgl.input.Keyboard;
 
+import me.partlysanestudios.partlysaneskies.auctionhouse.AhGui;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManager;
-import me.partlysanestudios.partlysaneskies.general.WikiArticleOpener;
-import me.partlysanestudios.partlysaneskies.general.economy.auctionhouse.AhGui;
-import me.partlysanestudios.partlysaneskies.general.petalert.PetAlert;
 import me.partlysanestudios.partlysaneskies.help.HelpCommand;
+import me.partlysanestudios.partlysaneskies.petalert.PetAlert;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.client.event.GuiScreenEvent.KeyboardInputEvent;
@@ -32,7 +31,7 @@ public final class Keybinds {
     public static void init() {
         debugKey = registerKey("Debug", PSS_CATEGORY, Keyboard.KEY_F4);
         configKey = registerKey("Config", PSS_CATEGORY, Keyboard.KEY_F7);
-        partyManagerKey = registerKey("Party Manager", PSS_CATEGORY, Keyboard.KEY_P);
+        partyManagerKey = registerKey("Party Manager", PSS_CATEGORY, Keyboard.KEY_M);
         helpKey = registerKey("Help", PSS_CATEGORY, Keyboard.KEY_H);
         wardrobeKeybind = registerKey("Open Wardrobe Menu", PSS_CATEGORY, Keyboard.CHAR_NONE);
         petKeybind = registerKey("Open Pets Menu", PSS_CATEGORY, Keyboard.CHAR_NONE);
@@ -52,7 +51,7 @@ public final class Keybinds {
     @SubscribeEvent
     public void keybindWhileInGui(KeyboardInputEvent.Post event) {
         if (Keyboard.isKeyDown(debugKey.getKeyCode())) {
-            Main.debugMode();
+            PartlySaneSkies.debugMode();
         }
 
         if (Keyboard.isKeyDown(wikiKeybind.getKeyCode())) {
@@ -64,13 +63,13 @@ public final class Keybinds {
         }
 
         if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
-            if (Main.minecraft.currentScreen instanceof AhGui) {
+            if (PartlySaneSkies.minecraft.currentScreen instanceof AhGui) {
                 Utils.clickOnSlot(46);
             }
         }
 
         if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
-            if (Main.minecraft.currentScreen instanceof AhGui) {
+            if (PartlySaneSkies.minecraft.currentScreen instanceof AhGui) {
                 Utils.clickOnSlot(53);
             }
         }
@@ -79,10 +78,10 @@ public final class Keybinds {
     @SubscribeEvent
     public void checkKeyBinds(KeyInputEvent event) {
         if (debugKey.isPressed()) {
-            Main.debugMode();
+            PartlySaneSkies.debugMode();
         }
         if (configKey.isPressed()) {
-            Main.minecraft.displayGuiScreen(Main.config.gui());
+            PartlySaneSkies.minecraft.displayGuiScreen(PartlySaneSkies.config.gui());
         }
         if (partyManagerKey.isPressed()) {
             PartyManager.startPartyManager();
@@ -91,16 +90,16 @@ public final class Keybinds {
             HelpCommand.printHelpMessage();
         }
         if (craftKeybind.isPressed()) {
-            Main.minecraft.thePlayer.sendChatMessage("/craft");
+            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/craft");
         }
         if (petKeybind.isPressed()) {
-            Main.minecraft.thePlayer.sendChatMessage("/pets");
+            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/pets");
         }
         if (wardrobeKeybind.isPressed()) {
-            Main.minecraft.thePlayer.sendChatMessage("/wardrobe");
+            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/wardrobe");
         }
         if (storageKeybind.isPressed()) {
-            Main.minecraft.thePlayer.sendChatMessage("/storage");
+            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/storage");
         }
     }
 }

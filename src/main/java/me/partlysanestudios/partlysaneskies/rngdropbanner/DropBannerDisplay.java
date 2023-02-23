@@ -1,4 +1,4 @@
-package me.partlysanestudios.partlysaneskies.general.rngdropbanner;
+package me.partlysanestudios.partlysaneskies.rngdropbanner;
 
 import java.awt.Color;
 
@@ -9,7 +9,7 @@ import gg.essential.elementa.components.Window;
 import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import gg.essential.universal.UMatrixStack;
-import me.partlysanestudios.partlysaneskies.Main;
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
@@ -27,11 +27,11 @@ public class DropBannerDisplay extends Gui {
 	@SubscribeEvent
 	public void onChatMessage(ClientChatReceivedEvent event) {
         String formattedMessage = event.message.getFormattedText();
-		if (isRareDrop(formattedMessage) && Main.config.rareDropBannerSound) {
-			Main.minecraft.thePlayer.playSound("partlysaneskies:rngdropjingle", 100, 1);
+		if (isRareDrop(formattedMessage) && PartlySaneSkies.config.rareDropBannerSound) {
+			PartlySaneSkies.minecraft.thePlayer.playSound("partlysaneskies:rngdropjingle", 100, 1);
 		}
 
-		if (isRareDrop(formattedMessage) && Main.config.rareDropBanner) {
+		if (isRareDrop(formattedMessage) && PartlySaneSkies.config.rareDropBanner) {
 			String unformatedMessage = event.message.getUnformattedText();
 
 
@@ -114,9 +114,9 @@ public class DropBannerDisplay extends Gui {
 			magicFindString = " (+" + drop.magicFind + "% ✯ Magic Find)";
 			nameColor = drop.dropNameColor;
 			categoryColor = drop.dropCategoryColor;
-			if (Minecraft.getSystemTime() - drop.timeDropped > (1f / 3f * Main.config.rareDropBannerTime * 1000)
+			if (Minecraft.getSystemTime() - drop.timeDropped > (1f / 3f * PartlySaneSkies.config.rareDropBannerTime * 1000)
 					&& Minecraft.getSystemTime()
-							- drop.timeDropped < (10f / 12f * Main.config.rareDropBannerTime * 1000)) {
+							- drop.timeDropped < (10f / 12f * PartlySaneSkies.config.rareDropBannerTime * 1000)) {
 				if (Math.round((drop.timeDropped - Minecraft.getSystemTime()) / 1000f * 4) % 2 == 0) {
 					categoryColor = Color.white;
 				} else {
@@ -124,7 +124,7 @@ public class DropBannerDisplay extends Gui {
 				}
 			}
 
-			if (drop.timeDropped + Main.config.rareDropBannerTime * 1000 < Minecraft.getSystemTime())
+			if (drop.timeDropped + PartlySaneSkies.config.rareDropBannerTime * 1000 < Minecraft.getSystemTime())
 				drop = null;
 		}
 

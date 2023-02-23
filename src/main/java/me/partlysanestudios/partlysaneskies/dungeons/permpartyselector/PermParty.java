@@ -3,7 +3,7 @@ package me.partlysanestudios.partlysaneskies.dungeons.permpartyselector;
 import java.io.IOException;
 import java.util.List;
 
-import me.partlysanestudios.partlysaneskies.Main;
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 
 public class PermParty {
@@ -42,7 +42,7 @@ public class PermParty {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    Main.minecraft.thePlayer.sendChatMessage("/party invite " + member);
+                    PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party invite " + member);
                 }
             }.start();
 

@@ -1,3 +1,20 @@
+/*
+ * Partly Sane Skies: A Hypixel Skyblock QOL and Economy mod
+ * 
+ * Created by Su386#9878 (Su386yt) and FlagMaster#1516 (FlagHater), the Partly Sane Studios team
+ * Copyright (C) ©️ Su386 and FlagMaster 2023
+ * 
+ * Partly Sane Skies would not be possible with out the help of these projects:
+ * Minecraft Forge
+ * Skytils
+ * Not Enough Updates
+ * GSON
+ * Elementa
+ * Vigilance
+ * SkyCrypt
+ * 
+ */
+
 package me.partlysanestudios.partlysaneskies;
 
 import java.awt.Color;
@@ -10,29 +27,25 @@ import java.util.List;
 import org.apache.commons.lang3.reflect.FieldUtils;
 
 import gg.essential.elementa.ElementaVersion;
+import me.partlysanestudios.partlysaneskies.auctionhouse.AhManager;
+import me.partlysanestudios.partlysaneskies.chatalerts.ChatAlertsCommand;
+import me.partlysanestudios.partlysaneskies.chatalerts.ChatAlertsManager;
 import me.partlysanestudios.partlysaneskies.dungeons.WatcherReady;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManager;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManagerCommand;
 import me.partlysanestudios.partlysaneskies.dungeons.permpartyselector.PermPartyCommand;
 import me.partlysanestudios.partlysaneskies.dungeons.permpartyselector.PermPartyManager;
 import me.partlysanestudios.partlysaneskies.garden.GardenTradeValue;
-import me.partlysanestudios.partlysaneskies.general.LocationBannerDisplay;
-import me.partlysanestudios.partlysaneskies.general.NoCookieWarning;
-import me.partlysanestudios.partlysaneskies.general.WikiArticleOpener;
-import me.partlysanestudios.partlysaneskies.general.WormWarning;
-import me.partlysanestudios.partlysaneskies.general.chatalerts.ChatAlertsCommand;
-import me.partlysanestudios.partlysaneskies.general.chatalerts.ChatAlertsManager;
-import me.partlysanestudios.partlysaneskies.general.economy.auctionhouse.AhManager;
-import me.partlysanestudios.partlysaneskies.general.partyfriend.PartyFriendManager;
-import me.partlysanestudios.partlysaneskies.general.partyfriend.PartyFriendManagerCommand;
-import me.partlysanestudios.partlysaneskies.general.petalert.PetAlert;
-import me.partlysanestudios.partlysaneskies.general.petalert.PetAlertMuteCommand;
-import me.partlysanestudios.partlysaneskies.general.rngdropbanner.DropBannerDisplay;
-import me.partlysanestudios.partlysaneskies.general.skillupgrade.SkillUpgradeCommand;
-import me.partlysanestudios.partlysaneskies.general.skillupgrade.SkillUpgradeRecommendation;
 import me.partlysanestudios.partlysaneskies.help.ConfigCommand;
 import me.partlysanestudios.partlysaneskies.help.DiscordCommand;
 import me.partlysanestudios.partlysaneskies.help.HelpCommand;
+import me.partlysanestudios.partlysaneskies.partyfriend.PartyFriendManager;
+import me.partlysanestudios.partlysaneskies.partyfriend.PartyFriendManagerCommand;
+import me.partlysanestudios.partlysaneskies.petalert.PetAlert;
+import me.partlysanestudios.partlysaneskies.petalert.PetAlertMuteCommand;
+import me.partlysanestudios.partlysaneskies.rngdropbanner.DropBannerDisplay;
+import me.partlysanestudios.partlysaneskies.skillupgrade.SkillUpgradeCommand;
+import me.partlysanestudios.partlysaneskies.skillupgrade.SkillUpgradeRecommendation;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
@@ -50,18 +63,11 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 
-@Mod(modid = Main.MODID, version = Main.VERSION, name = Main.NAME)
-public class Main {
+@Mod(modid = PartlySaneSkies.MODID, version = PartlySaneSkies.VERSION, name = PartlySaneSkies.NAME)
+public class PartlySaneSkies {
 
     public static void main(String[] args) {
-        try {
-            SkyblockItem.init();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        SkyblockItem.updateAll();
-        System.out.println(SkyblockItem.getItem(SkyblockItem.getId("Enchanted Golden Carrot")).getPrice());
+        
     }
 
     public static final String MODID = "partlysaneskies";
@@ -81,19 +87,22 @@ public class Main {
     public static Color BASE_LIGHT_COLOR = new Color(85, 85, 88);
     public static Color ACCENT_COLOR = new Color(1, 255, 255);
     public static Color DARK_ACCENT_COLOR = new Color(1, 122, 122);
+    // Names of all of the ranks to remove from people's names
+    public static String[] RANK_NAMES = { "[VIP]", "[VIP+]", "[MVP]", "[MVP+]", "[MVP++]", "[YOUTUBE]", "[MOJANG]",
+            "[EVENTS]", "[MCP]", "[PIG]", "[PIG+]", "[PIG++]", "[PIG+++]", "[GM]", "[ADMIN]", "[OWNER]", "[NPC]" };
 
     // Method runs at mod initialization
     @EventHandler
     public void init(FMLInitializationEvent evnt) {
         System.out.println("Hallo World!");
-        Main.isDebugMode = false;
-        Main.minecraft = Minecraft.getMinecraft();
+        PartlySaneSkies.isDebugMode = false;
+        PartlySaneSkies.minecraft = Minecraft.getMinecraft();
 
         // Creates the partly-sane-skies directory if not already made
         new File("./config/partly-sane-skies/").mkdirs();
         
         // Loads the config files and options
-        Main.config = new ConfigScreen();
+        PartlySaneSkies.config = new ConfigScreen();
         
 
         // Loads perm party data
@@ -114,7 +123,7 @@ public class Main {
 
         // Loads user player data for PartyManager
         try {
-            PartyManager.loadPlayerData(Main.minecraft.getSession().getUsername());
+            PartyManager.loadPlayerData(PartlySaneSkies.minecraft.getSession().getUsername());
         } catch (IOException e) {
             System.out.println("Partly Sane Skies: Unable to load player data.");
             e.printStackTrace();
@@ -135,6 +144,7 @@ public class Main {
         MinecraftForge.EVENT_BUS.register(locationBannerDisplay);
         MinecraftForge.EVENT_BUS.register(new ChatAlertsManager());
         MinecraftForge.EVENT_BUS.register(new GardenTradeValue());
+        MinecraftForge.EVENT_BUS.register(new ChatColors());
 
         // Registers all client side commands
         ClientCommandHandler.instance.registerCommand(new PartyManagerCommand());
@@ -198,7 +208,7 @@ public class Main {
     // Runs chat analyzer for debug mode
     @SubscribeEvent
     public void chatAnalyzer(ClientChatReceivedEvent evnt) {
-        if (Main.isDebugMode)
+        if (PartlySaneSkies.isDebugMode)
             System.out.println(evnt.message.getFormattedText());
     }
 
@@ -229,8 +239,8 @@ public class Main {
 
     // Runs when debug key is pressed
     public static void debugMode() {
-        Main.isDebugMode = !Main.isDebugMode;
-        Utils.sendClientMessage("Debug mode: " + Main.isDebugMode);
+        PartlySaneSkies.isDebugMode = !PartlySaneSkies.isDebugMode;
+        Utils.sendClientMessage("Debug mode: " + PartlySaneSkies.isDebugMode);
     }
 
     // Returns a list of lines on the scoreboard,

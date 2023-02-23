@@ -1,4 +1,4 @@
-package me.partlysanestudios.partlysaneskies.general.chatalerts;
+package me.partlysanestudios.partlysaneskies.chatalerts;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -12,10 +12,9 @@ import java.util.List;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import me.partlysanestudios.partlysaneskies.Main;
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.audio.PositionedSoundRecord;
-import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -194,19 +193,17 @@ public class ChatAlertsManager {
             char[] charsToAdd = getLastColorCode(formattedMessage.substring(0, alertIndexFormatted + 1)).toCharArray();
             messageBuilder.insert(alertIndexFormatted + alert.length(), charsToAdd, 0, charsToAdd.length);
             
-            // Inserts a purple color code to highlight the message right before the alert
-            charsToAdd = Utils.colorCodes("&d").toCharArray();
+            // Inserts a purple and bold color code to highlight the message right before the alert
+            charsToAdd = Utils.colorCodes("&d&l").toCharArray();
             messageBuilder.insert(alertIndexFormatted, charsToAdd, 0, charsToAdd.length);
 
             // Plays a flute sound 
-            Main.minecraft
+            PartlySaneSkies.minecraft
                     .getSoundHandler()
                     .playSound(PositionedSoundRecord.create(new ResourceLocation("partlysaneskies", "flute_scale")));
 
             // Shows message to user
-            Main.minecraft.ingameGUI
-                    .getChatGUI()
-                    .printChatMessage(new ChatComponentText(messageBuilder.toString()));
+            Utils.sendClientMessage(messageBuilder.toString(), true);
 
             // Exists loop
             break;

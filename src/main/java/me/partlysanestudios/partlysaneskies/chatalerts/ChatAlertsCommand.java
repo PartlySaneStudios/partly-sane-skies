@@ -1,4 +1,4 @@
-package me.partlysanestudios.partlysaneskies.general.chatalerts;
+package me.partlysanestudios.partlysaneskies.chatalerts;
 
 import java.util.Arrays;
 import java.util.List;

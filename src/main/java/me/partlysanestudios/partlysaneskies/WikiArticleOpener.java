@@ -1,10 +1,9 @@
-package me.partlysanestudios.partlysaneskies.general;
+package me.partlysanestudios.partlysaneskies;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import me.partlysanestudios.partlysaneskies.Main;
-import me.partlysanestudios.partlysaneskies.general.economy.auctionhouse.AhGui;
+import me.partlysanestudios.partlysaneskies.auctionhouse.AhGui;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Slot;
@@ -22,7 +21,7 @@ public class WikiArticleOpener {
 
     public static void getArticle(String id) {
         isWaitingForArticle = true;
-        Main.minecraft.thePlayer.sendChatMessage("/wiki " + id);
+        PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/wiki " + id);
     }
 
     @SubscribeEvent
@@ -40,7 +39,7 @@ public class WikiArticleOpener {
 
         isWaitingForArticle = false;
         String wikiLink = e.message.getChatStyle().getChatClickEvent().getValue();
-        if (Main.config.openWikiAutomatically) {
+        if (PartlySaneSkies.config.openWikiAutomatically) {
             URI uri;
             try {
                 uri = new URI(wikiLink);
@@ -60,17 +59,17 @@ public class WikiArticleOpener {
     }
 
     public static void keyDown() {
-        if (!Main.isSkyblock()) {
+        if (!PartlySaneSkies.isSkyblock()) {
             return;
         }
         ItemStack item;
-        if (!(Main.minecraft.currentScreen instanceof GuiContainer)) {
+        if (!(PartlySaneSkies.minecraft.currentScreen instanceof GuiContainer)) {
             return;
         }
-        if (Main.minecraft.currentScreen instanceof AhGui) {
+        if (PartlySaneSkies.minecraft.currentScreen instanceof AhGui) {
             return;
         }
-        GuiContainer container = (GuiContainer) Main.minecraft.currentScreen;
+        GuiContainer container = (GuiContainer) PartlySaneSkies.minecraft.currentScreen;
         Slot slot = container.getSlotUnderMouse();
         if (slot == null)
             return;

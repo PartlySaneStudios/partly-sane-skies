@@ -15,7 +15,7 @@ import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.SkyblockItem;
-import me.partlysanestudios.partlysaneskies.Main;
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.inventory.IInventory;
@@ -27,14 +27,14 @@ public class GardenTradeValue {
     private static Window window = new Window(ElementaVersion.V2);
     // Returns if the player is currently viewing a trading screen
     public static boolean isTrade() {
-        if (Main.minecraft.currentScreen == null) {
+        if (PartlySaneSkies.minecraft.currentScreen == null) {
             return false;
         }
-        if (!(Main.minecraft.currentScreen instanceof GuiChest)) {
+        if (!(PartlySaneSkies.minecraft.currentScreen instanceof GuiChest)) {
             return false;
         }
 
-        IInventory[] inventories = Main.getSeparateUpperLowerInventories(Main.minecraft.currentScreen);
+        IInventory[] inventories = PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen);
         IInventory trader = inventories[0];
 
         // Slots 29 and 33 are where the buttons should be
@@ -64,7 +64,7 @@ public class GardenTradeValue {
 
     // Returns a hashmap containing the name of an item and the quanitity
     public static HashMap<String, Integer> getQuantityCostMap() {
-        IInventory[] inventories = Main.getSeparateUpperLowerInventories(Main.minecraft.currentScreen);
+        IInventory[] inventories = PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen);
         IInventory trader = inventories[0];
 
         // Slots 29 is where the accept buttons is
@@ -73,7 +73,7 @@ public class GardenTradeValue {
         ArrayList<String> formattedAcceptButtonLore = Utils.getLore(acceptButton);
         
         // Removes all the format codes from lore
-        ArrayList<String> unforrmattedAcceptButtonLore = removeColourCodesFromList(formattedAcceptButtonLore);
+        ArrayList<String> unforrmattedAcceptButtonLore = removeColorCodesFromList(formattedAcceptButtonLore);
 
         int costLineIndex = unforrmattedAcceptButtonLore.indexOf("Items Required:");
         int rewardsStartIndex = unforrmattedAcceptButtonLore.indexOf("Rewards:");
@@ -120,9 +120,9 @@ public class GardenTradeValue {
                 // Gets the cost of the item and converts it to an integer
                 amountString = costLine.substring(costStartIndex + 1);
                 // Replaces all non numeric characters in the string
-                amountString.replaceAll("[^\\d.]", "");
-                amountString.replace(",", "");
-                amountString.replace(".", "");
+                amountString = amountString.replaceAll("[^\\d.]", "");
+                amountString = amountString.replace(",", "");
+                amountString = amountString.replace(".", "");
 
                 amount = Integer.parseInt(amountString);
             }
@@ -137,7 +137,7 @@ public class GardenTradeValue {
     }
 
     public static List<String> getRewardsLore() {
-        IInventory[] inventories = Main.getSeparateUpperLowerInventories(Main.minecraft.currentScreen);
+        IInventory[] inventories = PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen);
         IInventory trader = inventories[0];
 
         // Slots 29 is where the accept buttons is
@@ -146,7 +146,7 @@ public class GardenTradeValue {
         ArrayList<String> formattedAcceptButtonLore = Utils.getLore(acceptButton);
 
         // Removes all the format codes from lore
-        ArrayList<String> unforrmattedAcceptButtonLore = removeColourCodesFromList(formattedAcceptButtonLore);
+        ArrayList<String> unforrmattedAcceptButtonLore = removeColorCodesFromList(formattedAcceptButtonLore);
 
         int rewardsStartIndex = unforrmattedAcceptButtonLore.indexOf("Rewards:");
 
@@ -157,7 +157,7 @@ public class GardenTradeValue {
         
 
         
-        List<String> unformattedRewardsLore = removeColourCodesFromList(getRewardsLore());
+        List<String> unformattedRewardsLore = removeColorCodesFromList(getRewardsLore());
 
         for (String line : unformattedRewardsLore) {
             if (!line.contains(" Copper")) {
@@ -178,7 +178,7 @@ public class GardenTradeValue {
     }
 
     // Returns a new list with all format codes removed
-    public static ArrayList<String> removeColourCodesFromList(List<String> list) {
+    public static ArrayList<String> removeColorCodesFromList(List<String> list) {
         ArrayList<String> newList = new ArrayList<String>();
 
         for (String oldLine : list) {
@@ -237,7 +237,7 @@ public class GardenTradeValue {
             box.hide();
             return;
         }
-        if (!Main.config.gardenShopTradeInfo) {
+        if (!PartlySaneSkies.config.gardenShopTradeInfo) {
             return;
         }
 

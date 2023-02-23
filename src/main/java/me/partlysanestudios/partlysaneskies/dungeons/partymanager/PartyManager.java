@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import me.partlysanestudios.partlysaneskies.Main;
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyMember.PartyRank;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
@@ -14,10 +14,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class PartyManager {
     private static boolean isWaitingForMembers = false;
     private static boolean isMembersListed = false;
-    // Names of all of the ranks to remove from people's names
-    private static String[] RANK_NAMES = { "[VIP]", "[VIP+]", "[MVP]", "[MVP+]", "[MVP++]", "[YOUTUBE]", "[MOJANG]",
-            "[EVENTS]", "[MCP]", "[PIG]", "[PIG+]", "[PIG++]", "[PIG+++]", "[GM]", "[ADMIN]", "[OWNER]" };
-
     public static HashMap<String, PartyMember> playerCache = new HashMap<String, PartyMember>();
     private static List<PartyMember> partyList = new ArrayList<PartyMember>();
 
@@ -30,7 +26,7 @@ public class PartyManager {
         isWaitingForMembers = true;
 
         // If config option, kicks all offline partymembers
-        if (Main.config.autoKickOfflinePartyManager) {
+        if (PartlySaneSkies.config.autoKickOfflinePartyManager) {
             kickOffline();
         }
 
@@ -46,7 +42,7 @@ public class PartyManager {
                 }
 
                 // Starts the party manager
-                Main.minecraft.thePlayer.sendChatMessage("/party list");
+                PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party list");
                 partyList.clear();
             }
             
@@ -140,7 +136,7 @@ public class PartyManager {
         isMembersListed = true;
 
         // Removes the rank from the name if it is contained
-        for (String playerRank : RANK_NAMES) {
+        for (String playerRank : PartlySaneSkies.RANK_NAMES) {
             str = str.replace(playerRank, "");
         }
 
@@ -156,7 +152,7 @@ public class PartyManager {
     // Opens the party manager GUI
     public static void openGui() {
         PartyManagerGui gui = new PartyManagerGui();
-        Main.minecraft.displayGuiScreen(gui);
+        PartlySaneSkies.minecraft.displayGuiScreen(gui);
 
         // Populates the GUI with the party list
         gui.populateGui(partyList);
@@ -165,7 +161,7 @@ public class PartyManager {
     // Kicks all offline players
     public static void kickOffline() {
         Utils.sendClientMessage("Kicking all offline members...");
-        Main.minecraft.thePlayer.sendChatMessage("/party kickoffline");
+        PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party kickoffline");
     }
 
     // Addes a new party member to the party list
@@ -198,7 +194,7 @@ public class PartyManager {
     // Reparties all of the members of the party
     public static void reparty(List<PartyMember> partyMembers) {
         // Disbands the party
-        Main.minecraft.thePlayer.sendChatMessage("/party disband");
+        PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party disband");
         // Sets the delay 500 ms for the next message
         Long timeDelay = 500l;
 
@@ -215,7 +211,7 @@ public class PartyManager {
                         e.printStackTrace();
                     }
                     // Invites the member
-                    Main.minecraft.thePlayer.sendChatMessage("/party invite " + member.username);
+                    PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party invite " + member.username);
                 }
             }.start();
 
