@@ -33,7 +33,7 @@ public class PartyMember {
     // Data
     public long timeDataGet;
     public int secretsCount;
-    public float hypixelLevel;
+    public float skyblockLevel;
     public float senitherWeight;
     public float catacombsLevel;
     public float combatLevel;
@@ -86,7 +86,7 @@ public class PartyMember {
     }
 
     // Uses the username to request data from the Skycrypt API
-    public String getSkycryptData() throws IOException, NullPointerException {
+    public void getSkycryptData() throws IOException, NullPointerException {
         // Creates a JSON parser to parse the Json returned by the request
         JsonParser parser = new JsonParser();
 
@@ -95,7 +95,6 @@ public class PartyMember {
         // If the response is in error, send error message and exit
         if (response.startsWith("Error")) {
             Utils.sendClientMessage(Utils.colorCodes("Error getting data for " + username + ". Maybe the player is nicked."));
-            return "-2";
         }
         // Creates a Json object based on the response
         JsonObject skycryptJson = (JsonObject) parser.parse(response);
@@ -198,6 +197,14 @@ public class PartyMember {
         m6Runs = getMasterFloorRuns("6", profileData);
         m7Runs = getMasterFloorRuns("7", profileData);
 
+        skyblockLevel = profileData.getAsJsonObject("skyblock_level")
+                .get("level").getAsInt();
+
+        JsonObject statsJson = profileData.getAsJsonObject("stats");
+        health = statsJson.get("health").getAsFloat();
+        intelligence = statsJson.get("intelligence").getAsFloat();
+        defense = statsJson.get("defense").getAsFloat();
+        effectHealth = statsJson.get("effective_health").getAsFloat();
 
         // Attempts to get the average secrets per run
         try {
@@ -205,47 +212,43 @@ public class PartyMember {
                     + m2Runs + m3Runs + m4Runs + m5Runs + m6Runs + m7Runs);
         } catch (NullPointerException e) {
         }
-
-        return currentProfileId;
     }
 
 
-    public int getSlothpixelData(String currentProfileId) throws IOException {
-        // Get's the player's UUID
-        String uuid = getUUID(username);
 
-        // Gets the player's Slothpixel data
-        String response = Utils.getRequest("https://api.slothpixel.me/api/skyblock/profile/" + uuid+ "/" + currentProfileId);
-        if (response.startsWith("Error")) {
-            Utils.sendClientMessage(Utils.colorCodes("Error getting data for " + username + ". Maybe the player is nicked."));
-            return -1;
-        }
+    // public int getSlothpixelData(String currentProfileId) throws IOException {
+    //     // Get's the player's UUID
+    //     String uuid = getUUID(username);
 
-        JsonParser parser = new JsonParser();
-        JsonObject slothpixelJson = (JsonObject) parser.parse(response);
-        slothpixelJson.getAsJsonObject("members")
-                .getAsJsonObject(uuid)
-                .getAsJsonObject("attributes")
-                .get("health").getAsFloat();
-        intelligence = slothpixelJson.getAsJsonObject("members")
-                .getAsJsonObject(uuid)
-                .getAsJsonObject("attributes")
-                .get("intelligence").getAsFloat();
-        defense = slothpixelJson.getAsJsonObject("members")
-                .getAsJsonObject(uuid)
-                .getAsJsonObject("attributes")
-                .get("defense").getAsFloat();
-        effectHealth = slothpixelJson.getAsJsonObject("members")
-                .getAsJsonObject(uuid)
-                .getAsJsonObject("attributes")
-                .get("effective_health").getAsFloat();
+    //     // Gets the player's Slothpixel data
+    //     String response = Utils.getRequest("https://api.slothpixel.me/api/skyblock/profile/" + uuid+ "/" + currentProfileId);
+    //     if (response.startsWith("Error")) {
+    //         Utils.sendClientMessage(Utils.colorCodes("Error getting data for " + username + ". Maybe the player is nicked."));
+    //         return -1;
+    //     }
 
-        hypixelLevel = slothpixelJson.getAsJsonObject("members")
-                .getAsJsonObject(uuid)
-                .getAsJsonObject("player")
-                .get("level").getAsFloat();
-        return 0;
-    }
+    //     JsonParser parser = new JsonParser();
+    //     JsonObject slothpixelJson = (JsonObject) parser.parse(response);
+    //     health = slothpixelJson.getAsJsonObject("members")
+    //             .getAsJsonObject(uuid)
+    //             .getAsJsonObject("attributes")
+    //             .get("health").getAsFloat();
+    //     intelligence = slothpixelJson.getAsJsonObject("members")
+    //             .getAsJsonObject(uuid)
+    //             .getAsJsonObject("attributes")
+    //             .get("intelligence").getAsFloat();
+    //     defense = slothpixelJson.getAsJsonObject("members")
+    //             .getAsJsonObject(uuid)
+    //             .getAsJsonObject("attributes")
+    //             .get("defense").getAsFloat();
+    //     effectHealth = slothpixelJson.getAsJsonObject("members")
+    //             .getAsJsonObject(uuid)
+    //             .getAsJsonObject("attributes")
+    //             .get("effective_health").getAsFloat();
+
+        
+    //     return 0;
+    // }
 
     public static String getUUID(String username) throws IOException {
         // Creates a Json parser to parse the json data
@@ -360,6 +363,41 @@ public class PartyMember {
                 .setY(new PixelConstraint(105f * scaleFactor))
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
+                new UIText("Skyblock Level: " + Utils.round(this.skyblockLevel, 1))
+                .setTextScale(new PixelConstraint(1f * scaleFactor))
+                .setX(new PixelConstraint(20f * scaleFactor))
+                .setY(new PixelConstraint(50f * scaleFactor))
+                .setColor(Color.white)
+                .setChildOf(memberBlock);
+
+        new UIText("❤ " + Utils.formatNumber(Math.round(this.health)))
+                .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
+                .setX(new PixelConstraint(20f * scaleFactor))
+                .setY(new PixelConstraint(75f * scaleFactor))
+                .setColor(Utils.colorCodetoColor.get("&c"))
+                .setChildOf(memberBlock);
+
+        new UIText("❈ " + Utils.formatNumber(Math.round(this.defense)))
+                .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
+                .setX(new PixelConstraint(20f * scaleFactor))
+                .setY(new PixelConstraint(90f * scaleFactor))
+                .setColor(Utils.colorCodetoColor.get("&a"))
+                .setChildOf(memberBlock);
+
+        new UIText("EHP: " + Utils.formatNumber(Math.round(this.effectHealth)))
+                .setTextScale((new PixelConstraint(1.3f * scaleFactor)))
+                .setX(new PixelConstraint(20f * scaleFactor))
+                .setY(new PixelConstraint(105f * scaleFactor))
+                .setColor(new Color(45, 133, 48))
+                .setChildOf(memberBlock);
+
+        new UIText("✎ " + Utils.formatNumber(Math.round(this.intelligence)))
+                .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
+                .setX(new PixelConstraint(20f * scaleFactor))
+                .setY(new PixelConstraint(120f * scaleFactor))
+                .setColor(Utils.colorCodetoColor.get("&b"))
+                .setChildOf(memberBlock);
+
     }
 
     private void createMemberBlockColumnThree(UIComponent memberBlock, float scaleFactor) {
@@ -588,42 +626,6 @@ public class PartyMember {
         });
     }
 
-    public void createSlothpixelBlock(UIComponent memberBlock, float scaleFactor) {
-        new UIText("Hypixel Level: " + Utils.round(this.hypixelLevel, 1))
-                .setTextScale(new PixelConstraint(1f * scaleFactor))
-                .setX(new PixelConstraint(20f * scaleFactor))
-                .setY(new PixelConstraint(50f * scaleFactor))
-                .setColor(Color.white)
-                .setChildOf(memberBlock);
-
-        new UIText("❤ " + Utils.formatNumber(Math.round(this.health)))
-                .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
-                .setX(new PixelConstraint(20f * scaleFactor))
-                .setY(new PixelConstraint(75f * scaleFactor))
-                .setColor(Utils.colorCodetoColor.get("&c"))
-                .setChildOf(memberBlock);
-
-        new UIText("❈ " + Utils.formatNumber(Math.round(this.defense)))
-                .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
-                .setX(new PixelConstraint(20f * scaleFactor))
-                .setY(new PixelConstraint(90f * scaleFactor))
-                .setColor(Utils.colorCodetoColor.get("&a"))
-                .setChildOf(memberBlock);
-
-        new UIText("EHP: " + Utils.formatNumber(Math.round(this.effectHealth)))
-                .setTextScale((new PixelConstraint(1.3f * scaleFactor)))
-                .setX(new PixelConstraint(20f * scaleFactor))
-                .setY(new PixelConstraint(105f * scaleFactor))
-                .setColor(new Color(45, 133, 48))
-                .setChildOf(memberBlock);
-
-        new UIText("✎ " + Utils.formatNumber(Math.round(this.intelligence)))
-                .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
-                .setX(new PixelConstraint(20f * scaleFactor))
-                .setY(new PixelConstraint(120f * scaleFactor))
-                .setColor(Utils.colorCodetoColor.get("&b"))
-                .setChildOf(memberBlock);
-    }
 
     public boolean isExpired() {
         if (this.rank.equals(PartyRank.LEADER) && this.isPlayer)
