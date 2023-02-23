@@ -1,4 +1,5 @@
 # **Partly Sane Studios Presents:** *Partly Sane Skies!*
+
 <p align="center">
   <a href="https://github.com/PartlySaneStudios/partly-sane-skies/releases" target="_blank">
     <img alt="Downloads" src="https://img.shields.io/github/v/release/PartlySaneStudios/partly-sane-skies?display_name=tag" />
@@ -102,9 +103,18 @@ Using ``/ca``, you can add and remove specific phrases that will be highlighted 
 
 ![Chat Alerts](images/chat_alerts.png)
 
+### Chat Color
+
+Private messages and messages that are sent in the Party, Guild, Guild Officer, or Skyblock Co-op channels will now have the color of the channel they are sent in.
+![Chat Colors](images/chat_color.png)
+
 ### Incorrect Pet for Minion Alert
 
 Warns you if you don't have the right pet for leveling up the minions, that way you never lose any pet EXP because you still have your level 100 dungeon pet activated.
+
+### Non Chat Color
+
+Messages sent by nons (non ranked players) can be configured to have the same white as the rest of the chat. This option is off by default but can be turned on.
 
 </details>
 
@@ -179,4 +189,3 @@ A keybind shortcut to open the storage menu. Customisable in the vanilla options
 
 A command to party all of your active friends. Using ``/fp``, it will party every online member on your friends list.
 </details>
-
