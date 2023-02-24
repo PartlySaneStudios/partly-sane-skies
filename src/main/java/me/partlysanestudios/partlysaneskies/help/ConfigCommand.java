@@ -3,6 +3,7 @@ package me.partlysanestudios.partlysaneskies.help;
 import java.util.Arrays;
 import java.util.List;
 
+import gg.essential.elementa.components.Window;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.command.CommandException;
@@ -36,17 +37,10 @@ public class ConfigCommand implements ICommand {
     @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         Utils.sendClientMessage("Opening config GUI...");
-        new Thread() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                }
-                PartlySaneSkies.minecraft.displayGuiScreen(PartlySaneSkies.config.gui());
-            }
-        }.start();
         
+        Window.Companion.enqueueRenderOperation(() -> {
+            PartlySaneSkies.minecraft.displayGuiScreen(PartlySaneSkies.config.gui());
+        });
     }
 
     @Override

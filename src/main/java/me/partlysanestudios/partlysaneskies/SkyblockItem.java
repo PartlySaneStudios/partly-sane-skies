@@ -161,7 +161,6 @@ public class SkyblockItem {
     public static void runUpdater() {
         if (checkLastUpdate()) {
             lastAhUpdateTime = Minecraft.getSystemTime();
-            Utils.visPrint("UPDATING" + checkLastUpdate() + lastAhUpdateTime);
             new Thread() {
                 @Override
                 public void run() {
@@ -241,7 +240,7 @@ public class SkyblockItem {
     }
 
     public static boolean checkLastUpdate() {
-        if (Minecraft.getSystemTime() < lastAhUpdateTime + (1000 * 60 * 5)) {
+        if (Minecraft.getSystemTime() < lastAhUpdateTime + (1000 * 60 * 3)) {
             return true;
         }
 

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.lwjgl.input.Keyboard;
 
+import gg.essential.elementa.components.Window;
 import me.partlysanestudios.partlysaneskies.Keybinds;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
@@ -39,16 +40,9 @@ public class HelpCommand implements ICommand {
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         if (args.length > 0 && configAliases.contains(args[0].toLowerCase())) {
             Utils.sendClientMessage("Opening config GUI...");
-            new Thread() {
-                @Override
-                public void run() {
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
-                    }
-                    PartlySaneSkies.minecraft.displayGuiScreen(PartlySaneSkies.config.gui());
-                }
-            }.start();
+            Window.Companion.enqueueRenderOperation(() -> {
+                PartlySaneSkies.minecraft.displayGuiScreen(PartlySaneSkies.config.gui());
+            });
             return;
         }
         

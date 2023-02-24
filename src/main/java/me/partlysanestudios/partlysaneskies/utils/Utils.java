@@ -73,7 +73,9 @@ public class Utils {
         System.out.println("\n\n\n" + print.toString() + "\n\n\n");
 
         try {
-            sendClientMessage("\n            " + print.toString() + "", true);
+            PartlySaneSkies.minecraft.ingameGUI
+                    .getChatGUI()
+                    .printChatMessage(new ChatComponentText("\n            " + print.toString() + ""));
             StringSelection stringSelection = new StringSelection(print.toString());
             Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
             clipboard.setContents(stringSelection, null);
@@ -88,11 +90,10 @@ public class Utils {
 
     // If true, Sends a message discretely without the Prefix Partly Sane Skies >:
     public static void sendClientMessage(String text, boolean silent) {
-
         text = Utils.colorCodes(text);
         if (silent) {
             try {
-            PartlySaneSkies.minecraft.ingameGUI
+                PartlySaneSkies.minecraft.ingameGUI
                     .getChatGUI()
                     .printChatMessage(new ChatComponentText(text));
 
@@ -263,23 +264,27 @@ public class Utils {
     }
 
     public static String stripLeading(String str) {
-        String s = new String(str); // Cloning string
-        if (Character.isWhitespace(s.charAt(0))) {
-            s = new StringBuilder(s).replace(0, 1, "").toString();
-            s = stripLeading(s);
+        if (str.equals("")) {
+            return str;
+        }
+        if (Character.isWhitespace(str.charAt(0))) {
+            str = new StringBuilder(str).replace(0, 1, "").toString();
+            str = stripLeading(str);
         }
 
-        return s;
+        return str;
     }
 
     public static String stripTrailing(String str) {
-        String s = new String(str); // Cloning string
-        if (Character.isWhitespace(s.charAt(s.length() - 1))) {
-            s = new StringBuilder(s).replace(s.length() - 1, s.length(), "").toString();
-            s = stripTrailing(s);
+        if (str.equals("")) {
+            return str;
+        }
+        if (Character.isWhitespace(str.charAt(str.length() - 1))) {
+            str = new StringBuilder(str).replace(str.length() - 1, str.length(), "").toString();
+            str = stripTrailing(str);
         }
 
-        return s;
+        return str;
     }
 
     public static String getDecodedFieldName(String codedName) {

@@ -135,7 +135,7 @@ public class PartlySaneSkies {
         MinecraftForge.EVENT_BUS.register(new PartyManager());
         MinecraftForge.EVENT_BUS.register(new WatcherReady());
         MinecraftForge.EVENT_BUS.register(new WormWarning());
-        MinecraftForge.EVENT_BUS.register(new PartlySaneSkiesMainMenu(ElementaVersion.V2));
+        MinecraftForge.EVENT_BUS.register(new CustomMainMenu(ElementaVersion.V2));
         MinecraftForge.EVENT_BUS.register(new Keybinds());
         MinecraftForge.EVENT_BUS.register(new PartyFriendManager());
         MinecraftForge.EVENT_BUS.register(new WikiArticleOpener());

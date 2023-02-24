@@ -22,9 +22,9 @@ import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.fml.client.GuiModList;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-public class PartlySaneSkiesMainMenu extends WindowScreen {
+public class CustomMainMenu extends WindowScreen {
 
-    public PartlySaneSkiesMainMenu(ElementaVersion version) {
+    public CustomMainMenu(ElementaVersion version) {
         super(version);
     }
 
@@ -68,7 +68,7 @@ public class PartlySaneSkiesMainMenu extends WindowScreen {
         if (!(e.gui instanceof GuiMainMenu))
             return;
         e.setCanceled(true);
-        PartlySaneSkies.minecraft.displayGuiScreen(new PartlySaneSkiesMainMenu(ElementaVersion.V2));
+        PartlySaneSkies.minecraft.displayGuiScreen(new CustomMainMenu(ElementaVersion.V2));
         PartlySaneSkies.minecraft.getSoundHandler()
                 .playSound(PositionedSoundRecord.create(new ResourceLocation("partlysaneskies", "bell")));
     }

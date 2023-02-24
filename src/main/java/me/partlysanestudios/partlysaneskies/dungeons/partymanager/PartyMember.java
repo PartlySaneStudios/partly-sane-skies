@@ -134,46 +134,61 @@ public class PartyMember {
 
         try {
             helmetName = profileItems.getAsJsonArray("armor").get(3).getAsJsonObject().get("display_name").getAsString();
+            if (helmetName.equals("null")) {
+                helmetName = "None";
+            }
             helmetName = formatText(helmetName);
         } catch (NullPointerException e) {
-            helmetName = "";
+            helmetName = "None";
         } catch (IndexOutOfBoundsException e) {
-            helmetName = "";
+            helmetName = "None";
         }
 
         // Attempts to get the chestplate slot
         try {
             chestplateName = profileItems.getAsJsonArray("armor").get(2).getAsJsonObject().get("display_name").getAsString();
             chestplateName = formatText(chestplateName);
+            if (chestplateName.equals("null")) {
+                chestplateName = "None";
+            }
         } catch (NullPointerException e) {
-            chestplateName = "";
+            chestplateName = "None";
         } catch (IndexOutOfBoundsException e) {
-            chestplateName = "";
+            chestplateName = "None";
         }
 
         // Attempts to get the legging slot
         try {
             leggingsName = profileItems.getAsJsonArray("armor").get(1).getAsJsonObject().get("display_name").getAsString();
+            if (leggingsName.equals("null")) {
+                    leggingsName = "None";
+            }
             leggingsName = formatText(leggingsName);
         } catch (NullPointerException e) {
-            leggingsName = "";
+            leggingsName = "None";
         } catch (IndexOutOfBoundsException e) {
-            leggingsName = "";
+            leggingsName = "None";
         }
 
         // Attempts to get the boots slot
         try {
             bootsName = profileItems.getAsJsonArray("armor").get(0).getAsJsonObject().get("display_name").getAsString();
+            if (bootsName.equals("null")) {
+                helmetName = "None";
+            }
             bootsName = formatText(bootsName);
         } catch (NullPointerException e) {
-            bootsName = "";
+            bootsName = "None";
         } catch (IndexOutOfBoundsException e) {
-            bootsName = "";
+            bootsName = "None";
         }
 
         // Attempts to get the selected dungeon class
         try {
             selectedDungeonClass = profileData.getAsJsonObject("dungeons").get("selected_class").getAsString();
+            if (selectedDungeonClass.equals("null")) {
+                selectedDungeonClass = "None";
+            }
             selectedDungeonClass = formatText(selectedDungeonClass);
         } catch (NullPointerException e) {
             selectedDungeonClass = "None";
@@ -214,42 +229,6 @@ public class PartyMember {
         } catch (NullPointerException e) {
         }
     }
-
-
-
-    // public int getSlothpixelData(String currentProfileId) throws IOException {
-    //     // Get's the player's UUID
-    //     String uuid = getUUID(username);
-
-    //     // Gets the player's Slothpixel data
-    //     String response = Utils.getRequest("https://api.slothpixel.me/api/skyblock/profile/" + uuid+ "/" + currentProfileId);
-    //     if (response.startsWith("Error")) {
-    //         Utils.sendClientMessage(Utils.colorCodes("Error getting data for " + username + ". Maybe the player is nicked."));
-    //         return -1;
-    //     }
-
-    //     JsonParser parser = new JsonParser();
-    //     JsonObject slothpixelJson = (JsonObject) parser.parse(response);
-    //     health = slothpixelJson.getAsJsonObject("members")
-    //             .getAsJsonObject(uuid)
-    //             .getAsJsonObject("attributes")
-    //             .get("health").getAsFloat();
-    //     intelligence = slothpixelJson.getAsJsonObject("members")
-    //             .getAsJsonObject(uuid)
-    //             .getAsJsonObject("attributes")
-    //             .get("intelligence").getAsFloat();
-    //     defense = slothpixelJson.getAsJsonObject("members")
-    //             .getAsJsonObject(uuid)
-    //             .getAsJsonObject("attributes")
-    //             .get("defense").getAsFloat();
-    //     effectHealth = slothpixelJson.getAsJsonObject("members")
-    //             .getAsJsonObject(uuid)
-    //             .getAsJsonObject("attributes")
-    //             .get("effective_health").getAsFloat();
-
-        
-    //     return 0;
-    // }
 
     public static String getUUID(String username) throws IOException {
         // Creates a Json parser to parse the json data

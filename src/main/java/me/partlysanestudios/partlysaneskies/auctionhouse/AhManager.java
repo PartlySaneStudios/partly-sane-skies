@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import gg.essential.elementa.ElementaVersion;
+import gg.essential.elementa.components.Window;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.gui.GuiScreen;
@@ -44,6 +45,7 @@ public class AhManager {
         inventory = PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen)[0];
         boolean preloaded = ahChestFullyLoaded(inventory);
         gui = new AhGui(ElementaVersion.V2);
+        
         new Thread() {
             @Override
             public void run() {
@@ -58,9 +60,11 @@ public class AhManager {
                 }
 
                 inventory = PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen)[0];
-
-                PartlySaneSkies.minecraft.displayGuiScreen(gui);
-                gui.loadGui(inventory);
+                Window.Companion.enqueueRenderOperation(() -> {
+                    PartlySaneSkies.minecraft.displayGuiScreen(gui);
+                    gui.loadGui(inventory);
+                });
+                
             }
         }.start();
     }

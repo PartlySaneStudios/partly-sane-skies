@@ -59,8 +59,11 @@ public class SkillUpgradeCommand implements ICommand {
                         return;
                     }
                 }
-
-                SkillUpgradeRecommendation.printMessage(map);
+                
+                PartlySaneSkies.minecraft.addScheduledTask(() -> {
+                    SkillUpgradeRecommendation.printMessage(map);
+                });
+                
             }
         }.start();
 
