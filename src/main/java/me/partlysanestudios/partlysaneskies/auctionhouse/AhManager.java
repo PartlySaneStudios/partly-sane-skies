@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import gg.essential.elementa.ElementaVersion;
-import gg.essential.elementa.components.Window;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.gui.GuiScreen;
@@ -46,27 +45,35 @@ public class AhManager {
         boolean preloaded = ahChestFullyLoaded(inventory);
         gui = new AhGui(ElementaVersion.V2);
         
-        new Thread() {
-            @Override
-            public void run() {
-                boolean loaded = preloaded;
-                while (!loaded) {
-                    try {
-                        Thread.sleep(10);
-                        loaded = ahChestFullyLoaded(inventory);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
+        if (preloaded) {
+            PartlySaneSkies.minecraft.displayGuiScreen(gui);
+            gui.loadGui(inventory);
+            return;
+        }
+        
+        openAh();
+    }
 
+    public static void openAh() {
+        
+            if (ahChestFullyLoaded(inventory)) {
                 inventory = PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen)[0];
-                Window.Companion.enqueueRenderOperation(() -> {
-                    PartlySaneSkies.minecraft.displayGuiScreen(gui);
-                    gui.loadGui(inventory);
-                });
+                PartlySaneSkies.minecraft.displayGuiScreen(gui);
+                gui.loadGui(inventory);
                 
+            } else {
+                new Thread() {
+                    @Override
+                    public void run() {
+                        PartlySaneSkies.minecraft.addScheduledTask(() -> {
+                            inventory = PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen)[0];
+                            openAh();
+                        });
+                    }
+                    
+                }.start();
             }
-        }.start();
+
     }
 
     public static boolean isAhGui() {
