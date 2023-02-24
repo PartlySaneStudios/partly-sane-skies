@@ -128,7 +128,14 @@ public class ConfigScreen extends Vigilant {
     )
     public boolean colorCoopChat = false;
 
-
+    @Property(
+        type = PropertyType.SWITCH,
+        name = "Visable Colors", 
+        category = "General", 
+        subcategory = "Chat Color", 
+        description = "Converts the custom colors mentiond above to more visable colors. Dark Green -> Light Green and Blue -> Gold. (Recommended)"
+    )
+    public boolean visableColors = false;
 
     // ----------------- Category: Skyblock -------------------
     // Rare Drop
