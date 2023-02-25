@@ -366,6 +366,15 @@ public class ConfigScreen extends Vigilant {
     )
     public boolean gardenShopTradeInfo = false;
 
+    @Property(
+        type = PropertyType.SWITCH, 
+        subcategory = "Garden", 
+        name = "Best Crops to Compost", 
+        description = "Gives you information about which crops are the best to compost.", 
+        category = "Economy"
+    )
+    public boolean bestCropsToCompost = false;
+
      // Auction House
      @Property(
         type = PropertyType.SWITCH, 

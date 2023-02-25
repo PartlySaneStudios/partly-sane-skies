@@ -151,12 +151,20 @@ Never lose your coins to the void again! When the mod detects you do not have a 
 ### Enhanced Auction Menu and BIN Sniper
 
 A brand new auction house menu that gives you more information on prices, instant inflation, and mark up. Using that information, the menu highlights BIN items that are significantly below their  value (Default: 13% below).
+
 ![Custom Main Menu](images/custom_ah.png)
 
 ### Garden Shop Trade Cost
 
 Shows you information about the garden shop trades.
+
 ![Custom Main Menu](images/garden_trade_cost.png)
+
+### Top Crops to Compost
+
+Shows you information about which crops are the best to use for the composter at the current moment in time
+
+![Top Crops to Compost](images/crop_compost.png)
 
 </details>
 

@@ -111,7 +111,10 @@ public class CompostValue {
         int i = 1;
         for (Map.Entry<String, Double> en : map.entrySet()) {
             String id = en.getKey();
-            str += "&6"+ i + ". &7" + Utils.formatNumber(Math.ceil(4000d / compostValueMap.get(id))) + "x  &d" + SkyblockItem.getItem(id).getName() + "&7 per compost or a total of\n&d" + Utils.formatNumber(Utils.round(4000d / compostValueMap.get(id) * 10, 1)) + " for &7" + Utils.formatNumber(Utils.round(en.getValue()*10, 1)) + "&7 coins to fill.\n";
+            double cropPerCompost = 4000d / compostValueMap.get(id);
+            String cropName = SkyblockItem.getItem(id).getName();
+            double costPerCompost = en.getValue();
+            str += "&6"+ i + ". &7x&d" + Utils.formatNumber(Math.ceil(cropPerCompost * 10)) + " " + cropName + "&7 costing &d"+ Utils.formatNumber(Utils.round(costPerCompost * 10, 1)) + "&7 coins to fill. \n&8(x" + Utils.formatNumber(Math.ceil(cropPerCompost)) + "/Compost)\n";
 
             i++;
             if (i > 5) {
@@ -174,7 +177,7 @@ public class CompostValue {
             box.hide();
             return;
         }
-        if (!PartlySaneSkies.config.gardenShopTradeInfo) {
+        if (!PartlySaneSkies.config.bestCropsToCompost) {
             return;
         }
 
@@ -197,6 +200,10 @@ public class CompostValue {
         String textString = "&e&lTop Crops:\n\n";
 
         textString += getString();
+        textString += "\n\n";
+        textString += "&e&lCompost:\n\n";
+        double compostSellPrice = SkyblockItem.getItem("COMPOST").getPrice();
+        textString += "&7x10 Compost currently sells for &d" + Utils.formatNumber(Utils.round(compostSellPrice * 10, 1))  + "&7 coins.\n&8(" + Utils.formatNumber(Utils.round(compostSellPrice, 1)) + "/Compost)";
 
         textString = Utils.colorCodes(textString);
         textComponent.setText(textString);
