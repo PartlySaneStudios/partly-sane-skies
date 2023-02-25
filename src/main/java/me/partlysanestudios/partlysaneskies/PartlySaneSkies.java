@@ -35,6 +35,7 @@ import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManager;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManagerCommand;
 import me.partlysanestudios.partlysaneskies.dungeons.permpartyselector.PermPartyCommand;
 import me.partlysanestudios.partlysaneskies.dungeons.permpartyselector.PermPartyManager;
+import me.partlysanestudios.partlysaneskies.garden.CompostValue;
 import me.partlysanestudios.partlysaneskies.garden.GardenTradeValue;
 import me.partlysanestudios.partlysaneskies.help.ConfigCommand;
 import me.partlysanestudios.partlysaneskies.help.DiscordCommand;
@@ -65,7 +66,6 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 
 @Mod(modid = PartlySaneSkies.MODID, version = PartlySaneSkies.VERSION, name = PartlySaneSkies.NAME)
 public class PartlySaneSkies {
-
     public static void main(String[] args) {
         
     }
@@ -145,6 +145,7 @@ public class PartlySaneSkies {
         MinecraftForge.EVENT_BUS.register(new ChatAlertsManager());
         MinecraftForge.EVENT_BUS.register(new GardenTradeValue());
         MinecraftForge.EVENT_BUS.register(new ChatColors());
+        MinecraftForge.EVENT_BUS.register(new CompostValue());
 
         // Registers all client side commands
         ClientCommandHandler.instance.registerCommand(new PartyManagerCommand());
@@ -173,6 +174,8 @@ public class PartlySaneSkies {
             e.printStackTrace();
         }
         SkyblockItem.updateAll();
+
+        CompostValue.init();
 
         // Finished loading
         System.out.println("Partly Sane Skies has loaded.");
