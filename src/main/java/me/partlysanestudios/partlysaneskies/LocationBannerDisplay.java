@@ -43,9 +43,31 @@ public class LocationBannerDisplay extends Gui {
 		String regionName = PartlySaneSkies.getRegionName();
 		String noColorCodeRegionName = Utils.removeColorCodes(regionName);
 
+        if (noColorCodeRegionName.equals("")) {
+            return;
+        }
+        
+        noColorCodeRegionName = Utils.stripLeading(noColorCodeRegionName);
+        noColorCodeRegionName = Utils.stripTrailing(noColorCodeRegionName);
+        noColorCodeRegionName = noColorCodeRegionName.replaceAll("\\P{Print}", ""); // Removes the RANDOM EMOJIS THAT ARE PRESENT IN SKYBLOCK LOCATIONS
+        // LOOK AT THIS:
+        // The Catac🔮ombs (F5)
+        // The Catac👽ombs (F5)
+        // The Catac🔮ombs (F5)
+        // Dungeon H👾ub
+        // Mountain⚽
+        // Village⚽
+        // Coal Mine⚽
+        // THEY'RE NOT EVEN VISABLE IN MINECRAFT
+
 		if (lastLocation.equals(noColorCodeRegionName)) {
 			return;
 		}
+
+        if (noColorCodeRegionName.toLowerCase().contains("none")) {
+            return;
+        }
+
 		if (!regionName.equals("")) {
 			color = Utils.colorCodetoColor.get(regionName.substring(3, 5));
 		}

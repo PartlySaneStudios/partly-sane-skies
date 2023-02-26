@@ -9,11 +9,15 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.internal.LinkedTreeMap;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 
@@ -29,25 +33,34 @@ public class PermPartyManager {
         // If the file had to be created, fil it with an empty list to prevent null pointer error
         if (file.createNewFile()) {
             FileWriter writer = new FileWriter(file);
-            writer.write(new Gson().toJson(new ArrayList<PermParty>()));
+            writer.write(new Gson().toJson(new HashMap<String, PermParty>()));
             writer.close();
         }
+
+        
 
         // Creates a new file reader
         Reader reader = Files.newBufferedReader(Paths.get(file.getPath()));
 
-        // Parses the fist level of data 
-        @SuppressWarnings("unchecked")
-        List<LinkedTreeMap<String, String>> map = new Gson().fromJson(reader,
-                ((List<LinkedTreeMap<String, String>>) new ArrayList<LinkedTreeMap<String, String>>()).getClass());
-        HashMap<String, PermParty> finalMap = new HashMap<String, PermParty>();
-        // Parses each individual partyMember
-        for (LinkedTreeMap<String, String> key : map) {
-            PermParty instance = new Gson().fromJson(key.toString(), PermParty.class);
-            finalMap.put(instance.name, instance);
+        JsonObject object = new JsonParser().parse(reader).getAsJsonObject();
+
+        HashMap<String, PermParty> map = new HashMap<String, PermParty>();
+        
+        for (Map.Entry<String, JsonElement> en : object.entrySet()) {
+            JsonObject partyJson = en.getValue().getAsJsonObject();
+            JsonArray partyMembersJson = partyJson.get("partyMembers").getAsJsonArray();
+            
+            ArrayList<String> partyMembersList = new ArrayList<String>();
+            for(JsonElement member : partyMembersJson) {
+                partyMembersList.add(member.getAsString());
+            }
+
+            PermParty permParty = new PermParty(partyJson.get("name").getAsString(), partyMembersList);
+            permParty.isFavourite = partyJson.get("isFavourite").getAsBoolean();
+            map.put(en.getKey(), permParty);
         }
 
-        permPartyMap = finalMap;
+        permPartyMap = map;
     }
 
     // Saves all of the party member data to a json file

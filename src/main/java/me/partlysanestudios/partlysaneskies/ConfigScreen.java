@@ -128,7 +128,14 @@ public class ConfigScreen extends Vigilant {
     )
     public boolean colorCoopChat = false;
 
-
+    @Property(
+        type = PropertyType.SWITCH,
+        name = "Visable Colors", 
+        category = "General", 
+        subcategory = "Chat Color", 
+        description = "Converts the custom colors mentiond above to more visable colors. Dark Green -> Light Green and Blue -> Gold. (Recommended)"
+    )
+    public boolean visableColors = false;
 
     // ----------------- Category: Skyblock -------------------
     // Rare Drop
@@ -193,6 +200,24 @@ public class ConfigScreen extends Vigilant {
     public boolean openWikiAutomatically = true;
    
     // Pet Minion Alert
+    @Property(
+        type = PropertyType.SWITCH, 
+        name = "Incorrect Pet for Minion Alert", 
+        category = "Skyblock", 
+        description = "Warns you if you don't have the right pet for leveling up the minions, that way you never lose any pet EXP because you still have your level 100 dungeon pet activated.\nRequires pets to be visable.", 
+        subcategory = "Incorrect Pet for Minion Alert"
+    )
+    public boolean incorrectPetForMinionAlert = false;
+
+    @Property(
+        type = PropertyType.SWITCH, 
+        name = "Incorrect Pet for Minion Alert", 
+        category = "Skyblock", 
+        description = "Plays a WWII air raid siren when you have the wrong pet. \nPros: \nKeeps you up at late night grinds \n(RECOMMENDED, ESPECIALLY AT 3 AM).", 
+        subcategory = "Incorrect Pet for Minion Alert"
+    )
+    public boolean incorrectPetForMinionAlertSiren = false;
+
     @Property(
         type = PropertyType.TEXT,
         category = "Skyblock",
@@ -335,7 +360,7 @@ public class ConfigScreen extends Vigilant {
         description = "Message to send when the watcher is ready to clear.", 
         category = "Dungeons"
     )
-    public String watcherChatMessage = "The watcher is done spawning mobs. Ready to clear";
+    public String watcherChatMessage = "Partly Sane Skies > The watcher is done spawning mobs. Ready to clear";
 
     @Property(
         type = PropertyType.SWITCH, 
@@ -358,6 +383,15 @@ public class ConfigScreen extends Vigilant {
         category = "Economy"
     )
     public boolean gardenShopTradeInfo = false;
+
+    @Property(
+        type = PropertyType.SWITCH, 
+        subcategory = "Garden", 
+        name = "Best Crops to Compost", 
+        description = "Gives you information about which crops are the best to compost.", 
+        category = "Economy"
+    )
+    public boolean bestCropsToCompost = false;
 
      // Auction House
      @Property(

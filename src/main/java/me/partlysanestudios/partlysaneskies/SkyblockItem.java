@@ -63,7 +63,7 @@ public class SkyblockItem {
 
     public double getPrice() {
         if (getBazaarPrice() != -1) {
-            return this.bazaarPrice;
+            return getBazaarPrice();
         }
         if (getLowestBin() != -1) {
             return getLowestBin();
@@ -161,7 +161,6 @@ public class SkyblockItem {
     public static void runUpdater() {
         if (checkLastUpdate()) {
             lastAhUpdateTime = Minecraft.getSystemTime();
-            Utils.visPrint("UPDATING" + checkLastUpdate() + lastAhUpdateTime);
             new Thread() {
                 @Override
                 public void run() {
@@ -232,7 +231,7 @@ public class SkyblockItem {
                 if (!object.has(en.getKey())) {
                     continue;
                 }
-                en.getValue().setLowestBinPrice(object.getAsJsonObject(en.getKey()).get("price").getAsDouble());
+                en.getValue().setBazaarPrice(object.getAsJsonObject(en.getKey()).get("price").getAsDouble());
             }
 
         } catch (IOException e) {
@@ -241,7 +240,7 @@ public class SkyblockItem {
     }
 
     public static boolean checkLastUpdate() {
-        if (Minecraft.getSystemTime() < lastAhUpdateTime + (1000 * 60 * 5)) {
+        if (Minecraft.getSystemTime() < lastAhUpdateTime + (1000 * 60 * 3)) {
             return true;
         }
 

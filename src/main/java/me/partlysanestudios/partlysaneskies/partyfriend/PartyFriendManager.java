@@ -68,7 +68,10 @@ public class PartyFriendManager {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party invite " + member);
+                    PartlySaneSkies.minecraft.addScheduledTask(() -> {
+                        PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party invite " + member);
+                    });
+                    
                 }
             }.start();
 

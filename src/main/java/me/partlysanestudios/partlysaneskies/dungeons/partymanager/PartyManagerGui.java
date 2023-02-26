@@ -12,6 +12,7 @@ import gg.essential.elementa.components.ScrollComponent;
 import gg.essential.elementa.components.UIBlock;
 import gg.essential.elementa.components.UIRoundedRectangle;
 import gg.essential.elementa.components.UIText;
+import gg.essential.elementa.components.Window;
 import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import gg.essential.elementa.constraints.ScaleConstraint;
@@ -87,7 +88,10 @@ public class PartyManagerGui extends WindowScreen {
                             e.printStackTrace();
                         }
                     }
-                    member.createBlock(memberBlock, scaleFactor);
+                    Window.Companion.enqueueRenderOperation(() -> {
+                        member.createBlock(memberBlock, scaleFactor);
+                    });
+                    
 
                     PartyManager.playerCache.put(member.username, member);
                 }

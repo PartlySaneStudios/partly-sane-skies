@@ -62,11 +62,17 @@ public class ChatColors {
                 if (!PartlySaneSkies.config.colorPartyChat) {
                     return "";
                 }
+                if (PartlySaneSkies.config.visableColors) {
+                    return Utils.colorCodes("&6");
+                }
                 return Utils.colorCodes("&9");
 
             case "guild":
                 if (!PartlySaneSkies.config.colorGuildChat) {
                     return "";
+                }
+                if (PartlySaneSkies.config.visableColors) {
+                    return Utils.colorCodes("&a");
                 }
                 return Utils.colorCodes("&2");
 

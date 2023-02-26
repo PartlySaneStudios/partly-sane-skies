@@ -17,7 +17,7 @@ public final class Keybinds {
 
     private final static String PSS_CATEGORY = "Partly Sane Skies";
 
-    public static KeyBinding debugKey;
+    // public static KeyBinding debugKey;
     public static KeyBinding configKey;
     public static KeyBinding partyManagerKey;
     public static KeyBinding helpKey;
@@ -29,7 +29,7 @@ public final class Keybinds {
     public static KeyBinding favouritePetKeybind;
 
     public static void init() {
-        debugKey = registerKey("Debug", PSS_CATEGORY, Keyboard.KEY_F4);
+        // debugKey = registerKey("Debug", PSS_CATEGORY, Keyboard.KEY_F4);
         configKey = registerKey("Config", PSS_CATEGORY, Keyboard.KEY_F7);
         partyManagerKey = registerKey("Party Manager", PSS_CATEGORY, Keyboard.KEY_M);
         helpKey = registerKey("Help", PSS_CATEGORY, Keyboard.KEY_H);
@@ -50,9 +50,9 @@ public final class Keybinds {
 
     @SubscribeEvent
     public void keybindWhileInGui(KeyboardInputEvent.Post event) {
-        if (Keyboard.isKeyDown(debugKey.getKeyCode())) {
-            PartlySaneSkies.debugMode();
-        }
+        // if (Keyboard.isKeyDown(debugKey.getKeyCode())) {
+        //     PartlySaneSkies.debugMode();
+        // }
 
         if (Keyboard.isKeyDown(wikiKeybind.getKeyCode())) {
             WikiArticleOpener.keyDown();
@@ -77,9 +77,9 @@ public final class Keybinds {
 
     @SubscribeEvent
     public void checkKeyBinds(KeyInputEvent event) {
-        if (debugKey.isPressed()) {
-            PartlySaneSkies.debugMode();
-        }
+        // if (debugKey.isPressed()) {
+        //     PartlySaneSkies.debugMode();
+        // }
         if (configKey.isPressed()) {
             PartlySaneSkies.minecraft.displayGuiScreen(PartlySaneSkies.config.gui());
         }

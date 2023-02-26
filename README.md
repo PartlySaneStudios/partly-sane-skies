@@ -21,7 +21,9 @@ This is a Minecraft mod for Hypixel Skyblock, designed, built, and programmed by
 ### Download
 
 [Click here to go to the releases page](<https://github.com/Su386yt/partly-sane-skies/releases>).
- Open the assets drop down for the latest version and download "partly-sane-skies" .jar file.
+ Open the assets drop down for the latest version and download "partly-sane-skies" .jar file. Place that mod in the mods folder of your Minecraft and you are good to go!
+ 
+ ***This mod requires Essential Mod, Patcher, or Skytils to run.* If you do not have either of these downloaded, you can find the Essential mod [download link here (https://essential.gg/download)](<https://essential.gg/download>) (Download the one for Forge 1.8.9)**
 
 ### Discord
 
@@ -44,8 +46,7 @@ This is a Minecraft mod for Hypixel Skyblock, designed, built, and programmed by
 
 ``/fp``, ``/pf``: Command to use Party All Friends. (See Features)
 
-``/chatalert``, ``/ca``: Command to use the chat alerts system. (See Features)
-
+``/chatalert``, ``/ca``: Command to use the Chat Alerts System. (See Features)
 
 </details>
 
@@ -67,7 +68,7 @@ This is a Minecraft mod for Hypixel Skyblock, designed, built, and programmed by
   
 ## General/Miscellaneous Features
 
-General and miscellaneous features.
+General and Miscellaneous features.
 
 ### Custom Main Menu
 
@@ -89,7 +90,7 @@ When you get a rare drop, a Pumpkin Dicer or Melon Slicer like pop-up banner wil
 
 ### Worm Warning
 
-When you are mining in the crystal hollows and a worm or scatha spawns, you get a message on screen, along with a sound, warning you that a worm has spawned.
+When you are mining in the Crystal Hollows and a worm or Scatha spawns, you get a message on screen, along with a sound, warning you that a worm has spawned.
 
 ### Location Banner
 
@@ -99,7 +100,7 @@ When switching to a new location region on skyblock, an MMO RPG style banner wil
 
 ### Chat Alerts
 
-Using ``/ca``, you can add and remove specific phrases that will be highlighted when someone says them. Example: If you add the word "``flag``" (using ``/ca add flag``) to the chat alerts, it will highlight the word and play a notification when someone says it.
+Using ``/ca``, you can add and remove specific phrases that will be highlighted when someone says them. Example: If you add the word "``flag``" (using ``/ca add flag``) to Chat Alerts, it will highlight the word and play a notification when someone says it.
 
 ![Chat Alerts](images/chat_alerts.png)
 
@@ -111,11 +112,11 @@ Private messages and messages that are sent in the Party, Guild, Guild Officer, 
 
 ### Incorrect Pet for Minion Alert
 
-Warns you if you don't have the right pet for leveling up the minions, that way you never lose any pet EXP because you still have your level 100 dungeon pet activated.
+If you do not the right pet selected for leveling up minions, you will be warned so that you never lose any pet EXP because you still have your level 100 dungeon pet activated.
 
 ### Non Chat Color
 
-Messages sent by nons (non ranked players) can be configured to have the same white as the rest of the chat. This option is off by default but can be turned on.
+Messages sent by nons (non ranked players) can be configured to have the same white as the rest of the chat. This option is off by default but can be turned on in the PSS Config menu.
 
 </details>
 
@@ -152,12 +153,20 @@ Never lose your coins to the void again! When the mod detects you do not have a 
 ### Enhanced Auction Menu and BIN Sniper
 
 A brand new auction house menu that gives you more information on prices, instant inflation, and mark up. Using that information, the menu highlights BIN items that are significantly below their  value (Default: 13% below).
+
 ![Custom Main Menu](images/custom_ah.png)
 
 ### Garden Shop Trade Cost
 
 Shows you information about the garden shop trades.
+
 ![Custom Main Menu](images/garden_trade_cost.png)
+
+### Top Crops to Compost
+
+Shows you information about which crops are the best to use for the composter at the current moment in time
+
+![Top Crops to Compost](images/crop_compost.png)
 
 </details>
 

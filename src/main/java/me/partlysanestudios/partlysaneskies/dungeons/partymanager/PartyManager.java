@@ -41,8 +41,12 @@ public class PartyManager {
                     e.printStackTrace();
                 }
 
-                // Starts the party manager
-                PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party list");
+                PartlySaneSkies.minecraft.addScheduledTask(() -> {
+                    // Starts the party manager
+                    PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party list");
+                });
+                
+                
                 partyList.clear();
             }
             
@@ -211,7 +215,10 @@ public class PartyManager {
                         e.printStackTrace();
                     }
                     // Invites the member
-                    PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party invite " + member.username);
+                    PartlySaneSkies.minecraft.addScheduledTask(() -> {
+                        PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party invite " + member.username);
+                    });
+                    
                 }
             }.start();
 
