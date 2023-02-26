@@ -22,7 +22,7 @@ This is a Minecraft mod for Hypixel Skyblock, designed, built, and programmed by
 
 [Click here to go to the releases page](<https://github.com/Su386yt/partly-sane-skies/releases>).
  Open the assets drop down for the latest version and download "partly-sane-skies" .jar file. Place that mod in the mods folder of your Minecraft and you are good to go!
- 
+
  ***This mod requires Essential Mod, Patcher, or Skytils to run.* If you do not have either of these downloaded, you can find the Essential mod [download link here (https://essential.gg/download)](<https://essential.gg/download>) (Download the one for Forge 1.8.9)**
 
 ### Discord
@@ -112,7 +112,7 @@ Private messages and messages that are sent in the Party, Guild, Guild Officer, 
 
 ### Incorrect Pet for Minion Alert
 
-If you do not the right pet selected for leveling up minions, you will be warned so that you never lose any pet EXP because you still have your level 100 dungeon pet activated.
+If you do not the right pet selected for leveling up minions, you will be warned so that you never lose any pet EXP because you still have your level 100 dungeon pet activated. An optional World War II (1938-1945) air raid siren can be activated.
 
 ### Non Chat Color
 
