@@ -201,6 +201,15 @@ public class ConfigScreen extends Vigilant {
    
     // Pet Minion Alert
     @Property(
+        type = PropertyType.SWITCH, 
+        name = "Incorrect Pet for Minion Alert", 
+        category = "Skyblock", 
+        description = "Warns you if you don't have the right pet for leveling up the minions, that way you never lose any pet EXP because you still have your level 100 dungeon pet activated.", 
+        subcategory = "Incorrect Pet for Minion Alert"
+    )
+    public boolean incorrectPetForMinionAlert = true;
+
+    @Property(
         type = PropertyType.TEXT,
         category = "Skyblock",
         subcategory = "Incorrect Pet for Minion Alert",
