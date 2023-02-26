@@ -241,10 +241,10 @@ public class PartlySaneSkies {
     }
 
     // Runs when debug key is pressed
-    public static void debugMode() {
-        PartlySaneSkies.isDebugMode = !PartlySaneSkies.isDebugMode;
-        Utils.sendClientMessage("Debug mode: " + PartlySaneSkies.isDebugMode);
-    }
+    // public static void debugMode() {
+    //     PartlySaneSkies.isDebugMode = !PartlySaneSkies.isDebugMode;
+    //     Utils.sendClientMessage("Debug mode: " + PartlySaneSkies.isDebugMode);
+    // }
 
     // Returns a list of lines on the scoreboard,
     // where each line is a new entry
