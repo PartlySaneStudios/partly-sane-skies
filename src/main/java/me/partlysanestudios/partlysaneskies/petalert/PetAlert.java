@@ -31,7 +31,7 @@ public class PetAlert {
         if (!PartlySaneSkies.config.incorrectPetForMinionAlert) {
             return;
         }
-        
+
         if (!isMinionGui()) {
             return;
         }
@@ -58,7 +58,10 @@ public class PetAlert {
                     PositionedSoundRecord
                     .create(new ResourceLocation("partlysaneskies", "bell"))
                 );
-
+                if (PartlySaneSkies.config.incorrectPetForMinionAlertSiren) {
+                    PartlySaneSkies.minecraft.getSoundHandler().playSound(
+                            PositionedSoundRecord.create(new ResourceLocation("partlysaneskies", "airraidsiren")));
+                }
             lastSoundTime = Minecraft.getSystemTime();
         }
         if (!onCooldown(lastMessageSendTime,3000)) {

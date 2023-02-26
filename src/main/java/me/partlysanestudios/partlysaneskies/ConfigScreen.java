@@ -207,7 +207,16 @@ public class ConfigScreen extends Vigilant {
         description = "Warns you if you don't have the right pet for leveling up the minions, that way you never lose any pet EXP because you still have your level 100 dungeon pet activated.", 
         subcategory = "Incorrect Pet for Minion Alert"
     )
-    public boolean incorrectPetForMinionAlert = true;
+    public boolean incorrectPetForMinionAlert = false;
+
+    @Property(
+        type = PropertyType.SWITCH, 
+        name = "Incorrect Pet for Minion Alert", 
+        category = "Skyblock", 
+        description = "Plays a WWII air raid siren when you have the wrong pet. \nPros: \nKeeps you up at late night grinds \n(RECOMMENDED, ESPECIALLY AT 3 AM).", 
+        subcategory = "Incorrect Pet for Minion Alert"
+    )
+    public boolean incorrectPetForMinionAlertSiren = false;
 
     @Property(
         type = PropertyType.TEXT,
