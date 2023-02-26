@@ -33,7 +33,7 @@ public class PermPartyManager {
         // If the file had to be created, fil it with an empty list to prevent null pointer error
         if (file.createNewFile()) {
             FileWriter writer = new FileWriter(file);
-            writer.write(new Gson().toJson(new ArrayList<PermParty>()));
+            writer.write(new Gson().toJson(new HashMap<String, PermParty>()));
             writer.close();
         }
 
