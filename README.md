@@ -21,7 +21,9 @@ This is a Minecraft mod for Hypixel Skyblock, designed, built, and programmed by
 ### Download
 
 [Click here to go to the releases page](<https://github.com/Su386yt/partly-sane-skies/releases>).
- Open the assets drop down for the latest version and download "partly-sane-skies" .jar file.
+ Open the assets drop down for the latest version and download "partly-sane-skies" .jar file. Place that mod in the mods folder of your Minecraft and you are good to go!
+ 
+ ***This mod requires Essential Mod, Patcher, or Skytils to run.* If you do not have either of these downloaded, you can find the Essential mod [download link here (https://essential.gg/download)](<https://essential.gg/download>) (Download the one for Forge 1.8.9)**
 
 ### Discord
 
