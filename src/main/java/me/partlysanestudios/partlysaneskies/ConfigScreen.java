@@ -360,7 +360,7 @@ public class ConfigScreen extends Vigilant {
         description = "Message to send when the watcher is ready to clear.", 
         category = "Dungeons"
     )
-    public String watcherChatMessage = "The watcher is done spawning mobs. Ready to clear";
+    public String watcherChatMessage = "Partly Sane Skies > The watcher is done spawning mobs. Ready to clear";
 
     @Property(
         type = PropertyType.SWITCH, 
