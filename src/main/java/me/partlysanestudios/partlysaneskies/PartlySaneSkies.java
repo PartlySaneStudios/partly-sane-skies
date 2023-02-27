@@ -72,7 +72,7 @@ public class PartlySaneSkies {
 
     public static final String MODID = "partlysaneskies";
     public static final String NAME = "Partly Sane Skies";
-    public static final String VERSION = "v0.1";
+    public static final String VERSION = "v0.1.1";
     public static String CHAT_PREFIX = Utils.colorCodes("&r&b&lPartly Sane Skies&r&7>> &r");
 
     public static ConfigScreen config;
