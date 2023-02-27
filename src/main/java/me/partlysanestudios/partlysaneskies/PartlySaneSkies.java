@@ -177,6 +177,8 @@ public class PartlySaneSkies {
                     e.printStackTrace();
                 }
                 SkyblockItem.updateAll();
+                CompostValue.init();
+
 
                 // Loads user player data for PartyManager
                 try {
@@ -189,8 +191,7 @@ public class PartlySaneSkies {
         }.start();
         
 
-        CompostValue.init();
-
+        
         // Finished loading
         System.out.println("Partly Sane Skies has loaded.");
     }
