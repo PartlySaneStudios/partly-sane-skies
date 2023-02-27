@@ -105,29 +105,28 @@ public class PartlySaneSkies {
         PartlySaneSkies.config = new ConfigScreen();
         
 
-        // Loads perm party data
-        try {
-            PermPartyManager.load();
-            PermPartyManager.loadFavouriteParty();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        new Thread() {
+            @Override
+            public void run() {
+                // Loads perm party data
+                try {
+                    PermPartyManager.load();
+                    PermPartyManager.loadFavouriteParty();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                
+
+                // Loads chat alerts data
+                try {
+                    ChatAlertsManager.load();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         
-
-        // Loads chat alerts data
-        try {
-            ChatAlertsManager.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        // Loads user player data for PartyManager
-        try {
-            PartyManager.loadPlayerData(PartlySaneSkies.minecraft.getSession().getUsername());
-        } catch (IOException e) {
-            System.out.println("Partly Sane Skies: Unable to load player data.");
-            e.printStackTrace();
-        }
+        }.start();
+        
 
         // Registers all of the events
         MinecraftForge.EVENT_BUS.register(this);
@@ -168,12 +167,27 @@ public class PartlySaneSkies {
         // Initializes skill upgrade recommendation
         SkillUpgradeRecommendation.populateSkillMap();
 
-        try {
-            SkyblockItem.init();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        SkyblockItem.updateAll();
+        // API Calls
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    SkyblockItem.init();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                SkyblockItem.updateAll();
+
+                // Loads user player data for PartyManager
+                try {
+                    PartyManager.loadPlayerData(PartlySaneSkies.minecraft.getSession().getUsername());
+                } catch (IOException e) {
+                    System.out.println("Partly Sane Skies: Unable to load player data.");
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+        
 
         CompostValue.init();
 
