@@ -74,21 +74,21 @@ public class DropBannerDisplay extends Gui {
 	String magicFindString = "empty";
 
 	UIComponent topText = new UIText(topString)
-			.setTextScale(new PixelConstraint(BIG_TEXT_SCALE))
+			.setTextScale(new PixelConstraint(BIG_TEXT_SCALE/1075 * window.getWidth()))
 			.setX(new CenterConstraint())
 			.setY(new PixelConstraint(window.getHeight() * .333f))
 			.setColor(Color.white)
 			.setChildOf(window);
 
 	UIComponent magicFindText = new UIText(magicFindString)
-			.setTextScale(new PixelConstraint(SMALL_TEXT_SCALE))
+			.setTextScale(new PixelConstraint(SMALL_TEXT_SCALE/1075 * window.getWidth()))
 			.setX(new CenterConstraint())
 			.setY(new PixelConstraint(window.getHeight() * .4f))
 			.setColor(Color.decode("" + 0x55FFFF))
 			.setChildOf(window);
 
 	UIComponent dropNameText = new UIText(dropNameString)
-			.setTextScale(new PixelConstraint(SMALL_TEXT_SCALE))
+			.setTextScale(new PixelConstraint(SMALL_TEXT_SCALE/1075 * window.getWidth()))
 			.setX(new CenterConstraint())
 			.setY(new PixelConstraint(window.getHeight() * .4f))
 			.setColor(Color.white)
