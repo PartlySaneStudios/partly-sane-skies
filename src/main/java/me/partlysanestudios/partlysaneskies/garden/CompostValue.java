@@ -10,7 +10,6 @@ import java.util.Map;
 
 import gg.essential.elementa.ElementaVersion;
 import gg.essential.elementa.UIComponent;
-import gg.essential.elementa.components.UIImage;
 import gg.essential.elementa.components.UIRoundedRectangle;
 import gg.essential.elementa.components.UIWrappedText;
 import gg.essential.elementa.components.Window;
@@ -23,6 +22,7 @@ import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -164,8 +164,8 @@ public class CompostValue {
     UIComponent box = new UIRoundedRectangle(widthScaledConstraint(5).getValue())
             .setChildOf(window);
     
-    UIImage image = (UIImage) UIImage.ofResource("/assets/partlysaneskies/textures/gui/base_color_background.png")
-        .setChildOf(box);
+    UIComponent image = Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies:textures/gui/base_color_background.png"))
+            .setChildOf(box);
     
     float pad = 5;
     UIWrappedText textComponent = (UIWrappedText) new UIWrappedText()
@@ -193,6 +193,7 @@ public class CompostValue {
             .setHeight(new PixelConstraint(box.getHeight()));
         
         textComponent.setX(widthScaledConstraint(pad))
+            .setTextScale(widthScaledConstraint(1f))
             .setY(widthScaledConstraint(2 * pad))
             .setWidth(new PixelConstraint(box.getWidth() - widthScaledConstraint(2 * pad).getValue()));
             

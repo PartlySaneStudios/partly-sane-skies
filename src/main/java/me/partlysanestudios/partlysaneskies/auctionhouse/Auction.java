@@ -75,6 +75,9 @@ public class Auction {
 
     private boolean isCheapBin() {
         long sellingPrice = getPrice();
+        if (SkyblockItem.getItem(itemId) == null) {
+            return false;
+        }
         if (!SkyblockItem.getItem(itemId).hasPrice()) {
             return false;
         }

@@ -16,7 +16,10 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ThreadLocalRandom;
+
+import javax.imageio.ImageIO;
 
 import gg.essential.elementa.UIComponent;
 import gg.essential.elementa.components.UIImage;
@@ -24,10 +27,13 @@ import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.WikiArticleOpener;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
+import net.minecraft.client.resources.IResource;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.ResourceLocation;
 
 public class Utils {
 
@@ -342,7 +348,7 @@ public class Utils {
     }
 
     public static UIComponent applyBackground(UIComponent component) {
-        UIImage image = (UIImage) UIImage.ofResource("/assets/partlysaneskies/textures/gui/base_color_background.png")
+        UIImage image = (UIImage) Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies:textures/gui/base_color_background.png"))
                 .setX(new CenterConstraint())
                 .setY(new CenterConstraint())
                 .setWidth(new PixelConstraint(component.getWidth()))
@@ -412,5 +418,35 @@ public class Utils {
         }
     
         return loreString;
+    }
+
+    public static UIImage uiimageFromResourceLocation(ResourceLocation location)  {
+        try {
+            IResource resource = Minecraft.getMinecraft().getResourceManager().getResource(location);
+        
+            UIImage image = new UIImage(CompletableFuture.supplyAsync(() -> {
+                try {
+                    return ImageIO.read(resource.getInputStream());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                finally {
+                    try {
+                        resource.getInputStream().close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                return null;
+            }));
+            return image;
+        } catch (NullPointerException | IOException exception) {
+            exception.printStackTrace();
+            return UIImage.ofResource("/assets/partlysaneskies/textures/null_texture.png");
+        }
+        
+        
+
+        
     }
 }

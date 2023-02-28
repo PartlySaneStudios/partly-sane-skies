@@ -7,7 +7,6 @@ import gg.essential.elementa.ElementaVersion;
 import gg.essential.elementa.UIComponent;
 import gg.essential.elementa.WindowScreen;
 import gg.essential.elementa.components.UIBlock;
-import gg.essential.elementa.components.UIImage;
 import gg.essential.elementa.components.UIText;
 import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
@@ -94,12 +93,13 @@ public class CustomMainMenu extends WindowScreen {
         } else
             image = imageIdMap.get(PartlySaneSkies.config.customMainMenuImage);
 
-        background = UIImage.ofResource("/assets/partlysaneskies/textures/gui/main_menu/" + image)
+        background = Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies:textures/gui/main_menu/" + image + ""))
                 .setX(new CenterConstraint())
                 .setY(new CenterConstraint())
                 .setWidth(new PixelConstraint(getWindow().getWidth()))
                 .setHeight(new PixelConstraint(getWindow().getHeight()))
                 .setChildOf(getWindow());
+        
 
         middleMenuBar = new UIBlock()
                 .setX(new PixelConstraint(300 * scaleFactor))
@@ -127,7 +127,8 @@ public class CustomMainMenu extends WindowScreen {
 
         float titleHeight = 75;
         float titleWidth = titleHeight * (928 / 124);
-        titleImage = UIImage.ofResource("/assets/partlysaneskies/textures/gui/main_menu/title_text.png")
+
+        titleImage = Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies:textures/gui/main_menu/title_text.png"))
                 .setX(new CenterConstraint())
                 .setY(new PixelConstraint(50 * scaleFactor))
                 .setHeight(new PixelConstraint(titleHeight * scaleFactor))
