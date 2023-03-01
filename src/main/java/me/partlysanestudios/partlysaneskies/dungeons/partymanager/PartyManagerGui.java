@@ -31,7 +31,7 @@ public class PartyManagerGui extends WindowScreen {
             .setWidth(new PixelConstraint(getWindow().getWidth() * .9f))
             .setHeight(new PixelConstraint(getWindow().getHeight() * .9f))
             .setChildOf(getWindow())
-            .setColor(PartlySaneSkies.BASE_DARK_COLOR);
+            .setColor(new Color(0, 0, 0, 0));
 
     // Creates the scrollable list
     UIComponent list = new ScrollComponent("", 0f, PartlySaneSkies.BASE_LIGHT_COLOR, false, true, false, false, 15f, 1f, null)
@@ -43,7 +43,7 @@ public class PartyManagerGui extends WindowScreen {
     // Applies the standard PSS background the the GUI
     public PartyManagerGui() {
         super(ElementaVersion.V2);
-        Utils.applyBackground(background);
+        // Utils.applyBackground(background);
     }
 
     public void populateGui(List<PartyMember> partyMembers) {
@@ -56,7 +56,7 @@ public class PartyManagerGui extends WindowScreen {
         UIComponent topBarBlock = new UIBlock()
                 .setWidth(new PixelConstraint(list.getWidth() - 20f))
                 .setHeight(new ScaleConstraint(new PixelConstraint(150f), scaleFactor))
-                .setColor(PartlySaneSkies.BASE_COLOR)
+                .setColor(new Color(0, 0, 0, 0))
                 .setX(new CenterConstraint())
                 .setY(new PixelConstraint(10))
                 .setChildOf(list);
@@ -71,7 +71,7 @@ public class PartyManagerGui extends WindowScreen {
             UIComponent memberBlock = new UIBlock()
                     .setWidth(new PixelConstraint(list.getWidth() - 20f))
                     .setHeight(new ScaleConstraint(new PixelConstraint(200f), scaleFactor))
-                    .setColor(PartlySaneSkies.BASE_COLOR)
+                    .setColor(new Color(0, 0, 0, 0))
                     .setX(new CenterConstraint())
                     .setY(new PixelConstraint(height))
                     .setChildOf(list);

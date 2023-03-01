@@ -46,7 +46,7 @@ public class AhGui extends WindowScreen {
             .setY(new CenterConstraint())
             .setWidth(widthScaledConstraint(mainBoxWidth))
             .setHeight(widthScaledConstraint(mainBoxHeight))
-            .setColor(PartlySaneSkies.BASE_COLOR)
+            .setColor(new Color(0, 0, 0, 0))
             .setChildOf(getWindow());
         
 
@@ -55,7 +55,7 @@ public class AhGui extends WindowScreen {
         .setY(new PixelConstraint(mainBox.getBottom() + widthScaledConstraint(15).getValue()))
         .setWidth(widthScaledConstraint(mainBoxWidth - 100))
         .setHeight(widthScaledConstraint(40))
-        .setColor(PartlySaneSkies.BASE_DARK_COLOR)
+        .setColor(new Color(0, 0, 0, 0))
         .setChildOf(getWindow());
 
         topBar = new UIBlock()
@@ -63,7 +63,7 @@ public class AhGui extends WindowScreen {
             .setY(new PixelConstraint(mainBox.getTop() - widthScaledConstraint(15 + 40).getValue()))
             .setWidth(widthScaledConstraint(mainBoxWidth - 100))
             .setHeight(widthScaledConstraint(40))
-            .setColor(PartlySaneSkies.BASE_DARK_COLOR)
+            .setColor(new Color(0, 0, 0, 0))
             .setChildOf(getWindow());
 
         rightWindow = new UIBlock()
@@ -71,7 +71,7 @@ public class AhGui extends WindowScreen {
             .setY(new CenterConstraint())
             .setWidth(widthScaledConstraint(180))
             .setHeight(new PixelConstraint(bottomBar.getBottom() - topBar.getHeight()))
-            .setColor(PartlySaneSkies.BASE_DARK_COLOR)
+            .setColor(new Color(0, 0, 0, 0))
             .setChildOf(getWindow());
 
         leftWindow = new UIBlock()
@@ -79,7 +79,7 @@ public class AhGui extends WindowScreen {
             .setY(new CenterConstraint())
             .setWidth(widthScaledConstraint(180))
             .setHeight(new PixelConstraint(bottomBar.getBottom() - topBar.getHeight()))
-            .setColor(PartlySaneSkies.BASE_DARK_COLOR)
+            .setColor(new Color(0, 0, 0, 0))
             .setChildOf(getWindow());
 
         itemInfoText = new UIWrappedText("", true, null, true)

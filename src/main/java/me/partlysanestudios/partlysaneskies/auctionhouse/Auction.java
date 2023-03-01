@@ -109,9 +109,14 @@ public class Auction {
     }
 
     public double getLowestBin() {
-        if (!SkyblockItem.getItem(itemId).hasPrice()) {
-            return 0;
+        try {
+            if (!SkyblockItem.getItem(itemId).hasPrice()) {
+                return 0;
+            } 
+        } catch (NullPointerException exception) {
+            exception.printStackTrace();
         }
+        
         
         return SkyblockItem.getItem(itemId).getPrice();
     }

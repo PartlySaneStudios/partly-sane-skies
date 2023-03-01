@@ -1,5 +1,6 @@
 package me.partlysanestudios.partlysaneskies.garden;
 
+import java.awt.Color;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -162,6 +163,7 @@ public class CompostValue {
     static Window window = new Window(ElementaVersion.V2);
 
     UIComponent box = new UIRoundedRectangle(widthScaledConstraint(5).getValue())
+            .setColor(new Color(0, 0, 0, 0))
             .setChildOf(window);
     
     UIComponent image = Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies:textures/gui/base_color_background.png"))

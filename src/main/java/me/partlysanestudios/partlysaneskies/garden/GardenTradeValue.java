@@ -1,5 +1,6 @@
 package me.partlysanestudios.partlysaneskies.garden;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -223,6 +224,7 @@ public class GardenTradeValue {
     }
 
     UIComponent box = new UIRoundedRectangle(widthScaledConstraint(5).getValue())
+            .setColor(new Color(0, 0, 0, 0))
             .setChildOf(window);
     
     UIImage image = (UIImage) Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies:textures/gui/base_color_background.png"))

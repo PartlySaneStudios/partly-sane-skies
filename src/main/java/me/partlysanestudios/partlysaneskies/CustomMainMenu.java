@@ -550,7 +550,7 @@ public class CustomMainMenu extends WindowScreen {
                 .setTextScale(new PixelConstraint(1.5f * scaleFactor))
                 .setX(new PixelConstraint(33f * scaleFactor))
                 .setY(new PixelConstraint(125 * scaleFactor + 145 * (postNum) * scaleFactor))
-                .setWidth(new PixelConstraint(290 * scaleFactor))
+                .setWidth(new PixelConstraint(256 * scaleFactor))
                 .setChildOf(parent);
             this.postNum = postNum;
             this.titleComponent = text;
