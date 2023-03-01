@@ -58,6 +58,15 @@ public class ConfigScreen extends Vigilant {
     public boolean customMainMenu = true;
 
     @Property(
+        type = PropertyType.SWITCH, 
+        category = "General", 
+        subcategory = "Main Menu", 
+        name = "Announcements on Main Menu",
+        description = "Display announcements such as recent skyblock updates on the main menu"
+    )
+    public boolean displayAnnouncementsCustomMainMenu = true;
+
+    @Property(
         type = PropertyType.SELECTOR, 
         options = {
             "Random Image",
@@ -136,6 +145,16 @@ public class ConfigScreen extends Vigilant {
         description = "Converts the custom colors mentiond above to more visable colors. Dark Green -> Light Green and Blue -> Gold. (Recommended)"
     )
     public boolean visableColors = false;
+
+    @Property(
+        type = PropertyType.SWITCH,
+        name = "Print errors in chat",
+        category = "General",
+        subcategory = "API",
+        description = "Send errors on getting APIs in chat (Recommended, however if you get spammed or have a bad internet connection, turn it off)"
+        
+    )
+    public boolean printApiErrors = true;
 
     // ----------------- Category: Skyblock -------------------
     // Rare Drop

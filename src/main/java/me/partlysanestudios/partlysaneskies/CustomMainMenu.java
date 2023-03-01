@@ -1,13 +1,23 @@
 package me.partlysanestudios.partlysaneskies;
 
 import java.awt.Color;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.HashMap;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import gg.essential.elementa.ElementaVersion;
 import gg.essential.elementa.UIComponent;
 import gg.essential.elementa.WindowScreen;
 import gg.essential.elementa.components.UIBlock;
 import gg.essential.elementa.components.UIText;
+import gg.essential.elementa.components.UIWrappedText;
 import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
@@ -38,8 +48,8 @@ public class CustomMainMenu extends WindowScreen {
         imageIdMap.put(6, "image_6.png");
     }
 
-    private UIComponent background;
-    private UIComponent middleMenuBar;
+    public UIComponent background;
+    private UIComponent middleMenu;
     private UIComponent middleLeftBar;
     private UIComponent middleRightBar;
     private UIComponent titleImage;
@@ -53,12 +63,19 @@ public class CustomMainMenu extends WindowScreen {
 
     private UIComponent optionsButtonSplitBar;
 
+    private UIComponent updateWarning;
+
     private UIComponent singleplayerText;
     private UIComponent multiplayerText;
     private UIComponent modsText;
     private UIComponent optionsText;
     private UIComponent pssOptionsText;
     private UIComponent quitText;
+
+    private static ArrayList<Announcement> announcements;
+    private static String latestVersion;
+    // private static String latestVersionDate;
+    // private static String latestVersionDescription;
 
     @SubscribeEvent
     public void openCustomMainMenu(GuiOpenEvent e) {
@@ -101,7 +118,7 @@ public class CustomMainMenu extends WindowScreen {
                 .setChildOf(getWindow());
         
 
-        middleMenuBar = new UIBlock()
+        middleMenu = new UIBlock()
                 .setX(new PixelConstraint(300 * scaleFactor))
                 .setY(new CenterConstraint())
                 .setHeight(new PixelConstraint(getWindow().getHeight()))
@@ -112,18 +129,18 @@ public class CustomMainMenu extends WindowScreen {
         middleLeftBar = new UIBlock()
                 .setX(new PixelConstraint(-2 * scaleFactor))
                 .setY(new CenterConstraint())
-                .setHeight(new PixelConstraint(middleMenuBar.getHeight()))
+                .setHeight(new PixelConstraint(middleMenu.getHeight()))
                 .setWidth(new PixelConstraint(2 * scaleFactor))
                 .setColor(PartlySaneSkies.ACCENT_COLOR)
-                .setChildOf(middleMenuBar);
+                .setChildOf(middleMenu);
 
         middleRightBar = new UIBlock()
-                .setX(new PixelConstraint(middleMenuBar.getWidth()))
+                .setX(new PixelConstraint(middleMenu.getWidth()))
                 .setY(new CenterConstraint())
-                .setHeight(new PixelConstraint(middleMenuBar.getHeight()))
+                .setHeight(new PixelConstraint(middleMenu.getHeight()))
                 .setWidth(new PixelConstraint(2 * scaleFactor))
                 .setColor(PartlySaneSkies.ACCENT_COLOR)
-                .setChildOf(middleMenuBar);
+                .setChildOf(middleMenu);
 
         float titleHeight = 75;
         float titleWidth = titleHeight * (928 / 124);
@@ -133,15 +150,51 @@ public class CustomMainMenu extends WindowScreen {
                 .setY(new PixelConstraint(50 * scaleFactor))
                 .setHeight(new PixelConstraint(titleHeight * scaleFactor))
                 .setWidth(new PixelConstraint(titleWidth * scaleFactor))
-                .setChildOf(middleMenuBar);
+                .setChildOf(middleMenu);
+
+        
+        if (!latestVersion.equals(PartlySaneSkies.VERSION)){
+            updateWarning = new UIWrappedText("Your version of Partly Sane Skies is out of date.\nPlease update to the latest version", true, new Color(0, 0, 0), true)
+                .setTextScale(new PixelConstraint(2.25f * scaleFactor))
+                .setX(new CenterConstraint())
+                .setY(new PixelConstraint(133 * scaleFactor))
+                .setWidth(new PixelConstraint(700 * scaleFactor))
+                .setColor(new Color(255, 0, 0))
+                .setChildOf(middleMenu);
+            
+            updateWarning.onMouseClickConsumer(event -> {
+                URI uri;
+                try {
+                    uri = new URI("https://github.com/PartlySaneStudios/partly-sane-skies/releases/tag/beta-0.1.1");
+                    try {
+                        Class<?> oclass = Class.forName("java.awt.Desktop");
+                        Object object = oclass.getMethod("getDesktop", new Class[0]).invoke((Object) null, new Object[0]);
+                        oclass.getMethod("browse", new Class[] { URI.class }).invoke(object, new Object[] { uri });
+                    } catch (Throwable throwable) {
+                        Utils.sendClientMessage("Couldn\'t open link");
+                        throwable.printStackTrace();
+                    }
+                } catch (URISyntaxException except) {
+                    Utils.sendClientMessage("Couldn\'t open link");
+                    except.printStackTrace();
+                }
+            });
+        }
+
+        if (PartlySaneSkies.config.displayAnnouncementsCustomMainMenu) {
+            for (int i = 0; i <= 3 && i < announcements.size(); i++) {
+                announcements.get(i).createTitle(scaleFactor, i, background);
+                announcements.get(i).createDescription(scaleFactor, i, background);
+            }
+        }
 
         singleplayerButton = new UIBlock()
                 .setX(new CenterConstraint())
                 .setY(new PixelConstraint(200 * scaleFactor))
                 .setHeight(new PixelConstraint(40 * scaleFactor))
-                .setWidth(new PixelConstraint(middleMenuBar.getWidth()))
+                .setWidth(new PixelConstraint(middleMenu.getWidth()))
                 .setColor(new Color(0, 0, 0, 0))
-                .setChildOf(middleMenuBar);
+                .setChildOf(middleMenu);
 
         singleplayerText = new UIText("Singleplayer")
                 .setX(new CenterConstraint())
@@ -165,9 +218,9 @@ public class CustomMainMenu extends WindowScreen {
                 .setX(new CenterConstraint())
                 .setY(new PixelConstraint(260 * scaleFactor))
                 .setHeight(new PixelConstraint(40 * scaleFactor))
-                .setWidth(new PixelConstraint(middleMenuBar.getWidth()))
+                .setWidth(new PixelConstraint(middleMenu.getWidth()))
                 .setColor(new Color(0, 0, 0, 0))
-                .setChildOf(middleMenuBar);
+                .setChildOf(middleMenu);
 
         multiplayerText = new UIText("Multiplayer")
                 .setX(new CenterConstraint())
@@ -191,9 +244,9 @@ public class CustomMainMenu extends WindowScreen {
                 .setX(new CenterConstraint())
                 .setY(new PixelConstraint(320 * scaleFactor))
                 .setHeight(new PixelConstraint(40 * scaleFactor))
-                .setWidth(new PixelConstraint(middleMenuBar.getWidth()))
+                .setWidth(new PixelConstraint(middleMenu.getWidth()))
                 .setColor(new Color(0, 0, 0, 0))
-                .setChildOf(middleMenuBar);
+                .setChildOf(middleMenu);
 
         modsText = new UIText("Mods")
                 .setX(new CenterConstraint())
@@ -217,9 +270,9 @@ public class CustomMainMenu extends WindowScreen {
                 .setX(new PixelConstraint(0))
                 .setY(new PixelConstraint(380 * scaleFactor))
                 .setHeight(new PixelConstraint(20 * scaleFactor))
-                .setWidth(new PixelConstraint(middleMenuBar.getWidth()))
+                .setWidth(new PixelConstraint(middleMenu.getWidth()))
                 .setColor(new Color(0, 0, 0, 0))
-                .setChildOf(middleMenuBar);
+                .setChildOf(middleMenu);
 
         optionsText = new UIText("Options")
                 .setX(new CenterConstraint())
@@ -243,17 +296,17 @@ public class CustomMainMenu extends WindowScreen {
                 .setX(new CenterConstraint())
                 .setY(new PixelConstraint(400f * scaleFactor))
                 .setHeight(new PixelConstraint(1 * scaleFactor))
-                .setWidth(new PixelConstraint(middleMenuBar.getWidth() * .90f))
+                .setWidth(new PixelConstraint(middleMenu.getWidth() * .90f))
                 .setColor(PartlySaneSkies.ACCENT_COLOR)
-                .setChildOf(middleMenuBar);
+                .setChildOf(middleMenu);
 
         pssOptionsButton = new UIBlock()
                 .setX(new CenterConstraint())
                 .setY(new PixelConstraint(400 * scaleFactor))
                 .setHeight(new PixelConstraint(20 * scaleFactor))
-                .setWidth(new PixelConstraint(middleMenuBar.getWidth()))
+                .setWidth(new PixelConstraint(middleMenu.getWidth()))
                 .setColor(new Color(0, 0, 0, 0))
-                .setChildOf(middleMenuBar);
+                .setChildOf(middleMenu);
 
         pssOptionsText = new UIText("Partly Sane Skies Config")
                 .setX(new CenterConstraint())
@@ -277,9 +330,9 @@ public class CustomMainMenu extends WindowScreen {
                 .setX(new CenterConstraint())
                 .setY(new PixelConstraint(440 * scaleFactor))
                 .setHeight(new PixelConstraint(40 * scaleFactor))
-                .setWidth(new PixelConstraint(middleMenuBar.getWidth()))
+                .setWidth(new PixelConstraint(middleMenu.getWidth()))
                 .setColor(new Color(0, 0, 0, 0))
-                .setChildOf(middleMenuBar);
+                .setChildOf(middleMenu);
 
         quitText = new UIText("Quit Game")
                 .setX(new CenterConstraint())
@@ -305,7 +358,7 @@ public class CustomMainMenu extends WindowScreen {
                 .setWidth(new PixelConstraint(getWindow().getWidth()))
                 .setHeight(new PixelConstraint(getWindow().getHeight()));
 
-        middleMenuBar
+        middleMenu
                 .setX(new PixelConstraint(300 * scaleFactor))
                 .setHeight(new PixelConstraint(getWindow().getHeight()))
                 .setWidth(new PixelConstraint(125 * scaleFactor));
@@ -313,13 +366,13 @@ public class CustomMainMenu extends WindowScreen {
         middleLeftBar
                 .setX(new PixelConstraint(-2 * scaleFactor))
                 .setY(new CenterConstraint())
-                .setHeight(new PixelConstraint(middleMenuBar.getHeight()))
+                .setHeight(new PixelConstraint(middleMenu.getHeight()))
                 .setWidth(new PixelConstraint(2 * scaleFactor));
 
         middleRightBar
-                .setX(new PixelConstraint(middleMenuBar.getWidth()))
+                .setX(new PixelConstraint(middleMenu.getWidth()))
                 .setY(new CenterConstraint())
-                .setHeight(new PixelConstraint(middleMenuBar.getHeight()))
+                .setHeight(new PixelConstraint(middleMenu.getHeight()))
                 .setWidth(new PixelConstraint(2 * scaleFactor));
 
         float titleHeight = 75;
@@ -329,10 +382,23 @@ public class CustomMainMenu extends WindowScreen {
                 .setWidth(new PixelConstraint(titleWidth * scaleFactor))
                 .setHeight(new PixelConstraint(titleHeight * scaleFactor));
 
+        if (updateWarning != null) {
+            updateWarning
+                .setTextScale(new PixelConstraint(2.25f * scaleFactor))
+                .setX(new CenterConstraint())
+                .setWidth(new PixelConstraint(700 * scaleFactor))
+                .setY(new PixelConstraint(133 * scaleFactor));
+        }
+
+        for (int i = 0; i <= 3 && i < announcements.size(); i++) {
+            announcements.get(i).updateTitleComponent(scaleFactor);
+            announcements.get(i).updateDescriptionComponent(scaleFactor);
+        }
+
         singleplayerButton
                 .setY(new PixelConstraint(200 * scaleFactor))
                 .setHeight(new PixelConstraint(40 * scaleFactor))
-                .setWidth(new PixelConstraint(middleMenuBar.getWidth()));
+                .setWidth(new PixelConstraint(middleMenu.getWidth()));
 
         singleplayerText
                 .setTextScale(new PixelConstraint(1 * scaleFactor));
@@ -340,7 +406,7 @@ public class CustomMainMenu extends WindowScreen {
         multiplayerButton
                 .setY(new PixelConstraint(260 * scaleFactor))
                 .setHeight(new PixelConstraint(40 * scaleFactor))
-                .setWidth(new PixelConstraint(middleMenuBar.getWidth()));
+                .setWidth(new PixelConstraint(middleMenu.getWidth()));
 
         multiplayerText
                 .setTextScale(new PixelConstraint(1 * scaleFactor));
@@ -348,7 +414,7 @@ public class CustomMainMenu extends WindowScreen {
         modsButton
                 .setY(new PixelConstraint(320 * scaleFactor))
                 .setHeight(new PixelConstraint(40 * scaleFactor))
-                .setWidth(new PixelConstraint(middleMenuBar.getWidth()));
+                .setWidth(new PixelConstraint(middleMenu.getWidth()));
 
         modsText
                 .setTextScale(new PixelConstraint(1 * scaleFactor));
@@ -357,7 +423,7 @@ public class CustomMainMenu extends WindowScreen {
                 .setX(new PixelConstraint(0))
                 .setY(new PixelConstraint(380 * scaleFactor))
                 .setHeight(new PixelConstraint(20 * scaleFactor))
-                .setWidth(new PixelConstraint(middleMenuBar.getWidth()));
+                .setWidth(new PixelConstraint(middleMenu.getWidth()));
 
         optionsText
                 .setTextScale(new PixelConstraint(.75f * scaleFactor));
@@ -366,12 +432,12 @@ public class CustomMainMenu extends WindowScreen {
                 .setX(new CenterConstraint())
                 .setY(new PixelConstraint(400f * scaleFactor))
                 .setHeight(new PixelConstraint(1 * scaleFactor))
-                .setWidth(new PixelConstraint(middleMenuBar.getWidth() * .90f));
+                .setWidth(new PixelConstraint(middleMenu.getWidth() * .90f));
 
         pssOptionsButton
                 .setY(new PixelConstraint(400 * scaleFactor))
                 .setHeight(new PixelConstraint(20 * scaleFactor))
-                .setWidth(new PixelConstraint(middleMenuBar.getWidth()));
+                .setWidth(new PixelConstraint(middleMenu.getWidth()));
 
         pssOptionsText
                 .setTextScale(new PixelConstraint(.735f * scaleFactor));
@@ -379,9 +445,185 @@ public class CustomMainMenu extends WindowScreen {
         quitButton
                 .setY(new PixelConstraint(440f * scaleFactor))
                 .setHeight(new PixelConstraint(40f * scaleFactor))
-                .setWidth(new PixelConstraint(middleMenuBar.getWidth()));
+                .setWidth(new PixelConstraint(middleMenu.getWidth()));
 
         quitText
                 .setTextScale(new PixelConstraint(1 * scaleFactor));
+    }
+
+    public static void getMainMenuInfo() {
+        String responseString;
+        try {
+            responseString = Utils.getRequest("https://raw.githubusercontent.com/PartlySaneStudios/partly-sane-skies-public-data/main/data/main_menu.json");
+        } catch (IOException | NullPointerException | IllegalStateException e) {
+            noInfoFound();
+            e.printStackTrace();
+            return;
+        }
+
+        JsonObject object;
+        try {
+            object = new JsonParser().parse(responseString).getAsJsonObject();
+        } catch (NullPointerException | IllegalStateException  e) {
+            noInfoFound();
+            e.printStackTrace();
+            return;
+        }
+
+        JsonArray array;
+        announcements = new ArrayList<Announcement>();
+        try {
+            array = object.get("announcements").getAsJsonArray();
+            for (JsonElement element : array) {
+                JsonObject announcement = element.getAsJsonObject();
+
+                String title = announcement.get("name").getAsString();
+                String desc = announcement.get("description").getAsString();
+                String date = announcement.get("date").getAsString();
+                
+                String urlString = announcement.get("link").getAsString();
+
+                announcements.add(new CustomMainMenu.Announcement(title, date, desc, urlString));
+            }
+        } catch (NullPointerException | IllegalStateException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            JsonObject modInfo = object.getAsJsonObject("mod_info");
+
+            latestVersion = modInfo.get("latest_version").getAsString();
+            // latestVersionDescription = modInfo.get("latest_version_description").getAsString();
+            // latestVersionDate = modInfo.get("latest_version_release_date").getAsString();
+
+        } catch (NullPointerException | IllegalStateException e) {
+            CustomMainMenu.latestVersion = "(Unknown)";
+            // CustomMainMenu.latestVersionDate = "(Unknown)";
+            // CustomMainMenu.latestVersionDescription = "";
+        }
+        
+    }
+
+    public static void noInfoFound() {
+        CustomMainMenu.latestVersion = "(Unknown)";
+        // CustomMainMenu.latestVersionDate = "(Unknown)";
+        // CustomMainMenu.latestVersionDescription = "";
+        CustomMainMenu.announcements = new ArrayList<Announcement>();
+    }
+
+
+    public static class Announcement {
+        private String title;
+        private String date;
+        private String description;
+        private String link;
+
+        private int postNum;
+        private UIComponent titleComponent;
+        private UIComponent descriptionComponent;
+        
+        public Announcement(String title, String date, String description, String link) {
+            this.title = title;
+            this.date = date;
+            this.description = description;
+            this.link = link;
+        }
+
+        public String getLink() {
+            return this.link;
+        }
+        
+        public String getTitle() {
+            return this.title;
+        }
+
+        public String getDate() {
+            return this.date;
+        }
+
+        public String getDescription() {
+            return this.description;
+        }
+
+        public UIWrappedText createTitle(float scaleFactor, int postNum, UIComponent parent) {
+            UIComponent text = new UIWrappedText(Utils.colorCodes("&e" + title))
+                .setTextScale(new PixelConstraint(1.5f * scaleFactor))
+                .setX(new PixelConstraint(33f * scaleFactor))
+                .setY(new PixelConstraint(125 * scaleFactor + 145 * (postNum) * scaleFactor))
+                .setWidth(new PixelConstraint(290 * scaleFactor))
+                .setChildOf(parent);
+            this.postNum = postNum;
+            this.titleComponent = text;
+
+            text.onMouseClickConsumer(event -> {
+                URI uri;
+                try {
+                    uri = new URI(link);
+                    try {
+                        Class<?> oclass = Class.forName("java.awt.Desktop");
+                        Object object = oclass.getMethod("getDesktop", new Class[0]).invoke((Object) null, new Object[0]);
+                        oclass.getMethod("browse", new Class[] { URI.class }).invoke(object, new Object[] { uri });
+                    } catch (Throwable throwable) {
+                        Utils.sendClientMessage("Couldn\'t open link");
+                        throwable.printStackTrace();
+                    }
+                } catch (URISyntaxException except) {
+                    Utils.sendClientMessage("Couldn\'t open link");
+                    except.printStackTrace();
+                }
+            });
+            return (UIWrappedText) text;
+        }
+        public UIWrappedText createDescription(float scaleFactor, int postNum, UIComponent parent) {
+            UIComponent text = new UIWrappedText(Utils.colorCodes("&8" + date + "&r\n&7" + description))
+                .setTextScale(new PixelConstraint(1.33f * scaleFactor))
+                .setX(new PixelConstraint(33f * scaleFactor))
+                .setY(new PixelConstraint(160 * scaleFactor + 145 * (postNum) * scaleFactor))
+                .setWidth(new PixelConstraint(250 * scaleFactor))
+                .setChildOf(parent);
+            this.postNum = postNum;
+            this.descriptionComponent = text;
+
+            text.onMouseClickConsumer(event -> {
+                URI uri;
+                try {
+                    uri = new URI(link);
+                    try {
+                        Class<?> oclass = Class.forName("java.awt.Desktop");
+                        Object object = oclass.getMethod("getDesktop", new Class[0]).invoke((Object) null, new Object[0]);
+                        oclass.getMethod("browse", new Class[] { URI.class }).invoke(object, new Object[] { uri });
+                    } catch (Throwable throwable) {
+                        Utils.sendClientMessage("Couldn\'t open link");
+                        throwable.printStackTrace();
+                    }
+                } catch (URISyntaxException except) {
+                    Utils.sendClientMessage("Couldn\'t open link");
+                    except.printStackTrace();
+                }
+            });
+            return (UIWrappedText) text;
+        }
+
+        public void updateTitleComponent(float scaleFactor) {
+            if (this.titleComponent == null) {
+                return;
+            }
+            this.titleComponent
+                .setTextScale(new PixelConstraint(1.5f * scaleFactor))
+                .setX(new PixelConstraint(33f * scaleFactor))
+                .setY(new PixelConstraint(125 * scaleFactor + 145 * (postNum) * scaleFactor))
+                .setWidth(new PixelConstraint(250 * scaleFactor));
+        }
+
+        public void updateDescriptionComponent(float scaleFactor) {
+            if (this.descriptionComponent == null) {
+                return;
+            }
+            this.descriptionComponent
+                .setTextScale(new PixelConstraint(1.33f * scaleFactor))
+                .setX(new PixelConstraint(33f * scaleFactor))
+                .setY(new PixelConstraint(160 * scaleFactor + 145 * (postNum) * scaleFactor))
+                .setWidth(new PixelConstraint(250 * scaleFactor));
+        }
     }
 }

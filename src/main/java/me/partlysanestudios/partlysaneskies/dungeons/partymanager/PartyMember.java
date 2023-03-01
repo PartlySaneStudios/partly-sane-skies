@@ -230,21 +230,21 @@ public class PartyMember {
         }
     }
 
-    public static String getUUID(String username) throws IOException {
-        // Creates a Json parser to parse the json data
-        JsonParser parser = new JsonParser();
+    // public static String getUUID(String username) throws IOException {
+    //     // Creates a Json parser to parse the json data
+    //     JsonParser parser = new JsonParser();
 
-        // Gets the player's UUID
-        String response = Utils.getRequest("https://api.mojang.com/users/profiles/minecraft/" + username);
-        if (response.startsWith("Error")) {
-            Utils.sendClientMessage(Utils.colorCodes("Error getting data for " + username + ". Maybe the player is nicked."));
-            return "";
-        }
+    //     // Gets the player's UUID
+    //     String response = Utils.getRequest("https://api.mojang.com/users/profiles/minecraft/" + username);
+    //     if (response.startsWith("Error")) {
+    //         Utils.sendClientMessage(Utils.colorCodes("Error getting data for " + username + ". Maybe the player is nicked."));
+    //         return "";
+    //     }
 
-        // Returns the player's UUID
-        JsonObject uuidJson = (JsonObject) parser.parse(response);
-        return uuidJson.get("id").getAsString();
-    }
+    //     // Returns the player's UUID
+    //     JsonObject uuidJson = (JsonObject) parser.parse(response);
+    //     return uuidJson.get("id").getAsString();
+    // }
 
     public int getFloorRuns(String floor, JsonObject profileData) {
         JsonElement runsElement; 

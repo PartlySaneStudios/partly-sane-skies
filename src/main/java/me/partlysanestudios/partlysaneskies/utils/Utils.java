@@ -191,7 +191,12 @@ public class Utils {
             return response.toString();
 
         } else {
-            sendClientMessage("Error: " + httpURLConnection.getResponseMessage() + ":" + httpURLConnection.getResponseCode() + "\nContact PSS admins for more information");
+            if (PartlySaneSkies.config.printApiErrors) {
+                sendClientMessage("Error: " + httpURLConnection.getResponseMessage() + ":" + httpURLConnection.getResponseCode() + "\nContact PSS admins for more information");
+            } else {
+                System.out.println("Error: " + httpURLConnection.getResponseMessage() + ":" + httpURLConnection.getResponseCode() + "\nContact PSS admins for more information");
+            }
+            
             httpURLConnection.disconnect();
             return "Error" + responseCode;
         }

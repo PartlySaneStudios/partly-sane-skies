@@ -67,12 +67,11 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 @Mod(modid = PartlySaneSkies.MODID, version = PartlySaneSkies.VERSION, name = PartlySaneSkies.NAME)
 public class PartlySaneSkies {
     public static void main(String[] args) {
-        
     }
 
     public static final String MODID = "partlysaneskies";
     public static final String NAME = "Partly Sane Skies";
-    public static final String VERSION = "v0.1.1";
+    public static final String VERSION = "beta-v0.1.1";
     public static String CHAT_PREFIX = Utils.colorCodes("&r&b&lPartly Sane Skies&r&7>> &r");
 
     public static ConfigScreen config;
@@ -103,7 +102,7 @@ public class PartlySaneSkies {
         
         // Loads the config files and options
         PartlySaneSkies.config = new ConfigScreen();
-        
+        CustomMainMenu.getMainMenuInfo();
 
         new Thread() {
             @Override
@@ -192,6 +191,7 @@ public class PartlySaneSkies {
         
 
         
+        
         // Finished loading
         System.out.println("Partly Sane Skies has loaded.");
     }
@@ -201,12 +201,10 @@ public class PartlySaneSkies {
     public void clientTick(ClientTickEvent evnt) {
         // Checks if the current location is the same as the previous location for the location banner display
         locationBannerDisplay.checkLocation();
-
-        // Updates item lowest bin price
-        SkyblockItem.runUpdater();
-
         // Checks if the current screen is the auciton house to run AHManager
         AhManager.runDisplayGuiCheck();
+
+        SkyblockItem.runUpdater();
 
         // Checks if the player is collecting minions
         PetAlert.runPetAlert();

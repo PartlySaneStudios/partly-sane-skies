@@ -111,13 +111,16 @@ public class SkyblockItem {
 
     // Static funcitions
 
-    private static HashMap<String, String> nameToIdMap;
-    private static HashMap<String, SkyblockItem> idToItemMap;
-    private static long lastAhUpdateTime = 0;
+    private static HashMap<String, String> nameToIdMap = new HashMap<String, String>();
+    private static HashMap<String, SkyblockItem> idToItemMap =new HashMap<String, SkyblockItem>();
+    private static long lastAhUpdateTime = Minecraft.getSystemTime();
 
     public static void init() throws IOException {
         String itemDataString = Utils.getRequest("https://api.hypixel.net/resources/skyblock/items");
-        
+        if (itemDataString.startsWith("Error")) {
+            
+            return;
+        }
         JsonObject itemDataJson = new JsonParser().parse(itemDataString).getAsJsonObject();
 
         JsonArray itemArray = itemDataJson.get("items").getAsJsonArray();
@@ -164,16 +167,23 @@ public class SkyblockItem {
             new Thread() {
                 @Override
                 public void run() {
+                    lastAhUpdateTime = Minecraft.getSystemTime();
                     updateAll();
+                    lastAhUpdateTime = Minecraft.getSystemTime();
                 }
             }.start();
+            lastAhUpdateTime = Minecraft.getSystemTime();
         }
+
     }
     
     public static void updateAll() {
+        // Utils.visPrint(checkLastUpdate() + "\n" + Minecraft.getSystemTime() + "\n" + lastAhUpdateTime + "\n" + (lastAhUpdateTime + (1000*60*5)));
+        lastAhUpdateTime = Minecraft.getSystemTime();
         updateAverageLowestBin();;
         updateBz();
         updateLowestBin();
+        
     }
 
     public static void updateLowestBin() {
@@ -240,10 +250,10 @@ public class SkyblockItem {
     }
 
     public static boolean checkLastUpdate() {
-        if (Minecraft.getSystemTime() < lastAhUpdateTime + (1000 * 60 * 3)) {
-            return true;
+        if (Minecraft.getSystemTime() < lastAhUpdateTime + (1000 * 60 * 5)) {
+            return false;
         }
 
-        return false;
+        return true;
     }
 }
