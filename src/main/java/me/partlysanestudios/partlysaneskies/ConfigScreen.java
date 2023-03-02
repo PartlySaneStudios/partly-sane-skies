@@ -190,7 +190,7 @@ public class ConfigScreen extends Vigilant {
     // Location Banner
     @Property(
         type = PropertyType.SWITCH, 
-        name = "Rare Drop Banner", 
+        name = "Location Banner", 
         subcategory = "Location Banner", 
         description = "An MMO RPG style banner shows up when you switch locations.", 
         category = "Skyblock"
@@ -276,7 +276,7 @@ public class ConfigScreen extends Vigilant {
         subcategory = "Worm Warning", 
         name = "Worm Warning Banner Color", 
         description = "The color of the worm warning text", 
-        category = "Dungeons"
+        category = "Mining"
     )
     public Color wormWarningBannerColor = new Color(34, 255, 0);
 
