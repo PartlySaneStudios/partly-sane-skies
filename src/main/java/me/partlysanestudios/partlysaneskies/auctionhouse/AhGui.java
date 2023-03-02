@@ -12,10 +12,10 @@ import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
+import me.partlysanestudios.partlysaneskies.utils.guicomponents.UIButton;
 import me.partlysanestudios.partlysaneskies.utils.guicomponents.UIItemRender;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
-import scala.tools.nsc.Main;
 
 public class AhGui extends WindowScreen {
 
@@ -124,8 +124,8 @@ public class AhGui extends WindowScreen {
         Auction[][] auctions = AhManager.getAuctions(inventory);
         for (int row = 0; row < numOfRows; row++) {
             for (int column = 0; column < numOfColumns; column++) {
-                float x = (boxSide + pad) * column + pad / 4;
-                float y = (boxSide + pad) * row + pad / 4;
+                float x = (boxSide + pad) * column + pad / 2;
+                float y = (boxSide + pad) * row + pad / 6;
                 if (auctions[row][column] == null) {
                     continue;
                 }
@@ -446,13 +446,16 @@ public class AhGui extends WindowScreen {
                 .setColor(new Color(0, 0, 0, 0))
                 .setChildOf(mainBox);
 
-        UIComponent box = new UIBlock()
-                .setX(new CenterConstraint())
-                .setY(widthScaledConstraint(0))
-                .setWidth(widthScaledConstraint(boxSide))
-                .setHeight(widthScaledConstraint(boxSide))
-                .setColor( PartlySaneSkies.BASE_LIGHT_COLOR)
-                .setChildOf(backgroundBox);
+        UIButton box = new UIButton()
+            .setX(widthScaledConstraint(x - boxSide * .25f))
+            .setY(widthScaledConstraint(y))
+            .setWidth(widthScaledConstraint(boxSide * 1.5f).getValue())
+            .setHeight(widthScaledConstraint(boxSide * 1.5f).getValue())
+            .setColor(auction.getRarityColor())
+            .setChildOf(mainBox)
+            .onMouseClickConsumer(event -> {
+                auction.selectAuction();
+            });
 
         backgroundBox.onMouseClickConsumer(event -> {
             auction.selectAuction();
@@ -507,17 +510,17 @@ public class AhGui extends WindowScreen {
             .setY(new CenterConstraint())
             .setWidth(widthScaledConstraint(boxSide))
             .setHeight(widthScaledConstraint(boxSide))
-            .setChildOf(box);
+            .setChildOf(box.getComponent());
 
         // auction.setBox(box);
 
         new UIWrappedText(auction.getName(), true, null, true)
-            .setTextScale(widthScaledConstraint(1))
+            .setTextScale(widthScaledConstraint(1f))
             .setX(new CenterConstraint())
-            .setY(widthScaledConstraint(boxSide + 5))
-            .setWidth(widthScaledConstraint(boxSide + (pad * .4f)))
+            .setY(widthScaledConstraint(boxSide + 20))
+            .setWidth(widthScaledConstraint(boxSide + (pad * .5f)))
             .setColor(Color.white)
-            .setChildOf(backgroundBox);
+            .setChildOf(box.getComponent());
 
         if (auction.shouldHighlight()) {
             box.setColor(PartlySaneSkies.ACCENT_COLOR);
