@@ -124,7 +124,7 @@ public class UIButton {
 
     public UIButton setDefaultColour() {
         backgroundBlock.removeChild(buttonTexture);
-        
+
         buttonTexture = (UIImage) Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies:textures/gui/base_color_button.png"))
             .setWidth(new PixelConstraint(this.width))
             .setHeight(new PixelConstraint(this.height))
@@ -132,6 +132,9 @@ public class UIButton {
             .setY(new CenterConstraint())
             .setChildOf(this.backgroundBlock);
 
+        backgroundBlock.setColor(new Color(0, 0, 0, 0));
+
+        this.color = new Color(0, 0, 0, 0);
         return this;
     }
 
