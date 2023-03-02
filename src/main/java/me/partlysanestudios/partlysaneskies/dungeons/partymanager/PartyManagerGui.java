@@ -10,7 +10,6 @@ import gg.essential.elementa.UIComponent;
 import gg.essential.elementa.WindowScreen;
 import gg.essential.elementa.components.ScrollComponent;
 import gg.essential.elementa.components.UIBlock;
-import gg.essential.elementa.components.UIRoundedRectangle;
 import gg.essential.elementa.components.UIText;
 import gg.essential.elementa.components.Window;
 import gg.essential.elementa.constraints.CenterConstraint;
@@ -19,6 +18,7 @@ import gg.essential.elementa.constraints.ScaleConstraint;
 import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
+import me.partlysanestudios.partlysaneskies.utils.guicomponents.UIButton;
 
 public class PartyManagerGui extends WindowScreen {
 
@@ -106,81 +106,54 @@ public class PartyManagerGui extends WindowScreen {
 
     public void createPartyManagementButtons(UIComponent topBarBlock, float scaleFactor,
             List<PartyMember> partyMembers) {
-        UIComponent disbandButton = new UIRoundedRectangle(10f)
+
+        new UIButton(new Color(212, 111, 98))
                 .setX(new PixelConstraint(10f * scaleFactor))
                 .setY(new PixelConstraint(10f * scaleFactor))
-                .setWidth(new PixelConstraint(75f * scaleFactor))
-                .setHeight(new PixelConstraint(55f * scaleFactor))
-                .setColor(new Color(212, 111, 98))
-                .setChildOf(topBarBlock);
+                .setWidth(75f * scaleFactor)
+                .setHeight(55f * scaleFactor)
+                .setChildOf(topBarBlock)
+                .setText("Disband")
+                .setTextScale(1.5f)
+                .onMouseClickConsumer(event -> {
+                    PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party disband");
+                });
 
-        new UIText("Disband")
-                .setTextScale(new PixelConstraint(1.5f * scaleFactor))
-                .setX(new CenterConstraint())
-                .setY(new CenterConstraint())
-                .setColor(Color.white)
-                .setChildOf(disbandButton);
-
-        disbandButton.onMouseClickConsumer(event -> {
-            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party disband");
-        });
-
-        UIComponent kickOfflineButton = new UIRoundedRectangle(10f)
+        new UIButton()
                 .setX(new PixelConstraint(95f * scaleFactor))
-                .setY(new PixelConstraint(10f * scaleFactor))
-                .setWidth(new PixelConstraint(100f * scaleFactor))
-                .setHeight(new PixelConstraint(55f * scaleFactor))
-                .setColor(PartlySaneSkies.DARK_ACCENT_COLOR)
-                .setChildOf(topBarBlock);
+                .setY(new PixelConstraint(10 * scaleFactor))
+                .setWidth(75f * scaleFactor)
+                .setHeight(55f * scaleFactor)
+                .setChildOf(topBarBlock)
+                .setText("Kick Offline")
+                .setTextScale(1.25f)
+                .onMouseClickConsumer(event -> {
+                    PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party kickoffline");
+                });
 
-        new UIText("Kick Offline")
-                .setTextScale(new PixelConstraint(1.5f * scaleFactor))
-                .setX(new CenterConstraint())
-                .setY(new CenterConstraint())
-                .setColor(Color.white)
-                .setChildOf(kickOfflineButton);
-
-        kickOfflineButton.onMouseClickConsumer(event -> {
-            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party kickoffline");
-        });
-
-        UIComponent repartyButton = new UIRoundedRectangle(10f)
+        new UIButton()
                 .setX(new PixelConstraint(205f * scaleFactor))
-                .setY(new PixelConstraint(10f * scaleFactor))
-                .setWidth(new PixelConstraint(100f * scaleFactor))
-                .setHeight(new PixelConstraint(55f * scaleFactor))
-                .setColor(PartlySaneSkies.DARK_ACCENT_COLOR)
-                .setChildOf(topBarBlock);
-
-        new UIText("Reparty")
-                .setTextScale(new PixelConstraint(1.5f * scaleFactor))
-                .setX(new CenterConstraint())
-                .setY(new CenterConstraint())
-                .setColor(Color.white)
-                .setChildOf(repartyButton);
-
-        repartyButton.onMouseClickConsumer(event -> {
-            PartyManager.reparty(partyMembers);
-        });
-
-        UIComponent readyRequestButton = new UIRoundedRectangle(10f)
+                .setY(new PixelConstraint(10 * scaleFactor))
+                .setWidth(100f * scaleFactor)
+                .setHeight(55f * scaleFactor)
+                .setChildOf(topBarBlock)
+                .setText("Reparty")
+                .setTextScale(1.5f)
+                .onMouseClickConsumer(event -> {
+                    PartyManager.reparty(partyMembers);
+                });
+        
+        new UIButton()
                 .setX(new PixelConstraint(315f * scaleFactor))
-                .setY(new PixelConstraint(10f * scaleFactor))
-                .setWidth(new PixelConstraint(100f * scaleFactor))
-                .setHeight(new PixelConstraint(55f * scaleFactor))
-                .setColor(PartlySaneSkies.DARK_ACCENT_COLOR)
-                .setChildOf(topBarBlock);
-
-        new UIText("Ask if ready")
-                .setTextScale(new PixelConstraint(1.25f * scaleFactor))
-                .setX(new CenterConstraint())
-                .setY(new CenterConstraint())
-                .setColor(Color.white)
-                .setChildOf(readyRequestButton);
-
-        readyRequestButton.onMouseClickConsumer(event -> {
-            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/pc Everyone Ready?");
-        });
+                .setY(new PixelConstraint(10 * scaleFactor))
+                .setWidth(100f * scaleFactor)
+                .setHeight(55f * scaleFactor)
+                .setChildOf(topBarBlock)
+                .setText("Ask if ready")
+                .setTextScale(1.25f)
+                .onMouseClickConsumer(event -> {
+                    PartlySaneSkies.minecraft.thePlayer.sendChatMessage("Ready?");
+                });
 
         new UIText("Party Size: " + partyMembers.size())
                 .setTextScale(new PixelConstraint(2f * scaleFactor))
@@ -197,271 +170,175 @@ public class PartyManagerGui extends WindowScreen {
                 .setY(new PixelConstraint(115f * scaleFactor))
                 .setChildOf(topBarBlock);
 
-        UIComponent f1Button = new UIRoundedRectangle(10f)
+        new UIButton(new Color(255, 0, 0))
                 .setX(new PixelConstraint(265f * scaleFactor))
                 .setY(new PixelConstraint(100 * scaleFactor))
-                .setWidth(new PixelConstraint(35f * scaleFactor))
-                .setHeight(new PixelConstraint(35f * scaleFactor))
-                .setColor(PartlySaneSkies.DARK_ACCENT_COLOR)
-                .setChildOf(topBarBlock);
+                .setWidth(35f * scaleFactor)
+                .setHeight(35f * scaleFactor)
+                .setChildOf(topBarBlock)
+                .setText("F1")
+                .setTextScale(1f * scaleFactor)
+                .onMouseClickConsumer(event -> {
+                    PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon catacombs 1");
+                });
 
-        new UIText("F1")
-                .setTextScale(new PixelConstraint(1.1f * scaleFactor))
-                .setX(new CenterConstraint())
-                .setY(new CenterConstraint())
-                .setColor(Color.white)
-                .setChildOf(f1Button);
-
-        f1Button.onMouseClickConsumer(event -> {
-            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon catacombs 0");
-        });
-
-        UIComponent f2Button = new UIRoundedRectangle(10f)
+        new UIButton()
                 .setX(new PixelConstraint(315f * scaleFactor))
                 .setY(new PixelConstraint(100 * scaleFactor))
-                .setWidth(new PixelConstraint(35f * scaleFactor))
-                .setHeight(new PixelConstraint(35f * scaleFactor))
-                .setColor(PartlySaneSkies.DARK_ACCENT_COLOR)
-                .setChildOf(topBarBlock);
+                .setWidth(35f * scaleFactor)
+                .setHeight(35f * scaleFactor)
+                .setChildOf(topBarBlock)
+                .setText("F2")
+                .setTextScale(1f * scaleFactor)
+                .onMouseClickConsumer(event -> {
+                    PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon catacombs 2");
+                });
 
-        new UIText("F2")
-                .setTextScale(new PixelConstraint(1.1f * scaleFactor))
-                .setX(new CenterConstraint())
-                .setY(new CenterConstraint())
-                .setColor(Color.white)
-                .setChildOf(f2Button);
-
-        f2Button.onMouseClickConsumer(event -> {
-            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon catacombs 2");
-        });
-
-        UIComponent f3Button = new UIRoundedRectangle(10f)
+        new UIButton()
                 .setX(new PixelConstraint(365f * scaleFactor))
                 .setY(new PixelConstraint(100 * scaleFactor))
-                .setWidth(new PixelConstraint(35f * scaleFactor))
-                .setHeight(new PixelConstraint(35f * scaleFactor))
-                .setColor(PartlySaneSkies.DARK_ACCENT_COLOR)
-                .setChildOf(topBarBlock);
+                .setWidth(35f * scaleFactor)
+                .setHeight(35f * scaleFactor)
+                .setChildOf(topBarBlock)
+                .setText("F3")
+                .setTextScale(1f * scaleFactor)
+                .onMouseClickConsumer(event -> {
+                    PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon catacombs 3");
+                });
 
-        new UIText("F3")
-                .setTextScale(new PixelConstraint(1.1f * scaleFactor))
-                .setX(new CenterConstraint())
-                .setY(new CenterConstraint())
-                .setColor(Color.white)
-                .setChildOf(f3Button);
-
-        f3Button.onMouseClickConsumer(event -> {
-            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon catacombs 3");
-        });
-
-        UIComponent f4Button = new UIRoundedRectangle(10f)
+        new UIButton()
                 .setX(new PixelConstraint(415f * scaleFactor))
                 .setY(new PixelConstraint(100 * scaleFactor))
-                .setWidth(new PixelConstraint(35f * scaleFactor))
-                .setHeight(new PixelConstraint(35f * scaleFactor))
-                .setColor(PartlySaneSkies.DARK_ACCENT_COLOR)
-                .setChildOf(topBarBlock);
+                .setWidth(35f * scaleFactor)
+                .setHeight(35f * scaleFactor)
+                .setChildOf(topBarBlock)
+                .setText("F4")
+                .setTextScale(1f * scaleFactor)
+                .onMouseClickConsumer(event -> {
+                    PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon catacombs 4");
+                });
 
-        new UIText("F4")
-                .setTextScale(new PixelConstraint(1.1f * scaleFactor))
-                .setX(new CenterConstraint())
-                .setY(new CenterConstraint())
-                .setColor(Color.white)
-                .setChildOf(f4Button);
-
-        f4Button.onMouseClickConsumer(event -> {
-            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon catacombs 4");
-        });
-
-        UIComponent f5Button = new UIRoundedRectangle(10f)
+        new UIButton()
                 .setX(new PixelConstraint(465f * scaleFactor))
                 .setY(new PixelConstraint(100 * scaleFactor))
-                .setWidth(new PixelConstraint(35f * scaleFactor))
-                .setHeight(new PixelConstraint(35f * scaleFactor))
-                .setColor(PartlySaneSkies.DARK_ACCENT_COLOR)
-                .setChildOf(topBarBlock);
+                .setWidth(35f * scaleFactor)
+                .setHeight(35f * scaleFactor)
+                .setChildOf(topBarBlock)
+                .setText("F5")
+                .setTextScale(1f * scaleFactor)
+                .onMouseClickConsumer(event -> {
+                    PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon catacombs 5");
+                });
 
-        new UIText("F5")
-                .setTextScale(new PixelConstraint(1.1f * scaleFactor))
-                .setX(new CenterConstraint())
-                .setY(new CenterConstraint())
-                .setColor(Color.white)
-                .setChildOf(f5Button);
-
-        f5Button.onMouseClickConsumer(event -> {
-            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon catacombs 5");
-        });
-
-        UIComponent f6Button = new UIRoundedRectangle(10f)
+        new UIButton()
                 .setX(new PixelConstraint(515f * scaleFactor))
                 .setY(new PixelConstraint(100 * scaleFactor))
-                .setWidth(new PixelConstraint(35f * scaleFactor))
-                .setHeight(new PixelConstraint(35f * scaleFactor))
-                .setColor(PartlySaneSkies.DARK_ACCENT_COLOR)
-                .setChildOf(topBarBlock);
+                .setWidth(35f * scaleFactor)
+                .setHeight(35f * scaleFactor)
+                .setChildOf(topBarBlock)
+                .setText("F6")
+                .setTextScale(1f * scaleFactor)
+                .onMouseClickConsumer(event -> {
+                    PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon catacombs 6");
+                });
 
-        new UIText("F6")
-                .setTextScale(new PixelConstraint(1.1f * scaleFactor))
-                .setX(new CenterConstraint())
-                .setY(new CenterConstraint())
-                .setColor(Color.white)
-                .setChildOf(f6Button);
-
-        f6Button.onMouseClickConsumer(event -> {
-            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon catacombs 6");
-        });
-
-        UIComponent f7Button = new UIRoundedRectangle(10f)
+        new UIButton()
                 .setX(new PixelConstraint(565f * scaleFactor))
                 .setY(new PixelConstraint(100 * scaleFactor))
-                .setWidth(new PixelConstraint(35f * scaleFactor))
-                .setHeight(new PixelConstraint(35f * scaleFactor))
-                .setColor(PartlySaneSkies.DARK_ACCENT_COLOR)
-                .setChildOf(topBarBlock);
+                .setWidth(35f * scaleFactor)
+                .setHeight(35f * scaleFactor)
+                .setChildOf(topBarBlock)
+                .setText("F7")
+                .setTextScale(1f * scaleFactor)
+                .onMouseClickConsumer(event -> {
+                    PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon catacombs 7");
+                });
 
-        new UIText("F7")
-                .setTextScale(new PixelConstraint(1.1f * scaleFactor))
-                .setX(new CenterConstraint())
-                .setY(new CenterConstraint())
-                .setColor(Color.white)
-                .setChildOf(f7Button);
 
-        f7Button.onMouseClickConsumer(event -> {
-            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon catacombs 7");
-        });
 
-        UIComponent m1Button = new UIRoundedRectangle(10f)
+        new UIButton()
                 .setX(new PixelConstraint(615f * scaleFactor))
                 .setY(new PixelConstraint(100 * scaleFactor))
-                .setWidth(new PixelConstraint(35f * scaleFactor))
-                .setHeight(new PixelConstraint(35f * scaleFactor))
-                .setColor(PartlySaneSkies.DARK_ACCENT_COLOR)
-                .setChildOf(topBarBlock);
+                .setWidth(35f * scaleFactor)
+                .setHeight(35f * scaleFactor)
+                .setChildOf(topBarBlock)
+                .setText("M1")
+                .setTextScale(1f * scaleFactor)
+                .onMouseClickConsumer(event -> {
+                    PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon master_catacombs 1");
+                });
 
-        new UIText("M1")
-                .setTextScale(new PixelConstraint(1.1f * scaleFactor))
-                .setX(new CenterConstraint())
-                .setY(new CenterConstraint())
-                .setColor(Color.white)
-                .setChildOf(m1Button);
-
-        m1Button.onMouseClickConsumer(event -> {
-            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon master_catacombs 1");
-        });
-
-        UIComponent m2Button = new UIRoundedRectangle(10f)
+        new UIButton()
                 .setX(new PixelConstraint(665f * scaleFactor))
                 .setY(new PixelConstraint(100 * scaleFactor))
-                .setWidth(new PixelConstraint(35f * scaleFactor))
-                .setHeight(new PixelConstraint(35f * scaleFactor))
-                .setColor(PartlySaneSkies.DARK_ACCENT_COLOR)
-                .setChildOf(topBarBlock);
+                .setWidth(35f * scaleFactor)
+                .setHeight(35f * scaleFactor)
+                .setChildOf(topBarBlock)
+                .setText("M2")
+                .setTextScale(1f * scaleFactor)
+                .onMouseClickConsumer(event -> {
+                    PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon master_catacombs 2");
+                });
 
-        new UIText("M2")
-                .setTextScale(new PixelConstraint(1.1f * scaleFactor))
-                .setX(new CenterConstraint())
-                .setY(new CenterConstraint())
-                .setColor(Color.white)
-                .setChildOf(m2Button);
-
-        m2Button.onMouseClickConsumer(event -> {
-            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon master_catacombs 2");
-        });
-
-        UIComponent m3Button = new UIRoundedRectangle(10f)
+        new UIButton()
                 .setX(new PixelConstraint(715f * scaleFactor))
                 .setY(new PixelConstraint(100 * scaleFactor))
-                .setWidth(new PixelConstraint(35f * scaleFactor))
-                .setHeight(new PixelConstraint(35f * scaleFactor))
-                .setColor(PartlySaneSkies.DARK_ACCENT_COLOR)
-                .setChildOf(topBarBlock);
+                .setWidth(35f * scaleFactor)
+                .setHeight(35f * scaleFactor)
+                .setChildOf(topBarBlock)
+                .setText("M3")
+                .setTextScale(1f * scaleFactor)
+                .onMouseClickConsumer(event -> {
+                    PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon master_catacombs 3");
+                });
 
-        new UIText("M3")
-                .setTextScale(new PixelConstraint(1.1f * scaleFactor))
-                .setX(new CenterConstraint())
-                .setY(new CenterConstraint())
-                .setColor(Color.white)
-                .setChildOf(m3Button);
-
-        m3Button.onMouseClickConsumer(event -> {
-            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon master_catacombs 3");
-        });
-
-        UIComponent m4Button = new UIRoundedRectangle(10f)
+        new UIButton()
                 .setX(new PixelConstraint(765f * scaleFactor))
                 .setY(new PixelConstraint(100 * scaleFactor))
-                .setWidth(new PixelConstraint(35f * scaleFactor))
-                .setHeight(new PixelConstraint(35f * scaleFactor))
-                .setColor(PartlySaneSkies.DARK_ACCENT_COLOR)
-                .setChildOf(topBarBlock);
+                .setWidth(35f * scaleFactor)
+                .setHeight(35f * scaleFactor)
+                .setChildOf(topBarBlock)
+                .setText("M4")
+                .setTextScale(1f * scaleFactor)
+                .onMouseClickConsumer(event -> {
+                    PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon master_catacombs 4");
+                });
 
-        new UIText("M4")
-                .setTextScale(new PixelConstraint(1.1f * scaleFactor))
-                .setX(new CenterConstraint())
-                .setY(new CenterConstraint())
-                .setColor(Color.white)
-                .setChildOf(m4Button);
-
-        m4Button.onMouseClickConsumer(event -> {
-            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon master_catacombs 4");
-        });
-
-        UIComponent m5Button = new UIRoundedRectangle(10f)
+        new UIButton()
                 .setX(new PixelConstraint(815f * scaleFactor))
                 .setY(new PixelConstraint(100 * scaleFactor))
-                .setWidth(new PixelConstraint(35f * scaleFactor))
-                .setHeight(new PixelConstraint(35f * scaleFactor))
-                .setColor(PartlySaneSkies.DARK_ACCENT_COLOR)
-                .setChildOf(topBarBlock);
+                .setWidth(35f * scaleFactor)
+                .setHeight(35f * scaleFactor)
+                .setChildOf(topBarBlock)
+                .setText("M5")
+                .setTextScale(1f * scaleFactor)
+                .onMouseClickConsumer(event -> {
+                    PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon master_catacombs 5");
+                });
 
-        new UIText("M5")
-                .setTextScale(new PixelConstraint(1.1f * scaleFactor))
-                .setX(new CenterConstraint())
-                .setY(new CenterConstraint())
-                .setColor(Color.white)
-                .setChildOf(m5Button);
-
-        m5Button.onMouseClickConsumer(event -> {
-            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon master_catacombs 5");
-        });
-
-        UIComponent m6Button = new UIRoundedRectangle(10f)
+        new UIButton()
                 .setX(new PixelConstraint(865f * scaleFactor))
                 .setY(new PixelConstraint(100 * scaleFactor))
-                .setWidth(new PixelConstraint(35f * scaleFactor))
-                .setHeight(new PixelConstraint(35f * scaleFactor))
-                .setColor(PartlySaneSkies.DARK_ACCENT_COLOR)
-                .setChildOf(topBarBlock);
+                .setWidth(35f * scaleFactor)
+                .setHeight(35f * scaleFactor)
+                .setChildOf(topBarBlock)
+                .setText("M6")
+                .setTextScale(1f * scaleFactor)
+                .onMouseClickConsumer(event -> {
+                    PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon master_catacombs 6");
+                });
 
-        new UIText("M6")
-                .setTextScale(new PixelConstraint(1.1f * scaleFactor))
-                .setX(new CenterConstraint())
-                .setY(new CenterConstraint())
-                .setColor(Color.white)
-                .setChildOf(m6Button);
-
-        m6Button.onMouseClickConsumer(event -> {
-            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon master_catacombs 6");
-        });
-
-        UIComponent m7Button = new UIRoundedRectangle(10f)
+        new UIButton()
                 .setX(new PixelConstraint(915f * scaleFactor))
                 .setY(new PixelConstraint(100 * scaleFactor))
-                .setWidth(new PixelConstraint(35f * scaleFactor))
-                .setHeight(new PixelConstraint(35f * scaleFactor))
-                .setColor(PartlySaneSkies.DARK_ACCENT_COLOR)
-                .setChildOf(topBarBlock);
-
-        new UIText("M7")
-                .setTextScale(new PixelConstraint(1.1f * scaleFactor))
-                .setX(new CenterConstraint())
-                .setY(new CenterConstraint())
-                .setColor(Color.white)
-                .setChildOf(m7Button);
-
-        m7Button.onMouseClickConsumer(event -> {
-            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon master_catacombs 7");
-        });
+                .setWidth(35f * scaleFactor)
+                .setHeight(35f * scaleFactor)
+                .setChildOf(topBarBlock)
+                .setText("M7")
+                .setTextScale(1f * scaleFactor)
+                .onMouseClickConsumer(event -> {
+                    PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon master_catacombs 7");
+                });
     }
 
 }

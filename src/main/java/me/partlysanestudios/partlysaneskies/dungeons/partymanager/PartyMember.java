@@ -15,6 +15,7 @@ import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
+import me.partlysanestudios.partlysaneskies.utils.guicomponents.UIButton;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 
@@ -526,63 +527,41 @@ public class PartyMember {
     }
 
     private void createMemberBlockColumnFive(UIComponent memberBlock, float scaleFactor) {
-        UIComponent kickButton = new UIRoundedRectangle(10f)
-                .setX(new PixelConstraint(800f * scaleFactor))
-                .setY(new PixelConstraint(15f * scaleFactor))
-                .setWidth(new PixelConstraint(125f * scaleFactor))
-                .setHeight(new PixelConstraint(55f * scaleFactor))
-                .setColor(PartlySaneSkies.DARK_ACCENT_COLOR)
-                .setChildOf(memberBlock);
-
-        new UIText("Kick")
-                .setTextScale(new PixelConstraint(2 * scaleFactor))
-                .setX(new CenterConstraint())
-                .setY(new CenterConstraint())
-                .setColor(Color.white)
-                .setChildOf(kickButton);
-
-        kickButton.onMouseClickConsumer(event -> {
-            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party kick " + this.username);
-        });
-
-        UIComponent promoteButton = new UIRoundedRectangle(10f)
-                .setX(new PixelConstraint(800f * scaleFactor))
+        new UIButton()
+                .setX(new PixelConstraint(800 * scaleFactor))
+                .setY(new PixelConstraint(15 * scaleFactor))
+                .setWidth(125f * scaleFactor)
+                .setHeight(55f * scaleFactor)
+                .setChildOf(memberBlock)
+                .setText("Kick")
+                .setTextScale(1f * scaleFactor)
+                .onMouseClickConsumer(event -> {
+                    PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party kick " + this.username);
+                });
+        
+        new UIButton()
+                .setX(new PixelConstraint(800 * scaleFactor))
                 .setY(new PixelConstraint(75 * scaleFactor))
-                .setWidth(new PixelConstraint(125f * scaleFactor))
-                .setHeight(new PixelConstraint(55f * scaleFactor))
-                .setColor(PartlySaneSkies.DARK_ACCENT_COLOR)
-                .setChildOf(memberBlock);
+                .setWidth(125f * scaleFactor)
+                .setHeight(55f * scaleFactor)
+                .setChildOf(memberBlock)
+                .setText("Promote")
+                .setTextScale(1f * scaleFactor)
+                .onMouseClickConsumer(event -> {
+                    PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party promote " + this.username);
+                });
 
-        new UIText("Promote")
-
-                .setTextScale(new PixelConstraint(2 * scaleFactor))
-                .setX(new CenterConstraint())
-                .setY(new CenterConstraint())
-                .setColor(Color.white)
-                .setChildOf(promoteButton);
-
-        promoteButton.onMouseClickConsumer(event -> {
-            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party promote " + this.username);
-        });
-
-        UIComponent transferButton = new UIRoundedRectangle(10f)
-                .setX(new PixelConstraint(800f * scaleFactor))
-                .setY(new PixelConstraint(135f * scaleFactor))
-                .setWidth(new PixelConstraint(125f * scaleFactor))
-                .setHeight(new PixelConstraint(55f * scaleFactor))
-                .setColor(PartlySaneSkies.DARK_ACCENT_COLOR)
-                .setChildOf(memberBlock);
-
-        new UIText("Transfer")
-                .setTextScale(new PixelConstraint(2 * scaleFactor))
-                .setX(new CenterConstraint())
-                .setY(new CenterConstraint())
-                .setColor(Color.white)
-                .setChildOf(transferButton);
-
-        transferButton.onMouseClickConsumer(event -> {
-            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party transfer " + this.username);
-        });
+        new UIButton()
+                .setX(new PixelConstraint(800 * scaleFactor))
+                .setY(new PixelConstraint(135 * scaleFactor))
+                .setWidth(125f * scaleFactor)
+                .setHeight(55f * scaleFactor)
+                .setChildOf(memberBlock)
+                .setText("Transfer")
+                .setTextScale(1f * scaleFactor)
+                .onMouseClickConsumer(event -> {
+                    PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party transfer " + this.username);
+                });
 
         UIComponent refreshButton = new UIRoundedRectangle(10f)
                 .setX(new PixelConstraint(memberBlock.getWidth() - 30f * scaleFactor))
