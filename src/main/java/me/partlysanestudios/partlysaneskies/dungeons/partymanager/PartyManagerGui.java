@@ -107,7 +107,7 @@ public class PartyManagerGui extends WindowScreen {
     public void createPartyManagementButtons(UIComponent topBarBlock, float scaleFactor,
             List<PartyMember> partyMembers) {
 
-        new UIButton(new Color(212, 111, 98))
+        new UIButton(new Color(255, 0, 0))
                 .setX(new PixelConstraint(10f * scaleFactor))
                 .setY(new PixelConstraint(10f * scaleFactor))
                 .setWidth(75f * scaleFactor)
@@ -170,7 +170,7 @@ public class PartyManagerGui extends WindowScreen {
                 .setY(new PixelConstraint(115f * scaleFactor))
                 .setChildOf(topBarBlock);
 
-        new UIButton(new Color(255, 0, 0))
+        new UIButton()
                 .setX(new PixelConstraint(265f * scaleFactor))
                 .setY(new PixelConstraint(100 * scaleFactor))
                 .setWidth(35f * scaleFactor)
