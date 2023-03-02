@@ -15,6 +15,7 @@ import me.partlysanestudios.partlysaneskies.utils.Utils;
 import me.partlysanestudios.partlysaneskies.utils.guicomponents.UIItemRender;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
+import scala.tools.nsc.Main;
 
 public class AhGui extends WindowScreen {
 
@@ -159,6 +160,15 @@ public class AhGui extends WindowScreen {
             "textures/gui/custom_ah/misc_icon.png",
         };
 
+        String[] topBarFurfSkyImagePaths = {
+            "textures/gui/custom_ah/furfsky/weapons_icon.png",
+            "textures/gui/custom_ah/furfsky/armor_icon.png",
+            "textures/gui/custom_ah/furfsky/accessories_icon.png",
+            "textures/gui/custom_ah/furfsky/consumables_icon.png",
+            "textures/gui/custom_ah/furfsky/block_icon.png",
+            "textures/gui/custom_ah/furfsky/misc_icon.png",
+        };
+
         int paneType = inventory.getStackInSlot(1).getItemDamage();
         int iteratorId = -1;
 
@@ -197,7 +207,12 @@ public class AhGui extends WindowScreen {
                 .setColor(new Color(0, 0, 0, 0))
                 .setChildOf(topBar);
             
-            Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies:" + topBarImagePaths[i/9]))
+            String imagePath = topBarImagePaths[i/9];
+            if (PartlySaneSkies.config.customAhGuiTextures == 1) {
+                imagePath = topBarFurfSkyImagePaths[i/9];
+            }
+
+            Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies:" + imagePath))
                 .setX(new CenterConstraint())
                 .setY(new CenterConstraint())
                 .setWidth(widthScaledConstraint(30))
@@ -250,6 +265,17 @@ public class AhGui extends WindowScreen {
             "textures/gui/custom_ah/right_arrow_icon.png"
         };
 
+        String[] bottomBarFurfskyImagePaths = {
+            "textures/gui/custom_ah/furfsky/left_arrow_icon.png",
+            "textures/gui/custom_ah/furfsky/reset_icon.png",
+            "textures/gui/custom_ah/furfsky/search_icon.png",
+            "textures/gui/custom_ah/furfsky/go_back_icon.png",
+            "textures/gui/custom_ah/furfsky/sort_filter/unknown.png",
+            "textures/gui/custom_ah/furfsky/rarirty_filter/no_filter.png",
+            "textures/gui/custom_ah/furfsky/type/all.png",
+            "textures/gui/custom_ah/furfsky/right_arrow_icon.png"
+        };
+
         for (int i = 46; i <= 53;i++) {
             final int slot = i;
             UIComponent icon = new UIBlock()
@@ -261,6 +287,9 @@ public class AhGui extends WindowScreen {
                 .setChildOf(bottomBar);
 
             String imagePath = bottomBarImagePaths[i - 46];
+            if (PartlySaneSkies.config.customAhGuiTextures == 1) {
+                imagePath = bottomBarFurfskyImagePaths[i - 46];
+            }
             // If its the filter icon, set the 
             if (i == 50) {
                 String sortSelectedLine = "";

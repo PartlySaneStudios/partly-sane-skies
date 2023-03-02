@@ -423,6 +423,19 @@ public class ConfigScreen extends Vigilant {
     public boolean customAhGui = true;
 
     @Property(
+        type = PropertyType.SELECTOR,
+        name = "Custom Auction House GUI Icons",
+        category = "Economy",
+        options = {
+            "Partly Sane Studios",
+            "FurfSky Reborn"
+        },
+        subcategory = "Auction House",
+        description = "Use either the Partly Sane Studios developed textures, or the FurfSky Reborn developed textures"
+    )
+    public int customAhGuiTextures = 0;
+
+    @Property(
         type = PropertyType.PERCENT_SLIDER, 
         minF = 0, 
         maxF = 1, 
