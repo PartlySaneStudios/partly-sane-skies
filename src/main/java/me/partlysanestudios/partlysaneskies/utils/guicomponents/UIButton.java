@@ -102,25 +102,29 @@ public class UIButton {
     public UIButton setChildOf(UIComponent parent) {
         backgroundBlock.setChildOf(parent);
 
+        
+
         return this;
     }
 
-    // public UIButton setColor(Color color) {
-    //     backgr
+    public UIButton setColor(Color color) {
+        backgroundBlock.removeChild(buttonTexture);
 
-    //     buttonTexture = (UIImage) Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies:textures/gui/base_color_button_transparent.png"))
-    //         .setWidth(new PixelConstraint(this.width))
-    //         .setHeight(new PixelConstraint(this.height))
-    //         .setX(new CenterConstraint())
-    //         .setY(new CenterConstraint())
-    //         .setChildOf(this.backgroundBlock);
+        buttonTexture = (UIImage) Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies:textures/gui/base_color_button_transparent.png"))
+            .setWidth(new PixelConstraint(this.width))
+            .setHeight(new PixelConstraint(this.height))
+            .setX(new CenterConstraint())
+            .setY(new CenterConstraint())
+            .setChildOf(this.backgroundBlock);
 
-    //     backgroundBlock.setColor(color);
+        backgroundBlock.setColor(color);
 
-    //     return this;
-    // }
+        return this;
+    }
 
     public UIButton setDefaultColour() {
+        backgroundBlock.removeChild(buttonTexture);
+        
         buttonTexture = (UIImage) Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies:textures/gui/base_color_button.png"))
             .setWidth(new PixelConstraint(this.width))
             .setHeight(new PixelConstraint(this.height))
