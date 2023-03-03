@@ -193,7 +193,7 @@ public class CustomMainMenu extends WindowScreen {
             updateWarning.onMouseClickConsumer(event -> {
                 URI uri;
                 try {
-                    uri = new URI("https://github.com/PartlySaneStudios/partly-sane-skies/releases/tag/beta-0.1.1");
+                    uri = new URI("https://github.com/PartlySaneStudios/partly-sane-skies/releases");
                     try {
                         Class<?> oclass = Class.forName("java.awt.Desktop");
                         Object object = oclass.getMethod("getDesktop", new Class[0]).invoke((Object) null, new Object[0]);
