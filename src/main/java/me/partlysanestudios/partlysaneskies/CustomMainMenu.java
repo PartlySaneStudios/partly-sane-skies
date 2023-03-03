@@ -1,6 +1,7 @@
 package me.partlysanestudios.partlysaneskies;
 
 import java.awt.Color;
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -16,6 +17,7 @@ import gg.essential.elementa.ElementaVersion;
 import gg.essential.elementa.UIComponent;
 import gg.essential.elementa.WindowScreen;
 import gg.essential.elementa.components.UIBlock;
+import gg.essential.elementa.components.UIImage;
 import gg.essential.elementa.components.UIText;
 import gg.essential.elementa.components.UIWrappedText;
 import gg.essential.elementa.constraints.CenterConstraint;
@@ -106,11 +108,19 @@ public class CustomMainMenu extends WindowScreen {
         String image;
 
         if (PartlySaneSkies.config.customMainMenuImage == 0) {
-            image = imageIdMap.get(Utils.randint(1, imageIdMap.size()));
+            image = "partlysaneskies:textures/gui/main_menu/" + imageIdMap.get(Utils.randint(1, imageIdMap.size()));
         } else
-            image = imageIdMap.get(PartlySaneSkies.config.customMainMenuImage);
+            image = "partlysaneskies:textures/gui/main_menu/" + imageIdMap.get(PartlySaneSkies.config.customMainMenuImage);
 
-        background = Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies:textures/gui/main_menu/" + image + ""))
+        if (PartlySaneSkies.config.customMainMenuImage == 7) {
+            background = UIImage.ofFile(new File("./config/partly-sane-skies/background.png"));
+        }
+        else{
+            background = Utils.uiimageFromResourceLocation(new ResourceLocation(image));
+        }
+        
+        
+        background
                 .setX(new CenterConstraint())
                 .setY(new CenterConstraint())
                 .setWidth(new PixelConstraint(getWindow().getWidth()))

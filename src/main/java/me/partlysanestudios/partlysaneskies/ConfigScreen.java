@@ -75,11 +75,13 @@ public class ConfigScreen extends Vigilant {
             "Stunning Aerial View of Hub",
             "View from Hub Portal (Day)",
             "Hub Portal (Night)",
-            "Wolf Ruins"
+            "Wolf Ruins",
+            "Custom Image"
         }, 
         category = "General", 
         subcategory = "Main Menu", 
-        name = "Custom Minecraft Main Menu Image"
+        name = "Custom Minecraft Main Menu Image",
+        description = "Select one of our many high quality included images, or you can use your custom image.\nTo use your own image, place your image in the /config/partly-sane-skies folder and title your image background.png"
     )
     public int customMainMenuImage = 1;
 
