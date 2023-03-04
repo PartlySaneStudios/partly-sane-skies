@@ -22,7 +22,7 @@ import java.awt.Color;
 
 import gg.essential.elementa.ElementaVersion;
 import gg.essential.elementa.UIComponent;
-import gg.essential.elementa.components.UIText;
+import gg.essential.elementa.components.UIWrappedText;
 import gg.essential.elementa.components.Window;
 import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
@@ -50,31 +50,20 @@ public class DropBannerDisplay extends Gui {
 		}
 
 		if (isRareDrop(formattedMessage) && PartlySaneSkies.config.rareDropBanner) {
-			String unformatedMessage = event.message.getUnformattedText();
+			String unformattedMessage = event.message.getUnformattedText();
 
 
 			String name = "";
 			// Gets the name of teh drop category
-            String dropCategory = unformatedMessage.substring(0, unformatedMessage.indexOf("! ") + 1);
+            String dropCategory = unformattedMessage.substring(0, unformattedMessage.indexOf("! ") + 1);
 
-            // Gets the colour of item rarity
-			Color dropNameHex = Utils.colorCodetoColor
-					.get(formattedMessage.subSequence(formattedMessage.indexOf(dropCategory) + dropCategory.length() + 3,
-							formattedMessage.indexOf(dropCategory) + dropCategory.length() + 5));
             // Gets the colour of the drop category
 			Color dropCategoryHex = Utils.colorCodetoColor.get(formattedMessage.substring(2, 4));
 
-            // Finds the amount of magic find
-			int magicFind = 0;
-            // Finds the amount of  magic find from the message
-			if (unformatedMessage.contains("Magic Find")) {
-				name = unformatedMessage.substring(dropCategory.length(), unformatedMessage.indexOf(" (+"));
-				magicFind = Integer.parseInt(unformatedMessage.substring(unformatedMessage.indexOf("(+") + 2, unformatedMessage.indexOf("% ")));
-			} else { // If no magic find, ignore and keep 0
-				name = unformatedMessage.substring(dropCategory.length());
-			}
+            // // Finds the amount of  magic find from the message
+            name = formattedMessage.substring(formattedMessage.indexOf("! ") + 2);
 
-			DropBannerDisplay.drop = new Drop(name, dropCategory, 1, magicFind, Minecraft.getSystemTime(), dropCategoryHex, dropNameHex);
+			DropBannerDisplay.drop = new Drop(name, dropCategory, 1, Minecraft.getSystemTime(), dropCategoryHex);
 		}
 	}
 
@@ -83,39 +72,32 @@ public class DropBannerDisplay extends Gui {
         || formattedMessage.startsWith("§r§6§lPET DROP! ");
     }
 
-	float SMALL_TEXT_SCALE = 2.5f;
-	float BIG_TEXT_SCALE = 5f;
+	float SMALL_TEXT_SCALE = 5f;
+	float BIG_TEXT_SCALE = 10f;
 
 	Window window = new Window(ElementaVersion.V2);
 	String topString = "empty";
 	String dropNameString = "empty";
 	String magicFindString = "empty";
 
-	UIComponent topText = new UIText(topString)
-			.setTextScale(new PixelConstraint(BIG_TEXT_SCALE))
+	UIComponent topText = new UIWrappedText(dropNameString, true, new Color(0, 0, 0, 0), true)
+			.setTextScale(new PixelConstraint(BIG_TEXT_SCALE/1075 * window.getWidth()))
+            .setWidth(new PixelConstraint(window.getWidth()))
 			.setX(new CenterConstraint())
 			.setY(new PixelConstraint(window.getHeight() * .333f))
-			.setColor(Color.white)
 			.setChildOf(window);
 
-	UIComponent magicFindText = new UIText(magicFindString)
-			.setTextScale(new PixelConstraint(SMALL_TEXT_SCALE))
+	UIComponent dropNameText = new UIWrappedText(dropNameString, true, new Color(0, 0, 0, 0), true)
+			.setTextScale(new PixelConstraint(SMALL_TEXT_SCALE/1075 * window.getWidth()))
+            .setWidth(new PixelConstraint(window.getWidth()))
 			.setX(new CenterConstraint())
 			.setY(new PixelConstraint(window.getHeight() * .4f))
-			.setColor(Color.decode("" + 0x55FFFF))
-			.setChildOf(window);
-
-	UIComponent dropNameText = new UIText(dropNameString)
-			.setTextScale(new PixelConstraint(SMALL_TEXT_SCALE))
-			.setX(new CenterConstraint())
-			.setY(new PixelConstraint(window.getHeight() * .4f))
-			.setColor(Color.white)
 			.setChildOf(window);
 
 	@SubscribeEvent
 	public void renderText(RenderGameOverlayEvent.Text event) {
 
-		Color nameColor = new Color(255, 255, 255);
+		// Color nameColor = new Color(255, 255, 255);
 		Color categoryColor = new Color(255, 255, 255);
 
 		if (DropBannerDisplay.drop == null) {
@@ -124,19 +106,16 @@ public class DropBannerDisplay extends Gui {
 			topString = "";
 			magicFindString = "";
 			categoryColor = new Color(255, 255, 255);
-			nameColor = new Color(255, 255, 255);
+			// nameColor = new Color(255, 255, 255);
 		} else {
 
 			dropNameString = "x" + drop.amount + " " + drop.name;
 			topString = drop.dropCategory;
-			magicFindString = " (+" + drop.magicFind + "% ✯ Magic Find)";
-			nameColor = drop.dropNameColor;
-			categoryColor = drop.dropCategoryColor;
 			if (Minecraft.getSystemTime() - drop.timeDropped > (1f / 3f * PartlySaneSkies.config.rareDropBannerTime * 1000)
 					&& Minecraft.getSystemTime()
 							- drop.timeDropped < (10f / 12f * PartlySaneSkies.config.rareDropBannerTime * 1000)) {
 				if (Math.round((drop.timeDropped - Minecraft.getSystemTime()) / 1000f * 4) % 2 == 0) {
-					categoryColor = Color.white;
+					categoryColor = Color.white; 
 				} else {
 					categoryColor = drop.dropCategoryColor;
 				}
@@ -146,25 +125,14 @@ public class DropBannerDisplay extends Gui {
 				drop = null;
 		}
 
-		((UIText) topText)
+		((UIWrappedText) topText)
 				.setText(topString)
-				.setX(new PixelConstraint(
-						window.getWidth() / 2 - ((UIText) topText).getTextWidth() * BIG_TEXT_SCALE / 2))
+				.setX(new CenterConstraint())
 				.setY(new PixelConstraint(window.getHeight() * .3f))
 				.setColor(categoryColor);
-		((UIText) dropNameText)
+		((UIWrappedText) dropNameText)
 				.setText(dropNameString)
-				.setX(new PixelConstraint(
-						window.getWidth() / 2 - (((UIText) dropNameText).getTextWidth() * SMALL_TEXT_SCALE
-								+ ((UIText) magicFindText).getTextWidth() * SMALL_TEXT_SCALE) / 2f))
-				.setY(new PixelConstraint(window.getHeight() * .38f))
-				.setColor(nameColor);
-		((UIText) magicFindText)
-				.setText(magicFindString)
-				.setX(new PixelConstraint(window.getWidth() / 2
-						- (((UIText) dropNameText).getTextWidth() * SMALL_TEXT_SCALE
-								+ ((UIText) magicFindText).getTextWidth() * SMALL_TEXT_SCALE) / 2f
-						+ ((UIText) dropNameText).getTextWidth() * SMALL_TEXT_SCALE))
+				.setX(new CenterConstraint())
 				.setY(new PixelConstraint(window.getHeight() * .38f));
 		window.draw(new UMatrixStack());
 	}

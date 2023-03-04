@@ -18,6 +18,7 @@
 
 package me.partlysanestudios.partlysaneskies.garden;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,12 +33,13 @@ import gg.essential.elementa.components.Window;
 import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import gg.essential.universal.UMatrixStack;
-import me.partlysanestudios.partlysaneskies.SkyblockItem;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
+import me.partlysanestudios.partlysaneskies.SkyblockItem;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -240,9 +242,10 @@ public class GardenTradeValue {
     }
 
     UIComponent box = new UIRoundedRectangle(widthScaledConstraint(5).getValue())
+            .setColor(new Color(0, 0, 0, 0))
             .setChildOf(window);
     
-    UIImage image = (UIImage) UIImage.ofResource("/assets/partlysaneskies/textures/gui/base_color_background.png")
+    UIImage image = (UIImage) Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies:textures/gui/base_color_background.png"))
         .setChildOf(box);
     
     float pad = 5;
@@ -271,6 +274,7 @@ public class GardenTradeValue {
             .setHeight(new PixelConstraint(box.getHeight()));
         
         textComponent.setX(widthScaledConstraint(pad))
+            .setTextScale(widthScaledConstraint(1f))
             .setY(widthScaledConstraint(2 * pad))
             .setWidth(new PixelConstraint(box.getWidth() - widthScaledConstraint(2 * pad).getValue()));
 

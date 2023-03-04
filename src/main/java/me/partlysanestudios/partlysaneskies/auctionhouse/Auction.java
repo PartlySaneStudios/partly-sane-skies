@@ -18,6 +18,8 @@
 
 package me.partlysanestudios.partlysaneskies.auctionhouse;
 
+import java.awt.Color;
+import java.util.ArrayList;
 import java.util.List;
 
 import gg.essential.elementa.UIComponent;
@@ -93,6 +95,9 @@ public class Auction {
 
     private boolean isCheapBin() {
         long sellingPrice = getPrice();
+        if (SkyblockItem.getItem(itemId) == null) {
+            return false;
+        }
         if (!SkyblockItem.getItem(itemId).hasPrice()) {
             return false;
         }
@@ -124,9 +129,14 @@ public class Auction {
     }
 
     public double getLowestBin() {
-        if (!SkyblockItem.getItem(itemId).hasPrice()) {
-            return 0;
+        try {
+            if (!SkyblockItem.getItem(itemId).hasPrice()) {
+                return 0;
+            } 
+        } catch (NullPointerException exception) {
+            exception.printStackTrace();
         }
+        
         
         return SkyblockItem.getItem(itemId).getPrice();
     }
@@ -148,6 +158,71 @@ public class Auction {
 
     public String getLore() {
         return Utils.getLoreAsString(this.item);
+    }
+
+    public String getRarity() {
+        String str = "";
+        String lastLineOfLore;
+        try {
+            ArrayList<String> loreList = Utils.getLore(item);
+            lastLineOfLore = Utils.removeColorCodes(loreList.get(loreList.size() - 7 - 1));
+        } catch (NullPointerException exception) {
+            exception.printStackTrace();
+            return "";
+        }
+        
+
+        if (lastLineOfLore.toUpperCase().contains("UNCOMMON")) {
+            str = "UNCOMMON";
+        }
+        else if (lastLineOfLore.toUpperCase().contains("COMMON")) {
+            str = "COMMON";
+        }
+        else if (lastLineOfLore.toUpperCase().contains("RARE")) {
+            str = "RARE";
+        }
+        else if (lastLineOfLore.toUpperCase().contains("EPIC")) {
+            str = "EPIC";
+        }
+        else if (lastLineOfLore.toUpperCase().contains("LEGENDARY")) {
+            str = "LEGENDARY";
+        }
+        else if (lastLineOfLore.toUpperCase().contains("MYTHIC")) {
+            str = "MYTHIC";
+        }
+        else if (lastLineOfLore.toUpperCase().contains("DIVINE")) {
+            str = "DIVINE";
+        }
+        else if (lastLineOfLore.toUpperCase().contains("SPECIAL")) {
+            str = "SPECIAL";
+        }
+
+        return str;
+    }
+
+    public Color getRarityColor() {
+        String rarity = getRarity();
+        switch (rarity) {
+            case "COMMON":
+                return new Color(255, 255, 255);
+            case "UNCOMMON":
+                return new Color(85, 255, 85);
+            case "RARE":
+                return new Color(85, 85, 255);
+            case "EPIC":
+                return new Color(170, 0, 170);
+            case "LEGENDARY":
+                return new Color(255, 170, 0);
+            case "MYTHIC":
+                return new Color(255, 85, 255);
+            case "DIVINE":
+                return new Color(85, 255, 255);
+            case "SPECIAL":
+                return new Color(255, 85, 85);
+            
+            default:
+                return PartlySaneSkies.BASE_LIGHT_COLOR;
+        }
     }
 
 }

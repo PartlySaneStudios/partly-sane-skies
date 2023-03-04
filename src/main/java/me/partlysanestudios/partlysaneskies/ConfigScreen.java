@@ -76,6 +76,15 @@ public class ConfigScreen extends Vigilant {
     public boolean customMainMenu = true;
 
     @Property(
+        type = PropertyType.SWITCH, 
+        category = "General", 
+        subcategory = "Main Menu", 
+        name = "Announcements on Main Menu",
+        description = "Display announcements such as recent skyblock updates on the main menu"
+    )
+    public boolean displayAnnouncementsCustomMainMenu = true;
+
+    @Property(
         type = PropertyType.SELECTOR, 
         options = {
             "Random Image",
@@ -84,11 +93,13 @@ public class ConfigScreen extends Vigilant {
             "Stunning Aerial View of Hub",
             "View from Hub Portal (Day)",
             "Hub Portal (Night)",
-            "Wolf Ruins"
+            "Wolf Ruins",
+            "Custom Image"
         }, 
         category = "General", 
         subcategory = "Main Menu", 
-        name = "Custom Minecraft Main Menu Image"
+        name = "Custom Minecraft Main Menu Image",
+        description = "Select one of our many high quality included images, or you can use your custom image.\nTo use your own image, place your image in the /config/partly-sane-skies folder and title your image background.png"
     )
     public int customMainMenuImage = 1;
 
@@ -155,6 +166,16 @@ public class ConfigScreen extends Vigilant {
     )
     public boolean visableColors = false;
 
+    @Property(
+        type = PropertyType.SWITCH,
+        name = "Print errors in chat",
+        category = "General",
+        subcategory = "API",
+        description = "Send errors on getting APIs in chat (Recommended, however if you get spammed or have a bad internet connection, turn it off)"
+        
+    )
+    public boolean printApiErrors = true;
+
     // ----------------- Category: Skyblock -------------------
     // Rare Drop
     @Property(
@@ -189,7 +210,7 @@ public class ConfigScreen extends Vigilant {
     // Location Banner
     @Property(
         type = PropertyType.SWITCH, 
-        name = "Rare Drop Banner", 
+        name = "Location Banner", 
         subcategory = "Location Banner", 
         description = "An MMO RPG style banner shows up when you switch locations.", 
         category = "Skyblock"
@@ -275,7 +296,7 @@ public class ConfigScreen extends Vigilant {
         subcategory = "Worm Warning", 
         name = "Worm Warning Banner Color", 
         description = "The color of the worm warning text", 
-        category = "Dungeons"
+        category = "Mining"
     )
     public Color wormWarningBannerColor = new Color(34, 255, 0);
 
@@ -420,6 +441,19 @@ public class ConfigScreen extends Vigilant {
         description = "Toggle using the custom Auction House GUI and BIN Sniper Helper."
     )
     public boolean customAhGui = true;
+
+    @Property(
+        type = PropertyType.SELECTOR,
+        name = "Custom Auction House GUI Icons",
+        category = "Economy",
+        options = {
+            "Partly Sane Studios",
+            "FurfSky Reborn"
+        },
+        subcategory = "Auction House",
+        description = "Use either the Partly Sane Studios developed textures, or the FurfSky Reborn developed textures"
+    )
+    public int customAhGuiTextures = 0;
 
     @Property(
         type = PropertyType.PERCENT_SLIDER, 
