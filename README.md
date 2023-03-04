@@ -14,7 +14,7 @@
 
 ## About
 
-Latest Version: **Prealpha 0.1.2**
+Latest Version: **Beta v0.1.2**
 
 This is a Minecraft mod for Hypixel Skyblock, designed, built, and programmed by **Su386** and **FlagMaster (FlagHater)**
 
