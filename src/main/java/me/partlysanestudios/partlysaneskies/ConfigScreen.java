@@ -451,7 +451,7 @@ public class ConfigScreen extends Vigilant {
             "FurfSky Reborn"
         },
         subcategory = "Auction House",
-        description = "Use either the Partly Sane Studios developed textures, or the FurfSky Reborn developed textures"
+        description = "Use either the Partly Sane Studios developed textures, or the FurfSky Reborn developed textures\n\nAll of the textures under  FurfSky reborn are fully developed by the FurfSky Reborn team.\nhttps://furfsky.net/"
     )
     public int customAhGuiTextures = 0;
 
