@@ -71,7 +71,7 @@ public class ConfigScreen extends Vigilant {
         type = PropertyType.SWITCH, 
         category = "General", 
         subcategory = "Main Menu", 
-        name = "Show a custom Minecraft Main Menu"
+        name = "Show a Custom Minecraft Main Menu"
     )
     public boolean customMainMenu = true;
 
