@@ -39,7 +39,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class ChatAlertsManager {
     static String DATA_PATH_NAME = "./config/partly-sane-skies/chatAlertsData.json";
-    static ArrayList<String> chatAlertsList;
+    static ArrayList<String> chatAlertsList = new ArrayList<String>();
 
     // Loads all of the chat alerts data
     public static ArrayList<String> load() throws IOException {
