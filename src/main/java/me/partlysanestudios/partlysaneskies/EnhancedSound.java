@@ -17,7 +17,9 @@ public class EnhancedSound {
         "trombone",
         "trumpet",
         "violin",
-        "wind_ensemble"
+        "wind_ensemble",
+        "discord_sound",
+        "kazoo"
     };
 
     @SubscribeEvent

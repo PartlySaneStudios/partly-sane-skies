@@ -295,7 +295,9 @@ public class ConfigScreen extends Vigilant {
             "Trombone",
             "Trumpet",
             "Violin",
-            "Wind Ensemble"
+            "Wind Ensemble",
+            "Discord New Message Sound",
+            "Kazoo",
         }
     )
     public int customSoundOption = 0;

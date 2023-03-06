@@ -377,6 +377,68 @@
         ]
     },
 
+    "tenor_kazoo": {
+        "category": "record",
+        "sounds": [
+            {
+                "name": "partlysaneskies:tenor_kazoo",
+                "stream": false
+            }
+        ]
+    },
+
+    "alto_kazoo": {
+        "category": "record",
+        "sounds": [
+            {
+                "name" :"partlysaneskies:alto_kazoo",
+                "stream" :false
+            }   
+            
+        ]
+    },
+
+    "bass_kazoo": {
+        "category": "record",
+        "sounds": [
+            {
+                "name" : "partlysaneskies:bass_kazoo",
+                "stream" : false
+            }
+        ]
+    },
+
+    "tenor_discord_sound": {
+        "category": "record",
+        "sounds": [
+            {
+                "name": "partlysaneskies:tenor_discord_sound",
+                "stream": false
+            }
+        ]
+    },
+
+    "alto_discord_sound": {
+        "category": "record",
+        "sounds": [
+            {
+                "name" :"partlysaneskies:alto_discord_sound",
+                "stream" :false
+            }   
+            
+        ]
+    },
+
+    "bass_discord_sound": {
+        "category": "record",
+        "sounds": [
+            {
+                "name" : "partlysaneskies:bass_discord_sound",
+                "stream" : false
+            }
+        ]
+    },
+
     "explosion": {
         "category": "record",
         "sounds": [
