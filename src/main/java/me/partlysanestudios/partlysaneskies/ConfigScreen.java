@@ -278,6 +278,40 @@ public class ConfigScreen extends Vigilant {
     )
     public float petAlertMuteTime = 7.5f;
 
+    @Property(
+        type = PropertyType.SELECTOR,
+        category = "Skyblock",
+        subcategory = "Enhanced Skyblock Sounds",
+        name = "Note Block Instrument Type",
+        options = {
+            "Default Skyblock Noteblocks",
+            "Clarinet (Live)",
+            "Clarinet (Computer)",
+            "Electric Piano",
+            "Flute",
+            "Organ",
+            "Piano",
+            "String Orchesttra",
+            "Trombone",
+            "Trumpet",
+            "Violin",
+            "Wind Ensemble"
+        }
+    )
+    public int customSoundOption = 0;
+
+    @Property(
+        type = PropertyType.SELECTOR,
+        category = "Skyblock",
+        subcategory = "Enhanced Skyblock Sounds",
+        name = "Explosions",
+        options = {
+            "Default",
+            "Off",
+            "Realistic"
+        }
+    )
+    public int customExplosion = 0;
 
 
     // -------------- Category: Mining --------------

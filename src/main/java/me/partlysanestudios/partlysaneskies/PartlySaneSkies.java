@@ -158,6 +158,7 @@ public class PartlySaneSkies {
         MinecraftForge.EVENT_BUS.register(new GardenTradeValue());
         MinecraftForge.EVENT_BUS.register(new ChatColors());
         MinecraftForge.EVENT_BUS.register(new CompostValue());
+        MinecraftForge.EVENT_BUS.register(new EnhancedSound());
 
         // Registers all client side commands
         ClientCommandHandler.instance.registerCommand(new PartyManagerCommand());
