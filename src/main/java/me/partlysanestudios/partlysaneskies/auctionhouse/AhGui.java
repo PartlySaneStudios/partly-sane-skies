@@ -24,6 +24,7 @@ import java.util.List;
 import gg.essential.elementa.ElementaVersion;
 import gg.essential.elementa.UIComponent;
 import gg.essential.elementa.WindowScreen;
+import gg.essential.elementa.components.ScrollComponent;
 import gg.essential.elementa.components.UIBlock;
 import gg.essential.elementa.components.UIWrappedText;
 import gg.essential.elementa.constraints.CenterConstraint;
@@ -33,6 +34,7 @@ import me.partlysanestudios.partlysaneskies.utils.Utils;
 import me.partlysanestudios.partlysaneskies.utils.guicomponents.UIButton;
 import me.partlysanestudios.partlysaneskies.utils.guicomponents.UIItemRender;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 public class AhGui extends WindowScreen {
@@ -85,7 +87,7 @@ public class AhGui extends WindowScreen {
             .setColor(new Color(0, 0, 0, 0))
             .setChildOf(getWindow());
 
-        rightWindow = new UIBlock()
+        rightWindow = new ScrollComponent()
             .setX(new PixelConstraint(mainBox.getRight() + widthScaledConstraint(15).getValue()))
             .setY(new CenterConstraint())
             .setWidth(widthScaledConstraint(180))
@@ -93,7 +95,7 @@ public class AhGui extends WindowScreen {
             .setColor(new Color(0, 0, 0, 0))
             .setChildOf(getWindow());
 
-        leftWindow = new UIBlock()
+        leftWindow = new ScrollComponent()
             .setX(new PixelConstraint(mainBox.getLeft() - widthScaledConstraint(15 + 180).getValue()))
             .setY(new CenterConstraint())
             .setWidth(widthScaledConstraint(180))
@@ -101,35 +103,36 @@ public class AhGui extends WindowScreen {
             .setColor(new Color(0, 0, 0, 0))
             .setChildOf(getWindow());
 
-        itemInfoText = new UIWrappedText("", true, null, true)
-            .setTextScale(widthScaledConstraint(1f))
-            .setX(new CenterConstraint())
-            .setY(widthScaledConstraint(50 * 1.5f))
-            .setWidth(widthScaledConstraint(170))
-            .setColor(Color.white)
-            .setChildOf(rightWindow);
-
-        itemInfoHeader = new UIWrappedText("", true, null, true)
-            .setTextScale(widthScaledConstraint(1.5f))
-            .setX(new CenterConstraint())
-            .setY(widthScaledConstraint(30))
-            .setWidth(widthScaledConstraint(170))
-            .setColor(Color.white)
-            .setChildOf(rightWindow);
-        itemLore = new UIWrappedText("", true, null, true)
-            .setTextScale(widthScaledConstraint(1f))
-            .setX(new CenterConstraint())
-            .setY(widthScaledConstraint(50 * 1.5f))
-            .setWidth(widthScaledConstraint(170))
-            .setColor(Color.white)
-            .setChildOf(leftWindow);
+        
         itemName = new UIWrappedText("", true, null, true)
-            .setTextScale(widthScaledConstraint(1.5f))
+            .setTextScale(widthScaledConstraint(1.25f))
             .setX(new CenterConstraint())
-            .setY(widthScaledConstraint(30))
+            .setY(widthScaledConstraint(10))
             .setWidth(widthScaledConstraint(170))
             .setColor(Color.white)
             .setChildOf(leftWindow);;
+        itemLore = new UIWrappedText("", true, null, true)
+            .setTextScale(widthScaledConstraint(1f))
+            .setX(new CenterConstraint())
+            .setY(widthScaledConstraint(40f))
+            .setWidth(widthScaledConstraint(170))
+            .setColor(Color.white)
+            .setChildOf(leftWindow);
+        
+        itemInfoHeader = new UIWrappedText("", true, null, true)
+            .setTextScale(widthScaledConstraint(1.25f))
+            .setX(new CenterConstraint())
+            .setY(widthScaledConstraint(10))
+            .setWidth(widthScaledConstraint(170))
+            .setColor(Color.white)
+            .setChildOf(rightWindow);
+        itemInfoText = new UIWrappedText("", true, null, true)
+            .setTextScale(widthScaledConstraint(1f))
+            .setX(new CenterConstraint())
+            .setY(widthScaledConstraint(40))
+            .setWidth(widthScaledConstraint(170))
+            .setColor(Color.white)
+            .setChildOf(rightWindow);
         
         Utils.applyBackground(mainBox);
         Utils.applyBackground(bottomBar);
@@ -239,6 +242,7 @@ public class AhGui extends WindowScreen {
             
             icon.onMouseClickConsumer(event -> {
                     Utils.clickOnSlot(slot);
+                    event.getMouseButton();
                 });
             try {
                 icon.onMouseEnterRunnable(() -> {
@@ -429,21 +433,29 @@ public class AhGui extends WindowScreen {
                 .setChildOf(icon);
 
             icon.onMouseClickConsumer(event -> {
+                if (event.getMouseButton() == 1) {
+                    Utils.rightClickOnSlot(slot);
+                    return;
+                }
                 Utils.clickOnSlot(slot);
             });
 
-            try {
-                icon.onMouseEnterRunnable(() -> {
-                    ((UIWrappedText) itemName).setText(inventory.getStackInSlot(slot).getDisplayName());
-                    ((UIWrappedText) itemLore).setText(Utils.getLoreAsString(inventory.getStackInSlot(slot)));
-                });
-                icon.onMouseLeaveRunnable(() -> {
-                    ((UIWrappedText) itemName).setText("");
-                    ((UIWrappedText) itemLore).setText("");
-                });
-            } catch (NullPointerException exception) {
-                exception.printStackTrace();
+            ItemStack item = inventory.getStackInSlot(slot);
+            if (item != null) {
+                try {
+                    icon.onMouseEnterRunnable(() -> {
+                        ((UIWrappedText) itemName).setText(item.getDisplayName());
+                        ((UIWrappedText) itemLore).setText(Utils.getLoreAsString(item));
+                    });
+                    icon.onMouseLeaveRunnable(() -> {
+                        ((UIWrappedText) itemName).setText("");
+                        ((UIWrappedText) itemLore).setText("");
+                    });
+                } catch (NullPointerException exception) {
+                    exception.printStackTrace();
+                }
             }
+            
         }
     }
 

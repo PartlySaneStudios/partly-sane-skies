@@ -353,7 +353,7 @@ public class Utils {
 
         // controller.windowClick(Main.minecraft.thePlayer.openContainer.windowId, slot,
         // 2, 3, Main.minecraft.thePlayer);
-        controller.windowClick(PartlySaneSkies.minecraft.thePlayer.openContainer.windowId, slot, 0, 0, PartlySaneSkies.minecraft.thePlayer);
+        controller.windowClick(PartlySaneSkies.minecraft.thePlayer.openContainer.windowId, slot, 1, 0, PartlySaneSkies.minecraft.thePlayer);
     }
 
     public static ArrayList<String> getLore(ItemStack itemStack) {
