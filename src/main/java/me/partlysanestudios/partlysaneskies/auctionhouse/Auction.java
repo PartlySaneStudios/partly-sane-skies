@@ -135,6 +135,7 @@ public class Auction {
             } 
         } catch (NullPointerException exception) {
             exception.printStackTrace();
+            return 0;
         }
         
         
