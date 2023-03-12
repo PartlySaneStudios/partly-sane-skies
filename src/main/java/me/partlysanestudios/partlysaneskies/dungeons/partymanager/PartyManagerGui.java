@@ -130,7 +130,7 @@ public class PartyManagerGui extends WindowScreen {
                     }
                     
                 }.start();;
-                timeDelay += (int) 600;
+                timeDelay += (int) 750;
             }
             else {
                 Window.Companion.enqueueRenderOperation(() -> {
