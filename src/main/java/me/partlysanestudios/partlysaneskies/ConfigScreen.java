@@ -162,7 +162,7 @@ public class ConfigScreen extends Vigilant {
         name = "Visable Colors", 
         category = "General", 
         subcategory = "Chat Color", 
-        description = "Converts the custom colors mentiond above to more visable colors. Dark Green -> Light Green and Blue -> Gold. (Recommended)"
+        description = "Converts the custom colors mentioned above to more visable colors. Dark Green -> Light Green and Blue -> Gold. (Recommended)"
     )
     public boolean visableColors = false;
 
@@ -291,7 +291,7 @@ public class ConfigScreen extends Vigilant {
             "Flute",
             "Organ",
             "Piano",
-            "String Orchesttra",
+            "String Orchestra",
             "Trombone",
             "Trumpet",
             "Violin",
