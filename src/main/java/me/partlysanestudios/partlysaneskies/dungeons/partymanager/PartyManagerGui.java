@@ -195,7 +195,7 @@ public class PartyManagerGui extends WindowScreen {
                 .setText("Ask if ready")
                 .setTextScale(1.25f)
                 .onMouseClickConsumer(event -> {
-                    PartlySaneSkies.minecraft.thePlayer.sendChatMessage("Ready?");
+                    PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/pc Ready?");
                 });
 
         new UIText("Party Size: " + partyMembers.size())
