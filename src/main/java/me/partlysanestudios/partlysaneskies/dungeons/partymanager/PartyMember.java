@@ -48,6 +48,7 @@ public class PartyMember {
     public PartyRank rank;
     public boolean isPlayer = false;
     public boolean refresh = false;
+    public int errorOnDataGet = 0;
 
     // Data
     public long timeDataGet;
@@ -113,7 +114,10 @@ public class PartyMember {
         String response = Utils.getRequest("https://sky.shiiyu.moe/api/v2/profile/" + this.username);
         // If the response is in error, send error message and exit
         if (response.startsWith("Error")) {
-            Utils.sendClientMessage(Utils.colorCodes("Error getting data for " + username + ". Maybe the player is nicked."));
+            if (PartlySaneSkies.config.printPartyManagerApiErrors){
+                Utils.sendClientMessage(Utils.colorCodes("Error getting data for " + username + ". Maybe the player is nicked."));
+            }
+            errorOnDataGet++;
             return;
         }
         // Creates a Json object based on the response
@@ -609,6 +613,9 @@ public class PartyMember {
             return this.timeDataGet + PartlySaneSkies.config.partyManagerCacheTime * 60 * 1000 * 2 < Minecraft.getSystemTime();
         if (this.refresh) {
             this.refresh = false;
+            return true;
+        }
+        if (this.errorOnDataGet > 1 && this.errorOnDataGet < 3) {
             return true;
         }
         return this.timeDataGet + PartlySaneSkies.config.partyManagerCacheTime * 60 * 1000 < Minecraft.getSystemTime();

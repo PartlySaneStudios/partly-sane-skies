@@ -370,6 +370,26 @@ public class ConfigScreen extends Vigilant {
     public boolean autoKickOfflinePartyManager = false;
 
     @Property(
+        type = PropertyType.SWITCH, 
+        name = "Get data on party join", 
+        subcategory = "Party Manager", 
+        description = "Automatically gets the data for party members someone joins the party. This saves time and reduces the chance of the data not being able to be accessed.", 
+        category = "Dungeons"
+    )
+    public boolean getDataOnJoin = true;
+
+    @Property(
+        type = PropertyType.SWITCH,
+        name = "Print errors in chat",
+        category = "Dungeons",
+        subcategory = "Party Manager",
+        description = "Send errors on getting data in chat (Recommended, however if you get spammed or have a bad internet connection, turn it off)"
+        
+    )
+    public boolean printPartyManagerApiErrors = true;
+
+
+    @Property(
         type = PropertyType.SLIDER, 
         name = "Party Manager Cache Time", 
         min = 0, 
