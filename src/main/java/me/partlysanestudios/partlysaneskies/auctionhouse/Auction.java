@@ -55,6 +55,16 @@ public class Auction {
         return false;
     }
 
+    public int getAmount() {
+        if (item == null) {
+            return 1;
+        }
+        return item.stackSize;
+    }
+
+    public double getCostPerAmount() {
+        return getPrice() / (double) getAmount();
+    }
     public long getPrice() {
         List<String> loreList = Utils.getLore(item);
         String buyItNowPrice = "";

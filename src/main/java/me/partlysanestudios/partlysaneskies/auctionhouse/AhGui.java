@@ -508,6 +508,11 @@ public class AhGui extends WindowScreen {
             info += "&eSelling Price: \n&6" + Utils.formatNumber(auction.getPrice()) + "\n\n";
             info += "&eEnding In: \n&6" + auction.getFormattedEndingTime();
 
+            if (auction.getAmount() != 1) {
+                info += "\n\n\n";
+                info += "&eQuantity: \n&6" + Utils.formatNumber(auction.getAmount()) + "\n";
+                info += "&eCost Per Item: \n&6" + Utils.formatNumber(Utils.round(auction.getCostPerAmount(),2)) + " coins\n";
+            }
             info += "\n\n\n\n\n\n";
 
             info += "&eMarket Stats:\n\n\n";
@@ -519,9 +524,10 @@ public class AhGui extends WindowScreen {
                             Utils.round((auction.getLowestBin() / auction.getAverageLowestBin()) * 100d, 2) - 100)
                     + "%\n\n";
             info += "&bItem Mark up: \n&e" + Utils.formatNumber(Utils.round(
-                    (auction.getPrice() / auction.getLowestBin()) * 100 - 100,
+                    (auction.getPrice() / auction.getLowestBin()) / auction.getAmount() * 100 - 100,
                     2)) + "%\n";
 
+            
             
             ((UIWrappedText) itemInfoText).setText(Utils.colorCodes(info));
         });
