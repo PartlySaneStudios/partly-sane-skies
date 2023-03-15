@@ -85,29 +85,8 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 @Mod(modid = PartlySaneSkies.MODID, version = PartlySaneSkies.VERSION, name = PartlySaneSkies.NAME)
 public class PartlySaneSkies {
 
-
-    static boolean filterAffordable = true;
-    static int bitCount = 3344;
     public static void main(String[] args) throws IOException {
-        SkyblockItem.init();
-        SkyblockItem.initBitValues();
-        SkyblockItem.updateAll();
-        HashMap<String, Double> map = new HashMap<String, Double> ();
-        
-        for (String id : SkyblockItem.bitIds) {
-            SkyblockItem item = SkyblockItem.getItem(id);
-            if (filterAffordable && bitCount < item.getBitCost()) {
-                continue;
-            }
-            map.put(id, item.getPrice() / item.getBitCost());
-        }
-        LinkedHashMap<String, Double> sortedMap = CompostValue.sortMap(map);
-        
-        for (Map.Entry<String, Double> en : sortedMap.entrySet()) {
-            SkyblockItem item = SkyblockItem.getItem(en.getKey());
-            System.out.println("Name: " + item.getName() + " | Cost Per Bit: " + en.getValue());
-        }
-        
+            
     }
 
     public static final String MODID = "partlysaneskies";
