@@ -468,6 +468,25 @@ public class ConfigScreen extends Vigilant {
     )
     public boolean bestCropsToCompost = false;
 
+    @Property(
+        type = PropertyType.SWITCH, 
+        subcategory = "Community Center", 
+        name = "Best Item for Bits", 
+        description = "Gives you information about bits shop item is the best to sell.", 
+        category = "Economy"
+    )
+    public boolean bestBitShopItem = false;
+
+    @Property(
+        type = PropertyType.SWITCH, 
+        subcategory = "Community Center", 
+            name = "Only Show Affordable Items", 
+        description = "When making recommendations for what you can buy, only recommend the items that you are able to afford.", 
+        category = "Economy"
+    )
+    public boolean bitShopOnlyShowAffordable = true;
+
+
      // Auction House
      @Property(
         type = PropertyType.SWITCH, 

@@ -36,7 +36,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
 
@@ -49,6 +52,7 @@ import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManager;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManagerCommand;
 import me.partlysanestudios.partlysaneskies.dungeons.permpartyselector.PermPartyCommand;
 import me.partlysanestudios.partlysaneskies.dungeons.permpartyselector.PermPartyManager;
+import me.partlysanestudios.partlysaneskies.economy.BitsShopValue;
 import me.partlysanestudios.partlysaneskies.garden.CompostValue;
 import me.partlysanestudios.partlysaneskies.garden.GardenTradeValue;
 import me.partlysanestudios.partlysaneskies.help.ConfigCommand;
@@ -80,7 +84,30 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 
 @Mod(modid = PartlySaneSkies.MODID, version = PartlySaneSkies.VERSION, name = PartlySaneSkies.NAME)
 public class PartlySaneSkies {
-    public static void main(String[] args) {
+
+
+    static boolean filterAffordable = true;
+    static int bitCount = 3344;
+    public static void main(String[] args) throws IOException {
+        SkyblockItem.init();
+        SkyblockItem.initBitValues();
+        SkyblockItem.updateAll();
+        HashMap<String, Double> map = new HashMap<String, Double> ();
+        
+        for (String id : SkyblockItem.bitIds) {
+            SkyblockItem item = SkyblockItem.getItem(id);
+            if (filterAffordable && bitCount < item.getBitCost()) {
+                continue;
+            }
+            map.put(id, item.getPrice() / item.getBitCost());
+        }
+        LinkedHashMap<String, Double> sortedMap = CompostValue.sortMap(map);
+        
+        for (Map.Entry<String, Double> en : sortedMap.entrySet()) {
+            SkyblockItem item = SkyblockItem.getItem(en.getKey());
+            System.out.println("Name: " + item.getName() + " | Cost Per Bit: " + en.getValue());
+        }
+        
     }
 
     public static final String MODID = "partlysaneskies";
@@ -159,6 +186,7 @@ public class PartlySaneSkies {
         MinecraftForge.EVENT_BUS.register(new ChatColors());
         MinecraftForge.EVENT_BUS.register(new CompostValue());
         MinecraftForge.EVENT_BUS.register(new EnhancedSound());
+        MinecraftForge.EVENT_BUS.register(new BitsShopValue());
 
         // Registers all client side commands
         ClientCommandHandler.instance.registerCommand(new PartyManagerCommand());
@@ -187,6 +215,11 @@ public class PartlySaneSkies {
             public void run() {
                 try {
                     SkyblockItem.init();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    SkyblockItem.initBitValues();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -341,6 +374,36 @@ public class PartlySaneSkies {
         }
         try {
             return Long.parseLong(money);
+        } catch (NumberFormatException event) {
+            return 0;
+        }
+    }
+
+    // Gets the amount of bits from the scoreboard
+    public static long getBits() {
+        if (!isSkyblock()) {
+            return 0l;
+        }
+
+        List<String> scoreboard = getScoreboardLines();
+
+        String bits = null;
+
+        for (String line : scoreboard) {
+            if (Utils.stripLeading(line).contains("Bits:")) {
+                bits = Utils.stripLeading(Utils.removeColorCodes(line)).replace("Bits: ", "");
+                bits = Utils.stripLeading(bits);
+                bits = bits.replace(",", "");
+                bits = bits.replaceAll("\\P{Print}", "");
+                break;
+            }
+        }
+
+        if (bits == null) {
+            return 0l;
+        }
+        try {
+            return Long.parseLong(bits);
         } catch (NumberFormatException event) {
             return 0;
         }
