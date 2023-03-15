@@ -22,6 +22,7 @@ import java.awt.Color;
 import java.io.IOException;
 import java.util.Map.Entry;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -64,6 +65,8 @@ public class PartyMember {
     public String chestplateName;
     public String leggingsName;
     public String bootsName;
+    public int arrowCount;
+    public String arrowCountString;
 
     public String petName;
 
@@ -216,7 +219,12 @@ public class PartyMember {
         } catch (NullPointerException e) {
             selectedDungeonClass = "None";
         }
-        
+
+        this.arrowCount = -1;
+        this.arrowCount = getArrowCount(profileItems);
+        if (arrowCount == -1) { 
+            this.arrowCountString = "(Unknown)";
+        }
 
         // Gets all of the floor runs
         f1Runs = getFloorRuns("1", profileData);
@@ -253,21 +261,35 @@ public class PartyMember {
         }
     }
 
-    // public static String getUUID(String username) throws IOException {
-    //     // Creates a Json parser to parse the json data
-    //     JsonParser parser = new JsonParser();
+    // Looks for every element of an arrow in the player's profile
+    public int getArrowCount(JsonObject itemData) {
+        JsonArray quiver = itemData.getAsJsonArray("quiver");
+        int sum = 0;
+        for (JsonElement slotElement : quiver) {
+            JsonObject slotObject = slotElement.getAsJsonObject();
+            if (slotObject.getAsJsonArray("categories") == null ) {
+                continue;
+            }
+            if (!(slotObject.getAsJsonArray("categories").size() > 0)) {
+                continue;
+            }
+            // Check all of the categories to see if it has arrow as a tag
+            for (JsonElement categoryElement : slotObject.getAsJsonArray("categories")) {
+                if (categoryElement.getAsString().equals("arrow")) {
 
-    //     // Gets the player's UUID
-    //     String response = Utils.getRequest("https://api.mojang.com/users/profiles/minecraft/" + username);
-    //     if (response.startsWith("Error")) {
-    //         Utils.sendClientMessage(Utils.colorCodes("Error getting data for " + username + ". Maybe the player is nicked."));
-    //         return "";
-    //     }
+                    // If it does, check to see if it has a count
+                    if (slotObject.has("Count")) {
+                        sum += slotObject.get("Count").getAsInt();
+                    }
+                    else {
+                        sum += 1;
+                    }
+                }
+            }
+        }
 
-    //     // Returns the player's UUID
-    //     JsonObject uuidJson = (JsonObject) parser.parse(response);
-    //     return uuidJson.get("id").getAsString();
-    // }
+        return sum;
+    }
 
     public int getFloorRuns(String floor, JsonObject profileData) {
         JsonElement runsElement; 
@@ -545,6 +567,23 @@ public class PartyMember {
                 .setX(new PixelConstraint(580f * scaleFactor))
                 .setY(new PixelConstraint(155f * scaleFactor))
                 .setColor(Color.white)
+                .setChildOf(memberBlock);
+        
+        Color arrowWarningColor = Color.white;
+        if (this.arrowCount < PartlySaneSkies.config.arrowLowCount) {
+            arrowWarningColor = Color.red;
+            if (PartlySaneSkies.config.warnLowArrowsInChat && this.arrowCount != -1) {
+                String message = PartlySaneSkies.config.arrowLowChatMessage;
+                message = message.replace("{player}", this.username);
+                message = message.replace("{count}", this.arrowCount + "");
+                PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/pc " + message);
+            }
+        }
+        new UIText("Arrows Remaining: " + this.arrowCountString)
+                .setTextScale(new PixelConstraint(1.15f * scaleFactor))
+                .setX(new PixelConstraint(580f * scaleFactor))
+                .setY(new PixelConstraint(190f * scaleFactor))
+                .setColor(arrowWarningColor)
                 .setChildOf(memberBlock);
     }
 

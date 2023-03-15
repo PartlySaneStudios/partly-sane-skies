@@ -369,14 +369,38 @@ public class ConfigScreen extends Vigilant {
     )
     public boolean autoKickOfflinePartyManager = false;
 
+
     @Property(
         type = PropertyType.SWITCH, 
-        name = "Get data on party join", 
+        name = "Warn Low Arrows in Chat", 
         subcategory = "Party Manager", 
-        description = "Automatically gets the data for party members someone joins the party. This saves time and reduces the chance of the data not being able to be accessed.", 
+        description = "Warns you party when a member has low arrows.", 
         category = "Dungeons"
     )
-    public boolean getDataOnJoin = true;
+    public boolean warnLowArrowsInChat = false;
+
+
+    @Property(
+        type = PropertyType.TEXT, 
+        subcategory = "Party Manager", 
+        name = "Arrow Low Warning", 
+        description = "Message to send when a player has low arrows.\nUse {player} to signify the player's username, and {count} to signfy the remaining arrow count.", 
+        category = "Dungeons"
+    )
+    public String arrowLowChatMessage = "Partly Sane Skies > Warning! {player} only has {count} arrows remaining!";
+
+
+    @Property(
+        type = PropertyType.SLIDER, 
+        name = "Arrow Low Count", 
+        min = 10, 
+        max = 500, 
+        subcategory = "Party Manager", 
+        description = "The amount of arrows you must have to be considered low on arrows.", 
+        category = "Dungeons"
+    )
+    public int arrowLowCount = 300;
+
 
     @Property(
         type = PropertyType.SWITCH,
@@ -387,6 +411,16 @@ public class ConfigScreen extends Vigilant {
         
     )
     public boolean printPartyManagerApiErrors = true;
+
+
+    @Property(
+        type = PropertyType.SWITCH, 
+        name = "Get data on party join", 
+        subcategory = "Party Manager", 
+        description = "Automatically gets the data for party members someone joins the party. This saves time and reduces the chance of the data not being able to be accessed.", 
+        category = "Dungeons"
+    )
+    public boolean getDataOnJoin = true;
 
 
     @Property(
