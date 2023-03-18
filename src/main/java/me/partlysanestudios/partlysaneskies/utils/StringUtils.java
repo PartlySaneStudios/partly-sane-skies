@@ -160,5 +160,82 @@ public class StringUtils {
     
         return formattedNum;
     }
-    
+
+    // Returns a result from a given pattern and key
+    /*
+     * Example: 
+     * StringUtils.recognisePattern("Wow! Su386", "Wow! {player}", "{player}");
+     * Will return "Su386" as it is finding the pattern {player}
+     */
+    public static String recognisePattern(String input, String pattern, String key) {
+        String result = input;
+
+        // Gets finds the index where the key will start, because it will be the same accross
+        // both patterns
+        int keyIndex = pattern.indexOf(key);
+        result = result.substring(keyIndex);
+
+        // Gets the first few letters after the key in the pattern
+        int patternEndKeyIndex = keyIndex + key.length(); 
+        String charsAfterKey;
+
+        // If the key is the last thing in the pattern, return the result
+        if (patternEndKeyIndex == pattern.length()) {
+            return result;
+        }
+        // If the pattern has more than 3 characters after the pattern, 
+        // gets the first 3 characters from the pattern to avoid index out of bounds
+        else if (patternEndKeyIndex + 4 <= pattern.length()) {
+            charsAfterKey = pattern.substring(patternEndKeyIndex, patternEndKeyIndex + 4);
+        }
+        // IF it has less than 3 characters after the pattern, the
+        // the rest of the string is the characters after the pattern 
+        else {
+            charsAfterKey = pattern.substring(patternEndKeyIndex);
+        }
+
+        // Uses those characters to get the end of the string in the
+        // input, not the pattern
+        int inputEndKeyIndex = result.indexOf(charsAfterKey);
+        result = result.substring(0, inputEndKeyIndex);
+
+        return result;
+    }
+
+    public static boolean isPattern(String input, String pattern, String key) {
+        // Gets finds the index where the key will start, because it will be the same accross
+        // both patterns
+       
+        String result = recognisePattern(input, pattern, key);
+        String patternWithoutKey = replaceFirst(pattern, key, "");
+        String inputWithoutKey = replaceFirst(input, result, "");
+        System.out.println(inputWithoutKey);
+        System.out.println(patternWithoutKey);
+        return patternWithoutKey.equals(inputWithoutKey);
+    }
+
+    public static boolean startsWithPattern(String input, String pattern, String key) {
+        String result = recognisePattern(input, pattern, key);
+        String patternWithoutKey = replaceFirst(pattern, key, "");
+        String inputWithoutKey = replaceFirst(input, result, "");
+
+        String beginningOfInputWithoutKey = inputWithoutKey.substring(0, patternWithoutKey.length());
+        System.out.println(inputWithoutKey);
+        System.out.println(patternWithoutKey);
+        System.out.println(beginningOfInputWithoutKey);
+
+        return beginningOfInputWithoutKey.equals(patternWithoutKey);
+    }
+
+    public static String replaceFirst(String string, String key, String replacement) {
+        int index = string.indexOf(key);
+        if (index != -1) { // Make sure the search string was found
+            String before = string.substring(0, index);
+            String after = string.substring(index + key.length());
+            String newString = before + replacement + after;
+            return newString;
+        } else {
+            return string;
+        }
+    }
 }

@@ -84,25 +84,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 public class PartlySaneSkies {
 
     public static void main(String[] args) throws IOException {
-            String patternString = "Wow! {player} has found a wither essance";
-            String inputString = "Wow! Su386 has found a wither essance";
-            String player = "";
-
-            player = inputString;
-
-            int playerIndex = patternString.indexOf("{player}");
-
-            player = player.substring(playerIndex);
-            
-            String charsAfterPlayer = patternString.substring(playerIndex + ("{player}").length(), playerIndex + ("{player}").length() + 4);
-
-            int indexOfEndOfPlayer = player.indexOf(charsAfterPlayer);
-
-            player = player.substring(0, indexOfEndOfPlayer);
-
-            System.out.println("Input String: \"" + inputString + "\"");
-            System.out.println("Pattern String: \"" + patternString + "\"");
-            System.out.println("Player: \"" + player + "\"");
+    
     }
 
     public static final String MODID = "partlysaneskies";
