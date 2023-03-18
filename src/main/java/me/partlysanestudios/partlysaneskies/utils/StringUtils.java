@@ -197,6 +197,12 @@ public class StringUtils {
         // Uses those characters to get the end of the string in the
         // input, not the pattern
         int inputEndKeyIndex = result.indexOf(charsAfterKey);
+        if (inputEndKeyIndex >= result.length()) {
+            return "";
+        }
+        if (inputEndKeyIndex == -1) {
+            return "";
+        }
         result = result.substring(0, inputEndKeyIndex);
 
         return result;
@@ -218,7 +224,9 @@ public class StringUtils {
         String result = recognisePattern(input, pattern, key);
         String patternWithoutKey = replaceFirst(pattern, key, "");
         String inputWithoutKey = replaceFirst(input, result, "");
-
+        if (inputWithoutKey.length() < patternWithoutKey.length()) {
+            return false;
+        }
         String beginningOfInputWithoutKey = inputWithoutKey.substring(0, patternWithoutKey.length());
         System.out.println(inputWithoutKey);
         System.out.println(patternWithoutKey);

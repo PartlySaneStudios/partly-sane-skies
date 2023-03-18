@@ -84,7 +84,6 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 public class PartlySaneSkies {
 
     public static void main(String[] args) throws IOException {
-    
     }
 
     public static final String MODID = "partlysaneskies";
