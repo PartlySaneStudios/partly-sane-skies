@@ -22,6 +22,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import me.partlysanestudios.partlysaneskies.auctionhouse.AhGui;
+import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Slot;
@@ -47,11 +48,11 @@ public class WikiArticleOpener {
         if (!isWaitingForArticle) {
             return;
         }
-        if (Utils.removeColorCodes(e.message.getFormattedText()).contains("Invalid")) {
+        if (StringUtils.removeColorCodes(e.message.getFormattedText()).contains("Invalid")) {
             isWaitingForArticle = false;
             return;
         }
-        if (!Utils.removeColorCodes(e.message.getFormattedText()).contains("Click HERE")) {
+        if (!StringUtils.removeColorCodes(e.message.getFormattedText()).contains("Click HERE")) {
             return;
         }
 

@@ -37,6 +37,7 @@ import gg.essential.elementa.constraints.PixelConstraint;
 import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.SkyblockItem;
+import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.inventory.IInventory;
@@ -133,7 +134,7 @@ public class CompostValue {
             double cropPerCompost = 4000d / compostValueMap.get(id);
             String cropName = SkyblockItem.getItem(id).getName();
             double costPerCompost = en.getValue();
-            str += "&6"+ i + ". &7x&d" + Utils.formatNumber(Math.ceil(cropPerCompost * 10)) + " " + cropName + "&7 costing &d"+ Utils.formatNumber(Utils.round(costPerCompost * 10, 1)) + "&7 coins to fill. \n&8(x" + Utils.formatNumber(Math.ceil(cropPerCompost)) + "/Compost)\n";
+            str += "&6"+ i + ". &7x&d" + StringUtils.formatNumber(Math.ceil(cropPerCompost * 10)) + " " + cropName + "&7 costing &d"+ StringUtils.formatNumber(Utils.round(costPerCompost * 10, 1)) + "&7 coins to fill. \n&8(x" + StringUtils.formatNumber(Math.ceil(cropPerCompost)) + "/Compost)\n";
 
             i++;
             if (i > 5) {
@@ -141,7 +142,7 @@ public class CompostValue {
             }
         }
 
-        str = Utils.colorCodes(str);
+        str = StringUtils.colorCodes(str);
         
         return str;
     }
@@ -165,12 +166,12 @@ public class CompostValue {
             return false;
         }
 
-        String collectCompostButtonName = Utils.removeColorCodes(collectCompostButton.getDisplayName());
+        String collectCompostButtonName = StringUtils.removeColorCodes(collectCompostButton.getDisplayName());
         // If the names are not equal to the desired names, then you know it screen
         if (!collectCompostButtonName.equals("Collect Compost")) {
             return false;
         }
-        if (!Utils.removeColorCodes(composter.getDisplayName().getFormattedText()).contains("Composter")) {
+        if (!StringUtils.removeColorCodes(composter.getDisplayName().getFormattedText()).contains("Composter")) {
             return false;
         };
 
@@ -224,9 +225,9 @@ public class CompostValue {
         textString += "\n\n";
         textString += "&e&lCompost:\n\n";
         double compostSellPrice = SkyblockItem.getItem("COMPOST").getPrice();
-        textString += "&7x10 Compost currently sells for &d" + Utils.formatNumber(Utils.round(compostSellPrice * 10, 1))  + "&7 coins.\n&8(" + Utils.formatNumber(Utils.round(compostSellPrice, 1)) + "/Compost)";
+        textString += "&7x10 Compost currently sells for &d" + StringUtils.formatNumber(Utils.round(compostSellPrice * 10, 1))  + "&7 coins.\n&8(" + StringUtils.formatNumber(Utils.round(compostSellPrice, 1)) + "/Compost)";
 
-        textString = Utils.colorCodes(textString);
+        textString = StringUtils.colorCodes(textString);
         textComponent.setText(textString);
 
         window.draw(new UMatrixStack());

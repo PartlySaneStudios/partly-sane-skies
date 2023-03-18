@@ -30,6 +30,7 @@ import gg.essential.elementa.components.UIWrappedText;
 import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
+import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import me.partlysanestudios.partlysaneskies.utils.guicomponents.UIButton;
 import me.partlysanestudios.partlysaneskies.utils.guicomponents.UIItemRender;
@@ -325,7 +326,7 @@ public class AhGui extends WindowScreen {
                             break;
                         }
                     }
-                    sortSelectedLine = Utils.removeColorCodes(sortSelectedLine);
+                    sortSelectedLine = StringUtils.removeColorCodes(sortSelectedLine);
 
                     if (sortSelectedLine.toLowerCase().contains("highest")) {
                         sortImageName = "price_high_low";
@@ -358,7 +359,7 @@ public class AhGui extends WindowScreen {
                             break;
                         }
                     }
-                    filterSelectedLine = Utils.removeColorCodes(filterSelectedLine);
+                    filterSelectedLine = StringUtils.removeColorCodes(filterSelectedLine);
 
                     if (filterSelectedLine.toLowerCase().contains("uncommon")) {
                         filterImageName = "uncommon";
@@ -409,7 +410,7 @@ public class AhGui extends WindowScreen {
                             break;
                         }
                     }
-                    binSelectedLine = Utils.removeColorCodes(binSelectedLine);
+                    binSelectedLine = StringUtils.removeColorCodes(binSelectedLine);
 
                     
                     if (binSelectedLine.toLowerCase().contains("bin only")) {
@@ -505,31 +506,31 @@ public class AhGui extends WindowScreen {
 
             String info = "";
             info += "&6Offer Information:\n\n\n";
-            info += "&eSelling Price: \n&6" + Utils.formatNumber(auction.getPrice()) + "\n\n";
+            info += "&eSelling Price: \n&6" + StringUtils.formatNumber(auction.getPrice()) + "\n\n";
             info += "&eEnding In: \n&6" + auction.getFormattedEndingTime();
 
             if (auction.getAmount() != 1) {
                 info += "\n\n\n";
-                info += "&eQuantity: \n&6" + Utils.formatNumber(auction.getAmount()) + "\n";
-                info += "&eCost Per Item: \n&6" + Utils.formatNumber(Utils.round(auction.getCostPerAmount(),2)) + " coins\n";
+                info += "&eQuantity: \n&6" + StringUtils.formatNumber(auction.getAmount()) + "\n";
+                info += "&eCost Per Item: \n&6" + StringUtils.formatNumber(Utils.round(auction.getCostPerAmount(),2)) + " coins\n";
             }
             info += "\n\n\n\n\n\n";
 
             info += "&eMarket Stats:\n\n\n";
-            info += "&bCurrent Lowest Bin: \n&e" + Utils.formatNumber(Utils.round(auction.getLowestBin(), 2)) + "\n\n";
+            info += "&bCurrent Lowest Bin: \n&e" + StringUtils.formatNumber(Utils.round(auction.getLowestBin(), 2)) + "\n\n";
             info += "&bAverage Lowest Bin (Last Day): \n&e"
-                    + Utils.formatNumber(Utils.round(auction.getAverageLowestBin(), 2)) + "\n\n";
+                    + StringUtils.formatNumber(Utils.round(auction.getAverageLowestBin(), 2)) + "\n\n";
             info += "&bItem Inflation: \n&e"
-                    + Utils.formatNumber(
+                    + StringUtils.formatNumber(
                             Utils.round((auction.getLowestBin() / auction.getAverageLowestBin()) * 100d, 2) - 100)
                     + "%\n\n";
-            info += "&bItem Mark up: \n&e" + Utils.formatNumber(Utils.round(
+            info += "&bItem Mark up: \n&e" + StringUtils.formatNumber(Utils.round(
                     (auction.getPrice() / auction.getLowestBin()) / auction.getAmount() * 100 - 100,
                     2)) + "%\n";
 
             
             
-            ((UIWrappedText) itemInfoText).setText(Utils.colorCodes(info));
+            ((UIWrappedText) itemInfoText).setText(StringUtils.colorCodes(info));
         });
 
         backgroundBox.onMouseLeaveRunnable(() -> {

@@ -18,6 +18,7 @@
 
 package me.partlysanestudios.partlysaneskies;
 
+import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -81,42 +82,42 @@ public class ChatColors {
                     return "";
                 }
                 if (PartlySaneSkies.config.visableColors) {
-                    return Utils.colorCodes("&6");
+                    return StringUtils.colorCodes("&6");
                 }
-                return Utils.colorCodes("&9");
+                return StringUtils.colorCodes("&9");
 
             case "guild":
                 if (!PartlySaneSkies.config.colorGuildChat) {
                     return "";
                 }
                 if (PartlySaneSkies.config.visableColors) {
-                    return Utils.colorCodes("&a");
+                    return StringUtils.colorCodes("&a");
                 }
-                return Utils.colorCodes("&2");
+                return StringUtils.colorCodes("&2");
 
             case "officer":
                 if (!PartlySaneSkies.config.colorOfficerChat) {
                     return "";
                 }
-                return Utils.colorCodes("&3");
+                return StringUtils.colorCodes("&3");
 
             case "to":
                 if (!PartlySaneSkies.config.colorPrivateMessages) {
                     return "";
                 }
-                return Utils.colorCodes("&d");
+                return StringUtils.colorCodes("&d");
 
             case "from":
                 if (!PartlySaneSkies.config.colorPrivateMessages) {
                     return "";
                 }
-                return Utils.colorCodes("&d");
+                return StringUtils.colorCodes("&d");
 
             case "co-op":
                 if (!PartlySaneSkies.config.colorCoopChat) {
                     return "";
                 }
-                return Utils.colorCodes("&b");
+                return StringUtils.colorCodes("&b");
 
             default:
                 return "";
@@ -124,7 +125,7 @@ public class ChatColors {
     }
 
     public static String getPrefix(String message) {
-        message = Utils.removeColorCodes(message);
+        message = StringUtils.removeColorCodes(message);
         if (message.startsWith("Party >")) {
             return "Party";
         }
@@ -161,7 +162,7 @@ public class ChatColors {
         String messageString = message.substring(messageStartIndex);
         String preMessageString = message.substring(0, messageStartIndex);
 
-        messageString = Utils.removeColorCodes(messageString);
+        messageString = StringUtils.removeColorCodes(messageString);
         messageString = color + messageString;
         
         return preMessageString + messageString;

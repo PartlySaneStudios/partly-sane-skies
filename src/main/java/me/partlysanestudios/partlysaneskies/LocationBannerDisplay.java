@@ -27,6 +27,7 @@ import gg.essential.elementa.components.Window;
 import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import gg.essential.universal.UMatrixStack;
+import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
@@ -59,14 +60,14 @@ public class LocationBannerDisplay extends Gui {
 			return;
 
 		String regionName = PartlySaneSkies.getRegionName();
-		String noColorCodeRegionName = Utils.removeColorCodes(regionName);
+		String noColorCodeRegionName = StringUtils.removeColorCodes(regionName);
 
         if (noColorCodeRegionName.equals("")) {
             return;
         }
         
-        noColorCodeRegionName = Utils.stripLeading(noColorCodeRegionName);
-        noColorCodeRegionName = Utils.stripTrailing(noColorCodeRegionName);
+        noColorCodeRegionName = StringUtils.stripLeading(noColorCodeRegionName);
+        noColorCodeRegionName = StringUtils.stripTrailing(noColorCodeRegionName);
         noColorCodeRegionName = noColorCodeRegionName.replaceAll("\\P{Print}", ""); // Removes the RANDOM EMOJIS THAT ARE PRESENT IN SKYBLOCK LOCATIONS
         // LOOK AT THIS:
         // The Catac🔮ombs (F5)

@@ -35,6 +35,7 @@ import gg.essential.elementa.constraints.PixelConstraint;
 import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.SkyblockItem;
+import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.inventory.IInventory;
@@ -68,8 +69,8 @@ public class GardenTradeValue {
             return false;
         }
 
-        String acceptButtonName = Utils.removeColorCodes(acceptButton.getDisplayName());
-        String refuseButtonName = Utils.removeColorCodes(refuseButton.getDisplayName());
+        String acceptButtonName = StringUtils.removeColorCodes(acceptButton.getDisplayName());
+        String refuseButtonName = StringUtils.removeColorCodes(refuseButton.getDisplayName());
 
         // If the names are not equal to the desired names, then you know it screen
         // is not the trader screen
@@ -129,8 +130,8 @@ public class GardenTradeValue {
 
             // Gets the name of ihe item and formats it
             String name = costLine.substring(0, costStartIndex);
-            name = Utils.stripLeading(name);
-            name = Utils.stripTrailing(name);
+            name = StringUtils.stripLeading(name);
+            name = StringUtils.stripTrailing(name);
 
             int amount;
             if (singleItem) {
@@ -184,8 +185,8 @@ public class GardenTradeValue {
                 continue;
             }
 
-            String strippedLine = Utils.stripLeading(line);
-            strippedLine = Utils.stripTrailing(strippedLine);
+            String strippedLine = StringUtils.stripLeading(line);
+            strippedLine = StringUtils.stripTrailing(strippedLine);
 
             int amountStartIndex = strippedLine.indexOf("+") + 1;
             int amountEndIndex = strippedLine.indexOf(" C");
@@ -202,7 +203,7 @@ public class GardenTradeValue {
         ArrayList<String> newList = new ArrayList<String>();
 
         for (String oldLine : list) {
-            newList.add(Utils.removeColorCodes(oldLine));
+            newList.add(StringUtils.removeColorCodes(oldLine));
         }
 
         return newList;
@@ -280,17 +281,17 @@ public class GardenTradeValue {
 
         String textString = "";
 
-        textString += "&e&lTotal Cost: &r&d" + Utils.formatNumber(Utils.round(getTotalCost(), 2)) + "\n\n";
+        textString += "&e&lTotal Cost: &r&d" + StringUtils.formatNumber(Utils.round(getTotalCost(), 2)) + "\n\n";
         
-        textString += "&e&lCopper Recieved: &r&d" + Utils.formatNumber(Utils.round(getCopperReturn(), 2)) + "\n\n";
+        textString += "&e&lCopper Recieved: &r&d" + StringUtils.formatNumber(Utils.round(getCopperReturn(), 2)) + "\n\n";
 
         double pricePerCopper = getTotalCost() / getCopperReturn();
-        textString += "&e&lCoins/Copper: &r&d" + Utils.formatNumber(Utils.round(pricePerCopper, 2)) + "\n\n";
+        textString += "&e&lCoins/Copper: &r&d" + StringUtils.formatNumber(Utils.round(pricePerCopper, 2)) + "\n\n";
 
         String priceBreakdown = "";
         HashMap<String, Double> coinCostMap = getCoinCostMap();
         for (Map.Entry<String, Integer> en : getQuantityCostMap().entrySet()){
-            priceBreakdown += "&7x&d" + en.getValue() + " &7" + en.getKey() + " for a total of &d" + Utils.formatNumber(Utils.round(coinCostMap.get(en.getKey()), 2)) + "&7 coins.\n";
+            priceBreakdown += "&7x&d" + en.getValue() + " &7" + en.getKey() + " for a total of &d" + StringUtils.formatNumber(Utils.round(coinCostMap.get(en.getKey()), 2)) + "&7 coins.\n";
         }
 
         textString += "&e&lPrice Breakdown:&r\n";
@@ -302,7 +303,7 @@ public class GardenTradeValue {
             textString += line + "\n";
         }
 
-        textString = Utils.colorCodes(textString);
+        textString = StringUtils.colorCodes(textString);
 
         textComponent.setText(textString);
 

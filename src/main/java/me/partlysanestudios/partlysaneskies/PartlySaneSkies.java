@@ -62,6 +62,7 @@ import me.partlysanestudios.partlysaneskies.petalert.PetAlertMuteCommand;
 import me.partlysanestudios.partlysaneskies.rngdropbanner.DropBannerDisplay;
 import me.partlysanestudios.partlysaneskies.skillupgrade.SkillUpgradeCommand;
 import me.partlysanestudios.partlysaneskies.skillupgrade.SkillUpgradeRecommendation;
+import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
@@ -83,13 +84,31 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 public class PartlySaneSkies {
 
     public static void main(String[] args) throws IOException {
+            String patternString = "Wow! {player} has found a wither essance";
+            String inputString = "Wow! Su386 has found a wither essance";
+            String player = "";
+
+            player = inputString;
+
+            int playerIndex = patternString.indexOf("{player}");
+
+            player = player.substring(playerIndex);
             
+            String charsAfterPlayer = patternString.substring(playerIndex + ("{player}").length(), playerIndex + ("{player}").length() + 4);
+
+            int indexOfEndOfPlayer = player.indexOf(charsAfterPlayer);
+
+            player = player.substring(0, indexOfEndOfPlayer);
+
+            System.out.println("Input String: \"" + inputString + "\"");
+            System.out.println("Pattern String: \"" + patternString + "\"");
+            System.out.println("Player: \"" + player + "\"");
     }
 
     public static final String MODID = "partlysaneskies";
     public static final String NAME = "Partly Sane Skies";
     public static final String VERSION = "beta-v0.1.2";
-    public static String CHAT_PREFIX = Utils.colorCodes("&r&b&lPartly Sane Skies&r&7>> &r");
+    public static String CHAT_PREFIX = StringUtils.colorCodes("&r&b&lPartly Sane Skies&r&7>> &r");
 
     public static ConfigScreen config;
     public static Minecraft minecraft;
@@ -240,7 +259,7 @@ public class PartlySaneSkies {
     public void newApiKey(ClientChatReceivedEvent event) {
         if (event.message.getUnformattedText().startsWith("Your new API key is ")) {
             config.apiKey = event.message.getUnformattedText().replace("Your new API key is ", "");
-            Utils.sendClientMessage(Utils.colorCodes("Saved new API key!"));
+            Utils.sendClientMessage(StringUtils.colorCodes("Saved new API key!"));
             config.writeData();
         }
     }
@@ -274,7 +293,7 @@ public class PartlySaneSkies {
     // Returns the name of the scoreboard without colorcodes
     public static String getScoreboardName() {
         String scoreboardName = minecraft.thePlayer.getWorldScoreboard().getObjectiveInDisplaySlot(1).getDisplayName();
-        return Utils.removeColorCodes(scoreboardName);
+        return StringUtils.removeColorCodes(scoreboardName);
     }
 
     // Runs when debug key is pressed
@@ -310,9 +329,9 @@ public class PartlySaneSkies {
         String location = null;
 
         for (String line : scoreboard) {
-            if (Utils.stripLeading(line).contains("⏣")) {
-                location = Utils.stripLeading(line).replace("⏣", "");
-                location = Utils.stripLeading(location);
+            if (StringUtils.stripLeading(line).contains("⏣")) {
+                location = StringUtils.stripLeading(line).replace("⏣", "");
+                location = StringUtils.stripLeading(location);
                 break;
             }
         }
@@ -335,10 +354,10 @@ public class PartlySaneSkies {
         String money = null;
 
         for (String line : scoreboard) {
-            if (Utils.stripLeading(line).contains("Piggy:") || Utils.stripLeading(line).contains("Purse:")) {
-                money = Utils.stripLeading(Utils.removeColorCodes(line)).replace("Piggy: ", "");
-                money = Utils.stripLeading(Utils.removeColorCodes(line)).replace("Purse: ", "");
-                money = Utils.stripLeading(money);
+            if (StringUtils.stripLeading(line).contains("Piggy:") || StringUtils.stripLeading(line).contains("Purse:")) {
+                money = StringUtils.stripLeading(StringUtils.removeColorCodes(line)).replace("Piggy: ", "");
+                money = StringUtils.stripLeading(StringUtils.removeColorCodes(line)).replace("Purse: ", "");
+                money = StringUtils.stripLeading(money);
                 money = money.replace(",", "");
                 money = money.replaceAll("\\P{Print}", "");
                 break;
@@ -366,9 +385,9 @@ public class PartlySaneSkies {
         String bits = null;
 
         for (String line : scoreboard) {
-            if (Utils.stripLeading(line).contains("Bits:")) {
-                bits = Utils.stripLeading(Utils.removeColorCodes(line)).replace("Bits: ", "");
-                bits = Utils.stripLeading(bits);
+            if (StringUtils.stripLeading(line).contains("Bits:")) {
+                bits = StringUtils.stripLeading(StringUtils.removeColorCodes(line)).replace("Bits: ", "");
+                bits = StringUtils.stripLeading(bits);
                 bits = bits.replace(",", "");
                 bits = bits.replaceAll("\\P{Print}", "");
                 break;

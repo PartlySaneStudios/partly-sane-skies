@@ -23,7 +23,7 @@ import java.util.List;
 
 import gg.essential.elementa.ElementaVersion;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
-import me.partlysanestudios.partlysaneskies.utils.Utils;
+import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.inventory.IInventory;
@@ -100,7 +100,7 @@ public class AhManager {
         }
 
         IInventory upper = PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen)[0];
-        return Utils.removeColorCodes(upper.getDisplayName().getFormattedText()).contains("Auctions Browser") || Utils.removeColorCodes(upper.getDisplayName().getFormattedText()).contains("Auctions: \"");
+        return StringUtils.removeColorCodes(upper.getDisplayName().getFormattedText()).contains("Auctions Browser") || StringUtils.removeColorCodes(upper.getDisplayName().getFormattedText()).contains("Auctions: \"");
     }
 
     static int TOTAL_ROWS = 4;

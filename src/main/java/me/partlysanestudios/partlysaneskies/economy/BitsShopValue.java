@@ -19,6 +19,7 @@ import gg.essential.elementa.constraints.PixelConstraint;
 import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.SkyblockItem;
+import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.inventory.IInventory;
@@ -64,7 +65,7 @@ public class BitsShopValue {
         int i = 1;
         for (Map.Entry<String, Double> en : sortedMap.entrySet()) {
             SkyblockItem item = SkyblockItem.getItem(en.getKey());
-            str += "&6" + i + ". &d" + item.getName() + "&7 costs &d" + Utils.formatNumber(item.getBitCost()) + "&7 bits and sells for &d" + Utils.formatNumber(Utils.round(item.getPrice(), 1)) + "&7 coins \n&8 (" + Utils.formatNumber(Utils.round(en.getValue(), 1)) + " coins per bit)\n";
+            str += "&6" + i + ". &d" + item.getName() + "&7 costs &d" + StringUtils.formatNumber(item.getBitCost()) + "&7 bits and sells for &d" + StringUtils.formatNumber(Utils.round(item.getPrice(), 1)) + "&7 coins \n&8 (" + StringUtils.formatNumber(Utils.round(en.getValue(), 1)) + " coins per bit)\n";
             i++;
             if (i > 5) {
                 break;
@@ -74,7 +75,7 @@ public class BitsShopValue {
         if (filterAffordable) {
             str += "\n\n&8&oOnly showing affordable items";
         }
-        str = Utils.colorCodes(str);
+        str = StringUtils.colorCodes(str);
         
         return str;
     }
@@ -90,7 +91,7 @@ public class BitsShopValue {
         IInventory[] inventories = PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen);
         IInventory shop = inventories[0];
 
-        if (!Utils.removeColorCodes(shop.getDisplayName().getFormattedText()).contains("Community Shop")) {
+        if (!StringUtils.removeColorCodes(shop.getDisplayName().getFormattedText()).contains("Community Shop")) {
             return false;
         };
 
@@ -141,7 +142,7 @@ public class BitsShopValue {
 
         textString += getString();
         textString += "\n\n";
-        textString = Utils.colorCodes(textString);
+        textString = StringUtils.colorCodes(textString);
         textComponent.setText(textString);
 
         window.draw(new UMatrixStack());

@@ -28,7 +28,7 @@ import gg.essential.elementa.components.Window;
 import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import gg.essential.universal.UMatrixStack;
-import me.partlysanestudios.partlysaneskies.utils.Utils;
+import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.GuiPlayerTabOverlay;
@@ -80,7 +80,7 @@ public class NoCookieWarning {
     // determined
     public static int hasBoosterCookie() {
         for (IChatComponent chatComponent : getFooter().getSiblings()) {
-            if (Utils.removeColorCodes(chatComponent.getFormattedText()).toLowerCase()
+            if (StringUtils.removeColorCodes(chatComponent.getFormattedText()).toLowerCase()
                     .contains("not active! obtain booster cookies")) {
                 return 0;
             }

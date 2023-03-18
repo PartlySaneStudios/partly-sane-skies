@@ -26,6 +26,7 @@ import org.lwjgl.input.Keyboard;
 import gg.essential.elementa.components.Window;
 import me.partlysanestudios.partlysaneskies.Keybinds;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
+import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommand;
@@ -83,7 +84,7 @@ public class HelpCommand implements ICommand {
     }
     
     public static void printHelpMessage() {
-        Utils.sendClientMessage(Utils.colorCodes(
+        Utils.sendClientMessage(StringUtils.colorCodes(
                 "&3&m-----------------------------------------------------&r" +
                 "\n" +
                 "\n&b&l&nWelcome to Partly Sane Skies!&r" +

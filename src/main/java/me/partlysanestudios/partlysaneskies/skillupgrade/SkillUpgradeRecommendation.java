@@ -31,6 +31,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 
 public class SkillUpgradeRecommendation {
@@ -111,7 +112,7 @@ public class SkillUpgradeRecommendation {
         message = message + "\n&3&m-----------------------------------------------------&r";
 
         // Send message
-        Utils.sendClientMessage(Utils.colorCodes(message));
+        Utils.sendClientMessage(StringUtils.colorCodes(message));
     }
 
     // Populates the constant hashmap
@@ -132,7 +133,7 @@ public class SkillUpgradeRecommendation {
 
         // If error, warn plauer
         if (response.startsWith("Error")) {
-            Utils.sendClientMessage(Utils.colorCodes("Error getting data for " + username + ". Maybe the player is nicked or the API is down."));
+            Utils.sendClientMessage(StringUtils.colorCodes("Error getting data for " + username + ". Maybe the player is nicked or the API is down."));
             return null;
         }
         return (JsonObject) parser.parse(response);

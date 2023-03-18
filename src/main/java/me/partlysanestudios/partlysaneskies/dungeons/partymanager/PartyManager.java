@@ -25,6 +25,7 @@ import java.util.List;
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyMember.PartyRank;
+import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -88,8 +89,8 @@ public class PartyManager {
         memberName = memberName.replace("Party Finder > ", "");
         int indexOfText = memberName.indexOf("joined the dungeon group!");
         memberName = memberName.substring(0, indexOfText);
-        memberName = Utils.stripLeading(memberName);
-        memberName = Utils.stripTrailing(memberName);
+        memberName = StringUtils.stripLeading(memberName);
+        memberName = StringUtils.stripTrailing(memberName);
 
         if (PartyManager.playerCache.containsKey(memberName)) {
             if (!PartyManager.playerCache.get(memberName).isExpired()) {
@@ -196,7 +197,7 @@ public class PartyManager {
             // Hides message
             event.setCanceled(true);
             // Sends an error messsage
-            Utils.sendClientMessage(Utils.colorCodes("&9&m-----------------------------------------------------\n "+
+            Utils.sendClientMessage(StringUtils.colorCodes("&9&m-----------------------------------------------------\n "+
                     "&r&cError: Could not run Party Manager." +
                     "\n&r&cYou are not currently in a party."
             ));

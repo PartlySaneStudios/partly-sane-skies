@@ -21,6 +21,7 @@ package me.partlysanestudios.partlysaneskies.chatalerts;
 import java.util.Arrays;
 import java.util.List;
 
+import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommand;
@@ -81,8 +82,8 @@ public class ChatAlertsCommand implements ICommand {
                 }
 
                 // Removes any leading or trailing spaces
-                alert = Utils.stripLeading(alert);
-                alert = Utils.stripTrailing(alert);
+                alert = StringUtils.stripLeading(alert);
+                alert = StringUtils.stripTrailing(alert);
                 
                 ChatAlertsManager.addAlert(alert);
 

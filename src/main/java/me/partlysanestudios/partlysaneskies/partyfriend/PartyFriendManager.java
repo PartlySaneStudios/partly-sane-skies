@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
-import me.partlysanestudios.partlysaneskies.utils.Utils;
+import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -47,7 +47,7 @@ public class PartyFriendManager {
         if (event.message.getUnformattedText().startsWith("-----------------------------------------------------")) {
             isWaitingForMembers = false;
         }
-        String message = Utils.removeColorCodes(event.message.getFormattedText());
+        String message = StringUtils.removeColorCodes(event.message.getFormattedText());
 
         String[] rows = message.split("\n");
 
