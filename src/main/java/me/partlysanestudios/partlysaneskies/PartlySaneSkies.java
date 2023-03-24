@@ -41,7 +41,6 @@ import java.util.List;
 import org.apache.commons.lang3.reflect.FieldUtils;
 
 import gg.essential.elementa.ElementaVersion;
-import ibxm.Player;
 import me.partlysanestudios.partlysaneskies.auctionhouse.AhManager;
 import me.partlysanestudios.partlysaneskies.chatalerts.ChatAlertsCommand;
 import me.partlysanestudios.partlysaneskies.chatalerts.ChatAlertsManager;
@@ -54,6 +53,7 @@ import me.partlysanestudios.partlysaneskies.dungeons.permpartyselector.PermParty
 import me.partlysanestudios.partlysaneskies.economy.BitsShopValue;
 import me.partlysanestudios.partlysaneskies.garden.CompostValue;
 import me.partlysanestudios.partlysaneskies.garden.GardenTradeValue;
+import me.partlysanestudios.partlysaneskies.garden.SkymartValue;
 import me.partlysanestudios.partlysaneskies.help.ConfigCommand;
 import me.partlysanestudios.partlysaneskies.help.DiscordCommand;
 import me.partlysanestudios.partlysaneskies.help.HelpCommand;
@@ -86,11 +86,11 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 public class PartlySaneSkies {
 
     public static void main(String[] args) throws IOException {
-        PlayerRating.initPatterns();
-        System.out.println(PlayerRating.positivePatterns);
-        PlayerRating.handleMessage("Su386 has obtained Wither Key!");
-
-        System.out.println(PlayerRating.getDisplayString());
+        SkyblockItem.init();
+        SkyblockItem.updateBz();
+        SkyblockItem.updateLowestBin();
+        SkymartValue.initCopperValues();
+        System.out.println(SkymartValue.getString());
     }
 
     public static final String MODID = "partlysaneskies";
@@ -171,6 +171,7 @@ public class PartlySaneSkies {
         MinecraftForge.EVENT_BUS.register(new EnhancedSound());
         MinecraftForge.EVENT_BUS.register(new BitsShopValue());
         MinecraftForge.EVENT_BUS.register(new PlayerRating());
+        MinecraftForge.EVENT_BUS.register(new SkymartValue());
 
         // Registers all client side commands
         ClientCommandHandler.instance.registerCommand(new PartyManagerCommand());
@@ -214,6 +215,11 @@ public class PartlySaneSkies {
                 }
                 SkyblockItem.updateAll();
                 CompostValue.init();
+                try {
+                    SkymartValue.initCopperValues();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
 
                 // Loads user player data for PartyManager
