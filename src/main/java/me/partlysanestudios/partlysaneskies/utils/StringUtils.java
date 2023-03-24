@@ -215,8 +215,6 @@ public class StringUtils {
         String result = recognisePattern(input, pattern, key);
         String patternWithoutKey = replaceFirst(pattern, key, "");
         String inputWithoutKey = replaceFirst(input, result, "");
-        System.out.println(inputWithoutKey);
-        System.out.println(patternWithoutKey);
         return patternWithoutKey.equals(inputWithoutKey);
     }
 
@@ -228,9 +226,6 @@ public class StringUtils {
             return false;
         }
         String beginningOfInputWithoutKey = inputWithoutKey.substring(0, patternWithoutKey.length());
-        System.out.println(inputWithoutKey);
-        System.out.println(patternWithoutKey);
-        System.out.println(beginningOfInputWithoutKey);
 
         return beginningOfInputWithoutKey.equals(patternWithoutKey);
     }

@@ -41,9 +41,11 @@ import java.util.List;
 import org.apache.commons.lang3.reflect.FieldUtils;
 
 import gg.essential.elementa.ElementaVersion;
+import ibxm.Player;
 import me.partlysanestudios.partlysaneskies.auctionhouse.AhManager;
 import me.partlysanestudios.partlysaneskies.chatalerts.ChatAlertsCommand;
 import me.partlysanestudios.partlysaneskies.chatalerts.ChatAlertsManager;
+import me.partlysanestudios.partlysaneskies.dungeons.PlayerRating;
 import me.partlysanestudios.partlysaneskies.dungeons.WatcherReady;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManager;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManagerCommand;
@@ -84,12 +86,17 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 public class PartlySaneSkies {
 
     public static void main(String[] args) throws IOException {
+        PlayerRating.initPatterns();
+        System.out.println(PlayerRating.positivePatterns);
+        PlayerRating.handleMessage("Su386 has obtained Wither Key!");
+
+        System.out.println(PlayerRating.getDisplayString());
     }
 
     public static final String MODID = "partlysaneskies";
     public static final String NAME = "Partly Sane Skies";
     public static final String VERSION = "beta-v0.1.2";
-    public static String CHAT_PREFIX = StringUtils.colorCodes("&r&b&lPartly Sane Skies&r&7>> &r");
+    public static final  String CHAT_PREFIX = StringUtils.colorCodes("&r&b&lPartly Sane Skies&r&7>> &r");
 
     public static ConfigScreen config;
     public static Minecraft minecraft;
@@ -98,13 +105,13 @@ public class PartlySaneSkies {
 
     private static LocationBannerDisplay locationBannerDisplay;
 
-    public static Color BASE_DARK_COLOR = new Color(32, 33, 36);
-    public static Color BASE_COLOR = new Color(42, 43, 46);
-    public static Color BASE_LIGHT_COLOR = new Color(85, 85, 88);
-    public static Color ACCENT_COLOR = new Color(1, 255, 255);
-    public static Color DARK_ACCENT_COLOR = new Color(1, 122, 122);
+    public static final Color BASE_DARK_COLOR = new Color(32, 33, 36);
+    public static final Color BASE_COLOR = new Color(42, 43, 46);
+    public static final Color BASE_LIGHT_COLOR = new Color(85, 85, 88);
+    public static final Color ACCENT_COLOR = new Color(1, 255, 255);
+    public static final Color DARK_ACCENT_COLOR = new Color(1, 122, 122);
     // Names of all of the ranks to remove from people's names
-    public static String[] RANK_NAMES = { "[VIP]", "[VIP+]", "[MVP]", "[MVP+]", "[MVP++]", "[YOUTUBE]", "[MOJANG]",
+    public static final String[] RANK_NAMES = { "[VIP]", "[VIP+]", "[MVP]", "[MVP+]", "[MVP++]", "[YOUTUBE]", "[MOJANG]",
             "[EVENTS]", "[MCP]", "[PIG]", "[PIG+]", "[PIG++]", "[PIG+++]", "[GM]", "[ADMIN]", "[OWNER]", "[NPC]" };
 
     // Method runs at mod initialization
@@ -163,6 +170,7 @@ public class PartlySaneSkies {
         MinecraftForge.EVENT_BUS.register(new CompostValue());
         MinecraftForge.EVENT_BUS.register(new EnhancedSound());
         MinecraftForge.EVENT_BUS.register(new BitsShopValue());
+        MinecraftForge.EVENT_BUS.register(new PlayerRating());
 
         // Registers all client side commands
         ClientCommandHandler.instance.registerCommand(new PartyManagerCommand());
@@ -196,6 +204,11 @@ public class PartlySaneSkies {
                 }
                 try {
                     SkyblockItem.initBitValues();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    PlayerRating.initPatterns();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

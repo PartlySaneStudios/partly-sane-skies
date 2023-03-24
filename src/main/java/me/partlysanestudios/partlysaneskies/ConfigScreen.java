@@ -500,6 +500,37 @@ public class ConfigScreen extends Vigilant {
     )
     public boolean watcherReadyAirRaidSiren = false;
 
+    @Property(
+        type = PropertyType.SWITCH, 
+        subcategory = "Dungeon Player Breakdown", 
+        name = "Dungeon Player Breakdown", 
+        description = "At the end of the dungeon, send a message informing you how much of the dungeon each player has completed", 
+        category = "Dungeons"
+    )
+    public boolean dungeonPlayerBreakdown = false;
+
+    @Property(
+        type = PropertyType.SELECTOR, 
+        subcategory = "Dungeon Player Breakdown", 
+        name = "Message Content", 
+        description = "Shows more information about how many blessings and secrets each player collected", 
+        category = "Dungeons",
+        options = {
+            "Condensed",
+            "Standard",
+            "Enhanced"
+        }
+    )
+    public int enhancedDungeonPlayerBreakdown = 1;
+
+    @Property(
+        type = PropertyType.SWITCH, 
+        subcategory = "Dungeon Player Breakdown", 
+        name = "Send in Party Chat", 
+        description = "Send a condensed version to the rest of you party.", 
+        category = "Dungeons"
+    )
+    public boolean partyChatDungeonPlayerBreakdown = false;
 
 
     // ------------- Category: Economy ---------------------------------
