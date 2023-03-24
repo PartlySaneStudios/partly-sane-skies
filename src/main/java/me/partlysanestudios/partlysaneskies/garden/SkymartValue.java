@@ -80,7 +80,7 @@ public class SkymartValue {
         int i = 1;
         for (Map.Entry<String, Double> en : sortedMap.entrySet()) {
             SkyblockItem item = SkyblockItem.getItem(en.getKey());
-            str += "&6" + i + ". &d" + item.getName() + "&7 costs &d" + StringUtils.formatNumber(en.getValue()) + "&7 copper and sells for &d" + StringUtils.formatNumber(Utils.round(item.getPrice(), 1)) + "&7 coins \n&8 (" + StringUtils.formatNumber(Utils.round(en.getValue(), 1)) + " coins per copper)\n";
+            str += "&6" + i + ". &d" + item.getName() + "&7 costs &d" + StringUtils.formatNumber(copperCost.get(en.getKey())) + "&7 copper and sells for &d" + StringUtils.formatNumber(Utils.round(item.getPrice(), 1)) + "&7 coins \n&8 (" + StringUtils.formatNumber(Utils.round(en.getValue(), 1)) + " coins per copper)\n";
             i++;
             if (i > 5) {
                 break;
