@@ -54,6 +54,11 @@ import me.partlysanestudios.partlysaneskies.economy.BitsShopValue;
 import me.partlysanestudios.partlysaneskies.garden.CompostValue;
 import me.partlysanestudios.partlysaneskies.garden.GardenTradeValue;
 import me.partlysanestudios.partlysaneskies.garden.SkymartValue;
+import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.CreateRangeCommand;
+import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.EndOfFarmNotfier;
+import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.Pos1Command;
+import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.Pos2Command;
+import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.RangeCommand;
 import me.partlysanestudios.partlysaneskies.help.ConfigCommand;
 import me.partlysanestudios.partlysaneskies.help.DiscordCommand;
 import me.partlysanestudios.partlysaneskies.help.HelpCommand;
@@ -86,11 +91,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 public class PartlySaneSkies {
 
     public static void main(String[] args) throws IOException {
-        SkyblockItem.init();
-        SkyblockItem.updateBz();
-        SkyblockItem.updateLowestBin();
-        SkymartValue.initCopperValues();
-        System.out.println(SkymartValue.getString());
+        
     }
 
     public static final String MODID = "partlysaneskies";
@@ -146,9 +147,17 @@ public class PartlySaneSkies {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
+                try {
+                    EndOfFarmNotfier.load();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         
         }.start();
+
+        trackStartup();
         
 
         // Registers all of the events
@@ -172,6 +181,7 @@ public class PartlySaneSkies {
         MinecraftForge.EVENT_BUS.register(new BitsShopValue());
         MinecraftForge.EVENT_BUS.register(new PlayerRating());
         MinecraftForge.EVENT_BUS.register(new SkymartValue());
+        MinecraftForge.EVENT_BUS.register(new EndOfFarmNotfier());
 
         // Registers all client side commands
         ClientCommandHandler.instance.registerCommand(new PartyManagerCommand());
@@ -183,6 +193,10 @@ public class PartlySaneSkies {
         ClientCommandHandler.instance.registerCommand(new PetAlertMuteCommand());
         ClientCommandHandler.instance.registerCommand(new DiscordCommand());
         ClientCommandHandler.instance.registerCommand(new ConfigCommand());
+        ClientCommandHandler.instance.registerCommand(new CreateRangeCommand());
+        ClientCommandHandler.instance.registerCommand(new Pos2Command());
+        ClientCommandHandler.instance.registerCommand(new Pos1Command());
+        ClientCommandHandler.instance.registerCommand(new RangeCommand());
 
         // Initialises keybinds
         Keybinds.init();
@@ -251,6 +265,8 @@ public class PartlySaneSkies {
 
         // Checks if the player is collecting minions
         PetAlert.runPetAlert();
+
+        EndOfFarmNotfier.run();
     }
 
     // Runs when the chat message starts with "Your new API key is "
@@ -424,5 +440,19 @@ public class PartlySaneSkies {
         } finally {
         }
         return false;
+    }
+
+    // Pings the github server 
+    private static void trackStartup() {
+        new Thread() {
+            @Override
+            public void run() { 
+                try {
+                    Utils.getRequest("https://github.com/PartlySaneStudios/partly-sane-skies-public-data/blob/main/data/main_menu.json");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
     }
 }
