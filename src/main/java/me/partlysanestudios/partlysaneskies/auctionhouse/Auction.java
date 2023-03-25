@@ -25,6 +25,7 @@ import java.util.List;
 import gg.essential.elementa.UIComponent;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.SkyblockItem;
+import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.item.ItemStack;
 
@@ -48,22 +49,32 @@ public class Auction {
     public boolean isBin() {
         List<String> loreList = Utils.getLore(item);
         for (String line : loreList) {
-            if (Utils.removeColorCodes(line).contains("Buy it now: ")) {
+            if (StringUtils.removeColorCodes(line).contains("Buy it now: ")) {
                 return true;
             }
         }
         return false;
     }
 
+    public int getAmount() {
+        if (item == null) {
+            return 1;
+        }
+        return item.stackSize;
+    }
+
+    public double getCostPerAmount() {
+        return getPrice() / (double) getAmount();
+    }
     public long getPrice() {
         List<String> loreList = Utils.getLore(item);
         String buyItNowPrice = "";
 
         for (String line : loreList) {
-            if (Utils.removeColorCodes(line).contains("Buy it now:")
-                    || Utils.removeColorCodes(line).contains("Top bid:")
-                    || Utils.removeColorCodes(line).contains("Starting bid:")) {
-                buyItNowPrice = Utils.removeColorCodes(line).replaceAll("[^0-9]", "");
+            if (StringUtils.removeColorCodes(line).contains("Buy it now:")
+                    || StringUtils.removeColorCodes(line).contains("Top bid:")
+                    || StringUtils.removeColorCodes(line).contains("Starting bid:")) {
+                buyItNowPrice = StringUtils.removeColorCodes(line).replaceAll("[^0-9]", "");
             }
         }
 
@@ -135,6 +146,7 @@ public class Auction {
             } 
         } catch (NullPointerException exception) {
             exception.printStackTrace();
+            return 0;
         }
         
         
@@ -145,11 +157,11 @@ public class Auction {
         List<String> loreList = Utils.getLore(item);
 
         for (String loreLine : loreList) {
-            if (Utils.removeColorCodes(loreLine).contains("Ends in:")) {
-                return Utils.removeColorCodes(loreLine).replace("Ends in: ", "");
+            if (StringUtils.removeColorCodes(loreLine).contains("Ends in:")) {
+                return StringUtils.removeColorCodes(loreLine).replace("Ends in: ", "");
             }
-            if (Utils.removeColorCodes(loreLine).contains("Ending Soon")) {
-                return Utils.removeColorCodes(loreLine);
+            if (StringUtils.removeColorCodes(loreLine).contains("Ending Soon")) {
+                return StringUtils.removeColorCodes(loreLine);
             }
         }
 
@@ -165,7 +177,7 @@ public class Auction {
         String lastLineOfLore;
         try {
             ArrayList<String> loreList = Utils.getLore(item);
-            lastLineOfLore = Utils.removeColorCodes(loreList.get(loreList.size() - 7 - 1));
+            lastLineOfLore = StringUtils.removeColorCodes(loreList.get(loreList.size() - 7 - 1));
         } catch (NullPointerException exception) {
             exception.printStackTrace();
             return "";

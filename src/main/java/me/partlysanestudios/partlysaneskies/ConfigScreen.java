@@ -162,7 +162,7 @@ public class ConfigScreen extends Vigilant {
         name = "Visable Colors", 
         category = "General", 
         subcategory = "Chat Color", 
-        description = "Converts the custom colors mentiond above to more visable colors. Dark Green -> Light Green and Blue -> Gold. (Recommended)"
+        description = "Converts the custom colors mentioned above to more visable colors. Dark Green -> Light Green and Blue -> Gold. (Recommended)"
     )
     public boolean visableColors = false;
 
@@ -278,6 +278,42 @@ public class ConfigScreen extends Vigilant {
     )
     public float petAlertMuteTime = 7.5f;
 
+    @Property(
+        type = PropertyType.SELECTOR,
+        category = "Skyblock",
+        subcategory = "Enhanced Skyblock Sounds",
+        name = "Note Block Instrument Type",
+        options = {
+            "Default Skyblock Noteblocks",
+            "Clarinet (Live)",
+            "Clarinet (Computer)",
+            "Electric Piano",
+            "Flute",
+            "Organ",
+            "Piano",
+            "String Orchestra",
+            "Trombone",
+            "Trumpet",
+            "Violin",
+            "Wind Ensemble",
+            "Discord New Message Sound",
+            "Kazoo",
+        }
+    )
+    public int customSoundOption = 0;
+
+    @Property(
+        type = PropertyType.SELECTOR,
+        category = "Skyblock",
+        subcategory = "Enhanced Skyblock Sounds",
+        name = "Explosions",
+        options = {
+            "Default",
+            "Off",
+            "Realistic"
+        }
+    )
+    public int customExplosion = 0;
 
 
     // -------------- Category: Mining --------------
@@ -332,6 +368,60 @@ public class ConfigScreen extends Vigilant {
         category = "Dungeons"
     )
     public boolean autoKickOfflinePartyManager = false;
+
+
+    @Property(
+        type = PropertyType.SWITCH, 
+        name = "Warn Low Arrows in Chat", 
+        subcategory = "Party Manager", 
+        description = "Warns you party when a member has low arrows.", 
+        category = "Dungeons"
+    )
+    public boolean warnLowArrowsInChat = false;
+
+
+    @Property(
+        type = PropertyType.TEXT, 
+        subcategory = "Party Manager", 
+        name = "Arrow Low Warning", 
+        description = "Message to send when a player has low arrows.\nUse {player} to signify the player's username, and {count} to signfy the remaining arrow count.", 
+        category = "Dungeons"
+    )
+    public String arrowLowChatMessage = "Partly Sane Skies > Warning! {player} only has {count} arrows remaining!";
+
+
+    @Property(
+        type = PropertyType.SLIDER, 
+        name = "Arrow Low Count", 
+        min = 10, 
+        max = 500, 
+        subcategory = "Party Manager", 
+        description = "The amount of arrows you must have to be considered low on arrows.", 
+        category = "Dungeons"
+    )
+    public int arrowLowCount = 300;
+
+
+    @Property(
+        type = PropertyType.SWITCH,
+        name = "Print errors in chat",
+        category = "Dungeons",
+        subcategory = "Party Manager",
+        description = "Send errors on getting data in chat (Recommended, however if you get spammed or have a bad internet connection, turn it off)"
+        
+    )
+    public boolean printPartyManagerApiErrors = true;
+
+
+    @Property(
+        type = PropertyType.SWITCH, 
+        name = "Get data on party join", 
+        subcategory = "Party Manager", 
+        description = "Automatically gets the data for party members someone joins the party. This saves time and reduces the chance of the data not being able to be accessed.", 
+        category = "Dungeons"
+    )
+    public boolean getDataOnJoin = true;
+
 
     @Property(
         type = PropertyType.SLIDER, 
@@ -410,6 +500,37 @@ public class ConfigScreen extends Vigilant {
     )
     public boolean watcherReadyAirRaidSiren = false;
 
+    @Property(
+        type = PropertyType.SWITCH, 
+        subcategory = "Dungeon Player Breakdown", 
+        name = "Dungeon Player Breakdown", 
+        description = "At the end of the dungeon, send a message informing you how much of the dungeon each player has completed", 
+        category = "Dungeons"
+    )
+    public boolean dungeonPlayerBreakdown = false;
+
+    @Property(
+        type = PropertyType.SELECTOR, 
+        subcategory = "Dungeon Player Breakdown", 
+        name = "Message Content", 
+        description = "Shows more information about how many blessings and secrets each player collected", 
+        category = "Dungeons",
+        options = {
+            "Condensed",
+            "Standard",
+            "Enhanced"
+        }
+    )
+    public int enhancedDungeonPlayerBreakdown = 1;
+
+    @Property(
+        type = PropertyType.SWITCH, 
+        subcategory = "Dungeon Player Breakdown", 
+        name = "Send in Party Chat", 
+        description = "Send a condensed version to the rest of you party.", 
+        category = "Dungeons"
+    )
+    public boolean partyChatDungeonPlayerBreakdown = false;
 
 
     // ------------- Category: Economy ---------------------------------
@@ -431,6 +552,25 @@ public class ConfigScreen extends Vigilant {
         category = "Economy"
     )
     public boolean bestCropsToCompost = false;
+
+    @Property(
+        type = PropertyType.SWITCH, 
+        subcategory = "Community Center", 
+        name = "Best Item for Bits", 
+        description = "Gives you information about bits shop item is the best to sell.", 
+        category = "Economy"
+    )
+    public boolean bestBitShopItem = false;
+
+    @Property(
+        type = PropertyType.SWITCH, 
+        subcategory = "Community Center", 
+            name = "Only Show Affordable Items", 
+        description = "When making recommendations for what you can buy, only recommend the items that you are able to afford.", 
+        category = "Economy"
+    )
+    public boolean bitShopOnlyShowAffordable = true;
+
 
      // Auction House
      @Property(

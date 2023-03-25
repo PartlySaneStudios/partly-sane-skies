@@ -19,6 +19,7 @@
 package me.partlysanestudios.partlysaneskies;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,6 +40,7 @@ public class SkyblockItem {
     private double bazaarPrice;
     private double lowestBinPrice;
     private double averageLowestBinPrice;
+    private int bitCost;
 
     public SkyblockItem(String id, String name, double npcSellPrice, String rarity) {
         this.id = id;
@@ -48,6 +50,7 @@ public class SkyblockItem {
         this.bazaarPrice = -1;
         this.lowestBinPrice = -1;
         this.averageLowestBinPrice = -1;
+        this.bitCost = -1;
     }
 
 
@@ -61,10 +64,19 @@ public class SkyblockItem {
 
         return this;
     }
+    public SkyblockItem setBitCost(int bitCost) {
+        this.bitCost = bitCost;
+
+        return this;
+    }
 
     public SkyblockItem setAverageLowestBinPrice(double price) {
         this.averageLowestBinPrice = price;
         return this;
+    }
+    
+    public int getBitCost() {
+        return this.bitCost;
     }
 
     public String getId() {
@@ -125,6 +137,11 @@ public class SkyblockItem {
         return true;
     }
 
+    public boolean hasBitCost() {
+        return bitCost != -1;
+    }
+
+
 
 
     // Static funcitions
@@ -132,6 +149,7 @@ public class SkyblockItem {
     private static HashMap<String, String> nameToIdMap = new HashMap<String, String>();
     private static HashMap<String, SkyblockItem> idToItemMap =new HashMap<String, SkyblockItem>();
     private static long lastAhUpdateTime = Minecraft.getSystemTime();
+    public static ArrayList<String> bitIds = new ArrayList<String>();
 
     public static void init() throws IOException {
         String itemDataString = Utils.getRequest("https://api.hypixel.net/resources/skyblock/items");
@@ -166,6 +184,25 @@ public class SkyblockItem {
             SkyblockItem item = new SkyblockItem(id, name, npcSellPrice, rarity);
             nameToIdMap.put(name, id);
             idToItemMap.put(id, item);
+        }
+    }
+
+    public static void initBitValues() throws IOException {
+        String bitShopDataString = Utils.getRequest("https://raw.githubusercontent.com/PartlySaneStudios/partly-sane-skies-public-data/main/data/constants/bits_shop.json");
+        if (bitShopDataString.startsWith("Error")) {
+            return;
+        }
+
+        JsonObject bitsShopObject = new JsonParser().parse(bitShopDataString).getAsJsonObject().getAsJsonObject("bits_shop");
+        for (Map.Entry<String, JsonElement> entry : bitsShopObject.entrySet()) {
+            String id = entry.getKey();
+            int bitCost = entry.getValue().getAsInt();
+            SkyblockItem item = getItem(id);
+            if (item == null) {
+                continue;
+            }
+            bitIds.add(item.getId());
+            item.setBitCost(bitCost);
         }
     }
 

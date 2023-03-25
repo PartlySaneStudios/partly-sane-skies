@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
+import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommand;
@@ -63,7 +64,7 @@ public class SkillUpgradeCommand implements ICommand {
                     try {
                         map = SkillUpgradeRecommendation.getRecomendedSkills(args[0]);
                     } catch (IOException e) {
-                        Utils.sendClientMessage(Utils.colorCodes("Error getting data for " + args[0]
+                        Utils.sendClientMessage(StringUtils.colorCodes("Error getting data for " + args[0]
                                 + ". Maybe the player is nicked or there is an invalid API key. Try running /api new."));
                         return;
                     }
@@ -71,7 +72,7 @@ public class SkillUpgradeCommand implements ICommand {
                     try {
                         map = SkillUpgradeRecommendation.getRecomendedSkills(PartlySaneSkies.minecraft.thePlayer.getName());
                     } catch (IOException e) {
-                        Utils.sendClientMessage(Utils.colorCodes("Error getting data for "
+                        Utils.sendClientMessage(StringUtils.colorCodes("Error getting data for "
                                 + PartlySaneSkies.minecraft.thePlayer.getName()
                                 + ". Maybe the player is nicked or there is an invalid API key. Try running /api new."));
                         return;

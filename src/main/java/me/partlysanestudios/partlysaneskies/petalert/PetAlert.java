@@ -21,6 +21,7 @@ package me.partlysanestudios.partlysaneskies.petalert;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
@@ -83,7 +84,7 @@ public class PetAlert {
             lastSoundTime = Minecraft.getSystemTime();
         }
         if (!onCooldown(lastMessageSendTime,3000)) {
-            IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + Utils.colorCodes("&cYOU CURRENTLY HAVE " + petName + " SELECTED AS YOUR PET. YOU WANTED TO UPGRADE " + selectedPetName + "." +
+            IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + StringUtils.colorCodes("&cYOU CURRENTLY HAVE " + petName + " SELECTED AS YOUR PET. YOU WANTED TO UPGRADE " + selectedPetName + "." +
             "\n&dClick this message or run /mutepetalert to mute the alert for " + PartlySaneSkies.config.petAlertMuteTime + " minutes."));
             message.getChatStyle().setChatClickEvent(new ClickEvent(Action.RUN_COMMAND, "/mutepetalert"));
             PartlySaneSkies.minecraft.ingameGUI.getChatGUI().printChatMessage(message);
@@ -132,13 +133,13 @@ public class PetAlert {
 
     // Parses a pet's name from the armor stand string. Ex: "[Lv100] Su386's *Black Cat*"
     public static String parsePetNameFromEntity(String name) {
-        name = Utils.removeColorCodes(name);
+        name = StringUtils.removeColorCodes(name);
         int petNameStartIndex = name.indexOf("'s ") + 3; // Finds the start of the pet name. Ex: "[Lv100] Su386's *Black Cat"
         return name.substring(petNameStartIndex);
     }
 
     public static String parsePetNameFromItem(String name) {
-        name = Utils.removeColorCodes(name);
+        name = StringUtils.removeColorCodes(name);
         int petNameStartIndex = name.indexOf("] ") + 2; // Finds the start of the pet name. Ex: "[Lv100] Su386's *Black Cat"
         return name.substring(petNameStartIndex);
     }
@@ -149,7 +150,7 @@ public class PetAlert {
         }
 
         IInventory upper = PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen)[0];
-        return Utils.removeColorCodes(upper.getDisplayName().getFormattedText()).contains("Pets");
+        return StringUtils.removeColorCodes(upper.getDisplayName().getFormattedText()).contains("Pets");
     }
 
 
@@ -159,7 +160,7 @@ public class PetAlert {
         }
 
         IInventory upper = PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen)[0];
-        return Utils.removeColorCodes(upper.getDisplayName().getFormattedText()).contains("Minion");
+        return StringUtils.removeColorCodes(upper.getDisplayName().getFormattedText()).contains("Minion");
     }
 
 
@@ -168,7 +169,7 @@ public class PetAlert {
         List<Entity> petEntities = getAllPets();
         // If the pet says Ex: "[Lv100] *Su386*'s Black Cat" return that entity
         for (Entity entity : petEntities) {
-            if (Utils.removeColorCodes(entity.getName()).toLowerCase().contains(name.toLowerCase())) {
+            if (StringUtils.removeColorCodes(entity.getName()).toLowerCase().contains(name.toLowerCase())) {
                 return entity;
             }
         }
@@ -182,7 +183,7 @@ public class PetAlert {
         
         // For every armor stand in the game, check if its a pet by looking for the level tag in front of the name. Ex: "*[Lv*100] Su386's Black Cat"
         for (Entity entity : armorStandEntities) {
-            if (Utils.removeColorCodes(entity.getName()).contains("[Lv")) {
+            if (StringUtils.removeColorCodes(entity.getName()).contains("[Lv")) {
                 petEntities.add(entity); // If so, add it to the list
             }
         }

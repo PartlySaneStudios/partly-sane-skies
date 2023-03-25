@@ -25,6 +25,7 @@ import java.util.List;
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyMember.PartyRank;
+import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -70,6 +71,59 @@ public class PartyManager {
             
         }.start();;
         
+    }
+
+    @SubscribeEvent
+    public void onMemberJoin(ClientChatReceivedEvent event) {
+        if (!PartlySaneSkies.config.getDataOnJoin) {
+            return;
+        }
+
+        String unformattedMessage = event.message.getUnformattedText();
+        // If the message is not a join dungeon message
+        if (!(unformattedMessage.startsWith("Party Finder >") || unformattedMessage.contains("joined the dungeon group!"))) {
+            return;
+        }
+
+        String memberName = unformattedMessage;
+        memberName = memberName.replace("Party Finder > ", "");
+        int indexOfText = memberName.indexOf("joined the dungeon group!");
+        memberName = memberName.substring(0, indexOfText);
+        memberName = StringUtils.stripLeading(memberName);
+        memberName = StringUtils.stripTrailing(memberName);
+
+        if (PartyManager.playerCache.containsKey(memberName)) {
+            if (!PartyManager.playerCache.get(memberName).isExpired()) {
+                return;
+            }
+            final String name = memberName;
+            new Thread() {
+                @Override
+                public void run() {
+                    
+                    try {
+                        PartyManager.playerCache.get(name).getSkycryptData();
+                    } catch (NullPointerException | IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }.start();
+        }
+
+        PartyMember member = new PartyMember(memberName, null);
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    member.getSkycryptData();
+                } catch (NullPointerException | IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+        
+
+        PartyManager.playerCache.put(memberName, member);
     }
 
     // Upon chat message recieve, it will check to see if it is the party list
@@ -143,7 +197,7 @@ public class PartyManager {
             // Hides message
             event.setCanceled(true);
             // Sends an error messsage
-            Utils.sendClientMessage(Utils.colorCodes("&9&m-----------------------------------------------------\n "+
+            Utils.sendClientMessage(StringUtils.colorCodes("&9&m-----------------------------------------------------\n "+
                     "&r&cError: Could not run Party Manager." +
                     "\n&r&cYou are not currently in a party."
             ));

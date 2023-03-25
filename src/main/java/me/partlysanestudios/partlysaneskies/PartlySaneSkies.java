@@ -44,13 +44,21 @@ import gg.essential.elementa.ElementaVersion;
 import me.partlysanestudios.partlysaneskies.auctionhouse.AhManager;
 import me.partlysanestudios.partlysaneskies.chatalerts.ChatAlertsCommand;
 import me.partlysanestudios.partlysaneskies.chatalerts.ChatAlertsManager;
+import me.partlysanestudios.partlysaneskies.dungeons.PlayerRating;
 import me.partlysanestudios.partlysaneskies.dungeons.WatcherReady;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManager;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManagerCommand;
 import me.partlysanestudios.partlysaneskies.dungeons.permpartyselector.PermPartyCommand;
 import me.partlysanestudios.partlysaneskies.dungeons.permpartyselector.PermPartyManager;
+import me.partlysanestudios.partlysaneskies.economy.BitsShopValue;
 import me.partlysanestudios.partlysaneskies.garden.CompostValue;
 import me.partlysanestudios.partlysaneskies.garden.GardenTradeValue;
+import me.partlysanestudios.partlysaneskies.garden.SkymartValue;
+import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.CreateRangeCommand;
+import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.EndOfFarmNotfier;
+import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.Pos1Command;
+import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.Pos2Command;
+import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.RangeCommand;
 import me.partlysanestudios.partlysaneskies.help.ConfigCommand;
 import me.partlysanestudios.partlysaneskies.help.DiscordCommand;
 import me.partlysanestudios.partlysaneskies.help.HelpCommand;
@@ -61,6 +69,7 @@ import me.partlysanestudios.partlysaneskies.petalert.PetAlertMuteCommand;
 import me.partlysanestudios.partlysaneskies.rngdropbanner.DropBannerDisplay;
 import me.partlysanestudios.partlysaneskies.skillupgrade.SkillUpgradeCommand;
 import me.partlysanestudios.partlysaneskies.skillupgrade.SkillUpgradeRecommendation;
+import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
@@ -80,13 +89,15 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 
 @Mod(modid = PartlySaneSkies.MODID, version = PartlySaneSkies.VERSION, name = PartlySaneSkies.NAME)
 public class PartlySaneSkies {
-    public static void main(String[] args) {
+
+    public static void main(String[] args) throws IOException {
+        
     }
 
     public static final String MODID = "partlysaneskies";
     public static final String NAME = "Partly Sane Skies";
-    public static final String VERSION = "beta-v0.1.2";
-    public static String CHAT_PREFIX = Utils.colorCodes("&r&b&lPartly Sane Skies&r&7>> &r");
+    public static final String VERSION = "beta-v0.2";
+    public static final  String CHAT_PREFIX = StringUtils.colorCodes("&r&b&lPartly Sane Skies&r&7>> &r");
 
     public static ConfigScreen config;
     public static Minecraft minecraft;
@@ -95,13 +106,13 @@ public class PartlySaneSkies {
 
     private static LocationBannerDisplay locationBannerDisplay;
 
-    public static Color BASE_DARK_COLOR = new Color(32, 33, 36);
-    public static Color BASE_COLOR = new Color(42, 43, 46);
-    public static Color BASE_LIGHT_COLOR = new Color(85, 85, 88);
-    public static Color ACCENT_COLOR = new Color(1, 255, 255);
-    public static Color DARK_ACCENT_COLOR = new Color(1, 122, 122);
+    public static final Color BASE_DARK_COLOR = new Color(32, 33, 36);
+    public static final Color BASE_COLOR = new Color(42, 43, 46);
+    public static final Color BASE_LIGHT_COLOR = new Color(85, 85, 88);
+    public static final Color ACCENT_COLOR = new Color(1, 255, 255);
+    public static final Color DARK_ACCENT_COLOR = new Color(1, 122, 122);
     // Names of all of the ranks to remove from people's names
-    public static String[] RANK_NAMES = { "[VIP]", "[VIP+]", "[MVP]", "[MVP+]", "[MVP++]", "[YOUTUBE]", "[MOJANG]",
+    public static final String[] RANK_NAMES = { "[VIP]", "[VIP+]", "[MVP]", "[MVP+]", "[MVP++]", "[YOUTUBE]", "[MOJANG]",
             "[EVENTS]", "[MCP]", "[PIG]", "[PIG+]", "[PIG++]", "[PIG+++]", "[GM]", "[ADMIN]", "[OWNER]", "[NPC]" };
 
     // Method runs at mod initialization
@@ -136,9 +147,17 @@ public class PartlySaneSkies {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
+                try {
+                    EndOfFarmNotfier.load();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         
         }.start();
+
+        trackStartup();
         
 
         // Registers all of the events
@@ -158,6 +177,11 @@ public class PartlySaneSkies {
         MinecraftForge.EVENT_BUS.register(new GardenTradeValue());
         MinecraftForge.EVENT_BUS.register(new ChatColors());
         MinecraftForge.EVENT_BUS.register(new CompostValue());
+        MinecraftForge.EVENT_BUS.register(new EnhancedSound());
+        MinecraftForge.EVENT_BUS.register(new BitsShopValue());
+        MinecraftForge.EVENT_BUS.register(new PlayerRating());
+        MinecraftForge.EVENT_BUS.register(new SkymartValue());
+        MinecraftForge.EVENT_BUS.register(new EndOfFarmNotfier());
 
         // Registers all client side commands
         ClientCommandHandler.instance.registerCommand(new PartyManagerCommand());
@@ -169,6 +193,10 @@ public class PartlySaneSkies {
         ClientCommandHandler.instance.registerCommand(new PetAlertMuteCommand());
         ClientCommandHandler.instance.registerCommand(new DiscordCommand());
         ClientCommandHandler.instance.registerCommand(new ConfigCommand());
+        ClientCommandHandler.instance.registerCommand(new CreateRangeCommand());
+        ClientCommandHandler.instance.registerCommand(new Pos2Command());
+        ClientCommandHandler.instance.registerCommand(new Pos1Command());
+        ClientCommandHandler.instance.registerCommand(new RangeCommand());
 
         // Initialises keybinds
         Keybinds.init();
@@ -189,8 +217,23 @@ public class PartlySaneSkies {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                try {
+                    SkyblockItem.initBitValues();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    PlayerRating.initPatterns();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 SkyblockItem.updateAll();
                 CompostValue.init();
+                try {
+                    SkymartValue.initCopperValues();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
 
                 // Loads user player data for PartyManager
@@ -222,6 +265,8 @@ public class PartlySaneSkies {
 
         // Checks if the player is collecting minions
         PetAlert.runPetAlert();
+
+        EndOfFarmNotfier.run();
     }
 
     // Runs when the chat message starts with "Your new API key is "
@@ -230,7 +275,7 @@ public class PartlySaneSkies {
     public void newApiKey(ClientChatReceivedEvent event) {
         if (event.message.getUnformattedText().startsWith("Your new API key is ")) {
             config.apiKey = event.message.getUnformattedText().replace("Your new API key is ", "");
-            Utils.sendClientMessage(Utils.colorCodes("Saved new API key!"));
+            Utils.sendClientMessage(StringUtils.colorCodes("Saved new API key!"));
             config.writeData();
         }
     }
@@ -264,7 +309,7 @@ public class PartlySaneSkies {
     // Returns the name of the scoreboard without colorcodes
     public static String getScoreboardName() {
         String scoreboardName = minecraft.thePlayer.getWorldScoreboard().getObjectiveInDisplaySlot(1).getDisplayName();
-        return Utils.removeColorCodes(scoreboardName);
+        return StringUtils.removeColorCodes(scoreboardName);
     }
 
     // Runs when debug key is pressed
@@ -300,9 +345,9 @@ public class PartlySaneSkies {
         String location = null;
 
         for (String line : scoreboard) {
-            if (Utils.stripLeading(line).contains("⏣")) {
-                location = Utils.stripLeading(line).replace("⏣", "");
-                location = Utils.stripLeading(location);
+            if (StringUtils.stripLeading(line).contains("⏣")) {
+                location = StringUtils.stripLeading(line).replace("⏣", "");
+                location = StringUtils.stripLeading(location);
                 break;
             }
         }
@@ -325,10 +370,10 @@ public class PartlySaneSkies {
         String money = null;
 
         for (String line : scoreboard) {
-            if (Utils.stripLeading(line).contains("Piggy:") || Utils.stripLeading(line).contains("Purse:")) {
-                money = Utils.stripLeading(Utils.removeColorCodes(line)).replace("Piggy: ", "");
-                money = Utils.stripLeading(Utils.removeColorCodes(line)).replace("Purse: ", "");
-                money = Utils.stripLeading(money);
+            if (StringUtils.stripLeading(line).contains("Piggy:") || StringUtils.stripLeading(line).contains("Purse:")) {
+                money = StringUtils.stripLeading(StringUtils.removeColorCodes(line)).replace("Piggy: ", "");
+                money = StringUtils.stripLeading(StringUtils.removeColorCodes(line)).replace("Purse: ", "");
+                money = StringUtils.stripLeading(money);
                 money = money.replace(",", "");
                 money = money.replaceAll("\\P{Print}", "");
                 break;
@@ -340,6 +385,36 @@ public class PartlySaneSkies {
         }
         try {
             return Long.parseLong(money);
+        } catch (NumberFormatException event) {
+            return 0;
+        }
+    }
+
+    // Gets the amount of bits from the scoreboard
+    public static long getBits() {
+        if (!isSkyblock()) {
+            return 0l;
+        }
+
+        List<String> scoreboard = getScoreboardLines();
+
+        String bits = null;
+
+        for (String line : scoreboard) {
+            if (StringUtils.stripLeading(line).contains("Bits:")) {
+                bits = StringUtils.stripLeading(StringUtils.removeColorCodes(line)).replace("Bits: ", "");
+                bits = StringUtils.stripLeading(bits);
+                bits = bits.replace(",", "");
+                bits = bits.replaceAll("\\P{Print}", "");
+                break;
+            }
+        }
+
+        if (bits == null) {
+            return 0l;
+        }
+        try {
+            return Long.parseLong(bits);
         } catch (NumberFormatException event) {
             return 0;
         }
@@ -365,5 +440,19 @@ public class PartlySaneSkies {
         } finally {
         }
         return false;
+    }
+
+    // Pings the github server 
+    private static void trackStartup() {
+        new Thread() {
+            @Override
+            public void run() { 
+                try {
+                    Utils.getRequest("https://github.com/PartlySaneStudios/partly-sane-skies-public-data/blob/main/data/main_menu.json");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
     }
 }

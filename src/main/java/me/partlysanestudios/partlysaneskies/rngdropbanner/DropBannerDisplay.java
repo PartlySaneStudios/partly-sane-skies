@@ -108,7 +108,7 @@ public class DropBannerDisplay extends Gui {
 			categoryColor = new Color(255, 255, 255);
 			// nameColor = new Color(255, 255, 255);
 		} else {
-
+            categoryColor = drop.dropCategoryColor;
 			dropNameString = "x" + drop.amount + " " + drop.name;
 			topString = drop.dropCategory;
 			if (Minecraft.getSystemTime() - drop.timeDropped > (1f / 3f * PartlySaneSkies.config.rareDropBannerTime * 1000)

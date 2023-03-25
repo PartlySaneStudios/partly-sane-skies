@@ -140,7 +140,7 @@ public class UIButton {
         return this;
     }
 
-    public UIButton setDefaultColour() {
+    public UIButton setDefaultColor() {
         backgroundBlock.removeChild(buttonTexture);
 
         buttonTexture = (UIImage) Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies:textures/gui/base_color_button.png"))

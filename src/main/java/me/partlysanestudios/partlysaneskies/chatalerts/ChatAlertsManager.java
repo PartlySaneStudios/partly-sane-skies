@@ -31,6 +31,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
+import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.util.ResourceLocation;
@@ -113,7 +114,7 @@ public class ChatAlertsManager {
         
         // For each alert, format it so its ##. [alert] 
         for (String alert : chatAlertsList) {
-            message += Utils.formatNumber(i) + ": " + alert + "\n";
+            message += StringUtils.formatNumber(i) + ": " + alert + "\n";
             i++;
         }
 
@@ -172,14 +173,14 @@ public class ChatAlertsManager {
             return;
         }
 
-        String unformattedMessage = Utils.removeColorCodes(formattedMessage);
+        String unformattedMessage = StringUtils.removeColorCodes(formattedMessage);
         String rawMessage = formattedMessage.substring(beginMessageIndex);
 
         // Removes all formating and extra spaces from the message
-        rawMessage = Utils.removeColorCodes(rawMessage);
+        rawMessage = StringUtils.removeColorCodes(rawMessage);
         rawMessage = rawMessage.replaceFirst(": ", "");
-        rawMessage = Utils.stripLeading(rawMessage);
-        rawMessage = Utils.stripTrailing(rawMessage);
+        rawMessage = StringUtils.stripLeading(rawMessage);
+        rawMessage = StringUtils.stripTrailing(rawMessage);
 
         String lowerCaseMessage = rawMessage.toLowerCase();
 
@@ -212,7 +213,7 @@ public class ChatAlertsManager {
             messageBuilder.insert(alertIndexFormatted + alert.length(), charsToAdd, 0, charsToAdd.length);
             
             // Inserts a purple and bold color code to highlight the message right before the alert
-            charsToAdd = Utils.colorCodes("&d&l").toCharArray();
+            charsToAdd = StringUtils.colorCodes("&d&l").toCharArray();
             messageBuilder.insert(alertIndexFormatted, charsToAdd, 0, charsToAdd.length);
 
             // Plays a flute sound 

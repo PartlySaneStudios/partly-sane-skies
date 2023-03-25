@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommand;
@@ -54,7 +55,7 @@ public class PermPartyCommand implements ICommand {
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         if (args.length == 0) {
             Utils.sendClientMessage(
-                    Utils.colorCodes(
+                    StringUtils.colorCodes(
                             "&3/pp <partyid>\n&7Parties everyone in the perm party." +
                                     "\n&3/pp add <partyid> <playerusername>\n&7Adds a player to the perm party." +
                                     "\n&3/pp list {partyid}\n&7Lists all of the members in a given party. If no party is specified, lists all perm parties."
@@ -69,13 +70,13 @@ public class PermPartyCommand implements ICommand {
                     PermParty party = PermPartyManager.permPartyMap.get(args[1]);
                     party.addMember(args[2]);
                     PermPartyManager.permPartyMap.put(party.name, party);
-                    Utils.sendClientMessage(Utils.colorCodes("Added player " + args[2] + " to party " + args[1] + "."));
+                    Utils.sendClientMessage(StringUtils.colorCodes("Added player " + args[2] + " to party " + args[1] + "."));
                 } else {
-                    Utils.sendClientMessage(Utils.colorCodes("&cNo party was found with the ID " + args[1]
+                    Utils.sendClientMessage(StringUtils.colorCodes("&cNo party was found with the ID " + args[1]
                             + ".\n&cCorrect usage: /pp add <partyid> <playerusername>\n&7Adds a player to the perm party."));
                 }
             } else {
-                Utils.sendClientMessage(Utils.colorCodes(
+                Utils.sendClientMessage(StringUtils.colorCodes(
                         "&cCorrect usage: /pp add <partyid> <playerusername>\n&7Adds a player to the perm party."));
             }
         }
@@ -91,16 +92,16 @@ public class PermPartyCommand implements ICommand {
                         PermPartyManager.permPartyMap.put(party.name, party);
                         Utils.sendClientMessage("Removed member " + args[2] + " from party " + args[1] + ".");
                     } else {
-                        Utils.sendClientMessage(Utils.colorCodes("&cNo player was found with the name " + args[2]
+                        Utils.sendClientMessage(StringUtils.colorCodes("&cNo player was found with the name " + args[2]
                                 + ".\n&cCorrect usage: /pp remove <partyid> <playerusername>\n&7Removes a player from the perm party."));
                     }
 
                 } else {
-                    Utils.sendClientMessage(Utils.colorCodes("&cNo party was found with the ID " + args[1]
+                    Utils.sendClientMessage(StringUtils.colorCodes("&cNo party was found with the ID " + args[1]
                             + ".\n&cCorrect usage: /pp remove <partyid> <playerusername>\n&7Removes a player from the perm party."));
                 }
             } else {
-                Utils.sendClientMessage(Utils.colorCodes(
+                Utils.sendClientMessage(StringUtils.colorCodes(
                         "&cCorrect usage: /pp remove <partyid> <playerusername>\n&7Removes a player from the perm party."));
             }
         }
@@ -116,7 +117,7 @@ public class PermPartyCommand implements ICommand {
                     PermParty party = PermPartyManager.permPartyMap.get(args[0]);
                     Utils.sendClientMessage(party.name + " | Members: " + party.getMemberString());
                 } else {
-                    Utils.sendClientMessage(Utils.colorCodes("&cNo party was found with the ID " + args[1]
+                    Utils.sendClientMessage(StringUtils.colorCodes("&cNo party was found with the ID " + args[1]
                             + ".\n&cCorrect usage: /pp list {partyid}\n&7Lists all of the members in a given party. If no party is specified, lists all parties."));
                 }
             }
@@ -126,11 +127,11 @@ public class PermPartyCommand implements ICommand {
                     PermPartyManager.deleteParty(args[1]);
                     Utils.sendClientMessage("Deleted party " + args[1] + ".");
                 } else {
-                    Utils.sendClientMessage(Utils.colorCodes("&cNo party was found with the ID " + args[1]
+                    Utils.sendClientMessage(StringUtils.colorCodes("&cNo party was found with the ID " + args[1]
                             + ".\n&cCorrect usage: /pp delete <partyid>\n&7Deletes a perm party. (Note: There is no way to undo this action)."));
                 }
             } else {
-                Utils.sendClientMessage(Utils.colorCodes(
+                Utils.sendClientMessage(StringUtils.colorCodes(
                         "&cCorrect usage: /pp delete <partyid>\n&7Deletes a perm party. (Note: There is no way to undo this action)."));
             }
         } else if (args[0].equalsIgnoreCase("new")) {
@@ -143,7 +144,7 @@ public class PermPartyCommand implements ICommand {
 
                 Utils.sendClientMessage("Created party " + args[1] + ".");
             } else {
-                Utils.sendClientMessage(Utils
+                Utils.sendClientMessage(StringUtils
                         .colorCodes("&cCorrect usage: /pp new <partyid> {partymembers}\n&7Creates a new perm party."));
             }
         } else if (args[0].equalsIgnoreCase("fav")) {
@@ -152,7 +153,7 @@ public class PermPartyCommand implements ICommand {
                     PermPartyManager.favouriteParty(args[1]);
                     Utils.sendClientMessage("Set " + args[1] + " to your favorite.");
                 } else {
-                    Utils.sendClientMessage(Utils.colorCodes("&cNo party was found with the ID " + args[1]
+                    Utils.sendClientMessage(StringUtils.colorCodes("&cNo party was found with the ID " + args[1]
                             + ".\n&cCorrect usage: /pp fav {partyid}\n&7Sets party as favourite. If no party is specified, parties everyone in the favourite perm party."));
                 }
             } else {
@@ -160,7 +161,7 @@ public class PermPartyCommand implements ICommand {
                     PermParty party = PermPartyManager.favouriteParty;
                     party.partyAll();
                 } else {
-                    Utils.sendClientMessage(Utils.colorCodes(
+                    Utils.sendClientMessage(StringUtils.colorCodes(
                             "&cCorrect usage: /pp fav {partyid}\n&7Sets party as favourite. If no party is specified, parties everyone in the favourite perm party."));
                 }
 
@@ -171,7 +172,7 @@ public class PermPartyCommand implements ICommand {
                 party.partyAll();
             } else {
                 Utils.sendClientMessage(
-                        Utils.colorCodes("&cCorrect usage: /pp <partyid>\n&7Parties everyone in a party."));
+                        StringUtils.colorCodes("&cCorrect usage: /pp <partyid>\n&7Parties everyone in a party."));
             }
         }
     }

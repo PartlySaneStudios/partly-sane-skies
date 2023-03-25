@@ -24,15 +24,18 @@ import java.util.List;
 import gg.essential.elementa.ElementaVersion;
 import gg.essential.elementa.UIComponent;
 import gg.essential.elementa.WindowScreen;
+import gg.essential.elementa.components.ScrollComponent;
 import gg.essential.elementa.components.UIBlock;
 import gg.essential.elementa.components.UIWrappedText;
 import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
+import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import me.partlysanestudios.partlysaneskies.utils.guicomponents.UIButton;
 import me.partlysanestudios.partlysaneskies.utils.guicomponents.UIItemRender;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 public class AhGui extends WindowScreen {
@@ -85,7 +88,7 @@ public class AhGui extends WindowScreen {
             .setColor(new Color(0, 0, 0, 0))
             .setChildOf(getWindow());
 
-        rightWindow = new UIBlock()
+        rightWindow = new ScrollComponent()
             .setX(new PixelConstraint(mainBox.getRight() + widthScaledConstraint(15).getValue()))
             .setY(new CenterConstraint())
             .setWidth(widthScaledConstraint(180))
@@ -93,7 +96,7 @@ public class AhGui extends WindowScreen {
             .setColor(new Color(0, 0, 0, 0))
             .setChildOf(getWindow());
 
-        leftWindow = new UIBlock()
+        leftWindow = new ScrollComponent()
             .setX(new PixelConstraint(mainBox.getLeft() - widthScaledConstraint(15 + 180).getValue()))
             .setY(new CenterConstraint())
             .setWidth(widthScaledConstraint(180))
@@ -101,35 +104,36 @@ public class AhGui extends WindowScreen {
             .setColor(new Color(0, 0, 0, 0))
             .setChildOf(getWindow());
 
-        itemInfoText = new UIWrappedText("", true, null, true)
-            .setTextScale(widthScaledConstraint(1f))
-            .setX(new CenterConstraint())
-            .setY(widthScaledConstraint(50 * 1.5f))
-            .setWidth(widthScaledConstraint(170))
-            .setColor(Color.white)
-            .setChildOf(rightWindow);
-
-        itemInfoHeader = new UIWrappedText("", true, null, true)
-            .setTextScale(widthScaledConstraint(1.5f))
-            .setX(new CenterConstraint())
-            .setY(widthScaledConstraint(30))
-            .setWidth(widthScaledConstraint(170))
-            .setColor(Color.white)
-            .setChildOf(rightWindow);
-        itemLore = new UIWrappedText("", true, null, true)
-            .setTextScale(widthScaledConstraint(1f))
-            .setX(new CenterConstraint())
-            .setY(widthScaledConstraint(50 * 1.5f))
-            .setWidth(widthScaledConstraint(170))
-            .setColor(Color.white)
-            .setChildOf(leftWindow);
+        
         itemName = new UIWrappedText("", true, null, true)
-            .setTextScale(widthScaledConstraint(1.5f))
+            .setTextScale(widthScaledConstraint(1.25f))
             .setX(new CenterConstraint())
-            .setY(widthScaledConstraint(30))
+            .setY(widthScaledConstraint(10))
             .setWidth(widthScaledConstraint(170))
             .setColor(Color.white)
             .setChildOf(leftWindow);;
+        itemLore = new UIWrappedText("", true, null, true)
+            .setTextScale(widthScaledConstraint(1f))
+            .setX(new CenterConstraint())
+            .setY(widthScaledConstraint(40f))
+            .setWidth(widthScaledConstraint(170))
+            .setColor(Color.white)
+            .setChildOf(leftWindow);
+        
+        itemInfoHeader = new UIWrappedText("", true, null, true)
+            .setTextScale(widthScaledConstraint(1.25f))
+            .setX(new CenterConstraint())
+            .setY(widthScaledConstraint(10))
+            .setWidth(widthScaledConstraint(170))
+            .setColor(Color.white)
+            .setChildOf(rightWindow);
+        itemInfoText = new UIWrappedText("", true, null, true)
+            .setTextScale(widthScaledConstraint(1f))
+            .setX(new CenterConstraint())
+            .setY(widthScaledConstraint(40))
+            .setWidth(widthScaledConstraint(170))
+            .setColor(Color.white)
+            .setChildOf(rightWindow);
         
         Utils.applyBackground(mainBox);
         Utils.applyBackground(bottomBar);
@@ -239,6 +243,7 @@ public class AhGui extends WindowScreen {
             
             icon.onMouseClickConsumer(event -> {
                     Utils.clickOnSlot(slot);
+                    event.getMouseButton();
                 });
             try {
                 icon.onMouseEnterRunnable(() -> {
@@ -321,7 +326,7 @@ public class AhGui extends WindowScreen {
                             break;
                         }
                     }
-                    sortSelectedLine = Utils.removeColorCodes(sortSelectedLine);
+                    sortSelectedLine = StringUtils.removeColorCodes(sortSelectedLine);
 
                     if (sortSelectedLine.toLowerCase().contains("highest")) {
                         sortImageName = "price_high_low";
@@ -354,7 +359,7 @@ public class AhGui extends WindowScreen {
                             break;
                         }
                     }
-                    filterSelectedLine = Utils.removeColorCodes(filterSelectedLine);
+                    filterSelectedLine = StringUtils.removeColorCodes(filterSelectedLine);
 
                     if (filterSelectedLine.toLowerCase().contains("uncommon")) {
                         filterImageName = "uncommon";
@@ -405,7 +410,7 @@ public class AhGui extends WindowScreen {
                             break;
                         }
                     }
-                    binSelectedLine = Utils.removeColorCodes(binSelectedLine);
+                    binSelectedLine = StringUtils.removeColorCodes(binSelectedLine);
 
                     
                     if (binSelectedLine.toLowerCase().contains("bin only")) {
@@ -429,21 +434,29 @@ public class AhGui extends WindowScreen {
                 .setChildOf(icon);
 
             icon.onMouseClickConsumer(event -> {
+                if (event.getMouseButton() == 1) {
+                    Utils.rightClickOnSlot(slot);
+                    return;
+                }
                 Utils.clickOnSlot(slot);
             });
 
-            try {
-                icon.onMouseEnterRunnable(() -> {
-                    ((UIWrappedText) itemName).setText(inventory.getStackInSlot(slot).getDisplayName());
-                    ((UIWrappedText) itemLore).setText(Utils.getLoreAsString(inventory.getStackInSlot(slot)));
-                });
-                icon.onMouseLeaveRunnable(() -> {
-                    ((UIWrappedText) itemName).setText("");
-                    ((UIWrappedText) itemLore).setText("");
-                });
-            } catch (NullPointerException exception) {
-                exception.printStackTrace();
+            ItemStack item = inventory.getStackInSlot(slot);
+            if (item != null) {
+                try {
+                    icon.onMouseEnterRunnable(() -> {
+                        ((UIWrappedText) itemName).setText(item.getDisplayName());
+                        ((UIWrappedText) itemLore).setText(Utils.getLoreAsString(item));
+                    });
+                    icon.onMouseLeaveRunnable(() -> {
+                        ((UIWrappedText) itemName).setText("");
+                        ((UIWrappedText) itemLore).setText("");
+                    });
+                } catch (NullPointerException exception) {
+                    exception.printStackTrace();
+                }
             }
+            
         }
     }
 
@@ -493,25 +506,31 @@ public class AhGui extends WindowScreen {
 
             String info = "";
             info += "&6Offer Information:\n\n\n";
-            info += "&eSelling Price: \n&6" + Utils.formatNumber(auction.getPrice()) + "\n\n";
+            info += "&eSelling Price: \n&6" + StringUtils.formatNumber(auction.getPrice()) + "\n\n";
             info += "&eEnding In: \n&6" + auction.getFormattedEndingTime();
 
+            if (auction.getAmount() != 1) {
+                info += "\n\n\n";
+                info += "&eQuantity: \n&6" + StringUtils.formatNumber(auction.getAmount()) + "\n";
+                info += "&eCost Per Item: \n&6" + StringUtils.formatNumber(Utils.round(auction.getCostPerAmount(),2)) + " coins\n";
+            }
             info += "\n\n\n\n\n\n";
 
             info += "&eMarket Stats:\n\n\n";
-            info += "&bCurrent Lowest Bin: \n&e" + Utils.formatNumber(Utils.round(auction.getLowestBin(), 2)) + "\n\n";
+            info += "&bCurrent Lowest Bin: \n&e" + StringUtils.formatNumber(Utils.round(auction.getLowestBin(), 2)) + "\n\n";
             info += "&bAverage Lowest Bin (Last Day): \n&e"
-                    + Utils.formatNumber(Utils.round(auction.getAverageLowestBin(), 2)) + "\n\n";
+                    + StringUtils.formatNumber(Utils.round(auction.getAverageLowestBin(), 2)) + "\n\n";
             info += "&bItem Inflation: \n&e"
-                    + Utils.formatNumber(
+                    + StringUtils.formatNumber(
                             Utils.round((auction.getLowestBin() / auction.getAverageLowestBin()) * 100d, 2) - 100)
                     + "%\n\n";
-            info += "&bItem Mark up: \n&e" + Utils.formatNumber(Utils.round(
-                    (auction.getPrice() / auction.getLowestBin()) * 100 - 100,
+            info += "&bItem Mark up: \n&e" + StringUtils.formatNumber(Utils.round(
+                    (auction.getPrice() / auction.getLowestBin()) / auction.getAmount() * 100 - 100,
                     2)) + "%\n";
 
             
-            ((UIWrappedText) itemInfoText).setText(Utils.colorCodes(info));
+            
+            ((UIWrappedText) itemInfoText).setText(StringUtils.colorCodes(info));
         });
 
         backgroundBox.onMouseLeaveRunnable(() -> {

@@ -37,6 +37,7 @@ import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import me.partlysanestudios.partlysaneskies.utils.guicomponents.UIButton;
+import net.minecraft.client.Minecraft;
 
 public class PartyManagerGui extends WindowScreen {
 
@@ -85,6 +86,7 @@ public class PartyManagerGui extends WindowScreen {
         createPartyManagementButtons(topBarBlock, scaleFactor, partyMembers);
         createJoinFloorButtons(topBarBlock, scaleFactor);
 
+        int timeDelay = 0;
         for (PartyMember member : partyMembers) {
             UIComponent memberBlock = new UIBlock()
                     .setWidth(new PixelConstraint(list.getWidth() - 20f))
@@ -95,28 +97,51 @@ public class PartyManagerGui extends WindowScreen {
                     .setChildOf(list);
 
             Utils.applyBackground(memberBlock);
-
-            new Thread() {
-                @Override
-                public void run() {
-                    if (member.isExpired()) {
+            if (member.isExpired()) {
+                final int finalTimeDelay = timeDelay;
+                new Thread() {
+                    @Override
+                    public void run() {
+                        
                         try {
-                            member.getSkycryptData();
-                        } catch (IOException e) {
+                            Thread.sleep(finalTimeDelay);
+                        } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
+                        new Thread() {
+                            @Override
+                            public void run() {
+                                if (member.isExpired()) {
+                                    try {
+                                        member.getSkycryptData();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                                Window.Companion.enqueueRenderOperation(() -> {
+                                    member.createBlock(memberBlock, scaleFactor);
+                                });
+                                member.timeDataGet = Minecraft.getSystemTime();
+            
+                                PartyManager.playerCache.put(member.username, member);
+                            }
+            
+                        }.start();
                     }
-                    Window.Companion.enqueueRenderOperation(() -> {
-                        member.createBlock(memberBlock, scaleFactor);
-                    });
                     
-
-                    PartyManager.playerCache.put(member.username, member);
-                }
-
-            }.start();
+                }.start();;
+                timeDelay += (int) 750;
+            }
+            else {
+                Window.Companion.enqueueRenderOperation(() -> {
+                    member.createBlock(memberBlock, scaleFactor);
+                });
+            }
+            
+            
 
             height += 220f * scaleFactor;
+            
         }
 
         this.getWindow().draw(new UMatrixStack());
@@ -170,7 +195,7 @@ public class PartyManagerGui extends WindowScreen {
                 .setText("Ask if ready")
                 .setTextScale(1.25f)
                 .onMouseClickConsumer(event -> {
-                    PartlySaneSkies.minecraft.thePlayer.sendChatMessage("Ready?");
+                    PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/pc Ready?");
                 });
 
         new UIText("Party Size: " + partyMembers.size())

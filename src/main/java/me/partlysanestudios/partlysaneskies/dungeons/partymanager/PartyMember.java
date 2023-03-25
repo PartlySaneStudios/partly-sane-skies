@@ -22,6 +22,7 @@ import java.awt.Color;
 import java.io.IOException;
 import java.util.Map.Entry;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -32,6 +33,7 @@ import gg.essential.elementa.components.UIText;
 import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
+import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import me.partlysanestudios.partlysaneskies.utils.guicomponents.UIButton;
 import net.minecraft.client.Minecraft;
@@ -48,6 +50,7 @@ public class PartyMember {
     public PartyRank rank;
     public boolean isPlayer = false;
     public boolean refresh = false;
+    public int errorOnDataGet = 0;
 
     // Data
     public long timeDataGet;
@@ -63,6 +66,8 @@ public class PartyMember {
     public String chestplateName;
     public String leggingsName;
     public String bootsName;
+    public int arrowCount;
+    public String arrowCountString;
 
     public String petName;
 
@@ -113,7 +118,10 @@ public class PartyMember {
         String response = Utils.getRequest("https://sky.shiiyu.moe/api/v2/profile/" + this.username);
         // If the response is in error, send error message and exit
         if (response.startsWith("Error")) {
-            Utils.sendClientMessage(Utils.colorCodes("Error getting data for " + username + ". Maybe the player is nicked."));
+            if (PartlySaneSkies.config.printPartyManagerApiErrors){
+                Utils.sendClientMessage(StringUtils.colorCodes("Error getting data for " + username + ". Maybe the player is nicked."));
+            }
+            errorOnDataGet++;
             return;
         }
         // Creates a Json object based on the response
@@ -212,7 +220,12 @@ public class PartyMember {
         } catch (NullPointerException e) {
             selectedDungeonClass = "None";
         }
-        
+
+        this.arrowCount = -1;
+        this.arrowCount = getArrowCount(profileItems);
+        if (arrowCount == -1) { 
+            this.arrowCountString = "(Unknown)";
+        }
 
         // Gets all of the floor runs
         f1Runs = getFloorRuns("1", profileData);
@@ -249,21 +262,35 @@ public class PartyMember {
         }
     }
 
-    // public static String getUUID(String username) throws IOException {
-    //     // Creates a Json parser to parse the json data
-    //     JsonParser parser = new JsonParser();
+    // Looks for every element of an arrow in the player's profile
+    public int getArrowCount(JsonObject itemData) {
+        JsonArray quiver = itemData.getAsJsonArray("quiver");
+        int sum = 0;
+        for (JsonElement slotElement : quiver) {
+            JsonObject slotObject = slotElement.getAsJsonObject();
+            if (slotObject.getAsJsonArray("categories") == null ) {
+                continue;
+            }
+            if (!(slotObject.getAsJsonArray("categories").size() > 0)) {
+                continue;
+            }
+            // Check all of the categories to see if it has arrow as a tag
+            for (JsonElement categoryElement : slotObject.getAsJsonArray("categories")) {
+                if (categoryElement.getAsString().equals("arrow")) {
 
-    //     // Gets the player's UUID
-    //     String response = Utils.getRequest("https://api.mojang.com/users/profiles/minecraft/" + username);
-    //     if (response.startsWith("Error")) {
-    //         Utils.sendClientMessage(Utils.colorCodes("Error getting data for " + username + ". Maybe the player is nicked."));
-    //         return "";
-    //     }
+                    // If it does, check to see if it has a count
+                    if (slotObject.has("Count")) {
+                        sum += slotObject.get("Count").getAsInt();
+                    }
+                    else {
+                        sum += 1;
+                    }
+                }
+            }
+        }
 
-    //     // Returns the player's UUID
-    //     JsonObject uuidJson = (JsonObject) parser.parse(response);
-    //     return uuidJson.get("id").getAsString();
-    // }
+        return sum;
+    }
 
     public int getFloorRuns(String floor, JsonObject profileData) {
         JsonElement runsElement; 
@@ -319,21 +346,21 @@ public class PartyMember {
 
     private void createMemberBlockColumnOne(UIComponent memberBlock, float scaleFactor) {
 
-        new UIText("Catacombs Level: " + Utils.formatNumber(Utils.round(this.catacombsLevel, 2)))
+        new UIText("Catacombs Level: " + StringUtils.formatNumber(Utils.round(this.catacombsLevel, 2)))
                 .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
                 .setX(new PixelConstraint(20f * scaleFactor))
                 .setY(new PixelConstraint(135f * scaleFactor))
                 .setColor(Utils.colorCodetoColor.get("&c"))
                 .setChildOf(memberBlock);
 
-        new UIText("Average Skill Level " + Utils.formatNumber(Utils.round(this.averageSkillLevel, 2)))
+        new UIText("Average Skill Level " + StringUtils.formatNumber(Utils.round(this.averageSkillLevel, 2)))
                 .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
                 .setX(new PixelConstraint(20f * scaleFactor))
                 .setY(new PixelConstraint(150f * scaleFactor))
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
-        new UIText("Combat Level: " + Utils.formatNumber(Utils.round(this.combatLevel, 2)))
+        new UIText("Combat Level: " + StringUtils.formatNumber(Utils.round(this.combatLevel, 2)))
                 .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
                 .setX(new PixelConstraint(20f * scaleFactor))
                 .setY(new PixelConstraint(165f * scaleFactor))
@@ -342,21 +369,21 @@ public class PartyMember {
     }
 
     private void createMemberBlockColumnTwo(UIComponent memberBlock, float scaleFactor) {
-        new UIText("Secrets: " + Utils.formatNumber(this.secretsCount))
+        new UIText("Secrets: " + StringUtils.formatNumber(this.secretsCount))
                 .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
                 .setX(new PixelConstraint(150f * scaleFactor))
                 .setY(new PixelConstraint(74f * scaleFactor))
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
-        new UIText("Secrets Per Run: " + Utils.formatNumber(Utils.round(this.secretsPerRun, 2)))
+        new UIText("Secrets Per Run: " + StringUtils.formatNumber(Utils.round(this.secretsPerRun, 2)))
                 .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
                 .setX(new PixelConstraint(150f * scaleFactor))
                 .setY(new PixelConstraint(90f * scaleFactor))
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
-        new UIText("Senither Weight: " + Utils.formatNumber(Utils.round((this.senitherWeight), 2)))
+        new UIText("Senither Weight: " + StringUtils.formatNumber(Utils.round((this.senitherWeight), 2)))
                 .setTextScale((new PixelConstraint(1.2f * scaleFactor)))
                 .setX(new PixelConstraint(150f * scaleFactor))
                 .setY(new PixelConstraint(105f * scaleFactor))
@@ -369,28 +396,28 @@ public class PartyMember {
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
-        new UIText("❤ " + Utils.formatNumber(Math.round(this.health)))
+        new UIText("❤ " + StringUtils.formatNumber(Math.round(this.health)))
                 .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
                 .setX(new PixelConstraint(20f * scaleFactor))
                 .setY(new PixelConstraint(75f * scaleFactor))
                 .setColor(Utils.colorCodetoColor.get("&c"))
                 .setChildOf(memberBlock);
 
-        new UIText("❈ " + Utils.formatNumber(Math.round(this.defense)))
+        new UIText("❈ " + StringUtils.formatNumber(Math.round(this.defense)))
                 .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
                 .setX(new PixelConstraint(20f * scaleFactor))
                 .setY(new PixelConstraint(90f * scaleFactor))
                 .setColor(Utils.colorCodetoColor.get("&a"))
                 .setChildOf(memberBlock);
 
-        new UIText("EHP: " + Utils.formatNumber(Math.round(this.effectHealth)))
+        new UIText("EHP: " + StringUtils.formatNumber(Math.round(this.effectHealth)))
                 .setTextScale((new PixelConstraint(1.3f * scaleFactor)))
                 .setX(new PixelConstraint(20f * scaleFactor))
                 .setY(new PixelConstraint(105f * scaleFactor))
                 .setColor(new Color(45, 133, 48))
                 .setChildOf(memberBlock);
 
-        new UIText("✎ " + Utils.formatNumber(Math.round(this.intelligence)))
+        new UIText("✎ " + StringUtils.formatNumber(Math.round(this.intelligence)))
                 .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
                 .setX(new PixelConstraint(20f * scaleFactor))
                 .setY(new PixelConstraint(120f * scaleFactor))
@@ -407,98 +434,98 @@ public class PartyMember {
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
-        new UIText("Floor 1: " + Utils.formatNumber(Math.round(this.f1Runs)))
+        new UIText("Floor 1: " + StringUtils.formatNumber(Math.round(this.f1Runs)))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(340f * scaleFactor))
                 .setY(new PixelConstraint(50f * scaleFactor))
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
-        new UIText("Floor 2: " + Utils.formatNumber(Math.round(this.f2Runs)))
+        new UIText("Floor 2: " + StringUtils.formatNumber(Math.round(this.f2Runs)))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(340f * scaleFactor))
                 .setY(new PixelConstraint(70f * scaleFactor))
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
-        new UIText("Floor 3: " + Utils.formatNumber(Math.round(this.f3Runs)))
+        new UIText("Floor 3: " + StringUtils.formatNumber(Math.round(this.f3Runs)))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(340f * scaleFactor))
                 .setY(new PixelConstraint(90f * scaleFactor))
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
-        new UIText("Floor 4: " + Utils.formatNumber(Math.round(this.f4Runs)))
+        new UIText("Floor 4: " + StringUtils.formatNumber(Math.round(this.f4Runs)))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(340f * scaleFactor))
                 .setY(new PixelConstraint(110f * scaleFactor))
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
-        new UIText("Floor 5: " + Utils.formatNumber(Math.round(this.f5Runs)))
+        new UIText("Floor 5: " + StringUtils.formatNumber(Math.round(this.f5Runs)))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(340f * scaleFactor))
                 .setY(new PixelConstraint(130f * scaleFactor))
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
-        new UIText("Floor 6: " + Utils.formatNumber(Math.round(this.f6Runs)))
+        new UIText("Floor 6: " + StringUtils.formatNumber(Math.round(this.f6Runs)))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(340f * scaleFactor))
                 .setY(new PixelConstraint(150f * scaleFactor))
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
-        new UIText("Floor 7: " + Utils.formatNumber(Math.round(this.f7Runs)))
+        new UIText("Floor 7: " + StringUtils.formatNumber(Math.round(this.f7Runs)))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(340f * scaleFactor))
                 .setY(new PixelConstraint(170f * scaleFactor))
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
-        new UIText("Master 1: " + Utils.formatNumber(Math.round(this.m1Runs)))
+        new UIText("Master 1: " + StringUtils.formatNumber(Math.round(this.m1Runs)))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(460f * scaleFactor))
                 .setY(new PixelConstraint(50f * scaleFactor))
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
-        new UIText("Master 2: " + Utils.formatNumber(Math.round(this.m2Runs)))
+        new UIText("Master 2: " + StringUtils.formatNumber(Math.round(this.m2Runs)))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(460f * scaleFactor))
                 .setY(new PixelConstraint(70f * scaleFactor))
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
-        new UIText("Master 3: " + Utils.formatNumber(Math.round(this.m3Runs)))
+        new UIText("Master 3: " + StringUtils.formatNumber(Math.round(this.m3Runs)))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(460f * scaleFactor))
                 .setY(new PixelConstraint(90f * scaleFactor))
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
-        new UIText("Master 4: " + Utils.formatNumber(Math.round(this.m4Runs)))
+        new UIText("Master 4: " + StringUtils.formatNumber(Math.round(this.m4Runs)))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(460f * scaleFactor))
                 .setY(new PixelConstraint(110f * scaleFactor))
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
-        new UIText("Master 5: " + Utils.formatNumber(Math.round(this.m5Runs)))
+        new UIText("Master 5: " + StringUtils.formatNumber(Math.round(this.m5Runs)))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(460f * scaleFactor))
                 .setY(new PixelConstraint(130f * scaleFactor))
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
-        new UIText("Master 6: " + Utils.formatNumber(Math.round(this.m6Runs)))
+        new UIText("Master 6: " + StringUtils.formatNumber(Math.round(this.m6Runs)))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(460f * scaleFactor))
                 .setY(new PixelConstraint(150f * scaleFactor))
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
-        new UIText("Master 7: " + Utils.formatNumber(Math.round(this.m7Runs)))
+        new UIText("Master 7: " + StringUtils.formatNumber(Math.round(this.m7Runs)))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(460f * scaleFactor))
                 .setY(new PixelConstraint(170f * scaleFactor))
@@ -541,6 +568,23 @@ public class PartyMember {
                 .setX(new PixelConstraint(580f * scaleFactor))
                 .setY(new PixelConstraint(155f * scaleFactor))
                 .setColor(Color.white)
+                .setChildOf(memberBlock);
+        
+        Color arrowWarningColor = Color.white;
+        if (this.arrowCount < PartlySaneSkies.config.arrowLowCount) {
+            arrowWarningColor = Color.red;
+            if (PartlySaneSkies.config.warnLowArrowsInChat && this.arrowCount != -1) {
+                String message = PartlySaneSkies.config.arrowLowChatMessage;
+                message = message.replace("{player}", this.username);
+                message = message.replace("{count}", this.arrowCount + "");
+                PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/pc " + message);
+            }
+        }
+        new UIText("Arrows Remaining: " + this.arrowCountString)
+                .setTextScale(new PixelConstraint(1.15f * scaleFactor))
+                .setX(new PixelConstraint(580f * scaleFactor))
+                .setY(new PixelConstraint(190f * scaleFactor))
+                .setColor(arrowWarningColor)
                 .setChildOf(memberBlock);
     }
 
@@ -611,11 +655,14 @@ public class PartyMember {
             this.refresh = false;
             return true;
         }
+        if (this.errorOnDataGet > 1 && this.errorOnDataGet < 3) {
+            return true;
+        }
         return this.timeDataGet + PartlySaneSkies.config.partyManagerCacheTime * 60 * 1000 < Minecraft.getSystemTime();
     }
 
     private static String formatText(String text) {
-        text = Utils.removeColorCodes(text);
+        text = StringUtils.removeColorCodes(text);
         text = text.replace("✪", "*");
         text = text.replaceAll("\\P{Print}", "");
         while (Character.isWhitespace(text.charAt(0))) {
