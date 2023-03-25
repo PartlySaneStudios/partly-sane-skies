@@ -50,7 +50,7 @@ public class PlayerRating {
     public static void initPatterns() throws IOException {
         currentPlayer = PartlySaneSkies.minecraft.getSession().getUsername();
 
-        String patternJsonString = Utils.getRequest("hhttps://raw.githubusercontent.com/PartlySaneStudios/partly-sane-skies-public-data/main/data/constants/dungeons_player_rate_pattern_strings.json");
+        String patternJsonString = Utils.getRequest("https://raw.githubusercontent.com/PartlySaneStudios/partly-sane-skies-public-data/main/data/constants/dungeons_player_rate_pattern_strings.json");
 
         JsonObject patternJson = new JsonParser().parse(patternJsonString).getAsJsonObject();
 
@@ -148,7 +148,6 @@ public class PlayerRating {
         str += "Partly Sane Skies > ";
         
         for (Map.Entry<String, HashMap<String, Integer>> entry : playerPointCategoryMap.entrySet()) {
-            
             String playerStr = "" + entry.getKey() + "  " + Utils.round((double) totalPlayerPoints.get(entry.getKey()) / totalPoints * 100d, 0) + "% | ";
             
             str += playerStr;
@@ -165,7 +164,6 @@ public class PlayerRating {
             }
 
             rackPoints(StringUtils.recognisePattern(message, entry.getKey(), "{player}"), entry.getValue());
-            Utils.visPrint("Register pattern");
         }
     }
 
@@ -196,6 +194,9 @@ public class PlayerRating {
                         e.printStackTrace();
                     }
                     PartlySaneSkies.minecraft.addScheduledTask(() -> { 
+                        if (string.equals("")) {
+                            return;
+                        }
                         Utils.sendClientMessage(string, true);
                     });
                 }
