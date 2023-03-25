@@ -88,6 +88,10 @@ When you get a rare drop, a Pumpkin Dicer or Melon Slicer like pop-up banner wil
 
 ![Custom Main Menu](images/rng_drop_banner.png)
 
+### Custom Sounds for Skyblock
+
+Instead of the normal noteblocks, there is now the option to use computer generated, discord sounds or even live instruments to play sounds such as Skyblock music and sound effects.
+
 ### Worm Warning
 
 When you are mining in the Crystal Hollows and a worm or Scatha spawns, you get a message on screen, along with a sound, warning you that a worm has spawned.
@@ -139,6 +143,10 @@ When the watcher is done spawning mobs, a message will appear on your screen, al
 
 Automatically parties everyone in a permanent dungeon party. Using ``/pp`` or ``/permparty``, you have the option to create, party, delete, and add and remove members from your permanent party. You can even add different parties such as an f6Party or a jujuNonCarry party.
 
+
+### Dungeon Player Rater
+
+At the end of the dungeon, the mod will calculate what percentage of the dungeon was cleared by each player, and how much they contributed, showing you how useful each player was. In a perfectly balanced 5 player party, each player should get 20%
 </details>
 
 <details>
@@ -167,6 +175,15 @@ Shows you information about the garden shop trades.
 Shows you information about which crops are the best to use for the composter at the current moment in time
 
 ![Top Crops to Compost](images/crop_compost.png)
+
+
+### Best Bit Shop Profit
+
+A lot of people use the bits accumulated from booster cookies to convert to items to sell on the auction house. Instead of having to guess which items are the best and for what price, it will now recommend to you the items that sell for the most coins per bit.
+
+### Best Skymart Profit
+
+Shows which items are the most profitable for the copper cost. Which ones have the most coins per copper
 
 </details>
 
