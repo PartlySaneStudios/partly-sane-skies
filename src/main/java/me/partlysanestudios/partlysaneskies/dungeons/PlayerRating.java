@@ -154,8 +154,6 @@ public class PlayerRating {
             str += playerStr;
         }
 
-        str = str.substring(0, str.length() - 4);
-
         return str;
     }
 

@@ -192,7 +192,10 @@ public class StringUtils {
         // Gets finds the index where the key will start, because it will be the same accross
         // both patterns
         int keyIndex = pattern.indexOf(key);
-        result = result.substring(keyIndex);
+        if (!(keyIndex > result.length())) {
+            result = result.substring(keyIndex);
+        }
+       
 
         // Gets the first few letters after the key in the pattern
         int patternEndKeyIndex = keyIndex + key.length(); 

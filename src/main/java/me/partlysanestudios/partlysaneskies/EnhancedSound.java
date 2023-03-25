@@ -124,7 +124,7 @@ public class EnhancedSound {
 
                 @Override
                 public float getVolume() {
-                    return event.sound.getVolume() * .666667f;
+                    return event.sound.getVolume();
                 }
 
                 @Override
@@ -179,7 +179,7 @@ public class EnhancedSound {
 
                 @Override
                 public float getVolume() {
-                    return event.sound.getVolume() * .666667f;
+                    return event.sound.getVolume();
                 }
 
                 @Override
