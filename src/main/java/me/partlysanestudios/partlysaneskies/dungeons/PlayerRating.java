@@ -31,7 +31,7 @@ public class PlayerRating {
     public static void initPatterns() throws IOException {
         currentPlayer = PartlySaneSkies.minecraft.getSession().getUsername();
 
-        String patternJsonString = Utils.getRequest("https://raw.githubusercontent.com/Su386yt/partly-sane-skies-public-data-su386/main/data/constants/dungeons_player_rate_pattern_strings.json");
+        String patternJsonString = Utils.getRequest("hhttps://raw.githubusercontent.com/PartlySaneStudios/partly-sane-skies-public-data/main/data/constants/dungeons_player_rate_pattern_strings.json");
 
         JsonObject patternJson = new JsonParser().parse(patternJsonString).getAsJsonObject();
 

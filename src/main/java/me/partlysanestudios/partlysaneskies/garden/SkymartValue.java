@@ -36,7 +36,7 @@ public class SkymartValue {
     public static HashMap<String, Integer> copperCost = new HashMap<String, Integer>();
 
     public static void initCopperValues() throws IOException {
-        String skymartDataString = Utils.getRequest("https://raw.githubusercontent.com/Su386yt/partly-sane-skies-public-data-su386/main/data/constants/skymart_copper.json");
+        String skymartDataString = Utils.getRequest("https://raw.githubusercontent.com/PartlySaneStudios/partly-sane-skies-public-data/main/data/constants/skymart_copper.json");
         if (skymartDataString.startsWith("Error")) {
             return;
         }

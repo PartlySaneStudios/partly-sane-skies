@@ -188,7 +188,7 @@ public class SkyblockItem {
     }
 
     public static void initBitValues() throws IOException {
-        String bitShopDataString = Utils.getRequest("https://raw.githubusercontent.com/Su386yt/partly-sane-skies-public-data-su386/main/data/constants/bits_shop.json");
+        String bitShopDataString = Utils.getRequest("https://raw.githubusercontent.com/PartlySaneStudios/partly-sane-skies-public-data/main/data/constants/bits_shop.json");
         if (bitShopDataString.startsWith("Error")) {
             return;
         }
