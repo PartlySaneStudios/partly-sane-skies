@@ -181,9 +181,13 @@ Shows you information about which crops are the best to use for the composter at
 
 A lot of people use the bits accumulated from booster cookies to convert to items to sell on the auction house. Instead of having to guess which items are the best and for what price, it will now recommend to you the items that sell for the most coins per bit.
 
+![Bit Shop Profit](images/bit_shop_profit.png)
+
 ### Best Skymart Profit
 
 Shows which items are the most profitable for the copper cost. Which ones have the most coins per copper
+
+![Skymart Profit](images/skymart_profit.png)
 
 </details>
 
