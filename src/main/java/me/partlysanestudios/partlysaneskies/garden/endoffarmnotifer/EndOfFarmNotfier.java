@@ -108,15 +108,6 @@ public class EndOfFarmNotfier {
         if (PartlySaneSkies.minecraft.thePlayer == null) {
             return false;
         }
-
-        String location = PartlySaneSkies.getRegionName();
-        location = StringUtils.removeColorCodes(location);
-        location = StringUtils.stripLeading(location);
-        location = StringUtils.stripTrailing(location);
-        location = location.replaceAll("\\P{Print}", ""); // Removes the RANDOM EMOJIS THAT ARE PRESENT IN SKYBLOCK LOCATIONS
-        if (!(location.startsWith("The Garden")  || location.startsWith("Plot: "))) {
-            return false;
-        }
         if (PartlySaneSkies.minecraft.thePlayer.getPosition() == null) {
             return false;
         }
