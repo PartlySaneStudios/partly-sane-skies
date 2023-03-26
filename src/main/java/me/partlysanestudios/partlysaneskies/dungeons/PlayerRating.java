@@ -205,6 +205,12 @@ public class PlayerRating {
                 PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/pc " + getChatMessage());
             }
             reset();
+            return;
+        }
+
+        if (event.message.getUnformattedText().contains("You are playing on profile:")) {
+            reset();
+            return;
         }
         
         handleMessage(event.message.getUnformattedText());
