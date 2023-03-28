@@ -42,7 +42,7 @@ public class OneConfigScreen extends Config {
 
     @Info(
         type = InfoType.INFO,
-        text = "Hover over an option to see more a description and more information about the option."
+        text = "Hover over an option to see a description and more information."
 
     )
     public static boolean ignored;
