@@ -344,7 +344,7 @@ public class CustomMainMenu extends WindowScreen {
                 .setChildOf(pssOptionsButton);
 
         pssOptionsButton.onMouseClickConsumer(event -> {
-            this.mc.displayGuiScreen(PartlySaneSkies.config.gui());
+            PartlySaneSkies.config.openGui();
         });
 
         pssOptionsButton.onMouseEnterRunnable(() -> {

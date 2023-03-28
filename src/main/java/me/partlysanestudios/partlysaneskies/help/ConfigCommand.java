@@ -57,7 +57,7 @@ public class ConfigCommand implements ICommand {
         Utils.sendClientMessage("Opening config GUI...");
         
         Window.Companion.enqueueRenderOperation(() -> {
-            PartlySaneSkies.minecraft.displayGuiScreen(PartlySaneSkies.config.gui());
+            PartlySaneSkies.config.openGui();
         });
     }
 

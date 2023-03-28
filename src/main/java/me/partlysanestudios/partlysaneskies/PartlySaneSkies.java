@@ -25,6 +25,7 @@
  * GSON
  * Elementa
  * Vigilance
+ * OneConfig
  * SkyCrypt
  * 
  */
@@ -99,7 +100,7 @@ public class PartlySaneSkies {
     public static final String VERSION = "beta-v0.2";
     public static final  String CHAT_PREFIX = StringUtils.colorCodes("&r&b&lPartly Sane Skies&r&7>> &r");
 
-    public static ConfigScreen config;
+    public static OneConfigScreen config;
     public static Minecraft minecraft;
 
     public static boolean isDebugMode;
@@ -126,7 +127,7 @@ public class PartlySaneSkies {
         new File("./config/partly-sane-skies/").mkdirs();
         
         // Loads the config files and options
-        PartlySaneSkies.config = new ConfigScreen();
+        PartlySaneSkies.config = new OneConfigScreen();
         CustomMainMenu.getMainMenuInfo();
 
         new Thread() {
@@ -276,7 +277,7 @@ public class PartlySaneSkies {
         if (event.message.getUnformattedText().startsWith("Your new API key is ")) {
             config.apiKey = event.message.getUnformattedText().replace("Your new API key is ", "");
             Utils.sendClientMessage(StringUtils.colorCodes("Saved new API key!"));
-            config.writeData();
+            config.save();
         }
     }
 

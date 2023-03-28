@@ -1,6 +1,6 @@
 {
     "java.dependency.packagePresentation": "hierarchical",
-    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.configuration.updateBuildConfiguration": "disabled",
     "java.import.gradle.enabled": true,
     "editor.tabSize": 4,
     "editor.detectIndentation": false,

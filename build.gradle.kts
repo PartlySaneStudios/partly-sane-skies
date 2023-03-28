@@ -14,7 +14,6 @@ plugins {
     id("com.github.johnrengelman.shadow")
     id("net.kyori.blossom") version "1.3.0"
     id("signing")
-    
     java
 }
 
@@ -82,9 +81,15 @@ repositories {
 
 // Configures the libraries/dependencies for your mod.
 dependencies {
-    shade("gg.essential:elementa-1.8.9-forge:531")
-    shade("gg.essential:vigilance-1.8.9-forge:281+pull-78")
+    shade("gg.essential:elementa-1.8.9-forge:531") {
+        isTransitive = false;
+    }
+    shade("gg.essential:universalcraft-1.8.9-forge:262") {
+        isTransitive = false;
+    }
+    // shade("gg.essential:loader-launchwrapper:1.1.3")
 
+    // implementation("gg.essential:elementa-1.8.9-forge:531")
     // Adds the OneConfig library, so we can develop with it.
     modCompileOnly("cc.polyfrost:oneconfig-$platform:0.2.0-alpha+")
 
