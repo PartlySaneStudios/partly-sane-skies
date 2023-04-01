@@ -567,7 +567,7 @@ public class OneConfigScreen extends Config {
         name = "Bin Sniper Highlight Color",
         description = "Pick a color to highlight your BIN snipes",
         subcategory = "Auction House",
-        category = "Auction House"
+        category = "Economy"
     )
     public OneColor BINSniperColor = new OneColor(PartlySaneSkies.ACCENT_COLOR);
     // Execessive Coin warning
