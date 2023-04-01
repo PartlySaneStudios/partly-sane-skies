@@ -133,6 +133,9 @@ public class Auction {
     }
 
     public double getAverageLowestBin() {
+        if (SkyblockItem.getItem(itemId) == null) {
+            return 0;
+        }
         if (!SkyblockItem.getItem(itemId).hasAverageLowestBin()) {
             return 0;
         }

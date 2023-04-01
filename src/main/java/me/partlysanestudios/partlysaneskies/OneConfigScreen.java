@@ -563,6 +563,13 @@ public class OneConfigScreen extends Config {
     )
     public float BINSniperPercent = 87f;
 
+    @Color(
+        name = "Bin Sniper Highlight Color",
+        description = "Pick a color to highlight your BIN snipes",
+        subcategory = "Auction House",
+        category = "Auction House"
+    )
+    public OneColor BINSniperColor = new OneColor(PartlySaneSkies.ACCENT_COLOR);
     // Execessive Coin warning
     @Switch(
         name = "Excessive Coin and No Booster Cookie", 
