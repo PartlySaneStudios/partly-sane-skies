@@ -140,6 +140,7 @@ public class PartlySaneSkies {
             e.printStackTrace();
         }
         RequestsManager.newRequest(mainMenuRequest);
+        trackLoad();
         RequestsManager.run();
 
         new Thread() {
@@ -222,38 +223,33 @@ public class PartlySaneSkies {
 
         // API Calls
         PlayerRating.initPatterns();
-        new Thread() {
-            @Override
-            public void run() {
-                try {
-                    SkyblockItem.init();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    SkyblockItem.initBitValues();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                SkyblockItem.updateAll();
-                CompostValue.init();
-                try {
-                    SkymartValue.initCopperValues();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
 
+        try {
+            SkyblockItem.init();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            SkyblockItem.initBitValues();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        SkyblockItem.updateAll();
+        CompostValue.init();
+        try {
+            SkymartValue.initCopperValues();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-                // Loads user player data for PartyManager
-                try {
-                    PartyManager.loadPlayerData(PartlySaneSkies.minecraft.getSession().getUsername());
-                } catch (IOException e) {
-                    System.out.println("Partly Sane Skies: Unable to load player data.");
-                    e.printStackTrace();
-                }
-            }
-        }.start();
-        
+        // Loads user player data for PartyManager
+        try {
+            PartyManager.loadPlayerData(PartlySaneSkies.minecraft.getSession().getUsername());
+        } catch (IOException e) {
+            System.out.println("Partly Sane Skies: Unable to load player data.");
+            e.printStackTrace();
+        }
+
 
         
         
@@ -451,5 +447,16 @@ public class PartlySaneSkies {
         } finally {
         }
         return false;
+    }
+
+    // Sends a ping to the count API to track the amount of users per day
+    public void trackLoad() {
+        try {
+            RequestsManager.newRequest(new Request("https://api.countapi.xyz/hit/partly-sane-skies-load", s -> {
+                System.out.println("\n\nPartly Sane Skies startup count:\n" + s.getResponse() + "\n\n");
+            }));
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
     }
 }

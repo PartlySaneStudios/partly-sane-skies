@@ -178,6 +178,10 @@ public class Request {
             // Disconnect
             httpURLConnection.disconnect();
         }
+        
+        if (whenFinished == null) {
+            return;
+        }
 
         // If supposed to run in the next frame, run in next frame
         if (executeOnNextFrame) {
