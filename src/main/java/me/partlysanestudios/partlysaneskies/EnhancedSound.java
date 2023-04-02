@@ -43,9 +43,6 @@ public class EnhancedSound {
 
     @SubscribeEvent
     public void onSoundEvent(PlaySoundEvent event) {
-        // Utils.visPrint(event.name);
-
-
         if (event.name.equalsIgnoreCase("note.pling")) {
             if (PartlySaneSkies.config.customSoundOption == 0) {
                 return;
@@ -212,7 +209,6 @@ public class EnhancedSound {
             PartlySaneSkies.minecraft.getSoundHandler()
                         .playSound(sound);
         }
-        // Utils.visPrint(event.name);
         if (event.name.equalsIgnoreCase("random.explode")) {
             if (PartlySaneSkies.config.customExplosion == 0) {
                 return;

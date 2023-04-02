@@ -20,7 +20,6 @@ package me.partlysanestudios.partlysaneskies;
 
 import java.awt.Color;
 import java.io.File;
-import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -480,13 +479,8 @@ public class CustomMainMenu extends WindowScreen {
                 .setTextScale(new PixelConstraint(1 * scaleFactor));
     }
 
-    public static void getMainMenuInfo() {
-        String responseString;
-        try {
-            responseString = Utils.getRequest("https://raw.githubusercontent.com/PartlySaneStudios/partly-sane-skies-public-data/main/data/main_menu.json");
-        } catch (IOException | NullPointerException | IllegalStateException e) {
-            noInfoFound();
-            e.printStackTrace();
+    public static void setMainMenuInfo(String responseString) {
+        if (responseString.startsWith("Error:")) {
             return;
         }
 

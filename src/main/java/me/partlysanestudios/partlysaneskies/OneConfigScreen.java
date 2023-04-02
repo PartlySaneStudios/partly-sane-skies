@@ -36,7 +36,7 @@ public class OneConfigScreen extends Config {
 
     public OneConfigScreen() {
         // Available mod types: PVP, HUD, UTIL_QOL, HYPIXEL, SKYBLOCK
-        super(new Mod("Partly Sane Skies", ModType.SKYBLOCK), "config/partly-sane-skies/");
+        super(new Mod("Partly Sane Skies", ModType.SKYBLOCK), "partly-sane-skies/config.json");
         initialize();
     }
 
@@ -55,6 +55,16 @@ public class OneConfigScreen extends Config {
         description = "Do /api new to automatically set your API Key. Do not show your API key to anyone unless you know what you're doing."
     )
     public String apiKey = "";
+
+    @Number(
+        min = .1f,
+        max = 30f,
+        name = "Time between requests",
+        category = "General",
+        subcategory = "API",
+        description = "The time between API calls. Only change if you know what you're doing. Changing this will reduce the amount of time API requests take, however may result in more errors"
+    )
+    public float timeBetweenRequests = .75f;
 
     @Dropdown(
         options = {

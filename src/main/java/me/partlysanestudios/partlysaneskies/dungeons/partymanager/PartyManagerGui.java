@@ -19,7 +19,7 @@
 package me.partlysanestudios.partlysaneskies.dungeons.partymanager;
 
 import java.awt.Color;
-import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -37,7 +37,8 @@ import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import me.partlysanestudios.partlysaneskies.utils.guicomponents.UIButton;
-import net.minecraft.client.Minecraft;
+import me.partlysanestudios.partlysaneskies.utils.requests.Request;
+import me.partlysanestudios.partlysaneskies.utils.requests.RequestsManager;
 
 public class PartyManagerGui extends WindowScreen {
 
@@ -86,7 +87,6 @@ public class PartyManagerGui extends WindowScreen {
         createPartyManagementButtons(topBarBlock, scaleFactor, partyMembers);
         createJoinFloorButtons(topBarBlock, scaleFactor);
 
-        int timeDelay = 0;
         for (PartyMember member : partyMembers) {
             UIComponent memberBlock = new UIBlock()
                     .setWidth(new PixelConstraint(list.getWidth() - 20f))
@@ -98,50 +98,26 @@ public class PartyManagerGui extends WindowScreen {
 
             Utils.applyBackground(memberBlock);
             if (member.isExpired()) {
-                final int finalTimeDelay = timeDelay;
-                new Thread() {
-                    @Override
-                    public void run() {
-                        
+                try {
+                    RequestsManager.newRequest(new Request("https://sky.shiiyu.moe/api/v2/profile/" + member.username, s -> {
                         try {
-                            Thread.sleep(finalTimeDelay);
-                        } catch (InterruptedException e) {
+                            member.setSkycryptData(s.getResponse());
+                            member.createBlock(memberBlock, scaleFactor);
+                        } catch (NullPointerException e) {
                             e.printStackTrace();
                         }
-                        new Thread() {
-                            @Override
-                            public void run() {
-                                if (member.isExpired()) {
-                                    try {
-                                        member.getSkycryptData();
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                                Window.Companion.enqueueRenderOperation(() -> {
-                                    member.createBlock(memberBlock, scaleFactor);
-                                });
-                                member.timeDataGet = Minecraft.getSystemTime();
-            
-                                PartyManager.playerCache.put(member.username, member);
-                            }
-            
-                        }.start();
-                    }
-                    
-                }.start();;
-                timeDelay += (int) 750;
-            }
-            else {
+                        
+                    }));
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+            } else {
                 Window.Companion.enqueueRenderOperation(() -> {
                     member.createBlock(memberBlock, scaleFactor);
                 });
             }
-            
-            
 
             height += 220f * scaleFactor;
-            
         }
 
         this.getWindow().draw(new UMatrixStack());

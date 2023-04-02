@@ -35,6 +35,7 @@ package me.partlysanestudios.partlysaneskies;
 import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -72,6 +73,8 @@ import me.partlysanestudios.partlysaneskies.skillupgrade.SkillUpgradeCommand;
 import me.partlysanestudios.partlysaneskies.skillupgrade.SkillUpgradeRecommendation;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
+import me.partlysanestudios.partlysaneskies.utils.requests.Request;
+import me.partlysanestudios.partlysaneskies.utils.requests.RequestsManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.inventory.IInventory;
@@ -127,8 +130,17 @@ public class PartlySaneSkies {
         new File("./config/partly-sane-skies/").mkdirs();
         
         // Loads the config files and options
-        PartlySaneSkies.config = new OneConfigScreen();
-        CustomMainMenu.getMainMenuInfo();
+        PartlySaneSkies.config = new OneConfigScreen();    
+        Request mainMenuRequest = null;
+        try {
+            mainMenuRequest = new Request("https://raw.githubusercontent.com/PartlySaneStudios/partly-sane-skies-public-data/main/data/main_menu.json", s -> {
+                CustomMainMenu.setMainMenuInfo(s.getResponse());
+            });
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        RequestsManager.newRequest(mainMenuRequest);
+        RequestsManager.run();
 
         new Thread() {
             @Override
@@ -158,7 +170,6 @@ public class PartlySaneSkies {
         
         }.start();
 
-        trackStartup();
         
 
         // Registers all of the events
@@ -210,6 +221,7 @@ public class PartlySaneSkies {
         SkillUpgradeRecommendation.populateSkillMap();
 
         // API Calls
+        PlayerRating.initPatterns();
         new Thread() {
             @Override
             public void run() {
@@ -220,11 +232,6 @@ public class PartlySaneSkies {
                 }
                 try {
                     SkyblockItem.initBitValues();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    PlayerRating.initPatterns();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -257,6 +264,9 @@ public class PartlySaneSkies {
     // Method runs every tick
     @SubscribeEvent
     public void clientTick(ClientTickEvent evnt) {
+        // Runs the request manager
+        RequestsManager.run();
+
         // Checks if the current location is the same as the previous location for the location banner display
         locationBannerDisplay.checkLocation();
         // Checks if the current screen is the auciton house to run AHManager
@@ -441,19 +451,5 @@ public class PartlySaneSkies {
         } finally {
         }
         return false;
-    }
-
-    // Pings the github server 
-    private static void trackStartup() {
-        new Thread() {
-            @Override
-            public void run() { 
-                try {
-                    Utils.getRequest("https://github.com/PartlySaneStudios/partly-sane-skies-public-data/blob/main/data/main_menu.json");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }.start();
     }
 }

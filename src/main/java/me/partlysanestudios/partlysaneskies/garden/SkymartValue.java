@@ -45,6 +45,8 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.SkyblockItem;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
+import me.partlysanestudios.partlysaneskies.utils.requests.Request;
+import me.partlysanestudios.partlysaneskies.utils.requests.RequestsManager;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
@@ -55,15 +57,17 @@ public class SkymartValue {
     public static HashMap<String, Integer> copperCost = new HashMap<String, Integer>();
 
     public static void initCopperValues() throws IOException {
-        String skymartDataString = Utils.getRequest("https://raw.githubusercontent.com/PartlySaneStudios/partly-sane-skies-public-data/main/data/constants/skymart_copper.json");
-        if (skymartDataString.startsWith("Error")) {
-            return;
-        }
+        RequestsManager.newRequest(new Request("https://raw.githubusercontent.com/PartlySaneStudios/partly-sane-skies-public-data/main/data/constants/skymart_copper.json", s -> {
+            if (!s.hasSucceeded()) {
+                return;
+            }
+            JsonObject skymartObject = new JsonParser().parse(s.getResponse()).getAsJsonObject().getAsJsonObject("skymart");
+            for (Map.Entry<String, JsonElement> entry : skymartObject.entrySet()) {
+                copperCost.put(entry.getKey(), entry.getValue().getAsInt());
+            }
+        }));
 
-        JsonObject skymartObject = new JsonParser().parse(skymartDataString).getAsJsonObject().getAsJsonObject("skymart");
-        for (Map.Entry<String, JsonElement> entry : skymartObject.entrySet()) {
-            copperCost.put(entry.getKey(), entry.getValue().getAsInt());
-        }
+        
     }
 
     // Sorts the hashmap in decending order
