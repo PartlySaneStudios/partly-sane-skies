@@ -29,7 +29,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import me.partlysanestudios.partlysaneskies.utils.Utils;
+import me.partlysanestudios.partlysaneskies.utils.requests.Request;
+import me.partlysanestudios.partlysaneskies.utils.requests.RequestsManager;
 import net.minecraft.client.Minecraft;
 
 public class SkyblockItem {
@@ -152,58 +153,63 @@ public class SkyblockItem {
     public static ArrayList<String> bitIds = new ArrayList<String>();
 
     public static void init() throws IOException {
-        String itemDataString = Utils.getRequest("https://api.hypixel.net/resources/skyblock/items");
-        if (itemDataString.startsWith("Error")) {
+        RequestsManager.newRequest(new Request("https://api.hypixel.net/resources/skyblock/items", s -> {
+            String itemDataString = s.getResponse();
+            if (itemDataString.startsWith("Error")) {
+                
+                return;
+            }
+            JsonObject itemDataJson = new JsonParser().parse(itemDataString).getAsJsonObject();
+
+            JsonArray itemArray = itemDataJson.get("items").getAsJsonArray();
             
-            return;
-        }
-        JsonObject itemDataJson = new JsonParser().parse(itemDataString).getAsJsonObject();
+            nameToIdMap = new HashMap<String, String>();
+            idToItemMap = new HashMap<String, SkyblockItem>();
 
-        JsonArray itemArray = itemDataJson.get("items").getAsJsonArray();
+            for (JsonElement itemJson : itemArray) {
+                JsonObject itemObject = itemJson.getAsJsonObject();
+
+                String id = itemObject.get("id").getAsString();
+                String name = itemObject.get("name").getAsString();
+                double npcSellPrice = -1;
+
+                if (itemObject.has("npc_sell_price")) {
+                    npcSellPrice = itemObject.get("npc_sell_price").getAsDouble();
+                }
+
+                String rarity = "COMMON";
+                if (itemObject.has("tier")) {
+                    rarity = itemObject.get("tier").getAsString();
+                }
+
+
+                SkyblockItem item = new SkyblockItem(id, name, npcSellPrice, rarity);
+                nameToIdMap.put(name, id);
+                idToItemMap.put(id, item);
+            }
+        }));
         
-        nameToIdMap = new HashMap<String, String>();
-        idToItemMap = new HashMap<String, SkyblockItem>();
-
-        for (JsonElement itemJson : itemArray) {
-            JsonObject itemObject = itemJson.getAsJsonObject();
-
-            String id = itemObject.get("id").getAsString();
-            String name = itemObject.get("name").getAsString();
-            double npcSellPrice = -1;
-
-            if (itemObject.has("npc_sell_price")) {
-                npcSellPrice = itemObject.get("npc_sell_price").getAsDouble();
-            }
-
-            String rarity = "COMMON";
-            if (itemObject.has("tier")) {
-                rarity = itemObject.get("tier").getAsString();
-            }
-
-
-            SkyblockItem item = new SkyblockItem(id, name, npcSellPrice, rarity);
-            nameToIdMap.put(name, id);
-            idToItemMap.put(id, item);
-        }
     }
 
     public static void initBitValues() throws IOException {
-        String bitShopDataString = Utils.getRequest("https://raw.githubusercontent.com/PartlySaneStudios/partly-sane-skies-public-data/main/data/constants/bits_shop.json");
-        if (bitShopDataString.startsWith("Error")) {
-            return;
-        }
-
-        JsonObject bitsShopObject = new JsonParser().parse(bitShopDataString).getAsJsonObject().getAsJsonObject("bits_shop");
-        for (Map.Entry<String, JsonElement> entry : bitsShopObject.entrySet()) {
-            String id = entry.getKey();
-            int bitCost = entry.getValue().getAsInt();
-            SkyblockItem item = getItem(id);
-            if (item == null) {
-                continue;
+        RequestsManager.newRequest(new Request("https://raw.githubusercontent.com/PartlySaneStudios/partly-sane-skies-public-data/main/data/constants/bits_shop.json", s -> {
+            if (s.getResponse().startsWith("Error")) {
+                return;
             }
-            bitIds.add(item.getId());
-            item.setBitCost(bitCost);
-        }
+    
+            JsonObject bitsShopObject = new JsonParser().parse(s.getResponse()).getAsJsonObject().getAsJsonObject("bits_shop");
+            for (Map.Entry<String, JsonElement> entry : bitsShopObject.entrySet()) {
+                String id = entry.getKey();
+                int bitCost = entry.getValue().getAsInt();
+                SkyblockItem item = getItem(id);
+                if (item == null) {
+                    continue;
+                }
+                bitIds.add(item.getId());
+                item.setBitCost(bitCost);
+            }
+        }));
+        
     }
 
     public static String getId(String name) {
@@ -233,7 +239,6 @@ public class SkyblockItem {
     }
     
     public static void updateAll() {
-        // Utils.visPrint(checkLastUpdate() + "\n" + Minecraft.getSystemTime() + "\n" + lastAhUpdateTime + "\n" + (lastAhUpdateTime + (1000*60*5)));
         lastAhUpdateTime = Minecraft.getSystemTime();
         updateAverageLowestBin();;
         updateBz();
@@ -243,20 +248,22 @@ public class SkyblockItem {
 
     public static void updateLowestBin() {
         try {
-            String request = Utils.getRequest("http://moulberry.codes/lowestbin.json");
-            if (request.startsWith("Error")) {
-                return;
-            }
-            @SuppressWarnings("unchecked")
-            HashMap<String, Double> map = (HashMap<String, Double>) new Gson().fromJson(request,
-                    new HashMap<String, Double>().getClass());
-
-            for (Map.Entry<String, SkyblockItem> en : idToItemMap.entrySet()) {
-                if (!map.containsKey(en.getKey())) {
-                    continue;
+            RequestsManager.newRequest(new Request("http://moulberry.codes/lowestbin.json", s -> {
+                if (s.getResponse().startsWith("Error")) {
+                    return;
                 }
-                en.getValue().setLowestBinPrice(map.get(en.getKey()));
-            }
+                @SuppressWarnings("unchecked")
+                HashMap<String, Double> map = (HashMap<String, Double>) new Gson().fromJson(s.getResponse(),
+                        new HashMap<String, Double>().getClass());
+    
+                for (Map.Entry<String, SkyblockItem> en : idToItemMap.entrySet()) {
+                    if (!map.containsKey(en.getKey())) {
+                        continue;
+                    }
+                    en.getValue().setLowestBinPrice(map.get(en.getKey()));
+                }
+            }));
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -265,20 +272,22 @@ public class SkyblockItem {
 
     public static void updateAverageLowestBin() {
         try {
-            String request = Utils.getRequest("https://moulberry.codes/auction_averages_lbin/1day.json");
-            if (request.startsWith("Error")) {
-                return;
-            }
-            @SuppressWarnings("unchecked")
-            HashMap<String, Double> map = (HashMap<String, Double>) new Gson().fromJson(request,
-                    new HashMap<String, Double>().getClass());
-
-            for (Map.Entry<String, SkyblockItem> en : idToItemMap.entrySet()) {
-                if (!map.containsKey(en.getKey())) {
-                    continue;
+            RequestsManager.newRequest(new Request("https://moulberry.codes/auction_averages_lbin/1day.json", s -> {
+                if (s.getResponse().startsWith("Error")) {
+                    return;
                 }
-                en.getValue().setAverageLowestBinPrice(map.get(en.getKey()));
-            }
+                @SuppressWarnings("unchecked")
+                HashMap<String, Double> map = (HashMap<String, Double>) new Gson().fromJson(s.getResponse(),
+                        new HashMap<String, Double>().getClass());
+    
+                for (Map.Entry<String, SkyblockItem> en : idToItemMap.entrySet()) {
+                    if (!map.containsKey(en.getKey())) {
+                        continue;
+                    }
+                    en.getValue().setAverageLowestBinPrice(map.get(en.getKey()));
+                }
+            }));
+           
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -286,18 +295,20 @@ public class SkyblockItem {
 
     public static void updateBz() {
         try{
-            String requestResponse = Utils.getRequest("https://sky.shiiyu.moe/api/v2/bazaar");
-            if (requestResponse.startsWith("Error")) {
-                return;
-            }
-            JsonObject object = new JsonParser().parse(requestResponse).getAsJsonObject();
-
-            for (Map.Entry<String, SkyblockItem> en : idToItemMap.entrySet()) {
-                if (!object.has(en.getKey())) {
-                    continue;
+            RequestsManager.newRequest(new Request("https://sky.shiiyu.moe/api/v2/bazaar", s -> {
+                if (s.getResponse().startsWith("Error")) {
+                    return;
                 }
-                en.getValue().setBazaarPrice(object.getAsJsonObject(en.getKey()).get("price").getAsDouble());
-            }
+                JsonObject object = new JsonParser().parse(s.getResponse()).getAsJsonObject();
+    
+                for (Map.Entry<String, SkyblockItem> en : idToItemMap.entrySet()) {
+                    if (!object.has(en.getKey())) {
+                        continue;
+                    }
+                    en.getValue().setBazaarPrice(object.getAsJsonObject(en.getKey()).get("price").getAsDouble());
+                }
+            }));
+            
 
         } catch (IOException e) {
             e.printStackTrace();

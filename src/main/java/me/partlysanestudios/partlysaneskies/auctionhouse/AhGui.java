@@ -103,7 +103,6 @@ public class AhGui extends WindowScreen {
             .setHeight(new PixelConstraint(bottomBar.getBottom() - topBar.getHeight()))
             .setColor(new Color(0, 0, 0, 0))
             .setChildOf(getWindow());
-
         
         itemName = new UIWrappedText("", true, null, true)
             .setTextScale(widthScaledConstraint(1.25f))
@@ -141,7 +140,7 @@ public class AhGui extends WindowScreen {
         Utils.applyBackground(leftWindow);
         Utils.applyBackground(rightWindow);
 
-
+        
         
         Auction[][] auctions = AhManager.getAuctions(inventory);
         for (int row = 0; row < numOfRows; row++) {
@@ -458,6 +457,8 @@ public class AhGui extends WindowScreen {
             }
             
         }
+
+        
     }
 
     UIComponent itemName;
@@ -541,6 +542,22 @@ public class AhGui extends WindowScreen {
             ((UIWrappedText) itemInfoText).setText("");
         });
 
+        try {
+            if (auction.shouldHighlight()) {
+                box.setColor(PartlySaneSkies.ACCENT_COLOR);
+                UIComponent highlightBox = new UIBlock()
+                    .setX(new CenterConstraint())
+                    .setY(new CenterConstraint())
+                    .setWidth(new PixelConstraint(box.getComponent().getWidth() * 1.1f))
+                    .setHeight(new PixelConstraint(box.getComponent().getHeight() * 1.1f))
+                    .setColor(PartlySaneSkies.config.BINSniperColor.toJavaColor());
+                box.insertComponenetBeforeBackground(highlightBox);
+                // box.setBackgroundVisibility(false);
+            }
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+
         new UIItemRender(auction.getItem())
             .setItemScale(widthScaledConstraint(2f))
             .setX(new CenterConstraint())
@@ -559,9 +576,7 @@ public class AhGui extends WindowScreen {
             .setColor(Color.white)
             .setChildOf(box.getComponent());
 
-        if (auction.shouldHighlight()) {
-            box.setColor(PartlySaneSkies.ACCENT_COLOR);
-        }
+        
         
     }
 

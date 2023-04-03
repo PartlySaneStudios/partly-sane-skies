@@ -19,7 +19,6 @@
 package me.partlysanestudios.partlysaneskies.dungeons.partymanager;
 
 import java.awt.Color;
-import java.io.IOException;
 import java.util.Map.Entry;
 
 import com.google.gson.JsonArray;
@@ -53,7 +52,7 @@ public class PartyMember {
     public int errorOnDataGet = 0;
 
     // Data
-    public long timeDataGet;
+    public long timeDataGet = 0;
     public int secretsCount;
     public float skyblockLevel;
     public float senitherWeight;
@@ -62,16 +61,16 @@ public class PartyMember {
     public float secretsPerRun;
     public float averageSkillLevel;
 
-    public String helmetName;
-    public String chestplateName;
-    public String leggingsName;
-    public String bootsName;
-    public int arrowCount;
-    public String arrowCountString;
+    public String helmetName = "(Unknown)";
+    public String chestplateName = "(Unknown)";
+    public String leggingsName = "(Unknown)";
+    public String bootsName = "(Unknown)";
+    public int arrowCount = -1;
+    public String arrowCountString = "(Unknown)";
 
-    public String petName;
+    public String petName = "(Unknown)";
 
-    public String selectedDungeonClass;
+    public String selectedDungeonClass = "(Unknown)";
 
     public int f1Runs;
     public int f2Runs;
@@ -110,20 +109,15 @@ public class PartyMember {
     }
 
     // Uses the username to request data from the Skycrypt API
-    public void getSkycryptData() throws IOException, NullPointerException {
+    public void setSkycryptData(String response) throws NullPointerException {
+        if (response.startsWith("Error:")) {
+            return;
+        }
+
+        this.timeDataGet = Minecraft.getSystemTime();
         // Creates a JSON parser to parse the Json returned by the request
         JsonParser parser = new JsonParser();
 
-        // Requests the Skycrypt API
-        String response = Utils.getRequest("https://sky.shiiyu.moe/api/v2/profile/" + this.username);
-        // If the response is in error, send error message and exit
-        if (response.startsWith("Error")) {
-            if (PartlySaneSkies.config.printPartyManagerApiErrors){
-                Utils.sendClientMessage(StringUtils.colorCodes("Error getting data for " + username + ". Maybe the player is nicked."));
-            }
-            errorOnDataGet++;
-            return;
-        }
         // Creates a Json object based on the response
         JsonObject skycryptJson = parser.parse(response).getAsJsonObject();
 
@@ -223,6 +217,7 @@ public class PartyMember {
 
         this.arrowCount = -1;
         this.arrowCount = getArrowCount(profileItems);
+        this.arrowCountString = this.arrowCount + "";
         if (arrowCount == -1) { 
             this.arrowCountString = "(Unknown)";
         }
@@ -573,7 +568,7 @@ public class PartyMember {
         Color arrowWarningColor = Color.white;
         if (this.arrowCount < PartlySaneSkies.config.arrowLowCount) {
             arrowWarningColor = Color.red;
-            if (PartlySaneSkies.config.warnLowArrowsInChat && this.arrowCount != -1) {
+            if (PartlySaneSkies.config.warnLowArrowsInChat && this.arrowCount >= 0) {
                 String message = PartlySaneSkies.config.arrowLowChatMessage;
                 message = message.replace("{player}", this.username);
                 message = message.replace("{count}", this.arrowCount + "");

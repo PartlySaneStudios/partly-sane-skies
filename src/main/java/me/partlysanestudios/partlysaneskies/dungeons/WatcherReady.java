@@ -81,7 +81,7 @@ public class WatcherReady {
 
     @SubscribeEvent
     public void renderText(RenderGameOverlayEvent.Text event) {
-        ((UIText) watcherReadyUIText).setText(watcherReadyString).setColor(PartlySaneSkies.config.watcherReadyBannerColor);
+        ((UIText) watcherReadyUIText).setText(watcherReadyString).setColor(PartlySaneSkies.config.watcherReadyBannerColor.toJavaColor());
         window.draw(new UMatrixStack());
         if (watcherReadyBannerTime + PartlySaneSkies.config.watcherReadyBannerTime * 1000 < Minecraft.getSystemTime())
             watcherReadyString = "";

@@ -19,7 +19,7 @@
 
 package me.partlysanestudios.partlysaneskies.dungeons;
 
-import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,6 +30,8 @@ import com.google.gson.JsonParser;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
+import me.partlysanestudios.partlysaneskies.utils.requests.Request;
+import me.partlysanestudios.partlysaneskies.utils.requests.RequestsManager;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -47,18 +49,28 @@ public class PlayerRating {
     private static HashMap<String, Integer> categoryPointMap = new HashMap<String, Integer>();
     private static int totalPoints = 0;
     
-    public static void initPatterns() throws IOException {
+    public static void initPatterns() {
         currentPlayer = PartlySaneSkies.minecraft.getSession().getUsername();
 
-        String patternJsonString = Utils.getRequest("https://raw.githubusercontent.com/PartlySaneStudios/partly-sane-skies-public-data/main/data/constants/dungeons_player_rate_pattern_strings.json");
+        try {
+            RequestsManager.newRequest(new Request("https://raw.githubusercontent.com/PartlySaneStudios/partly-sane-skies-public-data/main/data/constants/dungeons_player_rate_pattern_strings.json", s -> {
+                if (!s.hasSucceeded()) {
+                    return;
+                }
+                JsonObject patternJson = new JsonParser().parse(s.getResponse()).getAsJsonObject();
 
-        JsonObject patternJson = new JsonParser().parse(patternJsonString).getAsJsonObject();
+                JsonObject positivePatternsJson = patternJson.getAsJsonObject("positive_strings");
 
-        JsonObject positivePatternsJson = patternJson.getAsJsonObject("positive_strings");
-
-        for (Map.Entry<String, JsonElement> entry : positivePatternsJson.entrySet()) {
-            positivePatterns.put(entry.getKey(), entry.getValue().getAsString());
+                for (Map.Entry<String, JsonElement> entry : positivePatternsJson.entrySet()) {
+                    positivePatterns.put(entry.getKey(), entry.getValue().getAsString());
+                }
+            }
+            ));
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
         }
+
+        
     }
 
     public static void rackPoints(String player, String category) {
@@ -189,7 +201,7 @@ public class PlayerRating {
                 @Override
                 public void run() {
                     try {
-                        Thread.sleep(50);
+                        Thread.sleep(125);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -205,6 +217,12 @@ public class PlayerRating {
                 PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/pc " + getChatMessage());
             }
             reset();
+            return;
+        }
+
+        if (event.message.getUnformattedText().contains("You are playing on profile:") || event.message.getFormattedText().contains("[NPC] §bMort§f: Here, I found this map when I first entered")) {
+            reset();
+            return;
         }
         
         handleMessage(event.message.getUnformattedText());

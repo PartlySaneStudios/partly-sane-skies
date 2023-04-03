@@ -179,4 +179,26 @@ public class UIButton {
     public UIComponent getComponent() {
         return buttonTexture;
     }
+
+    public UIButton setBackgroundVisibility(boolean val) {
+        if (val) {
+            buttonTexture.unhide(true);
+            for (UIComponent child : buttonTexture.getChildren()) {
+                child.unhide(true);
+            }
+        } else {
+            buttonTexture.hide();
+            for (UIComponent child : buttonTexture.getChildren()) {
+                child.unhide(true);
+            }
+        }
+
+        return this;
+    }
+
+    public UIButton insertComponenetBeforeBackground(UIComponent component) {
+        backgroundBlock.insertChildBefore(component, buttonTexture);
+
+        return this;
+    }
 }

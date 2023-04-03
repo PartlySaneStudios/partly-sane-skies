@@ -19,6 +19,7 @@
 package me.partlysanestudios.partlysaneskies.dungeons.partymanager;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,6 +28,8 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyMember.PartyRank;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
+import me.partlysanestudios.partlysaneskies.utils.requests.Request;
+import me.partlysanestudios.partlysaneskies.utils.requests.RequestsManager;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -92,38 +95,11 @@ public class PartyManager {
         memberName = StringUtils.stripLeading(memberName);
         memberName = StringUtils.stripTrailing(memberName);
 
-        if (PartyManager.playerCache.containsKey(memberName)) {
-            if (!PartyManager.playerCache.get(memberName).isExpired()) {
-                return;
-            }
-            final String name = memberName;
-            new Thread() {
-                @Override
-                public void run() {
-                    
-                    try {
-                        PartyManager.playerCache.get(name).getSkycryptData();
-                    } catch (NullPointerException | IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }.start();
+        try {
+            loadPlayerData(memberName);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-        PartyMember member = new PartyMember(memberName, null);
-        new Thread() {
-            @Override
-            public void run() {
-                try {
-                    member.getSkycryptData();
-                } catch (NullPointerException | IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }.start();
-        
-
-        PartyManager.playerCache.put(memberName, member);
     }
 
     // Upon chat message recieve, it will check to see if it is the party list
@@ -259,12 +235,30 @@ public class PartyManager {
     public static void loadPlayerData(String username) throws IOException {
         // Creates a new player
         PartyMember player = new PartyMember(username, PartyRank.LEADER);
+        if (PartyManager.playerCache.containsKey(username)) {
+            player = PartyManager.playerCache.get(username);
+
+            if (!player.isExpired()) {
+                return;
+            }
+        }
+
+        final PartyMember finalPlayer = player;
         // Gets data
-        player.getSkycryptData();
-        // Says that it is the player
-        player.isPlayer = true;
-        // Adds to cache
-        playerCache.put(username, player);
+        try {
+            RequestsManager.newRequest(new Request("https://sky.shiiyu.moe/api/v2/profile/" + player.username, s -> {
+                try {
+                    finalPlayer.setSkycryptData(s.getResponse());
+                    // Adds to cache
+                    playerCache.put(username, finalPlayer);
+                } catch (NullPointerException e) {
+                    e.printStackTrace();
+                }
+            }));
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        
     }
 
     // Reparties all of the members of the party

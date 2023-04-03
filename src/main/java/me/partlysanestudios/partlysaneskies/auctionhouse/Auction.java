@@ -114,7 +114,7 @@ public class Auction {
         }
         double averageAhPrice = SkyblockItem.getItem(itemId).getPrice();
 
-        if (sellingPrice <= averageAhPrice * PartlySaneSkies.config.BINSniperPercent) {
+        if (sellingPrice <= averageAhPrice * (PartlySaneSkies.config.BINSniperPercent / 100d)) {
             return true;
         }
         return false;
@@ -133,6 +133,9 @@ public class Auction {
     }
 
     public double getAverageLowestBin() {
+        if (SkyblockItem.getItem(itemId) == null) {
+            return 0;
+        }
         if (!SkyblockItem.getItem(itemId).hasAverageLowestBin()) {
             return 0;
         }

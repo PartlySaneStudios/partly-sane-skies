@@ -25,6 +25,7 @@
  * GSON
  * Elementa
  * Vigilance
+ * OneConfig
  * SkyCrypt
  * 
  */
@@ -34,6 +35,7 @@ package me.partlysanestudios.partlysaneskies;
 import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -71,6 +73,8 @@ import me.partlysanestudios.partlysaneskies.skillupgrade.SkillUpgradeCommand;
 import me.partlysanestudios.partlysaneskies.skillupgrade.SkillUpgradeRecommendation;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
+import me.partlysanestudios.partlysaneskies.utils.requests.Request;
+import me.partlysanestudios.partlysaneskies.utils.requests.RequestsManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.inventory.IInventory;
@@ -99,7 +103,7 @@ public class PartlySaneSkies {
     public static final String VERSION = "beta-v0.2";
     public static final  String CHAT_PREFIX = StringUtils.colorCodes("&r&b&lPartly Sane Skies&r&7>> &r");
 
-    public static ConfigScreen config;
+    public static OneConfigScreen config;
     public static Minecraft minecraft;
 
     public static boolean isDebugMode;
@@ -126,8 +130,18 @@ public class PartlySaneSkies {
         new File("./config/partly-sane-skies/").mkdirs();
         
         // Loads the config files and options
-        PartlySaneSkies.config = new ConfigScreen();
-        CustomMainMenu.getMainMenuInfo();
+        PartlySaneSkies.config = new OneConfigScreen();    
+        Request mainMenuRequest = null;
+        try {
+            mainMenuRequest = new Request("https://raw.githubusercontent.com/PartlySaneStudios/partly-sane-skies-public-data/main/data/main_menu.json", s -> {
+                CustomMainMenu.setMainMenuInfo(s.getResponse());
+            });
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        RequestsManager.newRequest(mainMenuRequest);
+        trackLoad();
+        RequestsManager.run();
 
         new Thread() {
             @Override
@@ -157,7 +171,6 @@ public class PartlySaneSkies {
         
         }.start();
 
-        trackStartup();
         
 
         // Registers all of the events
@@ -209,43 +222,34 @@ public class PartlySaneSkies {
         SkillUpgradeRecommendation.populateSkillMap();
 
         // API Calls
-        new Thread() {
-            @Override
-            public void run() {
-                try {
-                    SkyblockItem.init();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    SkyblockItem.initBitValues();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    PlayerRating.initPatterns();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                SkyblockItem.updateAll();
-                CompostValue.init();
-                try {
-                    SkymartValue.initCopperValues();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+        PlayerRating.initPatterns();
 
+        try {
+            SkyblockItem.init();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            SkyblockItem.initBitValues();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        SkyblockItem.updateAll();
+        CompostValue.init();
+        try {
+            SkymartValue.initCopperValues();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-                // Loads user player data for PartyManager
-                try {
-                    PartyManager.loadPlayerData(PartlySaneSkies.minecraft.getSession().getUsername());
-                } catch (IOException e) {
-                    System.out.println("Partly Sane Skies: Unable to load player data.");
-                    e.printStackTrace();
-                }
-            }
-        }.start();
-        
+        // Loads user player data for PartyManager
+        try {
+            PartyManager.loadPlayerData(PartlySaneSkies.minecraft.getSession().getUsername());
+        } catch (IOException e) {
+            System.out.println("Partly Sane Skies: Unable to load player data.");
+            e.printStackTrace();
+        }
+
 
         
         
@@ -256,6 +260,9 @@ public class PartlySaneSkies {
     // Method runs every tick
     @SubscribeEvent
     public void clientTick(ClientTickEvent evnt) {
+        // Runs the request manager
+        RequestsManager.run();
+
         // Checks if the current location is the same as the previous location for the location banner display
         locationBannerDisplay.checkLocation();
         // Checks if the current screen is the auciton house to run AHManager
@@ -276,7 +283,7 @@ public class PartlySaneSkies {
         if (event.message.getUnformattedText().startsWith("Your new API key is ")) {
             config.apiKey = event.message.getUnformattedText().replace("Your new API key is ", "");
             Utils.sendClientMessage(StringUtils.colorCodes("Saved new API key!"));
-            config.writeData();
+            config.save();
         }
     }
 
@@ -442,17 +449,14 @@ public class PartlySaneSkies {
         return false;
     }
 
-    // Pings the github server 
-    private static void trackStartup() {
-        new Thread() {
-            @Override
-            public void run() { 
-                try {
-                    Utils.getRequest("https://github.com/PartlySaneStudios/partly-sane-skies-public-data/blob/main/data/main_menu.json");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }.start();
+    // Sends a ping to the count API to track the amount of users per day
+    public void trackLoad() {
+        try {
+            RequestsManager.newRequest(new Request("https://api.countapi.xyz/hit/partly-sane-skies-load", s -> {
+                System.out.println("\n\nPartly Sane Skies startup count:\n" + s.getResponse() + "\n\n");
+            }));
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
     }
 }

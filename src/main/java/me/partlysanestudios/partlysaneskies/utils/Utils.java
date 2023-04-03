@@ -175,6 +175,8 @@ public class Utils {
         };
     }
 
+    @Deprecated
+    // Deprecated: Use RequestManager and Requests instead
     public static String getRequest(String urlString) throws IOException {
 
         URL url = new URL(urlString);
