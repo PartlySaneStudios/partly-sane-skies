@@ -114,7 +114,7 @@ public class Auction {
         }
         double averageAhPrice = SkyblockItem.getItem(itemId).getPrice();
 
-        if (sellingPrice <= averageAhPrice * (PartlySaneSkies.config.BINSniperPercent / 100d)) {
+        if (sellingPrice <= averageAhPrice * PartlySaneSkies.config.BINSniperPercent) {
             return true;
         }
         return false;

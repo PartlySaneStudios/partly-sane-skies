@@ -42,7 +42,7 @@ public class WormWarning {
             .setTextScale(new PixelConstraint(3))
             .setX(new CenterConstraint())
             .setY(new PixelConstraint(window.getHeight() * .333f))
-            .setColor(PartlySaneSkies.config.wormWarningBannerColor.toJavaColor())
+            .setColor(PartlySaneSkies.config.wormWarningBannerColor)
             .setChildOf(window);
 
     String wormWarnignString = "";
@@ -64,7 +64,7 @@ public class WormWarning {
 
     @SubscribeEvent
     public void renderText(RenderGameOverlayEvent.Text event) {
-        ((UIText) wormWarningUIText).setText(wormWarnignString).setColor(PartlySaneSkies.config.wormWarningBannerColor.toJavaColor());
+        ((UIText) wormWarningUIText).setText(wormWarnignString).setColor(PartlySaneSkies.config.wormWarningBannerColor);
         window.draw(new UMatrixStack());
         if (wormWarningBannerTime + PartlySaneSkies.config.wormWarningBannerTime * 1000 < Minecraft.getSystemTime())
             wormWarnignString = "";

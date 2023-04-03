@@ -128,7 +128,7 @@ public class PetAlert {
         String petName = parsePetNameFromItem(item.getDisplayName());
         PartlySaneSkies.config.selectectedPet = petName;
         Utils.sendClientMessage("Set " + petName + " as your favourite pet.");
-        PartlySaneSkies.config.save();
+        PartlySaneSkies.config.writeData();
     }
 
     // Parses a pet's name from the armor stand string. Ex: "[Lv100] Su386's *Black Cat*"
