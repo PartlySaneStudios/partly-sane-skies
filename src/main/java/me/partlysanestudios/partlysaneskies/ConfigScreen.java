@@ -176,6 +176,17 @@ public class ConfigScreen extends Vigilant {
     )
     public boolean printApiErrors = true;
 
+    @Property(
+        type = PropertyType.DECIMAL_SLIDER,
+        minF = 0.1f,
+        maxF = 25f,
+        name = "Time Between Requests",
+        category = "General",
+        subcategory = "API",
+        description = "The time between API calls. Only change if you know what you're doing. Changing this will reduce the amount of time API requests take, however may result in more errors"
+    )
+    public float timeBetweenRequests = .75f;
+
     // ----------------- Category: Skyblock -------------------
     // Rare Drop
     @Property(
@@ -607,13 +618,14 @@ public class ConfigScreen extends Vigilant {
     public float BINSniperPercent = .87f;
 
 
-    @Color(
+    @Property(
+        type = PropertyType.COLOR,
         name = "Bin Sniper Highlight Color",
         description = "Pick a color to highlight your BIN snipes",
         subcategory = "Auction House",
         category = "Economy"
     )
-    public OneColor BINSniperColor = new OneColor(PartlySaneSkies.ACCENT_COLOR);
+    public Color BINSniperColor = PartlySaneSkies.ACCENT_COLOR;
     // Execessive Coin warning
     @Property(
         type = PropertyType.SWITCH, 
