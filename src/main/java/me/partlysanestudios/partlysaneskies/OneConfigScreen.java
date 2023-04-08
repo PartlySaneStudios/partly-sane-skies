@@ -101,6 +101,14 @@ public class OneConfigScreen extends Config {
         description = "The character to represent decimal places."
     )
     public int decimalPlaceFormat = 1;
+
+    @Switch(
+        category = "General",
+        subcategory = "Appearance",
+        name = "24 hour time",
+        description = "Display time in 24-hour hour time (15:30) instead of 12 hour time (3:30 PM)"
+    )
+    public boolean hour24time = false;
     
     // Main Menu
 
