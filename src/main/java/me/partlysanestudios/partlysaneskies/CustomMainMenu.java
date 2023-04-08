@@ -22,8 +22,12 @@ import java.awt.Color;
 import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -91,6 +95,9 @@ public class CustomMainMenu extends WindowScreen {
     private UIComponent optionsText;
     private UIComponent pssOptionsText;
     private UIComponent quitText;
+    private UIComponent timeText;
+
+    private String timeString;
 
     private static ArrayList<Announcement> announcements;
     private static String latestVersion;
@@ -379,6 +386,14 @@ public class CustomMainMenu extends WindowScreen {
         quitButton.onMouseLeaveRunnable(() -> {
             quitText.setColor(new Color(255, 255, 255));
         });
+
+        timeText = new UIText()
+            .setX(new CenterConstraint())
+            .setY(new PixelConstraint(middleMenu.getHeight() - 10 * scaleFactor))
+            .setHeight(new PixelConstraint(middleMenu.getWidth()))
+            .setColor(Color.white)
+            .setTextScale(new PixelConstraint(.5f * scaleFactor))
+            .setChildOf(middleMenu);
     }
 
     public void resizeGui(float scaleFactor) {
@@ -477,6 +492,12 @@ public class CustomMainMenu extends WindowScreen {
 
         quitText
                 .setTextScale(new PixelConstraint(1 * scaleFactor));
+
+        timeText
+                .setX(new CenterConstraint())
+                .setY(new PixelConstraint(middleMenu.getHeight() - 10 * scaleFactor))
+                .setTextScale(new PixelConstraint(.5f * scaleFactor))
+                .setHeight(new PixelConstraint(middleMenu.getWidth()));
     }
 
     public static void setMainMenuInfo(String responseString) {
@@ -648,5 +669,21 @@ public class CustomMainMenu extends WindowScreen {
                 .setY(new PixelConstraint(160 * scaleFactor + 145 * (postNum) * scaleFactor))
                 .setWidth(new PixelConstraint(250 * scaleFactor));
         }
+    }
+
+    @Override
+    public void onDrawScreen(gg.essential.universal.UMatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+        super.onDrawScreen(matrixStack, mouseX, mouseY, partialTicks);
+
+        ZoneId userZoneId = ZoneId.systemDefault();
+        
+        LocalDateTime currentTime = LocalDateTime.now(userZoneId);
+        timeString = currentTime.format(DateTimeFormatter.ofPattern("hh:mm:ss a  dd MMMM yyyy", Locale.ENGLISH));
+        if (PartlySaneSkies.config.hour24time) {
+            timeString = currentTime.format(DateTimeFormatter.ofPattern("HH:mm:ss dd MMMM yyyy", Locale.ENGLISH));
+        }
+        
+
+        ((UIText) timeText).setText(timeString);
     }
 }

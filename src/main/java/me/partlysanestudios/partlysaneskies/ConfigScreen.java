@@ -66,6 +66,17 @@ public class ConfigScreen extends Vigilant {
     )
     public int decimalPlaceFormat = 1;
 
+    @Property(
+        type = PropertyType.SWITCH,
+        category = "General",
+        subcategory = "Appearance",
+        name = "24 hour time",
+        description = "Display time in 24-hour hour time (15:30) instead of 12 hour time (3:30 PM)"
+    )
+    public boolean hour24time = false;
+    
+    // Main Menu
+
     // Main Menu
     @Property(
         type = PropertyType.SWITCH, 

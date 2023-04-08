@@ -104,3 +104,13 @@ public class WikiArticleOpener {
         WikiArticleOpener.getArticle(Utils.getItemId(item));
     }
 }
+
+
+
+
+
+/*
+ * Ca_mo is in the mod now ig
+ * https://media.discordapp.net/attachments/1082885746400178286/1093721027273556098/image.png
+ * Ca_mo will now be in everyone's Partly Sane Skies
+ */
