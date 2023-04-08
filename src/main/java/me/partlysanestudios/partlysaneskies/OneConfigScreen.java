@@ -40,6 +40,17 @@ public class OneConfigScreen extends Config {
         initialize();
     }
 
+    public void resetBrokenStrings() {
+        if (arrowLowChatMessage.isEmpty()) {
+            arrowLowChatMessage = "Partly Sane Skies > Warning! {player} only has {count} arrows remaining!";
+            save();
+        }
+        if (watcherChatMessage.isEmpty()) {
+            watcherChatMessage = "Partly Sane Skies > The watcher is done spawning mobs. Ready to clear";
+            save();
+        }
+    }
+
     @Info(
         type = InfoType.INFO,
         text = "Hover over an option to see a description and more information."
