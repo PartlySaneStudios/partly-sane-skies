@@ -273,7 +273,6 @@ public class PartlySaneSkies {
         PetAlert.runPetAlert();
 
         EndOfFarmNotfier.run();
-        config.resetBrokenStrings();
     }
 
     // Runs when the chat message starts with "Your new API key is "
