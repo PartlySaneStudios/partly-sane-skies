@@ -20,8 +20,6 @@ package me.partlysanestudios.partlysaneskies;
 
 import java.awt.Color;
 import java.io.File;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -96,6 +94,7 @@ public class CustomMainMenu extends WindowScreen {
     private UIComponent pssOptionsText;
     private UIComponent quitText;
     private UIComponent timeText;
+    private UIComponent discordText;
 
     private String timeString;
 
@@ -198,21 +197,7 @@ public class CustomMainMenu extends WindowScreen {
                 .setChildOf(middleMenu);
             
             updateWarning.onMouseClickConsumer(event -> {
-                URI uri;
-                try {
-                    uri = new URI("https://github.com/PartlySaneStudios/partly-sane-skies/releases");
-                    try {
-                        Class<?> oclass = Class.forName("java.awt.Desktop");
-                        Object object = oclass.getMethod("getDesktop", new Class[0]).invoke((Object) null, new Object[0]);
-                        oclass.getMethod("browse", new Class[] { URI.class }).invoke(object, new Object[] { uri });
-                    } catch (Throwable throwable) {
-                        Utils.sendClientMessage("Couldn\'t open link");
-                        throwable.printStackTrace();
-                    }
-                } catch (URISyntaxException except) {
-                    Utils.sendClientMessage("Couldn\'t open link");
-                    except.printStackTrace();
-                }
+                Utils.openLink("https://github.com/PartlySaneStudios/partly-sane-skies/releases");
             });
         }
 
@@ -390,10 +375,20 @@ public class CustomMainMenu extends WindowScreen {
         timeText = new UIText()
             .setX(new CenterConstraint())
             .setY(new PixelConstraint(middleMenu.getHeight() - 10 * scaleFactor))
-            .setHeight(new PixelConstraint(middleMenu.getWidth()))
             .setColor(Color.white)
             .setTextScale(new PixelConstraint(.5f * scaleFactor))
             .setChildOf(middleMenu);
+        
+        discordText = new UIText("Discord: discord.gg/" + PartlySaneSkies.discordCode)
+            .setX(new PixelConstraint(10 * scaleFactor))
+            .setY(new PixelConstraint(background.getHeight() - 20 * scaleFactor))
+            .setTextScale(new PixelConstraint(1 * scaleFactor))
+            .setColor(new Color(69, 79, 191))
+            .setChildOf(background);
+
+        discordText.onMouseClickConsumer(event -> {
+            Utils.openLink("https://discord.gg/" + PartlySaneSkies.discordCode);
+        });
     }
 
     public void resizeGui(float scaleFactor) {
@@ -498,6 +493,11 @@ public class CustomMainMenu extends WindowScreen {
                 .setY(new PixelConstraint(middleMenu.getHeight() - 10 * scaleFactor))
                 .setTextScale(new PixelConstraint(.5f * scaleFactor))
                 .setHeight(new PixelConstraint(middleMenu.getWidth()));
+
+        discordText
+                .setX(new PixelConstraint(10 * scaleFactor))
+                .setY(new PixelConstraint(background.getHeight() - 20 * scaleFactor))
+                .setTextScale(new PixelConstraint(1 * scaleFactor));
     }
 
     public static void setMainMenuInfo(String responseString) {
@@ -532,7 +532,7 @@ public class CustomMainMenu extends WindowScreen {
         } catch (NullPointerException | IllegalStateException e) {
             e.printStackTrace();
         }
-
+            
         try {
             JsonObject modInfo = object.getAsJsonObject("mod_info");
 
@@ -542,6 +542,18 @@ public class CustomMainMenu extends WindowScreen {
 
         } catch (NullPointerException | IllegalStateException e) {
             CustomMainMenu.latestVersion = "(Unknown)";
+            e.printStackTrace();
+            // CustomMainMenu.latestVersionDate = "(Unknown)";
+            // CustomMainMenu.latestVersionDescription = "";
+        }
+
+        try {
+            JsonObject modInfo = object.getAsJsonObject("mod_info");
+
+            PartlySaneSkies.discordCode = modInfo.get("discord_invite_code").getAsString();
+        } catch (NullPointerException | IllegalStateException e) {
+            PartlySaneSkies.discordCode = "v4PU3WeH7z";
+            e.printStackTrace();
             // CustomMainMenu.latestVersionDate = "(Unknown)";
             // CustomMainMenu.latestVersionDescription = "";
         }
@@ -600,21 +612,7 @@ public class CustomMainMenu extends WindowScreen {
             this.titleComponent = text;
 
             text.onMouseClickConsumer(event -> {
-                URI uri;
-                try {
-                    uri = new URI(link);
-                    try {
-                        Class<?> oclass = Class.forName("java.awt.Desktop");
-                        Object object = oclass.getMethod("getDesktop", new Class[0]).invoke((Object) null, new Object[0]);
-                        oclass.getMethod("browse", new Class[] { URI.class }).invoke(object, new Object[] { uri });
-                    } catch (Throwable throwable) {
-                        Utils.sendClientMessage("Couldn\'t open link");
-                        throwable.printStackTrace();
-                    }
-                } catch (URISyntaxException except) {
-                    Utils.sendClientMessage("Couldn\'t open link");
-                    except.printStackTrace();
-                }
+                Utils.openLink(link);
             });
             return (UIWrappedText) text;
         }
@@ -629,21 +627,7 @@ public class CustomMainMenu extends WindowScreen {
             this.descriptionComponent = text;
 
             text.onMouseClickConsumer(event -> {
-                URI uri;
-                try {
-                    uri = new URI(link);
-                    try {
-                        Class<?> oclass = Class.forName("java.awt.Desktop");
-                        Object object = oclass.getMethod("getDesktop", new Class[0]).invoke((Object) null, new Object[0]);
-                        oclass.getMethod("browse", new Class[] { URI.class }).invoke(object, new Object[] { uri });
-                    } catch (Throwable throwable) {
-                        Utils.sendClientMessage("Couldn\'t open link");
-                        throwable.printStackTrace();
-                    }
-                } catch (URISyntaxException except) {
-                    Utils.sendClientMessage("Couldn\'t open link");
-                    except.printStackTrace();
-                }
+                Utils.openLink(link);
             });
             return (UIWrappedText) text;
         }
