@@ -29,6 +29,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -315,9 +317,24 @@ public class Utils {
             exception.printStackTrace();
             return UIImage.ofResource("/assets/partlysaneskies/textures/null_texture.png");
         }
-        
-        
+    }
 
-        
+    // Opens a link with a given URL
+    public static void openLink(String url) {
+        URI uri;
+        try {
+            uri = new URI(url);
+            try {
+                Class<?> oclass = Class.forName("java.awt.Desktop");
+                Object object = oclass.getMethod("getDesktop", new Class[0]).invoke((Object) null, new Object[0]);
+                oclass.getMethod("browse", new Class[] { URI.class }).invoke(object, new Object[] { uri });
+            } catch (Throwable throwable) {
+                Utils.sendClientMessage("Couldn\'t open link");
+                throwable.printStackTrace();
+            }
+        } catch (URISyntaxException except) {
+            Utils.sendClientMessage("Couldn\'t open link");
+            except.printStackTrace();
+        }
     }
 }
