@@ -550,7 +550,7 @@ public class AhGui extends WindowScreen {
                     .setY(new CenterConstraint())
                     .setWidth(new PixelConstraint(box.getComponent().getWidth() * 1.1f))
                     .setHeight(new PixelConstraint(box.getComponent().getHeight() * 1.1f))
-                    .setColor(PartlySaneSkies.config.BINSniperColor.toJavaColor());
+                    .setColor(PartlySaneSkies.config.BINSniperColor);
                 box.insertComponenetBeforeBackground(highlightBox);
                 // box.setBackgroundVisibility(false);
             }

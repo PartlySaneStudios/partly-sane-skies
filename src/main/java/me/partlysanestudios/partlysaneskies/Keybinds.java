@@ -99,7 +99,7 @@ public final class Keybinds {
         //     PartlySaneSkies.debugMode();
         // }
         if (configKey.isPressed()) {
-            PartlySaneSkies.config.openGui();
+            PartlySaneSkies.minecraft.displayGuiScreen(PartlySaneSkies.config.gui());
         }
         if (partyManagerKey.isPressed()) {
             PartyManager.startPartyManager();

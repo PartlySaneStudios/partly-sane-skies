@@ -60,7 +60,7 @@ public class HelpCommand implements ICommand {
         if (args.length > 0 && configAliases.contains(args[0].toLowerCase())) {
             Utils.sendClientMessage("Opening config GUI...");
             Window.Companion.enqueueRenderOperation(() -> {
-                PartlySaneSkies.config.openGui();
+                PartlySaneSkies.minecraft.displayGuiScreen(PartlySaneSkies.config.gui());
             });
             return;
         }

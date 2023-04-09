@@ -16,39 +16,22 @@
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-
 package me.partlysanestudios.partlysaneskies;
 
-import cc.polyfrost.oneconfig.config.Config;
-import cc.polyfrost.oneconfig.config.annotations.Color;
-import cc.polyfrost.oneconfig.config.annotations.Dropdown;
-import cc.polyfrost.oneconfig.config.annotations.Info;
-import cc.polyfrost.oneconfig.config.annotations.Number;
-import cc.polyfrost.oneconfig.config.annotations.Slider;
-import cc.polyfrost.oneconfig.config.annotations.Switch;
-import cc.polyfrost.oneconfig.config.annotations.Text;
-import cc.polyfrost.oneconfig.config.core.OneColor;
-import cc.polyfrost.oneconfig.config.data.InfoType;
-import cc.polyfrost.oneconfig.config.data.Mod;
-import cc.polyfrost.oneconfig.config.data.ModType;
+import java.awt.Color;
+import java.io.File;
 
-public class OneConfigScreen extends Config {
+import gg.essential.vigilance.Vigilant;
+import gg.essential.vigilance.data.Property;
+import gg.essential.vigilance.data.PropertyType;
 
-    public OneConfigScreen() {
-        // Available mod types: PVP, HUD, UTIL_QOL, HYPIXEL, SKYBLOCK
-        super(new Mod("Partly Sane Skies", ModType.SKYBLOCK), "partly-sane-skies/config.json");
-        initialize();
-    }
+public class ConfigScreen extends Vigilant {
 
-    @Info(
-        type = InfoType.INFO,
-        text = "Hover over an option to see a description and more information."
-
-    )
-    public static boolean ignored;
-
-    @Text(
-        secure = true, 
+    // --------------Category: General------------
+    // API
+    @Property(
+        type = PropertyType.TEXT, 
+        protectedText = true, 
         name = "API Key", 
         category = "General", 
         subcategory = "API", 
@@ -56,17 +39,8 @@ public class OneConfigScreen extends Config {
     )
     public String apiKey = "";
 
-    @Number(
-        min = .1f,
-        max = 30f,
-        name = "Time between requests",
-        category = "General",
-        subcategory = "API",
-        description = "The time between API calls. Only change if you know what you're doing. Changing this will reduce the amount of time API requests take, however may result in more errors"
-    )
-    public float timeBetweenRequests = .75f;
-
-    @Dropdown(
+    @Property(
+        type = PropertyType.SELECTOR, 
         options = {
             "Commas (1,000,000)",
             "Spaces (1 000 000)",
@@ -79,7 +53,8 @@ public class OneConfigScreen extends Config {
     )
     public int hundredsPlaceFormat = 1;
 
-    @Dropdown(
+    @Property(
+        type = PropertyType.SELECTOR, 
         options = {
             "Commas (1,52)",
             "Periods (1.52)",
@@ -90,17 +65,29 @@ public class OneConfigScreen extends Config {
         description = "The character to represent decimal places."
     )
     public int decimalPlaceFormat = 1;
+
+    @Property(
+        type = PropertyType.SWITCH,
+        category = "General",
+        subcategory = "Appearance",
+        name = "24 hour time",
+        description = "Display time in 24-hour hour time (15:30) instead of 12 hour time (3:30 PM)"
+    )
+    public boolean hour24time = false;
     
     // Main Menu
 
-    @Switch(
+    // Main Menu
+    @Property(
+        type = PropertyType.SWITCH, 
         category = "General", 
         subcategory = "Main Menu", 
         name = "Show a Custom Minecraft Main Menu"
     )
     public boolean customMainMenu = true;
 
-    @Switch(
+    @Property(
+        type = PropertyType.SWITCH, 
         category = "General", 
         subcategory = "Main Menu", 
         name = "Announcements on Main Menu",
@@ -108,7 +95,8 @@ public class OneConfigScreen extends Config {
     )
     public boolean displayAnnouncementsCustomMainMenu = true;
 
-    @Dropdown(
+    @Property(
+        type = PropertyType.SELECTOR, 
         options = {
             "Random Image",
             "View of Main Hub Mountain",
@@ -126,7 +114,8 @@ public class OneConfigScreen extends Config {
     )
     public int customMainMenuImage = 1;
 
-    @Switch(
+    @Property(
+        type = PropertyType.SWITCH,
         name = "Color Private Messages", 
         category = "General", 
         subcategory = "Chat Color", 
@@ -134,7 +123,8 @@ public class OneConfigScreen extends Config {
     )
     public boolean colorPrivateMessages = false;
 
-    @Switch(
+    @Property(
+        type = PropertyType.SWITCH,
         name = "Color Nons Messages", 
         category = "General", 
         subcategory = "Chat Color", 
@@ -142,7 +132,8 @@ public class OneConfigScreen extends Config {
     )
     public boolean colorNonMessages = false;
 
-    @Switch(
+    @Property(
+        type = PropertyType.SWITCH,
         name = "Color Party Chat", 
         category = "General", 
         subcategory = "Chat Color", 
@@ -150,7 +141,8 @@ public class OneConfigScreen extends Config {
     )
     public boolean colorPartyChat = false;
 
-    @Switch(
+    @Property(
+        type = PropertyType.SWITCH,
         name = "Color Guild Chat", 
         category = "General", 
         subcategory = "Chat Color", 
@@ -158,7 +150,8 @@ public class OneConfigScreen extends Config {
     )
     public boolean colorGuildChat = false;
 
-    @Switch(
+    @Property(
+        type = PropertyType.SWITCH,
         name = "Color Guild Officer Chat", 
         category = "General", 
         subcategory = "Chat Color", 
@@ -166,7 +159,8 @@ public class OneConfigScreen extends Config {
     )
     public boolean colorOfficerChat = false;
 
-    @Switch(
+    @Property(
+        type = PropertyType.SWITCH,
         name = "Skyblock Co-op Chat", 
         category = "General", 
         subcategory = "Chat Color", 
@@ -174,7 +168,8 @@ public class OneConfigScreen extends Config {
     )
     public boolean colorCoopChat = false;
 
-    @Switch(
+    @Property(
+        type = PropertyType.SWITCH,
         name = "Visable Colors", 
         category = "General", 
         subcategory = "Chat Color", 
@@ -182,7 +177,8 @@ public class OneConfigScreen extends Config {
     )
     public boolean visableColors = false;
 
-    @Switch(
+    @Property(
+        type = PropertyType.SWITCH,
         name = "Print errors in chat",
         category = "General",
         subcategory = "API",
@@ -191,9 +187,21 @@ public class OneConfigScreen extends Config {
     )
     public boolean printApiErrors = true;
 
+    @Property(
+        type = PropertyType.DECIMAL_SLIDER,
+        minF = 0.1f,
+        maxF = 25f,
+        name = "Time Between Requests",
+        category = "General",
+        subcategory = "API",
+        description = "The time between API calls. Only change if you know what you're doing. Changing this will reduce the amount of time API requests take, however may result in more errors"
+    )
+    public float timeBetweenRequests = .75f;
+
     // ----------------- Category: Skyblock -------------------
     // Rare Drop
-    @Switch( 
+    @Property(
+        type = PropertyType.SWITCH, 
         name = "Rare Drop Banner", 
         subcategory = "Rare Drop", 
         description = "On rare drop, get a Pumpkin Dicer like banner.", 
@@ -201,10 +209,10 @@ public class OneConfigScreen extends Config {
     )
     public boolean rareDropBanner = false;
 
-
-    @Slider(
-        min = 1, 
-        max = 7, 
+    @Property(
+        type = PropertyType.DECIMAL_SLIDER, 
+        minF = 1, 
+        maxF = 7, 
         subcategory = "Rare Drop", 
         name = "Rare Drop Banner Time", 
         description = "The amount of seconds the rare drop banner appears for.", 
@@ -212,7 +220,8 @@ public class OneConfigScreen extends Config {
     )
     public float rareDropBannerTime = 3.5f;
 
-    @Switch(
+    @Property(
+        type = PropertyType.SWITCH, 
         name = "Custom Rare Drop Sound", 
         subcategory = "Rare Drop", 
         description = "Plays a custom sound when you get a rare drop.", 
@@ -221,7 +230,8 @@ public class OneConfigScreen extends Config {
     public boolean rareDropBannerSound = false;
 
     // Location Banner
-    @Switch( 
+    @Property(
+        type = PropertyType.SWITCH, 
         name = "Location Banner", 
         subcategory = "Location Banner", 
         description = "An MMO RPG style banner shows up when you switch locations.", 
@@ -229,9 +239,10 @@ public class OneConfigScreen extends Config {
     )
     public boolean locationBannerDisplay = false;
 
-    @Slider(
-        min = 1, 
-        max = 7, 
+    @Property(
+        type = PropertyType.DECIMAL_SLIDER, 
+        minF = 1, 
+        maxF = 7, 
         subcategory = "Location Banner", 
         name = "Location Banner Time", 
         description = "The amount of seconds the location banner appears for.", 
@@ -240,16 +251,18 @@ public class OneConfigScreen extends Config {
     public float locationBannerTime = 3.5f;
 
     // Open Wiki
-    @Switch( 
+    @Property(
+        type = PropertyType.SWITCH, 
         name = "Open Wiki Automatically", 
         category = "Skyblock", 
         description = "When the Open Wiki Article KeyBINd is used, automatically open the article without confirmation first.", 
         subcategory = "Open Wiki"
     )
     public boolean openWikiAutomatically = true;
-
+   
     // Pet Minion Alert
-    @Switch(
+    @Property(
+        type = PropertyType.SWITCH, 
         name = "Incorrect Pet for Minion Alert", 
         category = "Skyblock", 
         description = "Warns you if you don't have the right pet for leveling up the minions, that way you never lose any pet EXP because you still have your level 100 dungeon pet activated.\nRequires pets to be visable.", 
@@ -257,7 +270,8 @@ public class OneConfigScreen extends Config {
     )
     public boolean incorrectPetForMinionAlert = false;
 
-    @Switch(
+    @Property(
+        type = PropertyType.SWITCH, 
         name = "Incorrect Pet for Minion Alert", 
         category = "Skyblock", 
         description = "Plays a WWII air raid siren when you have the wrong pet. \nPros: \nKeeps you up at late night grinds \n(RECOMMENDED, ESPECIALLY AT 3 AM).", 
@@ -265,18 +279,20 @@ public class OneConfigScreen extends Config {
     )
     public boolean incorrectPetForMinionAlertSiren = false;
 
-    @Text(
+    @Property(
+        type = PropertyType.TEXT,
         category = "Skyblock",
         subcategory = "Incorrect Pet for Minion Alert",
         name = "Selected Pet",
         description = "The selected pet that will be used for minion collecting (Use /pets and click the pet keybind to select",
-        secure =  true
+        protectedText =  true
     )
     public String selectectedPet = "";
 
-    @Slider(
-        min = 1, 
-        max = 15, 
+    @Property(
+        type = PropertyType.DECIMAL_SLIDER, 
+        minF = 1, 
+        maxF = 15, 
         subcategory = "Incorrect Pet for Minion Alert", 
         name = "Mute Time", 
         description = "The amount of minutes the pet alert will mute for when you mute it.", 
@@ -284,7 +300,8 @@ public class OneConfigScreen extends Config {
     )
     public float petAlertMuteTime = 7.5f;
 
-    @Dropdown(
+    @Property(
+        type = PropertyType.SELECTOR,
         category = "Skyblock",
         subcategory = "Enhanced Skyblock Sounds",
         name = "Note Block Instrument Type",
@@ -307,7 +324,8 @@ public class OneConfigScreen extends Config {
     )
     public int customSoundOption = 0;
 
-    @Dropdown(
+    @Property(
+        type = PropertyType.SELECTOR,
         category = "Skyblock",
         subcategory = "Enhanced Skyblock Sounds",
         name = "Explosions",
@@ -319,9 +337,11 @@ public class OneConfigScreen extends Config {
     )
     public int customExplosion = 0;
 
+
     // -------------- Category: Mining --------------
     // Worm Warning
-    @Switch(
+    @Property(
+        type = PropertyType.SWITCH, 
         name = "Worm Warning Banner", 
         subcategory = "Worm Warning", 
         description = "A banner appears on your screen when a worm spawns.", 
@@ -329,17 +349,19 @@ public class OneConfigScreen extends Config {
     )
     public boolean wormWarningBanner = false;
 
-    @Color(
+    @Property(
+        type = PropertyType.COLOR, 
         subcategory = "Worm Warning", 
         name = "Worm Warning Banner Color", 
         description = "The color of the worm warning text", 
         category = "Mining"
     )
-    public OneColor wormWarningBannerColor = new OneColor(34, 255, 0);
+    public Color wormWarningBannerColor = new Color(34, 255, 0);
 
-    @Slider(
-        min = 1, 
-        max = 7, 
+    @Property(
+        type = PropertyType.DECIMAL_SLIDER, 
+        minF = 1, 
+        maxF = 7, 
         subcategory = "Worm Warning", 
         name = "Worm Warning Banner Time", 
         description = "The amount of seconds the worm warning banner appears for.", 
@@ -347,7 +369,8 @@ public class OneConfigScreen extends Config {
     )
     public float wormWarningBannerTime = 3.5f;
 
-    @Switch(
+    @Property(
+        type = PropertyType.SWITCH, 
         name = "Worm Warning Sound", 
         subcategory = "Worm Warning", 
         description = "Plays a sound when a worm spawns.", 
@@ -355,9 +378,12 @@ public class OneConfigScreen extends Config {
     )
     public boolean wormWarningBannerSound = false;
 
+
+
     // ------------- Category: Dungeons ---------------------------------
     // Party Manager
-    @Switch(
+    @Property(
+        type = PropertyType.SWITCH, 
         name = "Automatically kick offline on party manager load", 
         subcategory = "Party Manager", 
         description = "Automatically kicks offline members in your party when you open party manager.", 
@@ -365,7 +391,9 @@ public class OneConfigScreen extends Config {
     )
     public boolean autoKickOfflinePartyManager = false;
 
-    @Switch(
+
+    @Property(
+        type = PropertyType.SWITCH, 
         name = "Warn Low Arrows in Chat", 
         subcategory = "Party Manager", 
         description = "Warns you party when a member has low arrows.", 
@@ -373,7 +401,9 @@ public class OneConfigScreen extends Config {
     )
     public boolean warnLowArrowsInChat = false;
 
-    @Text(
+
+    @Property(
+        type = PropertyType.TEXT, 
         subcategory = "Party Manager", 
         name = "Arrow Low Warning", 
         description = "Message to send when a player has low arrows.\nUse {player} to signify the player's username, and {count} to signfy the remaining arrow count.", 
@@ -381,17 +411,21 @@ public class OneConfigScreen extends Config {
     )
     public String arrowLowChatMessage = "Partly Sane Skies > Warning! {player} only has {count} arrows remaining!";
 
-    @Number(
+
+    @Property(
+        type = PropertyType.SLIDER, 
         name = "Arrow Low Count", 
-        min = 0,
-        max = 1000,
+        min = 10, 
+        max = 500, 
         subcategory = "Party Manager", 
         description = "The amount of arrows you must have to be considered low on arrows.", 
         category = "Dungeons"
     )
     public int arrowLowCount = 300;
 
-    @Switch(
+
+    @Property(
+        type = PropertyType.SWITCH,
         name = "Print errors in chat",
         category = "Dungeons",
         subcategory = "Party Manager",
@@ -400,7 +434,9 @@ public class OneConfigScreen extends Config {
     )
     public boolean printPartyManagerApiErrors = true;
 
-    @Switch(
+
+    @Property(
+        type = PropertyType.SWITCH, 
         name = "Get data on party join", 
         subcategory = "Party Manager", 
         description = "Automatically gets the data for party members someone joins the party. This saves time and reduces the chance of the data not being able to be accessed.", 
@@ -408,7 +444,9 @@ public class OneConfigScreen extends Config {
     )
     public boolean getDataOnJoin = true;
 
-    @Slider(
+
+    @Property(
+        type = PropertyType.SLIDER, 
         name = "Party Manager Cache Time", 
         min = 0, 
         max = 90, 
@@ -419,7 +457,8 @@ public class OneConfigScreen extends Config {
     public int partyManagerCacheTime = 30;
 
     // Watcher Ready Warning
-    @Switch(
+    @Property(
+        type = PropertyType.SWITCH, 
         name = "Watcher Ready Warning", 
         subcategory = "Watcher Ready", 
         description = "Sends a warning when the watcher is done spawning mobs.", 
@@ -427,7 +466,8 @@ public class OneConfigScreen extends Config {
     )
     public boolean watcherReadyBanner = false;
 
-    @Switch(
+    @Property(
+        type = PropertyType.SWITCH, 
         name = "Watcher Ready Sound", 
         subcategory = "Watcher Ready", 
         description = "Plays a sound when the watcher is done spawning mobs.", 
@@ -435,9 +475,10 @@ public class OneConfigScreen extends Config {
     )
     public boolean watcherReadySound = false;
 
-    @Slider(
-        min = 1, 
-        max = 7, 
+    @Property(
+        type = PropertyType.DECIMAL_SLIDER, 
+        minF = 1, 
+        maxF = 7, 
         subcategory = "Watcher Ready", 
         name = "Watcher Ready Banner Time", 
         description = "The amount of seconds the watcher ready banner appears for.", 
@@ -445,15 +486,17 @@ public class OneConfigScreen extends Config {
     )
     public float watcherReadyBannerTime = 3.5f;
 
-    @Color(
+    @Property(
+        type = PropertyType.COLOR, 
         subcategory = "Watcher Ready", 
         name = "Watcher Ready Banner Color", 
         description = "The color of the watcher ready text", 
         category = "Dungeons"
     )
-    public OneColor watcherReadyBannerColor = new OneColor(255, 45, 6);
+    public Color watcherReadyBannerColor = new Color(255, 45, 6);
 
-    @Switch(
+    @Property(
+        type = PropertyType.SWITCH, 
         name = "Watcher Ready Chat Message", 
         subcategory = "Watcher Ready", 
         description = "Send a message to your party when watcher is done spawning mobs.", 
@@ -461,8 +504,8 @@ public class OneConfigScreen extends Config {
     )
     public boolean watcherReadyChatMessage = false;
 
-
-    @Text(
+    @Property(
+        type = PropertyType.TEXT, 
         subcategory = "Watcher Ready", 
         name = "Watcher Ready Text", 
         description = "Message to send when the watcher is ready to clear.", 
@@ -470,7 +513,8 @@ public class OneConfigScreen extends Config {
     )
     public String watcherChatMessage = "Partly Sane Skies > The watcher is done spawning mobs. Ready to clear";
 
-    @Switch(
+    @Property(
+        type = PropertyType.SWITCH, 
         subcategory = "Watcher Ready", 
         name = "Watcher Ready Air Raid Siren", 
         description = "Plays a WWII air raid siren when the watcher is done spawning mobs. \nPros: \nKeeps you up at late night grinds \n(RECOMMENDED, ESPECIALLY AT 3 AM)", 
@@ -478,7 +522,8 @@ public class OneConfigScreen extends Config {
     )
     public boolean watcherReadyAirRaidSiren = false;
 
-    @Switch(
+    @Property(
+        type = PropertyType.SWITCH, 
         subcategory = "Dungeon Player Breakdown", 
         name = "Dungeon Player Breakdown", 
         description = "At the end of the dungeon, send a message informing you how much of the dungeon each player has completed", 
@@ -486,7 +531,8 @@ public class OneConfigScreen extends Config {
     )
     public boolean dungeonPlayerBreakdown = false;
 
-    @Dropdown(
+    @Property(
+        type = PropertyType.SELECTOR, 
         subcategory = "Dungeon Player Breakdown", 
         name = "Message Content", 
         description = "Shows more information about how many blessings and secrets each player collected", 
@@ -499,7 +545,8 @@ public class OneConfigScreen extends Config {
     )
     public int enhancedDungeonPlayerBreakdown = 1;
 
-    @Switch(
+    @Property(
+        type = PropertyType.SWITCH, 
         subcategory = "Dungeon Player Breakdown", 
         name = "Send in Party Chat", 
         description = "Send a condensed version to the rest of you party.", 
@@ -507,17 +554,20 @@ public class OneConfigScreen extends Config {
     )
     public boolean partyChatDungeonPlayerBreakdown = false;
 
+
     // ------------- Category: Economy ---------------------------------
     // Garden
-    @Switch(
+    @Property(
+        type = PropertyType.SWITCH, 
         subcategory = "Garden", 
         name = "Garden Shop Trade Cost", 
         description = "Gives you information about the cost of garden shop trades.", 
         category = "Economy"
     )
     public boolean gardenShopTradeInfo = false;
-    
-    @Switch(
+
+    @Property(
+        type = PropertyType.SWITCH, 
         subcategory = "Garden", 
         name = "Best Crops to Compost", 
         description = "Gives you information about which crops are the best to compost.", 
@@ -525,7 +575,8 @@ public class OneConfigScreen extends Config {
     )
     public boolean bestCropsToCompost = false;
 
-    @Switch(
+    @Property(
+        type = PropertyType.SWITCH, 
         subcategory = "Community Center", 
         name = "Best Item for Bits", 
         description = "Gives you information about bits shop item is the best to sell.", 
@@ -533,7 +584,8 @@ public class OneConfigScreen extends Config {
     )
     public boolean bestBitShopItem = false;
 
-    @Switch(
+    @Property(
+        type = PropertyType.SWITCH, 
         subcategory = "Community Center", 
             name = "Only Show Affordable Items", 
         description = "When making recommendations for what you can buy, only recommend the items that you are able to afford.", 
@@ -541,8 +593,10 @@ public class OneConfigScreen extends Config {
     )
     public boolean bitShopOnlyShowAffordable = true;
 
+
      // Auction House
-     @Switch(
+     @Property(
+        type = PropertyType.SWITCH, 
         name = "Custom Auction House GUI", 
         category = "Economy", 
         subcategory = "Auction House", 
@@ -550,8 +604,8 @@ public class OneConfigScreen extends Config {
     )
     public boolean customAhGui = true;
 
-    @Dropdown(
-
+    @Property(
+        type = PropertyType.SELECTOR,
         name = "Custom Auction House GUI Icons",
         category = "Economy",
         options = {
@@ -563,25 +617,29 @@ public class OneConfigScreen extends Config {
     )
     public int customAhGuiTextures = 0;
 
-    @Slider( 
-        min = 0, 
-        max = 100, 
+    @Property(
+        type = PropertyType.PERCENT_SLIDER, 
+        minF = 0, 
+        maxF = 1, 
         category = "Economy", 
         subcategory = "Auction House", 
         name = "BIN Snipe Percentage", 
         description = "The percent of the price that the BIN sniper considers a \"snipe\". Example: 85%, Lowest BIN: 1 000 000, will look for a price of 850000 or less."
     )
-    public float BINSniperPercent = 87f;
+    public float BINSniperPercent = .87f;
 
-    @Color(
+
+    @Property(
+        type = PropertyType.COLOR,
         name = "Bin Sniper Highlight Color",
         description = "Pick a color to highlight your BIN snipes",
         subcategory = "Auction House",
         category = "Economy"
     )
-    public OneColor BINSniperColor = new OneColor(PartlySaneSkies.ACCENT_COLOR);
+    public Color BINSniperColor = PartlySaneSkies.ACCENT_COLOR;
     // Execessive Coin warning
-    @Switch(
+    @Property(
+        type = PropertyType.SWITCH, 
         name = "Excessive Coin and No Booster Cookie", 
         category = "Economy", 
         description = "Warns you if you have a lot of coins in your purse and no booster cookie.", 
@@ -589,19 +647,22 @@ public class OneConfigScreen extends Config {
     )
     public boolean noCookieWarning = false;
 
-    @Number(
+    @Property(
+        type = PropertyType.NUMBER, 
         min = 0, 
         max = Integer.MAX_VALUE, 
         name = "Maximum Allowed Amount Without Booster Cookie", 
         category = "Economy", 
         description = "The maximum allowed amount of money allowed before it warns you about having no booster cookie.", 
-        subcategory = "Excessive Coin Warning"
+        subcategory = "Excessive Coin Warning", 
+        increment = 25000
     )
     public int maxWithoutCookie = 750000;
 
-    @Slider(
-        min = 1, 
-        max = 7, 
+    @Property(
+        type = PropertyType.DECIMAL_SLIDER, 
+        minF = 1, 
+        maxF = 7, 
         subcategory = "Excessive Coin Warning", 
         name = "Excessive Coin Warning Time", 
         description = "The amount of seconds the warning appears for appears for.", 
@@ -609,7 +670,8 @@ public class OneConfigScreen extends Config {
     )
     public float noCookieWarnTime = 3.5f;
 
-    @Slider(
+    @Property(
+        type = PropertyType.SLIDER, 
         min = 1, 
         max = 300, 
         subcategory = "Excessive Coin Warning", 
@@ -617,7 +679,11 @@ public class OneConfigScreen extends Config {
         description = "The amount of seconds between each warning", 
         category = "Economy"
     )
+
+    
     public int noCookieWarnCooldown = 20;
-
-
+    public ConfigScreen() {
+        super(new File("./config/partly-sane-skies/pss.toml"));
+        this.initialize();
+    }
 }

@@ -18,9 +18,6 @@
 
 package me.partlysanestudios.partlysaneskies;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-
 import me.partlysanestudios.partlysaneskies.auctionhouse.AhGui;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
@@ -59,21 +56,7 @@ public class WikiArticleOpener {
         isWaitingForArticle = false;
         String wikiLink = e.message.getChatStyle().getChatClickEvent().getValue();
         if (PartlySaneSkies.config.openWikiAutomatically) {
-            URI uri;
-            try {
-                uri = new URI(wikiLink);
-                try {
-                    Class<?> oclass = Class.forName("java.awt.Desktop");
-                    Object object = oclass.getMethod("getDesktop", new Class[0]).invoke((Object) null, new Object[0]);
-                    oclass.getMethod("browse", new Class[] { URI.class }).invoke(object, new Object[] { uri });
-                } catch (Throwable throwable) {
-                    Utils.sendClientMessage("Couldn\'t open link");
-                    throwable.printStackTrace();
-                }
-            } catch (URISyntaxException except) {
-                Utils.sendClientMessage("Couldn\'t open link");
-                except.printStackTrace();
-            }
+            Utils.openLink(wikiLink);
         }
     }
 
