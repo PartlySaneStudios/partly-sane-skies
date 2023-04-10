@@ -76,7 +76,8 @@ public class ConfigScreen extends Vigilant {
     public boolean hour24time = false;
     
 
-    @Switch(
+    @Property(
+        type = PropertyType.SWITCH,
         category = "General",
         subcategory = "Appearance",
         name = "Legacy Version Warning",
