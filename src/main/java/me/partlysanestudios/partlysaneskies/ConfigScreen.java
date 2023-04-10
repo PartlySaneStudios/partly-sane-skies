@@ -75,6 +75,15 @@ public class ConfigScreen extends Vigilant {
     )
     public boolean hour24time = false;
     
+
+    @Property(
+        type = PropertyType.SWITCH,
+        category = "General",
+        subcategory = "Appearance",
+        name = "Legacy Version Warning",
+        description = "Warns you if you are using an outdated version of Partly Sane Skies"
+    )
+    public boolean legacyVersionWarning = true;
     // Main Menu
 
     // Main Menu
