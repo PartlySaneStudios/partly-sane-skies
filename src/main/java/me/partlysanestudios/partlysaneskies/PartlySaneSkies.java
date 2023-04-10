@@ -77,14 +77,18 @@ import me.partlysanestudios.partlysaneskies.utils.requests.Request;
 import me.partlysanestudios.partlysaneskies.utils.requests.RequestsManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.event.ClickEvent;
+import net.minecraft.event.HoverEvent;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.scoreboard.Score;
 import net.minecraft.scoreboard.ScoreObjective;
 import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.scoreboard.Scoreboard;
+import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -101,7 +105,8 @@ public class PartlySaneSkies {
     public static final String MODID = "partlysaneskies";
     public static final String NAME = "Partly Sane Skies";
     public static final String VERSION = "beta-v0.2";
-    public static final  String CHAT_PREFIX = StringUtils.colorCodes("&r&b&lPartly Sane Skies&r&7>> &r");
+    public static final String CHAT_PREFIX = StringUtils.colorCodes("&r&b&lPartly Sane Skies&r&7>> &r");
+    public static final boolean IS_LEGACY_VERSION = true;
     public static String discordCode = "v4PU3WeH7z";
 
     public static OneConfigScreen config;
@@ -294,6 +299,32 @@ public class PartlySaneSkies {
     public void chatAnalyzer(ClientChatReceivedEvent evnt) {
         if (PartlySaneSkies.isDebugMode)
             System.out.println(evnt.message.getFormattedText());
+    }
+
+    @SubscribeEvent
+    public void world(WorldEvent.Load event) {
+        if (IS_LEGACY_VERSION && config.legacyVersionWarning) {
+            Utils.sendClientMessage("&b--------------------------------------------------", true);
+
+            Utils.sendClientMessage("&cWe have detected you are using the legacy version of Partly Sane Skies.");
+            
+            ChatComponentText skyclientMessage = new ChatComponentText(StringUtils.colorCodes("&aIf you are using Skyclient, click here or run /skyclientupdater and enable beta mode."));
+            skyclientMessage.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/skyclientupdater"));
+            skyclientMessage.getChatStyle().setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText("Click here to run /skyclientupdater")));
+            PartlySaneSkies.minecraft.ingameGUI
+                    .getChatGUI()
+                    .printChatMessage(skyclientMessage);
+        
+            ChatComponentText githubMessage = new ChatComponentText(StringUtils.colorCodes("&9If you are not using Skyclient, click here go to the github and download the latest version."));
+            githubMessage.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/PartlySaneStudios/partly-sane-skies/releases"));
+            githubMessage.getChatStyle().setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText("Click here to open the downloads page")));
+            PartlySaneSkies.minecraft.ingameGUI
+                    .getChatGUI()
+                    .printChatMessage(githubMessage);
+            
+                    Utils.sendClientMessage("&b--------------------------------------------------", true);
+            Utils.sendClientMessage("&7To disable this warning, go to the config and disable legacy version warnings", true);
+        }
     }
 
     // Returns an array of length 2, where the 1st index is the upper invetory, 
