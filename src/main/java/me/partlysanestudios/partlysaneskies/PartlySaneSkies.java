@@ -519,6 +519,9 @@ public class PartlySaneSkies {
             RequestsManager.newRequest(new Request("https://api.countapi.xyz/hit/partly-sane-skies-load", s -> {
                 System.out.println("\n\nPartly Sane Skies startup count:\n" + s.getResponse() + "\n\n");
             }));
+            RequestsManager.newRequest(new Request("https://api.countapi.xyz/hit/partly-sane-skies-load-legacy", s -> {
+                System.out.println("\n\nPartly Sane Skies legacy startup count:\n" + s.getResponse() + "\n\n");
+            }));
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
