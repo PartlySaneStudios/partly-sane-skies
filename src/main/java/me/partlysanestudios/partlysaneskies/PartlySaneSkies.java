@@ -106,7 +106,7 @@ public class PartlySaneSkies {
     public static final String NAME = "Partly Sane Skies";
     public static final String VERSION = "beta-v0.2.1";
     public static final String CHAT_PREFIX = StringUtils.colorCodes("&r&b&lPartly Sane Skies&r&7>> &r");
-    public static final boolean IS_LEGACY_VERSION = false;
+    public static final boolean IS_LEGACY_VERSION = true;
     public static String discordCode = "v4PU3WeH7z";
 
     public static ConfigScreen config;
