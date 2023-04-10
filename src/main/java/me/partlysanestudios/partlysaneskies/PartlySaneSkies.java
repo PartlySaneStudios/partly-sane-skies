@@ -93,6 +93,7 @@ import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
+import net.minecraftforge.fml.common.network.FMLNetworkEvent;
 
 @Mod(modid = PartlySaneSkies.MODID, version = PartlySaneSkies.VERSION, name = PartlySaneSkies.NAME)
 public class PartlySaneSkies {
@@ -103,9 +104,9 @@ public class PartlySaneSkies {
 
     public static final String MODID = "partlysaneskies";
     public static final String NAME = "Partly Sane Skies";
-    public static final String VERSION = "beta-v0.2";
+    public static final String VERSION = "beta-v0.2.1";
     public static final String CHAT_PREFIX = StringUtils.colorCodes("&r&b&lPartly Sane Skies&r&7>> &r");
-    public static final boolean IS_LEGACY_VERSION = true;
+    public static final boolean IS_LEGACY_VERSION = false;
     public static String discordCode = "v4PU3WeH7z";
 
     public static ConfigScreen config;
@@ -301,6 +302,7 @@ public class PartlySaneSkies {
 
     @SubscribeEvent
     public void world(WorldEvent.Load event) {
+        // Aware this is dead code however it is for version parity between the Oneconfig and vigilance branches
         if (IS_LEGACY_VERSION && config.legacyVersionWarning) {
             Utils.sendClientMessage("&b--------------------------------------------------", true);
 
@@ -322,6 +324,37 @@ public class PartlySaneSkies {
             
                     Utils.sendClientMessage("&b--------------------------------------------------", true);
             Utils.sendClientMessage("&7To disable this warning, go to the config and disable legacy version warnings", true);
+        }
+    }
+
+    @SubscribeEvent
+    public void onClientConnectedToServer(FMLNetworkEvent.ClientConnectedToServerEvent event) {
+        if (!CustomMainMenu.latestVersion.equals(VERSION)) {
+            new Thread(() -> {
+                try {
+                    Thread.sleep(4000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                
+                Utils.sendClientMessage("&b--------------------------------------------------", true);
+
+                Utils.sendClientMessage("&cWe have detected a new version of Partly Sane Skies.");
+                
+                ChatComponentText skyclientMessage = new ChatComponentText(StringUtils.colorCodes("&aIf you are using Skyclient, make sure you update when prompted."));
+                PartlySaneSkies.minecraft.ingameGUI
+                        .getChatGUI()
+                        .printChatMessage(skyclientMessage);
+            
+                ChatComponentText githubMessage = new ChatComponentText(StringUtils.colorCodes("&9If you are not using Skyclient, click here go to the github and download the latest version."));
+                githubMessage.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/PartlySaneStudios/partly-sane-skies/releases"));
+                githubMessage.getChatStyle().setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText("Click here to open the downloads page")));
+                PartlySaneSkies.minecraft.ingameGUI
+                        .getChatGUI()
+                        .printChatMessage(githubMessage);
+                
+                        Utils.sendClientMessage("&b--------------------------------------------------", true);
+            }).start();
         }
     }
 

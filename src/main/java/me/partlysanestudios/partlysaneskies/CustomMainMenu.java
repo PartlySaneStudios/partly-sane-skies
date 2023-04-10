@@ -99,7 +99,7 @@ public class CustomMainMenu extends WindowScreen {
     private String timeString;
 
     private static ArrayList<Announcement> announcements;
-    private static String latestVersion;
+    public static String latestVersion;
     // private static String latestVersionDate;
     // private static String latestVersionDescription;
 
