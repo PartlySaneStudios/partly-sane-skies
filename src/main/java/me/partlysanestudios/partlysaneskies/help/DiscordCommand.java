@@ -45,7 +45,7 @@ public class DiscordCommand implements ICommand {
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return "/pssdiscord";
+        return "/pssdiscord ";
     }
 
     @Override
