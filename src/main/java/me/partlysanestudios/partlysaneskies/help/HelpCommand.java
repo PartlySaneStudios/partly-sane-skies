@@ -46,12 +46,12 @@ public class HelpCommand implements ICommand {
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return "/pss ";
+        return "Help command for Partly Sane Skies";
     }
 
     @Override
     public List<String> getCommandAliases() {
-        return Arrays.asList("helpss", "help");
+        return Arrays.asList("helpss", "psshelp");
     }
 
     List<String> configAliases = Arrays.asList("conf", "c", "config");
