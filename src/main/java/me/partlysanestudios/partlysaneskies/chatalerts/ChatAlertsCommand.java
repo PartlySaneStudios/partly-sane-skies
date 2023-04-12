@@ -47,7 +47,7 @@ public class ChatAlertsCommand implements ICommand {
 
     @Override
     public List<String> getCommandAliases() {
-        return Arrays.asList("ca", "chatalet", "chal");
+        return Arrays.asList("ca", "chatalert", "chal");
     }
 
     // Runs when command is run
