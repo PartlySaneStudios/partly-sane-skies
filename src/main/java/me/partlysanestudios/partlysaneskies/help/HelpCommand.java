@@ -46,7 +46,7 @@ public class HelpCommand implements ICommand {
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return "Help command for Partly Sane Skies";
+        return "/pss ";
     }
 
     @Override
