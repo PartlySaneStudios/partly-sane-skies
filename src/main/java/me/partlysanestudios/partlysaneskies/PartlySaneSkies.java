@@ -304,29 +304,9 @@ public class PartlySaneSkies {
 
     @SubscribeEvent
     public void world(WorldEvent.Load event) {
-        // Aware this is dead code however it is for version parity between the Oneconfig and vigilance branches
-        if (IS_LEGACY_VERSION && config.legacyVersionWarning) {
-            Utils.sendClientMessage("&b--------------------------------------------------", true);
-
-            Utils.sendClientMessage("&cWe have detected you are using the legacy version of Partly Sane Skies.");
-            
-            ChatComponentText skyclientMessage = new ChatComponentText(StringUtils.colorCodes("&aIf you are using Skyclient, click here or run /skyclientupdater and enable beta mode."));
-            skyclientMessage.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/skyclientupdater"));
-            skyclientMessage.getChatStyle().setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText("Click here to run /skyclientupdater")));
-            PartlySaneSkies.minecraft.ingameGUI
-                    .getChatGUI()
-                    .printChatMessage(skyclientMessage);
-        
-            ChatComponentText githubMessage = new ChatComponentText(StringUtils.colorCodes("&9If you are not using Skyclient, click here go to the github and download the latest version."));
-            githubMessage.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/PartlySaneStudios/partly-sane-skies/releases"));
-            githubMessage.getChatStyle().setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText("Click here to open the downloads page")));
-            PartlySaneSkies.minecraft.ingameGUI
-                    .getChatGUI()
-                    .printChatMessage(githubMessage);
-            
-                    Utils.sendClientMessage("&b--------------------------------------------------", true);
-            Utils.sendClientMessage("&7To disable this warning, go to the config and disable legacy version warnings", true);
-        }
+        // Code that is supposed to be here is dead code so removed on this branch
+        // Code that is supposed to go here:
+        // https://github.com/PartlySaneStudios/partly-sane-skies/blob/essential-based/src/main/java/me/partlysanestudios/partlysaneskies/PartlySaneSkies.java#LL303C5-L327C10
     }
 
     @SubscribeEvent
