@@ -285,7 +285,7 @@ public class OneConfigScreen extends Config {
     public boolean incorrectPetForMinionAlert = false;
 
     @Switch(
-        name = "Incorrect Pet for Minion Alert", 
+        name = "Air Raid Siren", 
         category = "Skyblock", 
         description = "Plays a WWII air raid siren when you have the wrong pet. \nPros: \nKeeps you up at late night grinds \n(RECOMMENDED, ESPECIALLY AT 3 AM).", 
         subcategory = "Incorrect Pet for Minion Alert"
@@ -499,7 +499,7 @@ public class OneConfigScreen extends Config {
 
     @Switch(
         subcategory = "Watcher Ready", 
-        name = "Watcher Ready Air Raid Siren", 
+        name = "Air Raid Siren", 
         description = "Plays a WWII air raid siren when the watcher is done spawning mobs. \nPros: \nKeeps you up at late night grinds \n(RECOMMENDED, ESPECIALLY AT 3 AM)", 
         category = "Dungeons"
     )
