@@ -18,7 +18,7 @@
 
 package me.partlysanestudios.partlysaneskies.petalert;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
@@ -48,7 +48,7 @@ public class PetAlertMuteCommand implements ICommand {
 
     @Override
     public List<String> getCommandAliases() {
-        return Arrays.asList("");
+        return new ArrayList<String>();
     }
 
     @Override
