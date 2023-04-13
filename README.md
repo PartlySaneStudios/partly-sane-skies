@@ -45,7 +45,7 @@ This is a Minecraft mod for Hypixel Skyblock, designed, built, and programmed by
 
 ``/fp``, ``/pf``: Command to use Party All Friends. (See Features)
 
-``/chatalert``, ``/ca``, "/chal": Command to use the Chat Alerts System. (See Features)
+``/chatalert``, ``/ca``, ``/chal``: Command to use the Chat Alerts System. (See Features)
 
 </details>
 
