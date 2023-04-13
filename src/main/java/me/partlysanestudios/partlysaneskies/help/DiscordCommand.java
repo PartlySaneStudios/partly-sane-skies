@@ -40,7 +40,7 @@ public class DiscordCommand implements ICommand {
     public List<String> getCommandAliases() {
         return Arrays.asList("pssdisc", "psdisc");
     }
-// End of modification
+// End of AfkUser modification
 
     @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
