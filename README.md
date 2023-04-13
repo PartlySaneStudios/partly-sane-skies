@@ -14,7 +14,7 @@
 
 ## About
 
-Latest Version: **Beta v0.2**
+Latest Version: **Beta v0.2.1**
 
 This is a Minecraft mod for Hypixel Skyblock, designed, built, and programmed by **Su386** and **FlagMaster (FlagHater)**
 
@@ -23,17 +23,16 @@ This is a Minecraft mod for Hypixel Skyblock, designed, built, and programmed by
 [Click here to go to the releases page](<https://github.com/PartlySaneStudios/partly-sane-skies/releases>).
  Open the assets drop down for the latest version and download "partly-sane-skies" .jar file. Place that mod in the mods folder of your Minecraft and you are good to go!
 
- ***This mod requires Essential Mod, Patcher, or Skytils to run.* If you do not have either of these downloaded, you can find the Essential mod [download link here (https://essential.gg/download)](<https://essential.gg/download>) (Download the one for Forge 1.8.9)**
-
 ### Discord
 
 [Click here to join the discord](https://discord.gg/v4PU3WeH7z) for help, support, giveaways, and updates as they happen.
 <details>
   <summary> Commands </summary>
 
-## Commands'
+## Commands
 
 ``/pss``: A help command for Partly Sane Skies
+
 ``/pss config``, ``/pssconfig``: A command to open the PSS Config menu. It can also be keybinded in the vanilla options menu. Default: ``F7``
 
 ``/pssdisc``, ``/pssdiscord``: Sends a link to the discord. [Or you can just join here (https://discord.gg/v4PU3WeH7z)](https://discord.gg/v4PU3WeH7z)
@@ -46,7 +45,7 @@ This is a Minecraft mod for Hypixel Skyblock, designed, built, and programmed by
 
 ``/fp``, ``/pf``: Command to use Party All Friends. (See Features)
 
-``/chatalert``, ``/ca``: Command to use the Chat Alerts System. (See Features)
+``/chatalert``, ``/ca``, ``/chal``: Command to use the Chat Alerts System. (See Features)
 
 </details>
 

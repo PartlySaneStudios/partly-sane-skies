@@ -1,20 +1,7 @@
-/*
- * Partly Sane Skies: A Hypixel Skyblock QOL and Economy mod
- * Created by Su386#9878 (Su386yt) and FlagMaster#1516 (FlagHater), the Partly Sane Studios team
- * Copyright (C) ©️ Su386 and FlagMaster 2023
- * This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 3 of the License, or
- *   (at your option) any later version.
- * 
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- * 
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
- */
+//
+// Written by Su386.
+// See LICENSE for copright and license notices.
+//
 
 
 package me.partlysanestudios.partlysaneskies;
@@ -281,7 +268,7 @@ public class OneConfigScreen extends Config {
     public boolean incorrectPetForMinionAlert = false;
 
     @Switch(
-        name = "Incorrect Pet for Minion Alert", 
+        name = "Air Raid Siren", 
         category = "Skyblock", 
         description = "Plays a WWII air raid siren when you have the wrong pet. \nPros: \nKeeps you up at late night grinds \n(RECOMMENDED, ESPECIALLY AT 3 AM).", 
         subcategory = "Incorrect Pet for Minion Alert"
@@ -495,7 +482,7 @@ public class OneConfigScreen extends Config {
 
     @Switch(
         subcategory = "Watcher Ready", 
-        name = "Watcher Ready Air Raid Siren", 
+        name = "Air Raid Siren", 
         description = "Plays a WWII air raid siren when the watcher is done spawning mobs. \nPros: \nKeeps you up at late night grinds \n(RECOMMENDED, ESPECIALLY AT 3 AM)", 
         category = "Dungeons"
     )

@@ -1,24 +1,11 @@
-/*
- * Partly Sane Skies: A Hypixel Skyblock QOL and Economy mod
- * Created by Su386#9878 (Su386yt) and FlagMaster#1516 (FlagHater), the Partly Sane Studios team
- * Copyright (C) ©️ Su386 and FlagMaster 2023
- * This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 3 of the License, or
- *   (at your option) any later version.
+/* 
  * 
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- * 
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
- * 
- * 
+ * Written by Su386.
+ * See LICENSE for copright and license notices.
  * 
  * 
  * Partly Sane Skies would not be possible with out the help of these projects:
+ * (see CREDITS.md for more information)
  * Minecraft Forge
  * Skytils
  * Not Enough Updates
@@ -304,29 +291,9 @@ public class PartlySaneSkies {
 
     @SubscribeEvent
     public void world(WorldEvent.Load event) {
-        // Aware this is dead code however it is for version parity between the Oneconfig and vigilance branches
-        if (IS_LEGACY_VERSION && config.legacyVersionWarning) {
-            Utils.sendClientMessage("&b--------------------------------------------------", true);
-
-            Utils.sendClientMessage("&cWe have detected you are using the legacy version of Partly Sane Skies.");
-            
-            ChatComponentText skyclientMessage = new ChatComponentText(StringUtils.colorCodes("&aIf you are using Skyclient, click here or run /skyclientupdater and enable beta mode."));
-            skyclientMessage.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/skyclientupdater"));
-            skyclientMessage.getChatStyle().setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText("Click here to run /skyclientupdater")));
-            PartlySaneSkies.minecraft.ingameGUI
-                    .getChatGUI()
-                    .printChatMessage(skyclientMessage);
-        
-            ChatComponentText githubMessage = new ChatComponentText(StringUtils.colorCodes("&9If you are not using Skyclient, click here go to the github and download the latest version."));
-            githubMessage.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/PartlySaneStudios/partly-sane-skies/releases"));
-            githubMessage.getChatStyle().setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText("Click here to open the downloads page")));
-            PartlySaneSkies.minecraft.ingameGUI
-                    .getChatGUI()
-                    .printChatMessage(githubMessage);
-            
-                    Utils.sendClientMessage("&b--------------------------------------------------", true);
-            Utils.sendClientMessage("&7To disable this warning, go to the config and disable legacy version warnings", true);
-        }
+        // Code that is supposed to be here is dead code so removed on this branch
+        // Code that is supposed to go here:
+        // https://github.com/PartlySaneStudios/partly-sane-skies/blob/essential-based/src/main/java/me/partlysanestudios/partlysaneskies/PartlySaneSkies.java#LL303C5-L327C10
     }
 
     @SubscribeEvent
