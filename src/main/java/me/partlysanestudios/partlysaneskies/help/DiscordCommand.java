@@ -25,20 +25,22 @@ public class DiscordCommand implements ICommand {
         return 0;
     }
 
+// Modified by AfkUser
     @Override
     public String getCommandName() {
-        return "discord";
+        return "pssdiscord";
     }
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return "/pssdiscord ";
+        return "Join the Partly Sane Studios discord server";
     }
 
     @Override
     public List<String> getCommandAliases() {
-        return Arrays.asList("pssdisc", "disc");
+        return Arrays.asList("pssdisc", "psdisc");
     }
+// End of AfkUser modification
 
     @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
