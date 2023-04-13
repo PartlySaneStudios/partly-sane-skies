@@ -45,7 +45,7 @@ public class DiscordCommand implements ICommand {
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return "/pssdiscord ";
+        return "Join the Partly Sane Studios discord server";
     }
 
     @Override
