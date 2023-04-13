@@ -29,7 +29,7 @@ This is a Minecraft mod for Hypixel Skyblock, designed, built, and programmed by
 <details>
   <summary> Commands </summary>
 
-## Commands'
+## Commands
 
 ``/pss``: A help command for Partly Sane Skies
 
