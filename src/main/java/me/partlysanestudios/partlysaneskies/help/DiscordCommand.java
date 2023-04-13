@@ -25,6 +25,7 @@ public class DiscordCommand implements ICommand {
         return 0;
     }
 
+// Modified by AfkUser
     @Override
     public String getCommandName() {
         return "pssdiscord";
@@ -39,6 +40,7 @@ public class DiscordCommand implements ICommand {
     public List<String> getCommandAliases() {
         return Arrays.asList("pssdisc", "psdisc");
     }
+// End of modification
 
     @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
