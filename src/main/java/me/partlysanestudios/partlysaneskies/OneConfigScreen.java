@@ -28,7 +28,7 @@ public class OneConfigScreen extends Config {
             save();
         }
         if (watcherChatMessage.isEmpty()) {
-            watcherChatMessage = "Partly Sane Skies > The watcher is done spawning mobs. Ready to clear";
+            watcherChatMessage = "Partly Sane Skies > The watcher is done spawning mobs. Ready to clear.";
             save();
         }
     }
@@ -253,7 +253,7 @@ public class OneConfigScreen extends Config {
     @Switch( 
         name = "Open Wiki Automatically", 
         category = "Skyblock", 
-        description = "When the Open Wiki Article KeyBINd is used, automatically open the article without confirmation first.", 
+        description = "When the Open Wiki Article Keybind is used, automatically open the article without confirmation first.", 
         subcategory = "Open Wiki"
     )
     public boolean openWikiAutomatically = true;
@@ -478,7 +478,7 @@ public class OneConfigScreen extends Config {
         description = "Message to send when the watcher is ready to clear.", 
         category = "Dungeons"
     )
-    public String watcherChatMessage = "Partly Sane Skies > The watcher is done spawning mobs. Ready to clear";
+    public String watcherChatMessage = "Partly Sane Skies > The watcher is done spawning mobs. Ready to clear.";
 
     @Switch(
         subcategory = "Watcher Ready", 
@@ -512,7 +512,7 @@ public class OneConfigScreen extends Config {
     @Switch(
         subcategory = "Dungeon Player Breakdown", 
         name = "Send in Party Chat", 
-        description = "Send a condensed version to the rest of you party.", 
+        description = "Send a condensed version to the rest of your party.", 
         category = "Dungeons"
     )
     public boolean partyChatDungeonPlayerBreakdown = false;
@@ -538,7 +538,7 @@ public class OneConfigScreen extends Config {
     @Switch(
         subcategory = "Community Center", 
         name = "Best Item for Bits", 
-        description = "Gives you information about bits shop item is the best to sell.", 
+        description = "Gives you information about which item in the Bits Shop is the best to sell.", 
         category = "Economy"
     )
     public boolean bestBitShopItem = false;
@@ -569,7 +569,7 @@ public class OneConfigScreen extends Config {
             "FurfSky Reborn"
         },
         subcategory = "Auction House",
-        description = "Use either the Partly Sane Studios developed textures, or the FurfSky Reborn developed textures\n\nAll of the textures under  FurfSky reborn are fully developed by the FurfSky Reborn team.\nhttps://furfsky.net/"
+        description = "Use either the Partly Sane Studios developed textures, or the FurfSky Reborn developed textures\n\nAll of the textures under FurfSky Reborn are fully developed by the FurfSky Reborn team.\nhttps://furfsky.net/"
     )
     public int customAhGuiTextures = 0;
 

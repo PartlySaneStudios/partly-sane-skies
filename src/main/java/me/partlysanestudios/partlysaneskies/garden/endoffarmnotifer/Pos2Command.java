@@ -40,7 +40,7 @@ public class Pos2Command implements ICommand {
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         EndOfFarmNotfier.selectedPos2 = new int[] {sender.getPosition().getX(), sender.getPosition().getY(), sender.getPosition().getZ()};
 
-        Utils.sendClientMessage("Set positon 1 to (" + EndOfFarmNotfier.selectedPos2[0] + ", " + EndOfFarmNotfier.selectedPos2[1] + ", " + EndOfFarmNotfier.selectedPos2[2] + ")");
+        Utils.sendClientMessage("Set positon 2 to (" + EndOfFarmNotfier.selectedPos2[0] + ", " + EndOfFarmNotfier.selectedPos2[1] + ", " + EndOfFarmNotfier.selectedPos2[2] + ")");
     }
 
     @Override
