@@ -31,15 +31,17 @@ public class HelpCommand implements ICommand {
         return "pss";
     }
 
+// Modified by AfkUser
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return "/pss ";
+        return "Show the Partly Sane Skies help message";
     }
 
     @Override
     public List<String> getCommandAliases() {
-        return Arrays.asList("helpss", "help");
+        return Arrays.asList("helpss", "psshelp");
     }
+// End AfkUser's of modification
 
     List<String> configAliases = Arrays.asList("conf", "c", "config");
     @Override

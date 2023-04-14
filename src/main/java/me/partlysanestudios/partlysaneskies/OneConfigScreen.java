@@ -7,13 +7,8 @@
 package me.partlysanestudios.partlysaneskies;
 
 import cc.polyfrost.oneconfig.config.Config;
-import cc.polyfrost.oneconfig.config.annotations.Color;
-import cc.polyfrost.oneconfig.config.annotations.Dropdown;
-import cc.polyfrost.oneconfig.config.annotations.Info;
+import cc.polyfrost.oneconfig.config.annotations.*;
 import cc.polyfrost.oneconfig.config.annotations.Number;
-import cc.polyfrost.oneconfig.config.annotations.Slider;
-import cc.polyfrost.oneconfig.config.annotations.Switch;
-import cc.polyfrost.oneconfig.config.annotations.Text;
 import cc.polyfrost.oneconfig.config.core.OneColor;
 import cc.polyfrost.oneconfig.config.data.InfoType;
 import cc.polyfrost.oneconfig.config.data.Mod;
@@ -45,6 +40,7 @@ public class OneConfigScreen extends Config {
     )
     public static boolean ignored;
 
+    @HypixelKey
     @Text(
         secure = true, 
         name = "API Key", 

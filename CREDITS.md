@@ -8,6 +8,9 @@ FlagMaster (FlagHater)
 
 ## Contributors
 
+AfkUser (AfkUserMC)
+koxx12 (koxx12-dev)
+
 ## Artists
 
 All textures labeled FurfSky are done by the FurfSky team. This includes:
