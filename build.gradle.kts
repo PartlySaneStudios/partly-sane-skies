@@ -31,9 +31,7 @@ dependencies {
     implementation(shade("gg.essential:universalcraft-${mcData.versionStr}-${mcData.loader.name}:262") {
         isTransitive = false
     })
-    // shade("gg.essential:loader-launchwrapper:1.1.3")
 
-    // implementation("gg.essential:elementa-1${mcData.versionStr}-${mcData.loader.name}:531")
     modCompileOnly("cc.polyfrost:oneconfig-${mcData.versionStr}-${mcData.loader.name}:0.2.0-alpha+")
     implementation(shade("cc.polyfrost:oneconfig-wrapper-launchwrapper:1.0.0-beta+")!!)
 }
