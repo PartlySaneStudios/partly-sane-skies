@@ -9,6 +9,7 @@ FlagMaster (FlagHater)
 ## Contributors
 
 AfkUser (AfkUserMC)
+koxx12 (koxx12-dev)
 
 ## Artists
 
