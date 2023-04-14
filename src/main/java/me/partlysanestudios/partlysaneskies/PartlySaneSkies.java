@@ -374,6 +374,12 @@ public class PartlySaneSkies {
         return scoreLines;
     }
 
+
+    // Returns the time in miliseconds
+    public static long getTime() {
+        return System.currentTimeMillis();
+    }
+
     // Gets the current skyblock region from the scoreboard
     public static String getRegionName() {
         if (!isSkyblock()) {

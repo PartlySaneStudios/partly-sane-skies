@@ -22,7 +22,6 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import me.partlysanestudios.partlysaneskies.utils.guicomponents.UIButton;
-import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 
 public class PartyMember {
@@ -92,7 +91,7 @@ public class PartyMember {
     }
 
     public void resetExpire() {
-        timeDataGet = Minecraft.getSystemTime();
+        timeDataGet = PartlySaneSkies.getTime();
     }
 
     // Uses the username to request data from the Skycrypt API
@@ -101,7 +100,7 @@ public class PartyMember {
             return;
         }
 
-        this.timeDataGet = Minecraft.getSystemTime();
+        this.timeDataGet = PartlySaneSkies.getTime();
         // Creates a JSON parser to parse the Json returned by the request
         JsonParser parser = new JsonParser();
 
@@ -632,7 +631,7 @@ public class PartyMember {
 
     public boolean isExpired() {
         if (this.rank.equals(PartyRank.LEADER) && this.isPlayer)
-            return this.timeDataGet + PartlySaneSkies.config.partyManagerCacheTime * 60 * 1000 * 2 < Minecraft.getSystemTime();
+            return this.timeDataGet + PartlySaneSkies.config.partyManagerCacheTime * 60 * 1000 * 2 < PartlySaneSkies.getTime();
         if (this.refresh) {
             this.refresh = false;
             return true;
@@ -640,7 +639,7 @@ public class PartyMember {
         if (this.errorOnDataGet > 1 && this.errorOnDataGet < 3) {
             return true;
         }
-        return this.timeDataGet + PartlySaneSkies.config.partyManagerCacheTime * 60 * 1000 < Minecraft.getSystemTime();
+        return this.timeDataGet + PartlySaneSkies.config.partyManagerCacheTime * 60 * 1000 < PartlySaneSkies.getTime();
     }
 
     private static String formatText(String text) {

@@ -324,4 +324,13 @@ public class Utils {
             except.printStackTrace();
         }
     }
+
+    // Takes the last time the event happened, and takes the length that the event should last
+    // Returns false if the event is over, returns true if it is still ongoing
+    public static boolean onCooldown(long lastTime, long length) {
+        if (PartlySaneSkies.getTime() > lastTime + length) {
+            return false;
+        }
+        return true;
+    }
 }
