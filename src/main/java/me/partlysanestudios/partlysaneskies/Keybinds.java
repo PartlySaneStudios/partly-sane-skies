@@ -37,7 +37,7 @@ public final class Keybinds {
         // debugKey = registerKey("Debug", PSS_CATEGORY, Keyboard.KEY_F4);
         configKey = registerKey("Config", PSS_CATEGORY, Keyboard.KEY_F7);
         partyManagerKey = registerKey("Party Manager", PSS_CATEGORY, Keyboard.KEY_M);
-        helpKey = registerKey("Help", PSS_CATEGORY, Keyboard.KEY_H);
+        helpKey = registerKey("Help", PSS_CATEGORY, Keyboard.CHAR_NONE);
         wardrobeKeybind = registerKey("Open Wardrobe Menu", PSS_CATEGORY, Keyboard.CHAR_NONE);
         petKeybind = registerKey("Open Pets Menu", PSS_CATEGORY, Keyboard.CHAR_NONE);
         craftKeybind = registerKey("Open Crafting Table", PSS_CATEGORY, Keyboard.CHAR_NONE);
