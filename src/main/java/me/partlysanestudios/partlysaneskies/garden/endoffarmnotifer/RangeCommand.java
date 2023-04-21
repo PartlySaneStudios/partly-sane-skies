@@ -40,7 +40,7 @@ public class RangeCommand implements ICommand{
     @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         if (args.length == 0 || (args.length >= 1 && args[0].equalsIgnoreCase("list"))) {
-            Utils.sendClientMessage("To create a new farm notifer, run //pos1 at one end of your selection, then run //pos2 at the other end of your farm. Once the area has been selected, run //create.\n\n//farmnotifer command:\n//fn remove <index>: remove a given index from the list.\n//fn list: lists all of the farm notifiers and their indexes");
+            Utils.sendClientMessage("To create a new farm notifer, run //pos1 at one end of your selection, then run //pos2 at the other end of your farm. Once the area has been selected, run //create.\n\n//farmnotifier command:\n//fn remove <index>: remove a given index from the list.\n//fn list: lists all of the farm notifiers and their indexes");
             EndOfFarmNotfier.listRanges();
             return;
         }
