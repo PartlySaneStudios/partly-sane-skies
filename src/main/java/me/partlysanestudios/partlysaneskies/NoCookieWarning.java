@@ -88,7 +88,7 @@ public class NoCookieWarning {
     public static void warn() {
         lastWarnTime = PartlySaneSkies.getTime();
         color = Color.red;
-        displayString = "No Booster Cookie. You will loose your coins on death";
+        displayString = "No Booster Cookie. You will lose your coins on death";
         PartlySaneSkies.minecraft.getSoundHandler()
                 .playSound(PositionedSoundRecord.create(new ResourceLocation("partlysaneskies", "bell")));
     }

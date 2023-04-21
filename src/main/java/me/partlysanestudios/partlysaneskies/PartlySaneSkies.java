@@ -272,7 +272,7 @@ public class PartlySaneSkies {
     }
 
     // Runs when the chat message starts with "Your new API key is "
-    // Updates the API key to the nwe API key
+    // Updates the API key to the new API key
     @SubscribeEvent
     public void newApiKey(ClientChatReceivedEvent event) {
         if (event.message.getUnformattedText().startsWith("Your new API key is ")) {
@@ -310,12 +310,12 @@ public class PartlySaneSkies {
 
                 Utils.sendClientMessage("&cWe have detected a new version of Partly Sane Skies.");
                 
-                ChatComponentText skyclientMessage = new ChatComponentText(StringUtils.colorCodes("&aIf you are using Skyclient, make sure you update when prompted."));
+                ChatComponentText skyclientMessage = new ChatComponentText(StringUtils.colorCodes("&aIf you are using SkyClient, make sure you update when prompted."));
                 PartlySaneSkies.minecraft.ingameGUI
                         .getChatGUI()
                         .printChatMessage(skyclientMessage);
             
-                ChatComponentText githubMessage = new ChatComponentText(StringUtils.colorCodes("&9If you are not using Skyclient, click here go to the github and download the latest version."));
+                ChatComponentText githubMessage = new ChatComponentText(StringUtils.colorCodes("&9If you are not using SkyClient, click here go to the github and download the latest version."));
                 githubMessage.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/PartlySaneStudios/partly-sane-skies/releases"));
                 githubMessage.getChatStyle().setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText("Click here to open the downloads page")));
                 PartlySaneSkies.minecraft.ingameGUI
