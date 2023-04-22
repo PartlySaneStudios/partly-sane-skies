@@ -26,7 +26,8 @@ hs_err_pid*
 **/build/
 !src/**/build/
 run/
-.vscode/
+**/.vscode/
+**/.idea/
 
 # Ignore Gradle GUI config
 gradle-app.setting

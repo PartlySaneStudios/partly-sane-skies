@@ -1,6 +1,6 @@
 //
 // Written by Su386.
-// See LICENSE for copright and license notices.
+// See LICENSE for copyright and license notices.
 //
 
 
@@ -41,7 +41,7 @@ public class Pos1Command implements ICommand{
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         EndOfFarmNotfier.selectedPos1 = new int[] {sender.getPosition().getX(), sender.getPosition().getY(), sender.getPosition().getZ()};
 
-        Utils.sendClientMessage("Set positon 1 to (" + EndOfFarmNotfier.selectedPos1[0] + ", " + EndOfFarmNotfier.selectedPos1[1] + ", " + EndOfFarmNotfier.selectedPos1[2] + ")");
+        Utils.sendClientMessage("&7Set &bpositon 1&7 to &b(" + EndOfFarmNotfier.selectedPos1[0] + ", " + EndOfFarmNotfier.selectedPos1[1] + ", " + EndOfFarmNotfier.selectedPos1[2] + ")&7");
     }
 
     @Override

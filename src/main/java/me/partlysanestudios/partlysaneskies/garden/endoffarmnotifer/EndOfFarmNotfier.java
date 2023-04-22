@@ -1,6 +1,6 @@
 //
 // Written by Su386.
-// See LICENSE for copright and license notices.
+// See LICENSE for copyright and license notices.
 //
 
 
@@ -185,7 +185,7 @@ public class EndOfFarmNotfier {
         
         // For each alert, format it so its ##. [range] 
         for (Range3d range : ranges) {
-            message += StringUtils.formatNumber(i) + ": " + range.toString()  + "\n";
+            message += "&6" + StringUtils.formatNumber(i) + "&7: " + range.toString()  + "\n";
             i++;
         }
 
