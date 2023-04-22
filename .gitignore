@@ -46,3 +46,4 @@ gradle-app.setting
 .vscode/settings.json
 bin/
 eclipse-formatter.xml
+/.vscode/

@@ -62,6 +62,7 @@ public class RangeCommand implements ICommand{
 
             if (i >= EndOfFarmNotfier.ranges.size()) {
                 Utils.sendClientMessage("&cPlease select a valid index and try again.");
+                return;
             }
             Utils.sendClientMessage("&aRemoving: &b" + EndOfFarmNotfier.ranges.get(i - 1).toString());
             EndOfFarmNotfier.ranges.remove(i - 1);
