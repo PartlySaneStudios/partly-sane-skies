@@ -240,7 +240,10 @@ public class Utils {
     }
 
     public static void log(Level level, String message) {
-        FMLLog.log(level, "[{}] {}", "Partly Sane Skies", message);
+        for (String line : message.split("\n")) {
+            PartlySaneSkies.LOGGER.log(level, line);
+        }
+
     }
 
     public static void rightClickOnSlot(int slot) {

@@ -14,6 +14,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonParser;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import org.apache.logging.log4j.Level;
@@ -141,7 +144,11 @@ public class Request {
                 Utils.log(Level.ERROR, "Error: " + httpURLConnection.getResponseMessage() + ":" + httpURLConnection.getResponseCode() + "\nContact PSS admins for more information");
             }
             Utils.log(Level.ERROR, "Error: " + httpURLConnection.getResponseMessage() + ":" + httpURLConnection.getResponseCode() + "\nURL: " + this.url);
-            
+            Gson gson = new GsonBuilder()
+                    .setPrettyPrinting()
+                    .serializeSpecialFloatingPointValues()
+                    .create();
+            Utils.log(Level.ERROR, gson.toJson(requestResponse));
             // Disconnect the connection
             httpURLConnection.disconnect();
         }

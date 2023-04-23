@@ -84,6 +84,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent;
 import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @Mod(modid = PartlySaneSkies.MODID, version = PartlySaneSkies.VERSION, name = PartlySaneSkies.NAME)
 public class PartlySaneSkies {
@@ -92,6 +94,7 @@ public class PartlySaneSkies {
         
     }
 
+    public static Logger LOGGER = LogManager.getLogger("Partly Sane Skies");
     public static final String MODID = "@MOD_ID@";
     public static final String NAME = "@MOD_NAME@";
     public static final String VERSION = "@MOD_VERSION@";
