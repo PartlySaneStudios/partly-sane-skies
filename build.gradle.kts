@@ -21,6 +21,7 @@ repositories {
     maven("https://repo.polyfrost.cc/releases")
     maven("https://repo.sk1er.club/repository/maven-public/")
     maven("https://repo.sk1er.club/repository/maven-releases/")
+    maven("https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1")
 }
 
 
@@ -31,7 +32,7 @@ dependencies {
     implementation(shade("gg.essential:universalcraft-${mcData.versionStr}-${mcData.loader.name}:262") {
         isTransitive = false
     })
-
+    modRuntimeOnly("me.djtheredstoner:DevAuth-forge-legacy:1.1.2")
     modCompileOnly("cc.polyfrost:oneconfig-${mcData.versionStr}-${mcData.loader.name}:0.2.0-alpha+")
     implementation(shade("cc.polyfrost:oneconfig-wrapper-launchwrapper:1.0.0-beta+")!!)
 }
