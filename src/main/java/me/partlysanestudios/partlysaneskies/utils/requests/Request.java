@@ -16,37 +16,34 @@ import java.util.ArrayList;
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
-import net.minecraft.client.Minecraft;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.FMLLog;
 import org.apache.logging.log4j.Level;
 
 public class Request {
     // The get request
-    private URL url;
+    private final URL url;
     // The function that will activate when the response is finished
     // Function can take a String which is the response to the API call
-    private RequestRunnable whenFinished;
+    private final RequestRunnable whenFinished;
     // If true, the request will execute while in the main thread of the client
     // freezing it and stopping anything else from happening while awaiting a response.
     // Only use in specific use cases
-    private boolean inMainThread;
-    // If true, the runnable will execute on the the next frame of the main thread
+    private final boolean inMainThread;
+    // If true, the runnable will execute on the next frame of the main thread
     // Useful for when modifying things with the client
-    private boolean executeOnNextFrame;
+    private final boolean executeOnNextFrame;
 
     // A string that contains the response code
-    private String stringReponseCode;
+    private String stringResponseCode;
     // An int that contains the response code
-    private int intResposeCode;
+    private int intResponseCode;
     // The String that contains the JSON response
     private String requestResponse;
 
-    // A boolean to determing if there was an unknown failure
+    // A boolean to determining if there was an unknown failure
     // Gets set to true when setFailed(reason) is called
     private boolean otherFailure;
 
-    private ArrayList<Integer> tryAgainOnCodes;
+    private final ArrayList<Integer> tryAgainOnCodes;
     
     public Request (URL url, RequestRunnable function, boolean inMainThread, boolean executeOnNextFrame) {
         this.url = url;
@@ -54,7 +51,7 @@ public class Request {
         this.inMainThread = inMainThread;
         this.executeOnNextFrame = executeOnNextFrame;
 
-        this.tryAgainOnCodes = new ArrayList<Integer>();
+        this.tryAgainOnCodes = new ArrayList<>();
         this.otherFailure = false;
     }
 
@@ -71,7 +68,7 @@ public class Request {
     }
 
     // Adds codes where the request will try again if it failed
-    // Returns a referance to itself for easy chaining
+    // Returns a reference to itself for easy chaining
     public Request addTryAgainResponse(int responseCode) {
         tryAgainOnCodes.add(responseCode);
 
@@ -82,10 +79,10 @@ public class Request {
     // does not exist, or if the response code is not HTTP_OK
     public String getResponse() {
         if (this.requestResponse == null) {
-            return "Error: {NO_REPONSE}";
+            return "Error: {NO_RESPONSE}";
         }
-        else if (this.intResposeCode != HttpURLConnection.HTTP_OK) {
-            return "Error: " + this.stringReponseCode + ":" + this.intResposeCode;
+        else if (this.intResponseCode != HttpURLConnection.HTTP_OK) {
+            return "Error: " + this.stringResponseCode + ":" + this.intResponseCode;
         }
         return this.requestResponse;
     }
@@ -95,7 +92,7 @@ public class Request {
         return this.inMainThread;
     }
 
-    // Returns of the executeable code should run in the next frame on the main thread,
+    // Returns if the executable code should run in the next frame on the main thread,
     // or in the current thread
     public boolean isRunNextFrame() {
         return this.executeOnNextFrame;
@@ -103,21 +100,17 @@ public class Request {
 
     // Flags this request as failed and gives a reason why
     public void setFailed(String reason) {
-        this.stringReponseCode = reason;
+        this.stringResponseCode = reason;
         this.otherFailure = true;
     }
 
-    // Returns true if the respose code is http ok and it has no other failure
+    // Returns true if the response code is http ok, and it has no other failure
     public boolean hasSucceeded() {
-        if (this.intResposeCode != HttpURLConnection.HTTP_OK) {
+        if (this.intResponseCode != HttpURLConnection.HTTP_OK) {
             return false;
         }
 
-        if (otherFailure) {
-            return false;
-        }
-
-        return true;
+        return !otherFailure;
     }
 
     // Submits the getRequest
@@ -128,9 +121,9 @@ public class Request {
         httpURLConnection.setRequestProperty("User-Agent", "Mozilla/5.0");
         // Gets the response code
         int responseCode = httpURLConnection.getResponseCode();
-        this.intResposeCode = responseCode;
+        this.intResponseCode = responseCode;
         // Gets the response message
-        this.stringReponseCode = httpURLConnection.getResponseMessage();
+        this.stringResponseCode = httpURLConnection.getResponseMessage();
 
         // If the code is not HTTP_OK -- if the request failed
         if (responseCode != HttpURLConnection.HTTP_OK) {
@@ -145,9 +138,9 @@ public class Request {
             }
             // If not, simply print the error message to the console log 
             else {
-                FMLLog.log(Level.ERROR, "Error: " + httpURLConnection.getResponseMessage() + ":" + httpURLConnection.getResponseCode() + "\nContact PSS admins for more information");
+                Utils.log(Level.ERROR, "Error: " + httpURLConnection.getResponseMessage() + ":" + httpURLConnection.getResponseCode() + "\nContact PSS admins for more information");
             }
-            FMLLog.log(Level.ERROR, "Error: " + httpURLConnection.getResponseMessage() + ":" + httpURLConnection.getResponseCode() + "\nURL: " + this.url);
+            Utils.log(Level.ERROR, "Error: " + httpURLConnection.getResponseMessage() + ":" + httpURLConnection.getResponseCode() + "\nURL: " + this.url);
             
             // Disconnect the connection
             httpURLConnection.disconnect();
@@ -157,7 +150,7 @@ public class Request {
             // Read the response as a string
             BufferedReader in = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
             String inputLine;
-            StringBuffer response = new StringBuffer();
+            StringBuilder response = new StringBuilder();
 
             while ((inputLine = in.readLine()) != null) {
                 response.append(inputLine);
@@ -177,9 +170,7 @@ public class Request {
 
         // If supposed to run in the next frame, run in next frame
         if (executeOnNextFrame) {
-            PartlySaneSkies.minecraft.addScheduledTask(() -> {
-                whenFinished.run(this);
-            });
+            PartlySaneSkies.minecraft.addScheduledTask(() -> whenFinished.run(this));
             return;
         }
 

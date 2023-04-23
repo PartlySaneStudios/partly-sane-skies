@@ -44,7 +44,6 @@ import net.minecraftforge.fml.common.FMLLog;
 import org.apache.logging.log4j.Level;
 
 public class Utils {
-
     public static HashMap<String, Color> colorCodetoColor = new HashMap<String, Color>();
 
     public static void init() {
@@ -83,8 +82,9 @@ public class Utils {
         colorCodetoColor.put("&0", new Color(0, 0, 0));
     }
 
+
     public static void visPrint(Object print) {
-        FMLLog.log(Level.INFO,"\n\n\n" + print.toString() + "\n\n\n");
+        Utils.log(Level.INFO,"\n\n\n" + print.toString() + "\n\n\n");
 
         try {
             PartlySaneSkies.minecraft.ingameGUI
@@ -191,9 +191,9 @@ public class Utils {
             if (PartlySaneSkies.config.printApiErrors) {
                 sendClientMessage("Error: " + httpURLConnection.getResponseMessage() + ":" + httpURLConnection.getResponseCode() + "\nContact PSS admins for more information");
             } else {
-                FMLLog.log(Level.ERROR,"Error: " + httpURLConnection.getResponseMessage() + ":" + httpURLConnection.getResponseCode() + "\nContact PSS admins for more information");
+                Utils.log(Level.ERROR,"Error: " + httpURLConnection.getResponseMessage() + ":" + httpURLConnection.getResponseCode() + "\nContact PSS admins for more information");
             }
-            FMLLog.log(Level.ERROR,"Error: " + httpURLConnection.getResponseMessage() + ":" + httpURLConnection.getResponseCode() + "\nURL: " + urlString);
+            Utils.log(Level.ERROR,"Error: " + httpURLConnection.getResponseMessage() + ":" + httpURLConnection.getResponseCode() + "\nURL: " + urlString);
             httpURLConnection.disconnect();
             return "Error" + responseCode;
         }
@@ -237,6 +237,10 @@ public class Utils {
         // controller.windowClick(Main.minecraft.thePlayer.openContainer.windowId, slot,
         // 2, 3, Main.minecraft.thePlayer);
         controller.windowClick(PartlySaneSkies.minecraft.thePlayer.openContainer.windowId, slot, 0, 0, PartlySaneSkies.minecraft.thePlayer);
+    }
+
+    public static void log(Level level, String message) {
+        FMLLog.log(level, "[{}] {}", "Partly Sane Skies", message);
     }
 
     public static void rightClickOnSlot(int slot) {

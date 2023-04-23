@@ -118,7 +118,7 @@ public class PartlySaneSkies {
     // Method runs at mod initialization
     @EventHandler
     public void init(FMLInitializationEvent evnt) {
-        FMLLog.log(Level.INFO,"Hallo World!");
+        Utils.log(Level.INFO,"Hallo World!");
         PartlySaneSkies.isDebugMode = false;
         PartlySaneSkies.minecraft = Minecraft.getMinecraft();
 
@@ -242,7 +242,7 @@ public class PartlySaneSkies {
         try {
             PartyManager.loadPlayerData(PartlySaneSkies.minecraft.getSession().getUsername());
         } catch (IOException e) {
-            FMLLog.log(Level.ERROR,"Partly Sane Skies: Unable to load player data.");
+            Utils.log(Level.ERROR,"Partly Sane Skies: Unable to load player data.");
             e.printStackTrace();
         }
 
@@ -250,7 +250,7 @@ public class PartlySaneSkies {
         
         
         // Finished loading
-        FMLLog.log(Level.INFO,"Partly Sane Skies has loaded.");
+        Utils.log(Level.INFO,"Partly Sane Skies has loaded.");
     }
 
     // Method runs every tick
@@ -288,7 +288,7 @@ public class PartlySaneSkies {
     @SubscribeEvent
     public void chatAnalyzer(ClientChatReceivedEvent evnt) {
         if (PartlySaneSkies.isDebugMode)
-            FMLLog.log(Level.DEBUG, evnt.message.getFormattedText());
+            Utils.log(Level.DEBUG, evnt.message.getFormattedText());
     }
 
     @SubscribeEvent
@@ -494,7 +494,7 @@ public class PartlySaneSkies {
     public void trackLoad() {
         try {
             RequestsManager.newRequest(new Request("https://api.countapi.xyz/hit/partly-sane-skies-load", s -> {
-                FMLLog.log(Level.INFO, "\n\nPartly Sane Skies startup count:\n" + s.getResponse() + "\n\n");
+                Utils.log(Level.INFO, "\n\nPartly Sane Skies startup count:\n" + s.getResponse() + "\n\n");
             }));
         } catch (MalformedURLException e) {
             e.printStackTrace();
