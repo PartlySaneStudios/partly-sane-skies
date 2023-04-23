@@ -60,7 +60,7 @@ public class RangeCommand implements ICommand{
                 return;
             }
 
-            if (i >= EndOfFarmNotfier.ranges.size()) {
+            if (i > EndOfFarmNotfier.ranges.size()) {
                 Utils.sendClientMessage("&cPlease select a valid index and try again.");
                 return;
             }
