@@ -40,6 +40,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.FMLLog;
+import org.apache.logging.log4j.Level;
 
 public class Utils {
 
@@ -82,7 +84,7 @@ public class Utils {
     }
 
     public static void visPrint(Object print) {
-        System.out.println("\n\n\n" + print.toString() + "\n\n\n");
+        FMLLog.log(Level.INFO,"\n\n\n" + print.toString() + "\n\n\n");
 
         try {
             PartlySaneSkies.minecraft.ingameGUI
@@ -189,9 +191,9 @@ public class Utils {
             if (PartlySaneSkies.config.printApiErrors) {
                 sendClientMessage("Error: " + httpURLConnection.getResponseMessage() + ":" + httpURLConnection.getResponseCode() + "\nContact PSS admins for more information");
             } else {
-                System.out.println("Error: " + httpURLConnection.getResponseMessage() + ":" + httpURLConnection.getResponseCode() + "\nContact PSS admins for more information");
+                FMLLog.log(Level.ERROR,"Error: " + httpURLConnection.getResponseMessage() + ":" + httpURLConnection.getResponseCode() + "\nContact PSS admins for more information");
             }
-            
+            FMLLog.log(Level.ERROR,"Error: " + httpURLConnection.getResponseMessage() + ":" + httpURLConnection.getResponseCode() + "\nURL: " + urlString);
             httpURLConnection.disconnect();
             return "Error" + responseCode;
         }

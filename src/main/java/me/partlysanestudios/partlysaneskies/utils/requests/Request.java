@@ -16,6 +16,10 @@ import java.util.ArrayList;
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
+import net.minecraft.client.Minecraft;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.FMLLog;
+import org.apache.logging.log4j.Level;
 
 public class Request {
     // The get request
@@ -141,10 +145,11 @@ public class Request {
             }
             // If not, simply print the error message to the console log 
             else {
-                System.out.println("Error: " + httpURLConnection.getResponseMessage() + ":" + httpURLConnection.getResponseCode() + "\nContact PSS admins for more information");
+                FMLLog.log(Level.ERROR, "Error: " + httpURLConnection.getResponseMessage() + ":" + httpURLConnection.getResponseCode() + "\nContact PSS admins for more information");
             }
+            FMLLog.log(Level.ERROR, "Error: " + httpURLConnection.getResponseMessage() + ":" + httpURLConnection.getResponseCode() + "\nURL: " + this.url);
             
-            // Discornnect the connection
+            // Disconnect the connection
             httpURLConnection.disconnect();
         }
 
