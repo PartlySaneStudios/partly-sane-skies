@@ -1,7 +1,7 @@
 /* 
  * 
  * Written by Su386.
- * See LICENSE for copright and license notices.
+ * See LICENSE for copyright and license notices.
  * 
  * 
  * Partly Sane Skies would not be possible with out the help of these projects:
@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import net.minecraftforge.fml.common.FMLLog;
 import org.apache.commons.lang3.reflect.FieldUtils;
 
 import gg.essential.elementa.ElementaVersion;
@@ -82,6 +83,9 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @Mod(modid = PartlySaneSkies.MODID, version = PartlySaneSkies.VERSION, name = PartlySaneSkies.NAME)
 public class PartlySaneSkies {
@@ -90,6 +94,7 @@ public class PartlySaneSkies {
         
     }
 
+    public static Logger LOGGER = LogManager.getLogger("Partly Sane Skies");
     public static final String MODID = "@MOD_ID@";
     public static final String NAME = "@MOD_NAME@";
     public static final String VERSION = "@MOD_VERSION@";
@@ -116,7 +121,7 @@ public class PartlySaneSkies {
     // Method runs at mod initialization
     @EventHandler
     public void init(FMLInitializationEvent evnt) {
-        System.out.println("Hallo World!");
+        Utils.log(Level.INFO,"Hallo World!");
         PartlySaneSkies.isDebugMode = false;
         PartlySaneSkies.minecraft = Minecraft.getMinecraft();
 
@@ -240,7 +245,7 @@ public class PartlySaneSkies {
         try {
             PartyManager.loadPlayerData(PartlySaneSkies.minecraft.getSession().getUsername());
         } catch (IOException e) {
-            System.out.println("Partly Sane Skies: Unable to load player data.");
+            Utils.log(Level.ERROR,"Partly Sane Skies: Unable to load player data.");
             e.printStackTrace();
         }
 
@@ -248,7 +253,7 @@ public class PartlySaneSkies {
         
         
         // Finished loading
-        System.out.println("Partly Sane Skies has loaded.");
+        Utils.log(Level.INFO,"Partly Sane Skies has loaded.");
     }
 
     // Method runs every tick
@@ -286,7 +291,7 @@ public class PartlySaneSkies {
     @SubscribeEvent
     public void chatAnalyzer(ClientChatReceivedEvent evnt) {
         if (PartlySaneSkies.isDebugMode)
-            System.out.println(evnt.message.getFormattedText());
+            Utils.log(Level.DEBUG, evnt.message.getFormattedText());
     }
 
     @SubscribeEvent
@@ -372,6 +377,12 @@ public class PartlySaneSkies {
         }
 
         return scoreLines;
+    }
+
+
+    // Returns the time in miliseconds
+    public static long getTime() {
+        return System.currentTimeMillis();
     }
 
     // Gets the current skyblock region from the scoreboard
@@ -486,7 +497,7 @@ public class PartlySaneSkies {
     public void trackLoad() {
         try {
             RequestsManager.newRequest(new Request("https://api.countapi.xyz/hit/partly-sane-skies-load", s -> {
-                System.out.println("\n\nPartly Sane Skies startup count:\n" + s.getResponse() + "\n\n");
+                Utils.log(Level.INFO, "\n\nPartly Sane Skies startup count:\n" + s.getResponse() + "\n\n");
             }));
         } catch (MalformedURLException e) {
             e.printStackTrace();

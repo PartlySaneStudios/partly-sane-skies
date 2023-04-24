@@ -1,6 +1,6 @@
 //
 // Written by Su386.
-// See LICENSE for copright and license notices.
+// See LICENSE for copyright and license notices.
 //
 
 
@@ -11,7 +11,6 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
-import net.minecraft.client.Minecraft;
 
 public class RequestsManager {
 
@@ -38,7 +37,7 @@ public class RequestsManager {
         // Requests and removes the 1st element in the queue
         Request element = requestsQueue.poll();
         // If the request is supposed to run in the main thread
-        lastRequestTime = Minecraft.getSystemTime();
+        lastRequestTime = PartlySaneSkies.getTime();
         if (element.isMainThread()) {
             try {
                 element.getRequest();
@@ -77,7 +76,7 @@ public class RequestsManager {
 
     // Returns of true if the time has not elapsed
     public static boolean onCooldown(long lastTime, long length) {
-        if (Minecraft.getSystemTime() > lastTime + length) {
+        if (PartlySaneSkies.getTime() > lastTime + length) {
             return false;
         }
         return true;

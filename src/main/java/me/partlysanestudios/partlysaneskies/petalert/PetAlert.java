@@ -1,6 +1,6 @@
 //
 // Written by Su386.
-// See LICENSE for copright and license notices.
+// See LICENSE for copyright and license notices.
 //
 
 package me.partlysanestudios.partlysaneskies.petalert;
@@ -8,25 +8,23 @@ package me.partlysanestudios.partlysaneskies.petalert;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.partlysanestudios.partlysaneskies.utils.StringUtils;
-import me.partlysanestudios.partlysaneskies.utils.Utils;
-
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.auctionhouse.AhGui;
-import net.minecraft.client.Minecraft;
+import me.partlysanestudios.partlysaneskies.utils.StringUtils;
+import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityArmorStand;
 import net.minecraft.event.ClickEvent;
+import net.minecraft.event.ClickEvent.Action;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.entity.Entity;
-import net.minecraft.event.ClickEvent.Action;
 
 public class PetAlert {
 
@@ -54,11 +52,11 @@ public class PetAlert {
             return;
         }
 
-        if (onCooldown(lastMuteTime, (long) (PartlySaneSkies.config.petAlertMuteTime * 60l * 1000l))) {
+        if (Utils.onCooldown(lastMuteTime, (long) (PartlySaneSkies.config.petAlertMuteTime * 60l * 1000l))) {
             return;
         }
         
-        if (!onCooldown(lastSoundTime, 750)) {
+        if (!Utils.onCooldown(lastSoundTime, 750)) {
             PartlySaneSkies.minecraft.getSoundHandler()
                 .playSound(
                     PositionedSoundRecord
@@ -68,23 +66,16 @@ public class PetAlert {
                     PartlySaneSkies.minecraft.getSoundHandler().playSound(
                             PositionedSoundRecord.create(new ResourceLocation("partlysaneskies", "airraidsiren")));
                 }
-            lastSoundTime = Minecraft.getSystemTime();
+            lastSoundTime = PartlySaneSkies.getTime();
         }
-        if (!onCooldown(lastMessageSendTime,3000)) {
+        if (!Utils.onCooldown(lastMessageSendTime,3000)) {
             IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + StringUtils.colorCodes("&cYOU CURRENTLY HAVE " + petName + " SELECTED AS YOUR PET. YOU WANTED TO UPGRADE " + selectedPetName + "." +
             "\n&dClick this message or run /mutepetalert to mute the alert for " + PartlySaneSkies.config.petAlertMuteTime + " minutes."));
             message.getChatStyle().setChatClickEvent(new ClickEvent(Action.RUN_COMMAND, "/mutepetalert"));
             PartlySaneSkies.minecraft.ingameGUI.getChatGUI().printChatMessage(message);
-            lastMessageSendTime = Minecraft.getSystemTime();
+            lastMessageSendTime = PartlySaneSkies.getTime();
         }
         
-    }
-
-    public static boolean onCooldown(long lastTime, long length) {
-        if (Minecraft.getSystemTime() > lastTime + length) {
-            return false;
-        }
-        return true;
     }
 
     public static void favouritePet() {

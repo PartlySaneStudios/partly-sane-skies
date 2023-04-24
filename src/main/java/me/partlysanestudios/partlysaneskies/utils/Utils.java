@@ -1,6 +1,6 @@
 //
 // Written by Su386.
-// See LICENSE for copright and license notices.
+// See LICENSE for copyright and license notices.
 //
 
 package me.partlysanestudios.partlysaneskies.utils;
@@ -40,9 +40,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.FMLLog;
+import org.apache.logging.log4j.Level;
 
 public class Utils {
-
     public static HashMap<String, Color> colorCodetoColor = new HashMap<String, Color>();
 
     public static void init() {
@@ -81,8 +82,9 @@ public class Utils {
         colorCodetoColor.put("&0", new Color(0, 0, 0));
     }
 
+
     public static void visPrint(Object print) {
-        System.out.println("\n\n\n" + print.toString() + "\n\n\n");
+        Utils.log(Level.INFO,"\n\n\n" + print.toString() + "\n\n\n");
 
         try {
             PartlySaneSkies.minecraft.ingameGUI
@@ -189,9 +191,9 @@ public class Utils {
             if (PartlySaneSkies.config.printApiErrors) {
                 sendClientMessage("Error: " + httpURLConnection.getResponseMessage() + ":" + httpURLConnection.getResponseCode() + "\nContact PSS admins for more information");
             } else {
-                System.out.println("Error: " + httpURLConnection.getResponseMessage() + ":" + httpURLConnection.getResponseCode() + "\nContact PSS admins for more information");
+                Utils.log(Level.ERROR,"Error: " + httpURLConnection.getResponseMessage() + ":" + httpURLConnection.getResponseCode() + "\nContact PSS admins for more information");
             }
-            
+            Utils.log(Level.ERROR,"Error: " + httpURLConnection.getResponseMessage() + ":" + httpURLConnection.getResponseCode() + "\nURL: " + urlString);
             httpURLConnection.disconnect();
             return "Error" + responseCode;
         }
@@ -235,6 +237,13 @@ public class Utils {
         // controller.windowClick(Main.minecraft.thePlayer.openContainer.windowId, slot,
         // 2, 3, Main.minecraft.thePlayer);
         controller.windowClick(PartlySaneSkies.minecraft.thePlayer.openContainer.windowId, slot, 0, 0, PartlySaneSkies.minecraft.thePlayer);
+    }
+
+    public static void log(Level level, String message) {
+        for (String line : message.split("\n")) {
+            PartlySaneSkies.LOGGER.log(level, line);
+        }
+
     }
 
     public static void rightClickOnSlot(int slot) {
@@ -323,5 +332,14 @@ public class Utils {
             Utils.sendClientMessage("Couldn\'t open link");
             except.printStackTrace();
         }
+    }
+
+    // Takes the last time the event happened, and takes the length that the event should last
+    // Returns false if the event is over, returns true if it is still ongoing
+    public static boolean onCooldown(long lastTime, long length) {
+        if (PartlySaneSkies.getTime() > lastTime + length) {
+            return false;
+        }
+        return true;
     }
 }

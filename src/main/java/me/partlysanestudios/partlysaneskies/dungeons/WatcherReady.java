@@ -1,6 +1,6 @@
 //
 // Written by Su386.
-// See LICENSE for copright and license notices.
+// See LICENSE for copyright and license notices.
 //
 
 package me.partlysanestudios.partlysaneskies.dungeons;
@@ -15,7 +15,6 @@ import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
@@ -45,7 +44,7 @@ public class WatcherReady {
 
         if (event.message.getUnformattedText().startsWith("[BOSS] The Watcher: That will be enough for now.")) {
             if (PartlySaneSkies.config.watcherReadyBanner) {
-                watcherReadyBannerTime = Minecraft.getSystemTime();
+                watcherReadyBannerTime = PartlySaneSkies.getTime();
                 watcherReadyString = "Watcher Ready!";
             }
             if (PartlySaneSkies.config.watcherReadyChatMessage) {
@@ -70,7 +69,7 @@ public class WatcherReady {
     public void renderText(RenderGameOverlayEvent.Text event) {
         ((UIText) watcherReadyUIText).setText(watcherReadyString).setColor(PartlySaneSkies.config.watcherReadyBannerColor.toJavaColor());
         window.draw(new UMatrixStack());
-        if (watcherReadyBannerTime + PartlySaneSkies.config.watcherReadyBannerTime * 1000 < Minecraft.getSystemTime())
+        if (watcherReadyBannerTime + PartlySaneSkies.config.watcherReadyBannerTime * 1000 < PartlySaneSkies.getTime())
             watcherReadyString = "";
     }
 }

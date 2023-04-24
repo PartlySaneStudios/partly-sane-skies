@@ -1,6 +1,6 @@
 //
 // Written by Su386.
-// See LICENSE for copright and license notices.
+// See LICENSE for copyright and license notices.
 //
 
 package me.partlysanestudios.partlysaneskies;
@@ -42,7 +42,7 @@ public class NoCookieWarning {
             .setChildOf(window);
 
     public NoCookieWarning() {
-        lastWarnTime = Minecraft.getSystemTime();
+        lastWarnTime = PartlySaneSkies.getTime();
     }
 
     public static IChatComponent getFooter() {
@@ -86,7 +86,7 @@ public class NoCookieWarning {
     }
 
     public static void warn() {
-        lastWarnTime = Minecraft.getSystemTime();
+        lastWarnTime = PartlySaneSkies.getTime();
         color = Color.red;
         displayString = "No Booster Cookie. You will lose your coins on death";
         PartlySaneSkies.minecraft.getSoundHandler()
@@ -94,7 +94,7 @@ public class NoCookieWarning {
     }
 
     public static long getTimeSinceLastWarn() {
-        return Minecraft.getSystemTime() - lastWarnTime;
+        return PartlySaneSkies.getTime() - lastWarnTime;
     }
 
     public static boolean checkExpire() {
@@ -155,7 +155,7 @@ public class NoCookieWarning {
         }
 
         warn();
-        lastWarnTime = Minecraft.getSystemTime();
+        lastWarnTime = PartlySaneSkies.getTime();
     }
 
 }

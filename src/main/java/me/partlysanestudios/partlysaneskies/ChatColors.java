@@ -1,12 +1,13 @@
 //
 // Written by Su386.
-// See LICENSE for copright and license notices.
+// See LICENSE for copyright and license notices.
 //
 
 package me.partlysanestudios.partlysaneskies;
 
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
+import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -21,7 +22,13 @@ public class ChatColors {
 
         event.setCanceled(true);
         String color = getChatColor(prefix);
-        Utils.sendClientMessage(insertColor(formattedMessage, color), true);
+        if (color.isEmpty()) {
+            event.setCanceled(false);
+            return;
+        }
+        PartlySaneSkies.minecraft.ingameGUI
+                .getChatGUI()
+                .printChatMessage(new ChatComponentText(insertColor(formattedMessage, color)));
     }
 
     @SubscribeEvent

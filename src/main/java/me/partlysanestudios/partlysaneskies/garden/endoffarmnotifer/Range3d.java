@@ -1,10 +1,12 @@
 //
 // Written by Su386.
-// See LICENSE for copright and license notices.
+// See LICENSE for copyright and license notices.
 //
 
 
 package me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer;
+
+import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 
 public class Range3d {
     private int[] smallCoordinate;
@@ -48,7 +50,7 @@ public class Range3d {
 
     @Override
     public String toString() {
-        return  getRangeName() + " (" + smallCoordinate[0] + ", " + smallCoordinate[1] + ", " + smallCoordinate[2] + ") to (" + largeCoordinate[0] + ", " + largeCoordinate[1] + ", " + largeCoordinate[2] + ")";
+        return StringUtils.colorCodes("&7" + getRangeName() + " &b(" + smallCoordinate[0] + ", " + smallCoordinate[1] + ", " + smallCoordinate[2] + ")&7 to &b(" + largeCoordinate[0] + ", " + largeCoordinate[1] + ", " + largeCoordinate[2] + ")");
     }
 }
 

@@ -1,12 +1,13 @@
 //
 // Written by Su386.
-// See LICENSE for copright and license notices.
+// See LICENSE for copyright and license notices.
 //
 
 package me.partlysanestudios.partlysaneskies.rngdropbanner;
 
-import net.minecraft.client.Minecraft;
 import java.awt.Color;
+
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 
 public class Drop {
     public String name;
@@ -26,7 +27,7 @@ public class Drop {
 
     public boolean isStillDisplay(long currentTime) {
 
-        if (timeDropped + displayTime < Minecraft.getSystemTime())
+        if (timeDropped + displayTime < PartlySaneSkies.getTime())
             return true;
         return false;
     }

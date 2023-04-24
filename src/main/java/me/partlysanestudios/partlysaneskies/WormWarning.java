@@ -1,6 +1,6 @@
 //
 // Written by Su386.
-// See LICENSE for copright and license notices.
+// See LICENSE for copyright and license notices.
 //
 
 package me.partlysanestudios.partlysaneskies;
@@ -12,7 +12,6 @@ import gg.essential.elementa.components.Window;
 import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import gg.essential.universal.UMatrixStack;
-import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -40,7 +39,7 @@ public class WormWarning {
 
         if (event.message.getUnformattedText().startsWith("You hear the sound of something approaching...")) {
             if (PartlySaneSkies.config.wormWarningBanner) {
-                wormWarningBannerTime = Minecraft.getSystemTime();
+                wormWarningBannerTime = PartlySaneSkies.getTime();
                 wormWarnignString = "A Worm Has Spawned!";
             }
             if (PartlySaneSkies.config.wormWarningBannerSound) {
@@ -53,7 +52,7 @@ public class WormWarning {
     public void renderText(RenderGameOverlayEvent.Text event) {
         ((UIText) wormWarningUIText).setText(wormWarnignString).setColor(PartlySaneSkies.config.wormWarningBannerColor.toJavaColor());
         window.draw(new UMatrixStack());
-        if (wormWarningBannerTime + PartlySaneSkies.config.wormWarningBannerTime * 1000 < Minecraft.getSystemTime())
+        if (wormWarningBannerTime + PartlySaneSkies.config.wormWarningBannerTime * 1000 < PartlySaneSkies.getTime())
             wormWarnignString = "";
     }
 }

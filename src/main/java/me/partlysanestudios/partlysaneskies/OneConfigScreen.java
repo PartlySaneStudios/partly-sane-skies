@@ -1,6 +1,6 @@
 //
 // Written by Su386.
-// See LICENSE for copright and license notices.
+// See LICENSE for copyright and license notices.
 //
 
 
@@ -58,7 +58,7 @@ public class OneConfigScreen extends Config {
         subcategory = "API",
         description = "The time between API calls. Only change if you know what you're doing. Changing this will reduce the amount of time API requests take, however may result in more errors"
     )
-    public float timeBetweenRequests = .75f;
+    public float timeBetweenRequests = 2f;
 
     @Dropdown(
         options = {

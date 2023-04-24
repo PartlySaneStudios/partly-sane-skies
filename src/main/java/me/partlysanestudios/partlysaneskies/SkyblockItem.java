@@ -1,6 +1,6 @@
 //
 // Written by Su386.
-// See LICENSE for copright and license notices.
+// See LICENSE for copyright and license notices.
 //
 
 package me.partlysanestudios.partlysaneskies;
@@ -18,7 +18,6 @@ import com.google.gson.JsonParser;
 
 import me.partlysanestudios.partlysaneskies.utils.requests.Request;
 import me.partlysanestudios.partlysaneskies.utils.requests.RequestsManager;
-import net.minecraft.client.Minecraft;
 
 public class SkyblockItem {
     private String id;
@@ -136,7 +135,7 @@ public class SkyblockItem {
 
     private static HashMap<String, String> nameToIdMap = new HashMap<String, String>();
     private static HashMap<String, SkyblockItem> idToItemMap =new HashMap<String, SkyblockItem>();
-    private static long lastAhUpdateTime = Minecraft.getSystemTime();
+    private static long lastAhUpdateTime = PartlySaneSkies.getTime();
     public static ArrayList<String> bitIds = new ArrayList<String>();
 
     public static void init() throws IOException {
@@ -211,22 +210,22 @@ public class SkyblockItem {
 
     public static void runUpdater() {
         if (checkLastUpdate()) {
-            lastAhUpdateTime = Minecraft.getSystemTime();
+            lastAhUpdateTime = PartlySaneSkies.getTime();
             new Thread() {
                 @Override
                 public void run() {
-                    lastAhUpdateTime = Minecraft.getSystemTime();
+                    lastAhUpdateTime = PartlySaneSkies.getTime();
                     updateAll();
-                    lastAhUpdateTime = Minecraft.getSystemTime();
+                    lastAhUpdateTime = PartlySaneSkies.getTime();
                 }
             }.start();
-            lastAhUpdateTime = Minecraft.getSystemTime();
+            lastAhUpdateTime = PartlySaneSkies.getTime();
         }
 
     }
     
     public static void updateAll() {
-        lastAhUpdateTime = Minecraft.getSystemTime();
+        lastAhUpdateTime = PartlySaneSkies.getTime();
         updateAverageLowestBin();;
         updateBz();
         updateLowestBin();
@@ -303,7 +302,7 @@ public class SkyblockItem {
     }
 
     public static boolean checkLastUpdate() {
-        if (Minecraft.getSystemTime() < lastAhUpdateTime + (1000 * 60 * 5)) {
+        if (PartlySaneSkies.getTime() < lastAhUpdateTime + (1000 * 60 * 5)) {
             return false;
         }
 

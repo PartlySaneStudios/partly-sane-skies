@@ -1,6 +1,6 @@
 //
 // Written by Su386.
-// See LICENSE for copright and license notices.
+// See LICENSE for copyright and license notices.
 //
 
 
@@ -33,7 +33,6 @@ import me.partlysanestudios.partlysaneskies.LocationBannerDisplay;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
@@ -62,14 +61,14 @@ public class EndOfFarmNotfier {
             displayString = "";
             return;
         }
-        if (lastChimeTime + 3 * 1000 > Minecraft.getSystemTime()) {
+        if (lastChimeTime + 3 * 1000 > PartlySaneSkies.getTime()) {
             return;
         }
 
         PartlySaneSkies.minecraft.getSoundHandler()
                 .playSound(PositionedSoundRecord.create(new ResourceLocation("partlysaneskies", "bell")));
         displayString = "END OF FARM";
-        lastChimeTime = Minecraft.getSystemTime();
+        lastChimeTime = PartlySaneSkies.getTime();
     }
 
     public static Range3d createNewRange(String name) {
@@ -186,7 +185,7 @@ public class EndOfFarmNotfier {
         
         // For each alert, format it so its ##. [range] 
         for (Range3d range : ranges) {
-            message += StringUtils.formatNumber(i) + ": " + range.toString()  + "\n";
+            message += "&6" + StringUtils.formatNumber(i) + "&7: " + range.toString()  + "\n";
             i++;
         }
 
@@ -197,7 +196,7 @@ public class EndOfFarmNotfier {
     
     @SubscribeEvent
     public void renderText(RenderGameOverlayEvent.Text event) {
-        short alpha = LocationBannerDisplay.getAlpha(Minecraft.getSystemTime() - lastChimeTime, 5);
+        short alpha = LocationBannerDisplay.getAlpha(PartlySaneSkies.getTime() - lastChimeTime, 5);
 
         if (color == null)
             color = Color.RED;

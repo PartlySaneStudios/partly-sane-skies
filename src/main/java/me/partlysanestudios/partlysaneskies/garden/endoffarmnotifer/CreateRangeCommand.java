@@ -1,6 +1,6 @@
 //
 // Written by Su386.
-// See LICENSE for copright and license notices.
+// See LICENSE for copyright and license notices.
 //
 
 
@@ -45,11 +45,11 @@ public class CreateRangeCommand implements ICommand {
         }
 
         if (EndOfFarmNotfier.createNewRange(name) == null) {
-            Utils.sendClientMessage("Unable to create a new farm notifer. Make sure both //pos1 and //pos2 have been selected.");
+            Utils.sendClientMessage("&cUnable to create a new farm notifer. Make sure both &b//pos1&c and &b//pos2&c have been selected.");
             return;
         } ;
 
-        Utils.sendClientMessage("Created new Farm Notifier");
+        Utils.sendClientMessage("&aCreated new Farm Notifier");
     }
 
     @Override
