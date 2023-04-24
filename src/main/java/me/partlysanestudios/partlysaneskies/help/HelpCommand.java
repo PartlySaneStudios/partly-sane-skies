@@ -108,11 +108,14 @@ public class HelpCommand implements ICommand {
                 "\n > /pssdisc, /pssdiscord" +
                 "\n    > Sends a link to the discord" +
                 "\n" +
-                "\n /friendparty, /fp, /pf" +
-                "\n    > Parties all of your online friends" +
+                "\n > /friendparty, /fp, /pf" +
+                "\n    > Parties all of your online friends." +
                 "\n" +
-                "\n /chatalert" +
-                "\n    > Allows you to recieve alerts when certain messages are sent in chat. See github for more information" +
+                "\n > /chatalert" +
+                "\n    > Allows you to recieve alerts when certain messages are sent in chat. See github for more information." +
+                "\n" + 
+                "\n > //farmnotifier, //fn" +
+                "\n    > Set custom bounding borders for your farm and receive notifications when you step inside of them." +
                 "\n&3&m-----------------------------------------------------&r"
         ), true);
     }
