@@ -407,7 +407,12 @@ public class PartyMember {
 
     }
 
+    //todo: toggleable
     public Color colorFloorRuns(int floorRuns) {
+        if(!PartlySaneSkies.config.toggleRunColors) {
+            return Color.WHITE;
+        }
+
         if (floorRuns == 0) {
             return Color.RED;
         }

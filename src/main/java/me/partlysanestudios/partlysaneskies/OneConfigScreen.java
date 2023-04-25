@@ -418,6 +418,14 @@ public class OneConfigScreen extends Config {
     )
     public boolean getDataOnJoin = true;
 
+    @Switch(
+        name = "Toggle Run Colors in Partymanager",
+        subcategory = "Party Manager",
+        description = "Toggles the colors of the runs in the party manager, Red = 0 Runs, Yellow 1-9 Runs, Green 10+ Runs",
+        category = "Dungeons"
+    )
+    public boolean toggleRunColors = true;
+
     @Slider(
         name = "Party Manager Cache Time", 
         min = 0, 
