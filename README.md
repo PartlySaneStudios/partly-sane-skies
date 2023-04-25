@@ -18,6 +18,8 @@ Latest Version: **Beta v0.2.1**
 
 This is a Minecraft mod for Hypixel Skyblock, designed, built, and programmed by **Su386** and **FlagMaster (FlagHater)**
 
+[Credits](CREDITS.md)
+
 ### Download
 
 [Click here to go to the releases page](<https://github.com/PartlySaneStudios/partly-sane-skies/releases>).
@@ -46,6 +48,8 @@ This is a Minecraft mod for Hypixel Skyblock, designed, built, and programmed by
 ``/fp``, ``/pf``: Command to use Party All Friends. (See Features)
 
 ``/chatalert``, ``/ca``, ``/chal``: Command to use the Chat Alerts System. (See Features)
+
+``/farmnotfier``, ``/fn``, ``/farmnotif``: Command to use the farm notifier system. 
 
 </details>
 
