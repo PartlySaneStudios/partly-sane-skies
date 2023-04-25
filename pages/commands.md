@@ -69,7 +69,7 @@ These commands also work instead of ``/pssdiscord``:
 ``/psdisc``
 
 ### Description
-Sends a link to join the discord in chat.
+Sends a link to join the discord in chat. [Or you can just join here (https://discord.gg/v4PU3WeH7z)](https://discord.gg/v4PU3WeH7z)
 
 ### Usage
 
