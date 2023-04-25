@@ -415,7 +415,7 @@ public class PartyMember {
         if (floorRuns <= PartlySaneSkies.config.runColorsRedMax) {
             return Color.RED;
         }
-        else if (floorRuns < PartlySaneSkies.config.runColorsYellowMax) {
+        else if (floorRuns <= PartlySaneSkies.config.runColorsYellowMax) {
             return Color.YELLOW;
         }
         else {
