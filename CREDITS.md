@@ -2,39 +2,42 @@
 
 ## Lead Developers
 
-Su386 (Su386yt)
+- Su386#9878 (Su386yt)
 
-FlagMaster (FlagHater)
+- FlagMaster#1516 (FlagHater)
 
 ## Contributors
 
-AfkUser (AfkUserMC)
-koxx12 (koxx12-dev)
+- Koxx12#0001 (koxx12-dev)
+
+- AfkUser#0001 (AfkUserMC)
 
 ## Artists
 
 All textures labeled FurfSky are done by the FurfSky team. This includes:
 
-All textures in ``src\main\resources\assets\partlysaneskies\textures\gui\custom_ah\furfsky``
+- All textures in ``src\main\resources\assets\partlysaneskies\textures\gui\custom_ah\furfsky``
 
 ## 3rd Party Projects
 
-Minecraft Forge: https://github.com/MinecraftForge/MinecraftForge/blob/1.8.9/MinecraftForge-License.txt
+Partly Sane Skies would not be possible without these third party projects:
 
-Apache Commons Lang: https://www.apache.org/licenses/LICENSE-2.0.txt
+- Minecraft Forge: https://github.com/MinecraftForge/MinecraftForge/blob/1.8.9/MinecraftForge-License.txt
 
-awt-color-factory: https://github.com/beryx/awt-color-factory/blob/master/LICENSE#L347-L357
+- Apache Commons Lang: https://www.apache.org/licenses/LICENSE-2.0.txt
 
-Skytils: https://github.com/Skytils/SkytilsMod/blob/1.x/LICENSE.md
+- awt-color-factory: https://github.com/beryx/awt-color-factory/blob/master/LICENSE#L347-L357
 
-Not Enough Updates: https://github.com/NotEnoughUpdates/NotEnoughUpdates/blob/master/COPYING
+- Skytils: https://github.com/Skytils/SkytilsMod/blob/1.x/LICENSE.md
 
-GSON: https://www.apache.org/licenses/LICENSE-2.0.txt
+- Not Enough Updates: https://github.com/NotEnoughUpdates/NotEnoughUpdates/blob/master/COPYING
 
-Elementa: https://github.com/EssentialGG/Elementa/blob/master/LICENSE
+- GSON: https://www.apache.org/licenses/LICENSE-2.0.txt
 
-Vigilance: https://github.com/EssentialGG/Vigilance/blob/master/LICENSE
+- Elementa: https://github.com/EssentialGG/Elementa/blob/master/LICENSE
 
-OneConfig: https://github.com/Polyfrost/OneConfig/blob/develop/LICENSE
+- Vigilance: https://github.com/EssentialGG/Vigilance/blob/master/LICENSE
 
-SkyCrypt: https://github.com/SkyCryptWebsite/SkyCrypt/blob/development/LICENSE
+- OneConfig: https://github.com/Polyfrost/OneConfig/blob/develop/LICENSE
+
+- SkyCrypt: https://github.com/SkyCryptWebsite/SkyCrypt/blob/development/LICENSE
