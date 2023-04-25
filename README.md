@@ -28,6 +28,9 @@ This is a Minecraft mod for Hypixel Skyblock, designed, built, and programmed by
 ### Discord
 
 [Click here to join the discord](https://discord.gg/v4PU3WeH7z) for help, support, giveaways, and updates as they happen.
+
+To see [more information](pages/commands.md) about commands, including how to use them, [click here to visit the command page (pages/commands.md).](pages/commands.md)
+
 <details>
   <summary> Commands </summary>
 
