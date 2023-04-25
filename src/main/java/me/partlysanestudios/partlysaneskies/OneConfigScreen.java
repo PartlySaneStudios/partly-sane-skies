@@ -421,10 +421,30 @@ public class OneConfigScreen extends Config {
     @Switch(
         name = "Toggle Run Colors in Partymanager",
         subcategory = "Party Manager",
-        description = "Toggles the colors of the runs in the party manager, Red = 0 Runs, Yellow 1-9 Runs, Green 10+ Runs",
+        description = "Toggles the colors of the runs in the party manager. ",
         category = "Dungeons"
     )
     public boolean toggleRunColors = true;
+
+    @Number(
+        name = "Customize Max Runs for Red in Run Colors",
+        min = 0,
+        max = 2147483647, //Hopefully that doenst break anything
+        subcategory = "Party Manager",
+        description = "Customize maximum runs required for the color red",
+        category = "Dungeons"
+    )
+    public int runColorsRedMax = 1;
+
+    @Number(
+        name = "Customize Max Runs for Yellow in Run Colors",
+        min = 0,
+        max = 2147483647, //Hopefully that doenst break anything
+        subcategory = "Party Manager",
+        description = "Customize maximum runs required for the color yellow",
+        category = "Dungeons"
+    )
+    public int runColorsYellowMax = 9;
 
     @Slider(
         name = "Party Manager Cache Time", 
