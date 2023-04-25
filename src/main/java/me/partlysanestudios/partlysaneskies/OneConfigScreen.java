@@ -429,7 +429,7 @@ public class OneConfigScreen extends Config {
     @Number(
         name = "Customize Max Runs for Red in Run Colors",
         min = 0,
-        max = 2147483647, //Hopefully that doenst break anything
+        max = Integer.MAX_VALUE,
         subcategory = "Party Manager",
         description = "Customize maximum runs required for the color red",
         category = "Dungeons"
@@ -439,7 +439,7 @@ public class OneConfigScreen extends Config {
     @Number(
         name = "Customize Max Runs for Yellow in Run Colors",
         min = 0,
-        max = 2147483647, //Hopefully that doenst break anything
+        max = Integer.MAX_VALUE,
         subcategory = "Party Manager",
         description = "Customize maximum runs required for the color yellow",
         category = "Dungeons"
