@@ -104,6 +104,7 @@ public class StringUtils {
     }
 
     public static String stripTrailing(String str) {
+
         if (str.equals("")) {
             return str;
         }
@@ -118,7 +119,10 @@ public class StringUtils {
     public static String formatNumber(double num) {
     
         DecimalFormat decimalFormat = new DecimalFormat("#,###.00");
-    
+
+//        Creates a string with the number formatted with the above decimal format
+        String formattedNum = decimalFormat.format(num);
+
         String hundredsPlaceFormat = "";
         switch (PartlySaneSkies.config.hundredsPlaceFormat) {
             case 0:
@@ -144,27 +148,52 @@ public class StringUtils {
                 decimalPlaceFormat = ".";
                 break;
         }
-        String formattedNum = decimalFormat.format(num);
-    
+
+//        Checks if the number starts with a ., if so removes it
         if (formattedNum.charAt(0) == '.') {
             formattedNum = formattedNum.replaceFirst(".", "");
         }
-    
-        if (formattedNum.endsWith(".00")) {
-            formattedNum = formattedNum.replace(".00", "");
-        }
-    
+
+//       Checks if the number is 00
         if (formattedNum.equalsIgnoreCase("00")) {
             formattedNum = "0";
         }
-    
+
+        boolean isDecimal = false;
+        for (char ch : formattedNum.toCharArray()) {
+            if (ch == '.') {
+                isDecimal = true;
+                break;
+            }
+        }
+        if (isDecimal) {
+            stripTrailingChars(formattedNum, "0");
+        }
+
+        if (formattedNum.charAt(formattedNum.length() - 1) == '.') {
+
+            formattedNum = formattedNum.substring(0, formattedNum.length() - 1);
+        }
+
         formattedNum = formattedNum.replace(",", "_");
         formattedNum = formattedNum.replace(".", decimalPlaceFormat);
         formattedNum = formattedNum.replace("_", hundredsPlaceFormat);
-    
-        
+
     
         return formattedNum;
+    }
+
+
+    public static String stripTrailingChars(String str, String chars) {
+        if (str.equals("")) {
+            return str;
+        }
+
+        if (str.substring(str.length() - chars.length()).equalsIgnoreCase(chars)) {
+            str = str.substring(0, str.length() - chars.length());
+        }
+
+        return stripTrailingChars(str, chars);
     }
 
     // Returns a result from a given pattern and key
