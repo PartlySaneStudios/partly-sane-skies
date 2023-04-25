@@ -407,6 +407,19 @@ public class PartyMember {
 
     }
 
+    public Color colorFloorRuns(int floorRuns) {
+        if (floorRuns == 0) {
+            return Color.RED;
+        }
+        else if (floorRuns < 10) {
+            return Color.YELLOW;
+        }
+        else {
+            return Color.GREEN;
+        }
+    }
+
+
     private void createMemberBlockColumnThree(UIComponent memberBlock, float scaleFactor) {
         new UIText("Runs:")
                 .setTextScale(new PixelConstraint(2.5f * scaleFactor))
@@ -419,98 +432,98 @@ public class PartyMember {
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(340f * scaleFactor))
                 .setY(new PixelConstraint(50f * scaleFactor))
-                .setColor(Color.white)
+                .setColor(colorFloorRuns(this.f1Runs))
                 .setChildOf(memberBlock);
 
         new UIText("Floor 2: " + StringUtils.formatNumber(Math.round(this.f2Runs)))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(340f * scaleFactor))
                 .setY(new PixelConstraint(70f * scaleFactor))
-                .setColor(Color.white)
+                .setColor(colorFloorRuns(this.f2Runs))
                 .setChildOf(memberBlock);
 
         new UIText("Floor 3: " + StringUtils.formatNumber(Math.round(this.f3Runs)))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(340f * scaleFactor))
                 .setY(new PixelConstraint(90f * scaleFactor))
-                .setColor(Color.white)
+                .setColor(colorFloorRuns(this.f3Runs))
                 .setChildOf(memberBlock);
 
         new UIText("Floor 4: " + StringUtils.formatNumber(Math.round(this.f4Runs)))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(340f * scaleFactor))
                 .setY(new PixelConstraint(110f * scaleFactor))
-                .setColor(Color.white)
+                .setColor(colorFloorRuns(this.f4Runs))
                 .setChildOf(memberBlock);
 
         new UIText("Floor 5: " + StringUtils.formatNumber(Math.round(this.f5Runs)))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(340f * scaleFactor))
                 .setY(new PixelConstraint(130f * scaleFactor))
-                .setColor(Color.white)
+                .setColor(colorFloorRuns(this.f5Runs))
                 .setChildOf(memberBlock);
 
         new UIText("Floor 6: " + StringUtils.formatNumber(Math.round(this.f6Runs)))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(340f * scaleFactor))
                 .setY(new PixelConstraint(150f * scaleFactor))
-                .setColor(Color.white)
+                .setColor(colorFloorRuns(this.f6Runs))
                 .setChildOf(memberBlock);
 
         new UIText("Floor 7: " + StringUtils.formatNumber(Math.round(this.f7Runs)))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(340f * scaleFactor))
                 .setY(new PixelConstraint(170f * scaleFactor))
-                .setColor(Color.white)
+                .setColor(colorFloorRuns(this.f7Runs))
                 .setChildOf(memberBlock);
 
         new UIText("Master 1: " + StringUtils.formatNumber(Math.round(this.m1Runs)))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(460f * scaleFactor))
                 .setY(new PixelConstraint(50f * scaleFactor))
-                .setColor(Color.white)
+                .setColor(colorFloorRuns(this.m1Runs))
                 .setChildOf(memberBlock);
 
         new UIText("Master 2: " + StringUtils.formatNumber(Math.round(this.m2Runs)))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(460f * scaleFactor))
                 .setY(new PixelConstraint(70f * scaleFactor))
-                .setColor(Color.white)
+                .setColor(colorFloorRuns(this.m2Runs))
                 .setChildOf(memberBlock);
 
         new UIText("Master 3: " + StringUtils.formatNumber(Math.round(this.m3Runs)))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(460f * scaleFactor))
                 .setY(new PixelConstraint(90f * scaleFactor))
-                .setColor(Color.white)
+                .setColor(colorFloorRuns(this.m3Runs))
                 .setChildOf(memberBlock);
 
         new UIText("Master 4: " + StringUtils.formatNumber(Math.round(this.m4Runs)))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(460f * scaleFactor))
                 .setY(new PixelConstraint(110f * scaleFactor))
-                .setColor(Color.white)
+                .setColor(colorFloorRuns(this.m4Runs))
                 .setChildOf(memberBlock);
 
         new UIText("Master 5: " + StringUtils.formatNumber(Math.round(this.m5Runs)))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(460f * scaleFactor))
                 .setY(new PixelConstraint(130f * scaleFactor))
-                .setColor(Color.white)
+                .setColor(colorFloorRuns(this.m5Runs))
                 .setChildOf(memberBlock);
 
         new UIText("Master 6: " + StringUtils.formatNumber(Math.round(this.m6Runs)))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(460f * scaleFactor))
                 .setY(new PixelConstraint(150f * scaleFactor))
-                .setColor(Color.white)
+                .setColor(colorFloorRuns(this.m6Runs))
                 .setChildOf(memberBlock);
 
         new UIText("Master 7: " + StringUtils.formatNumber(Math.round(this.m7Runs)))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(460f * scaleFactor))
                 .setY(new PixelConstraint(170f * scaleFactor))
-                .setColor(Color.white)
+                .setColor(colorFloorRuns(this.m7Runs))
                 .setChildOf(memberBlock);
     }
 
