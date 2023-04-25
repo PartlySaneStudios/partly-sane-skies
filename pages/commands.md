@@ -20,7 +20,7 @@ A helpful command for information on Partly Sane Skies.
 
 ``/pss``: Displays a help message informing you of the uses of all commands, along with information about the mod.
 
-``/pss <conf / c / config>``: Opens the configuration GUI. (Alias for ``/pssconfig``)
+``/pss <conf/c/config>``: Opens the configuration GUI. (Alias for ``/pssconfig``)
 
 </details>
 
