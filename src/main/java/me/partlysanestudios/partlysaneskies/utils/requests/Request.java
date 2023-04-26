@@ -148,7 +148,6 @@ public class Request {
                     .setPrettyPrinting()
                     .serializeSpecialFloatingPointValues()
                     .create();
-            Utils.log(Level.ERROR, gson.toJson(requestResponse));
             // Disconnect the connection
             httpURLConnection.disconnect();
         }
