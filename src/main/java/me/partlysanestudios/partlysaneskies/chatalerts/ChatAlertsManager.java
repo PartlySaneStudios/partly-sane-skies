@@ -12,7 +12,6 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -27,10 +26,10 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class ChatAlertsManager {
     static String DATA_PATH_NAME = "./config/partly-sane-skies/chatAlertsData.json";
-    static ArrayList<String> chatAlertsList = new ArrayList<String>();
+    static ArrayList<String> chatAlertsList = new ArrayList<>();
 
-    // Loads all of the chat alerts data
-    public static ArrayList<String> load() throws IOException {
+    // Loads all the chat alerts data
+    public static void load() throws IOException {
         File file = new File(DATA_PATH_NAME);
         
         // If the file doesn't exist, fill it with an empty array list to prevent NullPointerException
@@ -47,14 +46,13 @@ public class ChatAlertsManager {
 
         // Reads the file, and set it as the list
         @SuppressWarnings("unchecked")
-        ArrayList<String> list = (ArrayList<String>) new Gson().fromJson(reader, new ArrayList<String>().getClass());
+        ArrayList<String> list = (ArrayList<String>) new Gson().fromJson(reader, ArrayList.class);
         chatAlertsList = list;
 
-        return chatAlertsList;
     }
 
-    // Saves all of the chat alerts data
-    public static List<String> save() throws IOException {
+    // Saves all the chat alerts data
+    public static void save() throws IOException {
         // Creates a new file and Gson instance
         File file = new File(DATA_PATH_NAME);
         GsonBuilder builder = new GsonBuilder();
@@ -69,8 +67,7 @@ public class ChatAlertsManager {
         FileWriter writer = new FileWriter(file);
         writer.write(json);
         writer.close();
-        
-        return chatAlertsList;
+
     }
 
     // Adds the given alert to the list
@@ -86,27 +83,27 @@ public class ChatAlertsManager {
             e.printStackTrace();
         }
 
-        // Print sucess message
+        // Print success message
         Utils.sendClientMessage("&b\"&d" + alert + "&b\" was successfully added as alert number &d" + chatAlertsList.size() + "&b.");
     }
 
-    // Lists all of the alerts to the chat
+    // Lists all the alerts to the chat
     public static void listAlerts() {
         // Creates header message
-        String message = "&d-----------------------------------------------------\n&bChat Alerts:" +
-                "\n&d-----------------------------------------------------\n";
+        StringBuilder message = new StringBuilder("&d-----------------------------------------------------\n&bChat Alerts:" +
+                "\n&d-----------------------------------------------------\n");
 
         // Creates the index number on the left of the message
         int i = 1;
         
         // For each alert, format it so its ##. [alert] 
         for (String alert : chatAlertsList) {
-            message += StringUtils.formatNumber(i) + ": " + alert + "\n";
+            message.append(StringUtils.formatNumber(i)).append(": ").append(alert).append("\n");
             i++;
         }
 
         // Sends message to the client
-        Utils.sendClientMessage(message);
+        Utils.sendClientMessage(message.toString());
     }
 
     // Removes an alert given a number
@@ -131,13 +128,13 @@ public class ChatAlertsManager {
             e.printStackTrace();
         }
         // Prints success message
-        Utils.sendClientMessage("&bChat Alert number &d" + id + " &b(\"&d" + message + "&b\") was successsfully removed.");
+        Utils.sendClientMessage("&bChat Alert number &d" + id + " &b(\"&d" + message + "&b\") was successfully removed.");
     }
 
-    // All of the different message prefixes
+    // All the different message prefixes
     static String[] MESSAGE_PREFIXES = new String[] {"§r§7: ", "§r§f: ", "§f: "};
 
-    // Runs when a chat message is recieved
+    // Runs when a chat message is received
     @SubscribeEvent
     public void checkChatAlert(ClientChatReceivedEvent e) {
         String formattedMessage = e.message.getFormattedText();
@@ -145,7 +142,7 @@ public class ChatAlertsManager {
         // Finds the location after the username starts
         // Ex: "[MVP+] Su386: "
         int beginMessageIndex = -1;
-        // Checks all of the different message prefixes so that it works with nons
+        // Checks all the different message prefixes so that it works with nons
         for (String messagePrefix : MESSAGE_PREFIXES) {
             beginMessageIndex = formattedMessage.indexOf(messagePrefix);
             
@@ -163,7 +160,7 @@ public class ChatAlertsManager {
         String unformattedMessage = StringUtils.removeColorCodes(formattedMessage);
         String rawMessage = formattedMessage.substring(beginMessageIndex);
 
-        // Removes all formating and extra spaces from the message
+        // Removes all formatting and extra spaces from the message
         rawMessage = StringUtils.removeColorCodes(rawMessage);
         rawMessage = rawMessage.replaceFirst(": ", "");
         rawMessage = StringUtils.stripLeading(rawMessage);
@@ -179,7 +176,7 @@ public class ChatAlertsManager {
                 continue;
             }
 
-            // Prohibits origional messsage from being sent to the player
+            // Prohibits original message from being sent to the player
             e.setCanceled(true);
 
             // Creates a new message that will be shown to the user
@@ -232,7 +229,7 @@ public class ChatAlertsManager {
         return i;
     }
 
-    /// All of the none color format codes
+    /// All the none color format codes
     static String[] NON_COLOR_CODES = new String[] {"§r", "§o", "§n", "§m", "§l", "§k"};
     // Returns the last color code in a string
     private static String getLastColorCode(String str) {
@@ -240,7 +237,7 @@ public class ChatAlertsManager {
         StringBuilder textBuilder = new StringBuilder(str);
         while (textBuilder.indexOf("§") != -1) {
             boolean shouldContinue = false;
-            // Checks if the color code is a non color code
+            // Checks if the color code is a non-color code
             for (String code : NON_COLOR_CODES) {
                 if (textBuilder.indexOf("§") == -1 || !textBuilder.substring(textBuilder.indexOf("§"), textBuilder.indexOf("§") + 2).equalsIgnoreCase(code)) {
                     continue;

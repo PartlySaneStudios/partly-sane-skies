@@ -91,7 +91,7 @@ import org.apache.logging.log4j.Logger;
 public class PartlySaneSkies {
 
     public static void main(String[] args) throws IOException {
-        
+
     }
 
     public static Logger LOGGER = LogManager.getLogger("Partly Sane Skies");

@@ -44,6 +44,7 @@ public class CustomMainMenu extends WindowScreen {
 
     public CustomMainMenu(ElementaVersion version) {
         super(version);
+
     }
 
     HashMap<Integer, String> imageIdMap = new HashMap<Integer, String>();
@@ -115,7 +116,6 @@ public class CustomMainMenu extends WindowScreen {
     }
 
     public void populateGui(float scaleFactor) {
-
         String image;
 
         if (PartlySaneSkies.config.customMainMenuImage == 0) {
