@@ -16,7 +16,9 @@
 
 Latest Version: **Beta v0.2.1**
 
-This is a Minecraft mod for Hypixel Skyblock, designed, built, and programmed by **Su386** and **FlagMaster (FlagHater)**
+This is a Minecraft mod for Hypixel Skyblock, designed, built, and programmed by **Su386** and **FlagMaster**
+
+[Credits](CREDITS.md)
 
 ### Download
 
@@ -26,26 +28,31 @@ This is a Minecraft mod for Hypixel Skyblock, designed, built, and programmed by
 ### Discord
 
 [Click here to join the discord](https://discord.gg/v4PU3WeH7z) for help, support, giveaways, and updates as they happen.
+
+To see [more information](pages/commands.md) about commands, including how to use them, [click here to visit the command page (pages/commands.md).](pages/commands.md)
+
 <details>
   <summary> Commands </summary>
 
 ## Commands
 
-``/pss``: A help command for Partly Sane Skies
+[``/pss``:](pages/commands.md#pss) A help command for Partly Sane Skies
 
-``/pss config``, ``/pssconfig``: A command to open the PSS Config menu. It can also be keybinded in the vanilla options menu. Default: ``F7``
+[``/pss config``, ``/pssconfig``:](pages/commands.md#pssconfig) A command to open the PSS Config menu. It can also be keybinded in the vanilla options menu. Default: ``F7``
 
-``/pssdisc``, ``/pssdiscord``: Sends a link to the discord. [Or you can just join here (https://discord.gg/v4PU3WeH7z)](https://discord.gg/v4PU3WeH7z)
+[``/pssdisc``, ``/pssdiscord``:](pages/commands.md#pssdisc) Sends a link to the discord. [Or you can just join here (https://discord.gg/v4PU3WeH7z)](https://discord.gg/v4PU3WeH7z)
 
-``/skillup <username>``, ``/su <username>``: Command to use the skill upgrade recommandation feature. (See Features)
+[``/skillup <username>``, ``/su <username>``:](pages/commands.md#skillup) Command to use the skill upgrade recommandation feature. (See Features)
 
-``/pm``, ``/partymanager``: Command to open the Party Manager. It can also be keybinded in the vanilla options menu.
+[``/pm``, ``/partymanager``:](pages/commands.md#partymanager) Command to open the Party Manager. It can also be keybinded in the vanilla options menu.
 
-``/permparty``, ``/permp``, ``/pp``: Command to use Permanent Dungeon Party Selector. (See Features)
+[``/permparty``, ``/permp``, ``/pp``:](pages/commands.md#permparty) Command to use Permanent Dungeon Party Selector. (See Features)
 
-``/fp``, ``/pf``: Command to use Party All Friends. (See Features)
+[``/fp``, ``/pf``:](pages/commands.md#friendparty) Command to use Party All Friends. (See Features)
 
-``/chatalert``, ``/ca``, ``/chal``: Command to use the Chat Alerts System. (See Features)
+[``/chatalert``, ``/ca``, ``/chal``:](pages/commands.md#chatalert) Command to use the Chat Alerts System. (See Features)
+
+[``/farmnotfier``, ``/fn``, ``/farmnotif``:](pages/commands.md#farmnotifier) Command to use the farm notifier system. 
 
 </details>
 
