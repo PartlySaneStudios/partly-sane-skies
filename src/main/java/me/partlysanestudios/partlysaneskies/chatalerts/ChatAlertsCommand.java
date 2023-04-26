@@ -63,6 +63,7 @@ public class ChatAlertsCommand implements ICommand {
                 }
 
                 // Adds each separate argument as a space
+
                 StringBuilder alert = new StringBuilder();
                 for (int i = 1; i < args.length; i++) {
                     alert.append(args[i]);
