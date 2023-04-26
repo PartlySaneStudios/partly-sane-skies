@@ -14,11 +14,12 @@ import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.BlockPos;
+import org.jetbrains.annotations.NotNull;
 
 public class ChatAlertsCommand implements ICommand {
 
     @Override
-    public int compareTo(ICommand o) {
+    public int compareTo(@NotNull ICommand o) {
         return 0;
     }
 
@@ -40,7 +41,7 @@ public class ChatAlertsCommand implements ICommand {
     // Runs when command is run
     @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
-        // If the user doesnt provide any arguments whatsoever print message
+        // If the user doesn't provide any arguments whatsoever print message
         if (args.length == 0) {
             Utils.sendClientMessage("&cIncorrect usage. Correct usage: /chatalerts add/remove/list");
             return;
@@ -56,30 +57,30 @@ public class ChatAlertsCommand implements ICommand {
             // If the user does /chatalerts add
             case "add":
                 // Prints error message if no message alert is given
-                if (args.length <= 1) {
+                if (args.length == 1) {
                     Utils.sendClientMessage("&cIncorrect usage. Correct usage: /chatalerts add [alert]");
                     break;
                 }
 
-                // Adds each sepearate argument as a space
-                String alert = "";
+                // Adds each separate argument as a space
+                StringBuilder alert = new StringBuilder();
                 for (int i = 1; i < args.length; i++) {
-                    alert += args[i];
-                    alert += " ";
+                    alert.append(args[i]);
+                    alert.append(" ");
                 }
 
                 // Removes any leading or trailing spaces
-                alert = StringUtils.stripLeading(alert);
-                alert = StringUtils.stripTrailing(alert);
+                alert = new StringBuilder(StringUtils.stripLeading(alert.toString()));
+                alert = new StringBuilder(StringUtils.stripTrailing(alert.toString()));
                 
-                ChatAlertsManager.addAlert(alert);
+                ChatAlertsManager.addAlert(alert.toString());
 
                 break;
 
             // If the user does /chatalerts remove
             case "remove":
                 // If no number is given
-                if (args.length <= 1) {
+                if (args.length == 1) {
                     Utils.sendClientMessage("&cIncorrect usage. Correct usage: /chatalerts remove [number]");
                     break;
                 }

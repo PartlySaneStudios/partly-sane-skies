@@ -97,7 +97,7 @@ public class AhGui extends WindowScreen {
             .setY(widthScaledConstraint(10))
             .setWidth(widthScaledConstraint(170))
             .setColor(Color.white)
-            .setChildOf(leftWindow);;
+            .setChildOf(leftWindow);
         itemLore = new UIWrappedText("", true, null, true)
             .setTextScale(widthScaledConstraint(1f))
             .setX(new CenterConstraint())
@@ -228,8 +228,11 @@ public class AhGui extends WindowScreen {
                 .setChildOf(icon);
             
             icon.onMouseClickConsumer(event -> {
-                    Utils.clickOnSlot(slot);
-                    event.getMouseButton();
+                if (event.getMouseButton() == 1) {
+                    Utils.rightClickOnSlot(slot);
+                    return;
+                }
+                Utils.clickOnSlot(slot);
                 });
             try {
                 icon.onMouseEnterRunnable(() -> {
@@ -299,7 +302,7 @@ public class AhGui extends WindowScreen {
             if (PartlySaneSkies.config.customAhGuiTextures == 1) {
                 imagePath = bottomBarFurfskyImagePaths[i - 46];
             }
-            // If its the filter icon, set the 
+            // If it's the filter icon, set the
             if (i == 50) {
                 String sortSelectedLine = "";
 
@@ -472,13 +475,9 @@ public class AhGui extends WindowScreen {
             .setHeight(widthScaledConstraint(boxSide * 1.5f).getValue())
             .setColor(auction.getRarityColor())
             .setChildOf(mainBox)
-            .onMouseClickConsumer(event -> {
-                auction.selectAuction();
-            });
+            .onMouseClickConsumer(event -> auction.selectAuction());
 
-        backgroundBox.onMouseClickConsumer(event -> {
-            auction.selectAuction();
-        });
+        backgroundBox.onMouseClickConsumer(event -> auction.selectAuction());
 
         backgroundBox.onMouseEnterRunnable(() -> {
             ((UIWrappedText) itemName).setText(auction.getName());

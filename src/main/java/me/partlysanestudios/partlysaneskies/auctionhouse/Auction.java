@@ -18,10 +18,10 @@ import net.minecraft.item.ItemStack;
 
 public class Auction {
     // private String seller;
-    private int slot;
-    private ItemStack item;
+    private final int slot;
+    private final ItemStack item;
     private UIComponent box;
-    private String itemId;
+    private final String itemId;
 
     public Auction(int slot, ItemStack item) {
         this.slot = slot;
@@ -84,10 +84,9 @@ public class Auction {
     public boolean shouldHighlight() {
         if (!isBin()) {
             return false;
-        } else if (isCheapBin()) {
-            return true;
+        } else {
+            return isCheapBin();
         }
-        return false;
 
     }
 
@@ -101,10 +100,7 @@ public class Auction {
         }
         double averageAhPrice = SkyblockItem.getItem(itemId).getPrice();
 
-        if (sellingPrice <= averageAhPrice * (PartlySaneSkies.config.BINSniperPercent / 100d)) {
-            return true;
-        }
-        return false;
+        return sellingPrice <= averageAhPrice * (PartlySaneSkies.config.BINSniperPercent / 100d);
     }
 
     public int getItemQuantity() {

@@ -7,6 +7,7 @@ package me.partlysanestudios.partlysaneskies.auctionhouse;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import gg.essential.elementa.ElementaVersion;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
@@ -18,8 +19,6 @@ import net.minecraft.item.Item;
 
 public class AhManager {
 
-    private static boolean guiAlreadyOpen;
-
     static AhGui gui;
     static IInventory inventory;
 
@@ -28,6 +27,7 @@ public class AhManager {
         if (!isAhGui()) {
             return;
         }
+        boolean guiAlreadyOpen;
         if (PartlySaneSkies.minecraft.currentScreen instanceof AhGui) {
             guiAlreadyOpen = true;
         } else {
@@ -45,8 +45,7 @@ public class AhManager {
         if (!PartlySaneSkies.config.customAhGui) {
             return;
         }
-        guiAlreadyOpen = true;
-        inventory = PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen)[0];
+        inventory = Objects.requireNonNull(PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen))[0];
         boolean preloaded = ahChestFullyLoaded(inventory);
         gui = new AhGui(ElementaVersion.V2);
         
@@ -62,21 +61,15 @@ public class AhManager {
     public static void openAh() {
         
             if (ahChestFullyLoaded(inventory)) {
-                inventory = PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen)[0];
+                inventory = Objects.requireNonNull(PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen))[0];
                 PartlySaneSkies.minecraft.displayGuiScreen(gui);
                 gui.loadGui(inventory);
                 
             } else {
-                new Thread() {
-                    @Override
-                    public void run() {
-                        PartlySaneSkies.minecraft.addScheduledTask(() -> {
-                            inventory = PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen)[0];
-                            openAh();
-                        });
-                    }
-                    
-                }.start();
+                new Thread(() -> PartlySaneSkies.minecraft.addScheduledTask(() -> {
+                    inventory = Objects.requireNonNull(PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen))[0];
+                    openAh();
+                })).start();
             }
 
     }
@@ -86,7 +79,7 @@ public class AhManager {
             return false;
         }
 
-        IInventory upper = PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen)[0];
+        IInventory upper = Objects.requireNonNull(PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen))[0];
         return StringUtils.removeColorCodes(upper.getDisplayName().getFormattedText()).contains("Auctions Browser") || StringUtils.removeColorCodes(upper.getDisplayName().getFormattedText()).contains("Auctions: \"");
     }
 
@@ -143,7 +136,7 @@ public class AhManager {
     }
 
     private static List<Auction> getAuctionContents(IInventory inventory) {
-        List<Auction> list = new ArrayList<Auction>();
+        List<Auction> list = new ArrayList<>();
         for (int i = 0; i < 54; i++) {
             if (convertSlotToChestCoordinate(i)[0] <= 2
                     || convertSlotToChestCoordinate(i)[0] == 9
