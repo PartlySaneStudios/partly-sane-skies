@@ -167,7 +167,7 @@ public class StringUtils {
             }
         }
         if (isDecimal) {
-            stripTrailingChars(formattedNum, "0");
+            formattedNum = stripTrailingChars(formattedNum, "0");
         }
 
         if (formattedNum.charAt(formattedNum.length() - 1) == '.') {
@@ -191,9 +191,11 @@ public class StringUtils {
 
         if (str.substring(str.length() - chars.length()).equalsIgnoreCase(chars)) {
             str = str.substring(0, str.length() - chars.length());
+            str = stripTrailingChars(str, chars);
         }
+        return str;
 
-        return stripTrailingChars(str, chars);
+
     }
 
     // Returns a result from a given pattern and key
