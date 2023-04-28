@@ -2,7 +2,7 @@
 
 <h1 align="center"> Partly Sane Skies </h1>
 
-<h4 align="center"> <sup> The Skyblock Mod</sup> </h4>
+<h4 align="center"> <sup> A Quality of Life Skyblock Mod</sup> </h4>
 
 <p align="center">
   <a href="https://github.com/PartlySaneStudios/partly-sane-skies/releases" target="_blank">
