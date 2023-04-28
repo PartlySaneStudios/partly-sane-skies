@@ -1,24 +1,34 @@
-# **Partly Sane Studios Presents:** *Partly Sane Skies!*
+
+<img src = "images/banner_image.jpg" alt="Banner" align="center">
+
+<h1 align="center"> Partly Sane Skies </h1>
+
+<h4 align="center"> <sup> The Skyblock Mod</sup> </h4>
 
 <p align="center">
+
+
+[//]: # (Releases image)
+
   <a href="https://github.com/PartlySaneStudios/partly-sane-skies/releases" target="_blank">
-    <img alt="Downloads" src="https://img.shields.io/github/v/release/PartlySaneStudios/partly-sane-skies?display_name=tag" />
+    <img alt="Latest Release" src="https://img.shields.io/github/v/release/PartlySaneStudios/partly-sane-skies?color=%23007EA7&label=Latest%20Version&style=for-the-badge" />
   </a>
+
+[//]: # (Downloads image)
   <a href="https://github.com/PartlySaneStudios/partly-sane-skies/releases" target="_blank">
-    <img alt="Downloads" src="https://img.shields.io/github/downloads/PartlySaneStudios/partly-sane-skies/total" />
+    <img alt="Downloads" src="https://img.shields.io/github/downloads/PartlySaneStudios/partly-sane-skies/total?color=%2301ffff&label=Downloads%3A&style=for-the-badge" />
   </a>
+
+[//]: # (Discord image)
   <a href="https://discord.gg/v4PU3WeH7z" target="_blank">
-    <img alt="Discord" src="https://img.shields.io/discord/1001847734766145607" />
+    <img alt="Discord" src="https://img.shields.io/discord/1001847734766145607?color=%23007EA7&label=Discord&style=for-the-badge" />
   </a>
 </p>
 
 ## About
 
-Latest Version: **Beta v0.2.1**
-
-This is a Minecraft mod for Hypixel Skyblock, designed, built, and programmed by **Su386** and **FlagMaster**
-
-[Credits](CREDITS.md)
+Partly Sane Skies is a Minecraft mod for Hypixel Skyblock, designed, built, and programmed by **Su386** and **FlagMaster**. 
+Credits including third party programs can be [found here (CREDITS.md)](CREDITS.md)
 
 ### Download
 
@@ -29,12 +39,17 @@ This is a Minecraft mod for Hypixel Skyblock, designed, built, and programmed by
 
 [Click here to join the discord](https://discord.gg/v4PU3WeH7z) for help, support, giveaways, and updates as they happen.
 
-To see [more information](pages/commands.md) about commands, including how to use them, [click here to visit the command page (pages/commands.md).](pages/commands.md)
+
+
+## Features
+
+*(Click the drop down arrows to see more)*
+
+
+### Commands
 
 <details>
-  <summary> Commands </summary>
-
-## Commands
+  <summary> <b> All Commands </b> </summary>
 
 [``/pss``:](pages/commands.md#pss) A help command for Partly Sane Skies
 
@@ -52,22 +67,28 @@ To see [more information](pages/commands.md) about commands, including how to us
 
 [``/chatalert``, ``/ca``, ``/chal``:](pages/commands.md#chatalert) Command to use the Chat Alerts System. (See Features)
 
-[``/farmnotfier``, ``/fn``, ``/farmnotif``:](pages/commands.md#farmnotifier) Command to use the farm notifier system. 
+[``/farmnotfier``, ``/fn``, ``/farmnotif``:](pages/commands.md#farmnotifier) Command to use the farm notifier system.
 
 </details>
 
-## Features
+To see [more information](pages/commands.md) about commands, including how to use them, **[click here to visit the command page. (pages/commands.md)](pages/commands.md)**
 
-(Click the drop down arrows to see more)
+### Config
 
 <details>
-  <summary> <b> Everything is in this list can be configured in the config menu. Command:  <code> /pss config </code> Default Keybind:  <code> F7 </code>. The config menu can also be accessed through the custom skyblock main menu. </b> </summary>
+  <summary> <b> Almost all features can be enabled through the config menu.</b> </summary>
 
   ![Config Menu](images/config_menu.png)
 
 </details>
 
-<br>
+Command:  <code> /pss config </code> 
+
+Default Keybind:  <code> F7 </code>.
+
+The config menu can also be accessed through the custom main menu.
+
+### Categories
 
 <details>
   <summary> General/Miscellaneous Features </summary>
