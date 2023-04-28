@@ -1,5 +1,6 @@
-<img src = "images/banner_image.jpg" alt="Banner" align="center">
-<h1 align="center"> Partly Sane Skies </h1>
+<h1> <img src = "images/banner_image.jpg" alt="Banner" align="center"> </h1>
+
+[//]: # (<h1 align="center"> Partly Sane Skies </h1>)
 <h4 align="center"> <sup> A Quality of Life Skyblock Mod</sup> </h4>
 
 <p align="center">
