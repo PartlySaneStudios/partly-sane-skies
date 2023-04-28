@@ -1,31 +1,27 @@
-
 <img src = "images/banner_image.jpg" alt="Banner" align="center">
 
 <h1 align="center"> Partly Sane Skies </h1>
 
 <h4 align="center"> <sup> The Skyblock Mod</sup> </h4>
 
-<p align="center">
-
-
 [//]: # (Releases image)
 
-  <a href="https://github.com/PartlySaneStudios/partly-sane-skies/releases" target="_blank">
-    <img alt="Latest Release" src="https://img.shields.io/github/v/release/PartlySaneStudios/partly-sane-skies?color=%23007EA7&label=Latest%20Version&style=for-the-badge" />
-  </a>
+ <a href="https://github.com/PartlySaneStudios/partly-sane-skies/releases" target="_blank">
+   <img align="center" alt="Latest Release" src="https://img.shields.io/github/v/release/PartlySaneStudios/partly-sane-skies?color=%23007EA7&label=Latest%20Version&style=for-the-badge" />
+ </a>
 
 [//]: # (Downloads image)
-  <a href="https://github.com/PartlySaneStudios/partly-sane-skies/releases" target="_blank">
-    <img alt="Downloads" src="https://img.shields.io/github/downloads/PartlySaneStudios/partly-sane-skies/total?color=%2301ffff&label=Downloads%3A&style=for-the-badge" />
-  </a>
+ <a href="https://github.com/PartlySaneStudios/partly-sane-skies/releases" target="_blank">
+   <img align="center" alt="Downloads" src="https://img.shields.io/github/downloads/PartlySaneStudios/partly-sane-skies/total?color=%2301ffff&label=Downloads%3A&style=for-the-badge" />
+ </a>
 
 [//]: # (Discord image)
-  <a href="https://discord.gg/v4PU3WeH7z" target="_blank">
-    <img alt="Discord" src="https://img.shields.io/discord/1001847734766145607?color=%23007EA7&label=Discord&style=for-the-badge" />
-  </a>
-</p>
+ <a href="https://discord.gg/v4PU3WeH7z" target="_blank">
+   <img align="center" alt="Discord" src="https://img.shields.io/discord/1001847734766145607?color=%23007EA7&label=Discord&style=for-the-badge" />
+ </a>
 
 ## About
+
 
 Partly Sane Skies is a Minecraft mod for Hypixel Skyblock, designed, built, and programmed by **Su386** and **FlagMaster**. 
 Credits including third party programs can be [found here (CREDITS.md)](CREDITS.md)
