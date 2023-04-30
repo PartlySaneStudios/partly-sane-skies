@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import net.minecraftforge.fml.common.FMLLog;
+import me.partlysanestudios.partlysaneskies.economy.minioncalculator.MinionData;
 import org.apache.commons.lang3.reflect.FieldUtils;
 
 import gg.essential.elementa.ElementaVersion;
@@ -238,6 +238,12 @@ public class PartlySaneSkies {
         try {
             SkymartValue.initCopperValues();
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            MinionData.preRequestInit();
+        } catch (MalformedURLException e) {
             e.printStackTrace();
         }
 

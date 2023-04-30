@@ -27,6 +27,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import javax.imageio.ImageIO;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import gg.essential.elementa.UIComponent;
 import gg.essential.elementa.components.UIImage;
 import gg.essential.elementa.constraints.CenterConstraint;
@@ -40,7 +42,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.FMLLog;
 import org.apache.logging.log4j.Level;
 
 public class Utils {
@@ -341,5 +342,23 @@ public class Utils {
             return false;
         }
         return true;
+    }
+
+//    Gets the json element from  a path string in format /key/key/key/key/
+    public static JsonElement getJsonFromPath(JsonObject source, String path) {
+        String[] splitPath = path.split("/");
+
+        JsonObject obj = source;
+        // Gets the object up until the very last one
+        for (int i = 0; i < splitPath.length - 1; i++) {
+            if (splitPath[i].isEmpty()) {
+                continue;
+            }
+
+            obj = obj.getAsJsonObject(splitPath[i]);
+        }
+
+//        Gets the last object as a JsonElement
+        return obj.get(splitPath[splitPath.length - 1]);
     }
 }
