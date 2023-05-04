@@ -126,19 +126,19 @@ public class Utils {
     }
 
     public static double toPercentageOfWidth(double value) {
-        return value / (PartlySaneSkies.minecraft.displayWidth / 2);
+        return value / (PartlySaneSkies.minecraft.displayWidth / 2d);
     }
 
     public static double toPercentageOfHeight(double value) {
-        return value / (PartlySaneSkies.minecraft.displayHeight / 2);
+        return value / (PartlySaneSkies.minecraft.displayHeight / 2d);
     }
 
     public static double fromPercentageOfWidth(double value) {
-        return value * (PartlySaneSkies.minecraft.displayWidth / 2);
+        return value * (PartlySaneSkies.minecraft.displayWidth / 2d);
     }
 
     public static double fromPercentageOfHeight(double value) {
-        return value * (PartlySaneSkies.minecraft.displayHeight / 2);
+        return value * (PartlySaneSkies.minecraft.displayHeight / 2d);
     }
 
     public static void copyStringToClipboard(String string) {
@@ -201,7 +201,7 @@ public class Utils {
     }
 
     public static double round(double num, int decimalPlaces) {
-        return Math.round((num * ((double) (Math.pow(10, decimalPlaces))))) / ((double) (Math.pow(10, decimalPlaces)));
+        return Math.round(num * Math.pow(10, decimalPlaces) / Math.pow(10, decimalPlaces));
     }
 
     public static int randint(int min, int max) {

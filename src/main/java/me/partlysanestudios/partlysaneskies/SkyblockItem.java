@@ -7,6 +7,7 @@ package me.partlysanestudios.partlysaneskies;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -89,6 +90,17 @@ public class SkyblockItem {
             return getAverageLowestBin();
         }
         return -1;
+    }
+
+    public double getBestPrice() {
+        ArrayList<Double> list = new ArrayList<>();
+        list.add(getBazaarPrice());
+        list.add(getLowestBin());
+        list.add(getNpcSellPrice());
+
+        list.sort(Comparator.naturalOrder());
+
+        return list.get(list.size() - 1);
     }
 
     public double getLowestBin() {
