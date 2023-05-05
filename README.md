@@ -1,4 +1,4 @@
-<h1> <img src = "images/banner_image.png" alt="Banner" align="center"> </h1>
+<h1> <a href="#about"> <img src = "images/banner_image.png" alt="Banner" align="center"> </a> </h1>
 
 [//]: # (<h1 align="center"> Partly Sane Skies </h1>)
 <h4 align="center"> <sup> A Quality of Life Skyblock Mod</sup> </h4>
