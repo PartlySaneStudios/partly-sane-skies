@@ -73,9 +73,9 @@ To see [more information](pages/commands.md) about commands, including how to us
 
 </details>
 
-Command:  <code> /pss config </code> 
+Command:  <code>/pss config</code> 
 
-Default Keybind:  <code> F7 </code>.
+Default Keybind:  <code>F7</code>.
 
 The config menu can also be accessed through the custom main menu.
 
