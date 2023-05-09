@@ -125,22 +125,6 @@ public class Utils {
         }
     }
 
-    public static double toPercentageOfWidth(double value) {
-        return value / (PartlySaneSkies.minecraft.displayWidth / 2d);
-    }
-
-    public static double toPercentageOfHeight(double value) {
-        return value / (PartlySaneSkies.minecraft.displayHeight / 2d);
-    }
-
-    public static double fromPercentageOfWidth(double value) {
-        return value * (PartlySaneSkies.minecraft.displayWidth / 2d);
-    }
-
-    public static double fromPercentageOfHeight(double value) {
-        return value * (PartlySaneSkies.minecraft.displayHeight / 2d);
-    }
-
     public static void copyStringToClipboard(String string) {
         Toolkit.getDefaultToolkit().getSystemClipboard().setContents(getTransferableString(string), null);
     }

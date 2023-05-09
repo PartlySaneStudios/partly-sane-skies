@@ -3,7 +3,10 @@ package me.partlysanestudios.partlysaneskies.economy.minioncalculator;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import gg.essential.elementa.ElementaVersion;
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.SkyblockItem;
+import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import me.partlysanestudios.partlysaneskies.utils.requests.Request;
 import me.partlysanestudios.partlysaneskies.utils.requests.RequestsManager;
@@ -53,21 +56,19 @@ public class MinionData {
 
 
         // Code to test the minion classes
-        Minion.Upgrade[] upgrades = {Minion.Upgrade.NONE, Minion.Upgrade.DIAMOND_SPREADING, Minion.Upgrade.FLY_CATCHER};
-        Utils.visPrint(getMostProfitMinionString(24, upgrades, fuelMap.get("ENCHANTED_LAVA_BUCKET")));
+        PartlySaneSkies.minecraft.displayGuiScreen(new ProfitMinionCalculator(ElementaVersion.V2));
     }
 
     public static String getMostProfitMinionString(double hours, Minion.Upgrade[] upgrades, MinionFuel fuel) {
-        String str = "In " + hours + " hour(s): (Upgrade:" + Arrays.asList(upgrades) + ")";
+        String str = "§7In §6" + hours + "§7 hour(s): (Upgrade:" + Arrays.asList(upgrades) + ")";
         HashMap<Minion, Double> mostProfitableMinions = getMostProfitMinion(upgrades, fuel);
 
         int i = 1;
 
         for (Map.Entry<Minion, Double> en : mostProfitableMinions.entrySet()) {
-            str += "\n\n"+ i + ". " +  en.getKey().costBreakdown(en.getKey().maxTier, hours, upgrades, fuel);
+            str += "\n\n§7"+ i + ". " +  en.getKey().costBreakdown(en.getKey().maxTier, hours, upgrades, fuel);
 
             i++;
-
         }
 
 
@@ -185,7 +186,7 @@ public class MinionData {
             }
 
 //            Adds the fuel in subtracted amount
-            if (fuel != null) {
+            if (fuel != null && fuel.duration != -1) {
                 items.put(fuel.id, -fuel.amountNeeded(1));
             }
 
@@ -246,14 +247,55 @@ public class MinionData {
         }
 
         public String costBreakdown(int tier, double hours, Upgrade[] upgrades, MinionFuel fuel) {
-            String str = this.displayName + ":";
+//            Creates a colour for each prefix
+            String colourPrefix = "";
+            switch(this.category) {
+                case "COMBAT":
+                    colourPrefix = "§c";
+                    break;
 
-            for (Map.Entry<String, Double> en2 : this.getBaseItemsPerMinute(this.maxTier, upgrades, fuel).entrySet()) {
-                str += "\n   x" + en2.getValue() * 60 * hours + " " + SkyblockItem.getItem(en2.getKey()).getName() + " for " + SkyblockItem.getItem(en2.getKey()).getBestPrice() + " coins each.";
+                case "FARMING":
+                    colourPrefix = "§a";
+                    break;
+
+                case "MINING":
+                    colourPrefix = "§9";
+                    break;
+
+                case "FORAGING":
+                    colourPrefix = "§d";
+                    break;
+
+                case "FISHING":
+                    colourPrefix = "§b";
+                    break;
+
+                default:
+                    colourPrefix = "§7";
+
             }
 
+            String str = colourPrefix + this.displayName + "§:";
 
-            str += "\n   Total: " + this.getTotalProfitPerMinute(tier, upgrades, fuel) * 60 * hours + " coins in " + hours + " hours.";
+            for (Map.Entry<String, Double> en2 : this.getBaseItemsPerMinute(this.maxTier, upgrades, fuel).entrySet()) {
+//                Individual price of the item
+                double price = SkyblockItem.getItem(en2.getKey()).getBestPrice();
+                price = Utils.round(price, 1); // rounded to 1 decimal place
+
+//                Total amount of money made by the item
+                double totalItemProfit = en2.getValue();
+                totalItemProfit *= 60 * hours;
+                totalItemProfit = Utils.round(totalItemProfit, 1); // rounded to 1 decimal place
+
+                str += "\n§7   §6x" + StringUtils.formatNumber(totalItemProfit) + "§7 §6" + SkyblockItem.getItem(en2.getKey()).getName() + "§7 for " + StringUtils.formatNumber(price) + " coins each.";
+            }
+
+//            Total amount of money made in given hours by the minion
+            double totalMinionProfit = this.getTotalProfitPerMinute(tier, upgrades, fuel);
+            totalMinionProfit *= 60 * hours;
+            totalMinionProfit = Utils.round(totalMinionProfit, 1); // rounded to 1 decimal place
+
+            str += "\n§7   Total: §6" + StringUtils.formatNumber(totalMinionProfit) + "§7 coins in " + StringUtils.formatNumber(hours) + " hours.";
 
             return str;
         }
@@ -281,7 +323,10 @@ public class MinionData {
 
 //        Returns the amount of fuel needed for the duration specified (in minutes)
         public double amountNeeded(double minuteDuration) {
-            return 1 / duration * minuteDuration;
+            if (duration == -1) {
+                return -1;
+            }
+            return minuteDuration / duration ;
         }
     }
 }

@@ -28,6 +28,7 @@ import gg.essential.elementa.components.UIText;
 import gg.essential.elementa.components.UIWrappedText;
 import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
+import me.partlysanestudios.partlysaneskies.economy.minioncalculator.ProfitMinionCalculator;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.audio.PositionedSoundRecord;
