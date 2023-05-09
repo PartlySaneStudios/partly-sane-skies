@@ -15,7 +15,6 @@
   </a>
   <a href="https://discord.gg/v4PU3WeH7z" target="_blank">
     <img alt="Discord" src="https://img.shields.io/discord/1001847734766145607?color=%23007EA7&label=Discord&style=for-the-badge" />
-    </a>
   </a>
 </p>
 
