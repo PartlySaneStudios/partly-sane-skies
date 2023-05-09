@@ -38,6 +38,7 @@ import me.partlysanestudios.partlysaneskies.WikiArticleOpener;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.client.resources.IResource;
+import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.ChatComponentText;
@@ -295,8 +296,9 @@ public class Utils {
             }));
             return image;
         } catch (NullPointerException | IOException exception) {
-            exception.printStackTrace();
-            return UIImage.ofResource("/assets/partlysaneskies/textures/null_texture.png");
+
+            return UIImage.ofResource("/assets/partlysaneskies/" + location.getResourcePath());
+//            return UIImage.ofResource("/assets/partlysaneskies/textures/null_texture.png");
         }
     }
 
@@ -310,11 +312,11 @@ public class Utils {
                 Object object = oclass.getMethod("getDesktop", new Class[0]).invoke((Object) null, new Object[0]);
                 oclass.getMethod("browse", new Class[] { URI.class }).invoke(object, new Object[] { uri });
             } catch (Throwable throwable) {
-                Utils.sendClientMessage("Couldn\'t open link");
+                Utils.sendClientMessage("Couldn't open link");
                 throwable.printStackTrace();
             }
         } catch (URISyntaxException except) {
-            Utils.sendClientMessage("Couldn\'t open link");
+            Utils.sendClientMessage("Couldn't open link");
             except.printStackTrace();
         }
     }
