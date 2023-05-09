@@ -107,8 +107,6 @@ public class UIButton {
     public UIButton setChildOf(UIComponent parent) {
         backgroundBlock.setChildOf(parent);
 
-        
-
         return this;
     }
 
@@ -183,7 +181,7 @@ public class UIButton {
         return this;
     }
 
-    public UIButton insertComponenetBeforeBackground(UIComponent component) {
+    public UIButton insertComponentBeforeBackground(UIComponent component) {
         backgroundBlock.insertChildBefore(component, buttonTexture);
 
         return this;
