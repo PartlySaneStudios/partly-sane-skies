@@ -10,11 +10,11 @@
   <a href="https://github.com/PartlySaneStudios/partly-sane-skies/releases" target="_blank">
     <img alt="Downloads" src="https://img.shields.io/github/downloads/PartlySaneStudios/partly-sane-skies/total?color=%23007EA7&label=Downloads&style=for-the-badge" />
   </a>
-  <a href="https://discord.gg/v4PU3WeH7z" target="_blank">
+  <a href="https://github.com/PartlySaneStudios/partly-sane-skies/graphs/contributors" target="_blank">
     <img alt="Discord" src="https://img.shields.io/tokei/lines/github/PartlySaneStudios/partly-sane-skies?color=%23007EA7&label=Lines&style=for-the-badge" />
   </a>
-  <a href="https://github.com/PartlySaneStudios/partly-sane-skies/graphs/contributors" target="_blank">
-    <img alt="Lines" src="https://img.shields.io/discord/1001847734766145607?color=%23007EA7&label=Discord&style=for-the-badge" />
+  <a href="https://discord.gg/v4PU3WeH7z" target="_blank">
+    <img alt="Discord" src="https://img.shields.io/discord/1001847734766145607?color=%23007EA7&label=Discord&style=for-the-badge" />
     </a>
   </a>
 </p>
