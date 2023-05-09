@@ -1,4 +1,4 @@
-<h1> <img src = "images/banner_image.jpg" alt="Banner" align="center"> </h1>
+<h1> <a href="#----"> <img src = "images/banner_image.png" alt="Banner" align="center"> </a> </h1>
 
 [//]: # (<h1 align="center"> Partly Sane Skies </h1>)
 <h4 align="center"> <sup> A Quality of Life Skyblock Mod</sup> </h4>
@@ -8,10 +8,14 @@
     <img alt="Latest Release" src="https://img.shields.io/github/v/release/PartlySaneStudios/partly-sane-skies?color=%23007EA7&label=Latest%20Version&style=for-the-badge" />
   </a>
   <a href="https://github.com/PartlySaneStudios/partly-sane-skies/releases" target="_blank">
-    <img alt="Downloads" src="https://img.shields.io/github/downloads/PartlySaneStudios/partly-sane-skies/total?color=%23007EA7&label=Downloads%3A&style=for-the-badge" />
+    <img alt="Downloads" src="https://img.shields.io/github/downloads/PartlySaneStudios/partly-sane-skies/total?color=%23007EA7&label=Downloads&style=for-the-badge" />
+  </a>
+  <a href="https://discord.gg/v4PU3WeH7z" target="_blank">
+    <img alt="Discord" src="https://img.shields.io/tokei/lines/github/PartlySaneStudios/partly-sane-skies?color=%23007EA7&label=Lines&style=for-the-badge" />
   </a>
   <a href="https://discord.gg/v4PU3WeH7z" target="_blank">
     <img alt="Discord" src="https://img.shields.io/discord/1001847734766145607?color=%23007EA7&label=Discord&style=for-the-badge" />
+    </a>
   </a>
 </p>
 
@@ -73,9 +77,9 @@ To see [more information](pages/commands.md) about commands, including how to us
 
 </details>
 
-Command:  <code> /pss config </code> 
+Command:  <code>/pss config</code> 
 
-Default Keybind:  <code> F7 </code>.
+Default Keybind:  <code>F7</code>.
 
 The config menu can also be accessed through the custom main menu.
 
