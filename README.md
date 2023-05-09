@@ -8,7 +8,7 @@
     <img alt="Latest Release" src="https://img.shields.io/github/v/release/PartlySaneStudios/partly-sane-skies?color=%23007EA7&label=Latest%20Version&style=for-the-badge" />
   </a>
   <a href="https://github.com/PartlySaneStudios/partly-sane-skies/releases" target="_blank">
-    <img alt="Downloads" src="https://img.shields.io/github/downloads/PartlySaneStudios/partly-sane-skies/total?color=%2301ffff&label=Downloads%3A&style=for-the-badge" />
+    <img alt="Downloads" src="https://img.shields.io/github/downloads/PartlySaneStudios/partly-sane-skies/total?color=%23007EA7&label=Downloads%3A&style=for-the-badge" />
   </a>
   <a href="https://discord.gg/v4PU3WeH7z" target="_blank">
     <img alt="Discord" src="https://img.shields.io/discord/1001847734766145607?color=%23007EA7&label=Discord&style=for-the-badge" />
@@ -46,7 +46,7 @@ Credits including third party programs can be [found here (CREDITS.md)](CREDITS.
 
 [``/pss config``, ``/pssconfig``:](pages/commands.md#pssconfig) A command to open the PSS Config menu. It can also be keybinded in the vanilla options menu. Default: ``F7``
 
-[``/pssdisc``, ``/pssdiscord``:](pages/commands.md#pssdisc) Sends a link to the discord. [Or you can just join here (https://discord.gg/v4PU3WeH7z)](https://discord.gg/v4PU3WeH7z)
+[``/pssdisc``, ``/pssdiscord``:](pages/commands.md#pssdiscord) Sends a link to the discord. [Or you can just join here (https://discord.gg/v4PU3WeH7z)](https://discord.gg/v4PU3WeH7z)
 
 [``/skillup <username>``, ``/su <username>``:](pages/commands.md#skillup) Command to use the skill upgrade recommandation feature. (See Features)
 
@@ -56,9 +56,9 @@ Credits including third party programs can be [found here (CREDITS.md)](CREDITS.
 
 [``/fp``, ``/pf``:](pages/commands.md#friendparty) Command to use Party All Friends. (See Features)
 
-[``/chatalert``, ``/ca``, ``/chal``:](pages/commands.md#chatalert) Command to use the Chat Alerts System. (See Features)
+[``/chatalert``, ``/ca``, ``/chal``:](pages/commands.md#chatalerts) Command to use the Chat Alerts System. (See Features)
 
-[``/farmnotfier``, ``/fn``, ``/farmnotif``:](pages/commands.md#farmnotifier) Command to use the farm notifier system.
+[``/farmnotfier``, ``/fn``, ``/farmnotif``:](pages/commands.md#farmnotfier) Command to use the farm notifier system.
 
 </details>
 
