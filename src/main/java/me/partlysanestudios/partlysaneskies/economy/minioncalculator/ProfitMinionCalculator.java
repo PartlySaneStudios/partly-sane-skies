@@ -97,7 +97,7 @@ public class ProfitMinionCalculator extends WindowScreen {
         float yPos = fromWidthScaleFactor(50).getValue();
         float barOffset = fromWidthScaleFactor(10).getValue();
 
-        float barNegation = fromWidthScaleFactor(50).getValue();
+        float barNegation = fromWidthScaleFactor(66).getValue();
 
         for (Map.Entry<MinionData.Minion, Double> en : mostProfitableMinions.entrySet()) {
             String str = "§7"+ i + ". " +  en.getKey().costBreakdown(en.getKey().maxTier, this.hours, this.upgrades, this.fuel);
