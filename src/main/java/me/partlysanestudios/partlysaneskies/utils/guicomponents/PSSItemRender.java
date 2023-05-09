@@ -13,11 +13,11 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.item.ItemStack;
 
-public class UIItemRender extends UIComponent {
+public class PSSItemRender extends UIComponent {
     ItemStack item;
     float itemScale = 1;
 
-    public UIItemRender(ItemStack item) {
+    public PSSItemRender(ItemStack item) {
         this.item = item;
     }
 

@@ -23,7 +23,7 @@ import gg.essential.elementa.constraints.ScaleConstraint;
 import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
-import me.partlysanestudios.partlysaneskies.utils.guicomponents.UIButton;
+import me.partlysanestudios.partlysaneskies.utils.guicomponents.PSSButton;
 import me.partlysanestudios.partlysaneskies.utils.requests.Request;
 import me.partlysanestudios.partlysaneskies.utils.requests.RequestsManager;
 
@@ -113,7 +113,7 @@ public class PartyManagerGui extends WindowScreen {
     public void createPartyManagementButtons(UIComponent topBarBlock, float scaleFactor,
             List<PartyMember> partyMembers) {
 
-        new UIButton(new Color(255, 0, 0))
+        new PSSButton(new Color(255, 0, 0))
                 .setX(new PixelConstraint(10f * scaleFactor))
                 .setY(new PixelConstraint(10f * scaleFactor))
                 .setWidth(75f * scaleFactor)
@@ -125,7 +125,7 @@ public class PartyManagerGui extends WindowScreen {
                     PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party disband");
                 });
 
-        new UIButton()
+        new PSSButton()
                 .setX(new PixelConstraint(95f * scaleFactor))
                 .setY(new PixelConstraint(10 * scaleFactor))
                 .setWidth(75f * scaleFactor)
@@ -137,7 +137,7 @@ public class PartyManagerGui extends WindowScreen {
                     PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party kickoffline");
                 });
 
-        new UIButton()
+        new PSSButton()
                 .setX(new PixelConstraint(205f * scaleFactor))
                 .setY(new PixelConstraint(10 * scaleFactor))
                 .setWidth(100f * scaleFactor)
@@ -149,7 +149,7 @@ public class PartyManagerGui extends WindowScreen {
                     PartyManager.reparty(partyMembers);
                 });
         
-        new UIButton()
+        new PSSButton()
                 .setX(new PixelConstraint(315f * scaleFactor))
                 .setY(new PixelConstraint(10 * scaleFactor))
                 .setWidth(100f * scaleFactor)
@@ -176,7 +176,7 @@ public class PartyManagerGui extends WindowScreen {
                 .setY(new PixelConstraint(115f * scaleFactor))
                 .setChildOf(topBarBlock);
 
-        new UIButton()
+        new PSSButton()
                 .setX(new PixelConstraint(265f * scaleFactor))
                 .setY(new PixelConstraint(100 * scaleFactor))
                 .setWidth(35f * scaleFactor)
@@ -188,7 +188,7 @@ public class PartyManagerGui extends WindowScreen {
                     PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon catacombs 1");
                 });
 
-        new UIButton()
+        new PSSButton()
                 .setX(new PixelConstraint(315f * scaleFactor))
                 .setY(new PixelConstraint(100 * scaleFactor))
                 .setWidth(35f * scaleFactor)
@@ -200,7 +200,7 @@ public class PartyManagerGui extends WindowScreen {
                     PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon catacombs 2");
                 });
 
-        new UIButton()
+        new PSSButton()
                 .setX(new PixelConstraint(365f * scaleFactor))
                 .setY(new PixelConstraint(100 * scaleFactor))
                 .setWidth(35f * scaleFactor)
@@ -212,7 +212,7 @@ public class PartyManagerGui extends WindowScreen {
                     PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon catacombs 3");
                 });
 
-        new UIButton()
+        new PSSButton()
                 .setX(new PixelConstraint(415f * scaleFactor))
                 .setY(new PixelConstraint(100 * scaleFactor))
                 .setWidth(35f * scaleFactor)
@@ -224,7 +224,7 @@ public class PartyManagerGui extends WindowScreen {
                     PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon catacombs 4");
                 });
 
-        new UIButton()
+        new PSSButton()
                 .setX(new PixelConstraint(465f * scaleFactor))
                 .setY(new PixelConstraint(100 * scaleFactor))
                 .setWidth(35f * scaleFactor)
@@ -236,7 +236,7 @@ public class PartyManagerGui extends WindowScreen {
                     PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon catacombs 5");
                 });
 
-        new UIButton()
+        new PSSButton()
                 .setX(new PixelConstraint(515f * scaleFactor))
                 .setY(new PixelConstraint(100 * scaleFactor))
                 .setWidth(35f * scaleFactor)
@@ -248,7 +248,7 @@ public class PartyManagerGui extends WindowScreen {
                     PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon catacombs 6");
                 });
 
-        new UIButton()
+        new PSSButton()
                 .setX(new PixelConstraint(565f * scaleFactor))
                 .setY(new PixelConstraint(100 * scaleFactor))
                 .setWidth(35f * scaleFactor)
@@ -262,7 +262,7 @@ public class PartyManagerGui extends WindowScreen {
 
 
 
-        new UIButton()
+        new PSSButton()
                 .setX(new PixelConstraint(615f * scaleFactor))
                 .setY(new PixelConstraint(100 * scaleFactor))
                 .setWidth(35f * scaleFactor)
@@ -274,7 +274,7 @@ public class PartyManagerGui extends WindowScreen {
                     PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon master_catacombs 1");
                 });
 
-        new UIButton()
+        new PSSButton()
                 .setX(new PixelConstraint(665f * scaleFactor))
                 .setY(new PixelConstraint(100 * scaleFactor))
                 .setWidth(35f * scaleFactor)
@@ -286,7 +286,7 @@ public class PartyManagerGui extends WindowScreen {
                     PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon master_catacombs 2");
                 });
 
-        new UIButton()
+        new PSSButton()
                 .setX(new PixelConstraint(715f * scaleFactor))
                 .setY(new PixelConstraint(100 * scaleFactor))
                 .setWidth(35f * scaleFactor)
@@ -298,7 +298,7 @@ public class PartyManagerGui extends WindowScreen {
                     PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon master_catacombs 3");
                 });
 
-        new UIButton()
+        new PSSButton()
                 .setX(new PixelConstraint(765f * scaleFactor))
                 .setY(new PixelConstraint(100 * scaleFactor))
                 .setWidth(35f * scaleFactor)
@@ -310,7 +310,7 @@ public class PartyManagerGui extends WindowScreen {
                     PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon master_catacombs 4");
                 });
 
-        new UIButton()
+        new PSSButton()
                 .setX(new PixelConstraint(815f * scaleFactor))
                 .setY(new PixelConstraint(100 * scaleFactor))
                 .setWidth(35f * scaleFactor)
@@ -322,7 +322,7 @@ public class PartyManagerGui extends WindowScreen {
                     PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon master_catacombs 5");
                 });
 
-        new UIButton()
+        new PSSButton()
                 .setX(new PixelConstraint(865f * scaleFactor))
                 .setY(new PixelConstraint(100 * scaleFactor))
                 .setWidth(35f * scaleFactor)
@@ -334,7 +334,7 @@ public class PartyManagerGui extends WindowScreen {
                     PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon master_catacombs 6");
                 });
 
-        new UIButton()
+        new PSSButton()
                 .setX(new PixelConstraint(915f * scaleFactor))
                 .setY(new PixelConstraint(100 * scaleFactor))
                 .setWidth(35f * scaleFactor)

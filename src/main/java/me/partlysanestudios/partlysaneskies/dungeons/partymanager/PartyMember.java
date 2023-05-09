@@ -21,7 +21,7 @@ import gg.essential.elementa.constraints.PixelConstraint;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
-import me.partlysanestudios.partlysaneskies.utils.guicomponents.UIButton;
+import me.partlysanestudios.partlysaneskies.utils.guicomponents.PSSButton;
 import net.minecraft.util.ResourceLocation;
 
 public class PartyMember {
@@ -587,7 +587,7 @@ public class PartyMember {
     }
 
     private void createMemberBlockColumnFive(UIComponent memberBlock, float scaleFactor) {
-        new UIButton()
+        new PSSButton()
                 .setX(new PixelConstraint(800 * scaleFactor))
                 .setY(new PixelConstraint(15 * scaleFactor))
                 .setWidth(125f * scaleFactor)
@@ -599,7 +599,7 @@ public class PartyMember {
                     PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party kick " + this.username);
                 });
         
-        new UIButton()
+        new PSSButton()
                 .setX(new PixelConstraint(800 * scaleFactor))
                 .setY(new PixelConstraint(75 * scaleFactor))
                 .setWidth(125f * scaleFactor)
@@ -611,7 +611,7 @@ public class PartyMember {
                     PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party promote " + this.username);
                 });
 
-        new UIButton()
+        new PSSButton()
                 .setX(new PixelConstraint(800 * scaleFactor))
                 .setY(new PixelConstraint(135 * scaleFactor))
                 .setWidth(125f * scaleFactor)

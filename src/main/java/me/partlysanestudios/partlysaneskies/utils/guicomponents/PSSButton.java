@@ -20,7 +20,7 @@ import gg.essential.elementa.events.UIClickEvent;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.util.ResourceLocation;
 
-public class UIButton {
+public class PSSButton {
     UIBlock backgroundBlock;
     UIImage buttonTexture;
     UIWrappedText textComponent;
@@ -32,7 +32,7 @@ public class UIButton {
     Color color;
     String text;
 
-    public UIButton() {
+    public PSSButton() {
         this.text = "";
 
         backgroundBlock = (UIBlock) new UIBlock()
@@ -48,7 +48,7 @@ public class UIButton {
         this.color = new Color(0, 0, 0, 0);
     }
 
-    public UIButton(Color color) {
+    public PSSButton(Color color) {
         this.text = "";
 
         this.backgroundBlock = (UIBlock) new UIBlock()
@@ -65,7 +65,7 @@ public class UIButton {
     }
 
 
-    public UIButton setHeight(float height) {
+    public PSSButton setHeight(float height) {
         backgroundBlock.setHeight(new PixelConstraint(height));
         buttonTexture.setHeight(new PixelConstraint(height));
 
@@ -74,7 +74,7 @@ public class UIButton {
         return this;
     }
 
-    public UIButton setWidth(float width) {
+    public PSSButton setWidth(float width) {
         backgroundBlock.setWidth(new PixelConstraint(width));
         buttonTexture.setWidth(new PixelConstraint(width));
         textComponent.setWidth(new PixelConstraint(width));
@@ -84,7 +84,7 @@ public class UIButton {
         return this;
     }
 
-    public UIButton setX(XConstraint xPos) {
+    public PSSButton setX(XConstraint xPos) {
         backgroundBlock.setX(xPos);
         buttonTexture.setX(new CenterConstraint());
         textComponent.setX(new CenterConstraint());
@@ -94,7 +94,7 @@ public class UIButton {
         return this;
     }
 
-    public UIButton setY(YConstraint yPos) {
+    public PSSButton setY(YConstraint yPos) {
         backgroundBlock.setY(yPos);
         buttonTexture.setY(new CenterConstraint());
         textComponent.setY(new CenterConstraint());
@@ -104,13 +104,13 @@ public class UIButton {
         return this;
     }
 
-    public UIButton setChildOf(UIComponent parent) {
+    public PSSButton setChildOf(UIComponent parent) {
         backgroundBlock.setChildOf(parent);
 
         return this;
     }
 
-    public UIButton setColor(Color color) {
+    public PSSButton setColor(Color color) {
         backgroundBlock.removeChild(buttonTexture);
 
         buttonTexture = (UIImage) Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies:textures/gui/base_color_button_transparent.png"))
@@ -125,7 +125,7 @@ public class UIButton {
         return this;
     }
 
-    public UIButton setDefaultColor() {
+    public PSSButton setDefaultColor() {
         backgroundBlock.removeChild(buttonTexture);
 
         buttonTexture = (UIImage) Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies:textures/gui/base_color_button.png"))
@@ -141,20 +141,20 @@ public class UIButton {
         return this;
     }
 
-    public UIButton setText(String text) {
+    public PSSButton setText(String text) {
         this.textComponent.setText(text);
         this.text = text;
 
         return this;
     }
 
-    public UIButton setTextScale(float scale) {
+    public PSSButton setTextScale(float scale) {
         textComponent.setTextScale(new PixelConstraint(scale));
 
         return this;
     }
 
-    public UIButton onMouseClickConsumer(Consumer<UIClickEvent> method) {
+    public PSSButton onMouseClickConsumer(Consumer<UIClickEvent> method) {
         backgroundBlock.onMouseClickConsumer(method);
 
         return this;
@@ -165,7 +165,7 @@ public class UIButton {
         return buttonTexture;
     }
 
-    public UIButton setBackgroundVisibility(boolean val) {
+    public PSSButton setBackgroundVisibility(boolean val) {
         if (val) {
             buttonTexture.unhide(true);
             for (UIComponent child : buttonTexture.getChildren()) {
@@ -181,7 +181,7 @@ public class UIButton {
         return this;
     }
 
-    public UIButton insertComponentBeforeBackground(UIComponent component) {
+    public PSSButton insertComponentBeforeBackground(UIComponent component) {
         backgroundBlock.insertChildBefore(component, buttonTexture);
 
         return this;

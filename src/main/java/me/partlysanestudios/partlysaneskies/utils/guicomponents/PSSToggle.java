@@ -14,7 +14,7 @@ import net.minecraft.util.ResourceLocation;
 import java.awt.*;
 import java.util.function.Consumer;
 
-public class UIToggle {
+public class PSSToggle {
     static final ResourceLocation UNSELECTED_IMAGE_PATH = new ResourceLocation("partlysaneskies:textures/gui/base_color_button.png");
     static final ResourceLocation SELECTED_IMAGE_PATH = new ResourceLocation("partlysaneskies:textures/gui/base_color_background.png");
 
@@ -29,7 +29,7 @@ public class UIToggle {
     UIBlock backgroundBlock;
     UIImage buttonTexture;
 
-    public UIToggle() {
+    public PSSToggle() {
         this.isSelected = false;
         this.backgroundBlock = (UIBlock) new UIBlock()
                 .setColor(new Color(0, 0,0,0));
@@ -42,18 +42,18 @@ public class UIToggle {
         });
     }
 
-    public UIToggle toggleState() {
+    public PSSToggle toggleState() {
         return this.setState(!this.isSelected);
 
     }
 
-    public UIToggle setState(boolean state) {
+    public PSSToggle setState(boolean state) {
         this.isSelected = state;
 
         return this.updateState();
     }
 
-    public UIToggle updateState() {
+    public PSSToggle updateState() {
         backgroundBlock.removeChild(buttonTexture);
 
         if (this.isSelected) {
@@ -76,7 +76,7 @@ public class UIToggle {
         return this;
     }
 
-    public UIToggle setHeight(float height) {
+    public PSSToggle setHeight(float height) {
         backgroundBlock.setHeight(new PixelConstraint(height));
         buttonTexture.setHeight(new PixelConstraint(height));
 
@@ -85,7 +85,7 @@ public class UIToggle {
         return this;
     }
 
-    public UIToggle setWidth(float width) {
+    public PSSToggle setWidth(float width) {
         backgroundBlock.setWidth(new PixelConstraint(width));
         buttonTexture.setWidth(new PixelConstraint(width));
 
@@ -94,7 +94,7 @@ public class UIToggle {
         return this;
     }
 
-    public UIToggle setX(XConstraint xPos) {
+    public PSSToggle setX(XConstraint xPos) {
         backgroundBlock.setX(xPos);
         buttonTexture.setX(new CenterConstraint());
 
@@ -103,7 +103,7 @@ public class UIToggle {
         return this;
     }
 
-    public UIToggle setY(YConstraint yPos) {
+    public PSSToggle setY(YConstraint yPos) {
         backgroundBlock.setY(yPos);
         buttonTexture.setY(new CenterConstraint());
 
@@ -112,7 +112,7 @@ public class UIToggle {
         return this;
     }
 
-    public UIToggle OnMouseClickConsumer(Consumer<UIClickEvent> method) {
+    public PSSToggle OnMouseClickConsumer(Consumer<UIClickEvent> method) {
         backgroundBlock.onMouseClickConsumer(method);
 
         return this;
@@ -122,7 +122,7 @@ public class UIToggle {
         return buttonTexture;
     }
 
-    public UIToggle insertComponentBeforeBackground(UIComponent component) {
+    public PSSToggle insertComponentBeforeBackground(UIComponent component) {
         backgroundBlock.insertChildBefore(component, buttonTexture);
 
         return this;

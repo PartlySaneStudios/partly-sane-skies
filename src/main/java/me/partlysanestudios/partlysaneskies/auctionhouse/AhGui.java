@@ -19,8 +19,8 @@ import gg.essential.elementa.constraints.PixelConstraint;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
-import me.partlysanestudios.partlysaneskies.utils.guicomponents.UIButton;
-import me.partlysanestudios.partlysaneskies.utils.guicomponents.UIItemRender;
+import me.partlysanestudios.partlysaneskies.utils.guicomponents.PSSButton;
+import me.partlysanestudios.partlysaneskies.utils.guicomponents.PSSItemRender;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -468,7 +468,7 @@ public class AhGui extends WindowScreen {
                 .setColor(new Color(0, 0, 0, 0))
                 .setChildOf(mainBox);
 
-        UIButton box = new UIButton()
+        PSSButton box = new PSSButton()
             .setX(widthScaledConstraint(x - boxSide * .25f))
             .setY(widthScaledConstraint(y))
             .setWidth(widthScaledConstraint(boxSide * 1.5f).getValue())
@@ -544,7 +544,7 @@ public class AhGui extends WindowScreen {
             e.printStackTrace();
         }
 
-        new UIItemRender(auction.getItem())
+        new PSSItemRender(auction.getItem())
             .setItemScale(widthScaledConstraint(2f))
             .setX(new CenterConstraint())
             .setY(new CenterConstraint())
