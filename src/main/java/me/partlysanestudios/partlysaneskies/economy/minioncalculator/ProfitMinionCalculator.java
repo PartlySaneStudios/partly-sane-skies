@@ -166,7 +166,7 @@ public class ProfitMinionCalculator extends WindowScreen {
             UIWrappedText text = (UIWrappedText) new UIWrappedText(fuelRarityColor + fuelDisplayName)
                     .setX(new PixelConstraint(textXPos))
                     .setY(new CenterConstraint())
-                    .setWidth(new PixelConstraint(leftBar.getLeft() - textXPos - textPad))
+                    .setWidth(new PixelConstraint(leftBar.getLeft() - mainTextScrollComponent.getLeft() - textXPos - textPad))
                     .setColor(Color.white)
                     .setTextScale(fromWidthScaleFactor(1))
                     .setChildOf(toggle.getComponent());
@@ -197,7 +197,7 @@ public HashMap<MinionData.Minion.Upgrade, PSSToggle> addMinionUpgradeButtons() {
 
         for (MinionData.Minion.Upgrade upgrade : MinionData.Minion.Upgrade.values()) {
             PSSToggle toggle = new PSSToggle()
-                    .setX(new PixelConstraint(rightBar.getRight() + fromWidthScaleFactor(10).getValue()))
+                    .setX(new PixelConstraint(rightBar.getRight() - mainTextScrollComponent.getLeft() + fromWidthScaleFactor(2).getValue()))
                     .setY(new PixelConstraint(yPos))
                     .setWidth(fromWidthScaleFactor(20).getValue())
                     .setHeight(fromWidthScaleFactor(20).getValue())
@@ -218,7 +218,7 @@ public HashMap<MinionData.Minion.Upgrade, PSSToggle> addMinionUpgradeButtons() {
 
             String upgradeItemColor = upgradeItem.getRarityColorCode();
 
-            UIWrappedText text = (UIWrappedText) new UIWrappedText(upgradeItemName + upgradeItemColor)
+            UIWrappedText text = (UIWrappedText) new UIWrappedText(upgradeItemColor + upgradeItemName)
                     .setX(new PixelConstraint(textXPos))
                     .setY(new CenterConstraint())
                     .setWidth(new PixelConstraint(rightBar.getRight() - textXPos - textPad))
@@ -245,6 +245,7 @@ public HashMap<MinionData.Minion.Upgrade, PSSToggle> addMinionUpgradeButtons() {
 //    Sets the upgrades array to the current selected upgrade at index 0, and the
 //    second most recently selected upgrade at index 1
     public void changeUpgrade(PSSToggle toggle, MinionData.Minion.Upgrade selectedUpgrade) {
+        mainTextScrollComponent.scrollToTop(false);
 
         MinionData.Minion.Upgrade prevUprgade = null;
 //        If the upgrade array has at least one item the previous upgrade is equal to the first item in the list
