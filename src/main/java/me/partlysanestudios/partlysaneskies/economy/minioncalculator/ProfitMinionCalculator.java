@@ -252,13 +252,18 @@ public HashMap<MinionData.Minion.Upgrade, PSSToggle> addMinionUpgradeButtons() {
             prevUprgade = upgrades[0];
         }
         //        If the upgrade is selected already selected, set it to null
-        if (!upgradeToggleMap.get(selectedUpgrade).getState()) {
+        if (!toggle.getState()) {
+            if (selectedUpgrade.equals(prevUprgade)) {
+                prevUprgade = null;
+            }
             Utils.visPrint("deleting");
             selectedUpgrade = null;
         }
-        Utils.visPrint(upgradeToggleMap.get(selectedUpgrade).getState());
+        Utils.visPrint(toggle.getState());
 
         ArrayList< MinionData.Minion.Upgrade> temp = new ArrayList<>();
+
+
 
 //        If the selected upgrade is not equal to null, add it
         if (selectedUpgrade != null) {
