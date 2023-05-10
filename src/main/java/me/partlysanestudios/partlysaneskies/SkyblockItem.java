@@ -140,6 +140,41 @@ public class SkyblockItem {
         return bitCost != -1;
     }
 
+    public String getRarityColorCode() {
+        switch (rarity) {
+            case "COMMON":
+                return "§f";
+
+            case "UNCOMMON":
+                return "§a";
+
+            case "RARE":
+                return "§9";
+
+            case "EPIC":
+                return "§5";
+
+            case "LEGENDARY":
+                return "§6";
+
+            case "DIVINE":
+                return "§b";
+
+            case "MYTHIC":
+                return "§d";
+
+            case "SUPREME":
+                return "§4";
+
+            case "SPECIAL":
+            case "VERY_SPECIAL":
+                return "§c";
+
+            default:
+                return "";
+        }
+    }
+
 
 
 
@@ -285,7 +320,7 @@ public class SkyblockItem {
                     en.getValue().setAverageLowestBinPrice(map.get(en.getKey()));
                 }
             }));
-           
+
         } catch (IOException e) {
             e.printStackTrace();
         }

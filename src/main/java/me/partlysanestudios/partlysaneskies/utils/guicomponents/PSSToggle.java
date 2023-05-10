@@ -8,6 +8,7 @@ import gg.essential.elementa.constraints.PixelConstraint;
 import gg.essential.elementa.constraints.XConstraint;
 import gg.essential.elementa.constraints.YConstraint;
 import gg.essential.elementa.events.UIClickEvent;
+import gg.essential.elementa.utils.ObservableList;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.util.ResourceLocation;
 
@@ -15,8 +16,8 @@ import java.awt.*;
 import java.util.function.Consumer;
 
 public class PSSToggle {
-    static final ResourceLocation UNSELECTED_IMAGE_PATH = new ResourceLocation("partlysaneskies:textures/gui/base_color_button.png");
-    static final ResourceLocation SELECTED_IMAGE_PATH = new ResourceLocation("partlysaneskies:textures/gui/base_color_background.png");
+    static final ResourceLocation UNSELECTED_IMAGE_PATH = new ResourceLocation("partlysaneskies:textures/gui/unselected_toggle.png");
+    static final ResourceLocation SELECTED_IMAGE_PATH = new ResourceLocation("partlysaneskies:textures/gui/selected_toggle.png");
 
     float width;
     float height;
@@ -54,6 +55,8 @@ public class PSSToggle {
     }
 
     public PSSToggle updateState() {
+        ObservableList<UIComponent> children = buttonTexture.getChildren();
+
         backgroundBlock.removeChild(buttonTexture);
 
         if (this.isSelected) {
@@ -73,6 +76,9 @@ public class PSSToggle {
                     .setChildOf(this.backgroundBlock);
         }
 
+        for (UIComponent child : children) {
+            child.setChildOf(this.buttonTexture);
+        }
         return this;
     }
 
@@ -112,7 +118,7 @@ public class PSSToggle {
         return this;
     }
 
-    public PSSToggle OnMouseClickConsumer(Consumer<UIClickEvent> method) {
+    public PSSToggle onMouseClickConsumer(Consumer<UIClickEvent> method) {
         backgroundBlock.onMouseClickConsumer(method);
 
         return this;
@@ -126,5 +132,15 @@ public class PSSToggle {
         backgroundBlock.insertChildBefore(component, buttonTexture);
 
         return this;
+    }
+
+    public PSSToggle setChildOf(UIComponent parent) {
+        backgroundBlock.setChildOf(parent);
+
+        return this;
+    }
+
+    public boolean getState() {
+        return isSelected;
     }
 }
