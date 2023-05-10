@@ -321,7 +321,8 @@ public class Utils {
         }
     }
 
-    // Takes the last time the event happened, and takes the length that the event should last
+    // Takes the last time the event happened in Unix epoch time in milliseconds,
+    // and takes the length that the event should last in milliseconds
     // Returns false if the event is over, returns true if it is still ongoing
     public static boolean onCooldown(long lastTime, long length) {
         if (PartlySaneSkies.getTime() > lastTime + length) {

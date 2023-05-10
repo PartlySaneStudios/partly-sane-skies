@@ -15,6 +15,7 @@ import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
+import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
@@ -55,10 +56,6 @@ public class WatcherReady {
                         .playSound(PositionedSoundRecord.create(new ResourceLocation("partlysaneskies", "bell")));
             }
             if (PartlySaneSkies.config.watcherReadyAirRaidSiren) {
-                // Main.minecraft.theWorld.playSoundAtEntity(Main.minecraft.thePlayer,
-                // "partlysaneskies:airraidsiren", 100, 1);
-                // Main.minecraft.thePlayer.playSound("partlysaneskies:airraidsiren", 100, 1);
-
                 PartlySaneSkies.minecraft.getSoundHandler().playSound(
                         PositionedSoundRecord.create(new ResourceLocation("partlysaneskies", "airraidsiren")));
             }
@@ -69,7 +66,8 @@ public class WatcherReady {
     public void renderText(RenderGameOverlayEvent.Text event) {
         ((UIText) watcherReadyUIText).setText(watcherReadyString).setColor(PartlySaneSkies.config.watcherReadyBannerColor.toJavaColor());
         window.draw(new UMatrixStack());
-        if (watcherReadyBannerTime + PartlySaneSkies.config.watcherReadyBannerTime * 1000 < PartlySaneSkies.getTime())
+        if (!Utils.onCooldown(watcherReadyBannerTime, (int) (PartlySaneSkies.config.watcherReadyBannerTime * 1000))) {
             watcherReadyString = "";
+        }
     }
 }

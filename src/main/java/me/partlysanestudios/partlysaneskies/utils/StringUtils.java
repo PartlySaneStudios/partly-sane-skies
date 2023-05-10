@@ -21,7 +21,9 @@ public class StringUtils {
     public static String removeColorCodes(String text) {
         StringBuilder textBuilder = new StringBuilder(text);
         while (textBuilder.indexOf("§") != -1) {
-            textBuilder.deleteCharAt(textBuilder.indexOf("§") + 1);
+            if (textBuilder.length() <= textBuilder.indexOf("§") + 1){
+                textBuilder.deleteCharAt(textBuilder.indexOf("§") + 1);
+            }
             textBuilder.deleteCharAt(textBuilder.indexOf("§"));
         }
         return textBuilder.toString();
