@@ -34,6 +34,7 @@ public class ProfitMinionCalculator extends WindowScreen {
 
     private ArrayList<PSSToggle> fuelToggles;
     private ArrayList<UIComponent> minionTexts;
+    private HashMap<MinionData.Minion.Upgrade, PSSToggle> upgradeToggleMap;
     public ProfitMinionCalculator(ElementaVersion version) {
         super(version);
 
@@ -179,6 +180,88 @@ public class ProfitMinionCalculator extends WindowScreen {
         return components;
     }
 
+public HashMap<MinionData.Minion.Upgrade, PSSToggle> addMinionUpgradeButtons() {
+        HashMap<MinionData.Minion.Upgrade, PSSToggle> components = new HashMap<>();
+
+        float yPos = fromWidthScaleFactor(10).getValue();
+
+        float textPad = fromWidthScaleFactor(5).getValue();
+
+        float buttonPad = fromWidthScaleFactor(15).getValue();
+
+        for (MinionData.Minion.Upgrade upgrade : MinionData.Minion.Upgrade.values()) {
+            PSSToggle toggle = new PSSToggle()
+                    .setX(fromWidthScaleFactor(10))
+                    .setY(new PixelConstraint(yPos))
+                    .setWidth(fromWidthScaleFactor(20).getValue())
+                    .setHeight(fromWidthScaleFactor(20).getValue())
+                    .setChildOf(mainTextScrollComponent);
+
+            float textXPos = toggle.getComponent().getWidth() + textPad;
+            String upgradeId = upgrade.toString();
+            SkyblockItem upgradeItem = SkyblockItem.getItem(upgradeId);
+            if (upgradeItem == null) {
+                Utils.visPrint(upgrade.toString());
+                continue;
+            }
+            String fuelDisplayName = upgradeItem.getName();
+            String fuelRarityColor = upgradeItem.getRarityColorCode();
+            UIWrappedText text = (UIWrappedText) new UIWrappedText(fuelRarityColor + fuelDisplayName)
+                    .setX(new PixelConstraint(textXPos))
+                    .setY(new CenterConstraint())
+                    .setWidth(new PixelConstraint(leftBar.getLeft() - textXPos - textPad))
+                    .setColor(Color.white)
+                    .setTextScale(fromWidthScaleFactor(1))
+                    .setChildOf(toggle.getComponent());
+            toggle.onMouseClickConsumer(s -> {
+                changeUpgrade(toggle, upgrade);
+            });
+
+            text.onMouseClickConsumer(s -> {
+                changeUpgrade(toggle, upgrade);
+            });
+
+            components.put(upgrade, toggle);
+
+            yPos = toggle.getComponent().getBottom() + buttonPad;
+        }
+
+        return components;
+    }
+
+//    Sets the upgrades array to the current selected upgrade at index 0, and the
+//    second most recently selected upgrade at index 1
+    public void changeUpgrade(PSSToggle toggle, MinionData.Minion.Upgrade selectedUpgrade) {
+//        If the upgrade is selected already selected, set it to null
+        if (upgradeToggleMap.get(selectedUpgrade).getState()) {
+            selectedUpgrade = null;
+        }
+
+//        If the current upgrade is null
+        if (selectedUpgrade == null) {
+//            If the current upgrade is null, and the upgrades list is 1, empty it
+            if (this.upgrades.length == 1) {
+                this.upgrades = new MinionData.Minion.Upgrade[] {};
+            }
+//            Else, reduce it to 1
+            else {
+                this.upgrades = new MinionData.Minion.Upgrade[] {this.upgrades[0]};
+            }
+        }
+
+//        Creates a new array with the current selected upgrade and the one selected before it
+        this.upgrades = new MinionData.Minion.Upgrade[] {selectedUpgrade, this.upgrades[0]};
+
+//        Resets all the toggles
+        resetUpgradeToggles();
+
+//        Enables the selected toggles
+        for (MinionData.Minion.Upgrade up : upgrades) {
+            upgradeToggleMap.get(up).setState(true);
+        }
+
+    }
+
     public void changeFuel(PSSToggle toggle, String fuelId) {
         mainTextScrollComponent.scrollToTop(false);
         boolean newState = toggle.getState();
@@ -194,6 +277,12 @@ public class ProfitMinionCalculator extends WindowScreen {
     }
 
     public void resetFuelToggles() {
+        for (PSSToggle toggle : this.fuelToggles) {
+            toggle.setState(false);
+        }
+    }
+
+    public void resetUpgradeToggles() {
         for (PSSToggle toggle : this.fuelToggles) {
             toggle.setState(false);
         }
