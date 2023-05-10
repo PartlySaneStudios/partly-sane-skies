@@ -41,6 +41,7 @@ public class ProfitMinionCalculator extends WindowScreen {
         setUpBackground();
         this.minionTexts = addMinionBreakdownText();
         this.fuelToggles = addFuelButtons();
+        this.upgradeToggleMap = addMinionUpgradeButtons();
     }
 
     public void setUpBackground() {
@@ -141,22 +142,27 @@ public class ProfitMinionCalculator extends WindowScreen {
         float buttonPad = fromWidthScaleFactor(15).getValue();
 
         for (Map.Entry<String, MinionData.MinionFuel> en : MinionData.fuelMap.entrySet()) {
+
+            String fuelId = en.getValue().id;
+            SkyblockItem fuelItem = SkyblockItem.getItem(fuelId);
+
+            if (fuelItem == null) {
+                Utils.visPrint(en.getKey());
+                continue;
+            }
+
             PSSToggle toggle = new PSSToggle()
                     .setX(fromWidthScaleFactor(10))
                     .setY(new PixelConstraint(yPos))
                     .setWidth(fromWidthScaleFactor(20).getValue())
                     .setHeight(fromWidthScaleFactor(20).getValue())
                     .setChildOf(mainTextScrollComponent);
-
             float textXPos = toggle.getComponent().getWidth() + textPad;
-            String fuelId = en.getValue().id;
-            SkyblockItem fuelItem = SkyblockItem.getItem(fuelId);
-            if (fuelItem == null) {
-                Utils.visPrint(en.getKey());
-                continue;
-            }
+
             String fuelDisplayName = fuelItem.getName();
+
             String fuelRarityColor = fuelItem.getRarityColorCode();
+
             UIWrappedText text = (UIWrappedText) new UIWrappedText(fuelRarityColor + fuelDisplayName)
                     .setX(new PixelConstraint(textXPos))
                     .setY(new CenterConstraint())
@@ -191,28 +197,35 @@ public HashMap<MinionData.Minion.Upgrade, PSSToggle> addMinionUpgradeButtons() {
 
         for (MinionData.Minion.Upgrade upgrade : MinionData.Minion.Upgrade.values()) {
             PSSToggle toggle = new PSSToggle()
-                    .setX(fromWidthScaleFactor(10))
+                    .setX(new PixelConstraint(rightBar.getRight() + fromWidthScaleFactor(10).getValue()))
                     .setY(new PixelConstraint(yPos))
                     .setWidth(fromWidthScaleFactor(20).getValue())
                     .setHeight(fromWidthScaleFactor(20).getValue())
                     .setChildOf(mainTextScrollComponent);
 
             float textXPos = toggle.getComponent().getWidth() + textPad;
+
             String upgradeId = upgrade.toString();
+
             SkyblockItem upgradeItem = SkyblockItem.getItem(upgradeId);
+
             if (upgradeItem == null) {
                 Utils.visPrint(upgrade.toString());
                 continue;
             }
-            String fuelDisplayName = upgradeItem.getName();
-            String fuelRarityColor = upgradeItem.getRarityColorCode();
-            UIWrappedText text = (UIWrappedText) new UIWrappedText(fuelRarityColor + fuelDisplayName)
+
+            String upgradeItemName = upgradeItem.getName();
+
+            String upgradeItemColor = upgradeItem.getRarityColorCode();
+
+            UIWrappedText text = (UIWrappedText) new UIWrappedText(upgradeItemName + upgradeItemColor)
                     .setX(new PixelConstraint(textXPos))
                     .setY(new CenterConstraint())
-                    .setWidth(new PixelConstraint(leftBar.getLeft() - textXPos - textPad))
+                    .setWidth(new PixelConstraint(rightBar.getRight() - textXPos - textPad))
                     .setColor(Color.white)
                     .setTextScale(fromWidthScaleFactor(1))
                     .setChildOf(toggle.getComponent());
+
             toggle.onMouseClickConsumer(s -> {
                 changeUpgrade(toggle, upgrade);
             });
@@ -232,25 +245,36 @@ public HashMap<MinionData.Minion.Upgrade, PSSToggle> addMinionUpgradeButtons() {
 //    Sets the upgrades array to the current selected upgrade at index 0, and the
 //    second most recently selected upgrade at index 1
     public void changeUpgrade(PSSToggle toggle, MinionData.Minion.Upgrade selectedUpgrade) {
-//        If the upgrade is selected already selected, set it to null
-        if (upgradeToggleMap.get(selectedUpgrade).getState()) {
+
+        MinionData.Minion.Upgrade prevUprgade = null;
+//        If the upgrade array has at least one item the previous upgrade is equal to the first item in the list
+        if (upgrades.length > 0) {
+            prevUprgade = upgrades[0];
+        }
+        //        If the upgrade is selected already selected, set it to null
+        if (!upgradeToggleMap.get(selectedUpgrade).getState()) {
+            Utils.visPrint("deleting");
             selectedUpgrade = null;
         }
+        Utils.visPrint(upgradeToggleMap.get(selectedUpgrade).getState());
 
-//        If the current upgrade is null
-        if (selectedUpgrade == null) {
-//            If the current upgrade is null, and the upgrades list is 1, empty it
-            if (this.upgrades.length == 1) {
-                this.upgrades = new MinionData.Minion.Upgrade[] {};
-            }
-//            Else, reduce it to 1
-            else {
-                this.upgrades = new MinionData.Minion.Upgrade[] {this.upgrades[0]};
-            }
+        ArrayList< MinionData.Minion.Upgrade> temp = new ArrayList<>();
+
+//        If the selected upgrade is not equal to null, add it
+        if (selectedUpgrade != null) {
+            temp.add(selectedUpgrade);
+        }
+        if (prevUprgade != null) {
+            temp.add(prevUprgade);
         }
 
-//        Creates a new array with the current selected upgrade and the one selected before it
-        this.upgrades = new MinionData.Minion.Upgrade[] {selectedUpgrade, this.upgrades[0]};
+//        Creates a new upgrade array with the right size
+        upgrades = new MinionData.Minion.Upgrade[temp.size()];
+
+//        Adds all selected upgrades to the ugrades array
+        for (int i = 0; i < temp.size(); i++) {
+            upgrades[i] = temp.get(i);
+        }
 
 //        Resets all the toggles
         resetUpgradeToggles();
@@ -259,6 +283,9 @@ public HashMap<MinionData.Minion.Upgrade, PSSToggle> addMinionUpgradeButtons() {
         for (MinionData.Minion.Upgrade up : upgrades) {
             upgradeToggleMap.get(up).setState(true);
         }
+
+//        Refreshes minion data
+        this.minionTexts = updateMinionData();
 
     }
 
@@ -283,15 +310,15 @@ public HashMap<MinionData.Minion.Upgrade, PSSToggle> addMinionUpgradeButtons() {
     }
 
     public void resetUpgradeToggles() {
-        for (PSSToggle toggle : this.fuelToggles) {
+        for (PSSToggle toggle : this.upgradeToggleMap.values()) {
             toggle.setState(false);
         }
     }
 
     public ArrayList<UIComponent> updateMinionData() {
-        for (int i = 0; i < minionTexts.size(); i++) {
-            minionTexts.get(i).clearChildren();
-            minionTexts.get(i).parent.removeChild(minionTexts.get(i));
+        for (UIComponent minionText : minionTexts) {
+            minionText.clearChildren();
+            minionText.parent.removeChild(minionText);
         }
         minionTexts.clear();
 
