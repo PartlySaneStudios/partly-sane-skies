@@ -108,7 +108,6 @@ public class MinionData {
 
     public static class Minion {
         public enum Upgrade {
-            NONE,
             DIAMOND_SPREADING,
             KRAMPUS_HELMET,
             POTATO_SPREADING,
