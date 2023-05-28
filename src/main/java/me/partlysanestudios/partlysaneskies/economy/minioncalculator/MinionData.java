@@ -56,7 +56,9 @@ public class MinionData {
 
 
         // Code to test the minion classes
-        PartlySaneSkies.minecraft.displayGuiScreen(new ProfitMinionCalculator(ElementaVersion.V2));
+        ProfitMinionCalculator calc = new ProfitMinionCalculator(ElementaVersion.V2);
+        PartlySaneSkies.minecraft.displayGuiScreen(calc);
+
     }
 
     public static String getMostProfitMinionString(double hours, Minion.Upgrade[] upgrades, MinionFuel fuel) {
@@ -152,8 +154,14 @@ public class MinionData {
 
         public HashMap<String, Double> getBaseItemsPerMinute(int tier, Upgrade[] upgrades, MinionFuel fuel) {
             List<Upgrade> upgradesList = Arrays.asList(upgrades);
-
             double cooldownInSeconds = cooldowns.get(tier);
+
+            if (tier > maxTier) {
+                cooldownInSeconds = cooldowns.get(maxTier);
+            }
+            else {
+                cooldownInSeconds = cooldowns.get(tier);
+            }
 
             double speedUpgrade = 0;
             if (upgradesList.contains(Upgrade.MINION_EXPANDER)) {

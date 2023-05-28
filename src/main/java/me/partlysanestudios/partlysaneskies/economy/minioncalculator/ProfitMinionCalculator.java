@@ -5,50 +5,63 @@ import gg.essential.elementa.UIComponent;
 import gg.essential.elementa.WindowScreen;
 import gg.essential.elementa.components.ScrollComponent;
 import gg.essential.elementa.components.UIBlock;
-import gg.essential.elementa.components.UIText;
 import gg.essential.elementa.components.UIWrappedText;
 import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.SkyblockItem;
+import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
+import me.partlysanestudios.partlysaneskies.utils.guicomponents.PSSButton;
 import me.partlysanestudios.partlysaneskies.utils.guicomponents.PSSToggle;
 import net.minecraft.util.ResourceLocation;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class ProfitMinionCalculator extends WindowScreen {
-    private MinionData.MinionFuel selectedFuel = null;
-    private MinionData.Minion.Upgrade[] upgrades = {};
-    private double hours = 24;
+    MinionData.MinionFuel selectedFuel = null;
+    MinionData.Minion.Upgrade[] upgrades = {};
+    double hours = 24;
+    String selectedCategory;
 
-    private UIComponent backgroundBox;
+    UIComponent backgroundBox;
 
-    private ScrollComponent mainTextScrollComponent;
-    private UIComponent backgroundImage;
-    private UIComponent leftBar;
-    private UIComponent rightBar;
+    ScrollComponent mainTextScrollComponent;
+    UIComponent backgroundImage;
+    UIComponent leftBar;
+    UIComponent rightBar;
+    UIComponent categoriesBar;
 
-    private ArrayList<PSSToggle> fuelToggles;
-    private ArrayList<UIComponent> minionTexts;
-    private HashMap<MinionData.Minion.Upgrade, PSSToggle> upgradeToggleMap;
+    HashMap<String, PSSToggle> fuelToggles;
+    ArrayList<UIComponent> minionTexts;
+    HashMap<MinionData.Minion.Upgrade, PSSToggle> upgradeToggleMap;
+
+    static final String[] categories = {"ALL", "FORAGING", "MINING", "FISHING", "FARMING", "COMBAT"};
+    static final HashMap<String, String> categoriesColorMap = new HashMap<String, String>();
+
     public ProfitMinionCalculator(ElementaVersion version) {
         super(version);
+        categoriesColorMap.put("ALL", "§b");
+        categoriesColorMap.put("FORAGING", "§6");
+        categoriesColorMap.put("MINING", "§7");
+        categoriesColorMap.put("FISHING", "§9");
+        categoriesColorMap.put("FARMING", "§a");
+        categoriesColorMap.put("COMBAT", "§c");
 
         setUpBackground();
-        this.minionTexts = addMinionBreakdownText();
+        this.minionTexts = addMinionBreakdownText("ALL");
         this.fuelToggles = addFuelButtons();
         this.upgradeToggleMap = addMinionUpgradeButtons();
+        getBestMinionSettings();
+        addCategories();
     }
 
     public void setUpBackground() {
         this.backgroundBox = new UIBlock()
                 .setX(new CenterConstraint())
                 .setY(new CenterConstraint())
-                .setHeight(fromWidthScaleFactor(500))
+                .setHeight(fromWidthScaleFactor(400))
                 .setWidth(fromWidthScaleFactor(850))
                 .setColor(Color.red)
                 .setChildOf(getWindow());
@@ -83,23 +96,36 @@ public class ProfitMinionCalculator extends WindowScreen {
                 .setWidth(fromWidthScaleFactor(2f))
                 .setColor(PartlySaneSkies.ACCENT_COLOR)
                 .setChildOf(backgroundImage);
+
+        float categoriesBarHeight = fromWidthScaleFactor(40).getValue();
+        float categoriesBarPad = fromWidthScaleFactor(7).getValue();
+        this.categoriesBar = Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies:textures/gui/base_color_background.png"))
+                .setX(new CenterConstraint())
+                .setY(new PixelConstraint(backgroundBox.getTop() -(categoriesBarHeight + categoriesBarPad)))
+                .setWidth(new PixelConstraint(backgroundBox.getWidth()))
+                .setHeight(new PixelConstraint(categoriesBarHeight))
+                .setChildOf(getWindow());
     }
 
 //    Adds the most profitable minion's text to the middle section. Also returns a list with the objects in order
-    public ArrayList<UIComponent> addMinionBreakdownText() {
+    public ArrayList<UIComponent> addMinionBreakdownText(String category) {
+        selectedCategory = category;
         ArrayList<UIComponent> components = new ArrayList<>();
 //        Most profitable minions
         HashMap<MinionData.Minion, Double> mostProfitableMinions = MinionData.getMostProfitMinion(this.upgrades, this.selectedFuel);
         int i = 1; // Rank
 
 //        Starting y location
-        float yPos = fromWidthScaleFactor(50).getValue();
+        float yPos = fromWidthScaleFactor(10).getValue();
 //        Offset between the top of the text and the bar
         float barOffset = fromWidthScaleFactor(10).getValue();
 //        Distance between the bar and the edge of the middle section
         float barNegation = fromWidthScaleFactor(66).getValue();
 
         for (Map.Entry<MinionData.Minion, Double> en : mostProfitableMinions.entrySet()) {
+            if (!(category.equals("ALL") || en.getKey().category.equals(category))) {
+                continue;
+            }
 //            Creates a string with the Minion name, and it's cost breakdown
             String str = "§7"+ i + ". " +  en.getKey().costBreakdown(en.getKey().maxTier, this.hours, this.upgrades, this.selectedFuel);
 
@@ -125,21 +151,21 @@ public class ProfitMinionCalculator extends WindowScreen {
 
             components.add(text);
 
-            yPos = border.getBottom() + barOffset;
+            yPos = border.getBottom() + barOffset - mainTextScrollComponent.getTop();
             i++;
         }
 
         return components;
     }
 
-    public ArrayList<PSSToggle> addFuelButtons() {
-        ArrayList<PSSToggle> components = new ArrayList<>();
+    public HashMap<String, PSSToggle> addFuelButtons() {
+        HashMap<String, PSSToggle> components = new HashMap<>();
 
-        float yPos = fromWidthScaleFactor(10).getValue();
+        float yPos = fromWidthScaleFactor(5).getValue();
 
         float textPad = fromWidthScaleFactor(5).getValue();
 
-        float buttonPad = fromWidthScaleFactor(15).getValue();
+        float buttonPad = fromWidthScaleFactor(7).getValue();
 
         for (Map.Entry<String, MinionData.MinionFuel> en : MinionData.fuelMap.entrySet()) {
 
@@ -151,12 +177,20 @@ public class ProfitMinionCalculator extends WindowScreen {
                 continue;
             }
 
-            PSSToggle toggle = new PSSToggle()
+            UIComponent fuelContainer = new UIBlock()
                     .setX(fromWidthScaleFactor(10))
                     .setY(new PixelConstraint(yPos))
-                    .setWidth(fromWidthScaleFactor(20).getValue())
-                    .setHeight(fromWidthScaleFactor(20).getValue())
+                    .setWidth(new PixelConstraint(leftBar.getLeft() - mainTextScrollComponent.getLeft() - fromWidthScaleFactor(20).getValue()))
+                    .setHeight(fromWidthScaleFactor(40))
+                    .setColor(new Color(255, 255, 255, 0))
                     .setChildOf(mainTextScrollComponent);
+
+            PSSToggle toggle = new PSSToggle()
+                    .setX(fromWidthScaleFactor(0))
+                    .setY(new CenterConstraint())
+                    .setWidth(fromWidthScaleFactor(25).getValue())
+                    .setHeight(fromWidthScaleFactor(25).getValue())
+                    .setChildOf(fuelContainer);
             float textXPos = toggle.getComponent().getWidth() + textPad;
 
             String fuelDisplayName = fuelItem.getName();
@@ -166,21 +200,18 @@ public class ProfitMinionCalculator extends WindowScreen {
             UIWrappedText text = (UIWrappedText) new UIWrappedText(fuelRarityColor + fuelDisplayName)
                     .setX(new PixelConstraint(textXPos))
                     .setY(new CenterConstraint())
-                    .setWidth(new PixelConstraint(leftBar.getLeft() - mainTextScrollComponent.getLeft() - textXPos - textPad))
+                    .setWidth(new PixelConstraint(backgroundBox.getWidth() - textXPos))
                     .setColor(Color.white)
                     .setTextScale(fromWidthScaleFactor(1))
-                    .setChildOf(toggle.getComponent());
+                    .setChildOf(fuelContainer);
 
-            toggle.onMouseClickConsumer(s -> {
-                changeFuel(toggle, fuelId);
+            fuelContainer.onMouseClickConsumer(s -> {
+                toggle.toggleState();
+                changeFuel(fuelId, toggle.getState());
             });
+            components.put(fuelId, toggle);
 
-            text.onMouseClickConsumer(s -> {
-                changeFuel(toggle, fuelId);
-            });
-            components.add(toggle);
-
-            yPos = toggle.getComponent().getBottom() + buttonPad;
+            yPos = fuelContainer.getBottom() + buttonPad - mainTextScrollComponent.getTop();
         }
 
         return components;
@@ -189,30 +220,37 @@ public class ProfitMinionCalculator extends WindowScreen {
 public HashMap<MinionData.Minion.Upgrade, PSSToggle> addMinionUpgradeButtons() {
         HashMap<MinionData.Minion.Upgrade, PSSToggle> components = new HashMap<>();
 
-        float yPos = fromWidthScaleFactor(10).getValue();
+        float yPos = fromWidthScaleFactor(5).getValue();
 
         float textPad = fromWidthScaleFactor(5).getValue();
 
-        float buttonPad = fromWidthScaleFactor(15).getValue();
+        float buttonPad = fromWidthScaleFactor(7).getValue();
 
         for (MinionData.Minion.Upgrade upgrade : MinionData.Minion.Upgrade.values()) {
-            PSSToggle toggle = new PSSToggle()
-                    .setX(new PixelConstraint(rightBar.getRight() - mainTextScrollComponent.getLeft() + fromWidthScaleFactor(2).getValue()))
-                    .setY(new PixelConstraint(yPos))
-                    .setWidth(fromWidthScaleFactor(20).getValue())
-                    .setHeight(fromWidthScaleFactor(20).getValue())
-                    .setChildOf(mainTextScrollComponent);
-
-            float textXPos = toggle.getComponent().getWidth() + textPad;
-
             String upgradeId = upgrade.toString();
 
             SkyblockItem upgradeItem = SkyblockItem.getItem(upgradeId);
-
             if (upgradeItem == null) {
                 Utils.visPrint(upgrade.toString());
                 continue;
             }
+
+            UIComponent upgradeContainer = new UIBlock()
+                    .setX(new PixelConstraint(rightBar.getRight() - mainTextScrollComponent.getLeft() + fromWidthScaleFactor(2).getValue()))
+                    .setY(new PixelConstraint(yPos))
+                    .setWidth(new PixelConstraint(rightBar.getRight() - mainTextScrollComponent.getLeft() - fromWidthScaleFactor(20).getValue()))
+                    .setHeight(fromWidthScaleFactor(40))
+                    .setColor(new Color(255, 255, 255, 0))
+                    .setChildOf(mainTextScrollComponent);
+
+            PSSToggle toggle = new PSSToggle()
+                    .setX(fromWidthScaleFactor(0))
+                    .setY(new CenterConstraint())
+                    .setWidth(fromWidthScaleFactor(25).getValue())
+                    .setHeight(fromWidthScaleFactor(25).getValue())
+                    .setChildOf(upgradeContainer);
+            float textXPos = toggle.getComponent().getWidth() + textPad;
+
 
             String upgradeItemName = upgradeItem.getName();
 
@@ -221,30 +259,53 @@ public HashMap<MinionData.Minion.Upgrade, PSSToggle> addMinionUpgradeButtons() {
             UIWrappedText text = (UIWrappedText) new UIWrappedText(upgradeItemColor + upgradeItemName)
                     .setX(new PixelConstraint(textXPos))
                     .setY(new CenterConstraint())
-                    .setWidth(new PixelConstraint(rightBar.getRight() - textXPos - textPad))
+                    .setWidth(new PixelConstraint(backgroundBox.getWidth() - textXPos))
                     .setColor(Color.white)
                     .setTextScale(fromWidthScaleFactor(1))
-                    .setChildOf(toggle.getComponent());
+                    .setChildOf(upgradeContainer);
 
-            toggle.onMouseClickConsumer(s -> {
-                changeUpgrade(toggle, upgrade);
-            });
-
-            text.onMouseClickConsumer(s -> {
-                changeUpgrade(toggle, upgrade);
+            upgradeContainer.onMouseClickConsumer(s -> {
+                toggle.toggleState();
+                changeUpgrade(upgrade, toggle.getState());
             });
 
             components.put(upgrade, toggle);
 
-            yPos = toggle.getComponent().getBottom() + buttonPad;
+            yPos = upgradeContainer.getBottom() + buttonPad - mainTextScrollComponent.getTop();
         }
 
         return components;
     }
 
+
+    public void addCategories() {
+        float pad = fromWidthScaleFactor(10).getValue();
+        float blockWidth = (categoriesBar.getWidth() - (categories.length + 1) * pad) / categories.length;
+
+        float xPos = pad;
+        for (String category : categories) {
+            PSSButton button = new PSSButton()
+                    .setX(new PixelConstraint(xPos))
+                    .setY(new CenterConstraint())
+                    .setWidth(blockWidth)
+                    .setHeight(categoriesBar.getHeight() * .9f)
+                    .setChildOf(categoriesBar);
+
+            button.setText(categoriesColorMap.get(category) + StringUtils.titleCase(category));
+
+            button.onMouseClickConsumer(s -> {
+                selectedCategory = category;
+                this.minionTexts = updateMinionData();
+            });
+
+            xPos += blockWidth + pad ;
+        }
+    }
+
 //    Sets the upgrades array to the current selected upgrade at index 0, and the
 //    second most recently selected upgrade at index 1
-    public void changeUpgrade(PSSToggle toggle, MinionData.Minion.Upgrade selectedUpgrade) {
+    public void changeUpgrade(MinionData.Minion.Upgrade selectedUpgrade, boolean state) {
+        PSSToggle toggle = upgradeToggleMap.get(selectedUpgrade);
         mainTextScrollComponent.scrollToTop(false);
 
         MinionData.Minion.Upgrade prevUprgade = null;
@@ -263,9 +324,6 @@ public HashMap<MinionData.Minion.Upgrade, PSSToggle> addMinionUpgradeButtons() {
         Utils.visPrint(toggle.getState());
 
         ArrayList< MinionData.Minion.Upgrade> temp = new ArrayList<>();
-
-
-
 //        If the selected upgrade is not equal to null, add it
         if (selectedUpgrade != null) {
             temp.add(selectedUpgrade);
@@ -295,22 +353,23 @@ public HashMap<MinionData.Minion.Upgrade, PSSToggle> addMinionUpgradeButtons() {
 
     }
 
-    public void changeFuel(PSSToggle toggle, String fuelId) {
+    public void changeFuel(String fuelId, boolean state) {
         mainTextScrollComponent.scrollToTop(false);
-        boolean newState = toggle.getState();
         resetFuelToggles();
-        toggle.setState(newState);
-        if (!toggle.getState()) {
-            selectedFuel = null;
-        }
-        else {
+        PSSToggle toggle = fuelToggles.get(fuelId);
+        this.selectedFuel = null;
+        toggle.setState(state);
+        if (state) {
             this.selectedFuel = MinionData.fuelMap.get(fuelId);
         }
+
         this.minionTexts = updateMinionData();
+
+
     }
 
     public void resetFuelToggles() {
-        for (PSSToggle toggle : this.fuelToggles) {
+        for (PSSToggle toggle : this.fuelToggles.values()) {
             toggle.setState(false);
         }
     }
@@ -328,10 +387,70 @@ public HashMap<MinionData.Minion.Upgrade, PSSToggle> addMinionUpgradeButtons() {
         }
         minionTexts.clear();
 
-        return addMinionBreakdownText();
+        return addMinionBreakdownText(this.selectedCategory);
     }
 
     private PixelConstraint fromWidthScaleFactor(float pos) {
         return new PixelConstraint( (float) (pos * (this.getWindow().getWidth() / 1000d)));
+    }
+
+    public void getBestMinionSettings() {
+        long startTime = PartlySaneSkies.getTime();
+        Utils.visPrint("Start Time: " + startTime);
+        double bestProfit = -Integer.MIN_VALUE;
+
+        int bestTier = -1;
+        MinionData.Minion.Upgrade[] bestUpgrades = new MinionData.Minion.Upgrade[2];
+        MinionData.MinionFuel bestMinionFuel = null;
+
+        long possibleCombos = 0;
+        for (int i = 1; i <= 12; i++) { // Best tier
+            for (MinionData.MinionFuel fuel : MinionData.fuelMap.values()) { // Best fuel
+                for (MinionData.Minion.Upgrade upgrade1 : MinionData.Minion.Upgrade.values()) { // Best upgrade 1
+                    for (MinionData.Minion.Upgrade upgrade2 : MinionData.Minion.Upgrade.values()) { // Best Upgrade 2;
+                        possibleCombos ++;
+                        if (upgrade1.equals(upgrade2)) {
+                            continue;
+                        }
+                        if (upgrade1.equals(MinionData.Minion.Upgrade.LESSER_SOULFLOW_ENGINE) && upgrade2.equals(MinionData.Minion.Upgrade.SOULFLOW_ENGINE)) {
+                            continue;
+                        }
+                        if (upgrade2.equals(MinionData.Minion.Upgrade.LESSER_SOULFLOW_ENGINE) && upgrade1.equals(MinionData.Minion.Upgrade.SOULFLOW_ENGINE)) {
+                            continue;
+                        }
+
+                        MinionData.Minion.Upgrade[] testUpgrades = {upgrade1, upgrade2};
+
+                        LinkedHashMap< MinionData.Minion, Double> bestMinionsMap = MinionData.getMostProfitMinion(testUpgrades, fuel);
+
+                    double testMinionPrice = Integer.MIN_VALUE;
+                        for (double val : bestMinionsMap.values()) {
+                            if (val > testMinionPrice) {
+                                testMinionPrice = val;
+                            }
+                        }
+
+                        if (testMinionPrice > bestProfit) {
+                            bestTier = i;
+                            bestUpgrades = testUpgrades;
+                            bestMinionFuel = fuel;
+                        }
+
+                    }
+                }
+
+            }
+        }
+
+
+        Utils.visPrint("Best Tier: " + bestTier + "\nBest Fuel: " + bestMinionFuel.id + "Best Upgrades" + bestUpgrades[0] + " " + bestUpgrades[1]);
+
+        long endTime = PartlySaneSkies.getTime();
+        changeFuel(bestMinionFuel.id, true);
+        changeUpgrade(bestUpgrades[0], true);
+        changeUpgrade(bestUpgrades[1], true);
+        Utils.visPrint("Possible Combos: " + possibleCombos);
+        Utils.visPrint("End Time: " + endTime);
+        Utils.visPrint("Total Time: " + (endTime - startTime));
     }
 }
