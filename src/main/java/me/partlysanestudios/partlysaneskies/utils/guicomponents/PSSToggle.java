@@ -38,8 +38,7 @@ public class PSSToggle {
         this.buttonTexture = (UIImage) Utils.uiimageFromResourceLocation(UNSELECTED_IMAGE_PATH)
                 .setChildOf(backgroundBlock);
 
-        this.backgroundBlock.onMouseClickConsumer(s -> {
-            toggleState();
+        this.buttonTexture.onMouseClickConsumer(s -> {
         });
     }
 
@@ -55,6 +54,7 @@ public class PSSToggle {
     }
 
     public PSSToggle updateState() {
+
         ObservableList<UIComponent> children = buttonTexture.getChildren();
 
         backgroundBlock.removeChild(buttonTexture);
@@ -84,7 +84,9 @@ public class PSSToggle {
 
     public PSSToggle setHeight(float height) {
         backgroundBlock.setHeight(new PixelConstraint(height));
-        buttonTexture.setHeight(new PixelConstraint(height));
+        buttonTexture.setHeight(new PixelConstraint(height))
+                .setX(new CenterConstraint())
+                .setY(new CenterConstraint());
 
         this.height = height;
 
@@ -93,7 +95,9 @@ public class PSSToggle {
 
     public PSSToggle setWidth(float width) {
         backgroundBlock.setWidth(new PixelConstraint(width));
-        buttonTexture.setWidth(new PixelConstraint(width));
+        buttonTexture.setWidth(new PixelConstraint(width))
+                .setX(new CenterConstraint())
+                .setY(new CenterConstraint());
 
         this.width = width;
 
@@ -118,6 +122,7 @@ public class PSSToggle {
         return this;
     }
 
+//    This method fires when the button has been clicked
     public PSSToggle onMouseClickConsumer(Consumer<UIClickEvent> method) {
         backgroundBlock.onMouseClickConsumer(method);
 
