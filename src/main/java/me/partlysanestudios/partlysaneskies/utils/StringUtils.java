@@ -283,4 +283,28 @@ public class StringUtils {
             return string;
         }
     }
+
+    public static String titleCase(String str) {
+        String titleCase = "";
+        boolean nextCharUpperCase = true;
+        for (int i = 0; i < str.length(); i++) {
+            String ch = str.substring(i, i + 1);
+            if (!ch.equals(" ") && !nextCharUpperCase) {
+                titleCase += ch.toLowerCase();
+                continue;
+            }
+            if (nextCharUpperCase) {
+                titleCase += ch.toUpperCase();
+                nextCharUpperCase = false;
+                continue;
+            }
+
+            titleCase += ch.toLowerCase();
+            nextCharUpperCase = true;
+
+
+        }
+
+        return titleCase;
+    }
 }
