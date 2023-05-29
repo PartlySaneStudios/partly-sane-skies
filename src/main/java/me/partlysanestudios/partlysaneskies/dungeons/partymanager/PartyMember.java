@@ -261,7 +261,7 @@ public class PartyMember {
                     continue;
                 }
                 if (categoryElement.isJsonNull()) {
-                    contine;
+                    continue;
                 }
                 if (categoryElement.getAsString() == null) {
                     continue;
