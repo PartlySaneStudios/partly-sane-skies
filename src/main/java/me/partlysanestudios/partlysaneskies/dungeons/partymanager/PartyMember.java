@@ -257,6 +257,13 @@ public class PartyMember {
             }
             // Check all of the categories to see if it has arrow as a tag
             for (JsonElement categoryElement : slotObject.getAsJsonArray("categories")) {
+                if (categoryElement == null ) {
+                    continue;
+                }
+                if (categoryElement.getAsString() == null) {
+                    continue;
+                }
+
                 if (categoryElement.getAsString().equals("arrow")) {
 
                     // If it does, check to see if it has a count
