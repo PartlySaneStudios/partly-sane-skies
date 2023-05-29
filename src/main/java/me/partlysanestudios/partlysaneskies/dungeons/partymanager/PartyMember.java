@@ -260,6 +260,9 @@ public class PartyMember {
                 if (categoryElement == null ) {
                     continue;
                 }
+                if (categoryElement.isJsonNull()) {
+                    contine;
+                }
                 if (categoryElement.getAsString() == null) {
                     continue;
                 }
