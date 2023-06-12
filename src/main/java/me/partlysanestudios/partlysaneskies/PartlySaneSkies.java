@@ -110,13 +110,13 @@ public class PartlySaneSkies {
     public static final Color ACCENT_COLOR = new Color(1, 255, 255);
     public static final Color DARK_ACCENT_COLOR = new Color(1, 122, 122);
     // Names of all of the ranks to remove from people's names
-    public static final String[] RANK_NAMES = {"[VIP]", "[VIP+]", "[MVP]", "[MVP+]", "[MVP++]", "[YOUTUBE]", "[MOJANG]",
-            "[EVENTS]", "[MCP]", "[PIG]", "[PIG+]", "[PIG++]", "[PIG+++]", "[GM]", "[ADMIN]", "[OWNER]", "[NPC]"};
+    public static final String[] RANK_NAMES = { "[VIP]", "[VIP+]", "[MVP]", "[MVP+]", "[MVP++]", "[YOUTUBE]", "[MOJANG]",
+            "[EVENTS]", "[MCP]", "[PIG]", "[PIG+]", "[PIG++]", "[PIG+++]", "[GM]", "[ADMIN]", "[OWNER]", "[NPC]" };
 
     // Method runs at mod initialization
     @EventHandler
     public void init(FMLInitializationEvent evnt) {
-        Utils.log(Level.INFO, "Hallo World!");
+        Utils.log(Level.INFO,"Hallo World!");
         PartlySaneSkies.isDebugMode = false;
         PartlySaneSkies.minecraft = Minecraft.getMinecraft();
 
@@ -164,6 +164,7 @@ public class PartlySaneSkies {
             }
 
         }.start();
+
 
 
         // Registers all of the events
@@ -239,13 +240,15 @@ public class PartlySaneSkies {
         try {
             PartyManager.loadPlayerData(PartlySaneSkies.minecraft.getSession().getUsername());
         } catch (IOException e) {
-            Utils.log(Level.ERROR, "Partly Sane Skies: Unable to load player data.");
+            Utils.log(Level.ERROR,"Partly Sane Skies: Unable to load player data.");
             e.printStackTrace();
         }
 
 
+
+
         // Finished loading
-        Utils.log(Level.INFO, "Partly Sane Skies has loaded.");
+        Utils.log(Level.INFO,"Partly Sane Skies has loaded.");
     }
 
     // Method runs every tick
@@ -319,7 +322,7 @@ public class PartlySaneSkies {
                         .getChatGUI()
                         .printChatMessage(githubMessage);
 
-                Utils.sendClientMessage("&b--------------------------------------------------", true);
+                        Utils.sendClientMessage("&b--------------------------------------------------", true);
             }).start();
         }
     }
@@ -340,7 +343,7 @@ public class PartlySaneSkies {
             return null;
         }
 
-        return new IInventory[]{upperInventory, lowerInventory};
+        return new IInventory[] { upperInventory, lowerInventory };
     }
 
     // Returns the name of the scoreboard without colorcodes
@@ -358,18 +361,18 @@ public class PartlySaneSkies {
     // Returns a list of lines on the scoreboard,
     // where each line is a new entry
     public static List<String> getScoreboardLines() {
-        Scoreboard scoreboard = minecraft.theWorld.getScoreboard();
         try {
-            ScoreObjective objective = scoreboard.getObjectiveInDisplaySlot(1);
-            Collection<Score> scoreCollection = scoreboard.getSortedScores(objective);
+        Scoreboard scoreboard = minecraft.theWorld.getScoreboard();
+        ScoreObjective objective = scoreboard.getObjectiveInDisplaySlot(1);
+        Collection<Score> scoreCollection = scoreboard.getSortedScores(objective);
 
-            List<String> scoreLines = new ArrayList<String>();
-            for (Score score : scoreCollection) {
-                scoreLines.add(ScorePlayerTeam.formatPlayerName(scoreboard.getPlayersTeam(score.getPlayerName()),
-                        score.getPlayerName()));
-            }
+        List<String> scoreLines = new ArrayList<String>();
+        for (Score score : scoreCollection) {
+            scoreLines.add(ScorePlayerTeam.formatPlayerName(scoreboard.getPlayersTeam(score.getPlayerName()),
+                    score.getPlayerName()));
+        }
 
-            return scoreLines;
+        return scoreLines;
         } catch (IllegalArgumentException e) {
             if (e.getMessage().equals("Cannot locate declared field class net.minecraft.client.gui.inventory.GuiChest.field_147015_w")) {
                 System.out.println("Strange error message in PartlySaneSkies.getScoreboardLines()");
