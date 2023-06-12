@@ -19,17 +19,6 @@
 
 package me.partlysanestudios.partlysaneskies;
 
-import java.awt.Color;
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import net.minecraftforge.fml.common.FMLLog;
-import org.apache.commons.lang3.reflect.FieldUtils;
-
 import gg.essential.elementa.ElementaVersion;
 import me.partlysanestudios.partlysaneskies.auctionhouse.AhManager;
 import me.partlysanestudios.partlysaneskies.chatalerts.ChatAlertsCommand;
@@ -44,11 +33,7 @@ import me.partlysanestudios.partlysaneskies.economy.BitsShopValue;
 import me.partlysanestudios.partlysaneskies.garden.CompostValue;
 import me.partlysanestudios.partlysaneskies.garden.GardenTradeValue;
 import me.partlysanestudios.partlysaneskies.garden.SkymartValue;
-import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.CreateRangeCommand;
-import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.EndOfFarmNotfier;
-import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.Pos1Command;
-import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.Pos2Command;
-import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.RangeCommand;
+import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.*;
 import me.partlysanestudios.partlysaneskies.help.ConfigCommand;
 import me.partlysanestudios.partlysaneskies.help.DiscordCommand;
 import me.partlysanestudios.partlysaneskies.help.HelpCommand;
@@ -83,9 +68,19 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent;
+import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 @Mod(modid = PartlySaneSkies.MODID, version = PartlySaneSkies.VERSION, name = PartlySaneSkies.NAME)
 public class PartlySaneSkies {
@@ -366,17 +361,25 @@ public class PartlySaneSkies {
     // Returns a list of lines on the scoreboard,
     // where each line is a new entry
     public static List<String> getScoreboardLines() {
-        Scoreboard scoreboard = minecraft.theWorld.getScoreboard();
-        ScoreObjective objective = scoreboard.getObjectiveInDisplaySlot(1);
-        Collection<Score> scoreCollection = scoreboard.getSortedScores(objective);
+        try {
+            Scoreboard scoreboard = minecraft.theWorld.getScoreboard();
+            ScoreObjective objective = scoreboard.getObjectiveInDisplaySlot(1);
+            Collection<Score> scoreCollection = scoreboard.getSortedScores(objective);
 
-        List<String> scoreLines = new ArrayList<String>();
-        for (Score score : scoreCollection) {
-            scoreLines.add(ScorePlayerTeam.formatPlayerName(scoreboard.getPlayersTeam(score.getPlayerName()),
-                    score.getPlayerName()));
+            List<String> scoreLines = new ArrayList<String>();
+            for (Score score : scoreCollection) {
+                scoreLines.add(ScorePlayerTeam.formatPlayerName(scoreboard.getPlayersTeam(score.getPlayerName()),
+                        score.getPlayerName()));
+            }
+
+            return scoreLines;
+        } catch (IllegalArgumentException e) {
+            if (e.getMessage().equals("Cannot locate declared field class net.minecraft.client.gui.inventory.GuiChest.field_147015_w")) {
+                System.out.println("Strange error message in PartlySaneSkies.getScoreboardLines()");
+            }
+            e.printStackTrace();
+            return Collections.emptyList();
         }
-
-        return scoreLines;
     }
 
 
