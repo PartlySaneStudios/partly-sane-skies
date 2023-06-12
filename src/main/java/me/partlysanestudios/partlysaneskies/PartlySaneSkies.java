@@ -1,9 +1,9 @@
-/* 
- * 
+/*
+ *
  * Written by Su386.
  * See LICENSE for copyright and license notices.
- * 
- * 
+ *
+ *
  * Partly Sane Skies would not be possible with out the help of these projects:
  * (see CREDITS.md for more information)
  * Minecraft Forge
@@ -14,21 +14,10 @@
  * Vigilance
  * OneConfig
  * SkyCrypt
- * 
+ *
  */
 
 package me.partlysanestudios.partlysaneskies;
-
-import java.awt.Color;
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import net.minecraftforge.fml.common.FMLLog;
-import org.apache.commons.lang3.reflect.FieldUtils;
 
 import gg.essential.elementa.ElementaVersion;
 import me.partlysanestudios.partlysaneskies.auctionhouse.AhManager;
@@ -44,11 +33,7 @@ import me.partlysanestudios.partlysaneskies.economy.BitsShopValue;
 import me.partlysanestudios.partlysaneskies.garden.CompostValue;
 import me.partlysanestudios.partlysaneskies.garden.GardenTradeValue;
 import me.partlysanestudios.partlysaneskies.garden.SkymartValue;
-import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.CreateRangeCommand;
-import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.EndOfFarmNotfier;
-import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.Pos1Command;
-import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.Pos2Command;
-import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.RangeCommand;
+import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.*;
 import me.partlysanestudios.partlysaneskies.help.ConfigCommand;
 import me.partlysanestudios.partlysaneskies.help.DiscordCommand;
 import me.partlysanestudios.partlysaneskies.help.HelpCommand;
@@ -83,9 +68,19 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent;
+import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 @Mod(modid = PartlySaneSkies.MODID, version = PartlySaneSkies.VERSION, name = PartlySaneSkies.NAME)
 public class PartlySaneSkies {
@@ -115,21 +110,21 @@ public class PartlySaneSkies {
     public static final Color ACCENT_COLOR = new Color(1, 255, 255);
     public static final Color DARK_ACCENT_COLOR = new Color(1, 122, 122);
     // Names of all of the ranks to remove from people's names
-    public static final String[] RANK_NAMES = { "[VIP]", "[VIP+]", "[MVP]", "[MVP+]", "[MVP++]", "[YOUTUBE]", "[MOJANG]",
-            "[EVENTS]", "[MCP]", "[PIG]", "[PIG+]", "[PIG++]", "[PIG+++]", "[GM]", "[ADMIN]", "[OWNER]", "[NPC]" };
+    public static final String[] RANK_NAMES = {"[VIP]", "[VIP+]", "[MVP]", "[MVP+]", "[MVP++]", "[YOUTUBE]", "[MOJANG]",
+            "[EVENTS]", "[MCP]", "[PIG]", "[PIG+]", "[PIG++]", "[PIG+++]", "[GM]", "[ADMIN]", "[OWNER]", "[NPC]"};
 
     // Method runs at mod initialization
     @EventHandler
     public void init(FMLInitializationEvent evnt) {
-        Utils.log(Level.INFO,"Hallo World!");
+        Utils.log(Level.INFO, "Hallo World!");
         PartlySaneSkies.isDebugMode = false;
         PartlySaneSkies.minecraft = Minecraft.getMinecraft();
 
         // Creates the partly-sane-skies directory if not already made
         new File("./config/partly-sane-skies/").mkdirs();
-        
+
         // Loads the config files and options
-        PartlySaneSkies.config = new OneConfigScreen();    
+        PartlySaneSkies.config = new OneConfigScreen();
         Request mainMenuRequest = null;
         try {
             mainMenuRequest = new Request("https://raw.githubusercontent.com/PartlySaneStudios/partly-sane-skies-public-data/main/data/main_menu.json", s -> {
@@ -152,7 +147,7 @@ public class PartlySaneSkies {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                
+
 
                 // Loads chat alerts data
                 try {
@@ -167,10 +162,9 @@ public class PartlySaneSkies {
                     e.printStackTrace();
                 }
             }
-        
+
         }.start();
 
-        
 
         // Registers all of the events
         MinecraftForge.EVENT_BUS.register(this);
@@ -245,15 +239,13 @@ public class PartlySaneSkies {
         try {
             PartyManager.loadPlayerData(PartlySaneSkies.minecraft.getSession().getUsername());
         } catch (IOException e) {
-            Utils.log(Level.ERROR,"Partly Sane Skies: Unable to load player data.");
+            Utils.log(Level.ERROR, "Partly Sane Skies: Unable to load player data.");
             e.printStackTrace();
         }
 
 
-        
-        
         // Finished loading
-        Utils.log(Level.INFO,"Partly Sane Skies has loaded.");
+        Utils.log(Level.INFO, "Partly Sane Skies has loaded.");
     }
 
     // Method runs every tick
@@ -310,24 +302,24 @@ public class PartlySaneSkies {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                
+
                 Utils.sendClientMessage("&b--------------------------------------------------", true);
 
                 Utils.sendClientMessage("&cWe have detected a new version of Partly Sane Skies.");
-                
+
                 ChatComponentText skyclientMessage = new ChatComponentText(StringUtils.colorCodes("&aIf you are using SkyClient, make sure you update when prompted."));
                 PartlySaneSkies.minecraft.ingameGUI
                         .getChatGUI()
                         .printChatMessage(skyclientMessage);
-            
+
                 ChatComponentText githubMessage = new ChatComponentText(StringUtils.colorCodes("&9If you are not using SkyClient, click here go to the github and download the latest version."));
                 githubMessage.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/PartlySaneStudios/partly-sane-skies/releases"));
                 githubMessage.getChatStyle().setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText("Click here to open the downloads page")));
                 PartlySaneSkies.minecraft.ingameGUI
                         .getChatGUI()
                         .printChatMessage(githubMessage);
-                
-                        Utils.sendClientMessage("&b--------------------------------------------------", true);
+
+                Utils.sendClientMessage("&b--------------------------------------------------", true);
             }).start();
         }
     }
@@ -347,8 +339,8 @@ public class PartlySaneSkies {
             e.printStackTrace();
             return null;
         }
-    
-        return new IInventory[] { upperInventory, lowerInventory };
+
+        return new IInventory[]{upperInventory, lowerInventory};
     }
 
     // Returns the name of the scoreboard without colorcodes
@@ -367,16 +359,24 @@ public class PartlySaneSkies {
     // where each line is a new entry
     public static List<String> getScoreboardLines() {
         Scoreboard scoreboard = minecraft.theWorld.getScoreboard();
-        ScoreObjective objective = scoreboard.getObjectiveInDisplaySlot(1);
-        Collection<Score> scoreCollection = scoreboard.getSortedScores(objective);
+        try {
+            ScoreObjective objective = scoreboard.getObjectiveInDisplaySlot(1);
+            Collection<Score> scoreCollection = scoreboard.getSortedScores(objective);
 
-        List<String> scoreLines = new ArrayList<String>();
-        for (Score score : scoreCollection) {
-            scoreLines.add(ScorePlayerTeam.formatPlayerName(scoreboard.getPlayersTeam(score.getPlayerName()),
-                    score.getPlayerName()));
+            List<String> scoreLines = new ArrayList<String>();
+            for (Score score : scoreCollection) {
+                scoreLines.add(ScorePlayerTeam.formatPlayerName(scoreboard.getPlayersTeam(score.getPlayerName()),
+                        score.getPlayerName()));
+            }
+
+            return scoreLines;
+        } catch (IllegalArgumentException e) {
+            if (e.getMessage().equals("Cannot locate declared field class net.minecraft.client.gui.inventory.GuiChest.field_147015_w")) {
+                System.out.println("Strange error message in PartlySaneSkies.getScoreboardLines()");
+            }
+            e.printStackTrace();
+            return Collections.emptyList();
         }
-
-        return scoreLines;
     }
 
 
