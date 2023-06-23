@@ -116,7 +116,7 @@ public class Request {
         return !otherFailure;
     }
 
-    // Submits the getRequest
+    // Submits the request
     public void getRequest() throws IOException {
         // Opens a new connection with the url
         HttpURLConnection httpURLConnection = (HttpURLConnection) this.url.openConnection();

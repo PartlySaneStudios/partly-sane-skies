@@ -19,6 +19,17 @@
 
 package me.partlysanestudios.partlysaneskies;
 
+import java.awt.Color;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import me.partlysanestudios.partlysaneskies.economy.minioncalculator.MinionCalculatorCommand;
+import me.partlysanestudios.partlysaneskies.economy.minioncalculator.MinionData;
+import org.apache.commons.lang3.reflect.FieldUtils;
 import gg.essential.elementa.ElementaVersion;
 import me.partlysanestudios.partlysaneskies.auctionhouse.AhManager;
 import me.partlysanestudios.partlysaneskies.chatalerts.ChatAlertsCommand;
@@ -103,6 +114,8 @@ public class PartlySaneSkies {
     public static boolean isDebugMode;
 
     private static LocationBannerDisplay locationBannerDisplay;
+
+
 
     public static final Color BASE_DARK_COLOR = new Color(32, 33, 36);
     public static final Color BASE_COLOR = new Color(42, 43, 46);
@@ -204,6 +217,7 @@ public class PartlySaneSkies {
         ClientCommandHandler.instance.registerCommand(new Pos2Command());
         ClientCommandHandler.instance.registerCommand(new Pos1Command());
         ClientCommandHandler.instance.registerCommand(new RangeCommand());
+        ClientCommandHandler.instance.registerCommand(new MinionCalculatorCommand());
 
         // Initialises keybinds
         Keybinds.init();
@@ -233,6 +247,12 @@ public class PartlySaneSkies {
         try {
             SkymartValue.initCopperValues();
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            MinionData.preRequestInit();
+        } catch (MalformedURLException e) {
             e.printStackTrace();
         }
 
@@ -498,12 +518,6 @@ public class PartlySaneSkies {
 
     // Sends a ping to the count API to track the amount of users per day
     public void trackLoad() {
-        try {
-            RequestsManager.newRequest(new Request("https://api.countapi.xyz/hit/partly-sane-skies-load", s -> {
-                Utils.log(Level.INFO, "\n\nPartly Sane Skies startup count:\n" + s.getResponse() + "\n\n");
-            }));
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+
     }
 }

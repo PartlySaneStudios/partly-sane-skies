@@ -1,24 +1,28 @@
-# **Partly Sane Studios Presents:** *Partly Sane Skies!*
+<h1> <a href="#----"> <img src = "images/banner_image.png" alt="Banner" align="center"> </a> </h1>
+
+[//]: # (<h1 align="center"> Partly Sane Skies </h1>)
+<h4 align="center"> <sup> A Quality of Life Skyblock Mod</sup> </h4>
 
 <p align="center">
   <a href="https://github.com/PartlySaneStudios/partly-sane-skies/releases" target="_blank">
-    <img alt="Downloads" src="https://img.shields.io/github/v/release/PartlySaneStudios/partly-sane-skies?display_name=tag" />
+    <img alt="Latest Release" src="https://img.shields.io/github/v/release/PartlySaneStudios/partly-sane-skies?color=%23007EA7&label=Latest%20Version&style=for-the-badge" />
   </a>
   <a href="https://github.com/PartlySaneStudios/partly-sane-skies/releases" target="_blank">
-    <img alt="Downloads" src="https://img.shields.io/github/downloads/PartlySaneStudios/partly-sane-skies/total" />
+    <img alt="Downloads" src="https://img.shields.io/github/downloads/PartlySaneStudios/partly-sane-skies/total?color=%23007EA7&label=Downloads&style=for-the-badge" />
+  </a>
+  <a href="https://github.com/PartlySaneStudios/partly-sane-skies/graphs/contributors" target="_blank">
+    <img alt="Lines" src="https://img.shields.io/tokei/lines/github/PartlySaneStudios/partly-sane-skies?color=%23007EA7&label=Lines&style=for-the-badge" />
   </a>
   <a href="https://discord.gg/v4PU3WeH7z" target="_blank">
-    <img alt="Discord" src="https://img.shields.io/discord/1001847734766145607" />
+    <img alt="Discord" src="https://img.shields.io/discord/1001847734766145607?color=%23007EA7&label=Discord&style=for-the-badge" />
   </a>
 </p>
 
 ## About
 
-Latest Version: **Beta v0.2.1**
 
-This is a Minecraft mod for Hypixel Skyblock, designed, built, and programmed by **Su386** and **FlagMaster**
-
-[Credits](CREDITS.md)
+Partly Sane Skies is a Minecraft mod for Hypixel Skyblock, designed, built, and programmed by **Su386** and **FlagMaster**. 
+Credits including third party programs can be [found here (CREDITS.md)](CREDITS.md)
 
 ### Download
 
@@ -29,18 +33,23 @@ This is a Minecraft mod for Hypixel Skyblock, designed, built, and programmed by
 
 [Click here to join the discord](https://discord.gg/v4PU3WeH7z) for help, support, giveaways, and updates as they happen.
 
-To see [more information](pages/commands.md) about commands, including how to use them, [click here to visit the command page (pages/commands.md).](pages/commands.md)
+
+
+## Features
+
+*(Click the drop down arrows to see more)*
+
+
+### Commands
 
 <details>
-  <summary> Commands </summary>
-
-## Commands
+  <summary> <b> All Commands </b> </summary>
 
 [``/pss``:](pages/commands.md#pss) A help command for Partly Sane Skies
 
 [``/pss config``, ``/pssconfig``:](pages/commands.md#pssconfig) A command to open the PSS Config menu. It can also be keybinded in the vanilla options menu. Default: ``F7``
 
-[``/pssdisc``, ``/pssdiscord``:](pages/commands.md#pssdisc) Sends a link to the discord. [Or you can just join here (https://discord.gg/v4PU3WeH7z)](https://discord.gg/v4PU3WeH7z)
+[``/pssdisc``, ``/pssdiscord``:](pages/commands.md#pssdiscord) Sends a link to the discord. [Or you can just join here (https://discord.gg/v4PU3WeH7z)](https://discord.gg/v4PU3WeH7z)
 
 [``/skillup <username>``, ``/su <username>``:](pages/commands.md#skillup) Command to use the skill upgrade recommandation feature. (See Features)
 
@@ -50,24 +59,30 @@ To see [more information](pages/commands.md) about commands, including how to us
 
 [``/fp``, ``/pf``:](pages/commands.md#friendparty) Command to use Party All Friends. (See Features)
 
-[``/chatalert``, ``/ca``, ``/chal``:](pages/commands.md#chatalert) Command to use the Chat Alerts System. (See Features)
+[``/chatalert``, ``/ca``, ``/chal``:](pages/commands.md#chatalerts) Command to use the Chat Alerts System. (See Features)
 
-[``/farmnotfier``, ``/fn``, ``/farmnotif``:](pages/commands.md#farmnotifier) Command to use the farm notifier system. 
+[``/farmnotfier``, ``/fn``, ``/farmnotif``:](pages/commands.md#farmnotfier) Command to use the farm notifier system.
 
 </details>
 
-## Features
+To see [more information](pages/commands.md) about commands, including how to use them, **[click here to visit the command page. (pages/commands.md)](pages/commands.md)**
 
-(Click the drop down arrows to see more)
+### Config
 
 <details>
-  <summary> <b> Everything is in this list can be configured in the config menu. Command:  <code> /pss config </code> Default Keybind:  <code> F7 </code>. The config menu can also be accessed through the custom skyblock main menu. </b> </summary>
+  <summary> <b> Almost all features can be enabled through the config menu.</b> </summary>
 
   ![Config Menu](images/config_menu.png)
 
 </details>
 
-<br>
+Command:  <code>/pss config</code> 
+
+Default Keybind:  <code>F7</code>.
+
+The config menu can also be accessed through the custom main menu.
+
+### Categories
 
 <details>
   <summary> General/Miscellaneous Features </summary>

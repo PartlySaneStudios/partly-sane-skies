@@ -49,17 +49,14 @@ public class RequestsManager {
         // Else
         else {
             // Creates a new thread to execute request
-            new Thread() {
-                @Override
-                public void run() {
-                    try {
-                        element.getRequest();
-                    } catch (IOException e) {
-                        element.setFailed("{THREW_IOEXEPCTION}");
-                        e.printStackTrace();
-                    }
+            new Thread(() -> {
+                try {
+                    element.getRequest();
+                } catch (IOException e) {
+                    element.setFailed("{THREW_IOEXEPCTION}");
+                    e.printStackTrace();
                 }
-            }.start();
+            }).start();
         }
     }
 

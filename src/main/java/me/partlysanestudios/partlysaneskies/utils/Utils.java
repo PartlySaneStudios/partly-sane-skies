@@ -27,6 +27,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import javax.imageio.ImageIO;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import gg.essential.elementa.UIComponent;
 import gg.essential.elementa.components.UIImage;
 import gg.essential.elementa.constraints.CenterConstraint;
@@ -36,11 +38,11 @@ import me.partlysanestudios.partlysaneskies.WikiArticleOpener;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.client.resources.IResource;
+import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.FMLLog;
 import org.apache.logging.log4j.Level;
 
 public class Utils {
@@ -124,22 +126,6 @@ public class Utils {
         }
     }
 
-    public static double toPercentageOfWidth(double value) {
-        return value / (PartlySaneSkies.minecraft.displayWidth / 2);
-    }
-
-    public static double toPercentageOfHeight(double value) {
-        return value / (PartlySaneSkies.minecraft.displayHeight / 2);
-    }
-
-    public static double fromPercentageOfWidth(double value) {
-        return value * (PartlySaneSkies.minecraft.displayWidth / 2);
-    }
-
-    public static double fromPercentageOfHeight(double value) {
-        return value * (PartlySaneSkies.minecraft.displayHeight / 2);
-    }
-
     public static void copyStringToClipboard(String string) {
         Toolkit.getDefaultToolkit().getSystemClipboard().setContents(getTransferableString(string), null);
     }
@@ -200,7 +186,7 @@ public class Utils {
     }
 
     public static double round(double num, int decimalPlaces) {
-        return Math.round((num * ((double) (Math.pow(10, decimalPlaces))))) / ((double) (Math.pow(10, decimalPlaces)));
+        return Math.round(num * Math.pow(10, decimalPlaces) / Math.pow(10, decimalPlaces));
     }
 
     public static int randint(int min, int max) {
@@ -310,8 +296,9 @@ public class Utils {
             }));
             return image;
         } catch (NullPointerException | IOException exception) {
-            exception.printStackTrace();
-            return UIImage.ofResource("/assets/partlysaneskies/textures/null_texture.png");
+
+            return UIImage.ofResource("/assets/partlysaneskies/" + location.getResourcePath());
+//            return UIImage.ofResource("/assets/partlysaneskies/textures/null_texture.png");
         }
     }
 
@@ -325,21 +312,40 @@ public class Utils {
                 Object object = oclass.getMethod("getDesktop", new Class[0]).invoke((Object) null, new Object[0]);
                 oclass.getMethod("browse", new Class[] { URI.class }).invoke(object, new Object[] { uri });
             } catch (Throwable throwable) {
-                Utils.sendClientMessage("Couldn\'t open link");
+                Utils.sendClientMessage("Couldn't open link");
                 throwable.printStackTrace();
             }
         } catch (URISyntaxException except) {
-            Utils.sendClientMessage("Couldn\'t open link");
+            Utils.sendClientMessage("Couldn't open link");
             except.printStackTrace();
         }
     }
 
-    // Takes the last time the event happened, and takes the length that the event should last
+    // Takes the last time the event happened in Unix epoch time in milliseconds,
+    // and takes the length that the event should last in milliseconds
     // Returns false if the event is over, returns true if it is still ongoing
     public static boolean onCooldown(long lastTime, long length) {
         if (PartlySaneSkies.getTime() > lastTime + length) {
             return false;
         }
         return true;
+    }
+
+//    Gets the json element from  a path string in format /key/key/key/key/
+    public static JsonElement getJsonFromPath(JsonObject source, String path) {
+        String[] splitPath = path.split("/");
+
+        JsonObject obj = source;
+        // Gets the object up until the very last one
+        for (int i = 0; i < splitPath.length - 1; i++) {
+            if (splitPath[i].isEmpty()) {
+                continue;
+            }
+
+            obj = obj.getAsJsonObject(splitPath[i]);
+        }
+
+//        Gets the last object as a JsonElement
+        return obj.get(splitPath[splitPath.length - 1]);
     }
 }

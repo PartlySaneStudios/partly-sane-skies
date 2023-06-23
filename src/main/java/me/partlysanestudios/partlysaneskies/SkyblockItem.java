@@ -7,6 +7,7 @@ package me.partlysanestudios.partlysaneskies;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -91,6 +92,17 @@ public class SkyblockItem {
         return -1;
     }
 
+    public double getBestPrice() {
+        ArrayList<Double> list = new ArrayList<>();
+        list.add(getBazaarPrice());
+        list.add(getLowestBin());
+        list.add(getNpcSellPrice());
+
+        list.sort(Comparator.naturalOrder());
+
+        return list.get(list.size() - 1);
+    }
+
     public double getLowestBin() {
         return this.lowestBinPrice;
     }
@@ -126,6 +138,41 @@ public class SkyblockItem {
 
     public boolean hasBitCost() {
         return bitCost != -1;
+    }
+
+    public String getRarityColorCode() {
+        switch (rarity) {
+            case "COMMON":
+                return "§f";
+
+            case "UNCOMMON":
+                return "§a";
+
+            case "RARE":
+                return "§9";
+
+            case "EPIC":
+                return "§5";
+
+            case "LEGENDARY":
+                return "§6";
+
+            case "DIVINE":
+                return "§b";
+
+            case "MYTHIC":
+                return "§d";
+
+            case "SUPREME":
+                return "§4";
+
+            case "SPECIAL":
+            case "VERY_SPECIAL":
+                return "§c";
+
+            default:
+                return "";
+        }
     }
 
 
@@ -273,7 +320,7 @@ public class SkyblockItem {
                     en.getValue().setAverageLowestBinPrice(map.get(en.getKey()));
                 }
             }));
-           
+
         } catch (IOException e) {
             e.printStackTrace();
         }

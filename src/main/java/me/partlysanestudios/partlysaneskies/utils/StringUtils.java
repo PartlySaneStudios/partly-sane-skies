@@ -21,6 +21,10 @@ public class StringUtils {
     public static String removeColorCodes(String text) {
         StringBuilder textBuilder = new StringBuilder(text);
         while (textBuilder.indexOf("§") != -1) {
+            if (textBuilder.indexOf("§") == textBuilder.length() - 1) {
+                textBuilder.deleteCharAt(textBuilder.indexOf("§"));
+                continue;
+            }
             textBuilder.deleteCharAt(textBuilder.indexOf("§") + 1);
             textBuilder.deleteCharAt(textBuilder.indexOf("§"));
         }
@@ -280,5 +284,29 @@ public class StringUtils {
         } else {
             return string;
         }
+    }
+
+    public static String titleCase(String str) {
+        String titleCase = "";
+        boolean nextCharUpperCase = true;
+        for (int i = 0; i < str.length(); i++) {
+            String ch = str.substring(i, i + 1);
+            if (!ch.equals(" ") && !nextCharUpperCase) {
+                titleCase += ch.toLowerCase();
+                continue;
+            }
+            if (nextCharUpperCase) {
+                titleCase += ch.toUpperCase();
+                nextCharUpperCase = false;
+                continue;
+            }
+
+            titleCase += ch.toLowerCase();
+            nextCharUpperCase = true;
+
+
+        }
+
+        return titleCase;
     }
 }

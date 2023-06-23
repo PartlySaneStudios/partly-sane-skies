@@ -77,7 +77,7 @@ public class DropBannerDisplay extends Gui {
             .setTextScale(new PixelConstraint(SMALL_TEXT_SCALE/1075 * window.getWidth()))
             .setWidth(new PixelConstraint(window.getWidth()))
             .setX(new CenterConstraint())
-            .setY(new PixelConstraint(window.getHeight() * .4f))
+            .setY(new PixelConstraint(topText.getBottom() + window.getHeight() * .11f))
             .setChildOf(window);
 
     @SubscribeEvent
@@ -122,7 +122,7 @@ public class DropBannerDisplay extends Gui {
                 .setText(dropNameString)
                 .setTextScale(new PixelConstraint(SMALL_TEXT_SCALE/1075 * window.getWidth()))
                 .setX(new CenterConstraint())
-                .setY(new PixelConstraint(window.getHeight() * .38f));
+                .setY(new PixelConstraint(topText.getBottom() + window.getHeight() * .11f));
         window.draw(new UMatrixStack());
     }
 }
