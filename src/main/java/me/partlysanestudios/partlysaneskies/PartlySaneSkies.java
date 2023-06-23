@@ -109,6 +109,8 @@ public class PartlySaneSkies {
 
     private static LocationBannerDisplay locationBannerDisplay;
 
+
+
     public static final Color BASE_DARK_COLOR = new Color(32, 33, 36);
     public static final Color BASE_COLOR = new Color(42, 43, 46);
     public static final Color BASE_LIGHT_COLOR = new Color(85, 85, 88);
