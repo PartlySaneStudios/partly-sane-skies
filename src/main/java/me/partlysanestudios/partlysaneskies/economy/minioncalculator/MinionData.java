@@ -3,8 +3,6 @@ package me.partlysanestudios.partlysaneskies.economy.minioncalculator;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import gg.essential.elementa.ElementaVersion;
-import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.SkyblockItem;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
@@ -54,12 +52,6 @@ public class MinionData {
             MinionFuel fuel = new MinionFuel (id, fuelObj);
             fuelMap.put(id, fuel); // Add the fuel to the fuel map
         }
-
-
-        // Code to test the minion classes
-        ProfitMinionCalculator calc = new ProfitMinionCalculator(ElementaVersion.V2);
-        PartlySaneSkies.minecraft.displayGuiScreen(calc);
-
     }
 
     public static String getMostProfitMinionString(double hours, Minion.Upgrade[] upgrades, MinionFuel fuel) {
