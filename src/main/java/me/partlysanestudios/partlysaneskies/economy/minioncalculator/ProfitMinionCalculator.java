@@ -503,8 +503,6 @@ public HashMap<MinionData.Minion.Upgrade, PSSToggle> addMinionUpgradeButtons() {
                         bestUpgrades = testUpgrades;
                         bestMinionFuel = fuel;
                     }
-
-                    System.out.println(Arrays.asList(testUpgrades));
                 }
             }
         }

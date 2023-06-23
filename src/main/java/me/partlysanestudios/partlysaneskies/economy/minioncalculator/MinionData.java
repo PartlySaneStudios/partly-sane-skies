@@ -10,6 +10,7 @@ import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import me.partlysanestudios.partlysaneskies.utils.requests.Request;
 import me.partlysanestudios.partlysaneskies.utils.requests.RequestsManager;
+import org.apache.logging.log4j.Level;
 
 import java.net.MalformedURLException;
 import java.util.*;
@@ -243,7 +244,7 @@ public class MinionData {
                 try {
                     price = SkyblockItem.getItem(itemId).getBestPrice();
                 } catch (NullPointerException e) {
-                    Utils.visPrint(itemId + ": DOES NOT HAVE PRICE");
+                    Utils.log(Level.WARN, itemId + ": DOES NOT HAVE PRICE");
                 }
 
 
