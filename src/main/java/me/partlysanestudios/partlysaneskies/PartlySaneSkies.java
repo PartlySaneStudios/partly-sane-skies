@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import me.partlysanestudios.partlysaneskies.economy.minioncalculator.MinionCalculatorCommand;
 import me.partlysanestudios.partlysaneskies.economy.minioncalculator.MinionData;
 import org.apache.commons.lang3.reflect.FieldUtils;
 
@@ -211,6 +212,7 @@ public class PartlySaneSkies {
         ClientCommandHandler.instance.registerCommand(new Pos2Command());
         ClientCommandHandler.instance.registerCommand(new Pos1Command());
         ClientCommandHandler.instance.registerCommand(new RangeCommand());
+        ClientCommandHandler.instance.registerCommand(new MinionCalculatorCommand());
 
         // Initialises keybinds
         Keybinds.init();
