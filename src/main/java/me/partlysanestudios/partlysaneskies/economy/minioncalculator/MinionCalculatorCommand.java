@@ -2,6 +2,7 @@ package me.partlysanestudios.partlysaneskies.economy.minioncalculator;
 
 import gg.essential.elementa.ElementaVersion;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
+import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
@@ -30,7 +31,15 @@ public class MinionCalculatorCommand implements ICommand {
 
     @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
-        PartlySaneSkies.minecraft.displayGuiScreen(new ProfitMinionCalculator(ElementaVersion.V2));
+        Utils.sendClientMessage("Opening Minion Calculator...");
+        new Thread(() -> {
+            PartlySaneSkies.minecraft.addScheduledTask(() -> {
+                // Code to test the minion classes
+                ProfitMinionCalculator calc = new ProfitMinionCalculator(ElementaVersion.V2);
+                PartlySaneSkies.minecraft.displayGuiScreen(calc);
+            });
+        }).start();
+
     }
 
     @Override

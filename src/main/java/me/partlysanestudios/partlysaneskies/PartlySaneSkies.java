@@ -505,12 +505,6 @@ public class PartlySaneSkies {
 
     // Sends a ping to the count API to track the amount of users per day
     public void trackLoad() {
-        try {
-            RequestsManager.newRequest(new Request("https://api.countapi.xyz/hit/partly-sane-skies-load", s -> {
-                Utils.log(Level.INFO, "\n\nPartly Sane Skies startup count:\n" + s.getResponse() + "\n\n");
-            }));
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+
     }
 }
