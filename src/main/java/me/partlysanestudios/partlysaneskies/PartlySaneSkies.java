@@ -97,7 +97,7 @@ public class PartlySaneSkies {
     public static final String NAME = "@MOD_NAME@";
     public static final String VERSION = "@MOD_VERSION@";
     //    -----------------------CHANGE TO FALSE BEFORE RELEASING
-    public static final boolean DOGFOOD = Boolean.getBoolean("@DOGFOOD@");
+    public static final boolean DOGFOOD = Boolean.valueOf("@DOGFOOD@");
     public static final String CHAT_PREFIX = StringUtils.colorCodes("&r&b&lPartly Sane Skies&r&7>> &r");
     public static final boolean IS_LEGACY_VERSION = false;
     public static String discordCode = "v4PU3WeH7z";
@@ -314,6 +314,25 @@ public class PartlySaneSkies {
 
     @SubscribeEvent
     public void onClientConnectedToServer(FMLNetworkEvent.ClientConnectedToServerEvent event) {
+        if (DOGFOOD) {
+            new Thread(() -> {
+                try {
+                    Thread.sleep(4000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                Utils.sendClientMessage("&b--------------------------------------------------", true);
+
+                Utils.sendClientMessage("&cWe have detected you are using a dogfood version of Partly Sane Skies");
+                Utils.sendClientMessage("&cThis version may be unstable, and you should only use it if you have been given direct access to it by a Partly Sane Skies admin", true);
+                Utils.sendClientMessage("&cPlease report any bugs to a Partly Sane Skies admin in a private ticket", true);
+                Utils.sendClientMessage("&7Version ID: &d" + VERSION, true);
+                Utils.sendClientMessage("&7Latest version: &d" + CustomMainMenu.latestVersion, true);
+                Utils.sendClientMessage("&b--------------------------------------------------", true);
+            }).start();
+        }
+
         if (!isLatestVersion()) {
             new Thread(() -> {
                 try {
@@ -518,7 +537,6 @@ public class PartlySaneSkies {
     }
 
     public static boolean isLatestVersion() {
-        Utils.visPrint(DOGFOOD);
         if(DOGFOOD) {
             return true;
         }
