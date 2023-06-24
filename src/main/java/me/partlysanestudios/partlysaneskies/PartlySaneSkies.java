@@ -96,6 +96,8 @@ public class PartlySaneSkies {
     public static final String MODID = "@MOD_ID@";
     public static final String NAME = "@MOD_NAME@";
     public static final String VERSION = "@MOD_VERSION@";
+    //    -----------------------CHANGE TO FALSE BEFORE RELEASING
+    public static final boolean DOGFOOD = Boolean.getBoolean("@DOGFOOD@");
     public static final String CHAT_PREFIX = StringUtils.colorCodes("&r&b&lPartly Sane Skies&r&7>> &r");
     public static final boolean IS_LEGACY_VERSION = false;
     public static String discordCode = "v4PU3WeH7z";
@@ -114,6 +116,8 @@ public class PartlySaneSkies {
     public static final Color BASE_LIGHT_COLOR = new Color(85, 85, 88);
     public static final Color ACCENT_COLOR = new Color(1, 255, 255);
     public static final Color DARK_ACCENT_COLOR = new Color(1, 122, 122);
+
+
     // Names of all of the ranks to remove from people's names
     public static final String[] RANK_NAMES = { "[VIP]", "[VIP+]", "[MVP]", "[MVP+]", "[MVP++]", "[YOUTUBE]", "[MOJANG]",
             "[EVENTS]", "[MCP]", "[PIG]", "[PIG+]", "[PIG++]", "[PIG+++]", "[GM]", "[ADMIN]", "[OWNER]", "[NPC]" };
@@ -310,7 +314,7 @@ public class PartlySaneSkies {
 
     @SubscribeEvent
     public void onClientConnectedToServer(FMLNetworkEvent.ClientConnectedToServerEvent event) {
-        if (!CustomMainMenu.latestVersion.equals(VERSION)) {
+        if (!isLatestVersion()) {
             new Thread(() -> {
                 try {
                     Thread.sleep(4000);
@@ -511,5 +515,14 @@ public class PartlySaneSkies {
     // Sends a ping to the count API to track the amount of users per day
     public void trackLoad() {
 
+    }
+
+    public static boolean isLatestVersion() {
+        Utils.visPrint(DOGFOOD);
+        if(DOGFOOD) {
+            return true;
+        }
+
+        else return VERSION.equals(CustomMainMenu.latestVersion);
     }
 }

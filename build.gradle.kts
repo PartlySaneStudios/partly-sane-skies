@@ -47,3 +47,8 @@ releases {
         projectId.set("jlWHBQtc")
     }
 }
+
+blossom {
+    val dogfood: String by project
+    replaceToken("@DOGFOOD@", dogfood)
+}

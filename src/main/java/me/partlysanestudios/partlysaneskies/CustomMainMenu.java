@@ -174,7 +174,7 @@ public class CustomMainMenu extends WindowScreen {
                 .setChildOf(middleMenu);
 
         
-        if (!latestVersion.equals(PartlySaneSkies.VERSION)){
+        if (!PartlySaneSkies.isLatestVersion()){
             updateWarning = new UIWrappedText("Your version of Partly Sane Skies is out of date.\nPlease update to the latest version", true, new Color(0, 0, 0), true)
                 .setTextScale(new PixelConstraint(2.25f * scaleFactor))
                 .setX(new CenterConstraint())
