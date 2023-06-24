@@ -325,7 +325,7 @@ public class PartlySaneSkies {
                 Utils.sendClientMessage("&b--------------------------------------------------", true);
 
                 Utils.sendClientMessage("&cWe have detected you are using a dogfood version of Partly Sane Skies");
-                Utils.sendClientMessage("&cThis version may be unstable, and you should only use it if you have been given direct access to it by a partly sane skies admin", true);
+                Utils.sendClientMessage("&cThis version may be unstable, and you should only use it if you have been given direct access to it by a Partly Sane Skies admin", true);
                 Utils.sendClientMessage("&cPlease report any bugs to a Partly Sane Skies admin in a private ticket", true);
                 Utils.sendClientMessage("&7Version ID: &d" + VERSION, true);
                 Utils.sendClientMessage("&7Latest version: &d" + CustomMainMenu.latestVersion, true);
