@@ -518,7 +518,6 @@ public class PartlySaneSkies {
     }
 
     public static boolean isLatestVersion() {
-        Utils.visPrint(DOGFOOD);
         if(DOGFOOD) {
             return true;
         }
