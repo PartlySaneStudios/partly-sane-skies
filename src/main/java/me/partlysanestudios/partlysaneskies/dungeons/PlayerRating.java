@@ -181,7 +181,7 @@ public class PlayerRating {
             return;
         }
         // If end of dungeon
-        if (event.message.getFormattedText().contains("§r§fTeam Score: §r")) {
+        if (event.message.getFormattedText().contains("Catacombs Experience§r")) {
             final String string = getDisplayString();
             
             new Thread() {
