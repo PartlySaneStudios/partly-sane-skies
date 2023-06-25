@@ -502,6 +502,18 @@ public class PartlySaneSkies {
         if (bits == null) {
             return 0l;
         }
+
+        String[] charsToRemove = {"(", ")", ".", "-", "+"};
+
+        for (String removalChar : charsToRemove) {
+            if (bits.contains(removalChar)) {
+                int indexOfEndOfCount = bits.indexOf(removalChar);
+                bits = bits.substring(0, indexOfEndOfCount);
+            }
+        }
+
+        bits = StringUtils.stripLeading(bits);
+        bits = StringUtils.stripTrailing(bits);
         try {
             return Long.parseLong(bits);
         } catch (NumberFormatException event) {
