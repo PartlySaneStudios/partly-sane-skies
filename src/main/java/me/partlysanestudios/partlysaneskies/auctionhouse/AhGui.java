@@ -489,7 +489,8 @@ public class AhGui extends WindowScreen {
             } else {
                 header = "Auction Details:";
             }
-            ((UIWrappedText) itemInfoHeader).setText(header);
+            ((UIWrappedText) itemInfoHeader).setText(header)
+                    .setColor(auction.getRarityColor());
 
             String info = "";
             info += "&6Offer Information:\n\n\n";
