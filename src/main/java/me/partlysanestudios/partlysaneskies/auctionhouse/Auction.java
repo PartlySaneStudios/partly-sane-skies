@@ -139,6 +139,14 @@ public class Auction {
         return SkyblockItem.getItem(itemId).getPrice();
     }
 
+    public boolean hasLowestBin() {
+        return SkyblockItem.getItem(itemId).hasPrice();
+    }
+
+    public boolean hasAverageLowestBin() {
+        return SkyblockItem.getItem(itemId).hasAverageLowestBin();
+    }
+
     public String getFormattedEndingTime() {
         List<String> loreList = Utils.getLore(item);
 
