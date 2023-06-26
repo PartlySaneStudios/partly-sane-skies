@@ -198,6 +198,7 @@ public class PartlySaneSkies {
         MinecraftForge.EVENT_BUS.register(new PlayerRating());
         MinecraftForge.EVENT_BUS.register(new SkymartValue());
         MinecraftForge.EVENT_BUS.register(new EndOfFarmNotfier());
+        MinecraftForge.EVENT_BUS.register(new PetAlert());
 
         // Registers all client side commands
         ClientCommandHandler.instance.registerCommand(new PartyManagerCommand());
