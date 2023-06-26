@@ -5,9 +5,18 @@
 
 package me.partlysanestudios.partlysaneskies.petalert;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import gg.essential.elementa.ElementaVersion;
+import gg.essential.elementa.UIComponent;
+import gg.essential.elementa.components.UIRoundedRectangle;
+import gg.essential.elementa.components.UIWrappedText;
+import gg.essential.elementa.components.Window;
+import gg.essential.elementa.constraints.CenterConstraint;
+import gg.essential.elementa.constraints.PixelConstraint;
+import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.auctionhouse.AhGui;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
@@ -25,6 +34,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.event.GuiScreenEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class PetAlert {
 
@@ -40,7 +51,7 @@ public class PetAlert {
             return;
         }
         Entity usersPet = getUsersPet(PartlySaneSkies.minecraft.thePlayer.getName());
-        String petName = "";
+        String petName = StringUtils.colorCodes("&8(Unknown)");
         if (usersPet != null) {
             petName = parsePetNameFromEntity(usersPet.getName());
         
@@ -69,7 +80,7 @@ public class PetAlert {
             lastSoundTime = PartlySaneSkies.getTime();
         }
         if (!Utils.onCooldown(lastMessageSendTime,3000)) {
-            IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + StringUtils.colorCodes("&cYOU CURRENTLY HAVE " + petName + " SELECTED AS YOUR PET. YOU WANTED TO UPGRADE " + selectedPetName + "." +
+            IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + StringUtils.colorCodes("&cYOU CURRENTLY HAVE " + petName + "&c SELECTED AS YOUR PET. YOU WANTED TO UPGRADE " + selectedPetName + "." +
             "\n&dClick this message or run /mutepetalert to mute the alert for " + PartlySaneSkies.config.petAlertMuteTime + " minutes."));
             message.getChatStyle().setChatClickEvent(new ClickEvent(Action.RUN_COMMAND, "/mutepetalert"));
             PartlySaneSkies.minecraft.ingameGUI.getChatGUI().printChatMessage(message);
@@ -138,7 +149,18 @@ public class PetAlert {
         }
 
         IInventory upper = PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen)[0];
-        return StringUtils.removeColorCodes(upper.getDisplayName().getFormattedText()).contains("Minion");
+        boolean inventoryNameMatches = StringUtils.removeColorCodes(upper.getDisplayName().getFormattedText()).contains("Minion");
+
+        if (!inventoryNameMatches) {
+            return false;
+        }
+
+//        Gets the slot where the minion head is supposed to be
+        ItemStack minionHeadSlot = upper.getStackInSlot(4);
+
+        String displayName = StringUtils.removeColorCodes(minionHeadSlot.getDisplayName());
+
+        return displayName.contains("Minion");
     }
 
 
@@ -187,5 +209,84 @@ public class PetAlert {
     // Returns a list of all loaded entities in the world
     private static List<Entity> getAllEntitesInWorld() {
         return PartlySaneSkies.minecraft.theWorld.getLoadedEntityList();
+    }
+
+    static Window window = new Window(ElementaVersion.V2);
+
+    UIComponent box = new UIRoundedRectangle(widthScaledConstraint(5).getValue())
+            .setColor(new Color(0, 0, 0, 0))
+            .setChildOf(window);
+
+    UIComponent image = Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies:textures/gui/base_color_background.png"))
+            .setChildOf(box);
+
+    UIWrappedText textComponent = (UIWrappedText) new UIWrappedText("", true, null, true)
+            .setChildOf(box);
+
+    @SubscribeEvent
+    public void renderInformation(GuiScreenEvent.BackgroundDrawnEvent event) {
+        if (!isMinionGui()) {
+            box.hide();
+            return;
+        }
+        if (!PartlySaneSkies.config.selectedPetInformation) {
+            return;
+        }
+
+        box.unhide(true);
+        box.setX(widthScaledConstraint(633))
+                .setY(new CenterConstraint())
+                .setWidth(widthScaledConstraint(125))
+                .setHeight(widthScaledConstraint(100));
+
+        image.setX(new CenterConstraint())
+                .setY(new CenterConstraint())
+                .setWidth(new PixelConstraint(box.getWidth()))
+                .setHeight(new PixelConstraint(box.getHeight()));
+
+        textComponent.setX(new CenterConstraint())
+                .setTextScale(widthScaledConstraint(1f))
+                .setY(new CenterConstraint())
+                .setWidth(new PixelConstraint(box.getWidth()));
+
+        Entity currentlySelectedPet = getUsersPet(PartlySaneSkies.minecraft.thePlayer.getName());
+
+        String currentlySelectedPetName = "";
+        if (currentlySelectedPet != null) {
+            currentlySelectedPetName = parsePetNameFromEntity(currentlySelectedPet.getName());
+        }
+
+        if (currentlySelectedPetName.isEmpty()) {
+            currentlySelectedPetName = StringUtils.colorCodes("&8(Unknown)");
+        }
+
+        String petColorCode = "&d";
+
+        if (PartlySaneSkies.config.selectectedPet.isEmpty()) {
+            petColorCode = "&d";
+        }
+        else if (currentlySelectedPetName.equalsIgnoreCase(PartlySaneSkies.config.selectectedPet)) {
+            petColorCode = "&a";
+
+        }
+        else {
+            petColorCode = "&c";
+        }
+
+
+        String textString = "&eCurrently Selected Pet:\n" +
+                petColorCode + currentlySelectedPetName + "\n\n" +
+                "&eDesired Pet:\n" +
+                "&d" + PartlySaneSkies.config.selectectedPet;
+        textComponent.setText(textString);
+        window.draw(new UMatrixStack());
+    }
+
+    private static float getWidthScaleFactor() {
+        return window.getWidth() / 1097f;
+    }
+
+    private static PixelConstraint widthScaledConstraint(float value) {
+        return new PixelConstraint(value * getWidthScaleFactor());
     }
 }

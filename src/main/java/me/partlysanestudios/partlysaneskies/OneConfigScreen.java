@@ -268,6 +268,14 @@ public class OneConfigScreen extends Config {
     public boolean incorrectPetForMinionAlert = false;
 
     @Switch(
+            name = "Selected Pet Information",
+            category = "Skyblock",
+            description = "Gives you information about the currently selected pet while in the minion menu\nRequires pets to be visable.",
+            subcategory = "Incorrect Pet for Minion Alert"
+    )
+    public boolean selectedPetInformation = false;
+
+    @Switch(
         name = "Air Raid Siren", 
         category = "Skyblock", 
         description = "Plays a WWII air raid siren when you have the wrong pet. \nPros: \nKeeps you up at late night grinds \n(RECOMMENDED, ESPECIALLY AT 3 AM).", 
