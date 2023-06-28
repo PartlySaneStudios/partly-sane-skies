@@ -158,6 +158,9 @@ public class PetAlert {
 //        Gets the slot where the minion head is supposed to be
         ItemStack minionHeadSlot = upper.getStackInSlot(4);
 
+        if (minionHeadSlot == null) {
+            return false;
+        }
         String displayName = StringUtils.removeColorCodes(minionHeadSlot.getDisplayName());
 
         return displayName.contains("Minion");
