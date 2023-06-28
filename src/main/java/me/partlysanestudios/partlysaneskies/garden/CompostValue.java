@@ -6,13 +6,7 @@
 package me.partlysanestudios.partlysaneskies.garden;
 
 import java.awt.Color;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import gg.essential.elementa.ElementaVersion;
 import gg.essential.elementa.UIComponent;
@@ -37,6 +31,9 @@ public class CompostValue {
     public static HashMap<String, Double> compostValueMap = new HashMap<String, Double>();
     public static HashMap<String, Double> costPerOrganicMatterMap = new HashMap<String, Double>();
     public static HashMap<String, Double> costPerCompostMap = new HashMap<String, Double>();
+    public static float compostCost = 4000;
+    public static float fillLevel = 0;
+    public static float maxCompost = 40000;
 
     public static void init() {
         compostValueMap.put("WHEAT", 1d);
@@ -86,7 +83,7 @@ public class CompostValue {
 
     public static void requestCostPerCompost() {
         for (Map.Entry<String, Double> en : costPerOrganicMatterMap.entrySet()) {
-            costPerCompostMap.put(en.getKey(), en.getValue() * 4000);
+            costPerCompostMap.put(en.getKey(), en.getValue() * compostCost);
         }
     }
 
@@ -118,10 +115,14 @@ public class CompostValue {
         int i = 1;
         for (Map.Entry<String, Double> en : map.entrySet()) {
             String id = en.getKey();
-            double cropPerCompost = 4000d / compostValueMap.get(id);
+            double cropPerCompost = compostCost / compostValueMap.get(id);
             String cropName = SkyblockItem.getItem(id).getName();
             double costPerCompost = en.getValue();
-            str += "&6"+ i + ". &7x&d" + StringUtils.formatNumber(Math.ceil(cropPerCompost * 10)) + " " + cropName + "&7 costing &d"+ StringUtils.formatNumber(Utils.round(costPerCompost * 10, 1)) + "&7 coins to fill. \n&8(x" + StringUtils.formatNumber(Math.ceil(cropPerCompost)) + "/Compost)\n";
+            float compostAmount = getCurrentCompostAbleToMake();
+            if (maxCompost == fillLevel) {
+                compostAmount = getMaxCompostAbleToMake();
+            }
+            str += "&6"+ i + ". &7x&d" + StringUtils.formatNumber(Math.ceil(cropPerCompost * compostAmount)) + " " + cropName + "&7 costing &d"+ StringUtils.formatNumber(Utils.round(costPerCompost * compostAmount, 1)) + "&7 coins to fill. \n&8(x" + StringUtils.formatNumber(Math.ceil(cropPerCompost)) + "/Compost)\n";
 
             i++;
             if (i > 5) {
@@ -162,9 +163,86 @@ public class CompostValue {
             return false;
         };
 
+        compostCost = getCompostCost(composter);
+        fillLevel = getOrganicMatterFillLevel(composter);
+        maxCompost = getOrganicMatterLimit(composter);
 
         return true;
     }
+
+    private static String getCompostCostString(IInventory composterInventory) {
+        ItemStack infoItem = composterInventory.getStackInSlot(46);
+        ArrayList<String> loreList = Utils.getLore(infoItem);
+        String costLine = "{compost_cost} organic matter stored";
+        for (String line : loreList){
+            String unformattedLine = StringUtils.removeColorCodes(line);
+            if (unformattedLine.contains("organic matter stored")) {
+                costLine = unformattedLine;
+                break;
+            }
+        }
+
+        String pattern = "{compost_cost} organic matter stored";
+        return StringUtils.recognisePattern(costLine, pattern, "{compost_cost}");
+    }
+
+    private static float getCompostCost(IInventory inventory) {
+        return StringUtils.parseAbreviatedNumber(getCompostCostString(inventory));
+    }
+
+    private static String getOrganicMatterFillLevelString(IInventory composterInventory) {
+        ItemStack infoItem = composterInventory.getStackInSlot(46);
+        ArrayList<String> loreList = Utils.getLore(infoItem);
+        String amountLine = "§2§l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §r §e0§6/§e40k";
+        for (String line : loreList){
+            if (line.contains("§6/§e")) {
+                amountLine = line;
+                break;
+            }
+        }
+
+        String pattern = "§2§l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §r §e{compost_amount}§6/";
+        return StringUtils.recognisePattern(amountLine, pattern, "{compost_amount}");
+    }
+
+    private static float getOrganicMatterFillLevel(IInventory inventory) {
+        return StringUtils.parseAbreviatedNumber(getOrganicMatterFillLevelString(inventory));
+    }
+
+    private static String getOrganicMatterLimitString(IInventory composterInventory) {
+        ItemStack infoItem = composterInventory.getStackInSlot(46);
+        ArrayList<String> loreList = Utils.getLore(infoItem);
+        String amountLine = "0/40k";
+        for (String line : loreList){
+            if (line.contains("§6/§e")) {
+                amountLine = line;
+                break;
+            }
+        }
+
+        amountLine = StringUtils.removeColorCodes(amountLine);
+        amountLine = StringUtils.stripLeading(amountLine);
+        amountLine = StringUtils.stripTrailing(amountLine);
+
+        int indexOfStart = amountLine.indexOf("/");
+        amountLine = amountLine.substring(indexOfStart + 1);
+
+        return amountLine;
+    }
+
+    public static float getMaxCompostAbleToMake() {
+        return maxCompost / compostCost;
+    }
+
+    public static float getCurrentCompostAbleToMake() {
+        return compostCost / (maxCompost - fillLevel);
+    }
+
+    private static float getOrganicMatterLimit(IInventory inventory) {
+        return StringUtils.parseAbreviatedNumber(getOrganicMatterLimitString(inventory));
+    }
+
+
 
     static Window window = new Window(ElementaVersion.V2);
 
@@ -212,7 +290,14 @@ public class CompostValue {
         textString += "\n\n";
         textString += "&e&lCompost:\n\n";
         double compostSellPrice = SkyblockItem.getItem("COMPOST").getPrice();
-        textString += "&7x10 Compost currently sells for &d" + StringUtils.formatNumber(Utils.round(compostSellPrice * 10, 1))  + "&7 coins.\n&8(" + StringUtils.formatNumber(Utils.round(compostSellPrice, 1)) + "/Compost)";
+
+        float compostAmount = getCurrentCompostAbleToMake();
+        if (maxCompost == fillLevel) {
+            compostAmount = getMaxCompostAbleToMake();
+        }
+        compostAmount = (float) Utils.round(compostAmount, 0);
+
+        textString += "&7x&d"+ StringUtils.formatNumber(Utils.round(compostAmount, 0)) +"&7 Compost currently sells for &d" + StringUtils.formatNumber(Utils.round(compostSellPrice * compostAmount, 1))  + "&7 coins.\n&8(" + StringUtils.formatNumber(Utils.round(compostSellPrice, 1)) + "/Compost)";
 
         textString = StringUtils.colorCodes(textString);
         textComponent.setText(textString);

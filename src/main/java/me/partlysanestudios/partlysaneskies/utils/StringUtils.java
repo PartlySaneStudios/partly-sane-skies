@@ -9,6 +9,7 @@ package me.partlysanestudios.partlysaneskies.utils;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 
@@ -308,5 +309,36 @@ public class StringUtils {
         }
 
         return titleCase;
+    }
+
+
+    public static float parseAbreviatedNumber(String num) {
+        num = num.replace(" ", "");
+        String digits = num.replaceAll("[^\\d.]", "");
+        float parsedNum = Float.parseFloat(digits);
+        Pattern pattern = Pattern.compile("[^\\d.]");
+        while((num.length() > 0) && pattern.matcher(num.substring(num.length() - 1)).find()) {
+            String str = num.substring(num.length() - 1);
+
+            switch(str) {
+                case "k":
+                    parsedNum *= 1000;
+                    break;
+
+                case "m":
+                    parsedNum *= 1000000f;
+                    break;
+                case "b":
+                    parsedNum *= 1000000000f;
+                    break;
+                case "t":
+                    parsedNum *= 1000000000000f;
+                    break;
+            }
+
+            num = num.substring(0, num.length() - 1);
+        }
+
+        return parsedNum;
     }
 }
