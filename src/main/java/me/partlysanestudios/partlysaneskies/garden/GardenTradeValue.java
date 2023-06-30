@@ -201,7 +201,7 @@ public class GardenTradeValue {
             return 0;
         }
         
-        return quantity * SkyblockItem.getItem(itemId).getPrice();
+        return quantity * SkyblockItem.getItem(itemId).getBuyPrice();
     }
 
     public static HashMap<String, Double> getCoinCostMap() {

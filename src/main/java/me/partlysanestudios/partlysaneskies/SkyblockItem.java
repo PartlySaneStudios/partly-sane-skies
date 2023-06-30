@@ -17,6 +17,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import me.partlysanestudios.partlysaneskies.utils.Utils;
 import me.partlysanestudios.partlysaneskies.utils.requests.Request;
 import me.partlysanestudios.partlysaneskies.utils.requests.RequestsManager;
 
@@ -25,7 +26,10 @@ public class SkyblockItem {
     private String name;
     private String rarity;
     private double npcSellPrice;
-    private double bazaarPrice;
+    private double bazaarSellPrice;
+
+
+    private double bazaarBuyPrice;
     private double lowestBinPrice;
     private double averageLowestBinPrice;
     private int bitCost;
@@ -35,17 +39,22 @@ public class SkyblockItem {
         this.name = name;
         this.rarity = rarity;
         this.npcSellPrice = npcSellPrice;
-        this.bazaarPrice = -1;
+        this.bazaarSellPrice = -1;
         this.lowestBinPrice = -1;
         this.averageLowestBinPrice = -1;
         this.bitCost = -1;
     }
 
 
-    public SkyblockItem setBazaarPrice(double price) {
-        this.bazaarPrice = price;
+    public SkyblockItem setBazaarSellPrice(double price) {
+        this.bazaarSellPrice = price;
         return this;
     }
+
+    public void setBazaarBuyPrice(double bazaarBuyPrice) {
+        this.bazaarBuyPrice = bazaarBuyPrice;
+    }
+
 
     public SkyblockItem setLowestBinPrice(double price) {
         this.lowestBinPrice = price;
@@ -79,9 +88,9 @@ public class SkyblockItem {
         return rarity;
     }
 
-    public double getPrice() {
-        if (getBazaarPrice() != -1) {
-            return getBazaarPrice();
+    public double getSellPrice() {
+        if (getBazaarSellPrice() != -1) {
+            return getBazaarSellPrice();
         }
         if (getLowestBin() != -1) {
             return getLowestBin();
@@ -92,9 +101,19 @@ public class SkyblockItem {
         return -1;
     }
 
+    public double getBuyPrice() {
+        if (getBazaarBuyPrice() != -1) {
+            return getBazaarSellPrice();
+        }
+        if (getLowestBin() != -1) {
+            return getLowestBin();
+        }
+        return -1;
+    }
+
     public double getBestPrice() {
         ArrayList<Double> list = new ArrayList<>();
-        list.add(getBazaarPrice());
+        list.add(getBazaarSellPrice());
         list.add(getLowestBin());
         list.add(getNpcSellPrice());
 
@@ -111,8 +130,12 @@ public class SkyblockItem {
         return this.npcSellPrice;
     }
 
-    public double getBazaarPrice() {
-        return this.bazaarPrice;
+    public double getBazaarSellPrice() {
+        return this.bazaarSellPrice;
+    }
+
+    public double getBazaarBuyPrice() {
+        return bazaarBuyPrice;
     }
 
     public double getAverageLowestBin() {
@@ -129,11 +152,12 @@ public class SkyblockItem {
         return true;
     }
 
-    public boolean hasPrice() {
-        if (getPrice() == -1) {
-            return false;
-        }
-        return true;
+    public boolean hasSellPrice() {
+        return getSellPrice() != -1;
+    }
+
+    public boolean hasBuyPrice() {
+        return getBuyPrice() != -1;
     }
 
     public boolean hasBitCost() {
@@ -328,17 +352,19 @@ public class SkyblockItem {
 
     public static void updateBz() {
         try{
-            RequestsManager.newRequest(new Request("https://sky.shiiyu.moe/api/v2/bazaar", s -> {
+            RequestsManager.newRequest(new Request("https://api.hypixel.net/skyblock/bazaar", s -> {
                 if (s.getResponse().startsWith("Error")) {
                     return;
                 }
-                JsonObject object = new JsonParser().parse(s.getResponse()).getAsJsonObject();
+                JsonObject object = new JsonParser().parse(s.getResponse()).getAsJsonObject().getAsJsonObject("products");
+
     
                 for (Map.Entry<String, SkyblockItem> en : idToItemMap.entrySet()) {
                     if (!object.has(en.getKey())) {
                         continue;
                     }
-                    en.getValue().setBazaarPrice(object.getAsJsonObject(en.getKey()).get("price").getAsDouble());
+                    en.getValue().setBazaarSellPrice(object.getAsJsonObject(en.getKey()).getAsJsonObject("quick_status").get("sellPrice").getAsDouble());
+                    en.getValue().setBazaarBuyPrice(object.getAsJsonObject(en.getKey()).getAsJsonObject("quick_status").get("buyPrice").getAsDouble());
                 }
             }));
             

@@ -64,14 +64,14 @@ public class BitsShopValue {
             if (filterAffordable && bitCount < item.getBitCost()) {
                 continue;
             }
-            map.put(id, item.getPrice() / item.getBitCost());
+            map.put(id, item.getSellPrice() / item.getBitCost());
         }
         LinkedHashMap<String, Double> sortedMap = sortMap(map);
         
         int i = 1;
         for (Map.Entry<String, Double> en : sortedMap.entrySet()) {
             SkyblockItem item = SkyblockItem.getItem(en.getKey());
-            str += "&6" + i + ". &d" + item.getName() + "&7 costs &d" + StringUtils.formatNumber(item.getBitCost()) + "&7 bits and sells for &d" + StringUtils.formatNumber(Utils.round(item.getPrice(), 1)) + "&7 coins \n&8 (" + StringUtils.formatNumber(Utils.round(en.getValue(), 1)) + " coins per bit)\n";
+            str += "&6" + i + ". &d" + item.getName() + "&7 costs &d" + StringUtils.formatNumber(item.getBitCost()) + "&7 bits and sells for &d" + StringUtils.formatNumber(Utils.round(item.getSellPrice(), 1)) + "&7 coins \n&8 (" + StringUtils.formatNumber(Utils.round(en.getValue(), 1)) + " coins per bit)\n";
             i++;
             if (i > 5) {
                 break;
