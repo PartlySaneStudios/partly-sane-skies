@@ -77,7 +77,7 @@ public class CompostValue {
 
     public static void requestCostPerOrganicMatter() {
         for (Map.Entry<String, Double> en : compostValueMap.entrySet()) {
-            costPerOrganicMatterMap.put(en.getKey(), SkyblockItem.getItem(en.getKey()).getPrice()/en.getValue());
+            costPerOrganicMatterMap.put(en.getKey(), SkyblockItem.getItem(en.getKey()).getBuyPrice()/en.getValue());
         }
     }
 
@@ -163,10 +163,17 @@ public class CompostValue {
             return false;
         };
 
-        compostCost = getCompostCost(composter);
-        fillLevel = getOrganicMatterFillLevel(composter);
-        maxCompost = getOrganicMatterLimit(composter);
+        if (composter.getStackInSlot(46) != null) {
+            compostCost = getCompostCost(composter);
+            fillLevel = getOrganicMatterFillLevel(composter);
+            maxCompost = getOrganicMatterLimit(composter);
+        }
 
+//        Utils.sendClientMessage(String.valueOf(fillLevel));
+//        Utils.sendClientMessage(String.valueOf(maxCompost));
+//        Utils.sendClientMessage(String.valueOf(compostCost));
+//        Utils.sendClientMessage(String.valueOf(getCurrentCompostAbleToMake()));
+//        Utils.sendClientMessage(String.valueOf(getMaxCompostAbleToMake()));
         return true;
     }
 
@@ -235,7 +242,7 @@ public class CompostValue {
     }
 
     public static float getCurrentCompostAbleToMake() {
-        return compostCost / (maxCompost - fillLevel);
+        return (maxCompost - fillLevel) / compostCost;
     }
 
     private static float getOrganicMatterLimit(IInventory inventory) {
@@ -289,7 +296,7 @@ public class CompostValue {
         textString += getString();
         textString += "\n\n";
         textString += "&e&lCompost:\n\n";
-        double compostSellPrice = SkyblockItem.getItem("COMPOST").getPrice();
+        double compostSellPrice = SkyblockItem.getItem("COMPOST").getBazaarSellPrice();
 
         float compostAmount = getCurrentCompostAbleToMake();
         if (maxCompost == fillLevel) {

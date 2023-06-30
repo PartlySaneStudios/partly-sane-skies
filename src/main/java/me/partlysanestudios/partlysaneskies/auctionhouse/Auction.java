@@ -95,10 +95,10 @@ public class Auction {
         if (SkyblockItem.getItem(itemId) == null) {
             return false;
         }
-        if (!SkyblockItem.getItem(itemId).hasPrice()) {
+        if (!SkyblockItem.getItem(itemId).hasSellPrice()) {
             return false;
         }
-        double averageAhPrice = SkyblockItem.getItem(itemId).getPrice();
+        double averageAhPrice = SkyblockItem.getItem(itemId).getSellPrice();
 
         return sellingPrice <= averageAhPrice * (PartlySaneSkies.config.BINSniperPercent / 100d);
     }
@@ -127,7 +127,7 @@ public class Auction {
 
     public double getLowestBin() {
         try {
-            if (!SkyblockItem.getItem(itemId).hasPrice()) {
+            if (!SkyblockItem.getItem(itemId).hasSellPrice()) {
                 return 0;
             } 
         } catch (NullPointerException exception) {
@@ -136,11 +136,11 @@ public class Auction {
         }
         
         
-        return SkyblockItem.getItem(itemId).getPrice();
+        return SkyblockItem.getItem(itemId).getSellPrice();
     }
 
     public boolean hasLowestBin() {
-        return SkyblockItem.getItem(itemId).hasPrice();
+        return SkyblockItem.getItem(itemId).hasSellPrice();
     }
 
     public boolean hasAverageLowestBin() {
