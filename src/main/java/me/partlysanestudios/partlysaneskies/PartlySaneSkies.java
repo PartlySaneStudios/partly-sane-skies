@@ -29,6 +29,7 @@ import java.util.List;
 
 import me.partlysanestudios.partlysaneskies.economy.minioncalculator.MinionCalculatorCommand;
 import me.partlysanestudios.partlysaneskies.economy.minioncalculator.MinionData;
+import me.partlysanestudios.partlysaneskies.garden.MathematicalHoeRightClicks;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import gg.essential.elementa.ElementaVersion;
 import me.partlysanestudios.partlysaneskies.auctionhouse.AhManager;
@@ -199,6 +200,7 @@ public class PartlySaneSkies {
         MinecraftForge.EVENT_BUS.register(new SkymartValue());
         MinecraftForge.EVENT_BUS.register(new EndOfFarmNotfier());
         MinecraftForge.EVENT_BUS.register(new PetAlert());
+        MinecraftForge.EVENT_BUS.register(new MathematicalHoeRightClicks());
 
         // Registers all client side commands
         ClientCommandHandler.instance.registerCommand(new PartyManagerCommand());
@@ -221,6 +223,8 @@ public class PartlySaneSkies {
 
         // Itialises Utils class
         Utils.init();
+
+        MathematicalHoeRightClicks.loadHoes();
 
 
         // Initializes skill upgrade recommendation

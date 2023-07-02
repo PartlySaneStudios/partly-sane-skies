@@ -16,7 +16,6 @@ import java.util.ArrayList;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonParser;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import org.apache.logging.log4j.Level;
@@ -117,7 +116,7 @@ public class Request {
     }
 
     // Submits the request
-    public void getRequest() throws IOException {
+    public void startRequest() throws IOException {
         // Opens a new connection with the url
         HttpURLConnection httpURLConnection = (HttpURLConnection) this.url.openConnection();
         // Sets the browser as Mozilla to bypass an insecure restrictions

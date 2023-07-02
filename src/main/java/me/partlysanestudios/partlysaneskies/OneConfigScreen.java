@@ -553,6 +553,16 @@ public class OneConfigScreen extends Config {
     )
     public boolean partyChatDungeonPlayerBreakdown = false;
 
+    // ------------- Category: Farming ---------------------------------
+//    Hoes
+    @Switch(
+            subcategory = "Hoes",
+            name = "Stop right clicks on Mathematical Hoes",
+            description = "Cancels the right click on mathematical hoes to prevent it from opening the recipes list. (Use at your own risk)",
+            category = "Farming"
+    )
+    public boolean blockHoeRightClicks = false;
+
     // ------------- Category: Economy ---------------------------------
     // Garden
     @Switch(

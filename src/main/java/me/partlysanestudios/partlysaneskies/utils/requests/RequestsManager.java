@@ -40,7 +40,7 @@ public class RequestsManager {
         lastRequestTime = PartlySaneSkies.getTime();
         if (element.isMainThread()) {
             try {
-                element.getRequest();
+                element.startRequest();
             } catch (IOException e) {
                 element.setFailed("{THREW_IOEXEPCTION}");
                 e.printStackTrace();
@@ -51,7 +51,7 @@ public class RequestsManager {
             // Creates a new thread to execute request
             new Thread(() -> {
                 try {
-                    element.getRequest();
+                    element.startRequest();
                 } catch (IOException e) {
                     element.setFailed("{THREW_IOEXEPCTION}");
                     e.printStackTrace();
