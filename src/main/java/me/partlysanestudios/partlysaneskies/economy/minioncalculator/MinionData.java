@@ -3,7 +3,7 @@ package me.partlysanestudios.partlysaneskies.economy.minioncalculator;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import me.partlysanestudios.partlysaneskies.SkyblockItem;
+import me.partlysanestudios.partlysaneskies.skyblockdata.SkyblockDataManager;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import me.partlysanestudios.partlysaneskies.utils.requests.Request;
@@ -234,7 +234,7 @@ public class MinionData {
                 double amount = en.getValue();
                 double price = 0;
                 try {
-                    price = SkyblockItem.getItem(itemId).getBestPrice();
+                    price = SkyblockDataManager.getItem(itemId).getBestPrice();
                 } catch (NullPointerException e) {
                     Utils.log(Level.WARN, itemId + ": DOES NOT HAVE PRICE");
                 }
@@ -279,7 +279,7 @@ public class MinionData {
 
             for (Map.Entry<String, Double> en2 : this.getBaseItemsPerMinute(this.maxTier, upgrades, fuel).entrySet()) {
 //                Individual price of the item
-                double price = SkyblockItem.getItem(en2.getKey()).getBestPrice();
+                double price = SkyblockDataManager.getItem(en2.getKey()).getBestPrice();
                 price = Utils.round(price, 1); // rounded to 1 decimal place
 
 //                Total amount of money made by the item
@@ -287,7 +287,7 @@ public class MinionData {
                 totalItemProfit *= 60 * hours;
                 totalItemProfit = Utils.round(totalItemProfit, 1); // rounded to 1 decimal place
 
-                str += "\n§7   §6x" + StringUtils.formatNumber(totalItemProfit) + "§7 §6" + SkyblockItem.getItem(en2.getKey()).getName() + "§7 for " + StringUtils.formatNumber(price) + " coins each.";
+                str += "\n§7   §6x" + StringUtils.formatNumber(totalItemProfit) + "§7 §6" + SkyblockDataManager.getItem(en2.getKey()).getName() + "§7 for " + StringUtils.formatNumber(price) + " coins each.";
             }
 
 //            Total amount of money made in given hours by the minion

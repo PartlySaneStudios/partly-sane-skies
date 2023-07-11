@@ -152,23 +152,22 @@ public class Request {
             httpURLConnection.disconnect();
         }
 
-        else {
-            // Read the response as a string
-            BufferedReader in = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
-            String inputLine;
-            StringBuilder response = new StringBuilder();
+        // Read the response as a string
+        BufferedReader in = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
+        String inputLine;
+        StringBuilder response = new StringBuilder();
 
-            while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
-            }
-            in.close();
-
-            // set the requestResponse to the string that was read as a response
-            this.requestResponse = response.toString();
-
-            // Disconnect
-            httpURLConnection.disconnect();
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
         }
+        in.close();
+
+        // set the requestResponse to the string that was read as a response
+        this.requestResponse = response.toString();
+
+        // Disconnect
+        httpURLConnection.disconnect();
+
         
         if (whenFinished == null) {
             return;

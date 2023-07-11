@@ -29,7 +29,8 @@ import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
-import me.partlysanestudios.partlysaneskies.SkyblockItem;
+import me.partlysanestudios.partlysaneskies.skyblockdata.SkyblockDataManager;
+import me.partlysanestudios.partlysaneskies.skyblockdata.SkyblockItem;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import me.partlysanestudios.partlysaneskies.utils.requests.Request;
@@ -79,7 +80,7 @@ public class SkymartValue {
 
         HashMap<String, Double> map = new HashMap<String, Double> ();
         for (String id : copperCost.keySet()) {
-            SkyblockItem item = SkyblockItem.getItem(id);
+            SkyblockItem item = SkyblockDataManager.getItem(id);
             if (item == null) {
                 continue;
             }
@@ -89,7 +90,7 @@ public class SkymartValue {
         
         int i = 1;
         for (Map.Entry<String, Double> en : sortedMap.entrySet()) {
-            SkyblockItem item = SkyblockItem.getItem(en.getKey());
+            SkyblockItem item = SkyblockDataManager.getItem(en.getKey());
             str += "&6" + i + ". &d" + item.getName() + "&7 costs &d" + StringUtils.formatNumber(copperCost.get(en.getKey())) + "&7 copper and sells for &d" + StringUtils.formatNumber(Utils.round(item.getSellPrice(), 1)) + "&7 coins \n&8 (" + StringUtils.formatNumber(Utils.round(en.getValue(), 1)) + " coins per copper)\n";
             i++;
             if (i > 5) {

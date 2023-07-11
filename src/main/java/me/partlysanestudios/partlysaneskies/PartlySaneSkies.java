@@ -19,17 +19,6 @@
 
 package me.partlysanestudios.partlysaneskies;
 
-import java.awt.Color;
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import me.partlysanestudios.partlysaneskies.economy.minioncalculator.MinionCalculatorCommand;
-import me.partlysanestudios.partlysaneskies.economy.minioncalculator.MinionData;
-import org.apache.commons.lang3.reflect.FieldUtils;
 import gg.essential.elementa.ElementaVersion;
 import me.partlysanestudios.partlysaneskies.auctionhouse.AhManager;
 import me.partlysanestudios.partlysaneskies.chatalerts.ChatAlertsCommand;
@@ -41,6 +30,8 @@ import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManagerCo
 import me.partlysanestudios.partlysaneskies.dungeons.permpartyselector.PermPartyCommand;
 import me.partlysanestudios.partlysaneskies.dungeons.permpartyselector.PermPartyManager;
 import me.partlysanestudios.partlysaneskies.economy.BitsShopValue;
+import me.partlysanestudios.partlysaneskies.economy.minioncalculator.MinionCalculatorCommand;
+import me.partlysanestudios.partlysaneskies.economy.minioncalculator.MinionData;
 import me.partlysanestudios.partlysaneskies.garden.CompostValue;
 import me.partlysanestudios.partlysaneskies.garden.GardenTradeValue;
 import me.partlysanestudios.partlysaneskies.garden.SkymartValue;
@@ -55,6 +46,7 @@ import me.partlysanestudios.partlysaneskies.petalert.PetAlertMuteCommand;
 import me.partlysanestudios.partlysaneskies.rngdropbanner.DropBannerDisplay;
 import me.partlysanestudios.partlysaneskies.skillupgrade.SkillUpgradeCommand;
 import me.partlysanestudios.partlysaneskies.skillupgrade.SkillUpgradeRecommendation;
+import me.partlysanestudios.partlysaneskies.skyblockdata.SkyblockDataManager;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import me.partlysanestudios.partlysaneskies.utils.requests.Request;
@@ -79,10 +71,19 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent;
+import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 
 @Mod(modid = PartlySaneSkies.MODID, version = PartlySaneSkies.VERSION, name = PartlySaneSkies.NAME)
@@ -116,6 +117,7 @@ public class PartlySaneSkies {
     public static final Color BASE_LIGHT_COLOR = new Color(85, 85, 88);
     public static final Color ACCENT_COLOR = new Color(1, 255, 255);
     public static final Color DARK_ACCENT_COLOR = new Color(1, 122, 122);
+    private static String API_KEY;
 
 
     // Names of all of the ranks to remove from people's names
@@ -136,9 +138,7 @@ public class PartlySaneSkies {
         PartlySaneSkies.config = new OneConfigScreen();    
         Request mainMenuRequest = null;
         try {
-            mainMenuRequest = new Request("https://raw.githubusercontent.com/PartlySaneStudios/partly-sane-skies-public-data/main/data/main_menu.json", s -> {
-                CustomMainMenu.setMainMenuInfo(s.getResponse());
-            });
+            mainMenuRequest = new Request("https://raw.githubusercontent.com/PartlySaneStudios/partly-sane-skies-public-data/main/data/main_menu.json", CustomMainMenu::setMainMenuInfo);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -167,6 +167,12 @@ public class PartlySaneSkies {
 
                 try {
                     EndOfFarmNotfier.load();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    SkyblockDataManager.initSkills();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -230,16 +236,16 @@ public class PartlySaneSkies {
         PlayerRating.initPatterns();
 
         try {
-            SkyblockItem.init();
+            SkyblockDataManager.initItems();
         } catch (IOException e) {
             e.printStackTrace();
         }
         try {
-            SkyblockItem.initBitValues();
+            SkyblockDataManager.initBitValues();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        SkyblockItem.updateAll();
+        SkyblockDataManager.updateAll();
         CompostValue.init();
         try {
             SkymartValue.initCopperValues();
@@ -266,6 +272,23 @@ public class PartlySaneSkies {
         
         // Finished loading
         Utils.log(Level.INFO,"Partly Sane Skies has loaded.");
+
+        new Thread(() -> {
+            try {
+                SkyblockDataManager.getPlayer("Su386");
+                SkyblockDataManager.getPlayer("Su386");
+                Utils.visPrint(SkyblockDataManager.getPlayer("Su386"));
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
+
+    public static String getAPIKey() {
+        if (config.forceCustomAPIKey) {
+            return config.apiKey;
+        }
+        return API_KEY;
     }
 
     // Method runs every tick
@@ -279,7 +302,7 @@ public class PartlySaneSkies {
         // Checks if the current screen is the auciton house to run AHManager
         AhManager.runDisplayGuiCheck();
 
-        SkyblockItem.runUpdater();
+        SkyblockDataManager.runUpdater();
 
         // Checks if the player is collecting minions
         PetAlert.runPetAlert();

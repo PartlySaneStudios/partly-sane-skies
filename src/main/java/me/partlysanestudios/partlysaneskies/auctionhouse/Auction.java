@@ -11,7 +11,7 @@ import java.util.List;
 
 import gg.essential.elementa.UIComponent;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
-import me.partlysanestudios.partlysaneskies.SkyblockItem;
+import me.partlysanestudios.partlysaneskies.skyblockdata.SkyblockDataManager;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.item.ItemStack;
@@ -92,13 +92,13 @@ public class Auction {
 
     private boolean isCheapBin() {
         long sellingPrice = getPrice();
-        if (SkyblockItem.getItem(itemId) == null) {
+        if (SkyblockDataManager.getItem(itemId) == null) {
             return false;
         }
-        if (!SkyblockItem.getItem(itemId).hasSellPrice()) {
+        if (!SkyblockDataManager.getItem(itemId).hasSellPrice()) {
             return false;
         }
-        double averageAhPrice = SkyblockItem.getItem(itemId).getSellPrice();
+        double averageAhPrice = SkyblockDataManager.getItem(itemId).getSellPrice();
 
         return sellingPrice <= averageAhPrice * (PartlySaneSkies.config.BINSniperPercent / 100d);
     }
@@ -116,18 +116,18 @@ public class Auction {
     }
 
     public double getAverageLowestBin() {
-        if (SkyblockItem.getItem(itemId) == null) {
+        if (SkyblockDataManager.getItem(itemId) == null) {
             return 0;
         }
-        if (!SkyblockItem.getItem(itemId).hasAverageLowestBin()) {
+        if (!SkyblockDataManager.getItem(itemId).hasAverageLowestBin()) {
             return 0;
         }
-        return SkyblockItem.getItem(itemId).getAverageLowestBin();
+        return SkyblockDataManager.getItem(itemId).getAverageLowestBin();
     }
 
     public double getLowestBin() {
         try {
-            if (!SkyblockItem.getItem(itemId).hasSellPrice()) {
+            if (!SkyblockDataManager.getItem(itemId).hasSellPrice()) {
                 return 0;
             } 
         } catch (NullPointerException exception) {
@@ -136,15 +136,15 @@ public class Auction {
         }
         
         
-        return SkyblockItem.getItem(itemId).getSellPrice();
+        return SkyblockDataManager.getItem(itemId).getSellPrice();
     }
 
     public boolean hasLowestBin() {
-        return SkyblockItem.getItem(itemId).hasSellPrice();
+        return SkyblockDataManager.getItem(itemId).hasSellPrice();
     }
 
     public boolean hasAverageLowestBin() {
-        return SkyblockItem.getItem(itemId).hasAverageLowestBin();
+        return SkyblockDataManager.getItem(itemId).hasAverageLowestBin();
     }
 
     public String getFormattedEndingTime() {

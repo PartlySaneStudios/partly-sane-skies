@@ -6,7 +6,6 @@
 package me.partlysanestudios.partlysaneskies.dungeons.partymanager;
 
 import java.awt.Color;
-import java.net.MalformedURLException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -24,12 +23,8 @@ import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import me.partlysanestudios.partlysaneskies.utils.guicomponents.PSSButton;
-import me.partlysanestudios.partlysaneskies.utils.requests.Request;
-import me.partlysanestudios.partlysaneskies.utils.requests.RequestsManager;
 
 public class PartyManagerGui extends WindowScreen {
-
-    public HashMap<String, UIComponent> uiComponentMap = new HashMap<String, UIComponent>();
 
     // Creates the background
     UIComponent background = new UIBlock()
@@ -84,25 +79,8 @@ public class PartyManagerGui extends WindowScreen {
                     .setChildOf(list);
 
             Utils.applyBackground(memberBlock);
-            if (member.isExpired()) {
-                try {
-                    RequestsManager.newRequest(new Request("https://sky.shiiyu.moe/api/v2/profile/" + member.username, s -> {
-                        try {
-                            member.setSkycryptData(s.getResponse());
-                            member.createBlock(memberBlock, scaleFactor);
-                        } catch (NullPointerException e) {
-                            e.printStackTrace();
-                        }
-                        
-                    }));
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                Window.Companion.enqueueRenderOperation(() -> {
-                    member.createBlock(memberBlock, scaleFactor);
-                });
-            }
+
+            Window.Companion.enqueueRenderOperation(() -> member.createBlock(memberBlock, scaleFactor));
 
             height += 220f * scaleFactor;
         }
@@ -133,9 +111,7 @@ public class PartyManagerGui extends WindowScreen {
                 .setChildOf(topBarBlock)
                 .setText("Kick Offline")
                 .setTextScale(1.25f)
-                .onMouseClickConsumer(event -> {
-                    PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party kickoffline");
-                });
+                .onMouseClickConsumer(event -> PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party kickoffline"));
 
         new PSSButton()
                 .setX(new PixelConstraint(205f * scaleFactor))
@@ -145,9 +121,7 @@ public class PartyManagerGui extends WindowScreen {
                 .setChildOf(topBarBlock)
                 .setText("Reparty")
                 .setTextScale(1.5f)
-                .onMouseClickConsumer(event -> {
-                    PartyManager.reparty(partyMembers);
-                });
+                .onMouseClickConsumer(event -> PartyManager.reparty(partyMembers));
         
         new PSSButton()
                 .setX(new PixelConstraint(315f * scaleFactor))
@@ -157,9 +131,7 @@ public class PartyManagerGui extends WindowScreen {
                 .setChildOf(topBarBlock)
                 .setText("Ask if ready")
                 .setTextScale(1.25f)
-                .onMouseClickConsumer(event -> {
-                    PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/pc Ready?");
-                });
+                .onMouseClickConsumer(event -> PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/pc Ready?"));
 
         new UIText("Party Size: " + partyMembers.size())
                 .setTextScale(new PixelConstraint(2f * scaleFactor))
@@ -183,10 +155,8 @@ public class PartyManagerGui extends WindowScreen {
                 .setHeight(35f * scaleFactor)
                 .setChildOf(topBarBlock)
                 .setText("F1")
-                .setTextScale(1f * scaleFactor)
-                .onMouseClickConsumer(event -> {
-                    PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon catacombs 1");
-                });
+                .setTextScale(scaleFactor)
+                .onMouseClickConsumer(event -> PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon catacombs 1"));
 
         new PSSButton()
                 .setX(new PixelConstraint(315f * scaleFactor))
@@ -195,7 +165,7 @@ public class PartyManagerGui extends WindowScreen {
                 .setHeight(35f * scaleFactor)
                 .setChildOf(topBarBlock)
                 .setText("F2")
-                .setTextScale(1f * scaleFactor)
+                .setTextScale(scaleFactor)
                 .onMouseClickConsumer(event -> {
                     PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/joindungeon catacombs 2");
                 });

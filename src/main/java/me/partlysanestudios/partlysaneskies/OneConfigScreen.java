@@ -50,6 +50,14 @@ public class OneConfigScreen extends Config {
     )
     public String apiKey = "";
 
+    @Switch(
+            name = "Force Custom API Key",
+            category = "General",
+            subcategory = "API",
+            description = "Forces the use of a custom API key for Hypixel requests. (Requires API Key field to be populated)"
+    )
+    public boolean forceCustomAPIKey = false;
+
     @Number(
         min = .1f,
         max = 30f,

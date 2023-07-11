@@ -24,7 +24,8 @@ import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
-import me.partlysanestudios.partlysaneskies.SkyblockItem;
+import me.partlysanestudios.partlysaneskies.skyblockdata.SkyblockDataManager;
+import me.partlysanestudios.partlysaneskies.skyblockdata.SkyblockItem;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.gui.inventory.GuiChest;
@@ -59,8 +60,8 @@ public class BitsShopValue {
         long bitCount = PartlySaneSkies.getBits();
         boolean filterAffordable = PartlySaneSkies.config.bitShopOnlyShowAffordable;
 
-        for (String id : SkyblockItem.bitIds) {
-            SkyblockItem item = SkyblockItem.getItem(id);
+        for (String id : SkyblockDataManager.bitIds) {
+            SkyblockItem item = SkyblockDataManager.getItem(id);
             if (filterAffordable && bitCount < item.getBitCost()) {
                 continue;
             }
@@ -70,7 +71,7 @@ public class BitsShopValue {
         
         int i = 1;
         for (Map.Entry<String, Double> en : sortedMap.entrySet()) {
-            SkyblockItem item = SkyblockItem.getItem(en.getKey());
+            SkyblockItem item = SkyblockDataManager.getItem(en.getKey());
             str += "&6" + i + ". &d" + item.getName() + "&7 costs &d" + StringUtils.formatNumber(item.getBitCost()) + "&7 bits and sells for &d" + StringUtils.formatNumber(Utils.round(item.getSellPrice(), 1)) + "&7 coins \n&8 (" + StringUtils.formatNumber(Utils.round(en.getValue(), 1)) + " coins per bit)\n";
             i++;
             if (i > 5) {
