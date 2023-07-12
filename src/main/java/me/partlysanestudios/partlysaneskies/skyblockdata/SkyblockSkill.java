@@ -1,7 +1,5 @@
 package me.partlysanestudios.partlysaneskies.skyblockdata;
 
-import me.partlysanestudios.partlysaneskies.utils.Utils;
-
 import java.util.HashMap;
 
 public class SkyblockSkill {

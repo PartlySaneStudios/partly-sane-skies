@@ -64,14 +64,14 @@ public class SkyblockPlayer {
 
 
 
-//    Create a new player data by username by requesting the UUID in the same thread
+//    Create new player data by username by requesting the UUID in the same thread
     public SkyblockPlayer(String name) {
         this.username = name;
 
     }
 
 //    Instantiates the player and data while freezing the current thread until complete
-//    Running on main thread will freeze indefinitely
+//    Running on the main thread will freeze indefinitely
     public void instantiatePlayer() throws MalformedURLException {
         Utils.log(Level.INFO, "Creating Player");
 
@@ -128,7 +128,7 @@ public class SkyblockPlayer {
         return !Utils.onCooldown(lastUpdateTime, PartlySaneSkies.config.playerDataCacheTime * 60 * 1000L);
     }
 
-//    Creates a new player data by UUID
+//    Creates new player data by UUID
     public SkyblockPlayer(UUID uuid) {
         this.uuid = uuid.toString();
     }
