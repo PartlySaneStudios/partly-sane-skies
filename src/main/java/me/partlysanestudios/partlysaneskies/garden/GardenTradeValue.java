@@ -32,7 +32,7 @@ import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class GardenTradeValue {
-    private static Window window = new Window(ElementaVersion.V2);
+    private static final Window window = new Window(ElementaVersion.V2);
     // Returns if the player is currently viewing a trading screen
     public static boolean isTrade() {
         if (PartlySaneSkies.minecraft.currentScreen == null) {
@@ -43,6 +43,7 @@ public class GardenTradeValue {
         }
 
         IInventory[] inventories = PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen);
+        assert inventories != null;
         IInventory trader = inventories[0];
 
         // Slots 29 and 33 are where the buttons should be
@@ -64,15 +65,13 @@ public class GardenTradeValue {
         if (!refuseButtonName.equals("Refuse Offer")) {
             return false;
         }
-        if (!acceptButtonName.equals("Accept Offer")) {
-            return false;
-        }
-        return true;
+        return acceptButtonName.equals("Accept Offer");
     }
 
-    // Returns a hashmap containing the name of an item and the quanitity
+    // Returns a hashmap containing the name of an item and the quantity
     public static HashMap<String, Integer> getQuantityCostMap() {
         IInventory[] inventories = PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen);
+        assert inventories != null;
         IInventory trader = inventories[0];
 
         // Slots 29 is where the accept buttons is
@@ -81,23 +80,23 @@ public class GardenTradeValue {
         ArrayList<String> formattedAcceptButtonLore = Utils.getLore(acceptButton);
         
         // Removes all the format codes from lore
-        ArrayList<String> unforrmattedAcceptButtonLore = removeColorCodesFromList(formattedAcceptButtonLore);
+        ArrayList<String> unformattedAcceptButtonLore = removeColorCodesFromList(formattedAcceptButtonLore);
 
-        int costLineIndex = unforrmattedAcceptButtonLore.indexOf("Items Required:");
-        int rewardsStartIndex = unforrmattedAcceptButtonLore.indexOf("Rewards:");
+        int costLineIndex = unformattedAcceptButtonLore.indexOf("Items Required:");
+        int rewardsStartIndex = unformattedAcceptButtonLore.indexOf("Rewards:");
 
         // Finds each item of the lore
-        ArrayList<String> cost = new ArrayList<String>();
+        ArrayList<String> cost = new ArrayList<>();
         for (int i = costLineIndex + 1; i < rewardsStartIndex; i++) {
-            cost.add(unforrmattedAcceptButtonLore.get(i));
+            cost.add(unformattedAcceptButtonLore.get(i));
         }
 
     
-        HashMap<String, Integer> costMap = new HashMap<String, Integer>();
+        HashMap<String, Integer> costMap = new HashMap<>();
 
         for (String costLine : cost) {
-            // All of the messages are formatted <Name> x<Cost> 
-            // so the name is up until the last 'x', and the cost starts
+            // All the messages are formatted <Name> x<Cost>
+            // so the name is up until the last 'x,' and the cost starts
             // after the x
             int costStartIndex = costLine.lastIndexOf("x");
             // If the item does not have a multiple, it means it only has one
@@ -127,7 +126,7 @@ public class GardenTradeValue {
             else {
                 // Gets the cost of the item and converts it to an integer
                 amountString = costLine.substring(costStartIndex + 1);
-                // Replaces all non numeric characters in the string
+                // Replaces all non-numeric characters in the string
                 amountString = amountString.replaceAll("[^\\d.]", "");
                 amountString = amountString.replace(",", "");
                 amountString = amountString.replace(".", "");
@@ -146,6 +145,7 @@ public class GardenTradeValue {
 
     public static List<String> getRewardsLore() {
         IInventory[] inventories = PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen);
+        assert inventories != null;
         IInventory trader = inventories[0];
 
         // Slots 29 is where the accept buttons is
@@ -154,9 +154,9 @@ public class GardenTradeValue {
         ArrayList<String> formattedAcceptButtonLore = Utils.getLore(acceptButton);
 
         // Removes all the format codes from lore
-        ArrayList<String> unforrmattedAcceptButtonLore = removeColorCodesFromList(formattedAcceptButtonLore);
+        ArrayList<String> unformattedAcceptButtonLore = removeColorCodesFromList(formattedAcceptButtonLore);
 
-        int rewardsStartIndex = unforrmattedAcceptButtonLore.indexOf("Rewards:");
+        int rewardsStartIndex = unformattedAcceptButtonLore.indexOf("Rewards:");
 
         return formattedAcceptButtonLore.subList(rewardsStartIndex, formattedAcceptButtonLore.size());
     }
@@ -187,7 +187,7 @@ public class GardenTradeValue {
 
     // Returns a new list with all format codes removed
     public static ArrayList<String> removeColorCodesFromList(List<String> list) {
-        ArrayList<String> newList = new ArrayList<String>();
+        ArrayList<String> newList = new ArrayList<>();
 
         for (String oldLine : list) {
             newList.add(StringUtils.removeColorCodes(oldLine));
@@ -207,7 +207,7 @@ public class GardenTradeValue {
     public static HashMap<String, Double> getCoinCostMap() {
         HashMap<String, Integer> quantityMap = getQuantityCostMap();
 
-        HashMap<String, Double> coinMap = new HashMap<String, Double>();
+        HashMap<String, Double> coinMap = new HashMap<>();
         for (Map.Entry<String, Integer> en : quantityMap.entrySet()) {
             String id = SkyblockDataManager.getId(en.getKey());
             double price = getItemCost(id, en.getValue());
@@ -266,33 +266,33 @@ public class GardenTradeValue {
             .setY(widthScaledConstraint(2 * pad))
             .setWidth(new PixelConstraint(box.getWidth() - widthScaledConstraint(2 * pad).getValue()));
 
-        String textString = "";
+        StringBuilder textString = new StringBuilder();
 
-        textString += "&e&lTotal Cost: &r&d" + StringUtils.formatNumber(Utils.round(getTotalCost(), 2)) + "\n\n";
+        textString.append("&e&lTotal Cost: &r&d").append(StringUtils.formatNumber(Utils.round(getTotalCost(), 2))).append("\n\n");
         
-        textString += "&e&lCopper Recieved: &r&d" + StringUtils.formatNumber(Utils.round(getCopperReturn(), 2)) + "\n\n";
+        textString.append("&e&lCopper Recieved: &r&d").append(StringUtils.formatNumber(Utils.round(getCopperReturn(), 2))).append("\n\n");
 
         double pricePerCopper = getTotalCost() / getCopperReturn();
-        textString += "&e&lCoins/Copper: &r&d" + StringUtils.formatNumber(Utils.round(pricePerCopper, 2)) + "\n\n";
+        textString.append("&e&lCoins/Copper: &r&d").append(StringUtils.formatNumber(Utils.round(pricePerCopper, 2))).append("\n\n");
 
-        String priceBreakdown = "";
+        StringBuilder priceBreakdown = new StringBuilder();
         HashMap<String, Double> coinCostMap = getCoinCostMap();
         for (Map.Entry<String, Integer> en : getQuantityCostMap().entrySet()){
-            priceBreakdown += "&7x&d" + en.getValue() + " &7" + en.getKey() + " for a total of &d" + StringUtils.formatNumber(Utils.round(coinCostMap.get(en.getKey()), 2)) + "&7 coins.\n";
+            priceBreakdown.append("&7x&d").append(en.getValue()).append(" &7").append(en.getKey()).append(" for a total of &d").append(StringUtils.formatNumber(Utils.round(coinCostMap.get(en.getKey()), 2))).append("&7 coins.\n");
         }
 
-        textString += "&e&lPrice Breakdown:&r\n";
-        textString += priceBreakdown;
-        textString += "\n\n";
+        textString.append("&e&lPrice Breakdown:&r\n");
+        textString.append(priceBreakdown);
+        textString.append("\n\n");
 
-        textString += "&e&lRewards:&r\n";
+        textString.append("&e&lRewards:&r\n");
         for (String line : getRewardsLore()) {
-            textString += line + "\n";
+            textString.append(line).append("\n");
         }
 
-        textString = StringUtils.colorCodes(textString);
+        textString = new StringBuilder(StringUtils.colorCodes(textString.toString()));
 
-        textComponent.setText(textString);
+        textComponent.setText(textString.toString());
 
         window.draw(new UMatrixStack());
     }
