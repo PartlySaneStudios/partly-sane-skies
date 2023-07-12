@@ -25,10 +25,8 @@ public class Drop {
         this.dropCategoryColor = dropCategoryColor;
     }
 
-    public boolean isStillDisplay(long currentTime) {
+    public boolean isStillDisplay() {
 
-        if (timeDropped + displayTime < PartlySaneSkies.getTime())
-            return true;
-        return false;
+        return timeDropped + displayTime < PartlySaneSkies.getTime();
     }
 }
