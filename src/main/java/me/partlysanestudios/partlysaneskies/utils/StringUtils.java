@@ -34,23 +34,22 @@ public class StringUtils {
 
     public static String wrapText(String text, int charNumber) {
         char[] charArray = text.toCharArray();
-        List<String> words = new ArrayList<String>();
-        List<Character> chars = new ArrayList<Character>();
-        for (char c : charArray) {
+        List<String> words = new ArrayList<>();
+        List<Character> chars = new ArrayList<>();
+        for (char c : charArray)
             if (c == ' ') {
                 words.add(StringUtils.charArrayToString(chars));
                 chars.clear();
             } else {
                 chars.add(c);
             }
-        }
         words.add(StringUtils.charArrayToString(chars));
     
         // ----------------------------------------
     
         int charsOnLine = 0;
-        String wrappedText = "";
-        List<String> line = new ArrayList<String>();
+        StringBuilder wrappedText = new StringBuilder();
+        List<String> line = new ArrayList<>();
         boolean wasPreviousCharFormatCode = false;
         String previousFormatCode = "";
         String currentLineFormatCode = "";
@@ -58,11 +57,11 @@ public class StringUtils {
             charsOnLine += word.length();
             if (charsOnLine >= charNumber) {
                 line.add(word);
-                String lineString = previousFormatCode;
+                StringBuilder lineString = new StringBuilder(previousFormatCode);
                 for (String wordOnLine : line) {
-                    lineString += (wordOnLine + " ");
+                    lineString.append(wordOnLine).append(" ");
                 }
-                wrappedText += colorCodes(lineString) + "\n";
+                wrappedText.append(colorCodes(lineString.toString())).append("\n");
                 line.clear();
                 charsOnLine = 0;
                 previousFormatCode = currentLineFormatCode;
@@ -80,20 +79,20 @@ public class StringUtils {
                 }
             }
         }
-        String lineString = previousFormatCode;
+        StringBuilder lineString = new StringBuilder(previousFormatCode);
         for (String wordOnLine : line) {
-            lineString += (wordOnLine + " ");
+            lineString.append(wordOnLine).append(" ");
         }
-        wrappedText += colorCodes(lineString);
+        wrappedText.append(colorCodes(lineString.toString()));
         line.clear();
-        return wrappedText;
+        return wrappedText.toString();
     }
 
     public static String charArrayToString(List<Character> chars) {
-        String string = "";
+        StringBuilder string = new StringBuilder();
         for (char c : chars)
-            string += c;
-        return string;
+            string.append(c);
+        return string.toString();
     }
 
     public static String stripLeading(String str) {
@@ -212,7 +211,7 @@ public class StringUtils {
     public static String recognisePattern(String input, String pattern, String key) {
         String result = input;
 
-        // Gets finds the index where the key will start, because it will be the same accross
+        // Gets finds the index where the key will start, because it will be the same across
         // both patterns
         int keyIndex = pattern.indexOf(key);
         if (!(keyIndex > result.length())) {
@@ -234,7 +233,7 @@ public class StringUtils {
             charsAfterKey = pattern.substring(patternEndKeyIndex, patternEndKeyIndex + 4);
         }
         // IF it has less than 3 characters after the pattern, the
-        // the rest of the string is the characters after the pattern 
+        //  rest of the string is the characters after the pattern
         else {
             charsAfterKey = pattern.substring(patternEndKeyIndex);
         }
@@ -242,9 +241,6 @@ public class StringUtils {
         // Uses those characters to get the end of the string in the
         // input, not the pattern
         int inputEndKeyIndex = result.indexOf(charsAfterKey);
-        if (inputEndKeyIndex >= result.length()) {
-            return "";
-        }
         if (inputEndKeyIndex == -1) {
             return "";
         }
@@ -254,7 +250,7 @@ public class StringUtils {
     }
 
     public static boolean isPattern(String input, String pattern, String key) {
-        // Gets finds the index where the key will start, because it will be the same accross
+        // Gets finds the index where the key will start, because it will be the same across
         // both patterns
        
         String result = recognisePattern(input, pattern, key);
@@ -280,39 +276,38 @@ public class StringUtils {
         if (index != -1) { // Make sure the search string was found
             String before = string.substring(0, index);
             String after = string.substring(index + key.length());
-            String newString = before + replacement + after;
-            return newString;
+            return before + replacement + after;
         } else {
             return string;
         }
     }
 
     public static String titleCase(String str) {
-        String titleCase = "";
+        StringBuilder titleCase = new StringBuilder();
         boolean nextCharUpperCase = true;
         for (int i = 0; i < str.length(); i++) {
             String ch = str.substring(i, i + 1);
             if (!ch.equals(" ") && !nextCharUpperCase) {
-                titleCase += ch.toLowerCase();
+                titleCase.append(ch.toLowerCase());
                 continue;
             }
             if (nextCharUpperCase) {
-                titleCase += ch.toUpperCase();
+                titleCase.append(ch.toUpperCase());
                 nextCharUpperCase = false;
                 continue;
             }
 
-            titleCase += ch.toLowerCase();
+            titleCase.append(ch.toLowerCase());
             nextCharUpperCase = true;
 
 
         }
 
-        return titleCase;
+        return titleCase.toString();
     }
 
 
-    public static float parseAbreviatedNumber(String num) {
+    public static float parseAbbreviatedNumber(String num) {
         num = num.replace(" ", "");
         String digits = num.replaceAll("[^\\d.]", "");
         float parsedNum = Float.parseFloat(digits);

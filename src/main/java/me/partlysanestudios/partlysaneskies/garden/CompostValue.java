@@ -187,7 +187,7 @@ public class CompostValue {
     }
 
     private static float getCompostCost(IInventory inventory) {
-        return StringUtils.parseAbreviatedNumber(getCompostCostString(inventory));
+        return StringUtils.parseAbbreviatedNumber(getCompostCostString(inventory));
     }
 
     private static String getOrganicMatterFillLevelString(IInventory composterInventory) {
@@ -206,7 +206,7 @@ public class CompostValue {
     }
 
     private static float getOrganicMatterFillLevel(IInventory inventory) {
-        return StringUtils.parseAbreviatedNumber(getOrganicMatterFillLevelString(inventory));
+        return StringUtils.parseAbbreviatedNumber(getOrganicMatterFillLevelString(inventory));
     }
 
     private static String getOrganicMatterLimitString(IInventory composterInventory) {
@@ -239,7 +239,7 @@ public class CompostValue {
     }
 
     private static float getOrganicMatterLimit(IInventory inventory) {
-        return StringUtils.parseAbreviatedNumber(getOrganicMatterLimitString(inventory));
+        return StringUtils.parseAbbreviatedNumber(getOrganicMatterLimitString(inventory));
     }
 
 
