@@ -14,11 +14,8 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 
 public class RequestsManager {
 
-    private static Queue<Request> requestsQueue = new LinkedList<Request>();
+    private static final Queue<Request> requestsQueue = new LinkedList<>();
     private static long lastRequestTime = 0;
-    
-    // The time in miliseconds between requests
-    private static long timeBetweenRequests = 750;
 
     public static void init() {
     }
@@ -28,7 +25,8 @@ public class RequestsManager {
             return;
         }
 
-        timeBetweenRequests = Math.round(PartlySaneSkies.config.timeBetweenRequests * 1000);
+        // The time in milliseconds between requests
+        long timeBetweenRequests = Math.round(PartlySaneSkies.config.timeBetweenRequests * 1000);
         // If the time has not elapsed between requests
         if (onCooldown(lastRequestTime, timeBetweenRequests)) {
             return;
@@ -38,6 +36,7 @@ public class RequestsManager {
         Request element = requestsQueue.poll();
         // If the request is supposed to run in the main thread
         lastRequestTime = PartlySaneSkies.getTime();
+        assert element != null;
         if (element.isMainThread()) {
             try {
                 element.startRequest();
@@ -54,7 +53,7 @@ public class RequestsManager {
                     element.startRequest();
                 } catch (IOException e) {
                     element.setFailed();
-                    // If supposed to run in the next frame, run in next frame
+                    // If supposed to run in the next frame, run in the next frame
                     if (element.isRunNextFrame()) {
                         PartlySaneSkies.minecraft.addScheduledTask(() -> element.getWhatToRunWhenFinished().run(element));
                         return;
@@ -69,14 +68,13 @@ public class RequestsManager {
     }
 
     // Adds a new request and returns its position in queue
-    public static int newRequest(Request request) {
+    public static void newRequest(Request request) {
         if (request == null) {
-            return -1;
+            return;
         }
 
         requestsQueue.add(request);
 
-        return requestsQueue.size();
     }
 
     // Returns of true if the time has not elapsed
