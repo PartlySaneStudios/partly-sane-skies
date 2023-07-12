@@ -158,7 +158,7 @@ public class OneConfigScreen extends Config {
         name = "Color Private Messages", 
         category = "General", 
         subcategory = "Chat Color", 
-        description = "Private messages pink to make them more visable in busy lobbies."
+        description = "Private messages pink to make them more visible in busy lobbies."
     )
     public boolean colorPrivateMessages = false;
 
@@ -166,7 +166,7 @@ public class OneConfigScreen extends Config {
         name = "Color Nons Messages", 
         category = "General", 
         subcategory = "Chat Color", 
-        description = "Color messages from the non-ranked players to white to make them more visable in busy lobbies."
+        description = "Color messages from the non-ranked players to white to make them more visible in busy lobbies."
     )
     public boolean colorNonMessages = false;
 
@@ -174,7 +174,7 @@ public class OneConfigScreen extends Config {
         name = "Color Party Chat", 
         category = "General", 
         subcategory = "Chat Color", 
-        description = "Color messages from the party chat blue to make them more visable in busy lobbies."
+        description = "Color messages from the party chat blue to make them more visible in busy lobbies."
     )
     public boolean colorPartyChat = false;
 
@@ -182,7 +182,7 @@ public class OneConfigScreen extends Config {
         name = "Color Guild Chat", 
         category = "General", 
         subcategory = "Chat Color", 
-        description = "Color messages from the guild chat green to make them more visable in busy lobbies."
+        description = "Color messages from the guild chat green to make them more visible in busy lobbies."
     )
     public boolean colorGuildChat = false;
 
@@ -190,7 +190,7 @@ public class OneConfigScreen extends Config {
         name = "Color Guild Officer Chat", 
         category = "General", 
         subcategory = "Chat Color", 
-        description = "Color messages from the guild officer chat aqua to make them more visable in busy lobbies."
+        description = "Color messages from the guild officer chat aqua to make them more visible in busy lobbies."
     )
     public boolean colorOfficerChat = false;
 
@@ -198,17 +198,17 @@ public class OneConfigScreen extends Config {
         name = "Skyblock Co-op Chat", 
         category = "General", 
         subcategory = "Chat Color", 
-        description = "Color messages from the skyblock coop chat aqua to make them more visable in busy lobbies."
+        description = "Color messages from the skyblock coop chat aqua to make them more visible in busy lobbies."
     )
     public boolean colorCoopChat = false;
 
     @Switch(
-        name = "Visable Colors", 
+        name = "Visible Colors", 
         category = "General", 
         subcategory = "Chat Color", 
-        description = "Converts the custom colors mentioned above to more visable colors. Dark Green -> Light Green and Blue -> Gold. (Recommended)"
+        description = "Converts the custom colors mentioned above to more visible colors. Dark Green -> Light Green and Blue -> Gold. (Recommended)"
     )
-    public boolean visableColors = false;
+    public boolean visibleColors = false;
 
     @Switch(
         name = "Print errors in chat",
@@ -280,7 +280,7 @@ public class OneConfigScreen extends Config {
     @Switch(
         name = "Incorrect Pet for Minion Alert", 
         category = "Skyblock", 
-        description = "Warns you if you don't have the right pet for leveling up the minions, that way you never lose any pet EXP because you still have your level 100 dungeon pet activated.\nRequires pets to be visable.", 
+        description = "Warns you if you don't have the right pet for leveling up the minions, that way you never lose any pet EXP because you still have your level 100 dungeon pet activated.\nRequires pets to be visible.", 
         subcategory = "Incorrect Pet for Minion Alert"
     )
     public boolean incorrectPetForMinionAlert = false;
@@ -288,7 +288,7 @@ public class OneConfigScreen extends Config {
     @Switch(
             name = "Selected Pet Information",
             category = "Skyblock",
-            description = "Gives you information about the currently selected pet while in the minion menu\nRequires pets to be visable.",
+            description = "Gives you information about the currently selected pet while in the minion menu\nRequires pets to be visible.",
             subcategory = "Incorrect Pet for Minion Alert"
     )
     public boolean selectedPetInformation = false;

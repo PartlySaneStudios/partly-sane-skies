@@ -75,7 +75,7 @@ public class ChatColors {
                 if (!PartlySaneSkies.config.colorPartyChat) {
                     return "";
                 }
-                if (PartlySaneSkies.config.visableColors) {
+                if (PartlySaneSkies.config.visibleColors) {
                     return StringUtils.colorCodes("&6");
                 }
                 return StringUtils.colorCodes("&9");
@@ -84,7 +84,7 @@ public class ChatColors {
                 if (!PartlySaneSkies.config.colorGuildChat) {
                     return "";
                 }
-                if (PartlySaneSkies.config.visableColors) {
+                if (PartlySaneSkies.config.visibleColors) {
                     return StringUtils.colorCodes("&a");
                 }
                 return StringUtils.colorCodes("&2");
