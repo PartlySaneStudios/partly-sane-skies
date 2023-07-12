@@ -26,14 +26,14 @@ public class PlayerRating {
 
     private static String currentPlayer = "";
 
-    public static HashMap<String, String> positivePatterns = new HashMap<String, String>();
+    public static HashMap<String, String> positivePatterns = new HashMap<>();
 
     // A map that has the <Pattern, <Cause Category, Points>>
-    private static HashMap<String, HashMap<String, Integer>> playerPointCategoryMap = new HashMap<String, HashMap<String, Integer> >(); 
+    private static HashMap<String, HashMap<String, Integer>> playerPointCategoryMap = new HashMap<>();
     // A map that has <Player, Total Points> Map
-    private static HashMap<String, Integer> totalPlayerPoints = new HashMap<String, Integer>();
-    // A map that has <Category, Total Count>
-    private static HashMap<String, Integer> categoryPointMap = new HashMap<String, Integer>();
+    private static HashMap<String, Integer> totalPlayerPoints = new HashMap<>();
+    // A map which has <Category, Total Count>
+    private static HashMap<String, Integer> categoryPointMap = new HashMap<>();
     private static int totalPoints = 0;
     
     public static void initPatterns() {
@@ -80,7 +80,7 @@ public class PlayerRating {
             if (individualPlayerPointMap.containsKey(category)) {
                 individualPlayerPointMap.put(category, individualPlayerPointMap.get(category) + 1);
             }
-            // If this category doesnt exist yet
+            // If this category doesn't exist yet
             else {
                 individualPlayerPointMap.put(category, 1);
             }
@@ -89,7 +89,7 @@ public class PlayerRating {
         }
         // If this player doesn't exist yet
         else {
-            HashMap<String, Integer> individualPlayerPointMap = new HashMap<String, Integer>();
+            HashMap<String, Integer> individualPlayerPointMap = new HashMap<>();
             individualPlayerPointMap.put(category, 1);
             playerPointCategoryMap.put(player, individualPlayerPointMap);
             totalPlayerPoints.put(player, 1);
@@ -108,51 +108,51 @@ public class PlayerRating {
         totalPoints ++;
     }
     public static String getDisplayString() {
-        String str = "";
+        StringBuilder str = new StringBuilder();
 
         if (PartlySaneSkies.config.enhancedDungeonPlayerBreakdown == 0) { 
             for (Map.Entry<String, HashMap<String, Integer>> entry : playerPointCategoryMap.entrySet()) {
                 String playerStr = "&d" + entry.getKey() + "  &9" + Utils.round((double) totalPlayerPoints.get(entry.getKey()) / totalPoints * 100d, 0) +"%&7 | ";
                 
-                str += playerStr;
+                str.append(playerStr);
             }
             
-            return StringUtils.colorCodes(str);
+            return StringUtils.colorCodes(str.toString());
         }
 
-        str += "&a&nDungeon Overview:\n\n";
+        str.append("&a&nDungeon Overview:\n\n");
         for (Map.Entry<String, HashMap<String, Integer>> entry : playerPointCategoryMap.entrySet()) {
             String playerName = entry.getKey();
-            String playerStr = "&d" + playerName + "&7 completed &d" + Utils.round((double) totalPlayerPoints.get(playerName) / totalPoints * 100d, 0) +"%&7 of the dungeon.\n";
+            StringBuilder playerStr = new StringBuilder("&d" + playerName + "&7 completed &d" + Utils.round((double) totalPlayerPoints.get(playerName) / totalPoints * 100d, 0) + "%&7 of the dungeon.\n");
             if (PartlySaneSkies.config.enhancedDungeonPlayerBreakdown == 2) {
-                playerStr += "&2   Breakdown:\n";
+                playerStr.append("&2   Breakdown:\n");
                 for (Map.Entry<String, Integer> entry2 : entry.getValue().entrySet()) {
-                    playerStr += "     &d" +  Utils.round((double) entry2.getValue() / categoryPointMap.get(entry2.getKey()) * 100d, 0) + "%&7 of " + entry2.getKey() + "\n";
+                    playerStr.append("     &d").append(Utils.round((double) entry2.getValue() / categoryPointMap.get(entry2.getKey()) * 100d, 0)).append("%&7 of ").append(entry2.getKey()).append("\n");
                 }
             }
             
-            str += playerStr;
+            str.append(playerStr);
         }
 
-        str = StringUtils.colorCodes(str);
+        str = new StringBuilder(StringUtils.colorCodes(str.toString()));
 
 
 
-        return str;
+        return str.toString();
     }
 
     public static String getChatMessage() {
-        String str = "";
+        StringBuilder str = new StringBuilder();
 
-        str += "Partly Sane Skies > ";
+        str.append("Partly Sane Skies > ");
         
         for (Map.Entry<String, HashMap<String, Integer>> entry : playerPointCategoryMap.entrySet()) {
-            String playerStr = "" + entry.getKey() + "  " + Utils.round((double) totalPlayerPoints.get(entry.getKey()) / totalPoints * 100d, 0) + "% | ";
+            String playerStr = entry.getKey() + "  " + Utils.round((double) totalPlayerPoints.get(entry.getKey()) / totalPoints * 100d, 0) + "% | ";
             
-            str += playerStr;
+            str.append(playerStr);
         }
 
-        return str;
+        return str.toString();
     }
 
 
@@ -167,9 +167,9 @@ public class PlayerRating {
     }
 
     public static void reset() {
-        categoryPointMap = new HashMap<String, Integer>();
-        totalPlayerPoints = new HashMap<String, Integer>();
-        playerPointCategoryMap = new HashMap<String, HashMap<String, Integer> >();
+        categoryPointMap = new HashMap<>();
+        totalPlayerPoints = new HashMap<>();
+        playerPointCategoryMap = new HashMap<>();
 
         totalPoints = 0;
     }
@@ -184,22 +184,19 @@ public class PlayerRating {
         if (event.message.getFormattedText().contains("Catacombs Experience§r")) {
             final String string = getDisplayString();
             
-            new Thread() {
-                @Override
-                public void run() {
-                    try {
-                        Thread.sleep(125);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    PartlySaneSkies.minecraft.addScheduledTask(() -> { 
-                        if (string.equals("")) {
-                            return;
-                        }
-                        Utils.sendClientMessage(string, true);
-                    });
+            new Thread(() -> {
+                try {
+                    Thread.sleep(125);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-            }.start();
+                PartlySaneSkies.minecraft.addScheduledTask(() -> {
+                    if (string.equals("")) {
+                        return;
+                    }
+                    Utils.sendClientMessage(string, true);
+                });
+            }).start();
             if (PartlySaneSkies.config.partyChatDungeonPlayerBreakdown) {
                 PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/pc " + getChatMessage());
             }
