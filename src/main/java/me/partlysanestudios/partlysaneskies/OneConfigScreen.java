@@ -202,12 +202,6 @@ public class OneConfigScreen extends Config {
     )
     public boolean colorCoopChat = false;
 
-    @VigilanceName(
-        name = "Visible Colors", 
-        category = "General", 
-        subcategory = "Chat Color", 
-        description = "Converts the custom colors mentioned above to more visible colors. Dark Green -> Light Green and Blue -> Gold. (Recommended)"
-    )
     @Switch(
         name = "Visible Colors", 
         category = "General", 
