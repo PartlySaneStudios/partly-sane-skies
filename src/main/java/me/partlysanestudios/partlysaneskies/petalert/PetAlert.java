@@ -8,6 +8,7 @@ package me.partlysanestudios.partlysaneskies.petalert;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import gg.essential.elementa.ElementaVersion;
 import gg.essential.elementa.UIComponent;
@@ -63,7 +64,7 @@ public class PetAlert {
             return;
         }
 
-        if (Utils.onCooldown(lastMuteTime, (long) (PartlySaneSkies.config.petAlertMuteTime * 60l * 1000l))) {
+        if (Utils.onCooldown(lastMuteTime, (long) (PartlySaneSkies.config.petAlertMuteTime * 60L * 1000L))) {
             return;
         }
         
@@ -138,7 +139,7 @@ public class PetAlert {
             return false;
         }
 
-        IInventory upper = PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen)[0];
+        IInventory upper = Objects.requireNonNull(PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen))[0];
         return StringUtils.removeColorCodes(upper.getDisplayName().getFormattedText()).contains("Pets");
     }
 
@@ -148,7 +149,7 @@ public class PetAlert {
             return false;
         }
 
-        IInventory upper = PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen)[0];
+        IInventory upper = Objects.requireNonNull(PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen))[0];
         boolean inventoryNameMatches = StringUtils.removeColorCodes(upper.getDisplayName().getFormattedText()).contains("Minion");
 
         if (!inventoryNameMatches) {
@@ -181,10 +182,11 @@ public class PetAlert {
 
     // Gets all the pets current loaded by the game
     private static List<Entity> getAllPets() {
-        List<Entity> petEntities = new ArrayList<Entity>();
+        List<Entity> petEntities = new ArrayList<>();
         List<Entity> armorStandEntities = getAllArmorStands();
         
-        // For every armor stand in the game, check if its a pet by looking for the level tag in front of the name. Ex: "*[Lv*100] Su386's Black Cat"
+        // For every armor stand in the game, check if it's pet by looking for the level tag in front of the name.
+        // Ex: "*[Lv*100] Su386's Black Cat"
         for (Entity entity : armorStandEntities) {
             if (StringUtils.removeColorCodes(entity.getName()).contains("[Lv")) {
                 petEntities.add(entity); // If so, add it to the list
@@ -194,10 +196,10 @@ public class PetAlert {
         return petEntities;
     }
 
-    // Gets all of the armor stands currently loaded by the game
+    // Gets all the armor stands currently loaded by the game
     private static List<Entity> getAllArmorStands() {
-        List<Entity> armorStandEntities = new ArrayList<Entity>();
-        List<Entity> allEntities = getAllEntitesInWorld();
+        List<Entity> armorStandEntities = new ArrayList<>();
+        List<Entity> allEntities = getAllEntitiesInWorld();
 
         // For every entity in the world, check if its instance of an armor stand
         for (Entity entity : allEntities) {
@@ -210,7 +212,7 @@ public class PetAlert {
     }
     
     // Returns a list of all loaded entities in the world
-    private static List<Entity> getAllEntitesInWorld() {
+    private static List<Entity> getAllEntitiesInWorld() {
         return PartlySaneSkies.minecraft.theWorld.getLoadedEntityList();
     }
 
@@ -263,7 +265,7 @@ public class PetAlert {
             currentlySelectedPetName = StringUtils.colorCodes("&8(Unknown)");
         }
 
-        String petColorCode = "&d";
+        String petColorCode;
 
         if (PartlySaneSkies.config.selectectedPet.isEmpty()) {
             petColorCode = "&d";

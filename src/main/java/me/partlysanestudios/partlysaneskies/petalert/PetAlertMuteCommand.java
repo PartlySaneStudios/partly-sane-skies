@@ -34,7 +34,7 @@ public class PetAlertMuteCommand implements ICommand {
 
     @Override
     public List<String> getCommandAliases() {
-        return new ArrayList<String>();
+        return new ArrayList<>();
     }
 
     @Override
