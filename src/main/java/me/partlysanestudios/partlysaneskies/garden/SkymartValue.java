@@ -6,20 +6,9 @@
 
 package me.partlysanestudios.partlysaneskies.garden;
 
-import java.awt.Color;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-
 import gg.essential.elementa.ElementaVersion;
 import gg.essential.elementa.UIComponent;
 import gg.essential.elementa.components.UIRoundedRectangle;
@@ -41,8 +30,13 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import java.awt.*;
+import java.io.IOException;
+import java.util.List;
+import java.util.*;
+
 public class SkymartValue {
-    public static HashMap<String, Integer> copperCost = new HashMap<String, Integer>();
+    public static HashMap<String, Integer> copperCost = new HashMap<>();
 
     public static void initCopperValues() throws IOException {
         RequestsManager.newRequest(new Request("https://raw.githubusercontent.com/PartlySaneStudios/partly-sane-skies-public-data/main/data/constants/skymart_copper.json", s -> {
@@ -58,14 +52,10 @@ public class SkymartValue {
         
     }
 
-    // Sorts the hashmap in decending order
+    // Sorts the hashmap in descending order
     public static LinkedHashMap<String, Double> sortMap(HashMap<String, Double> map) {
         List<Map.Entry<String, Double>> list = new LinkedList<>(map.entrySet());
-        Collections.sort(list, new Comparator<Map.Entry<String, Double>>() {
-            public int compare(Map.Entry<String, Double> o1, Map.Entry<String, Double> o2) {
-                return (o2.getValue()).compareTo(o1.getValue());
-            }
-        });
+        list.sort((o1, o2) -> (o2.getValue()).compareTo(o1.getValue()));
 
         LinkedHashMap<String, Double> sortedMap = new LinkedHashMap<>();
         for (Map.Entry<String, Double> entry : list) {
@@ -76,9 +66,9 @@ public class SkymartValue {
     }
 
     public static String getString() {
-        String str = "";
+        StringBuilder str = new StringBuilder();
 
-        HashMap<String, Double> map = new HashMap<String, Double> ();
+        HashMap<String, Double> map = new HashMap<>();
         for (String id : copperCost.keySet()) {
             SkyblockItem item = SkyblockDataManager.getItem(id);
             if (item == null) {
@@ -91,7 +81,7 @@ public class SkymartValue {
         int i = 1;
         for (Map.Entry<String, Double> en : sortedMap.entrySet()) {
             SkyblockItem item = SkyblockDataManager.getItem(en.getKey());
-            str += "&6" + i + ". &d" + item.getName() + "&7 costs &d" + StringUtils.formatNumber(copperCost.get(en.getKey())) + "&7 copper and sells for &d" + StringUtils.formatNumber(Utils.round(item.getSellPrice(), 1)) + "&7 coins \n&8 (" + StringUtils.formatNumber(Utils.round(en.getValue(), 1)) + " coins per copper)\n";
+            str.append("&6").append(i).append(". &d").append(item.getName()).append("&7 costs &d").append(StringUtils.formatNumber(copperCost.get(en.getKey()))).append("&7 copper and sells for &d").append(StringUtils.formatNumber(Utils.round(item.getSellPrice(), 1))).append("&7 coins \n&8 (").append(StringUtils.formatNumber(Utils.round(en.getValue(), 1))).append(" coins per copper)\n");
             i++;
             if (i > 5) {
                 break;
@@ -99,9 +89,9 @@ public class SkymartValue {
         }
 
     
-        str = StringUtils.colorCodes(str);
+        str = new StringBuilder(StringUtils.colorCodes(str.toString()));
         
-        return str;
+        return str.toString();
     }
 
     // 22
@@ -114,10 +104,11 @@ public class SkymartValue {
         }
 
         IInventory[] inventories = PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen);
+        assert inventories != null;
         IInventory composter = inventories[0];
         if (!StringUtils.removeColorCodes(composter.getDisplayName().getFormattedText()).contains("SkyMart")) {
             return false;
-        };
+        }
 
 
         return true;
