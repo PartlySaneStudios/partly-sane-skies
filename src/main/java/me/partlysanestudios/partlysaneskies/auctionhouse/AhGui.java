@@ -138,7 +138,7 @@ public class AhGui extends WindowScreen {
                     continue;
                 }
                 try {
-                    makeItemBox(auctions[row][column], x, y, mainBox);
+                    makeItemBox(auctions[row][column], x, y);
                 } catch (NullPointerException e) {
                     e.printStackTrace();
                 }
@@ -272,7 +272,7 @@ public class AhGui extends WindowScreen {
             "textures/gui/custom_ah/search_icon.png",
             "textures/gui/custom_ah/go_back_icon.png",
             "textures/gui/custom_ah/sort_filter/unknown.png",
-            "textures/gui/custom_ah/rarirty_filter/no_filter.png",
+            "textures/gui/custom_ah/rarity_filter/no_filter.png",
             "textures/gui/custom_ah/type/all.png",
             "textures/gui/custom_ah/right_arrow_icon.png"
         };
@@ -283,7 +283,7 @@ public class AhGui extends WindowScreen {
             "textures/gui/custom_ah/furfsky/search_icon.png",
             "textures/gui/custom_ah/furfsky/go_back_icon.png",
             "textures/gui/custom_ah/furfsky/sort_filter/unknown.png",
-            "textures/gui/custom_ah/furfsky/rarirty_filter/no_filter.png",
+            "textures/gui/custom_ah/furfsky/rarity_filter/no_filter.png",
             "textures/gui/custom_ah/furfsky/type/all.png",
             "textures/gui/custom_ah/furfsky/right_arrow_icon.png"
         };
@@ -302,7 +302,7 @@ public class AhGui extends WindowScreen {
             if (PartlySaneSkies.config.customAhGuiTextures == 1) {
                 imagePath = bottomBarFurfskyImagePaths[i - 46];
             }
-            // If it's the filter icon, set the
+            // If it's the filter icon, set the picture to the filter icon
             if (i == 50) {
                 String sortSelectedLine = "";
 
@@ -459,7 +459,7 @@ public class AhGui extends WindowScreen {
 
     UIComponent itemInfoText;
 
-    public void makeItemBox(Auction auction, float x, float y, UIComponent parent) throws NullPointerException {
+    public void makeItemBox(Auction auction, float x, float y) throws NullPointerException {
         UIComponent backgroundBox = new UIBlock()
                 .setX(widthScaledConstraint(x - boxSide * .25f))
                 .setY(widthScaledConstraint(y))
@@ -589,10 +589,6 @@ public class AhGui extends WindowScreen {
 
         
         
-    }
-
-    public float getWindowWidth() {
-        return this.getWindow().getWidth();
     }
 
     private float getWidthScaleFactor() {
