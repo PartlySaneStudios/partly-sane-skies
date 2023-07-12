@@ -6,15 +6,6 @@
  
 package me.partlysanestudios.partlysaneskies.economy;
 
-import java.awt.Color;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
 import gg.essential.elementa.ElementaVersion;
 import gg.essential.elementa.UIComponent;
 import gg.essential.elementa.components.UIRoundedRectangle;
@@ -34,16 +25,16 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import java.awt.*;
+import java.util.List;
+import java.util.*;
+
 public class BitsShopValue {
 
-    // Sorts the hashmap in decending order
+    // Sorts the hashmap in descending order
     public static LinkedHashMap<String, Double> sortMap(HashMap<String, Double> map) {
         List<Map.Entry<String, Double>> list = new LinkedList<>(map.entrySet());
-        Collections.sort(list, new Comparator<Map.Entry<String, Double>>() {
-            public int compare(Map.Entry<String, Double> o1, Map.Entry<String, Double> o2) {
-                return (o2.getValue()).compareTo(o1.getValue());
-            }
-        });
+        list.sort((o1, o2) -> (o2.getValue()).compareTo(o1.getValue()));
 
         LinkedHashMap<String, Double> sortedMap = new LinkedHashMap<>();
         for (Map.Entry<String, Double> entry : list) {
@@ -54,9 +45,9 @@ public class BitsShopValue {
     }
 
     public static String getString() {
-        String str = "";
+        StringBuilder str = new StringBuilder();
 
-        HashMap<String, Double> map = new HashMap<String, Double> ();
+        HashMap<String, Double> map = new HashMap<>();
         long bitCount = PartlySaneSkies.getBits();
         boolean filterAffordable = PartlySaneSkies.config.bitShopOnlyShowAffordable;
 
@@ -72,7 +63,7 @@ public class BitsShopValue {
         int i = 1;
         for (Map.Entry<String, Double> en : sortedMap.entrySet()) {
             SkyblockItem item = SkyblockDataManager.getItem(en.getKey());
-            str += "&6" + i + ". &d" + item.getName() + "&7 costs &d" + StringUtils.formatNumber(item.getBitCost()) + "&7 bits and sells for &d" + StringUtils.formatNumber(Utils.round(item.getSellPrice(), 1)) + "&7 coins \n&8 (" + StringUtils.formatNumber(Utils.round(en.getValue(), 1)) + " coins per bit)\n";
+            str.append("&6").append(i).append(". &d").append(item.getName()).append("&7 costs &d").append(StringUtils.formatNumber(item.getBitCost())).append("&7 bits and sells for &d").append(StringUtils.formatNumber(Utils.round(item.getSellPrice(), 1))).append("&7 coins \n&8 (").append(StringUtils.formatNumber(Utils.round(en.getValue(), 1))).append(" coins per bit)\n");
             i++;
             if (i > 5) {
                 break;
@@ -80,11 +71,11 @@ public class BitsShopValue {
         }
 
         if (filterAffordable) {
-            str += "\n\n&8&oOnly showing affordable items";
+            str.append("\n\n&8&oOnly showing affordable items");
         }
-        str = StringUtils.colorCodes(str);
+        str = new StringBuilder(StringUtils.colorCodes(str.toString()));
         
-        return str;
+        return str.toString();
     }
 
     public static boolean isCommunityShop() {
@@ -96,13 +87,10 @@ public class BitsShopValue {
         }
 
         IInventory[] inventories = PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen);
+        assert inventories != null;
         IInventory shop = inventories[0];
 
-        if (!StringUtils.removeColorCodes(shop.getDisplayName().getFormattedText()).contains("Community Shop")) {
-            return false;
-        };
-
-        return true;
+        return StringUtils.removeColorCodes(shop.getDisplayName().getFormattedText()).contains("Community Shop");
     }
 
     static Window window = new Window(ElementaVersion.V2);
