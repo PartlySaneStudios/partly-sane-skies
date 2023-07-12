@@ -8,9 +8,13 @@
 
 ## Contributors
 
-- Koxx12#0001 (koxx12-dev)
+- koxx12 (koxx12-dev)
 
-- AfkUser#0001 (AfkUserMC)
+- afkuser (AfkUserMC)
+
+- j10a1n15 (J10a1n15)
+
+- hannibal2 (Hannibal2)
 
 ## Artists
 

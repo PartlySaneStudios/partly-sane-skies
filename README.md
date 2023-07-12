@@ -61,7 +61,7 @@ Credits including third party programs can be [found here (CREDITS.md)](CREDITS.
 
 [``/chatalert``, ``/ca``, ``/chal``:](pages/commands.md#chatalerts) Command to use the Chat Alerts System. (See Features)
 
-[``/farmnotfier``, ``/fn``, ``/farmnotif``:](pages/commands.md#farmnotfier) Command to use the farm notifier system.
+[``//farmnotfier``, ``//fn``, ``//farmnotif``:](pages/commands.md#farmnotfier) Command to use the farm notifier system.
 
 </details>
 
@@ -158,7 +158,7 @@ Manage your party and join dungeons with a helpful party manager, with features 
 
 ### Watcher Ready, Message, Warning, Siren and Sound
 
-When the watcher is done spawning mobs, a message will appear on your screen, along with an optional sound, party message and World War II (1938-1945) air raid siren incase the previous two don't get your attention..
+When the watcher is done spawning mobs, a message will appear on your screen, along with an optional sound, party message and World War II (1938-1945) air raid siren incase the previous two don't get your attention.
 
 ### Permanent Dungeon Party Selector
 
