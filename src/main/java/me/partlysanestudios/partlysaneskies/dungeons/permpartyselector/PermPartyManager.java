@@ -27,10 +27,10 @@ import com.google.gson.JsonParser;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 
 public class PermPartyManager {
-    public static HashMap<String, PermParty> permPartyMap = new HashMap<String, PermParty>();
+    public static HashMap<String, PermParty> permPartyMap = new HashMap<>();
     public static PermParty favouriteParty;
 
-    // Loads all of the data from the perm Party
+    // Loads all the data from the perm Party
     public static void load() throws IOException {
         // Declares file location
         File file = new File("./config/partly-sane-skies/permPartyData.json");
@@ -49,13 +49,13 @@ public class PermPartyManager {
 
         JsonObject object = new JsonParser().parse(reader).getAsJsonObject();
 
-        HashMap<String, PermParty> map = new HashMap<String, PermParty>();
+        HashMap<String, PermParty> map = new HashMap<>();
         
         for (Map.Entry<String, JsonElement> en : object.entrySet()) {
             JsonObject partyJson = en.getValue().getAsJsonObject();
             JsonArray partyMembersJson = partyJson.get("partyMembers").getAsJsonArray();
             
-            ArrayList<String> partyMembersList = new ArrayList<String>();
+            ArrayList<String> partyMembersList = new ArrayList<>();
             for(JsonElement member : partyMembersJson) {
                 partyMembersList.add(member.getAsString());
             }
@@ -68,7 +68,7 @@ public class PermPartyManager {
         permPartyMap = map;
     }
 
-    // Saves all of the party member data to a json file
+    // Saves all the party member data to a json file
     public static void save() throws IOException {
         // Declares the file
         File file = new File("./config/partly-sane-skies/permPartyData.json");
@@ -98,7 +98,7 @@ public class PermPartyManager {
         }
     }
 
-    // Addes the party with the specified list of members
+    // Adds the party with the specified list of members
     public static boolean addParty(String name, List<String> partyMembers) {
         // Creates an adds a new PermParty
         permPartyMap.put(name, new PermParty(name, partyMembers));
@@ -127,7 +127,7 @@ public class PermPartyManager {
         permPartyMap.put(name, party);
         favouriteParty = party;
 
-        // Saves all of the data
+        // Saves all the data
         try {
             save();
         } catch (IOException e) {

@@ -123,10 +123,8 @@ public class PermPartyCommand implements ICommand {
             }
         } else if (args[0].equalsIgnoreCase("new")) {
             if (args.length >= 2) {
-                List<String> partyMembers = new ArrayList<String>();
-                for (int i = 2; i < args.length; i++) {
-                    partyMembers.add(args[i]);
-                }
+                List<String> partyMembers = new ArrayList<>();
+                partyMembers.addAll(Arrays.asList(args).subList(2, args.length));
                 PermPartyManager.addParty(args[1], partyMembers);
 
                 Utils.sendClientMessage("Created party " + args[1] + ".");

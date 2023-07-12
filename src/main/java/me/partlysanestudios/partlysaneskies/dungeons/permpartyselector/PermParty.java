@@ -33,26 +33,21 @@ public class PermParty {
         save();
     }
 
-    // Parties all of the members of the perm party
+    // Parties all the members of the perm party
     public void partyAll() {
-        Long timeDelay = 000l;
+        long timeDelay = 1000L;
         for (String member : this.partyMembers) {
-            final long finalTimeDelay = timeDelay.longValue();
-            new Thread() {
-                @Override
-                public void run() {
-                    try {
+            final long finalTimeDelay = timeDelay;
+            new Thread(() -> {
+                try {
 
-                        Thread.sleep(finalTimeDelay);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    PartlySaneSkies.minecraft.addScheduledTask(() -> {
-                        PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party invite " + member);
-                    });
-                    
+                    Thread.sleep(finalTimeDelay);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-            }.start();
+                PartlySaneSkies.minecraft.addScheduledTask(() -> PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party invite " + member));
+
+            }).start();
 
             timeDelay += 500;
         }
@@ -64,15 +59,15 @@ public class PermParty {
         save();
     }
 
-    // Gets all of the members of the perm party in a string
+    // Gets all the members of the perm party in a string
     public String getMemberString() {
-        String str = "";
+        StringBuilder str = new StringBuilder();
         for (String name : partyMembers) {
-            str += name + ", ";
+            str.append(name).append(", ");
         }
-        if (str.endsWith(", "))
-            str = new StringBuilder(str).replace(str.length() - 2, str.length() - 1, "").toString();
-        return str;
+        if (str.toString().endsWith(", "))
+            str = new StringBuilder(new StringBuilder(str.toString()).replace(str.length() - 2, str.length() - 1, "").toString());
+        return str.toString();
     }
 
     public void save() {
