@@ -53,7 +53,15 @@ public class RequestsManager {
                 try {
                     element.getRequest();
                 } catch (IOException e) {
-                    element.setFailed("{THREW_IOEXEPCTION}");
+                    element.setFailed();
+                    // If supposed to run in the next frame, run in next frame
+                    if (element.isRunNextFrame()) {
+                        PartlySaneSkies.minecraft.addScheduledTask(() -> element.getWhatToRunWhenFinished().run(element));
+                        return;
+                    }
+
+                    // Runs on current thread
+                    element.getWhatToRunWhenFinished().run(element);
                     e.printStackTrace();
                 }
             }).start();

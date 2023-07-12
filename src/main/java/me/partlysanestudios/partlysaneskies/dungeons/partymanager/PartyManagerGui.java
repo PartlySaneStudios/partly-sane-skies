@@ -85,7 +85,7 @@ public class PartyManagerGui extends WindowScreen {
                 try {
                     member.populateData();
                 } catch (MalformedURLException e) {
-                    throw new RuntimeException(e);
+                    e.printStackTrace();
                 }
                 Window.Companion.enqueueRenderOperation(() -> member.createBlock(memberBlock, scaleFactor));
             }).start();

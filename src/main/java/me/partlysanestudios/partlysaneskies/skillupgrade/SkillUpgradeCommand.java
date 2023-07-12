@@ -43,35 +43,32 @@ public class SkillUpgradeCommand implements ICommand {
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         Utils.sendClientMessage("Loading...");
 
-        new Thread() {
-            @Override
-            public void run() {
-                HashMap<String, Double> map;
-                if (args.length > 0) {
-                    try {
-                        map = SkillUpgradeRecommendation.getRecomendedSkills(args[0]);
-                    } catch (IOException e) {
-                        Utils.sendClientMessage(StringUtils.colorCodes("Error getting data for " + args[0]
-                                + ". Maybe the player is nicked or there is an invalid API key. Try running /api new."));
-                        return;
-                    }
-                } else {
-                    try {
-                        map = SkillUpgradeRecommendation.getRecomendedSkills(PartlySaneSkies.minecraft.thePlayer.getName());
-                    } catch (IOException e) {
-                        Utils.sendClientMessage(StringUtils.colorCodes("Error getting data for "
-                                + PartlySaneSkies.minecraft.thePlayer.getName()
-                                + ". Maybe the player is nicked or there is an invalid API key. Try running /api new."));
-                        return;
-                    }
+        new Thread(() -> {
+            HashMap<String, Double> map;
+            if (args.length > 0) {
+                try {
+                    map = SkillUpgradeRecommendation.getRecomendedSkills(args[0]);
+                } catch (IOException e) {
+                    Utils.sendClientMessage(StringUtils.colorCodes("Error getting data for " + args[0]
+                            + ". Maybe the player is nicked or there is an invalid API key. Try running /api new."));
+                    return;
                 }
-                
-                PartlySaneSkies.minecraft.addScheduledTask(() -> {
-                    SkillUpgradeRecommendation.printMessage(map);
-                });
-                
+            } else {
+                try {
+                    map = SkillUpgradeRecommendation.getRecomendedSkills(PartlySaneSkies.minecraft.thePlayer.getName());
+                } catch (IOException e) {
+                    Utils.sendClientMessage(StringUtils.colorCodes("Error getting data for "
+                            + PartlySaneSkies.minecraft.thePlayer.getName()
+                            + ". Maybe the player is nicked or there is an invalid API key. Try running /api new."));
+                    return;
+                }
             }
-        }.start();
+
+            PartlySaneSkies.minecraft.addScheduledTask(() -> {
+                SkillUpgradeRecommendation.printMessage(map);
+            });
+
+        }).start();
 
     }
 

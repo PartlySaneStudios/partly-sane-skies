@@ -269,8 +269,7 @@ public class PartlySaneSkies {
         }).start();
 
 
-        
-        
+
         // Finished loading
         Utils.log(Level.INFO,"Partly Sane Skies has loaded.");
     }
@@ -317,7 +316,7 @@ public class PartlySaneSkies {
     @SubscribeEvent
     public void chatAnalyzer(ClientChatReceivedEvent evnt) {
         if (PartlySaneSkies.isDebugMode)
-            Utils.log(Level.DEBUG, evnt.message.getFormattedText());
+            Utils.log(Level.INFO, evnt.message.getFormattedText());
     }
 
     @SubscribeEvent

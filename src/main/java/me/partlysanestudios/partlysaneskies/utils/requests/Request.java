@@ -107,6 +107,11 @@ public class Request {
         this.otherFailure = true;
     }
 
+
+    public void setFailed() {
+        this.otherFailure = true;
+    }
+
     // Returns true if the response code is http ok, and it has no other failure
     public boolean hasSucceeded() {
         if (this.intResponseCode != HttpURLConnection.HTTP_OK) {
@@ -181,5 +186,9 @@ public class Request {
 
         // Runs on current thread
         whenFinished.run(this);
+    }
+
+    public RequestRunnable getWhatToRunWhenFinished() {
+        return whenFinished;
     }
 }
