@@ -42,8 +42,6 @@ import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManagerCo
 import me.partlysanestudios.partlysaneskies.dungeons.permpartyselector.PermPartyCommand;
 import me.partlysanestudios.partlysaneskies.dungeons.permpartyselector.PermPartyManager;
 import me.partlysanestudios.partlysaneskies.economy.BitsShopValue;
-import me.partlysanestudios.partlysaneskies.economy.minioncalculator.MinionCalculatorCommand;
-import me.partlysanestudios.partlysaneskies.economy.minioncalculator.MinionData;
 import me.partlysanestudios.partlysaneskies.garden.CompostValue;
 import me.partlysanestudios.partlysaneskies.garden.GardenTradeValue;
 import me.partlysanestudios.partlysaneskies.garden.SkymartValue;
@@ -83,19 +81,11 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent;
-import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.awt.*;
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 
 @Mod(modid = PartlySaneSkies.MODID, version = PartlySaneSkies.VERSION, name = PartlySaneSkies.NAME)
@@ -178,7 +168,7 @@ public class PartlySaneSkies {
                 }
 
                 try {
-                    EndOfFarmNotfier.load();
+                    EndOfFarmNotifier.load();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -215,7 +205,7 @@ public class PartlySaneSkies {
         MinecraftForge.EVENT_BUS.register(new BitsShopValue());
         MinecraftForge.EVENT_BUS.register(new PlayerRating());
         MinecraftForge.EVENT_BUS.register(new SkymartValue());
-        MinecraftForge.EVENT_BUS.register(new EndOfFarmNotfier());
+        MinecraftForge.EVENT_BUS.register(new EndOfFarmNotifier());
         MinecraftForge.EVENT_BUS.register(new PetAlert());
         MinecraftForge.EVENT_BUS.register(new MathematicalHoeRightClicks());
 
@@ -312,7 +302,7 @@ public class PartlySaneSkies {
         // Checks if the player is collecting minions
         PetAlert.runPetAlert();
 
-        EndOfFarmNotfier.run();
+        EndOfFarmNotifier.run();
         config.resetBrokenStrings();
     }
 

@@ -33,13 +33,13 @@ public class Pos2Command implements ICommand {
 
     @Override
     public List<String> getCommandAliases() {
-        return new ArrayList<String>();
+        return new ArrayList<>();
     }
 
     @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
-        EndOfFarmNotfier.selectedPos2 = new int[] {sender.getPosition().getX(), sender.getPosition().getY(), sender.getPosition().getZ()};
-        Utils.sendClientMessage("&7Set &bpositon 2&7 to &b(" + EndOfFarmNotfier.selectedPos2[0] + ", " + EndOfFarmNotfier.selectedPos2[1] + ", " + EndOfFarmNotfier.selectedPos2[2] + ")&7");
+        EndOfFarmNotifier.selectedPos2 = new int[] {sender.getPosition().getX(), sender.getPosition().getY(), sender.getPosition().getZ()};
+        Utils.sendClientMessage("&7Set &bpositon 2&7 to &b(" + EndOfFarmNotifier.selectedPos2[0] + ", " + EndOfFarmNotifier.selectedPos2[1] + ", " + EndOfFarmNotifier.selectedPos2[2] + ")&7");
     }
 
     @Override
@@ -49,7 +49,7 @@ public class Pos2Command implements ICommand {
 
     @Override
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
-        return new ArrayList<String>();
+        return new ArrayList<>();
     }
 
     @Override
