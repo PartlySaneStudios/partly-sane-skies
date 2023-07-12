@@ -30,6 +30,7 @@ import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
+import me.partlysanestudios.partlysaneskies.utils.requests.Request;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.gui.GuiMultiplayer;
@@ -487,10 +488,12 @@ public class CustomMainMenu extends WindowScreen {
                 .setTextScale(new PixelConstraint(1 * scaleFactor));
     }
 
-    public static void setMainMenuInfo(String responseString) {
-        if (responseString.startsWith("Error:")) {
+    public static void setMainMenuInfo(Request request) {
+        if (!request.hasSucceeded()) {
             return;
         }
+
+        String responseString = request.getResponse();
 
         JsonObject object;
         try {

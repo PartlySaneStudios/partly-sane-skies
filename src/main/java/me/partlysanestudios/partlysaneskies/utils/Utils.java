@@ -342,7 +342,11 @@ public class Utils {
                 continue;
             }
 
+
             obj = obj.getAsJsonObject(splitPath[i]);
+            if (obj == null) {
+                return obj;
+            }
         }
 
 //        Gets the last object as a JsonElement

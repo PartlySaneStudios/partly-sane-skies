@@ -50,6 +50,14 @@ public class OneConfigScreen extends Config {
     )
     public String apiKey = "";
 
+    @Switch(
+            name = "Force Custom API Key",
+            category = "General",
+            subcategory = "API",
+            description = "Forces the use of a custom API key for Hypixel requests. (Requires API Key field to be populated)"
+    )
+    public boolean forceCustomAPIKey = false;
+
     @Number(
         min = .1f,
         max = 30f,
@@ -58,7 +66,17 @@ public class OneConfigScreen extends Config {
         subcategory = "API",
         description = "The time between API calls. Only change if you know what you're doing. Changing this will reduce the amount of time API requests take, however may result in more errors"
     )
-    public float timeBetweenRequests = 2f;
+    public float timeBetweenRequests = 0.5f;
+
+    @Slider(
+            name = "Player Data Cache Time",
+            min = 0,
+            max = 90,
+            subcategory = "API",
+            description = "Saves the data from other party members to save time upon loading data about players. The bigger the value the more minutes you will save but the less accurate your data will be.",
+            category = "General"
+    )
+    public int playerDataCacheTime = 5;
 
     @Dropdown(
         options = {
@@ -454,15 +472,7 @@ public class OneConfigScreen extends Config {
     )
     public int runColorsYellowMax = 9;
 
-    @Slider(
-        name = "Party Manager Cache Time", 
-        min = 0, 
-        max = 90, 
-        subcategory = "Party Manager", 
-        description = "Saves the data from other party members to save time upon loading Party Manager. The bigger the value the more minutes you will save but the less accurate your data will be.", 
-        category = "Dungeons"
-    )
-    public int partyManagerCacheTime = 30;
+
 
     // Watcher Ready Warning
     @Switch(
