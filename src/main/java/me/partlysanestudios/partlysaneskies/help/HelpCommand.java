@@ -48,9 +48,7 @@ public class HelpCommand implements ICommand {
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         if (args.length > 0 && configAliases.contains(args[0].toLowerCase())) {
             Utils.sendClientMessage("Opening config GUI...");
-            Window.Companion.enqueueRenderOperation(() -> {
-                PartlySaneSkies.config.openGui();
-            });
+            Window.Companion.enqueueRenderOperation(() -> PartlySaneSkies.config.openGui());
             return;
         }
         
@@ -86,7 +84,7 @@ public class HelpCommand implements ICommand {
                 "\n" +
                 "\n" +
                 "\n &1> Join the discord" +
-                "\n    &1> &9To recieve any future updates" +
+                "\n    &1> &9To receive any future updates" +
                 "\n    &1> &9/pssdiscord" +
                 "\n" +
                 "\n &5> Visit the GitHub" +
@@ -112,7 +110,7 @@ public class HelpCommand implements ICommand {
                 "\n    > Parties all of your online friends." +
                 "\n" +
                 "\n > /chatalert" +
-                "\n    > Allows you to recieve alerts when certain messages are sent in chat. See github for more information." +
+                "\n    > Allows you to receive alerts when certain messages are sent in chat. See github for more information." +
                 "\n" + 
                 "\n > //farmnotifier, //fn" +
                 "\n    > Set custom bounding borders for your farm and receive notifications when you step inside of them." +
