@@ -63,7 +63,7 @@ public class LocationBannerDisplay extends Gui {
         // Mountain⚽
         // Village⚽
         // Coal Mine⚽
-        // THEY'RE NOT EVEN VISABLE IN MINECRAFT
+        // THEY'RE NOT EVEN VISIBLE IN MINECRAFT (ITS NOT SPELLED VISABLE)
 
         if (lastLocation.equals(noColorCodeRegionName)) {
             return;
