@@ -32,7 +32,7 @@ public class PartyMember {
 
     public String username;
     public PartyRank rank;
-    public int secretsCount;
+    public int secretCount;
     public float skyblockLevel;
     public float catacombsLevel;
     public float combatLevel;
@@ -87,9 +87,9 @@ public class PartyMember {
         this.player = SkyblockDataManager.getPlayer(username);
 
         // Gets the player's secret count
-        secretsCount = player.secretsCount;
+        secretCount = player.secretsCount;
 
-        // Gets the player's catacombs level
+        // Gets the player's catacombs' level
         catacombsLevel = player.catacombsLevel;
 
         // Gets the player's combat level
@@ -212,7 +212,7 @@ public class PartyMember {
     }
 
     private void createMemberBlockColumnTwo(UIComponent memberBlock, float scaleFactor) {
-        new UIText("Secrets: " + StringUtils.formatNumber(this.secretsCount))
+        new UIText("Secrets: " + StringUtils.formatNumber(this.secretCount))
                 .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
                 .setX(new PixelConstraint(150f * scaleFactor))
                 .setY(new PixelConstraint(74f * scaleFactor))
