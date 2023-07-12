@@ -12,9 +12,9 @@
 
 - afkuser (AfkUserMC)
 
-- j10a1n15 (J10a1n15)
+- j10a (J10a1n15)
 
-- hannibal2 (Hannibal2)
+- hannibal2 (hannibal002)
 
 ## Artists
 
