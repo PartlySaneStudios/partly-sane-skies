@@ -6,25 +6,24 @@
 package me.partlysanestudios.partlysaneskies.dungeons.partymanager;
 
 import java.awt.Color;
-import java.util.Map.Entry;
-
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import java.net.MalformedURLException;
 
 import gg.essential.elementa.UIComponent;
 import gg.essential.elementa.components.UIRoundedRectangle;
 import gg.essential.elementa.components.UIText;
+import gg.essential.elementa.components.UIWrappedText;
 import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
+import me.partlysanestudios.partlysaneskies.skyblockdata.SkyblockDataManager;
+import me.partlysanestudios.partlysaneskies.skyblockdata.SkyblockPlayer;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import me.partlysanestudios.partlysaneskies.utils.guicomponents.PSSButton;
 import net.minecraft.util.ResourceLocation;
 
 public class PartyMember {
+
     public enum PartyRank {
         MEMBER,
         MODERATOR,
@@ -33,15 +32,8 @@ public class PartyMember {
 
     public String username;
     public PartyRank rank;
-    public boolean isPlayer = false;
-    public boolean refresh = false;
-    public int errorOnDataGet = 0;
-
-    // Data
-    public long timeDataGet = 0;
     public int secretsCount;
     public float skyblockLevel;
-    public float senitherWeight;
     public float catacombsLevel;
     public float combatLevel;
     public float secretsPerRun;
@@ -78,10 +70,10 @@ public class PartyMember {
     public float defense;
     public float intelligence;
     public float effectHealth;
+    SkyblockPlayer player;
 
     // Creates a new party member based on the username and partyRank
     public PartyMember(String username, PartyRank partyRank) {
-        this.timeDataGet = 0;
         this.username = username;
         this.rank = partyRank;
     }
@@ -90,230 +82,90 @@ public class PartyMember {
         this.rank = partyRank;
     }
 
-    public void resetExpire() {
-        timeDataGet = PartlySaneSkies.getTime();
-    }
+    public void populateData() throws MalformedURLException {
 
-    // Uses the username to request data from the Skycrypt API
-    public void setSkycryptData(String response) throws NullPointerException {
-        if (response.startsWith("Error:")) {
-            return;
-        }
-
-        this.timeDataGet = PartlySaneSkies.getTime();
-        // Creates a JSON parser to parse the Json returned by the request
-        JsonParser parser = new JsonParser();
-
-        // Creates a Json object based on the response
-        JsonObject skycryptJson = parser.parse(response).getAsJsonObject();
-
-        String currentProfileId = "";
-        // Finds the id of the current profile
-        for (Entry<String, JsonElement> en : skycryptJson.getAsJsonObject("profiles").entrySet()) {
-            if (en.getValue().getAsJsonObject().get("current").getAsBoolean()) {
-                currentProfileId = en.getKey();
-            }
-        }
-
-        // Creates a new json object with just the current profiles data
-        JsonObject profileData = skycryptJson.getAsJsonObject("profiles").getAsJsonObject(currentProfileId).getAsJsonObject("data");
-
-        // Gets the player's senither weight 
-        senitherWeight = profileData.getAsJsonObject("weight").getAsJsonObject("senither")
-                .get("overall").getAsFloat();
+        this.player = SkyblockDataManager.getPlayer(username);
 
         // Gets the player's secret count
-        secretsCount = profileData.getAsJsonObject("dungeons").get("secrets_found").getAsInt();
+        secretsCount = player.secretsCount;
 
         // Gets the player's catacombs level
-        catacombsLevel = profileData.getAsJsonObject("dungeons").getAsJsonObject("catacombs")
-                .getAsJsonObject("level").get("levelWithProgress").getAsFloat();
+        catacombsLevel = player.catacombsLevel;
 
         // Gets the player's combat level
-        combatLevel = profileData.getAsJsonObject("levels").getAsJsonObject("combat").get("levelWithProgress").getAsFloat();
+        combatLevel = player.combatLevel;
 
         // Gets the player's average skill level
-        averageSkillLevel =  profileData.get("average_level").getAsFloat();
+        averageSkillLevel = player.averageSkillLevel;
 
-        // Creates a new json object with just the current profles items
-        JsonObject profileItems = skycryptJson.getAsJsonObject("profiles").getAsJsonObject(currentProfileId).getAsJsonObject("items");
-        // Attempts to get the helmet slot
 
-        try {
-            helmetName = profileItems.getAsJsonArray("armor").get(3).getAsJsonObject().get("display_name").getAsString();
-            if (helmetName.equals("null")) {
-                helmetName = "None";
-            }
-            helmetName = formatText(helmetName);
-        } catch (NullPointerException e) {
-            helmetName = "None";
-        } catch (IndexOutOfBoundsException e) {
-            helmetName = "None";
+        String[] playerArmor = player.armorName;
+        if (playerArmor.length >= 3) {
+            helmetName = playerArmor[3];
+
         }
-
-        // Attempts to get the chestplate slot
-        try {
-            chestplateName = profileItems.getAsJsonArray("armor").get(2).getAsJsonObject().get("display_name").getAsString();
-            chestplateName = formatText(chestplateName);
-            if (chestplateName.equals("null")) {
-                chestplateName = "None";
-            }
-        } catch (NullPointerException e) {
-            chestplateName = "None";
-        } catch (IndexOutOfBoundsException e) {
-            chestplateName = "None";
+        else {
+            helmetName = "";
         }
+        if (playerArmor.length >= 2) {
+            chestplateName = playerArmor[2];
 
-        // Attempts to get the legging slot
-        try {
-            leggingsName = profileItems.getAsJsonArray("armor").get(1).getAsJsonObject().get("display_name").getAsString();
-            if (leggingsName.equals("null")) {
-                    leggingsName = "None";
-            }
-            leggingsName = formatText(leggingsName);
-        } catch (NullPointerException e) {
-            leggingsName = "None";
-        } catch (IndexOutOfBoundsException e) {
-            leggingsName = "None";
         }
+        else {
+            chestplateName = "";
+        }
+        if (playerArmor.length >= 1) {
+            leggingsName = playerArmor[1];
 
-        // Attempts to get the boots slot
-        try {
-            bootsName = profileItems.getAsJsonArray("armor").get(0).getAsJsonObject().get("display_name").getAsString();
-            if (bootsName.equals("null")) {
-                helmetName = "None";
-            }
-            bootsName = formatText(bootsName);
-        } catch (NullPointerException e) {
-            bootsName = "None";
-        } catch (IndexOutOfBoundsException e) {
-            bootsName = "None";
         }
+        else {
+            leggingsName = "";
+        }
+        bootsName = playerArmor[0];
+
 
         // Attempts to get the selected dungeon class
-        try {
-            selectedDungeonClass = profileData.getAsJsonObject("dungeons").get("selected_class").getAsString();
-            if (selectedDungeonClass.equals("null")) {
-                selectedDungeonClass = "None";
-            }
-            selectedDungeonClass = formatText(selectedDungeonClass);
-        } catch (NullPointerException e) {
-            selectedDungeonClass = "None";
-        }
+        selectedDungeonClass = player.selectedDungeonClass;
 
-        this.arrowCount = -1;
-        this.arrowCount = getArrowCount(profileItems);
-        this.arrowCountString = this.arrowCount + "";
+        this.arrowCount = player.arrowCount;
+        this.arrowCountString = String.valueOf(this.arrowCount);
         if (arrowCount == -1) { 
             this.arrowCountString = "(Unknown)";
         }
 
-        // Gets all of the floor runs
-        f1Runs = getFloorRuns("1", profileData);
-        f2Runs = getFloorRuns("2", profileData);
-        f3Runs = getFloorRuns("3", profileData);
-        f4Runs = getFloorRuns("4", profileData);
-        f5Runs = getFloorRuns("5", profileData);
-        f6Runs = getFloorRuns("6", profileData);
-        f7Runs = getFloorRuns("7", profileData);
+        // Gets all the floor runs
+        f1Runs = player.normalRunCount[1];
+        f2Runs = player.normalRunCount[2];
+        f3Runs = player.normalRunCount[3];
+        f4Runs = player.normalRunCount[4];
+        f5Runs = player.normalRunCount[5];
+        f6Runs = player.normalRunCount[6];
+        f7Runs = player.normalRunCount[7];
 
-        // Gets all of the master floor runs
-        m1Runs = getMasterFloorRuns("1", profileData);
-        m2Runs = getMasterFloorRuns("2", profileData);
-        m3Runs = getMasterFloorRuns("3", profileData);
-        m4Runs = getMasterFloorRuns("4", profileData);
-        m5Runs = getMasterFloorRuns("5", profileData);
-        m6Runs = getMasterFloorRuns("6", profileData);
-        m7Runs = getMasterFloorRuns("7", profileData);
+        // Gets all the master floor runs
+        m1Runs = player.masterModeRunCount[1];
+        m2Runs = player.masterModeRunCount[2];
+        m3Runs = player.masterModeRunCount[3];
+        m4Runs = player.masterModeRunCount[4];
+        m5Runs = player.masterModeRunCount[5];
+        m6Runs = player.masterModeRunCount[6];
+        m7Runs = player.masterModeRunCount[7];
 
-        skyblockLevel = profileData.getAsJsonObject("skyblock_level")
-                .get("level").getAsInt();
+        petName = player.petName;
 
-        JsonObject statsJson = profileData.getAsJsonObject("stats");
-        health = statsJson.get("health").getAsFloat();
-        intelligence = statsJson.get("intelligence").getAsFloat();
-        defense = statsJson.get("defense").getAsFloat();
-        effectHealth = statsJson.get("effective_health").getAsFloat();
+        skyblockLevel = player.skyblockLevel;
+        health = player.baseHealth;
+        intelligence = player.baseIntelligence;
+        defense = player.baseDefense;
+        effectHealth = player.baseEffectedHealth;
 
         // Attempts to get the average secrets per run
-        try {
-            secretsPerRun = secretsCount / (f1Runs + f2Runs + f3Runs + f4Runs + f5Runs + f6Runs + f7Runs + m1Runs
-                    + m2Runs + m3Runs + m4Runs + m5Runs + m6Runs + m7Runs);
-        } catch (NullPointerException e) {
-        }
-    }
-
-    // Looks for every element of an arrow in the player's profile
-    public int getArrowCount(JsonObject itemData) {
-        JsonArray quiver = itemData.getAsJsonArray("quiver");
-        int sum = 0;
-        for (JsonElement slotElement : quiver) {
-            JsonObject slotObject = slotElement.getAsJsonObject();
-            if (slotObject.getAsJsonArray("categories") == null ) {
-                continue;
-            }
-            if (!(slotObject.getAsJsonArray("categories").size() > 0)) {
-                continue;
-            }
-            // Check all of the categories to see if it has arrow as a tag
-            for (JsonElement categoryElement : slotObject.getAsJsonArray("categories")) {
-                if (categoryElement == null ) {
-                    continue;
-                }
-                if (categoryElement.isJsonNull()) {
-                    continue;
-                }
-                if (categoryElement.getAsString() == null) {
-                    continue;
-                }
-
-                if (categoryElement.getAsString().equals("arrow")) {
-
-                    // If it does, check to see if it has a count
-                    if (slotObject.has("Count")) {
-                        sum += slotObject.get("Count").getAsInt();
-                    }
-                    else {
-                        sum += 1;
-                    }
-                }
-            }
-        }
-
-        return sum;
-    }
-
-    public int getFloorRuns(String floor, JsonObject profileData) {
-        JsonElement runsElement; 
-        try{
-            runsElement = profileData.getAsJsonObject("dungeons").getAsJsonObject("catacombs").getAsJsonObject("floors").getAsJsonObject(floor).getAsJsonObject("stats").get("tier_completions");
-        } catch(NullPointerException e) {
-            runsElement = null; 
-        }
-        int runs = 0;
-        if (runsElement != null) {
-            runs = runsElement.getAsInt();
-        }
-        return runs;
-    }
-
-    public int getMasterFloorRuns(String floor, JsonObject profileData) {
-        JsonElement runsElement; 
-        try{
-            runsElement = profileData.getAsJsonObject("dungeons").getAsJsonObject("master_catacombs").getAsJsonObject("floors").getAsJsonObject(floor).getAsJsonObject("stats").get("tier_completions");
-        } catch(NullPointerException e) {
-            runsElement = null; 
-        }
-        int runs = 0;
-        if (runsElement != null) {
-            runs = runsElement.getAsInt();
-        }
-        return runs;
+        secretsPerRun = player.secretsPerRun;
     }
 
     public void createBlock(UIComponent memberBlock, float scaleFactor) {
         // Name plate
-        new UIText(this.username + "")
+        new UIText(this.username)
                 .setTextScale(new PixelConstraint(3f * scaleFactor))
                 .setX(new PixelConstraint(20f * scaleFactor))
                 .setY(new PixelConstraint(20f * scaleFactor))
@@ -322,8 +174,8 @@ public class PartyMember {
 
         
 
-        new UIText(this.selectedDungeonClass + "")
-                .setTextScale(new PixelConstraint(1f * scaleFactor))
+        new UIText(this.selectedDungeonClass)
+                .setTextScale(new PixelConstraint(scaleFactor))
                 .setX(new PixelConstraint(150f * scaleFactor))
                 .setY(new PixelConstraint(50f * scaleFactor))
                 .setColor(Color.white)
@@ -374,14 +226,8 @@ public class PartyMember {
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
-        new UIText("Senither Weight: " + StringUtils.formatNumber(Utils.round((this.senitherWeight), 2)))
-                .setTextScale((new PixelConstraint(1.2f * scaleFactor)))
-                .setX(new PixelConstraint(150f * scaleFactor))
-                .setY(new PixelConstraint(105f * scaleFactor))
-                .setColor(Color.white)
-                .setChildOf(memberBlock);
-                new UIText("Skyblock Level: " + Utils.round(this.skyblockLevel, 1))
-                .setTextScale(new PixelConstraint(1f * scaleFactor))
+        new UIText("Skyblock Level: " + Utils.round(this.skyblockLevel, 1))
+                .setTextScale(new PixelConstraint(scaleFactor))
                 .setX(new PixelConstraint(20f * scaleFactor))
                 .setY(new PixelConstraint(50f * scaleFactor))
                 .setColor(Color.white)
@@ -442,98 +288,98 @@ public class PartyMember {
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
-        new UIText("Floor 1: " + StringUtils.formatNumber(Math.round(this.f1Runs)))
+        new UIText("Floor 1: " + StringUtils.formatNumber(this.f1Runs))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(340f * scaleFactor))
                 .setY(new PixelConstraint(50f * scaleFactor))
                 .setColor(colorFloorRuns(this.f1Runs))
                 .setChildOf(memberBlock);
 
-        new UIText("Floor 2: " + StringUtils.formatNumber(Math.round(this.f2Runs)))
+        new UIText("Floor 2: " + StringUtils.formatNumber(this.f2Runs))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(340f * scaleFactor))
                 .setY(new PixelConstraint(70f * scaleFactor))
                 .setColor(colorFloorRuns(this.f2Runs))
                 .setChildOf(memberBlock);
 
-        new UIText("Floor 3: " + StringUtils.formatNumber(Math.round(this.f3Runs)))
+        new UIText("Floor 3: " + StringUtils.formatNumber(this.f3Runs))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(340f * scaleFactor))
                 .setY(new PixelConstraint(90f * scaleFactor))
                 .setColor(colorFloorRuns(this.f3Runs))
                 .setChildOf(memberBlock);
 
-        new UIText("Floor 4: " + StringUtils.formatNumber(Math.round(this.f4Runs)))
+        new UIText("Floor 4: " + StringUtils.formatNumber(this.f4Runs))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(340f * scaleFactor))
                 .setY(new PixelConstraint(110f * scaleFactor))
                 .setColor(colorFloorRuns(this.f4Runs))
                 .setChildOf(memberBlock);
 
-        new UIText("Floor 5: " + StringUtils.formatNumber(Math.round(this.f5Runs)))
+        new UIText("Floor 5: " + StringUtils.formatNumber(this.f5Runs))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(340f * scaleFactor))
                 .setY(new PixelConstraint(130f * scaleFactor))
                 .setColor(colorFloorRuns(this.f5Runs))
                 .setChildOf(memberBlock);
 
-        new UIText("Floor 6: " + StringUtils.formatNumber(Math.round(this.f6Runs)))
+        new UIText("Floor 6: " + StringUtils.formatNumber(this.f6Runs))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(340f * scaleFactor))
                 .setY(new PixelConstraint(150f * scaleFactor))
                 .setColor(colorFloorRuns(this.f6Runs))
                 .setChildOf(memberBlock);
 
-        new UIText("Floor 7: " + StringUtils.formatNumber(Math.round(this.f7Runs)))
+        new UIText("Floor 7: " + StringUtils.formatNumber(this.f7Runs))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(340f * scaleFactor))
                 .setY(new PixelConstraint(170f * scaleFactor))
                 .setColor(colorFloorRuns(this.f7Runs))
                 .setChildOf(memberBlock);
 
-        new UIText("Master 1: " + StringUtils.formatNumber(Math.round(this.m1Runs)))
+        new UIText("Master 1: " + StringUtils.formatNumber(this.m1Runs))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(460f * scaleFactor))
                 .setY(new PixelConstraint(50f * scaleFactor))
                 .setColor(colorFloorRuns(this.m1Runs))
                 .setChildOf(memberBlock);
 
-        new UIText("Master 2: " + StringUtils.formatNumber(Math.round(this.m2Runs)))
+        new UIText("Master 2: " + StringUtils.formatNumber(this.m2Runs))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(460f * scaleFactor))
                 .setY(new PixelConstraint(70f * scaleFactor))
                 .setColor(colorFloorRuns(this.m2Runs))
                 .setChildOf(memberBlock);
 
-        new UIText("Master 3: " + StringUtils.formatNumber(Math.round(this.m3Runs)))
+        new UIText("Master 3: " + StringUtils.formatNumber(this.m3Runs))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(460f * scaleFactor))
                 .setY(new PixelConstraint(90f * scaleFactor))
                 .setColor(colorFloorRuns(this.m3Runs))
                 .setChildOf(memberBlock);
 
-        new UIText("Master 4: " + StringUtils.formatNumber(Math.round(this.m4Runs)))
+        new UIText("Master 4: " + StringUtils.formatNumber(this.m4Runs))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(460f * scaleFactor))
                 .setY(new PixelConstraint(110f * scaleFactor))
                 .setColor(colorFloorRuns(this.m4Runs))
                 .setChildOf(memberBlock);
 
-        new UIText("Master 5: " + StringUtils.formatNumber(Math.round(this.m5Runs)))
+        new UIText("Master 5: " + StringUtils.formatNumber(this.m5Runs))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(460f * scaleFactor))
                 .setY(new PixelConstraint(130f * scaleFactor))
                 .setColor(colorFloorRuns(this.m5Runs))
                 .setChildOf(memberBlock);
 
-        new UIText("Master 6: " + StringUtils.formatNumber(Math.round(this.m6Runs)))
+        new UIText("Master 6: " + StringUtils.formatNumber(this.m6Runs))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(460f * scaleFactor))
                 .setY(new PixelConstraint(150f * scaleFactor))
                 .setColor(colorFloorRuns(this.m6Runs))
                 .setChildOf(memberBlock);
 
-        new UIText("Master 7: " + StringUtils.formatNumber(Math.round(this.m7Runs)))
+        new UIText("Master 7: " + StringUtils.formatNumber(this.m7Runs))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(460f * scaleFactor))
                 .setY(new PixelConstraint(170f * scaleFactor))
@@ -549,30 +395,33 @@ public class PartyMember {
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
-        new UIText("" + this.helmetName)
-
+        new UIWrappedText(this.helmetName)
                 .setTextScale(new PixelConstraint(1.15f * scaleFactor))
+                .setWidth(new PixelConstraint(200 * scaleFactor))
                 .setX(new PixelConstraint(580f * scaleFactor))
                 .setY(new PixelConstraint(50f * scaleFactor))
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
-        new UIText("" + this.chestplateName)
+        new UIWrappedText(this.chestplateName)
                 .setTextScale(new PixelConstraint(1.15f * scaleFactor))
+                .setWidth(new PixelConstraint(200 * scaleFactor))
                 .setX(new PixelConstraint(580f * scaleFactor))
                 .setY(new PixelConstraint(85f * scaleFactor))
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
-        new UIText("" + this.leggingsName)
+        new UIWrappedText(this.leggingsName)
                 .setTextScale(new PixelConstraint(1.15f * scaleFactor))
+                .setWidth(new PixelConstraint(200 * scaleFactor))
                 .setX(new PixelConstraint(580f * scaleFactor))
                 .setY(new PixelConstraint(120f * scaleFactor))
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
-        new UIText("" + this.bootsName)
+        new UIWrappedText(this.bootsName)
                 .setTextScale(new PixelConstraint(1.15f * scaleFactor))
+                .setWidth(new PixelConstraint(200 * scaleFactor))
                 .setX(new PixelConstraint(580f * scaleFactor))
                 .setY(new PixelConstraint(155f * scaleFactor))
                 .setColor(Color.white)
@@ -584,7 +433,7 @@ public class PartyMember {
             if (PartlySaneSkies.config.warnLowArrowsInChat && this.arrowCount >= 0) {
                 String message = PartlySaneSkies.config.arrowLowChatMessage;
                 message = message.replace("{player}", this.username);
-                message = message.replace("{count}", this.arrowCount + "");
+                message = message.replace("{count}", String.valueOf(this.arrowCount));
                 PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/pc " + message);
             }
         }
@@ -604,10 +453,8 @@ public class PartyMember {
                 .setHeight(55f * scaleFactor)
                 .setChildOf(memberBlock)
                 .setText("Kick")
-                .setTextScale(1f * scaleFactor)
-                .onMouseClickConsumer(event -> {
-                    PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party kick " + this.username);
-                });
+                .setTextScale(scaleFactor)
+                .onMouseClickConsumer(event -> PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party kick " + this.username));
         
         new PSSButton()
                 .setX(new PixelConstraint(800 * scaleFactor))
@@ -616,10 +463,8 @@ public class PartyMember {
                 .setHeight(55f * scaleFactor)
                 .setChildOf(memberBlock)
                 .setText("Promote")
-                .setTextScale(1f * scaleFactor)
-                .onMouseClickConsumer(event -> {
-                    PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party promote " + this.username);
-                });
+                .setTextScale(scaleFactor)
+                .onMouseClickConsumer(event -> PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party promote " + this.username));
 
         new PSSButton()
                 .setX(new PixelConstraint(800 * scaleFactor))
@@ -628,10 +473,8 @@ public class PartyMember {
                 .setHeight(55f * scaleFactor)
                 .setChildOf(memberBlock)
                 .setText("Transfer")
-                .setTextScale(1f * scaleFactor)
-                .onMouseClickConsumer(event -> {
-                    PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party transfer " + this.username);
-                });
+                .setTextScale(scaleFactor)
+                .onMouseClickConsumer(event -> PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party transfer " + this.username));
 
         UIComponent refreshButton = new UIRoundedRectangle(10f)
                 .setX(new PixelConstraint(memberBlock.getWidth() - 30f * scaleFactor))
@@ -649,39 +492,9 @@ public class PartyMember {
                 .setChildOf(refreshButton);
 
         refreshButton.onMouseClickConsumer(event -> {
-            this.timeDataGet = 0;
+            player.refresh();
             PartlySaneSkies.minecraft.displayGuiScreen(null);
             PartyManager.startPartyManager();
         });
-    }
-
-
-    public boolean isExpired() {
-        if (this.rank.equals(PartyRank.LEADER) && this.isPlayer)
-            return this.timeDataGet + PartlySaneSkies.config.partyManagerCacheTime * 60 * 1000 * 2 < PartlySaneSkies.getTime();
-        if (this.refresh) {
-            this.refresh = false;
-            return true;
-        }
-        if (this.errorOnDataGet > 1 && this.errorOnDataGet < 3) {
-            return true;
-        }
-        return this.timeDataGet + PartlySaneSkies.config.partyManagerCacheTime * 60 * 1000 < PartlySaneSkies.getTime();
-    }
-
-    private static String formatText(String text) {
-        text = StringUtils.removeColorCodes(text);
-        text = text.replace("✪", "*");
-        text = text.replaceAll("\\P{Print}", "");
-        while (Character.isWhitespace(text.charAt(0))) {
-            text = new StringBuilder(text)
-                    .replace(0, 1, "")
-                    .toString();
-        }
-        text = text.replaceAll("[0123456789]", "");
-        text = new StringBuilder(text)
-                .replace(0, 1, "" + Character.toUpperCase(text.charAt(0)))
-                .toString();
-        return text;
     }
 }

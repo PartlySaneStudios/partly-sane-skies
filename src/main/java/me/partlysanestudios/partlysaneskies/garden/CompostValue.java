@@ -17,7 +17,7 @@ import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
-import me.partlysanestudios.partlysaneskies.SkyblockItem;
+import me.partlysanestudios.partlysaneskies.skyblockdata.SkyblockDataManager;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.gui.inventory.GuiChest;
@@ -77,7 +77,7 @@ public class CompostValue {
 
     public static void requestCostPerOrganicMatter() {
         for (Map.Entry<String, Double> en : compostValueMap.entrySet()) {
-            costPerOrganicMatterMap.put(en.getKey(), SkyblockItem.getItem(en.getKey()).getBuyPrice()/en.getValue());
+            costPerOrganicMatterMap.put(en.getKey(), SkyblockDataManager.getItem(en.getKey()).getBuyPrice()/en.getValue());
         }
     }
 
@@ -116,7 +116,7 @@ public class CompostValue {
         for (Map.Entry<String, Double> en : map.entrySet()) {
             String id = en.getKey();
             double cropPerCompost = compostCost / compostValueMap.get(id);
-            String cropName = SkyblockItem.getItem(id).getName();
+            String cropName = SkyblockDataManager.getItem(id).getName();
             double costPerCompost = en.getValue();
             float compostAmount = getCurrentCompostAbleToMake();
             if (maxCompost == fillLevel) {
@@ -296,7 +296,7 @@ public class CompostValue {
         textString += getString();
         textString += "\n\n";
         textString += "&e&lCompost:\n\n";
-        double compostSellPrice = SkyblockItem.getItem("COMPOST").getBazaarSellPrice();
+        double compostSellPrice = SkyblockDataManager.getItem("COMPOST").getBazaarSellPrice();
 
         float compostAmount = getCurrentCompostAbleToMake();
         if (maxCompost == fillLevel) {

@@ -9,7 +9,8 @@ import gg.essential.elementa.components.UIWrappedText;
 import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
-import me.partlysanestudios.partlysaneskies.SkyblockItem;
+import me.partlysanestudios.partlysaneskies.skyblockdata.SkyblockDataManager;
+import me.partlysanestudios.partlysaneskies.skyblockdata.SkyblockItem;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import me.partlysanestudios.partlysaneskies.utils.guicomponents.PSSButton;
@@ -178,7 +179,7 @@ public class ProfitMinionCalculator extends WindowScreen {
         for (Map.Entry<String, MinionData.MinionFuel> en : MinionData.fuelMap.entrySet()) {
 
             String fuelId = en.getValue().id;
-            SkyblockItem fuelItem = SkyblockItem.getItem(fuelId);
+            SkyblockItem fuelItem = SkyblockDataManager.getItem(fuelId);
 
             if (fuelItem == null) {
 
@@ -236,7 +237,7 @@ public HashMap<MinionData.Minion.Upgrade, PSSToggle> addMinionUpgradeButtons() {
         for (MinionData.Minion.Upgrade upgrade : MinionData.Minion.Upgrade.values()) {
             String upgradeId = upgrade.toString();
 
-            SkyblockItem upgradeItem = SkyblockItem.getItem(upgradeId);
+            SkyblockItem upgradeItem = SkyblockDataManager.getItem(upgradeId);
             if (upgradeItem == null) {
                 continue;
             }

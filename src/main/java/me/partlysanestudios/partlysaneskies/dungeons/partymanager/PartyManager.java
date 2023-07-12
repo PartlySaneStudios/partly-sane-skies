@@ -222,30 +222,15 @@ public class PartyManager {
     public static void loadPlayerData(String username) throws IOException {
         // Creates a new player
         PartyMember player = new PartyMember(username, PartyRank.LEADER);
-        if (PartyManager.playerCache.containsKey(username)) {
-            player = PartyManager.playerCache.get(username);
-
-            if (!player.isExpired()) {
-                return;
+        new Thread (() -> {
+            try {
+                player.populateData();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
             }
-        }
+        }).start();
 
-        final PartyMember finalPlayer = player;
-        // Gets data
-        try {
-            RequestsManager.newRequest(new Request("https://sky.shiiyu.moe/api/v2/profile/" + player.username, s -> {
-                try {
-                    finalPlayer.setSkycryptData(s.getResponse());
-                    // Adds to cache
-                    playerCache.put(username, finalPlayer);
-                } catch (NullPointerException e) {
-                    e.printStackTrace();
-                }
-            }));
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        
+
     }
 
     // Reparties all of the members of the party
