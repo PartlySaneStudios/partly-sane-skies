@@ -84,7 +84,7 @@ public class PartyMember {
 
     public void populateData() throws MalformedURLException {
 
-        player = SkyblockDataManager.getPlayer(username);
+        this.player = SkyblockDataManager.getPlayer(username);
 
         // Gets the player's secret count
         secretsCount = player.secretsCount;
@@ -397,6 +397,7 @@ public class PartyMember {
 
         new UIWrappedText(this.helmetName)
                 .setTextScale(new PixelConstraint(1.15f * scaleFactor))
+                .setWidth(new PixelConstraint(200 * scaleFactor))
                 .setX(new PixelConstraint(580f * scaleFactor))
                 .setY(new PixelConstraint(50f * scaleFactor))
                 .setColor(Color.white)
@@ -404,6 +405,7 @@ public class PartyMember {
 
         new UIWrappedText(this.chestplateName)
                 .setTextScale(new PixelConstraint(1.15f * scaleFactor))
+                .setWidth(new PixelConstraint(200 * scaleFactor))
                 .setX(new PixelConstraint(580f * scaleFactor))
                 .setY(new PixelConstraint(85f * scaleFactor))
                 .setColor(Color.white)
@@ -411,6 +413,7 @@ public class PartyMember {
 
         new UIWrappedText(this.leggingsName)
                 .setTextScale(new PixelConstraint(1.15f * scaleFactor))
+                .setWidth(new PixelConstraint(200 * scaleFactor))
                 .setX(new PixelConstraint(580f * scaleFactor))
                 .setY(new PixelConstraint(120f * scaleFactor))
                 .setColor(Color.white)
@@ -418,6 +421,7 @@ public class PartyMember {
 
         new UIWrappedText(this.bootsName)
                 .setTextScale(new PixelConstraint(1.15f * scaleFactor))
+                .setWidth(new PixelConstraint(200 * scaleFactor))
                 .setX(new PixelConstraint(580f * scaleFactor))
                 .setY(new PixelConstraint(155f * scaleFactor))
                 .setColor(Color.white)

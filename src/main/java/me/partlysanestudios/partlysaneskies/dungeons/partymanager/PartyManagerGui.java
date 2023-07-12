@@ -6,6 +6,7 @@
 package me.partlysanestudios.partlysaneskies.dungeons.partymanager;
 
 import java.awt.Color;
+import java.net.MalformedURLException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -80,7 +81,15 @@ public class PartyManagerGui extends WindowScreen {
 
             Utils.applyBackground(memberBlock);
 
-            Window.Companion.enqueueRenderOperation(() -> member.createBlock(memberBlock, scaleFactor));
+            new Thread(() -> {
+                try {
+                    member.populateData();
+                } catch (MalformedURLException e) {
+                    throw new RuntimeException(e);
+                }
+                Window.Companion.enqueueRenderOperation(() -> member.createBlock(memberBlock, scaleFactor));
+            }).start();
+
 
             height += 220f * scaleFactor;
         }

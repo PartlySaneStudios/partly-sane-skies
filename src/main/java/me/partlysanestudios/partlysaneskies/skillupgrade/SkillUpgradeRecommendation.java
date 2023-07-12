@@ -18,6 +18,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import me.partlysanestudios.partlysaneskies.skyblockdata.SkyblockDataManager;
+import me.partlysanestudios.partlysaneskies.skyblockdata.SkyblockPlayer;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 
@@ -26,15 +28,16 @@ public class SkillUpgradeRecommendation {
     private static HashMap<String, Double> weightConstants = new HashMap<String, Double>();
 
     public static LinkedHashMap<String, Double> getRecomendedSkills(String username) throws IOException {
-        HashMap<String, Double> map = new HashMap<String, Double>();
+        HashMap<String, Double> map = new HashMap<>();
 
-        JsonObject profileData = getCurrentProfileData(username);
+        SkyblockPlayer player = SkyblockDataManager.getPlayer(username);
 
         for (String skill : weightConstants.keySet()) {
-            if (getSkillLevel(skill, profileData) == getMaxSkillLevel(skill, profileData)) {
+            if (getSkillLevel(skill, player) == SkyblockDataManager.getSkill(skill.toUpperCase()).getMaxLevel()) {
                 continue;
             }
-            double level = getSkillLevel(skill, profileData);
+
+            double level = getSkillLevel(skill, player);
 
             // If level is under 5, all levels have equals importance
             if (level < 5) {
@@ -42,23 +45,13 @@ public class SkillUpgradeRecommendation {
                 continue;
             }
 
-            double score = calculateScore(skill, profileData);
+            double score = calculateScore(skill, player);
             map.put(skill, score);
         }
 
-        double catacombsLevel = profileData
-                .getAsJsonObject("dungeons")
-                .getAsJsonObject("catacombs")
-                .getAsJsonObject("level")
-                .get("levelWithProgress")
-                .getAsDouble();
+        double catacombsLevel = player.catacombsLevel;
 
-        double maxCatacombsLevel = profileData
-                .getAsJsonObject("dungeons")
-                .getAsJsonObject("catacombs")
-                .getAsJsonObject("level")
-                .get("maxLevel")
-                .getAsDouble();
+        double maxCatacombsLevel = 50;
 
         if (catacombsLevel < maxCatacombsLevel) {
             if (catacombsLevel < 5) {
@@ -73,6 +66,34 @@ public class SkillUpgradeRecommendation {
 
         return sortedMap;
     }
+
+    private static float getSkillLevel(String skill, SkyblockPlayer player) {
+        switch(skill) {
+            case "mining":
+                return player.miningLevel;
+
+            case "foraging":
+                return player.foragingLevel;
+
+            case "enchanting":
+                return player.enchantingLevel;
+
+            case "combat":
+                return player.combatLevel;
+
+            case "fishing":
+                return player.fishingLevel;
+
+            case "alchemy":
+                return player.alchemyLevel;
+
+            case "farming" :
+                return player.farmingLevel;
+        }
+
+        return -1;
+    }
+
 
     // Prints the final message with the weight.
     public static void printMessage(HashMap<String, Double> map) {
@@ -110,36 +131,7 @@ public class SkillUpgradeRecommendation {
         weightConstants.put("combat", 1.65797687265);
         weightConstants.put("fishing", 1.906418);
         weightConstants.put("alchemy", 1.5);
-    }
-
-    // Gets the skycrypt data for a given player username
-    private static JsonObject getSkycryptData(String username) throws IOException {
-        JsonParser parser = new JsonParser();
-        // Requests username from API
-        String response = Utils.getRequest("https://sky.shiiyu.moe/api/v2/profile/" + username);
-
-        // If error, warn plauer
-        if (response.startsWith("Error")) {
-            Utils.sendClientMessage(StringUtils.colorCodes("Error getting data for " + username + ". Maybe the player is nicked or the API is down."));
-            return null;
-        }
-        return (JsonObject) parser.parse(response);
-    }
-
-    // Gets the player's current active skill profile
-    private static JsonObject getCurrentProfileData(String username) throws IOException {
-
-        JsonObject skycryptJson = getSkycryptData(username);
-
-        String currentProfileId = "";
-
-        for (Entry<String, JsonElement> en : skycryptJson.getAsJsonObject("profiles").entrySet()) {
-            if (en.getValue().getAsJsonObject().get("current").getAsBoolean()) {
-                currentProfileId = en.getKey();
-            }
-        }
-
-        return skycryptJson.getAsJsonObject("profiles").getAsJsonObject(currentProfileId).getAsJsonObject("data");
+        weightConstants.put("farming", 1.717848139);
     }
 
     // Sorts a double hashmap by its values
@@ -167,15 +159,6 @@ public class SkillUpgradeRecommendation {
         return sortedMap;
     }
 
-    // Gets the current player's skill level.
-    private static float getSkillLevel(String skillName, JsonObject profileData) {
-        return profileData.getAsJsonObject("levels").getAsJsonObject(skillName).get("levelWithProgress").getAsFloat();
-    }
-
-    // Gets the max possible skill level for a given skill
-    private static int getMaxSkillLevel(String skillName, JsonObject profileData) {
-        return profileData.getAsJsonObject("levels").getAsJsonObject(skillName).get("maxLevel").getAsInt();
-    }
 
     // Returns the weight contributed to a given skill given their constant
     private static double calculateSkillWeight(double level, double constant) {
@@ -188,15 +171,15 @@ public class SkillUpgradeRecommendation {
     }
 
     // Calculates the importance of upgrading skill.
-    private static double calculateScore(String skill, JsonObject profileData) {
+    private static double calculateScore(String skill, SkyblockPlayer player) {
         // Current skill level
-        double currentSkillLevel = getSkillLevel(skill, profileData);
+        double currentSkillLevel = getSkillLevel(skill, player);
 
         // Senither weight constant
         double weightConstant = weightConstants.get(skill);
 
         // Math
-        double awayFromMaxComponent = getMaxSkillLevel(skill, profileData) - 60;
+        double awayFromMaxComponent = getSkillLevel(skill, player) - SkyblockDataManager.getSkill(skill.toUpperCase()).getMaxLevel();
         double currentSenitherWeight = calculateSkillWeight(currentSkillLevel - 5, weightConstant);
         double nextLevelSenitherWeight = calculateSkillWeight(Math.ceil(currentSkillLevel - 5), weightConstant);
         double levelUpSenitherWeightComponent = currentSenitherWeight - nextLevelSenitherWeight;
@@ -215,7 +198,7 @@ public class SkillUpgradeRecommendation {
         }
         text = text.toLowerCase();
         text = new StringBuilder(text)
-                .replace(0, 1, "" + Character.toUpperCase(text.charAt(0)))
+                .replace(0, 1, String.valueOf(Character.toUpperCase(text.charAt(0))))
                 .toString();
         return text;
     }

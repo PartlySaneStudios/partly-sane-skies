@@ -222,7 +222,14 @@ public class PartyManager {
     public static void loadPlayerData(String username) throws IOException {
         // Creates a new player
         PartyMember player = new PartyMember(username, PartyRank.LEADER);
-        player.populateData();
+        new Thread (() -> {
+            try {
+                player.populateData();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+        }).start();
+
 
     }
 

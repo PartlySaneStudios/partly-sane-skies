@@ -260,28 +260,19 @@ public class PartlySaneSkies {
         }
 
         // Loads user player data for PartyManager
-        try {
-            PartyManager.loadPlayerData(PartlySaneSkies.minecraft.getSession().getUsername());
-        } catch (IOException e) {
-            Utils.log(Level.ERROR,"Partly Sane Skies: Unable to load player data.");
-            e.printStackTrace();
-        }
+        new Thread(() -> {
+            try {
+                SkyblockDataManager.getPlayer(PartlySaneSkies.minecraft.getSession().getUsername());
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+        }).start();
 
 
         
         
         // Finished loading
         Utils.log(Level.INFO,"Partly Sane Skies has loaded.");
-
-        new Thread(() -> {
-            try {
-                SkyblockDataManager.getPlayer("Su386");
-                SkyblockDataManager.getPlayer("Su386");
-                Utils.visPrint(SkyblockDataManager.getPlayer("Su386"));
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
-        }).start();
     }
 
     public static String getAPIKey() {

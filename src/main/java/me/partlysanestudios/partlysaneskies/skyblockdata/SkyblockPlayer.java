@@ -69,6 +69,8 @@ public class SkyblockPlayer {
 
     }
 
+//    Instantiates the player and data while freezing the current thread until complete
+//    Running on main thread will freeze indefinitely
     public void instantiatePlayer() throws MalformedURLException {
         Utils.visPrint("Creating Player");
 
@@ -286,11 +288,6 @@ public class SkyblockPlayer {
 
     public void refresh() {
         lastUpdateTime = 0;
-        try {
-            SkyblockDataManager.getPlayer(this.username);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
     }
 
     int[] catacombsExperiencePerLevel = {
