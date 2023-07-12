@@ -2,19 +2,19 @@
 
 ## Lead Developers
 
-- Su386#9878 (Su386yt)
+- su386 ([Su386yt](https://github.com/Su386yt))
 
-- FlagMaster#1516 (FlagHater)
+- flagmaster ([FlagHater](https://github.com/FlagHater))
 
 ## Contributors
 
-- koxx12 (koxx12-dev)
+- koxx12 ([koxx12-dev](https://github.com/koxx12-dev))
 
-- afkuser (AfkUserMC)
+- afkuser ([AfkUserMC](https://github.com/AfkUserMC))
 
-- j10a (J10a1n15)
+- j10a ([j10a1n15](https://github.com/j10a1n15))
 
-- hannibal2 (hannibal002)
+- hannibal2 ([hannibal002](https://github.com/hannibal002))
 
 ## Artists
 
