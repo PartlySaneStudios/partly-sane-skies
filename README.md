@@ -37,7 +37,7 @@ Credits including third party programs can be [found here (CREDITS.md)](CREDITS.
 
 ## Features
 
-*(Click the drop down arrows to see more)*
+*(Click the drop-down arrows to see more)*
 
 
 ### Commands
@@ -47,13 +47,13 @@ Credits including third party programs can be [found here (CREDITS.md)](CREDITS.
 
 [``/pss``:](pages/commands.md#pss) A help command for Partly Sane Skies
 
-[``/pss config``, ``/pssconfig``:](pages/commands.md#pssconfig) A command to open the PSS Config menu. It can also be keybinded in the vanilla options menu. Default: ``F7``
+[``/pss config``, ``/pssconfig``:](pages/commands.md#pssconfig) A command to open the PSS Config menu. The keybinding can also be changed in the vanilla options' menu. Default: ``F7``
 
 [``/pssdisc``, ``/pssdiscord``:](pages/commands.md#pssdiscord) Sends a link to the discord. [Or you can just join here (https://discord.gg/v4PU3WeH7z)](https://discord.gg/v4PU3WeH7z)
 
-[``/skillup <username>``, ``/su <username>``:](pages/commands.md#skillup) Command to use the skill upgrade recommandation feature. (See Features)
+[``/skillup <username>``, ``/su <username>``:](pages/commands.md#skillup) Command to use the skill upgrade recommendation feature. (See Features)
 
-[``/pm``, ``/partymanager``:](pages/commands.md#partymanager) Command to open the Party Manager. It can also be keybinded in the vanilla options menu.
+[``/pm``, ``/partymanager``:](pages/commands.md#partymanager) Command to open the Party Manager. The keybinding can also be changed in the vanilla options' menu.
 
 [``/permparty``, ``/permp``, ``/pp``:](pages/commands.md#permparty) Command to use Permanent Dungeon Party Selector. (See Features)
 
@@ -65,7 +65,7 @@ Credits including third party programs can be [found here (CREDITS.md)](CREDITS.
 
 </details>
 
-To see [more information](pages/commands.md) about commands, including how to use them, **[click here to visit the command page. (pages/commands.md)](pages/commands.md)**
+To see [more information](pages/commands.md) about commands, including how to use them, **[click here to visit the command page. (Pages/commands.md)](pages/commands.md)**
 
 ### Config
 
@@ -78,7 +78,7 @@ To see [more information](pages/commands.md) about commands, including how to us
 
 Command:  <code>/pss config</code> 
 
-Default Keybind:  <code>F7</code>.
+Default Keybinding:  <code>F7</code>.
 
 The config menu can also be accessed through the custom main menu.
 
@@ -93,7 +93,9 @@ General and Miscellaneous features.
 
 ### Custom Main Menu
 
-Upon start up of Minecraft, a nice, Skyblock themed main menu will display. There are various configurable options from Skyblock-themed backrounds, along with an option to select a random background.
+Upon start up of Minecraft, a nice, Skyblock themed main menu will display.
+There are various configurable options from Skyblock-themed backgrounds,
+along with an option to select a random background.
 
 ![Custom Main Menu](images/custom_main_menu.png)
 
@@ -141,7 +143,8 @@ If you do not the right pet selected for leveling up minions, you will be warned
 
 ### Non Chat Color
 
-Messages sent by nons (non ranked players) can be configured to have the same white as the rest of the chat. This option is off by default but can be turned on in the PSS Config menu.
+Messages sent by nons (non-ranked players) can be configured to have the same white as the rest of the chat.
+This option is off by default but can be turned on in the PSS Config menu.
 
 </details>
 
@@ -152,13 +155,17 @@ Messages sent by nons (non ranked players) can be configured to have the same wh
 
 ### Party Manager
 
-Manage your party and join dungeons with a helpful party manager, with features such as viewing stats, kicking, party transfer buttons, and etc. Included in the Party Manager GUI. You can open it by typing the command ``/pm`` or by using the keybind. Default: ``M``
+Manage your party and join dungeons with a helpful party manager, with features such as viewing stats,
+kicking, party transfer buttons, etc. Included in the Party Manager GUI.
+You can open it by typing the command ``/pm`` or by using the keybinding.
+Default: ``M``
 
 ![Custom Main Menu](images/party_manager.png)
 
 ### Watcher Ready, Message, Warning, Siren and Sound
 
-When the watcher is done spawning mobs, a message will appear on your screen, along with an optional sound, party message and World War II (1938-1945) air raid siren incase the previous two don't get your attention.
+When the watcher is done spawning mobs, a message will appear on your screen, along with an optional sound,
+party message and World War II (1938-1945) air raid siren in case the previous two don't get your attention.
 
 ### Permanent Dungeon Party Selector
 
@@ -167,7 +174,9 @@ Automatically parties everyone in a permanent dungeon party. Using ``/pp`` or ``
 
 ### Dungeon Player Rater
 
-At the end of the dungeon, the mod will calculate what percentage of the dungeon was cleared by each player, and how much they contributed, showing you how useful each player was. In a perfectly balanced 5 player party, each player should get 20%
+At the end of the dungeon, the mod will calculate what percentage of the dungeon was cleared by each player,
+and how much they contributed, showing you how useful each player was.
+In a perfectly balanced 5-player party, each player should get 20%
 </details>
 
 <details>
@@ -181,7 +190,8 @@ Never lose your coins to the void again! When the mod detects you do not have a 
 
 ### Enhanced Auction Menu and BIN Sniper
 
-A brand new auction house menu that gives you more information on prices, instant inflation, and mark up. Using that information, the menu highlights BIN items that are significantly below their  value (Default: 13% below).
+A brand-new auction house menu that gives you more information on prices, instant inflation, and mark up.
+Using that information, the menu highlights BIN items that are significantly below their value (Default: 13% below).
 
 ![Custom Main Menu](images/custom_ah.png)
 
@@ -206,7 +216,7 @@ A lot of people use the bits accumulated from booster cookies to convert to item
 
 ### Best Skymart Profit
 
-Shows which items are the most profitable for the copper cost. Which ones have the most coins per copper
+Shows which items are the most profitable for the copper cost. (Which ones give the most coins per copper?)
 
 ![Skymart Profit](images/skymart_profit.png)
 
@@ -217,27 +227,30 @@ Shows which items are the most profitable for the copper cost. Which ones have t
 
 ## Shortcuts
 
-### Open Wiki Keybind
+### Open Wiki Keybinding
 
-Using the keybind, it will automatically look up the wiki article for the item you are hovering over. (``NONE`` key by default)
+Using the keybinding, it will automatically look up the wiki article for the item you are hovering over.
+(``NONE`` key by default)
 
-### Pets Menu Keybind
+### Pets Menu Keybinding
 
-A keybind shortcut to open the pets menu. Customisable in the vanilla options menu. (``NONE`` key by default)
+A keybinding shortcut to open the pet menu. Customisable in the vanilla options' menu. (``NONE`` key by default)
 
-### Crafting Table Menu Keybind
+### Crafting Table Menu Keybinding
 
-A keybind shortcut to open the crafting table menu. Customisable in the vanilla options menu. (``NONE`` key by default)
+A keybinding shortcut to open the crafting table menu.
+Customisable in the vanilla options' menu.
+(``NONE`` key by default)
 
-### Wardrobe Menu Keybind
+### Wardrobe Menu Keybinding
 
-A keybind shortcut to open the wardrobe menu. Customisable in the vanilla options menu. (``NONE`` key by default)
+A keybinding shortcut to open the wardrobe menu. Customisable in the vanilla options' menu. (``NONE`` key by default)
 
-### Storage Menu Keybind
+### Storage Menu Keybinding
 
-A keybind shortcut to open the storage menu. Customisable in the vanilla options menu. (``NONE`` key by default)
+A keybinding shortcut to open the storage menu. Customisable in the vanilla options' menu. (``NONE`` key by default)
 
 ### Party All Friends
 
-A command to party all of your active friends. Using ``/fp``, it will party every online member on your friends list.
+A command to party all of your active friends. Using ``/fp``, it will party every online member on your friends' list.
 </details>

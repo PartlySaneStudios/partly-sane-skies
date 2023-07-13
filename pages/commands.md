@@ -50,7 +50,7 @@ Opens the configuration menu to edit all settings inside Partly Sane Skies.
 
 ### Usage
 
-``/pssconfig``: Opens the configuration menu. You can also use the keybind, which by default is ``F7``.
+``/pssconfig``: Opens the configuration menu. You can also use the keybinding, which by default is ``F7``.
 
 </details>
 
@@ -92,7 +92,7 @@ These commands also work instead of ``/skillup``:
 ``/su``
 
 ### Description
-Gives you recomendations as to the most important skills to upgrade.
+Gives you recommendations as to the most important skills to upgrade.
 
 ### Usage
 
@@ -118,7 +118,7 @@ These commands also work instead of ``/partymanager``:
 ``/pm``
 
 ### Description
-Opens the Party Manager menu. You can also use the keybind, which by default is ``M``.
+Opens the Party Manager menu. You can also use the keybinding, which by default is ``M``.
 
 ### Usage
 
@@ -228,11 +228,11 @@ These commands also work instead of ``//farmnotfier``:
 ``//fn``
 
 ### Description
-Allows you to create areas where you will be notfied you have reached the end of your farm.
+Allows you to create areas where you will be notified you have reached the end of your farm.
 
 ### Usage
 
-``//farmnotifier list``: Lists all of the locations where you have a farm notification, and their given number, and gives instructions on how to create a new farm notification.
+``//farmnotifier list``: Lists all the locations where you have a farm notification, and their given number, and gives instructions on how to create a new farm notification.
 
 ``//farmnotifier remove [number]``: Removes a farm notifications from the list, given a valid ``number``. Numbers can be seen with ``/farmnotifier list``.
 
@@ -243,9 +243,9 @@ Allows you to create areas where you will be notfied you have reached the end of
 
 1. Set the first corner of your notification area:
 
-    ``//pos1``: Sets one corner of the farm notifcation (Like using WorldEdit).
+    ``//pos1``: Sets one corner of the farm notification (Like using WorldEdit).
 
-2. Set the opposite corner of your notifcation area:
+2. Set the opposite corner of your notification area:
 
     ``//pos2``: Sets the opposite corner of the farm notification (Like using WorldEdit).
 
