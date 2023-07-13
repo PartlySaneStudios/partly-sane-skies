@@ -48,7 +48,7 @@ public class CustomMainMenu extends WindowScreen {
 
     }
 
-    HashMap<Integer, String> imageIdMap = new HashMap<Integer, String>();
+    HashMap<Integer, String> imageIdMap = new HashMap<>();
 
     public void populateMap() {
         imageIdMap.put(1, "image_1.png");
@@ -84,8 +84,6 @@ public class CustomMainMenu extends WindowScreen {
     private UIComponent quitText;
     private UIComponent timeText;
     private UIComponent discordText;
-
-    private String timeString;
 
     private static ArrayList<Announcement> announcements;
     public static String latestVersion;
@@ -165,7 +163,7 @@ public class CustomMainMenu extends WindowScreen {
                 .setChildOf(middleMenu);
 
         float titleHeight = 75;
-        float titleWidth = titleHeight * (928 / 124);
+        float titleWidth = titleHeight * (928f / 124);
 
         titleImage = Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies:textures/gui/main_menu/title_text.png"))
                 .setX(new CenterConstraint())
@@ -184,9 +182,7 @@ public class CustomMainMenu extends WindowScreen {
                 .setColor(new Color(255, 0, 0))
                 .setChildOf(middleMenu);
             
-            updateWarning.onMouseClickConsumer(event -> {
-                Utils.openLink("https://github.com/PartlySaneStudios/partly-sane-skies/releases");
-            });
+            updateWarning.onMouseClickConsumer(event -> Utils.openLink("https://github.com/PartlySaneStudios/partly-sane-skies/releases"));
         }
 
         if (PartlySaneSkies.config.displayAnnouncementsCustomMainMenu) {
@@ -210,17 +206,11 @@ public class CustomMainMenu extends WindowScreen {
                 .setTextScale(new PixelConstraint(1 * scaleFactor))
                 .setChildOf(singleplayerButton);
 
-        singleplayerButton.onMouseClickConsumer(event -> {
-            this.mc.displayGuiScreen(new GuiSelectWorld(this));
-        });
+        singleplayerButton.onMouseClickConsumer(event -> this.mc.displayGuiScreen(new GuiSelectWorld(this)));
 
-        singleplayerButton.onMouseEnterRunnable(() -> {
-            singleplayerText.setColor(new Color(200, 200, 200));
-        });
+        singleplayerButton.onMouseEnterRunnable(() -> singleplayerText.setColor(new Color(200, 200, 200)));
 
-        singleplayerButton.onMouseLeaveRunnable(() -> {
-            singleplayerText.setColor(new Color(255, 255, 255));
-        });
+        singleplayerButton.onMouseLeaveRunnable(() -> singleplayerText.setColor(new Color(255, 255, 255)));
 
         multiplayerButton = new UIBlock()
                 .setX(new CenterConstraint())
@@ -236,17 +226,11 @@ public class CustomMainMenu extends WindowScreen {
                 .setTextScale(new PixelConstraint(1 * scaleFactor))
                 .setChildOf(multiplayerButton);
 
-        multiplayerButton.onMouseClickConsumer(event -> {
-            this.mc.displayGuiScreen(new GuiMultiplayer(this));
-        });
+        multiplayerButton.onMouseClickConsumer(event -> this.mc.displayGuiScreen(new GuiMultiplayer(this)));
 
-        multiplayerButton.onMouseEnterRunnable(() -> {
-            multiplayerText.setColor(new Color(200, 200, 200));
-        });
+        multiplayerButton.onMouseEnterRunnable(() -> multiplayerText.setColor(new Color(200, 200, 200)));
 
-        multiplayerButton.onMouseLeaveRunnable(() -> {
-            multiplayerText.setColor(new Color(255, 255, 255));
-        });
+        multiplayerButton.onMouseLeaveRunnable(() -> multiplayerText.setColor(new Color(255, 255, 255)));
 
         modsButton = new UIBlock()
                 .setX(new CenterConstraint())
@@ -262,17 +246,11 @@ public class CustomMainMenu extends WindowScreen {
                 .setTextScale(new PixelConstraint(1 * scaleFactor))
                 .setChildOf(modsButton);
 
-        modsButton.onMouseClickConsumer(event -> {
-            this.mc.displayGuiScreen(new GuiModList(this));
-        });
+        modsButton.onMouseClickConsumer(event -> this.mc.displayGuiScreen(new GuiModList(this)));
 
-        modsButton.onMouseEnterRunnable(() -> {
-            modsText.setColor(new Color(200, 200, 200));
-        });
+        modsButton.onMouseEnterRunnable(() -> modsText.setColor(new Color(200, 200, 200)));
 
-        modsButton.onMouseLeaveRunnable(() -> {
-            modsText.setColor(new Color(255, 255, 255));
-        });
+        modsButton.onMouseLeaveRunnable(() -> modsText.setColor(new Color(255, 255, 255)));
 
         optionsButton = new UIBlock()
                 .setX(new PixelConstraint(0))
@@ -288,17 +266,11 @@ public class CustomMainMenu extends WindowScreen {
                 .setTextScale(new PixelConstraint(.75f * scaleFactor))
                 .setChildOf(optionsButton);
 
-        optionsButton.onMouseClickConsumer(event -> {
-            this.mc.displayGuiScreen(new GuiOptions(this, this.mc.gameSettings));
-        });
+        optionsButton.onMouseClickConsumer(event -> this.mc.displayGuiScreen(new GuiOptions(this, this.mc.gameSettings)));
 
-        optionsButton.onMouseEnterRunnable(() -> {
-            optionsText.setColor(new Color(200, 200, 200));
-        });
+        optionsButton.onMouseEnterRunnable(() -> optionsText.setColor(new Color(200, 200, 200)));
 
-        optionsButton.onMouseLeaveRunnable(() -> {
-            optionsText.setColor(new Color(255, 255, 255));
-        });
+        optionsButton.onMouseLeaveRunnable(() -> optionsText.setColor(new Color(255, 255, 255)));
 
         optionsButtonSplitBar = new UIBlock()
                 .setX(new CenterConstraint())
@@ -322,17 +294,11 @@ public class CustomMainMenu extends WindowScreen {
                 .setTextScale(new PixelConstraint(.735f * scaleFactor))
                 .setChildOf(pssOptionsButton);
 
-        pssOptionsButton.onMouseClickConsumer(event -> {
-            PartlySaneSkies.config.openGui();
-        });
+        pssOptionsButton.onMouseClickConsumer(event -> PartlySaneSkies.config.openGui());
 
-        pssOptionsButton.onMouseEnterRunnable(() -> {
-            pssOptionsText.setColor(new Color(200, 200, 200));
-        });
+        pssOptionsButton.onMouseEnterRunnable(() -> pssOptionsText.setColor(new Color(200, 200, 200)));
 
-        pssOptionsButton.onMouseLeaveRunnable(() -> {
-            pssOptionsText.setColor(new Color(255, 255, 255));
-        });
+        pssOptionsButton.onMouseLeaveRunnable(() -> pssOptionsText.setColor(new Color(255, 255, 255)));
 
         quitButton = new UIBlock()
                 .setX(new CenterConstraint())
@@ -348,17 +314,11 @@ public class CustomMainMenu extends WindowScreen {
                 .setTextScale(new PixelConstraint(1 * scaleFactor))
                 .setChildOf(quitButton);
 
-        quitButton.onMouseClickConsumer(event -> {
-            this.mc.shutdown();
-        });
+        quitButton.onMouseClickConsumer(event -> this.mc.shutdown());
 
-        quitButton.onMouseEnterRunnable(() -> {
-            quitText.setColor(new Color(200, 200, 200));
-        });
+        quitButton.onMouseEnterRunnable(() -> quitText.setColor(new Color(200, 200, 200)));
 
-        quitButton.onMouseLeaveRunnable(() -> {
-            quitText.setColor(new Color(255, 255, 255));
-        });
+        quitButton.onMouseLeaveRunnable(() -> quitText.setColor(new Color(255, 255, 255)));
 
         timeText = new UIText()
             .setX(new CenterConstraint())
@@ -374,9 +334,7 @@ public class CustomMainMenu extends WindowScreen {
             .setColor(new Color(69, 79, 191))
             .setChildOf(background);
 
-        discordText.onMouseClickConsumer(event -> {
-            Utils.openLink("https://discord.gg/" + PartlySaneSkies.discordCode);
-        });
+        discordText.onMouseClickConsumer(event -> Utils.openLink("https://discord.gg/" + PartlySaneSkies.discordCode));
     }
 
     public void resizeGui(float scaleFactor) {
@@ -402,7 +360,7 @@ public class CustomMainMenu extends WindowScreen {
                 .setWidth(new PixelConstraint(2 * scaleFactor));
 
         float titleHeight = 75;
-        float titleWidth = titleHeight * (928 / 124);
+        float titleWidth = titleHeight * (928f / 124);
         titleImage
                 .setY(new PixelConstraint(50 * scaleFactor))
                 .setWidth(new PixelConstraint(titleWidth * scaleFactor))
@@ -505,7 +463,7 @@ public class CustomMainMenu extends WindowScreen {
         }
 
         JsonArray array;
-        announcements = new ArrayList<Announcement>();
+        announcements = new ArrayList<>();
         try {
             array = object.get("announcements").getAsJsonArray();
             for (JsonElement element : array) {
@@ -554,15 +512,15 @@ public class CustomMainMenu extends WindowScreen {
         CustomMainMenu.latestVersion = "(Unknown)";
         // CustomMainMenu.latestVersionDate = "(Unknown)";
         // CustomMainMenu.latestVersionDescription = "";
-        CustomMainMenu.announcements = new ArrayList<Announcement>();
+        CustomMainMenu.announcements = new ArrayList<>();
     }
 
 
     public static class Announcement {
-        private String title;
-        private String date;
-        private String description;
-        private String link;
+        private final String title;
+        private final String date;
+        private final String description;
+        private final String link;
 
         private int postNum;
         private UIComponent titleComponent;
@@ -601,9 +559,7 @@ public class CustomMainMenu extends WindowScreen {
             this.postNum = postNum;
             this.titleComponent = text;
 
-            text.onMouseClickConsumer(event -> {
-                Utils.openLink(link);
-            });
+            text.onMouseClickConsumer(event -> Utils.openLink(link));
             return (UIWrappedText) text;
         }
         public UIWrappedText createDescription(float scaleFactor, int postNum, UIComponent parent) {
@@ -616,9 +572,7 @@ public class CustomMainMenu extends WindowScreen {
             this.postNum = postNum;
             this.descriptionComponent = text;
 
-            text.onMouseClickConsumer(event -> {
-                Utils.openLink(link);
-            });
+            text.onMouseClickConsumer(event -> Utils.openLink(link));
             return (UIWrappedText) text;
         }
 
@@ -652,7 +606,7 @@ public class CustomMainMenu extends WindowScreen {
         ZoneId userZoneId = ZoneId.systemDefault();
         
         LocalDateTime currentTime = LocalDateTime.now(userZoneId);
-        timeString = currentTime.format(DateTimeFormatter.ofPattern("hh:mm:ss a  dd MMMM yyyy", Locale.ENGLISH));
+        String timeString = currentTime.format(DateTimeFormatter.ofPattern("hh:mm:ss a  dd MMMM yyyy", Locale.ENGLISH));
         if (PartlySaneSkies.config.hour24time) {
             timeString = currentTime.format(DateTimeFormatter.ofPattern("HH:mm:ss dd MMMM yyyy", Locale.ENGLISH));
         }

@@ -54,7 +54,8 @@ public class LocationBannerDisplay extends Gui {
         
         noColorCodeRegionName = StringUtils.stripLeading(noColorCodeRegionName);
         noColorCodeRegionName = StringUtils.stripTrailing(noColorCodeRegionName);
-        noColorCodeRegionName = noColorCodeRegionName.replaceAll("\\P{Print}", ""); // Removes the RANDOM EMOJIS THAT ARE PRESENT IN SKYBLOCK LOCATIONS
+        noColorCodeRegionName = noColorCodeRegionName.replaceAll("\\P{Print}", ""); // Removes the RANDOM EMOJIS
+        // THAT ARE PRESENT IN SKY-BLOCK LOCATIONS
         // LOOK AT THIS:
         // The Catac🔮ombs (F5)
         // The Catac👽ombs (F5)
@@ -63,7 +64,9 @@ public class LocationBannerDisplay extends Gui {
         // Mountain⚽
         // Village⚽
         // Coal Mine⚽
-        // THEY'RE NOT EVEN VISIBLE IN MINECRAFT (ITS NOT SPELLED VISABLE)
+        // THEY'RE NOT EVEN VISIBLE IN MINECRAFT - Su386
+        // (ITS NOT SPELLED VISABLE - j10a)
+        // (It's* - Su386)
 
         if (lastLocation.equals(noColorCodeRegionName)) {
             return;
@@ -93,7 +96,7 @@ public class LocationBannerDisplay extends Gui {
         if (color == null)
             color = Color.gray;
         else
-            color = new Color(color.getRed(), color.getGreen(), color.getBlue(), (short) alpha);
+            color = new Color(color.getRed(), color.getGreen(), color.getBlue(), alpha);
 
         ((UIText) displayText)
                 .setText(displayString)
@@ -111,18 +114,17 @@ public class LocationBannerDisplay extends Gui {
     }
 
     public static short getAlpha(long timeSinceLastChangeMs, double displayLenghtSeconds) {
-        long time = timeSinceLastChangeMs;
         double displayLength = displayLenghtSeconds * 1000;
         double fadeLength = displayLength * (1 / 6d);
 
-        if (0 > time) {
+        if (0 > timeSinceLastChangeMs) {
             return 0;
-        } else if (0 < time && time < fadeLength) {
-            return (short) Math.round(time / fadeLength * 255);
-        } else if (fadeLength < time && time <= displayLength - fadeLength) {
+        } else if (0 < timeSinceLastChangeMs && timeSinceLastChangeMs < fadeLength) {
+            return (short) Math.round(timeSinceLastChangeMs / fadeLength * 255);
+        } else if (fadeLength < timeSinceLastChangeMs && timeSinceLastChangeMs <= displayLength - fadeLength) {
             return 255;
-        } else if (displayLength - fadeLength < time && time <= displayLength) {
-            return (short) Math.round((-time + displayLength) / fadeLength * 255);
+        } else if (displayLength - fadeLength < timeSinceLastChangeMs && timeSinceLastChangeMs <= displayLength) {
+            return (short) Math.round((-timeSinceLastChangeMs + displayLength) / fadeLength * 255);
         } else {
 
             return 0;

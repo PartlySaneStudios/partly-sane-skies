@@ -12,7 +12,7 @@ import net.minecraftforge.client.event.sound.PlaySoundEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class EnhancedSound {
-    private String[] instruments = {
+    private final String[] instruments = {
         "live_clarinet",
         "clarinet",
         "electric_piano",
