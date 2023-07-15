@@ -5,13 +5,26 @@
 
 package me.partlysanestudios.partlysaneskies.utils;
 
-import java.awt.Color;
-import java.awt.Toolkit;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.StringSelection;
-import java.awt.datatransfer.Transferable;
-import java.awt.datatransfer.UnsupportedFlavorException;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import gg.essential.elementa.UIComponent;
+import gg.essential.elementa.components.UIImage;
+import gg.essential.elementa.constraints.CenterConstraint;
+import gg.essential.elementa.constraints.PixelConstraint;
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
+import me.partlysanestudios.partlysaneskies.WikiArticleOpener;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.PlayerControllerMP;
+import net.minecraft.client.resources.IResource;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.ResourceLocation;
+import org.apache.logging.log4j.Level;
+
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.datatransfer.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -25,28 +38,8 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ThreadLocalRandom;
 
-import javax.imageio.ImageIO;
-
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import gg.essential.elementa.UIComponent;
-import gg.essential.elementa.components.UIImage;
-import gg.essential.elementa.constraints.CenterConstraint;
-import gg.essential.elementa.constraints.PixelConstraint;
-import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
-import me.partlysanestudios.partlysaneskies.WikiArticleOpener;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.PlayerControllerMP;
-import net.minecraft.client.resources.IResource;
-import net.minecraft.client.resources.IResourceManager;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.ResourceLocation;
-import org.apache.logging.log4j.Level;
-
 public class Utils {
-    public static HashMap<String, Color> colorCodetoColor = new HashMap<String, Color>();
+    public static HashMap<String, Color> colorCodetoColor = new HashMap<>();
 
     public static void init() {
         colorCodetoColor.put("§4", new Color(170, 0, 0));
@@ -91,12 +84,11 @@ public class Utils {
         try {
             PartlySaneSkies.minecraft.ingameGUI
                     .getChatGUI()
-                    .printChatMessage(new ChatComponentText("\n            " + print.toString() + ""));
+                    .printChatMessage(new ChatComponentText("\n            " + print));
             StringSelection stringSelection = new StringSelection(print.toString());
             Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
             clipboard.setContents(stringSelection, null);
-        } catch (NullPointerException e) {
-        } finally {
+        } catch (NullPointerException ignored) {
         }
     }
 
@@ -113,16 +105,16 @@ public class Utils {
                     .getChatGUI()
                     .printChatMessage(new ChatComponentText(text));
 
-            } catch (NullPointerException e) {
+            } catch (NullPointerException ignored) {
             }
         }
         else {
             try {
                 PartlySaneSkies.minecraft.ingameGUI
                         .getChatGUI()
-                        .printChatMessage(new ChatComponentText(StringUtils.colorCodes(PartlySaneSkies.CHAT_PREFIX) + "" + text));
-            } catch (NullPointerException e) {
-            } 
+                        .printChatMessage(new ChatComponentText(StringUtils.colorCodes(PartlySaneSkies.CHAT_PREFIX) + text));
+            } catch (NullPointerException ignored) {
+            }
         }
     }
 
@@ -163,7 +155,7 @@ public class Utils {
         if (responseCode == HttpURLConnection.HTTP_OK) { // success
             BufferedReader in = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
             String inputLine;
-            StringBuffer response = new StringBuffer();
+            StringBuilder response = new StringBuilder();
 
             while ((inputLine = in.readLine()) != null) {
                 response.append(inputLine);
@@ -220,8 +212,6 @@ public class Utils {
     public static void clickOnSlot(int slot) {
         PlayerControllerMP controller = PartlySaneSkies.minecraft.playerController;
 
-        // controller.windowClick(Main.minecraft.thePlayer.openContainer.windowId, slot,
-        // 2, 3, Main.minecraft.thePlayer);
         controller.windowClick(PartlySaneSkies.minecraft.thePlayer.openContainer.windowId, slot, 0, 0, PartlySaneSkies.minecraft.thePlayer);
     }
 
@@ -235,14 +225,12 @@ public class Utils {
     public static void rightClickOnSlot(int slot) {
         PlayerControllerMP controller = PartlySaneSkies.minecraft.playerController;
 
-        // controller.windowClick(Main.minecraft.thePlayer.openContainer.windowId, slot,
-        // 2, 3, Main.minecraft.thePlayer);
         controller.windowClick(PartlySaneSkies.minecraft.thePlayer.openContainer.windowId, slot, 1, 0, PartlySaneSkies.minecraft.thePlayer);
     }
 
     public static ArrayList<String> getLore(ItemStack itemStack) {
         NBTTagList tagList = itemStack.getTagCompound().getCompoundTag("display").getTagList("Lore", 8);
-        ArrayList<String> loreList = new ArrayList<String>();
+        ArrayList<String> loreList = new ArrayList<>();
         for (int i = 0; i < tagList.tagCount(); i++) {
             loreList.add(tagList.getStringTagAt(i));
         }
@@ -254,7 +242,7 @@ public class Utils {
         return new Color(color.getRed(), color.getGreen(), color.getBlue(), opacity);
     }
 
-    public static UIComponent applyBackground(UIComponent component) {
+    public static void applyBackground(UIComponent component) {
         UIImage image = (UIImage) Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies:textures/gui/base_color_background.png"))
                 .setX(new CenterConstraint())
                 .setY(new CenterConstraint())
@@ -262,24 +250,23 @@ public class Utils {
                 .setHeight(new PixelConstraint(component.getHeight()));
 
         component.insertChildAt(image, 0);
-        return component;
     }
 
     public static String getLoreAsString(ItemStack item) {
         List<String> loreList = getLore(item);
-        String loreString = "";
+        StringBuilder loreString = new StringBuilder();
         for (String loreLine : loreList) {
-            loreString += loreLine + "\n";
+            loreString.append(loreLine).append("\n");
         }
     
-        return loreString;
+        return loreString.toString();
     }
 
     public static UIImage uiimageFromResourceLocation(ResourceLocation location)  {
         try {
             IResource resource = Minecraft.getMinecraft().getResourceManager().getResource(location);
-        
-            UIImage image = new UIImage(CompletableFuture.supplyAsync(() -> {
+
+            return new UIImage(CompletableFuture.supplyAsync(() -> {
                 try {
                     return ImageIO.read(resource.getInputStream());
                 } catch (IOException e) {
@@ -294,7 +281,6 @@ public class Utils {
                 }
                 return null;
             }));
-            return image;
         } catch (NullPointerException | IOException exception) {
 
             return UIImage.ofResource("/assets/partlysaneskies/" + location.getResourcePath());
@@ -309,8 +295,8 @@ public class Utils {
             uri = new URI(url);
             try {
                 Class<?> oclass = Class.forName("java.awt.Desktop");
-                Object object = oclass.getMethod("getDesktop", new Class[0]).invoke((Object) null, new Object[0]);
-                oclass.getMethod("browse", new Class[] { URI.class }).invoke(object, new Object[] { uri });
+                Object object = oclass.getMethod("getDesktop", new Class[0]).invoke(null);
+                oclass.getMethod("browse", new Class[] { URI.class }).invoke(object, uri);
             } catch (Throwable throwable) {
                 Utils.sendClientMessage("Couldn't open link");
                 throwable.printStackTrace();
@@ -322,16 +308,13 @@ public class Utils {
     }
 
     // Takes the last time the event happened in Unix epoch time in milliseconds,
-    // and takes the length that the event should last in milliseconds
+    // and takes the length that the event should last in millisecond
     // Returns false if the event is over, returns true if it is still ongoing
     public static boolean onCooldown(long lastTime, long length) {
-        if (PartlySaneSkies.getTime() > lastTime + length) {
-            return false;
-        }
-        return true;
+        return PartlySaneSkies.getTime() <= lastTime + length;
     }
 
-//    Gets the json element from  a path string in format /key/key/key/key/
+//    Gets the json element from a path string in format /key/key/key/key/
     public static JsonElement getJsonFromPath(JsonObject source, String path) {
         String[] splitPath = path.split("/");
 

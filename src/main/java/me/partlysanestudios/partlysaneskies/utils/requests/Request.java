@@ -6,6 +6,10 @@
 
 package me.partlysanestudios.partlysaneskies.utils.requests;
 
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
+import me.partlysanestudios.partlysaneskies.utils.Utils;
+import org.apache.logging.log4j.Level;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -13,12 +17,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
-import me.partlysanestudios.partlysaneskies.utils.Utils;
-import org.apache.logging.log4j.Level;
 
 public class Request {
     // The get request
@@ -111,7 +109,7 @@ public class Request {
         this.otherFailure = true;
     }
 
-    // Returns true if the response code is http ok, and it has no other failure
+    // Returns true if the response code is http OK, and it has no other failure
     public boolean hasSucceeded() {
         if (this.intResponseCode != HttpURLConnection.HTTP_OK) {
             return false;
@@ -148,10 +146,6 @@ public class Request {
                 Utils.log(Level.ERROR, "Error: " + httpURLConnection.getResponseMessage() + ":" + httpURLConnection.getResponseCode() + "\nContact PSS admins for more information");
             }
             Utils.log(Level.ERROR, "Error: " + httpURLConnection.getResponseMessage() + ":" + httpURLConnection.getResponseCode() + "\nURL: " + this.url);
-            Gson gson = new GsonBuilder()
-                    .setPrettyPrinting()
-                    .serializeSpecialFloatingPointValues()
-                    .create();
             // Disconnect the connection
             httpURLConnection.disconnect();
         }
@@ -177,7 +171,7 @@ public class Request {
             return;
         }
 
-        // If supposed to run in the next frame, run in next frame
+        // If supposed to run in the next frame, run in the next frame
         if (executeOnNextFrame) {
             PartlySaneSkies.minecraft.addScheduledTask(() -> whenFinished.run(this));
             return;

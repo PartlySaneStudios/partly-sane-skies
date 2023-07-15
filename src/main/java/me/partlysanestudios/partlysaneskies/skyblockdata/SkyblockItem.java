@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 public class SkyblockItem {
-    private String id;
-    private String name;
-    private String rarity;
-    private double npcSellPrice;
+    private final String id;
+    private final String name;
+    private final String rarity;
+    private final double npcSellPrice;
     private double bazaarSellPrice;
 
 
@@ -133,10 +133,7 @@ public class SkyblockItem {
     }
 
     public boolean hasAverageLowestBin() {
-        if (this.averageLowestBinPrice == -1) {
-            return false;
-        }
-        return true;
+        return this.averageLowestBinPrice != -1;
     }
 
     public boolean hasSellPrice() {

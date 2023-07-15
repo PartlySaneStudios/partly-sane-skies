@@ -18,7 +18,7 @@
 
 ## Artists
 
-All textures labeled FurfSky are done by the FurfSky team. This includes:
+The FurfSky team does all textures labeled FurfSky. This includes:
 
 - All textures in ``src\main\resources\assets\partlysaneskies\textures\gui\custom_ah\furfsky``
 

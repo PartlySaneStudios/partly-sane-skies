@@ -32,7 +32,7 @@ public class MinionData {
     public static void postRequestInit(Request request) {
 //        Creates a json object from the request response
         JsonObject jsonObj = new JsonParser().parse(request.getResponse()).getAsJsonObject();
-//        Gets the minions object from the json
+//        Gets the minion object from the json
         JsonObject minionObjects = Utils.getJsonFromPath(jsonObj, "/minions").getAsJsonObject();
 
 
@@ -55,19 +55,19 @@ public class MinionData {
     }
 
     public static String getMostProfitMinionString(double hours, Minion.Upgrade[] upgrades, MinionFuel fuel) {
-        String str = "§7In §6" + hours + "§7 hour(s): (Upgrade:" + Arrays.asList(upgrades) + ")";
+        StringBuilder str = new StringBuilder("§7In §6" + hours + "§7 hour(s): (Upgrade:" + Arrays.asList(upgrades) + ")");
         HashMap<Minion, Double> mostProfitableMinions = getMostProfitMinion(upgrades, fuel);
 
         int i = 1;
 
         for (Map.Entry<Minion, Double> en : mostProfitableMinions.entrySet()) {
-            str += "\n\n§7"+ i + ". " +  en.getKey().costBreakdown(en.getKey().maxTier, hours, upgrades, fuel);
+            str.append("\n\n§7").append(i).append(". ").append(en.getKey().costBreakdown(en.getKey().maxTier, hours, upgrades, fuel));
 
             i++;
         }
 
 
-        return str;
+        return str.toString();
     }
 
     public static LinkedHashMap<Minion, Double> getMostProfitMinion(Minion.Upgrade[] upgrades, MinionFuel fuel) {
@@ -140,7 +140,7 @@ public class MinionData {
 
         @Override
         public String toString() {
-            return "" + id + ": Drops:" + drops.toString() + " Cooldowns:" + cooldowns.toString();
+            return id + ": Drops:" + drops.toString() + " Cooldowns:" + cooldowns.toString();
         }
 
         String[] kraumpusSpeedIncrease = {"SNOW_GENERATOR"};
@@ -191,7 +191,7 @@ public class MinionData {
             }
 
 
-//            Totals the amount of items produced
+//            Totals the number of items produced
             int baseItemsProduced = 0;
             for (double itemQuantity : items.values()) {
                 baseItemsProduced += itemQuantity;
@@ -248,7 +248,7 @@ public class MinionData {
 
         public String costBreakdown(int tier, double hours, Upgrade[] upgrades, MinionFuel fuel) {
 //            Creates a colour for each prefix
-            String colourPrefix = "";
+            String colourPrefix;
             switch(this.category) {
                 case "COMBAT":
                     colourPrefix = "§c";
@@ -275,7 +275,7 @@ public class MinionData {
 
             }
 
-            String str = colourPrefix + this.displayName + "§:";
+            StringBuilder str = new StringBuilder(colourPrefix + this.displayName + "§:");
 
             for (Map.Entry<String, Double> en2 : this.getBaseItemsPerMinute(this.maxTier, upgrades, fuel).entrySet()) {
 //                Individual price of the item
@@ -287,7 +287,7 @@ public class MinionData {
                 totalItemProfit *= 60 * hours;
                 totalItemProfit = Utils.round(totalItemProfit, 1); // rounded to 1 decimal place
 
-                str += "\n§7   §6x" + StringUtils.formatNumber(totalItemProfit) + "§7 §6" + SkyblockDataManager.getItem(en2.getKey()).getName() + "§7 for " + StringUtils.formatNumber(price) + " coins each.";
+                str.append("\n§7   §6x").append(StringUtils.formatNumber(totalItemProfit)).append("§7 §6").append(SkyblockDataManager.getItem(en2.getKey()).getName()).append("§7 for ").append(StringUtils.formatNumber(price)).append(" coins each.");
             }
 
 //            Total amount of money made in given hours by the minion
@@ -295,9 +295,9 @@ public class MinionData {
             totalMinionProfit *= 60 * hours;
             totalMinionProfit = Utils.round(totalMinionProfit, 1); // rounded to 1 decimal place
 
-            str += "\n§7   Total: §6" + StringUtils.formatNumber(totalMinionProfit) + "§7 coins in " + StringUtils.formatNumber(hours) + " hours.";
+            str.append("\n§7   Total: §6").append(StringUtils.formatNumber(totalMinionProfit)).append("§7 coins in ").append(StringUtils.formatNumber(hours)).append(" hours.");
 
-            return str;
+            return str.toString();
         }
     }
 
@@ -316,7 +316,7 @@ public class MinionData {
             this.id = id;
         }
 
-//        Creates a new minion fuel from the json object in the public data repo
+//        Creates new minion fuel from the json object in the public data repo
         public MinionFuel(String id, JsonObject object) {
             this(id, Utils.getJsonFromPath(object, "duration").getAsDouble() , Utils.getJsonFromPath(object, "speed_upgrade").getAsDouble());
         }

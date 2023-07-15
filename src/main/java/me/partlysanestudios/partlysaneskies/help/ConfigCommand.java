@@ -15,10 +15,11 @@ import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.BlockPos;
+import org.jetbrains.annotations.NotNull;
 
 public class ConfigCommand implements ICommand {
     @Override
-    public int compareTo(ICommand o) {
+    public int compareTo(@NotNull ICommand o) {
         return 0;
     }
 
@@ -43,9 +44,7 @@ public class ConfigCommand implements ICommand {
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         Utils.sendClientMessage("Opening config GUI...");
         
-        Window.Companion.enqueueRenderOperation(() -> {
-            PartlySaneSkies.config.openGui();
-        });
+        Window.Companion.enqueueRenderOperation(() -> PartlySaneSkies.config.openGui());
     }
 
     @Override

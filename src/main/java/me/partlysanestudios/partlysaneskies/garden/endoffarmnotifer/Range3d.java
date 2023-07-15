@@ -30,9 +30,7 @@ public class Range3d {
     public boolean isInRange(int x, int y, int z) {
         if(smallCoordinate[0] <= x && x <= largeCoordinate[0]){
             if(smallCoordinate[1] <= y  && y <= largeCoordinate[1]){
-                if(smallCoordinate[2] <= z  && z <= largeCoordinate[2]){
-                    return true;
-                }
+                return smallCoordinate[2] <= z && z <= largeCoordinate[2];
             }
         }
         return false; 

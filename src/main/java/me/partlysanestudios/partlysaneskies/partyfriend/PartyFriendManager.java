@@ -15,7 +15,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class PartyFriendManager {
     private static boolean isWaitingForMembers = false;
-    private static List<String> partyList = new ArrayList<String>();
+    private static final List<String> partyList = new ArrayList<>();
     private static int page = 0;
 
     public static void startPartyManager() {
@@ -30,7 +30,6 @@ public class PartyFriendManager {
         if (!isWaitingForMembers) {
             return;
         }
-        ;
         if (event.message.getUnformattedText().startsWith("-----------------------------------------------------")) {
             isWaitingForMembers = false;
         }
@@ -60,27 +59,22 @@ public class PartyFriendManager {
     }
 
     public static void partyAll() {
-        Long timeDelay = 500l;
+        long timeDelay = 500L;
 
         for (String member : partyList) {
-            final long finalTimeDelay = timeDelay.longValue();
-            new Thread() {
-                @Override
-                public void run() {
-                    try {
+            final long finalTimeDelay = timeDelay;
+            new Thread(() -> {
+                try {
 
-                        Thread.sleep(finalTimeDelay);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    PartlySaneSkies.minecraft.addScheduledTask(() -> {
-                        PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party invite " + member);
-                    });
-                    
+                    Thread.sleep(finalTimeDelay);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-            }.start();
+                PartlySaneSkies.minecraft.addScheduledTask(() -> PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party invite " + member));
 
-            timeDelay += 500l;
+            }).start();
+
+            timeDelay += 500L;
         }
     }
 }

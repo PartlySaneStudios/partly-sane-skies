@@ -47,7 +47,7 @@ public class SkillUpgradeCommand implements ICommand {
             HashMap<String, Double> map;
             if (args.length > 0) {
                 try {
-                    map = SkillUpgradeRecommendation.getRecomendedSkills(args[0]);
+                    map = SkillUpgradeRecommendation.getRecommendedSkills(args[0]);
                 } catch (IOException e) {
                     Utils.sendClientMessage(StringUtils.colorCodes("Error getting data for " + args[0]
                             + ". Maybe the player is nicked or there is an invalid API key. Try running /api new."));
@@ -55,7 +55,7 @@ public class SkillUpgradeCommand implements ICommand {
                 }
             } else {
                 try {
-                    map = SkillUpgradeRecommendation.getRecomendedSkills(PartlySaneSkies.minecraft.thePlayer.getName());
+                    map = SkillUpgradeRecommendation.getRecommendedSkills(PartlySaneSkies.minecraft.thePlayer.getName());
                 } catch (IOException e) {
                     Utils.sendClientMessage(StringUtils.colorCodes("Error getting data for "
                             + PartlySaneSkies.minecraft.thePlayer.getName()

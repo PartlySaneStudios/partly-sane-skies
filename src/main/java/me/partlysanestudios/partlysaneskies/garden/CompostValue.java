@@ -5,9 +5,6 @@
 
 package me.partlysanestudios.partlysaneskies.garden;
 
-import java.awt.Color;
-import java.util.*;
-
 import gg.essential.elementa.ElementaVersion;
 import gg.essential.elementa.UIComponent;
 import gg.essential.elementa.components.UIRoundedRectangle;
@@ -27,10 +24,14 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import java.awt.*;
+import java.util.List;
+import java.util.*;
+
 public class CompostValue {
-    public static HashMap<String, Double> compostValueMap = new HashMap<String, Double>();
-    public static HashMap<String, Double> costPerOrganicMatterMap = new HashMap<String, Double>();
-    public static HashMap<String, Double> costPerCompostMap = new HashMap<String, Double>();
+    public static HashMap<String, Double> compostValueMap = new HashMap<>();
+    public static HashMap<String, Double> costPerOrganicMatterMap = new HashMap<>();
+    public static HashMap<String, Double> costPerCompostMap = new HashMap<>();
     public static float compostCost = 4000;
     public static float fillLevel = 0;
     public static float maxCompost = 40000;
@@ -87,14 +88,10 @@ public class CompostValue {
         }
     }
 
-    // Sorts the hashmap in decending order
+    // Sorts the hashmap in descending order
     public static LinkedHashMap<String, Double> sortMap(HashMap<String, Double> map) {
         List<Map.Entry<String, Double>> list = new LinkedList<>(map.entrySet());
-        Collections.sort(list, new Comparator<Map.Entry<String, Double>>() {
-            public int compare(Map.Entry<String, Double> o1, Map.Entry<String, Double> o2) {
-                return (o1.getValue()).compareTo(o2.getValue());
-            }
-        });
+        list.sort(Map.Entry.comparingByValue());
 
         LinkedHashMap<String, Double> sortedMap = new LinkedHashMap<>();
         for (Map.Entry<String, Double> entry : list) {
@@ -105,7 +102,7 @@ public class CompostValue {
     }
 
     public static String getString() {
-        String str = "";
+        StringBuilder str = new StringBuilder();
 
         requestCostPerOrganicMatter();
         requestCostPerCompost();
@@ -122,7 +119,7 @@ public class CompostValue {
             if (maxCompost == fillLevel) {
                 compostAmount = getMaxCompostAbleToMake();
             }
-            str += "&6"+ i + ". &7x&d" + StringUtils.formatNumber(Math.ceil(cropPerCompost * compostAmount)) + " " + cropName + "&7 costing &d"+ StringUtils.formatNumber(Utils.round(costPerCompost * compostAmount, 1)) + "&7 coins to fill. \n&8(x" + StringUtils.formatNumber(Math.ceil(cropPerCompost)) + "/Compost)\n";
+            str.append("&6").append(i).append(". &7x&d").append(StringUtils.formatNumber(Math.ceil(cropPerCompost * compostAmount))).append(" ").append(cropName).append("&7 costing &d").append(StringUtils.formatNumber(Utils.round(costPerCompost * compostAmount, 1))).append("&7 coins to fill. \n&8(x").append(StringUtils.formatNumber(Math.ceil(cropPerCompost))).append("/Compost)\n");
 
             i++;
             if (i > 5) {
@@ -130,9 +127,9 @@ public class CompostValue {
             }
         }
 
-        str = StringUtils.colorCodes(str);
+        str = new StringBuilder(StringUtils.colorCodes(str.toString()));
         
-        return str;
+        return str.toString();
     }
 
     // 22
@@ -145,6 +142,7 @@ public class CompostValue {
         }
 
         IInventory[] inventories = PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen);
+        assert inventories != null;
         IInventory composter = inventories[0];
 
         // Slots 22 should be the collect compost button
@@ -155,13 +153,13 @@ public class CompostValue {
         }
 
         String collectCompostButtonName = StringUtils.removeColorCodes(collectCompostButton.getDisplayName());
-        // If the names are not equal to the desired names, then you know it screen
+        // If the names are not equal to the desired names, then you know it screens
         if (!collectCompostButtonName.equals("Collect Compost")) {
             return false;
         }
         if (!StringUtils.removeColorCodes(composter.getDisplayName().getFormattedText()).contains("Composter")) {
             return false;
-        };
+        }
 
         if (composter.getStackInSlot(46) != null) {
             compostCost = getCompostCost(composter);
@@ -169,11 +167,6 @@ public class CompostValue {
             maxCompost = getOrganicMatterLimit(composter);
         }
 
-//        Utils.sendClientMessage(String.valueOf(fillLevel));
-//        Utils.sendClientMessage(String.valueOf(maxCompost));
-//        Utils.sendClientMessage(String.valueOf(compostCost));
-//        Utils.sendClientMessage(String.valueOf(getCurrentCompostAbleToMake()));
-//        Utils.sendClientMessage(String.valueOf(getMaxCompostAbleToMake()));
         return true;
     }
 
@@ -194,7 +187,7 @@ public class CompostValue {
     }
 
     private static float getCompostCost(IInventory inventory) {
-        return StringUtils.parseAbreviatedNumber(getCompostCostString(inventory));
+        return StringUtils.parseAbbreviatedNumber(getCompostCostString(inventory));
     }
 
     private static String getOrganicMatterFillLevelString(IInventory composterInventory) {
@@ -213,7 +206,7 @@ public class CompostValue {
     }
 
     private static float getOrganicMatterFillLevel(IInventory inventory) {
-        return StringUtils.parseAbreviatedNumber(getOrganicMatterFillLevelString(inventory));
+        return StringUtils.parseAbbreviatedNumber(getOrganicMatterFillLevelString(inventory));
     }
 
     private static String getOrganicMatterLimitString(IInventory composterInventory) {
@@ -246,7 +239,7 @@ public class CompostValue {
     }
 
     private static float getOrganicMatterLimit(IInventory inventory) {
-        return StringUtils.parseAbreviatedNumber(getOrganicMatterLimitString(inventory));
+        return StringUtils.parseAbbreviatedNumber(getOrganicMatterLimitString(inventory));
     }
 
 

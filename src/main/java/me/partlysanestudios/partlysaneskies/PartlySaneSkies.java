@@ -42,8 +42,6 @@ import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManagerCo
 import me.partlysanestudios.partlysaneskies.dungeons.permpartyselector.PermPartyCommand;
 import me.partlysanestudios.partlysaneskies.dungeons.permpartyselector.PermPartyManager;
 import me.partlysanestudios.partlysaneskies.economy.BitsShopValue;
-import me.partlysanestudios.partlysaneskies.economy.minioncalculator.MinionCalculatorCommand;
-import me.partlysanestudios.partlysaneskies.economy.minioncalculator.MinionData;
 import me.partlysanestudios.partlysaneskies.garden.CompostValue;
 import me.partlysanestudios.partlysaneskies.garden.GardenTradeValue;
 import me.partlysanestudios.partlysaneskies.garden.SkymartValue;
@@ -83,19 +81,11 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent;
-import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.awt.*;
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 
 @Mod(modid = PartlySaneSkies.MODID, version = PartlySaneSkies.VERSION, name = PartlySaneSkies.NAME)
@@ -110,7 +100,7 @@ public class PartlySaneSkies {
     public static final String NAME = "@MOD_NAME@";
     public static final String VERSION = "@MOD_VERSION@";
     //    -----------------------CHANGE TO FALSE BEFORE RELEASING
-    public static final boolean DOGFOOD = Boolean.valueOf("@DOGFOOD@");
+    public static final boolean DOGFOOD = Boolean.parseBoolean("@DOGFOOD@");
     public static final String CHAT_PREFIX = StringUtils.colorCodes("&r&b&lPartly Sane Skies&r&7>> &r");
     public static final boolean IS_LEGACY_VERSION = false;
     public static String discordCode = "v4PU3WeH7z";
@@ -132,7 +122,7 @@ public class PartlySaneSkies {
     private static String API_KEY;
 
 
-    // Names of all of the ranks to remove from people's names
+    // Names of all the ranks to remove from people's names
     public static final String[] RANK_NAMES = { "[VIP]", "[VIP+]", "[MVP]", "[MVP+]", "[MVP++]", "[YOUTUBE]", "[MOJANG]",
             "[EVENTS]", "[MCP]", "[PIG]", "[PIG+]", "[PIG++]", "[PIG+++]", "[GM]", "[ADMIN]", "[OWNER]", "[NPC]" };
 
@@ -158,43 +148,39 @@ public class PartlySaneSkies {
         trackLoad();
         RequestsManager.run();
 
-        new Thread() {
-            @Override
-            public void run() {
-                // Loads perm party data
-                try {
-                    PermPartyManager.load();
-                    PermPartyManager.loadFavouriteParty();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                
-
-                // Loads chat alerts data
-                try {
-                    ChatAlertsManager.load();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                try {
-                    EndOfFarmNotfier.load();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                try {
-                    SkyblockDataManager.initSkills();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+        new Thread(() -> {
+            // Loads perm party data
+            try {
+                PermPartyManager.load();
+                PermPartyManager.loadFavouriteParty();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        
-        }.start();
+
+
+            // Loads chat alerts data
+            try {
+                ChatAlertsManager.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                EndOfFarmNotifier.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                SkyblockDataManager.initSkills();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }).start();
 
         
 
-        // Registers all of the events
+        // Registers all the events
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new DropBannerDisplay());
         MinecraftForge.EVENT_BUS.register(new PartyManager());
@@ -215,7 +201,7 @@ public class PartlySaneSkies {
         MinecraftForge.EVENT_BUS.register(new BitsShopValue());
         MinecraftForge.EVENT_BUS.register(new PlayerRating());
         MinecraftForge.EVENT_BUS.register(new SkymartValue());
-        MinecraftForge.EVENT_BUS.register(new EndOfFarmNotfier());
+        MinecraftForge.EVENT_BUS.register(new EndOfFarmNotifier());
         MinecraftForge.EVENT_BUS.register(new PetAlert());
         MinecraftForge.EVENT_BUS.register(new MathematicalHoeRightClicks());
 
@@ -238,7 +224,7 @@ public class PartlySaneSkies {
         // Initialises keybinds
         Keybinds.init();
 
-        // Itialises Utils class
+        // Initialises Utils class
         Utils.init();
 
         MathematicalHoeRightClicks.loadHoes();
@@ -304,7 +290,7 @@ public class PartlySaneSkies {
 
         // Checks if the current location is the same as the previous location for the location banner display
         locationBannerDisplay.checkLocation();
-        // Checks if the current screen is the auciton house to run AHManager
+        // Checks if the current screen is the auction house to run AHManager
         AhManager.runDisplayGuiCheck();
 
         SkyblockDataManager.runUpdater();
@@ -312,11 +298,11 @@ public class PartlySaneSkies {
         // Checks if the player is collecting minions
         PetAlert.runPetAlert();
 
-        EndOfFarmNotfier.run();
+        EndOfFarmNotifier.run();
         config.resetBrokenStrings();
     }
 
-    // Runs when the chat message starts with "Your new API key is "
+    // Runs when the chat message starts with "Your new API key is"
     // Updates the API key to the new API key
     @SubscribeEvent
     public void newApiKey(ClientChatReceivedEvent event) {
@@ -391,9 +377,9 @@ public class PartlySaneSkies {
         }
     }
 
-    // Returns an array of length 2, where the 1st index is the upper invetory, 
+    // Returns an array of length 2, where the 1st index is the upper inventory,
     // and the 2nd index is the lower inventory.s]
-    // Retuns null if there is no inventory, also returns null if there is no access to inventory
+    // Returns null if there is no inventory, also returns null if there is no access to inventory
     public static IInventory[] getSeparateUpperLowerInventories(GuiScreen gui) {
         IInventory upperInventory;
         IInventory lowerInventory;
@@ -410,7 +396,7 @@ public class PartlySaneSkies {
         return new IInventory[] { upperInventory, lowerInventory };
     }
 
-    // Returns the name of the scoreboard without colorcodes
+    // Returns the name of the scoreboard without color codes
     public static String getScoreboardName() {
         String scoreboardName = minecraft.thePlayer.getWorldScoreboard().getObjectiveInDisplaySlot(1).getDisplayName();
         return StringUtils.removeColorCodes(scoreboardName);
@@ -430,7 +416,7 @@ public class PartlySaneSkies {
             ScoreObjective objective = scoreboard.getObjectiveInDisplaySlot(1);
             Collection<Score> scoreCollection = scoreboard.getSortedScores(objective);
 
-            List<String> scoreLines = new ArrayList<String>();
+            List<String> scoreLines = new ArrayList<>();
             for (Score score : scoreCollection) {
                 scoreLines.add(ScorePlayerTeam.formatPlayerName(scoreboard.getPlayersTeam(score.getPlayerName()),
                         score.getPlayerName()));
@@ -447,7 +433,7 @@ public class PartlySaneSkies {
     }
 
 
-    // Returns the time in miliseconds
+    // Returns the time in milliseconds
     public static long getTime() {
         return System.currentTimeMillis();
     }
@@ -477,10 +463,10 @@ public class PartlySaneSkies {
         return location;
     }
 
-    // Gets the amount of coins in your purse from the scoreboard
+    // Gets the number of coins in your purse from the scoreboard
     public static long getCoins() {
         if (!isSkyblock()) {
-            return 0l;
+            return 0L;
         }
 
         List<String> scoreboard = getScoreboardLines();
@@ -490,7 +476,7 @@ public class PartlySaneSkies {
         for (String line : scoreboard) {
             if (StringUtils.stripLeading(line).contains("Piggy:") || StringUtils.stripLeading(line).contains("Purse:")) {
                 money = StringUtils.stripLeading(StringUtils.removeColorCodes(line)).replace("Piggy: ", "");
-                money = StringUtils.stripLeading(StringUtils.removeColorCodes(line)).replace("Purse: ", "");
+                money = StringUtils.stripLeading(StringUtils.removeColorCodes(money)).replace("Purse: ", "");
                 money = StringUtils.stripLeading(money);
                 money = money.replace(",", "");
                 money = money.replaceAll("\\P{Print}", "");
@@ -499,7 +485,7 @@ public class PartlySaneSkies {
         }
 
         if (money == null) {
-            return 0l;
+            return 0L;
         }
         try {
             return Long.parseLong(money);
@@ -508,10 +494,10 @@ public class PartlySaneSkies {
         }
     }
 
-    // Gets the amount of bits from the scoreboard
+    // Gets the number of bits from the scoreboard
     public static long getBits() {
         if (!isSkyblock()) {
-            return 0l;
+            return 0L;
         }
 
         List<String> scoreboard = getScoreboardLines();
@@ -529,7 +515,7 @@ public class PartlySaneSkies {
         }
 
         if (bits == null) {
-            return 0l;
+            return 0L;
         }
 
         String[] charsToRemove = {"(", ")", ".", "-", "+"};
@@ -566,13 +552,12 @@ public class PartlySaneSkies {
     public static boolean isHypixel() {
         try {
             return minecraft.getCurrentServerData().serverIP.contains(".hypixel.net");
-        } catch (NullPointerException expt) {
-        } finally {
+        } catch (NullPointerException ignored) {
         }
         return false;
     }
 
-    // Sends a ping to the count API to track the amount of users per day
+    // Sends a ping to the count API to track the number of users per day
     public void trackLoad() {
 
     }

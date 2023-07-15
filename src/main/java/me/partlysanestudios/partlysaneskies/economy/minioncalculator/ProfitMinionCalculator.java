@@ -38,7 +38,7 @@ public class ProfitMinionCalculator extends WindowScreen {
     HashMap<String, PSSToggle> fuelToggles;
     ArrayList<UIComponent> minionTexts;
     HashMap<MinionData.Minion.Upgrade, PSSToggle> upgradeToggleMap;
-    public int upgradeSlotsUnavailble = 0;
+    public int upgradeSlotsUnavailable = 0;
 
     static final String[] categories = {"ALL", "FORAGING", "MINING", "FISHING", "FARMING", "COMBAT"};
     static final HashMap<String, String> categoriesColorMap = new HashMap<String, String>();
@@ -141,7 +141,7 @@ public class ProfitMinionCalculator extends WindowScreen {
 //            Creates a WrappedText object with said string
             UIComponent text = new UIWrappedText(str)
                     .setText(str)
-                    .setX(new PixelConstraint(leftBar.getRight() + fromWidthScaleFactor(7).getValue())) // sets it 7 scale pixels off the right side of the left bar
+                    .setX(new PixelConstraint(leftBar.getRight() + fromWidthScaleFactor(7).getValue())) // sets it 7 scales pixels off the right side of the left bar
                     .setY(new PixelConstraint(yPos))
                     .setWidth(new PixelConstraint(rightBar.getLeft() - leftBar.getRight() - fromWidthScaleFactor(14).getValue())) // set the width to the distance between the two bars with 7 scale pixels of padding on either side
                     .setTextScale(fromWidthScaleFactor(1)) //Sets the text scale to 1 scale unit
@@ -325,10 +325,10 @@ public HashMap<MinionData.Minion.Upgrade, PSSToggle> addMinionUpgradeButtons() {
                 toggle.toggleState();
 
                 if (toggle.getState()) {
-                    upgradeSlotsUnavailble++;
+                    upgradeSlotsUnavailable++;
                 }
                 else {
-                    upgradeSlotsUnavailble--;
+                    upgradeSlotsUnavailable--;
                 }
             });
 
@@ -364,10 +364,10 @@ public HashMap<MinionData.Minion.Upgrade, PSSToggle> addMinionUpgradeButtons() {
         PSSToggle toggle = upgradeToggleMap.get(selectedUpgrade);
         mainTextScrollComponent.scrollToTop(false);
 
-        MinionData.Minion.Upgrade prevUprgade = null;
-//        If the upgrade array has at least one item the previous upgrade is equal to the first item in the list
+        MinionData.Minion.Upgrade prevUpgrade = null;
+//        If the upgrade array has at least one item, the previous upgrade is equal to the first item in the list
         if (upgrades.length > 0) {
-            prevUprgade = upgrades[0];
+            prevUpgrade = upgrades[0];
         }
 
         resetUpgradeToggles();
@@ -377,14 +377,14 @@ public HashMap<MinionData.Minion.Upgrade, PSSToggle> addMinionUpgradeButtons() {
         if (selectedUpgrade != null) {
             temp.add(selectedUpgrade);
         }
-        if (prevUprgade != null) {
-            temp.add(prevUprgade);
+        if (prevUpgrade != null) {
+            temp.add(prevUpgrade);
         }
 
 //        Creates a new upgrade array with the right size
         upgrades = new MinionData.Minion.Upgrade[temp.size()];
 
-//        Adds all selected upgrades to the ugrades array
+//        Adds all selected upgrades to the upgrade array
         for (int i = 0; i < temp.size(); i++) {
             upgrades[i] = temp.get(i);
         }
@@ -454,12 +454,11 @@ public HashMap<MinionData.Minion.Upgrade, PSSToggle> addMinionUpgradeButtons() {
     }
 
     public void getBestMinionSettings() {
-        long startTime = PartlySaneSkies.getTime();
-        double bestProfit = -Integer.MIN_VALUE;
+        double bestProfit = Integer.MIN_VALUE;
 
-        int availibleSlots = 2 - upgradeSlotsUnavailble;
-        if (availibleSlots < 0) {
-            availibleSlots = 0;
+        int availableSlots = 2 - upgradeSlotsUnavailable;
+        if (availableSlots < 0) {
+            availableSlots = 0;
         }
 
 
@@ -482,7 +481,7 @@ public HashMap<MinionData.Minion.Upgrade, PSSToggle> addMinionUpgradeButtons() {
                     }
 
                     MinionData.Minion.Upgrade[] testUpgrades = null;
-                    switch (availibleSlots) {
+                    switch (availableSlots) {
                         case 0:
                             testUpgrades = new MinionData.Minion.Upgrade[] {};
                             break;
@@ -515,7 +514,6 @@ public HashMap<MinionData.Minion.Upgrade, PSSToggle> addMinionUpgradeButtons() {
             }
         }
 
-        long endTime = PartlySaneSkies.getTime();
         resetFuels();
         if (bestMinionFuel != null) {
             changeFuel(bestMinionFuel.id, true);

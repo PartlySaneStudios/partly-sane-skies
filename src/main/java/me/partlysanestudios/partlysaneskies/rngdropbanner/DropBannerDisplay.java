@@ -27,7 +27,7 @@ public class DropBannerDisplay extends Gui {
     public DropBannerDisplay() {
     }
 
-    // Waits to detect the rarte drop
+    // Waits to detect the rare drop
     @SubscribeEvent
     public void onChatMessage(ClientChatReceivedEvent event) {
         String formattedMessage = event.message.getFormattedText();
@@ -39,14 +39,14 @@ public class DropBannerDisplay extends Gui {
             String unformattedMessage = event.message.getUnformattedText();
 
 
-            String name = "";
-            // Gets the name of teh drop category
+            String name;
+            // Gets the name of the drop category
             String dropCategory = unformattedMessage.substring(0, unformattedMessage.indexOf("! ") + 1);
 
             // Gets the colour of the drop category
             Color dropCategoryHex = Utils.colorCodetoColor.get(formattedMessage.substring(2, 4));
 
-            // // Finds the amount of  magic find from the message
+            // // Finds the amount of magic find from the message
             name = formattedMessage.substring(formattedMessage.indexOf("! ") + 2);
 
             DropBannerDisplay.drop = new Drop(name, dropCategory, 1, PartlySaneSkies.getTime(), dropCategoryHex);
@@ -82,9 +82,7 @@ public class DropBannerDisplay extends Gui {
 
     @SubscribeEvent
     public void renderText(RenderGameOverlayEvent.Text event) {
-
-        // Color nameColor = new Color(255, 255, 255);
-        Color categoryColor = new Color(255, 255, 255);
+        Color categoryColor;
 
         if (DropBannerDisplay.drop == null) {
             dropNameString = "";

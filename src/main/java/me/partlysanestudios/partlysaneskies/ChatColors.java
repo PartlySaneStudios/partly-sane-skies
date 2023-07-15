@@ -43,7 +43,7 @@ public class ChatColors {
             return;
         }
 
-        // If its a private message, return
+        // If its private message, return
         if (formattedMessage.startsWith("§dTo ") || formattedMessage.startsWith("§dFrom ")) {
             return;
         }

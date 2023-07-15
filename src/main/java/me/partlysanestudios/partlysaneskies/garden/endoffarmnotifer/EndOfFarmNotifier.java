@@ -38,8 +38,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-public class EndOfFarmNotfier {
-    public static ArrayList<Range3d> ranges = new ArrayList<Range3d>();
+public class EndOfFarmNotifier {
+    public static ArrayList<Range3d> ranges = new ArrayList<>();
     public static int[] selectedPos1;
     public static int[] selectedPos2;
     public static long lastChimeTime = 0;
@@ -48,7 +48,7 @@ public class EndOfFarmNotfier {
     public static Window window = new Window(ElementaVersion.V2);
     public static String displayString = "";
     public static int TEXT_SCALE = 7;
-    private static UIComponent displayText = new UIText(displayString)
+    private static final UIComponent displayText = new UIText(displayString)
             .setTextScale(new PixelConstraint(TEXT_SCALE))
             .setX(new CenterConstraint())
             .setY(new PixelConstraint(window.getHeight() * .2f))
@@ -148,7 +148,7 @@ public class EndOfFarmNotfier {
 
         JsonArray array = new JsonParser().parse(reader).getAsJsonArray();
 
-        ArrayList<Range3d> list = new ArrayList<Range3d> ();
+        ArrayList<Range3d> list = new ArrayList<>();
         
         for (JsonElement en : array) {
             JsonObject range = en.getAsJsonObject();
@@ -174,23 +174,23 @@ public class EndOfFarmNotfier {
         ranges = list;
     }
 
-    // Lists all of the ranges to the chat
+    // Lists all the ranges to the chat
     public static void listRanges() {
         // Creates header message
-        String message = "&d-----------------------------------------------------\n&bEnd of Farms:" +
-                "\n&d-----------------------------------------------------\n";
+        StringBuilder message = new StringBuilder("&d-----------------------------------------------------\n&bEnd of Farms:" +
+                "\n&d-----------------------------------------------------\n");
 
         // Creates the index number on the left of the message
         int i = 1;
         
         // For each alert, format it so its ##. [range] 
         for (Range3d range : ranges) {
-            message += "&6" + StringUtils.formatNumber(i) + "&7: " + range.toString()  + "\n";
+            message.append("&6").append(StringUtils.formatNumber(i)).append("&7: ").append(range.toString()).append("\n");
             i++;
         }
 
-        // Sends message to the client
-        Utils.sendClientMessage(message);
+        // Sends a message to the client
+        Utils.sendClientMessage(message.toString());
     }
 
     
@@ -201,7 +201,7 @@ public class EndOfFarmNotfier {
         if (color == null)
             color = Color.RED;
         else
-            color = new Color(color.getRed(), color.getGreen(), color.getBlue(), (short) alpha);
+            color = new Color(color.getRed(), color.getGreen(), color.getBlue(), alpha);
         float scaleFactor = (window.getWidth()) / 1075f;
         ((UIText) displayText)
                 .setText(displayString)

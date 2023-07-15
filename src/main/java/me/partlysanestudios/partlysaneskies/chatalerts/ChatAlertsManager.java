@@ -44,7 +44,7 @@ public class ChatAlertsManager {
         file.setWritable(true);
         Reader reader = Files.newBufferedReader(Paths.get(file.getPath()));
 
-        // Reads the file, and set it as the list
+        // Reads the file and set it as the list
         @SuppressWarnings("unchecked")
         ArrayList<String> list = (ArrayList<String>) new Gson().fromJson(reader, ArrayList.class);
         chatAlertsList = list;
@@ -102,7 +102,7 @@ public class ChatAlertsManager {
             i++;
         }
 
-        // Sends message to the client
+        // Sends a message to the client
         Utils.sendClientMessage(message.toString());
     }
 
@@ -127,7 +127,7 @@ public class ChatAlertsManager {
             Utils.sendClientMessage("&cChat Alerts was unable to save. Please try again.");
             e.printStackTrace();
         }
-        // Prints success message
+        // Prints a success message
         Utils.sendClientMessage("&bChat Alert number &d" + id + " &b(\"&d" + message + "&b\") was successfully removed.");
     }
 
@@ -152,7 +152,7 @@ public class ChatAlertsManager {
             }
         }
 
-        // If the message does not have ": " at the beginning
+        // If the message does not have ":" at the beginning
         if (beginMessageIndex == -1) {
             return;
         }
@@ -176,7 +176,7 @@ public class ChatAlertsManager {
                 continue;
             }
 
-            // Prohibits original message from being sent to the player
+            // Prohibits an original message from being sent to the player
             e.setCanceled(true);
 
             // Creates a new message that will be shown to the user
@@ -205,7 +205,7 @@ public class ChatAlertsManager {
                     .getSoundHandler()
                     .playSound(PositionedSoundRecord.create(new ResourceLocation("partlysaneskies", "flute_scale")));
 
-            // Shows message to user
+            // Shows a message to user
             Utils.sendClientMessage(messageBuilder.toString(), true);
 
             // Exists loop
@@ -214,7 +214,7 @@ public class ChatAlertsManager {
         
     }
 
-    // Retuns the amount of colour codes in a String
+    // Returns the number of colour codes in a String
     private static int numOfColorCodes(String str) {
         int i = 0;
 

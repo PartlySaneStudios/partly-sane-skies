@@ -34,7 +34,7 @@ public class CreateRangeCommand implements ICommand {
 
     @Override
     public List<String> getCommandAliases() {
-        return new ArrayList<String>();
+        return new ArrayList<>();
     }
 
     @Override
@@ -44,10 +44,10 @@ public class CreateRangeCommand implements ICommand {
             name = args[0];
         }
 
-        if (EndOfFarmNotfier.createNewRange(name) == null) {
-            Utils.sendClientMessage("&cUnable to create a new farm notifer. Make sure both &b//pos1&c and &b//pos2&c have been selected.");
+        if (EndOfFarmNotifier.createNewRange(name) == null) {
+            Utils.sendClientMessage("&cUnable to create a new farm notifier. Make sure both &b//pos1&c and &b//pos2&c have been selected.");
             return;
-        } ;
+        }
 
         Utils.sendClientMessage("&aCreated new Farm Notifier");
     }
@@ -59,7 +59,7 @@ public class CreateRangeCommand implements ICommand {
 
     @Override
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
-        return new ArrayList<String>();
+        return new ArrayList<>();
     }
 
     @Override

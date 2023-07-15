@@ -7,5 +7,5 @@
 package me.partlysanestudios.partlysaneskies.utils.requests;
 
 public interface RequestRunnable {
-    public void run(Request request);
+    void run(Request request);
 }

@@ -40,21 +40,21 @@ public class RangeCommand implements ICommand{
 
     @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
-        if (args.length == 0 || (args.length >= 1 && args[0].equalsIgnoreCase("list"))) {
+        if (args.length == 0 || args[0].equalsIgnoreCase("list")) {
 
-            Utils.sendClientMessage("&7To create a new farm notifer, run &b//pos1&7 at one end of your selection, then run &b//pos2&7 at the other end of your farm. Once the area has been selected, run &b//create&7.\n\n&b//farmnotifier&7 command:\n&b//fn remove <index>:&7 remove a given index from the list.\n&b//fn list:&7 lists all of the farm notifiers and their indexes");
+            Utils.sendClientMessage("&7To create a new farm notifier, run &b//pos1&7 at one end of your selection, then run &b//pos2&7 at the other end of your farm. Once the area has been selected, run &b//create&7.\n\n&b//farmnotifier&7 command:\n&b//fn remove <index>:&7 remove a given index from the list.\n&b//fn list:&7 lists all of the farm notifiers and their indexes");
 
-            EndOfFarmNotfier.listRanges();
+            EndOfFarmNotifier.listRanges();
             return;
         }
 
         if (args[0].equalsIgnoreCase("remove")) {
-            if (args.length <= 1) {
+            if (args.length == 1) {
                 Utils.sendClientMessage("&cError: Must provide an index to remove");
                 return;
             }
 
-            int i = 0;
+            int i;
             try{
                 i = Integer.parseInt(args[1]);
             } catch (NumberFormatException e) {
@@ -62,18 +62,17 @@ public class RangeCommand implements ICommand{
                 return;
             }
 
-            if (i > EndOfFarmNotfier.ranges.size()) {
+            if (i > EndOfFarmNotifier.ranges.size()) {
                 Utils.sendClientMessage("&cPlease select a valid index and try again.");
                 return;
             }
-            Utils.sendClientMessage("&aRemoving: &b" + EndOfFarmNotfier.ranges.get(i - 1).toString());
-            EndOfFarmNotfier.ranges.remove(i - 1);
+            Utils.sendClientMessage("&aRemoving: &b" + EndOfFarmNotifier.ranges.get(i - 1).toString());
+            EndOfFarmNotifier.ranges.remove(i - 1);
             try {
-                EndOfFarmNotfier.save();
+                EndOfFarmNotifier.save();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            return;
         }
     }
 
@@ -84,7 +83,7 @@ public class RangeCommand implements ICommand{
 
     @Override
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
-        return new ArrayList<String>();
+        return new ArrayList<>();
     }
 
     @Override

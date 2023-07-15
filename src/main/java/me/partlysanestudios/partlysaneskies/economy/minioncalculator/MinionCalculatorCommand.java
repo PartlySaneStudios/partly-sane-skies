@@ -32,13 +32,11 @@ public class MinionCalculatorCommand implements ICommand {
     @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         Utils.sendClientMessage("Opening Minion Calculator...");
-        new Thread(() -> {
-            PartlySaneSkies.minecraft.addScheduledTask(() -> {
-                // Code to test the minion classes
-                ProfitMinionCalculator calc = new ProfitMinionCalculator(ElementaVersion.V2);
-                PartlySaneSkies.minecraft.displayGuiScreen(calc);
-            });
-        }).start();
+        new Thread(() -> PartlySaneSkies.minecraft.addScheduledTask(() -> {
+            // Code to test the minion classes
+            ProfitMinionCalculator calc = new ProfitMinionCalculator(ElementaVersion.V2);
+            PartlySaneSkies.minecraft.displayGuiScreen(calc);
+        })).start();
 
     }
 
