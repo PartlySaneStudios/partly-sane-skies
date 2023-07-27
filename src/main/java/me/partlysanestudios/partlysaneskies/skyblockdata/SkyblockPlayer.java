@@ -7,6 +7,7 @@ import com.google.gson.JsonParser;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
+import me.partlysanestudios.partlysaneskies.utils.requests.PolyfrostUrsaMajorRequest;
 import me.partlysanestudios.partlysaneskies.utils.requests.Request;
 import me.partlysanestudios.partlysaneskies.utils.requests.RequestsManager;
 import net.minecraft.nbt.CompressedStreamTools;
@@ -134,15 +135,17 @@ public class SkyblockPlayer {
     }
 
     private void requestData() throws MalformedURLException {
-        String hypixelPlayerRequestURL = "https://api.hypixel.net/player?key=" + PartlySaneSkies.getAPIKey() + "&uuid=" + this.uuid;
-        RequestsManager.newRequest(new Request(hypixelPlayerRequestURL, request -> {
+        String hypixelPlayerRequestURL = "https://api.polyfrost.cc/ursa/v1/hypixel/player/" + this.uuid;
+        RequestsManager.newRequest(new PolyfrostUrsaMajorRequest(hypixelPlayerRequestURL, request -> {
+            Utils.visPrint(request.getResponse());
             this.playerHypixelJsonString = request.getResponse();
             this.playerHypixelJsonObject = new JsonParser().parse(this.playerHypixelJsonString).getAsJsonObject();
         }, false, false));
-        String profileRequestURL = "https://api.hypixel.net/skyblock/profiles?key=" + PartlySaneSkies.getAPIKey() + "&uuid=" + this.uuid;
+        String profileRequestURL = "https://api.polyfrost.cc/ursa/v1/hypixel/skyblock/profiles/" + this.uuid;
 
-        RequestsManager.newRequest(new Request(profileRequestURL, request -> {
+        RequestsManager.newRequest(new PolyfrostUrsaMajorRequest(profileRequestURL, request -> {
             this.playerSkyblockJsonString = request.getResponse();
+            Utils.visPrint(request.getResponse());
 
             this.playerSkyblockJsonObject = new JsonParser().parse(this.playerSkyblockJsonString).getAsJsonObject();
             this.selectedProfileUUID = playerSkyblockJsonObject.getAsJsonArray("profiles").get(0).getAsJsonObject().get("profile_id").getAsString();
