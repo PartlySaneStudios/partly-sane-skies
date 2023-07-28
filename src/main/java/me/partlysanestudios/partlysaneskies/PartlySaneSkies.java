@@ -29,7 +29,6 @@ import java.util.List;
 
 import me.partlysanestudios.partlysaneskies.economy.minioncalculator.MinionCalculatorCommand;
 import me.partlysanestudios.partlysaneskies.economy.minioncalculator.MinionData;
-import me.partlysanestudios.partlysaneskies.garden.MathematicalHoeRightClicks;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import gg.essential.elementa.ElementaVersion;
 import me.partlysanestudios.partlysaneskies.auctionhouse.AhManager;
@@ -46,6 +45,8 @@ import me.partlysanestudios.partlysaneskies.garden.CompostValue;
 import me.partlysanestudios.partlysaneskies.garden.GardenTradeValue;
 import me.partlysanestudios.partlysaneskies.garden.SkymartValue;
 import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.*;
+import me.partlysanestudios.partlysaneskies.garden.MathematicalHoeRightClicks;
+import me.partlysanestudios.partlysaneskies.garden.MathematicalHoeRightClicksCommand;
 import me.partlysanestudios.partlysaneskies.help.ConfigCommand;
 import me.partlysanestudios.partlysaneskies.help.DiscordCommand;
 import me.partlysanestudios.partlysaneskies.help.HelpCommand;
@@ -220,6 +221,7 @@ public class PartlySaneSkies {
         ClientCommandHandler.instance.registerCommand(new Pos1Command());
         ClientCommandHandler.instance.registerCommand(new RangeCommand());
         ClientCommandHandler.instance.registerCommand(new MinionCalculatorCommand());
+        ClientCommandHandler.instance.registerCommand(new MathematicalHoeRightClicksCommand());
 
         // Initialises keybinds
         Keybinds.init();

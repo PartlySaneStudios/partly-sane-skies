@@ -4,17 +4,24 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
+import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.requests.Request;
 import me.partlysanestudios.partlysaneskies.utils.requests.RequestsManager;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.IChatComponent;
+import net.minecraft.event.ClickEvent;
+import net.minecraft.event.ClickEvent.Action;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class MathematicalHoeRightClicks {
 
+    public static long lastMessageSendTime = 0;
+    public static long lastAllowHoeRightClickTime = 0;
 
     private static ArrayList<String> hoes;
     public static void loadHoes() {
@@ -58,14 +65,22 @@ public class MathematicalHoeRightClicks {
             return;
         }
 
+        if (Utils.onCooldown(lastAllowHoeRightClickTime, (long) (PartlySaneSkies.config.allowRightClickTime * 60L * 1000L))) {
+            return;
+        }
+
         if (!isHoldingHoe()) {
             return;
         }
 
 
+        if (!Utils.onCooldown(lastMessageSendTime, 3000)) {
+            IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + StringUtils.colorCodes("&8Right Clicks are disabled while holding a Mathematical Hoe\n&dClick this message or run /allowhoerightclick to allow right clicks for " + PartlySaneSkies.config.allowRightClickTime + " minutes."));
+            message.getChatStyle().setChatClickEvent(new ClickEvent(Action.RUN_COMMAND, "/allowhoerightclick"));
+            PartlySaneSkies.minecraft.ingameGUI.getChatGUI().printChatMessage(message);
+            lastMessageSendTime = PartlySaneSkies.getTime();
+        }
 
-        Utils.sendClientMessage("&8Right Clicks are disabled while holding a Mathematical Hoe");
         event.setCanceled(true);
-
     }
 }
