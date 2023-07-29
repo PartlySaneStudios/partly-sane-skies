@@ -578,7 +578,7 @@ public class OneConfigScreen extends Config {
         max = 15, 
         subcategory = "Hoes", 
         name = "Allow Time", 
-        description = "The amount of minutes the hoe will be allowed to be used for.", 
+        description = "The amount of minutes the hoe will be allowed to be used for, using /allowhoerightclick.", 
         category = "Farming"
     )
     public float allowRightClickTime = 3f;
