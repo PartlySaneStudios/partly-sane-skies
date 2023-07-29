@@ -13,6 +13,7 @@ import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.WikiArticleOpener;
+import me.partlysanestudios.partlysaneskies.system.ThemeManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.client.resources.IResource;
@@ -243,7 +244,7 @@ public class Utils {
     }
 
     public static void applyBackground(UIComponent component) {
-        UIImage image = (UIImage) Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies", "textures/gui/base_color_background.png"))
+        UIImage image = (UIImage) ThemeManager.getCurrentBackgroundUIImage()
                 .setX(new CenterConstraint())
                 .setY(new CenterConstraint())
                 .setWidth(new PixelConstraint(component.getWidth()))

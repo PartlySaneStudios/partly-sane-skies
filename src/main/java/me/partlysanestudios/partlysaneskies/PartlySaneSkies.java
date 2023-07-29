@@ -32,7 +32,7 @@ import me.partlysanestudios.partlysaneskies.economy.minioncalculator.MinionData;
 import me.partlysanestudios.partlysaneskies.garden.MathematicalHoeRightClicks;
 import me.partlysanestudios.partlysaneskies.system.Keybinds;
 import me.partlysanestudios.partlysaneskies.system.OneConfigScreen;
-import me.partlysanestudios.partlysaneskies.utils.ImageUtils;
+import me.partlysanestudios.partlysaneskies.system.ThemeManager;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import gg.essential.elementa.ElementaVersion;
 import me.partlysanestudios.partlysaneskies.auctionhouse.AhManager;
@@ -115,13 +115,6 @@ public class PartlySaneSkies {
 
     private static LocationBannerDisplay locationBannerDisplay;
 
-
-
-    public static final Color BASE_DARK_COLOR = new Color(32, 33, 36);
-    public static final Color BASE_COLOR = new Color(42, 43, 46);
-    public static final Color BASE_LIGHT_COLOR = new Color(85, 85, 88);
-    public static final Color ACCENT_COLOR = new Color(1, 255, 255);
-    public static final Color DARK_ACCENT_COLOR = new Color(1, 122, 122);
     private static String API_KEY;
 
 
@@ -272,7 +265,17 @@ public class PartlySaneSkies {
             }
         }).start();
 
-        
+
+        try {
+            for (ThemeManager.Theme theme : ThemeManager.defaultThemes) {
+                ThemeManager.getBackgroundWithColor(theme.getPrimaryColor(), theme.getSecondaryColor(), theme.getDefaultAccentColor());
+                ThemeManager.getButtonWithColor(theme.getPrimaryColor(), theme.getSecondaryColor(), theme.getDefaultAccentColor());
+                ThemeManager.getToggleWithColor(theme.getPrimaryColor(), theme.getSecondaryColor(), theme.getDefaultAccentColor());
+            }
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         // Finished loading
         Utils.log(Level.INFO,"Partly Sane Skies has loaded.");
@@ -303,6 +306,7 @@ public class PartlySaneSkies {
 
         EndOfFarmNotifier.run();
         config.resetBrokenStrings();
+        ThemeManager.run();
     }
 
     // Runs when the chat message starts with "Your new API key is"

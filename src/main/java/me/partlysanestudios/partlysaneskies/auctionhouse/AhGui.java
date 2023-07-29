@@ -17,6 +17,7 @@ import gg.essential.elementa.components.UIWrappedText;
 import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
+import me.partlysanestudios.partlysaneskies.system.ThemeManager;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import me.partlysanestudios.partlysaneskies.system.guicomponents.PSSButton;
@@ -155,7 +156,7 @@ public class AhGui extends WindowScreen {
                     .setY(new CenterConstraint())
                     .setWidth(widthScaledConstraint(2))
                     .setHeight(widthScaledConstraint(25))
-                    .setColor(PartlySaneSkies.DARK_ACCENT_COLOR)
+                    .setColor(ThemeManager.getDarkAccentColor())
                     .setChildOf(topBar);
         }
 
@@ -248,7 +249,7 @@ public class AhGui extends WindowScreen {
             }
             
             if (iteratorId == i/9) {
-                icon.setColor(Utils.applyOpacityToColor(PartlySaneSkies.ACCENT_COLOR, 75));
+                icon.setColor(Utils.applyOpacityToColor(ThemeManager.getAccentColor(), 75));
             }
         }
 
@@ -262,7 +263,7 @@ public class AhGui extends WindowScreen {
                     .setY(new CenterConstraint())
                     .setWidth(widthScaledConstraint(2))
                     .setHeight(widthScaledConstraint(25))
-                    .setColor(PartlySaneSkies.DARK_ACCENT_COLOR)
+                    .setColor(ThemeManager.getDarkAccentColor())
                     .setChildOf(bottomBar);
         }
 
@@ -555,7 +556,7 @@ public class AhGui extends WindowScreen {
 
         try {
             if (auction.shouldHighlight()) {
-                box.setColor(PartlySaneSkies.ACCENT_COLOR);
+                box.setColor(ThemeManager.getAccentColor());
                 UIComponent highlightBox = new UIBlock()
                     .setX(new CenterConstraint())
                     .setY(new CenterConstraint())

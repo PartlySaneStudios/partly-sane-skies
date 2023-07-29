@@ -9,6 +9,7 @@ import gg.essential.elementa.constraints.XConstraint;
 import gg.essential.elementa.constraints.YConstraint;
 import gg.essential.elementa.events.UIClickEvent;
 import gg.essential.elementa.utils.ObservableList;
+import me.partlysanestudios.partlysaneskies.system.ThemeManager;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.util.ResourceLocation;
 
@@ -35,7 +36,7 @@ public class PSSToggle {
         this.backgroundBlock = (UIBlock) new UIBlock()
                 .setColor(new Color(0, 0,0,0));
 
-        this.buttonTexture = (UIImage) Utils.uiimageFromResourceLocation(UNSELECTED_IMAGE_PATH)
+        this.buttonTexture = (UIImage) ThemeManager.getCurrentToggleUIImage(false)
                 .setChildOf(backgroundBlock);
 
         this.buttonTexture.onMouseClickConsumer(s -> {
@@ -60,7 +61,7 @@ public class PSSToggle {
         backgroundBlock.removeChild(buttonTexture);
 
         if (this.isSelected) {
-            this.buttonTexture = (UIImage) Utils.uiimageFromResourceLocation(SELECTED_IMAGE_PATH)
+            this.buttonTexture = (UIImage) ThemeManager.getCurrentToggleUIImage(true)
                     .setWidth(new PixelConstraint(this.width))
                     .setHeight(new PixelConstraint(this.height))
                     .setX(new CenterConstraint())
@@ -68,7 +69,7 @@ public class PSSToggle {
                     .setChildOf(this.backgroundBlock);
         }
         else {
-            this.buttonTexture = (UIImage) Utils.uiimageFromResourceLocation(UNSELECTED_IMAGE_PATH)
+            this.buttonTexture = (UIImage) ThemeManager.getCurrentToggleUIImage(false)
                     .setWidth(new PixelConstraint(this.width))
                     .setHeight(new PixelConstraint(this.height))
                     .setX(new CenterConstraint())

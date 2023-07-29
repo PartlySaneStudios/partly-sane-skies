@@ -17,6 +17,7 @@ import gg.essential.elementa.constraints.PixelConstraint;
 import gg.essential.elementa.constraints.ScaleConstraint;
 import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
+import me.partlysanestudios.partlysaneskies.system.ThemeManager;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import me.partlysanestudios.partlysaneskies.system.guicomponents.PSSButton;
 
@@ -36,7 +37,7 @@ public class PartyManagerGui extends WindowScreen {
             .setColor(new Color(0, 0, 0, 0));
 
     // Creates the scrollable list
-    UIComponent list = new ScrollComponent("", 0f, PartlySaneSkies.BASE_LIGHT_COLOR, false, true, false, false, 15f, 1f, null)
+    UIComponent list = new ScrollComponent("", 0f, ThemeManager.getPrimaryColor(), false, true, false, false, 15f, 1f, null)
             .setWidth(new PixelConstraint(background.getWidth()))
             .setHeight(new PixelConstraint(background.getHeight()))
             .setChildOf(background);

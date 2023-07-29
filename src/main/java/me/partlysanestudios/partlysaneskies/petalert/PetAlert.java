@@ -20,6 +20,7 @@ import gg.essential.elementa.constraints.PixelConstraint;
 import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.auctionhouse.AhGui;
+import me.partlysanestudios.partlysaneskies.system.ThemeManager;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.audio.PositionedSoundRecord;
@@ -222,7 +223,7 @@ public class PetAlert {
             .setColor(new Color(0, 0, 0, 0))
             .setChildOf(window);
 
-    UIComponent image = Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies", "textures/gui/base_color_background.png"))
+    UIComponent image = ThemeManager.getCurrentBackgroundUIImage()
             .setChildOf(box);
 
     UIWrappedText textComponent = (UIWrappedText) new UIWrappedText("", true, null, true)

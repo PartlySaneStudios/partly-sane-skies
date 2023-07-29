@@ -28,6 +28,7 @@ import gg.essential.elementa.components.UIText;
 import gg.essential.elementa.components.UIWrappedText;
 import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
+import me.partlysanestudios.partlysaneskies.system.ThemeManager;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import me.partlysanestudios.partlysaneskies.system.requests.Request;
@@ -151,7 +152,7 @@ public class CustomMainMenu extends WindowScreen {
                 .setY(new CenterConstraint())
                 .setHeight(new PixelConstraint(middleMenu.getHeight()))
                 .setWidth(new PixelConstraint(2 * scaleFactor))
-                .setColor(PartlySaneSkies.ACCENT_COLOR)
+                .setColor(ThemeManager.getAccentColor())
                 .setChildOf(middleMenu);
 
         middleRightBar = new UIBlock()
@@ -159,7 +160,7 @@ public class CustomMainMenu extends WindowScreen {
                 .setY(new CenterConstraint())
                 .setHeight(new PixelConstraint(middleMenu.getHeight()))
                 .setWidth(new PixelConstraint(2 * scaleFactor))
-                .setColor(PartlySaneSkies.ACCENT_COLOR)
+                .setColor(ThemeManager.getAccentColor())
                 .setChildOf(middleMenu);
 
         float titleHeight = 75;
@@ -277,7 +278,7 @@ public class CustomMainMenu extends WindowScreen {
                 .setY(new PixelConstraint(400f * scaleFactor))
                 .setHeight(new PixelConstraint(1 * scaleFactor))
                 .setWidth(new PixelConstraint(middleMenu.getWidth() * .90f))
-                .setColor(PartlySaneSkies.ACCENT_COLOR)
+                .setColor(ThemeManager.getAccentColor())
                 .setChildOf(middleMenu);
 
         pssOptionsButton = new UIBlock()

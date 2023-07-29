@@ -12,6 +12,7 @@ import java.util.List;
 import gg.essential.elementa.UIComponent;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.skyblockdata.SkyblockDataManager;
+import me.partlysanestudios.partlysaneskies.system.ThemeManager;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.item.ItemStack;
@@ -227,7 +228,7 @@ public class Auction {
                 return new Color(255, 85, 85);
             
             default:
-                return PartlySaneSkies.BASE_LIGHT_COLOR;
+                return ThemeManager.getPrimaryColor();
         }
     }
 
