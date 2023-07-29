@@ -34,7 +34,7 @@ public class MathematicalHoeRightClicksCommand implements ICommand {
 
     @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
-        Utils.sendClientMessage("&dAllow rightclick has been enabled for " +  PartlySaneSkies.config.allowRightClickTime + " minutes.");
+        Utils.sendClientMessage("&dThe ability to right-click with a hoe has been enabled for " + PartlySaneSkies.config.allowRightClickTime + " minutes.");
         MathematicalHoeRightClicks.lastAllowHoeRightClickTime = PartlySaneSkies.getTime();
     }
 
