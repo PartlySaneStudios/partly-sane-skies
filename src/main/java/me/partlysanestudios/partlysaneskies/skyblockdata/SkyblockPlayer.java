@@ -137,7 +137,6 @@ public class SkyblockPlayer {
     private void requestData() throws MalformedURLException {
         String hypixelPlayerRequestURL = "https://api.polyfrost.cc/ursa/v1/hypixel/player/" + this.uuid;
         RequestsManager.newRequest(new PolyfrostUrsaMajorRequest(hypixelPlayerRequestURL, request -> {
-            Utils.visPrint(request.getResponse());
             this.playerHypixelJsonString = request.getResponse();
             this.playerHypixelJsonObject = new JsonParser().parse(this.playerHypixelJsonString).getAsJsonObject();
         }, false, false));
@@ -145,7 +144,6 @@ public class SkyblockPlayer {
 
         RequestsManager.newRequest(new PolyfrostUrsaMajorRequest(profileRequestURL, request -> {
             this.playerSkyblockJsonString = request.getResponse();
-            Utils.visPrint(request.getResponse());
 
             this.playerSkyblockJsonObject = new JsonParser().parse(this.playerSkyblockJsonString).getAsJsonObject();
             this.selectedProfileUUID = playerSkyblockJsonObject.getAsJsonArray("profiles").get(0).getAsJsonObject().get("profile_id").getAsString();

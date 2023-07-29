@@ -29,7 +29,7 @@ public class PolyfrostUrsaMajorRequest extends Request {
     private static String serverId;
 
     // The JsonObject that contains the JSON response
-    private JsonObject requestResponse;
+    private String requestResponse;
 
     public PolyfrostUrsaMajorRequest(URL url, RequestRunnable function, boolean inMainThread, boolean executeOnNextFrame) {
         super(url, function, inMainThread, executeOnNextFrame);
@@ -54,26 +54,41 @@ public class PolyfrostUrsaMajorRequest extends Request {
 
         if (connection == null) return; // if connection is null (something bad happened), return null. you probably want null checks in your code
         try (InputStreamReader input = new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8)) {
-            Utils.visPrint(input);
-            JsonElement element = JsonUtils.parseString(IOUtils.toString(input));
+            String str = IOUtils.toString(input);
             if (username != null && serverId != null) { // if we passed username and serverid, we need to get the token and expiry to use in future requests
                 token = connection.getHeaderField("x-ursa-token"); // get the token and expiry from the headers
                 expiry = calculateExpiry(connection.getHeaderField("x-ursa-expires"));
                 username = null; // reset username and serverid
                 serverId = null;
             }
-            if (element == null || !element.isJsonObject()) { // if the element is null or not a json object, return null
+            if (str == null) { // if the element is null or not a json object, return null
                 return;
             }
 
-            this.requestResponse = element.getAsJsonObject();
+
+            this.requestResponse = str;
         } catch (IOException e) {
-            Utils.visPrint("IOException");
+            Utils.sendClientMessage("IOException: Contact PSS admins with your logs");
             e.printStackTrace();
-            Utils.visPrint(e.getMessage());
-            Utils.visPrint(e.getLocalizedMessage());
+            Utils.sendClientMessage(e.getMessage());
+            Utils.sendClientMessage(e.getLocalizedMessage());
             return; // if something bad happened, return null
         }
+
+        RequestRunnable whenFinished = super.getWhatToRunWhenFinished();
+
+        if (whenFinished == null) {
+            return;
+        }
+
+        // If supposed to run in the next frame, run in the next frame
+        if (super.isRunNextFrame()) {
+            PartlySaneSkies.minecraft.addScheduledTask(() -> whenFinished.run(this));
+            return;
+        }
+
+        // Runs on current thread
+        whenFinished.run(this);
     }
 
     private static HttpURLConnection setupConnection(URL url) {
@@ -95,13 +110,15 @@ public class PolyfrostUrsaMajorRequest extends Request {
                     connection.addRequestProperty("x-ursa-username", username);
                     connection.addRequestProperty("x-ursa-serverid", serverId);
                 } else {
-                    Utils.visPrint("expired");
                     return null;
                 }
             }
             return connection;
         } catch (IOException e) {
+            Utils.sendClientMessage("IOException: Contact PSS admins with your logs");
             e.printStackTrace();
+            Utils.sendClientMessage(e.getMessage());
+            Utils.sendClientMessage(e.getLocalizedMessage());
             return null;
         }
     }
@@ -115,7 +132,10 @@ public class PolyfrostUrsaMajorRequest extends Request {
             username = profile.getName(); // set the username and serverid - we will use these later and pass them to the server
             PolyfrostUrsaMajorRequest.serverId = serverId;
         } catch (AuthenticationException e) {
+            Utils.sendClientMessage("Authentication Exception: Contact PSS admins with your logs");
             e.printStackTrace();
+            Utils.sendClientMessage(e.getMessage());
+            Utils.sendClientMessage(e.getLocalizedMessage());
             return false;
         }
         return true;
@@ -137,6 +157,6 @@ public class PolyfrostUrsaMajorRequest extends Request {
         else if (!hasSucceeded()) {
             super.getErrorMessage();
         }
-        return new GsonBuilder().setPrettyPrinting().create().toJson(this.requestResponse);
+        return this.requestResponse;
     }
 }

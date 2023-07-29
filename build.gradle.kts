@@ -2,17 +2,18 @@ import xyz.deftu.gradle.utils.GameSide
 
 plugins {
     java
-    val dgtVersion = "1.10.4"
+    val dgtVersion = "1.18.4"
     id("xyz.deftu.gradle.tools") version(dgtVersion)
     id("xyz.deftu.gradle.tools.shadow") version(dgtVersion)
     id("xyz.deftu.gradle.tools.blossom") version(dgtVersion)
     id("xyz.deftu.gradle.tools.minecraft.loom") version(dgtVersion)
     id("xyz.deftu.gradle.tools.minecraft.releases") version(dgtVersion)
+    id("xyz.deftu.gradle.tools.github-publishing") version(dgtVersion)
 }
 
-deftu.useDevAuth()
+toolkit.useDevAuth()
 
-loomHelper {
+toolkitLoomHelper {
     useTweaker("cc.polyfrost.oneconfig.loader.stage0.LaunchWrapperTweaker")
     disableRunConfigs(GameSide.SERVER)
 }
@@ -35,17 +36,18 @@ dependencies {
     implementation(shade("cc.polyfrost:oneconfig-wrapper-launchwrapper:1.0.0-beta+")!!)
 }
 
-releases {
+toolkitReleases {
     if (file("changelogs/${modData.version}.md").exists()) {
         changelogFile.set(file("changelogs/${modData.version}.md"))
-    }
-    github {
-        owner.set("PartlySaneStudios")
-        repository.set("partly-sane-skies")
     }
     modrinth {
         projectId.set("jlWHBQtc")
     }
+}
+
+toolkitGitHubPublishing {
+    owner.set("PartlySaneStudios")
+    repository.set("partly-sane-skies")
 }
 
 blossom {
