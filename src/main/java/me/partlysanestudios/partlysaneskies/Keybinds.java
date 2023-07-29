@@ -12,6 +12,7 @@ import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManager;
 import me.partlysanestudios.partlysaneskies.help.HelpCommand;
 import me.partlysanestudios.partlysaneskies.petalert.PetAlert;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
+import me.partlysanestudios.partlysaneskies.garden.MathematicalHoeRightClicks;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.client.event.GuiScreenEvent.KeyboardInputEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -32,6 +33,8 @@ public final class Keybinds {
     public static KeyBinding storageKeybind;
     public static KeyBinding wikiKeybind;
     public static KeyBinding favouritePetKeybind;
+    public static KeyBinding allowHoeRightClickKeybind;
+
 
     public static void init() {
         // debugKey = registerKey("Debug", PSS_CATEGORY, Keyboard.KEY_F4);
@@ -44,7 +47,7 @@ public final class Keybinds {
         storageKeybind = registerKey("Open Storage Menu", PSS_CATEGORY, Keyboard.CHAR_NONE);
         wikiKeybind = registerKey("Open Wiki Article", PSS_CATEGORY, Keyboard.KEY_X);
         favouritePetKeybind = registerKey("Favourite Pet", PSS_CATEGORY, Keyboard.KEY_F);
-
+        allowHoeRightClickKeybind = registerKey("Allow Hoe Right Click", PSS_CATEGORY, Keyboard.CHAR_NONE);
     }
 
     private static KeyBinding registerKey(String name, String category, int keycode) {
@@ -105,6 +108,10 @@ public final class Keybinds {
         }
         if (storageKeybind.isPressed()) {
             PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/storage");
+        }
+        if(allowHoeRightClickKeybind.isPressed()) {
+            Utils.sendClientMessage("&dThe ability to right-click with a hoe has been enabled for " + PartlySaneSkies.config.allowRightClickTime + " minutes.");
+            MathematicalHoeRightClicks.lastAllowHoeRightClickTime = PartlySaneSkies.getTime();
         }
     }
 }
