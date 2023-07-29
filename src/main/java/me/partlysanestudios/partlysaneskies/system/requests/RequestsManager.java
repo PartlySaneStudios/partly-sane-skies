@@ -4,7 +4,7 @@
 //
 
 
-package me.partlysanestudios.partlysaneskies.utils.requests;
+package me.partlysanestudios.partlysaneskies.system.requests;
 
 import java.io.IOException;
 import java.util.LinkedList;

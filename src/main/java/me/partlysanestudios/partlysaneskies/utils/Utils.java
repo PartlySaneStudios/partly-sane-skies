@@ -243,7 +243,7 @@ public class Utils {
     }
 
     public static void applyBackground(UIComponent component) {
-        UIImage image = (UIImage) Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies:textures/gui/base_color_background.png"))
+        UIImage image = (UIImage) Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies", "textures/gui/base_color_background.png"))
                 .setX(new CenterConstraint())
                 .setY(new CenterConstraint())
                 .setWidth(new PixelConstraint(component.getWidth()))
@@ -282,6 +282,7 @@ public class Utils {
                 return null;
             }));
         } catch (NullPointerException | IOException exception) {
+
 
             return UIImage.ofResource("/assets/partlysaneskies/" + location.getResourcePath());
 //            return UIImage.ofResource("/assets/partlysaneskies/textures/null_texture.png");

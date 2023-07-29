@@ -3,7 +3,7 @@
 // See LICENSE for copyright and license notices.
 //
 
-package me.partlysanestudios.partlysaneskies.utils.guicomponents;
+package me.partlysanestudios.partlysaneskies.system.guicomponents;
 
 import java.awt.Color;
 import java.util.function.Consumer;
@@ -38,7 +38,7 @@ public class PSSButton {
         backgroundBlock = (UIBlock) new UIBlock()
             .setColor(new Color(0, 0, 0, 0));
         
-        buttonTexture = (UIImage) Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies:textures/gui/base_color_button.png"))
+        buttonTexture = (UIImage) Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies", "textures/gui/base_color_button.png"))
             .setChildOf(backgroundBlock);
 
         textComponent = (UIWrappedText) new UIWrappedText(text, false, new Color(0, 0, 0, 0), true)
@@ -54,7 +54,7 @@ public class PSSButton {
         this.backgroundBlock = (UIBlock) new UIBlock()
             .setColor(color);
     
-        this.buttonTexture = (UIImage) Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies:textures/gui/base_color_button_transparent.png"))
+        this.buttonTexture = (UIImage) Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies", "textures/gui/base_color_button_transparent.png"))
             .setChildOf(backgroundBlock);
 
         this.textComponent = (UIWrappedText) new UIWrappedText(text, false, new Color(0, 0, 0, 0), true)
@@ -113,7 +113,7 @@ public class PSSButton {
     public PSSButton setColor(Color color) {
         backgroundBlock.removeChild(buttonTexture);
 
-        buttonTexture = (UIImage) Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies:textures/gui/base_color_button_transparent.png"))
+        buttonTexture = (UIImage) Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies" , "textures/gui/base_color_button_transparent.png"))
             .setWidth(new PixelConstraint(this.width))
             .setHeight(new PixelConstraint(this.height))
             .setX(new CenterConstraint())
@@ -128,7 +128,7 @@ public class PSSButton {
     public PSSButton setDefaultColor() {
         backgroundBlock.removeChild(buttonTexture);
 
-        buttonTexture = (UIImage) Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies:textures/gui/base_color_button.png"))
+        buttonTexture = (UIImage) Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies", "textures/gui/base_color_button.png"))
             .setWidth(new PixelConstraint(this.width))
             .setHeight(new PixelConstraint(this.height))
             .setX(new CenterConstraint())

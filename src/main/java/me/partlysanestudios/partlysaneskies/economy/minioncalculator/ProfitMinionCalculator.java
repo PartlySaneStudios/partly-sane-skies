@@ -13,8 +13,8 @@ import me.partlysanestudios.partlysaneskies.skyblockdata.SkyblockDataManager;
 import me.partlysanestudios.partlysaneskies.skyblockdata.SkyblockItem;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
-import me.partlysanestudios.partlysaneskies.utils.guicomponents.PSSButton;
-import me.partlysanestudios.partlysaneskies.utils.guicomponents.PSSToggle;
+import me.partlysanestudios.partlysaneskies.system.guicomponents.PSSButton;
+import me.partlysanestudios.partlysaneskies.system.guicomponents.PSSToggle;
 import net.minecraft.util.ResourceLocation;
 
 import java.awt.*;
@@ -68,7 +68,7 @@ public class ProfitMinionCalculator extends WindowScreen {
                 .setColor(Color.red)
                 .setChildOf(getWindow());
 
-        this.backgroundImage = Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies:textures/gui/base_color_background.png"))
+        this.backgroundImage = Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies", "textures/gui/base_color_background.png"))
                 .setX(new CenterConstraint())
                 .setY(new CenterConstraint())
                 .setHeight(new PixelConstraint(backgroundBox.getHeight()))
@@ -101,14 +101,14 @@ public class ProfitMinionCalculator extends WindowScreen {
 
         float categoriesBarHeight = fromWidthScaleFactor(75).getValue();
         float categoriesBarPad = fromWidthScaleFactor(5).getValue();
-        this.categoriesBar = Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies:textures/gui/base_color_background.png"))
+        this.categoriesBar = Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies" ,"textures/gui/base_color_background.png"))
                 .setX(new CenterConstraint())
                 .setY(new PixelConstraint(backgroundBox.getTop() -(categoriesBarHeight + categoriesBarPad)))
                 .setWidth(new PixelConstraint(backgroundBox.getWidth()))
                 .setHeight(new PixelConstraint(categoriesBarHeight))
                 .setChildOf(getWindow());
 
-        this.bestMinionBar = Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies:textures/gui/base_color_background.png"))
+        this.bestMinionBar = Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies", "textures/gui/base_color_background.png"))
                 .setX(new CenterConstraint())
                 .setY(new PixelConstraint(backgroundBox.getBottom() + categoriesBarPad))
                 .setWidth(new PixelConstraint(backgroundBox.getWidth()/3f))

@@ -1,4 +1,4 @@
-package me.partlysanestudios.partlysaneskies.utils.guicomponents;
+package me.partlysanestudios.partlysaneskies.system.guicomponents;
 
 import gg.essential.elementa.UIComponent;
 import gg.essential.elementa.components.UIBlock;
@@ -16,8 +16,8 @@ import java.awt.*;
 import java.util.function.Consumer;
 
 public class PSSToggle {
-    static final ResourceLocation UNSELECTED_IMAGE_PATH = new ResourceLocation("partlysaneskies:textures/gui/unselected_toggle.png");
-    static final ResourceLocation SELECTED_IMAGE_PATH = new ResourceLocation("partlysaneskies:textures/gui/selected_toggle.png");
+    static final ResourceLocation UNSELECTED_IMAGE_PATH = new ResourceLocation("partlysaneskies" , "textures/gui/unselected_toggle.png");
+    static final ResourceLocation SELECTED_IMAGE_PATH = new ResourceLocation("partlysaneskies" , "textures/gui/selected_toggle.png");
 
     float width;
     float height;

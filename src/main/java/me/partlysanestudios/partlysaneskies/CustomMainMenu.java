@@ -30,7 +30,7 @@ import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
-import me.partlysanestudios.partlysaneskies.utils.requests.Request;
+import me.partlysanestudios.partlysaneskies.system.requests.Request;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.gui.GuiMultiplayer;
@@ -118,18 +118,18 @@ public class CustomMainMenu extends WindowScreen {
         String image;
 
         if (PartlySaneSkies.config.customMainMenuImage == 0) {
-            image = "partlysaneskies:textures/gui/main_menu/" + imageIdMap.get(Utils.randint(1, imageIdMap.size()));
+            image = "textures/gui/main_menu/" + imageIdMap.get(Utils.randint(1, imageIdMap.size()));
         } else
-            image = "partlysaneskies:textures/gui/main_menu/" + imageIdMap.get(PartlySaneSkies.config.customMainMenuImage);
+            image = "textures/gui/main_menu/" + imageIdMap.get(PartlySaneSkies.config.customMainMenuImage);
 
         if (PartlySaneSkies.config.customMainMenuImage == 7) {
             background = UIImage.ofFile(new File("./config/partly-sane-skies/background.png"));
         }
         else{
-            background = Utils.uiimageFromResourceLocation(new ResourceLocation(image));
+            background = Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies", image));
         }
-        
-        
+
+
         background
                 .setX(new CenterConstraint())
                 .setY(new CenterConstraint())
@@ -165,7 +165,7 @@ public class CustomMainMenu extends WindowScreen {
         float titleHeight = 75;
         float titleWidth = titleHeight * (928f / 124);
 
-        titleImage = Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies:textures/gui/main_menu/title_text.png"))
+        titleImage = Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies", "textures/gui/main_menu/title_text.png"))
                 .setX(new CenterConstraint())
                 .setY(new PixelConstraint(50 * scaleFactor))
                 .setHeight(new PixelConstraint(titleHeight * scaleFactor))

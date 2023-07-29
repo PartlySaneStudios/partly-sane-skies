@@ -4,7 +4,7 @@
 //
 
 
-package me.partlysanestudios.partlysaneskies.utils.requests;
+package me.partlysanestudios.partlysaneskies.system.requests;
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.utils.Utils;

@@ -233,7 +233,7 @@ public class GardenTradeValue {
             .setColor(new Color(0, 0, 0, 0))
             .setChildOf(window);
     
-    UIImage image = (UIImage) Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies:textures/gui/base_color_background.png"))
+    UIImage image = (UIImage) Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies", "textures/gui/base_color_background.png"))
         .setChildOf(box);
     
     float pad = 5;

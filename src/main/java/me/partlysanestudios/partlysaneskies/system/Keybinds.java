@@ -3,8 +3,10 @@
 // See LICENSE for copyright and license notices.
 //
 
-package me.partlysanestudios.partlysaneskies;
+package me.partlysanestudios.partlysaneskies.system;
 
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
+import me.partlysanestudios.partlysaneskies.WikiArticleOpener;
 import org.lwjgl.input.Keyboard;
 
 import me.partlysanestudios.partlysaneskies.auctionhouse.AhGui;

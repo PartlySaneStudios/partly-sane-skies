@@ -2,8 +2,8 @@ package me.partlysanestudios.partlysaneskies.skyblockdata;
 
 import com.google.gson.*;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
-import me.partlysanestudios.partlysaneskies.utils.requests.Request;
-import me.partlysanestudios.partlysaneskies.utils.requests.RequestsManager;
+import me.partlysanestudios.partlysaneskies.system.requests.Request;
+import me.partlysanestudios.partlysaneskies.system.requests.RequestsManager;
 
 import java.io.IOException;
 import java.net.MalformedURLException;

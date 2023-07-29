@@ -19,8 +19,8 @@ import gg.essential.elementa.constraints.PixelConstraint;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
-import me.partlysanestudios.partlysaneskies.utils.guicomponents.PSSButton;
-import me.partlysanestudios.partlysaneskies.utils.guicomponents.PSSItemRender;
+import me.partlysanestudios.partlysaneskies.system.guicomponents.PSSButton;
+import me.partlysanestudios.partlysaneskies.system.guicomponents.PSSItemRender;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -220,7 +220,7 @@ public class AhGui extends WindowScreen {
                 imagePath = topBarFurfSkyImagePaths[i/9];
             }
 
-            Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies:" + imagePath))
+            Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies", imagePath))
                 .setX(new CenterConstraint())
                 .setY(new CenterConstraint())
                 .setWidth(widthScaledConstraint(30))
@@ -415,7 +415,7 @@ public class AhGui extends WindowScreen {
                 imagePath = imagePath.replace("all", binImageName);
             }
 
-            Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies:" + imagePath))
+            Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies", imagePath))
                 .setX(new CenterConstraint())
                 .setY(new CenterConstraint())
                 .setWidth(widthScaledConstraint(30))
