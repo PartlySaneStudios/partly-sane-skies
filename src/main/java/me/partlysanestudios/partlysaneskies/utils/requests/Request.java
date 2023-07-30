@@ -82,7 +82,7 @@ public class Request {
             return "Error: {NO_RESPONSE}";
         }
         else if (this.intResponseCode != HttpURLConnection.HTTP_OK) {
-            return "Error: " + this.stringResponseCode + ":" + this.intResponseCode;
+            getErrorMessage();
         }
         return this.requestResponse;
     }
@@ -104,6 +104,10 @@ public class Request {
         this.otherFailure = true;
     }
 
+    public String getErrorMessage() {
+        return "Error: " + this.stringResponseCode + ":" + this.intResponseCode;
+    }
+
 
     public void setFailed() {
         this.otherFailure = true;
@@ -123,7 +127,7 @@ public class Request {
         // Opens a new connection with the url
         HttpURLConnection httpURLConnection = (HttpURLConnection) this.url.openConnection();
         // Sets the browser as Mozilla to bypass an insecure restrictions
-        httpURLConnection.setRequestProperty("User-Agent", "Mozilla/5.0");
+        httpURLConnection.setRequestProperty("User-Agent", "Partly-Sane-Skies/" + PartlySaneSkies.VERSION);
         // Gets the response code
         int responseCode = httpURLConnection.getResponseCode();
         this.intResponseCode = responseCode;
@@ -183,5 +187,9 @@ public class Request {
 
     public RequestRunnable getWhatToRunWhenFinished() {
         return whenFinished;
+    }
+
+    public URL getURL() {
+        return url;
     }
 }
