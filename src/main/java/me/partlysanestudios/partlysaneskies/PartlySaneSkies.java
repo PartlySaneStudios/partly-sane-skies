@@ -265,18 +265,6 @@ public class PartlySaneSkies {
             }
         }).start();
 
-
-        try {
-            for (ThemeManager.Theme theme : ThemeManager.defaultThemes) {
-                ThemeManager.getBackgroundWithColor(theme.getPrimaryColor(), theme.getSecondaryColor(), theme.getDefaultAccentColor());
-                ThemeManager.getButtonWithColor(theme.getPrimaryColor(), theme.getSecondaryColor(), theme.getDefaultAccentColor());
-                ThemeManager.getToggleWithColor(theme.getPrimaryColor(), theme.getSecondaryColor(), theme.getDefaultAccentColor());
-            }
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
         // Finished loading
         Utils.log(Level.INFO,"Partly Sane Skies has loaded.");
     }

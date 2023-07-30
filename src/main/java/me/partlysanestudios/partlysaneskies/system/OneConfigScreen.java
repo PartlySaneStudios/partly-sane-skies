@@ -736,7 +736,7 @@ public class OneConfigScreen extends Config {
         subcategory = "Auction House",
         category = "Economy"
     )
-    public OneColor BINSniperColor = new OneColor(ThemeManager.getAccentColor());
+    public OneColor BINSniperColor = new OneColor(1, 255, 255);
     // Execessive Coin warning
     @Switch(
         name = "Excessive Coin and No Booster Cookie", 

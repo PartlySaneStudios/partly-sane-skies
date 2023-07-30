@@ -3,6 +3,7 @@ package me.partlysanestudios.partlysaneskies.system;
 import cc.polyfrost.oneconfig.config.core.OneColor;
 import com.ibm.icu.text.MessagePattern;
 import gg.essential.elementa.components.UIImage;
+import gg.essential.universal.utils.ReleasedDynamicTexture;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.utils.ImageUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
@@ -10,6 +11,7 @@ import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.resources.IResource;
 import net.minecraft.util.ResourceLocation;
 
+import javax.swing.text.html.ImageView;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -17,19 +19,26 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 public class ThemeManager {
 
     private static final Color PRIMARY_DEBUG_COLOR = new Color(255, 0, 0);
     private static final Color SECONDARY_DEBUG_COLOR = new Color(0, 0, 255);
     private static final Color ACCENT_DEBUG_COLOR = new Color(0, 255, 0);
-    public static Theme[] defaultThemes = {
-            new Theme("Classic (Dark)",  new Color(85, 85, 88), new Color(42, 43, 46), new Color(1, 255, 255)),
-            new Theme("Royal Dark (Dark)", new Color(85, 85, 88), new Color(59, 51, 63), new Color(91, 192, 235)),
-            new Theme("Midnight Forest (Dark)", new Color(85, 85, 88),  new Color(60, 70, 58), new Color(35, 206, 107)),
+    private static String lastThemeName = "";
 
-            new Theme("Moonless Night (Very Dark)", new Color(34, 34, 37), new Color(25, 27, 30), new Color(8, 124, 167)),
-            new Theme("Stormy Night (Very Dark)", new Color(33, 33, 44), new Color(15, 15, 37), new Color(94, 74, 227)),
+    private static final ArrayList<UIImage> backgroundUIImages = new ArrayList<>();
+    private static final ArrayList<ButtonData> buttonDatas = new ArrayList<>();
+    private static final ArrayList<ToggleData> toggleDatas = new ArrayList<>();
+
+    public static Theme[] defaultThemes = {
+            new Theme("Classic (Dark)",  new Color(46, 47, 50), new Color(37, 38, 41), new Color(1, 255, 255)),
+            new Theme("Royal Dark (Dark)", new Color(46, 47, 50), new Color(39, 31, 43), new Color(91, 192, 235)),
+            new Theme("Midnight Forest (Dark)", new Color(46, 47, 50),  new Color(40, 50, 38), new Color(35, 206, 107)),
+
+            new Theme("Moonless Night (Very Dark)", new Color(24, 24, 27), new Color(15, 17, 20), new Color(8, 124, 167)),
+            new Theme("Stormy Night (Very Dark)", new Color(23, 23, 34), new Color(5, 5, 27), new Color(94, 74, 227)),
             new Theme("The Void (Very Dark)", new Color(14, 17, 21), new Color(5, 5, 12), new Color(113, 179, 64)),
 
             new Theme("Classic (Light)", new Color(245, 245, 245), new Color(213, 210, 195), new Color(42, 84, 209)),
@@ -50,20 +59,70 @@ public class ThemeManager {
             PartlySaneSkies.config.primaryColor = new OneColor(getPrimaryColor());
             PartlySaneSkies.config.secondaryColor = new OneColor(getSecondaryColor());
         }
+
+//        If the theme has changed
+        if (!lastThemeName.equals(defaultThemes[PartlySaneSkies.config.themeIndex].getName())) {
+            for (UIImage image : backgroundUIImages) {
+                try {
+                    image.applyTexture(new ReleasedDynamicTexture(ImageUtils.loadImage(getCurrentBackgroundFile().getPath())));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            for (ButtonData data : buttonDatas) {
+                try {
+                    Color color;
+                    if (data.getColor() == null) {
+                        color = getAccentColor();
+                    } else {
+                        color = data.getColor();
+                    }
+
+                    data.getImage().applyTexture(new ReleasedDynamicTexture(ImageUtils.loadImage(getCurrentButtonFile(color).getPath())));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            for (ToggleData data : toggleDatas) {
+                try {
+                    Color color;
+                    if (data.getColor() == null) {
+                        color = getAccentColor();
+                    } else {
+                        color = data.getColor();
+                    }
+
+                    data.getImage().applyTexture(new ReleasedDynamicTexture(ImageUtils.loadImage(getCurrentToggleFile(data.isSelected(), color).getPath())));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            lastThemeName = defaultThemes[PartlySaneSkies.config.themeIndex].getName();
+        }
+
+
     }
 
 
     public static UIImage getCurrentBackgroundUIImage() {
+        UIImage image;
         if (PartlySaneSkies.config.disableThemes) {
-            return Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies", "textures/gui/base_color_background.png"));
+            image = Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies", "textures/gui/base_color_background.png"));
 
         }
-
-        try {
-            return UIImage.ofFile(getCurrentBackgroundFile());
-        } catch (IOException e) {
-            return Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies", "textures/gui/base_color_background.png"));
+        else {
+            try {
+                image = UIImage.ofFile(getCurrentBackgroundFile());
+            } catch (IOException e) {
+                image = Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies", "textures/gui/base_color_background.png"));
+            }
         }
+
+        backgroundUIImages.add(image);
+        return image;
     }
 
     public static UIImage getCurrentButtonUIImage() {
@@ -71,23 +130,31 @@ public class ThemeManager {
     }
 
     public static UIImage getCurrentButtonUIImage(Color accentColor) {
+        UIImage image;
         if (PartlySaneSkies.config.disableThemes) {
             if (accentColor.equals(getAccentColor())) {
-                return Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies", "textures/gui/base_color_button.png"));
+                image = Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies", "textures/gui/base_color_button.png"));
             } else {
-                return Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies", "textures/gui/base_color_button_transparent.png"));
+                image = Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies", "textures/gui/base_color_button_transparent.png"));
+            }
+        } else {
+            try {
+                image = UIImage.ofFile(getCurrentButtonFile(accentColor));
+            } catch (IOException e) {
+                if (accentColor.equals(getAccentColor())) {
+                    image = Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies", "textures/gui/base_color_button.png"));
+                } else {
+                    image = Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies", "textures/gui/base_color_button_transparent.png"));
+                }
             }
         }
 
-        try {
-            return UIImage.ofFile(getCurrentButtonFile(accentColor));
-        } catch (IOException e) {
-            if (accentColor.equals(getAccentColor())) {
-                return Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies", "textures/gui/base_color_button.png"));
-            } else {
-                return Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies", "textures/gui/base_color_button_transparent.png"));
-            }
+        if (accentColor.equals(getAccentColor())) {
+            accentColor = null;
         }
+
+        buttonDatas.add(new ButtonData(image, accentColor));
+        return image;
     }
 
 
@@ -96,22 +163,30 @@ public class ThemeManager {
     }
 
     public static UIImage getCurrentToggleUIImage(boolean selected, Color accentColor) {
+        UIImage image;
         if (PartlySaneSkies.config.disableThemes) {
             if (selected) {
-                return Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies" , "textures/gui/selected_toggle.png"));
+                image = Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies" , "textures/gui/selected_toggle.png"));
             } else {
-                return Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies" , "textures/gui/unselected_toggle.png"));
+                image = Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies" , "textures/gui/unselected_toggle.png"));
             }
         }
         try {
-            return UIImage.ofFile(getCurrentToggleFile(selected, accentColor));
+            image = UIImage.ofFile(getCurrentToggleFile(selected, accentColor));
         } catch (IOException e) {
             if (selected) {
-                return Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies" , "textures/gui/selected_toggle.png"));
+                image = Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies" , "textures/gui/selected_toggle.png"));
             } else {
-                return Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies" , "textures/gui/unselected_toggle.png"));
+                image = Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies" , "textures/gui/unselected_toggle.png"));
             }
         }
+
+        if (accentColor.equals(getAccentColor())) {
+            accentColor = null;
+        }
+
+        toggleDatas.add(new ToggleData(image, selected, accentColor));
+        return image;
     }
 
     public static File getCurrentBackgroundFile() throws IOException {
@@ -139,7 +214,7 @@ public class ThemeManager {
     }
 
     public static Color getPrimaryColor() {
-        if (PartlySaneSkies.config.customTheme) {
+        if (!PartlySaneSkies.config.customTheme) {
             int themeIndex = PartlySaneSkies.config.themeIndex;
             return defaultThemes[themeIndex].getPrimaryColor();
         } else {
@@ -156,7 +231,7 @@ public class ThemeManager {
     }
 
     public static Color getSecondaryColor() {
-        if (PartlySaneSkies.config.customTheme) {
+        if (!PartlySaneSkies.config.customTheme) {
             int themeIndex = PartlySaneSkies.config.themeIndex;
             return defaultThemes[themeIndex].getSecondaryColor();
         } else {
@@ -310,6 +385,56 @@ public class ThemeManager {
 
 
         return filePath.toFile();
+    }
+
+    public static class ButtonData {
+        private final UIImage image;
+        private final Color color;
+        public ButtonData(UIImage image) {
+            this.image = image;
+            this.color = null;
+        }
+        public ButtonData(UIImage image, Color color) {
+            this.image = image;
+            this.color = color;
+        }
+
+        public UIImage getImage() {
+            return image;
+        }
+
+        public Color getColor() {
+            return color;
+        }
+    }
+
+    public static class ToggleData {
+        private final UIImage image;
+        private final Color color;
+        private final boolean selected;
+        public ToggleData(UIImage image, boolean selected) {
+            this.image = image;
+            this.color = null;
+            this.selected = selected;
+        }
+
+        public ToggleData(UIImage image, boolean selected, Color color) {
+            this.image = image;
+            this.color = color;
+            this.selected = selected;
+        }
+
+        public UIImage getImage() {
+            return image;
+        }
+
+        public Color getColor() {
+            return color;
+        }
+
+        public boolean isSelected() {
+            return selected;
+        }
     }
 
 
