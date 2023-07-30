@@ -1,3 +1,8 @@
+//
+// Written by Su386 and the Polyfrost Team.
+// See LICENSE for copyright and license notices.
+//
+
 package me.partlysanestudios.partlysaneskies.system.requests;
 
 import com.mojang.authlib.GameProfile;
@@ -17,7 +22,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.UUID;
 
-public class PolyfrostUrsaMajorRequest extends Request {
+public class PolyfrostUrsaMinorRequest extends Request {
     private static String token;
     private static Instant expiry;
     private static String username;
@@ -26,19 +31,19 @@ public class PolyfrostUrsaMajorRequest extends Request {
     // The JsonObject that contains the JSON response
     private String requestResponse;
 
-    public PolyfrostUrsaMajorRequest(URL url, RequestRunnable function, boolean inMainThread, boolean executeOnNextFrame) {
+    public PolyfrostUrsaMinorRequest(URL url, RequestRunnable function, boolean inMainThread, boolean executeOnNextFrame) {
         super(url, function, inMainThread, executeOnNextFrame);
     }
 
-    public PolyfrostUrsaMajorRequest(String url, RequestRunnable function, boolean inMainThread, boolean executeOnNextFrame) throws MalformedURLException {
+    public PolyfrostUrsaMinorRequest(String url, RequestRunnable function, boolean inMainThread, boolean executeOnNextFrame) throws MalformedURLException {
         super(url, function, inMainThread, executeOnNextFrame);
     }
 
-    public PolyfrostUrsaMajorRequest(URL url, RequestRunnable function) {
+    public PolyfrostUrsaMinorRequest(URL url, RequestRunnable function) {
         super(url, function);
     }
 
-    public PolyfrostUrsaMajorRequest(String url, RequestRunnable function) throws MalformedURLException {
+    public PolyfrostUrsaMinorRequest(String url, RequestRunnable function) throws MalformedURLException {
         super(url, function);
     }
 
@@ -125,7 +130,7 @@ public class PolyfrostUrsaMajorRequest extends Request {
             String token = Minecraft.getMinecraft().getSession().getToken(); // get the user's token
             Minecraft.getMinecraft().getSessionService().joinServer(profile, token, serverId); // authenticate with MC to confirm with the server that we are who we say we are and to prevent spam
             username = profile.getName(); // set the username and serverid - we will use these later and pass them to the server
-            PolyfrostUrsaMajorRequest.serverId = serverId;
+            PolyfrostUrsaMinorRequest.serverId = serverId;
         } catch (AuthenticationException e) {
             Utils.sendClientMessage("Authentication Exception: Contact PSS admins with your logs");
             e.printStackTrace();

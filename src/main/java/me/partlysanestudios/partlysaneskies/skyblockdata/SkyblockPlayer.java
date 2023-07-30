@@ -1,3 +1,8 @@
+//
+// Written by Su386.
+// See LICENSE for copyright and license notices.
+//
+
 package me.partlysanestudios.partlysaneskies.skyblockdata;
 
 import com.google.gson.JsonArray;
@@ -6,7 +11,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mojang.authlib.GameProfile;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
-import me.partlysanestudios.partlysaneskies.system.requests.PolyfrostUrsaMajorRequest;
+import me.partlysanestudios.partlysaneskies.system.requests.PolyfrostUrsaMinorRequest;
 import me.partlysanestudios.partlysaneskies.system.requests.Request;
 import me.partlysanestudios.partlysaneskies.system.requests.RequestsManager;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
@@ -144,13 +149,13 @@ public class SkyblockPlayer {
 
     private void requestData() throws MalformedURLException {
         String hypixelPlayerRequestURL = "https://api.polyfrost.cc/ursa/v1/hypixel/player/" + this.uuid;
-        RequestsManager.newRequest(new PolyfrostUrsaMajorRequest(hypixelPlayerRequestURL, request -> {
+        RequestsManager.newRequest(new PolyfrostUrsaMinorRequest(hypixelPlayerRequestURL, request -> {
             this.playerHypixelJsonString = request.getResponse();
             this.playerHypixelJsonObject = new JsonParser().parse(this.playerHypixelJsonString).getAsJsonObject();
         }, false, false));
         String profileRequestURL = "https://api.polyfrost.cc/ursa/v1/hypixel/skyblock/profiles/" + this.uuid;
 
-        RequestsManager.newRequest(new PolyfrostUrsaMajorRequest(profileRequestURL, request -> {
+        RequestsManager.newRequest(new PolyfrostUrsaMinorRequest(profileRequestURL, request -> {
             this.playerSkyblockJsonString = request.getResponse();
 
             this.playerSkyblockJsonObject = new JsonParser().parse(this.playerSkyblockJsonString).getAsJsonObject();
