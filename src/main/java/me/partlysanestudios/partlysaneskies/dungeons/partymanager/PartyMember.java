@@ -19,7 +19,7 @@ import me.partlysanestudios.partlysaneskies.skyblockdata.SkyblockDataManager;
 import me.partlysanestudios.partlysaneskies.skyblockdata.SkyblockPlayer;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
-import me.partlysanestudios.partlysaneskies.utils.guicomponents.PSSButton;
+import me.partlysanestudios.partlysaneskies.system.guicomponents.PSSButton;
 import net.minecraft.util.ResourceLocation;
 
 public class PartyMember {
@@ -484,7 +484,7 @@ public class PartyMember {
                 .setColor(new Color(60, 222, 79))
                 .setChildOf(memberBlock);
 
-        Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies:textures/gui/party_finder/refresh.png"))
+        Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies", "textures/gui/party_finder/refresh.png"))
                 .setX(new CenterConstraint())
                 .setY(new CenterConstraint())
                 .setWidth(new PixelConstraint(20f * scaleFactor))

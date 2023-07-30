@@ -4,8 +4,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
-import me.partlysanestudios.partlysaneskies.utils.requests.Request;
-import me.partlysanestudios.partlysaneskies.utils.requests.RequestsManager;
+import me.partlysanestudios.partlysaneskies.system.requests.Request;
+import me.partlysanestudios.partlysaneskies.system.requests.RequestsManager;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -31,7 +31,7 @@ public class MathematicalHoeRightClicks {
             }));
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
     public static boolean isHoldingHoe() {

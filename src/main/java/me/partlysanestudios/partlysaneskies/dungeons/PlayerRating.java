@@ -17,8 +17,8 @@ import com.google.gson.JsonParser;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
-import me.partlysanestudios.partlysaneskies.utils.requests.Request;
-import me.partlysanestudios.partlysaneskies.utils.requests.RequestsManager;
+import me.partlysanestudios.partlysaneskies.system.requests.Request;
+import me.partlysanestudios.partlysaneskies.system.requests.RequestsManager;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 

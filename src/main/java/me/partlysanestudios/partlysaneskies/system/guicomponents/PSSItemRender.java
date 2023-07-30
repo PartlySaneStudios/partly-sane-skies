@@ -3,7 +3,7 @@
 // See LICENSE for copyright and license notices.
 //
 
-package me.partlysanestudios.partlysaneskies.utils.guicomponents;
+package me.partlysanestudios.partlysaneskies.system.guicomponents;
 
 import gg.essential.elementa.UIComponent;
 import gg.essential.elementa.constraints.PixelConstraint;

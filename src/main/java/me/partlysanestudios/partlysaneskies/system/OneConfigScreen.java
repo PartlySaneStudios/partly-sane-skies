@@ -4,7 +4,7 @@
 //
 
 
-package me.partlysanestudios.partlysaneskies;
+package me.partlysanestudios.partlysaneskies.system;
 
 import cc.polyfrost.oneconfig.config.Config;
 import cc.polyfrost.oneconfig.config.annotations.*;
@@ -13,6 +13,7 @@ import cc.polyfrost.oneconfig.config.core.OneColor;
 import cc.polyfrost.oneconfig.config.data.InfoType;
 import cc.polyfrost.oneconfig.config.data.Mod;
 import cc.polyfrost.oneconfig.config.data.ModType;
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 
 public class OneConfigScreen extends Config {
 
@@ -218,6 +219,96 @@ public class OneConfigScreen extends Config {
         
     )
     public boolean printApiErrors = true;
+
+
+//    ------------------ Category: Themes ---------------------
+//    Themes
+    @Dropdown(
+            name = "Selected Theme",
+            category = "Themes",
+            subcategory = "Theme",
+            description = "Pick from one of our 9 custom designed themes",
+            options = {
+                    "Classic (Dark)",
+                    "Royal Dark (Dark)",
+                    "Midnight Forest (Dark)",
+
+                    "Moonless Night (Very Dark)",
+                    "Stormy Night (Very Dark)",
+                    "The Void (Very Dark)",
+
+                    "Classic (Light)",
+                    "Royal Light (Light)",
+                    "Partly Cloudy (Light)",
+
+                    "Waterfall (Colorful)",
+                    "Jungle (Colorful)",
+                    "Dunes (Colorful)"
+            }
+    )
+    public int themeIndex = 0;
+
+//    Accent Color
+    @Switch(
+            name = "Use default accent color",
+            description = "Uses the default Partly Sane Skies accent color",
+            category = "Themes",
+            subcategory = "Accent Color"
+    )
+    public boolean useDefaultAccentColor = true;
+
+    @Color(
+            name = "Custom Accent Color",
+            description = "Choose a custom accent color for your game",
+            category = "Themes",
+            subcategory = "Accent Color"
+    )
+    public OneColor accentColor = new OneColor(1, 255, 255, 255);
+
+//    Custom Themes
+    @Switch(
+            name = "Create your own Theme",
+            description = "Enable to be able to create your own custom themes",
+            category = "Themes",
+            subcategory = "Custom Themes"
+    )
+    public boolean customTheme = false;
+
+    @Color(
+            name = "Custom Primary Color",
+            description = "Choose a custom primary color for your game",
+            category = "Themes",
+            subcategory = "Custom Themes"
+    )
+    public OneColor primaryColor = new OneColor(42, 43, 46, 255);
+
+    @Color(
+            name = "Custom Secondary Color",
+            description = "Choose a custom secondary color for your game",
+            category = "Themes",
+            subcategory = "Custom Themes"
+    )
+    public OneColor secondaryColor = new OneColor(42, 43, 46, 255);
+
+
+//    Resource Packs
+    @Switch(
+            name = "Disable themes to use resource packs",
+            description = "Disable themes to be able to use resource packs to modify Partly Sane Skies menus",
+            category = "Themes",
+            subcategory = "Resource Packs"
+    )
+    public boolean disableThemes = false;
+
+
+
+
+
+
+
+
+
+
 
     // ----------------- Category: Skyblock -------------------
     // Rare Drop
@@ -627,7 +718,7 @@ public class OneConfigScreen extends Config {
         subcategory = "Auction House",
         description = "Use either the Partly Sane Studios developed textures, or the FurfSky Reborn developed textures\n\nAll of the textures under FurfSky Reborn are fully developed by the FurfSky Reborn team.\nhttps://furfsky.net/"
     )
-    public int customAhGuiTextures = 0;
+    public int customAhGuiTextures = 1;
 
     @Slider( 
         min = 0, 
@@ -645,7 +736,7 @@ public class OneConfigScreen extends Config {
         subcategory = "Auction House",
         category = "Economy"
     )
-    public OneColor BINSniperColor = new OneColor(PartlySaneSkies.ACCENT_COLOR);
+    public OneColor BINSniperColor = new OneColor(1, 255, 255);
     // Execessive Coin warning
     @Switch(
         name = "Excessive Coin and No Booster Cookie", 

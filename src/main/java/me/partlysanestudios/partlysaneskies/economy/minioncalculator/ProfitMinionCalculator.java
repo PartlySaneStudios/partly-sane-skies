@@ -11,10 +11,11 @@ import gg.essential.elementa.constraints.PixelConstraint;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.skyblockdata.SkyblockDataManager;
 import me.partlysanestudios.partlysaneskies.skyblockdata.SkyblockItem;
+import me.partlysanestudios.partlysaneskies.system.ThemeManager;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
-import me.partlysanestudios.partlysaneskies.utils.guicomponents.PSSButton;
-import me.partlysanestudios.partlysaneskies.utils.guicomponents.PSSToggle;
+import me.partlysanestudios.partlysaneskies.system.guicomponents.PSSButton;
+import me.partlysanestudios.partlysaneskies.system.guicomponents.PSSToggle;
 import net.minecraft.util.ResourceLocation;
 
 import java.awt.*;
@@ -68,7 +69,7 @@ public class ProfitMinionCalculator extends WindowScreen {
                 .setColor(Color.red)
                 .setChildOf(getWindow());
 
-        this.backgroundImage = Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies:textures/gui/base_color_background.png"))
+        this.backgroundImage = ThemeManager.getCurrentBackgroundUIImage()
                 .setX(new CenterConstraint())
                 .setY(new CenterConstraint())
                 .setHeight(new PixelConstraint(backgroundBox.getHeight()))
@@ -88,7 +89,7 @@ public class ProfitMinionCalculator extends WindowScreen {
                 .setY(new CenterConstraint())
                 .setHeight(new PixelConstraint(backgroundImage.getHeight() * .85f))
                 .setWidth(fromWidthScaleFactor(2f))
-                .setColor(PartlySaneSkies.ACCENT_COLOR)
+                .setColor(ThemeManager.getAccentColor())
                 .setChildOf(backgroundImage);
 
         this.rightBar = new UIBlock()
@@ -96,19 +97,19 @@ public class ProfitMinionCalculator extends WindowScreen {
                 .setY(new CenterConstraint())
                 .setHeight(new PixelConstraint(backgroundImage.getHeight() * .85f))
                 .setWidth(fromWidthScaleFactor(2f))
-                .setColor(PartlySaneSkies.ACCENT_COLOR)
+                .setColor(ThemeManager.getAccentColor())
                 .setChildOf(backgroundImage);
 
         float categoriesBarHeight = fromWidthScaleFactor(75).getValue();
         float categoriesBarPad = fromWidthScaleFactor(5).getValue();
-        this.categoriesBar = Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies:textures/gui/base_color_background.png"))
+        this.categoriesBar = ThemeManager.getCurrentBackgroundUIImage()
                 .setX(new CenterConstraint())
                 .setY(new PixelConstraint(backgroundBox.getTop() -(categoriesBarHeight + categoriesBarPad)))
                 .setWidth(new PixelConstraint(backgroundBox.getWidth()))
                 .setHeight(new PixelConstraint(categoriesBarHeight))
                 .setChildOf(getWindow());
 
-        this.bestMinionBar = Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies:textures/gui/base_color_background.png"))
+        this.bestMinionBar = ThemeManager.getCurrentBackgroundUIImage()
                 .setX(new CenterConstraint())
                 .setY(new PixelConstraint(backgroundBox.getBottom() + categoriesBarPad))
                 .setWidth(new PixelConstraint(backgroundBox.getWidth()/3f))
@@ -155,7 +156,7 @@ public class ProfitMinionCalculator extends WindowScreen {
                     .setY(new PixelConstraint(text.getHeight() + barOffset))
                     .setWidth(new PixelConstraint(rightBar.getLeft() - leftBar.getRight() - 2 * barNegation)) // set the width to the distance between the two bars with barNegation scale pixels of padding on either side
                     .setHeight(fromWidthScaleFactor(1f))
-                    .setColor(PartlySaneSkies.ACCENT_COLOR)
+                    .setColor(ThemeManager.getAccentColor())
                     .setChildOf(text);
 
             components.add(text);
