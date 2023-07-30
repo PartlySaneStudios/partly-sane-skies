@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.mojang.authlib.GameProfile;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
@@ -13,6 +14,8 @@ import me.partlysanestudios.partlysaneskies.utils.requests.RequestsManager;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.management.PlayerProfileCache;
 import org.apache.logging.log4j.Level;
 
 import java.io.ByteArrayInputStream;
@@ -85,12 +88,17 @@ public class SkyblockPlayer {
                         lock.notifyAll();
                     }
                 }
-                if (new JsonParser().parse(request.getResponse()).getAsJsonObject().get("id") == null) {
-                    synchronized (lock) {
-                        lock.notifyAll();
+                if (new JsonParser().parse(request.getResponse()).getAsJsonObject().get("id") == null || new JsonParser().parse(request.getResponse()).getAsJsonObject().get("id").getAsString().equals("<PROFILE ID>")) {
+                    if (getUUID(this.username) != null) {
+                        this.uuid = getUUID(this.username).toString();
                     }
+                    else {
+                        synchronized (lock) {
+                            lock.notifyAll();
+                        }
 
-                    throw new IllegalArgumentException("Player " + username + " is not registered in the Mojang API");
+                        throw new IllegalArgumentException("Player " + username + " is not registered in the Mojang API");
+                    }
                 }
                 this.uuid = new JsonParser().parse(request.getResponse()).getAsJsonObject().get("id").getAsString();
                 Utils.log(Level.INFO, "Created Player. Requesting Data");
@@ -325,6 +333,17 @@ public class SkyblockPlayer {
         }
 
     }
+
+    private static UUID getUUID(String username) {
+        MinecraftServer server = MinecraftServer.getServer();
+        PlayerProfileCache cache = server.getPlayerProfileCache();
+        GameProfile profile = cache.getGameProfileForUsername(username);
+        if (profile == null) {
+            return null;
+        }
+        return profile.getId();
+    }
+    
 
     public void refresh() {
         lastUpdateTime = 0;
