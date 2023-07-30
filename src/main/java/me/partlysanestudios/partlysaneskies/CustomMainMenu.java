@@ -86,8 +86,8 @@ public class CustomMainMenu extends WindowScreen {
     private UIComponent timeText;
     private UIComponent discordText;
 
-    private static ArrayList<Announcement> announcements;
-    public static String latestVersion;
+    private static ArrayList<Announcement> announcements = new ArrayList<>();
+    public static String latestVersion = "(Unknown)";
     // private static String latestVersionDate;
     // private static String latestVersionDescription;
 
