@@ -718,7 +718,7 @@ public class OneConfigScreen extends Config {
         subcategory = "Auction House",
         description = "Use either the Partly Sane Studios developed textures, or the FurfSky Reborn developed textures\n\nAll of the textures under FurfSky Reborn are fully developed by the FurfSky Reborn team.\nhttps://furfsky.net/"
     )
-    public int customAhGuiTextures = 0;
+    public int customAhGuiTextures = 1;
 
     @Slider( 
         min = 0, 
