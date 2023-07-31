@@ -203,16 +203,43 @@ public class SkyblockPlayer {
         JsonObject playerProfile = Utils.getJsonFromPath(selectedProfile, "members/" + uuid + "/").getAsJsonObject();
 
 
-        skyblockLevel = Utils.getJsonFromPath(playerProfile, "/leveling/experience") == null ? 0: Utils.getJsonFromPath(playerProfile, "/leveling/experience").getAsFloat()/100;
-        catacombsLevel = Utils.getJsonFromPath(playerProfile, "dungeons/dungeon_types/catacombs/experience") == null ? 0: catacombsLevelToExperience(Utils.getJsonFromPath(playerProfile, "dungeons/dungeon_types/catacombs/experience").getAsFloat());
-        combatLevel = Utils.getJsonFromPath(playerProfile, "experience_skill_combat") == null ? 0: SkyblockDataManager.getSkill("COMBAT").getLevelFromExperience(Utils.getJsonFromPath(playerProfile, "experience_skill_combat").getAsFloat());
-        miningLevel = Utils.getJsonFromPath(playerProfile, "experience_skill_mining") == null ? 0: SkyblockDataManager.getSkill("MINING").getLevelFromExperience(Utils.getJsonFromPath(playerProfile, "experience_skill_mining").getAsFloat());
-        foragingLevel = Utils.getJsonFromPath(playerProfile, "experience_skill_foraging") == null ? 0: SkyblockDataManager.getSkill("FORAGING").getLevelFromExperience(Utils.getJsonFromPath(playerProfile, "experience_skill_foraging").getAsFloat());
-        farmingLevel = Utils.getJsonFromPath(playerProfile, "experience_skill_farming") == null ? 0: SkyblockDataManager.getSkill("FARMING").getLevelFromExperience(Utils.getJsonFromPath(playerProfile, "experience_skill_farming").getAsFloat());
-        enchantingLevel = Utils.getJsonFromPath(playerProfile, "experience_skill_enchanting") == null ? 0: SkyblockDataManager.getSkill("ENCHANTING").getLevelFromExperience(Utils.getJsonFromPath(playerProfile, "experience_skill_enchanting").getAsFloat());
-        fishingLevel = Utils.getJsonFromPath(playerProfile, "experience_skill_fishing") == null ? 0: SkyblockDataManager.getSkill("FISHING").getLevelFromExperience(Utils.getJsonFromPath(playerProfile, "experience_skill_fishing").getAsFloat());
-        alchemyLevel = Utils.getJsonFromPath(playerProfile, "experience_skill_alchemy") == null ? 0: SkyblockDataManager.getSkill("ALCHEMY").getLevelFromExperience(Utils.getJsonFromPath(playerProfile, "experience_skill_alchemy").getAsFloat());
-        tamingLevel = Utils.getJsonFromPath(playerProfile, "experience_skill_taming") == null ? 0: SkyblockDataManager.getSkill("TAMING").getLevelFromExperience(Utils.getJsonFromPath(playerProfile, "experience_skill_taming").getAsFloat());
+        skyblockLevel = Utils.getJsonFromPath(playerProfile, "/leveling/experience") == null ? 0:
+                Utils.getJsonFromPath(playerProfile, "/leveling/experience").getAsFloat()/100;
+        catacombsLevel = Utils.getJsonFromPath(playerProfile, "dungeons/dungeon_types/catacombs/experience") == null ? 0:
+                catacombsLevelToExperience(
+                        Utils.getJsonFromPath(playerProfile, "dungeons/dungeon_types/catacombs/experience").getAsFloat());
+        combatLevel = Utils.getJsonFromPath(playerProfile, "experience_skill_combat") == null ? 0:
+                SkyblockDataManager.getSkill("COMBAT")
+                        .getLevelFromExperience(
+                                Utils.getJsonFromPath(playerProfile, "experience_skill_combat").getAsFloat());
+        miningLevel = Utils.getJsonFromPath(playerProfile, "experience_skill_mining") == null ? 0:
+                SkyblockDataManager.getSkill("MINING")
+                        .getLevelFromExperience(
+                                Utils.getJsonFromPath(playerProfile, "experience_skill_mining").getAsFloat());
+        foragingLevel = Utils.getJsonFromPath(playerProfile, "experience_skill_foraging") == null ? 0:
+                SkyblockDataManager.getSkill("FORAGING")
+                        .getLevelFromExperience(
+                                Utils.getJsonFromPath(playerProfile, "experience_skill_foraging").getAsFloat());
+        farmingLevel = Utils.getJsonFromPath(playerProfile, "experience_skill_farming") == null ? 0:
+                SkyblockDataManager.getSkill("FARMING")
+                        .getLevelFromExperience(
+                                Utils.getJsonFromPath(playerProfile, "experience_skill_farming").getAsFloat());
+        enchantingLevel = Utils.getJsonFromPath(playerProfile, "experience_skill_enchanting") == null ? 0:
+                SkyblockDataManager.getSkill("ENCHANTING")
+                        .getLevelFromExperience(
+                                Utils.getJsonFromPath(playerProfile, "experience_skill_enchanting").getAsFloat());
+        fishingLevel = Utils.getJsonFromPath(playerProfile, "experience_skill_fishing") == null ? 0:
+                SkyblockDataManager.getSkill("FISHING")
+                        .getLevelFromExperience(
+                                Utils.getJsonFromPath(playerProfile, "experience_skill_fishing").getAsFloat());
+        alchemyLevel = Utils.getJsonFromPath(playerProfile, "experience_skill_alchemy") == null ? 0:
+                SkyblockDataManager.getSkill("ALCHEMY")
+                        .getLevelFromExperience(
+                                Utils.getJsonFromPath(playerProfile, "experience_skill_alchemy").getAsFloat());
+        tamingLevel = Utils.getJsonFromPath(playerProfile, "experience_skill_taming") == null ? 0:
+                SkyblockDataManager.getSkill("TAMING")
+                        .getLevelFromExperience(
+                                Utils.getJsonFromPath(playerProfile, "experience_skill_taming").getAsFloat());
         averageSkillLevel = (combatLevel + miningLevel + foragingLevel + farmingLevel + enchantingLevel + fishingLevel + alchemyLevel + tamingLevel) / 8;
 
 
