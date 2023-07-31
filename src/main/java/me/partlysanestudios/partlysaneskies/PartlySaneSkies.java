@@ -166,12 +166,6 @@ public class PartlySaneSkies {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-            try {
-                SkyblockDataManager.initSkills();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }).start();
 
         
@@ -253,6 +247,12 @@ public class PartlySaneSkies {
         try {
             MinionData.preRequestInit();
         } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            SkyblockDataManager.initSkills();
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
