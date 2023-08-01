@@ -147,7 +147,7 @@ public class CompostValue {
         IInventory composter = inventories[0];
 
         // Slots 22 should be the collect compost button
-        ItemStack collectCompostButton = composter.getStackInSlot(22);
+        ItemStack collectCompostButton = composter.getStackInSlot(13);
 
         if (collectCompostButton == null) {
             return false;
