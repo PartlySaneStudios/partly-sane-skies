@@ -106,6 +106,16 @@ public class SkyblockPlayer {
                     }
                 }
                 this.uuid = new JsonParser().parse(request.getResponse()).getAsJsonObject().get("id").getAsString();
+                if(this.uuid.equalsIgnoreCase("<PROFILE ID>")) {
+                    if (getUUID(this.username) != null) {
+                        UUID serverProfUUID = getUUID(this.username);
+
+                        if (serverProfUUID != null) {
+                            this.uuid = serverProfUUID.toString();
+                        }
+
+                    }
+                }
                 Utils.log(Level.INFO, "Created Player. Requesting Data");
                 try {
                     this.requestData();
