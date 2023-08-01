@@ -231,11 +231,6 @@ public class PartlySaneSkies {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        try {
-            SkyblockDataManager.initBitValues();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         SkyblockDataManager.updateAll();
         CompostValue.init();
         try {
@@ -252,6 +247,11 @@ public class PartlySaneSkies {
 
         try {
             SkyblockDataManager.initSkills();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            SkyblockDataManager.initBitValues();
         } catch (IOException e) {
             e.printStackTrace();
         }
