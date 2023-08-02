@@ -1,7 +1,6 @@
-package me.partlysanestudios.partlysaneskies.garden;
+package me.partlysanestudios.partlysaneskies.garden.mathematicalhoerightclicks;
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
-import me.partlysanestudios.partlysaneskies.utils.Utils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.command.CommandException;
@@ -40,6 +39,10 @@ public class MathematicalHoeRightClicksCommand implements ICommand {
 
     @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
+        allowRightClicks();
+    }
+
+    public static void allowRightClicks() {
 
         boolean canRightClickHoe = Utils.onCooldown(MathematicalHoeRightClicks.lastAllowHoeRightClickTime, (long) (PartlySaneSkies.config.allowRightClickTime * 60L * 1000L));
 
@@ -54,20 +57,6 @@ public class MathematicalHoeRightClicksCommand implements ICommand {
             PartlySaneSkies.minecraft.ingameGUI.getChatGUI().printChatMessage(message);
             MathematicalHoeRightClicks.lastAllowHoeRightClickTime = PartlySaneSkies.getTime();
         }
-
-        // if(args.length > 0 && args[0].equalsIgnoreCase("disallow")){
-        //     Utils.sendClientMessage("&dThe ability to right-click with a hoe has been disabled.");
-        //     MathematicalHoeRightClicks.lastAllowHoeRightClickTime = 0;
-        //     return;
-        // }
-
-        // if(args.length == 0 || args[0].equalsIgnoreCase("allow")){
-        //     IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + StringUtils.colorCodes("&dThe ability to right-click with a hoe has been enabled for " + PartlySaneSkies.config.allowRightClickTime + " minutes.\n&dClick this message or run \"/allowhoerightclick disallow\" to disable right again."));
-        //     message.getChatStyle().setChatClickEvent(new ClickEvent(Action.RUN_COMMAND, "/allowhoerightclick disallow"));
-        //     PartlySaneSkies.minecraft.ingameGUI.getChatGUI().printChatMessage(message);
-        //     MathematicalHoeRightClicks.lastAllowHoeRightClickTime = PartlySaneSkies.getTime();
-        //     return;
-        // }
     }
 
     @Override
