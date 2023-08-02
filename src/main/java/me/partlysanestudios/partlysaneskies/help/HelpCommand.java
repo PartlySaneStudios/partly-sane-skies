@@ -11,7 +11,7 @@ import java.util.List;
 import org.lwjgl.input.Keyboard;
 
 import gg.essential.elementa.components.Window;
-import me.partlysanestudios.partlysaneskies.Keybinds;
+import me.partlysanestudios.partlysaneskies.system.Keybinds;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;

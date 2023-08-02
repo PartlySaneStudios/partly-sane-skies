@@ -3,17 +3,17 @@ package me.partlysanestudios.partlysaneskies.garden;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
-import me.partlysanestudios.partlysaneskies.utils.Utils;
+import me.partlysanestudios.partlysaneskies.system.requests.Request;
+import me.partlysanestudios.partlysaneskies.system.requests.RequestsManager;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
-import me.partlysanestudios.partlysaneskies.utils.requests.Request;
-import me.partlysanestudios.partlysaneskies.utils.requests.RequestsManager;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.IChatComponent;
+import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.event.ClickEvent;
 import net.minecraft.event.ClickEvent.Action;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.IChatComponent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,7 +38,7 @@ public class MathematicalHoeRightClicks {
             }));
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
     public static boolean isHoldingHoe() {

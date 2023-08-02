@@ -19,17 +19,6 @@
 
 package me.partlysanestudios.partlysaneskies;
 
-import java.awt.Color;
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import me.partlysanestudios.partlysaneskies.economy.minioncalculator.MinionCalculatorCommand;
-import me.partlysanestudios.partlysaneskies.economy.minioncalculator.MinionData;
-import org.apache.commons.lang3.reflect.FieldUtils;
 import gg.essential.elementa.ElementaVersion;
 import me.partlysanestudios.partlysaneskies.auctionhouse.AhManager;
 import me.partlysanestudios.partlysaneskies.chatalerts.ChatAlertsCommand;
@@ -41,12 +30,10 @@ import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManagerCo
 import me.partlysanestudios.partlysaneskies.dungeons.permpartyselector.PermPartyCommand;
 import me.partlysanestudios.partlysaneskies.dungeons.permpartyselector.PermPartyManager;
 import me.partlysanestudios.partlysaneskies.economy.BitsShopValue;
-import me.partlysanestudios.partlysaneskies.garden.CompostValue;
-import me.partlysanestudios.partlysaneskies.garden.GardenTradeValue;
-import me.partlysanestudios.partlysaneskies.garden.SkymartValue;
+import me.partlysanestudios.partlysaneskies.economy.minioncalculator.MinionCalculatorCommand;
+import me.partlysanestudios.partlysaneskies.economy.minioncalculator.MinionData;
+import me.partlysanestudios.partlysaneskies.garden.*;
 import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.*;
-import me.partlysanestudios.partlysaneskies.garden.MathematicalHoeRightClicks;
-import me.partlysanestudios.partlysaneskies.garden.MathematicalHoeRightClicksCommand;
 import me.partlysanestudios.partlysaneskies.help.ConfigCommand;
 import me.partlysanestudios.partlysaneskies.help.DiscordCommand;
 import me.partlysanestudios.partlysaneskies.help.HelpCommand;
@@ -58,10 +45,13 @@ import me.partlysanestudios.partlysaneskies.rngdropbanner.DropBannerDisplay;
 import me.partlysanestudios.partlysaneskies.skillupgrade.SkillUpgradeCommand;
 import me.partlysanestudios.partlysaneskies.skillupgrade.SkillUpgradeRecommendation;
 import me.partlysanestudios.partlysaneskies.skyblockdata.SkyblockDataManager;
+import me.partlysanestudios.partlysaneskies.system.Keybinds;
+import me.partlysanestudios.partlysaneskies.system.OneConfigScreen;
+import me.partlysanestudios.partlysaneskies.system.ThemeManager;
+import me.partlysanestudios.partlysaneskies.system.requests.Request;
+import me.partlysanestudios.partlysaneskies.system.requests.RequestsManager;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
-import me.partlysanestudios.partlysaneskies.utils.requests.Request;
-import me.partlysanestudios.partlysaneskies.utils.requests.RequestsManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.event.ClickEvent;
@@ -82,11 +72,18 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent;
+import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 
 @Mod(modid = PartlySaneSkies.MODID, version = PartlySaneSkies.VERSION, name = PartlySaneSkies.NAME)
@@ -113,13 +110,6 @@ public class PartlySaneSkies {
 
     private static LocationBannerDisplay locationBannerDisplay;
 
-
-
-    public static final Color BASE_DARK_COLOR = new Color(32, 33, 36);
-    public static final Color BASE_COLOR = new Color(42, 43, 46);
-    public static final Color BASE_LIGHT_COLOR = new Color(85, 85, 88);
-    public static final Color ACCENT_COLOR = new Color(1, 255, 255);
-    public static final Color DARK_ACCENT_COLOR = new Color(1, 122, 122);
     private static String API_KEY;
 
 
@@ -168,12 +158,6 @@ public class PartlySaneSkies {
 
             try {
                 EndOfFarmNotifier.load();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            try {
-                SkyblockDataManager.initSkills();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -243,11 +227,6 @@ public class PartlySaneSkies {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        try {
-            SkyblockDataManager.initBitValues();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         SkyblockDataManager.updateAll();
         CompostValue.init();
         try {
@@ -262,6 +241,17 @@ public class PartlySaneSkies {
             e.printStackTrace();
         }
 
+        try {
+            SkyblockDataManager.initSkills();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            SkyblockDataManager.initBitValues();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         // Loads user player data for PartyManager
         new Thread(() -> {
             try {
@@ -270,8 +260,6 @@ public class PartlySaneSkies {
                 e.printStackTrace();
             }
         }).start();
-
-
 
         // Finished loading
         Utils.log(Level.INFO,"Partly Sane Skies has loaded.");
@@ -302,6 +290,7 @@ public class PartlySaneSkies {
 
         EndOfFarmNotifier.run();
         config.resetBrokenStrings();
+        ThemeManager.run();
     }
 
     // Runs when the chat message starts with "Your new API key is"

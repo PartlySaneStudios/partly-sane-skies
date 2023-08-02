@@ -1,17 +1,26 @@
+//
+// Written by Su386.
+// See LICENSE for copyright and license notices.
+//
+
 package me.partlysanestudios.partlysaneskies.skyblockdata;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.mojang.authlib.GameProfile;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
+import me.partlysanestudios.partlysaneskies.system.requests.PolyfrostUrsaMinorRequest;
+import me.partlysanestudios.partlysaneskies.system.requests.Request;
+import me.partlysanestudios.partlysaneskies.system.requests.RequestsManager;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
-import me.partlysanestudios.partlysaneskies.utils.requests.Request;
-import me.partlysanestudios.partlysaneskies.utils.requests.RequestsManager;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.management.PlayerProfileCache;
 import org.apache.logging.log4j.Level;
 
 import java.io.ByteArrayInputStream;
@@ -84,14 +93,29 @@ public class SkyblockPlayer {
                         lock.notifyAll();
                     }
                 }
-                if (new JsonParser().parse(request.getResponse()).getAsJsonObject().get("id") == null) {
-                    synchronized (lock) {
-                        lock.notifyAll();
+                if (new JsonParser().parse(request.getResponse()).getAsJsonObject().get("id") == null || new JsonParser().parse(request.getResponse()).getAsJsonObject().get("id").getAsString().equals("<PROFILE ID>")) {
+                    if (getUUID(this.username) != null) {
+                        this.uuid = getUUID(this.username).toString();
                     }
+                    else {
+                        synchronized (lock) {
+                            lock.notifyAll();
+                        }
 
-                    throw new IllegalArgumentException("Player " + username + " is not registered in the Mojang API");
+                        throw new IllegalArgumentException("Player " + username + " is not registered in the Mojang API");
+                    }
                 }
                 this.uuid = new JsonParser().parse(request.getResponse()).getAsJsonObject().get("id").getAsString();
+                if(this.uuid.equalsIgnoreCase("<PROFILE ID>")) {
+                    if (getUUID(this.username) != null) {
+                        UUID serverProfUUID = getUUID(this.username);
+
+                        if (serverProfUUID != null) {
+                            this.uuid = serverProfUUID.toString();
+                        }
+
+                    }
+                }
                 Utils.log(Level.INFO, "Created Player. Requesting Data");
                 try {
                     this.requestData();
@@ -134,14 +158,14 @@ public class SkyblockPlayer {
     }
 
     private void requestData() throws MalformedURLException {
-        String hypixelPlayerRequestURL = "https://api.hypixel.net/player?key=" + PartlySaneSkies.getAPIKey() + "&uuid=" + this.uuid;
-        RequestsManager.newRequest(new Request(hypixelPlayerRequestURL, request -> {
+        String hypixelPlayerRequestURL = "https://api.polyfrost.cc/ursa/v1/hypixel/player/" + this.uuid;
+        RequestsManager.newRequest(new PolyfrostUrsaMinorRequest(hypixelPlayerRequestURL, request -> {
             this.playerHypixelJsonString = request.getResponse();
             this.playerHypixelJsonObject = new JsonParser().parse(this.playerHypixelJsonString).getAsJsonObject();
         }, false, false));
-        String profileRequestURL = "https://api.hypixel.net/skyblock/profiles?key=" + PartlySaneSkies.getAPIKey() + "&uuid=" + this.uuid;
+        String profileRequestURL = "https://api.polyfrost.cc/ursa/v1/hypixel/skyblock/profiles/" + this.uuid;
 
-        RequestsManager.newRequest(new Request(profileRequestURL, request -> {
+        RequestsManager.newRequest(new PolyfrostUrsaMinorRequest(profileRequestURL, request -> {
             this.playerSkyblockJsonString = request.getResponse();
 
             this.playerSkyblockJsonObject = new JsonParser().parse(this.playerSkyblockJsonString).getAsJsonObject();
@@ -189,16 +213,43 @@ public class SkyblockPlayer {
         JsonObject playerProfile = Utils.getJsonFromPath(selectedProfile, "members/" + uuid + "/").getAsJsonObject();
 
 
-        skyblockLevel = Utils.getJsonFromPath(playerProfile, "/leveling/experience") == null ? 0: Utils.getJsonFromPath(playerProfile, "/leveling/experience").getAsFloat()/100;
-        catacombsLevel = Utils.getJsonFromPath(playerProfile, "dungeons/dungeon_types/catacombs/experience") == null ? 0: catacombsLevelToExperience(Utils.getJsonFromPath(playerProfile, "dungeons/dungeon_types/catacombs/experience").getAsFloat());
-        combatLevel = Utils.getJsonFromPath(playerProfile, "experience_skill_combat") == null ? 0: SkyblockDataManager.getSkill("COMBAT").getLevelFromExperience(Utils.getJsonFromPath(playerProfile, "experience_skill_combat").getAsFloat());
-        miningLevel = Utils.getJsonFromPath(playerProfile, "experience_skill_mining") == null ? 0: SkyblockDataManager.getSkill("MINING").getLevelFromExperience(Utils.getJsonFromPath(playerProfile, "experience_skill_mining").getAsFloat());
-        foragingLevel = Utils.getJsonFromPath(playerProfile, "experience_skill_foraging") == null ? 0: SkyblockDataManager.getSkill("FORAGING").getLevelFromExperience(Utils.getJsonFromPath(playerProfile, "experience_skill_foraging").getAsFloat());
-        farmingLevel = Utils.getJsonFromPath(playerProfile, "experience_skill_farming") == null ? 0: SkyblockDataManager.getSkill("FARMING").getLevelFromExperience(Utils.getJsonFromPath(playerProfile, "experience_skill_farming").getAsFloat());
-        enchantingLevel = Utils.getJsonFromPath(playerProfile, "experience_skill_enchanting") == null ? 0: SkyblockDataManager.getSkill("ENCHANTING").getLevelFromExperience(Utils.getJsonFromPath(playerProfile, "experience_skill_enchanting").getAsFloat());
-        fishingLevel = Utils.getJsonFromPath(playerProfile, "experience_skill_fishing") == null ? 0: SkyblockDataManager.getSkill("FISHING").getLevelFromExperience(Utils.getJsonFromPath(playerProfile, "experience_skill_fishing").getAsFloat());
-        alchemyLevel = Utils.getJsonFromPath(playerProfile, "experience_skill_alchemy") == null ? 0: SkyblockDataManager.getSkill("ALCHEMY").getLevelFromExperience(Utils.getJsonFromPath(playerProfile, "experience_skill_alchemy").getAsFloat());
-        tamingLevel = Utils.getJsonFromPath(playerProfile, "experience_skill_taming") == null ? 0: SkyblockDataManager.getSkill("TAMING").getLevelFromExperience(Utils.getJsonFromPath(playerProfile, "experience_skill_taming").getAsFloat());
+        skyblockLevel = Utils.getJsonFromPath(playerProfile, "/leveling/experience") == null ? 0:
+                Utils.getJsonFromPath(playerProfile, "/leveling/experience").getAsFloat()/100;
+        catacombsLevel = Utils.getJsonFromPath(playerProfile, "dungeons/dungeon_types/catacombs/experience") == null ? 0:
+                catacombsLevelToExperience(
+                        Utils.getJsonFromPath(playerProfile, "dungeons/dungeon_types/catacombs/experience").getAsFloat());
+        combatLevel = Utils.getJsonFromPath(playerProfile, "experience_skill_combat") == null ? 0:
+                SkyblockDataManager.getSkill("COMBAT")
+                        .getLevelFromExperience(
+                                Utils.getJsonFromPath(playerProfile, "experience_skill_combat").getAsFloat());
+        miningLevel = Utils.getJsonFromPath(playerProfile, "experience_skill_mining") == null ? 0:
+                SkyblockDataManager.getSkill("MINING")
+                        .getLevelFromExperience(
+                                Utils.getJsonFromPath(playerProfile, "experience_skill_mining").getAsFloat());
+        foragingLevel = Utils.getJsonFromPath(playerProfile, "experience_skill_foraging") == null ? 0:
+                SkyblockDataManager.getSkill("FORAGING")
+                        .getLevelFromExperience(
+                                Utils.getJsonFromPath(playerProfile, "experience_skill_foraging").getAsFloat());
+        farmingLevel = Utils.getJsonFromPath(playerProfile, "experience_skill_farming") == null ? 0:
+                SkyblockDataManager.getSkill("FARMING")
+                        .getLevelFromExperience(
+                                Utils.getJsonFromPath(playerProfile, "experience_skill_farming").getAsFloat());
+        enchantingLevel = Utils.getJsonFromPath(playerProfile, "experience_skill_enchanting") == null ? 0:
+                SkyblockDataManager.getSkill("ENCHANTING")
+                        .getLevelFromExperience(
+                                Utils.getJsonFromPath(playerProfile, "experience_skill_enchanting").getAsFloat());
+        fishingLevel = Utils.getJsonFromPath(playerProfile, "experience_skill_fishing") == null ? 0:
+                SkyblockDataManager.getSkill("FISHING")
+                        .getLevelFromExperience(
+                                Utils.getJsonFromPath(playerProfile, "experience_skill_fishing").getAsFloat());
+        alchemyLevel = Utils.getJsonFromPath(playerProfile, "experience_skill_alchemy") == null ? 0:
+                SkyblockDataManager.getSkill("ALCHEMY")
+                        .getLevelFromExperience(
+                                Utils.getJsonFromPath(playerProfile, "experience_skill_alchemy").getAsFloat());
+        tamingLevel = Utils.getJsonFromPath(playerProfile, "experience_skill_taming") == null ? 0:
+                SkyblockDataManager.getSkill("TAMING")
+                        .getLevelFromExperience(
+                                Utils.getJsonFromPath(playerProfile, "experience_skill_taming").getAsFloat());
         averageSkillLevel = (combatLevel + miningLevel + foragingLevel + farmingLevel + enchantingLevel + fishingLevel + alchemyLevel + tamingLevel) / 8;
 
 
@@ -323,6 +374,16 @@ public class SkyblockPlayer {
             lock.notifyAll();
         }
 
+    }
+
+    private static UUID getUUID(String username) {
+        MinecraftServer server = MinecraftServer.getServer();
+        PlayerProfileCache cache = server.getPlayerProfileCache();
+        GameProfile profile = cache.getGameProfileForUsername(username);
+        if (profile == null) {
+            return null;
+        }
+        return profile.getId();
     }
 
     public void refresh() {

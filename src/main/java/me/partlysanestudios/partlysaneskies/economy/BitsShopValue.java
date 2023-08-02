@@ -3,7 +3,6 @@
 // See LICENSE for copyright and license notices.
 //
 
- 
 package me.partlysanestudios.partlysaneskies.economy;
 
 import gg.essential.elementa.ElementaVersion;
@@ -17,6 +16,7 @@ import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.skyblockdata.SkyblockDataManager;
 import me.partlysanestudios.partlysaneskies.skyblockdata.SkyblockItem;
+import me.partlysanestudios.partlysaneskies.system.ThemeManager;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.gui.inventory.GuiChest;
@@ -99,7 +99,7 @@ public class BitsShopValue {
             .setColor(new Color(0, 0, 0, 0))
             .setChildOf(window);
     
-    UIComponent image = Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies:textures/gui/base_color_background.png"))
+    UIComponent image = ThemeManager.getCurrentBackgroundUIImage()
             .setChildOf(box);
     
     float pad = 5;

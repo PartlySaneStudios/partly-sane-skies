@@ -15,6 +15,7 @@ import gg.essential.elementa.constraints.PixelConstraint;
 import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.skyblockdata.SkyblockDataManager;
+import me.partlysanestudios.partlysaneskies.system.ThemeManager;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.gui.inventory.GuiChest;
@@ -146,7 +147,7 @@ public class CompostValue {
         IInventory composter = inventories[0];
 
         // Slots 22 should be the collect compost button
-        ItemStack collectCompostButton = composter.getStackInSlot(22);
+        ItemStack collectCompostButton = composter.getStackInSlot(13);
 
         if (collectCompostButton == null) {
             return false;
@@ -250,7 +251,7 @@ public class CompostValue {
             .setColor(new Color(0, 0, 0, 0))
             .setChildOf(window);
     
-    UIComponent image = Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies:textures/gui/base_color_background.png"))
+    UIComponent image = ThemeManager.getCurrentBackgroundUIImage()
             .setChildOf(box);
     
     float pad = 5;

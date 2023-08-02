@@ -13,6 +13,7 @@ import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.WikiArticleOpener;
+import me.partlysanestudios.partlysaneskies.system.ThemeManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.client.resources.IResource;
@@ -150,7 +151,7 @@ public class Utils {
 
         URL url = new URL(urlString);
         HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-        httpURLConnection.setRequestProperty("User-Agent", "Mozilla/5.0");
+        httpURLConnection.setRequestProperty("User-Agent", "Partly-Sane-Skies/" + PartlySaneSkies.VERSION);
         int responseCode = httpURLConnection.getResponseCode();
         if (responseCode == HttpURLConnection.HTTP_OK) { // success
             BufferedReader in = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
@@ -243,7 +244,7 @@ public class Utils {
     }
 
     public static void applyBackground(UIComponent component) {
-        UIImage image = (UIImage) Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies:textures/gui/base_color_background.png"))
+        UIImage image = (UIImage) ThemeManager.getCurrentBackgroundUIImage()
                 .setX(new CenterConstraint())
                 .setY(new CenterConstraint())
                 .setWidth(new PixelConstraint(component.getWidth()))
@@ -282,6 +283,7 @@ public class Utils {
                 return null;
             }));
         } catch (NullPointerException | IOException exception) {
+
 
             return UIImage.ofResource("/assets/partlysaneskies/" + location.getResourcePath());
 //            return UIImage.ofResource("/assets/partlysaneskies/textures/null_texture.png");
@@ -325,12 +327,12 @@ public class Utils {
                 continue;
             }
 
-
             obj = obj.getAsJsonObject(splitPath[i]);
             if (obj == null) {
                 return obj;
             }
         }
+
 
 //        Gets the last object as a JsonElement
         return obj.get(splitPath[splitPath.length - 1]);
