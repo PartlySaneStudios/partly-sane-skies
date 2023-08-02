@@ -664,6 +664,16 @@ public class OneConfigScreen extends Config {
     )
     public boolean blockHoeRightClicks = false;
 
+    @Slider(
+        min = 1, 
+        max = 15, 
+        subcategory = "Hoes", 
+        name = "Allow Time", 
+        description = "The amount of minutes the hoe will be allowed to be used for, using /allowhoerightclick.", 
+        category = "Farming"
+    )
+    public float allowRightClickTime = 3f;
+
     // ------------- Category: Economy ---------------------------------
     // Garden
     @Switch(
