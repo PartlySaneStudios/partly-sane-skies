@@ -255,3 +255,31 @@ Allows you to create areas where you will be notified you have reached the end o
 
 </details>
 
+
+<!-- /minioncalculator command -->
+<details>
+  <summary> <code> /minioncalculator </code> </summary>
+
+## ``/minioncalculator``
+
+### Aliases
+
+These commands also work instead of ``/minioncalculator``:
+
+``/minioncalc``
+
+``/bestminion``
+
+``/mc``
+
+``/bm``
+
+### Description
+Opens the most profitable minions feature
+
+### Usage
+
+``/minioncalculator``: Opens the best minion calculator menu
+
+</details>
+

@@ -38,7 +38,6 @@ public class HelpCommands {
 
     public static void registerConfigCommand() {
         new PSSCommand("pssconfig")
-                .addAlias("pss")
                 .addAlias("pssc")
                 .addAlias("pssconf")
                 .setDescription("Opens the config menu")
@@ -48,6 +47,18 @@ public class HelpCommands {
                     Window.Companion.enqueueRenderOperation(() -> PartlySaneSkies.config.openGui());
                 })
                 .register();
+    }
+
+    public static void registerPSSCommand() {
+        new PSSCommand("pss")
+                .setDescription("Prints help message and opens the config menu")
+                .setRunnable((s, a) -> {
+                    printHelpMessage();
+
+                    Utils.sendClientMessage("&bOpening config menu...");
+
+                    Window.Companion.enqueueRenderOperation(() -> PartlySaneSkies.config.openGui());
+                }).register();
     }
 
     static List<String> configAliases = Arrays.asList("conf", "c", "config");
@@ -66,6 +77,8 @@ public class HelpCommands {
                         Window.Companion.enqueueRenderOperation(() -> PartlySaneSkies.config.openGui());
                         return;
                     }
+
+
 
                     printHelpMessage();
 
