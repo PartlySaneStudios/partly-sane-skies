@@ -12,7 +12,7 @@ import org.lwjgl.input.Keyboard;
 
 import me.partlysanestudios.partlysaneskies.auctionhouse.AhGui;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManager;
-import me.partlysanestudios.partlysaneskies.petalert.PetAlert;
+import me.partlysanestudios.partlysaneskies.PetAlert;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.garden.MathematicalHoeRightClicks;

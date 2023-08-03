@@ -3,12 +3,12 @@
 // See LICENSE for copyright and license notices.
 //
 
-package me.partlysanestudios.partlysaneskies.partyfriend;
+package me.partlysanestudios.partlysaneskies;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
+import me.partlysanestudios.partlysaneskies.system.commands.PSSCommand;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -23,6 +23,17 @@ public class PartyFriendManager {
         page = 1;
         PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/friend list");
         partyList.clear();
+    }
+
+    public static void registerCommand() {
+        new PSSCommand("friendparty")
+                .addAlias("fp")
+                .addAlias("pf")
+                .setDescription("Parties all friends in the friend list")
+                .setRunnable((s, a) -> {
+                    PartyFriendManager.startPartyManager();
+                })
+                .register();
     }
 
     @SubscribeEvent
