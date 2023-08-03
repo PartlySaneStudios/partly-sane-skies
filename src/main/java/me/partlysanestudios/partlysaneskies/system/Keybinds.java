@@ -7,6 +7,7 @@ package me.partlysanestudios.partlysaneskies.system;
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.WikiArticleOpener;
+import me.partlysanestudios.partlysaneskies.garden.mathematicalhoerightclicks.MathematicalHoeRightClicksCommand;
 import org.lwjgl.input.Keyboard;
 
 import me.partlysanestudios.partlysaneskies.auctionhouse.AhGui;
@@ -34,6 +35,8 @@ public final class Keybinds {
     public static KeyBinding storageKeybind;
     public static KeyBinding wikiKeybind;
     public static KeyBinding favouritePetKeybind;
+    public static KeyBinding allowHoeRightClickKeybind;
+
 
     public static void init() {
         // debugKey = registerKey("Debug", PSS_CATEGORY, Keyboard.KEY_F4);
@@ -46,7 +49,7 @@ public final class Keybinds {
         storageKeybind = registerKey("Open Storage Menu", PSS_CATEGORY, Keyboard.CHAR_NONE);
         wikiKeybind = registerKey("Open Wiki Article", PSS_CATEGORY, Keyboard.KEY_X);
         favouritePetKeybind = registerKey("Favourite Pet", PSS_CATEGORY, Keyboard.KEY_F);
-
+        allowHoeRightClickKeybind = registerKey("Allow Hoe Right Click", PSS_CATEGORY, Keyboard.CHAR_NONE);
     }
 
     private static KeyBinding registerKey(String name, String category, int keycode) {
@@ -107,6 +110,10 @@ public final class Keybinds {
         }
         if (storageKeybind.isPressed()) {
             PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/storage");
+        }
+        if(allowHoeRightClickKeybind.isPressed()) {
+
+            MathematicalHoeRightClicksCommand.allowRightClicks();
         }
     }
 }

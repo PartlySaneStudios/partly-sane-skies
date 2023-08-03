@@ -664,13 +664,23 @@ public class OneConfigScreen extends Config {
     )
     public boolean blockHoeRightClicks = false;
 
+    @Slider(
+        min = 1, 
+        max = 15, 
+        subcategory = "Hoes", 
+        name = "Allow Time", 
+        description = "The amount of minutes the hoe will be allowed to be used for, using /allowhoerightclick.", 
+        category = "Farming"
+    )
+    public float allowRightClickTime = 3f;
+
     // ------------- Category: Economy ---------------------------------
     // Garden
     @Switch(
         subcategory = "Garden", 
         name = "Garden Shop Trade Cost", 
         description = "Gives you information about the cost of garden shop trades.", 
-        category = "Economy"
+        category = "Farming"
     )
     public boolean gardenShopTradeInfo = false;
     
@@ -678,7 +688,7 @@ public class OneConfigScreen extends Config {
         subcategory = "Garden", 
         name = "Best Crops to Compost", 
         description = "Gives you information about which crops are the best to compost.", 
-        category = "Economy"
+        category = "Farming"
     )
     public boolean bestCropsToCompost = false;
 
