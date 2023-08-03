@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class CommandManager {
-    public static HashMap<String, PSSCommand> commandList;
+    public static HashMap<String, PSSCommand> commandList = new HashMap<>();
 
     public static ICommand registerCommand(PSSCommand pssCommand) {
 

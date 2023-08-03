@@ -78,8 +78,11 @@ public class PSSCommand {
         return runnable;
     }
 
+    public void setRegistered() {
+        this.registered = true;
+    }
     public boolean isRegistered() {
-        return registered;
+        return CommandManager.commandList.containsKey(name);
     }
     public ICommand getICommand() {
         return this.command;
