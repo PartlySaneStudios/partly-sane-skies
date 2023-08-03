@@ -192,7 +192,7 @@ public class PartlySaneSkies {
         EndOfFarmNotifier.registerCreateRangeCommand();
         EndOfFarmNotifier.registerFarmNotifierCommand();
         ProfitMinionCalculator.registerCommand();
-        ClientCommandHandler.instance.registerCommand(new MathematicalHoeRightClicksCommand());
+        MathematicalHoeRightClicks.registerCommand();
 
         // Initialises keybinds
         Keybinds.init();
