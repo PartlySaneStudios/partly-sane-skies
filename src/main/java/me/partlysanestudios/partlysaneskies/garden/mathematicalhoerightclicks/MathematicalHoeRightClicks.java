@@ -68,17 +68,19 @@ public class MathematicalHoeRightClicks {
 
     public static void registerCommand() {
         new PSSCommand("allowhoerightclick")
+                .addAlias("allowhoerightclicks")
+                .addAlias("ahrc")
                 .setDescription("Allows hoe right clicks for a few minutes")
                 .setRunnable((s, a) -> {
                     boolean canRightClickHoe = Utils.onCooldown(MathematicalHoeRightClicks.lastAllowHoeRightClickTime, (long) (PartlySaneSkies.config.allowRightClickTime * 60L * 1000L));
 
                     if(canRightClickHoe){
-                        IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + StringUtils.colorCodes("&dThe ability to right-click with a hoe has been &cdisabled&d again.\n&dClick this message or run /allowhoerightclick to allow right-clicks for " + PartlySaneSkies.config.allowRightClickTime + " again."));
+                        IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + StringUtils.colorCodes("&bThe ability to right-click with a hoe has been &cdisabled&b again.\n&dClick this message or run /allowhoerightclick to allow right-clicks for " + PartlySaneSkies.config.allowRightClickTime + " again."));
                         message.getChatStyle().setChatClickEvent(new ClickEvent(Action.RUN_COMMAND, "/allowhoerightclick"));
                         PartlySaneSkies.minecraft.ingameGUI.getChatGUI().printChatMessage(message);
                         MathematicalHoeRightClicks.lastAllowHoeRightClickTime = 0;
                     } else {
-                        IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + StringUtils.colorCodes("&dThe ability to right-click with a hoe has been &aenabled&d for " + PartlySaneSkies.config.allowRightClickTime + " minutes.\n&dClick this message or run /allowhoerightclick to disable right-clicks again."));
+                        IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + StringUtils.colorCodes("&bThe ability to right-click with a hoe has been &aenabled&b for " + PartlySaneSkies.config.allowRightClickTime + " minutes.\n&dClick this message or run /allowhoerightclick to disable right-clicks again."));
                         message.getChatStyle().setChatClickEvent(new ClickEvent(Action.RUN_COMMAND, "/allowhoerightclick"));
                         PartlySaneSkies.minecraft.ingameGUI.getChatGUI().printChatMessage(message);
                         MathematicalHoeRightClicks.lastAllowHoeRightClickTime = PartlySaneSkies.getTime();

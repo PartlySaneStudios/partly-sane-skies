@@ -180,6 +180,7 @@ public class PartlySaneSkies {
         MinecraftForge.EVENT_BUS.register(new MathematicalHoeRightClicks());
 
         // Registers all client side commands
+        HelpCommands.registerPSSCommand();
         PartyManager.registerCommand();
         HelpCommands.registerHelpCommand();
         SkillUpgradeRecommendation.registerCommand();
