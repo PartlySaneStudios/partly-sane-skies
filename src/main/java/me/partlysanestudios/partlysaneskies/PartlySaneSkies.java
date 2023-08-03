@@ -26,7 +26,6 @@ import me.partlysanestudios.partlysaneskies.chatalerts.ChatAlertsManager;
 import me.partlysanestudios.partlysaneskies.dungeons.PlayerRating;
 import me.partlysanestudios.partlysaneskies.dungeons.WatcherReady;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManager;
-import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManagerCommand;
 import me.partlysanestudios.partlysaneskies.dungeons.permpartyselector.PermPartyCommand;
 import me.partlysanestudios.partlysaneskies.dungeons.permpartyselector.PermPartyManager;
 import me.partlysanestudios.partlysaneskies.economy.BitsShopValue;
@@ -34,16 +33,11 @@ import me.partlysanestudios.partlysaneskies.economy.minioncalculator.MinionCalcu
 import me.partlysanestudios.partlysaneskies.economy.minioncalculator.MinionData;
 import me.partlysanestudios.partlysaneskies.garden.*;
 import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.*;
-import me.partlysanestudios.partlysaneskies.help.ConfigCommand;
-import me.partlysanestudios.partlysaneskies.help.DiscordCommand;
-import me.partlysanestudios.partlysaneskies.help.HelpCommand;
 import me.partlysanestudios.partlysaneskies.partyfriend.PartyFriendManager;
 import me.partlysanestudios.partlysaneskies.partyfriend.PartyFriendManagerCommand;
 import me.partlysanestudios.partlysaneskies.petalert.PetAlert;
 import me.partlysanestudios.partlysaneskies.petalert.PetAlertMuteCommand;
 import me.partlysanestudios.partlysaneskies.rngdropbanner.DropBannerDisplay;
-import me.partlysanestudios.partlysaneskies.skillupgrade.SkillUpgradeCommand;
-import me.partlysanestudios.partlysaneskies.skillupgrade.SkillUpgradeRecommendation;
 import me.partlysanestudios.partlysaneskies.skyblockdata.SkyblockDataManager;
 import me.partlysanestudios.partlysaneskies.system.Keybinds;
 import me.partlysanestudios.partlysaneskies.system.OneConfigScreen;
@@ -191,15 +185,15 @@ public class PartlySaneSkies {
         MinecraftForge.EVENT_BUS.register(new MathematicalHoeRightClicks());
 
         // Registers all client side commands
-        ClientCommandHandler.instance.registerCommand(new PartyManagerCommand());
-        ClientCommandHandler.instance.registerCommand(new HelpCommand());
-        ClientCommandHandler.instance.registerCommand(new SkillUpgradeCommand());
+        PartyManager.registerCommand();
+        HelpCommands.registerHelpCommand();
+        SkillUpgradeRecommendation.registerCommand();
         ClientCommandHandler.instance.registerCommand(new PermPartyCommand());
         ClientCommandHandler.instance.registerCommand(new PartyFriendManagerCommand());
         ClientCommandHandler.instance.registerCommand(new ChatAlertsCommand());
         ClientCommandHandler.instance.registerCommand(new PetAlertMuteCommand());
-        ClientCommandHandler.instance.registerCommand(new DiscordCommand());
-        ClientCommandHandler.instance.registerCommand(new ConfigCommand());
+        HelpCommands.registerDiscordCommand();
+        HelpCommands.registerConfigCommand();
         ClientCommandHandler.instance.registerCommand(new CreateRangeCommand());
         ClientCommandHandler.instance.registerCommand(new Pos2Command());
         ClientCommandHandler.instance.registerCommand(new Pos1Command());

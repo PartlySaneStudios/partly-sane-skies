@@ -7,11 +7,11 @@ package me.partlysanestudios.partlysaneskies.system;
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.WikiArticleOpener;
+import me.partlysanestudios.partlysaneskies.HelpCommands;
 import org.lwjgl.input.Keyboard;
 
 import me.partlysanestudios.partlysaneskies.auctionhouse.AhGui;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManager;
-import me.partlysanestudios.partlysaneskies.help.HelpCommand;
 import me.partlysanestudios.partlysaneskies.petalert.PetAlert;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
@@ -102,7 +102,7 @@ public final class Keybinds {
             PartyManager.startPartyManager();
         }
         if (helpKey.isPressed()) {
-            HelpCommand.printHelpMessage();
+            HelpCommands.printHelpMessage();
         }
         if (craftKeybind.isPressed()) {
             PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/craft");
