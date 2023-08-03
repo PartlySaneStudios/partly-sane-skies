@@ -3,6 +3,7 @@ package me.partlysanestudios.partlysaneskies;
 import gg.essential.elementa.components.Window;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.system.Keybinds;
+import me.partlysanestudios.partlysaneskies.system.commands.CommandManager;
 import me.partlysanestudios.partlysaneskies.system.commands.PSSCommand;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
@@ -13,6 +14,7 @@ import org.lwjgl.input.Keyboard;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 public class HelpCommands {
 
@@ -71,51 +73,43 @@ public class HelpCommands {
     }
 
     public static void printHelpMessage() {
-        Utils.sendClientMessage(StringUtils.colorCodes(
-                "&3&m-----------------------------------------------------&r" +
-                        "\n" +
-                        "\n&b&l&nWelcome to Partly Sane Skies!&r" +
-                        "\nPartly Sane Skies is a mod developed by Su386 and FlagMaster. This mod aims to be a quality of life mod for Hypixel Skyblock." +
-                        "\n" +
-                        "\n &6> Open the config: " +
-                        "\n    &6> &ePress " + Keyboard.getKeyName(Keybinds.configKey.getKeyCode()) + " or use /pssc" +
-                        "\n    &6> &eMost features are turned off by default so to use the mod, you will need to configure the settings" +
-                        "\n    &6> &eTo change the keybinding, press Esc, Options, Video Settings, Controls, and scroll down to \"Partly Sane Skies\"." +
-                        "\n" +
-                        "\n" +
-                        "\n &1> Join the discord" +
-                        "\n    &1> &9To receive any future updates" +
-                        "\n    &1> &9/pssdiscord" +
-                        "\n" +
-                        "\n &5> Visit the GitHub" +
-                        "\n    &5> &dAll of the features wouldn't fit in this message, so check out the GitHub to see all of the features." +
-                        "\n&3&m-----------------------------------------------------&r" +
-                        "\nCommands:" +
-                        "\n > /pss" +
-                        "\n    > Brings up the help screen" +
-                        "\n" +
-                        "\n > /pm, /partymanager" +
-                        "\n    > Opens the Party Manager" +
-                        "\n" +
-                        "\n > /permparty, /permp, /pp" +
-                        "\n    > Allows you to auto party permanent parties" +
-                        "\n" +
-                        "\n > /skillup <username>, /su <username> " +
-                        "\n    > Recommends which skill you should upgrade next." +
-                        "\n" +
-                        "\n > /pssdisc, /pssdiscord" +
-                        "\n    > Sends a link to the discord" +
-                        "\n" +
-                        "\n > /friendparty, /fp, /pf" +
-                        "\n    > Parties all of your online friends." +
-                        "\n" +
-                        "\n > /chatalert" +
-                        "\n    > Allows you to receive alerts when certain messages are sent in chat. See github for more information." +
-                        "\n" +
-                        "\n > //farmnotifier, //fn" +
-                        "\n    > Set custom bounding borders for your farm and receive notifications when you step inside of them." +
-                        "\n&3&m-----------------------------------------------------&r"
-        ), true);
+        StringBuilder str = new StringBuilder("&3&m-----------------------------------------------------&r" +
+                "\n" +
+                "\n&b&l&nWelcome to Partly Sane Skies!&r" +
+                "\nPartly Sane Skies is a mod developed by Su386 and FlagMaster. This mod aims to be a quality of life mod for Hypixel Skyblock." +
+                "\n" +
+                "\n &6> Open the config: " +
+                "\n    &6> &ePress " + Keyboard.getKeyName(Keybinds.configKey.getKeyCode()) + " or use /pssc" +
+                "\n    &6> &eMost features are turned off by default so to use the mod, you will need to configure the settings" +
+                "\n    &6> &eTo change the keybinding, press Esc, Options, Video Settings, Controls, and scroll down to \"Partly Sane Skies\"." +
+                "\n" +
+                "\n" +
+                "\n &1> Join the discord" +
+                "\n    &1> &9To receive any future updates" +
+                "\n    &1> &9/pssdiscord" +
+                "\n" +
+                "\n &5> Visit the GitHub" +
+                "\n    &5> &dAll of the features wouldn't fit in this message, so check out the GitHub to see all of the features." +
+                "\n&3&m-----------------------------------------------------&r" +
+                "\n&dCommands:");
+
+
+        for (Map.Entry<String, PSSCommand> en : CommandManager.commandList.entrySet()) {
+            PSSCommand command = en.getValue();
+            str.append("\n");
+            str.append("\n &b> /").append(command.getName());
+
+            for (String alias : command.getAliases()) {
+                str.append(", /").append(alias);
+            }
+
+            str.append("\n&3    > ").append(command.getDescription());
+
+        }
+
+        str.append("\n&3&m-----------------------------------------------------&r");
+
+        Utils.sendClientMessage(StringUtils.colorCodes(str.toString()), true);
 
     }
 }
