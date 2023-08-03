@@ -1,3 +1,4 @@
+
 //
 // Written by Su386.
 // See LICENSE for copyright and license notices.
@@ -104,7 +105,7 @@ public class MathematicalHoeRightClicks {
 
 
         if (!Utils.onCooldown(lastMessageSendTime, 3000)) {
-            IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + StringUtils.colorCodes("&8Right Clicks are disabled while holding a Mathematical Hoe\n&dClick this message or run /allowhoerightclick to allow right clicks for " + PartlySaneSkies.config.allowRightClickTime + " minutes."));
+            IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + StringUtils.colorCodes("&8Right Clicks are disabled while holding a Mathematical Hoe\n&7Click this message or run /allowhoerightclick to allow right clicks for " + PartlySaneSkies.config.allowRightClickTime + " minutes."));
             message.getChatStyle().setChatClickEvent(new ClickEvent(Action.RUN_COMMAND, "/allowhoerightclick"));
             PartlySaneSkies.minecraft.ingameGUI.getChatGUI().printChatMessage(message);
             lastMessageSendTime = PartlySaneSkies.getTime();

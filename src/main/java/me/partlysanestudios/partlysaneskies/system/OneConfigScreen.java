@@ -680,7 +680,7 @@ public class OneConfigScreen extends Config {
         subcategory = "Garden", 
         name = "Garden Shop Trade Cost", 
         description = "Gives you information about the cost of garden shop trades.", 
-        category = "Economy"
+        category = "Farming"
     )
     public boolean gardenShopTradeInfo = false;
     
@@ -688,7 +688,7 @@ public class OneConfigScreen extends Config {
         subcategory = "Garden", 
         name = "Best Crops to Compost", 
         description = "Gives you information about which crops are the best to compost.", 
-        category = "Economy"
+        category = "Farming"
     )
     public boolean bestCropsToCompost = false;
 
