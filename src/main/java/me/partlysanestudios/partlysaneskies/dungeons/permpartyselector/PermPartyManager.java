@@ -168,7 +168,7 @@ public class PermPartyManager {
                     } else if (args[0].equalsIgnoreCase("fav")) {
                         if (args.length == 2) {
                             if (PermPartyManager.permPartyMap.containsKey(args[1])) {
-                                PermPartyManager.favouriteParty(args[1]);
+                                PermPartyManager.favoriteParty(args[1]);
                                 Utils.sendClientMessage("Set " + args[1] + " to your favorite.");
                             } else {
                                 Utils.sendClientMessage(StringUtils.colorCodes("&cNo party was found with the ID " + args[1]

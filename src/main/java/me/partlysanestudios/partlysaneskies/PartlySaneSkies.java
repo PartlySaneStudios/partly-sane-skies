@@ -132,7 +132,7 @@ public class PartlySaneSkies {
             // Loads perm party data
             try {
                 PermPartyManager.load();
-                PermPartyManager.loadFavouriteParty();
+                PermPartyManager.loadFavoriteParty();
             } catch (IOException e) {
                 e.printStackTrace();
             }
