@@ -31,6 +31,7 @@ import gg.essential.elementa.constraints.PixelConstraint;
 import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.LocationBannerDisplay;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
+import me.partlysanestudios.partlysaneskies.system.commands.PSSCommand;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.audio.PositionedSoundRecord;
@@ -172,6 +173,97 @@ public class EndOfFarmNotifier {
 
         
         ranges = list;
+    }
+
+    public static void registerPos1Command() {
+        new PSSCommand("/pos1")
+                .setDescription("Sets one corner of the End of Farm Notifier")
+                .setRunnable((s, a) -> {
+                    EndOfFarmNotifier.selectedPos1 = new int[] {s.getPosition().getX(), s.getPosition().getY(), s.getPosition().getZ()};
+
+                    Utils.sendClientMessage("&7Set &bpositon 1&7 to &b(" + EndOfFarmNotifier.selectedPos1[0] + ", " + EndOfFarmNotifier.selectedPos1[1] + ", " + EndOfFarmNotifier.selectedPos1[2] + ")&7");
+
+                })
+                .register();
+    }
+
+    public static void registerPos2Command() {
+        new PSSCommand("/pos2")
+                .setDescription("Sets other corner of the End of Farm Notifier")
+                .setRunnable((s, a) -> {
+                    EndOfFarmNotifier.selectedPos2 = new int[] {s.getPosition().getX(), s.getPosition().getY(), s.getPosition().getZ()};
+
+                    Utils.sendClientMessage("&7Set &bpositon 2&7 to &b(" + EndOfFarmNotifier.selectedPos2[0] + ", " + EndOfFarmNotifier.selectedPos2[1] + ", " + EndOfFarmNotifier.selectedPos2[2] + ")&7");
+
+                })
+                .register();
+    }
+
+    public static void registerCreateRangeCommand() {
+        new PSSCommand("/create")
+                .setDescription("Creates the range from two positions")
+                .setRunnable((s, a) -> {
+                    String name = "";
+                    if (a.length >= 1) {
+                        name = a[0];
+                    }
+
+                    if (EndOfFarmNotifier.createNewRange(name) == null) {
+                        Utils.sendClientMessage("&cUnable to create a new farm notifier. Make sure both &b//pos1&c and &b//pos2&c have been selected.");
+                        return;
+                    }
+
+                    Utils.sendClientMessage("&aCreated new Farm Notifier");
+
+                })
+                .register();
+    }
+
+    public static void registerFarmNotifierCommand() {
+        new PSSCommand("/farmnotifier")
+                .addAlias("/fn")
+                .addAlias("/farmnotif")
+                .addAlias("farmnotifier")
+                .addAlias("fn")
+                .addAlias("farmnotif")
+                .setDescription("Operates the Farm Notifier feature: /fn [list/remove]")
+                .setRunnable(((sender, args) -> {
+                    if (args.length == 0 || args[0].equalsIgnoreCase("list")) {
+
+                        Utils.sendClientMessage("&7To create a new farm notifier, run &b//pos1&7 at one end of your selection, then run &b//pos2&7 at the other end of your farm. Once the area has been selected, run &b//create&7.\n\n&b//farmnotifier&7 command:\n&b//fn remove <index>:&7 remove a given index from the list.\n&b//fn list:&7 lists all of the farm notifiers and their indexes");
+
+                        EndOfFarmNotifier.listRanges();
+                        return;
+                    }
+
+                    if (args[0].equalsIgnoreCase("remove")) {
+                        if (args.length == 1) {
+                            Utils.sendClientMessage("&cError: Must provide an index to remove");
+                            return;
+                        }
+
+                        int i;
+                        try{
+                            i = Integer.parseInt(args[1]);
+                        } catch (NumberFormatException e) {
+                            Utils.sendClientMessage("&cPlease enter a valid number index and try again.");
+                            return;
+                        }
+
+                        if (i > EndOfFarmNotifier.ranges.size()) {
+                            Utils.sendClientMessage("&cPlease select a valid index and try again.");
+                            return;
+                        }
+                        Utils.sendClientMessage("&aRemoving: &b" + EndOfFarmNotifier.ranges.get(i - 1).toString());
+                        EndOfFarmNotifier.ranges.remove(i - 1);
+                        try {
+                            EndOfFarmNotifier.save();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }))
+                .register();
     }
 
     // Lists all the ranges to the chat

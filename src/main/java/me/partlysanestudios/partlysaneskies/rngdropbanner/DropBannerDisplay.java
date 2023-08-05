@@ -113,12 +113,14 @@ public class DropBannerDisplay extends Gui {
         ((UIWrappedText) topText)
                 .setText(topString)
                 .setTextScale(new PixelConstraint(BIG_TEXT_SCALE/1075 * window.getWidth()))
+                .setWidth(new PixelConstraint(window.getWidth()))
                 .setX(new CenterConstraint())
                 .setY(new PixelConstraint(window.getHeight() * .3f))
                 .setColor(categoryColor);
         ((UIWrappedText) dropNameText)
                 .setText(dropNameString)
                 .setTextScale(new PixelConstraint(SMALL_TEXT_SCALE/1075 * window.getWidth()))
+                .setWidth(new PixelConstraint(window.getWidth()))
                 .setX(new CenterConstraint())
                 .setY(new PixelConstraint(topText.getBottom() + window.getHeight() * .11f));
         window.draw(new UMatrixStack());

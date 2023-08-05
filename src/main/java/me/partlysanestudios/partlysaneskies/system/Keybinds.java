@@ -7,13 +7,17 @@ package me.partlysanestudios.partlysaneskies.system;
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.WikiArticleOpener;
-import me.partlysanestudios.partlysaneskies.garden.mathematicalhoerightclicks.MathematicalHoeRightClicksCommand;
+import me.partlysanestudios.partlysaneskies.HelpCommands;
+import me.partlysanestudios.partlysaneskies.garden.MathematicalHoeRightClicks;
+import me.partlysanestudios.partlysaneskies.utils.StringUtils;
+import net.minecraft.event.ClickEvent;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.IChatComponent;
 import org.lwjgl.input.Keyboard;
 
 import me.partlysanestudios.partlysaneskies.auctionhouse.AhGui;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManager;
-import me.partlysanestudios.partlysaneskies.help.HelpCommand;
-import me.partlysanestudios.partlysaneskies.petalert.PetAlert;
+import me.partlysanestudios.partlysaneskies.PetAlert;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.client.event.GuiScreenEvent.KeyboardInputEvent;
@@ -97,7 +101,7 @@ public final class Keybinds {
             PartyManager.startPartyManager();
         }
         if (helpKey.isPressed()) {
-            HelpCommand.printHelpMessage();
+            HelpCommands.printHelpMessage();
         }
         if (craftKeybind.isPressed()) {
             PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/craft");
@@ -112,8 +116,19 @@ public final class Keybinds {
             PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/storage");
         }
         if(allowHoeRightClickKeybind.isPressed()) {
+            boolean canRightClickHoe = Utils.onCooldown(MathematicalHoeRightClicks.lastAllowHoeRightClickTime, (long) (PartlySaneSkies.config.allowRightClickTime * 60L * 1000L));
 
-            MathematicalHoeRightClicksCommand.allowRightClicks();
+            if(canRightClickHoe){
+                IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + StringUtils.colorCodes("&dThe ability to right-click with a hoe has been &cdisabled&d again.\n&dClick this message or run /allowhoerightclick to allow right-clicks for " + PartlySaneSkies.config.allowRightClickTime + " again."));
+                message.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/allowhoerightclick"));
+                PartlySaneSkies.minecraft.ingameGUI.getChatGUI().printChatMessage(message);
+                MathematicalHoeRightClicks.lastAllowHoeRightClickTime = 0;
+            } else {
+                IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + StringUtils.colorCodes("&dThe ability to right-click with a hoe has been &aenabled&d for " + PartlySaneSkies.config.allowRightClickTime + " minutes.\n&dClick this message or run /allowhoerightclick to disable right-clicks again."));
+                message.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/allowhoerightclick"));
+                PartlySaneSkies.minecraft.ingameGUI.getChatGUI().printChatMessage(message);
+                MathematicalHoeRightClicks.lastAllowHoeRightClickTime = PartlySaneSkies.getTime();
+            }
         }
     }
 }

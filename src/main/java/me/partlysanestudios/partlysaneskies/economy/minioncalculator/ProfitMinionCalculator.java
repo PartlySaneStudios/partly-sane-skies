@@ -17,6 +17,7 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.skyblockdata.SkyblockDataManager;
 import me.partlysanestudios.partlysaneskies.skyblockdata.SkyblockItem;
 import me.partlysanestudios.partlysaneskies.system.ThemeManager;
+import me.partlysanestudios.partlysaneskies.system.commands.PSSCommand;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import me.partlysanestudios.partlysaneskies.system.guicomponents.PSSButton;
@@ -312,6 +313,25 @@ public HashMap<MinionData.Minion.Upgrade, PSSToggle> addMinionUpgradeButtons() {
             xPos += blockWidth + pad ;
         }
     }
+
+    public static void registerCommand() {
+        new PSSCommand("minioncalculator")
+                .addAlias("minioncalc")
+                .addAlias("bestminion")
+                .addAlias("mc")
+                .addAlias("bm")
+                .setDescription("Opens the best minion calculator")
+                .setRunnable((s,a) -> {
+                    Utils.sendClientMessage("&bOpening Minion Calculator...");
+                    new Thread(() -> PartlySaneSkies.minecraft.addScheduledTask(() -> {
+                        // Code to test the minion classes
+                        ProfitMinionCalculator calc = new ProfitMinionCalculator(ElementaVersion.V2);
+                        PartlySaneSkies.minecraft.displayGuiScreen(calc);
+                    })).start();
+                })
+                .register();
+    }
+
 //    Upgrades that don't actually modify anything
     String[] uselessUpgrades = {"Auto-Smelter", "Compactor", "Super Compactor", "Dwarven Super Compactor"};
     public void addBestMinionCalculator() {

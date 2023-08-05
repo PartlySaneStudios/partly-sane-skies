@@ -7,6 +7,7 @@ package me.partlysanestudios.partlysaneskies.dungeons.partymanager;
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyMember.PartyRank;
+import me.partlysanestudios.partlysaneskies.system.commands.PSSCommand;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
@@ -55,6 +56,17 @@ public class PartyManager {
             partyList.clear();
         }).start();
 
+    }
+
+    public static void registerCommand() {
+        new PSSCommand("partymanager")
+                .addAlias("pm")
+                .addAlias("partym")
+                .setDescription("Opens the Party Manager")
+                .setRunnable((s, a) -> {
+                    PartyManager.startPartyManager();
+                })
+                .register();
     }
 
     @SubscribeEvent

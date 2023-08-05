@@ -3,7 +3,7 @@
 // See LICENSE for copyright and license notices.
 //
 
-package me.partlysanestudios.partlysaneskies.petalert;
+package me.partlysanestudios.partlysaneskies;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -18,9 +18,9 @@ import gg.essential.elementa.components.Window;
 import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import gg.essential.universal.UMatrixStack;
-import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.auctionhouse.AhGui;
 import me.partlysanestudios.partlysaneskies.system.ThemeManager;
+import me.partlysanestudios.partlysaneskies.system.commands.PSSCommand;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.audio.PositionedSoundRecord;
@@ -127,6 +127,15 @@ public class PetAlert {
         name = StringUtils.removeColorCodes(name);
         int petNameStartIndex = name.indexOf("'s ") + 3; // Finds the start of the pet name. Ex: "[Lv100] Su386's *Black Cat"
         return name.substring(petNameStartIndex);
+    }
+
+    public static void registerCommand() {
+        new PSSCommand("mutepetalert")
+                .setDescription("Mutes the pet alert for a set amount of minutes")
+                .setRunnable((s, a) -> {
+                    Utils.sendClientMessage("&bPet alert has been muted for " +  PartlySaneSkies.config.petAlertMuteTime + " minutes.");
+                    PetAlert.lastMuteTime = PartlySaneSkies.getTime();
+                }).register();
     }
 
     public static String parsePetNameFromItem(String name) {

@@ -3,10 +3,11 @@
 // See LICENSE for copyright and license notices.
 //
 
-package me.partlysanestudios.partlysaneskies.skillupgrade;
+package me.partlysanestudios.partlysaneskies;
 
 import me.partlysanestudios.partlysaneskies.skyblockdata.SkyblockDataManager;
 import me.partlysanestudios.partlysaneskies.skyblockdata.SkyblockPlayer;
+import me.partlysanestudios.partlysaneskies.system.commands.PSSCommand;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 
@@ -123,6 +124,45 @@ public class SkillUpgradeRecommendation {
         weightConstants.put("fishing", 1.906418);
         weightConstants.put("alchemy", 1.5);
         weightConstants.put("farming", 1.717848139);
+    }
+
+    public static void registerCommand() {
+        new PSSCommand("skillup")
+                .addAlias("skillup")
+                .addAlias("skillu")
+                .addAlias("su")
+                .setDescription("Recommends which skill to upgrade: /skillup [username]")
+                .setRunnable((s, a) -> {
+                    Utils.sendClientMessage("Loading...");
+
+                    new Thread(() -> {
+                        HashMap<String, Double> map;
+                        if (a.length > 0) {
+                            try {
+                                map = SkillUpgradeRecommendation.getRecommendedSkills(a[0]);
+                            } catch (IOException e) {
+                                Utils.sendClientMessage(StringUtils.colorCodes("Error getting data for " + a[0]
+                                        + ". Maybe the player is nicked or there is an invalid API key. Try running /api new."));
+                                return;
+                            }
+                        } else {
+                            try {
+                                map = SkillUpgradeRecommendation.getRecommendedSkills(PartlySaneSkies.minecraft.thePlayer.getName());
+                            } catch (IOException e) {
+                                Utils.sendClientMessage(StringUtils.colorCodes("Error getting data for "
+                                        + PartlySaneSkies.minecraft.thePlayer.getName()
+                                        + ". Maybe the player is nicked or there is an invalid API key. Try running /api new."));
+                                return;
+                            }
+                        }
+
+                        PartlySaneSkies.minecraft.addScheduledTask(() -> {
+                            SkillUpgradeRecommendation.printMessage(map);
+                        });
+
+                    }).start();
+                })
+                .register();
     }
 
     // Sorts a double hashmap by its values
