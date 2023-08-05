@@ -197,10 +197,10 @@ public class PartlySaneSkies {
         ProfitMinionCalculator.registerCommand();
         MathematicalHoeRightClicks.registerCommand();
 
-        // Initialises keybinds
+        // Initializes keybinds
         Keybinds.init();
 
-        // Initialises Utils class
+        // Initializes Utils class
         Utils.init();
 
         MathematicalHoeRightClicks.loadHoes();

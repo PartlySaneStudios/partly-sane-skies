@@ -118,7 +118,7 @@ public class PetAlert {
         }
         String petName = parsePetNameFromItem(item.getDisplayName());
         PartlySaneSkies.config.selectectedPet = petName;
-        Utils.sendClientMessage("Set " + petName + " as your favourite pet.");
+        Utils.sendClientMessage("Set " + petName + " as your favorite pet.");
         PartlySaneSkies.config.save();
     }
 

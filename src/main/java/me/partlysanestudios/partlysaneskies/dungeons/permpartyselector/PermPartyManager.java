@@ -27,7 +27,7 @@ import me.partlysanestudios.partlysaneskies.utils.Utils;
 
 public class PermPartyManager {
     public static HashMap<String, PermParty> permPartyMap = new HashMap<>();
-    public static PermParty favouriteParty;
+    public static PermParty favoriteParty;
 
     // Loads all the data from the perm Party
     public static void load() throws IOException {
@@ -60,7 +60,7 @@ public class PermPartyManager {
             }
 
             PermParty permParty = new PermParty(partyJson.get("name").getAsString(), partyMembersList);
-            permParty.isFavourite = partyJson.get("isFavourite").getAsBoolean();
+            permParty.isFavorite = partyJson.get("isFavorite").getAsBoolean();
             map.put(en.getKey(), permParty);
         }
 
@@ -83,7 +83,7 @@ public class PermPartyManager {
                                                 "\n&3/pp delete <partyid>\n&7Deletes a perm party. (Note: There is no way to undo this action)."
                                                 +
                                                 "\n&3/pp new <partyid> {partymembers}\n&7Creates a new perm party." +
-                                                "\n&3/pp fav {partyid}\n&7Sets party as favourite. If no party is specified, parties everyone in the favourite perm party."));
+                                                "\n&3/pp fav {partyid}\n&7Sets party as favorite. If no party is specified, parties everyone in the favorite perm party."));
                     } else if (args[0].equalsIgnoreCase("add")) {
                         if (args.length == 3) {
                             if (PermPartyManager.permPartyMap.containsKey(args[1])) {
@@ -172,15 +172,15 @@ public class PermPartyManager {
                                 Utils.sendClientMessage("Set " + args[1] + " to your favorite.");
                             } else {
                                 Utils.sendClientMessage(StringUtils.colorCodes("&cNo party was found with the ID " + args[1]
-                                        + ".\n&cCorrect usage: /pp fav {partyid}\n&7Sets party as favourite. If no party is specified, parties everyone in the favourite perm party."));
+                                        + ".\n&cCorrect usage: /pp fav {partyid}\n&7Sets party as favorite. If no party is specified, parties everyone in the favorite perm party."));
                             }
                         } else {
-                            if (PermPartyManager.favouriteParty != null) {
-                                PermParty party = PermPartyManager.favouriteParty;
+                            if (PermPartyManager.favoriteParty != null) {
+                                PermParty party = PermPartyManager.favoriteParty;
                                 party.partyAll();
                             } else {
                                 Utils.sendClientMessage(StringUtils.colorCodes(
-                                        "&cCorrect usage: /pp fav {partyid}\n&7Sets party as favourite. If no party is specified, parties everyone in the favourite perm party."));
+                                        "&cCorrect usage: /pp fav {partyid}\n&7Sets party as favorite. If no party is specified, parties everyone in the favorite perm party."));
                             }
 
                         }
@@ -242,19 +242,19 @@ public class PermPartyManager {
         return true;
     }
 
-    // Sets the party as the favourite party 
-    public static boolean favouriteParty(String name) {
-        // Removes all favourites from other parties
+    // Sets the party as the favorite party 
+    public static boolean favoriteParty(String name) {
+        // Removes all favorites from other parties
         for (Entry<String, PermParty> en : permPartyMap.entrySet()) {
             PermParty party = en.getValue();
-            party.isFavourite = false;
+            party.isFavorite = false;
             permPartyMap.put(en.getKey(), party);
         }
-        // Sets the current party as the favourite
+        // Sets the current party as the favorite
         PermParty party = permPartyMap.get(name);
-        party.isFavourite = true;
+        party.isFavorite = true;
         permPartyMap.put(name, party);
-        favouriteParty = party;
+        favoriteParty = party;
 
         // Saves all the data
         try {
@@ -267,13 +267,13 @@ public class PermPartyManager {
         return true;
     }
 
-    // Loads the favourite party into the variable
-    public static void loadFavouriteParty() {
-        // Goes through each party to find the favourite
+    // Loads the favorite party into the variable
+    public static void loadFavoriteParty() {
+        // Goes through each party to find the favorite
         for (Entry<String, PermParty> en : permPartyMap.entrySet()) {
             PermParty party = en.getValue();
-            if (party.isFavourite) {
-                favouriteParty = party;
+            if (party.isFavorite) {
+                favoriteParty = party;
             }
         }
     }
