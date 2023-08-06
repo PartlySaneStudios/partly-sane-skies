@@ -59,7 +59,7 @@ public class PetAlert {
         
         }
         
-        String selectedPetName = PartlySaneSkies.config.selectectedPet;
+        String selectedPetName = PartlySaneSkies.config.selectedPet;
         
         if (petName.equalsIgnoreCase(selectedPetName)) {
             return;
@@ -117,7 +117,7 @@ public class PetAlert {
             return;
         }
         String petName = parsePetNameFromItem(item.getDisplayName());
-        PartlySaneSkies.config.selectectedPet = petName;
+        PartlySaneSkies.config.selectedPet = petName;
         Utils.sendClientMessage("Set " + petName + " as your favorite pet.");
         PartlySaneSkies.config.save();
     }
@@ -277,10 +277,10 @@ public class PetAlert {
 
         String petColorCode;
 
-        if (PartlySaneSkies.config.selectectedPet.isEmpty()) {
+        if (PartlySaneSkies.config.selectedPet.isEmpty()) {
             petColorCode = "&d";
         }
-        else if (currentlySelectedPetName.equalsIgnoreCase(PartlySaneSkies.config.selectectedPet)) {
+        else if (currentlySelectedPetName.equalsIgnoreCase(PartlySaneSkies.config.selectedPet)) {
             petColorCode = "&a";
 
         }
@@ -292,7 +292,7 @@ public class PetAlert {
         String textString = "&eCurrently Selected Pet:\n" +
                 petColorCode + currentlySelectedPetName + "\n\n" +
                 "&eDesired Pet:\n" +
-                "&d" + PartlySaneSkies.config.selectectedPet;
+                "&d" + PartlySaneSkies.config.selectedPet;
         textComponent.setText(textString);
         window.draw(new UMatrixStack());
     }

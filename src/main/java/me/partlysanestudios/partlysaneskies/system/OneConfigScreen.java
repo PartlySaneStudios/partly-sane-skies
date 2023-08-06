@@ -88,7 +88,7 @@ public class OneConfigScreen extends Config {
         category = "General", 
         subcategory = "Appearance", 
         name = "Hundreds Place Format", 
-        description = "The seperator between different hundreds places."
+        description = "The separator between different hundreds places."
     )
     public int hundredsPlaceFormat = 1;
 
@@ -399,7 +399,7 @@ public class OneConfigScreen extends Config {
         description = "The selected pet that will be used for minion collecting (Use /pets and click the pet keybind to select",
         secure =  true
     )
-    public String selectectedPet = "";
+    public String selectedPet = PartlySaneSkies.config.selectededPet | "";
 
     @Slider(
         min = 1, 
