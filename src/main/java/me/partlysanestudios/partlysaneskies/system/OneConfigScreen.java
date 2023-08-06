@@ -399,7 +399,7 @@ public class OneConfigScreen extends Config {
         description = "The selected pet that will be used for minion collecting (Use /pets and click the pet keybind to select",
         secure =  true
     )
-    public String selectedPet = PartlySaneSkies.config.selectededPet | "";
+    public String selectedPet = /*PartlySaneSkies.config.selectededPet |*/ "";
 
     @Slider(
         min = 1, 
