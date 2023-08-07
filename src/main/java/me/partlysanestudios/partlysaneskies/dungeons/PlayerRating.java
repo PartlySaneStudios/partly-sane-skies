@@ -15,6 +15,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
+import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import me.partlysanestudios.partlysaneskies.system.requests.Request;
@@ -39,23 +40,17 @@ public class PlayerRating {
     public static void initPatterns() {
         currentPlayer = PartlySaneSkies.minecraft.getSession().getUsername();
 
-        try {
-            RequestsManager.newRequest(new Request("https://raw.githubusercontent.com/PartlySaneStudios/partly-sane-skies-public-data/main/data/constants/dungeons_player_rate_pattern_strings.json", s -> {
-                if (!s.hasSucceeded()) {
-                    return;
-                }
-                JsonObject patternJson = new JsonParser().parse(s.getResponse()).getAsJsonObject();
-
-                JsonObject positivePatternsJson = patternJson.getAsJsonObject("positive_strings");
-
-                for (Map.Entry<String, JsonElement> entry : positivePatternsJson.entrySet()) {
-                    positivePatterns.put(entry.getKey(), entry.getValue().getAsString());
-                }
-            }
-            ));
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
+        String str = PublicDataManager.getFile("constants/dungeons_player_rate_pattern_strings.json");
+        if (str.equals("")) {
+            return;
         }
+        JsonObject patternJson = new JsonParser().parse(str).getAsJsonObject();
+        JsonObject positivePatternsJson = patternJson.getAsJsonObject("positive_strings");
+
+        for (Map.Entry<String, JsonElement> entry : positivePatternsJson.entrySet()) {
+            positivePatterns.put(entry.getKey(), entry.getValue().getAsString());
+        }
+
 
         
     }
