@@ -193,7 +193,7 @@ public class Utils {
                 put("header", "field_175256_i");
                 put("upperChestInventory", "field_147015_w");
                 put("lowerChestInventory", "field_147016_v");
-                put("persistantChatGUI", "field_73840_e");
+                put("persistentChatGUI", "field_73840_e");
                 put("sentMessages", "field_146248_g");
                 put("streamIndicator", "field_152127_m");
                 put("updateCounter", "field_73837_f");

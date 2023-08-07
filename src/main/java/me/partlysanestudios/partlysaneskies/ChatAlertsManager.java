@@ -287,7 +287,7 @@ public class ChatAlertsManager {
         
     }
 
-    // Returns the number of colour codes in a String
+    // Returns the number of color codes in a String
     private static int numOfColorCodes(String str) {
         int i = 0;
 

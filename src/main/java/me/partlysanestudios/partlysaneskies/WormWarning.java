@@ -31,7 +31,7 @@ public class WormWarning {
             .setColor(PartlySaneSkies.config.wormWarningBannerColor.toJavaColor())
             .setChildOf(window);
 
-    String wormWarnignString = "";
+    String wormWarningString = "";
     long wormWarningBannerTime;
 
     @SubscribeEvent
@@ -40,7 +40,7 @@ public class WormWarning {
         if (event.message.getUnformattedText().startsWith("You hear the sound of something approaching...")) {
             if (PartlySaneSkies.config.wormWarningBanner) {
                 wormWarningBannerTime = PartlySaneSkies.getTime();
-                wormWarnignString = "A Worm Has Spawned!";
+                wormWarningString = "A Worm Has Spawned!";
             }
             if (PartlySaneSkies.config.wormWarningBannerSound) {
                 PartlySaneSkies.minecraft.thePlayer.playSound("partlysaneskies:bell", 100, 1);
@@ -50,9 +50,9 @@ public class WormWarning {
 
     @SubscribeEvent
     public void renderText(RenderGameOverlayEvent.Text event) {
-        ((UIText) wormWarningUIText).setText(wormWarnignString).setColor(PartlySaneSkies.config.wormWarningBannerColor.toJavaColor());
+        ((UIText) wormWarningUIText).setText(wormWarningString).setColor(PartlySaneSkies.config.wormWarningBannerColor.toJavaColor());
         window.draw(new UMatrixStack());
         if (wormWarningBannerTime + PartlySaneSkies.config.wormWarningBannerTime * 1000 < PartlySaneSkies.getTime())
-            wormWarnignString = "";
+            wormWarningString = "";
     }
 }

@@ -178,7 +178,7 @@ public class SkyblockPlayer {
                     break;
                 }
             }
-            Utils.log(Level.INFO, "Recieved Data. Populating Stats");
+            Utils.log(Level.INFO, "Received Data. Populating Stats");
             this.populateStats();
             Utils.log(Level.INFO, "Player data successfully created and initiated");
 

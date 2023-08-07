@@ -271,7 +271,7 @@ public class GardenTradeValue {
 
         textString.append("&e&lTotal Cost: &r&d").append(StringUtils.formatNumber(Utils.round(getTotalCost(), 2))).append("\n\n");
         
-        textString.append("&e&lCopper Recieved: &r&d").append(StringUtils.formatNumber(Utils.round(getCopperReturn(), 2))).append("\n\n");
+        textString.append("&e&lCopper Received: &r&d").append(StringUtils.formatNumber(Utils.round(getCopperReturn(), 2))).append("\n\n");
 
         double pricePerCopper = getTotalCost() / getCopperReturn();
         textString.append("&e&lCoins/Copper: &r&d").append(StringUtils.formatNumber(Utils.round(pricePerCopper, 2))).append("\n\n");

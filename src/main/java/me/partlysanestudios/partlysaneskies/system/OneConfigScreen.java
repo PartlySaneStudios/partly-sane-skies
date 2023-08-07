@@ -88,7 +88,7 @@ public class OneConfigScreen extends Config {
         category = "General", 
         subcategory = "Appearance", 
         name = "Hundreds Place Format", 
-        description = "The seperator between different hundreds places."
+        description = "The separator between different hundreds places."
     )
     public int hundredsPlaceFormat = 1;
 
@@ -399,7 +399,7 @@ public class OneConfigScreen extends Config {
         description = "The selected pet that will be used for minion collecting (Use /pets and click the pet keybind to select",
         secure =  true
     )
-    public String selectectedPet = "";
+    public String selectedPet = /*PartlySaneSkies.config.selectededPet |*/ "";
 
     @Slider(
         min = 1, 
@@ -503,7 +503,7 @@ public class OneConfigScreen extends Config {
     @Text(
         subcategory = "Party Manager", 
         name = "Arrow Low Warning", 
-        description = "Message to send when a player has low arrows.\nUse {player} to signify the player's username, and {count} to signfy the remaining arrow count.", 
+        description = "Message to send when a player has low arrows.\nUse {player} to signify the player's username, and {count} to signify the remaining arrow count.", 
         category = "Dungeons"
     )
     public String arrowLowChatMessage = "Partly Sane Skies > Warning! {player} only has {count} arrows remaining!";
@@ -747,7 +747,7 @@ public class OneConfigScreen extends Config {
         category = "Economy"
     )
     public OneColor BINSniperColor = new OneColor(1, 255, 255);
-    // Execessive Coin warning
+    // Excessive Coin warning
     @Switch(
         name = "Excessive Coin and No Booster Cookie", 
         category = "Economy", 

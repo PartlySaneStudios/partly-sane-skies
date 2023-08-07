@@ -14,7 +14,7 @@ import me.partlysanestudios.partlysaneskies.utils.Utils;
 public class PermParty {
     public String name;
     public List<String> partyMembers;
-    public boolean isFavourite;
+    public boolean isFavorite;
 
     public PermParty(String partyName, List<String> partyMemberNames) {
         this.name = partyName;
@@ -53,9 +53,9 @@ public class PermParty {
         }
     }
 
-    // Sets the current permParty as the favourite
-    public void setFavourite(boolean setFavourite) {
-        this.isFavourite = setFavourite;
+    // Sets the current permParty as the favorite
+    public void setFavorite(boolean setFavorite) {
+        this.isFavorite = setFavorite;
         save();
     }
 

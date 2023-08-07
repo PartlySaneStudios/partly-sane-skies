@@ -231,10 +231,10 @@ public class MinionData {
             return items;
         }
 
-        public double getTotalProfitPerMinute(int tier, Upgrade[] uprgades, MinionFuel fuel) {
+        public double getTotalProfitPerMinute(int tier, Upgrade[] upgrades, MinionFuel fuel) {
             double totalProfit = 0;
 
-            for (Map.Entry<String, Double> en : this.getBaseItemsPerMinute(tier, uprgades, fuel).entrySet()) {
+            for (Map.Entry<String, Double> en : this.getBaseItemsPerMinute(tier, upgrades, fuel).entrySet()) {
                 String itemId = en.getKey();
                 double amount = en.getValue();
                 double price = 0;
@@ -253,6 +253,7 @@ public class MinionData {
 
         public String costBreakdown(int tier, double hours, Upgrade[] upgrades, MinionFuel fuel) {
 //            Creates a colour for each prefix
+//            Will still use the british way of spelling colour so flag doen'st cry - j10a
             String colourPrefix;
             switch(this.category) {
                 case "COMBAT":
