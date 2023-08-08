@@ -207,6 +207,9 @@ public class Utils {
     }
 
     public static String getItemId(ItemStack item) {
+        if (WikiArticleOpener.getItemAttributes(item) == null) {
+            return "";
+        }
         return WikiArticleOpener.getItemAttributes(item).getString("id");
     }
 

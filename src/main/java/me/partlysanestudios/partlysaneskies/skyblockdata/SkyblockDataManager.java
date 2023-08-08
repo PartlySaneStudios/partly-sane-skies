@@ -7,6 +7,7 @@ package me.partlysanestudios.partlysaneskies.skyblockdata;
 
 import com.google.gson.*;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
+import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager;
 import me.partlysanestudios.partlysaneskies.system.requests.Request;
 import me.partlysanestudios.partlysaneskies.system.requests.RequestsManager;
 
@@ -147,23 +148,17 @@ public class SkyblockDataManager {
     }
 
     public static void initBitValues() throws IOException {
-        RequestsManager.newRequest(new Request("https://raw.githubusercontent.com/PartlySaneStudios/partly-sane-skies-public-data/main/data/constants/bits_shop.json", s -> {
-            if (!s.hasSucceeded()) {
-                return;
+        JsonObject bitsShopObject = new JsonParser().parse(PublicDataManager.getFile("constants/bits_shop.json")).getAsJsonObject().getAsJsonObject("bits_shop");
+        for (Map.Entry<String, JsonElement> entry : bitsShopObject.entrySet()) {
+            String id = entry.getKey();
+            int bitCost = entry.getValue().getAsInt();
+            SkyblockItem item = getItem(id);
+            if (item == null) {
+                continue;
             }
-
-            JsonObject bitsShopObject = new JsonParser().parse(s.getResponse()).getAsJsonObject().getAsJsonObject("bits_shop");
-            for (Map.Entry<String, JsonElement> entry : bitsShopObject.entrySet()) {
-                String id = entry.getKey();
-                int bitCost = entry.getValue().getAsInt();
-                SkyblockItem item = getItem(id);
-                if (item == null) {
-                    continue;
-                }
-                bitIds.add(item.getId());
-                item.setBitCost(bitCost);
-            }
-        }));
+            bitIds.add(item.getId());
+            item.setBitCost(bitCost);
+        }
 
     }
 

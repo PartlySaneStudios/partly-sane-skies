@@ -19,6 +19,9 @@ public class WikiArticleOpener {
     public static boolean isWaitingForArticle = false;
 
     public static NBTTagCompound getItemAttributes(ItemStack item) {
+        if (item.getTagCompound() == null) {
+            return null;
+        }
         return item.getTagCompound().getCompoundTag("ExtraAttributes");
     }
 

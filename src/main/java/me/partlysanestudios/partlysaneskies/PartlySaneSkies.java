@@ -236,11 +236,14 @@ public class PartlySaneSkies {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        try {
-            SkyblockDataManager.initBitValues();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        new Thread(() -> {
+            try {
+                SkyblockDataManager.initBitValues();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }).start();
+
 
         // Loads user player data for PartyManager
         new Thread(() -> {

@@ -26,6 +26,7 @@ import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.List;
 import java.util.*;
 
@@ -51,6 +52,13 @@ public class BitsShopValue {
         long bitCount = PartlySaneSkies.getBits();
         boolean filterAffordable = PartlySaneSkies.config.bitShopOnlyShowAffordable;
 
+        if (SkyblockDataManager.bitIds.size() == 0) {
+            try {
+                SkyblockDataManager.initBitValues();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         for (String id : SkyblockDataManager.bitIds) {
             SkyblockItem item = SkyblockDataManager.getItem(id);
             if (filterAffordable && bitCount < item.getBitCost()) {
