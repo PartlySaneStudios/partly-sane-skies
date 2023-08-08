@@ -62,7 +62,7 @@ public class EndOfFarmNotifier {
             displayString = "";
             return;
         }
-        if (lastChimeTime + 3 * 1000 > PartlySaneSkies.getTime()) {
+        if (lastChimeTime + PartlySaneSkies.config.farmnotifierChimeTime * 1000 > PartlySaneSkies.getTime()) {
             return;
         }
 

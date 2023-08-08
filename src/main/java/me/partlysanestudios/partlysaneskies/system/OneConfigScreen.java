@@ -674,8 +674,17 @@ public class OneConfigScreen extends Config {
     )
     public float allowRightClickTime = 3f;
 
-    // ------------- Category: Economy ---------------------------------
-    // Garden
+    @Slider(
+        min = 1,
+        max = 5,
+        subcategory = "Farmnotifier",
+        name = "Time during chimes",
+        description = "The amount of seconds between the chime sounds",
+        category = "Farming"
+    )
+    public int farmnotifierChimeTime = 3;
+
+// Garden
     @Switch(
         subcategory = "Garden", 
         name = "Garden Shop Trade Cost", 
@@ -691,7 +700,8 @@ public class OneConfigScreen extends Config {
         category = "Farming"
     )
     public boolean bestCropsToCompost = false;
-
+// ------------- Category: Economy ---------------------------------
+// Community Center
     @Switch(
         subcategory = "Community Center", 
         name = "Best Item for Bits", 
