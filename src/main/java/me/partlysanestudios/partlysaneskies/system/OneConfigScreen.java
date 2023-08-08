@@ -446,6 +446,13 @@ public class OneConfigScreen extends Config {
     )
     public int customExplosion = 0;
 
+    // @Switch(
+    //     category = "Skyblock",
+    //     subcategory = "Enhanced Skyblock Sounds",
+    //     name = "Replace all sounds with Explosions"
+    // )
+    // public boolean replaceAllSoundsWithBoom = false;
+
     // -------------- Category: Mining --------------
     // Worm Warning
     @Switch(

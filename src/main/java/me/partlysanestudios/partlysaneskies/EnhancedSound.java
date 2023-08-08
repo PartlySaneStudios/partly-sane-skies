@@ -9,6 +9,7 @@ package me.partlysanestudios.partlysaneskies;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.sound.PlaySoundEvent;
+import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class EnhancedSound {
@@ -30,6 +31,15 @@ public class EnhancedSound {
 
     @SubscribeEvent
     public void onSoundEvent(PlaySoundEvent event) {
+
+    //su please make it work pleaseee,
+    //you also need to enable the config again then
+        // if(PartlySaneSkies.config.replaceAllSoundsWithBoom){
+        //     PartlySaneSkies.minecraft.getSoundHandler()
+        //                 .playSound(PositionedSoundRecord.create(new ResourceLocation("partlysaneskies", "explosion")));
+        // }
+
+
         if (event.name.equalsIgnoreCase("note.pling")) {
             if (PartlySaneSkies.config.customSoundOption == 0) {
                 return;
