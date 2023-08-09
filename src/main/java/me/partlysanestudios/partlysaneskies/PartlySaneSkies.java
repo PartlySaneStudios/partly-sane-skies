@@ -210,7 +210,10 @@ public class PartlySaneSkies {
         SkillUpgradeRecommendation.populateSkillMap();
 
         // API Calls
-        PlayerRating.initPatterns();
+        new Thread(() ->  {
+            PlayerRating.initPatterns();
+        }).start();
+
 
         try {
             SkyblockDataManager.initItems();
