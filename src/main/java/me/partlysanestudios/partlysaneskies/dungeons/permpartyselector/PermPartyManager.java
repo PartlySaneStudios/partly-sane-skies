@@ -60,7 +60,14 @@ public class PermPartyManager {
             }
 
             PermParty permParty = new PermParty(partyJson.get("name").getAsString(), partyMembersList);
-            permParty.isFavorite = partyJson.get("isFavorite").getAsBoolean();
+
+            if (partyJson.has("isFavourite")) {
+                permParty.isFavorite = partyJson.get("isFavourite").getAsBoolean();
+            }
+            else if (partyJson.has("isFavorite")) {
+                permParty.isFavorite = partyJson.get("isFavorite").getAsBoolean();
+            }
+
             map.put(en.getKey(), permParty);
         }
 

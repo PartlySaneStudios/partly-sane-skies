@@ -14,7 +14,7 @@ import me.partlysanestudios.partlysaneskies.utils.Utils;
 public class PermParty {
     public String name;
     public List<String> partyMembers;
-    public boolean isFavorite;
+    public boolean isFavorite = false;
 
     public PermParty(String partyName, List<String> partyMemberNames) {
         this.name = partyName;

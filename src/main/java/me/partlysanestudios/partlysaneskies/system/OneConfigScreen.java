@@ -19,7 +19,7 @@ public class OneConfigScreen extends Config {
 
     public OneConfigScreen() {
         // Available mod types: PVP, HUD, UTIL_QOL, HYPIXEL, SKYBLOCK
-        super(new Mod("Partly Sane Skies", ModType.SKYBLOCK, "/assets/partlysaneskies/textures/logo.png"), "partly-sane-skies/config.json");
+        super(new Mod("Partly Sane Skies", ModType.SKYBLOCK, "/assets/partlysaneskies/textures/logo_oneconfig.png"), "partly-sane-skies/config.json");
         initialize();
     }
 
