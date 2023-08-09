@@ -27,9 +27,9 @@ public class HelpCommands {
                 .setDescription("Join the Partly Sane Studios Discord Server")
                 .setRunnable((s, a) -> {
                     // Creates a new message with the correct text
-                    IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + StringUtils.colorCodes("&9Join the discord: https://discord.gg/v4PU3WeH7z"));
+                    IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + StringUtils.colorCodes("&9Join the discord: https://discord.gg/" + PartlySaneSkies.discordCode));
                     // Sets the text to be clickable with a link
-                    message.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://discord.gg/v4PU3WeH7z"));
+                    message.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://discord.gg/" + PartlySaneSkies.discordCode));
                     // Prints message
                     PartlySaneSkies.minecraft.ingameGUI.getChatGUI().printChatMessage(message);
                 })
@@ -94,7 +94,7 @@ public class HelpCommands {
                 "\n &6> Open the config: " +
                 "\n    &6> &ePress " + Keyboard.getKeyName(Keybinds.configKey.getKeyCode()) + " or use /pssc" +
                 "\n    &6> &eMost features are turned off by default so to use the mod, you will need to configure the settings" +
-                "\n    &6> &eTo change the keybinding, press Esc, Options, Video Settings, Controls, and scroll down to \"Partly Sane Skies\"." +
+                "\n    &6> &eTo change the keybinding, press Esc, Options, Controls and scroll down to \"Partly Sane Skies\"." +
                 "\n" +
                 "\n" +
                 "\n &1> Join the discord" +
