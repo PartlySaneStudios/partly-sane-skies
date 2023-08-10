@@ -128,7 +128,6 @@ public class SkillUpgradeRecommendation {
 
     public static void registerCommand() {
         new PSSCommand("skillup")
-                .addAlias("skillup")
                 .addAlias("skillu")
                 .addAlias("su")
                 .setDescription("Recommends which skill to upgrade: /skillup [username]")
