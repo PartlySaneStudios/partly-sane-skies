@@ -42,6 +42,7 @@ import me.partlysanestudios.partlysaneskies.system.requests.Request;
 import me.partlysanestudios.partlysaneskies.system.requests.RequestsManager;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
+import me.partlysanestudios.partlysaneskies.WordEditor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.event.ClickEvent;
@@ -178,6 +179,7 @@ public class PartlySaneSkies {
         MinecraftForge.EVENT_BUS.register(new EndOfFarmNotifier());
         MinecraftForge.EVENT_BUS.register(new PetAlert());
         MinecraftForge.EVENT_BUS.register(new MathematicalHoeRightClicks());
+        MinecraftForge.EVENT_BUS.register(new WordEditor());
 
         // Registers all client side commands
         HelpCommands.registerPSSCommand();
