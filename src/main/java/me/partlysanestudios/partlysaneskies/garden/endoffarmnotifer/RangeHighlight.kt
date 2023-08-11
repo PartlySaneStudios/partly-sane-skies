@@ -234,6 +234,7 @@ class RangeHighlight {
             tessellator.draw()
 
             worldRenderer.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION)
+            GlStateManager.color(1f, 0f, 0f, 1f)
             worldRenderer.pos(x1, y2, z1).endVertex()
             worldRenderer.pos(x2, y2, z1).endVertex()
             tessellator.draw()
