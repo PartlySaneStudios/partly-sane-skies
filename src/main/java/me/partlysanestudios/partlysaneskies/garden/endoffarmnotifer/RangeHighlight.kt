@@ -6,12 +6,14 @@
 
 //
 // Time spent pulling hair out in this file:
-// Su386: 12.5 hours and 13 cups of tea
+// Su386: 14.5 hours and 13 cups of tea
 //
-// Total: 12.5 hours and 13 cups of tea
+// Total: 14.5 hours and 13 cups of tea
 //
 // Good luck to any future devs.
 // The thoughts and prayers of the ancients are with you (Stargate Reference)
+//
+// Lets goooo it finally works (half of the issues were my own stupidity)
 //
 
 //
