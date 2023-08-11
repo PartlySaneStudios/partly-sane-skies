@@ -674,15 +674,34 @@ public class OneConfigScreen extends Config {
     )
     public float allowRightClickTime = 3f;
 
+
+//    Farn notifier
+    @Switch(
+            subcategory = "End of Farm Notifier",
+            category = "Farming",
+            name = "Show end of farm regions"
+    )
+    public boolean showFarmRegions = true;
+
     @Slider(
         min = 1,
         max = 5,
-        subcategory = "Farmnotifier",
+        subcategory = "End of Farm Notifier",
         name = "Time during chimes",
         description = "The amount of seconds between the chime sounds",
         category = "Farming"
     )
-    public int farmnotifierChimeTime = 3;
+    public float farmnotifierChimeTime = 3;
+
+    @Slider(
+            min = 1,
+            max = 120,
+            subcategory = "End of Farm Notifier",
+            name = "Highlight Time",
+            description = "The amount of seconds that a highlighted region will stay highlighted for",
+            category = "Farming"
+    )
+    public float farmHightlightTime = 30f;
 
 // Garden
     @Switch(

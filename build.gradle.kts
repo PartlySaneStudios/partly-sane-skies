@@ -2,6 +2,7 @@ import xyz.deftu.gradle.utils.GameSide
 
 plugins {
     java
+    kotlin("jvm") version("1.6.21")
     val dgtVersion = "1.18.4"
     id("xyz.deftu.gradle.tools") version(dgtVersion)
     id("xyz.deftu.gradle.tools.shadow") version(dgtVersion)
@@ -32,6 +33,8 @@ dependencies {
     implementation(shade("gg.essential:universalcraft-${mcData.versionStr}-${mcData.loader.name}:262") {
         isTransitive = false
     })
+    implementation(kotlin("stdlib"))
+    implementation(kotlin("gradle-plugin"))
     modCompileOnly("cc.polyfrost:oneconfig-${mcData.versionStr}-${mcData.loader.name}:0.2.0-alpha+")
     implementation(shade("cc.polyfrost:oneconfig-wrapper-launchwrapper:1.0.0-beta+")!!)
 }

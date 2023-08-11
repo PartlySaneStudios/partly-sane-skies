@@ -36,7 +36,9 @@ public class RequestsManager {
         Request element = requestsQueue.poll();
         // If the request is supposed to run in the main thread
         lastRequestTime = PartlySaneSkies.getTime();
-        assert element != null;
+        if (element == null) {
+            return;
+        }
         if (element.isMainThread()) {
             try {
                 element.startRequest();

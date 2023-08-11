@@ -33,6 +33,7 @@ import me.partlysanestudios.partlysaneskies.garden.GardenTradeValue;
 import me.partlysanestudios.partlysaneskies.garden.MathematicalHoeRightClicks;
 import me.partlysanestudios.partlysaneskies.garden.SkymartValue;
 import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.EndOfFarmNotifier;
+import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.RangeHighlight;
 import me.partlysanestudios.partlysaneskies.rngdropbanner.DropBannerDisplay;
 import me.partlysanestudios.partlysaneskies.skyblockdata.SkyblockDataManager;
 import me.partlysanestudios.partlysaneskies.system.Keybinds;
@@ -178,6 +179,7 @@ public class PartlySaneSkies {
         MinecraftForge.EVENT_BUS.register(new EndOfFarmNotifier());
         MinecraftForge.EVENT_BUS.register(new PetAlert());
         MinecraftForge.EVENT_BUS.register(new MathematicalHoeRightClicks());
+        MinecraftForge.EVENT_BUS.register(RangeHighlight.Companion);
 
         // Registers all client side commands
         HelpCommands.registerPSSCommand();
