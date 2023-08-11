@@ -70,7 +70,7 @@ public class EndOfFarmNotifier {
             displayString = "";
             return;
         }
-        if (!Utils.onCooldown(lastChimeTime, (long) PartlySaneSkies.config.farmnotifierChimeTime * 1000)) {
+        if (Utils.onCooldown(lastChimeTime, (long) (PartlySaneSkies.config.farmnotifierChimeTime * 1000))) {
             return;
         }
 
