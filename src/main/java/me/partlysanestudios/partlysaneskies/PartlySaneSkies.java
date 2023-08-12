@@ -179,6 +179,7 @@ public class PartlySaneSkies {
         MinecraftForge.EVENT_BUS.register(new EndOfFarmNotifier());
         MinecraftForge.EVENT_BUS.register(new PetAlert());
         MinecraftForge.EVENT_BUS.register(new MathematicalHoeRightClicks());
+
         MinecraftForge.EVENT_BUS.register(new WordEditor());
 
         // Registers all client side commands
