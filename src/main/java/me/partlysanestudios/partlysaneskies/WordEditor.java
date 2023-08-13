@@ -93,7 +93,7 @@ public class WordEditor {
         if (wordFound) {
             event.setCanceled(true);
 
-            ChatComponentText message = new ChatComponentText(formattedMessage); // Creates a new message
+            ChatComponentText message = new ChatComponentText(StringUtils.colorCodes(formattedMessage)); // Creates a new message
             message.setChatStyle(event.message.getChatStyle());                                         //Attempts to copy old chat layout
             message.getChatStyle().setChatHoverEvent(event.message.getChatStyle().getChatHoverEvent()); //Sets the old hover event
             message.getChatStyle().setChatClickEvent(event.message.getChatStyle().getChatClickEvent()); //Sets the old click event
