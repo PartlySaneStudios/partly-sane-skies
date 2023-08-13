@@ -52,14 +52,14 @@ public class WordEditor {
         String formattedMessage = event.message.getFormattedText();
         boolean wordFound = false; // If the string contains a word to replace
 
+        if (PartlySaneSkies.config.wordEditor == false) return;
+
         /*
          * 0: standard chat message
          * 1: system message
          * 2: action bar message
          */
-        if (event.type != 0) {
-            return;
-        }
+        if (event.type != 0) return;
 
         for (final String[] word : wordsToEdit) {
 
