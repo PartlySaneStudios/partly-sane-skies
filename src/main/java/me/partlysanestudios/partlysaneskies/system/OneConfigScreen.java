@@ -746,7 +746,7 @@ public class OneConfigScreen extends Config {
         name = "Word Editor Main Toggle",
         category = "Chat",
         subcategory = "Word Editor",
-        description = "Allows you to edit words in chat to make them more readable."
+        description = "Allows you to edit words in chat. Can be configured with /wordeditor"
     )
     public boolean wordEditor = true;
 
