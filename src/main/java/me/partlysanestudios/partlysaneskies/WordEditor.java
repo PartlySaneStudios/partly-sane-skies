@@ -135,7 +135,7 @@ public class WordEditor {
                 .addAlias("we")
                 .addAlias("wordreplace")
                 .addAlias("wr")
-                .setDescription("Operates the word editor: /wordeditor <add> <word> <replacement>, /wordeditor <list> or /wordeditor <remove> <index>")
+                .setDescription("Operates the word editor: /wordeditor add <word> <replacement>, /wordeditor list or /wordeditor remove <index>")
                 .setRunnable(((sender, args) -> {
                     if (args.length == 0 || args[0].equalsIgnoreCase("list")) {
 
