@@ -151,6 +151,12 @@ public class PartlySaneSkies {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+            try {
+                WordEditor.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }).start();
 
         
