@@ -5,7 +5,9 @@
 
 package me.partlysanestudios.partlysaneskies;
 
+import com.google.gson.*;
 import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.EndOfFarmNotifier;
+import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.Range3d;
 import me.partlysanestudios.partlysaneskies.system.commands.PSSCommand;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
@@ -17,7 +19,12 @@ import net.minecraft.event.ClickEvent.Action;
 import org.apache.commons.lang3.ArrayUtils;
 import scala.swing.ComboBox;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -37,11 +44,7 @@ import java.util.regex.Pattern;
 
 public class WordEditor {
 
-    static String[][] testArr = {
-            {"test", "teeeest"},
-            {"pommes", "pommmmmes"},
-            {"ei", "eiei"}
-    };
+    static String[][] wordsToEdit = {};
 
 
     @SubscribeEvent
@@ -58,7 +61,7 @@ public class WordEditor {
             return;
         }
 
-        for (final String[] word : testArr) {
+        for (final String[] word : wordsToEdit) {
 
             //Utils.sendClientMessage("Trying to replace \"" + word[0] + "\" with \"" + word[1] + "\" in string " + formattedMessage);
             final String wordToReplace = word[0];
@@ -114,14 +117,14 @@ public class WordEditor {
     }
 
     public static void listWords() {
-        if (WordEditor.testArr.length == 0) {
+        if (WordEditor.wordsToEdit.length == 0) {
             Utils.sendClientMessage("&7There are no words to replace.");
             return;
         }
 
         Utils.sendClientMessage("&7Words to replace:");
-        for (int i = 0; i < WordEditor.testArr.length; i++) {
-            Utils.sendClientMessage("&b" + (i + 1) + ". &7" + testArr[i][0] + " &8-> &7" + testArr[i][1]);
+        for (int i = 0; i < WordEditor.wordsToEdit.length; i++) {
+            Utils.sendClientMessage("&b" + (i + 1) + ". &7" + wordsToEdit[i][0] + " &8-> &7" + wordsToEdit[i][1]);
         }
     }
 
@@ -156,12 +159,12 @@ public class WordEditor {
                             return;
                         }
 
-                        if (i > WordEditor.testArr.length || i < 1) {
+                        if (i > WordEditor.wordsToEdit.length || i < 1) {
                             Utils.sendClientMessage("&cPlease select a valid index and try again.");
                             return;
                         }
-                        Utils.sendClientMessage("&aRemoving: &b" + WordEditor.testArr[i - 1][0] + " &8-> &b" + WordEditor.testArr[i - 1][1]);
-                        ArrayUtils.removeElement(WordEditor.testArr, WordEditor.testArr[i - 1]);    // Removes the element from the array
+                        Utils.sendClientMessage("&aRemoving: &b" + WordEditor.wordsToEdit[i - 1][0] + " &8-> &b" + WordEditor.wordsToEdit[i - 1][1]);
+                        ArrayUtils.removeElement(WordEditor.wordsToEdit, WordEditor.wordsToEdit[i - 1]);    // Removes the element from the array
                         try {
                             WordEditor.save();
                         } catch (IOException e) {
@@ -183,7 +186,7 @@ public class WordEditor {
                         }
 
                         Utils.sendClientMessage("&aAdding: &b" + word + " &8-> &b" + replacement);
-                        WordEditor.testArr = ArrayUtils.add(WordEditor.testArr, new String[]{word, replacement});
+                        WordEditor.wordsToEdit = ArrayUtils.add(WordEditor.wordsToEdit, new String[]{word, replacement});
                         try {
                             WordEditor.save();
                         } catch (IOException e) {
@@ -192,6 +195,41 @@ public class WordEditor {
                     }
                 }))
                 .register();
+    }
+
+
+    public static void save() throws IOException {
+        // Declares the file
+        File file = new File("./config/partly-sane-skies/wordEditor.json");
+
+        file.createNewFile();
+        // Creates a new Gson object to save the data
+        Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
+                .serializeSpecialFloatingPointValues()
+                .create();
+        // Saves teh data to the file
+        String json = gson.toJson(wordsToEdit);
+        FileWriter writer = new FileWriter(file);
+        writer.write(json);
+        writer.close();
+    }
+
+    public static void load() throws IOException {
+        // Declares file location
+        File file = new File("./config/partly-sane-skies/wordEditor.json");
+        file.setWritable(true);
+        // If the file had to be created, fil it with an empty list to prevent null pointer error
+        if (file.createNewFile()) {
+            FileWriter writer = new FileWriter(file);
+            writer.write(new Gson().toJson(new String[][]{}));
+            writer.close();
+        }
+
+        // Creates a new file reader
+        Reader reader = Files.newBufferedReader(Paths.get(file.getPath()));
+
+        wordsToEdit = new Gson().fromJson(reader, String[][].class);
     }
 
 

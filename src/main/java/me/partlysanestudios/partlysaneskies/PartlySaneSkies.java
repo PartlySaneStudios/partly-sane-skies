@@ -199,6 +199,7 @@ public class PartlySaneSkies {
         EndOfFarmNotifier.registerFarmNotifierCommand();
         ProfitMinionCalculator.registerCommand();
         MathematicalHoeRightClicks.registerCommand();
+        WordEditor.registerWordEditorCommand();
 
         // Initializes keybinds
         Keybinds.init();
