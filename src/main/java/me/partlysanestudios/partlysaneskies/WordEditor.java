@@ -6,12 +6,11 @@
 package me.partlysanestudios.partlysaneskies;
 
 import com.google.gson.*;
-import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.EndOfFarmNotifier;
-import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.Range3d;
 import me.partlysanestudios.partlysaneskies.system.commands.PSSCommand;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.IChatComponent;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.event.ClickEvent;
@@ -30,36 +29,17 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/*
- * TODO LIST:
- * - Add a file to save the words to replace
- * - Add a UI to add/remove/edit words to replace
- * - In the main config, add a button to open the UI
- * - Add a command to open the UI
- * - Add a main toggle in the main config
- * - Maybe in a new page, like "Chat" or something, where the chat colors, as well as the owo (todo) language can be toggeled
- *
- */
-
 
 public class WordEditor {
 
     static String[][] wordsToEdit = {};
 
 
-    @SubscribeEvent
-    public void onChat(final ClientChatReceivedEvent event) {
-        String formattedMessage = event.message.getFormattedText();
+    public IChatComponent handleWordEditorMessage(IChatComponent message) {
+        String formattedMessage = message.getFormattedText();
         boolean wordFound = false; // If the string contains a word to replace
 
-        if (PartlySaneSkies.config.wordEditor == false) return;
-
-        /*
-         * 0: standard chat message
-         * 1: system message
-         * 2: action bar message
-         */
-        if (event.type != 0) return;
+        if (!PartlySaneSkies.config.wordEditor) return message;
 
         for (final String[] word : wordsToEdit) {
 
@@ -89,31 +69,26 @@ public class WordEditor {
             }
         }
 
+        IChatComponent newMessage = new ChatComponentText(StringUtils.colorCodes(formattedMessage));                                   // Creates a new message with the new string
+
         // Only run when the word has been found to prevent unnecessary editing of the message (because we always break things)
         if (wordFound) {
-            event.setCanceled(true);
-
-            ChatComponentText message = new ChatComponentText(StringUtils.colorCodes(formattedMessage)); // Creates a new message
-            message.setChatStyle(event.message.getChatStyle());                                         //Attempts to copy old chat layout
-            message.getChatStyle().setChatHoverEvent(event.message.getChatStyle().getChatHoverEvent()); //Sets the old hover event
-            message.getChatStyle().setChatClickEvent(event.message.getChatStyle().getChatClickEvent()); //Sets the old click event
+            newMessage.setChatStyle(message.getChatStyle());                                                     //Attempts to copy old chat layout
+            newMessage.getChatStyle().setChatHoverEvent(message.getChatStyle().getChatHoverEvent());             //Sets the old hover event
+            newMessage.getChatStyle().setChatClickEvent(message.getChatStyle().getChatClickEvent());             //Sets the old click event
 
             List<String> urls = extractUrls(formattedMessage); // Gets the urls
-            if ((event.message.getChatStyle().getChatClickEvent() == null ||
-                    event.message.getChatStyle().getChatClickEvent().getValue() == null ||
-                    event.message.getChatStyle().getChatClickEvent().getValue().isEmpty()
-            ) // Checks if the old message has a value (by checking null and if its empty)
+            if ((message.getChatStyle().getChatClickEvent() == null ||
+                    message.getChatStyle().getChatClickEvent().getValue() == null ||
+                    message.getChatStyle().getChatClickEvent().getValue().isEmpty()
+            ) // Checks if the old message has a value (by checking null and if it's empty)
                     && !urls.isEmpty()) { // If the old message click event has no value and if the url list is not empty
 
-                message.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, urls.get(0))); // Makes the click event open the url
+                newMessage.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, urls.get(0))); // Makes the click event open the url
             }
-
-            PartlySaneSkies.minecraft.ingameGUI
-                    .getChatGUI()
-                    .printChatMessage(message);
         }
 
-
+        return newMessage;
     }
 
     public static void listWords() {
