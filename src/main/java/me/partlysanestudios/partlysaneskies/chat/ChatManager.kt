@@ -2,11 +2,12 @@ package me.partlysanestudios.partlysaneskies.chat
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.utils.StringUtils
+import me.partlysanestudios.partlysaneskies.utils.Utils
 import net.minecraft.client.audio.PositionedSoundRecord
 import net.minecraft.event.ClickEvent
 import net.minecraft.event.HoverEvent
-import net.minecraft.util.IChatComponent
 import net.minecraft.util.ChatComponentText
+import net.minecraft.util.IChatComponent
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
@@ -17,18 +18,20 @@ object ChatManager {
     @SubscribeEvent
     fun onChatReceived(event: ClientChatReceivedEvent) {
 //        If all chat modification features are disabled
-        if (!doModifyChatEnabled(event)) {
+        if (!doModifyChatEnabled()) {
             return
         }
 
-        if (event.type != 0.toByte()) {
+        if (event.type == 2.toByte()) {
             return
         }
 
 //        If the message doesn't need to be modified
-        if (!event.message.doChatMessageModify()) {
+        if (!event.message.doChatMessageModify(event)) {
             return
         }
+
+        Utils.sendClientMessage("ChatManager.onChatReceived: ${event.message.formattedText}")
 
         event.isCanceled = true // cancels the even
 
@@ -57,6 +60,7 @@ object ChatManager {
         // If the message has not changed
         if (messageToSend.equals(event.message)) {
             event.isCanceled = false // Reset the event
+            Utils.sendClientMessage("Message has not changed")
             return // Exit
         }
 
@@ -152,7 +156,7 @@ object ChatManager {
 
 //    Returns if we interact with chat at all
 //    ADD A CHECK FOR ANY FEATURE THAT MODIFIES AN EXISTING CHAT MESSAGE
-    private fun doModifyChatEnabled(event: ClientChatReceivedEvent): Boolean {
+    private fun doModifyChatEnabled(): Boolean {
         val config = PartlySaneSkies.config
 
         if (config.colorCoopChat) {
@@ -183,14 +187,15 @@ object ChatManager {
             return true
         }
 
-        else if (WordEditor.shouldEditMessage(event.message)) {
+        else if (WordEditor.wordsToEdit.isNotEmpty() && PartlySaneSkies.config.wordEditor) {
             return true
         }
 
         return false
     }
 
-    private fun IChatComponent.doChatMessageModify(): Boolean {
+    //ALSO HERE, DONT FORGET
+    private fun IChatComponent.doChatMessageModify(event: ClientChatReceivedEvent): Boolean {
         if (this.formattedText.startsWith(PartlySaneSkies.CHAT_PREFIX)) {
             return false
         }
@@ -201,6 +206,9 @@ object ChatManager {
             return true
         }
         else if (!ChatColors.detectNonMessage(this).formattedText.equals(this.formattedText)) {
+            return true
+        }
+        else if (WordEditor.shouldEditMessage(event.message)){
             return true
         }
         else {
