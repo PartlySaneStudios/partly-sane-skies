@@ -22,12 +22,12 @@ object ChatManager {
             return
         }
 
-        if (event.type == 2.toByte()) {
+        if (event.type != 0.toByte()) {
             return
         }
 
 //        If the message doesn't need to be modified
-        if (!event.message.doChatMessageModify(event)) {
+        if (!event.message.doChatMessageModify()) {
             return
         }
 
@@ -55,7 +55,9 @@ object ChatManager {
             messageToSend = ChatAlertsManager.checkChatAlert(messageToSend)
         }
 
-        messageToSend = ChatComponentText(StringUtils.colorCodes(WordEditor.handleWordEditorMessage(messageToSend.unformattedText)));
+        if (WordEditor.shouldEditMessage(messageToSend)) {
+            messageToSend = ChatComponentText(StringUtils.colorCodes(WordEditor.handleWordEditorMessage(messageToSend.unformattedText)));
+        }
 
         // If the message has not changed
         if (messageToSend.equals(event.message)) {
@@ -195,7 +197,7 @@ object ChatManager {
     }
 
     //ALSO HERE, DONT FORGET
-    private fun IChatComponent.doChatMessageModify(event: ClientChatReceivedEvent): Boolean {
+    private fun IChatComponent.doChatMessageModify(): Boolean {
         if (this.formattedText.startsWith(PartlySaneSkies.CHAT_PREFIX)) {
             return false
         }
@@ -208,7 +210,7 @@ object ChatManager {
         else if (!ChatColors.detectNonMessage(this).formattedText.equals(this.formattedText)) {
             return true
         }
-        else if (WordEditor.shouldEditMessage(event.message)){
+        else if (WordEditor.shouldEditMessage(this)){
             return true
         }
         else {

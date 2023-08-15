@@ -191,7 +191,6 @@ public class PartlySaneSkies {
 
 
 
-        MinecraftForge.EVENT_BUS.register(new WordEditor());
 
         // Registers all client side commands
         HelpCommands.registerPSSCommand();
