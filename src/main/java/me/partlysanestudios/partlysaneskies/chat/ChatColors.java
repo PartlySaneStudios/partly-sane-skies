@@ -3,54 +3,48 @@
 // See LICENSE for copyright and license notices.
 //
 
-package me.partlysanestudios.partlysaneskies;
+package me.partlysanestudios.partlysaneskies.chat;
 
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
-import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.util.ChatComponentText;
-import net.minecraftforge.client.event.ClientChatReceivedEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraft.util.IChatComponent;
 
 public class ChatColors {
-    @SubscribeEvent
-    public void detectColorMessage(ClientChatReceivedEvent event) {
-        String formattedMessage = event.message.getFormattedText();
+    public static IChatComponent detectColorMessage(IChatComponent message) {
+        String formattedMessage = message.getFormattedText();
         String prefix = getPrefix(formattedMessage);
-        if (prefix.equals("")) {
-            return;
+        if (prefix.isEmpty()) {
+            return message;
         }
 
-        event.setCanceled(true);
         String color = getChatColor(prefix);
         if (color.isEmpty()) {
-            event.setCanceled(false);
-            return;
+            return message;
         }
-        PartlySaneSkies.minecraft.ingameGUI
-                .getChatGUI()
-                .printChatMessage(new ChatComponentText(insertColor(formattedMessage, color)));
+
+        return new ChatComponentText(insertColor(formattedMessage, color));
     }
 
-    @SubscribeEvent
-    public void detectNonMessage(ClientChatReceivedEvent event) {
+    public static IChatComponent detectNonMessage(IChatComponent message) {
         if (!PartlySaneSkies.config.colorNonMessages) {
-            return;
+            return message;
         }
 
-        String formattedMessage = event.message.getFormattedText();
+        String formattedMessage = message.getFormattedText();
         // if it's not a non message, return
         if (!formattedMessage.contains("§r§7: ")) {
-            return;
+            return message;
         }
 
         // If its private message, return
         if (formattedMessage.startsWith("§dTo ") || formattedMessage.startsWith("§dFrom ")) {
-            return;
+            return message;
         }
 
         // Checks to see if the message has a rank
         boolean containsRankNames = false;
-        String unformattedMessage = event.message.getUnformattedText();
+        String unformattedMessage = message.getUnformattedText();
         for (String rank : PartlySaneSkies.RANK_NAMES) {
             if (!unformattedMessage.contains(rank)) {
                 continue;
@@ -61,12 +55,11 @@ public class ChatColors {
 
         // If it has a rank return
         if (containsRankNames) {
-            return;
+            return message;
         }
         
         // If it does not, it highlights the nons message
-        event.setCanceled(true);
-        Utils.sendClientMessage(insertColor(formattedMessage, "&r"), true);
+        return new ChatComponentText(insertColor(formattedMessage, "&r"));
     }
 
     public static String getChatColor(String prefix) {
@@ -147,7 +140,14 @@ public class ChatColors {
     }
 
     public static String insertColor(String message, String color) {
-        int messageStartIndex = message.indexOf(": ");
+        int messageStartIndex = -1;
+
+        for (String prefix : ChatAlertsManager.MESSAGE_PREFIXES) {
+            if (message.contains(prefix)) {
+                messageStartIndex =  message.indexOf(prefix) + prefix.length();
+                break;
+            }
+        }
 
         if (messageStartIndex == -1) {
             return message;

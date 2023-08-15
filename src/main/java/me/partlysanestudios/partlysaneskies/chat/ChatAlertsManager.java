@@ -3,7 +3,15 @@
 // See LICENSE for copyright and license notices.
 //
 
-package me.partlysanestudios.partlysaneskies;
+package me.partlysanestudios.partlysaneskies.chat;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import me.partlysanestudios.partlysaneskies.system.commands.PSSCommand;
+import me.partlysanestudios.partlysaneskies.utils.StringUtils;
+import me.partlysanestudios.partlysaneskies.utils.Utils;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.IChatComponent;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -12,17 +20,6 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import me.partlysanestudios.partlysaneskies.system.commands.PSSCommand;
-import me.partlysanestudios.partlysaneskies.utils.StringUtils;
-import me.partlysanestudios.partlysaneskies.utils.Utils;
-import net.minecraft.client.audio.PositionedSoundRecord;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.event.ClientChatReceivedEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class ChatAlertsManager {
     static String DATA_PATH_NAME = "./config/partly-sane-skies/chatAlertsData.json";
@@ -160,6 +157,10 @@ public class ChatAlertsManager {
         Utils.sendClientMessage("&b\"&d" + alert + "&b\" was successfully added as alert number &d" + chatAlertsList.size() + "&b.");
     }
 
+    public static int getChatAlertCount() {
+        return chatAlertsList.size();
+    }
+
     // Lists all the alerts to the chat
     public static void listAlerts() {
         // Creates header message
@@ -208,9 +209,8 @@ public class ChatAlertsManager {
     static String[] MESSAGE_PREFIXES = new String[] {"§r§7: ", "§r§f: ", "§f: "};
 
     // Runs when a chat message is received
-    @SubscribeEvent
-    public void checkChatAlert(ClientChatReceivedEvent e) {
-        String formattedMessage = e.message.getFormattedText();
+    public static IChatComponent checkChatAlert(IChatComponent message) {
+        String formattedMessage = message.getFormattedText();
 
         // Finds the location after the username starts
         // Ex: "[MVP+] Su386: "
@@ -227,7 +227,7 @@ public class ChatAlertsManager {
 
         // If the message does not have ":" at the beginning
         if (beginMessageIndex == -1) {
-            return;
+            return message;
         }
 
         String unformattedMessage = StringUtils.removeColorCodes(formattedMessage);
@@ -248,9 +248,6 @@ public class ChatAlertsManager {
             if (!lowerCaseMessage.contains(alert.toLowerCase())) {
                 continue;
             }
-
-            // Prohibits an original message from being sent to the player
-            e.setCanceled(true);
 
             // Creates a new message that will be shown to the user
             StringBuilder messageBuilder = new StringBuilder(formattedMessage);
@@ -273,18 +270,12 @@ public class ChatAlertsManager {
             charsToAdd = StringUtils.colorCodes("&d&l").toCharArray();
             messageBuilder.insert(alertIndexFormatted, charsToAdd, 0, charsToAdd.length);
 
-            // Plays a flute sound 
-            PartlySaneSkies.minecraft
-                    .getSoundHandler()
-                    .playSound(PositionedSoundRecord.create(new ResourceLocation("partlysaneskies", "flute_scale")));
+
 
             // Shows a message to user
-            Utils.sendClientMessage(messageBuilder.toString(), true);
-
-            // Exists loop
-            break;
+            return new ChatComponentText(messageBuilder.toString());
         }
-        
+        return message;
     }
 
     // Returns the number of color codes in a String

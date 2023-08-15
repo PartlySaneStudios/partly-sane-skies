@@ -5,6 +5,7 @@
 
 package me.partlysanestudios.partlysaneskies;
 
+import me.partlysanestudios.partlysaneskies.utils.Utils;
 import gg.essential.elementa.ElementaVersion;
 import gg.essential.elementa.UIComponent;
 import gg.essential.elementa.components.UIText;
@@ -52,7 +53,8 @@ public class WormWarning {
     public void renderText(RenderGameOverlayEvent.Text event) {
         ((UIText) wormWarningUIText).setText(wormWarningString).setColor(PartlySaneSkies.config.wormWarningBannerColor.toJavaColor());
         window.draw(new UMatrixStack());
-        if (wormWarningBannerTime + PartlySaneSkies.config.wormWarningBannerTime * 1000 < PartlySaneSkies.getTime())
+        if (Utils.onCooldown(wormWarningBannerTime, (long) (PartlySaneSkies.config.wormWarningBannerTime * 1000L))) {
             wormWarningString = "";
+        }
     }
 }

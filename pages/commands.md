@@ -11,10 +11,20 @@ These commands also work instead of ``/pss``:
 
 ``/helpss``
 
+``/pssh``
+
+``/pshelp``
+
+``/helpss``
+
+``/helppss``
+
 ``/psshelp``
 
+``/helpihavenoideawhatpartlysaneskiesis``
+
 ### Description
-A helpful command for information on Partly Sane Skies.
+Opens the config and displays information about Partly Sane Skies. Note, ``/pss`` also opens the config, while none of the aliases do.
 
 ### Usage
 
@@ -33,6 +43,8 @@ A helpful command for information on Partly Sane Skies.
 ### Aliases
 These commands also work instead of ``/pssconfig``:
 
+``/pss``
+
 ``/pssconf``
 
 ``/pssc``
@@ -46,7 +58,7 @@ Along with the following aliases under the ``/pss`` command:
 ``/pss conf``
 
 ### Description
-Opens the configuration menu to edit all settings inside Partly Sane Skies.
+Opens the configuration menu to edit all settings inside Partly Sane Skies. Note, ``/pss`` also prints the help message, while none of the aliases do.
 
 ### Usage
 
@@ -194,7 +206,7 @@ Parties friends that are online in your friends list.
 
 These commands also work instead of ``/chatalerts``:
 
-``/chatalerts``
+``/chatalert``
 
 ``/chal``
 
@@ -226,6 +238,12 @@ These commands also work instead of ``//farmnotfier``:
 ``//farmnotif``
 
 ``//fn``
+
+``/farmnotifier``
+
+``/fn``
+
+``/farmnotif``
 
 ### Description
 Allows you to create areas where you will be notified you have reached the end of your farm.
@@ -283,3 +301,42 @@ Opens the most profitable minions feature
 
 </details>
 
+
+<!-- /mutepetalert command -->
+<details>
+  <summary> <code> /mutepetalert </code> </summary>
+
+## ``/mutepetalert``
+
+### Description
+Mutes the pet alert warning for a certain amount of time
+
+### Usage
+
+``/mutepetalert``: Mutes the pet alert warning
+
+</details>
+
+
+<!-- /allowhoerightclick command -->
+<details>
+  <summary> <code> /allowhoerightclick </code> </summary>
+
+## ``/allowhoerightclick``
+
+### Aliases
+
+These commands also work instead of ``/allowhoerightclick``:
+
+``/allowhoerightclicks``
+
+``/ahrc``
+
+### Description
+Allows hoe right clicks for a few moments
+
+### Usage
+
+``/allowhoerightclick``: Toggles hoe right clicks
+
+</details>

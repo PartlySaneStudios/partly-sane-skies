@@ -152,7 +152,7 @@ public class CustomMainMenu extends WindowScreen {
                 .setY(new CenterConstraint())
                 .setHeight(new PixelConstraint(middleMenu.getHeight()))
                 .setWidth(new PixelConstraint(2 * scaleFactor))
-                .setColor(ThemeManager.getAccentColor())
+                .setColor(ThemeManager.getAccentColor().toJavaColor())
                 .setChildOf(middleMenu);
 
         middleRightBar = new UIBlock()
@@ -160,7 +160,7 @@ public class CustomMainMenu extends WindowScreen {
                 .setY(new CenterConstraint())
                 .setHeight(new PixelConstraint(middleMenu.getHeight()))
                 .setWidth(new PixelConstraint(2 * scaleFactor))
-                .setColor(ThemeManager.getAccentColor())
+                .setColor(ThemeManager.getAccentColor().toJavaColor())
                 .setChildOf(middleMenu);
 
         float titleHeight = 75;
@@ -278,7 +278,7 @@ public class CustomMainMenu extends WindowScreen {
                 .setY(new PixelConstraint(400f * scaleFactor))
                 .setHeight(new PixelConstraint(1 * scaleFactor))
                 .setWidth(new PixelConstraint(middleMenu.getWidth() * .90f))
-                .setColor(ThemeManager.getAccentColor())
+                .setColor(ThemeManager.getAccentColor().toJavaColor())
                 .setChildOf(middleMenu);
 
         pssOptionsButton = new UIBlock()

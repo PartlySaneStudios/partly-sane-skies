@@ -38,6 +38,7 @@ import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import scala.collection.script.End;
 
 public class EndOfFarmNotifier {
     public static ArrayList<Range3d> ranges = new ArrayList<>();
@@ -56,13 +57,20 @@ public class EndOfFarmNotifier {
             .setColor(Color.white)
             .setChildOf(window);
 
+    public static Range3d rangeToHighlight = null;
+    public static long rangeToHighlightSetTime = 0;
+
 
     public static void run() {
+        if (!Utils.onCooldown(rangeToHighlightSetTime, (long) (PartlySaneSkies.config.farmHightlightTime * 1000))) {
+            rangeToHighlight = null;
+        }
+
         if (!playerInRange()) {
             displayString = "";
             return;
         }
-        if (lastChimeTime + PartlySaneSkies.config.farmnotifierChimeTime * 1000 > PartlySaneSkies.getTime()) {
+        if (Utils.onCooldown(lastChimeTime, (long) (PartlySaneSkies.config.farmnotifierChimeTime * 1000))) {
             return;
         }
 
@@ -76,7 +84,11 @@ public class EndOfFarmNotifier {
         if (selectedPos1 == null || selectedPos2 == null) {
             return null;
         }
-        Range3d range = new Range3d(selectedPos1[0], selectedPos1[1], selectedPos1[2], selectedPos2[0], selectedPos2[1], selectedPos2[2]);
+
+        double smallY = Math.min(selectedPos1[1], selectedPos2[1]);
+
+        double bigY = Math.max(selectedPos1[1], selectedPos2[1]);
+        Range3d range = new Range3d(selectedPos1[0], smallY - 1, selectedPos1[2], selectedPos2[0], bigY + 1, selectedPos2[2]);
         range.setRangeName(name);
         selectedPos1 = null;
         selectedPos2 = null;
@@ -95,13 +107,8 @@ public class EndOfFarmNotifier {
         if (PartlySaneSkies.minecraft.thePlayer == null) {
             return false;
         }
-        
-        String location = PartlySaneSkies.getRegionName();
-        location = StringUtils.removeColorCodes(location);
-        location = StringUtils.stripLeading(location);
-        location = StringUtils.stripTrailing(location);
-        location = location.replaceAll("\\P{Print}", ""); // Removes the RANDOM EMOJIS THAT ARE PRESENT IN SKYBLOCK LOCATIONS
-        if (!(location.startsWith("The Garden")  || location.startsWith("Plot: "))) {
+
+        if (!inGarden()) {
             return false;
         }
 
@@ -175,6 +182,20 @@ public class EndOfFarmNotifier {
         ranges = list;
     }
 
+
+    public static boolean inGarden() {
+        String location = PartlySaneSkies.getRegionName();
+        location = StringUtils.removeColorCodes(location);
+        location = StringUtils.stripLeading(location);
+        location = StringUtils.stripTrailing(location);
+        location = location.replaceAll("\\P{Print}", ""); // Removes the RANDOM EMOJIS THAT ARE PRESENT IN SKYBLOCK LOCATIONS
+        if (!(location.startsWith("The Garden")  || location.startsWith("Plot: "))) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     public static void registerPos1Command() {
         new PSSCommand("/pos1")
                 .setDescription("Sets one corner of the End of Farm Notifier")
@@ -226,7 +247,7 @@ public class EndOfFarmNotifier {
                 .addAlias("farmnotifier")
                 .addAlias("fn")
                 .addAlias("farmnotif")
-                .setDescription("Operates the Farm Notifier feature: /fn [list/remove]")
+                .setDescription("Operates the Farm Notifier feature: /fn [list/remove/highlight/show]")
                 .setRunnable(((sender, args) -> {
                     if (args.length == 0 || args[0].equalsIgnoreCase("list")) {
 
@@ -261,6 +282,29 @@ public class EndOfFarmNotifier {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
+                    }
+
+                    if (args[0].equalsIgnoreCase("highlight") || args[0].equalsIgnoreCase("show")) {
+                        if (args.length == 1) {
+                            Utils.sendClientMessage("&cError: Must provide an index to highlight");
+                            return;
+                        }
+
+                        int i;
+                        try{
+                            i = Integer.parseInt(args[1]);
+                        } catch (NumberFormatException e) {
+                            Utils.sendClientMessage("&cPlease enter a valid number index and try again.");
+                            return;
+                        }
+
+                        if (i > EndOfFarmNotifier.ranges.size()) {
+                            Utils.sendClientMessage("&cPlease select a valid index and try again.");
+                            return;
+                        }
+
+                        rangeToHighlight = EndOfFarmNotifier.ranges.get(i - 1);
+                        rangeToHighlightSetTime = PartlySaneSkies.getTime();
                     }
                 }))
                 .register();

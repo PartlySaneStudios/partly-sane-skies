@@ -32,6 +32,8 @@ Partly Sane Skies would not be possible without these third party projects:
 
 - awt-color-factory: https://github.com/beryx/awt-color-factory/blob/master/LICENSE#L347-L357
 
+- SkyHanni: https://github.com/hannibal002/SkyHanni/blob/beta/LICENSE
+
 - Skytils: https://github.com/Skytils/SkytilsMod/blob/1.x/LICENSE.md
 
 - Not Enough Updates: https://github.com/NotEnoughUpdates/NotEnoughUpdates/blob/master/COPYING

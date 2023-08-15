@@ -249,7 +249,7 @@ public class AhGui extends WindowScreen {
             }
             
             if (iteratorId == i/9) {
-                icon.setColor(Utils.applyOpacityToColor(ThemeManager.getAccentColor(), 75));
+                icon.setColor(Utils.applyOpacityToColor(ThemeManager.getAccentColor().toJavaColor(), 75));
             }
         }
 

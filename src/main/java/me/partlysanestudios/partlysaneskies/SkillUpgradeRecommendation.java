@@ -5,8 +5,8 @@
 
 package me.partlysanestudios.partlysaneskies;
 
-import me.partlysanestudios.partlysaneskies.skyblockdata.SkyblockDataManager;
-import me.partlysanestudios.partlysaneskies.skyblockdata.SkyblockPlayer;
+import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager;
+import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockPlayer;
 import me.partlysanestudios.partlysaneskies.system.commands.PSSCommand;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
@@ -128,7 +128,6 @@ public class SkillUpgradeRecommendation {
 
     public static void registerCommand() {
         new PSSCommand("skillup")
-                .addAlias("skillup")
                 .addAlias("skillu")
                 .addAlias("su")
                 .setDescription("Recommends which skill to upgrade: /skillup [username]")
