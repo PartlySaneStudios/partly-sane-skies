@@ -31,7 +31,7 @@ object ChatManager {
             return
         }
 
-        Utils.sendClientMessage("ChatManager.onChatReceived: ${event.message.formattedText}")
+        // Utils.sendClientMessage("ChatManager.onChatReceived: ${event.message.formattedText}")
 
         event.isCanceled = true // cancels the even
 
@@ -62,7 +62,7 @@ object ChatManager {
         // If the message has not changed
         if (messageToSend.equals(event.message)) {
             event.isCanceled = false // Reset the event
-            Utils.sendClientMessage("Message has not changed")
+            // Utils.sendClientMessage("Message has not changed")
             return // Exit
         }
 

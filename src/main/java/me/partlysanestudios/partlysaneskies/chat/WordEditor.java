@@ -51,7 +51,7 @@ public class WordEditor {
 
         for (final String[] word : wordsToEdit) {
 
-            Utils.sendClientMessage("Trying to replace \"" + word[0] + "\" with \"" + word[1]);
+            // Utils.sendClientMessage("Trying to replace \"" + word[0] + "\" with \"" + word[1]);
             final String wordToReplace = word[0];
             final String replacementWord = word[1];
 
