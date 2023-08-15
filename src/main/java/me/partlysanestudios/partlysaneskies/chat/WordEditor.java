@@ -3,20 +3,18 @@
 // See LICENSE for copyright and license notices.
 //
 
-package me.partlysanestudios.partlysaneskies;
+package me.partlysanestudios.partlysaneskies.chat;
 
 import com.google.gson.*;
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.system.commands.PSSCommand;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
-import net.minecraftforge.client.event.ClientChatReceivedEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.event.ClickEvent;
-import net.minecraft.event.ClickEvent.Action;
 import org.apache.commons.lang3.ArrayUtils;
-import scala.swing.ComboBox;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -33,17 +31,27 @@ import java.util.regex.Pattern;
 public class WordEditor {
 
     static String[][] wordsToEdit = {};
+    /*
+      Structure:
+        {
+            [
+                "word to replace",
+                "replacement word"
+            ],
+            [
+                "word to replace",
+                "replacement word"
+            ]
+         }
+     */
 
 
-    public IChatComponent handleWordEditorMessage(IChatComponent message) {
-        String formattedMessage = message.getFormattedText();
-        boolean wordFound = false; // If the string contains a word to replace
-
+    public static String handleWordEditorMessage(String message) {
         if (!PartlySaneSkies.config.wordEditor) return message;
 
         for (final String[] word : wordsToEdit) {
 
-            //Utils.sendClientMessage("Trying to replace \"" + word[0] + "\" with \"" + word[1] + "\" in string " + formattedMessage);
+            Utils.sendClientMessage("Trying to replace \"" + word[0] + "\" with \"" + word[1]);
             final String wordToReplace = word[0];
             final String replacementWord = word[1];
 
@@ -63,32 +71,29 @@ public class WordEditor {
 //i think these comments should stay, for history's sake
 // i concur
 
-            if (formattedMessage.contains(wordToReplace)) { // If the to replace exists
-                formattedMessage = formattedMessage.replace(wordToReplace, replacementWord);
-                wordFound = true;
+            if (message.contains(wordToReplace)) { // If the to replace exists
+                message = message.replace(wordToReplace, replacementWord);
             }
         }
 
-        IChatComponent newMessage = new ChatComponentText(StringUtils.colorCodes(formattedMessage));                                   // Creates a new message with the new string
+        return message;
+    }
 
-        // Only run when the word has been found to prevent unnecessary editing of the message (because we always break things)
-        if (wordFound) {
-            newMessage.setChatStyle(message.getChatStyle());                                                     //Attempts to copy old chat layout
-            newMessage.getChatStyle().setChatHoverEvent(message.getChatStyle().getChatHoverEvent());             //Sets the old hover event
-            newMessage.getChatStyle().setChatClickEvent(message.getChatStyle().getChatClickEvent());             //Sets the old click event
+    public static boolean shouldEditMessage(IChatComponent message) {
+        if (!PartlySaneSkies.config.wordEditor) {
+            return false;
+        }
 
-            List<String> urls = extractUrls(formattedMessage); // Gets the urls
-            if ((message.getChatStyle().getChatClickEvent() == null ||
-                    message.getChatStyle().getChatClickEvent().getValue() == null ||
-                    message.getChatStyle().getChatClickEvent().getValue().isEmpty()
-            ) // Checks if the old message has a value (by checking null and if it's empty)
-                    && !urls.isEmpty()) { // If the old message click event has no value and if the url list is not empty
+        String formattedMessage = message.getFormattedText();
 
-                newMessage.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, urls.get(0))); // Makes the click event open the url
+        for (final String[] word : wordsToEdit) {
+            final String wordToReplace = word[0];
+            if (formattedMessage.contains(wordToReplace)) {
+                return true;
             }
         }
 
-        return newMessage;
+        return false;
     }
 
     public static void listWords() {

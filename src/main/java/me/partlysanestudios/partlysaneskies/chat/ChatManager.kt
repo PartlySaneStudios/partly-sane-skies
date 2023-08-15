@@ -6,6 +6,7 @@ import net.minecraft.client.audio.PositionedSoundRecord
 import net.minecraft.event.ClickEvent
 import net.minecraft.event.HoverEvent
 import net.minecraft.util.IChatComponent
+import net.minecraft.util.ChatComponentText
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
@@ -16,7 +17,7 @@ object ChatManager {
     @SubscribeEvent
     fun onChatReceived(event: ClientChatReceivedEvent) {
 //        If all chat modification features are disabled
-        if (!doModifyChatEnabled()) {
+        if (!doModifyChatEnabled(event)) {
             return
         }
 
@@ -50,6 +51,8 @@ object ChatManager {
                 .playSound(PositionedSoundRecord.create(ResourceLocation("partlysaneskies", "flute_scale")))
             messageToSend = ChatAlertsManager.checkChatAlert(messageToSend)
         }
+
+        messageToSend = ChatComponentText(StringUtils.colorCodes(WordEditor.handleWordEditorMessage(messageToSend.unformattedText)));
 
         // If the message has not changed
         if (messageToSend.equals(event.message)) {
@@ -149,7 +152,7 @@ object ChatManager {
 
 //    Returns if we interact with chat at all
 //    ADD A CHECK FOR ANY FEATURE THAT MODIFIES AN EXISTING CHAT MESSAGE
-    private fun doModifyChatEnabled(): Boolean {
+    private fun doModifyChatEnabled(event: ClientChatReceivedEvent): Boolean {
         val config = PartlySaneSkies.config
 
         if (config.colorCoopChat) {
@@ -177,6 +180,10 @@ object ChatManager {
         }
 
         else if (ChatAlertsManager.getChatAlertCount() != 0) {
+            return true
+        }
+
+        else if (WordEditor.shouldEditMessage(event.message)) {
             return true
         }
 
