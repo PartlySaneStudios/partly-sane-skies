@@ -3,8 +3,9 @@
 // See LICENSE for copyright and license notices.
 //
 
-package me.partlysanestudios.partlysaneskies;
+package me.partlysanestudios.partlysaneskies.chat;
 
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;

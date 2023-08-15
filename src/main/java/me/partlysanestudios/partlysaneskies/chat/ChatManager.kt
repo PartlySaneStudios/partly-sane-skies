@@ -1,10 +1,7 @@
 package me.partlysanestudios.partlysaneskies.chat
 
-import me.partlysanestudios.partlysaneskies.ChatAlertsManager
-import me.partlysanestudios.partlysaneskies.ChatColors
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.utils.StringUtils
-import me.partlysanestudios.partlysaneskies.utils.Utils
 import net.minecraft.client.audio.PositionedSoundRecord
 import net.minecraft.event.ClickEvent
 import net.minecraft.event.HoverEvent

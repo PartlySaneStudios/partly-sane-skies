@@ -3,7 +3,7 @@
 // See LICENSE for copyright and license notices.
 //
 
-package me.partlysanestudios.partlysaneskies;
+package me.partlysanestudios.partlysaneskies.chat;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
