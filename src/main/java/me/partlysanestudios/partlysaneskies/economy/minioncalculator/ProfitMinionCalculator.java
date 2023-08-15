@@ -14,15 +14,14 @@ import gg.essential.elementa.components.UIWrappedText;
 import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
-import me.partlysanestudios.partlysaneskies.skyblockdata.SkyblockDataManager;
-import me.partlysanestudios.partlysaneskies.skyblockdata.SkyblockItem;
+import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager;
+import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockItem;
 import me.partlysanestudios.partlysaneskies.system.ThemeManager;
 import me.partlysanestudios.partlysaneskies.system.commands.PSSCommand;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import me.partlysanestudios.partlysaneskies.system.guicomponents.PSSButton;
 import me.partlysanestudios.partlysaneskies.system.guicomponents.PSSToggle;
-import net.minecraft.util.ResourceLocation;
 
 import java.awt.*;
 import java.util.*;
@@ -95,7 +94,7 @@ public class ProfitMinionCalculator extends WindowScreen {
                 .setY(new CenterConstraint())
                 .setHeight(new PixelConstraint(backgroundImage.getHeight() * .85f))
                 .setWidth(fromWidthScaleFactor(2f))
-                .setColor(ThemeManager.getAccentColor())
+                .setColor(ThemeManager.getAccentColor().toJavaColor())
                 .setChildOf(backgroundImage);
 
         this.rightBar = new UIBlock()
@@ -103,7 +102,7 @@ public class ProfitMinionCalculator extends WindowScreen {
                 .setY(new CenterConstraint())
                 .setHeight(new PixelConstraint(backgroundImage.getHeight() * .85f))
                 .setWidth(fromWidthScaleFactor(2f))
-                .setColor(ThemeManager.getAccentColor())
+                .setColor(ThemeManager.getAccentColor().toJavaColor())
                 .setChildOf(backgroundImage);
 
         float categoriesBarHeight = fromWidthScaleFactor(75).getValue();
@@ -162,7 +161,7 @@ public class ProfitMinionCalculator extends WindowScreen {
                     .setY(new PixelConstraint(text.getHeight() + barOffset))
                     .setWidth(new PixelConstraint(rightBar.getLeft() - leftBar.getRight() - 2 * barNegation)) // set the width to the distance between the two bars with barNegation scale pixels of padding on either side
                     .setHeight(fromWidthScaleFactor(1f))
-                    .setColor(ThemeManager.getAccentColor())
+                    .setColor(ThemeManager.getAccentColor().toJavaColor())
                     .setChildOf(text);
 
             components.add(text);

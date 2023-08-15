@@ -21,6 +21,8 @@ package me.partlysanestudios.partlysaneskies;
 
 import gg.essential.elementa.ElementaVersion;
 import me.partlysanestudios.partlysaneskies.auctionhouse.AhManager;
+import me.partlysanestudios.partlysaneskies.chat.ChatAlertsManager;
+import me.partlysanestudios.partlysaneskies.chat.ChatManager;
 import me.partlysanestudios.partlysaneskies.dungeons.PlayerRating;
 import me.partlysanestudios.partlysaneskies.dungeons.WatcherReady;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManager;
@@ -35,7 +37,7 @@ import me.partlysanestudios.partlysaneskies.garden.SkymartValue;
 import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.EndOfFarmNotifier;
 import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.RangeHighlight;
 import me.partlysanestudios.partlysaneskies.rngdropbanner.DropBannerDisplay;
-import me.partlysanestudios.partlysaneskies.skyblockdata.SkyblockDataManager;
+import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager;
 import me.partlysanestudios.partlysaneskies.system.Keybinds;
 import me.partlysanestudios.partlysaneskies.system.OneConfigScreen;
 import me.partlysanestudios.partlysaneskies.system.ThemeManager;
@@ -168,9 +170,8 @@ public class PartlySaneSkies {
         MinecraftForge.EVENT_BUS.register(new NoCookieWarning());
         locationBannerDisplay = new LocationBannerDisplay();
         MinecraftForge.EVENT_BUS.register(locationBannerDisplay);
-        MinecraftForge.EVENT_BUS.register(new ChatAlertsManager());
         MinecraftForge.EVENT_BUS.register(new GardenTradeValue());
-        MinecraftForge.EVENT_BUS.register(new ChatColors());
+        MinecraftForge.EVENT_BUS.register(ChatManager.INSTANCE);
         MinecraftForge.EVENT_BUS.register(new CompostValue());
         MinecraftForge.EVENT_BUS.register(new EnhancedSound());
         MinecraftForge.EVENT_BUS.register(new BitsShopValue());
@@ -179,7 +180,9 @@ public class PartlySaneSkies {
         MinecraftForge.EVENT_BUS.register(new EndOfFarmNotifier());
         MinecraftForge.EVENT_BUS.register(new PetAlert());
         MinecraftForge.EVENT_BUS.register(new MathematicalHoeRightClicks());
-        MinecraftForge.EVENT_BUS.register(RangeHighlight.Companion);
+        MinecraftForge.EVENT_BUS.register(RangeHighlight.INSTANCE);
+
+
 
         // Registers all client side commands
         HelpCommands.registerPSSCommand();

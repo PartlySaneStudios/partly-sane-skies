@@ -3,7 +3,7 @@
 // See LICENSE for copyright and license notices.
 //
 
-package me.partlysanestudios.partlysaneskies.skyblockdata;
+package me.partlysanestudios.partlysaneskies.data.skyblockdata;
 
 import java.util.HashMap;
 
