@@ -5,9 +5,7 @@
 
 package me.partlysanestudios.partlysaneskies.system.guicomponents;
 
-import java.awt.Color;
-import java.util.function.Consumer;
-
+import cc.polyfrost.oneconfig.config.core.OneColor;
 import gg.essential.elementa.UIComponent;
 import gg.essential.elementa.components.UIBlock;
 import gg.essential.elementa.components.UIImage;
@@ -18,8 +16,9 @@ import gg.essential.elementa.constraints.XConstraint;
 import gg.essential.elementa.constraints.YConstraint;
 import gg.essential.elementa.events.UIClickEvent;
 import me.partlysanestudios.partlysaneskies.system.ThemeManager;
-import me.partlysanestudios.partlysaneskies.utils.Utils;
-import net.minecraft.util.ResourceLocation;
+
+import java.awt.*;
+import java.util.function.Consumer;
 
 public class PSSButton {
     UIBlock backgroundBlock;
@@ -30,7 +29,7 @@ public class PSSButton {
     float height;
     XConstraint xConstraint;
     YConstraint yConstraint;
-    Color color;
+    OneColor color;
     String text;
 
     public PSSButton() {
@@ -46,14 +45,18 @@ public class PSSButton {
             .setColor(new Color(255, 255, 255, 255))
             .setChildOf(buttonTexture);
         
-        this.color = new Color(0, 0, 0, 0);
+        this.color = new OneColor(0, 0, 0, 0);
     }
 
-    public PSSButton(Color color) {
+    public PSSButton(Color color){
+        this(new OneColor(color));
+    }
+
+    public PSSButton(OneColor color) {
         this.text = "";
 
         this.backgroundBlock = (UIBlock) new UIBlock()
-            .setColor(color);
+            .setColor(color.toJavaColor());
     
         this.buttonTexture = (UIImage) ThemeManager.getCurrentButtonUIImage(color)
             .setChildOf(backgroundBlock);
@@ -112,6 +115,9 @@ public class PSSButton {
     }
 
     public PSSButton setColor(Color color) {
+        return setColor(new OneColor(color));
+    }
+    public PSSButton setColor(OneColor color) {
         backgroundBlock.removeChild(buttonTexture);
 
         buttonTexture = (UIImage) ThemeManager.getCurrentButtonUIImage(color)
@@ -121,7 +127,7 @@ public class PSSButton {
             .setY(new CenterConstraint())
             .setChildOf(this.backgroundBlock);
 
-        backgroundBlock.setColor(color);
+        backgroundBlock.setColor(color.toJavaColor());
 
         return this;
     }
@@ -138,7 +144,7 @@ public class PSSButton {
 
         backgroundBlock.setColor(new Color(0, 0, 0, 0));
 
-        this.color = new Color(0, 0, 0, 0);
+        this.color = new OneColor(0, 0, 0, 0);
         return this;
     }
 

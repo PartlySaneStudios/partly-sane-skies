@@ -228,7 +228,7 @@ public class Auction {
                 return new Color(255, 85, 85);
             
             default:
-                return ThemeManager.getPrimaryColor();
+                return ThemeManager.getPrimaryColor().toJavaColor();
         }
     }
 
