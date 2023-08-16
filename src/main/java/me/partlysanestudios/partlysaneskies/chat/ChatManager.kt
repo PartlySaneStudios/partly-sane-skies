@@ -56,7 +56,7 @@ object ChatManager {
         }
 
         if (WordEditor.shouldEditMessage(messageToSend)) {
-            messageToSend = ChatComponentText(StringUtils.colorCodes(WordEditor.handleWordEditorMessage(messageToSend.unformattedText)));
+            messageToSend = ChatComponentText(StringUtils.colorCodes(WordEditor.handleWordEditorMessage(messageToSend.formattedText)));
         }
 
         // If the message has not changed
