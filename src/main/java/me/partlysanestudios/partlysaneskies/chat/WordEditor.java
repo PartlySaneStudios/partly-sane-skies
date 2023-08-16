@@ -79,6 +79,7 @@ public class WordEditor {
         return message;
     }
 
+    // Checks if the message contains a link
     public static boolean shouldEditMessage(IChatComponent message) {
         if (!PartlySaneSkies.config.wordEditor) {
             return false;
@@ -210,23 +211,5 @@ public class WordEditor {
         Reader reader = Files.newBufferedReader(Paths.get(file.getPath()));
 
         wordsToEdit = new Gson().fromJson(reader, String[][].class);
-    }
-
-
-    /**
-     * Returns a list with all links contained in the input
-     * By: https://stackoverflow.com/a/28269120/15031174
-     */
-    public static List<String> extractUrls(String text) {
-        List<String> containedUrls = new ArrayList<String>();
-        String urlRegex = "((https?|ftp|gopher|telnet|file):((//)|(\\\\))+[\\w\\d:#@%/;$()~_?\\+-=\\\\\\.&]*)";
-        Pattern pattern = Pattern.compile(urlRegex, Pattern.CASE_INSENSITIVE);
-        Matcher urlMatcher = pattern.matcher(text);
-
-        while (urlMatcher.find()) {
-            containedUrls.add(text.substring(urlMatcher.start(0), urlMatcher.end(0)));
-        }
-
-        return containedUrls;
     }
 }

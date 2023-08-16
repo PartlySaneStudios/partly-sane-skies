@@ -55,6 +55,7 @@ object ChatManager {
             messageToSend = ChatAlertsManager.checkChatAlert(messageToSend)
         }
 
+        // If the word editor wants to edit something
         if (WordEditor.shouldEditMessage(messageToSend)) {
             messageToSend = ChatComponentText(StringUtils.colorCodes(WordEditor.handleWordEditorMessage(messageToSend.formattedText)));
         }
