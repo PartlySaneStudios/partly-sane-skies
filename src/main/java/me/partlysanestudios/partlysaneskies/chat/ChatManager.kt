@@ -199,6 +199,9 @@ object ChatManager {
 
     //ALSO HERE, DONT FORGET
     private fun IChatComponent.doChatMessageModify(): Boolean {
+        if (this.formattedText.startsWith("{\"server\":")) {
+            return false
+        }
         if (this.formattedText.startsWith(PartlySaneSkies.CHAT_PREFIX)) {
             return false
         }
