@@ -59,7 +59,7 @@ public class ChatColors {
         }
         
         // If it does not, it highlights the nons message
-        return new ChatComponentText(insertColor(formattedMessage, "&r"));
+        return new ChatComponentText(StringUtils.colorCodes(insertColor(formattedMessage, "&r")));
     }
 
     public static String getChatColor(String prefix) {
