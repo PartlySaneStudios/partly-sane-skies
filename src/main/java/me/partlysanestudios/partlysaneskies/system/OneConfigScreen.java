@@ -156,62 +156,6 @@ public class OneConfigScreen extends Config {
     public int customMainMenuImage = 1;
 
     @Switch(
-        name = "Color Private Messages", 
-        category = "General", 
-        subcategory = "Chat Color", 
-        description = "Private messages pink to make them more visible in busy lobbies."
-    )
-    public boolean colorPrivateMessages = false;
-
-    @Switch(
-        name = "Color Nons Messages", 
-        category = "General", 
-        subcategory = "Chat Color", 
-        description = "Color messages from the non-ranked players to white to make them more visible in busy lobbies."
-    )
-    public boolean colorNonMessages = false;
-
-    @Switch(
-        name = "Color Party Chat", 
-        category = "General", 
-        subcategory = "Chat Color", 
-        description = "Color messages from the party chat blue to make them more visible in busy lobbies."
-    )
-    public boolean colorPartyChat = false;
-
-    @Switch(
-        name = "Color Guild Chat", 
-        category = "General", 
-        subcategory = "Chat Color", 
-        description = "Color messages from the guild chat green to make them more visible in busy lobbies."
-    )
-    public boolean colorGuildChat = false;
-
-    @Switch(
-        name = "Color Guild Officer Chat", 
-        category = "General", 
-        subcategory = "Chat Color", 
-        description = "Color messages from the guild officer chat aqua to make them more visible in busy lobbies."
-    )
-    public boolean colorOfficerChat = false;
-
-    @Switch(
-        name = "Skyblock Co-op Chat", 
-        category = "General", 
-        subcategory = "Chat Color", 
-        description = "Color messages from the skyblock coop chat aqua to make them more visible in busy lobbies."
-    )
-    public boolean colorCoopChat = false;
-
-    @Switch(
-        name = "Visible Colors", 
-        category = "General", 
-        subcategory = "Chat Color", 
-        description = "Converts the custom colors mentioned above to more visible colors. Dark Green -> Light Green and Blue -> Gold. (Recommended)"
-    )
-    public boolean visibleColors = false;
-
-    @Switch(
         name = "Print errors in chat",
         category = "General",
         subcategory = "API",
@@ -815,5 +759,70 @@ public class OneConfigScreen extends Config {
     )
     public int noCookieWarnCooldown = 20;
 
+    //    ------------------ Category: Chat ---------------------
+//    WordEditor
+    @Switch(
+        name = "Word Editor Main Toggle",
+        category = "Chat",
+        subcategory = "Word Editor",
+        description = "Allows you to edit words in chat. Can be configured with /wordeditor"
+    )
+    public boolean wordEditor = true;
 
+//Chat Colors
+    @Switch(
+            name = "Color Private Messages",
+            category = "Chat",
+            subcategory = "Chat Color",
+            description = "Private messages pink to make them more visible in busy lobbies."
+    )
+    public boolean colorPrivateMessages = false;
+
+    @Switch(
+            name = "Color Nons Messages",
+            category = "Chat",
+            subcategory = "Chat Color",
+            description = "Color messages from the non-ranked players to white to make them more visible in busy lobbies."
+    )
+    public boolean colorNonMessages = false;
+
+    @Switch(
+            name = "Color Party Chat",
+            category = "Chat",
+            subcategory = "Chat Color",
+            description = "Color messages from the party chat blue to make them more visible in busy lobbies."
+    )
+    public boolean colorPartyChat = false;
+
+    @Switch(
+            name = "Color Guild Chat",
+            category = "Chat",
+            subcategory = "Chat Color",
+            description = "Color messages from the guild chat green to make them more visible in busy lobbies."
+    )
+    public boolean colorGuildChat = false;
+
+    @Switch(
+            name = "Color Guild Officer Chat",
+            category = "Chat",
+            subcategory = "Chat Color",
+            description = "Color messages from the guild officer chat aqua to make them more visible in busy lobbies."
+    )
+    public boolean colorOfficerChat = false;
+
+    @Switch(
+            name = "Skyblock Co-op Chat",
+            category = "Chat",
+            subcategory = "Chat Color",
+            description = "Color messages from the skyblock coop chat aqua to make them more visible in busy lobbies."
+    )
+    public boolean colorCoopChat = false;
+
+    @Switch(
+            name = "Visible Colors",
+            category = "Chat",
+            subcategory = "Chat Color",
+            description = "Converts the custom colors mentioned above to more visible colors. Dark Green -> Light Green and Blue -> Gold. (Recommended)"
+    )
+    public boolean visibleColors = false;
 }
