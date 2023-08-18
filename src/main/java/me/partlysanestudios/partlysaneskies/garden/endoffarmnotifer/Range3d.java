@@ -7,6 +7,7 @@
 package me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer;
 
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
+import me.partlysanestudios.partlysaneskies.utils.Utils;
 
 import java.util.Arrays;
 
@@ -85,6 +86,10 @@ public class Range3d {
 
         public double getY() {
             return y;
+        }
+
+        public double getDistanceTo(Point2d point) {
+            return Utils.getDistance(this, point);
         }
     }
 

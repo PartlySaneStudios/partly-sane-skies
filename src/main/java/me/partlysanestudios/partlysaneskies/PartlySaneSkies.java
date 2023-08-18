@@ -41,6 +41,7 @@ import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManage
 import me.partlysanestudios.partlysaneskies.system.Keybinds;
 import me.partlysanestudios.partlysaneskies.system.OneConfigScreen;
 import me.partlysanestudios.partlysaneskies.system.ThemeManager;
+import me.partlysanestudios.partlysaneskies.system.guicomponents.PSSQuickActionMenu;
 import me.partlysanestudios.partlysaneskies.system.requests.Request;
 import me.partlysanestudios.partlysaneskies.system.requests.RequestsManager;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
@@ -55,6 +56,7 @@ import net.minecraft.scoreboard.ScoreObjective;
 import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.WorldEvent;
@@ -396,8 +398,16 @@ public class PartlySaneSkies {
 
     // Runs when debug key is pressed
      public static void debugMode() {
-         PartlySaneSkies.isDebugMode = !PartlySaneSkies.isDebugMode;
-         Utils.sendClientMessage("Debug mode: " + PartlySaneSkies.isDebugMode);
+        PartlySaneSkies.isDebugMode = !PartlySaneSkies.isDebugMode;
+        Utils.sendClientMessage("Debug mode: " + PartlySaneSkies.isDebugMode);
+        PSSQuickActionMenu.PSSQuickAction[] actions = new PSSQuickActionMenu.PSSQuickAction[4];
+        for (int i = 0; i < actions.length; i++) {
+            final int num = i;
+            actions[i] = new PSSQuickActionMenu.PSSQuickAction("id " + i, () -> {
+                Utils.visPrint("Clicked on number " + num);
+            }, new ResourceLocation("partlysaneskies", "textures/logo.png"));
+        }
+        PartlySaneSkies.minecraft.displayGuiScreen(new PSSQuickActionMenu(actions, 3));
      }
 
     // Returns a list of lines on the scoreboard,
