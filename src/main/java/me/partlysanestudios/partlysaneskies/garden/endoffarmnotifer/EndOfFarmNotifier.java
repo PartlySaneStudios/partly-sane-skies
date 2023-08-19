@@ -321,7 +321,7 @@ public class EndOfFarmNotifier {
         
         // For each alert, format it so its ##. [range] 
         for (Range3d range : ranges) {
-            message.append("&6").append(StringUtils.formatNumber(i)).append("&7: ").append(range.toString()).append("\n");
+            message.append("&6").append(i).append("&7: ").append(range.toString()).append("\n");
             i++;
         }
 
