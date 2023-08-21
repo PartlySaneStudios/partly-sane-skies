@@ -174,6 +174,11 @@ public class StringUtils {
             formattedNum = stripTrailingChars(formattedNum, "0");
         }
 
+        //If it still contains that for some reason, remove it
+        if(formattedNum.endsWith(".00")){
+            formattedNum = formattedNum.substring(0, formattedNum.length() - 3);
+        }
+
         if (formattedNum.charAt(formattedNum.length() - 1) == '.') {
 
             formattedNum = formattedNum.substring(0, formattedNum.length() - 1);
@@ -189,17 +194,12 @@ public class StringUtils {
 
 
     public static String stripTrailingChars(String str, String chars) {
-        if (str.equals("")) {
+        if (str.equals("") || !str.endsWith(chars)) {
             return str;
         }
 
-        if (str.substring(str.length() - chars.length()).equalsIgnoreCase(chars)) {
-            str = str.substring(0, str.length() - chars.length());
-            str = stripTrailingChars(str, chars);
-        }
-        return str;
-
-
+        str = str.substring(0, str.length() - chars.length());
+        return stripTrailingChars(str, chars);
     }
 
     // Returns a result from a given pattern and key
