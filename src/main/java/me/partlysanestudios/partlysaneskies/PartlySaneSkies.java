@@ -210,6 +210,7 @@ public class PartlySaneSkies {
         ProfitMinionCalculator.registerCommand();
         MathematicalHoeRightClicks.registerCommand();
         WordEditor.registerWordEditorCommand();
+        HelpCommands.registerCrepesCommand();
 
         // Initializes keybinds
         Keybinds.init();
