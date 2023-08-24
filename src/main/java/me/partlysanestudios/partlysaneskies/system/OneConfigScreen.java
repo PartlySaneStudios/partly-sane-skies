@@ -608,6 +608,14 @@ public class OneConfigScreen extends Config {
     )
     public boolean blockHoeRightClicks = false;
 
+    @Switch(
+            name = "Only allow one click",
+            category = "Farming",
+            subcategory = "Hoes",
+            description = "Only allow one click hoe right click, instead of for a time period."
+    )
+    public boolean allowHoeClickOnce = false;
+
     @Slider(
         min = 1, 
         max = 15, 
@@ -619,7 +627,7 @@ public class OneConfigScreen extends Config {
     public float allowRightClickTime = 3f;
 
 
-//    Farn notifier
+//    Farm notifier
     @Switch(
             subcategory = "End of Farm Notifier",
             category = "Farming",
