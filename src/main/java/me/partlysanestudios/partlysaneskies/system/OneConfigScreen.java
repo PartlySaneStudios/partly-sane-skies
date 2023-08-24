@@ -142,6 +142,7 @@ public class OneConfigScreen extends Config {
             "Random Image",
             "View of Main Hub Mountain",
             "Aerial View of Hub from Community House",
+            "Lober",
             "Stunning Aerial View of Hub",
             "View from Hub Portal (Day)",
             "Hub Portal (Night)",

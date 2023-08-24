@@ -54,10 +54,11 @@ public class CustomMainMenu extends WindowScreen {
     public void populateMap() {
         imageIdMap.put(1, "image_1.png");
         imageIdMap.put(2, "image_2.png");
-        imageIdMap.put(3, "image_3.png");
-        imageIdMap.put(4, "image_4.png");
-        imageIdMap.put(5, "image_5.png");
-        imageIdMap.put(6, "image_6.png");
+        imageIdMap.put(4, "image_3.png");
+        imageIdMap.put(5, "image_4.png");
+        imageIdMap.put(6, "image_5.png");
+        imageIdMap.put(7, "image_6.png");
+        imageIdMap.put(3, "lober.png");
     }
 
     public UIComponent background;
