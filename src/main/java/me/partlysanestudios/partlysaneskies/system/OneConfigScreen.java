@@ -41,6 +41,13 @@ public class OneConfigScreen extends Config {
     )
     public static boolean ignored;
 
+    @Info(
+        type = InfoType.INFO,
+        text = "Your mod Version: " + PartlySaneSkies.VERSION + ". Make sure to keep your mod updated to avoid bugs and get the newest features!",
+        size = 2
+    )
+    public static boolean ignored2;
+
     @HypixelKey
     @Text(
         secure = true, 
