@@ -122,8 +122,6 @@ public class HelpCommands {
                 "\n&b&l&nWelcome to Partly Sane Skies!&r" +
                 "\nPartly Sane Skies is a mod developed by Su386 and FlagMaster. This mod aims to be a quality of life mod for Hypixel Skyblock." +
                 "\n" +
-                "\n Running Version: &e" + CustomMainMenu.latestVersion +
-                "\n" +
                 "\n &6> Open the config: " +
                 "\n    &6> &ePress " + Keyboard.getKeyName(Keybinds.configKey.getKeyCode()) + " or use /pssc" +
                 "\n    &6> &eMost features are turned off by default so to use the mod, you will need to configure the settings" +
