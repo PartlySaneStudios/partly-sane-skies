@@ -141,6 +141,12 @@ Private messages and messages that are sent in the Party, Guild, Guild Officer, 
 
 If you do not the right pet selected for leveling up minions, you will be warned so that you never lose any pet EXP because you still have your level 100 dungeon pet activated. An optional World War II (1938-1945) air raid siren can be activated.
 
+### Pet for Minion Information Display
+
+When opening the minion, your current pet selected will appear, along with the pet that you have set as favourite.
+
+![Pet for Minion Information Display](images/pet_minion_display.png)
+
 ### Non Chat Color
 
 Messages sent by nons (non-ranked players) can be configured to have the same white as the rest of the chat.
@@ -162,6 +168,10 @@ Default: ``M``
 
 ![Custom Main Menu](images/party_manager.png)
 
+## Custom Themes
+
+This mod supports a variety of different themes, including dark themes, very dark themes, colourful themes, and controversially, light themes. You can also choose your own accent colour, and create your own themes in the OneConfig menu under the theme section
+
 ### Watcher Ready, Message, Warning, Siren and Sound
 
 When the watcher is done spawning mobs, a message will appear on your screen, along with an optional sound,
@@ -180,7 +190,38 @@ In a perfectly balanced 5-player party, each player should get 20%
 </details>
 
 <details>
+  <summary> Farming and Garden Features </summary>
+
+## Farming
+
+### End of Farm Notifier
+
+Create a region where you will be notified when you reach it, using the same commands as world edit. See ``/farmnotif`` under the Commands section for more information.
+
+### Block Right Clicks with Mathematical Hoes
+
+When you are holding a mathematical hoe, right clicks will be cancelled to prevent accidentally opening the recipes menu.
+
+### Top Crops to Compost
+
+Shows you information about which crops are the best to use for the composter at the current moment in time
+
+![Top Crops to Compost](images/crop_compost.png)
+
+### Best Skymart Profit
+
+Shows which items are the most profitable for the copper cost. (Which ones give the most coins per copper?)
+
+![Skymart Profit](images/skymart_profit.png)
+
+
+
+</details>
+
+
+<details>
   <summary> Economy Features </summary>
+  
 
 ## Economy
 
@@ -195,17 +236,17 @@ Using that information, the menu highlights BIN items that are significantly bel
 
 ![Custom Main Menu](images/custom_ah.png)
 
+### Best Minion Profit Calculator
+
+Using real time data, the mod will now display which configurations will result in the most profitable minions.
+
+![Best Minion Calculator](images/best_minion_calculator.png)
+
 ### Garden Shop Trade Cost
 
 Shows you information about the garden shop trades.
 
 ![Custom Main Menu](images/garden_trade_cost.png)
-
-### Top Crops to Compost
-
-Shows you information about which crops are the best to use for the composter at the current moment in time
-
-![Top Crops to Compost](images/crop_compost.png)
 
 
 ### Best Bit Shop Profit
@@ -213,12 +254,6 @@ Shows you information about which crops are the best to use for the composter at
 A lot of people use the bits accumulated from booster cookies to convert to items to sell on the auction house. Instead of having to guess which items are the best and for what price, it will now recommend to you the items that sell for the most coins per bit.
 
 ![Bit Shop Profit](images/bit_shop_profit.png)
-
-### Best Skymart Profit
-
-Shows which items are the most profitable for the copper cost. (Which ones give the most coins per copper?)
-
-![Skymart Profit](images/skymart_profit.png)
 
 </details>
 
