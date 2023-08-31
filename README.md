@@ -170,7 +170,7 @@ Default: ``M``
 
 ## Custom Themes
 
-This mod supports a variety of different themes, including dark themes, very dark themes, colourful themes, and controversially, light themes. You can also choose your own accent colour, and create your own themes in the OneConfig menu under the theme section
+This mod supports a variety of different themes, including dark themes, very dark themes, colourful themes, and controversially, light themes. You can also choose your own accent colour, and create your own themes in the OneConfig menu under the theme section.
 
 ### Watcher Ready, Message, Warning, Siren and Sound
 
@@ -186,7 +186,8 @@ Automatically parties everyone in a permanent dungeon party. Using ``/pp`` or ``
 
 At the end of the dungeon, the mod will calculate what percentage of the dungeon was cleared by each player,
 and how much they contributed, showing you how useful each player was.
-In a perfectly balanced 5-player party, each player should get 20%
+In a perfectly balanced 5-player party, each player should get 20%.
+
 </details>
 
 <details>
@@ -204,7 +205,7 @@ When you are holding a mathematical hoe, right clicks will be cancelled to preve
 
 ### Top Crops to Compost
 
-Shows you information about which crops are the best to use for the composter at the current moment in time
+Shows you information about which crops are the best to use for the composter at the current moment in time.
 
 ![Top Crops to Compost](images/crop_compost.png)
 
