@@ -211,6 +211,7 @@ public class PartlySaneSkies {
         MathematicalHoeRightClicks.registerCommand();
         WordEditor.registerWordEditorCommand();
         HelpCommands.registerCrepesCommand();
+        HelpCommands.registerVersionCommand();
 
         // Initializes keybinds
         Keybinds.init();

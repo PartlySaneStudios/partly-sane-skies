@@ -61,12 +61,33 @@ public class HelpCommands {
                 }).register();
     }
 
+    public static void registerVersionCommand(){
+        new PSSCommand("partlysaneskiesversion")
+                .addAlias("pssversion")
+                .addAlias("pssv")
+                .addAlias("partlysaneskiesv")
+                .setDescription("Prints the version of Partly Sane Skies you are using")
+                .setRunnable((s, a) -> {
+                    ChatComponentText chatcomponent = new ChatComponentText("§b-----------------------------------------------------§0" +
+                        "\n§b§lPartly Sane Skies Version:" +
+                        "\n    §e" + PartlySaneSkies.VERSION +	
+                        (PartlySaneSkies.isLatestVersion() ? "\n§aYou are using the latest version of Partly Sane Skies!" : "\n§cYou are not using the latest version of Partly Sane Skies! Click here to download the newest version!") +
+                        "\n§b-----------------------------------------------------§0"
+                    );
+                    if (!PartlySaneSkies.isLatestVersion()){
+                        chatcomponent.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/PartlySaneStudios/partly-sane-skies/releases"));
+                    }
+
+                    Utils.sendClientMessage(chatcomponent);
+                }).register();
+    }
+
     public static void registerCrepesCommand() {
         new PSSCommand("crepes")
                 .addAlias("crêpes")
                 .setDescription("Crepes!")
                 .setRunnable((s, a) -> {
-                    ChatComponentText chatComponent= new ChatComponentText("§0-----------------------------------------------------§0" +
+                    ChatComponentText chatComponent = new ChatComponentText("§0-----------------------------------------------------§0" +
                             "\n§6Ingredients:" +
                             "\n" +
                             "\n§7- 250g of wheat flour" +
