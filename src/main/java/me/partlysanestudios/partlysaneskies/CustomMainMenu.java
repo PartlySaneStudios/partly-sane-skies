@@ -611,6 +611,10 @@ public class CustomMainMenu extends WindowScreen {
         if (PartlySaneSkies.config.hour24time) {
             timeString = currentTime.format(DateTimeFormatter.ofPattern("HH:mm:ss dd MMMM yyyy", Locale.ENGLISH));
         }
+
+        middleLeftBar.setColor(ThemeManager.getAccentColor().toJavaColor());
+        middleRightBar.setColor(ThemeManager.getAccentColor().toJavaColor());
+        optionsButtonSplitBar.setColor(ThemeManager.getAccentColor().toJavaColor());
         
 
         ((UIText) timeText).setText(timeString);
