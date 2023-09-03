@@ -188,7 +188,6 @@ public class PartlySaneSkies {
         MinecraftForge.EVENT_BUS.register(new MathematicalHoeRightClicks());
         MinecraftForge.EVENT_BUS.register(RangeHighlight.INSTANCE);
         MinecraftForge.EVENT_BUS.register(BannerRenderer.INSTANCE);
-        MinecraftForge.EVENT_BUS.register(new MiningEvents());
         
 
 
