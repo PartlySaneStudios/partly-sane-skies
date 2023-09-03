@@ -39,11 +39,7 @@ import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.RangeHighlig
 import me.partlysanestudios.partlysaneskies.rngdropbanner.DropBannerDisplay;
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager;
 import me.partlysanestudios.partlysaneskies.MiningEvents;
-import me.partlysanestudios.partlysaneskies.system.Keybinds;
-import me.partlysanestudios.partlysaneskies.system.OneConfigScreen;
-import me.partlysanestudios.partlysaneskies.system.ThemeManager;
-import me.partlysanestudios.partlysaneskies.system.requests.Request;
-import me.partlysanestudios.partlysaneskies.system.requests.RequestsManager;
+
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.Minecraft;
@@ -182,6 +178,7 @@ public class PartlySaneSkies {
         MinecraftForge.EVENT_BUS.register(new PetAlert());
         MinecraftForge.EVENT_BUS.register(new MathematicalHoeRightClicks());
         MinecraftForge.EVENT_BUS.register(RangeHighlight.INSTANCE);
+        
         MinecraftForge.EVENT_BUS.register(new MiningEvents());
 
 
