@@ -13,6 +13,8 @@ import gg.essential.elementa.components.UIText;
 import gg.essential.elementa.components.Window;
 import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
+import me.partlysanestudios.partlysaneskies.system.BannerRenderer;
+import me.partlysanestudios.partlysaneskies.system.PSSBanner;
 import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
@@ -21,16 +23,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class MiningEvents {
 
-    Window window = new Window(ElementaVersion.V2);
-    String displayText = "";
-    long miningEventBannerTime;
-
-    UIComponent miningEventUIText = new UIText("")
-            .setTextScale(new PixelConstraint(3))
-            .setX(new CenterConstraint())
-            .setY(new PixelConstraint(window.getHeight() * .333f))
-            .setColor(PartlySaneSkies.config.miningEventBannerColor.toJavaColor())
-            .setChildOf(window);
+    private static String displayText = "";
+    private static boolean showBanner = false;
 
     @SubscribeEvent
     public void onChat(ClientChatReceivedEvent event) {
@@ -38,110 +32,102 @@ public class MiningEvents {
 
         String message = event.message.getFormattedText();
 
-        // we can only update the time when the event is actually starting, and not when any message is send. this breaks the time the banner is shown.
-        //miningEventBannerTime = PartlySaneSkies.getTime();
-
-
         // 2x Powder
         if (message.contains("The §b2x Powder §eevent starts in §a20 §eseconds!") && PartlySaneSkies.config.mining2xPowderSound && PartlySaneSkies.config.miningWarn20sBeforeEvent) {
-            miningEventBannerTime = PartlySaneSkies.getTime();
+            showBanner = true;
             PartlySaneSkies.minecraft.thePlayer.playSound("partlysaneskies:bell", 100, 1);
             if (PartlySaneSkies.config.miningShowEventBanner) displayText = "2x Powder Event in 20s!";
         }
 
         if (message.contains("§l2X POWDER STARTED!") && PartlySaneSkies.config.mining2xPowderSound) {
-            miningEventBannerTime = PartlySaneSkies.getTime();
+            showBanner = true;
             PartlySaneSkies.minecraft.thePlayer.playSound("partlysaneskies:bell", 100, 1);
             if (PartlySaneSkies.config.miningShowEventBanner) displayText = "2x Powder Event Started!";
         }
 
         // Gone with the wind
         if (message.contains("The §9Gone with the Wind §eevent starts in §a20 §eseconds!") && PartlySaneSkies.config.miningGoneWithTheWindSound && PartlySaneSkies.config.miningWarn20sBeforeEvent) {
-            miningEventBannerTime = PartlySaneSkies.getTime();
+            showBanner = true;
             PartlySaneSkies.minecraft.thePlayer.playSound("partlysaneskies:bell", 100, 1);
             if (PartlySaneSkies.config.miningShowEventBanner) displayText = "Gone with the Wind Event in 20s!";
         }
 
         if (message.contains("§r§9§lGONE WITH THE WIND STARTED!") && PartlySaneSkies.config.miningGoneWithTheWindSound) {
-            miningEventBannerTime = PartlySaneSkies.getTime();
+            showBanner = true;
             PartlySaneSkies.minecraft.thePlayer.playSound("partlysaneskies:bell", 100, 1);
             if (PartlySaneSkies.config.miningShowEventBanner) displayText = "Gone with the Wind Event Started!";
         }
 
         // Better Together
         if (message.contains("The §dBetter Together §eevent starts in §a20 §eseconds!") && PartlySaneSkies.config.miningBetterTogetherSound && PartlySaneSkies.config.miningWarn20sBeforeEvent) {
-            miningEventBannerTime = PartlySaneSkies.getTime();
+            showBanner = true;
             PartlySaneSkies.minecraft.thePlayer.playSound("partlysaneskies:bell", 100, 1);
             if (PartlySaneSkies.config.miningShowEventBanner) displayText = "Better Together Event in 20s!";
         }
 
         if (message.contains("§r§d§lBETTER TOGETHER STARTED!") && PartlySaneSkies.config.miningBetterTogetherSound) {
-            miningEventBannerTime = PartlySaneSkies.getTime();
+            showBanner = true;
             PartlySaneSkies.minecraft.thePlayer.playSound("partlysaneskies:bell", 100, 1);
             if (PartlySaneSkies.config.miningShowEventBanner) displayText = "Better Together Event Started!";
         }
 
         // Goblin Raid
         if (message.contains("§eThe §cGoblin Raid §eevent starts in §a20 §eseconds!") && PartlySaneSkies.config.miningGoblinRaidSound && PartlySaneSkies.config.miningWarn20sBeforeEvent) {
-            miningEventBannerTime = PartlySaneSkies.getTime();
+            showBanner = true;
             PartlySaneSkies.minecraft.thePlayer.playSound("partlysaneskies:bell", 100, 1);
             if (PartlySaneSkies.config.miningShowEventBanner) displayText = "Goblin Raid Event in 20s!";
         }
 
         if (message.contains("§r§c§lGOBLIN RAID STARTED!") && PartlySaneSkies.config.miningGoblinRaidSound) {
-            miningEventBannerTime = PartlySaneSkies.getTime();
+            showBanner = true;
             PartlySaneSkies.minecraft.thePlayer.playSound("partlysaneskies:bell", 100, 1);
             if (PartlySaneSkies.config.miningShowEventBanner) displayText = "Goblin Raid Event Started!";
         }
 
         // Raffle
         if (message.contains("The §6Raffle §eevent starts in §a20 §eseconds!") && PartlySaneSkies.config.miningRaffleSound && PartlySaneSkies.config.miningWarn20sBeforeEvent) {
-            miningEventBannerTime = PartlySaneSkies.getTime();
+            showBanner = true;
             PartlySaneSkies.minecraft.thePlayer.playSound("partlysaneskies:bell", 100, 1);
             if (PartlySaneSkies.config.miningShowEventBanner) displayText = "Raffle Event in 20s!";
         }
 
         if (message.contains("§r§6§lRAFFLE STARTED!") && PartlySaneSkies.config.miningRaffleSound) {
-            miningEventBannerTime = PartlySaneSkies.getTime();
+            showBanner = true;
             PartlySaneSkies.minecraft.thePlayer.playSound("partlysaneskies:bell", 100, 1);
             if (PartlySaneSkies.config.miningShowEventBanner) displayText = "Raffle Event Started!";
         }
 
         // Gourmand
         if (message.contains("§eThe §bMithril Gourmand §eevent starts in §a20 §eseconds!") && PartlySaneSkies.config.miningMithrilGourmandSound && PartlySaneSkies.config.miningWarn20sBeforeEvent){
-            miningEventBannerTime = PartlySaneSkies.getTime();
+            showBanner = true;
             PartlySaneSkies.minecraft.thePlayer.playSound("partlysaneskies:bell", 100, 1);
             if (PartlySaneSkies.config.miningShowEventBanner) displayText = "Mithril Gourmand Event in 20s!";
         }
 
         if (message.contains("§r§b§lMITHRIL GOURMAND STARTED!") && PartlySaneSkies.config.miningMithrilGourmandSound){
-            miningEventBannerTime = PartlySaneSkies.getTime();
+            showBanner = true;
             PartlySaneSkies.minecraft.thePlayer.playSound("partlysaneskies:bell", 100, 1);
             if (PartlySaneSkies.config.miningShowEventBanner) displayText = "Mithril Gourmand Event Started!";
         }
 
         // Powder Ghast
         if (message.contains("§6The sound of pickaxes clashing against the rock has attracted the attention of the §r§6§lPOWDER GHAST!") && PartlySaneSkies.config.miningPowderGhastSound){
-            miningEventBannerTime = PartlySaneSkies.getTime();
+            showBanner = true;
             PartlySaneSkies.minecraft.thePlayer.playSound("partlysaneskies:bell", 100, 1);
             if (PartlySaneSkies.config.miningShowEventBanner) displayText = "Powder Ghast Spawned!";
         }
 
         // Fallen Star
         if (message.contains("§eA §r§5Fallen Star §r§ehas crashed at") && PartlySaneSkies.config.miningFallenStarSound){
-            miningEventBannerTime = PartlySaneSkies.getTime();
+            showBanner = true;
             PartlySaneSkies.minecraft.thePlayer.playSound("partlysaneskies:bell", 100, 1);
             if (PartlySaneSkies.config.miningShowEventBanner) displayText = "Fallen Star Spawned!";
         }
-    }
 
-    @SubscribeEvent
-    public void renderText(RenderGameOverlayEvent.Text event) {
-        ((UIText) miningEventUIText).setText(displayText).setColor(PartlySaneSkies.config.miningEventBannerColor.toJavaColor());
-        window.draw(new UMatrixStack());
-        if (Utils.onCooldown(miningEventBannerTime, (long) (PartlySaneSkies.config.miningEventBannerTime * 1000L))) {
-            displayText = "";
+        if (showBanner) {
+            BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner(displayText, (long) (PartlySaneSkies.config.miningEventBannerTime * 1000), 3.0f, PartlySaneSkies.config.miningEventBannerColor.toJavaColor()));
         }
+        showBanner = false;
     }
 }
 
