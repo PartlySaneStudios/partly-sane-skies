@@ -42,6 +42,7 @@ import me.partlysanestudios.partlysaneskies.MiningEvents;
 
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
+import me.partlysanestudios.partlysaneskies.chat.WordEditor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.event.ClickEvent;
@@ -150,6 +151,12 @@ public class PartlySaneSkies {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+            try {
+                WordEditor.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }).start();
 
         
@@ -183,6 +190,7 @@ public class PartlySaneSkies {
 
 
 
+
         // Registers all client side commands
         HelpCommands.registerPSSCommand();
         PartyManager.registerCommand();
@@ -200,6 +208,7 @@ public class PartlySaneSkies {
         EndOfFarmNotifier.registerFarmNotifierCommand();
         ProfitMinionCalculator.registerCommand();
         MathematicalHoeRightClicks.registerCommand();
+        WordEditor.registerWordEditorCommand();
 
         // Initializes keybinds
         Keybinds.init();

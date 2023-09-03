@@ -8,9 +8,11 @@ package me.partlysanestudios.partlysaneskies.chat
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.utils.StringUtils
+import me.partlysanestudios.partlysaneskies.utils.Utils
 import net.minecraft.client.audio.PositionedSoundRecord
 import net.minecraft.event.ClickEvent
 import net.minecraft.event.HoverEvent
+import net.minecraft.util.ChatComponentText
 import net.minecraft.util.IChatComponent
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.client.event.ClientChatReceivedEvent
@@ -35,6 +37,8 @@ object ChatManager {
             return
         }
 
+        // Utils.sendClientMessage("ChatManager.onChatReceived: ${event.message.formattedText}")
+
         event.isCanceled = true // cancels the even
 
         var messageToSend = event.message // Creates a new message to build off of
@@ -57,9 +61,15 @@ object ChatManager {
             messageToSend = ChatAlertsManager.checkChatAlert(messageToSend)
         }
 
+        // If the word editor wants to edit something
+        if (WordEditor.shouldEditMessage(messageToSend)) {
+            messageToSend = ChatComponentText(StringUtils.colorCodes(WordEditor.handleWordEditorMessage(messageToSend.formattedText)));
+        }
+
         // If the message has not changed
         if (messageToSend.equals(event.message)) {
             event.isCanceled = false // Reset the event
+            // Utils.sendClientMessage("Message has not changed")
             return // Exit
         }
 
@@ -186,10 +196,18 @@ object ChatManager {
             return true
         }
 
+        else if (WordEditor.wordsToEdit.isNotEmpty() && PartlySaneSkies.config.wordEditor) {
+            return true
+        }
+
         return false
     }
 
+    //ALSO HERE, DONT FORGET
     private fun IChatComponent.doChatMessageModify(): Boolean {
+        if (this.formattedText.startsWith("{\"server\":")) {
+            return false
+        }
         if (this.formattedText.startsWith(PartlySaneSkies.CHAT_PREFIX)) {
             return false
         }
@@ -200,6 +218,9 @@ object ChatManager {
             return true
         }
         else if (!ChatColors.detectNonMessage(this).formattedText.equals(this.formattedText)) {
+            return true
+        }
+        else if (WordEditor.shouldEditMessage(this)){
             return true
         }
         else {
