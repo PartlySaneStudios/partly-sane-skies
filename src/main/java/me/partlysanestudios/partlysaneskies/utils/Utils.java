@@ -13,6 +13,8 @@ import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.WikiArticleOpener;
+import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.EndOfFarmNotifier;
+import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.Range3d;
 import me.partlysanestudios.partlysaneskies.system.ThemeManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
@@ -342,5 +344,9 @@ public class Utils {
 
 //        Gets the last object as a JsonElement
         return obj.get(splitPath[splitPath.length - 1]);
+    }
+
+    public static float getDistance(Range3d.Point2d point1, Range3d.Point2d point2) {
+        return (float) Math.sqrt(Math.pow(point2.getX() - point1.getX(), 2) + Math.pow(point2.getY() - point1.getY(), 2));
     }
 }
