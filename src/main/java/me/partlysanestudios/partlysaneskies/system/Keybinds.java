@@ -5,6 +5,7 @@
 
 package me.partlysanestudios.partlysaneskies.system;
 
+import cc.polyfrost.oneconfig.config.core.OneKeyBind;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.WikiArticleOpener;
 import me.partlysanestudios.partlysaneskies.HelpCommands;
@@ -64,9 +65,9 @@ public final class Keybinds {
 
     @SubscribeEvent
     public void keybindWhileInGui(KeyboardInputEvent.Post event) {
-        // if (Keyboard.isKeyDown(debugKey.getKeyCode())) {
-        //     PartlySaneSkies.debugMode();
-        // }
+        if (OneConfigScreen.debugConfig.isActive()) {
+            PartlySaneSkies.debugMode();
+        }
 
         if (Keyboard.isKeyDown(wikiKeybind.getKeyCode())) {
             WikiArticleOpener.keyDown();
@@ -91,9 +92,10 @@ public final class Keybinds {
 
     @SubscribeEvent
     public void checkKeyBinds(KeyInputEvent event) {
-        // if (debugKey.isPressed()) {
-        //     PartlySaneSkies.debugMode();
-        // }
+        if (OneConfigScreen.debugConfig.isActive()) {
+            PartlySaneSkies.debugMode();
+        }
+        
         if (configKey.isPressed()) {
             PartlySaneSkies.config.openGui();
         }
@@ -115,7 +117,7 @@ public final class Keybinds {
         if (storageKeybind.isPressed()) {
             PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/storage");
         }
-        if(allowHoeRightClickKeybind.isPressed()) {
+        if (allowHoeRightClickKeybind.isPressed()) {
             boolean canRightClickHoe = Utils.onCooldown(MathematicalHoeRightClicks.lastAllowHoeRightClickTime, (long) (PartlySaneSkies.config.allowRightClickTime * 60L * 1000L));
 
             if(canRightClickHoe){

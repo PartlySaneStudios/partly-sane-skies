@@ -19,6 +19,7 @@
 
 package me.partlysanestudios.partlysaneskies;
 
+import cc.polyfrost.oneconfig.config.core.OneColor;
 import gg.essential.elementa.ElementaVersion;
 import me.partlysanestudios.partlysaneskies.auctionhouse.AhManager;
 import me.partlysanestudios.partlysaneskies.chat.ChatAlertsManager;
@@ -38,9 +39,7 @@ import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.EndOfFarmNot
 import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.RangeHighlight;
 import me.partlysanestudios.partlysaneskies.rngdropbanner.DropBannerDisplay;
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager;
-import me.partlysanestudios.partlysaneskies.system.Keybinds;
-import me.partlysanestudios.partlysaneskies.system.OneConfigScreen;
-import me.partlysanestudios.partlysaneskies.system.ThemeManager;
+import me.partlysanestudios.partlysaneskies.system.*;
 import me.partlysanestudios.partlysaneskies.system.requests.Request;
 import me.partlysanestudios.partlysaneskies.system.requests.RequestsManager;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
@@ -188,6 +187,7 @@ public class PartlySaneSkies {
         MinecraftForge.EVENT_BUS.register(new PetAlert());
         MinecraftForge.EVENT_BUS.register(new MathematicalHoeRightClicks());
         MinecraftForge.EVENT_BUS.register(RangeHighlight.INSTANCE);
+        MinecraftForge.EVENT_BUS.register(BannerRenderer.INSTANCE);
 
 
 
@@ -406,10 +406,11 @@ public class PartlySaneSkies {
     }
 
     // Runs when debug key is pressed
-    // public static void debugMode() {
-    //     PartlySaneSkies.isDebugMode = !PartlySaneSkies.isDebugMode;
-    //     Utils.sendClientMessage("Debug mode: " + PartlySaneSkies.isDebugMode);
-    // }
+    public static void debugMode() {
+        PartlySaneSkies.isDebugMode = !PartlySaneSkies.isDebugMode;
+        Utils.sendClientMessage("Debug mode: " + PartlySaneSkies.isDebugMode);
+        BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner("Test", 5000L, 5f, new OneColor(255, 255, 255, 1).toJavaColor()));
+    }
 
     // Returns a list of lines on the scoreboard,
     // where each line is a new entry
