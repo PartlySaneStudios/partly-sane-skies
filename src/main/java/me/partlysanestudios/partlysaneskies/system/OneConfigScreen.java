@@ -10,10 +10,12 @@ import cc.polyfrost.oneconfig.config.Config;
 import cc.polyfrost.oneconfig.config.annotations.*;
 import cc.polyfrost.oneconfig.config.annotations.Number;
 import cc.polyfrost.oneconfig.config.core.OneColor;
+import cc.polyfrost.oneconfig.config.core.OneKeyBind;
 import cc.polyfrost.oneconfig.config.data.InfoType;
 import cc.polyfrost.oneconfig.config.data.Mod;
 import cc.polyfrost.oneconfig.config.data.ModType;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
+import org.lwjgl.input.Keyboard;
 
 public class OneConfigScreen extends Config {
 
@@ -940,4 +942,13 @@ public class OneConfigScreen extends Config {
             description = "Converts the custom colors mentioned above to more visible colors. Dark Green -> Light Green and Blue -> Gold. (Recommended)"
     )
     public boolean visibleColors = false;
+
+
+//    ------------- DEBUG ------------
+    @KeyBind(
+            category = "Debug",
+            name = "Debug Keybind"
+    )
+    public static OneKeyBind debugConfig = new OneKeyBind(Keyboard.KEY_NONE);
+
 }

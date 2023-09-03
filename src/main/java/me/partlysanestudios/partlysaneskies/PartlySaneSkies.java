@@ -19,6 +19,7 @@
 
 package me.partlysanestudios.partlysaneskies;
 
+import cc.polyfrost.oneconfig.config.core.OneColor;
 import gg.essential.elementa.ElementaVersion;
 import me.partlysanestudios.partlysaneskies.auctionhouse.AhManager;
 import me.partlysanestudios.partlysaneskies.chat.ChatAlertsManager;
@@ -210,6 +211,8 @@ public class PartlySaneSkies {
         ProfitMinionCalculator.registerCommand();
         MathematicalHoeRightClicks.registerCommand();
         WordEditor.registerWordEditorCommand();
+        HelpCommands.registerCrepesCommand();
+        HelpCommands.registerVersionCommand();
 
         // Initializes keybinds
         Keybinds.init();
@@ -404,10 +407,11 @@ public class PartlySaneSkies {
     }
 
     // Runs when debug key is pressed
-    // public static void debugMode() {
-    //     PartlySaneSkies.isDebugMode = !PartlySaneSkies.isDebugMode;
-    //     Utils.sendClientMessage("Debug mode: " + PartlySaneSkies.isDebugMode);
-    // }
+    public static void debugMode() {
+        PartlySaneSkies.isDebugMode = !PartlySaneSkies.isDebugMode;
+        Utils.sendClientMessage("Debug mode: " + PartlySaneSkies.isDebugMode);
+        BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner("Test", 5000L, 5f, new OneColor(255, 255, 255, 1).toJavaColor()));
+    }
 
     // Returns a list of lines on the scoreboard,
     // where each line is a new entry

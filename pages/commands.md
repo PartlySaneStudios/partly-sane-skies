@@ -340,3 +340,24 @@ Allows hoe right clicks for a few moments
 ``/allowhoerightclick``: Toggles hoe right clicks
 
 </details>
+
+<!-- /crepes command -->
+<details>
+  <summary> <code> /crepes </code> </summary>
+
+## ``/crepes``
+
+### Aliases
+
+These commands also work instead of ``/crepes``:
+
+``/crêpes``
+
+### Description
+Displays vital crêpe information
+
+### Usage
+
+``/crepe``: Shows crêpe information
+
+</details>

@@ -13,6 +13,8 @@ import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.WikiArticleOpener;
+import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.EndOfFarmNotifier;
+import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.Range3d;
 import me.partlysanestudios.partlysaneskies.system.ThemeManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
@@ -20,6 +22,7 @@ import net.minecraft.client.resources.IResource;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.IChatComponent;
 import net.minecraft.util.ResourceLocation;
 import org.apache.logging.log4j.Level;
 
@@ -93,6 +96,12 @@ public class Utils {
         }
     }
 
+    public static void sendClientMessage(IChatComponent chatComponent) {
+        PartlySaneSkies.minecraft.ingameGUI
+                .getChatGUI()
+                .printChatMessage(chatComponent);
+    }
+    
     public static void sendClientMessage(String text) {
         sendClientMessage(text, false);
     }
@@ -102,18 +111,14 @@ public class Utils {
         text = StringUtils.colorCodes(text);
         if (silent) {
             try {
-                PartlySaneSkies.minecraft.ingameGUI
-                    .getChatGUI()
-                    .printChatMessage(new ChatComponentText(text));
+                sendClientMessage(new ChatComponentText(text));
 
             } catch (NullPointerException ignored) {
             }
         }
         else {
             try {
-                PartlySaneSkies.minecraft.ingameGUI
-                        .getChatGUI()
-                        .printChatMessage(new ChatComponentText(StringUtils.colorCodes(PartlySaneSkies.CHAT_PREFIX) + text));
+                sendClientMessage(new ChatComponentText(StringUtils.colorCodes(PartlySaneSkies.CHAT_PREFIX) + text));
             } catch (NullPointerException ignored) {
             }
         }
@@ -339,5 +344,9 @@ public class Utils {
 
 //        Gets the last object as a JsonElement
         return obj.get(splitPath[splitPath.length - 1]);
+    }
+
+    public static float getDistance(Range3d.Point2d point1, Range3d.Point2d point2) {
+        return (float) Math.sqrt(Math.pow(point2.getX() - point1.getX(), 2) + Math.pow(point2.getY() - point1.getY(), 2));
     }
 }
