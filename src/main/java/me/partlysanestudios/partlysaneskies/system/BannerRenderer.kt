@@ -33,6 +33,9 @@ object BannerRenderer: Gui() {
 
     @SubscribeEvent
     fun onScreenRender(event: RenderGameOverlayEvent.Text)  {
+        if (bannerList.isEmpty()) {
+            return
+        }
 
         cleanOutOfDateBanners()
 
