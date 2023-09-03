@@ -85,6 +85,8 @@ public class HelpCommands {
     public static void registerCrepesCommand() {
         new PSSCommand("crepes")
                 .addAlias("crêpes")
+                .addAlias("crepe")
+                .addAlias("crêpe")
                 .setDescription("Crepes!")
                 .setRunnable((s, a) -> {
                     ChatComponentText chatComponent = new ChatComponentText("§0-----------------------------------------------------§0" +
