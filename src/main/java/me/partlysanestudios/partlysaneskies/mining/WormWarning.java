@@ -3,8 +3,9 @@
 // See LICENSE for copyright and license notices.
 //
 
-package me.partlysanestudios.partlysaneskies;
+package me.partlysanestudios.partlysaneskies.mining;
 
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import gg.essential.elementa.ElementaVersion;
 import gg.essential.elementa.UIComponent;

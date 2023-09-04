@@ -5,20 +5,12 @@
 // Time spend afking in the mines: ~4h
 //
 
-package me.partlysanestudios.partlysaneskies;
+package me.partlysanestudios.partlysaneskies.mining;
 
-import gg.essential.elementa.ElementaVersion;
-import gg.essential.elementa.UIComponent;
-import gg.essential.elementa.components.UIText;
-import gg.essential.elementa.components.Window;
-import gg.essential.elementa.constraints.CenterConstraint;
-import gg.essential.elementa.constraints.PixelConstraint;
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.system.BannerRenderer;
 import me.partlysanestudios.partlysaneskies.system.PSSBanner;
-import gg.essential.universal.UMatrixStack;
-import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class MiningEvents {
