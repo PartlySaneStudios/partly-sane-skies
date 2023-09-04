@@ -21,7 +21,7 @@ object BannerRenderer: Gui() {
 
     var window = Window(ElementaVersion.V2)
 
-    private var displayText: UIText = UIText("{EMPTY BANNER}", shadow = false)
+    private var displayText: UIText = UIText("{EMPTY BANNER}")
         .constrain {
             textScale = 5F.pixels
             x = CenterConstraint()

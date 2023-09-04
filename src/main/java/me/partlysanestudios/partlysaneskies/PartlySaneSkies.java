@@ -409,7 +409,7 @@ public class PartlySaneSkies {
     public static void debugMode() {
         PartlySaneSkies.isDebugMode = !PartlySaneSkies.isDebugMode;
         Utils.sendClientMessage("Debug mode: " + PartlySaneSkies.isDebugMode);
-        BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner("Test", 5000L, 5f, new OneColor(255, 255, 255, 1).toJavaColor()));
+        BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner("Test", 5000L, 5f, new OneColor(255, 0, 255, 1).toJavaColor()));
     }
 
     // Returns a list of lines on the scoreboard,
