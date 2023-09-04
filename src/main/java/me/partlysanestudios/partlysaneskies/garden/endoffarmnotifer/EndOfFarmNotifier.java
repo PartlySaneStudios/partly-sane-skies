@@ -31,6 +31,8 @@ import gg.essential.elementa.constraints.PixelConstraint;
 import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.LocationBannerDisplay;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
+import me.partlysanestudios.partlysaneskies.system.BannerRenderer;
+import me.partlysanestudios.partlysaneskies.system.PSSBanner;
 import me.partlysanestudios.partlysaneskies.system.commands.PSSCommand;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
@@ -47,15 +49,8 @@ public class EndOfFarmNotifier {
     public static long lastChimeTime = 0;
 
     public static Color color;
-    public static Window window = new Window(ElementaVersion.V2);
     public static String displayString = "";
     public static int TEXT_SCALE = 7;
-    private static final UIComponent displayText = new UIText(displayString)
-            .setTextScale(new PixelConstraint(TEXT_SCALE))
-            .setX(new CenterConstraint())
-            .setY(new PixelConstraint(window.getHeight() * .2f))
-            .setColor(Color.white)
-            .setChildOf(window);
 
     public static Range3d rangeToHighlight = null;
     public static long rangeToHighlightSetTime = 0;
@@ -78,6 +73,8 @@ public class EndOfFarmNotifier {
                 .playSound(PositionedSoundRecord.create(new ResourceLocation("partlysaneskies", "bell")));
         displayString = "END OF FARM";
         lastChimeTime = PartlySaneSkies.getTime();
+
+        BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner(displayString, 1000, TEXT_SCALE, Color.red));
     }
 
     public static Range3d createNewRange(String name) {
@@ -327,24 +324,5 @@ public class EndOfFarmNotifier {
 
         // Sends a message to the client
         Utils.sendClientMessage(message.toString());
-    }
-
-    
-    @SubscribeEvent
-    public void renderText(RenderGameOverlayEvent.Text event) {
-        short alpha = LocationBannerDisplay.getAlpha(PartlySaneSkies.getTime() - lastChimeTime, 5);
-
-        if (color == null)
-            color = Color.RED;
-        else
-            color = new Color(color.getRed(), color.getGreen(), color.getBlue(), alpha);
-        float scaleFactor = (window.getWidth()) / 1075f;
-        ((UIText) displayText)
-                .setText(displayString)
-                .setTextScale(new PixelConstraint(TEXT_SCALE * scaleFactor))
-                .setX(new CenterConstraint())
-                .setY(new PixelConstraint(window.getHeight() * .125f))
-                .setColor(color);
-        window.draw(new UMatrixStack());
     }
 }
