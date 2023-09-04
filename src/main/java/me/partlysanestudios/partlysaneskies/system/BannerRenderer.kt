@@ -26,9 +26,9 @@ object BannerRenderer: Gui() {
             textScale = 5F.pixels
             x = CenterConstraint()
             y = CenterConstraint()
-            color = Color.RED.constraint
+            color = Color(255, 255, 255, 0).constraint
 
-        } childOf window
+        }.setColor(Color(255, 255, 255, 0)) as UIText childOf window
 
 
     @SubscribeEvent
