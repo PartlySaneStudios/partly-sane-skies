@@ -10,7 +10,7 @@ Upon start up of Minecraft, a nice, Skyblock themed main menu will display.
 There are various configurable options from Skyblock-themed backgrounds,
 along with an option to select a random background.
 
-![Custom Main Menu](//images/custom_main_menu.png)
+![Custom Main Menu](/images/custom_main_menu.png)
 
 ### Skill Upgrade Recommendation
 
