@@ -5,41 +5,26 @@
 
 package me.partlysanestudios.partlysaneskies;
 
-import java.awt.Color;
-import java.lang.reflect.Field;
-
-import gg.essential.elementa.ElementaVersion;
-import gg.essential.elementa.UIComponent;
-import gg.essential.elementa.components.UIText;
-import gg.essential.elementa.components.Window;
-import gg.essential.elementa.constraints.CenterConstraint;
-import gg.essential.elementa.constraints.PixelConstraint;
-import gg.essential.universal.UMatrixStack;
+import me.partlysanestudios.partlysaneskies.system.BannerRenderer;
+import me.partlysanestudios.partlysaneskies.system.PSSBanner;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.GuiPlayerTabOverlay;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
-public class NoCookieWarning {
-    private static float TEXT_SCALE = 2.5f;
+import java.awt.*;
+import java.lang.reflect.Field;
 
-    private static Color color;
+public class NoCookieWarning {
+    private static final float TEXT_SCALE = 2.5f;
+
     private static String displayString = "";
     private static long lastWarnTime;
-
-    private static Window window = new Window(ElementaVersion.V2);
-    private static UIComponent displayText = new UIText(displayString)
-            .setTextScale(new PixelConstraint(TEXT_SCALE))
-            .setX(new CenterConstraint())
-            .setY(new PixelConstraint(window.getHeight() * .2f))
-            .setColor(Color.white)
-            .setChildOf(window);
 
     public NoCookieWarning() {
         lastWarnTime = PartlySaneSkies.getTime();
@@ -52,10 +37,7 @@ public class NoCookieWarning {
         IChatComponent footer;
         try {
             footer = (IChatComponent) footerField.get(tabList);
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-            return null;
-        } catch (IllegalAccessException e) {
+        } catch (IllegalArgumentException | IllegalAccessException e) {
             e.printStackTrace();
             return null;
         }
@@ -72,7 +54,7 @@ public class NoCookieWarning {
                 return 0;
             }
         }
-        if (getFooter().getSiblings().size() == 0)
+        if (getFooter().getSiblings().isEmpty())
             return -1;
         return 1;
     }
@@ -87,8 +69,10 @@ public class NoCookieWarning {
 
     public static void warn() {
         lastWarnTime = PartlySaneSkies.getTime();
-        color = Color.red;
+        Color color = Color.red;
         displayString = "No Booster Cookie. You will lose your coins on death";
+
+        BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner(displayString, (long) (PartlySaneSkies.config.noCookieWarnTime * 1000), TEXT_SCALE, color));
         PartlySaneSkies.minecraft.getSoundHandler()
                 .playSound(PositionedSoundRecord.create(new ResourceLocation("partlysaneskies", "bell")));
     }
@@ -112,27 +96,6 @@ public class NoCookieWarning {
     }
 
     @SubscribeEvent
-    public void renderText(RenderGameOverlayEvent.Text event) {
-        short alpha = LocationBannerDisplay.getAlpha(getTimeSinceLastWarn(), PartlySaneSkies.config.noCookieWarnTime);
-
-        if (color == null)
-            color = Color.gray;
-        else
-            color = new Color(color.getRed(), color.getGreen(), color.getBlue(), (short) alpha);
-        float scaleFactor = (window.getWidth()) / 1075f;
-        ((UIText) displayText)
-                .setText(displayString)
-                .setTextScale(new PixelConstraint(TEXT_SCALE * scaleFactor))
-                .setX(new CenterConstraint())
-                .setY(new PixelConstraint(window.getHeight() * .125f))
-                .setColor(color);
-        window.draw(new UMatrixStack());
-
-        if (checkExpire())
-            displayString = "";
-    }
-
-    @SubscribeEvent
     public void checkCoinsTick(ClientTickEvent event) {
         if (!PartlySaneSkies.isSkyblock()) {
             return;
@@ -140,12 +103,14 @@ public class NoCookieWarning {
         if (!PartlySaneSkies.config.noCookieWarning) {
             return;
         }
-        if (PartlySaneSkies.getCoins() < PartlySaneSkies.config.maxWithoutCookie) {
-            return;
-        }
+
         if (hasBoosterCookie() == 1) {
             return;
         }
+
+        if (checkExpire())
+            displayString = "";
+
         if (!checkWarnAgain()) {
             return;
         }

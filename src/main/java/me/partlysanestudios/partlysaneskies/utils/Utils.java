@@ -22,6 +22,7 @@ import net.minecraft.client.resources.IResource;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.IChatComponent;
 import net.minecraft.util.ResourceLocation;
 import org.apache.logging.log4j.Level;
 
@@ -95,6 +96,12 @@ public class Utils {
         }
     }
 
+    public static void sendClientMessage(IChatComponent chatComponent) {
+        PartlySaneSkies.minecraft.ingameGUI
+                .getChatGUI()
+                .printChatMessage(chatComponent);
+    }
+    
     public static void sendClientMessage(String text) {
         sendClientMessage(text, false);
     }
@@ -104,18 +111,14 @@ public class Utils {
         text = StringUtils.colorCodes(text);
         if (silent) {
             try {
-                PartlySaneSkies.minecraft.ingameGUI
-                    .getChatGUI()
-                    .printChatMessage(new ChatComponentText(text));
+                sendClientMessage(new ChatComponentText(text));
 
             } catch (NullPointerException ignored) {
             }
         }
         else {
             try {
-                PartlySaneSkies.minecraft.ingameGUI
-                        .getChatGUI()
-                        .printChatMessage(new ChatComponentText(StringUtils.colorCodes(PartlySaneSkies.CHAT_PREFIX) + text));
+                sendClientMessage(new ChatComponentText(StringUtils.colorCodes(PartlySaneSkies.CHAT_PREFIX) + text));
             } catch (NullPointerException ignored) {
             }
         }

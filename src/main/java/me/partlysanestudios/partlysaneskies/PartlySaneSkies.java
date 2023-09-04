@@ -19,10 +19,13 @@
 
 package me.partlysanestudios.partlysaneskies;
 
+import cc.polyfrost.oneconfig.config.core.OneColor;
 import gg.essential.elementa.ElementaVersion;
 import me.partlysanestudios.partlysaneskies.auctionhouse.AhManager;
 import me.partlysanestudios.partlysaneskies.chat.ChatAlertsManager;
 import me.partlysanestudios.partlysaneskies.chat.ChatManager;
+import me.partlysanestudios.partlysaneskies.chat.WordEditor;
+import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager;
 import me.partlysanestudios.partlysaneskies.dungeons.PlayerRating;
 import me.partlysanestudios.partlysaneskies.dungeons.WatcherReady;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManager;
@@ -36,12 +39,10 @@ import me.partlysanestudios.partlysaneskies.garden.MathematicalHoeRightClicks;
 import me.partlysanestudios.partlysaneskies.garden.SkymartValue;
 import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.EndOfFarmNotifier;
 import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.RangeHighlight;
+import me.partlysanestudios.partlysaneskies.mining.WormWarning;
+import me.partlysanestudios.partlysaneskies.mining.MiningEvents;
 import me.partlysanestudios.partlysaneskies.rngdropbanner.DropBannerDisplay;
-import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager;
-import me.partlysanestudios.partlysaneskies.system.Keybinds;
-import me.partlysanestudios.partlysaneskies.system.OneConfigScreen;
-import me.partlysanestudios.partlysaneskies.system.ThemeManager;
-import me.partlysanestudios.partlysaneskies.system.guicomponents.PSSQuickActionMenu;
+import me.partlysanestudios.partlysaneskies.system.*;
 import me.partlysanestudios.partlysaneskies.system.requests.Request;
 import me.partlysanestudios.partlysaneskies.system.requests.RequestsManager;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
@@ -56,7 +57,6 @@ import net.minecraft.scoreboard.ScoreObjective;
 import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.WorldEvent;
@@ -155,6 +155,12 @@ public class PartlySaneSkies {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+            try {
+                WordEditor.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }).start();
 
         
@@ -179,10 +185,11 @@ public class PartlySaneSkies {
         MinecraftForge.EVENT_BUS.register(new BitsShopValue());
         MinecraftForge.EVENT_BUS.register(new PlayerRating());
         MinecraftForge.EVENT_BUS.register(new SkymartValue());
-        MinecraftForge.EVENT_BUS.register(new EndOfFarmNotifier());
         MinecraftForge.EVENT_BUS.register(new PetAlert());
         MinecraftForge.EVENT_BUS.register(new MathematicalHoeRightClicks());
         MinecraftForge.EVENT_BUS.register(RangeHighlight.INSTANCE);
+        MinecraftForge.EVENT_BUS.register(BannerRenderer.INSTANCE);
+        MinecraftForge.EVENT_BUS.register(new MiningEvents());
 
 
 
@@ -203,6 +210,9 @@ public class PartlySaneSkies {
         EndOfFarmNotifier.registerFarmNotifierCommand();
         ProfitMinionCalculator.registerCommand();
         MathematicalHoeRightClicks.registerCommand();
+        WordEditor.registerWordEditorCommand();
+        HelpCommands.registerCrepesCommand();
+        HelpCommands.registerVersionCommand();
 
         // Initializes keybinds
         Keybinds.init();
@@ -217,9 +227,7 @@ public class PartlySaneSkies {
         SkillUpgradeRecommendation.populateSkillMap();
 
         // API Calls
-        new Thread(() ->  {
-            PlayerRating.initPatterns();
-        }).start();
+        new Thread(PlayerRating::initPatterns).start();
 
 
         try {
@@ -283,6 +291,7 @@ public class PartlySaneSkies {
 
         // Checks if the current location is the same as the previous location for the location banner display
         locationBannerDisplay.checkLocation();
+
         // Checks if the current screen is the auction house to run AHManager
         AhManager.runDisplayGuiCheck();
 
@@ -397,18 +406,11 @@ public class PartlySaneSkies {
     }
 
     // Runs when debug key is pressed
-     public static void debugMode() {
+    public static void debugMode() {
         PartlySaneSkies.isDebugMode = !PartlySaneSkies.isDebugMode;
         Utils.sendClientMessage("Debug mode: " + PartlySaneSkies.isDebugMode);
-        PSSQuickActionMenu.PSSQuickAction[] actions = new PSSQuickActionMenu.PSSQuickAction[4];
-        for (int i = 0; i < actions.length; i++) {
-            final int num = i;
-            actions[i] = new PSSQuickActionMenu.PSSQuickAction("id " + i, () -> {
-                Utils.visPrint("Clicked on number " + num);
-            }, new ResourceLocation("partlysaneskies", "textures/logo.png"));
-        }
-        PartlySaneSkies.minecraft.displayGuiScreen(new PSSQuickActionMenu(actions, 3));
-     }
+        BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner("Test", 5000L, 5f, new OneColor(255, 0, 255, 1).toJavaColor()));
+    }
 
     // Returns a list of lines on the scoreboard,
     // where each line is a new entry

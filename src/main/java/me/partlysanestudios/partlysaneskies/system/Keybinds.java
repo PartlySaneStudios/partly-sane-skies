@@ -95,7 +95,7 @@ public final class Keybinds {
         if (OneConfigScreen.debugConfig.isActive()) {
             PartlySaneSkies.debugMode();
         }
-
+        
         if (configKey.isPressed()) {
             PartlySaneSkies.config.openGui();
         }

@@ -7,14 +7,13 @@
 package me.partlysanestudios.partlysaneskies.system;
 
 import cc.polyfrost.oneconfig.config.Config;
-import cc.polyfrost.oneconfig.config.annotations.*;
 import cc.polyfrost.oneconfig.config.annotations.Number;
+import cc.polyfrost.oneconfig.config.annotations.*;
 import cc.polyfrost.oneconfig.config.core.OneColor;
 import cc.polyfrost.oneconfig.config.core.OneKeyBind;
 import cc.polyfrost.oneconfig.config.data.InfoType;
 import cc.polyfrost.oneconfig.config.data.Mod;
 import cc.polyfrost.oneconfig.config.data.ModType;
-import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import org.lwjgl.input.Keyboard;
 
 public class OneConfigScreen extends Config {
@@ -156,62 +155,6 @@ public class OneConfigScreen extends Config {
         description = "Select one of our many high quality included images, or you can use your custom image.\nTo use your own image, place your image in the /config/partly-sane-skies folder and title your image background.png"
     )
     public int customMainMenuImage = 1;
-
-    @Switch(
-        name = "Color Private Messages", 
-        category = "General", 
-        subcategory = "Chat Color", 
-        description = "Private messages pink to make them more visible in busy lobbies."
-    )
-    public boolean colorPrivateMessages = false;
-
-    @Switch(
-        name = "Color Nons Messages", 
-        category = "General", 
-        subcategory = "Chat Color", 
-        description = "Color messages from the non-ranked players to white to make them more visible in busy lobbies."
-    )
-    public boolean colorNonMessages = false;
-
-    @Switch(
-        name = "Color Party Chat", 
-        category = "General", 
-        subcategory = "Chat Color", 
-        description = "Color messages from the party chat blue to make them more visible in busy lobbies."
-    )
-    public boolean colorPartyChat = false;
-
-    @Switch(
-        name = "Color Guild Chat", 
-        category = "General", 
-        subcategory = "Chat Color", 
-        description = "Color messages from the guild chat green to make them more visible in busy lobbies."
-    )
-    public boolean colorGuildChat = false;
-
-    @Switch(
-        name = "Color Guild Officer Chat", 
-        category = "General", 
-        subcategory = "Chat Color", 
-        description = "Color messages from the guild officer chat aqua to make them more visible in busy lobbies."
-    )
-    public boolean colorOfficerChat = false;
-
-    @Switch(
-        name = "Skyblock Co-op Chat", 
-        category = "General", 
-        subcategory = "Chat Color", 
-        description = "Color messages from the skyblock coop chat aqua to make them more visible in busy lobbies."
-    )
-    public boolean colorCoopChat = false;
-
-    @Switch(
-        name = "Visible Colors", 
-        category = "General", 
-        subcategory = "Chat Color", 
-        description = "Converts the custom colors mentioned above to more visible colors. Dark Green -> Light Green and Blue -> Gold. (Recommended)"
-    )
-    public boolean visibleColors = false;
 
     @Switch(
         name = "Print errors in chat",
@@ -483,6 +426,121 @@ public class OneConfigScreen extends Config {
         category = "Mining"
     )
     public boolean wormWarningBannerSound = false;
+
+    //Events
+    @Info(
+            type = InfoType.INFO,
+            text = "Some Events may not trigger, not all have been tested. If you find an event that doesn't trigger, please report it on our discord server.",
+            size = 2,
+            category = "Mining",
+            subcategory = "Events"
+    )
+
+    @Switch(
+            name = "Main Toggle",
+            category = "Mining",
+            subcategory = "Events",
+            description = "Toggles the events"
+    )
+    public boolean miningEventsToggle = true;
+
+    @Switch(
+            name = "Show Event Banner",
+            category = "Mining",
+            subcategory = "Events",
+            description = "Shows a banner when an enabled event is going active"
+    )
+    public boolean miningShowEventBanner = true;
+
+    @Switch(
+            name = "Also warn 20s before event activation",
+            category = "Mining",
+            subcategory = "Events",
+            description = "Shows a banner and plays sound 20s before an enabled event is going active"
+    )
+    public boolean miningWarn20sBeforeEvent = false;
+
+    @Switch(
+            name = "2x Powder activation sound",
+            category = "Mining",
+            subcategory = "Events",
+            description = "Plays a sound when 2x Powder event is going active"
+    )
+    public boolean mining2xPowderSound = false;
+
+    @Switch(
+            name = "Gone with the wind activation sound",
+            category = "Mining",
+            subcategory = "Events",
+            description = "Plays a sound when Gone with the wind event is going active"
+    )
+    public boolean miningGoneWithTheWindSound = false;
+
+    @Switch(
+            name = "Better Together activation sound",
+            category = "Mining",
+            subcategory = "Events",
+            description = "Plays a sound when Better Together event is going active"
+    )
+    public boolean miningBetterTogetherSound = false;
+
+    @Switch(
+            name = "Goblin Raid activation sound",
+            category = "Mining",
+            subcategory = "Events",
+            description = "Plays a sound when Goblin Raid event is going active"
+    )
+    public boolean miningGoblinRaidSound = false;
+
+    @Switch(
+            name = "Raffle activation sound",
+            category = "Mining",
+            subcategory = "Events",
+            description = "Plays a sound when Raffle event is going active"
+    )
+    public boolean miningRaffleSound = false;
+
+    @Switch(
+            name = "Mithril Gourmand activation sound",
+            category = "Mining",
+            subcategory = "Events",
+            description = "Plays a sound when Mithril Gourmand event is going active"
+    )
+    public boolean miningMithrilGourmandSound = false;
+
+    @Switch(
+            name = "Powder Ghast activation sound",
+            category = "Mining",
+            subcategory = "Events",
+            description = "Plays a sound when Powder Ghast is about to spawn"
+    )
+    public boolean miningPowderGhastSound = false;
+
+    @Switch(
+            name = "Fallen Star activation sound",
+            category = "Mining",
+            subcategory = "Events",
+            description = "Plays a sound when Fallen Star is about to spawn"
+    )
+    public boolean miningFallenStarSound = false;
+
+    @Slider(
+            min = 1,
+            max = 7,
+            subcategory = "Events",
+            name = "Event Banner Time",
+            description = "The amount of seconds the event banner appears for.",
+            category = "Mining"
+    )
+    public float miningEventBannerTime = 3.5f;
+
+    @Color(
+            subcategory = "Events",
+            name = "Event Banner Color",
+            description = "The color of the event banner text",
+            category = "Mining"
+    )
+    public OneColor miningEventBannerColor = new OneColor(255, 255, 255);
 
     // ------------- Category: Dungeons ---------------------------------
     // Party Manager
@@ -817,7 +875,72 @@ public class OneConfigScreen extends Config {
     )
     public int noCookieWarnCooldown = 20;
 
+    //    ------------------ Category: Chat ---------------------
+//    WordEditor
+    @Switch(
+        name = "Word Editor Main Toggle",
+        category = "Chat",
+        subcategory = "Word Editor",
+        description = "Allows you to edit words in chat. Can be configured with /wordeditor"
+    )
+    public boolean wordEditor = true;
 
+//Chat Colors
+    @Switch(
+            name = "Color Private Messages",
+            category = "Chat",
+            subcategory = "Chat Color",
+            description = "Private messages pink to make them more visible in busy lobbies."
+    )
+    public boolean colorPrivateMessages = false;
+
+    @Switch(
+            name = "Color Nons Messages",
+            category = "Chat",
+            subcategory = "Chat Color",
+            description = "Color messages from the non-ranked players to white to make them more visible in busy lobbies."
+    )
+    public boolean colorNonMessages = false;
+
+    @Switch(
+            name = "Color Party Chat",
+            category = "Chat",
+            subcategory = "Chat Color",
+            description = "Color messages from the party chat blue to make them more visible in busy lobbies."
+    )
+    public boolean colorPartyChat = false;
+
+    @Switch(
+            name = "Color Guild Chat",
+            category = "Chat",
+            subcategory = "Chat Color",
+            description = "Color messages from the guild chat green to make them more visible in busy lobbies."
+    )
+    public boolean colorGuildChat = false;
+
+    @Switch(
+            name = "Color Guild Officer Chat",
+            category = "Chat",
+            subcategory = "Chat Color",
+            description = "Color messages from the guild officer chat aqua to make them more visible in busy lobbies."
+    )
+    public boolean colorOfficerChat = false;
+
+    @Switch(
+            name = "Skyblock Co-op Chat",
+            category = "Chat",
+            subcategory = "Chat Color",
+            description = "Color messages from the skyblock coop chat aqua to make them more visible in busy lobbies."
+    )
+    public boolean colorCoopChat = false;
+
+    @Switch(
+            name = "Visible Colors",
+            category = "Chat",
+            subcategory = "Chat Color",
+            description = "Converts the custom colors mentioned above to more visible colors. Dark Green -> Light Green and Blue -> Gold. (Recommended)"
+    )
+    public boolean visibleColors = false;
 
 
 //    ------------- DEBUG ------------
