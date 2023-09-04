@@ -141,10 +141,17 @@ public class Auction {
     }
 
     public boolean hasLowestBin() {
+        if (SkyblockDataManager.getItem(itemId) == null) {
+            return false;
+        }
         return SkyblockDataManager.getItem(itemId).hasSellPrice();
     }
 
     public boolean hasAverageLowestBin() {
+        if (SkyblockDataManager.getItem(itemId) == null) {
+            return false;
+        }
+
         return SkyblockDataManager.getItem(itemId).hasAverageLowestBin();
     }
 

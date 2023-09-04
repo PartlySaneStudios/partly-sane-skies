@@ -21,14 +21,14 @@ object BannerRenderer: Gui() {
 
     var window = Window(ElementaVersion.V2)
 
-    private var displayText: UIText = UIText("{EMPTY BANNER}", shadow = false)
+    private var displayText: UIText = UIText("{EMPTY BANNER}")
         .constrain {
             textScale = 5F.pixels
             x = CenterConstraint()
             y = CenterConstraint()
-            color = Color.RED.constraint
+            color = Color(255, 255, 255, 0).constraint
 
-        } childOf window
+        }.setColor(Color(255, 255, 255, 0)) as UIText childOf window
 
 
     @SubscribeEvent
