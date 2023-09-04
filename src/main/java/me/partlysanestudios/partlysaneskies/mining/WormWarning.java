@@ -5,6 +5,7 @@
 
 package me.partlysanestudios.partlysaneskies.mining;
 
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.system.BannerRenderer;
 import me.partlysanestudios.partlysaneskies.system.PSSBanner;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
