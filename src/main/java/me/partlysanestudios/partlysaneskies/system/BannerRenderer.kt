@@ -48,7 +48,7 @@ object BannerRenderer: Gui() {
             .constrain {
                 textScale = bannerToRender.textScale.pixels
                 x = CenterConstraint()
-                y = (window.getHeight() * .15f).pixels
+                y = (window.getHeight() * .125f).pixels
                 color = bannerToRender.getFadedColor().constraint
             } childOf window
 
