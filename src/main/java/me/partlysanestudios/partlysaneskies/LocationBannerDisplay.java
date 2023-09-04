@@ -14,6 +14,8 @@ import gg.essential.elementa.components.Window;
 import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import gg.essential.universal.UMatrixStack;
+import me.partlysanestudios.partlysaneskies.system.BannerRenderer;
+import me.partlysanestudios.partlysaneskies.system.PSSBanner;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.gui.Gui;
@@ -31,12 +33,12 @@ public class LocationBannerDisplay extends Gui {
 
     Color color = Color.white;
 
-    UIComponent displayText = new UIText(displayString)
-            .setTextScale(new PixelConstraint(TEXT_SCALE))
-            .setX(new CenterConstraint())
-            .setY(new PixelConstraint(window.getHeight() * .125f))
-            .setColor(Color.white)
-            .setChildOf(window);
+//    UIComponent displayText = new UIText(displayString)
+//            .setTextScale(new PixelConstraint(TEXT_SCALE))
+//            .setX(new CenterConstraint())
+//            .setY(new PixelConstraint(window.getHeight() * .125f))
+//            .setColor(Color.white)
+//            .setChildOf(window);
 
     public LocationBannerDisplay() {
     }
@@ -47,6 +49,9 @@ public class LocationBannerDisplay extends Gui {
 
         String regionName = PartlySaneSkies.getRegionName();
         String noColorCodeRegionName = StringUtils.removeColorCodes(regionName);
+        if (checkExpire()) {
+            displayString = "";
+        }
 
         if (noColorCodeRegionName.equals("")) {
             return;
@@ -83,30 +88,12 @@ public class LocationBannerDisplay extends Gui {
         displayString = noColorCodeRegionName;
         lastLocation = noColorCodeRegionName;
         lastLocationTime = PartlySaneSkies.getTime();
+
+        BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner(displayString, (long) (PartlySaneSkies.config.locationBannerTime * 1000), TEXT_SCALE, color));
     }
 
     private boolean checkExpire() {
         return getTimeSinceLastChange() > PartlySaneSkies.config.locationBannerTime * 1000;
-    }
-
-    @SubscribeEvent
-    public void renderText(RenderGameOverlayEvent.Text event) {
-        short alpha = getAlpha(getTimeSinceLastChange(), PartlySaneSkies.config.locationBannerTime);
-
-        if (color == null)
-            color = Color.gray;
-        else
-            color = new Color(color.getRed(), color.getGreen(), color.getBlue(), alpha);
-
-        ((UIText) displayText)
-                .setText(displayString)
-                .setX(new CenterConstraint())
-                .setY(new PixelConstraint(window.getHeight() * .125f))
-                .setColor(color);
-        window.draw(new UMatrixStack());
-
-        if (checkExpire())
-            displayString = "";
     }
 
     private long getTimeSinceLastChange() {

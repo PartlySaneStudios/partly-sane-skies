@@ -292,6 +292,7 @@ public class PartlySaneSkies {
 
         // Checks if the current location is the same as the previous location for the location banner display
         locationBannerDisplay.checkLocation();
+
         // Checks if the current screen is the auction house to run AHManager
         AhManager.runDisplayGuiCheck();
 
