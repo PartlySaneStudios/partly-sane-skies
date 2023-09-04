@@ -20,13 +20,7 @@ public class LocationBannerDisplay extends Gui {
     String displayString = "empty";
 
     Color color = Color.white;
-
-//    UIComponent displayText = new UIText(displayString)
-//            .setTextScale(new PixelConstraint(TEXT_SCALE))
-//            .setX(new CenterConstraint())
-//            .setY(new PixelConstraint(window.getHeight() * .125f))
-//            .setColor(Color.white)
-//            .setChildOf(window);
+    
 
     public LocationBannerDisplay() {
     }
