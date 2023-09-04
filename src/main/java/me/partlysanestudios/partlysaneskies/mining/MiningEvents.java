@@ -22,6 +22,8 @@ public class MiningEvents {
     public void onChat(ClientChatReceivedEvent event) {
         if (!PartlySaneSkies.config.miningEventsToggle) return;
 
+        displayText = "";
+
         String message = event.message.getFormattedText();
 
         // 2x Powder
