@@ -7,4 +7,4 @@
 * Fixed major performance issue by @Su386yt in https://github.com/PartlySaneStudios/partly-sane-skies/pull/213
 
 
-**Full Changelog and Official Download Link**: https://github.com/PartlySaneStudios/partly-sane-skies/releases/tag/beta-v0.3.3
+**Full Changelog**: https://github.com/PartlySaneStudios/partly-sane-skies/compare/beta-v0.3.2...beta-v0.3.3
