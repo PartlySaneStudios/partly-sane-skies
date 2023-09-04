@@ -122,7 +122,7 @@ class PSSBanner(val text: String, val lengthOfTimeToRender: Long, val textScale:
     private fun getAlpha(timeStarted: Long, displayLengthSeconds: Double): Short {
         val displayLength = displayLengthSeconds * 1000
 
-//        Utils.sendClientMessage("DisplayLengthSEconds${displayLength}")
+//        Utils.sendClientMessage("DisplayLengthSeconds${displayLength}")
 //        Utils.sendClientMessage("DisplayLength${displayLength}")
 
         val fadeLength = displayLength * (1 / 6.0)

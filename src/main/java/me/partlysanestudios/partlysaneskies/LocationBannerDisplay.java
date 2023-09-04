@@ -5,30 +5,18 @@
 
 package me.partlysanestudios.partlysaneskies;
 
-import java.awt.Color;
-
-import gg.essential.elementa.ElementaVersion;
-import gg.essential.elementa.UIComponent;
-import gg.essential.elementa.components.UIText;
-import gg.essential.elementa.components.Window;
-import gg.essential.elementa.constraints.CenterConstraint;
-import gg.essential.elementa.constraints.PixelConstraint;
-import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.system.BannerRenderer;
 import me.partlysanestudios.partlysaneskies.system.PSSBanner;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.gui.Gui;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+
+import java.awt.*;
 
 public class LocationBannerDisplay extends Gui {
     float TEXT_SCALE = 5f;
-
     String lastLocation = "";
     public long lastLocationTime = PartlySaneSkies.getTime();
-
-    Window window = new Window(ElementaVersion.V2);
     String displayString = "empty";
 
     Color color = Color.white;
@@ -53,7 +41,7 @@ public class LocationBannerDisplay extends Gui {
             displayString = "";
         }
 
-        if (noColorCodeRegionName.equals("")) {
+        if (noColorCodeRegionName.isEmpty()) {
             return;
         }
         
@@ -81,7 +69,7 @@ public class LocationBannerDisplay extends Gui {
             return;
         }
 
-        if (!regionName.equals("")) {
+        if (!regionName.isEmpty()) {
             color = Utils.colorCodetoColor.get(regionName.substring(3, 5));
         }
 
@@ -98,24 +86,5 @@ public class LocationBannerDisplay extends Gui {
 
     private long getTimeSinceLastChange() {
         return PartlySaneSkies.getTime() - lastLocationTime;
-    }
-
-    public static short getAlpha(long timeSinceLastChangeMs, double displayLenghtSeconds) {
-        double displayLength = displayLenghtSeconds * 1000;
-        double fadeLength = displayLength * (1 / 6d);
-
-        if (0 > timeSinceLastChangeMs) {
-            return 0;
-        } else if (0 < timeSinceLastChangeMs && timeSinceLastChangeMs < fadeLength) {
-            return (short) Math.round(timeSinceLastChangeMs / fadeLength * 255);
-        } else if (fadeLength < timeSinceLastChangeMs && timeSinceLastChangeMs <= displayLength - fadeLength) {
-            return 255;
-        } else if (displayLength - fadeLength < timeSinceLastChangeMs && timeSinceLastChangeMs <= displayLength) {
-            return (short) Math.round((-timeSinceLastChangeMs + displayLength) / fadeLength * 255);
-        } else {
-
-            return 0;
-        }
-
     }
 }
