@@ -48,7 +48,7 @@ object BannerRenderer: Gui() {
             .constrain {
                 textScale = bannerToRender.textScale.pixels
                 x = CenterConstraint()
-                y = (window.getHeight() * .2f).pixels
+                y = (window.getHeight() * .125f).pixels
                 color = bannerToRender.getFadedColor().constraint
             } childOf window
 
@@ -79,7 +79,7 @@ object BannerRenderer: Gui() {
         var mostRecentlyCreatedBanner = bannerList[0]
 
         for (banner in bannerList) {
-            if (mostRecentlyCreatedBanner.creationTime > banner.creationTime) {
+            if (mostRecentlyCreatedBanner.creationTime < banner.creationTime) {
                 mostRecentlyCreatedBanner = banner
             }
         }
@@ -122,7 +122,7 @@ class PSSBanner(val text: String, val lengthOfTimeToRender: Long, val textScale:
     private fun getAlpha(timeStarted: Long, displayLengthSeconds: Double): Short {
         val displayLength = displayLengthSeconds * 1000
 
-//        Utils.sendClientMessage("DisplayLengthSEconds${displayLength}")
+//        Utils.sendClientMessage("DisplayLengthSeconds${displayLength}")
 //        Utils.sendClientMessage("DisplayLength${displayLength}")
 
         val fadeLength = displayLength * (1 / 6.0)
