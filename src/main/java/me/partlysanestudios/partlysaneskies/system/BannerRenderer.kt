@@ -48,7 +48,7 @@ object BannerRenderer: Gui() {
             .constrain {
                 textScale = bannerToRender.textScale.pixels
                 x = CenterConstraint()
-                y = (window.getHeight() * .2f).pixels
+                y = (window.getHeight() * .15f).pixels
                 color = bannerToRender.getFadedColor().constraint
             } childOf window
 
@@ -79,7 +79,7 @@ object BannerRenderer: Gui() {
         var mostRecentlyCreatedBanner = bannerList[0]
 
         for (banner in bannerList) {
-            if (mostRecentlyCreatedBanner.creationTime > banner.creationTime) {
+            if (mostRecentlyCreatedBanner.creationTime < banner.creationTime) {
                 mostRecentlyCreatedBanner = banner
             }
         }
