@@ -37,6 +37,8 @@ import me.partlysanestudios.partlysaneskies.garden.MathematicalHoeRightClicks;
 import me.partlysanestudios.partlysaneskies.garden.SkymartValue;
 import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.EndOfFarmNotifier;
 import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.RangeHighlight;
+import me.partlysanestudios.partlysaneskies.mining.WormWarning;
+import me.partlysanestudios.partlysaneskies.mining.MiningEvents;
 import me.partlysanestudios.partlysaneskies.rngdropbanner.DropBannerDisplay;
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager;
 import me.partlysanestudios.partlysaneskies.system.*;
@@ -188,7 +190,7 @@ public class PartlySaneSkies {
         MinecraftForge.EVENT_BUS.register(new MathematicalHoeRightClicks());
         MinecraftForge.EVENT_BUS.register(RangeHighlight.INSTANCE);
         MinecraftForge.EVENT_BUS.register(BannerRenderer.INSTANCE);
-
+        MinecraftForge.EVENT_BUS.register(new MiningEvents());
 
 
 
