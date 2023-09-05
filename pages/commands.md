@@ -66,135 +66,30 @@ Opens the configuration menu to edit all settings inside Partly Sane Skies. Note
 
 </details>
 
-<!-- /pssdiscord command -->
-<details>
-  <summary> <code> /pssdiscord </code> </summary>
 
-## ``/pssdiscord`` 
+<!-- /allowhoerightclick command -->
+<details>
+  <summary> <code> /allowhoerightclick </code> </summary>
+
+## ``/allowhoerightclick``
 
 ### Aliases
 
-These commands also work instead of ``/pssdiscord``:
+These commands also work instead of ``/allowhoerightclick``:
 
-``/pssdisc``
+``/allowhoerightclicks``
 
-``/psdisc``
+``/ahrc``
 
 ### Description
-Sends a link to join the discord in chat. [Or you can just join here (https://discord.gg/v4PU3WeH7z)](https://discord.gg/v4PU3WeH7z)
+Allows hoe right clicks for a few moments
 
 ### Usage
 
-``/pssdiscord``: Sends the link to join the discord in chat.
+``/allowhoerightclick``: Toggles hoe right clicks
 
 </details>
 
-<!-- /skillup command -->
-<details>
-  <summary> <code> /skillup </code> </summary>
-
-## ``/skillup`` 
-
-### Aliases
-
-These commands also work instead of ``/skillup``:
-
-``/skillu``
-
-``/su``
-
-### Description
-Gives you recommendations as to the most important skills to upgrade.
-
-### Usage
-
-``/skillup [username]``: Recommends the most important skills to upgrade for specific ``username``.
-
-``/skillup``: Recommends the most important skills to upgrade for the player running the command.
-
-</details>
-
-
-<!-- /partymanager command -->
-<details>
-  <summary> <code> /partymanager </code> </summary>
-
-## ``/partymanager`` 
-
-### Aliases
-
-These commands also work instead of ``/partymanager``:
-
-``/partym``
-
-``/pm``
-
-### Description
-Opens the Party Manager menu. You can also use the keybinding, which by default is ``M``.
-
-### Usage
-
-``/partymanager``: Opens the Party Manager Menu.
-
-</details>
-
-<!-- /permparty command -->
-<details>
-  <summary> <code> /permparty </code> </summary>
-
-## ``/permparty`` 
-
-### Aliases
-
-These commands also work instead of ``/permparty``:
-
-``/permp``
-
-``/pp``
-
-### Description
-Allows you to save, party, add and remove players from a permanent dungeon party.
-
-### Usage
-
-``/permparty``: Sends information about the ``permparty`` command.
-
-``/permparty [partyid]``: Parties everyone in the party with the id matching ``partyid``
-
-``/permparty new [partyid]``: Creates a new party with the ID ``partyid``
-
-``/permparty new [partyid] <partymembers>``: Creates a new party with the ID ``partyid`` and with the members ``partymembers``.
-
-``/permparty delete [partyid]``: Deletes a perm party. (Note: There is no way to undo this action). 
-
-``/permparty add [partyid] [partymember]``: Adds player ``partymember`` to the party ``partyid``.
-
-``/permparty remove [partyid] [partymember]``: Removes the player ``partymember`` from the party ``partyid``.
-
-</details>
-
-<!-- /friendparty command -->
-<details>
-  <summary> <code> /friendparty </code> </summary>
-
-## ``/friendparty`` 
-
-### Aliases
-
-These commands also work instead of ``/friendparty``:
-
-``/fp``
-
-``/pf``
-
-### Description
-Parties friends that are online in your friends list.
-
-### Usage
-
-``/friendparty``: Parties all friends that are online.
-
-</details>
 
 <!-- /chatalert command -->
 <details>
@@ -224,6 +119,30 @@ Allows certain messages to be highlighted in chat.
 ``/chatalerts remove [number]``: Removes the alert with the given ``number`` in the list. Numbers are show with ``/chatalerts list``.
 
 </details>
+
+
+<!-- /crepes command -->
+<details>
+  <summary> <code> /crepes </code> </summary>
+
+## ``/crepes``
+
+### Aliases
+
+These commands also work instead of ``/crepes``:
+
+``/crêpes``
+
+### Description
+Displays vital crêpe information
+
+### Usage
+
+``/crepe``: Shows crêpe information
+
+</details>
+
+
 
 <!-- //farmnotfier command -->
 <details>
@@ -274,6 +193,30 @@ Allows you to create areas where you will be notified you have reached the end o
 </details>
 
 
+<!-- /friendparty command -->
+<details>
+  <summary> <code> /friendparty </code> </summary>
+
+## ``/friendparty`` 
+
+### Aliases
+
+These commands also work instead of ``/friendparty``:
+
+``/fp``
+
+``/pf``
+
+### Description
+Parties friends that are online in your friends list.
+
+### Usage
+
+``/friendparty``: Parties all friends that are online.
+
+</details>
+
+
 <!-- /minioncalculator command -->
 <details>
   <summary> <code> /minioncalculator </code> </summary>
@@ -301,7 +244,6 @@ Opens the most profitable minions feature
 
 </details>
 
-
 <!-- /mutepetalert command -->
 <details>
   <summary> <code> /mutepetalert </code> </summary>
@@ -317,47 +259,137 @@ Mutes the pet alert warning for a certain amount of time
 
 </details>
 
-
-<!-- /allowhoerightclick command -->
+<!-- /partymanager command -->
 <details>
-  <summary> <code> /allowhoerightclick </code> </summary>
+  <summary> <code> /partymanager </code> </summary>
 
-## ``/allowhoerightclick``
+## ``/partymanager`` 
 
 ### Aliases
 
-These commands also work instead of ``/allowhoerightclick``:
+These commands also work instead of ``/partymanager``:
 
-``/allowhoerightclicks``
+``/partym``
 
-``/ahrc``
+``/pm``
 
 ### Description
-Allows hoe right clicks for a few moments
+Opens the Party Manager menu. You can also use the keybinding, which by default is ``M``.
 
 ### Usage
 
-``/allowhoerightclick``: Toggles hoe right clicks
+``/partymanager``: Opens the Party Manager Menu.
 
 </details>
 
-<!-- /crepes command -->
-<details>
-  <summary> <code> /crepes </code> </summary>
 
-## ``/crepes``
+<!-- /permparty command -->
+<details>
+  <summary> <code> /permparty </code> </summary>
+
+## ``/permparty`` 
 
 ### Aliases
 
-These commands also work instead of ``/crepes``:
+These commands also work instead of ``/permparty``:
 
-``/crêpes``
+``/permp``
+
+``/pp``
 
 ### Description
-Displays vital crêpe information
+Allows you to save, party, add and remove players from a permanent dungeon party.
 
 ### Usage
 
-``/crepe``: Shows crêpe information
+``/permparty``: Sends information about the ``permparty`` command.
+
+``/permparty [partyid]``: Parties everyone in the party with the id matching ``partyid``
+
+``/permparty new [partyid]``: Creates a new party with the ID ``partyid``
+
+``/permparty new [partyid] <partymembers>``: Creates a new party with the ID ``partyid`` and with the members ``partymembers``.
+
+``/permparty delete [partyid]``: Deletes a perm party. (Note: There is no way to undo this action). 
+
+``/permparty add [partyid] [partymember]``: Adds player ``partymember`` to the party ``partyid``.
+
+``/permparty remove [partyid] [partymember]``: Removes the player ``partymember`` from the party ``partyid``.
+
+</details>
+
+
+<!-- /pssdiscord command -->
+<details>
+  <summary> <code> /pssdiscord </code> </summary>
+
+## ``/pssdiscord`` 
+
+### Aliases
+
+These commands also work instead of ``/pssdiscord``:
+
+``/pssdisc``
+
+``/psdisc``
+
+### Description
+Sends a link to join the discord in chat. [Or you can just join here (https://discord.gg/v4PU3WeH7z)](https://discord.gg/v4PU3WeH7z)
+
+### Usage
+
+``/pssdiscord``: Sends the link to join the discord in chat.
+
+</details>
+
+<!-- /skillup command -->
+<details>
+  <summary> <code> /skillup </code> </summary>
+
+## ``/skillup`` 
+
+### Aliases
+
+These commands also work instead of ``/skillup``:
+
+``/skillu``
+
+``/su``
+
+### Description
+Gives you recommendations as to the most important skills to upgrade.
+
+### Usage
+
+``/skillup [username]``: Recommends the most important skills to upgrade for specific ``username``.
+
+``/skillup``: Recommends the most important skills to upgrade for the player running the command.
+
+</details>
+
+
+
+<!-- /wordeditor command -->
+<details>
+  <summary> <code> /wordeditor </code> </summary>
+
+## ``/wordeditor``
+
+### Aliases
+
+These commands also work instead of ``/wordeditor``:
+
+``/wordedit``
+``/we``
+``/wordreplace``
+``/wr``
+
+### Description
+Replaces a desired word in chat with any other word, such as changing "Flagmaster" to "FlagHater"
+### Usage
+
+``/wordeditor add <word> <replacement> ``: Changes word to replacement word in chat
+``/wordeditor remove <word> ``: Removes wordeditor for a word 
+``/wordeditor list ``: lists all modified words
 
 </details>
