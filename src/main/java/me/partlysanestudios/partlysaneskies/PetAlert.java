@@ -53,7 +53,7 @@ public class PetAlert {
             return;
         }
         Entity usersPet = getUsersPet(PartlySaneSkies.minecraft.thePlayer.getName());
-        String petName = StringUtils.colorCodes("§8(Unknown)");
+        String petName = ("§8(Unknown)");
         if (usersPet != null) {
             petName = parsePetNameFromEntity(usersPet.getName());
         
@@ -82,7 +82,7 @@ public class PetAlert {
             lastSoundTime = PartlySaneSkies.getTime();
         }
         if (!Utils.onCooldown(lastMessageSendTime,3000)) {
-            IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + StringUtils.colorCodes("§cYOU CURRENTLY HAVE " + petName + "§c SELECTED AS YOUR PET. YOU WANTED TO UPGRADE " + selectedPetName + "." +
+            IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + ("§cYOU CURRENTLY HAVE " + petName + "§c SELECTED AS YOUR PET. YOU WANTED TO UPGRADE " + selectedPetName + "." +
             "\n§dClick this message or run /mutepetalert to mute the alert for " + PartlySaneSkies.config.petAlertMuteTime + " minutes."));
             message.getChatStyle().setChatClickEvent(new ClickEvent(Action.RUN_COMMAND, "/mutepetalert"));
             PartlySaneSkies.minecraft.ingameGUI.getChatGUI().printChatMessage(message);
@@ -272,7 +272,7 @@ public class PetAlert {
         }
 
         if (currentlySelectedPetName.isEmpty()) {
-            currentlySelectedPetName = StringUtils.colorCodes("§8(Unknown)");
+            currentlySelectedPetName = ("§8(Unknown)");
         }
 
         String petColorCode;

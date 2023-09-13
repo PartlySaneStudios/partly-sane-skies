@@ -551,7 +551,7 @@ public class CustomMainMenu extends WindowScreen {
         }
 
         public UIWrappedText createTitle(float scaleFactor, int postNum, UIComponent parent) {
-            UIComponent text = new UIWrappedText(StringUtils.colorCodes("§e" + title))
+            UIComponent text = new UIWrappedText(("§e" + title))
                 .setTextScale(new PixelConstraint(1.5f * scaleFactor))
                 .setX(new PixelConstraint(33f * scaleFactor))
                 .setY(new PixelConstraint(125 * scaleFactor + 145 * (postNum) * scaleFactor))
@@ -564,7 +564,7 @@ public class CustomMainMenu extends WindowScreen {
             return (UIWrappedText) text;
         }
         public UIWrappedText createDescription(float scaleFactor, int postNum, UIComponent parent) {
-            UIComponent text = new UIWrappedText(StringUtils.colorCodes("§8" + date + "§r\n§7" + description))
+            UIComponent text = new UIWrappedText(("§8" + date + "§r\n§7" + description))
                 .setTextScale(new PixelConstraint(1.33f * scaleFactor))
                 .setX(new PixelConstraint(33f * scaleFactor))
                 .setY(new PixelConstraint(160 * scaleFactor + 145 * (postNum) * scaleFactor))

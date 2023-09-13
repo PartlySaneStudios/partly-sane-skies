@@ -15,9 +15,9 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 
 public class StringUtils {
 
-    public static String colorCodes(String text) {
-        return text.replace("&", "§");
-    }
+    // public static String colorCodes(String text) {
+    //     return text.replace("&", "§");
+    // }
 
     public static String removeColorCodes(String text) {
         StringBuilder textBuilder = new StringBuilder(text);

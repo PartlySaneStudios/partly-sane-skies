@@ -267,7 +267,7 @@ public class ChatAlertsManager {
             messageBuilder.insert(alertIndexFormatted + alert.length(), charsToAdd, 0, charsToAdd.length);
             
             // Inserts a purple and bold color code to highlight the message right before the alert
-            charsToAdd = StringUtils.colorCodes("§d§l").toCharArray();
+            charsToAdd = ("§d§l").toCharArray();
             messageBuilder.insert(alertIndexFormatted, charsToAdd, 0, charsToAdd.length);
 
 

@@ -99,7 +99,7 @@ public class PermPartyManager {
                                 PermPartyManager.permPartyMap.put(party.name, party);
                                 Utils.sendClientMessage(StringUtils.colorCodes("Added player " + args[2] + " to party " + args[1] + "."));
                             } else {
-                                Utils.sendClientMessage(StringUtils.colorCodes("§cNo party was found with the ID " + args[1]
+                                Utils.sendClientMessage(("§cNo party was found with the ID " + args[1]
                                         + ".\n§cCorrect usage: /pp add <partyid> <playerusername>\n§7Adds a player to the perm party."));
                             }
                         } else {
@@ -119,12 +119,12 @@ public class PermPartyManager {
                                     PermPartyManager.permPartyMap.put(party.name, party);
                                     Utils.sendClientMessage("Removed member " + args[2] + " from party " + args[1] + ".");
                                 } else {
-                                    Utils.sendClientMessage(StringUtils.colorCodes("§cNo player was found with the name " + args[2]
+                                    Utils.sendClientMessage(("§cNo player was found with the name " + args[2]
                                             + ".\n§cCorrect usage: /pp remove <partyid> <playerusername>\n§7Removes a player from the perm party."));
                                 }
 
                             } else {
-                                Utils.sendClientMessage(StringUtils.colorCodes("§cNo party was found with the ID " + args[1]
+                                Utils.sendClientMessage(("§cNo party was found with the ID " + args[1]
                                         + ".\n§cCorrect usage: /pp remove <partyid> <playerusername>\n§7Removes a player from the perm party."));
                             }
                         } else {
@@ -144,7 +144,7 @@ public class PermPartyManager {
                                 PermParty party = PermPartyManager.permPartyMap.get(args[0]);
                                 Utils.sendClientMessage(party.name + " | Members: " + party.getMemberString());
                             } else {
-                                Utils.sendClientMessage(StringUtils.colorCodes("§cNo party was found with the ID " + args[1]
+                                Utils.sendClientMessage(("§cNo party was found with the ID " + args[1]
                                         + ".\n§cCorrect usage: /pp list {partyid}\n§7Lists all of the members in a given party. If no party is specified, lists all parties."));
                             }
                         }
@@ -154,7 +154,7 @@ public class PermPartyManager {
                                 PermPartyManager.deleteParty(args[1]);
                                 Utils.sendClientMessage("Deleted party " + args[1] + ".");
                             } else {
-                                Utils.sendClientMessage(StringUtils.colorCodes("§cNo party was found with the ID " + args[1]
+                                Utils.sendClientMessage(("§cNo party was found with the ID " + args[1]
                                         + ".\n§cCorrect usage: /pp delete <partyid>\n§7Deletes a perm party. (Note: There is no way to undo this action)."));
                             }
                         } else {
@@ -178,7 +178,7 @@ public class PermPartyManager {
                                 PermPartyManager.favoriteParty(args[1]);
                                 Utils.sendClientMessage("Set " + args[1] + " to your favorite.");
                             } else {
-                                Utils.sendClientMessage(StringUtils.colorCodes("§cNo party was found with the ID " + args[1]
+                                Utils.sendClientMessage(("§cNo party was found with the ID " + args[1]
                                         + ".\n§cCorrect usage: /pp fav {partyid}\n§7Sets party as favorite. If no party is specified, parties everyone in the favorite perm party."));
                             }
                         } else {
@@ -197,7 +197,7 @@ public class PermPartyManager {
                             party.partyAll();
                         } else {
                             Utils.sendClientMessage(
-                                    StringUtils.colorCodes("§cCorrect usage: /pp <partyid>\n§7Parties everyone in a party."));
+                                    ("§cCorrect usage: /pp <partyid>\n§7Parties everyone in a party."));
                         }
                     }
                 })

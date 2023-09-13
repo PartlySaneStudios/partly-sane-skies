@@ -27,7 +27,7 @@ public class HelpCommands {
                 .setDescription("Join the Partly Sane Studios Discord Server")
                 .setRunnable((s, a) -> {
                     // Creates a new message with the correct text
-                    IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + StringUtils.colorCodes("§9Join the discord: https://discord.gg/" + PartlySaneSkies.discordCode));
+                    IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + ("§9Join the discord: https://discord.gg/" + PartlySaneSkies.discordCode));
                     // Sets the text to be clickable with a link
                     message.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://discord.gg/" + PartlySaneSkies.discordCode));
                     // Prints message

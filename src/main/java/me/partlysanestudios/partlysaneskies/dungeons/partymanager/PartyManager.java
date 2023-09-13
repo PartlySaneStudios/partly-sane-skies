@@ -167,7 +167,7 @@ public class PartyManager {
             // Hides message
             event.setCanceled(true);
             // Sends an error message
-            Utils.sendClientMessage(StringUtils.colorCodes("§9§m-----------------------------------------------------\n "+
+            Utils.sendClientMessage(("§9§m-----------------------------------------------------\n "+
                     "§r§cError: Could not run Party Manager." +
                     "\n§r§cYou are not currently in a party."
             ));
