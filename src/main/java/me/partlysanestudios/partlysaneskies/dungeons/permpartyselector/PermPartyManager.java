@@ -169,8 +169,7 @@ public class PermPartyManager {
 
                             Utils.sendClientMessage("Created party " + args[1] + ".");
                         } else {
-                            Utils.sendClientMessage(StringUtils
-                                    .colorCodes("§cCorrect usage: /pp new <partyid> {partymembers}\n§7Creates a new perm party."));
+                            Utils.sendClientMessage(("§cCorrect usage: /pp new <partyid> {partymembers}\n§7Creates a new perm party."));
                         }
                     } else if (args[0].equalsIgnoreCase("fav")) {
                         if (args.length == 2) {
