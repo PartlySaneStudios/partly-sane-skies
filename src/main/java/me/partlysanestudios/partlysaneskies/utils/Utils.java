@@ -43,6 +43,21 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Utils {
+    public static ItemStack getCurrentlyHoldingItem() {
+        return PartlySaneSkies.minecraft.thePlayer.getHeldItem();
+    }
+
+    public static boolean isArrOfStringsInLore(String[] arr, String[] lore) {
+        for (String line : lore) {
+            for (String arrItem : arr) {
+                if (line.contains(arrItem)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public static HashMap<String, Color> colorCodetoColor = new HashMap<>();
 
     public static void init() {
