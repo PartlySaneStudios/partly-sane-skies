@@ -46,39 +46,39 @@ public class Utils {
     public static HashMap<String, Color> colorCodetoColor = new HashMap<>();
 
     public static void init() {
-        colorCodetoColor.put("§4", new Color(170, 0, 0));
-        colorCodetoColor.put("§c", new Color(255, 85, 85));
-        colorCodetoColor.put("§6", new Color(255, 170, 0));
-        colorCodetoColor.put("§e", new Color(255, 255, 85));
-        colorCodetoColor.put("§2", new Color(0, 170, 0));
         colorCodetoColor.put("§a", new Color(85, 255, 85));
         colorCodetoColor.put("§b", new Color(85, 255, 255));
-        colorCodetoColor.put("§3", new Color(0, 170, 170));
-        colorCodetoColor.put("§1", new Color(0, 0, 170));
-        colorCodetoColor.put("§9", new Color(85, 85, 255));
+        colorCodetoColor.put("§c", new Color(255, 85, 85));
         colorCodetoColor.put("§d", new Color(255, 85, 255));
-        colorCodetoColor.put("§5", new Color(170, 0, 170));
+        colorCodetoColor.put("§e", new Color(255, 255, 85));
         colorCodetoColor.put("§f", new Color(0, 0, 0));
+        colorCodetoColor.put("§1", new Color(0, 0, 170));
+        colorCodetoColor.put("§2", new Color(0, 170, 0));
+        colorCodetoColor.put("§3", new Color(0, 170, 170));
+        colorCodetoColor.put("§4", new Color(170, 0, 0));
+        colorCodetoColor.put("§5", new Color(170, 0, 170));
+        colorCodetoColor.put("§6", new Color(255, 170, 0));
         colorCodetoColor.put("§7", new Color(170, 170, 170));
         colorCodetoColor.put("§8", new Color(85, 85, 85));
+        colorCodetoColor.put("§9", new Color(85, 85, 255));
         colorCodetoColor.put("§0", new Color(0, 0, 0));
 
-        colorCodetoColor.put("&4", new Color(170, 0, 0));
-        colorCodetoColor.put("&c", new Color(255, 85, 85));
-        colorCodetoColor.put("&6", new Color(255, 170, 0));
-        colorCodetoColor.put("&e", new Color(255, 255, 85));
-        colorCodetoColor.put("&2", new Color(0, 170, 0));
-        colorCodetoColor.put("&a", new Color(85, 255, 85));
-        colorCodetoColor.put("&b", new Color(85, 255, 255));
-        colorCodetoColor.put("&3", new Color(0, 170, 170));
-        colorCodetoColor.put("&1", new Color(0, 0, 170));
-        colorCodetoColor.put("&9", new Color(85, 85, 255));
-        colorCodetoColor.put("&d", new Color(255, 85, 255));
-        colorCodetoColor.put("&5", new Color(170, 0, 170));
-        colorCodetoColor.put("&f", new Color(0, 0, 0));
-        colorCodetoColor.put("&7", new Color(170, 170, 170));
-        colorCodetoColor.put("&8", new Color(85, 85, 85));
-        colorCodetoColor.put("&0", new Color(0, 0, 0));
+        // colorCodetoColor.put("&a", new Color(85, 255, 85));
+        // colorCodetoColor.put("&b", new Color(85, 255, 255));
+        // colorCodetoColor.put("&c", new Color(255, 85, 85));
+        // colorCodetoColor.put("&d", new Color(255, 85, 255));
+        // colorCodetoColor.put("&e", new Color(255, 255, 85));
+        // colorCodetoColor.put("&f", new Color(0, 0, 0));
+        // colorCodetoColor.put("&1", new Color(0, 0, 170));
+        // colorCodetoColor.put("&2", new Color(0, 170, 0));
+        // colorCodetoColor.put("&3", new Color(0, 170, 170));
+        // colorCodetoColor.put("&4", new Color(170, 0, 0));
+        // colorCodetoColor.put("&5", new Color(170, 0, 170));
+        // colorCodetoColor.put("&6", new Color(255, 170, 0));
+        // colorCodetoColor.put("&7", new Color(170, 170, 170));
+        // colorCodetoColor.put("&8", new Color(85, 85, 85));
+        // colorCodetoColor.put("&9", new Color(85, 85, 255));
+        // colorCodetoColor.put("&0", new Color(0, 0, 0));
     }
 
 

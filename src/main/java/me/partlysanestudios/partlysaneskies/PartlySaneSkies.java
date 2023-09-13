@@ -56,6 +56,7 @@ import net.minecraft.scoreboard.Score;
 import net.minecraft.scoreboard.ScoreObjective;
 import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.scoreboard.Scoreboard;
+import net.minecraft.util.IChatComponent;
 import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -93,7 +94,7 @@ public class PartlySaneSkies {
     public static final String VERSION = "@MOD_VERSION@";
     //    -----------------------CHANGE TO FALSE BEFORE RELEASING
     public static final boolean DOGFOOD = Boolean.parseBoolean("@DOGFOOD@");
-    public static final String CHAT_PREFIX = StringUtils.colorCodes("&r&b&lPartly Sane Skies&r&7>> &r");
+    public static final String CHAT_PREFIX = ("§r§b§lPartly Sane Skies§r§7>> §r");
     public static final boolean IS_LEGACY_VERSION = false;
     public static String discordCode = "v4PU3WeH7z";
 
@@ -340,14 +341,17 @@ public class PartlySaneSkies {
                     e.printStackTrace();
                 }
 
-                Utils.sendClientMessage("&b--------------------------------------------------", true);
-
-                Utils.sendClientMessage("&cWe have detected you are using a dogfood version of Partly Sane Skies");
-                Utils.sendClientMessage("&cThis version may be unstable, and you should only use it if you have been given direct access to it by a Partly Sane Skies admin", true);
-                Utils.sendClientMessage("&cPlease report any bugs to a Partly Sane Skies admin in a private ticket", true);
-                Utils.sendClientMessage("&7Version ID: &d" + VERSION, true);
-                Utils.sendClientMessage("&7Latest version: &d" + CustomMainMenu.latestVersion, true);
-                Utils.sendClientMessage("&b--------------------------------------------------", true);
+                IChatComponent discordMessage = new ChatComponentText(("§9The Partly Sane Skies Discord server: https://discord.gg/" + discordCode));
+                discordMessage.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://discord.gg/" + discordCode));
+                Utils.sendClientMessage("§b§m--------------------------------------------------", true);
+                Utils.sendClientMessage("§cWe have detected you are using a dogfood version of Partly Sane Skies.", false);
+                Utils.sendClientMessage("§c§lThis version may be unstable.", true);
+                Utils.sendClientMessage("§cOnly use it when recieving permission to do so from a Partly Sane Skies admin.", true);
+                Utils.sendClientMessage("§cReport any bugs to a Partly Sane Skies admin in a private ticket.", true);
+                Utils.sendClientMessage("§7Version ID: §d" + VERSION, true);
+                Utils.sendClientMessage("§7Latest non-dogfood version: §d" + CustomMainMenu.latestVersion, true);
+                Utils.sendClientMessage(discordMessage);
+                Utils.sendClientMessage("§b§m--------------------------------------------------", true);
             }).start();
         }
 
@@ -359,23 +363,23 @@ public class PartlySaneSkies {
                     e.printStackTrace();
                 }
                 
-                Utils.sendClientMessage("&b--------------------------------------------------", true);
+                Utils.sendClientMessage("§b§m--------------------------------------------------", true);
 
-                Utils.sendClientMessage("&cWe have detected a new version of Partly Sane Skies.");
+                Utils.sendClientMessage("§cWe have detected a new version of Partly Sane Skies.");
                 
-                ChatComponentText skyclientMessage = new ChatComponentText(StringUtils.colorCodes("&aIf you are using SkyClient, make sure you update when prompted."));
+                ChatComponentText skyclientMessage = new ChatComponentText(("§aIf you are using SkyClient, make sure you update when prompted."));
                 PartlySaneSkies.minecraft.ingameGUI
                         .getChatGUI()
                         .printChatMessage(skyclientMessage);
             
-                ChatComponentText githubMessage = new ChatComponentText(StringUtils.colorCodes("&9If you are not using SkyClient, click here go to the github and download the latest version."));
+                ChatComponentText githubMessage = new ChatComponentText(("§9If you are not using SkyClient, click here go to the github and download the latest version."));
                 githubMessage.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/PartlySaneStudios/partly-sane-skies/releases"));
                 githubMessage.getChatStyle().setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText("Click here to open the downloads page")));
                 PartlySaneSkies.minecraft.ingameGUI
                         .getChatGUI()
                         .printChatMessage(githubMessage);
                 
-                        Utils.sendClientMessage("&b--------------------------------------------------", true);
+                        Utils.sendClientMessage("§b§m--------------------------------------------------", true);
             }).start();
         }
     }

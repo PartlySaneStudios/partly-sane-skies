@@ -268,24 +268,24 @@ public class GardenTradeValue {
 
         StringBuilder textString = new StringBuilder();
 
-        textString.append("&e&lTotal Cost: &r&d").append(StringUtils.formatNumber(Utils.round(getTotalCost(), 2))).append("\n\n");
+        textString.append("§e§lTotal Cost: §r§d").append(StringUtils.formatNumber(Utils.round(getTotalCost(), 2))).append("\n\n");
         
-        textString.append("&e&lCopper Received: &r&d").append(StringUtils.formatNumber(Utils.round(getCopperReturn(), 2))).append("\n\n");
+        textString.append("§e§lCopper Received: §r§d").append(StringUtils.formatNumber(Utils.round(getCopperReturn(), 2))).append("\n\n");
 
         double pricePerCopper = getTotalCost() / getCopperReturn();
-        textString.append("&e&lCoins/Copper: &r&d").append(StringUtils.formatNumber(Utils.round(pricePerCopper, 2))).append("\n\n");
+        textString.append("§e§lCoins/Copper: §r§d").append(StringUtils.formatNumber(Utils.round(pricePerCopper, 2))).append("\n\n");
 
         StringBuilder priceBreakdown = new StringBuilder();
         HashMap<String, Double> coinCostMap = getCoinCostMap();
         for (Map.Entry<String, Integer> en : getQuantityCostMap().entrySet()){
-            priceBreakdown.append("&7x&d").append(en.getValue()).append(" &7").append(en.getKey()).append(" for a total of &d").append(StringUtils.formatNumber(Utils.round(coinCostMap.get(en.getKey()), 2))).append("&7 coins.\n");
+            priceBreakdown.append("§7x§d").append(en.getValue()).append(" §7").append(en.getKey()).append(" for a total of §d").append(StringUtils.formatNumber(Utils.round(coinCostMap.get(en.getKey()), 2))).append("§7 coins.\n");
         }
 
-        textString.append("&e&lPrice Breakdown:&r\n");
+        textString.append("§e§lPrice Breakdown:§r\n");
         textString.append(priceBreakdown);
         textString.append("\n\n");
 
-        textString.append("&e&lRewards:&r\n");
+        textString.append("§e§lRewards:§r\n");
         for (String line : getRewardsLore()) {
             textString.append(line).append("\n");
         }

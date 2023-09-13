@@ -70,7 +70,7 @@ public class BitsShopValue {
         int i = 1;
         for (Map.Entry<String, Double> en : sortedMap.entrySet()) {
             SkyblockItem item = SkyblockDataManager.getItem(en.getKey());
-            str.append("&6").append(i).append(". &d").append(item.getName()).append("&7 costs &d").append(StringUtils.formatNumber(item.getBitCost())).append("&7 bits and sells for &d").append(StringUtils.formatNumber(Utils.round(item.getSellPrice(), 1))).append("&7 coins \n&8 (").append(StringUtils.formatNumber(Utils.round(en.getValue(), 1))).append(" coins per bit)\n");
+            str.append("§6").append(i).append(". §d").append(item.getName()).append("§7 costs §d").append(StringUtils.formatNumber(item.getBitCost())).append("§7 bits and sells for §d").append(StringUtils.formatNumber(Utils.round(item.getSellPrice(), 1))).append("§7 coins \n§8 (").append(StringUtils.formatNumber(Utils.round(en.getValue(), 1))).append(" coins per bit)\n");
             i++;
             if (i > 5) {
                 break;
@@ -78,7 +78,7 @@ public class BitsShopValue {
         }
 
         if (filterAffordable) {
-            str.append("\n\n&8&oOnly showing affordable items");
+            str.append("\n\n§8§oOnly showing affordable items");
         }
         str = new StringBuilder(StringUtils.colorCodes(str.toString()));
         
@@ -140,7 +140,7 @@ public class BitsShopValue {
             .setWidth(new PixelConstraint(box.getWidth() - widthScaledConstraint(2 * pad).getValue()));
             
 
-        String textString = "&e&lTop Items:\n\n";
+        String textString = "§e§lTop Items:\n\n";
 
         textString += getString();
         textString += "\n\n";

@@ -193,7 +193,7 @@ public class PartyMember {
                 .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
                 .setX(new PixelConstraint(20f * scaleFactor))
                 .setY(new PixelConstraint(135f * scaleFactor))
-                .setColor(Utils.colorCodetoColor.get("&c"))
+                .setColor(Utils.colorCodetoColor.get("§c"))
                 .setChildOf(memberBlock);
 
         new UIText("Average Skill Level " + StringUtils.formatNumber(Utils.round(this.averageSkillLevel, 2)))
@@ -237,14 +237,14 @@ public class PartyMember {
                 .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
                 .setX(new PixelConstraint(20f * scaleFactor))
                 .setY(new PixelConstraint(75f * scaleFactor))
-                .setColor(Utils.colorCodetoColor.get("&c"))
+                .setColor(Utils.colorCodetoColor.get("§c"))
                 .setChildOf(memberBlock);
 
         new UIText("❈ " + StringUtils.formatNumber(Math.round(this.defense)))
                 .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
                 .setX(new PixelConstraint(20f * scaleFactor))
                 .setY(new PixelConstraint(90f * scaleFactor))
-                .setColor(Utils.colorCodetoColor.get("&a"))
+                .setColor(Utils.colorCodetoColor.get("§a"))
                 .setChildOf(memberBlock);
 
         new UIText("EHP: " + StringUtils.formatNumber(Math.round(this.effectHealth)))
@@ -258,7 +258,7 @@ public class PartyMember {
                 .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
                 .setX(new PixelConstraint(20f * scaleFactor))
                 .setY(new PixelConstraint(120f * scaleFactor))
-                .setColor(Utils.colorCodetoColor.get("&b"))
+                .setColor(Utils.colorCodetoColor.get("§b"))
                 .setChildOf(memberBlock);
 
     }

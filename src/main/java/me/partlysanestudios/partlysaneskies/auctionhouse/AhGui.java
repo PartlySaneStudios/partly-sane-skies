@@ -494,49 +494,49 @@ public class AhGui extends WindowScreen {
                     .setColor(auction.getRarityColor());
 
             String info = "";
-            info += "&6Offer Information:\n\n\n";
-            info += "&eSelling Price: \n&6" + StringUtils.formatNumber(auction.getPrice()) + "\n\n";
-            info += "&eEnding In: \n&6" + auction.getFormattedEndingTime();
+            info += "§6Offer Information:\n\n\n";
+            info += "§eSelling Price: \n§6" + StringUtils.formatNumber(auction.getPrice()) + "\n\n";
+            info += "§eEnding In: \n§6" + auction.getFormattedEndingTime();
 
             if (auction.getAmount() != 1) {
                 info += "\n\n\n";
-                info += "&eQuantity: \n&6" + StringUtils.formatNumber(auction.getAmount()) + "\n";
-                info += "&eCost Per Item: \n&6" + StringUtils.formatNumber(Utils.round(auction.getCostPerAmount(),2)) + " coins\n";
+                info += "§eQuantity: \n§6" + StringUtils.formatNumber(auction.getAmount()) + "\n";
+                info += "§eCost Per Item: \n§6" + StringUtils.formatNumber(Utils.round(auction.getCostPerAmount(),2)) + " coins\n";
             }
             info += "\n\n\n\n\n\n";
 
-            info += "&eMarket Stats:\n\n\n";
+            info += "§eMarket Stats:\n\n\n";
             if (auction.hasLowestBin()) {
-                info += "&bCurrent Lowest Bin: \n&e" + StringUtils.formatNumber(Utils.round(auction.getLowestBin(), 2)) + "\n\n";
+                info += "§bCurrent Lowest Bin: \n§e" + StringUtils.formatNumber(Utils.round(auction.getLowestBin(), 2)) + "\n\n";
             }
             else {
-                info += "&bCurrent Lowest Bin: \n&8&o(Unknown)\n\n";
+                info += "§bCurrent Lowest Bin: \n§8§o(Unknown)\n\n";
             }
 
             if (auction.hasAverageLowestBin()) {
-                info += "&bAverage Lowest Bin (Last Day): \n&e"
+                info += "§bAverage Lowest Bin (Last Day): \n§e"
                         + StringUtils.formatNumber(Utils.round(auction.getAverageLowestBin(), 2)) + "\n\n";
             }
             else {
-                info += "&bAverage Lowest Bin (Last Day): \n&8&o(Unknown)\n\n";
+                info += "§bAverage Lowest Bin (Last Day): \n§8§o(Unknown)\n\n";
             }
 
             if (auction.hasLowestBin() && auction.hasAverageLowestBin()) {
-                info += "&bItem Inflation: \n&e"
+                info += "§bItem Inflation: \n§e"
                         + StringUtils.formatNumber(
                         Utils.round((auction.getLowestBin() / auction.getAverageLowestBin()) * 100d, 2) - 100)+ "%\n\n";
             }
             else {
-                info += "&bInflation: \n&8&o(Unknown)\n\n";
+                info += "§bInflation: \n§8§o(Unknown)\n\n";
             }
 
             if (auction.hasLowestBin()) {
-                info += "&bItem Mark up: \n&e" + StringUtils.formatNumber(Utils.round(
+                info += "§bItem Mark up: \n§e" + StringUtils.formatNumber(Utils.round(
                         (auction.getPrice() / auction.getLowestBin()) / auction.getAmount() * 100 - 100,
                         2)) + "%\n";
             }
             else {
-                info += "&bItem Mark up: \n&8&o(Unknown)\n";
+                info += "§bItem Mark up: \n§8§o(Unknown)\n";
             }
 
 

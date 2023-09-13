@@ -99,13 +99,13 @@ public class WordEditor {
 
     public static void listWords() {
         if (WordEditor.wordsToEdit.length == 0) {
-            Utils.sendClientMessage("&7There are no words to replace.");
+            Utils.sendClientMessage("§7There are no words to replace.");
             return;
         }
 
-        Utils.sendClientMessage("&7Words to replace:");
+        Utils.sendClientMessage("§7Words to replace:");
         for (int i = 0; i < WordEditor.wordsToEdit.length; i++) {
-            Utils.sendClientMessage("&b" + (i + 1) + ". &7" + wordsToEdit[i][0] + " &8-> &7" + wordsToEdit[i][1]);
+            Utils.sendClientMessage("§b" + (i + 1) + ". §7" + wordsToEdit[i][0] + " §8-> §7" + wordsToEdit[i][1]);
         }
     }
 
@@ -120,7 +120,7 @@ public class WordEditor {
                 .setRunnable(((sender, args) -> {
                     if (args.length == 0 || args[0].equalsIgnoreCase("list")) {
 
-                        Utils.sendClientMessage("&7To add a word to replace, run &b/wordeditor add <word> <replacement>&7. To remove a word, run &b/wordeditor remove <index>&7. To list all of the words, run &b/wordeditor list&7.");
+                        Utils.sendClientMessage("§7To add a word to replace, run §b/wordeditor add <word> <replacement>§7. To remove a word, run §b/wordeditor remove <index>§7. To list all of the words, run §b/wordeditor list§7.");
 
                         WordEditor.listWords();
                         return;
@@ -128,7 +128,7 @@ public class WordEditor {
 
                     if (args[0].equalsIgnoreCase("remove")) {
                         if (args.length == 1) {
-                            Utils.sendClientMessage("&cError: Must provide an index to remove");
+                            Utils.sendClientMessage("§cError: Must provide an index to remove");
                             return;
                         }
 
@@ -136,15 +136,15 @@ public class WordEditor {
                         try {
                             i = Integer.parseInt(args[1]);
                         } catch (NumberFormatException e) {
-                            Utils.sendClientMessage("&cPlease enter a valid number index and try again.");
+                            Utils.sendClientMessage("§cPlease enter a valid number index and try again.");
                             return;
                         }
 
                         if (i > WordEditor.wordsToEdit.length || i < 1) {
-                            Utils.sendClientMessage("&cPlease select a valid index and try again.");
+                            Utils.sendClientMessage("§cPlease select a valid index and try again.");
                             return;
                         }
-                        Utils.sendClientMessage("&aRemoving: &b" + WordEditor.wordsToEdit[i - 1][0] + " &8-> &b" + WordEditor.wordsToEdit[i - 1][1]);
+                        Utils.sendClientMessage("§aRemoving: §b" + WordEditor.wordsToEdit[i - 1][0] + " §8-> §b" + WordEditor.wordsToEdit[i - 1][1]);
                         WordEditor.wordsToEdit = ArrayUtils.removeElement(WordEditor.wordsToEdit, WordEditor.wordsToEdit[i - 1]);    // Removes the element from the array
                         try {
                             WordEditor.save();
@@ -155,7 +155,7 @@ public class WordEditor {
 
                     if (args[0].equalsIgnoreCase("add")) {
                         if (args.length < 3) {
-                            Utils.sendClientMessage("&cError: Must provide a word and a replacement");
+                            Utils.sendClientMessage("§cError: Must provide a word and a replacement");
                             return;
                         }
 
@@ -166,7 +166,7 @@ public class WordEditor {
                             replacement += " " + args[i];
                         }
 
-                        Utils.sendClientMessage("&aAdding: &b" + word + " &8-> &b" + replacement);
+                        Utils.sendClientMessage("§aAdding: §b" + word + " §8-> §b" + replacement);
                         WordEditor.wordsToEdit = ArrayUtils.add(WordEditor.wordsToEdit, new String[]{word, replacement});
                         try {
                             WordEditor.save();

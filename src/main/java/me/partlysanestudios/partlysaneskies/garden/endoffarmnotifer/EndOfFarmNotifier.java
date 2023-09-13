@@ -182,7 +182,7 @@ public class EndOfFarmNotifier {
                 .setRunnable((s, a) -> {
                     EndOfFarmNotifier.selectedPos1 = new int[] {s.getPosition().getX(), s.getPosition().getY(), s.getPosition().getZ()};
 
-                    Utils.sendClientMessage("&7Set &bpositon 1&7 to &b(" + EndOfFarmNotifier.selectedPos1[0] + ", " + EndOfFarmNotifier.selectedPos1[1] + ", " + EndOfFarmNotifier.selectedPos1[2] + ")&7");
+                    Utils.sendClientMessage("§7Set §bpositon 1§7 to §b(" + EndOfFarmNotifier.selectedPos1[0] + ", " + EndOfFarmNotifier.selectedPos1[1] + ", " + EndOfFarmNotifier.selectedPos1[2] + ")§7");
 
                 })
                 .register();
@@ -194,7 +194,7 @@ public class EndOfFarmNotifier {
                 .setRunnable((s, a) -> {
                     EndOfFarmNotifier.selectedPos2 = new int[] {s.getPosition().getX(), s.getPosition().getY(), s.getPosition().getZ()};
 
-                    Utils.sendClientMessage("&7Set &bpositon 2&7 to &b(" + EndOfFarmNotifier.selectedPos2[0] + ", " + EndOfFarmNotifier.selectedPos2[1] + ", " + EndOfFarmNotifier.selectedPos2[2] + ")&7");
+                    Utils.sendClientMessage("§7Set §bpositon 2§7 to §b(" + EndOfFarmNotifier.selectedPos2[0] + ", " + EndOfFarmNotifier.selectedPos2[1] + ", " + EndOfFarmNotifier.selectedPos2[2] + ")§7");
 
                 })
                 .register();
@@ -210,11 +210,11 @@ public class EndOfFarmNotifier {
                     }
 
                     if (EndOfFarmNotifier.createNewRange(name) == null) {
-                        Utils.sendClientMessage("&cUnable to create a new farm notifier. Make sure both &b//pos1&c and &b//pos2&c have been selected.");
+                        Utils.sendClientMessage("§cUnable to create a new farm notifier. Make sure both §b//pos1§c and §b//pos2§c have been selected.");
                         return;
                     }
 
-                    Utils.sendClientMessage("&aCreated new Farm Notifier");
+                    Utils.sendClientMessage("§aCreated new Farm Notifier");
 
                 })
                 .register();
@@ -231,7 +231,7 @@ public class EndOfFarmNotifier {
                 .setRunnable(((sender, args) -> {
                     if (args.length == 0 || args[0].equalsIgnoreCase("list")) {
 
-                        Utils.sendClientMessage("&7To create a new farm notifier, run &b//pos1&7 at one end of your selection, then run &b//pos2&7 at the other end of your farm. Once the area has been selected, run &b//create&7.\n\n&b//farmnotifier&7 command:\n&b//fn remove <index>:&7 remove a given index from the list.\n&b//fn list:&7 lists all of the farm notifiers and their indexes");
+                        Utils.sendClientMessage("§7To create a new farm notifier, run §b//pos1§7 at one end of your selection, then run §b//pos2§7 at the other end of your farm. Once the area has been selected, run §b//create§7.\n\n§b//farmnotifier§7 command:\n§b//fn remove <index>:§7 remove a given index from the list.\n§b//fn list:§7 lists all of the farm notifiers and their indexes");
 
                         EndOfFarmNotifier.listRanges();
                         return;
@@ -239,7 +239,7 @@ public class EndOfFarmNotifier {
 
                     if (args[0].equalsIgnoreCase("remove")) {
                         if (args.length == 1) {
-                            Utils.sendClientMessage("&cError: Must provide an index to remove");
+                            Utils.sendClientMessage("§cError: Must provide an index to remove");
                             return;
                         }
 
@@ -247,15 +247,15 @@ public class EndOfFarmNotifier {
                         try{
                             i = Integer.parseInt(args[1]);
                         } catch (NumberFormatException e) {
-                            Utils.sendClientMessage("&cPlease enter a valid number index and try again.");
+                            Utils.sendClientMessage("§cPlease enter a valid number index and try again.");
                             return;
                         }
 
                         if (i > EndOfFarmNotifier.ranges.size()) {
-                            Utils.sendClientMessage("&cPlease select a valid index and try again.");
+                            Utils.sendClientMessage("§cPlease select a valid index and try again.");
                             return;
                         }
-                        Utils.sendClientMessage("&aRemoving: &b" + EndOfFarmNotifier.ranges.get(i - 1).toString());
+                        Utils.sendClientMessage("§aRemoving: §b" + EndOfFarmNotifier.ranges.get(i - 1).toString());
                         EndOfFarmNotifier.ranges.remove(i - 1);
                         try {
                             EndOfFarmNotifier.save();
@@ -266,7 +266,7 @@ public class EndOfFarmNotifier {
 
                     if (args[0].equalsIgnoreCase("highlight") || args[0].equalsIgnoreCase("show")) {
                         if (args.length == 1) {
-                            Utils.sendClientMessage("&cError: Must provide an index to highlight");
+                            Utils.sendClientMessage("§cError: Must provide an index to highlight");
                             return;
                         }
 
@@ -274,12 +274,12 @@ public class EndOfFarmNotifier {
                         try{
                             i = Integer.parseInt(args[1]);
                         } catch (NumberFormatException e) {
-                            Utils.sendClientMessage("&cPlease enter a valid number index and try again.");
+                            Utils.sendClientMessage("§cPlease enter a valid number index and try again.");
                             return;
                         }
 
                         if (i > EndOfFarmNotifier.ranges.size()) {
-                            Utils.sendClientMessage("&cPlease select a valid index and try again.");
+                            Utils.sendClientMessage("§cPlease select a valid index and try again.");
                             return;
                         }
 
@@ -293,15 +293,15 @@ public class EndOfFarmNotifier {
     // Lists all the ranges to the chat
     public static void listRanges() {
         // Creates header message
-        StringBuilder message = new StringBuilder("&d-----------------------------------------------------\n&bEnd of Farms:" +
-                "\n&d-----------------------------------------------------\n");
+        StringBuilder message = new StringBuilder("§d§m-----------------------------------------------------\n§bEnd of Farms:" +
+                "\n§d§m-----------------------------------------------------\n");
 
         // Creates the index number on the left of the message
         int i = 1;
         
         // For each alert, format it so its ##. [range] 
         for (Range3d range : ranges) {
-            message.append("&6").append(StringUtils.formatNumber(i)).append("&7: ").append(range.toString()).append("\n");
+            message.append("§6").append(StringUtils.formatNumber(i)).append("§7: ").append(range.toString()).append("\n");
             i++;
         }
 
