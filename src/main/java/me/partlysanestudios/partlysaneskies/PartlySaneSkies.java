@@ -346,7 +346,8 @@ public class PartlySaneSkies {
                 Utils.sendClientMessage("§cThis version may be unstable, and you should only use it if you have been given direct access to it by a Partly Sane Skies admin", true);
                 Utils.sendClientMessage("§cPlease report any bugs to a Partly Sane Skies admin in a private ticket", true);
                 Utils.sendClientMessage("§7Version ID: §d" + VERSION, true);
-                Utils.sendClientMessage("§7Latest version: §d" + CustomMainMenu.latestVersion, true);
+                Utils.sendClientMessage("§7Latest non-dogfood version: §d" + CustomMainMenu.latestVersion, true);
+                Utils.sendClientMessage("§9The Partly Sane Skies Discord server: https://discord.gg/" + discordCode, true);
                 Utils.sendClientMessage("§b§m--------------------------------------------------", true);
             }).start();
         }
