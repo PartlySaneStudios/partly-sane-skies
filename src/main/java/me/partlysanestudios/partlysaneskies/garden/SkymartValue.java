@@ -89,7 +89,7 @@ public class SkymartValue {
         }
 
     
-        str = new StringBuilder(StringUtils.colorCodes(str.toString()));
+        str = new StringBuilder((str.toString()));
         
         return str.toString();
     }
@@ -158,7 +158,7 @@ public class SkymartValue {
 
         textString += getString();
 
-        textString = StringUtils.colorCodes(textString);
+        textString = (textString);
         textComponent.setText(textString);
 
         window.draw(new UMatrixStack());

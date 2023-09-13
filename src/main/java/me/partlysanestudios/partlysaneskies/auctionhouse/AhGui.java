@@ -543,7 +543,7 @@ public class AhGui extends WindowScreen {
 
             
             
-            ((UIWrappedText) itemInfoText).setText(StringUtils.colorCodes(info));
+            ((UIWrappedText) itemInfoText).setText((info));
         });
 
         backgroundBox.onMouseLeaveRunnable(() -> {

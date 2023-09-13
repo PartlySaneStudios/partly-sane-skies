@@ -127,7 +127,7 @@ public class CompostValue {
             }
         }
 
-        str = new StringBuilder(StringUtils.colorCodes(str.toString()));
+        str = new StringBuilder((str.toString()));
         
         return str.toString();
     }
@@ -299,7 +299,7 @@ public class CompostValue {
 
         textString += "§7x§d"+ StringUtils.formatNumber(Utils.round(compostAmount, 0)) +"§7 Compost currently sells for §d" + StringUtils.formatNumber(Utils.round(compostSellPrice * compostAmount, 1))  + "§7 coins.\n§8(" + StringUtils.formatNumber(Utils.round(compostSellPrice, 1)) + "/Compost)";
 
-        textString = StringUtils.colorCodes(textString);
+        textString = (textString);
         textComponent.setText(textString);
 
         window.draw(new UMatrixStack());

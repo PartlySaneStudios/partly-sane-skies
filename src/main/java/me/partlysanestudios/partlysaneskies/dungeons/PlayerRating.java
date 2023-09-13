@@ -112,7 +112,7 @@ public class PlayerRating {
                 str.append(playerStr);
             }
             
-            return StringUtils.colorCodes(str.toString());
+            return (str.toString());
         }
 
         str.append("§a§nDungeon Overview:\n\n");
@@ -129,7 +129,7 @@ public class PlayerRating {
             str.append(playerStr);
         }
 
-        str = new StringBuilder(StringUtils.colorCodes(str.toString()));
+        str = new StringBuilder((str.toString()));
 
 
 

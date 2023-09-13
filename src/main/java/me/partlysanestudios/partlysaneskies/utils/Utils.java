@@ -108,7 +108,7 @@ public class Utils {
 
     // If true, Sends a message discretely without the Prefix Partly Sane Skies >:
     public static void sendClientMessage(String text, boolean silent) {
-        text = StringUtils.colorCodes(text);
+        text = (text);
         if (silent) {
             try {
                 sendClientMessage(new ChatComponentText(text));
@@ -118,7 +118,7 @@ public class Utils {
         }
         else {
             try {
-                sendClientMessage(new ChatComponentText(StringUtils.colorCodes(PartlySaneSkies.CHAT_PREFIX) + text));
+                sendClientMessage(new ChatComponentText((PartlySaneSkies.CHAT_PREFIX) + text));
             } catch (NullPointerException ignored) {
             }
         }

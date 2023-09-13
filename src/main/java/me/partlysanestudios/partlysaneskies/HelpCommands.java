@@ -174,7 +174,7 @@ public class HelpCommands {
 
         str.append("\n§3§m-----------------------------------------------------§r");
 
-        Utils.sendClientMessage(StringUtils.colorCodes(str.toString()), true);
+        Utils.sendClientMessage((str.toString()), true);
 
     }
 }
