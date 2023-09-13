@@ -290,7 +290,7 @@ public class GardenTradeValue {
             textString.append(line).append("\n");
         }
 
-        textString = new StringBuilder(StringUtils.colorCodes(textString.toString()));
+        textString = new StringBuilder((textString.toString()));
 
         textComponent.setText(textString.toString());
 

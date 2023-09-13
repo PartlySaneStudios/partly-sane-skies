@@ -80,7 +80,7 @@ public class BitsShopValue {
         if (filterAffordable) {
             str.append("\n\n§8§oOnly showing affordable items");
         }
-        str = new StringBuilder(StringUtils.colorCodes(str.toString()));
+        str = new StringBuilder((str.toString()));
         
         return str.toString();
     }
@@ -144,7 +144,7 @@ public class BitsShopValue {
 
         textString += getString();
         textString += "\n\n";
-        textString = StringUtils.colorCodes(textString);
+        textString = (textString);
         textComponent.setText(textString);
 
         window.draw(new UMatrixStack());

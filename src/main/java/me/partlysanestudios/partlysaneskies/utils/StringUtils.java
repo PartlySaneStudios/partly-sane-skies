@@ -61,7 +61,7 @@ public class StringUtils {
                 for (String wordOnLine : line) {
                     lineString.append(wordOnLine).append(" ");
                 }
-                wrappedText.append(colorCodes(lineString.toString())).append("\n");
+                wrappedText.append((lineString.toString())).append("\n");
                 line.clear();
                 charsOnLine = 0;
                 previousFormatCode = currentLineFormatCode;
@@ -83,7 +83,7 @@ public class StringUtils {
         for (String wordOnLine : line) {
             lineString.append(wordOnLine).append(" ");
         }
-        wrappedText.append(colorCodes(lineString.toString()));
+        wrappedText.append((lineString.toString()));
         line.clear();
         return wrappedText.toString();
     }

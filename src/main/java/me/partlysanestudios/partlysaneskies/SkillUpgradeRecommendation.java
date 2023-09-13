@@ -115,7 +115,7 @@ public class SkillUpgradeRecommendation {
         message.append("\n§3§m-----------------------------------------------------§r");
 
         // Send message
-        Utils.sendClientMessage(StringUtils.colorCodes(message.toString()));
+        Utils.sendClientMessage((message.toString()));
     }
 
     // Populates the constant hashmap
@@ -143,7 +143,7 @@ public class SkillUpgradeRecommendation {
                             try {
                                 map = SkillUpgradeRecommendation.getRecommendedSkills(a[0]);
                             } catch (IOException e) {
-                                Utils.sendClientMessage(StringUtils.colorCodes("Error getting data for " + a[0]
+                                Utils.sendClientMessage(("Error getting data for " + a[0]
                                         + ". Maybe the player is nicked or there is an invalid API key. Try running /api new."));
                                 return;
                             }
@@ -151,7 +151,7 @@ public class SkillUpgradeRecommendation {
                             try {
                                 map = SkillUpgradeRecommendation.getRecommendedSkills(PartlySaneSkies.minecraft.thePlayer.getName());
                             } catch (IOException e) {
-                                Utils.sendClientMessage(StringUtils.colorCodes("Error getting data for "
+                                Utils.sendClientMessage(("Error getting data for "
                                         + PartlySaneSkies.minecraft.thePlayer.getName()
                                         + ". Maybe the player is nicked or there is an invalid API key. Try running /api new."));
                                 return;

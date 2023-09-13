@@ -312,7 +312,7 @@ public class PartlySaneSkies {
     public void newApiKey(ClientChatReceivedEvent event) {
         if (event.message.getUnformattedText().startsWith("Your new API key is ")) {
             config.apiKey = event.message.getUnformattedText().replace("Your new API key is ", "");
-            Utils.sendClientMessage(StringUtils.colorCodes("Saved new API key!"));
+            Utils.sendClientMessage(("Saved new API key!"));
             config.save();
         }
     }
