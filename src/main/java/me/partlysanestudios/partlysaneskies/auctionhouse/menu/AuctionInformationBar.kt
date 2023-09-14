@@ -8,13 +8,14 @@ import gg.essential.elementa.constraints.*
 import gg.essential.elementa.dsl.childOf
 import gg.essential.elementa.dsl.constrain
 import gg.essential.elementa.dsl.constraint
+import gg.essential.elementa.dsl.pixels
 import me.partlysanestudios.partlysaneskies.auctionhouse.Auction
 import me.partlysanestudios.partlysaneskies.system.ThemeManager
 import me.partlysanestudios.partlysaneskies.utils.StringUtils
 import me.partlysanestudios.partlysaneskies.utils.Utils
 import java.awt.Color
 
-class AuctionInformationBar(xConstraint: XConstraint, yConstraint: YConstraint, heightConstraint: HeightConstraint, widthConstraint: WidthConstraint) {
+class AuctionInformationBar(xConstraint: XConstraint, yConstraint: YConstraint, heightConstraint: HeightConstraint, widthConstraint: WidthConstraint, textScaleFactor: Float) {
     private val baseBlock: UIBlock = UIBlock().constrain {
         color = Color(0, 0, 0, 0).constraint
         x = xConstraint
@@ -30,20 +31,27 @@ class AuctionInformationBar(xConstraint: XConstraint, yConstraint: YConstraint, 
         width = widthConstraint
     } childOf baseBlock
 
-    var header = ""
+    var headerString = ""
 
-    var string = ""
+    var descriptionString = ""
 
-    private val text: UIWrappedText = UIWrappedText(centered = true) constrain {
+    private val header: UIWrappedText = UIWrappedText(centered = true) constrain {
+        x = CenterConstraint()
+        y = CenterConstraint()
+        height = heightConstraint
+        width = widthConstraint
+        textScale = (1.25f * textScaleFactor).pixels
+    } childOf backgroundImage
+
+    private val description: UIWrappedText = UIWrappedText(centered = true) constrain {
         x = CenterConstraint()
         y = CenterConstraint()
         height = heightConstraint
         width = widthConstraint
     } childOf backgroundImage
 
-
     init {
-        text.setText(string)
+        description.setText(descriptionString)
     }
 
     fun setChildOf(component: UIComponent) {
@@ -51,7 +59,7 @@ class AuctionInformationBar(xConstraint: XConstraint, yConstraint: YConstraint, 
     }
 
     fun loadAuction(auction: Auction) {
-        header = if (auction.isBin()) {
+        headerString = if (auction.isBin()) {
             "Buy It Now Details:"
         } else {
             "Auction Details:"
@@ -94,12 +102,16 @@ class AuctionInformationBar(xConstraint: XConstraint, yConstraint: YConstraint, 
             "&bItem Mark up: \n&8&o(Unknown)\n"
         }
 
-        string = info
+        descriptionString = info
     }
 
     fun update() {
-        if (!text.getText().equals(string)) {
-            text.setText(string)
+        if (description.getText() != descriptionString) {
+            description.setText(descriptionString)
+        }
+
+        if (header.getText() != headerString) {
+            header.setText(headerString)
         }
     }
 
