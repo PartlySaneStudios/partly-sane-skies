@@ -76,7 +76,8 @@ class AuctionInformationBar(xConstraint: XConstraint, yConstraint: YConstraint, 
             "&bCurrent Lowest Bin: \n&8&o(Unknown)\n\n"
         }
 
-        info += if (auction.hasAverageLowestBin()) {"&bAverage Lowest Bin (Last Day): &e${StringUtils.formatNumber(Utils.round(auction.getAverageLowestBin(), 2))}"
+        info += if (auction.hasAverageLowestBin()) {
+            "&bAverage Lowest Bin (Last Day): &e${StringUtils.formatNumber(Utils.round(auction.getAverageLowestBin(), 2))}"
         } else {
             "&bAverage Lowest Bin (Last Day): \n&8&o(Unknown)\n\n"
         }
@@ -94,6 +95,12 @@ class AuctionInformationBar(xConstraint: XConstraint, yConstraint: YConstraint, 
         }
 
         string = info
+    }
+
+    fun update() {
+        if (!text.getText().equals(string)) {
+            text.setText(string)
+        }
     }
 
 }
