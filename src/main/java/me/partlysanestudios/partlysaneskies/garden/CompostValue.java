@@ -119,7 +119,7 @@ public class CompostValue {
             if (maxCompost == fillLevel) {
                 compostAmount = getMaxCompostAbleToMake();
             }
-            str.append("&6").append(i).append(". &7x&d").append(StringUtils.formatNumber(Math.ceil(cropPerCompost * compostAmount))).append(" ").append(cropName).append("&7 costing &d").append(StringUtils.formatNumber(Utils.round(costPerCompost * compostAmount, 1))).append("&7 coins to fill. \n&8(x").append(StringUtils.formatNumber(Math.ceil(cropPerCompost))).append("/Compost)\n");
+            str.append("§6").append(i).append(". §7x§d").append(StringUtils.formatNumber(Math.ceil(cropPerCompost * compostAmount))).append(" ").append(cropName).append("§7 costing §d").append(StringUtils.formatNumber(Utils.round(costPerCompost * compostAmount, 1))).append("§7 coins to fill. \n§8(x").append(StringUtils.formatNumber(Math.ceil(cropPerCompost))).append("/Compost)\n");
 
             i++;
             if (i > 5) {
@@ -127,7 +127,7 @@ public class CompostValue {
             }
         }
 
-        str = new StringBuilder(StringUtils.colorCodes(str.toString()));
+        str = new StringBuilder((str.toString()));
         
         return str.toString();
     }
@@ -284,11 +284,11 @@ public class CompostValue {
             .setWidth(new PixelConstraint(box.getWidth() - widthScaledConstraint(2 * pad).getValue()));
             
 
-        String textString = "&e&lTop Crops:\n\n";
+        String textString = "§e§lTop Crops:\n\n";
 
         textString += getString();
         textString += "\n\n";
-        textString += "&e&lCompost:\n\n";
+        textString += "§e§lCompost:\n\n";
         double compostSellPrice = SkyblockDataManager.getItem("COMPOST").getBazaarSellPrice();
 
         float compostAmount = getCurrentCompostAbleToMake();
@@ -297,9 +297,9 @@ public class CompostValue {
         }
         compostAmount = (float) Utils.round(compostAmount, 0);
 
-        textString += "&7x&d"+ StringUtils.formatNumber(Utils.round(compostAmount, 0)) +"&7 Compost currently sells for &d" + StringUtils.formatNumber(Utils.round(compostSellPrice * compostAmount, 1))  + "&7 coins.\n&8(" + StringUtils.formatNumber(Utils.round(compostSellPrice, 1)) + "/Compost)";
+        textString += "§7x§d"+ StringUtils.formatNumber(Utils.round(compostAmount, 0)) +"§7 Compost currently sells for §d" + StringUtils.formatNumber(Utils.round(compostSellPrice * compostAmount, 1))  + "§7 coins.\n§8(" + StringUtils.formatNumber(Utils.round(compostSellPrice, 1)) + "/Compost)";
 
-        textString = StringUtils.colorCodes(textString);
+        textString = (textString);
         textComponent.setText(textString);
 
         window.draw(new UMatrixStack());

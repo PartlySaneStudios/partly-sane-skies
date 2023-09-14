@@ -321,7 +321,7 @@ public HashMap<MinionData.Minion.Upgrade, PSSToggle> addMinionUpgradeButtons() {
                 .addAlias("bm")
                 .setDescription("Opens the best minion calculator")
                 .setRunnable((s,a) -> {
-                    Utils.sendClientMessage("&bOpening Minion Calculator...");
+                    Utils.sendClientMessage("§bOpening Minion Calculator...");
                     new Thread(() -> PartlySaneSkies.minecraft.addScheduledTask(() -> {
                         // Code to test the minion classes
                         ProfitMinionCalculator calc = new ProfitMinionCalculator(ElementaVersion.V2);

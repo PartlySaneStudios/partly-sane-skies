@@ -59,7 +59,7 @@ public class ChatColors {
         }
         
         // If it does not, it highlights the nons message
-        return new ChatComponentText(insertColor(formattedMessage, StringUtils.colorCodes("&r")));
+        return new ChatComponentText(insertColor(formattedMessage, ("§r")));
     }
 
     public static String getChatColor(String prefix) {
@@ -69,42 +69,42 @@ public class ChatColors {
                     return "";
                 }
                 if (PartlySaneSkies.config.visibleColors) {
-                    return StringUtils.colorCodes("&6");
+                    return ("§6");
                 }
-                return StringUtils.colorCodes("&9");
+                return ("§9");
 
             case "guild":
                 if (!PartlySaneSkies.config.colorGuildChat) {
                     return "";
                 }
                 if (PartlySaneSkies.config.visibleColors) {
-                    return StringUtils.colorCodes("&a");
+                    return ("§a");
                 }
-                return StringUtils.colorCodes("&2");
+                return ("§2");
 
             case "officer":
                 if (!PartlySaneSkies.config.colorOfficerChat) {
                     return "";
                 }
-                return StringUtils.colorCodes("&3");
+                return ("§3");
 
             case "to":
                 if (!PartlySaneSkies.config.colorPrivateMessages) {
                     return "";
                 }
-                return StringUtils.colorCodes("&d");
+                return ("§d");
 
             case "from":
                 if (!PartlySaneSkies.config.colorPrivateMessages) {
                     return "";
                 }
-                return StringUtils.colorCodes("&d");
+                return ("§d");
 
             case "co-op":
                 if (!PartlySaneSkies.config.colorCoopChat) {
                     return "";
                 }
-                return StringUtils.colorCodes("&b");
+                return ("§b");
 
             default:
                 return "";

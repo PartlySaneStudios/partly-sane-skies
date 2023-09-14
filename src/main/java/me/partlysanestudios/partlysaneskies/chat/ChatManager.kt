@@ -63,7 +63,7 @@ object ChatManager {
 
         // If the word editor wants to edit something
         if (WordEditor.shouldEditMessage(messageToSend)) {
-            messageToSend = ChatComponentText(StringUtils.colorCodes(WordEditor.handleWordEditorMessage(messageToSend.formattedText)));
+            messageToSend = ChatComponentText((WordEditor.handleWordEditorMessage(messageToSend.formattedText)));
         }
 
         // If owo language is enabled
