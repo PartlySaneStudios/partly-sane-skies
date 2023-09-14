@@ -344,10 +344,10 @@ public class PartlySaneSkies {
                 IChatComponent discordMessage = new ChatComponentText(("§9The Partly Sane Skies Discord server: https://discord.gg/" + discordCode));
                 discordMessage.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://discord.gg/" + discordCode));
                 Utils.sendClientMessage("§b§m--------------------------------------------------", true);
-                Utils.sendClientMessage("§cWe have detected you are using a dogfood version of Partly Sane Skies.", false);
+                Utils.sendClientMessage("§cWe noticed you're using a dogfood version of Partly Sane Skies.", false);
                 Utils.sendClientMessage("§c§lThis version may be unstable.", true);
-                Utils.sendClientMessage("§cOnly use it when recieving permission to do so from a Partly Sane Skies admin.", true);
-                Utils.sendClientMessage("§cReport any bugs to a Partly Sane Skies admin in a private ticket.", true);
+                Utils.sendClientMessage("§cOnly use it when told to do so by a Partly Sane Skies admin.", true);
+                Utils.sendClientMessage("§cReport any bugs to Partly Sane Skies admins in a private ticket.", true);
                 Utils.sendClientMessage("§7Version ID: §d" + VERSION, true);
                 Utils.sendClientMessage("§7Latest non-dogfood version: §d" + CustomMainMenu.latestVersion, true);
                 Utils.sendClientMessage(discordMessage);
