@@ -68,7 +68,7 @@ object ChatManager {
 
         // If owo language is enabled
         if (PartlySaneSkies.config.owoLanguage) {
-            messageToSend = ChatComponentText(StringUtils.colorCodes(OwO.owoify(messageToSend.formattedText)))
+            messageToSend = ChatComponentText(OwO.owoify(messageToSend.formattedText))
         }
 
         // If the message has not changed
