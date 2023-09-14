@@ -31,9 +31,9 @@ class AuctionInformationBar(xConstraint: XConstraint, yConstraint: YConstraint, 
         width = widthConstraint
     } childOf baseBlock
 
-    var headerString = ""
+    private var headerString = ""
 
-    var descriptionString = ""
+    private var descriptionString = ""
 
     private val header: UIWrappedText = UIWrappedText(centered = true) constrain {
         x = CenterConstraint()
