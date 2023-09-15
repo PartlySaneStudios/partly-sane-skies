@@ -9,7 +9,6 @@ import gg.essential.elementa.dsl.childOf
 import gg.essential.elementa.dsl.constrain
 import gg.essential.elementa.dsl.constraint
 import gg.essential.elementa.dsl.pixels
-import me.partlysanestudios.partlysaneskies.auctionhouse.Auction
 import me.partlysanestudios.partlysaneskies.system.ThemeManager
 import me.partlysanestudios.partlysaneskies.utils.StringUtils
 import me.partlysanestudios.partlysaneskies.utils.Utils
@@ -73,7 +72,7 @@ class AuctionInformationBar(xConstraint: XConstraint, yConstraint: YConstraint, 
         if (auction.getAmount() != 1) {
             info += "\n\n\n"
             info += "&eQuantity: &6${StringUtils.formatNumber(auction.getAmount().toDouble())}"
-            info += "&eCost Per Item: &6${StringUtils.formatNumber(Utils.round(auction.costPerAmount,2))} coins"
+            info += "&eCost Per Item: &6${StringUtils.formatNumber(Utils.round(auction.getCostPerAmount(),2))} coins"
         }
         info += "\n\n\n\n\n\n"
 
@@ -103,6 +102,11 @@ class AuctionInformationBar(xConstraint: XConstraint, yConstraint: YConstraint, 
         }
 
         descriptionString = info
+    }
+
+    fun clearInfo() {
+        headerString = ""
+        descriptionString = ""
     }
 
     fun update() {

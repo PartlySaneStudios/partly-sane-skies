@@ -9,7 +9,6 @@ import gg.essential.elementa.dsl.childOf
 import gg.essential.elementa.dsl.constrain
 import gg.essential.elementa.dsl.constraint
 import gg.essential.elementa.dsl.pixels
-import me.partlysanestudios.partlysaneskies.auctionhouse.Auction
 import me.partlysanestudios.partlysaneskies.system.ThemeManager
 import java.awt.Color
 
@@ -59,8 +58,13 @@ class ItemInformationBar(xConstraint: XConstraint, yConstraint: YConstraint, hei
     }
 
     fun loadAuction(auction: Auction) {
-        headerString = auction.name
-        descriptionString = auction.lore
+        headerString = auction.getName()
+        descriptionString = auction.getLore()
+    }
+
+    fun clearInfo() {
+        headerString = ""
+        descriptionString = ""
     }
 
     fun update() {
