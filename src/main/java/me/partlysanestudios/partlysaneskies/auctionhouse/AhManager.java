@@ -5,21 +5,21 @@
 
 package me.partlysanestudios.partlysaneskies.auctionhouse;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
-import gg.essential.elementa.ElementaVersion;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
+import me.partlysanestudios.partlysaneskies.auctionhouse.menu.AuctionHouseGui;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 public class AhManager {
 
-    static AhGui gui;
+    static AuctionHouseGui gui;
     static IInventory inventory;
 
     public static void runDisplayGuiCheck() {
@@ -28,7 +28,7 @@ public class AhManager {
             return;
         }
         boolean guiAlreadyOpen;
-        if (PartlySaneSkies.minecraft.currentScreen instanceof AhGui) {
+        if (PartlySaneSkies.minecraft.currentScreen instanceof AuctionHouseGui) {
             guiAlreadyOpen = true;
         } else {
             guiAlreadyOpen = false;
@@ -47,11 +47,10 @@ public class AhManager {
         }
         inventory = Objects.requireNonNull(PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen))[0];
         boolean preloaded = ahChestFullyLoaded(inventory);
-        gui = new AhGui(ElementaVersion.V2);
         
         if (preloaded) {
+            gui = new AuctionHouseGui(inventory);
             PartlySaneSkies.minecraft.displayGuiScreen(gui);
-            gui.loadGui(inventory);
             return;
         }
         
@@ -62,8 +61,8 @@ public class AhManager {
         
             if (ahChestFullyLoaded(inventory)) {
                 inventory = Objects.requireNonNull(PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen))[0];
+                gui = new AuctionHouseGui(inventory);
                 PartlySaneSkies.minecraft.displayGuiScreen(gui);
-                gui.loadGui(inventory);
                 
             } else {
                 new Thread(() -> PartlySaneSkies.minecraft.addScheduledTask(() -> {

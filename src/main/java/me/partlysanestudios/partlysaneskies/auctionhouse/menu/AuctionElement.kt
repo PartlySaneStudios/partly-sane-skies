@@ -3,7 +3,6 @@ package me.partlysanestudios.partlysaneskies.auctionhouse.menu
 import gg.essential.elementa.UIComponent
 import gg.essential.elementa.components.UIBlock
 import gg.essential.elementa.constraints.*
-import gg.essential.elementa.dsl.childOf
 import gg.essential.elementa.dsl.constrain
 import gg.essential.elementa.dsl.constraint
 import gg.essential.elementa.dsl.pixels
@@ -18,7 +17,7 @@ import net.minecraft.item.ItemStack
 import java.awt.Color
 import java.util.*
 
-class Auction(private val slot: Int, val itemstack: ItemStack, xConstraint: XConstraint, yConstraint: YConstraint, heightConstraint: PixelConstraint, parent: UIComponent) {
+class AuctionElement(private val slot: Int, val itemstack: ItemStack, var xConstraint: XConstraint, var yConstraint: YConstraint, var heightConstraint: PixelConstraint) {
 
     private val skyblockItem = SkyblockDataManager.getItem(Utils.getItemId(itemstack))
 
@@ -28,9 +27,9 @@ class Auction(private val slot: Int, val itemstack: ItemStack, xConstraint: XCon
         width = (heightConstraint.value * 1.5).pixels
         height = (heightConstraint.value * 2).pixels
         color = Color(0, 0, 0, 0).constraint
-    } childOf parent
+    }
 
-    private val box = PSSButton()
+    private val box: PSSButton = PSSButton()
         .setX((backgroundBox.getHeight() * .11).pixels)
         .setY(CenterConstraint())
         .setWidth(heightConstraint.value * 1.25f)
@@ -41,15 +40,17 @@ class Auction(private val slot: Int, val itemstack: ItemStack, xConstraint: XCon
             clickAuction()
         }
 
-    val itemRender = PSSItemRender(itemstack)
+    val itemRender: PSSItemRender = PSSItemRender(itemstack)
         .setItemScale((heightConstraint.value / 18).pixels)
         .setX(CenterConstraint())
         .setY(CenterConstraint())
         .setWidth(heightConstraint)
         .setHeight(heightConstraint)
-        .setChildOf(box.component)
+        .setChildOf(box.component) as PSSItemRender
+
 
     init {
+
         backgroundBox.onMouseClick {
             clickAuction()
         }
@@ -226,5 +227,32 @@ class Auction(private val slot: Int, val itemstack: ItemStack, xConstraint: XCon
         }
     }
 
+    fun setX(xConstraint: XConstraint): AuctionElement  {
+        backgroundBox.setX(xConstraint)
+        this.xConstraint = xConstraint
+        return this
+    }
+
+    fun setY(yConstraint: YConstraint): AuctionElement {
+        backgroundBox.setY(yConstraint)
+        this.yConstraint = yConstraint
+        return this
+    }
+
+    fun setHeight(heightConstraint: PixelConstraint): AuctionElement {
+        backgroundBox.constrain {
+            width = (heightConstraint.value * 1.5).pixels
+            height = (heightConstraint.value * 2).pixels
+        }
+        box.setWidth(heightConstraint.value * 1.25f).setHeight(heightConstraint.value * 1.25f)
+        itemRender.setItemScale((heightConstraint.value / 18).pixels).setWidth(heightConstraint).setHeight(heightConstraint)
+        this.heightConstraint = heightConstraint
+        return this
+    }
+
+    fun setChildOf(parent: UIComponent): AuctionElement {
+        backgroundBox.setChildOf(parent)
+        return this
+    }
 
 }

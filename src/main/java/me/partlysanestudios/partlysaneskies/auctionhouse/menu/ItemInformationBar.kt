@@ -57,7 +57,7 @@ class ItemInformationBar(xConstraint: XConstraint, yConstraint: YConstraint, hei
         baseBlock childOf component
     }
 
-    fun loadAuction(auction: Auction) {
+    fun loadAuction(auction: AuctionElement) {
         headerString = auction.getName()
         descriptionString = auction.getLore()
     }

@@ -57,7 +57,7 @@ class AuctionInformationBar(xConstraint: XConstraint, yConstraint: YConstraint, 
         baseBlock childOf component
     }
 
-    fun loadAuction(auction: Auction) {
+    fun loadAuction(auction: AuctionElement) {
         headerString = if (auction.isBin()) {
             "Buy It Now Details:"
         } else {
