@@ -27,7 +27,7 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack, var xConst
 
     val skyblockItem = SkyblockDataManager.getItem(Utils.getItemId(itemstack))
 
-    private val backgroundBox = UIBlock().constrain {
+    private val boundingBox = UIBlock().constrain {
         x = xConstraint
         y = yConstraint
         width = (heightConstraint.value).pixels
@@ -41,7 +41,7 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack, var xConst
         .setWidth(heightConstraint.value)
         .setHeight(heightConstraint.value)
         .setColor(getRarityColor())
-        .setChildOf(backgroundBox)
+        .setChildOf(boundingBox)
         .onMouseClickConsumer {
             clickAuction()
         }
@@ -57,27 +57,27 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack, var xConst
 
     init {
 
-        backgroundBox.onMouseClick {
+        boundingBox.onMouseClick {
             clickAuction()
         }
     }
 
     fun loadAuctionInformationBar(informationBar: AuctionInformationBar) {
         val auction = this
-        backgroundBox.onMouseEnter {
+        boundingBox.onMouseEnter {
             informationBar.loadAuction(auction)
         }
-        backgroundBox.onMouseLeave {
+        boundingBox.onMouseLeave {
             informationBar.clearInfo()
         }
     }
 
-    fun loadItemInformationBar(informationBar: ItemInformationBar){
+    fun loadItemInformationBar(informationBar: MarketInformationBar){
         val auction = this
-        backgroundBox.onMouseEnter {
+        boundingBox.onMouseEnter {
             informationBar.loadAuction(auction)
         }
-        backgroundBox.onMouseLeave {
+        boundingBox.onMouseLeave {
             informationBar.clearInfo()
         }
 
@@ -234,36 +234,38 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack, var xConst
     }
 
     fun setX(xConstraint: XConstraint): AuctionElement  {
-        backgroundBox.setX(xConstraint)
+        boundingBox.setX(xConstraint)
         this.xConstraint = xConstraint
         return this
     }
 
     fun setY(yConstraint: YConstraint): AuctionElement {
-        backgroundBox.setY(yConstraint)
-        box.setY(((backgroundBox.getHeight() / 2.0f) * 2/3.0f).pixels)
+        boundingBox.setY(yConstraint)
+        box.setY(0.pixels)
         this.yConstraint = yConstraint
         return this
     }
 
     fun setHeight(heightConstraint: PixelConstraint): AuctionElement {
-        backgroundBox.constrain {
+        boundingBox.constrain {
             width = (heightConstraint.value).pixels
             height = (heightConstraint.value).pixels
         }
 
         val boxHeight = heightConstraint.value * 2/3.0f
-        val boxY = ((backgroundBox.getHeight() / 2.0f) * 1/3.0f)
+        val boxY = 0
         box.setWidth(boxHeight).setHeight(boxHeight)
         box.setY(boxY.pixels)
 
-        itemRender.setItemScale((box.component.getHeight() / 20).pixels).setWidth(box.component.getWidth().pixels).setHeight(box.component.getHeight().pixels)
+        itemRender.setItemScale((boxHeight / 20).pixels).setWidth(boxHeight.pixels).setHeight(boxHeight.pixels)
+
         this.heightConstraint = heightConstraint
+
         return this
     }
 
     fun setChildOf(parent: UIComponent): AuctionElement {
-        backgroundBox.setChildOf(parent)
+        boundingBox.setChildOf(parent)
         return this
     }
 

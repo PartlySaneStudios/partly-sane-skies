@@ -18,7 +18,7 @@ import gg.essential.elementa.dsl.pixels
 import me.partlysanestudios.partlysaneskies.system.ThemeManager
 import java.awt.Color
 
-class ItemInformationBar(xConstraint: XConstraint, yConstraint: YConstraint, heightConstraint: HeightConstraint, widthConstraint: WidthConstraint, textScaleFactor: Float) {
+class MarketInformationBar(xConstraint: XConstraint, yConstraint: YConstraint, heightConstraint: HeightConstraint, widthConstraint: WidthConstraint, textScaleFactor: Float) {
     private val baseBlock: UIBlock = UIBlock().constrain {
         color = Color(0, 0, 0, 0).constraint
         x = xConstraint

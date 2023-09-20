@@ -65,7 +65,7 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
     private val itemInformationBarX = -(sideBarWidth * sideBarPadding)
     private val auctionInformationBarX = (sideBarWidth * (sideBarPadding - 1)) + backgroundImage.getWidth()
 
-    private val itemInformationBar = ItemInformationBar(itemInformationBarX.pixels , CenterConstraint(), sideBarHeight.pixels, sideBarWidth.pixels, textScale)
+    private val marketInformationBar = MarketInformationBar(itemInformationBarX.pixels , CenterConstraint(), sideBarHeight.pixels, sideBarWidth.pixels, textScale)
 
 
     private val auctionInformationBar = AuctionInformationBar(auctionInformationBarX.pixels , CenterConstraint(), sideBarHeight.pixels, sideBarWidth.pixels, textScale)
@@ -77,7 +77,7 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
     init {
         val auctions = getAuctions(defaultAuctionInventory)
         auctionInformationBar.setChildOf(backgroundImage)
-        itemInformationBar.setChildOf(backgroundImage)
+        marketInformationBar.setChildOf(backgroundImage)
 
         for (row in 0 until 4) {
             for (column in 0 until 6) {
@@ -91,7 +91,7 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
                         .setHeight(boxSide.pixels)
                         .setChildOf(backgroundImage)
 
-                    auctions[row][column].loadItemInformationBar(itemInformationBar)
+                    auctions[row][column].loadItemInformationBar(marketInformationBar)
                     auctions[row][column].loadAuctionInformationBar(auctionInformationBar)
                 } catch (e: NullPointerException) {
                     e.printStackTrace()
@@ -139,7 +139,7 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
         super.onDrawScreen(matrixStack, mouseX, mouseY, partialTicks)
 
 
-        itemInformationBar.update()
+        marketInformationBar.update()
         auctionInformationBar.update()
 
 
