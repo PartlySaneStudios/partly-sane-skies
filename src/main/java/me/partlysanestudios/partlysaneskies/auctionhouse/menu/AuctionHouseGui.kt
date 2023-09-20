@@ -24,6 +24,7 @@ import net.minecraft.inventory.IInventory
 import net.minecraft.item.Item
 import net.minecraftforge.client.event.GuiOpenEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
+import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent
 import java.awt.Color
 import java.util.*
 
@@ -31,13 +32,17 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
 
     companion object {
         @SubscribeEvent
-        fun onGuiOpen(event: GuiOpenEvent) {
-
-            Utils.sendClientMessage("A gui has been opened")
-            if (event.gui !is GuiChest ) {
+        fun onGuiOpen(event: ClientTickEvent) {
+            val gui = PartlySaneSkies.minecraft.currentScreen
+            if (gui == null) {
                 return
             }
-            if (!isAhGui(PartlySaneSkies.getSeparateUpperLowerInventories(event.gui)[0])) {
+            Utils.sendClientMessage("A gui has been opened")
+
+            if (gui !is GuiChest) {
+                return
+            }
+            if (!isAhGui(PartlySaneSkies.getSeparateUpperLowerInventories(gui)[0])) {
                 Utils.sendClientMessage("Not AH Gui")
                 return
             }
@@ -56,11 +61,11 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
 //            val inventory = PartlySaneSkies.getSeparateUpperLowerInventories(event.gui)[0]
 
             Utils.sendClientMessage("Opening menu")
-            val inventory = PartlySaneSkies.getSeparateUpperLowerInventories(event.gui)[0]
-            event.isCanceled = true
+            val inventory = PartlySaneSkies.getSeparateUpperLowerInventories(gui)[0]
+//            event.isCanceled = true
             if (isAuctionHouseFullyLoaded(inventory)) {
-                val gui = AuctionHouseGui(inventory)
-                PartlySaneSkies.minecraft.displayGuiScreen(gui)
+                val ahGui = AuctionHouseGui(inventory)
+                PartlySaneSkies.minecraft.displayGuiScreen(ahGui)
                 return
             }
             openMenu()
@@ -107,11 +112,15 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
                 // Then Return false
                 if (inventory.getStackInSlot(i) == null) {
                     if (inventory.getStackInSlot(53) == null) {
+                        Utils.sendClientMessage("Slot $i is broken")
+
                         return false
                     } else if (Item.getIdFromItem(inventory.getStackInSlot(53).item) != 264) {
                         continue
                     }
+                    Utils.sendClientMessage("Slot $i is broken")
                     return false
+
                 }
             }
 
