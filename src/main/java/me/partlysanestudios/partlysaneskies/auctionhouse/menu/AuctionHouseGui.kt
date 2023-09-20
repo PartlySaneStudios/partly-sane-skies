@@ -4,17 +4,106 @@ import gg.essential.elementa.ElementaVersion
 import gg.essential.elementa.WindowScreen
 import gg.essential.elementa.components.UIBlock
 import gg.essential.elementa.components.UIImage
-import gg.essential.elementa.constraints.*
+import gg.essential.elementa.constraints.CenterConstraint
 import gg.essential.elementa.dsl.childOf
 import gg.essential.elementa.dsl.constrain
 import gg.essential.elementa.dsl.constraint
 import gg.essential.elementa.dsl.pixels
-import me.partlysanestudios.partlysaneskies.auctionhouse.AhManager
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.system.ThemeManager
+import me.partlysanestudios.partlysaneskies.utils.StringUtils
+import net.minecraft.client.gui.inventory.GuiChest
 import net.minecraft.inventory.IInventory
+import net.minecraft.item.Item
+import net.minecraftforge.client.event.GuiOpenEvent
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import java.awt.Color
+import java.util.*
 
 class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(ElementaVersion.V2) {
+
+    companion object {
+        @SubscribeEvent
+        fun onGuiOpen(event: GuiOpenEvent) { val inventory = PartlySaneSkies.getSeparateUpperLowerInventories(event.gui)[0]
+
+            if (!isAhGui()) {
+                return
+            }
+            val guiAlreadyOpen = PartlySaneSkies.minecraft.currentScreen is AuctionHouseGui
+
+            if (guiAlreadyOpen) {
+                return
+            }
+
+            if (PartlySaneSkies.isDebugMode) {
+                return
+            }
+            if (!PartlySaneSkies.config.customAhGui) {
+                return
+            }
+
+
+            openMenu()
+        }
+
+        fun isAhGui(): Boolean {
+            if (PartlySaneSkies.minecraft.currentScreen !is GuiChest) {
+                return false
+            }
+            val upper =
+                Objects.requireNonNull(PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen))[0]
+            return StringUtils.removeColorCodes(upper.displayName.formattedText)
+                .contains("Auctions Browser") || StringUtils.removeColorCodes(upper.displayName.formattedText)
+                .contains("Auctions: \"")
+        }
+
+        fun openMenu() {
+            var inventory = PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen)[0]
+
+            if (isAuctionHouseFullyLoaded(inventory)) {
+                inventory = PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen)[0]
+                val gui = AuctionHouseGui(inventory)
+                PartlySaneSkies.minecraft.displayGuiScreen(gui)
+            } else {
+                Thread {
+                    PartlySaneSkies.minecraft.addScheduledTask {
+                        openMenu()
+                    }
+                }.start()
+            }
+        }
+
+        fun isAuctionHouseFullyLoaded(inventory: IInventory): Boolean {
+            for (i in 0..53) {
+                if (convertSlotToChestCoordinate(i)[0] <= 2 ||
+                        convertSlotToChestCoordinate(i)[0] == 9 ||
+                        convertSlotToChestCoordinate(i)[1] == 1 ||
+                        convertSlotToChestCoordinate(i)[1] == 6) {
+                    continue
+                }
+
+                // If its equal to null and the stack is an arrow (not the end of the page)
+                // Then Return false
+                if (inventory.getStackInSlot(i) == null) {
+                    if (inventory.getStackInSlot(53) == null) {
+                        return false
+                    } else if (Item.getIdFromItem(inventory.getStackInSlot(53).item) != 264) {
+                        continue
+                    }
+                    return false
+                }
+            }
+
+            return true
+        }
+
+        fun convertSlotToChestCoordinate(slot: Int): IntArray {
+            var x = (slot + 1) % 9
+            if (x == 0) x = 9
+            val y = (slot + 1) / 9 + 1
+            return intArrayOf(x, y)
+        }
+    }
 
     private val heightPercent = .333
     private val sideBarPercent = .667
@@ -98,9 +187,9 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
     private fun getAuctionContents(inventory: IInventory): List<AuctionElement> {
         val list: MutableList<AuctionElement> = ArrayList()
         for (i in 0..53) {
-            if (AhManager.convertSlotToChestCoordinate(i)[0] <= 2 || AhManager.convertSlotToChestCoordinate(i)[0] == 9 || AhManager.convertSlotToChestCoordinate(
+            if (convertSlotToChestCoordinate(i)[0] <= 2 || convertSlotToChestCoordinate(i)[0] == 9 || convertSlotToChestCoordinate(
                     i
-                )[1] == 1 || AhManager.convertSlotToChestCoordinate(i)[1] == 6
+                )[1] == 1 || convertSlotToChestCoordinate(i)[1] == 6
             ) {
                 continue
             }

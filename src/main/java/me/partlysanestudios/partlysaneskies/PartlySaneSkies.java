@@ -21,7 +21,7 @@ package me.partlysanestudios.partlysaneskies;
 
 import cc.polyfrost.oneconfig.config.core.OneColor;
 import gg.essential.elementa.ElementaVersion;
-import me.partlysanestudios.partlysaneskies.auctionhouse.AhManager;
+import me.partlysanestudios.partlysaneskies.auctionhouse.menu.AuctionHouseGui;
 import me.partlysanestudios.partlysaneskies.chat.ChatAlertsManager;
 import me.partlysanestudios.partlysaneskies.chat.ChatManager;
 import me.partlysanestudios.partlysaneskies.chat.WordEditor;
@@ -39,8 +39,8 @@ import me.partlysanestudios.partlysaneskies.garden.MathematicalHoeRightClicks;
 import me.partlysanestudios.partlysaneskies.garden.SkymartValue;
 import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.EndOfFarmNotifier;
 import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.RangeHighlight;
-import me.partlysanestudios.partlysaneskies.mining.WormWarning;
 import me.partlysanestudios.partlysaneskies.mining.MiningEvents;
+import me.partlysanestudios.partlysaneskies.mining.WormWarning;
 import me.partlysanestudios.partlysaneskies.rngdropbanner.DropBannerDisplay;
 import me.partlysanestudios.partlysaneskies.system.*;
 import me.partlysanestudios.partlysaneskies.system.requests.Request;
@@ -190,6 +190,7 @@ public class PartlySaneSkies {
         MinecraftForge.EVENT_BUS.register(RangeHighlight.INSTANCE);
         MinecraftForge.EVENT_BUS.register(BannerRenderer.INSTANCE);
         MinecraftForge.EVENT_BUS.register(new MiningEvents());
+        MinecraftForge.EVENT_BUS.register(AuctionHouseGui.Companion);
 
 
 
@@ -291,9 +292,6 @@ public class PartlySaneSkies {
 
         // Checks if the current location is the same as the previous location for the location banner display
         locationBannerDisplay.checkLocation();
-
-        // Checks if the current screen is the auction house to run AHManager
-        AhManager.runDisplayGuiCheck();
 
         SkyblockDataManager.runUpdater();
 
