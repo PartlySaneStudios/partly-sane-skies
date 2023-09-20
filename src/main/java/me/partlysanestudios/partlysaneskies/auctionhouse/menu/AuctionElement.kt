@@ -32,7 +32,7 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack, var xConst
         y = yConstraint
         width = (heightConstraint.value).pixels
         height = (heightConstraint.value).pixels
-        color = Color(255, 0, 0, 0).constraint
+        color = Color(255, 0, 0, 255).constraint
     }
 
     private val box: PSSButton = PSSButton()
@@ -241,6 +241,7 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack, var xConst
 
     fun setY(yConstraint: YConstraint): AuctionElement {
         backgroundBox.setY(yConstraint)
+        box.setY(((backgroundBox.getHeight() / 2.0f) * 2/3.0f).pixels)
         this.yConstraint = yConstraint
         return this
     }
@@ -250,8 +251,13 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack, var xConst
             width = (heightConstraint.value).pixels
             height = (heightConstraint.value).pixels
         }
-        box.setWidth(heightConstraint.value * 1.25f).setHeight(heightConstraint.value * 1.25f)
-        itemRender.setItemScale((heightConstraint.value / 20).pixels).setWidth(heightConstraint).setHeight(heightConstraint)
+
+        val boxHeight = heightConstraint.value * 2/3.0f
+        val boxY = ((backgroundBox.getHeight() / 2.0f) * 1/3.0f)
+        box.setWidth(boxHeight).setHeight(boxHeight)
+        box.setY(boxY.pixels)
+
+        itemRender.setItemScale((box.component.getHeight() / 20).pixels).setWidth(box.component.getWidth().pixels).setHeight(box.component.getHeight().pixels)
         this.heightConstraint = heightConstraint
         return this
     }
