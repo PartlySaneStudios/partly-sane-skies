@@ -9,21 +9,24 @@ import gg.essential.elementa.dsl.childOf
 import gg.essential.elementa.dsl.constrain
 import gg.essential.elementa.dsl.constraint
 import gg.essential.elementa.dsl.pixels
-import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.auctionhouse.AhManager
 import me.partlysanestudios.partlysaneskies.system.ThemeManager
 import net.minecraft.inventory.IInventory
 import java.awt.Color
 
 class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(ElementaVersion.V2) {
+
     private val heightPercent = .333
     private val sideBarPercent = .667
 
     private val sizeHeight = window.getHeight() * heightPercent
     private val sizeWidth = sizeHeight * 1.4725
 
-    private val boxSide = sizeWidth * 0.1875
-    private val pad = sizeWidth * 0.05
+    private val boxSide = sizeHeight * 0.1875
+    private val pad = sizeHeight * 0.05
+
+    private val totalRows = 4
+    private val totalColumns = 6
 
     private val baseBlock: UIBlock = UIBlock().constrain {
         color = Color(0, 0, 0, 0).constraint
@@ -58,19 +61,16 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
             for (column in 0 until 6) {
                 val x: Float = ((boxSide + pad) * column + pad / 2).toFloat()
                 val y: Float = ((boxSide + pad) * row + pad / 6).toFloat()
-                if (auctions[row][column] == null) {
-                    continue
-                }
+
                 try {
-                    auctions[row][column].setX(x.pixels)
+                    auctions[row][column]
+                        .setX(x.pixels)
                         .setY(y.pixels)
                         .setHeight(boxSide.pixels)
                         .setChildOf(backgroundImage)
 
                     auctions[row][column].loadItemInformationBar(itemInformationBar)
                     auctions[row][column].loadAuctionInformationBar(auctionInformationBar)
-
-//                    makeItemBox(auctions[row][column], x, y)
                 } catch (e: NullPointerException) {
                     e.printStackTrace()
                 }
@@ -80,19 +80,13 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
 
     }
 
-    private var TOTAL_ROWS = 4
-    private var TOTAL_COLUMNS = 6
-    fun getAuctions(inventory: IInventory): Array<Array<AuctionElement>> {
-        val screen = PartlySaneSkies.minecraft.currentScreen
-        if (AhManager.isAhGui()) {
-            val separateInventories = PartlySaneSkies.getSeparateUpperLowerInventories(screen)
-        }
-        val items = getAuctionContents(inventory)
 
+    private fun getAuctions(inventory: IInventory): Array<Array<AuctionElement>> {
+        val items = getAuctionContents(inventory)
         var indexOfItems = 0
 
-        val auctions = Array(TOTAL_ROWS) {
-            Array(TOTAL_COLUMNS) {
+        val auctions: Array<Array<AuctionElement>> = Array(totalRows) {
+            Array(totalColumns) {
                 indexOfItems++
                 items[indexOfItems - 1]
             }

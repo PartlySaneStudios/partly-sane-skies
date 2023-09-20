@@ -19,33 +19,33 @@ import java.util.*
 
 class AuctionElement(private val slot: Int, val itemstack: ItemStack, var xConstraint: XConstraint, var yConstraint: YConstraint, var heightConstraint: PixelConstraint) {
 
-    private val skyblockItem = SkyblockDataManager.getItem(Utils.getItemId(itemstack))
+    val skyblockItem = SkyblockDataManager.getItem(Utils.getItemId(itemstack))
 
     private val backgroundBox = UIBlock().constrain {
         x = xConstraint
         y = yConstraint
-        width = (heightConstraint.value * 1.5).pixels
-        height = (heightConstraint.value * 2).pixels
-        color = Color(0, 0, 0, 0).constraint
+        width = (heightConstraint.value).pixels
+        height = (heightConstraint.value).pixels
+        color = Color(255, 0, 0, 0).constraint
     }
 
     private val box: PSSButton = PSSButton()
-        .setX((backgroundBox.getHeight() * .11).pixels)
+        .setX(CenterConstraint())
         .setY(CenterConstraint())
-        .setWidth(heightConstraint.value * 1.25f)
-        .setHeight(heightConstraint.value * 1.25f)
+        .setWidth(heightConstraint.value)
+        .setHeight(heightConstraint.value)
         .setColor(getRarityColor())
         .setChildOf(backgroundBox)
         .onMouseClickConsumer {
             clickAuction()
         }
 
-    val itemRender: PSSItemRender = PSSItemRender(itemstack)
-        .setItemScale((heightConstraint.value / 18).pixels)
+    private val itemRender: PSSItemRender = PSSItemRender(itemstack)
+        .setItemScale((heightConstraint.value / 20).pixels)
         .setX(CenterConstraint())
         .setY(CenterConstraint())
-        .setWidth(heightConstraint)
-        .setHeight(heightConstraint)
+        .setWidth((heightConstraint.value * .667f).pixels)
+        .setHeight((heightConstraint.value * .667f).pixels)
         .setChildOf(box.component) as PSSItemRender
 
 
@@ -241,11 +241,11 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack, var xConst
 
     fun setHeight(heightConstraint: PixelConstraint): AuctionElement {
         backgroundBox.constrain {
-            width = (heightConstraint.value * 1.5).pixels
-            height = (heightConstraint.value * 2).pixels
+            width = (heightConstraint.value).pixels
+            height = (heightConstraint.value).pixels
         }
         box.setWidth(heightConstraint.value * 1.25f).setHeight(heightConstraint.value * 1.25f)
-        itemRender.setItemScale((heightConstraint.value / 18).pixels).setWidth(heightConstraint).setHeight(heightConstraint)
+        itemRender.setItemScale((heightConstraint.value / 20).pixels).setWidth(heightConstraint).setHeight(heightConstraint)
         this.heightConstraint = heightConstraint
         return this
     }
