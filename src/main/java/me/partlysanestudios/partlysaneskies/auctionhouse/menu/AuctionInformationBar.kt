@@ -45,7 +45,7 @@ class AuctionInformationBar(xConstraint: XConstraint, yConstraint: YConstraint, 
         y = CenterConstraint()
         height = heightConstraint
         width = widthConstraint
-        textScale = (1.25f * textScaleFactor).pixels
+        textScale = (1.5f * textScaleFactor).pixels
     } childOf backgroundImage
 
     private val description: UIWrappedText = UIWrappedText(centered = true) constrain {
@@ -53,6 +53,7 @@ class AuctionInformationBar(xConstraint: XConstraint, yConstraint: YConstraint, 
         y = CenterConstraint()
         height = heightConstraint
         width = widthConstraint
+        textScale = (1.0f * textScaleFactor).pixels
     } childOf backgroundImage
 
     init {
