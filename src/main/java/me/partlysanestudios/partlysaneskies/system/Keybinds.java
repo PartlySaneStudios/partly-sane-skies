@@ -76,13 +76,13 @@ public final class Keybinds {
         }
 
         if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
-            if (PartlySaneSkies.minecraft.currentScreen instanceof AuctionHouseGui || AuctionHouseGui.Companion.isAhGui()) {
+            if (PartlySaneSkies.minecraft.currentScreen instanceof AuctionHouseGui || AuctionHouseGui.Companion.isAhGui(PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen)[0])) {
                 Utils.clickOnSlot(46);
             }
         }
 
         if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
-            if (PartlySaneSkies.minecraft.currentScreen instanceof AuctionHouseGui || AuctionHouseGui.Companion.isAhGui()) {
+            if (PartlySaneSkies.minecraft.currentScreen instanceof AuctionHouseGui || AuctionHouseGui.Companion.isAhGui(PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen)[0])) {
                 Utils.clickOnSlot(53);
             }
         }
