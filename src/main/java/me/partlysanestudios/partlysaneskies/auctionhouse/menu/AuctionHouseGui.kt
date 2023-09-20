@@ -30,8 +30,7 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
 
     companion object {
         @SubscribeEvent
-        fun onGuiOpen(event: GuiOpenEvent) { val inventory = PartlySaneSkies.getSeparateUpperLowerInventories(event.gui)[0]
-
+        fun onGuiOpen(event: GuiOpenEvent) {
             if (!isAhGui()) {
                 return
             }
@@ -47,6 +46,7 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
             if (!PartlySaneSkies.config.customAhGui) {
                 return
             }
+//            val inventory = PartlySaneSkies.getSeparateUpperLowerInventories(event.gui)[0]
 
 
             openMenu()
