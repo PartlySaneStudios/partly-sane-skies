@@ -5,26 +5,24 @@
 
 package me.partlysanestudios.partlysaneskies.system;
 
-import cc.polyfrost.oneconfig.config.core.OneKeyBind;
-import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
-import me.partlysanestudios.partlysaneskies.WikiArticleOpener;
 import me.partlysanestudios.partlysaneskies.HelpCommands;
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
+import me.partlysanestudios.partlysaneskies.PetAlert;
+import me.partlysanestudios.partlysaneskies.WikiArticleOpener;
+import me.partlysanestudios.partlysaneskies.auctionhouse.menu.AuctionHouseGui;
+import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManager;
 import me.partlysanestudios.partlysaneskies.garden.MathematicalHoeRightClicks;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
+import me.partlysanestudios.partlysaneskies.utils.Utils;
+import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.event.ClickEvent;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
-import org.lwjgl.input.Keyboard;
-
-import me.partlysanestudios.partlysaneskies.auctionhouse.AhGui;
-import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManager;
-import me.partlysanestudios.partlysaneskies.PetAlert;
-import me.partlysanestudios.partlysaneskies.utils.Utils;
-import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.client.event.GuiScreenEvent.KeyboardInputEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent;
+import org.lwjgl.input.Keyboard;
 
 public final class Keybinds {
 
@@ -78,13 +76,13 @@ public final class Keybinds {
         }
 
         if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
-            if (PartlySaneSkies.minecraft.currentScreen instanceof AhGui) {
+            if (PartlySaneSkies.minecraft.currentScreen instanceof AuctionHouseGui || AuctionHouseGui.Companion.isAhGui()) {
                 Utils.clickOnSlot(46);
             }
         }
 
         if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
-            if (PartlySaneSkies.minecraft.currentScreen instanceof AhGui) {
+            if (PartlySaneSkies.minecraft.currentScreen instanceof AuctionHouseGui || AuctionHouseGui.Companion.isAhGui()) {
                 Utils.clickOnSlot(53);
             }
         }
