@@ -257,7 +257,9 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack, var xConst
         box.setWidth(boxHeight).setHeight(boxHeight)
         box.setY(boxY.pixels)
 
-        itemRender.setItemScale((boxHeight / 20).pixels).setWidth(boxHeight.pixels).setHeight(boxHeight.pixels)
+
+//        val itemX = boxHeight / 2
+        itemRender.setItemScale((boxHeight / 16).pixels).setWidth(boxHeight.pixels).setHeight(boxHeight.pixels)
 
         this.heightConstraint = heightConstraint
 
