@@ -16,6 +16,8 @@ import gg.essential.elementa.dsl.constrain
 import gg.essential.elementa.dsl.constraint
 import gg.essential.elementa.dsl.pixels
 import me.partlysanestudios.partlysaneskies.system.ThemeManager
+import me.partlysanestudios.partlysaneskies.utils.StringUtils
+import me.partlysanestudios.partlysaneskies.utils.Utils
 import java.awt.Color
 
 class MarketInformationBar(xConstraint: XConstraint, yConstraint: YConstraint, heightConstraint: HeightConstraint, widthConstraint: WidthConstraint, textScaleFactor: Float) {
@@ -34,13 +36,13 @@ class MarketInformationBar(xConstraint: XConstraint, yConstraint: YConstraint, h
         width = widthConstraint
     } childOf baseBlock
 
-    var headerString = ""
+    private var headerString = ""
 
-    var descriptionString = ""
+    private var descriptionString = ""
 
     private val header: UIWrappedText = UIWrappedText(centered = true) constrain {
         x = CenterConstraint()
-        y = CenterConstraint()
+        y = 10.pixels
         height = heightConstraint
         width = widthConstraint
         textScale = (1.5f * textScaleFactor).pixels
@@ -48,16 +50,14 @@ class MarketInformationBar(xConstraint: XConstraint, yConstraint: YConstraint, h
 
     private val description: UIWrappedText = UIWrappedText(centered = true) constrain {
         x = CenterConstraint()
-        y = CenterConstraint()
+        y = 40.pixels
         height = heightConstraint
         width = widthConstraint
         textScale = (1.0f * textScaleFactor).pixels
     } childOf backgroundImage
 
-
     init {
         description.setText(descriptionString)
-        header.setText(headerString)
     }
 
     fun setChildOf(component: UIComponent) {
@@ -65,8 +65,50 @@ class MarketInformationBar(xConstraint: XConstraint, yConstraint: YConstraint, h
     }
 
     fun loadAuction(auction: AuctionElement) {
-        headerString = auction.getName()
-        descriptionString = auction.getLore()
+        headerString = if (auction.isBin()) {
+            "Buy It Now Details:"
+        } else {
+            "Auction Details:"
+        }
+
+        var info = ""
+        info += "&6Offer Information:\n\n\n"
+        info += "&eSelling Price: &6${StringUtils.formatNumber(auction.getPrice().toDouble())}"
+        info += "&eEnding In: &6${auction.getFormattedEndingTime()}"
+
+        if (auction.getAmount() != 1) {
+            info += "\n\n\n"
+            info += "&eQuantity: &6${StringUtils.formatNumber(auction.getAmount().toDouble())}"
+            info += "&eCost Per Item: &6${StringUtils.formatNumber(Utils.round(auction.getCostPerAmount(),2))} coins"
+        }
+        info += "\n\n\n\n\n\n"
+
+        info += "&eMarket Stats:\n\n\n"
+        info += if (auction.hasLowestBin()) {
+            "&bCurrent Lowest Bin: &e${StringUtils.formatNumber(Utils.round(auction.getLowestBin(), 2))}"
+        } else {
+            "&bCurrent Lowest Bin: \n&8&o(Unknown)\n\n"
+        }
+
+        info += if (auction.hasAverageLowestBin()) {
+            "&bAverage Lowest Bin (Last Day): &e${StringUtils.formatNumber(Utils.round(auction.getAverageLowestBin(), 2))}"
+        } else {
+            "&bAverage Lowest Bin (Last Day): \n&8&o(Unknown)\n\n"
+        }
+
+        info += if (auction.hasLowestBin() && auction.hasAverageLowestBin()) {
+            "&bItem Inflation: \n&e${StringUtils.formatNumber(Utils.round(auction.getLowestBin() / auction.getAverageLowestBin() * 100.0, 2) - 100)}%\n\n"
+        } else {
+            "&bInflation: \n&8&o(Unknown)\n\n"
+        }
+
+        info += if (auction.hasLowestBin()) {
+            "&bItem Mark up: \n&e${StringUtils.formatNumber(Utils.round(auction.getPrice() / auction.getLowestBin() / auction.getAmount() * 100 - 100, 2))}%\n"
+        } else {
+            "&bItem Mark up: \n&8&o(Unknown)\n"
+        }
+
+        descriptionString = info
     }
 
     fun clearInfo() {

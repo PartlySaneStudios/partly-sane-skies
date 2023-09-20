@@ -62,7 +62,7 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack, var xConst
         }
     }
 
-    fun loadAuctionInformationBar(informationBar: AuctionInformationBar) {
+    fun loadAuctionInformationBar(informationBar: MarketInformationBar) {
         val auction = this
         boundingBox.onMouseEnter {
             informationBar.loadAuction(auction)
@@ -72,7 +72,7 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack, var xConst
         }
     }
 
-    fun loadItemInformationBar(informationBar: MarketInformationBar){
+    fun loadItemInformationBar(informationBar: ItemInformationBar){
         val auction = this
         boundingBox.onMouseEnter {
             informationBar.loadAuction(auction)
