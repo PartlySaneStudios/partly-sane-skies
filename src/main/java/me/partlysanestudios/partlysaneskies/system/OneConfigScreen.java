@@ -446,7 +446,7 @@ public class OneConfigScreen extends Config {
     public boolean pickaxeAbilityReadySound = false;
 
     @Switch(
-            name = "Use Airraid Siren for Pickaxe Ability Ready",
+            name = "Use Air Raid Siren for Pickaxe Ability Ready",
             subcategory = "Pickaxes",
             description = "Plays a WWII air raid siren when your pickaxe ability is ready. \nPros: \nKeeps you up at late night grinds \n(RECOMMENDED, ESPECIALLY AT 3 AM)",
             category = "Mining"
