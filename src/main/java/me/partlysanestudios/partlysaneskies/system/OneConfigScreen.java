@@ -942,6 +942,15 @@ public class OneConfigScreen extends Config {
     )
     public boolean visibleColors = false;
 
+    //Fun
+    @Switch(
+            name = "OwO Language toggle",
+            category = "Chat",
+            subcategory = "Fun",
+            description = "Replaces all chat messages with OwO language.\nThis feature basically breaks the whole chat, so please be warned"
+    )
+    public boolean owoLanguage = false;
+
 
 //    ------------- DEBUG ------------
     @KeyBind(
