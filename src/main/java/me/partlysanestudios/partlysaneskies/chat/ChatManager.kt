@@ -66,6 +66,11 @@ object ChatManager {
             messageToSend = ChatComponentText((WordEditor.handleWordEditorMessage(messageToSend.formattedText)));
         }
 
+        // If owo language is enabled
+        if (PartlySaneSkies.config.owoLanguage) {
+            messageToSend = ChatComponentText(OwO.owoify(messageToSend.formattedText))
+        }
+
         // If the message has not changed
         if (messageToSend.equals(event.message)) {
             event.isCanceled = false // Reset the event
@@ -200,6 +205,10 @@ object ChatManager {
             return true
         }
 
+        else if (config.owoLanguage){
+            return true
+        }
+
         return false
     }
 
@@ -222,6 +231,9 @@ object ChatManager {
         }
         else if (WordEditor.shouldEditMessage(this)){
             return true
+        }
+        else if(PartlySaneSkies.config.owoLanguage){
+            return true //there is almost no way this will never not trigger
         }
         else {
             return false

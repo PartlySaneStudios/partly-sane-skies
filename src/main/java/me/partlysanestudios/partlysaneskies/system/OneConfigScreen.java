@@ -431,6 +431,58 @@ public class OneConfigScreen extends Config {
     )
     public boolean wormWarningBannerSound = false;
 
+    //Pickaxes
+
+    @Switch(
+            name = "Pickaxe Ability Ready Banner",
+            subcategory = "Pickaxes",
+            description = "A banner appears on your screen when your pickaxe ability is ready.",
+            category = "Mining"
+    )
+    public boolean pickaxeAbilityReadyBanner = true;
+
+    @Switch(
+            name = "Pickaxe Ability Ready Sound",
+            subcategory = "Pickaxes",
+            description = "Plays a sound when your pickaxe ability is ready.",
+            category = "Mining"
+    )
+    public boolean pickaxeAbilityReadySound = false;
+
+    @Switch(
+            name = "Use Air Raid Siren for Pickaxe Ability Ready",
+            subcategory = "Pickaxes",
+            description = "Plays a WWII air raid siren when your pickaxe ability is ready. \nPros: \nKeeps you up at late night grinds \n(RECOMMENDED, ESPECIALLY AT 3 AM)",
+            category = "Mining"
+    )
+    public boolean pickaxeAbilityReadySiren = false;
+
+    @Slider(
+            min = 1,
+            max = 7,
+            subcategory = "Pickaxes",
+            name = "Ready Banner Time",
+            description = "The amount of seconds the ready banner appears for.",
+            category = "Mining"
+    )
+    public float pickaxeBannerTime = 3.5f;
+
+    @Color(
+            subcategory = "Pickaxes",
+            name = "Ready Banner Color",
+            description = "The color of the ready banner text",
+            category = "Mining"
+    )
+    public OneColor pickaxeBannerColor = new OneColor(255, 255, 0);
+
+    @Switch(
+            name = "Block Ability on Private Island (UAYOR)",
+            subcategory = "Pickaxes",
+            description = "Blocks the use of pickaxe abilities on your private island. (Use at your own risk)",
+            category = "Mining"
+    )
+    public boolean blockAbilityOnPrivateIsland = false;
+
     //Events
     @Info(
             type = InfoType.INFO,
@@ -1006,6 +1058,15 @@ public class OneConfigScreen extends Config {
             description = "Converts the custom colors mentioned above to more visible colors. Dark Green -> Light Green and Blue -> Gold. (Recommended)"
     )
     public boolean visibleColors = false;
+
+    //Fun
+    @Switch(
+            name = "OwO Language toggle",
+            category = "Chat",
+            subcategory = "Fun",
+            description = "Replaces all chat messages with OwO language.\nThis feature basically breaks the whole chat, so please be warned"
+    )
+    public boolean owoLanguage = false;
 
 
 //    ------------- DEBUG ------------
