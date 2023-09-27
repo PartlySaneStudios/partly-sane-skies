@@ -27,6 +27,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent
 import java.awt.Color
 import java.util.*
+import kotlin.math.abs
 
 class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(ElementaVersion.V2) {
     private val heightPercent = .333
@@ -70,6 +71,9 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
 
     private val marketInformationBar = MarketInformationBar(auctionInformationBarX.pixels , CenterConstraint(), sideBarHeight.pixels, sideBarWidth.pixels, textScale)
 
+    private val categoriesBarHeight = (abs(1 - sideBarHeightPercent) / 2f) * sizeHeight
+    private val categoriesBarY = backgroundImage.getTop() - pad - categoriesBarHeight
+    private val categoriesBar = CategoriesBar(CenterConstraint(), categoriesBarY.pixels, categoriesBarHeight.pixels, sizeWidth.pixels, defaultAuctionInventory)
 
 
 
@@ -78,6 +82,8 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
         val auctions = getAuctions(defaultAuctionInventory)
         marketInformationBar.setChildOf(backgroundImage)
         itemInformationBar.setChildOf(backgroundImage)
+        categoriesBar.setChildOf(window)
+        categoriesBar.loadItemInformationBar(itemInformationBar)
 
         for (row in 0 until 4) {
             for (column in 0 until 6) {
@@ -141,6 +147,7 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
 
         itemInformationBar.update()
         marketInformationBar.update()
+        categoriesBar.update()
 
 
 
@@ -158,13 +165,13 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
             if (gui == null) {
                 return
             }
-            Utils.sendClientMessage("A gui has been opened")
+//            Utils.sendClientMessage("A gui has been opened")
 
             if (gui !is GuiChest) {
                 return
             }
             if (!isAhGui(PartlySaneSkies.getSeparateUpperLowerInventories(gui)[0])) {
-                Utils.sendClientMessage("Not AH Gui")
+//                Utils.sendClientMessage("Not AH Gui")
                 return
             }
             val guiAlreadyOpen = PartlySaneSkies.minecraft.currentScreen is AuctionHouseGui
@@ -181,7 +188,7 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
             }
 //            val inventory = PartlySaneSkies.getSeparateUpperLowerInventories(event.gui)[0]
 
-            Utils.sendClientMessage("Opening menu")
+//            Utils.sendClientMessage("Opening menu")
             val inventory = PartlySaneSkies.getSeparateUpperLowerInventories(gui)[0]
 //            event.isCanceled = true
             if (isAuctionHouseFullyLoaded(inventory)) {
@@ -205,14 +212,14 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
             var inventory = PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen)[0]
 
             if (isAuctionHouseFullyLoaded(inventory)) {
-                Utils.sendClientMessage("Auction house is already loaded")
+//                Utils.sendClientMessage("Auction house is already loaded")
                 inventory = PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen)[0]
                 val gui = AuctionHouseGui(inventory)
                 PartlySaneSkies.minecraft.displayGuiScreen(gui)
             } else {
                 Thread {
                     PartlySaneSkies.minecraft.addScheduledTask {
-                        Utils.sendClientMessage("Trying again")
+//                        Utils.sendClientMessage("Trying again")
                         openMenu()
                     }
                 }.start()
@@ -220,7 +227,7 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
         }
 
         private fun isAuctionHouseFullyLoaded(inventory: IInventory): Boolean {
-            Utils.sendClientMessage("Checking if is loaded")
+//            Utils.sendClientMessage("Checking if is loaded")
             for (i in 0..53) {
                 if (convertSlotToChestCoordinate(i)[0] <= 2 ||
                     convertSlotToChestCoordinate(i)[0] == 9 ||
