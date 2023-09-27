@@ -43,6 +43,20 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Utils {
+    public static boolean inDungeons(){
+        String regionName = PartlySaneSkies.getRegionName();
+        String noColorCodeRegionName = me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes(regionName);
+
+        if (noColorCodeRegionName.isEmpty()) {
+            return false;
+        }
+
+        noColorCodeRegionName = me.partlysanestudios.partlysaneskies.utils.StringUtils.stripLeading(noColorCodeRegionName);
+        noColorCodeRegionName = me.partlysanestudios.partlysaneskies.utils.StringUtils.stripTrailing(noColorCodeRegionName);
+        noColorCodeRegionName = noColorCodeRegionName.replaceAll("\\P{Print}", ""); // Removes the RANDOM EMOJIS
+        return noColorCodeRegionName.toLowerCase().contains("catacombs");
+    }
+
     public static HashMap<String, Color> colorCodetoColor = new HashMap<>();
 
     public static void init() {
