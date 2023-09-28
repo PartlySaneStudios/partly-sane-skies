@@ -881,13 +881,55 @@ public class OneConfigScreen extends Config {
     )
     public float BINSniperPercent = 87f;
 
-    @Color(
-        name = "Bin Sniper Highlight Color",
-        description = "Pick a color to highlight your BIN snipes",
-        subcategory = "Auction House",
-        category = "Economy"
+    @Slider(
+            name = "Master Scale",
+            min = .1f,
+            max = 1,
+            subcategory = "Auction House",
+            category = "Economy"
     )
-    public OneColor BINSniperColor = new OneColor(1, 255, 255);
+    public float masterAuctionHouseScale = .333333f;
+
+    @Slider(
+            name = "Side Bar Height",
+            min = .25f,
+            max = 2f,
+            subcategory = "Auction House",
+            category = "Economy"
+    )
+    public float auctionHouseSideBarHeight = 1.333f;
+    @Slider(
+            name = "Side Bar Width",
+            min = .25f,
+            max = 2,
+            subcategory = "Auction House",
+            category = "Economy"
+    )
+    public float auctionHouseSideBarWidth = .667f;
+
+    @Slider(
+            name = "Side Bar Padding",
+            min = -.5f,
+            max = .5f,
+            subcategory = "Auction House",
+            category = "Economy"
+    )
+    public float auctionSideBarPadding = .05f;
+
+    @Slider(
+            name = "Auction House Text Scale",
+            min = .11f,
+            max = 2,
+            subcategory = "Auction House",
+            category = "Economy"
+    )
+    public float auctionHouseTextScale = .75f;
+
+
+
+
+
+
     // Excessive Coin warning
     @Switch(
         name = "Excessive Coin and No Booster Cookie", 

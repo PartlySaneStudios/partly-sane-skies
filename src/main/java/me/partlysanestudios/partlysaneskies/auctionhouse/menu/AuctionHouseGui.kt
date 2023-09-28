@@ -27,11 +27,11 @@ import java.util.*
 import kotlin.math.abs
 
 class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(ElementaVersion.V2) {
-    private val heightPercent = .333
-    private val sideBarHeightPercent = 1.33
-    private val sideBarWidthPercent = .667
-    private val sideBarPadding = 1.05
-    private val textScale = 0.75f
+    private val heightPercent = PartlySaneSkies.config.masterAuctionHouseScale
+    private val sideBarHeightPercent = PartlySaneSkies.config.auctionHouseSideBarHeight
+    private val sideBarWidthPercent = PartlySaneSkies.config.auctionHouseSideBarWidth
+    private val sideBarPadding = 1 + PartlySaneSkies.config.auctionSideBarPadding
+    private val textScale = PartlySaneSkies.config.auctionHouseTextScale
 
     private val sizeHeight = window.getHeight() * heightPercent
     private val sizeWidth = sizeHeight * 1.4725
