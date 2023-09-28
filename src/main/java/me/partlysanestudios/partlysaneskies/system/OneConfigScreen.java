@@ -52,7 +52,8 @@ public class OneConfigScreen extends Config {
         name = "API Key", 
         category = "General", 
         subcategory = "API", 
-        description = "Do /api new to automatically set your API Key. Do not show your API key to anyone unless you know what you're doing."
+        description = "Do /api new to automatically set your API Key. Do not show your API key to anyone unless you know what you're doing.",
+            size = 2
     )
     public String apiKey = "";
 
@@ -346,7 +347,8 @@ public class OneConfigScreen extends Config {
         subcategory = "Incorrect Pet for Minion Alert",
         name = "Selected Pet",
         description = "The selected pet that will be used for minion collecting (Use /pets and click the pet keybind to select",
-        secure =  true
+        secure =  true,
+        size = 2
     )
     public String selectedPet = /*PartlySaneSkies.config.selectededPet |*/ "";
 
@@ -620,7 +622,8 @@ public class OneConfigScreen extends Config {
         subcategory = "Party Manager", 
         name = "Arrow Low Warning", 
         description = "Message to send when a player has low arrows.\nUse {player} to signify the player's username, and {count} to signify the remaining arrow count.", 
-        category = "Dungeons"
+        category = "Dungeons",
+            size = 2
     )
     public String arrowLowChatMessage = "Partly Sane Skies > Warning! {player} only has {count} arrows remaining!";
 
@@ -729,7 +732,8 @@ public class OneConfigScreen extends Config {
         subcategory = "Watcher Ready", 
         name = "Watcher Ready Text", 
         description = "Message to send when the watcher is ready to clear.", 
-        category = "Dungeons"
+        category = "Dungeons",
+            size = 2
     )
     public String watcherChatMessage = "Partly Sane Skies > The watcher is done spawning mobs. Ready to clear.";
 
@@ -789,7 +793,8 @@ public class OneConfigScreen extends Config {
             subcategory = "Required Secrets Found",
             name = "Required Secrets Found Text",
             description = "Message to send when all required secrets have been found.",
-            category = "Dungeons"
+            category = "Dungeons",
+            size = 2
     )
     public String secretsChatMessageString = "Partly Sane Skies > All required secrets have been found!";
 
