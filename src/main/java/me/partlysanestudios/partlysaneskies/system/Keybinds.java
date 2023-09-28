@@ -119,12 +119,12 @@ public final class Keybinds {
             boolean canRightClickHoe = Utils.onCooldown(MathematicalHoeRightClicks.lastAllowHoeRightClickTime, (long) (PartlySaneSkies.config.allowRightClickTime * 60L * 1000L));
 
             if(canRightClickHoe){
-                IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + StringUtils.colorCodes("&dThe ability to right-click with a hoe has been &cdisabled&d again.\n&dClick this message or run /allowhoerightclick to allow right-clicks for " + PartlySaneSkies.config.allowRightClickTime + " again."));
+                IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + ("§dThe ability to right-click with a hoe has been §cdisabled§d again.\n§dClick this message or run /allowhoerightclick to allow right-clicks for " + PartlySaneSkies.config.allowRightClickTime + " again."));
                 message.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/allowhoerightclick"));
                 PartlySaneSkies.minecraft.ingameGUI.getChatGUI().printChatMessage(message);
                 MathematicalHoeRightClicks.lastAllowHoeRightClickTime = 0;
             } else {
-                IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + StringUtils.colorCodes("&dThe ability to right-click with a hoe has been &aenabled&d for " + PartlySaneSkies.config.allowRightClickTime + " minutes.\n&dClick this message or run /allowhoerightclick to disable right-clicks again."));
+                IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + ("§dThe ability to right-click with a hoe has been §aenabled§d for " + PartlySaneSkies.config.allowRightClickTime + " minutes.\n§dClick this message or run /allowhoerightclick to disable right-clicks again."));
                 message.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/allowhoerightclick"));
                 PartlySaneSkies.minecraft.ingameGUI.getChatGUI().printChatMessage(message);
                 MathematicalHoeRightClicks.lastAllowHoeRightClickTime = PartlySaneSkies.getTime();

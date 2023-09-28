@@ -63,7 +63,12 @@ object ChatManager {
 
         // If the word editor wants to edit something
         if (WordEditor.shouldEditMessage(messageToSend)) {
-            messageToSend = ChatComponentText(StringUtils.colorCodes(WordEditor.handleWordEditorMessage(messageToSend.formattedText)));
+            messageToSend = ChatComponentText((WordEditor.handleWordEditorMessage(messageToSend.formattedText)));
+        }
+
+        // If owo language is enabled
+        if (PartlySaneSkies.config.owoLanguage) {
+            messageToSend = ChatComponentText(OwO.owoify(messageToSend.formattedText))
         }
 
         // If the message has not changed
@@ -200,6 +205,10 @@ object ChatManager {
             return true
         }
 
+        else if (config.owoLanguage){
+            return true
+        }
+
         return false
     }
 
@@ -222,6 +231,9 @@ object ChatManager {
         }
         else if (WordEditor.shouldEditMessage(this)){
             return true
+        }
+        else if(PartlySaneSkies.config.owoLanguage){
+            return true //there is almost no way this will never not trigger
         }
         else {
             return false

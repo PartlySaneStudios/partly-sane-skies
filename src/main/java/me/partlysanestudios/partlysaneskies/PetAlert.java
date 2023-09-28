@@ -53,7 +53,7 @@ public class PetAlert {
             return;
         }
         Entity usersPet = getUsersPet(PartlySaneSkies.minecraft.thePlayer.getName());
-        String petName = StringUtils.colorCodes("&8(Unknown)");
+        String petName = ("§8(Unknown)");
         if (usersPet != null) {
             petName = parsePetNameFromEntity(usersPet.getName());
         
@@ -82,8 +82,8 @@ public class PetAlert {
             lastSoundTime = PartlySaneSkies.getTime();
         }
         if (!Utils.onCooldown(lastMessageSendTime,3000)) {
-            IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + StringUtils.colorCodes("&cYOU CURRENTLY HAVE " + petName + "&c SELECTED AS YOUR PET. YOU WANTED TO UPGRADE " + selectedPetName + "." +
-            "\n&dClick this message or run /mutepetalert to mute the alert for " + PartlySaneSkies.config.petAlertMuteTime + " minutes."));
+            IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + ("§cYOU CURRENTLY HAVE " + petName + "§c SELECTED AS YOUR PET. YOU WANTED TO UPGRADE " + selectedPetName + "." +
+            "\n§dClick this message or run /mutepetalert to mute the alert for " + PartlySaneSkies.config.petAlertMuteTime + " minutes."));
             message.getChatStyle().setChatClickEvent(new ClickEvent(Action.RUN_COMMAND, "/mutepetalert"));
             PartlySaneSkies.minecraft.ingameGUI.getChatGUI().printChatMessage(message);
             lastMessageSendTime = PartlySaneSkies.getTime();
@@ -133,7 +133,7 @@ public class PetAlert {
         new PSSCommand("mutepetalert")
                 .setDescription("Mutes the pet alert for a set amount of minutes")
                 .setRunnable((s, a) -> {
-                    Utils.sendClientMessage("&bPet alert has been muted for " +  PartlySaneSkies.config.petAlertMuteTime + " minutes.");
+                    Utils.sendClientMessage("§bPet alert has been muted for " +  PartlySaneSkies.config.petAlertMuteTime + " minutes.");
                     PetAlert.lastMuteTime = PartlySaneSkies.getTime();
                 }).register();
     }
@@ -272,28 +272,27 @@ public class PetAlert {
         }
 
         if (currentlySelectedPetName.isEmpty()) {
-            currentlySelectedPetName = StringUtils.colorCodes("&8(Unknown)");
+            currentlySelectedPetName = ("§8(Unknown)");
         }
 
         String petColorCode;
 
         if (PartlySaneSkies.config.selectedPet.isEmpty()) {
-            petColorCode = "&d";
+            petColorCode = "§d";
         }
         else if (currentlySelectedPetName.equalsIgnoreCase(PartlySaneSkies.config.selectedPet)) {
-            petColorCode = "&a";
-            petColorCode = "&a";
+            petColorCode = "§a";
 
         }
         else {
-            petColorCode = "&c";
+            petColorCode = "§c";
         }
 
 
-        String textString = "&eCurrently Selected Pet:\n" +
+        String textString = "§eCurrently Selected Pet:\n" +
                 petColorCode + currentlySelectedPetName + "\n\n" +
-                "&eDesired Pet:\n" +
-                "&d" + PartlySaneSkies.config.selectedPet;
+                "§eDesired Pet:\n" +
+                "§d" + PartlySaneSkies.config.selectedPet;
         textComponent.setText(textString);
         window.draw(new UMatrixStack());
     }
