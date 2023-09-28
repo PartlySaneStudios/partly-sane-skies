@@ -242,13 +242,13 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
                 // Then Return false
                 if (inventory.getStackInSlot(i) == null) {
                     if (inventory.getStackInSlot(53) == null) {
-                        Utils.sendClientMessage("Slot $i is broken")
+//                        Utils.sendClientMessage("Slot $i is broken")
 
                         return false
                     } else if (Item.getIdFromItem(inventory.getStackInSlot(53).item) != 264) {
                         continue
                     }
-                    Utils.sendClientMessage("Slot $i is broken")
+//                    Utils.sendClientMessage("Slot $i is broken")
                     return false
 
                 }
