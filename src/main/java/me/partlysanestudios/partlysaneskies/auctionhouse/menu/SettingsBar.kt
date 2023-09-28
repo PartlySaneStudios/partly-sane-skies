@@ -207,7 +207,7 @@ class SettingsBar (val xConstraint: XConstraint, val yConstraint: YConstraint, v
 
     fun loadItemInformationBar(informationBar: ItemInformationBar){
         for (i in 0 until settingList.size) {
-            val slot = i * 9
+            val slot = i + 46
 
             val item = inventory.getStackInSlot(slot)
 
