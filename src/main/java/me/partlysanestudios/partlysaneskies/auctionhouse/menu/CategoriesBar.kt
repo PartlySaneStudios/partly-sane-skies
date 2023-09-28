@@ -117,7 +117,7 @@ class CategoriesBar (val xConstraint: XConstraint, val yConstraint: YConstraint,
                 continue
             }
 
-            val auction = AuctionElement(0, item, 0.pixels, 0.pixels, 0.pixels)
+            val auction = AuctionElement(0, item, 0.pixels, 0.pixels, 0.pixels, 0.0f)
             val icon = categoryList[i]
 
             icon.onMouseEnter {

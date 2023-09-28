@@ -31,7 +31,7 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
     private val sideBarHeightPercent = PartlySaneSkies.config.auctionHouseSideBarHeight
     private val sideBarWidthPercent = PartlySaneSkies.config.auctionHouseSideBarWidth
     private val sideBarPadding = 1 + PartlySaneSkies.config.auctionSideBarPadding
-    private val textScale = PartlySaneSkies.config.auctionHouseTextScale
+    private val textScale = window.getWidth() / 1075.0f * heightPercent/.333f * PartlySaneSkies.config.auctionHouseTextScale
 
     private val sizeHeight = window.getHeight() * heightPercent
     private val sizeWidth = sizeHeight * 1.4725
@@ -137,7 +137,7 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
             if (inventory.getStackInSlot(i) == null) {
                 continue
             }
-            list.add(AuctionElement(i, inventory.getStackInSlot(i), 0.pixels, 0.pixels, 0.pixels))
+            list.add(AuctionElement(i, inventory.getStackInSlot(i), 0.pixels, 0.pixels, 0.pixels, textScale))
         }
         return list
     }

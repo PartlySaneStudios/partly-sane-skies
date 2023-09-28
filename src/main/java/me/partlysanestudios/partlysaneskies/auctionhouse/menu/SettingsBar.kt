@@ -215,7 +215,7 @@ class SettingsBar (val xConstraint: XConstraint, val yConstraint: YConstraint, v
                 continue
             }
 
-            val auction = AuctionElement(0, item, 0.pixels, 0.pixels, 0.pixels)
+            val auction = AuctionElement(0, item, 0.pixels, 0.pixels, 0.pixels, 0.0f)
             val icon = settingList[i]
 
             icon.onMouseEnter {

@@ -25,7 +25,7 @@ import net.minecraft.item.ItemStack
 import java.awt.Color
 import java.util.*
 
-class AuctionElement(private val slot: Int, val itemstack: ItemStack, var xConstraint: XConstraint, var yConstraint: YConstraint, var heightConstraint: PixelConstraint) {
+class AuctionElement(private val slot: Int, val itemstack: ItemStack, var xConstraint: XConstraint, var yConstraint: YConstraint, var heightConstraint: PixelConstraint, val textScale: Float) {
 
     val skyblockItem = SkyblockDataManager.getItem(Utils.getItemId(itemstack))
 
@@ -65,7 +65,7 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack, var xConst
         y = itemHeight.pixels
         width = (heightConstraint.value * 1.25).pixels
         height = (heightConstraint.value * .667).pixels
-    } childOf boundingBox
+    }.setTextScale(textScale.pixels) childOf boundingBox
 
     init {
 
@@ -83,7 +83,6 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack, var xConst
             informationBar.clearInfo()
         }
     }
-
     fun loadItemInformationBar(informationBar: ItemInformationBar){
         val auction = this
         boundingBox.onMouseEnter {
