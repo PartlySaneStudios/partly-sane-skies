@@ -213,6 +213,9 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack?, var xCons
         }
         val lastLineOfLore = try {
             val loreList = Utils.getLore(itemstack)
+            if (loreList.size - 7 - 1 < 0) {
+                return ""
+            }
             StringUtils.removeColorCodes(loreList[loreList.size - 7 - 1])
         } catch (exception: NullPointerException) {
             exception.printStackTrace()
