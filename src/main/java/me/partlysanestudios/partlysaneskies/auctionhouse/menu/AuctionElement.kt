@@ -8,7 +8,9 @@ package me.partlysanestudios.partlysaneskies.auctionhouse.menu
 
 import gg.essential.elementa.UIComponent
 import gg.essential.elementa.components.UIBlock
+import gg.essential.elementa.components.UIWrappedText
 import gg.essential.elementa.constraints.*
+import gg.essential.elementa.dsl.childOf
 import gg.essential.elementa.dsl.constrain
 import gg.essential.elementa.dsl.constraint
 import gg.essential.elementa.dsl.pixels
@@ -32,7 +34,7 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack, var xConst
         y = yConstraint
         width = (heightConstraint.value).pixels
         height = (heightConstraint.value).pixels
-        color = Color(255, 0, 0, 255).constraint
+        color = Color(0, 0, 0, 0).constraint
     }
 
     private val box: PSSButton = PSSButton()
@@ -46,14 +48,24 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack, var xConst
             clickAuction()
         }
 
+
+    private val itemHeight = (heightConstraint.value * .667f)
+
     private val itemRender: PSSItemRender = PSSItemRender(itemstack)
-        .setItemScale((heightConstraint.value / 20).pixels)
+        .setItemScale((heightConstraint.value / 16).pixels)
         .setX(CenterConstraint())
         .setY(CenterConstraint())
-        .setWidth((heightConstraint.value * .667f).pixels)
-        .setHeight((heightConstraint.value * .667f).pixels)
+        .setWidth(itemHeight.pixels)
+        .setHeight(itemHeight.pixels)
         .setChildOf(box.component) as PSSItemRender
 
+
+    private val nameComponent = UIWrappedText(getName(), centered = true).constrain {
+        x = CenterConstraint()
+        y = itemHeight.pixels
+        width = (heightConstraint.value * 1.25).pixels
+        height = (heightConstraint.value * .667).pixels
+    } childOf boundingBox
 
     init {
 
@@ -252,6 +264,7 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack, var xConst
             height = (heightConstraint.value).pixels
         }
 
+        this.heightConstraint = heightConstraint
         val boxHeight = heightConstraint.value * 2/3.0f
         val boxY = 0
         box.setWidth(boxHeight).setHeight(boxHeight)
@@ -259,7 +272,12 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack, var xConst
 
 
 //        val itemX = boxHeight / 2
+
         itemRender.setItemScale((boxHeight / 16).pixels).setWidth(boxHeight.pixels).setHeight(boxHeight.pixels)
+        nameComponent.setY((boxHeight + 0.05 * heightConstraint.value).pixels)
+            .setHeight((heightConstraint.value * .667).pixels)
+            .setWidth((heightConstraint.value * 1.25).pixels)
+
 
         this.heightConstraint = heightConstraint
 

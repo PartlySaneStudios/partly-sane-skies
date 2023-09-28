@@ -62,7 +62,7 @@ class SettingsBar (val xConstraint: XConstraint, val yConstraint: YConstraint, v
 
     var selectedItem = -1
 
-    private val settingWidth = (bottomBarImage.getWidth()) / 6
+    private val settingWidth = (bottomBarImage.getWidth()) / 8
     private val settingHeight = (bottomBarImage.getHeight())
     private val imageSide = settingHeight * .9
 
