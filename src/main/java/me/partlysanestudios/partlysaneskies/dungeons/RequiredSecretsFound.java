@@ -28,11 +28,11 @@ public class RequiredSecretsFound {
             return;
         }
 
-        if(!Utils.inDungeons()){
+        if (!Utils.inDungeons()){
             return;
         }
 
-        if(alreadySendThisRun){
+        if (alreadySendThisRun){
             return;
         }
 
@@ -62,8 +62,6 @@ public class RequiredSecretsFound {
 
                 alreadySendThisRun = true;
                 break;
-            } else if (line.contains("Secrets Found")){
-                break; //no need to check the rest of the list
             }
         }
     }
