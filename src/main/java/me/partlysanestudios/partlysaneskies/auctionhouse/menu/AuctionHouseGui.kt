@@ -31,7 +31,7 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
     private val sideBarHeightPercent = 1.33
     private val sideBarWidthPercent = .667
     private val sideBarPadding = 1.05
-    private val textScale = 0.5f
+    private val textScale = 0.75f
 
     private val sizeHeight = window.getHeight() * heightPercent
     private val sizeWidth = sizeHeight * 1.4725
