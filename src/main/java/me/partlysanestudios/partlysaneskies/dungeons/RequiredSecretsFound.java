@@ -43,7 +43,7 @@ public class RequiredSecretsFound {
 
 
         for (String line : TabListUtils.getTabList()) {
-            if (line.contains("Secrets")) Utils.sendClientMessage(line.replaceAll("§", "&"));
+            //if (line.contains("Secrets")) Utils.sendClientMessage(line.replaceAll("§", "&"));
 
             if (line.contains("Secrets Found: §r§a")) {
                 if (PartlySaneSkies.config.secretsBanner) {
