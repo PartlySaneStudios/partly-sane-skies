@@ -43,6 +43,8 @@ public class RequiredSecretsFound {
 
 
         for (String line : TabListUtils.getTabList()) {
+            if (line.contains("Secrets")) Utils.sendClientMessage(line.replaceAll("§", "&"));
+
             if (line.contains("Secrets Found: §r§a")) {
                 if (PartlySaneSkies.config.secretsBanner) {
                     BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner("Required Secrets Found!", (long) (PartlySaneSkies.config.secretsBannerTime * 1000), 3.0f, PartlySaneSkies.config.secretsBannerColor.toJavaColor()));
@@ -68,8 +70,10 @@ public class RequiredSecretsFound {
 
     @SubscribeEvent
     public void onChatMessage(ClientChatReceivedEvent event) {
-        String unFormattedMessage = event.message.getUnformattedText();
-        if (unFormattedMessage.contains("§r§eentered §r§aThe Catacombs§r§e, §r§eFloor") || unFormattedMessage.contains("§r§eentered §r§c§lMM§r§c Catacombs§r§e, §r§eFloor")) {
+        // I need to remember that formatted text has the §r stuff in it, not the other way around
+        String formattedMessage = event.message.getFormattedText();
+        // Join dungeon
+        if (formattedMessage.contains("§r§eentered §r§aThe Catacombs§r§e") || formattedMessage.contains("§r§eentered §r§c§lMM§r§c Catacombs§r§e")) {
             alreadySendThisRun = false;
         }
     }
