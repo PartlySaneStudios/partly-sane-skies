@@ -43,8 +43,6 @@ public class RequiredSecretsFound {
 
 
         for (String line : TabListUtils.getTabList()) {
-            //if (line.contains("Secrets")) Utils.sendClientMessage(line.replaceAll("§", "&"));
-
             if (line.contains("Secrets Found: §r§a")) {
                 if (PartlySaneSkies.config.secretsBanner) {
                     BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner("Required Secrets Found!", (long) (PartlySaneSkies.config.secretsBannerTime * 1000), 3.0f, PartlySaneSkies.config.secretsBannerColor.toJavaColor()));
