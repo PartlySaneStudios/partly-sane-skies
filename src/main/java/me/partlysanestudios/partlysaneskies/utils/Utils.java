@@ -227,6 +227,9 @@ public class Utils {
     }
 
     public static String getItemId(ItemStack item) {
+        if (item == null) {
+            return "";
+        }
         if (WikiArticleOpener.getItemAttributes(item) == null) {
             return "";
         }

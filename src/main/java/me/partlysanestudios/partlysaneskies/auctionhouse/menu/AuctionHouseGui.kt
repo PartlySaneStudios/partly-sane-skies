@@ -134,9 +134,7 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
             ) {
                 continue
             }
-            if (inventory.getStackInSlot(i) == null) {
-                continue
-            }
+
             list.add(AuctionElement(i, inventory.getStackInSlot(i), 0.pixels, 0.pixels, 0.pixels, textScale))
         }
         return list

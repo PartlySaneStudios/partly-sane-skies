@@ -25,7 +25,7 @@ import net.minecraft.item.ItemStack
 import java.awt.Color
 import java.util.*
 
-class AuctionElement(private val slot: Int, val itemstack: ItemStack, var xConstraint: XConstraint, var yConstraint: YConstraint, var heightConstraint: PixelConstraint, val textScale: Float) {
+class AuctionElement(private val slot: Int, val itemstack: ItemStack?, var xConstraint: XConstraint, var yConstraint: YConstraint, var heightConstraint: PixelConstraint, val textScale: Float) {
 
     val skyblockItem = SkyblockDataManager.getItem(Utils.getItemId(itemstack))
 
@@ -147,7 +147,7 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack, var xConst
     }
 
     fun getName(): String {
-        return itemstack.displayName
+        return itemstack?.displayName ?: ""
     }
 
     fun getAverageLowestBin(): Double {
@@ -184,6 +184,9 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack, var xConst
     }
 
     fun getFormattedEndingTime(): String {
+        if (itemstack == null) {
+            return ""
+        }
         val loreList: List<String> = Utils.getLore(itemstack)
         for (loreLine in loreList) {
             if (StringUtils.removeColorCodes(loreLine).contains("Ends in:")) {
@@ -197,11 +200,17 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack, var xConst
     }
 
     fun getLore(): String {
+        if (itemstack == null) {
+            return ""
+        }
         return Utils.getLoreAsString(this.itemstack)
     }
 
     fun getRarity(): String {
         var str = ""
+        if (itemstack == null) {
+            return ""
+        }
         val lastLineOfLore = try {
             val loreList = Utils.getLore(itemstack)
             StringUtils.removeColorCodes(loreList[loreList.size - 7 - 1])
@@ -209,6 +218,7 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack, var xConst
             exception.printStackTrace()
             return ""
         }
+
         if (lastLineOfLore.uppercase(Locale.getDefault()).contains("UNCOMMON")) {
             str = "UNCOMMON"
         } else if (lastLineOfLore.uppercase(Locale.getDefault()).contains("COMMON")) {
