@@ -8,7 +8,6 @@ package me.partlysanestudios.partlysaneskies.auctionhouse.menu
 
 import gg.essential.elementa.UIComponent
 import gg.essential.elementa.components.UIBlock
-import gg.essential.elementa.components.UIWrappedText
 import gg.essential.elementa.constraints.*
 import gg.essential.elementa.dsl.childOf
 import gg.essential.elementa.dsl.constrain
@@ -44,13 +43,20 @@ class CategoriesBar (val xConstraint: XConstraint, val yConstraint: YConstraint,
         .setY(yConstraint)
         .setWidth(widthConstraint)
         .setHeight(heightConstraint)
-        .setColor(Color(255, 0, 0, 255))
+        .setColor(Color(0, 0, 0, 0))
+
+    private val topBarImage = ThemeManager.getCurrentBackgroundUIImage()
+        .setX(CenterConstraint())
+        .setY(CenterConstraint())
+        .setWidth(widthConstraint)
+        .setHeight(heightConstraint)
+        .setChildOf(topBar)
 
 
     var selectedItem = -1
 
-    private val categoryWidth = (topBar.getWidth()) / 6
-    private val categoryHeight = (topBar.getHeight())
+    private val categoryWidth = (topBarImage.getWidth()) / 6
+    private val categoryHeight = (topBarImage.getHeight())
     private val imageSide = categoryHeight * .9
 
     private val categoryList = ArrayList<UIComponent>()
@@ -74,7 +80,7 @@ class CategoriesBar (val xConstraint: XConstraint, val yConstraint: YConstraint,
                 y = CenterConstraint()
                 width = (categoryWidth * .8).pixels
                 height = categoryHeight.pixels
-            }.setColor(Color(0, 255, 0, 255)) childOf topBar
+            }.setColor(Color(0, 0, 0, 0)) childOf topBarImage
 
             var imagePath =
                 if (PartlySaneSkies.config.customAhGuiTextures == 1) {
@@ -96,9 +102,10 @@ class CategoriesBar (val xConstraint: XConstraint, val yConstraint: YConstraint,
                     Utils.clickOnSlot(slot)
                 }
             }
+
+            categoryList.add(icon)
         }
     }
-
 
     fun loadItemInformationBar(informationBar: ItemInformationBar){
         for (i in 0 until categoryList.size) {
@@ -114,7 +121,6 @@ class CategoriesBar (val xConstraint: XConstraint, val yConstraint: YConstraint,
             val icon = categoryList[i]
 
             icon.onMouseEnter {
-                Utils.sendClientMessage("IN BOX")
                 informationBar.loadAuction(auction)
             }
             icon.onMouseLeave {
