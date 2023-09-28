@@ -11,10 +11,7 @@ import gg.essential.elementa.WindowScreen
 import gg.essential.elementa.components.UIBlock
 import gg.essential.elementa.components.UIImage
 import gg.essential.elementa.constraints.CenterConstraint
-import gg.essential.elementa.dsl.childOf
-import gg.essential.elementa.dsl.constrain
-import gg.essential.elementa.dsl.constraint
-import gg.essential.elementa.dsl.pixels
+import gg.essential.elementa.dsl.*
 import gg.essential.universal.UMatrixStack
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.system.ThemeManager
@@ -76,6 +73,9 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
     private val categoriesBar = CategoriesBar(CenterConstraint(), categoriesBarY.pixels, categoriesBarHeight.pixels, sizeWidth.pixels, defaultAuctionInventory)
 
 
+    private val settingsBarY = backgroundImage.getBottom() + pad
+    private val settingsBar = SettingsBar(CenterConstraint(), settingsBarY.pixels, categoriesBarHeight.pixels, sizeWidth.pixels, defaultAuctionInventory)
+
 
 
     init {
@@ -84,6 +84,8 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
         itemInformationBar.setChildOf(backgroundImage)
         categoriesBar.setChildOf(window)
         categoriesBar.loadItemInformationBar(itemInformationBar)
+        settingsBar.setChildOf(window)
+        settingsBar.loadItemInformationBar(itemInformationBar)
 
         for (row in 0 until 4) {
             for (column in 0 until 6) {
