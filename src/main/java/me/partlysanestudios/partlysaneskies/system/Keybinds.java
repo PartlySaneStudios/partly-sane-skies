@@ -77,13 +77,15 @@ public final class Keybinds {
         }
 
         if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
-            if (PartlySaneSkies.minecraft.currentScreen instanceof AuctionHouseGui || (PartlySaneSkies.minecraft.currentScreen instanceof GuiChest && AuctionHouseGui.Companion.isAhGui(PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen)[0]))) {
+            if (PartlySaneSkies.minecraft.currentScreen instanceof AuctionHouseGui ||
+                    (PartlySaneSkies.minecraft.currentScreen instanceof GuiChest && AuctionHouseGui.Companion.isAhGui(PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen)[0]))) {
                 Utils.clickOnSlot(46);
             }
         }
 
         if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
-            if (PartlySaneSkies.minecraft.currentScreen instanceof AuctionHouseGui || (PartlySaneSkies.minecraft.currentScreen instanceof GuiChest && AuctionHouseGui.Companion.isAhGui(PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen)[0]))) {
+            if (PartlySaneSkies.minecraft.currentScreen instanceof AuctionHouseGui ||
+                    (PartlySaneSkies.minecraft.currentScreen instanceof GuiChest && AuctionHouseGui.Companion.isAhGui(PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen)[0]))) {
                 Utils.clickOnSlot(53);
             }
         }
