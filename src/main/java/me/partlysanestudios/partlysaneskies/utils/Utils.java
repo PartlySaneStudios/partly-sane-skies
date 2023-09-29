@@ -256,16 +256,7 @@ public class Utils {
     }
 
     public static ArrayList<String> getLore(ItemStack itemStack) {
-        if (itemStack == null) {
-            return new ArrayList<>();
-        }
-        if (itemStack.getTagCompound() == null) {
-            return new ArrayList<>();
-        }
-        if (itemStack.getTagCompound().getCompoundTag("display") == null) {
-            return new ArrayList<>();
-        }
-        if (itemStack.getTagCompound().getCompoundTag("display").getTagList("Lore", 8) == null) {
+        if (!itemStack.hasTagCompound() || !itemStack.getTagCompound().hasKey("display") || !itemStack.getTagCompound().getCompoundTag("display").hasKey("Lore")) {
             return new ArrayList<>();
         }
         NBTTagList tagList = itemStack.getTagCompound().getCompoundTag("display").getTagList("Lore", 8);
