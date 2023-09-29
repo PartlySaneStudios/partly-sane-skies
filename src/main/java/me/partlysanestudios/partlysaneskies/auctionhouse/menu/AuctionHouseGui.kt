@@ -68,7 +68,7 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
 
     private val marketInformationBar = MarketInformationBar(auctionInformationBarX.pixels , CenterConstraint(), sideBarHeight.pixels, sideBarWidth.pixels, textScale)
 
-    private val categoriesBarHeight = (abs(1 - sideBarHeightPercent) / 2f) * sizeHeight
+    private val categoriesBarHeight = 0.1665 * sizeHeight
     private val categoriesBarY = backgroundImage.getTop() - pad - categoriesBarHeight
     private val categoriesBar = CategoriesBar(CenterConstraint(), categoriesBarY.pixels, categoriesBarHeight.pixels, sizeWidth.pixels, defaultAuctionInventory)
 
