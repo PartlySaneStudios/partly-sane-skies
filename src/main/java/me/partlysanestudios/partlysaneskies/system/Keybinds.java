@@ -14,6 +14,7 @@ import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManager;
 import me.partlysanestudios.partlysaneskies.garden.MathematicalHoeRightClicks;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
+import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.event.ClickEvent;
 import net.minecraft.util.ChatComponentText;
@@ -76,13 +77,13 @@ public final class Keybinds {
         }
 
         if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
-            if (PartlySaneSkies.minecraft.currentScreen instanceof AuctionHouseGui || AuctionHouseGui.Companion.isAhGui(PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen)[0])) {
+            if (PartlySaneSkies.minecraft.currentScreen instanceof AuctionHouseGui || (PartlySaneSkies.minecraft.currentScreen instanceof GuiChest && AuctionHouseGui.Companion.isAhGui(PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen)[0]))) {
                 Utils.clickOnSlot(46);
             }
         }
 
         if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
-            if (PartlySaneSkies.minecraft.currentScreen instanceof AuctionHouseGui || AuctionHouseGui.Companion.isAhGui(PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen)[0])) {
+            if (PartlySaneSkies.minecraft.currentScreen instanceof AuctionHouseGui || (PartlySaneSkies.minecraft.currentScreen instanceof GuiChest && AuctionHouseGui.Companion.isAhGui(PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen)[0]))) {
                 Utils.clickOnSlot(53);
             }
         }

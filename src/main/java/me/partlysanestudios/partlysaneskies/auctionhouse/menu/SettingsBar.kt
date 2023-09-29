@@ -127,6 +127,7 @@ class SettingsBar (val xConstraint: XConstraint, val yConstraint: YConstraint, v
                 var filterSelectedLine = ""
                 var filterImageName = "no_filter"
                 try {
+
                     val sortLoreList: List<String> = Utils.getLore(inventory.getStackInSlot(slot))
                     for (line in sortLoreList) {
                         if (line.contains("▶")) {
@@ -134,7 +135,9 @@ class SettingsBar (val xConstraint: XConstraint, val yConstraint: YConstraint, v
                             break
                         }
                     }
+
                     filterSelectedLine = StringUtils.removeColorCodes(filterSelectedLine)
+
                     if (filterSelectedLine.lowercase(Locale.getDefault()).contains("uncommon")) {
                         filterImageName = "uncommon"
                     } else if (filterSelectedLine.lowercase(Locale.getDefault()).contains("common")) {
