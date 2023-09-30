@@ -226,7 +226,7 @@ public class PartyMember {
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
-        new UIText("Skyblock Level: " + Utils.round(this.skyblockLevel, 1))
+        new UIText("SkyBlock Level: " + Utils.round(this.skyblockLevel, 1))
                 .setTextScale(new PixelConstraint(scaleFactor))
                 .setX(new PixelConstraint(20f * scaleFactor))
                 .setY(new PixelConstraint(50f * scaleFactor))
