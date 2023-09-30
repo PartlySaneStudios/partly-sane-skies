@@ -16,6 +16,10 @@
 
 - hannibal2 ([hannibal002](https://github.com/hannibal002))
 
+- .insajd ([whatsinsxde](https://github.com/whatsinsxde))
+
+- erymanthus ([RayDeeUx](https://github.com/RayDeeUx))
+
 ## Artists
 
 The FurfSky team does all textures labeled FurfSky. This includes:

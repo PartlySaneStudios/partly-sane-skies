@@ -82,7 +82,7 @@ These commands also work instead of ``/allowhoerightclick``:
 ``/ahrc``
 
 ### Description
-Allows hoe right clicks for a few moments
+Allows hoe right clicks for a few moments or just once, depending on the config.
 
 ### Usage
 
@@ -333,6 +333,8 @@ These commands also work instead of ``/pssdiscord``:
 
 ``/psdisc``
 
+``/discord``
+
 ### Description
 Sends a link to join the discord in chat. [Or you can just join here (https://discord.gg/v4PU3WeH7z)](https://discord.gg/v4PU3WeH7z)
 
@@ -385,11 +387,11 @@ These commands also work instead of ``/wordeditor``:
 ``/wr``
 
 ### Description
-Replaces a desired word in chat with any other word, such as changing "Flagmaster" to "FlagHater"
+Replaces a desired word in chat with any other word or phrase, such as changing "Flagmaster" to "FlagHater", but also "Flagmaster" to "Most active contributor".
 ### Usage
 
 ``/wordeditor add <word> <replacement> ``: Changes word to replacement word in chat
-``/wordeditor remove <word> ``: Removes wordeditor for a word 
+``/wordeditor remove <index> ``: Removes wordeditor for a word using the index from the list
 ``/wordeditor list ``: lists all modified words
 
 </details>
