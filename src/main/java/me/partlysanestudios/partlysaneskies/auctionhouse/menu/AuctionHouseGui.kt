@@ -36,8 +36,8 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
     private val sizeHeight = window.getHeight() * heightPercent
     private val sizeWidth = sizeHeight * 1.4725
 
-    private val boxSide = sizeHeight * 0.1875
-    private val pad = sizeHeight * 0.05
+    private val boxSide = sizeHeight * ((1 - PartlySaneSkies.config.auctionHouseItemPadding * 5) / 4)
+    private val pad = sizeHeight * PartlySaneSkies.config.auctionHouseItemPadding
 
     private val totalRows = 4
     private val totalColumns = 6

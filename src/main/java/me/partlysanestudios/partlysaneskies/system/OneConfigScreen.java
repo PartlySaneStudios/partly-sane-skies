@@ -919,6 +919,17 @@ public class OneConfigScreen extends Config {
     )
     public boolean bitShopOnlyShowAffordable = true;
 
+    @Slider(
+            min = 0,
+            max = 100,
+            category = "Economy",
+            subcategory = "BIN Sniper",
+            name = "BIN Snipe Percentage",
+            description = "The percent of the price that the BIN sniper considers a \"snipe\". Example: 85%, Lowest BIN: 1 000 000, will look for a price of 850000 or less."
+    )
+    public float BINSniperPercent = 87f;
+
+
      // Auction House
      @Switch(
         name = "Custom Auction House GUI", 
@@ -941,15 +952,6 @@ public class OneConfigScreen extends Config {
     )
     public int customAhGuiTextures = 1;
 
-    @Slider( 
-        min = 0, 
-        max = 100, 
-        category = "Economy", 
-        subcategory = "Auction House", 
-        name = "BIN Snipe Percentage", 
-        description = "The percent of the price that the BIN sniper considers a \"snipe\". Example: 85%, Lowest BIN: 1 000 000, will look for a price of 850000 or less."
-    )
-    public float BINSniperPercent = 87f;
 
     @Slider(
             name = "Master Scale",
@@ -959,6 +961,16 @@ public class OneConfigScreen extends Config {
             category = "Economy"
     )
     public float masterAuctionHouseScale = .333333f;
+
+
+    @Slider(
+            name = "Master Scale",
+            min = 0f,
+            max = .2f,
+            subcategory = "Auction House",
+            category = "Economy"
+    )
+    public float auctionHouseItemPadding = .075f;
 
     @Slider(
             name = "Side Bar Height",
@@ -1003,7 +1015,7 @@ public class OneConfigScreen extends Config {
     // Excessive Coin warning
     @Switch(
         name = "Excessive Coin and No Booster Cookie", 
-        category = "Economy", 
+        category = "Economy",
         description = "Warns you if you have a lot of coins in your purse and no booster cookie.", 
         subcategory = "Excessive Coin Warning"
     )
