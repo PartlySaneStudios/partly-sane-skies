@@ -76,10 +76,9 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
     private val settingsBarY = backgroundImage.getBottom() + pad
     private val settingsBar = SettingsBar(CenterConstraint(), settingsBarY.pixels, categoriesBarHeight.pixels, sizeWidth.pixels, defaultAuctionInventory)
 
-
+    private val auctions = getAuctions(defaultAuctionInventory)
 
     init {
-        val auctions = getAuctions(defaultAuctionInventory)
         marketInformationBar.setChildOf(backgroundImage)
         itemInformationBar.setChildOf(backgroundImage)
         categoriesBar.setChildOf(window)
@@ -147,6 +146,12 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
         itemInformationBar.update()
         marketInformationBar.update()
         categoriesBar.update()
+
+        for (row in auctions) {
+            for (auction in row) {
+                auction.highlightIfCheapBin()
+            }
+        }
 
         window.draw(matrixStack)
     }

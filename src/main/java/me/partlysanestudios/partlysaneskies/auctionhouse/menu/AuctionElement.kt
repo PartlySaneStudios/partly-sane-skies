@@ -13,10 +13,7 @@ import gg.essential.elementa.constraints.CenterConstraint
 import gg.essential.elementa.constraints.PixelConstraint
 import gg.essential.elementa.constraints.XConstraint
 import gg.essential.elementa.constraints.YConstraint
-import gg.essential.elementa.dsl.childOf
-import gg.essential.elementa.dsl.constrain
-import gg.essential.elementa.dsl.constraint
-import gg.essential.elementa.dsl.pixels
+import gg.essential.elementa.dsl.*
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager
 import me.partlysanestudios.partlysaneskies.system.ThemeManager
@@ -39,6 +36,14 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack?, var xCons
         height = (heightConstraint.value).pixels
         color = Color(0, 0, 0, 0).constraint
     }
+
+    private val highlightBox = UIBlock().constrain {
+        x = CenterConstraint()
+        y = CenterConstraint()
+        width = (heightConstraint.value * 1.25).pixels
+        height = (heightConstraint.value * 1.25).pixels
+        color = Color(0, 0, 0, 0).constraint
+    } childOf boundingBox
 
     private val box: PSSButton = PSSButton()
         .setX(CenterConstraint())
@@ -76,9 +81,16 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack?, var xCons
             clickAuction()
         }
 
-        if (this.isCheapBin()) {
-            boundingBox.setColor(ThemeManager.getAccentColor().toJavaColor().constraint)
+
+    }
+
+    fun highlightIfCheapBin() {
+//        Utils.sendClientMessage("checking")
+        if (!isCheapBin()) {
+            return
         }
+//        Utils.sendClientMessage("checked")
+        highlightBox.setColor(ThemeManager.getAccentColor().toJavaColor().constraint)
     }
 
     fun loadAuctionInformationBar(informationBar: MarketInformationBar) {
@@ -298,6 +310,9 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack?, var xCons
         itemRender.setItemScale((boxHeight / 16).pixels).setWidth(boxHeight.pixels).setHeight(boxHeight.pixels)
         nameComponent.setY((boxHeight + 0.05 * heightConstraint.value).pixels)
             .setHeight((heightConstraint.value * .667).pixels)
+            .setWidth((heightConstraint.value * 1.25).pixels)
+
+        highlightBox.setHeight((heightConstraint.value * 1.25).pixels)
             .setWidth((heightConstraint.value * 1.25).pixels)
 
 
