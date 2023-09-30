@@ -6,12 +6,12 @@
 
 package me.partlysanestudios.partlysaneskies.utils;
 
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
-
-import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 
 public class StringUtils {
 

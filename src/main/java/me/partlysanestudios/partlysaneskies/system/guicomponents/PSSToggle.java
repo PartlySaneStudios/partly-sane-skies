@@ -15,7 +15,6 @@ import gg.essential.elementa.constraints.YConstraint;
 import gg.essential.elementa.events.UIClickEvent;
 import gg.essential.elementa.utils.ObservableList;
 import me.partlysanestudios.partlysaneskies.system.ThemeManager;
-import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.util.ResourceLocation;
 
 import java.awt.*;

@@ -5,9 +5,6 @@
 
 package me.partlysanestudios.partlysaneskies.dungeons.partymanager;
 
-import java.awt.Color;
-import java.net.MalformedURLException;
-
 import gg.essential.elementa.UIComponent;
 import gg.essential.elementa.components.UIRoundedRectangle;
 import gg.essential.elementa.components.UIText;
@@ -17,10 +14,13 @@ import gg.essential.elementa.constraints.PixelConstraint;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager;
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockPlayer;
+import me.partlysanestudios.partlysaneskies.system.guicomponents.PSSButton;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
-import me.partlysanestudios.partlysaneskies.system.guicomponents.PSSButton;
 import net.minecraft.util.ResourceLocation;
+
+import java.awt.*;
+import java.net.MalformedURLException;
 
 public class PartyMember {
 
