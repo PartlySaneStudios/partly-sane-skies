@@ -75,6 +75,10 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack?, var xCons
         boundingBox.onMouseClick {
             clickAuction()
         }
+
+        if (this.isCheapBin()) {
+            boundingBox.setColor(ThemeManager.getAccentColor().toJavaColor().constraint)
+        }
     }
 
     fun loadAuctionInformationBar(informationBar: MarketInformationBar) {
