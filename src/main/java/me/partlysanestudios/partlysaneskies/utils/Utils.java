@@ -269,6 +269,9 @@ public class Utils {
     }
 
     public static ArrayList<String> getLore(ItemStack itemStack) {
+        if (itemStack == null) {
+            return new ArrayList<>();
+        }
         if (!itemStack.hasTagCompound() || !itemStack.getTagCompound().hasKey("display") || !itemStack.getTagCompound().getCompoundTag("display").hasKey("Lore")) {
             return new ArrayList<>();
         }
