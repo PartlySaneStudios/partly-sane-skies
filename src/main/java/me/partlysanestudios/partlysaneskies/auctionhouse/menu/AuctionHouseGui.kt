@@ -144,12 +144,9 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
     override fun onDrawScreen(matrixStack: UMatrixStack, mouseX: Int, mouseY: Int, partialTicks: Float) {
         super.onDrawScreen(matrixStack, mouseX, mouseY, partialTicks)
 
-
         itemInformationBar.update()
         marketInformationBar.update()
         categoriesBar.update()
-
-
 
         window.draw(matrixStack)
     }

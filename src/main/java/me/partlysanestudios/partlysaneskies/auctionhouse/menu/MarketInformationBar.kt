@@ -73,10 +73,19 @@ class MarketInformationBar(xConstraint: XConstraint, yConstraint: YConstraint, h
 
         var info = ""
         info += "&6Offer Information:\n\n\n"
-        info += "&eSelling Price: &6${StringUtils.formatNumber(auction.getPrice().toDouble())}"
-        info += "\n&eEnding In: &6${auction.getFormattedEndingTime()}"
+        info += if (auction.getPrice() != -1L) {
+            "&eSelling Price: &6${StringUtils.formatNumber(auction.getPrice().toDouble())}"
+        } else {
+            "\n&eSelling Price: \n&8&o(Unknown)\n\n"
+        }
 
-        if (auction.getAmount() != 1) {
+        info += if (auction.getFormattedEndingTime().isNotEmpty()) {
+            "\n&eEnding In: &6${auction.getFormattedEndingTime()}"
+        } else {
+            "\n&eEnding In: \n&8&o(Unknown)\n\n"
+        }
+
+        if (auction.getAmount() > 1 ) {
             info += "\n\n\n"
             info += "\n&eQuantity: &6${StringUtils.formatNumber(auction.getAmount().toDouble())}"
             info += "\n&eCost Per Item: &6${StringUtils.formatNumber(Utils.round(auction.getCostPerAmount(),2))} coins"

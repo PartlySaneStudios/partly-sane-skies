@@ -130,6 +130,9 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack?, var xCons
                 buyItNowPrice = StringUtils.removeColorCodes(line).replace("[^0-9]".toRegex(), "")
             }
         }
+        if (buyItNowPrice.isEmpty()) {
+            return -1
+        }
         return buyItNowPrice.toLong()
     }
 
