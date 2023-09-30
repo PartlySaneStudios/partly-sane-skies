@@ -136,7 +136,6 @@ class SettingsBar (val xConstraint: XConstraint, val yConstraint: YConstraint, v
                         }
                     }
 
-                    Utils.sendClientMessage("Selected line: $filterSelectedLine")
                     filterSelectedLine = StringUtils.removeColorCodes(filterSelectedLine)
 
                     if (filterSelectedLine.lowercase(Locale.getDefault()).contains("uncommon")) {
@@ -160,7 +159,6 @@ class SettingsBar (val xConstraint: XConstraint, val yConstraint: YConstraint, v
                     } else if (filterSelectedLine.lowercase(Locale.getDefault()).contains("unobtainable")) {
                         filterImageName = "unobtainable"
                     }
-                    Utils.sendClientMessage("Image name: $filterImageName")
                 } catch (exception: java.lang.NullPointerException) {
                     exception.printStackTrace()
                 }
