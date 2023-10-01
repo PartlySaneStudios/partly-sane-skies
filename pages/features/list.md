@@ -65,6 +65,13 @@ When opening the minion, your current pet selected will appear, along with the p
 Messages sent by nons (non-ranked players) can be configured to have the same white as the rest of the chat.
 This option is off by default but can be turned on in the PSS Config menu.
 
+![Custom Main Menu](/images/party_manager.png)
+
+## Custom Themes
+
+This mod supports a variety of different themes, including dark themes, very dark themes, colourful themes, and controversially, light themes. You can also choose your own accent colour, and create your own themes in the OneConfig menu under the theme section.
+
+
 ## Dungeon Features
 
 ### Party Manager
@@ -74,16 +81,15 @@ kicking, party transfer buttons, etc. Included in the Party Manager GUI.
 You can open it by typing the command ``/pm`` or by using the keybinding.
 Default: ``M``
 
-![Custom Main Menu](/images/party_manager.png)
-
-## Custom Themes
-
-This mod supports a variety of different themes, including dark themes, very dark themes, colourful themes, and controversially, light themes. You can also choose your own accent colour, and create your own themes in the OneConfig menu under the theme section.
-
 ### Watcher Ready, Message, Warning, Siren and Sound
 
 When the watcher is done spawning mobs, a message will appear on your screen, along with an optional sound,
 party message and World War II (1938-1945) air raid siren in case the previous two don't get your attention.
+
+### Required Secrets Found Message, Warning, Siren and Soun
+
+When all the required secrets for a floor are found (Indicated by the "Secrets Found: x%" in the tablist),
+a message will appear on your screen, along with an optional sound, party message and World War II (1938-1945) air raid siren in case the previous two don't get your attention.
 
 ### Permanent Dungeon Party Selector
 
