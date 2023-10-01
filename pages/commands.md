@@ -173,6 +173,7 @@ Allows you to create areas where you will be notified you have reached the end o
 
 ``//farmnotifier remove [number]``: Removes a farm notifications from the list, given a valid ``number``. Numbers can be seen with ``/farmnotifier list``.
 
+``//farmnotifier show [index]``: Highlights the farm notification with the given ``index`` for a configurable amount of time. Indexes can be seen with ``/farmnotifier list``. In the config, enable "Show end of farm region" to see all highlighted regions at once for an unlimited amount of time.
 <br>
 
 ### To create a new farm notification:

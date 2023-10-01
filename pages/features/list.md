@@ -28,10 +28,6 @@ When you get a rare drop, a Pumpkin Dicer or Melon Slicer like pop-up banner wil
 
 Instead of the normal noteblocks, there is now the option to use computer generated, discord sounds or even live instruments to play sounds such as Skyblock music and sound effects.
 
-### Worm Warning
-
-When you are mining in the Crystal Hollows and a worm or Scatha spawns, you get a message on screen, along with a sound, warning you that a worm has spawned.
-
 ### Location Banner
 
 When switching to a new location region on skyblock, an MMO RPG style banner will appear, informing you that you have switched to a new region.
@@ -51,6 +47,25 @@ When opening the minion, your current pet selected will appear, along with the p
 ## Custom Themes
 
 This mod supports a variety of different themes, including dark themes, very dark themes, colourful themes, and controversially, light themes. You can also choose your own accent colour, and create your own themes in the OneConfig menu under the theme section.
+
+
+## Mining Features
+
+
+### Worm Warning
+
+When you are mining in the Crystal Hollows and a worm or Scatha spawns, you get a message on screen, along with a sound, warning you that a worm has spawned.
+
+### Pickaxes
+
+When the Pickaxe Ability cooldown is over, a message will appear on your screen, along with an optional sound or World War II (1938-1945) air raid siren in case the previous two don't get your attention.
+This feature also includes the ability to block right clicks with pickaxes on your private island/garden.
+
+### Events
+
+When an event is going active, a message will appear on your screen informing you of the event, along with an optional sound.
+This feature will work with all Dwarven Mines and Crystal Hollows events, such as 2x Powder, Goblin Raid, Fallen Star, or the worst event, Better Together.
+You can also choose to be notified 20s before the event starts.
 
 
 ## Dungeon Features
@@ -157,6 +172,11 @@ Private messages and messages that are sent in the Party, Guild, Guild Officer, 
 
 Messages sent by nons (non-ranked players) can be configured to have the same white as the rest of the chat.
 This option is off by default but can be turned on in the PSS Config menu.
+
+### Word Editor
+
+Replaces a desired word in chat with any other word or phrase, such as changing "Flagmaster" to "FlagHater", 
+but also "Flagmaster" to "Most active contributor".
 
 ### OwO language
 
