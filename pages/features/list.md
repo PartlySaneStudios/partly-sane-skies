@@ -22,7 +22,7 @@ A helpful command to help recommend what skill you should upgrade less. Using ``
 
 When you get a rare drop, a Pumpkin Dicer or Melon Slicer like pop-up banner will appear, along with a sound, celebrating your drop.
 
-![Custom Main Menu](/images/rng_drop_banner.png)
+![RNG Drop Banner](/images/rng_drop_banner.png)
 
 ### Custom Sounds for Skyblock
 
@@ -38,18 +38,6 @@ When switching to a new location region on skyblock, an MMO RPG style banner wil
 
 ![Location Banner](/images/location_banner.png)
 
-### Chat Alerts
-
-Using ``/ca``, you can add and remove specific phrases that will be highlighted when someone says them. Example: If you add the word "``flag``" (using ``/ca add flag``) to Chat Alerts, it will highlight the word and play a notification when someone says it.
-
-![Chat Alerts](/images/chat_alerts.png)
-
-### Chat Color
-
-Private messages and messages that are sent in the Party, Guild, Guild Officer, or Skyblock Co-op channels will now have the color of the channel they are sent in.
-
-![Chat Colors](/images/chat_color.png)
-
 ### Incorrect Pet for Minion Alert
 
 If you do not the right pet selected for leveling up minions, you will be warned so that you never lose any pet EXP because you still have your level 100 dungeon pet activated. An optional World War II (1938-1945) air raid siren can be activated.
@@ -59,13 +47,6 @@ If you do not the right pet selected for leveling up minions, you will be warned
 When opening the minion, your current pet selected will appear, along with the pet that you have set as favourite.
 
 ![Pet for Minion Information Display](/images/pet_minion_display.png)
-
-### Non Chat Color
-
-Messages sent by nons (non-ranked players) can be configured to have the same white as the rest of the chat.
-This option is off by default but can be turned on in the PSS Config menu.
-
-![Custom Main Menu](/images/party_manager.png)
 
 ## Custom Themes
 
@@ -80,6 +61,8 @@ Manage your party and join dungeons with a helpful party manager, with features 
 kicking, party transfer buttons, etc. Included in the Party Manager GUI.
 You can open it by typing the command ``/pm`` or by using the keybinding.
 Default: ``M``
+
+![Party Manager](/images/party_manager.png)
 
 ### Watcher Ready, Message, Warning, Siren and Sound
 
@@ -155,6 +138,30 @@ Shows you information about the garden shop trades.
 A lot of people use the bits accumulated from booster cookies to convert to items to sell on the auction house. Instead of having to guess which items are the best and for what price, it will now recommend to you the items that sell for the most coins per bit.
 
 ![Bit Shop Profit](/images/bit_shop_profit.png)
+
+## Chat
+
+### Chat Alerts
+
+Using ``/ca``, you can add and remove specific phrases that will be highlighted when someone says them. Example: If you add the word "``flag``" (using ``/ca add flag``) to Chat Alerts, it will highlight the word and play a notification when someone says it.
+
+![Chat Alerts](/images/chat_alerts.png)
+
+### Chat Color
+
+Private messages and messages that are sent in the Party, Guild, Guild Officer, or SkyBlock Co-op channels will now have the color of the channel they are sent in.
+
+![Chat Colors](/images/chat_color.png)
+
+### Non Chat Color
+
+Messages sent by nons (non-ranked players) can be configured to have the same white as the rest of the chat.
+This option is off by default but can be turned on in the PSS Config menu.
+
+### OwO language
+
+All chat messages will be translated into the owo language.
+But be warned, the feature basically breaks the whole chat.
 
 ## Shortcuts
 
