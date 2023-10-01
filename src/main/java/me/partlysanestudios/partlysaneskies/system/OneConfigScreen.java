@@ -964,7 +964,7 @@ public class OneConfigScreen extends Config {
 
 
     @Slider(
-            name = "Master Scale",
+            name = "Item Padding",
             min = 0f,
             max = .2f,
             subcategory = "Auction House",
