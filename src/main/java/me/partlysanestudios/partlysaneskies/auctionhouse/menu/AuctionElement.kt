@@ -8,6 +8,7 @@ package me.partlysanestudios.partlysaneskies.auctionhouse.menu
 
 import gg.essential.elementa.UIComponent
 import gg.essential.elementa.components.UIBlock
+import gg.essential.elementa.components.UIRoundedRectangle
 import gg.essential.elementa.components.UIWrappedText
 import gg.essential.elementa.constraints.CenterConstraint
 import gg.essential.elementa.constraints.PixelConstraint
@@ -37,11 +38,11 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack?, var xCons
         color = Color(0, 0, 0, 0).constraint
     }
 
-    private val highlightBox = UIBlock().constrain {
+    private val highlightBox = UIRoundedRectangle(7.5f).constrain {
         x = CenterConstraint()
         y = CenterConstraint()
-        width = (heightConstraint.value * 1.25).pixels
-        height = (heightConstraint.value * 1.25).pixels
+        width = (heightConstraint.value * 1.2).pixels
+        height = (heightConstraint.value * 1.2).pixels
         color = Color(0, 0, 0, 0).constraint
     } childOf boundingBox
 
