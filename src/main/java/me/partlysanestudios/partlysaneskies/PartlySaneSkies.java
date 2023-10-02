@@ -30,6 +30,7 @@ import me.partlysanestudios.partlysaneskies.dungeons.PlayerRating;
 import me.partlysanestudios.partlysaneskies.dungeons.WatcherReady;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManager;
 import me.partlysanestudios.partlysaneskies.dungeons.permpartyselector.PermPartyManager;
+import me.partlysanestudios.partlysaneskies.dungeons.RequiredSecretsFound;
 import me.partlysanestudios.partlysaneskies.economy.BitsShopValue;
 import me.partlysanestudios.partlysaneskies.economy.minioncalculator.MinionData;
 import me.partlysanestudios.partlysaneskies.economy.minioncalculator.ProfitMinionCalculator;
@@ -188,6 +189,7 @@ public class PartlySaneSkies {
         MinecraftForge.EVENT_BUS.register(RangeHighlight.INSTANCE);
         MinecraftForge.EVENT_BUS.register(BannerRenderer.INSTANCE);
         MinecraftForge.EVENT_BUS.register(new MiningEvents());
+        MinecraftForge.EVENT_BUS.register(new RequiredSecretsFound());
         MinecraftForge.EVENT_BUS.register(new Pickaxes());
 
 
