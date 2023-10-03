@@ -33,6 +33,10 @@ public class OneConfigScreen extends Config {
             watcherChatMessage = "Partly Sane Skies > The watcher is done spawning mobs. Ready to clear.";
             save();
         }
+        if (secretsChatMessageString.isEmpty()){
+            secretsChatMessageString = "Partly Sane Skies > All required secrets have been found!";
+            save();
+        }
     }
 
     @Info(
@@ -48,7 +52,8 @@ public class OneConfigScreen extends Config {
         name = "API Key", 
         category = "General", 
         subcategory = "API", 
-        description = "Do /api new to automatically set your API Key. Do not show your API key to anyone unless you know what you're doing."
+        description = "Do /api new to automatically set your API Key. Do not show your API key to anyone unless you know what you're doing.",
+            size = 2
     )
     public String apiKey = "";
 
@@ -342,7 +347,8 @@ public class OneConfigScreen extends Config {
         subcategory = "Incorrect Pet for Minion Alert",
         name = "Selected Pet",
         description = "The selected pet that will be used for minion collecting (Use /pets and click the pet keybind to select",
-        secure =  true
+        secure =  true,
+        size = 2
     )
     public String selectedPet = /*PartlySaneSkies.config.selectededPet |*/ "";
 
@@ -623,7 +629,8 @@ public class OneConfigScreen extends Config {
         subcategory = "Party Manager", 
         name = "Arrow Low Warning", 
         description = "Message to send when a player has low arrows.\nUse {player} to signify the player's username, and {count} to signify the remaining arrow count.", 
-        category = "Dungeons"
+        category = "Dungeons",
+            size = 2
     )
     public String arrowLowChatMessage = "Partly Sane Skies > Warning! {player} only has {count} arrows remaining!";
 
@@ -732,7 +739,8 @@ public class OneConfigScreen extends Config {
         subcategory = "Watcher Ready", 
         name = "Watcher Ready Text", 
         description = "Message to send when the watcher is ready to clear.", 
-        category = "Dungeons"
+        category = "Dungeons",
+            size = 2
     )
     public String watcherChatMessage = "Partly Sane Skies > The watcher is done spawning mobs. Ready to clear.";
 
@@ -744,6 +752,68 @@ public class OneConfigScreen extends Config {
     )
     public boolean watcherReadyAirRaidSiren = false;
 
+    // Required Secrets Found
+    @Switch(
+            name = "Required Secrets Found Banner",
+            subcategory = "Required Secrets Found",
+            description = "Sends a warning when all required secrets have been found.",
+            category = "Dungeons"
+    )
+    public boolean secretsBanner = false;
+
+    @Switch(
+            name = "Required Secrets Found Sound",
+            subcategory = "Required Secrets Found",
+            description = "Plays a sound when all required secrets have been found.",
+            category = "Dungeons"
+    )
+    public boolean secretsSound = false;
+
+    @Slider(
+            min = 1,
+            max = 7,
+            subcategory = "Required Secrets Found",
+            name = "Required Secrets Found Banner Time",
+            description = "The amount of seconds the required secrets found banner appears for.",
+            category = "Dungeons"
+    )
+    public float secretsBannerTime = 3.5f;
+
+    @Color(
+            subcategory = "Required Secrets Found",
+            name = "Required Secrets Found Banner Color",
+            description = "The color of the required secrets found text",
+            category = "Dungeons"
+    )
+    public OneColor secretsBannerColor = new OneColor(255, 45, 6);
+
+    @Switch(
+            name = "Required Secrets Found Chat Message",
+            subcategory = "Required Secrets Found",
+            description = "Send a message to your party when all required secrets have been found.",
+            category = "Dungeons"
+    )
+    public boolean secretsChatMessage = false;
+
+
+    @Text(
+            subcategory = "Required Secrets Found",
+            name = "Required Secrets Found Text",
+            description = "Message to send when all required secrets have been found.",
+            category = "Dungeons",
+            size = 2
+    )
+    public String secretsChatMessageString = "Partly Sane Skies > All required secrets have been found!";
+
+    @Switch(
+            subcategory = "Required Secrets Found",
+            name = "Air Raid Siren",
+            description = "Plays a WWII air raid siren when all required secrets have been found. \nPros: \nKeeps you up at late night grinds \n(RECOMMENDED, ESPECIALLY AT 3 AM)",
+            category = "Dungeons"
+    )
+    public boolean secretsAirRaidSiren = false;
+
+// Dungeon Player Breakdown
     @Switch(
         subcategory = "Dungeon Player Breakdown", 
         name = "Dungeon Player Breakdown", 

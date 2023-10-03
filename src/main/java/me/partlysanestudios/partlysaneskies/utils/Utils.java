@@ -43,6 +43,20 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Utils {
+    public static boolean inDungeons(){
+        String regionName = PartlySaneSkies.getRegionName();
+        String noColorCodeRegionName = me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes(regionName);
+
+        if (noColorCodeRegionName.isEmpty()) {
+            return false;
+        }
+
+        noColorCodeRegionName = me.partlysanestudios.partlysaneskies.utils.StringUtils.stripLeading(noColorCodeRegionName);
+        noColorCodeRegionName = me.partlysanestudios.partlysaneskies.utils.StringUtils.stripTrailing(noColorCodeRegionName);
+        noColorCodeRegionName = noColorCodeRegionName.replaceAll("\\P{Print}", ""); // Removes the RANDOM EMOJIS
+        return noColorCodeRegionName.toLowerCase().contains("catacombs");
+    }
+  
     public static ItemStack getCurrentlyHoldingItem() {
         return PartlySaneSkies.minecraft.thePlayer.getHeldItem();
     }
@@ -253,6 +267,9 @@ public class Utils {
     }
 
     public static ArrayList<String> getLore(ItemStack itemStack) {
+        if (!itemStack.hasTagCompound() || !itemStack.getTagCompound().hasKey("display") || !itemStack.getTagCompound().getCompoundTag("display").hasKey("Lore")) {
+            return new ArrayList<>();
+        }
         NBTTagList tagList = itemStack.getTagCompound().getCompoundTag("display").getTagList("Lore", 8);
         ArrayList<String> loreList = new ArrayList<>();
         for (int i = 0; i < tagList.tagCount(); i++) {
