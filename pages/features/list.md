@@ -22,33 +22,17 @@ A helpful command to help recommend what skill you should upgrade less. Using ``
 
 When you get a rare drop, a Pumpkin Dicer or Melon Slicer like pop-up banner will appear, along with a sound, celebrating your drop.
 
-![Custom Main Menu](/images/rng_drop_banner.png)
+![RNG Drop Banner](/images/rng_drop_banner.png)
 
 ### Custom Sounds for Skyblock
 
 Instead of the normal noteblocks, there is now the option to use computer generated, discord sounds or even live instruments to play sounds such as Skyblock music and sound effects.
-
-### Worm Warning
-
-When you are mining in the Crystal Hollows and a worm or Scatha spawns, you get a message on screen, along with a sound, warning you that a worm has spawned.
 
 ### Location Banner
 
 When switching to a new location region on skyblock, an MMO RPG style banner will appear, informing you that you have switched to a new region.
 
 ![Location Banner](/images/location_banner.png)
-
-### Chat Alerts
-
-Using ``/ca``, you can add and remove specific phrases that will be highlighted when someone says them. Example: If you add the word "``flag``" (using ``/ca add flag``) to Chat Alerts, it will highlight the word and play a notification when someone says it.
-
-![Chat Alerts](/images/chat_alerts.png)
-
-### Chat Color
-
-Private messages and messages that are sent in the Party, Guild, Guild Officer, or Skyblock Co-op channels will now have the color of the channel they are sent in.
-
-![Chat Colors](/images/chat_color.png)
 
 ### Incorrect Pet for Minion Alert
 
@@ -60,10 +44,29 @@ When opening the minion, your current pet selected will appear, along with the p
 
 ![Pet for Minion Information Display](/images/pet_minion_display.png)
 
-### Non Chat Color
+## Custom Themes
 
-Messages sent by nons (non-ranked players) can be configured to have the same white as the rest of the chat.
-This option is off by default but can be turned on in the PSS Config menu.
+This mod supports a variety of different themes, including dark themes, very dark themes, colourful themes, and controversially, light themes. You can also choose your own accent colour, and create your own themes in the OneConfig menu under the theme section.
+
+
+## Mining Features
+
+
+### Worm Warning
+
+When you are mining in the Crystal Hollows and a worm or Scatha spawns, you get a message on screen, along with a sound, warning you that a worm has spawned.
+
+### Pickaxes
+
+When the Pickaxe Ability cooldown is over, a message will appear on your screen, along with an optional sound or World War II (1938-1945) air raid siren in case the previous two don't get your attention.
+This feature also includes the ability to block right clicks with pickaxes on your private island/garden.
+
+### Events
+
+When an event is going active, a message will appear on your screen informing you of the event, along with an optional sound.
+This feature will work with all Dwarven Mines and Crystal Hollows events, such as 2x Powder, Goblin Raid, Fallen Star, or the worst event, Better Together.
+You can also choose to be notified 20s before the event starts.
+
 
 ## Dungeon Features
 
@@ -74,16 +77,17 @@ kicking, party transfer buttons, etc. Included in the Party Manager GUI.
 You can open it by typing the command ``/pm`` or by using the keybinding.
 Default: ``M``
 
-![Custom Main Menu](/images/party_manager.png)
-
-## Custom Themes
-
-This mod supports a variety of different themes, including dark themes, very dark themes, colourful themes, and controversially, light themes. You can also choose your own accent colour, and create your own themes in the OneConfig menu under the theme section.
+![Party Manager](/images/party_manager.png)
 
 ### Watcher Ready, Message, Warning, Siren and Sound
 
 When the watcher is done spawning mobs, a message will appear on your screen, along with an optional sound,
 party message and World War II (1938-1945) air raid siren in case the previous two don't get your attention.
+
+### Required Secrets Found Message, Warning, Siren and Soun
+
+When all the required secrets for a floor are found (Indicated by the "Secrets Found: x%" in the tablist),
+a message will appear on your screen, along with an optional sound, party message and World War II (1938-1945) air raid siren in case the previous two don't get your attention.
 
 ### Permanent Dungeon Party Selector
 
@@ -149,6 +153,35 @@ Shows you information about the garden shop trades.
 A lot of people use the bits accumulated from booster cookies to convert to items to sell on the auction house. Instead of having to guess which items are the best and for what price, it will now recommend to you the items that sell for the most coins per bit.
 
 ![Bit Shop Profit](/images/bit_shop_profit.png)
+
+## Chat
+
+### Chat Alerts
+
+Using ``/ca``, you can add and remove specific phrases that will be highlighted when someone says them. Example: If you add the word "``flag``" (using ``/ca add flag``) to Chat Alerts, it will highlight the word and play a notification when someone says it.
+
+![Chat Alerts](/images/chat_alerts.png)
+
+### Chat Color
+
+Private messages and messages that are sent in the Party, Guild, Guild Officer, or SkyBlock Co-op channels will now have the color of the channel they are sent in.
+
+![Chat Colors](/images/chat_color.png)
+
+### Non Chat Color
+
+Messages sent by nons (non-ranked players) can be configured to have the same white as the rest of the chat.
+This option is off by default but can be turned on in the PSS Config menu.
+
+### Word Editor
+
+Replaces a desired word in chat with any other word or phrase, such as changing "Flagmaster" to "FlagHater", 
+but also "Flagmaster" to "Most active contributor".
+
+### OwO language
+
+All chat messages will be translated into the owo language.
+But be warned, the feature basically breaks the whole chat.
 
 ## Shortcuts
 

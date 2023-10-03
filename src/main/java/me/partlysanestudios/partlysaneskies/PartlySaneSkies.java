@@ -134,8 +134,8 @@ public class PartlySaneSkies {
         trackLoad();
         RequestsManager.run();
 
+        // Loads extra json data
         new Thread(() -> {
-            // Loads perm party data
             try {
                 PermPartyManager.load();
                 PermPartyManager.loadFavoriteParty();
@@ -143,8 +143,6 @@ public class PartlySaneSkies {
                 e.printStackTrace();
             }
 
-
-            // Loads chat alerts data
             try {
                 ChatAlertsManager.load();
             } catch (IOException e) {
@@ -198,15 +196,17 @@ public class PartlySaneSkies {
 
         // Registers all client side commands
         HelpCommands.registerPSSCommand();
-        PartyManager.registerCommand();
+        HelpCommands.registerCrepesCommand();
+        HelpCommands.registerVersionCommand();
         HelpCommands.registerHelpCommand();
+        HelpCommands.registerDiscordCommand();
+        HelpCommands.registerConfigCommand();
+        PartyManager.registerCommand();
         SkillUpgradeRecommendation.registerCommand();
         PermPartyManager.registerCommand();
         PartyFriendManager.registerCommand();
         ChatAlertsManager.registerCommand();
         PetAlert.registerCommand();
-        HelpCommands.registerDiscordCommand();
-        HelpCommands.registerConfigCommand();
         EndOfFarmNotifier.registerPos1Command();
         EndOfFarmNotifier.registerPos2Command();
         EndOfFarmNotifier.registerCreateRangeCommand();
@@ -214,8 +214,6 @@ public class PartlySaneSkies {
         ProfitMinionCalculator.registerCommand();
         MathematicalHoeRightClicks.registerCommand();
         WordEditor.registerWordEditorCommand();
-        HelpCommands.registerCrepesCommand();
-        HelpCommands.registerVersionCommand();
 
         // Initializes keybinds
         Keybinds.init();
@@ -387,7 +385,7 @@ public class PartlySaneSkies {
     }
 
     // Returns an array of length 2, where the 1st index is the upper inventory,
-    // and the 2nd index is the lower inventory.s]
+    // and the 2nd index is the lower inventory.
     // Returns null if there is no inventory, also returns null if there is no access to inventory
     public static IInventory[] getSeparateUpperLowerInventories(GuiScreen gui) {
         IInventory upperInventory;
