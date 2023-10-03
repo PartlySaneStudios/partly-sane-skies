@@ -5,6 +5,7 @@
 General and Miscellaneous features.
 
 ### Custom Main Menu
+*For more information, [click here (pages/features/general/custom_main_menu.md)](/pages/features/general/custom_main_menu.md)*
 
 Upon start up of Minecraft, a nice, Skyblock themed main menu will display.
 There are various configurable options from Skyblock-themed backgrounds,
