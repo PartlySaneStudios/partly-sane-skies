@@ -434,7 +434,6 @@ public class OneConfigScreen extends Config {
     public boolean wormWarningBannerSound = false;
 
     //Pickaxes
-
     @Switch(
             name = "Pickaxe Ability Ready Banner",
             subcategory = "Pickaxes",
@@ -458,6 +457,14 @@ public class OneConfigScreen extends Config {
             category = "Mining"
     )
     public boolean pickaxeAbilityReadySiren = false;
+
+    @Switch(
+            name = "Only give a warning when you are on a mining island",
+            subcategory = "Pickaxes",
+            description = "Makes it less annoying when you don't want to mine",
+            category = "Mining"
+    )
+    public boolean onlyGiveWarningOnMiningIsland = true;
 
     @Slider(
             min = 1,
