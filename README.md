@@ -1,7 +1,7 @@
 <h1> <a href="#----"> <img src = "images/banner_image.png" alt="Banner" align="center"> </a> </h1>
 
 [//]: # (<h1 align="center"> Partly Sane Skies </h1>)
-<h4 align="center"> <sup> A Quality of Life Skyblock Mod</sup> </h4>
+<h4 align="center"> <sup> A Quality of Life SkyBlock Mod</sup> </h4>
 
 <p align="center">
   <a href="https://github.com/PartlySaneStudios/partly-sane-skies/releases" target="_blank">
@@ -21,7 +21,7 @@
 ## About
 
 
-Partly Sane Skies is a Minecraft mod for Hypixel Skyblock, designed, built, and programmed by **Su386** and **FlagMaster**. 
+Partly Sane Skies is a Minecraft mod for Hypixel SkyBlock, designed, built, and programmed by **Su386** and **FlagMaster**. 
 Credits including third party programs can be [found here (CREDITS.md)](CREDITS.md)
 
 ### Download
@@ -62,6 +62,8 @@ Credits including third party programs can be [found here (CREDITS.md)](CREDITS.
 [``/chatalert``, ``/ca``, ``/chal``:](pages/commands.md#chatalerts) Command to use the Chat Alerts System. (See Features)
 
 [``//farmnotfier``, ``//fn``, ``//farmnotif``:](pages/commands.md#farmnotfier) Command to use the farm notifier system.
+
+[``/wordeditor``, ``/wordedit``, ``/wr``, ``/wordreplace``, ``/wr``] Command to replace a word in the chat with another word or a phrase.
 
 </details>
 

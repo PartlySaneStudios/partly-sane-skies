@@ -66,54 +66,199 @@ Opens the configuration menu to edit all settings inside Partly Sane Skies. Note
 
 </details>
 
-<!-- /pssdiscord command -->
-<details>
-  <summary> <code> /pssdiscord </code> </summary>
 
-## ``/pssdiscord`` 
+<!-- /allowhoerightclick command -->
+<details>
+  <summary> <code> /allowhoerightclick </code> </summary>
+
+## ``/allowhoerightclick``
 
 ### Aliases
 
-These commands also work instead of ``/pssdiscord``:
+These commands also work instead of ``/allowhoerightclick``:
 
-``/pssdisc``
+``/allowhoerightclicks``
 
-``/psdisc``
+``/ahrc``
 
 ### Description
-Sends a link to join the discord in chat. [Or you can just join here (https://discord.gg/v4PU3WeH7z)](https://discord.gg/v4PU3WeH7z)
+Allows hoe right clicks for a few moments or just once, depending on the config.
 
 ### Usage
 
-``/pssdiscord``: Sends the link to join the discord in chat.
+``/allowhoerightclick``: Toggles hoe right clicks
 
 </details>
 
-<!-- /skillup command -->
-<details>
-  <summary> <code> /skillup </code> </summary>
 
-## ``/skillup`` 
+<!-- /chatalert command -->
+<details>
+  <summary> <code> /chatalerts </code> </summary>
+
+## ``/chatalerts`` 
 
 ### Aliases
 
-These commands also work instead of ``/skillup``:
+These commands also work instead of ``/chatalerts``:
 
-``/skillu``
+``/chatalert``
 
-``/su``
+``/chal``
+
+``/ca``
 
 ### Description
-Gives you recommendations as to the most important skills to upgrade.
+Allows certain messages to be highlighted in chat.
 
 ### Usage
 
-``/skillup [username]``: Recommends the most important skills to upgrade for specific ``username``.
+``/chatalerts list``: Lists all chat alerts with their associated number.
 
-``/skillup``: Recommends the most important skills to upgrade for the player running the command.
+``/chatalerts add [alert]``: Creates a new alert that will notify the user when ``alert`` is spotted in chat.
+
+``/chatalerts remove [number]``: Removes the alert with the given ``number`` in the list. Numbers are show with ``/chatalerts list``.
 
 </details>
 
+
+<!-- /crepes command -->
+<details>
+  <summary> <code> /crepes </code> </summary>
+
+## ``/crepes``
+
+### Aliases
+
+These commands also work instead of ``/crepes``:
+
+``/crêpes``
+
+### Description
+Displays vital crêpe information
+
+### Usage
+
+``/crepe``: Shows crêpe information
+
+</details>
+
+
+
+<!-- //farmnotfier command -->
+<details>
+  <summary> <code> //farmnotfier </code> </summary>
+
+## ``//farmnotfier`` 
+
+### Aliases
+
+These commands also work instead of ``//farmnotfier``:
+
+``//farmnotif``
+
+``//fn``
+
+``/farmnotifier``
+
+``/fn``
+
+``/farmnotif``
+
+### Description
+Allows you to create areas where you will be notified you have reached the end of your farm.
+
+### Usage
+
+``//farmnotifier list``: Lists all the locations where you have a farm notification, and their given number, and gives instructions on how to create a new farm notification.
+
+``//farmnotifier remove [number]``: Removes a farm notifications from the list, given a valid ``number``. Numbers can be seen with ``/farmnotifier list``.
+
+``//farmnotifier show [index]``: Highlights the farm notification with the given ``index`` for a configurable amount of time. Indexes can be seen with ``/farmnotifier list``. In the config, enable "Show end of farm region" to see all highlighted regions at once for an unlimited amount of time.
+<br>
+
+### To create a new farm notification:
+
+
+1. Set the first corner of your notification area:
+
+    ``//pos1``: Sets one corner of the farm notification (Like using WorldEdit).
+
+2. Set the opposite corner of your notification area:
+
+    ``//pos2``: Sets the opposite corner of the farm notification (Like using WorldEdit).
+
+3. Create the notification area
+
+    ``//create``: Creates a new farm notifier with the positions created with ``//pos1`` and ``//pos2``.
+
+</details>
+
+
+<!-- /friendparty command -->
+<details>
+  <summary> <code> /friendparty </code> </summary>
+
+## ``/friendparty`` 
+
+### Aliases
+
+These commands also work instead of ``/friendparty``:
+
+``/fp``
+
+``/pf``
+
+### Description
+Parties friends that are online in your friends list.
+
+### Usage
+
+``/friendparty``: Parties all friends that are online.
+
+</details>
+
+
+<!-- /minioncalculator command -->
+<details>
+  <summary> <code> /minioncalculator </code> </summary>
+
+## ``/minioncalculator``
+
+### Aliases
+
+These commands also work instead of ``/minioncalculator``:
+
+``/minioncalc``
+
+``/bestminion``
+
+``/mc``
+
+``/bm``
+
+### Description
+Opens the most profitable minions feature
+
+### Usage
+
+``/minioncalculator``: Opens the best minion calculator menu
+
+</details>
+
+<!-- /mutepetalert command -->
+<details>
+  <summary> <code> /mutepetalert </code> </summary>
+
+## ``/mutepetalert``
+
+### Description
+Mutes the pet alert warning for a certain amount of time
+
+### Usage
+
+``/mutepetalert``: Mutes the pet alert warning
+
+</details>
 
 <!-- /partymanager command -->
 <details>
@@ -137,6 +282,7 @@ Opens the Party Manager menu. You can also use the keybinding, which by default 
 ``/partymanager``: Opens the Party Manager Menu.
 
 </details>
+
 
 <!-- /permparty command -->
 <details>
@@ -173,191 +319,80 @@ Allows you to save, party, add and remove players from a permanent dungeon party
 
 </details>
 
-<!-- /friendparty command -->
-<details>
-  <summary> <code> /friendparty </code> </summary>
 
-## ``/friendparty`` 
+<!-- /pssdiscord command -->
+<details>
+  <summary> <code> /pssdiscord </code> </summary>
+
+## ``/pssdiscord`` 
 
 ### Aliases
 
-These commands also work instead of ``/friendparty``:
+These commands also work instead of ``/pssdiscord``:
 
-``/fp``
+``/pssdisc``
 
-``/pf``
+``/psdisc``
+
+``/discord``
 
 ### Description
-Parties friends that are online in your friends list.
+Sends a link to join the discord in chat. [Or you can just join here (https://discord.gg/v4PU3WeH7z)](https://discord.gg/v4PU3WeH7z)
 
 ### Usage
 
-``/friendparty``: Parties all friends that are online.
+``/pssdiscord``: Sends the link to join the discord in chat.
 
 </details>
 
-<!-- /chatalert command -->
+<!-- /skillup command -->
 <details>
-  <summary> <code> /chatalerts </code> </summary>
+  <summary> <code> /skillup </code> </summary>
 
-## ``/chatalerts`` 
+## ``/skillup`` 
 
 ### Aliases
 
-These commands also work instead of ``/chatalerts``:
+These commands also work instead of ``/skillup``:
 
-``/chatalert``
+``/skillu``
 
-``/chal``
-
-``/ca``
+``/su``
 
 ### Description
-Allows certain messages to be highlighted in chat.
+Gives you recommendations as to the most important skills to upgrade.
 
 ### Usage
 
-``/chatalerts list``: Lists all chat alerts with their associated number.
+``/skillup [username]``: Recommends the most important skills to upgrade for specific ``username``.
 
-``/chatalerts add [alert]``: Creates a new alert that will notify the user when ``alert`` is spotted in chat.
-
-``/chatalerts remove [number]``: Removes the alert with the given ``number`` in the list. Numbers are show with ``/chatalerts list``.
-
-</details>
-
-<!-- //farmnotfier command -->
-<details>
-  <summary> <code> //farmnotfier </code> </summary>
-
-## ``//farmnotfier`` 
-
-### Aliases
-
-These commands also work instead of ``//farmnotfier``:
-
-``//farmnotif``
-
-``//fn``
-
-``/farmnotifier``
-
-``/fn``
-
-``/farmnotif``
-
-### Description
-Allows you to create areas where you will be notified you have reached the end of your farm.
-
-### Usage
-
-``//farmnotifier list``: Lists all the locations where you have a farm notification, and their given number, and gives instructions on how to create a new farm notification.
-
-``//farmnotifier remove [number]``: Removes a farm notifications from the list, given a valid ``number``. Numbers can be seen with ``/farmnotifier list``.
-
-<br>
-
-### To create a new farm notification:
-
-
-1. Set the first corner of your notification area:
-
-    ``//pos1``: Sets one corner of the farm notification (Like using WorldEdit).
-
-2. Set the opposite corner of your notification area:
-
-    ``//pos2``: Sets the opposite corner of the farm notification (Like using WorldEdit).
-
-3. Create the notification area
-
-    ``//create``: Creates a new farm notifier with the positions created with ``//pos1`` and ``//pos2``.
+``/skillup``: Recommends the most important skills to upgrade for the player running the command.
 
 </details>
 
 
-<!-- /minioncalculator command -->
-<details>
-  <summary> <code> /minioncalculator </code> </summary>
 
-## ``/minioncalculator``
+<!-- /wordeditor command -->
+<details>
+  <summary> <code> /wordeditor </code> </summary>
+
+## ``/wordeditor``
 
 ### Aliases
 
-These commands also work instead of ``/minioncalculator``:
+These commands also work instead of ``/wordeditor``:
 
-``/minioncalc``
-
-``/bestminion``
-
-``/mc``
-
-``/bm``
+``/wordedit``
+``/we``
+``/wordreplace``
+``/wr``
 
 ### Description
-Opens the most profitable minions feature
-
+Replaces a desired word in chat with any other word or phrase, such as changing "Flagmaster" to "FlagHater", but also "Flagmaster" to "Most active contributor".
 ### Usage
 
-``/minioncalculator``: Opens the best minion calculator menu
-
-</details>
-
-
-<!-- /mutepetalert command -->
-<details>
-  <summary> <code> /mutepetalert </code> </summary>
-
-## ``/mutepetalert``
-
-### Description
-Mutes the pet alert warning for a certain amount of time
-
-### Usage
-
-``/mutepetalert``: Mutes the pet alert warning
-
-</details>
-
-
-<!-- /allowhoerightclick command -->
-<details>
-  <summary> <code> /allowhoerightclick </code> </summary>
-
-## ``/allowhoerightclick``
-
-### Aliases
-
-These commands also work instead of ``/allowhoerightclick``:
-
-``/allowhoerightclicks``
-
-``/ahrc``
-
-### Description
-Allows hoe right clicks for a few moments
-
-### Usage
-
-``/allowhoerightclick``: Toggles hoe right clicks
-
-</details>
-
-<!-- /crepes command -->
-<details>
-  <summary> <code> /crepes </code> </summary>
-
-## ``/crepes``
-
-### Aliases
-
-These commands also work instead of ``/crepes``:
-
-``/crêpes``
-
-### Description
-Displays vital crêpe information
-
-### Usage
-
-``/crepe``: Shows crêpe information
+``/wordeditor add <word> <replacement> ``: Changes word to replacement word in chat
+``/wordeditor remove <index> ``: Removes wordeditor for a word using the index from the list
+``/wordeditor list ``: lists all modified words
 
 </details>

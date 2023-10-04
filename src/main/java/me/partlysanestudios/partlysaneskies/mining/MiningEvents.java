@@ -15,14 +15,13 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class MiningEvents {
 
-    private static String displayText = "";
     private static boolean showBanner = false;
 
     @SubscribeEvent
     public void onChat(ClientChatReceivedEvent event) {
         if (!PartlySaneSkies.config.miningEventsToggle) return;
 
-        displayText = "";
+        String displayText = "";
 
         String message = event.message.getFormattedText();
 

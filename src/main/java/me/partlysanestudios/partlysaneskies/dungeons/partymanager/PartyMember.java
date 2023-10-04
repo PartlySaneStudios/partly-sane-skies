@@ -5,9 +5,6 @@
 
 package me.partlysanestudios.partlysaneskies.dungeons.partymanager;
 
-import java.awt.Color;
-import java.net.MalformedURLException;
-
 import gg.essential.elementa.UIComponent;
 import gg.essential.elementa.components.UIRoundedRectangle;
 import gg.essential.elementa.components.UIText;
@@ -17,10 +14,13 @@ import gg.essential.elementa.constraints.PixelConstraint;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager;
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockPlayer;
+import me.partlysanestudios.partlysaneskies.system.guicomponents.PSSButton;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
-import me.partlysanestudios.partlysaneskies.system.guicomponents.PSSButton;
 import net.minecraft.util.ResourceLocation;
+
+import java.awt.*;
+import java.net.MalformedURLException;
 
 public class PartyMember {
 
@@ -193,7 +193,7 @@ public class PartyMember {
                 .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
                 .setX(new PixelConstraint(20f * scaleFactor))
                 .setY(new PixelConstraint(135f * scaleFactor))
-                .setColor(Utils.colorCodetoColor.get("&c"))
+                .setColor(Utils.colorCodetoColor.get("§c"))
                 .setChildOf(memberBlock);
 
         new UIText("Average Skill Level " + StringUtils.formatNumber(Utils.round(this.averageSkillLevel, 2)))
@@ -226,7 +226,7 @@ public class PartyMember {
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
-        new UIText("Skyblock Level: " + Utils.round(this.skyblockLevel, 1))
+        new UIText("SkyBlock Level: " + Utils.round(this.skyblockLevel, 1))
                 .setTextScale(new PixelConstraint(scaleFactor))
                 .setX(new PixelConstraint(20f * scaleFactor))
                 .setY(new PixelConstraint(50f * scaleFactor))
@@ -237,14 +237,14 @@ public class PartyMember {
                 .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
                 .setX(new PixelConstraint(20f * scaleFactor))
                 .setY(new PixelConstraint(75f * scaleFactor))
-                .setColor(Utils.colorCodetoColor.get("&c"))
+                .setColor(Utils.colorCodetoColor.get("§c"))
                 .setChildOf(memberBlock);
 
         new UIText("❈ " + StringUtils.formatNumber(Math.round(this.defense)))
                 .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
                 .setX(new PixelConstraint(20f * scaleFactor))
                 .setY(new PixelConstraint(90f * scaleFactor))
-                .setColor(Utils.colorCodetoColor.get("&a"))
+                .setColor(Utils.colorCodetoColor.get("§a"))
                 .setChildOf(memberBlock);
 
         new UIText("EHP: " + StringUtils.formatNumber(Math.round(this.effectHealth)))
@@ -258,7 +258,7 @@ public class PartyMember {
                 .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
                 .setX(new PixelConstraint(20f * scaleFactor))
                 .setY(new PixelConstraint(120f * scaleFactor))
-                .setColor(Utils.colorCodetoColor.get("&b"))
+                .setColor(Utils.colorCodetoColor.get("§b"))
                 .setChildOf(memberBlock);
 
     }

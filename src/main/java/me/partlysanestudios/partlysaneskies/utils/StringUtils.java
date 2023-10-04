@@ -6,18 +6,18 @@
 
 package me.partlysanestudios.partlysaneskies.utils;
 
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
-
 public class StringUtils {
 
-    public static String colorCodes(String text) {
-        return text.replace("&", "§");
-    }
+    // public static String colorCodes(String text) {
+    //     return text.replace("&", "§");
+    // }
 
     public static String removeColorCodes(String text) {
         StringBuilder textBuilder = new StringBuilder(text);
@@ -61,7 +61,7 @@ public class StringUtils {
                 for (String wordOnLine : line) {
                     lineString.append(wordOnLine).append(" ");
                 }
-                wrappedText.append(colorCodes(lineString.toString())).append("\n");
+                wrappedText.append((lineString.toString())).append("\n");
                 line.clear();
                 charsOnLine = 0;
                 previousFormatCode = currentLineFormatCode;
@@ -83,7 +83,7 @@ public class StringUtils {
         for (String wordOnLine : line) {
             lineString.append(wordOnLine).append(" ");
         }
-        wrappedText.append(colorCodes(lineString.toString()));
+        wrappedText.append((lineString.toString()));
         line.clear();
         return wrappedText.toString();
     }

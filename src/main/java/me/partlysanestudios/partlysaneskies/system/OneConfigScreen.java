@@ -33,6 +33,10 @@ public class OneConfigScreen extends Config {
             watcherChatMessage = "Partly Sane Skies > The watcher is done spawning mobs. Ready to clear.";
             save();
         }
+        if (secretsChatMessageString.isEmpty()){
+            secretsChatMessageString = "Partly Sane Skies > All required secrets have been found!";
+            save();
+        }
     }
 
     @Info(
@@ -48,7 +52,8 @@ public class OneConfigScreen extends Config {
         name = "API Key", 
         category = "General", 
         subcategory = "API", 
-        description = "Do /api new to automatically set your API Key. Do not show your API key to anyone unless you know what you're doing."
+        description = "Do /api new to automatically set your API Key. Do not show your API key to anyone unless you know what you're doing.",
+            size = 2
     )
     public String apiKey = "";
 
@@ -255,13 +260,13 @@ public class OneConfigScreen extends Config {
 
 
 
-    // ----------------- Category: Skyblock -------------------
+    // ----------------- Category: SkyBlock -------------------
     // Rare Drop
     @Switch( 
         name = "Rare Drop Banner", 
         subcategory = "Rare Drop", 
         description = "On rare drop, get a Pumpkin Dicer like banner.", 
-        category = "Skyblock"
+        category = "SkyBlock"
     )
     public boolean rareDropBanner = false;
 
@@ -272,7 +277,7 @@ public class OneConfigScreen extends Config {
         subcategory = "Rare Drop", 
         name = "Rare Drop Banner Time", 
         description = "The amount of seconds the rare drop banner appears for.", 
-        category = "Skyblock"
+        category = "SkyBlock"
     )
     public float rareDropBannerTime = 3.5f;
 
@@ -280,7 +285,7 @@ public class OneConfigScreen extends Config {
         name = "Custom Rare Drop Sound", 
         subcategory = "Rare Drop", 
         description = "Plays a custom sound when you get a rare drop.", 
-        category = "Skyblock"
+        category = "SkyBlock"
     )
     public boolean rareDropBannerSound = false;
 
@@ -289,7 +294,7 @@ public class OneConfigScreen extends Config {
         name = "Location Banner", 
         subcategory = "Location Banner", 
         description = "An MMO RPG style banner shows up when you switch locations.", 
-        category = "Skyblock"
+        category = "SkyBlock"
     )
     public boolean locationBannerDisplay = false;
 
@@ -299,14 +304,14 @@ public class OneConfigScreen extends Config {
         subcategory = "Location Banner", 
         name = "Location Banner Time", 
         description = "The amount of seconds the location banner appears for.", 
-        category = "Skyblock"
+        category = "SkyBlock"
     )
     public float locationBannerTime = 3.5f;
 
     // Open Wiki
     @Switch( 
         name = "Open Wiki Automatically", 
-        category = "Skyblock", 
+        category = "SkyBlock",
         description = "When the Open Wiki Article Keybind is used, automatically open the article without confirmation first.", 
         subcategory = "Open Wiki"
     )
@@ -315,7 +320,7 @@ public class OneConfigScreen extends Config {
     // Pet Minion Alert
     @Switch(
         name = "Incorrect Pet for Minion Alert", 
-        category = "Skyblock", 
+        category = "SkyBlock",
         description = "Warns you if you don't have the right pet for leveling up the minions, that way you never lose any pet EXP because you still have your level 100 dungeon pet activated.\nRequires pets to be visible.", 
         subcategory = "Incorrect Pet for Minion Alert"
     )
@@ -323,7 +328,7 @@ public class OneConfigScreen extends Config {
 
     @Switch(
             name = "Selected Pet Information",
-            category = "Skyblock",
+            category = "SkyBlock",
             description = "Gives you information about the currently selected pet while in the minion menu\nRequires pets to be visible.",
             subcategory = "Incorrect Pet for Minion Alert"
     )
@@ -331,18 +336,19 @@ public class OneConfigScreen extends Config {
 
     @Switch(
         name = "Air Raid Siren", 
-        category = "Skyblock", 
+        category = "SkyBlock",
         description = "Plays a WWII air raid siren when you have the wrong pet. \nPros: \nKeeps you up at late night grinds \n(RECOMMENDED, ESPECIALLY AT 3 AM).", 
         subcategory = "Incorrect Pet for Minion Alert"
     )
     public boolean incorrectPetForMinionAlertSiren = false;
 
     @Text(
-        category = "Skyblock",
+        category = "SkyBlock",
         subcategory = "Incorrect Pet for Minion Alert",
         name = "Selected Pet",
         description = "The selected pet that will be used for minion collecting (Use /pets and click the pet keybind to select",
-        secure =  true
+        secure =  true,
+        size = 2
     )
     public String selectedPet = /*PartlySaneSkies.config.selectededPet |*/ "";
 
@@ -352,16 +358,16 @@ public class OneConfigScreen extends Config {
         subcategory = "Incorrect Pet for Minion Alert", 
         name = "Mute Time", 
         description = "The amount of minutes the pet alert will mute for when you mute it.", 
-        category = "Skyblock"
+        category = "SkyBlock"
     )
     public float petAlertMuteTime = 7.5f;
 
     @Dropdown(
-        category = "Skyblock",
-        subcategory = "Enhanced Skyblock Sounds",
+        category = "SkyBlock",
+        subcategory = "Enhanced SkyBlock Sounds",
         name = "Note Block Instrument Type",
         options = {
-            "Default Skyblock Noteblocks",
+            "Default SkyBlock Noteblocks",
             "Clarinet (Live)",
             "Clarinet (Computer)",
             "Electric Piano",
@@ -380,8 +386,8 @@ public class OneConfigScreen extends Config {
     public int customSoundOption = 0;
 
     @Dropdown(
-        category = "Skyblock",
-        subcategory = "Enhanced Skyblock Sounds",
+        category = "SkyBlock",
+        subcategory = "Enhanced SkyBlock Sounds",
         name = "Explosions",
         options = {
             "Default",
@@ -426,6 +432,65 @@ public class OneConfigScreen extends Config {
         category = "Mining"
     )
     public boolean wormWarningBannerSound = false;
+
+    //Pickaxes
+    @Switch(
+            name = "Pickaxe Ability Ready Banner",
+            subcategory = "Pickaxes",
+            description = "A banner appears on your screen when your pickaxe ability is ready.",
+            category = "Mining"
+    )
+    public boolean pickaxeAbilityReadyBanner = true;
+
+    @Switch(
+            name = "Pickaxe Ability Ready Sound",
+            subcategory = "Pickaxes",
+            description = "Plays a sound when your pickaxe ability is ready.",
+            category = "Mining"
+    )
+    public boolean pickaxeAbilityReadySound = false;
+
+    @Switch(
+            name = "Use Air Raid Siren for Pickaxe Ability Ready",
+            subcategory = "Pickaxes",
+            description = "Plays a WWII air raid siren when your pickaxe ability is ready. \nPros: \nKeeps you up at late night grinds \n(RECOMMENDED, ESPECIALLY AT 3 AM)",
+            category = "Mining"
+    )
+    public boolean pickaxeAbilityReadySiren = false;
+
+    @Switch(
+            name = "Only give a warning when you are on a mining island",
+            subcategory = "Pickaxes",
+            description = "Makes it less annoying when you don't want to mine",
+            category = "Mining"
+    )
+    public boolean onlyGiveWarningOnMiningIsland = true;
+
+    @Slider(
+            min = 1,
+            max = 7,
+            subcategory = "Pickaxes",
+            name = "Ready Banner Time",
+            description = "The amount of seconds the ready banner appears for.",
+            category = "Mining"
+    )
+    public float pickaxeBannerTime = 3.5f;
+
+    @Color(
+            subcategory = "Pickaxes",
+            name = "Ready Banner Color",
+            description = "The color of the ready banner text",
+            category = "Mining"
+    )
+    public OneColor pickaxeBannerColor = new OneColor(255, 255, 0);
+
+    @Switch(
+            name = "Block Ability on Private Island (UAYOR)",
+            subcategory = "Pickaxes",
+            description = "Blocks the use of pickaxe abilities on your private island. (Use at your own risk)",
+            category = "Mining"
+    )
+    public boolean blockAbilityOnPrivateIsland = false;
 
     //Events
     @Info(
@@ -564,7 +629,8 @@ public class OneConfigScreen extends Config {
         subcategory = "Party Manager", 
         name = "Arrow Low Warning", 
         description = "Message to send when a player has low arrows.\nUse {player} to signify the player's username, and {count} to signify the remaining arrow count.", 
-        category = "Dungeons"
+        category = "Dungeons",
+            size = 2
     )
     public String arrowLowChatMessage = "Partly Sane Skies > Warning! {player} only has {count} arrows remaining!";
 
@@ -673,7 +739,8 @@ public class OneConfigScreen extends Config {
         subcategory = "Watcher Ready", 
         name = "Watcher Ready Text", 
         description = "Message to send when the watcher is ready to clear.", 
-        category = "Dungeons"
+        category = "Dungeons",
+            size = 2
     )
     public String watcherChatMessage = "Partly Sane Skies > The watcher is done spawning mobs. Ready to clear.";
 
@@ -685,6 +752,68 @@ public class OneConfigScreen extends Config {
     )
     public boolean watcherReadyAirRaidSiren = false;
 
+    // Required Secrets Found
+    @Switch(
+            name = "Required Secrets Found Banner",
+            subcategory = "Required Secrets Found",
+            description = "Sends a warning when all required secrets have been found.",
+            category = "Dungeons"
+    )
+    public boolean secretsBanner = false;
+
+    @Switch(
+            name = "Required Secrets Found Sound",
+            subcategory = "Required Secrets Found",
+            description = "Plays a sound when all required secrets have been found.",
+            category = "Dungeons"
+    )
+    public boolean secretsSound = false;
+
+    @Slider(
+            min = 1,
+            max = 7,
+            subcategory = "Required Secrets Found",
+            name = "Required Secrets Found Banner Time",
+            description = "The amount of seconds the required secrets found banner appears for.",
+            category = "Dungeons"
+    )
+    public float secretsBannerTime = 3.5f;
+
+    @Color(
+            subcategory = "Required Secrets Found",
+            name = "Required Secrets Found Banner Color",
+            description = "The color of the required secrets found text",
+            category = "Dungeons"
+    )
+    public OneColor secretsBannerColor = new OneColor(255, 45, 6);
+
+    @Switch(
+            name = "Required Secrets Found Chat Message",
+            subcategory = "Required Secrets Found",
+            description = "Send a message to your party when all required secrets have been found.",
+            category = "Dungeons"
+    )
+    public boolean secretsChatMessage = false;
+
+
+    @Text(
+            subcategory = "Required Secrets Found",
+            name = "Required Secrets Found Text",
+            description = "Message to send when all required secrets have been found.",
+            category = "Dungeons",
+            size = 2
+    )
+    public String secretsChatMessageString = "Partly Sane Skies > All required secrets have been found!";
+
+    @Switch(
+            subcategory = "Required Secrets Found",
+            name = "Air Raid Siren",
+            description = "Plays a WWII air raid siren when all required secrets have been found. \nPros: \nKeeps you up at late night grinds \n(RECOMMENDED, ESPECIALLY AT 3 AM)",
+            category = "Dungeons"
+    )
+    public boolean secretsAirRaidSiren = false;
+
+// Dungeon Player Breakdown
     @Switch(
         subcategory = "Dungeon Player Breakdown", 
         name = "Dungeon Player Breakdown", 
@@ -797,6 +926,17 @@ public class OneConfigScreen extends Config {
     )
     public boolean bitShopOnlyShowAffordable = true;
 
+    @Slider(
+            min = 0,
+            max = 100,
+            category = "Economy",
+            subcategory = "BIN Sniper",
+            name = "BIN Snipe Percentage",
+            description = "The percent of the price that the BIN sniper considers a \"snipe\". Example: 85%, Lowest BIN: 1 000 000, will look for a price of 850000 or less."
+    )
+    public float BINSniperPercent = 87f;
+
+
      // Auction House
      @Switch(
         name = "Custom Auction House GUI", 
@@ -819,27 +959,70 @@ public class OneConfigScreen extends Config {
     )
     public int customAhGuiTextures = 1;
 
-    @Slider( 
-        min = 0, 
-        max = 100, 
-        category = "Economy", 
-        subcategory = "Auction House", 
-        name = "BIN Snipe Percentage", 
-        description = "The percent of the price that the BIN sniper considers a \"snipe\". Example: 85%, Lowest BIN: 1 000 000, will look for a price of 850000 or less."
-    )
-    public float BINSniperPercent = 87f;
 
-    @Color(
-        name = "Bin Sniper Highlight Color",
-        description = "Pick a color to highlight your BIN snipes",
-        subcategory = "Auction House",
-        category = "Economy"
+    @Slider(
+            name = "Master Scale",
+            min = .1f,
+            max = 1,
+            subcategory = "Auction House",
+            category = "Economy"
     )
-    public OneColor BINSniperColor = new OneColor(1, 255, 255);
+    public float masterAuctionHouseScale = .333333f;
+
+
+    @Slider(
+            name = "Item Padding",
+            min = 0f,
+            max = .2f,
+            subcategory = "Auction House",
+            category = "Economy"
+    )
+    public float auctionHouseItemPadding = .075f;
+
+    @Slider(
+            name = "Side Bar Height",
+            min = .25f,
+            max = 2f,
+            subcategory = "Auction House",
+            category = "Economy"
+    )
+    public float auctionHouseSideBarHeight = 1.333f;
+    @Slider(
+            name = "Side Bar Width",
+            min = .25f,
+            max = 2,
+            subcategory = "Auction House",
+            category = "Economy"
+    )
+    public float auctionHouseSideBarWidth = .667f;
+
+    @Slider(
+            name = "Side Bar Padding",
+            min = -.5f,
+            max = .5f,
+            subcategory = "Auction House",
+            category = "Economy"
+    )
+    public float auctionSideBarPadding = .05f;
+
+    @Slider(
+            name = "Auction House Text Scale",
+            min = .11f,
+            max = 2,
+            subcategory = "Auction House",
+            category = "Economy"
+    )
+    public float auctionHouseTextScale = .75f;
+
+
+
+
+
+
     // Excessive Coin warning
     @Switch(
         name = "Excessive Coin and No Booster Cookie", 
-        category = "Economy", 
+        category = "Economy",
         description = "Warns you if you have a lot of coins in your purse and no booster cookie.", 
         subcategory = "Excessive Coin Warning"
     )
@@ -927,10 +1110,10 @@ public class OneConfigScreen extends Config {
     public boolean colorOfficerChat = false;
 
     @Switch(
-            name = "Skyblock Co-op Chat",
+            name = "SkyBlock Co-op Chat",
             category = "Chat",
             subcategory = "Chat Color",
-            description = "Color messages from the skyblock coop chat aqua to make them more visible in busy lobbies."
+            description = "Color messages from the SkyBlock coop chat aqua to make them more visible in busy lobbies."
     )
     public boolean colorCoopChat = false;
 
@@ -941,6 +1124,15 @@ public class OneConfigScreen extends Config {
             description = "Converts the custom colors mentioned above to more visible colors. Dark Green -> Light Green and Blue -> Gold. (Recommended)"
     )
     public boolean visibleColors = false;
+
+    //Fun
+    @Switch(
+            name = "OwO Language toggle",
+            category = "Chat",
+            subcategory = "Fun",
+            description = "Replaces all chat messages with OwO language.\nThis feature basically breaks the whole chat, so please be warned"
+    )
+    public boolean owoLanguage = false;
 
 
 //    ------------- DEBUG ------------

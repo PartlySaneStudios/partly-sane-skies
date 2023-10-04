@@ -10,6 +10,7 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager;
 import me.partlysanestudios.partlysaneskies.system.requests.Request;
 import me.partlysanestudios.partlysaneskies.system.requests.RequestsManager;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -162,11 +163,19 @@ public class SkyblockDataManager {
 
     }
 
+    @NotNull
     public static String getId(String name) {
+        if (!nameToIdMap.containsKey(name)) {
+            return "";
+        }
         return nameToIdMap.get(name);
     }
 
+    @NotNull
     public static SkyblockItem getItem(String id) {
+        if (!idToItemMap.containsKey(id)) {
+            return new SkyblockItem("", "", -1, "");
+        }
         return idToItemMap.get(id);
     }
 

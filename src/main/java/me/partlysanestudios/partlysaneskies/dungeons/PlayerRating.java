@@ -6,22 +6,18 @@
 
 package me.partlysanestudios.partlysaneskies.dungeons;
 
-import java.net.MalformedURLException;
-import java.util.HashMap;
-import java.util.Map;
-
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
-import me.partlysanestudios.partlysaneskies.system.requests.Request;
-import me.partlysanestudios.partlysaneskies.system.requests.RequestsManager;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class PlayerRating {
 
@@ -107,29 +103,29 @@ public class PlayerRating {
 
         if (PartlySaneSkies.config.enhancedDungeonPlayerBreakdown == 0) { 
             for (Map.Entry<String, HashMap<String, Integer>> entry : playerPointCategoryMap.entrySet()) {
-                String playerStr = "&d" + entry.getKey() + "  &9" + Utils.round((double) totalPlayerPoints.get(entry.getKey()) / totalPoints * 100d, 0) +"%&7 | ";
+                String playerStr = "§d" + entry.getKey() + "  §9" + Utils.round((double) totalPlayerPoints.get(entry.getKey()) / totalPoints * 100d, 0) +"%§7 | ";
                 
                 str.append(playerStr);
             }
             
-            return StringUtils.colorCodes(str.toString());
+            return (str.toString());
         }
 
-        str.append("&a&nDungeon Overview:\n\n");
+        str.append("§a§nDungeon Overview:\n\n");
         for (Map.Entry<String, HashMap<String, Integer>> entry : playerPointCategoryMap.entrySet()) {
             String playerName = entry.getKey();
-            StringBuilder playerStr = new StringBuilder("&d" + playerName + "&7 completed &d" + Utils.round((double) totalPlayerPoints.get(playerName) / totalPoints * 100d, 0) + "%&7 of the dungeon.\n");
+            StringBuilder playerStr = new StringBuilder("§d" + playerName + "§7 completed §d" + Utils.round((double) totalPlayerPoints.get(playerName) / totalPoints * 100d, 0) + "%§7 of the dungeon.\n");
             if (PartlySaneSkies.config.enhancedDungeonPlayerBreakdown == 2) {
-                playerStr.append("&2   Breakdown:\n");
+                playerStr.append("§2   Breakdown:\n");
                 for (Map.Entry<String, Integer> entry2 : entry.getValue().entrySet()) {
-                    playerStr.append("     &d").append(Utils.round((double) entry2.getValue() / categoryPointMap.get(entry2.getKey()) * 100d, 0)).append("%&7 of ").append(entry2.getKey()).append("\n");
+                    playerStr.append("     §d").append(Utils.round((double) entry2.getValue() / categoryPointMap.get(entry2.getKey()) * 100d, 0)).append("%§7 of ").append(entry2.getKey()).append("\n");
                 }
             }
             
             str.append(playerStr);
         }
 
-        str = new StringBuilder(StringUtils.colorCodes(str.toString()));
+        str = new StringBuilder((str.toString()));
 
 
 

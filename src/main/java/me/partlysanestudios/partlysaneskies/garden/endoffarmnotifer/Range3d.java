@@ -6,9 +6,6 @@
 
 package me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer;
 
-import me.partlysanestudios.partlysaneskies.utils.StringUtils;
-import me.partlysanestudios.partlysaneskies.utils.Utils;
-
 import java.util.Arrays;
 
 public class Range3d {
@@ -55,7 +52,7 @@ public class Range3d {
 
     @Override
     public String toString() {
-        return StringUtils.colorCodes("&7" + getRangeName() + " &b(" + smallCoordinate[0] + ", " + smallCoordinate[1] + ", " + smallCoordinate[2] + ")&7 to &b(" + largeCoordinate[0] + ", " + largeCoordinate[1] + ", " + largeCoordinate[2] + ")");
+        return ("§7" + getRangeName() + " §b(" + smallCoordinate[0] + ", " + smallCoordinate[1] + ", " + smallCoordinate[2] + ")§7 to §b(" + largeCoordinate[0] + ", " + largeCoordinate[1] + ", " + largeCoordinate[2] + ")");
     }
 
     public static class Point3d extends Point2d{
@@ -86,10 +83,6 @@ public class Range3d {
 
         public double getY() {
             return y;
-        }
-
-        public double getDistanceTo(Point2d point) {
-            return Utils.getDistance(this, point);
         }
     }
 

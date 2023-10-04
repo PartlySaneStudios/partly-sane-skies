@@ -21,10 +21,10 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager;
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockItem;
 import me.partlysanestudios.partlysaneskies.system.ThemeManager;
-import me.partlysanestudios.partlysaneskies.utils.StringUtils;
-import me.partlysanestudios.partlysaneskies.utils.Utils;
 import me.partlysanestudios.partlysaneskies.system.requests.Request;
 import me.partlysanestudios.partlysaneskies.system.requests.RequestsManager;
+import me.partlysanestudios.partlysaneskies.utils.StringUtils;
+import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.inventory.IInventory;
 import net.minecraftforge.client.event.GuiScreenEvent;
@@ -81,7 +81,7 @@ public class SkymartValue {
         int i = 1;
         for (Map.Entry<String, Double> en : sortedMap.entrySet()) {
             SkyblockItem item = SkyblockDataManager.getItem(en.getKey());
-            str.append("&6").append(i).append(". &d").append(item.getName()).append("&7 costs &d").append(StringUtils.formatNumber(copperCost.get(en.getKey()))).append("&7 copper and sells for &d").append(StringUtils.formatNumber(Utils.round(item.getSellPrice(), 1))).append("&7 coins \n&8 (").append(StringUtils.formatNumber(Utils.round(en.getValue(), 1))).append(" coins per copper)\n");
+            str.append("§6").append(i).append(". §d").append(item.getName()).append("§7 costs §d").append(StringUtils.formatNumber(copperCost.get(en.getKey()))).append("§7 copper and sells for §d").append(StringUtils.formatNumber(Utils.round(item.getSellPrice(), 1))).append("§7 coins \n§8 (").append(StringUtils.formatNumber(Utils.round(en.getValue(), 1))).append(" coins per copper)\n");
             i++;
             if (i > 5) {
                 break;
@@ -89,7 +89,7 @@ public class SkymartValue {
         }
 
     
-        str = new StringBuilder(StringUtils.colorCodes(str.toString()));
+        str = new StringBuilder((str.toString()));
         
         return str.toString();
     }
@@ -154,11 +154,11 @@ public class SkymartValue {
             .setWidth(new PixelConstraint(box.getWidth() - widthScaledConstraint(2 * pad).getValue()));
             
 
-        String textString = "&e&lTop Items:\n\n";
+        String textString = "§e§lTop Items:\n\n";
 
         textString += getString();
 
-        textString = StringUtils.colorCodes(textString);
+        textString = (textString);
         textComponent.setText(textString);
 
         window.draw(new UMatrixStack());

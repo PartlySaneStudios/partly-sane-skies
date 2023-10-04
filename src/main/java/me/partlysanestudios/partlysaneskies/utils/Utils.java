@@ -13,7 +13,6 @@ import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.WikiArticleOpener;
-import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.EndOfFarmNotifier;
 import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.Range3d;
 import me.partlysanestudios.partlysaneskies.system.ThemeManager;
 import net.minecraft.client.Minecraft;
@@ -43,42 +42,71 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Utils {
+    public static boolean inDungeons(){
+        String regionName = PartlySaneSkies.getRegionName();
+        String noColorCodeRegionName = me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes(regionName);
+
+        if (noColorCodeRegionName.isEmpty()) {
+            return false;
+        }
+
+        noColorCodeRegionName = me.partlysanestudios.partlysaneskies.utils.StringUtils.stripLeading(noColorCodeRegionName);
+        noColorCodeRegionName = me.partlysanestudios.partlysaneskies.utils.StringUtils.stripTrailing(noColorCodeRegionName);
+        noColorCodeRegionName = noColorCodeRegionName.replaceAll("\\P{Print}", ""); // Removes the RANDOM EMOJIS
+        return noColorCodeRegionName.toLowerCase().contains("catacombs");
+    }
+  
+    public static ItemStack getCurrentlyHoldingItem() {
+        return PartlySaneSkies.minecraft.thePlayer.getHeldItem();
+    }
+
+    public static boolean isArrOfStringsInLore(String[] arr, String[] lore) {
+        for (String line : lore) {
+            for (String arrItem : arr) {
+                if (line.contains(arrItem)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public static HashMap<String, Color> colorCodetoColor = new HashMap<>();
 
     public static void init() {
-        colorCodetoColor.put("§4", new Color(170, 0, 0));
-        colorCodetoColor.put("§c", new Color(255, 85, 85));
-        colorCodetoColor.put("§6", new Color(255, 170, 0));
-        colorCodetoColor.put("§e", new Color(255, 255, 85));
-        colorCodetoColor.put("§2", new Color(0, 170, 0));
         colorCodetoColor.put("§a", new Color(85, 255, 85));
         colorCodetoColor.put("§b", new Color(85, 255, 255));
-        colorCodetoColor.put("§3", new Color(0, 170, 170));
-        colorCodetoColor.put("§1", new Color(0, 0, 170));
-        colorCodetoColor.put("§9", new Color(85, 85, 255));
+        colorCodetoColor.put("§c", new Color(255, 85, 85));
         colorCodetoColor.put("§d", new Color(255, 85, 255));
-        colorCodetoColor.put("§5", new Color(170, 0, 170));
+        colorCodetoColor.put("§e", new Color(255, 255, 85));
         colorCodetoColor.put("§f", new Color(0, 0, 0));
+        colorCodetoColor.put("§1", new Color(0, 0, 170));
+        colorCodetoColor.put("§2", new Color(0, 170, 0));
+        colorCodetoColor.put("§3", new Color(0, 170, 170));
+        colorCodetoColor.put("§4", new Color(170, 0, 0));
+        colorCodetoColor.put("§5", new Color(170, 0, 170));
+        colorCodetoColor.put("§6", new Color(255, 170, 0));
         colorCodetoColor.put("§7", new Color(170, 170, 170));
         colorCodetoColor.put("§8", new Color(85, 85, 85));
+        colorCodetoColor.put("§9", new Color(85, 85, 255));
         colorCodetoColor.put("§0", new Color(0, 0, 0));
 
-        colorCodetoColor.put("&4", new Color(170, 0, 0));
-        colorCodetoColor.put("&c", new Color(255, 85, 85));
-        colorCodetoColor.put("&6", new Color(255, 170, 0));
-        colorCodetoColor.put("&e", new Color(255, 255, 85));
-        colorCodetoColor.put("&2", new Color(0, 170, 0));
-        colorCodetoColor.put("&a", new Color(85, 255, 85));
-        colorCodetoColor.put("&b", new Color(85, 255, 255));
-        colorCodetoColor.put("&3", new Color(0, 170, 170));
-        colorCodetoColor.put("&1", new Color(0, 0, 170));
-        colorCodetoColor.put("&9", new Color(85, 85, 255));
-        colorCodetoColor.put("&d", new Color(255, 85, 255));
-        colorCodetoColor.put("&5", new Color(170, 0, 170));
-        colorCodetoColor.put("&f", new Color(0, 0, 0));
-        colorCodetoColor.put("&7", new Color(170, 170, 170));
-        colorCodetoColor.put("&8", new Color(85, 85, 85));
-        colorCodetoColor.put("&0", new Color(0, 0, 0));
+        // colorCodetoColor.put("&a", new Color(85, 255, 85));
+        // colorCodetoColor.put("&b", new Color(85, 255, 255));
+        // colorCodetoColor.put("&c", new Color(255, 85, 85));
+        // colorCodetoColor.put("&d", new Color(255, 85, 255));
+        // colorCodetoColor.put("&e", new Color(255, 255, 85));
+        // colorCodetoColor.put("&f", new Color(0, 0, 0));
+        // colorCodetoColor.put("&1", new Color(0, 0, 170));
+        // colorCodetoColor.put("&2", new Color(0, 170, 0));
+        // colorCodetoColor.put("&3", new Color(0, 170, 170));
+        // colorCodetoColor.put("&4", new Color(170, 0, 0));
+        // colorCodetoColor.put("&5", new Color(170, 0, 170));
+        // colorCodetoColor.put("&6", new Color(255, 170, 0));
+        // colorCodetoColor.put("&7", new Color(170, 170, 170));
+        // colorCodetoColor.put("&8", new Color(85, 85, 85));
+        // colorCodetoColor.put("&9", new Color(85, 85, 255));
+        // colorCodetoColor.put("&0", new Color(0, 0, 0));
     }
 
 
@@ -108,7 +136,7 @@ public class Utils {
 
     // If true, Sends a message discretely without the Prefix Partly Sane Skies >:
     public static void sendClientMessage(String text, boolean silent) {
-        text = StringUtils.colorCodes(text);
+        text = (text);
         if (silent) {
             try {
                 sendClientMessage(new ChatComponentText(text));
@@ -118,7 +146,7 @@ public class Utils {
         }
         else {
             try {
-                sendClientMessage(new ChatComponentText(StringUtils.colorCodes(PartlySaneSkies.CHAT_PREFIX) + text));
+                sendClientMessage(new ChatComponentText((PartlySaneSkies.CHAT_PREFIX) + text));
             } catch (NullPointerException ignored) {
             }
         }
@@ -212,6 +240,9 @@ public class Utils {
     }
 
     public static String getItemId(ItemStack item) {
+        if (item == null) {
+            return "";
+        }
         if (WikiArticleOpener.getItemAttributes(item) == null) {
             return "";
         }
@@ -238,6 +269,12 @@ public class Utils {
     }
 
     public static ArrayList<String> getLore(ItemStack itemStack) {
+        if (itemStack == null) {
+            return new ArrayList<>();
+        }
+        if (!itemStack.hasTagCompound() || !itemStack.getTagCompound().hasKey("display") || !itemStack.getTagCompound().getCompoundTag("display").hasKey("Lore")) {
+            return new ArrayList<>();
+        }
         NBTTagList tagList = itemStack.getTagCompound().getCompoundTag("display").getTagList("Lore", 8);
         ArrayList<String> loreList = new ArrayList<>();
         for (int i = 0; i < tagList.tagCount(); i++) {

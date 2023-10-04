@@ -5,12 +5,6 @@
 
 package me.partlysanestudios.partlysaneskies.garden;
 
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import gg.essential.elementa.ElementaVersion;
 import gg.essential.elementa.UIComponent;
 import gg.essential.elementa.components.UIImage;
@@ -30,6 +24,12 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class GardenTradeValue {
     private static final Window window = new Window(ElementaVersion.V2);
@@ -268,29 +268,29 @@ public class GardenTradeValue {
 
         StringBuilder textString = new StringBuilder();
 
-        textString.append("&e&lTotal Cost: &r&d").append(StringUtils.formatNumber(Utils.round(getTotalCost(), 2))).append("\n\n");
+        textString.append("§e§lTotal Cost: §r§d").append(StringUtils.formatNumber(Utils.round(getTotalCost(), 2))).append("\n\n");
         
-        textString.append("&e&lCopper Received: &r&d").append(StringUtils.formatNumber(Utils.round(getCopperReturn(), 2))).append("\n\n");
+        textString.append("§e§lCopper Received: §r§d").append(StringUtils.formatNumber(Utils.round(getCopperReturn(), 2))).append("\n\n");
 
         double pricePerCopper = getTotalCost() / getCopperReturn();
-        textString.append("&e&lCoins/Copper: &r&d").append(StringUtils.formatNumber(Utils.round(pricePerCopper, 2))).append("\n\n");
+        textString.append("§e§lCoins/Copper: §r§d").append(StringUtils.formatNumber(Utils.round(pricePerCopper, 2))).append("\n\n");
 
         StringBuilder priceBreakdown = new StringBuilder();
         HashMap<String, Double> coinCostMap = getCoinCostMap();
         for (Map.Entry<String, Integer> en : getQuantityCostMap().entrySet()){
-            priceBreakdown.append("&7x&d").append(en.getValue()).append(" &7").append(en.getKey()).append(" for a total of &d").append(StringUtils.formatNumber(Utils.round(coinCostMap.get(en.getKey()), 2))).append("&7 coins.\n");
+            priceBreakdown.append("§7x§d").append(en.getValue()).append(" §7").append(en.getKey()).append(" for a total of §d").append(StringUtils.formatNumber(Utils.round(coinCostMap.get(en.getKey()), 2))).append("§7 coins.\n");
         }
 
-        textString.append("&e&lPrice Breakdown:&r\n");
+        textString.append("§e§lPrice Breakdown:§r\n");
         textString.append(priceBreakdown);
         textString.append("\n\n");
 
-        textString.append("&e&lRewards:&r\n");
+        textString.append("§e§lRewards:§r\n");
         for (String line : getRewardsLore()) {
             textString.append(line).append("\n");
         }
 
-        textString = new StringBuilder(StringUtils.colorCodes(textString.toString()));
+        textString = new StringBuilder((textString.toString()));
 
         textComponent.setText(textString.toString());
 
