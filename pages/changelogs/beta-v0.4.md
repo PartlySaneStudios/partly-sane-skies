@@ -16,24 +16,25 @@ Hey everyone! We just release a new update to Partly Sane Skies with a few new f
 
 - Added required screts notifier (@j10a1n15)
 
+
+< Get j10a to write the description and screenshots >
+
 ## Changes
-### Custom Auction House Menu Revamp (@Su386yt)
-
-After a ton of comments, Reddit posts, and Forum posts of people complaining how horrifying our custom auction house was, we decided to make it slightly less horrifying. We've remade it and made a few changes:
-
-- **By default, the auction house is now smaller**
-- By default, the FurfSky Textures are used
-- The BIN sniper highlighting is more visible, 
-- The BIN sniper now supports a chroma accent color
-- The BIN sniper highlighting is now rounded
-- The Auction House shouldn't crash anymore (theoretically)
-- **Nearly every aspect is customisable**
-
-![Revamped Custom Auction House Menu Image](https://github.com/PartlySaneStudios/partly-sane-skies/assets/83100266/c3d68317-31e8-46f3-9dff-c1327bef7761)
 
 - Converted all systems to the new banner renderer (@Su386yt)
 - Converted most code to use "§", and changed color coordination (@RayDeeUx)
 - Fixed incorrect capitalisation of SkyBlock (@j10a1n15)
+- **__Custom Auction House Menu Revamp (@Su386yt)__**
+  - After a ton of comments, Reddit posts, and Forum posts of people complaining how horrifying our custom auction house was, we decided to make it slightly less horrifying. We've remade it and made a few changes:
+  - **By default, the auction house is now smaller**
+  - By default, the FurfSky Textures are used
+  -   The BIN sniper highlighting is more visible, 
+  - The BIN sniper now supports a chroma accent color
+  - The BIN sniper highlighting is now rounded
+  - The Auction House shouldn't crash anymore (theoretically)
+  - **Nearly every aspect is customisable**
+
+![Revamped Custom Auction House Menu Image](https://github.com/PartlySaneStudios/partly-sane-skies/assets/83100266/c3d68317-31e8-46f3-9dff-c1327bef7761)
 
 ## Bug Fixes
 - Fixed Auction House crashing (@Su386yt)
@@ -49,7 +50,7 @@ After a ton of comments, Reddit posts, and Forum posts of people complaining how
 - Added Custom Main Menu description (@Su386yt)
 
 ## New Contributors
-- @RayDeeUx made their first contribution in https://github.com/PartlySaneStudios/partly-sane-skies/pull/222
+- @RayDeeUx made their first contribution in #222
 
 We'd also like to welcome our newest developer @j10a1n15 to the team.
 
