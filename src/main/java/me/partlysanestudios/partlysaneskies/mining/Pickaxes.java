@@ -85,7 +85,7 @@ public class Pickaxes {
                 "far reserve", "goblin burrows", "miner's guild", "great ice wall", "the mist", "c&c minecarts co.",
                 "grand library", "barracks of heroes", "dwarven village", "the lift", "royal quarters", "lava springs",
                 "cliffside veins", "rampart's quarry", "upper mines", "royal mines", "gold mine", "coal mine",
-                "gunpowder mines", "lapis quarry", "pigman's den", "slimehill", "diamond reserve", "obsidian sanctuary"
+                "gunpowder mines", "lapis quarry", "pigman's den", "slimehill", "diamond reserve", "obsidian sanctuary", "dwarven mines"
         };
 
         for (String loc : miningLocations) {
