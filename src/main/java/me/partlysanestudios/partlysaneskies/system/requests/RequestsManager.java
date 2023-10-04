@@ -6,11 +6,11 @@
 
 package me.partlysanestudios.partlysaneskies.system.requests;
 
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
+
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Queue;
-
-import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 
 public class RequestsManager {
 

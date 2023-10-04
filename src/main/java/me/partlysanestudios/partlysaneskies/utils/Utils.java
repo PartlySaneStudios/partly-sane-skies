@@ -13,7 +13,6 @@ import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.WikiArticleOpener;
-import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.EndOfFarmNotifier;
 import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.Range3d;
 import me.partlysanestudios.partlysaneskies.system.ThemeManager;
 import net.minecraft.client.Minecraft;
@@ -241,6 +240,9 @@ public class Utils {
     }
 
     public static String getItemId(ItemStack item) {
+        if (item == null) {
+            return "";
+        }
         if (WikiArticleOpener.getItemAttributes(item) == null) {
             return "";
         }
@@ -267,6 +269,9 @@ public class Utils {
     }
 
     public static ArrayList<String> getLore(ItemStack itemStack) {
+        if (itemStack == null) {
+            return new ArrayList<>();
+        }
         if (!itemStack.hasTagCompound() || !itemStack.getTagCompound().hasKey("display") || !itemStack.getTagCompound().getCompoundTag("display").hasKey("Lore")) {
             return new ArrayList<>();
         }

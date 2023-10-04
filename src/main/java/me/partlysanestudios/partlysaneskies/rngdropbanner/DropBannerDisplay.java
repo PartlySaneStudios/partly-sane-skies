@@ -5,8 +5,6 @@
 
 package me.partlysanestudios.partlysaneskies.rngdropbanner;
 
-import java.awt.Color;
-
 import gg.essential.elementa.ElementaVersion;
 import gg.essential.elementa.UIComponent;
 import gg.essential.elementa.components.UIWrappedText;
@@ -20,6 +18,8 @@ import net.minecraft.client.gui.Gui;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+
+import java.awt.*;
 
 public class DropBannerDisplay extends Gui {
     public static Drop drop;
