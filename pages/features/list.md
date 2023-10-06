@@ -37,7 +37,7 @@ When switching to a new location region on skyblock, an MMO RPG style banner wil
 
 ### Incorrect Pet for Minion Alert
 
-If you do not the right pet selected for leveling up minions, you will be warned so that you never lose any pet EXP because you still have your level 100 dungeon pet activated. An optional World War II (1938-1945) air raid siren can be activated.
+If you do not the right pet selected for leveling up minions, you will be warned so that you never lose any pet EXP because you still have your level 100 dungeon pet activated. An optional World War II (1939-1945) air raid siren can be activated.
 
 ### Pet for Minion Information Display
 
@@ -59,7 +59,7 @@ When you are mining in the Crystal Hollows and a worm or Scatha spawns, you get 
 
 ### Pickaxes
 
-When the Pickaxe Ability cooldown is over, a message will appear on your screen, along with an optional sound or World War II (1938-1945) air raid siren in case the previous two don't get your attention.
+When the Pickaxe Ability cooldown is over, a message will appear on your screen, along with an optional sound or World War II (1939-1945) air raid siren in case the previous two don't get your attention.
 This feature also includes the ability to block right clicks with pickaxes on your private island/garden.
 
 ### Events
@@ -83,12 +83,13 @@ Default: ``M``
 ### Watcher Ready, Message, Warning, Siren and Sound
 
 When the watcher is done spawning mobs, a message will appear on your screen, along with an optional sound,
-party message and World War II (1938-1945) air raid siren in case the previous two don't get your attention.
+party message and World War II (1939-1945) air raid siren in case the previous two don't get your attention.
 
 ### Required Secrets Found Message, Warning, Siren and Soun
 
 When all the required secrets for a floor are found (Indicated by the "Secrets Found: x%" in the tablist),
-a message will appear on your screen, along with an optional sound, party message and World War II (1938-1945) air raid siren in case the previous two don't get your attention.
+a message will appear on your screen, along with an optional sound, party message and World War II (1939-1945) air raid siren in case the previous two don't get your attention.
+a message will appear on your screen, along with an optional sound, party message and World War II (1939-1945) air raid siren in case the previous two don't get your attention.
 
 ### Permanent Dungeon Party Selector
 
