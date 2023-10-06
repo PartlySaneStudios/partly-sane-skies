@@ -82,7 +82,7 @@ These commands also work instead of ``/allowhoerightclick``:
 ``/ahrc``
 
 ### Description
-Allows hoe right clicks for a few moments
+Allows hoe right clicks for a few moments or just once, depending on the config.
 
 ### Usage
 
@@ -173,6 +173,7 @@ Allows you to create areas where you will be notified you have reached the end o
 
 ``//farmnotifier remove [number]``: Removes a farm notifications from the list, given a valid ``number``. Numbers can be seen with ``/farmnotifier list``.
 
+``//farmnotifier show [index]``: Highlights the farm notification with the given ``index`` for a configurable amount of time. Indexes can be seen with ``/farmnotifier list``. In the config, enable "Show end of farm region" to see all highlighted regions at once for an unlimited amount of time.
 <br>
 
 ### To create a new farm notification:
@@ -333,6 +334,8 @@ These commands also work instead of ``/pssdiscord``:
 
 ``/psdisc``
 
+``/discord``
+
 ### Description
 Sends a link to join the discord in chat. [Or you can just join here (https://discord.gg/v4PU3WeH7z)](https://discord.gg/v4PU3WeH7z)
 
@@ -385,11 +388,11 @@ These commands also work instead of ``/wordeditor``:
 ``/wr``
 
 ### Description
-Replaces a desired word in chat with any other word, such as changing "Flagmaster" to "FlagHater"
+Replaces a desired word in chat with any other word or phrase, such as changing "Flagmaster" to "FlagHater", but also "Flagmaster" to "Most active contributor".
 ### Usage
 
 ``/wordeditor add <word> <replacement> ``: Changes word to replacement word in chat
-``/wordeditor remove <word> ``: Removes wordeditor for a word 
+``/wordeditor remove <index> ``: Removes wordeditor for a word using the index from the list
 ``/wordeditor list ``: lists all modified words
 
 </details>

@@ -18,8 +18,8 @@ import gg.essential.elementa.constraints.ScaleConstraint;
 import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.system.ThemeManager;
-import me.partlysanestudios.partlysaneskies.utils.Utils;
 import me.partlysanestudios.partlysaneskies.system.guicomponents.PSSButton;
+import me.partlysanestudios.partlysaneskies.utils.Utils;
 
 import java.awt.*;
 import java.net.MalformedURLException;

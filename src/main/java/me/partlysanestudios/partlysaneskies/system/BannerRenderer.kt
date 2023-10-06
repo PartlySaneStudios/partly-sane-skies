@@ -41,7 +41,10 @@ object BannerRenderer: Gui() {
 
 
         val bannerToRender = getMostRecentlyCreatedBanner()
-//        Utils.sendClientMessage("Window: width-${window.getWidth()}, height-${window.getHeight()}")
+
+        if (bannerToRender.text == "") {
+            return
+        }
 
 
         displayText.setText(bannerToRender.text)

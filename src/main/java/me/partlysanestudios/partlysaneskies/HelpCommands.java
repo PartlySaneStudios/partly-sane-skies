@@ -1,11 +1,9 @@
 package me.partlysanestudios.partlysaneskies;
 
 import gg.essential.elementa.components.Window;
-import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.system.Keybinds;
 import me.partlysanestudios.partlysaneskies.system.commands.CommandManager;
 import me.partlysanestudios.partlysaneskies.system.commands.PSSCommand;
-import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.event.ClickEvent;
 import net.minecraft.util.ChatComponentText;
@@ -141,7 +139,7 @@ public class HelpCommands {
         StringBuilder str = new StringBuilder("§3§m-----------------------------------------------------§r" +
                 "\n" +
                 "\n§b§l§nWelcome to Partly Sane Skies!§r" +
-                "\nPartly Sane Skies is a mod developed by Su386 and FlagMaster. This mod aims to be a quality of life mod for Hypixel Skyblock." +
+                "\nPartly Sane Skies is a mod developed by Su386 and FlagMaster. This mod aims to be a quality of life mod for Hypixel SkyBlock." +
                 "\n" +
                 "\n §6> Open the config: " +
                 "\n    §6> §ePress " + Keyboard.getKeyName(Keybinds.configKey.getKeyCode()) + " or use /pssc" +

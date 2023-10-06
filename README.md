@@ -1,7 +1,7 @@
 <h1> <a href="#----"> <img src = "images/banner_image.png" alt="Banner" align="center"> </a> </h1>
 
 [//]: # (<h1 align="center"> Partly Sane Skies </h1>)
-<h4 align="center"> <sup> A Quality of Life Skyblock Mod</sup> </h4>
+<h4 align="center"> <sup> A Quality of Life SkyBlock Mod</sup> </h4>
 
 <p align="center">
   <a href="https://github.com/PartlySaneStudios/partly-sane-skies/releases" target="_blank">
@@ -21,7 +21,7 @@
 ## About
 
 
-Partly Sane Skies is a Minecraft mod for Hypixel Skyblock, designed, built, and programmed by **Su386** and **FlagMaster**. 
+Partly Sane Skies is a Minecraft mod for Hypixel SkyBlock, designed, built, and programmed by **Su386** and **FlagMaster**. 
 Credits including third party programs can be [found here (CREDITS.md)](CREDITS.md)
 
 ### Download
@@ -62,6 +62,8 @@ Credits including third party programs can be [found here (CREDITS.md)](CREDITS.
 [``/chatalert``, ``/ca``, ``/chal``:](pages/commands.md#chatalerts) Command to use the Chat Alerts System. (See Features)
 
 [``//farmnotfier``, ``//fn``, ``//farmnotif``:](pages/commands.md#farmnotfier) Command to use the farm notifier system.
+
+[``/wordeditor``, ``/wordedit``, ``/wr``, ``/wordreplace``, ``/wr``] Command to replace a word in the chat with another word or a phrase.
 
 </details>
 
@@ -139,7 +141,7 @@ Private messages and messages that are sent in the Party, Guild, Guild Officer, 
 
 ### Incorrect Pet for Minion Alert
 
-If you do not the right pet selected for leveling up minions, you will be warned so that you never lose any pet EXP because you still have your level 100 dungeon pet activated. An optional World War II (1938-1945) air raid siren can be activated.
+If you do not the right pet selected for leveling up minions, you will be warned so that you never lose any pet EXP because you still have your level 100 dungeon pet activated. An optional World War II (1939-1945) air raid siren can be activated.
 
 ### Pet for Minion Information Display
 
@@ -175,7 +177,7 @@ This mod supports a variety of different themes, including dark themes, very dar
 ### Watcher Ready, Message, Warning, Siren and Sound
 
 When the watcher is done spawning mobs, a message will appear on your screen, along with an optional sound,
-party message and World War II (1938-1945) air raid siren in case the previous two don't get your attention.
+party message and World War II (1939-1945) air raid siren in case the previous two don't get your attention.
 
 ### Permanent Dungeon Party Selector
 

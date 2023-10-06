@@ -13,7 +13,7 @@ import gg.essential.elementa.components.Window;
 import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import gg.essential.universal.UMatrixStack;
-import me.partlysanestudios.partlysaneskies.auctionhouse.AhGui;
+import me.partlysanestudios.partlysaneskies.auctionhouse.menu.AuctionHouseGui;
 import me.partlysanestudios.partlysaneskies.system.ThemeManager;
 import me.partlysanestudios.partlysaneskies.system.commands.PSSCommand;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
@@ -99,7 +99,7 @@ public class PetAlert {
         if (!isPetGui()) {
             return;
         }
-        if (PartlySaneSkies.minecraft.currentScreen instanceof AhGui) {
+        if (PartlySaneSkies.minecraft.currentScreen instanceof AuctionHouseGui) {
             return;
         }
 
@@ -113,7 +113,7 @@ public class PetAlert {
             return;
         }
 
-        if (Utils.getItemId(item).equals("")) {
+        if (Utils.getItemId(item).isEmpty()) {
             return;
         }
         String petName = parsePetNameFromItem(item.getDisplayName());
