@@ -83,6 +83,12 @@ public class CustomMainMenu extends WindowScreen {
     private UIComponent quitText;
     private UIComponent timeText;
     private UIComponent discordText;
+    private static String funFactWebsite = "https://uselessfacts.jsph.pl/today";
+    public static String funFactApi = "https://uselessfacts.jsph.pl/api/v2/facts/today";
+    private static String funFact = "Loading...";
+    private UIWrappedText funFactTitle;
+    private static UIWrappedText funFactText;
+
 
     private static ArrayList<Announcement> announcements = new ArrayList<>();
     public static String latestVersion = "(Unknown)";
@@ -334,6 +340,23 @@ public class CustomMainMenu extends WindowScreen {
             .setChildOf(background);
 
         discordText.onMouseClickConsumer(event -> Utils.openLink("https://discord.gg/" + PartlySaneSkies.discordCode));
+
+        funFactTitle = (UIWrappedText) new UIWrappedText("§8Fun Fact of the Day", true, new Color(0, 0, 0, 95), true)
+            .setX(new PixelConstraint(10 * scaleFactor + background.getWidth() - 10 * scaleFactor))
+            .setY(new PixelConstraint(10 * scaleFactor + 20))
+            .setTextScale(new PixelConstraint(1 * scaleFactor))
+            .setColor(new Color(0, 0, 0, 95))
+            .setChildOf(background);
+
+        funFactText = (UIWrappedText) new UIWrappedText(funFact, true, new Color(0, 0, 0, 95), true)
+            .setX(new PixelConstraint(10 * scaleFactor + background.getWidth() - 10))
+            .setY(new PixelConstraint(25 * scaleFactor + 30))
+                .setWidth(new PixelConstraint(700 * scaleFactor))
+            .setTextScale(new PixelConstraint(1 * scaleFactor))
+            .setColor(new Color(0, 0, 0, 95))
+            .setChildOf(background);
+
+        funFactText.onMouseClickConsumer(event -> Utils.openLink(funFactWebsite));
     }
 
     public void resizeGui(float scaleFactor) {
@@ -443,6 +466,16 @@ public class CustomMainMenu extends WindowScreen {
                 .setX(new PixelConstraint(10 * scaleFactor))
                 .setY(new PixelConstraint(background.getHeight() - 20 * scaleFactor))
                 .setTextScale(new PixelConstraint(1 * scaleFactor));
+
+        funFactTitle
+                .setX(new PixelConstraint(background.getWidth() - 25 * scaleFactor - 290))
+                .setY(new PixelConstraint(10 * scaleFactor + 20))
+                .setTextScale(new PixelConstraint(1 * scaleFactor));
+
+        funFactText
+                .setX(new PixelConstraint(background.getWidth() - 25 * scaleFactor - 350))
+                .setY(new PixelConstraint(25 * scaleFactor + 30))
+                .setTextScale(new PixelConstraint(1 * scaleFactor));
     }
 
     public static void setMainMenuInfo(Request request) {
@@ -512,6 +545,39 @@ public class CustomMainMenu extends WindowScreen {
         // CustomMainMenu.latestVersionDate = "(Unknown)";
         // CustomMainMenu.latestVersionDescription = "";
         CustomMainMenu.announcements = new ArrayList<>();
+    }
+
+    public static void setFunFact(Request request) {
+        if (!request.hasSucceeded()) {
+            return;
+        }
+
+        String responseString = request.getResponse();
+
+        JsonObject object;
+        try {
+            object = new JsonParser().parse(responseString).getAsJsonObject();
+        } catch (NullPointerException | IllegalStateException  e) {
+            noInfoFound();
+            e.printStackTrace();
+            return;
+        }
+            //{"id":"c1dbf293f84042595368168a5b1c558d","text":"%60 of all people using the Internet, use it for pornography.","source":"djtech.net","source_url":"http://www.djtech.net/humor/useless_facts.htm","language":"en","permalink":"https://uselessfacts.jsph.pl/api/v2/facts/c1dbf293f84042595368168a5b1c558d"}
+        try {
+            JsonObject factInfo = object.getAsJsonObject();
+
+            String fact = factInfo.get("text").getAsString();
+            String source = factInfo.get("source").getAsString();
+
+            CustomMainMenu.funFact = "§7" + fact + "\n§8Source: §7" + source;
+            CustomMainMenu.funFactText.setText(CustomMainMenu.funFact);
+
+        } catch (NullPointerException | IllegalStateException | ClassCastException e) {
+            CustomMainMenu.funFact = "§7Failed to load fun fact.";
+            CustomMainMenu.funFactText.setText(CustomMainMenu.funFact);
+            CustomMainMenu.funFactWebsite = "https://uselessfacts.jsph.pl/today";
+            e.printStackTrace();
+        }
     }
 
 
