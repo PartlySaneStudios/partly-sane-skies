@@ -341,25 +341,23 @@ public class CustomMainMenu extends WindowScreen {
 
         discordText.onMouseClickConsumer(event -> Utils.openLink("https://discord.gg/" + PartlySaneSkies.discordCode));
 
-        if (PartlySaneSkies.config.mainmenufunfact) {
+        funFactTitle = (UIWrappedText) new UIWrappedText("§8Fun Fact of the Day", true, new Color(255, 255, 255), true)
+                .setX(new PixelConstraint((int) background.getWidth() * 0.6f))
+                .setY(new PixelConstraint(10 * scaleFactor + 20))
+                .setWidth(new PixelConstraint(700 * scaleFactor))
+                .setTextScale(new PixelConstraint(1 * scaleFactor))
+                .setColor(new Color(0, 0, 0, 95))
+                .setChildOf(background);
 
-            funFactTitle = (UIWrappedText) new UIWrappedText("§8Fun Fact of the Day", true, new Color(255, 255, 255), true)
-                    .setX(new PixelConstraint((int) background.getWidth() * 0.7f))
-                    .setY(new PixelConstraint(10 * scaleFactor + 20))
-                    .setTextScale(new PixelConstraint(1 * scaleFactor))
-                    .setColor(new Color(0, 0, 0, 95))
-                    .setChildOf(background);
+        funFactText = (UIWrappedText) new UIWrappedText(funFact, true, new Color(255, 255, 255), true)
+                .setX(new PixelConstraint((int) background.getWidth() * 0.6f))
+                .setY(new PixelConstraint(25 * scaleFactor + 30))
+                .setWidth(new PixelConstraint(700 * scaleFactor))
+                .setTextScale(new PixelConstraint(1 * scaleFactor))
+                .setColor(new Color(0, 0, 0, 95))
+                .setChildOf(background);
 
-            funFactText = (UIWrappedText) new UIWrappedText(funFact, true, new Color(255, 255, 255), true)
-                    .setX(new PixelConstraint((int) background.getWidth() * 0.7f))
-                    .setY(new PixelConstraint(25 * scaleFactor + 30))
-                    .setWidth(new PixelConstraint(700 * scaleFactor))
-                    .setTextScale(new PixelConstraint(1 * scaleFactor))
-                    .setColor(new Color(0, 0, 0, 95))
-                    .setChildOf(background);
-
-            funFactText.onMouseClickConsumer(event -> Utils.openLink(funFactWebsite));
-        }
+        funFactText.onMouseClickConsumer(event -> Utils.openLink(funFactWebsite));
     }
 
     public void resizeGui(float scaleFactor) {
@@ -471,12 +469,12 @@ public class CustomMainMenu extends WindowScreen {
                 .setTextScale(new PixelConstraint(1 * scaleFactor));
 
         funFactTitle
-                .setX(new PixelConstraint((int) background.getWidth() * 0.7f))
+                .setX(new PixelConstraint((int) background.getWidth() * 0.6f))
                 .setY(new PixelConstraint(10 * scaleFactor + 20))
                 .setTextScale(new PixelConstraint(1 * scaleFactor));
 
         funFactText
-                .setX(new PixelConstraint((int) background.getWidth() * 0.7f))
+                .setX(new PixelConstraint((int) background.getWidth() * 0.6f))
                 .setY(new PixelConstraint(25 * scaleFactor + 30))
                 .setTextScale(new PixelConstraint(1 * scaleFactor));
     }

@@ -162,14 +162,6 @@ public class OneConfigScreen extends Config {
     public int customMainMenuImage = 1;
 
     @Switch(
-        category = "General",
-        subcategory = "Main Menu",
-        name = "Fun Fact of the day",
-        description = "Display a fun fact of the day on the main menu"
-    )
-    public boolean mainmenufunfact = false;
-
-    @Switch(
         name = "Print errors in chat",
         category = "General",
         subcategory = "API",
