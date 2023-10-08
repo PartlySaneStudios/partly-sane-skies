@@ -37,6 +37,7 @@ public class EndOfFarmNotifier {
 
     public static Range3d rangeToHighlight = null;
     public static long rangeToHighlightSetTime = 0;
+    public static boolean wandActive = false;
 
 
     public static void run() {
@@ -96,12 +97,16 @@ public class EndOfFarmNotifier {
             return false;
         }
         for (Range3d range : ranges) {
-            if (range.isInRange(PartlySaneSkies.minecraft.thePlayer.getPosition().getX(), PartlySaneSkies.minecraft.thePlayer.getPosition().getY(), PartlySaneSkies.minecraft.thePlayer.getPosition().getZ())) {
+            if (range.isInRange(PartlySaneSkies.minecraft.thePlayer.posX, PartlySaneSkies.minecraft.thePlayer.posY, PartlySaneSkies.minecraft.thePlayer.posZ)) { //Pos with decimals
                 return true;
             }
         }
         return false;
     }
+
+    /*
+        EndOfFarmNotifier Save/Load
+     */
 
     public static void save() throws IOException {
         // Declares the file
@@ -137,7 +142,7 @@ public class EndOfFarmNotifier {
         JsonArray array = new JsonParser().parse(reader).getAsJsonArray();
 
         ArrayList<Range3d> list = new ArrayList<>();
-        
+
         for (JsonElement en : array) {
             JsonObject range = en.getAsJsonObject();
 
@@ -160,51 +165,57 @@ public class EndOfFarmNotifier {
             list.add(loadRange);
         }
 
-        
+
         ranges = list;
     }
 
-
-    public static boolean inGarden() {
-        String location = PartlySaneSkies.getRegionName();
-        location = StringUtils.removeColorCodes(location);
-        location = StringUtils.stripLeading(location);
-        location = StringUtils.stripTrailing(location);
-        location = location.replaceAll("\\P{Print}", ""); // Removes the RANDOM EMOJIS THAT ARE PRESENT IN SKYBLOCK LOCATIONS
-        if (!(location.startsWith("The Garden")  || location.startsWith("Plot: "))) {
-            return false;
-        } else {
-            return true;
-        }
-    }
+    /*
+        EndOfFarmNotifier Commands
+     */
 
     public static void registerPos1Command() {
         new PSSCommand("/pos1")
-                .setDescription("Sets one corner of the End of Farm Notifier")
+                .setDescription("Sets one corner of the End of Farm Notifier: /pos1 [x] [y] [z]")
                 .setRunnable((s, a) -> {
-                    EndOfFarmNotifier.selectedPos1 = new int[] {s.getPosition().getX(), s.getPosition().getY(), s.getPosition().getZ()};
+                    if (a.length >= 3 && (!a[0].isEmpty() && !a[1].isEmpty() && !a[2].isEmpty())) {
+                        try {
+                            EndOfFarmNotifier.selectedPos1 = new int[]{Integer.parseInt(a[0]), Integer.parseInt(a[1]), Integer.parseInt(a[2])};
+                            Utils.sendClientMessage("§7Set §bpositon 1§7 to §b(" + EndOfFarmNotifier.selectedPos1[0] + ", " + EndOfFarmNotifier.selectedPos1[1] + ", " + EndOfFarmNotifier.selectedPos1[2] + ")§7");
+                        } catch (NumberFormatException e) {
+                            Utils.sendClientMessage("§cPlease enter a valid number and try again.");
+                        }
+                    } else {
+                        EndOfFarmNotifier.selectedPos1 = new int[]{s.getPosition().getX() - 1, s.getPosition().getY() - 1, s.getPosition().getZ() - 1};
 
-                    Utils.sendClientMessage("§7Set §bpositon 1§7 to §b(" + EndOfFarmNotifier.selectedPos1[0] + ", " + EndOfFarmNotifier.selectedPos1[1] + ", " + EndOfFarmNotifier.selectedPos1[2] + ")§7");
-
+                        Utils.sendClientMessage("§7Set §bpositon 1§7 to §b(" + EndOfFarmNotifier.selectedPos1[0] + ", " + EndOfFarmNotifier.selectedPos1[1] + ", " + EndOfFarmNotifier.selectedPos1[2] + ")§7");
+                    }
                 })
                 .register();
     }
 
     public static void registerPos2Command() {
         new PSSCommand("/pos2")
-                .setDescription("Sets other corner of the End of Farm Notifier")
+                .setDescription("Sets one corner of the End of Farm Notifier: /pos2 [x] [y] [z]")
                 .setRunnable((s, a) -> {
-                    EndOfFarmNotifier.selectedPos2 = new int[] {s.getPosition().getX(), s.getPosition().getY(), s.getPosition().getZ()};
+                    if (a.length >= 3 && (!a[0].isEmpty() && !a[1].isEmpty() && !a[2].isEmpty())) {
+                        try {
+                            EndOfFarmNotifier.selectedPos2 = new int[]{Integer.parseInt(a[0]), Integer.parseInt(a[1]), Integer.parseInt(a[2])};
+                            Utils.sendClientMessage("§7Set §bpositon 2§7 to §b(" + EndOfFarmNotifier.selectedPos2[0] + ", " + EndOfFarmNotifier.selectedPos2[1] + ", " + EndOfFarmNotifier.selectedPos2[2] + ")§7");
+                        } catch (NumberFormatException e) {
+                            Utils.sendClientMessage("§cPlease enter a valid number and try again.");
+                        }
+                    } else {
+                        EndOfFarmNotifier.selectedPos2 = new int[]{s.getPosition().getX() - 1, s.getPosition().getY() - 1, s.getPosition().getZ() - 1};
 
-                    Utils.sendClientMessage("§7Set §bpositon 2§7 to §b(" + EndOfFarmNotifier.selectedPos2[0] + ", " + EndOfFarmNotifier.selectedPos2[1] + ", " + EndOfFarmNotifier.selectedPos2[2] + ")§7");
-
+                        Utils.sendClientMessage("§7Set §bpositon 2§7 to §b(" + EndOfFarmNotifier.selectedPos2[0] + ", " + EndOfFarmNotifier.selectedPos2[1] + ", " + EndOfFarmNotifier.selectedPos2[2] + ")§7");
+                    }
                 })
                 .register();
     }
 
     public static void registerCreateRangeCommand() {
         new PSSCommand("/create")
-                .setDescription("Creates the range from two positions")
+                .setDescription("Creates the range from two positions: /create [name]")
                 .setRunnable((s, a) -> {
                     String name = "";
                     if (a.length >= 1) {
@@ -246,7 +257,7 @@ public class EndOfFarmNotifier {
                         }
 
                         int i;
-                        try{
+                        try {
                             i = Integer.parseInt(args[1]);
                         } catch (NumberFormatException e) {
                             Utils.sendClientMessage("§cPlease enter a valid number index and try again.");
@@ -273,7 +284,7 @@ public class EndOfFarmNotifier {
                         }
 
                         int i;
-                        try{
+                        try {
                             i = Integer.parseInt(args[1]);
                         } catch (NumberFormatException e) {
                             Utils.sendClientMessage("§cPlease enter a valid number index and try again.");
@@ -292,6 +303,10 @@ public class EndOfFarmNotifier {
                 .register();
     }
 
+    /*
+        EndOfFarmNotifier Utils
+     */
+
     // Lists all the ranges to the chat
     public static void listRanges() {
         // Creates header message
@@ -300,7 +315,7 @@ public class EndOfFarmNotifier {
 
         // Creates the index number on the left of the message
         int i = 1;
-        
+
         // For each alert, format it so its ##. [range] 
         for (Range3d range : ranges) {
             message.append("§6").append(StringUtils.formatNumber(i)).append("§7: ").append(range.toString()).append("\n");
@@ -309,5 +324,18 @@ public class EndOfFarmNotifier {
 
         // Sends a message to the client
         Utils.sendClientMessage(message.toString());
+    }
+
+    public static boolean inGarden() {
+        String location = PartlySaneSkies.getRegionName();
+        location = StringUtils.removeColorCodes(location);
+        location = StringUtils.stripLeading(location);
+        location = StringUtils.stripTrailing(location);
+        location = location.replaceAll("\\P{Print}", ""); // Removes the RANDOM EMOJIS THAT ARE PRESENT IN SKYBLOCK LOCATIONS
+        if (!(location.startsWith("The Garden") || location.startsWith("Plot: "))) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }
