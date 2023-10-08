@@ -155,7 +155,9 @@ public class EndOfFarmNotifier {
                 i++;
             }
 
-            list.add(new Range3d(smallCoordinate[0], smallCoordinate[1], smallCoordinate[2], largeCoordinate[0], largeCoordinate[1], largeCoordinate[2]));
+            Range3d loadRange = new Range3d(smallCoordinate[0], smallCoordinate[1], smallCoordinate[2], largeCoordinate[0], largeCoordinate[1], largeCoordinate[2]);
+            loadRange.setRangeName(range.get("rangeName").getAsString());
+            list.add(loadRange);
         }
 
         
