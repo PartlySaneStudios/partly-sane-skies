@@ -18,7 +18,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import scala.collection.script.End;
 
 import java.awt.*;
 import java.io.File;
@@ -33,15 +32,15 @@ public class EndOfFarmNotifier {
     public static ArrayList<Range3d> ranges = new ArrayList<>();
     public static int[] selectedPos1;
     public static int[] selectedPos2;
-    public static long lastChimeTime = 0;
+    private static long lastChimeTime = 0;
 
     public static Color color;
-    public static String displayString = "";
-    public static int TEXT_SCALE = 7;
+    private static String displayString = "";
+    private static int TEXT_SCALE = 7;
 
     public static Range3d rangeToHighlight = null;
-    public static long rangeToHighlightSetTime = 0;
-    public static boolean wandActive = false;
+    private static long rangeToHighlightSetTime = 0;
+    private static boolean wandActive = false;
     private static int pos = 1; // 1 is pos1, 2 is pos2
 
 
@@ -331,7 +330,7 @@ public class EndOfFarmNotifier {
                 .addAlias("farmnotifier")
                 .addAlias("fn")
                 .addAlias("farmnotif")
-                .setDescription("Operates the Farm Notifier feature: /fn [list/remove/highlight/show]")
+                .setDescription("Operates the Farm Notifier feature: //fn [list/remove/highlight/show]")
                 .setRunnable(((sender, args) -> {
                     if (args.length == 0 || args[0].equalsIgnoreCase("list")) {
 
@@ -445,10 +444,6 @@ public class EndOfFarmNotifier {
         location = StringUtils.stripLeading(location);
         location = StringUtils.stripTrailing(location);
         location = location.replaceAll("\\P{Print}", ""); // Removes the RANDOM EMOJIS THAT ARE PRESENT IN SKYBLOCK LOCATIONS
-        if (!(location.startsWith("The Garden") || location.startsWith("Plot: "))) {
-            return false;
-        } else {
-            return true;
-        }
+        return location.startsWith("The Garden") || location.startsWith("Plot: ");
     }
 }

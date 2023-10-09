@@ -40,10 +40,8 @@ public class Range3d {
         return rangeName;
     }
 
-    public Range3d setRangeName(String name) {
+    public void setRangeName(String name) {
         this.rangeName = name;
-
-        return this;
     }
 
     public Point3d[] getPoints() {
@@ -52,7 +50,7 @@ public class Range3d {
 
     @Override
     public String toString() {
-        return ("§7" + getRangeName() + " §b(" + smallCoordinate[0] + ", " + smallCoordinate[1] + ", " + smallCoordinate[2] + ")§7 to §b(" + largeCoordinate[0] + ", " + largeCoordinate[1] + ", " + largeCoordinate[2] + ")");
+        return "§7" + getRangeName() + " §b(" + smallCoordinate[0] + ", " + smallCoordinate[1] + ", " + smallCoordinate[2] + ")§7 to §b(" + largeCoordinate[0] + ", " + largeCoordinate[1] + ", " + largeCoordinate[2] + ")";
     }
 
     public static class Point3d extends Point2d{
