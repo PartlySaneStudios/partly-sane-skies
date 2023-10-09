@@ -1,31 +1,39 @@
-//
-// Written by Su386.
-// See LICENSE for copyright and license notices.
-//
+/*
+ * Partly Sane Skies: A Hypixel Skyblock QOL and Economy mod
+ * Created by Su386#9878 (Su386yt) and FlagMaster#1516 (FlagHater), the Partly Sane Studios team
+ * Copyright (C) ©️ Su386 and FlagMaster 2023
+ * This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   (at your option) any later version.
+ * 
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ * 
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
 
 
 package me.partlysanestudios.partlysaneskies.utils;
 
-import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
-
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Pattern;
+
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 
 public class StringUtils {
 
-    // public static String colorCodes(String text) {
-    //     return text.replace("&", "§");
-    // }
+    public static String colorCodes(String text) {
+        return text.replace("&", "§");
+    }
 
     public static String removeColorCodes(String text) {
         StringBuilder textBuilder = new StringBuilder(text);
         while (textBuilder.indexOf("§") != -1) {
-            if (textBuilder.indexOf("§") == textBuilder.length() - 1) {
-                textBuilder.deleteCharAt(textBuilder.indexOf("§"));
-                continue;
-            }
             textBuilder.deleteCharAt(textBuilder.indexOf("§") + 1);
             textBuilder.deleteCharAt(textBuilder.indexOf("§"));
         }
@@ -34,22 +42,23 @@ public class StringUtils {
 
     public static String wrapText(String text, int charNumber) {
         char[] charArray = text.toCharArray();
-        List<String> words = new ArrayList<>();
-        List<Character> chars = new ArrayList<>();
-        for (char c : charArray)
+        List<String> words = new ArrayList<String>();
+        List<Character> chars = new ArrayList<Character>();
+        for (char c : charArray) {
             if (c == ' ') {
                 words.add(StringUtils.charArrayToString(chars));
                 chars.clear();
             } else {
                 chars.add(c);
             }
+        }
         words.add(StringUtils.charArrayToString(chars));
     
         // ----------------------------------------
     
         int charsOnLine = 0;
-        StringBuilder wrappedText = new StringBuilder();
-        List<String> line = new ArrayList<>();
+        String wrappedText = "";
+        List<String> line = new ArrayList<String>();
         boolean wasPreviousCharFormatCode = false;
         String previousFormatCode = "";
         String currentLineFormatCode = "";
@@ -57,11 +66,11 @@ public class StringUtils {
             charsOnLine += word.length();
             if (charsOnLine >= charNumber) {
                 line.add(word);
-                StringBuilder lineString = new StringBuilder(previousFormatCode);
+                String lineString = previousFormatCode;
                 for (String wordOnLine : line) {
-                    lineString.append(wordOnLine).append(" ");
+                    lineString += (wordOnLine + " ");
                 }
-                wrappedText.append((lineString.toString())).append("\n");
+                wrappedText += colorCodes(lineString) + "\n";
                 line.clear();
                 charsOnLine = 0;
                 previousFormatCode = currentLineFormatCode;
@@ -79,20 +88,20 @@ public class StringUtils {
                 }
             }
         }
-        StringBuilder lineString = new StringBuilder(previousFormatCode);
+        String lineString = previousFormatCode;
         for (String wordOnLine : line) {
-            lineString.append(wordOnLine).append(" ");
+            lineString += (wordOnLine + " ");
         }
-        wrappedText.append((lineString.toString()));
+        wrappedText += colorCodes(lineString);
         line.clear();
-        return wrappedText.toString();
+        return wrappedText;
     }
 
     public static String charArrayToString(List<Character> chars) {
-        StringBuilder string = new StringBuilder();
+        String string = "";
         for (char c : chars)
-            string.append(c);
-        return string.toString();
+            string += c;
+        return string;
     }
 
     public static String stripLeading(String str) {
@@ -108,7 +117,6 @@ public class StringUtils {
     }
 
     public static String stripTrailing(String str) {
-
         if (str.equals("")) {
             return str;
         }
@@ -123,10 +131,7 @@ public class StringUtils {
     public static String formatNumber(double num) {
     
         DecimalFormat decimalFormat = new DecimalFormat("#,###.00");
-
-//        Creates a string with the number formatted with the above decimal format
-        String formattedNum = decimalFormat.format(num);
-
+    
         String hundredsPlaceFormat = "";
         switch (PartlySaneSkies.config.hundredsPlaceFormat) {
             case 0:
@@ -152,54 +157,27 @@ public class StringUtils {
                 decimalPlaceFormat = ".";
                 break;
         }
-
-//        Checks if the number starts with a ., if so removes it
+        String formattedNum = decimalFormat.format(num);
+    
         if (formattedNum.charAt(0) == '.') {
             formattedNum = formattedNum.replaceFirst(".", "");
         }
-
-//       Checks if the number is 00
+    
+        if (formattedNum.endsWith(".00")) {
+            formattedNum = formattedNum.replace(".00", "");
+        }
+    
         if (formattedNum.equalsIgnoreCase("00")) {
             formattedNum = "0";
         }
-
-        boolean isDecimal = false;
-        for (char ch : formattedNum.toCharArray()) {
-            if (ch == '.') {
-                isDecimal = true;
-                break;
-            }
-        }
-        if (isDecimal) {
-            formattedNum = stripTrailingChars(formattedNum, "0");
-        }
-
-        if (formattedNum.charAt(formattedNum.length() - 1) == '.') {
-
-            formattedNum = formattedNum.substring(0, formattedNum.length() - 1);
-        }
-
+    
         formattedNum = formattedNum.replace(",", "_");
         formattedNum = formattedNum.replace(".", decimalPlaceFormat);
         formattedNum = formattedNum.replace("_", hundredsPlaceFormat);
-
+    
+        
     
         return formattedNum;
-    }
-
-
-    public static String stripTrailingChars(String str, String chars) {
-        if (str.equals("")) {
-            return str;
-        }
-
-        if (str.substring(str.length() - chars.length()).equalsIgnoreCase(chars)) {
-            str = str.substring(0, str.length() - chars.length());
-            str = stripTrailingChars(str, chars);
-        }
-        return str;
-
-
     }
 
     // Returns a result from a given pattern and key
@@ -211,7 +189,7 @@ public class StringUtils {
     public static String recognisePattern(String input, String pattern, String key) {
         String result = input;
 
-        // Gets finds the index where the key will start, because it will be the same across
+        // Gets finds the index where the key will start, because it will be the same accross
         // both patterns
         int keyIndex = pattern.indexOf(key);
         if (!(keyIndex > result.length())) {
@@ -233,7 +211,7 @@ public class StringUtils {
             charsAfterKey = pattern.substring(patternEndKeyIndex, patternEndKeyIndex + 4);
         }
         // IF it has less than 3 characters after the pattern, the
-        //  rest of the string is the characters after the pattern
+        // the rest of the string is the characters after the pattern 
         else {
             charsAfterKey = pattern.substring(patternEndKeyIndex);
         }
@@ -241,6 +219,9 @@ public class StringUtils {
         // Uses those characters to get the end of the string in the
         // input, not the pattern
         int inputEndKeyIndex = result.indexOf(charsAfterKey);
+        if (inputEndKeyIndex >= result.length()) {
+            return "";
+        }
         if (inputEndKeyIndex == -1) {
             return "";
         }
@@ -250,7 +231,7 @@ public class StringUtils {
     }
 
     public static boolean isPattern(String input, String pattern, String key) {
-        // Gets finds the index where the key will start, because it will be the same across
+        // Gets finds the index where the key will start, because it will be the same accross
         // both patterns
        
         String result = recognisePattern(input, pattern, key);
@@ -276,64 +257,10 @@ public class StringUtils {
         if (index != -1) { // Make sure the search string was found
             String before = string.substring(0, index);
             String after = string.substring(index + key.length());
-            return before + replacement + after;
+            String newString = before + replacement + after;
+            return newString;
         } else {
             return string;
         }
-    }
-
-    public static String titleCase(String str) {
-        StringBuilder titleCase = new StringBuilder();
-        boolean nextCharUpperCase = true;
-        for (int i = 0; i < str.length(); i++) {
-            String ch = str.substring(i, i + 1);
-            if (!ch.equals(" ") && !nextCharUpperCase) {
-                titleCase.append(ch.toLowerCase());
-                continue;
-            }
-            if (nextCharUpperCase) {
-                titleCase.append(ch.toUpperCase());
-                nextCharUpperCase = false;
-                continue;
-            }
-
-            titleCase.append(ch.toLowerCase());
-            nextCharUpperCase = true;
-
-
-        }
-
-        return titleCase.toString();
-    }
-
-
-    public static float parseAbbreviatedNumber(String num) {
-        num = num.replace(" ", "");
-        String digits = num.replaceAll("[^\\d.]", "");
-        float parsedNum = Float.parseFloat(digits);
-        Pattern pattern = Pattern.compile("[^\\d.]");
-        while((num.length() > 0) && pattern.matcher(num.substring(num.length() - 1)).find()) {
-            String str = num.substring(num.length() - 1);
-
-            switch(str) {
-                case "k":
-                    parsedNum *= 1000;
-                    break;
-
-                case "m":
-                    parsedNum *= 1000000f;
-                    break;
-                case "b":
-                    parsedNum *= 1000000000f;
-                    break;
-                case "t":
-                    parsedNum *= 1000000000000f;
-                    break;
-            }
-
-            num = num.substring(0, num.length() - 1);
-        }
-
-        return parsedNum;
     }
 }

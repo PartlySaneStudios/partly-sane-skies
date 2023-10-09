@@ -1,90 +1,67 @@
-<h1> <a href="#----"> <img src = "images/banner_image.png" alt="Banner" align="center"> </a> </h1>
-
-[//]: # (<h1 align="center"> Partly Sane Skies </h1>)
-<h4 align="center"> <sup> A Quality of Life SkyBlock Mod</sup> </h4>
+# **Partly Sane Studios Presents:** *Partly Sane Skies!*
 
 <p align="center">
   <a href="https://github.com/PartlySaneStudios/partly-sane-skies/releases" target="_blank">
-    <img alt="Latest Release" src="https://img.shields.io/github/v/release/PartlySaneStudios/partly-sane-skies?color=%23007EA7&label=Latest%20Version&style=for-the-badge" />
+    <img alt="Downloads" src="https://img.shields.io/github/v/release/PartlySaneStudios/partly-sane-skies?display_name=tag" />
   </a>
   <a href="https://github.com/PartlySaneStudios/partly-sane-skies/releases" target="_blank">
-    <img alt="Downloads" src="https://img.shields.io/github/downloads/PartlySaneStudios/partly-sane-skies/total?color=%23007EA7&label=Downloads&style=for-the-badge" />
-  </a>
-  <a href="https://github.com/PartlySaneStudios/partly-sane-skies/graphs/contributors" target="_blank">
-    <img alt="Lines" src="https://img.shields.io/tokei/lines/github/PartlySaneStudios/partly-sane-skies?color=%23007EA7&label=Lines&style=for-the-badge" />
+    <img alt="Downloads" src="https://img.shields.io/github/downloads/PartlySaneStudios/partly-sane-skies/total" />
   </a>
   <a href="https://discord.gg/v4PU3WeH7z" target="_blank">
-    <img alt="Discord" src="https://img.shields.io/discord/1001847734766145607?color=%23007EA7&label=Discord&style=for-the-badge" />
+    <img alt="Discord" src="https://img.shields.io/discord/1001847734766145607" />
   </a>
 </p>
 
 ## About
 
+Latest Version: **Beta v0.2**
 
-Partly Sane Skies is a Minecraft mod for Hypixel SkyBlock, designed, built, and programmed by **Su386** and **FlagMaster**. 
-Credits including third party programs can be [found here (CREDITS.md)](CREDITS.md)
+This is a Minecraft mod for Hypixel Skyblock, designed, built, and programmed by **Su386** and **FlagMaster (FlagHater)**
 
 ### Download
 
 [Click here to go to the releases page](<https://github.com/PartlySaneStudios/partly-sane-skies/releases>).
  Open the assets drop down for the latest version and download "partly-sane-skies" .jar file. Place that mod in the mods folder of your Minecraft and you are good to go!
 
+ ***This mod requires Essential Mod, Patcher, or Skytils to run.* If you do not have either of these downloaded, you can find the Essential mod [download link here (https://essential.gg/download)](<https://essential.gg/download>) (Download the one for Forge 1.8.9)**
+
 ### Discord
 
 [Click here to join the discord](https://discord.gg/v4PU3WeH7z) for help, support, giveaways, and updates as they happen.
-
-
-
-## Features
-
-*(Click the drop-down arrows to see more)*
-
-
-### Commands
-
 <details>
-  <summary> <b> All Commands </b> </summary>
+  <summary> Commands </summary>
 
-[``/pss``:](pages/commands.md#pss) A help command for Partly Sane Skies
+## Commands'
 
-[``/pss config``, ``/pssconfig``:](pages/commands.md#pssconfig) A command to open the PSS Config menu. The keybinding can also be changed in the vanilla options' menu. Default: ``F7``
+``/pss``: A help command for Partly Sane Skies
+``/pss config``, ``/pssconfig``: A command to open the PSS Config menu. It can also be keybinded in the vanilla options menu. Default: ``F7``
 
-[``/pssdisc``, ``/pssdiscord``:](pages/commands.md#pssdiscord) Sends a link to the discord. [Or you can just join here (https://discord.gg/v4PU3WeH7z)](https://discord.gg/v4PU3WeH7z)
+``/pssdisc``, ``/pssdiscord``: Sends a link to the discord. [Or you can just join here (https://discord.gg/v4PU3WeH7z)](https://discord.gg/v4PU3WeH7z)
 
-[``/skillup <username>``, ``/su <username>``:](pages/commands.md#skillup) Command to use the skill upgrade recommendation feature. (See Features)
+``/skillup <username>``, ``/su <username>``: Command to use the skill upgrade recommandation feature. (See Features)
 
-[``/pm``, ``/partymanager``:](pages/commands.md#partymanager) Command to open the Party Manager. The keybinding can also be changed in the vanilla options' menu.
+``/pm``, ``/partymanager``: Command to open the Party Manager. It can also be keybinded in the vanilla options menu.
 
-[``/permparty``, ``/permp``, ``/pp``:](pages/commands.md#permparty) Command to use Permanent Dungeon Party Selector. (See Features)
+``/permparty``, ``/permp``, ``/pp``: Command to use Permanent Dungeon Party Selector. (See Features)
 
-[``/fp``, ``/pf``:](pages/commands.md#friendparty) Command to use Party All Friends. (See Features)
+``/fp``, ``/pf``: Command to use Party All Friends. (See Features)
 
-[``/chatalert``, ``/ca``, ``/chal``:](pages/commands.md#chatalerts) Command to use the Chat Alerts System. (See Features)
-
-[``//farmnotfier``, ``//fn``, ``//farmnotif``:](pages/commands.md#farmnotfier) Command to use the farm notifier system.
-
-[``/wordeditor``, ``/wordedit``, ``/wr``, ``/wordreplace``, ``/wr``] Command to replace a word in the chat with another word or a phrase.
+``/chatalert``, ``/ca``: Command to use the Chat Alerts System. (See Features)
 
 </details>
 
-To see [more information](pages/commands.md) about commands, including how to use them, **[click here to visit the command page. (Pages/commands.md)](pages/commands.md)**
+## Features
 
-### Config
+(Click the drop down arrows to see more)
 
 <details>
-  <summary> <b> Almost all features can be enabled through the config menu.</b> </summary>
+  <summary> <b> Everything is in this list can be configured in the config menu. Command:  <code> /pss config </code> Default Keybind:  <code> F7 </code>. The config menu can also be accessed through the custom skyblock main menu. </b> </summary>
 
   ![Config Menu](images/config_menu.png)
 
 </details>
 
-Command:  <code>/pss config</code> 
-
-Default Keybinding:  <code>F7</code>.
-
-The config menu can also be accessed through the custom main menu.
-
-### Categories
+<br>
 
 <details>
   <summary> General/Miscellaneous Features </summary>
@@ -95,9 +72,7 @@ General and Miscellaneous features.
 
 ### Custom Main Menu
 
-Upon start up of Minecraft, a nice, Skyblock themed main menu will display.
-There are various configurable options from Skyblock-themed backgrounds,
-along with an option to select a random background.
+Upon start up of Minecraft, a nice, Skyblock themed main menu will display. There are various configurable options from Skyblock-themed backrounds, along with an option to select a random background.
 
 ![Custom Main Menu](images/custom_main_menu.png)
 
@@ -141,18 +116,11 @@ Private messages and messages that are sent in the Party, Guild, Guild Officer, 
 
 ### Incorrect Pet for Minion Alert
 
-If you do not the right pet selected for leveling up minions, you will be warned so that you never lose any pet EXP because you still have your level 100 dungeon pet activated. An optional World War II (1939-1945) air raid siren can be activated.
-
-### Pet for Minion Information Display
-
-When opening the minion, your current pet selected will appear, along with the pet that you have set as favourite.
-
-![Pet for Minion Information Display](images/pet_minion_display.png)
+If you do not the right pet selected for leveling up minions, you will be warned so that you never lose any pet EXP because you still have your level 100 dungeon pet activated. An optional World War II (1938-1945) air raid siren can be activated.
 
 ### Non Chat Color
 
-Messages sent by nons (non-ranked players) can be configured to have the same white as the rest of the chat.
-This option is off by default but can be turned on in the PSS Config menu.
+Messages sent by nons (non ranked players) can be configured to have the same white as the rest of the chat. This option is off by default but can be turned on in the PSS Config menu.
 
 </details>
 
@@ -163,21 +131,13 @@ This option is off by default but can be turned on in the PSS Config menu.
 
 ### Party Manager
 
-Manage your party and join dungeons with a helpful party manager, with features such as viewing stats,
-kicking, party transfer buttons, etc. Included in the Party Manager GUI.
-You can open it by typing the command ``/pm`` or by using the keybinding.
-Default: ``M``
+Manage your party and join dungeons with a helpful party manager, with features such as viewing stats, kicking, party transfer buttons, and etc. Included in the Party Manager GUI. You can open it by typing the command ``/pm`` or by using the keybind. Default: ``M``
 
 ![Custom Main Menu](images/party_manager.png)
 
-## Custom Themes
-
-This mod supports a variety of different themes, including dark themes, very dark themes, colourful themes, and controversially, light themes. You can also choose your own accent colour, and create your own themes in the OneConfig menu under the theme section.
-
 ### Watcher Ready, Message, Warning, Siren and Sound
 
-When the watcher is done spawning mobs, a message will appear on your screen, along with an optional sound,
-party message and World War II (1939-1945) air raid siren in case the previous two don't get your attention.
+When the watcher is done spawning mobs, a message will appear on your screen, along with an optional sound, party message and World War II (1938-1945) air raid siren incase the previous two don't get your attention..
 
 ### Permanent Dungeon Party Selector
 
@@ -186,45 +146,11 @@ Automatically parties everyone in a permanent dungeon party. Using ``/pp`` or ``
 
 ### Dungeon Player Rater
 
-At the end of the dungeon, the mod will calculate what percentage of the dungeon was cleared by each player,
-and how much they contributed, showing you how useful each player was.
-In a perfectly balanced 5-player party, each player should get 20%.
-
+At the end of the dungeon, the mod will calculate what percentage of the dungeon was cleared by each player, and how much they contributed, showing you how useful each player was. In a perfectly balanced 5 player party, each player should get 20%
 </details>
-
-<details>
-  <summary> Farming and Garden Features </summary>
-
-## Farming
-
-### End of Farm Notifier
-
-Create a region where you will be notified when you reach it, using the same commands as world edit. See ``/farmnotif`` under the Commands section for more information.
-
-### Block Right Clicks with Mathematical Hoes
-
-When you are holding a mathematical hoe, right clicks will be cancelled to prevent accidentally opening the recipes menu.
-
-### Top Crops to Compost
-
-Shows you information about which crops are the best to use for the composter at the current moment in time.
-
-![Top Crops to Compost](images/crop_compost.png)
-
-### Best Skymart Profit
-
-Shows which items are the most profitable for the copper cost. (Which ones give the most coins per copper?)
-
-![Skymart Profit](images/skymart_profit.png)
-
-
-
-</details>
-
 
 <details>
   <summary> Economy Features </summary>
-  
 
 ## Economy
 
@@ -234,22 +160,21 @@ Never lose your coins to the void again! When the mod detects you do not have a 
 
 ### Enhanced Auction Menu and BIN Sniper
 
-A brand-new auction house menu that gives you more information on prices, instant inflation, and mark up.
-Using that information, the menu highlights BIN items that are significantly below their value (Default: 13% below).
+A brand new auction house menu that gives you more information on prices, instant inflation, and mark up. Using that information, the menu highlights BIN items that are significantly below their  value (Default: 13% below).
 
 ![Custom Main Menu](images/custom_ah.png)
-
-### Best Minion Profit Calculator
-
-Using real time data, the mod will now display which configurations will result in the most profitable minions.
-
-![Best Minion Calculator](images/best_minion_calculator.png)
 
 ### Garden Shop Trade Cost
 
 Shows you information about the garden shop trades.
 
 ![Custom Main Menu](images/garden_trade_cost.png)
+
+### Top Crops to Compost
+
+Shows you information about which crops are the best to use for the composter at the current moment in time
+
+![Top Crops to Compost](images/crop_compost.png)
 
 
 ### Best Bit Shop Profit
@@ -258,6 +183,12 @@ A lot of people use the bits accumulated from booster cookies to convert to item
 
 ![Bit Shop Profit](images/bit_shop_profit.png)
 
+### Best Skymart Profit
+
+Shows which items are the most profitable for the copper cost. Which ones have the most coins per copper
+
+![Skymart Profit](images/skymart_profit.png)
+
 </details>
 
 <details>
@@ -265,34 +196,27 @@ A lot of people use the bits accumulated from booster cookies to convert to item
 
 ## Shortcuts
 
-### Open Wiki Keybinding
+### Open Wiki Keybind
 
-Using the keybinding, it will automatically look up the wiki article for the item you are hovering over.
-(``NONE`` key by default)
+Using the keybind, it will automatically look up the wiki article for the item you are hovering over. (``NONE`` key by default)
 
-### Pets Menu Keybinding
+### Pets Menu Keybind
 
-A keybinding shortcut to open the pet menu. Customisable in the vanilla options' menu. (``NONE`` key by default)
+A keybind shortcut to open the pets menu. Customisable in the vanilla options menu. (``NONE`` key by default)
 
-### Crafting Table Menu Keybinding
+### Crafting Table Menu Keybind
 
-A keybinding shortcut to open the crafting table menu.
-Customisable in the vanilla options' menu.
-(``NONE`` key by default)
+A keybind shortcut to open the crafting table menu. Customisable in the vanilla options menu. (``NONE`` key by default)
 
-### Wardrobe Menu Keybinding
+### Wardrobe Menu Keybind
 
-A keybinding shortcut to open the wardrobe menu. Customisable in the vanilla options' menu. (``NONE`` key by default)
+A keybind shortcut to open the wardrobe menu. Customisable in the vanilla options menu. (``NONE`` key by default)
 
-### Storage Menu Keybinding
+### Storage Menu Keybind
 
-A keybinding shortcut to open the storage menu. Customisable in the vanilla options' menu. (``NONE`` key by default)
-
-### Hoe Right Click
-
-A Keybinding shortcut to allow Hoe Right Click for one time or for some minutes, depending on your setting. Customiseable in the vanilla options' menu. (``NONE`` by default)
+A keybind shortcut to open the storage menu. Customisable in the vanilla options menu. (``NONE`` key by default)
 
 ### Party All Friends
 
-A command to party all of your active friends. Using ``/fp``, it will party every online member on your friends' list.
+A command to party all of your active friends. Using ``/fp``, it will party every online member on your friends list.
 </details>

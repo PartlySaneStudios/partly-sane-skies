@@ -1,52 +1,74 @@
-//
-// Written by Su386.
-// See LICENSE for copyright and license notices.
-//
+/*
+ * Partly Sane Skies: A Hypixel Skyblock QOL and Economy mod
+ * Created by Su386#9878 (Su386yt) and FlagMaster#1516 (FlagHater), the Partly Sane Studios team
+ * Copyright (C) ©️ Su386 and FlagMaster 2023
+ * This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   (at your option) any later version.
+ * 
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ * 
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
 
 
 package me.partlysanestudios.partlysaneskies.dungeons;
 
+import java.net.MalformedURLException;
+import java.util.HashMap;
+import java.util.Map;
+
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
-import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
+import me.partlysanestudios.partlysaneskies.utils.requests.Request;
+import me.partlysanestudios.partlysaneskies.utils.requests.RequestsManager;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class PlayerRating {
 
     private static String currentPlayer = "";
 
-    public static HashMap<String, String> positivePatterns = new HashMap<>();
+    public static HashMap<String, String> positivePatterns = new HashMap<String, String>();
 
     // A map that has the <Pattern, <Cause Category, Points>>
-    private static HashMap<String, HashMap<String, Integer>> playerPointCategoryMap = new HashMap<>();
+    private static HashMap<String, HashMap<String, Integer>> playerPointCategoryMap = new HashMap<String, HashMap<String, Integer> >(); 
     // A map that has <Player, Total Points> Map
-    private static HashMap<String, Integer> totalPlayerPoints = new HashMap<>();
-    // A map which has <Category, Total Count>
-    private static HashMap<String, Integer> categoryPointMap = new HashMap<>();
+    private static HashMap<String, Integer> totalPlayerPoints = new HashMap<String, Integer>();
+    // A map that has <Category, Total Count>
+    private static HashMap<String, Integer> categoryPointMap = new HashMap<String, Integer>();
     private static int totalPoints = 0;
     
     public static void initPatterns() {
         currentPlayer = PartlySaneSkies.minecraft.getSession().getUsername();
 
-        String str = PublicDataManager.getFile("constants/dungeons_player_rate_pattern_strings.json");
-        if (str.equals("")) {
-            return;
-        }
-        JsonObject patternJson = new JsonParser().parse(str).getAsJsonObject();
-        JsonObject positivePatternsJson = patternJson.getAsJsonObject("positive_strings");
+        try {
+            RequestsManager.newRequest(new Request("https://raw.githubusercontent.com/PartlySaneStudios/partly-sane-skies-public-data/main/data/constants/dungeons_player_rate_pattern_strings.json", s -> {
+                if (!s.hasSucceeded()) {
+                    return;
+                }
+                JsonObject patternJson = new JsonParser().parse(s.getResponse()).getAsJsonObject();
 
-        for (Map.Entry<String, JsonElement> entry : positivePatternsJson.entrySet()) {
-            positivePatterns.put(entry.getKey(), entry.getValue().getAsString());
-        }
+                JsonObject positivePatternsJson = patternJson.getAsJsonObject("positive_strings");
 
+                for (Map.Entry<String, JsonElement> entry : positivePatternsJson.entrySet()) {
+                    positivePatterns.put(entry.getKey(), entry.getValue().getAsString());
+                }
+            }
+            ));
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
 
         
     }
@@ -71,7 +93,7 @@ public class PlayerRating {
             if (individualPlayerPointMap.containsKey(category)) {
                 individualPlayerPointMap.put(category, individualPlayerPointMap.get(category) + 1);
             }
-            // If this category doesn't exist yet
+            // If this category doesnt exist yet
             else {
                 individualPlayerPointMap.put(category, 1);
             }
@@ -80,7 +102,7 @@ public class PlayerRating {
         }
         // If this player doesn't exist yet
         else {
-            HashMap<String, Integer> individualPlayerPointMap = new HashMap<>();
+            HashMap<String, Integer> individualPlayerPointMap = new HashMap<String, Integer>();
             individualPlayerPointMap.put(category, 1);
             playerPointCategoryMap.put(player, individualPlayerPointMap);
             totalPlayerPoints.put(player, 1);
@@ -99,51 +121,51 @@ public class PlayerRating {
         totalPoints ++;
     }
     public static String getDisplayString() {
-        StringBuilder str = new StringBuilder();
+        String str = "";
 
         if (PartlySaneSkies.config.enhancedDungeonPlayerBreakdown == 0) { 
             for (Map.Entry<String, HashMap<String, Integer>> entry : playerPointCategoryMap.entrySet()) {
-                String playerStr = "§d" + entry.getKey() + "  §9" + Utils.round((double) totalPlayerPoints.get(entry.getKey()) / totalPoints * 100d, 0) +"%§7 | ";
+                String playerStr = "&d" + entry.getKey() + "  &9" + Utils.round((double) totalPlayerPoints.get(entry.getKey()) / totalPoints * 100d, 0) +"%&7 | ";
                 
-                str.append(playerStr);
+                str += playerStr;
             }
             
-            return (str.toString());
+            return StringUtils.colorCodes(str);
         }
 
-        str.append("§a§nDungeon Overview:\n\n");
+        str += "&a&nDungeon Overview:\n\n";
         for (Map.Entry<String, HashMap<String, Integer>> entry : playerPointCategoryMap.entrySet()) {
             String playerName = entry.getKey();
-            StringBuilder playerStr = new StringBuilder("§d" + playerName + "§7 completed §d" + Utils.round((double) totalPlayerPoints.get(playerName) / totalPoints * 100d, 0) + "%§7 of the dungeon.\n");
+            String playerStr = "&d" + playerName + "&7 completed &d" + Utils.round((double) totalPlayerPoints.get(playerName) / totalPoints * 100d, 0) +"%&7 of the dungeon.\n";
             if (PartlySaneSkies.config.enhancedDungeonPlayerBreakdown == 2) {
-                playerStr.append("§2   Breakdown:\n");
+                playerStr += "&2   Breakdown:\n";
                 for (Map.Entry<String, Integer> entry2 : entry.getValue().entrySet()) {
-                    playerStr.append("     §d").append(Utils.round((double) entry2.getValue() / categoryPointMap.get(entry2.getKey()) * 100d, 0)).append("%§7 of ").append(entry2.getKey()).append("\n");
+                    playerStr += "     &d" +  Utils.round((double) entry2.getValue() / categoryPointMap.get(entry2.getKey()) * 100d, 0) + "%&7 of " + entry2.getKey() + "\n";
                 }
             }
             
-            str.append(playerStr);
+            str += playerStr;
         }
 
-        str = new StringBuilder((str.toString()));
+        str = StringUtils.colorCodes(str);
 
 
 
-        return str.toString();
+        return str;
     }
 
     public static String getChatMessage() {
-        StringBuilder str = new StringBuilder();
+        String str = "";
 
-        str.append("Partly Sane Skies > ");
+        str += "Partly Sane Skies > ";
         
         for (Map.Entry<String, HashMap<String, Integer>> entry : playerPointCategoryMap.entrySet()) {
-            String playerStr = entry.getKey() + "  " + Utils.round((double) totalPlayerPoints.get(entry.getKey()) / totalPoints * 100d, 0) + "% | ";
+            String playerStr = "" + entry.getKey() + "  " + Utils.round((double) totalPlayerPoints.get(entry.getKey()) / totalPoints * 100d, 0) + "% | ";
             
-            str.append(playerStr);
+            str += playerStr;
         }
 
-        return str.toString();
+        return str;
     }
 
 
@@ -158,9 +180,9 @@ public class PlayerRating {
     }
 
     public static void reset() {
-        categoryPointMap = new HashMap<>();
-        totalPlayerPoints = new HashMap<>();
-        playerPointCategoryMap = new HashMap<>();
+        categoryPointMap = new HashMap<String, Integer>();
+        totalPlayerPoints = new HashMap<String, Integer>();
+        playerPointCategoryMap = new HashMap<String, HashMap<String, Integer> >();
 
         totalPoints = 0;
     }
@@ -172,22 +194,25 @@ public class PlayerRating {
             return;
         }
         // If end of dungeon
-        if (event.message.getFormattedText().contains("Catacombs Experience§r")) {
+        if (event.message.getFormattedText().contains("§r§fTeam Score: §r")) {
             final String string = getDisplayString();
             
-            new Thread(() -> {
-                try {
-                    Thread.sleep(125);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                PartlySaneSkies.minecraft.addScheduledTask(() -> {
-                    if (string.equals("")) {
-                        return;
+            new Thread() {
+                @Override
+                public void run() {
+                    try {
+                        Thread.sleep(125);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
-                    Utils.sendClientMessage(string, true);
-                });
-            }).start();
+                    PartlySaneSkies.minecraft.addScheduledTask(() -> { 
+                        if (string.equals("")) {
+                            return;
+                        }
+                        Utils.sendClientMessage(string, true);
+                    });
+                }
+            }.start();
             if (PartlySaneSkies.config.partyChatDungeonPlayerBreakdown) {
                 PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/pc " + getChatMessage());
             }

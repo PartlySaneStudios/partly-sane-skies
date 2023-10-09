@@ -1,17 +1,22 @@
-//
-// Written by Su386.
-// See LICENSE for copyright and license notices.
-//
+/*
+ * Partly Sane Skies: A Hypixel Skyblock QOL and Economy mod
+ * Created by Su386#9878 (Su386yt) and FlagMaster#1516 (FlagHater), the Partly Sane Studios team
+ * Copyright (C) ©️ Su386 and FlagMaster 2023
+ * This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   (at your option) any later version.
+ * 
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ * 
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
 
 package me.partlysanestudios.partlysaneskies.dungeons.partymanager;
-
-import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
-import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyMember.PartyRank;
-import me.partlysanestudios.partlysaneskies.system.commands.PSSCommand;
-import me.partlysanestudios.partlysaneskies.utils.StringUtils;
-import me.partlysanestudios.partlysaneskies.utils.Utils;
-import net.minecraftforge.client.event.ClientChatReceivedEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -19,11 +24,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
+import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyMember.PartyRank;
+import me.partlysanestudios.partlysaneskies.utils.StringUtils;
+import me.partlysanestudios.partlysaneskies.utils.Utils;
+import me.partlysanestudios.partlysaneskies.utils.requests.Request;
+import me.partlysanestudios.partlysaneskies.utils.requests.RequestsManager;
+import net.minecraftforge.client.event.ClientChatReceivedEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+
 public class PartyManager {
     private static boolean isWaitingForMembers = false;
     private static boolean isMembersListed = false;
-    public static HashMap<String, PartyMember> playerCache = new HashMap<>();
-    private static final List<PartyMember> partyList = new ArrayList<>();
+    public static HashMap<String, PartyMember> playerCache = new HashMap<String, PartyMember>();
+    private static List<PartyMember> partyList = new ArrayList<PartyMember>();
 
     public PartyManager() {
 
@@ -33,40 +47,33 @@ public class PartyManager {
         // Tells the program to start waiting for party members to be listed
         isWaitingForMembers = true;
 
-        // If config option, kicks all offline party members
+        // If config option, kicks all offline partymembers
         if (PartlySaneSkies.config.autoKickOfflinePartyManager) {
             kickOffline();
         }
 
-        // Creates a new thread that is separate from the game thread
-        new Thread(() -> {
-            // Sleeps to avoid conflict with kicking offline
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        // Creates a new thread that is separate from the grame thread
+        new Thread() {
+            @Override
+            public void run() {
+                // Sleeps to avoid conflict with kicking offline
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                PartlySaneSkies.minecraft.addScheduledTask(() -> {
+                    // Starts the party manager
+                    PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party list");
+                });
+                
+                
+                partyList.clear();
             }
-
-            PartlySaneSkies.minecraft.addScheduledTask(() -> {
-                // Starts the party manager
-                PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party list");
-            });
-
-
-            partyList.clear();
-        }).start();
-
-    }
-
-    public static void registerCommand() {
-        new PSSCommand("partymanager")
-                .addAlias("pm")
-                .addAlias("partym")
-                .setDescription("Opens the Party Manager")
-                .setRunnable((s, a) -> {
-                    PartyManager.startPartyManager();
-                })
-                .register();
+            
+        }.start();;
+        
     }
 
     @SubscribeEvent
@@ -95,10 +102,10 @@ public class PartyManager {
         }
     }
 
-    // Upon chat message receives, it will check to see if it is the party list
+    // Upon chat message recieve, it will check to see if it is the party list
     @SubscribeEvent
     public void getMembers(ClientChatReceivedEvent event) {
-        // If it's not waiting for party members, it returns
+        // If its not waiting for party members it returns
         if (!isWaitingForMembers) {
             return;
         }
@@ -145,15 +152,14 @@ public class PartyManager {
             event.setCanceled(true);
         }
 
-        // Detects the closing line -----
-        // when all the members have been listed and the bar appears, its end of the message
+        // Detects the closing line ----- when all of the members have been listed and the bar appears, its the end of the message
         else if (isMembersListed && event.message.getUnformattedText().startsWith("-----------------------------------------------------")) {
             // Hides the message
             event.setCanceled(true);
             // Resets
             isMembersListed = false;
             isWaitingForMembers = false;
-            // Opens the message
+            // Opens the nessage
             openGui();
         }
 
@@ -166,10 +172,10 @@ public class PartyManager {
         else if (event.message.getUnformattedText().startsWith("You are not currently in a party.")) {
             // Hides message
             event.setCanceled(true);
-            // Sends an error message
-            Utils.sendClientMessage(("§9§m-----------------------------------------------------\n "+
-                    "§r§cError: Could not run Party Manager." +
-                    "\n§r§cYou are not currently in a party."
+            // Sends an error messsage
+            Utils.sendClientMessage(StringUtils.colorCodes("&9&m-----------------------------------------------------\n "+
+                    "&r&cError: Could not run Party Manager." +
+                    "\n&r&cYou are not currently in a party."
             ));
             // Resets
             isMembersListed = false;
@@ -186,7 +192,7 @@ public class PartyManager {
             str = str.replace(playerRank, "");
         }
 
-        // Removes all space
+        // Removes all whitespace
         str = str.replace(" ", "");
 
         // Splits the list by the status indicator located before every name
@@ -210,7 +216,7 @@ public class PartyManager {
         PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party kickoffline");
     }
 
-    // Adds a new party member to the party list
+    // Addes a new party member to the party list
     public static void addPartyMember(String username, PartyRank partyRank) {
         // If the player is already in the cache, it grabs the player from the cache
         if (playerCache.containsKey(username)) {
@@ -219,51 +225,71 @@ public class PartyManager {
             // Adds it to the party
             partyList.add(cachedMember);
         } else {
-            // Creates a new uncased party member
+            // Creates a new uncached party member
             PartyMember member = new PartyMember(username, partyRank);
             partyList.add(member);
         }
     }
 
-    // Loads the information the player and caches
+    // Loads the loads the information the the player and caches
     public static void loadPlayerData(String username) throws IOException {
         // Creates a new player
         PartyMember player = new PartyMember(username, PartyRank.LEADER);
-        new Thread (() -> {
-            try {
-                player.populateData();
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
+        if (PartyManager.playerCache.containsKey(username)) {
+            player = PartyManager.playerCache.get(username);
+
+            if (!player.isExpired()) {
+                return;
             }
-        }).start();
+        }
 
-
+        final PartyMember finalPlayer = player;
+        // Gets data
+        try {
+            RequestsManager.newRequest(new Request("https://sky.shiiyu.moe/api/v2/profile/" + player.username, s -> {
+                try {
+                    finalPlayer.setSkycryptData(s.getResponse());
+                    // Adds to cache
+                    playerCache.put(username, finalPlayer);
+                } catch (NullPointerException e) {
+                    e.printStackTrace();
+                }
+            }));
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        
     }
 
-    // Reparties all the members of the party
+    // Reparties all of the members of the party
     public static void reparty(List<PartyMember> partyMembers) {
         // Disbands the party
         PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party disband");
         // Sets the delay 500 ms for the next message
-        long timeDelay = 500L;
+        Long timeDelay = 500l;
 
         for (PartyMember member : partyMembers) {
-            // Creates a new delay final time delay that can be used inside the thread
-            final long finalTimeDelay = timeDelay;
-            new Thread(() -> {
-                try {
-                    // Waits the specified time
-                    Thread.sleep(finalTimeDelay);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+            // Creates a new delay final time delay that can be used inside of the thread
+            final long finalTimeDelay = timeDelay.longValue();
+            new Thread() {
+                @Override
+                public void run() {
+                    try {
+                        // Waits the specified time
+                        Thread.sleep(finalTimeDelay);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    // Invites the member
+                    PartlySaneSkies.minecraft.addScheduledTask(() -> {
+                        PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party invite " + member.username);
+                    });
+                    
                 }
-                // Invites the member
-                PartlySaneSkies.minecraft.addScheduledTask(() -> PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party invite " + member.username));
-
-            }).start();
+            }.start();
 
             // Adds 500 ms for the next message
-            timeDelay += 500L;
+            timeDelay += 500l;
         }
     }
 }
