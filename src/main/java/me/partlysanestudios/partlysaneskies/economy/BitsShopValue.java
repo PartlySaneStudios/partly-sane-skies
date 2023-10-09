@@ -1,32 +1,9 @@
-/*
- * Partly Sane Skies: A Hypixel Skyblock QOL and Economy mod
- * Created by Su386#9878 (Su386yt) and FlagMaster#1516 (FlagHater), the Partly Sane Studios team
- * Copyright (C) ©️ Su386 and FlagMaster 2023
- * This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 3 of the License, or
- *   (at your option) any later version.
- * 
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- * 
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
- */
+//
+// Written by Su386.
+// See LICENSE for copyright and license notices.
+//
 
- 
 package me.partlysanestudios.partlysaneskies.economy;
-
-import java.awt.Color;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 
 import gg.essential.elementa.ElementaVersion;
 import gg.essential.elementa.UIComponent;
@@ -37,25 +14,27 @@ import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
-import me.partlysanestudios.partlysaneskies.SkyblockItem;
+import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager;
+import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockItem;
+import me.partlysanestudios.partlysaneskies.system.ThemeManager;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import java.awt.*;
+import java.io.IOException;
+import java.util.List;
+import java.util.*;
+
 public class BitsShopValue {
 
-    // Sorts the hashmap in decending order
+    // Sorts the hashmap in descending order
     public static LinkedHashMap<String, Double> sortMap(HashMap<String, Double> map) {
         List<Map.Entry<String, Double>> list = new LinkedList<>(map.entrySet());
-        Collections.sort(list, new Comparator<Map.Entry<String, Double>>() {
-            public int compare(Map.Entry<String, Double> o1, Map.Entry<String, Double> o2) {
-                return (o2.getValue()).compareTo(o1.getValue());
-            }
-        });
+        list.sort((o1, o2) -> (o2.getValue()).compareTo(o1.getValue()));
 
         LinkedHashMap<String, Double> sortedMap = new LinkedHashMap<>();
         for (Map.Entry<String, Double> entry : list) {
@@ -66,25 +45,32 @@ public class BitsShopValue {
     }
 
     public static String getString() {
-        String str = "";
+        StringBuilder str = new StringBuilder();
 
-        HashMap<String, Double> map = new HashMap<String, Double> ();
+        HashMap<String, Double> map = new HashMap<>();
         long bitCount = PartlySaneSkies.getBits();
         boolean filterAffordable = PartlySaneSkies.config.bitShopOnlyShowAffordable;
 
-        for (String id : SkyblockItem.bitIds) {
-            SkyblockItem item = SkyblockItem.getItem(id);
+        if (SkyblockDataManager.bitIds.size() == 0) {
+            try {
+                SkyblockDataManager.initBitValues();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        for (String id : SkyblockDataManager.bitIds) {
+            SkyblockItem item = SkyblockDataManager.getItem(id);
             if (filterAffordable && bitCount < item.getBitCost()) {
                 continue;
             }
-            map.put(id, item.getPrice() / item.getBitCost());
+            map.put(id, item.getSellPrice() / item.getBitCost());
         }
         LinkedHashMap<String, Double> sortedMap = sortMap(map);
         
         int i = 1;
         for (Map.Entry<String, Double> en : sortedMap.entrySet()) {
-            SkyblockItem item = SkyblockItem.getItem(en.getKey());
-            str += "&6" + i + ". &d" + item.getName() + "&7 costs &d" + StringUtils.formatNumber(item.getBitCost()) + "&7 bits and sells for &d" + StringUtils.formatNumber(Utils.round(item.getPrice(), 1)) + "&7 coins \n&8 (" + StringUtils.formatNumber(Utils.round(en.getValue(), 1)) + " coins per bit)\n";
+            SkyblockItem item = SkyblockDataManager.getItem(en.getKey());
+            str.append("§6").append(i).append(". §d").append(item.getName()).append("§7 costs §d").append(StringUtils.formatNumber(item.getBitCost())).append("§7 bits and sells for §d").append(StringUtils.formatNumber(Utils.round(item.getSellPrice(), 1))).append("§7 coins \n§8 (").append(StringUtils.formatNumber(Utils.round(en.getValue(), 1))).append(" coins per bit)\n");
             i++;
             if (i > 5) {
                 break;
@@ -92,11 +78,11 @@ public class BitsShopValue {
         }
 
         if (filterAffordable) {
-            str += "\n\n&8&oOnly showing affordable items";
+            str.append("\n\n§8§oOnly showing affordable items");
         }
-        str = StringUtils.colorCodes(str);
+        str = new StringBuilder((str.toString()));
         
-        return str;
+        return str.toString();
     }
 
     public static boolean isCommunityShop() {
@@ -108,13 +94,10 @@ public class BitsShopValue {
         }
 
         IInventory[] inventories = PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen);
+        assert inventories != null;
         IInventory shop = inventories[0];
 
-        if (!StringUtils.removeColorCodes(shop.getDisplayName().getFormattedText()).contains("Community Shop")) {
-            return false;
-        };
-
-        return true;
+        return StringUtils.removeColorCodes(shop.getDisplayName().getFormattedText()).contains("Community Shop");
     }
 
     static Window window = new Window(ElementaVersion.V2);
@@ -123,7 +106,7 @@ public class BitsShopValue {
             .setColor(new Color(0, 0, 0, 0))
             .setChildOf(window);
     
-    UIComponent image = Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies:textures/gui/base_color_background.png"))
+    UIComponent image = ThemeManager.getCurrentBackgroundUIImage()
             .setChildOf(box);
     
     float pad = 5;
@@ -157,11 +140,11 @@ public class BitsShopValue {
             .setWidth(new PixelConstraint(box.getWidth() - widthScaledConstraint(2 * pad).getValue()));
             
 
-        String textString = "&e&lTop Items:\n\n";
+        String textString = "§e§lTop Items:\n\n";
 
         textString += getString();
         textString += "\n\n";
-        textString = StringUtils.colorCodes(textString);
+        textString = (textString);
         textComponent.setText(textString);
 
         window.draw(new UMatrixStack());
