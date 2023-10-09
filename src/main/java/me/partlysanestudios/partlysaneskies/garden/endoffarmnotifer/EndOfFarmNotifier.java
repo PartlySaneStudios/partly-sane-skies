@@ -404,10 +404,10 @@ public class EndOfFarmNotifier {
                 .setRunnable(((s, a) -> {
                     EndOfFarmNotifier.wandActive = !EndOfFarmNotifier.wandActive;
                     Utils.sendClientMessage(
-                            "§7Wand is now " +
+                            "§7The wand is now " +
                                     (
                                             EndOfFarmNotifier.wandActive
-                                                    ? "§aactive§7. Use your SkyBlock menu to select a range using §bright click§7 as pos1 and then pos2. This is a repeating cycle. To disable the wand, run §b/wand§7 again."
+                                                    ? "§aactive§7. Use your §aSkyBlock menu §7to select a range using §bright click§7 as §3pos1 and then §3pos2. This is a §crepeating cycle§7. To disable the wand, run §b/wand§7 again."
                                                     : "§cinactive§7."
                                     )
                     );
