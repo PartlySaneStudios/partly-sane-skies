@@ -60,7 +60,7 @@ object RangeHighlight {
             renderBox(effectiveRange, event.partialTicks, color)
         }
     }
-    private fun renderBox(range: Range3d, partialTicks: Float, color: Color) {
+    fun renderBox(range: Range3d, partialTicks: Float, color: Color) {
         try {
             renderBoxFaces(range, color, false, partialTicks)
             renderBoxEdges(range, false, partialTicks)

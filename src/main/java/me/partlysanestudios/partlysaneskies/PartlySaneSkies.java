@@ -194,6 +194,7 @@ public class PartlySaneSkies {
         MinecraftForge.EVENT_BUS.register(AuctionHouseGui.Companion);
         MinecraftForge.EVENT_BUS.register(new RequiredSecretsFound());
         MinecraftForge.EVENT_BUS.register(new Pickaxes());
+        MinecraftForge.EVENT_BUS.register(new EndOfFarmNotifier());
 
 
 
@@ -214,6 +215,7 @@ public class PartlySaneSkies {
         EndOfFarmNotifier.registerPos2Command();
         EndOfFarmNotifier.registerCreateRangeCommand();
         EndOfFarmNotifier.registerFarmNotifierCommand();
+        EndOfFarmNotifier.registerWandCommand();
         ProfitMinionCalculator.registerCommand();
         MathematicalHoeRightClicks.registerCommand();
         WordEditor.registerWordEditorCommand();

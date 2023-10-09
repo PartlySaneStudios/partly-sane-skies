@@ -15,6 +15,10 @@ import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import scala.collection.script.End;
 
 import java.awt.*;
 import java.io.File;
@@ -38,6 +42,7 @@ public class EndOfFarmNotifier {
     public static Range3d rangeToHighlight = null;
     public static long rangeToHighlightSetTime = 0;
     public static boolean wandActive = false;
+    private static int pos = 1; // 1 is pos1, 2 is pos2
 
 
     public static void run() {
@@ -69,7 +74,7 @@ public class EndOfFarmNotifier {
         double smallY = Math.min(selectedPos1[1], selectedPos2[1]);
 
         double bigY = Math.max(selectedPos1[1], selectedPos2[1]);
-        Range3d range = new Range3d(selectedPos1[0], smallY - 1, selectedPos1[2], selectedPos2[0], bigY + 1, selectedPos2[2]);
+        Range3d range = new Range3d(selectedPos1[0], smallY, selectedPos1[2], selectedPos2[0], bigY, selectedPos2[2]);
         range.setRangeName(name);
         selectedPos1 = null;
         selectedPos2 = null;
@@ -103,6 +108,90 @@ public class EndOfFarmNotifier {
         }
         return false;
     }
+
+    @SubscribeEvent
+    public void onRightClick(PlayerInteractEvent event) {
+        if (!EndOfFarmNotifier.wandActive) {
+            return;
+        }
+
+        if (!inGarden()) {
+            return;
+        }
+
+        if (Utils.getCurrentlyHoldingItem() == null) {
+            return;
+        }
+
+        if (!Utils.getCurrentlyHoldingItem().hasDisplayName()) {
+            return;
+        }
+
+        if (!Utils.getCurrentlyHoldingItem().getDisplayName().contains("SkyBlock Menu")) {
+            return;
+        }
+
+        if (event.pos == null) {
+            return;
+        }
+
+        if (event.action != PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
+            return;
+        }
+
+        // Gets the coordinates of the block
+        int x = event.pos.getX();
+        int y = event.pos.getY();
+        int z = event.pos.getZ();
+
+        Utils.sendClientMessage("§7Set §bpositon " + pos + "§7 to §b(" + x + ", " + y + ", " + z + ")§7");
+
+        if (pos == 1) {
+            selectedPos1 = new int[]{x, y, z};
+            pos = 2;
+        } else {
+            selectedPos2 = new int[]{x, y, z};
+            pos = 1;
+        }
+        event.setCanceled(true);
+    }
+
+    /*
+        Pre-Highlight Area
+     */
+    // Disabled till I figure out a way to make the game not lag
+    /*@SubscribeEvent
+    public static void onRenderWorldLast(RenderWorldLastEvent event){
+        if (EndOfFarmNotifier.selectedPos1 == null) {
+            return;
+        }
+
+        if (!EndOfFarmNotifier.wandActive){
+            return;
+        }
+
+        int lookingAtX = PartlySaneSkies.minecraft.objectMouseOver.getBlockPos().getX();
+        int lookingAtY = PartlySaneSkies.minecraft.objectMouseOver.getBlockPos().getY();
+        int lookingAtZ = PartlySaneSkies.minecraft.objectMouseOver.getBlockPos().getZ();
+
+        int pos1X = EndOfFarmNotifier.selectedPos1[0];
+        int pos1Y = EndOfFarmNotifier.selectedPos1[1];
+        int pos1Z = EndOfFarmNotifier.selectedPos1[2];
+
+        int smallestX = Math.min(pos1X, lookingAtX);
+        int smallestY = Math.min(pos1Y, lookingAtY);
+        int smallestZ = Math.min(pos1Z, lookingAtZ);
+
+        int largestX = Math.max(pos1X, lookingAtX);
+        int largestY = Math.max(pos1Y, lookingAtY);
+        int largestZ = Math.max(pos1Z, lookingAtZ);
+
+        Utils.sendClientMessage("§7Highlighting §b(" + smallestX + ", " + smallestY + ", " + smallestZ + ") §7to §b(" + largestX + ", " + largestY + ", " + largestZ + ")§7");
+
+        Range3d effectiveRange = new Range3d(smallestX, smallestY, smallestZ, largestX, largestY, largestZ);
+        RangeHighlight.INSTANCE.renderBox(effectiveRange, event.partialTicks, Color.red);
+    }*/
+
 
     /*
         EndOfFarmNotifier Save/Load
@@ -175,7 +264,7 @@ public class EndOfFarmNotifier {
 
     public static void registerPos1Command() {
         new PSSCommand("/pos1")
-                .setDescription("Sets one corner of the End of Farm Notifier: /pos1 [x] [y] [z]")
+                .setDescription("Sets one corner of the End of Farm Notifier: //pos1 [x] [y] [z]")
                 .setRunnable((s, a) -> {
                     if (a.length >= 3 && (!a[0].isEmpty() && !a[1].isEmpty() && !a[2].isEmpty())) {
                         try {
@@ -185,7 +274,7 @@ public class EndOfFarmNotifier {
                             Utils.sendClientMessage("§cPlease enter a valid number and try again.");
                         }
                     } else {
-                        EndOfFarmNotifier.selectedPos1 = new int[]{s.getPosition().getX() - 1, s.getPosition().getY() - 1, s.getPosition().getZ() - 1};
+                        EndOfFarmNotifier.selectedPos1 = new int[]{s.getPosition().getX() - 1, s.getPosition().getY(), s.getPosition().getZ() - 1};
 
                         Utils.sendClientMessage("§7Set §bpositon 1§7 to §b(" + EndOfFarmNotifier.selectedPos1[0] + ", " + EndOfFarmNotifier.selectedPos1[1] + ", " + EndOfFarmNotifier.selectedPos1[2] + ")§7");
                     }
@@ -195,7 +284,7 @@ public class EndOfFarmNotifier {
 
     public static void registerPos2Command() {
         new PSSCommand("/pos2")
-                .setDescription("Sets one corner of the End of Farm Notifier: /pos2 [x] [y] [z]")
+                .setDescription("Sets one corner of the End of Farm Notifier: //pos2 [x] [y] [z]")
                 .setRunnable((s, a) -> {
                     if (a.length >= 3 && (!a[0].isEmpty() && !a[1].isEmpty() && !a[2].isEmpty())) {
                         try {
@@ -205,7 +294,7 @@ public class EndOfFarmNotifier {
                             Utils.sendClientMessage("§cPlease enter a valid number and try again.");
                         }
                     } else {
-                        EndOfFarmNotifier.selectedPos2 = new int[]{s.getPosition().getX() - 1, s.getPosition().getY() - 1, s.getPosition().getZ() - 1};
+                        EndOfFarmNotifier.selectedPos2 = new int[]{s.getPosition().getX() - 1, s.getPosition().getY(), s.getPosition().getZ() - 1};
 
                         Utils.sendClientMessage("§7Set §bpositon 2§7 to §b(" + EndOfFarmNotifier.selectedPos2[0] + ", " + EndOfFarmNotifier.selectedPos2[1] + ", " + EndOfFarmNotifier.selectedPos2[2] + ")§7");
                     }
@@ -215,7 +304,7 @@ public class EndOfFarmNotifier {
 
     public static void registerCreateRangeCommand() {
         new PSSCommand("/create")
-                .setDescription("Creates the range from two positions: /create [name]")
+                .setDescription("Creates the range from two positions: //create [name]")
                 .setRunnable((s, a) -> {
                     String name = "";
                     if (a.length >= 1) {
@@ -227,7 +316,9 @@ public class EndOfFarmNotifier {
                         return;
                     }
 
-                    Utils.sendClientMessage("§aCreated new Farm Notifier");
+                    Utils.sendClientMessage("§aCreated new Farm Notifier. Old position values have been reset.");
+                    EndOfFarmNotifier.selectedPos1 = null;
+                    EndOfFarmNotifier.selectedPos2 = null;
 
                 })
                 .register();
@@ -260,7 +351,7 @@ public class EndOfFarmNotifier {
                         try {
                             i = Integer.parseInt(args[1]);
                         } catch (NumberFormatException e) {
-                            Utils.sendClientMessage("§cPlease enter a valid number index and try again.");
+                            Utils.sendClientMessage("§cPlease enter a valid index and try again.");
                             return;
                         }
 
@@ -299,6 +390,28 @@ public class EndOfFarmNotifier {
                         rangeToHighlight = EndOfFarmNotifier.ranges.get(i - 1);
                         rangeToHighlightSetTime = PartlySaneSkies.getTime();
                     }
+                }))
+                .register();
+    }
+
+    public static void registerWandCommand() {
+        new PSSCommand("/wand")
+                .addAlias("/psswand")
+                .addAlias("/partlysaneskieswand")
+                .addAlias("wand")
+                .addAlias("psswand")
+                .addAlias("partlysaneskieswand")
+                .setDescription("Toggles the wand for the End of Farm Notifier: /wand")
+                .setRunnable(((s, a) -> {
+                    EndOfFarmNotifier.wandActive = !EndOfFarmNotifier.wandActive;
+                    Utils.sendClientMessage(
+                            "§7Wand is now " +
+                                    (
+                                            EndOfFarmNotifier.wandActive
+                                                    ? "§aactive§7. Use your SkyBlock menu to select a range using §bright click§7 as pos1 and then pos2. This is a repeating cycle. To disable the wand, run §b/wand§7 again."
+                                                    : "§cinactive§7."
+                                    )
+                    );
                 }))
                 .register();
     }
