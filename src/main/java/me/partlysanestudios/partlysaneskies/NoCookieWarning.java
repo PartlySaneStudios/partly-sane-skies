@@ -1,61 +1,33 @@
-/*
- * Partly Sane Skies: A Hypixel Skyblock QOL and Economy mod
- * Created by Su386#9878 (Su386yt) and FlagMaster#1516 (FlagHater), the Partly Sane Studios team
- * Copyright (C) ©️ Su386 and FlagMaster 2023
- * This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 3 of the License, or
- *   (at your option) any later version.
- * 
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- * 
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
- */
+//
+// Written by Su386.
+// See LICENSE for copyright and license notices.
+//
 
 package me.partlysanestudios.partlysaneskies;
 
-import java.awt.Color;
-import java.lang.reflect.Field;
-
-import gg.essential.elementa.ElementaVersion;
-import gg.essential.elementa.UIComponent;
-import gg.essential.elementa.components.UIText;
-import gg.essential.elementa.components.Window;
-import gg.essential.elementa.constraints.CenterConstraint;
-import gg.essential.elementa.constraints.PixelConstraint;
-import gg.essential.universal.UMatrixStack;
+import me.partlysanestudios.partlysaneskies.system.BannerRenderer;
+import me.partlysanestudios.partlysaneskies.system.PSSBanner;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.GuiPlayerTabOverlay;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
-public class NoCookieWarning {
-    private static float TEXT_SCALE = 2.5f;
+import java.awt.*;
+import java.lang.reflect.Field;
 
-    private static Color color;
+public class NoCookieWarning {
+    private static final float TEXT_SCALE = 2.5f;
+
     private static String displayString = "";
     private static long lastWarnTime;
 
-    private static Window window = new Window(ElementaVersion.V2);
-    private static UIComponent displayText = new UIText(displayString)
-            .setTextScale(new PixelConstraint(TEXT_SCALE))
-            .setX(new CenterConstraint())
-            .setY(new PixelConstraint(window.getHeight() * .2f))
-            .setColor(Color.white)
-            .setChildOf(window);
-
     public NoCookieWarning() {
-        lastWarnTime = Minecraft.getSystemTime();
+        lastWarnTime = PartlySaneSkies.getTime();
     }
 
     public static IChatComponent getFooter() {
@@ -65,10 +37,7 @@ public class NoCookieWarning {
         IChatComponent footer;
         try {
             footer = (IChatComponent) footerField.get(tabList);
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-            return null;
-        } catch (IllegalAccessException e) {
+        } catch (IllegalArgumentException | IllegalAccessException e) {
             e.printStackTrace();
             return null;
         }
@@ -85,7 +54,7 @@ public class NoCookieWarning {
                 return 0;
             }
         }
-        if (getFooter().getSiblings().size() == 0)
+        if (getFooter().getSiblings().isEmpty())
             return -1;
         return 1;
     }
@@ -99,15 +68,17 @@ public class NoCookieWarning {
     }
 
     public static void warn() {
-        lastWarnTime = Minecraft.getSystemTime();
-        color = Color.red;
-        displayString = "No Booster Cookie. You will loose your coins on death";
+        lastWarnTime = PartlySaneSkies.getTime();
+        Color color = Color.red;
+        displayString = "No Booster Cookie. You will lose your coins on death";
+
+        BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner(displayString, (long) (PartlySaneSkies.config.noCookieWarnTime * 1000), TEXT_SCALE, color));
         PartlySaneSkies.minecraft.getSoundHandler()
                 .playSound(PositionedSoundRecord.create(new ResourceLocation("partlysaneskies", "bell")));
     }
 
     public static long getTimeSinceLastWarn() {
-        return Minecraft.getSystemTime() - lastWarnTime;
+        return PartlySaneSkies.getTime() - lastWarnTime;
     }
 
     public static boolean checkExpire() {
@@ -125,27 +96,6 @@ public class NoCookieWarning {
     }
 
     @SubscribeEvent
-    public void renderText(RenderGameOverlayEvent.Text event) {
-        short alpha = LocationBannerDisplay.getAlpha(getTimeSinceLastWarn(), PartlySaneSkies.config.noCookieWarnTime);
-
-        if (color == null)
-            color = Color.gray;
-        else
-            color = new Color(color.getRed(), color.getGreen(), color.getBlue(), (short) alpha);
-        float scaleFactor = (window.getWidth()) / 1075f;
-        ((UIText) displayText)
-                .setText(displayString)
-                .setTextScale(new PixelConstraint(TEXT_SCALE * scaleFactor))
-                .setX(new CenterConstraint())
-                .setY(new PixelConstraint(window.getHeight() * .125f))
-                .setColor(color);
-        window.draw(new UMatrixStack());
-
-        if (checkExpire())
-            displayString = "";
-    }
-
-    @SubscribeEvent
     public void checkCoinsTick(ClientTickEvent event) {
         if (!PartlySaneSkies.isSkyblock()) {
             return;
@@ -153,12 +103,14 @@ public class NoCookieWarning {
         if (!PartlySaneSkies.config.noCookieWarning) {
             return;
         }
-        if (PartlySaneSkies.getCoins() < PartlySaneSkies.config.maxWithoutCookie) {
-            return;
-        }
+
         if (hasBoosterCookie() == 1) {
             return;
         }
+
+        if (checkExpire())
+            displayString = "";
+
         if (!checkWarnAgain()) {
             return;
         }
@@ -168,7 +120,7 @@ public class NoCookieWarning {
         }
 
         warn();
-        lastWarnTime = Minecraft.getSystemTime();
+        lastWarnTime = PartlySaneSkies.getTime();
     }
 
 }
