@@ -13,8 +13,8 @@ import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.WikiArticleOpener;
-import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.Range3d;
 import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.points.Point2d;
+import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.points.Point3d;
 import me.partlysanestudios.partlysaneskies.system.ThemeManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
@@ -384,7 +384,11 @@ public class Utils {
         return obj.get(splitPath[splitPath.length - 1]);
     }
 
-    public static float getDistance(Point2d point1, Point2d point2) {
+    public static float getDistance2d(Point2d point1, Point2d point2) {
         return (float) Math.sqrt(Math.pow(point2.getPointX() - point1.getPointX(), 2) + Math.pow(point2.getPointY() - point1.getPointY(), 2));
+    }
+
+    public static float getDistance3d(Point3d point1, Point3d point2) {
+        return (float) Math.sqrt(Math.pow(point2.getPointX() - point1.getPointX(), 2) + Math.pow(point2.getPointY() - point1.getPointY(), 2) + Math.pow(point2.getPointZ() - point1.getPointZ(), 2));
     }
 }
