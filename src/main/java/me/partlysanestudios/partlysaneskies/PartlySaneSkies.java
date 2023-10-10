@@ -100,7 +100,7 @@ public class PartlySaneSkies {
     public static final boolean IS_LEGACY_VERSION = false;
     public static String discordCode = "v4PU3WeH7z";
 
-    public static OneConfigScreen config;
+    public static VigilantConfigScreen config;
     public static Minecraft minecraft;
 
     public static boolean isDebugMode;
@@ -125,7 +125,7 @@ public class PartlySaneSkies {
         new File("./config/partly-sane-skies/").mkdirs();
         
         // Loads the config files and options
-        PartlySaneSkies.config = new OneConfigScreen();    
+        PartlySaneSkies.config = new VigilantConfigScreen();
         Request mainMenuRequest = null;
         try {
             mainMenuRequest = new Request("https://raw.githubusercontent.com/PartlySaneStudios/partly-sane-skies-public-data/main/data/main_menu.json", CustomMainMenu::setMainMenuInfo);

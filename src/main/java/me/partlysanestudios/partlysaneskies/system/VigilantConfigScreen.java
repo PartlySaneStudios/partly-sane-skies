@@ -10,14 +10,13 @@ package me.partlysanestudios.partlysaneskies.system;
 import gg.essential.vigilance.Vigilant;
 import gg.essential.vigilance.data.Property;
 import gg.essential.vigilance.data.PropertyType;
-import org.lwjgl.input.Keyboard;
 
 import java.awt.*;
 import java.io.File;
 
-public class OneConfigScreen extends Vigilant {
-    public OneConfigScreen() {
-        super(new File("partly-sane-skies/config.json"));
+public class VigilantConfigScreen extends Vigilant {
+    public VigilantConfigScreen() {
+        super(new File("partly-sane-skies/config-vigilant.config"));
     }
 
 //    public OneConfigScreen() {
