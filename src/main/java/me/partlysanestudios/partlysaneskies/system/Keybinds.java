@@ -52,6 +52,7 @@ public final class Keybinds {
         wikiKeybind = registerKey("Open Wiki Article", PSS_CATEGORY, Keyboard.KEY_X);
         favouritePetKeybind = registerKey("Favourite Pet", PSS_CATEGORY, Keyboard.KEY_F);
         allowHoeRightClickKeybind = registerKey("Allow Hoe Right Click", PSS_CATEGORY, Keyboard.CHAR_NONE);
+        debugKeybind = registerKey("Debug Key", PSS_CATEGORY, Keyboard.CHAR_NONE);
     }
 
     private static KeyBinding registerKey(String name, String category, int keycode) {
