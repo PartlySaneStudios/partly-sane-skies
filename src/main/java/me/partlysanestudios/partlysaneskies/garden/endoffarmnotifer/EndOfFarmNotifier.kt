@@ -383,7 +383,7 @@ class EndOfFarmNotifier {
         // For each alert, format it so its ##. [range]
         for (range in ranges) {
             message.append("§6")
-                .append(StringUtils.formatNumber(i.toDouble()))
+                .append(i)
                 .append("§7: ")
                 .append(range.toString())
                 .append("\n")
