@@ -106,6 +106,7 @@ public class PartlySaneSkies {
     public static boolean isDebugMode;
 
     private static LocationBannerDisplay locationBannerDisplay;
+    private static EndOfFarmNotifier eofn;
 
     private static String API_KEY;
 
@@ -123,6 +124,8 @@ public class PartlySaneSkies {
 
         // Creates the partly-sane-skies directory if not already made
         new File("./config/partly-sane-skies/").mkdirs();
+
+        eofn = new EndOfFarmNotifier();
         
         // Loads the config files and options
         PartlySaneSkies.config = new OneConfigScreen();    
@@ -152,7 +155,7 @@ public class PartlySaneSkies {
             }
 
             try {
-                EndOfFarmNotifier.load();
+                eofn.load();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -194,7 +197,7 @@ public class PartlySaneSkies {
         MinecraftForge.EVENT_BUS.register(AuctionHouseGui.Companion);
         MinecraftForge.EVENT_BUS.register(new RequiredSecretsFound());
         MinecraftForge.EVENT_BUS.register(new Pickaxes());
-        MinecraftForge.EVENT_BUS.register(new EndOfFarmNotifier());
+        MinecraftForge.EVENT_BUS.register(eofn);
 
 
 
@@ -211,11 +214,11 @@ public class PartlySaneSkies {
         PartyFriendManager.registerCommand();
         ChatAlertsManager.registerCommand();
         PetAlert.registerCommand();
-        EndOfFarmNotifier.registerPos1Command();
-        EndOfFarmNotifier.registerPos2Command();
-        EndOfFarmNotifier.registerCreateRangeCommand();
-        EndOfFarmNotifier.registerFarmNotifierCommand();
-        EndOfFarmNotifier.registerWandCommand();
+        eofn.registerPos1Command();
+        eofn.registerPos2Command();
+        eofn.registerCreateRangeCommand();
+        eofn.registerFarmNotifierCommand();
+        eofn.registerWandCommand();
         ProfitMinionCalculator.registerCommand();
         MathematicalHoeRightClicks.registerCommand();
         WordEditor.registerWordEditorCommand();
@@ -303,7 +306,7 @@ public class PartlySaneSkies {
         // Checks if the player is collecting minions
         PetAlert.runPetAlert();
 
-        EndOfFarmNotifier.run();
+        eofn.run();
         config.resetBrokenStrings();
         ThemeManager.run();
     }

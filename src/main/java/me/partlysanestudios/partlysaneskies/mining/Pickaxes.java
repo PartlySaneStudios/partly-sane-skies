@@ -50,7 +50,7 @@ public class Pickaxes {
         if (!PartlySaneSkies.config.blockAbilityOnPrivateIsland) {
             return;
         }
-        if (EndOfFarmNotifier.inGarden() || onPrivateIsland()){} else return; //dont mind me not wanting to nest code
+        if (EndOfFarmNotifier.Companion.inGarden() || onPrivateIsland()){} else return; //dont mind me not wanting to nest code
 
         String[] loreOfItemInHand = Utils.getLore(Utils.getCurrentlyHoldingItem()).toArray(new String[0]);
 

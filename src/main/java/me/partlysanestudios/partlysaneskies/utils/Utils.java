@@ -14,6 +14,7 @@ import gg.essential.elementa.constraints.PixelConstraint;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.WikiArticleOpener;
 import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.Range3d;
+import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.points.Point2d;
 import me.partlysanestudios.partlysaneskies.system.ThemeManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
@@ -383,7 +384,7 @@ public class Utils {
         return obj.get(splitPath[splitPath.length - 1]);
     }
 
-    public static float getDistance(Range3d.Point2d point1, Range3d.Point2d point2) {
-        return (float) Math.sqrt(Math.pow(point2.getX() - point1.getX(), 2) + Math.pow(point2.getY() - point1.getY(), 2));
+    public static float getDistance(Point2d point1, Point2d point2) {
+        return (float) Math.sqrt(Math.pow(point2.getPointX() - point1.getPointX(), 2) + Math.pow(point2.getPointY() - point1.getPointY(), 2));
     }
 }
