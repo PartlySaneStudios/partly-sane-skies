@@ -94,22 +94,25 @@ public class MathematicalHoeRightClicks {
             return;
         }
 
-        if (Utils.onCooldown(lastAllowHoeRightClickTime, (long) (PartlySaneSkies.config.allowRightClickTime * 60L * 1000L))) {
-            return;
+        if (event.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK || event.action == PlayerInteractEvent.Action.RIGHT_CLICK_AIR) {
+
+            if (Utils.onCooldown(lastAllowHoeRightClickTime, (long) (PartlySaneSkies.config.allowRightClickTime * 60L * 1000L))) {
+                return;
+            }
+
+            if (!isHoldingHoe()) {
+                return;
+            }
+
+
+            if (!Utils.onCooldown(lastMessageSendTime, 3000)) {
+                IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + ("§8Right Clicks are disabled while holding a Mathematical Hoe\n§7Click this message or run /allowhoerightclick to allow right clicks for " + PartlySaneSkies.config.allowRightClickTime + " minutes."));
+                message.getChatStyle().setChatClickEvent(new ClickEvent(Action.RUN_COMMAND, "/allowhoerightclick"));
+                PartlySaneSkies.minecraft.ingameGUI.getChatGUI().printChatMessage(message);
+                lastMessageSendTime = PartlySaneSkies.getTime();
+            }
+
+            event.setCanceled(true);
         }
-
-        if (!isHoldingHoe()) {
-            return;
-        }
-
-
-        if (!Utils.onCooldown(lastMessageSendTime, 3000)) {
-            IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + ("§8Right Clicks are disabled while holding a Mathematical Hoe\n§7Click this message or run /allowhoerightclick to allow right clicks for " + PartlySaneSkies.config.allowRightClickTime + " minutes."));
-            message.getChatStyle().setChatClickEvent(new ClickEvent(Action.RUN_COMMAND, "/allowhoerightclick"));
-            PartlySaneSkies.minecraft.ingameGUI.getChatGUI().printChatMessage(message);
-            lastMessageSendTime = PartlySaneSkies.getTime();
-        }
-
-        event.setCanceled(true);
     }
 }

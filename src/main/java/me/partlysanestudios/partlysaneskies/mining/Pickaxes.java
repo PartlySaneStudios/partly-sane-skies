@@ -52,10 +52,12 @@ public class Pickaxes {
         }
         if (EndOfFarmNotifier.Companion.inGarden() || onPrivateIsland()){} else return; //dont mind me not wanting to nest code
 
-        String[] loreOfItemInHand = Utils.getLore(Utils.getCurrentlyHoldingItem()).toArray(new String[0]);
+        if (event.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK || event.action == PlayerInteractEvent.Action.RIGHT_CLICK_AIR) {
+            String[] loreOfItemInHand = Utils.getLore(Utils.getCurrentlyHoldingItem()).toArray(new String[0]);
 
-        if (Utils.isArrOfStringsInLore(pickaxeAbilities, loreOfItemInHand)) {
-            event.setCanceled(true);
+            if (Utils.isArrOfStringsInLore(pickaxeAbilities, loreOfItemInHand)) {
+                event.setCanceled(true);
+            }
         }
     }
 
