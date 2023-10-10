@@ -1,41 +1,32 @@
-/*
- * Partly Sane Skies: A Hypixel Skyblock QOL and Economy mod
- * Created by Su386#9878 (Su386yt) and FlagMaster#1516 (FlagHater), the Partly Sane Studios team
- * Copyright (C) ©️ Su386 and FlagMaster 2023
- * This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 3 of the License, or
- *   (at your option) any later version.
- * 
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- * 
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
- */
+//
+// Written by Su386.
+// See LICENSE for copyright and license notices.
+//
 
-package me.partlysanestudios.partlysaneskies;
+package me.partlysanestudios.partlysaneskies.system;
 
-import org.lwjgl.input.Keyboard;
-
-import me.partlysanestudios.partlysaneskies.auctionhouse.AhGui;
+import me.partlysanestudios.partlysaneskies.HelpCommands;
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
+import me.partlysanestudios.partlysaneskies.PetAlert;
+import me.partlysanestudios.partlysaneskies.WikiArticleOpener;
+import me.partlysanestudios.partlysaneskies.auctionhouse.menu.AuctionHouseGui;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManager;
-import me.partlysanestudios.partlysaneskies.help.HelpCommand;
-import me.partlysanestudios.partlysaneskies.petalert.PetAlert;
+import me.partlysanestudios.partlysaneskies.garden.mathematicalhoerightclicks.MathematicalHoeRightClicks;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
+import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.event.ClickEvent;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.IChatComponent;
 import net.minecraftforge.client.event.GuiScreenEvent.KeyboardInputEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent;
+import org.lwjgl.input.Keyboard;
 
 public final class Keybinds {
 
     private final static String PSS_CATEGORY = "Partly Sane Skies";
-
-    // public static KeyBinding debugKey;
     public static KeyBinding configKey;
     public static KeyBinding partyManagerKey;
     public static KeyBinding helpKey;
@@ -45,6 +36,9 @@ public final class Keybinds {
     public static KeyBinding storageKeybind;
     public static KeyBinding wikiKeybind;
     public static KeyBinding favouritePetKeybind;
+    public static KeyBinding allowHoeRightClickKeybind;
+    public static KeyBinding debugKeybind;
+
 
     public static void init() {
         // debugKey = registerKey("Debug", PSS_CATEGORY, Keyboard.KEY_F4);
@@ -57,7 +51,8 @@ public final class Keybinds {
         storageKeybind = registerKey("Open Storage Menu", PSS_CATEGORY, Keyboard.CHAR_NONE);
         wikiKeybind = registerKey("Open Wiki Article", PSS_CATEGORY, Keyboard.KEY_X);
         favouritePetKeybind = registerKey("Favourite Pet", PSS_CATEGORY, Keyboard.KEY_F);
-
+        allowHoeRightClickKeybind = registerKey("Allow Hoe Right Click", PSS_CATEGORY, Keyboard.CHAR_NONE);
+        debugKeybind = registerKey("Debug Key", PSS_CATEGORY, Keyboard.CHAR_NONE);
     }
 
     private static KeyBinding registerKey(String name, String category, int keycode) {
@@ -68,9 +63,9 @@ public final class Keybinds {
 
     @SubscribeEvent
     public void keybindWhileInGui(KeyboardInputEvent.Post event) {
-        // if (Keyboard.isKeyDown(debugKey.getKeyCode())) {
-        //     PartlySaneSkies.debugMode();
-        // }
+        if (Keyboard.isKeyDown(debugKeybind.getKeyCode())) {
+            PartlySaneSkies.debugMode();
+        }
 
         if (Keyboard.isKeyDown(wikiKeybind.getKeyCode())) {
             WikiArticleOpener.keyDown();
@@ -81,13 +76,17 @@ public final class Keybinds {
         }
 
         if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
-            if (PartlySaneSkies.minecraft.currentScreen instanceof AhGui) {
+            if (PartlySaneSkies.minecraft.currentScreen instanceof AuctionHouseGui ||
+                    (PartlySaneSkies.minecraft.currentScreen instanceof GuiChest && AuctionHouseGui.Companion.isAhGui(PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen)[0]))) {
+
                 Utils.clickOnSlot(46);
             }
         }
 
         if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
-            if (PartlySaneSkies.minecraft.currentScreen instanceof AhGui) {
+            if (PartlySaneSkies.minecraft.currentScreen instanceof AuctionHouseGui ||
+                    (PartlySaneSkies.minecraft.currentScreen instanceof GuiChest && AuctionHouseGui.Companion.isAhGui(PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen)[0]))) {
+
                 Utils.clickOnSlot(53);
             }
         }
@@ -95,9 +94,10 @@ public final class Keybinds {
 
     @SubscribeEvent
     public void checkKeyBinds(KeyInputEvent event) {
-        // if (debugKey.isPressed()) {
-        //     PartlySaneSkies.debugMode();
-        // }
+        if (debugKeybind.isPressed()){
+            PartlySaneSkies.debugMode();
+        }
+        
         if (configKey.isPressed()) {
             PartlySaneSkies.minecraft.displayGuiScreen(PartlySaneSkies.config.gui());
         }
@@ -105,7 +105,7 @@ public final class Keybinds {
             PartyManager.startPartyManager();
         }
         if (helpKey.isPressed()) {
-            HelpCommand.printHelpMessage();
+            HelpCommands.printHelpMessage();
         }
         if (craftKeybind.isPressed()) {
             PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/craft");
@@ -118,6 +118,21 @@ public final class Keybinds {
         }
         if (storageKeybind.isPressed()) {
             PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/storage");
+        }
+        if (allowHoeRightClickKeybind.isPressed()) {
+            boolean canRightClickHoe = Utils.onCooldown(MathematicalHoeRightClicks.lastAllowHoeRightClickTime, (long) (PartlySaneSkies.config.allowRightClickTime * 60L * 1000L));
+
+            if(canRightClickHoe){
+                IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + ("§dThe ability to right-click with a hoe has been §cdisabled§d again.\n§dClick this message or run /allowhoerightclick to allow right-clicks for " + PartlySaneSkies.config.allowRightClickTime + " again."));
+                message.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/allowhoerightclick"));
+                PartlySaneSkies.minecraft.ingameGUI.getChatGUI().printChatMessage(message);
+                MathematicalHoeRightClicks.lastAllowHoeRightClickTime = 0;
+            } else {
+                IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + ("§dThe ability to right-click with a hoe has been §aenabled§d for " + PartlySaneSkies.config.allowRightClickTime + " minutes.\n§dClick this message or run /allowhoerightclick to disable right-clicks again."));
+                message.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/allowhoerightclick"));
+                PartlySaneSkies.minecraft.ingameGUI.getChatGUI().printChatMessage(message);
+                MathematicalHoeRightClicks.lastAllowHoeRightClickTime = PartlySaneSkies.getTime();
+            }
         }
     }
 }
