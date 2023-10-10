@@ -16,7 +16,7 @@ import java.io.File;
 
 public class VigilantConfigScreen extends Vigilant {
     public VigilantConfigScreen() {
-        super(new File("partly-sane-skies/config-vigilant.config"));
+        super(new File("partly-sane-skies/config-vigilant.toml"));
     }
 
 //    public OneConfigScreen() {
