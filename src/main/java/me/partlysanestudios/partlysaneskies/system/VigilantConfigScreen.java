@@ -965,7 +965,7 @@ public class VigilantConfigScreen extends Vigilant {
         minF = 1,
         maxF = 5,
         subcategory = "End of Farm Notifier",
-        name = "Time during chimes",
+        name = "Time between chimes",
         description = "The amount of seconds between the chime sounds",
         category = "FarminFg"
     )

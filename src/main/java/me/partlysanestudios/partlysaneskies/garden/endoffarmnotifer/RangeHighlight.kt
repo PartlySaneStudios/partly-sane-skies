@@ -24,7 +24,7 @@
 package me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
-import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.Range3d.Point3d
+import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.points.Point3d
 import me.partlysanestudios.partlysaneskies.system.ThemeManager
 import me.partlysanestudios.partlysaneskies.utils.Utils
 import net.minecraft.client.renderer.GlStateManager
@@ -60,7 +60,7 @@ object RangeHighlight {
             renderBox(effectiveRange, event.partialTicks, color)
         }
     }
-    private fun renderBox(range: Range3d, partialTicks: Float, color: Color) {
+    fun renderBox(range: Range3d, partialTicks: Float, color: Color) {
         try {
             renderBoxFaces(range, color, false, partialTicks)
             renderBoxEdges(range, false, partialTicks)

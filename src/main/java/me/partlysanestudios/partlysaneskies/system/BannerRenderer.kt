@@ -1,3 +1,7 @@
+//
+// Written by Su386.
+// See LICENSE for copyright and license notices.
+//
 package me.partlysanestudios.partlysaneskies.system
 
 import gg.essential.elementa.ElementaVersion
@@ -46,20 +50,25 @@ object BannerRenderer: Gui() {
             return
         }
 
-
-        displayText.setText(bannerToRender.text)
-            .constrain {
-                textScale = bannerToRender.textScale.pixels
-                x = CenterConstraint()
-                y = (window.getHeight() * .125f).pixels
-                color = bannerToRender.getFadedColor().constraint
-            } childOf window
+        if (displayText.getText() != bannerToRender.text) {
+            displayText.setText(bannerToRender.text)
+                .constrain {
+                    textScale = bannerToRender.textScale.pixels
+                    x = CenterConstraint()
+                    y = (window.getHeight() * .125f).pixels
+                    color = bannerToRender.getFadedColor().constraint
+                } childOf window
+        }
 
 //        Utils.sendClientMessage(bannerToRender.getFadedColor().alpha.toString())
         displayText.setColor(bannerToRender.getFadedColor())
 
         window.draw(UMatrixStack())
 
+
+        //while (bannerToRender.isOutOfDate()) {
+        //    bannerList.remove(bannerToRender)
+        //}
     }
 
     private fun cleanOutOfDateBanners() {

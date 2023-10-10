@@ -117,7 +117,7 @@ public class CustomMainMenu extends WindowScreen {
         String image;
 
         if (PartlySaneSkies.config.customMainMenuImage == 0) {
-            image = "textures/gui/main_menu/" + imageIdMap.get(Utils.randint(1, imageIdMap.size()));
+            image = "textures/gui/main_menu/" + imageIdMap.get(Utils.randInt(1, imageIdMap.size()));
         } else
             image = "textures/gui/main_menu/" + imageIdMap.get(PartlySaneSkies.config.customMainMenuImage);
 
