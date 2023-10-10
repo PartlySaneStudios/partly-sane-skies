@@ -439,7 +439,7 @@ public class VigilantConfigScreen extends Vigilant {
         name = "Worm Warning Banner", 
         subcategory = "Worm Warning", 
         description = "A banner appears on your screen when a worm spawns.", 
-        category = "mining"
+        category = "Mining"
     )
     public boolean wormWarningBanner = false;
 
@@ -448,7 +448,7 @@ public class VigilantConfigScreen extends Vigilant {
         subcategory = "Worm Warning", 
         name = "Worm Warning Banner Color", 
         description = "The color of the worm warning text", 
-        category = "mining"
+        category = "Mining"
     )
     public Color wormWarningBannerColor = new Color(34, 255, 0);
 
@@ -459,7 +459,7 @@ public class VigilantConfigScreen extends Vigilant {
         subcategory = "Worm Warning", 
         name = "Worm Warning Banner Time", 
         description = "The amount of seconds the worm warning banner appears for.", 
-        category = "mining"
+        category = "Mining"
     )
     public float wormWarningBannerTime = 3.5f;
 
@@ -468,7 +468,7 @@ public class VigilantConfigScreen extends Vigilant {
         name = "Worm Warning Sound", 
         subcategory = "Worm Warning", 
         description = "Plays a sound when a worm spawns.", 
-        category = "mining"
+        category = "Mining"
     )
     public boolean wormWarningBannerSound = false;
 
@@ -478,7 +478,7 @@ public class VigilantConfigScreen extends Vigilant {
             name = "Pickaxe Ability Ready Banner",
             subcategory = "Pickaxes",
             description = "A banner appears on your screen when your pickaxe ability is ready.",
-            category = "mining"
+            category = "Mining"
     )
     public boolean pickaxeAbilityReadyBanner = true;
 
@@ -487,7 +487,7 @@ public class VigilantConfigScreen extends Vigilant {
             name = "Pickaxe Ability Ready Sound",
             subcategory = "Pickaxes",
             description = "Plays a sound when your pickaxe ability is ready.",
-            category = "mining"
+            category = "Mining"
     )
     public boolean pickaxeAbilityReadySound = false;
 
@@ -496,7 +496,7 @@ public class VigilantConfigScreen extends Vigilant {
             name = "Use Air Raid Siren for Pickaxe Ability Ready",
             subcategory = "Pickaxes",
             description = "Plays a WWII air raid siren when your pickaxe ability is ready. \nPros: \nKeeps you up at late night grinds \n(RECOMMENDED, ESPECIALLY AT 3 AM)",
-            category = "mining"
+            category = "Mining"
     )
     public boolean pickaxeAbilityReadySiren = false;
 
@@ -505,7 +505,7 @@ public class VigilantConfigScreen extends Vigilant {
             name = "Only give a warning when you are on a mining island",
             subcategory = "Pickaxes",
             description = "Makes it less annoying when you don't want to minFe",
-            category = "mining"
+            category = "Mining"
     )
     public boolean onlyGiveWarningOnMiningIsland = true;
 
@@ -516,7 +516,7 @@ public class VigilantConfigScreen extends Vigilant {
             subcategory = "Pickaxes",
             name = "Ready Banner Time",
             description = "The amount of seconds the ready banner appears for.",
-            category = "mining"
+            category = "Mining"
     )
     public float pickaxeBannerTime = 3.5f;
 
@@ -525,7 +525,7 @@ public class VigilantConfigScreen extends Vigilant {
             subcategory = "Pickaxes",
             name = "Ready Banner Color",
             description = "The color of the ready banner text",
-            category = "mining"
+            category = "Mining"
     )
     public Color pickaxeBannerColor = new Color(255, 255, 0);
 
@@ -534,7 +534,7 @@ public class VigilantConfigScreen extends Vigilant {
             name = "Block Ability on Private Island (UAYOR)",
             subcategory = "Pickaxes",
             description = "Blocks the use of pickaxe abilities on your private island. (Use at your own risk)",
-            category = "mining"
+            category = "Mining"
     )
     public boolean blockAbilityOnPrivateIsland = false;
 
@@ -653,7 +653,7 @@ public class VigilantConfigScreen extends Vigilant {
             subcategory = "Events",
             name = "Event Banner Time",
             description = "The amount of seconds the event banner appears for.",
-            category = "mining"
+            category = "Mining"
     )
     public float miningEventBannerTime = 3.5f;
 
@@ -662,7 +662,7 @@ public class VigilantConfigScreen extends Vigilant {
             subcategory = "Events",
             name = "Event Banner Color",
             description = "The color of the event banner text",
-            category = "mining"
+            category = "Mining"
     )
     public Color miningEventBannerColor = new Color(255, 255, 255);
 
@@ -935,7 +935,7 @@ public class VigilantConfigScreen extends Vigilant {
             subcategory = "Hoes",
             name = "Stop right clicks on Mathematical Hoes",
             description = "Cancels the right click on mathematical hoes to prevent it from opening the recipes list. (Use at your own risk)",
-            category = "FarminFg"
+            category = "Farming"
     )
     public boolean blockHoeRightClicks = false;
 
@@ -946,7 +946,7 @@ public class VigilantConfigScreen extends Vigilant {
         subcategory = "Hoes", 
         name = "Allow Time", 
         description = "The amount of minFutes the hoe will be allowed to be used for, using /allowhoerightclick.", 
-        category = "FarminFg"
+        category = "Farming"
     )
     public float allowRightClickTime = 3f;
 
@@ -955,7 +955,7 @@ public class VigilantConfigScreen extends Vigilant {
     @Property(
         type = PropertyType.SWITCH, 
             subcategory = "End of Farm Notifier",
-            category = "FarminFg",
+            category = "Farming",
             name = "Show end of farm regions"
     )
     public boolean showFarmRegions = true;
@@ -967,7 +967,7 @@ public class VigilantConfigScreen extends Vigilant {
         subcategory = "End of Farm Notifier",
         name = "Time between chimes",
         description = "The amount of seconds between the chime sounds",
-        category = "FarminFg"
+        category = "Farming"
     )
     public float farmnotifierChimeTime = 3;
 
@@ -978,7 +978,7 @@ public class VigilantConfigScreen extends Vigilant {
             subcategory = "End of Farm Notifier",
             name = "Highlight Time",
             description = "The amount of seconds that a highlighted region will stay highlighted for",
-            category = "FarminFg"
+            category = "Farming"
     )
     public float farmHightlightTime = 30f;
 
@@ -988,7 +988,7 @@ public class VigilantConfigScreen extends Vigilant {
         subcategory = "Garden", 
         name = "Garden Shop Trade Cost", 
         description = "Gives you information about the cost of garden shop trades.", 
-        category = "FarminFg"
+        category = "Farming"
     )
     public boolean gardenShopTradeInfo = false;
     
@@ -997,7 +997,7 @@ public class VigilantConfigScreen extends Vigilant {
         subcategory = "Garden", 
         name = "Best Crops to Compost", 
         description = "Gives you information about which crops are the best to compost.", 
-        category = "FarminFg"
+        category = "Farming"
     )
     public boolean bestCropsToCompost = false;
 // ------------- Category: Economy ---------------------------------
