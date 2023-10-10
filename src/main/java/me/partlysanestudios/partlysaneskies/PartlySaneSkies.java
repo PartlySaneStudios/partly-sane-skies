@@ -39,7 +39,7 @@ import me.partlysanestudios.partlysaneskies.garden.GardenTradeValue;
 import me.partlysanestudios.partlysaneskies.garden.SkymartValue;
 import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.EndOfFarmNotifier;
 import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.RangeHighlight;
-import me.partlysanestudios.partlysaneskies.garden.mathematicalhoerightclicks.MathematicalHoeRightClicks;
+import me.partlysanestudios.partlysaneskies.garden.MathematicalHoeRightClicks;
 import me.partlysanestudios.partlysaneskies.mining.MiningEvents;
 import me.partlysanestudios.partlysaneskies.mining.Pickaxes;
 import me.partlysanestudios.partlysaneskies.mining.WormWarning;

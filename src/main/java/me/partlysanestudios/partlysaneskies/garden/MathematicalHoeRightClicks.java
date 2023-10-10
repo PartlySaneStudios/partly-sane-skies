@@ -4,7 +4,7 @@
 // See LICENSE for copyright and license notices.
 //
 
-package me.partlysanestudios.partlysaneskies.garden.mathematicalhoerightclicks;
+package me.partlysanestudios.partlysaneskies.garden;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
