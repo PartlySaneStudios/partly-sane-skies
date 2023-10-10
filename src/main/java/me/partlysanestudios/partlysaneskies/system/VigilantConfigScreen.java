@@ -90,7 +90,7 @@ public class VigilantConfigScreen extends Vigilant {
         description = "Saves the data from other party members to save time upon loading data about players. The bigger the value the more minFutes you will save but the less accurate your data will be.",
         category = "General"
     )
-    public int playerDataCacheTime = 5;
+    public float playerDataCacheTime = 5;
 
     @Property(
         type = PropertyType.SELECTOR, 
@@ -697,7 +697,7 @@ public class VigilantConfigScreen extends Vigilant {
     public String arrowLowChatMessage = "Partly Sane Skies > Warning! {player} only has {count} arrows remaining!";
 
     @Property(
-        type = PropertyType.DECIMAL_SLIDER, 
+        type = PropertyType.SLIDER,
         name = "Arrow Low Count", 
         minF = 0,
         maxF = 1000,
@@ -1155,7 +1155,7 @@ public class VigilantConfigScreen extends Vigilant {
     public float noCookieWarnTime = 3.5f;
 
     @Property(
-        type = PropertyType.DECIMAL_SLIDER, 
+        type = PropertyType.SLIDER,
         minF = 1, 
         maxF = 300, 
         subcategory = "Excessive Coin Warning", 

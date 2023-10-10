@@ -336,26 +336,26 @@ public class PartlySaneSkies {
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                Utils.sendClientMessage("&b--------------------------------------------------", true);
+                Utils.sendClientMessage("§b--------------------------------------------------", true);
 
-                Utils.sendClientMessage("&cWe have detected you are using the legacy version of Partly Sane Skies.");
+                Utils.sendClientMessage("§cWe have detected you are using the legacy version of Partly Sane Skies.");
 
-                ChatComponentText skyclientMessage = new ChatComponentText(StringUtils.colorCodes("&aIf you are using Skyclient, click here or run /skyclientupdater and enable beta mode."));
+                ChatComponentText skyclientMessage = new ChatComponentText("§aIf you are using Skyclient, click here or run /skyclientupdater and enable beta mode.");
                 skyclientMessage.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/skyclientupdater"));
                 skyclientMessage.getChatStyle().setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText("Click here to run /skyclientupdater")));
                 PartlySaneSkies.minecraft.ingameGUI
                         .getChatGUI()
                         .printChatMessage(skyclientMessage);
 
-                ChatComponentText githubMessage = new ChatComponentText(StringUtils.colorCodes("&9If you are not using Skyclient, click here go to the github and download the latest version."));
+                ChatComponentText githubMessage = new ChatComponentText("§9If you are not using Skyclient, click here go to the github and download the latest version.");
                 githubMessage.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/PartlySaneStudios/partly-sane-skies/releases"));
                 githubMessage.getChatStyle().setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText("Click here to open the downloads page")));
                 PartlySaneSkies.minecraft.ingameGUI
                         .getChatGUI()
                         .printChatMessage(githubMessage);
 
-                Utils.sendClientMessage("&b--------------------------------------------------", true);
-                Utils.sendClientMessage("&7To disable this warning, go to the config and disable legacy version warnings", true);
+                Utils.sendClientMessage("§b--------------------------------------------------", true);
+                Utils.sendClientMessage("§7To disable this warning, go to the config and disable legacy version warnings", true);
 
             }).start();
         }
