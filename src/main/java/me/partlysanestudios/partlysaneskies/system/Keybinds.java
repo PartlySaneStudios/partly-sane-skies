@@ -37,6 +37,7 @@ public final class Keybinds {
     public static KeyBinding wikiKeybind;
     public static KeyBinding favouritePetKeybind;
     public static KeyBinding allowHoeRightClickKeybind;
+    public static KeyBinding debugKeybind;
 
 
     public static void init() {
@@ -61,7 +62,7 @@ public final class Keybinds {
 
     @SubscribeEvent
     public void keybindWhileInGui(KeyboardInputEvent.Post event) {
-        if (OneConfigScreen.debugConfig.isActive()) {
+        if (Keyboard.isKeyDown(debugKeybind.getKeyCode())) {
             PartlySaneSkies.debugMode();
         }
 
@@ -92,7 +93,7 @@ public final class Keybinds {
 
     @SubscribeEvent
     public void checkKeyBinds(KeyInputEvent event) {
-        if (OneConfigScreen.debugConfig.isActive()) {
+        if (debugKeybind.isPressed()){
             PartlySaneSkies.debugMode();
         }
         

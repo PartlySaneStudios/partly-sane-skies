@@ -5,7 +5,6 @@
 
 package me.partlysanestudios.partlysaneskies.system;
 
-import cc.polyfrost.oneconfig.config.core.OneColor;
 import gg.essential.elementa.components.UIImage;
 import gg.essential.universal.utils.ReleasedDynamicTexture;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
@@ -75,7 +74,7 @@ public class ThemeManager {
 
             for (ButtonData data : buttonDataList) {
                 try {
-                    OneColor color;
+                    Color color;
                     if (data.getColor() == null) {
                         color = getAccentColor();
                     } else {
@@ -90,7 +89,7 @@ public class ThemeManager {
 
             for (ToggleData data : toggleDataList) {
                 try {
-                    OneColor color;
+                    Color color;
                     if (data.getColor() == null) {
                         color = getAccentColor();
                     } else {
@@ -132,7 +131,7 @@ public class ThemeManager {
         return getCurrentButtonUIImage(getAccentColor());
     }
 
-    public static UIImage getCurrentButtonUIImage(OneColor accentColor) {
+    public static UIImage getCurrentButtonUIImage(Color accentColor) {
         UIImage image;
         if (PartlySaneSkies.config.disableThemes) {
             if (accentColor.equals(getAccentColor())) {
@@ -165,7 +164,7 @@ public class ThemeManager {
         return getCurrentToggleUIImage(selected, getAccentColor());
     }
 
-    public static UIImage getCurrentToggleUIImage(boolean selected, OneColor accentColor) {
+    public static UIImage getCurrentToggleUIImage(boolean selected, Color accentColor) {
         UIImage image;
         if (PartlySaneSkies.config.disableThemes) {
             if (selected) {
@@ -200,7 +199,7 @@ public class ThemeManager {
         return getCurrentButtonFile(getAccentColor());
     }
 
-    public static File getCurrentButtonFile(OneColor accentColor) throws IOException {
+    public static File getCurrentButtonFile(Color accentColor) throws IOException {
         return getButtonWithColor(getPrimaryColor(), getSecondaryColor(), accentColor);
     }
 
@@ -208,7 +207,7 @@ public class ThemeManager {
         return getCurrentToggleFile(selected, getAccentColor());
     }
 
-    public static File getCurrentToggleFile(boolean selected, OneColor accentColor) throws IOException {
+    public static File getCurrentToggleFile(boolean selected, Color accentColor) throws IOException {
         if (selected) {
             return getToggleWithColor(getPrimaryColor(), getSecondaryColor(), accentColor);
         } else {
@@ -216,60 +215,60 @@ public class ThemeManager {
         }
     }
 
-    public static OneColor getPrimaryColor() {
+    public static Color getPrimaryColor() {
         if (!PartlySaneSkies.config.customTheme) {
             int themeIndex = PartlySaneSkies.config.themeIndex;
-            return new OneColor(defaultThemes[themeIndex].getPrimaryColor());
+            return defaultThemes[themeIndex].getPrimaryColor();
         } else {
             return PartlySaneSkies.config.primaryColor;
         }
     }
 
-    public static OneColor getDarkPrimaryColor() {
-        return new OneColor(darkenColor(getPrimaryColor()));
-    }
+//    public static Color getDarkPrimaryColor() {
+//        return new Color(darkenColor(getPrimaryColor()));
+//    }
+//
+//    public static Color getLightPrimaryColor() {
+//        return new Color(lightenColor(getPrimaryColor()));
+//    }
 
-    public static OneColor getLightPrimaryColor() {
-        return new OneColor(lightenColor(getPrimaryColor()));
-    }
-
-    public static OneColor getSecondaryColor() {
+    public static Color getSecondaryColor() {
         if (!PartlySaneSkies.config.customTheme) {
             int themeIndex = PartlySaneSkies.config.themeIndex;
-            return new OneColor(defaultThemes[themeIndex].getSecondaryColor());
+            return defaultThemes[themeIndex].getSecondaryColor();
         } else {
             return PartlySaneSkies.config.secondaryColor;
         }
     }
 
-    public static OneColor getDarkSecondaryColor() {
-        return new OneColor(darkenColor(getSecondaryColor()));
-    }
+//    public static Color getDarkSecondaryColor() {
+//        return new Color(darkenColor(getSecondaryColor()));
+//    }
 
-    public static OneColor getLightSecondaryColor() {
-        return new OneColor(lightenColor(getSecondaryColor()));
-    }
+//    public static Color getLightSecondaryColor() {
+//        return new Color(lightenColor(getSecondaryColor()));
+//    }
 
-    public static OneColor getAccentColor() {
+    public static Color getAccentColor() {
         if (PartlySaneSkies.config.useDefaultAccentColor) {
             int themeIndex = PartlySaneSkies.config.themeIndex;
-            return new OneColor(defaultThemes[themeIndex].getDefaultAccentColor());
+            return defaultThemes[themeIndex].getDefaultAccentColor();
         } else {
             return PartlySaneSkies.config.accentColor;
         }
     }
 
-    public static Color getDarkAccentColor() {
-        return darkenColor(getAccentColor());
-    }
-
-    public static Color getLightAccentColor() {
-        return lightenColor(getAccentColor());
-    }
-
-    private static Color darkenColor(OneColor color) {
-        return darkenColor(color.toJavaColor());
-    }
+//    public static Color getDarkAccentColor() {
+//        return darkenColor(getAccentColor());
+//    }
+//
+//    public static Color getLightAccentColor() {
+//        return lightenColor(getAccentColor());
+//    }
+//
+//    private static Color darkenColor(Color color) {
+//        return darkenColor(color);
+//    }
     private static Color darkenColor(Color color) {
         int averageR = (int) (color.getRed()* .761);
         int averageG = (int) (color.getGreen() * .761);
@@ -279,9 +278,9 @@ public class ThemeManager {
     }
 
 
-    private static Color lightenColor(OneColor color) {
-        return lightenColor(color.toJavaColor());
-    }
+//    private static Color lightenColor(Color color) {
+//        return lightenColor(color);
+//    }
 
     private static Color lightenColor(Color color) {
         int averageR = (int) (color.getRed()* .798 + 255 * .202);
@@ -291,7 +290,7 @@ public class ThemeManager {
         return new Color(averageR, averageG, averageB, color.getTransparency());
     }
 
-    public static File getBackgroundWithColor(OneColor primaryColor, OneColor secondaryColor, OneColor accentColor) throws IOException {
+    public static File getBackgroundWithColor(Color primaryColor, Color secondaryColor, Color accentColor) throws IOException {
 
 
         String primaryColorHex = Integer.toHexString(primaryColor.getRGB() & 0xffffff);
@@ -327,7 +326,7 @@ public class ThemeManager {
         return filePath.toFile();
     }
 
-    public static File getButtonWithColor(OneColor primaryColor, OneColor secondaryColor, OneColor accentColor) throws IOException {
+    public static File getButtonWithColor(Color primaryColor, Color secondaryColor, Color accentColor) throws IOException {
 
 
         String primaryHex = Integer.toHexString(primaryColor.getRGB() & 0xffffff);
@@ -363,7 +362,7 @@ public class ThemeManager {
         return filePath.toFile();
     }
 
-    public static File getToggleWithColor(OneColor primaryColor, OneColor secondaryColor, OneColor accentColor) throws IOException {
+    public static File getToggleWithColor(Color primaryColor, Color secondaryColor, Color accentColor) throws IOException {
 
 
         String primaryColorHex = Integer.toHexString(primaryColor.getRGB() & 0xffffff);
@@ -400,12 +399,12 @@ public class ThemeManager {
 
     public static class ButtonData {
         private final UIImage image;
-        private final OneColor color;
+        private final Color color;
         public ButtonData(UIImage image) {
             this.image = image;
             this.color = null;
         }
-        public ButtonData(UIImage image, OneColor color) {
+        public ButtonData(UIImage image, Color color) {
             this.image = image;
             this.color = color;
         }
@@ -414,14 +413,14 @@ public class ThemeManager {
             return image;
         }
 
-        public OneColor getColor() {
+        public Color getColor() {
             return color;
         }
     }
 
     public static class ToggleData {
         private final UIImage image;
-        private final OneColor color;
+        private final Color color;
         private final boolean selected;
         public ToggleData(UIImage image, boolean selected) {
             this.image = image;
@@ -429,7 +428,7 @@ public class ThemeManager {
             this.selected = selected;
         }
 
-        public ToggleData(UIImage image, boolean selected, OneColor color) {
+        public ToggleData(UIImage image, boolean selected, Color color) {
             this.image = image;
             this.color = color;
             this.selected = selected;
@@ -439,7 +438,7 @@ public class ThemeManager {
             return image;
         }
 
-        public OneColor getColor() {
+        public Color getColor() {
             return color;
         }
 

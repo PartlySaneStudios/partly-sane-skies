@@ -19,7 +19,6 @@
 
 package me.partlysanestudios.partlysaneskies;
 
-import cc.polyfrost.oneconfig.config.core.OneColor;
 import gg.essential.elementa.ElementaVersion;
 import me.partlysanestudios.partlysaneskies.auctionhouse.menu.AuctionHouseGui;
 import me.partlysanestudios.partlysaneskies.chat.ChatAlertsManager;
@@ -27,10 +26,10 @@ import me.partlysanestudios.partlysaneskies.chat.ChatManager;
 import me.partlysanestudios.partlysaneskies.chat.WordEditor;
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager;
 import me.partlysanestudios.partlysaneskies.dungeons.PlayerRating;
+import me.partlysanestudios.partlysaneskies.dungeons.RequiredSecretsFound;
 import me.partlysanestudios.partlysaneskies.dungeons.WatcherReady;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManager;
 import me.partlysanestudios.partlysaneskies.dungeons.permpartyselector.PermPartyManager;
-import me.partlysanestudios.partlysaneskies.dungeons.RequiredSecretsFound;
 import me.partlysanestudios.partlysaneskies.economy.BitsShopValue;
 import me.partlysanestudios.partlysaneskies.economy.minioncalculator.MinionData;
 import me.partlysanestudios.partlysaneskies.economy.minioncalculator.ProfitMinionCalculator;
@@ -74,6 +73,7 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -313,7 +313,7 @@ public class PartlySaneSkies {
         if (event.message.getUnformattedText().startsWith("Your new API key is ")) {
             config.apiKey = event.message.getUnformattedText().replace("Your new API key is ", "");
             Utils.sendClientMessage(("Saved new API key!"));
-            config.save();
+            config.writeData();
         }
     }
 
@@ -413,7 +413,7 @@ public class PartlySaneSkies {
     public static void debugMode() {
         PartlySaneSkies.isDebugMode = !PartlySaneSkies.isDebugMode;
         Utils.sendClientMessage("Debug mode: " + PartlySaneSkies.isDebugMode);
-        BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner("Test", 5000L, 5f, new OneColor(255, 0, 255, 1).toJavaColor()));
+        BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner("Test", 5000L, 5f, new Color(255, 0, 255, 1)));
     }
 
     // Returns a list of lines on the scoreboard,

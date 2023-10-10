@@ -3,12 +3,12 @@ import groovy.lang.MissingPropertyException
 pluginManagement {
     repositories {
         // Snapshots
-        maven("https://maven.deftu.xyz/snapshots")
+        maven("https://maven.deftu.dev/snapshots")
         maven("https://s01.oss.sonatype.org/content/groups/public/")
         mavenLocal()
 
         // Repositories
-        maven("https://maven.deftu.xyz/releases")
+        maven("https://maven.deftu.dev/releases")
         maven("https://maven.fabricmc.net")
         maven("https://maven.architectury.dev/")
         maven("https://maven.minecraftforge.net")
