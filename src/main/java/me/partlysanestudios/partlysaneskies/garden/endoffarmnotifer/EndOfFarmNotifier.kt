@@ -60,13 +60,13 @@ class EndOfFarmNotifier {
             PSSBanner(
                 displayString,
                 1000,
-                textScale.toFloat(),
+                TEXT_SCALE.toFloat(),
                 Color.red
             )
         )
     }
 
-    fun createNewRange(name: String): Range3d? {
+    private fun createNewRange(name: String): Range3d? {
         if (selectedPos1.isEmpty()|| selectedPos2.isEmpty()) {
             return null
         }
@@ -94,7 +94,7 @@ class EndOfFarmNotifier {
         return range
     }
 
-    fun playerInRange(): Boolean {
+    private fun playerInRange(): Boolean {
         if (PartlySaneSkies.minecraft.thePlayer == null) {
             return false
         }
@@ -231,17 +231,13 @@ class EndOfFarmNotifier {
                 if (a.size >= 3 && a[0].isNotEmpty() && a[1].isNotEmpty() && a[2].isNotEmpty()) {
                     try {
                         selectedPos1 = intArrayOf(a[0].toInt(), a[1].toInt(), a[2].toInt())
-                        Utils.sendClientMessage(
-                            "§7Set §bpositon 1§7 to §b(" + selectedPos1[0] + ", " + selectedPos1[1] + ", " + selectedPos1[2] + ")§7"
-                        )
+                        Utils.sendClientMessage("§7Set §bpositon 1§7 to §b(" + selectedPos1[0] + ", " + selectedPos1[1] + ", " + selectedPos1[2] + ")§7")
                     } catch (e: NumberFormatException) {
                         Utils.sendClientMessage("§cPlease enter a valid number and try again.")
                     }
                 } else {
                     selectedPos1 = intArrayOf(s.position.x - 1, s.position.y, s.position.z - 1)
-                    Utils.sendClientMessage(
-                        "§7Set §bpositon 1§7 to §b(" + selectedPos1[0] + ", " + selectedPos1[1] + ", " + selectedPos1[2] + ")§7"
-                    )
+                    Utils.sendClientMessage("§7Set §bpositon 1§7 to §b(" + selectedPos1[0] + ", " + selectedPos1[1] + ", " + selectedPos1[2] + ")§7")
                 }
             }
             .register()
@@ -254,17 +250,13 @@ class EndOfFarmNotifier {
                 if (a.size >= 3 && a[0].isNotEmpty() && a[1].isNotEmpty() && a[2].isNotEmpty()) {
                     try {
                         selectedPos2 = intArrayOf(a[0].toInt(), a[1].toInt(), a[2].toInt())
-                        Utils.sendClientMessage(
-                            "§7Set §bpositon 2§7 to §b(" + selectedPos2[0] + ", " + selectedPos2[1] + ", " + selectedPos2[2] + ")§7"
-                        )
+                        Utils.sendClientMessage("§7Set §bpositon 2§7 to §b(" + selectedPos2[0] + ", " + selectedPos2[1] + ", " + selectedPos2[2] + ")§7")
                     } catch (e: java.lang.NumberFormatException) {
                         Utils.sendClientMessage("§cPlease enter a valid number and try again.")
                     }
                 } else {
                     selectedPos2 = intArrayOf(s.position.x - 1, s.position.y, s.position.z - 1)
-                    Utils.sendClientMessage(
-                        "§7Set §bpositon 2§7 to §b(" + selectedPos2[0] + ", " + selectedPos2[1] + ", " + selectedPos2[2] + ")§7"
-                    )
+                    Utils.sendClientMessage("§7Set §bpositon 2§7 to §b(" + selectedPos2[0] + ", " + selectedPos2[1] + ", " + selectedPos2[2] + ")§7")
                 }
             }
             .register()
@@ -308,8 +300,7 @@ class EndOfFarmNotifier {
                         Utils.sendClientMessage("§cError: Must provide an index to remove")
                         return@PSSCommandRunnable
                     }
-                    val i: Int
-                    i = try {
+                    val i: Int = try {
                         a[1].toInt()
                     } catch (e: java.lang.NumberFormatException) {
                         Utils.sendClientMessage("§cPlease enter a valid index and try again.")
@@ -319,12 +310,9 @@ class EndOfFarmNotifier {
                         Utils.sendClientMessage("§cPlease select a valid index and try again.")
                         return@PSSCommandRunnable
                     }
-                    Utils.sendClientMessage(
-                        "§aRemoving: §b" + ranges.get(
-                            i - 1
-                        ).toString()
-                    )
+                    Utils.sendClientMessage("§aRemoving: §b" + ranges[i - 1].toString())
                     ranges.removeAt(i - 1)
+
                     try {
                         save()
                     } catch (e: IOException) {
@@ -337,8 +325,7 @@ class EndOfFarmNotifier {
                         return@PSSCommandRunnable
                     }
 
-                    val i: Int
-                    i = try {
+                    val i: Int = try {
                         a[1].toInt()
                     } catch (e: java.lang.NumberFormatException) {
                         Utils.sendClientMessage("§cPlease enter a valid number index and try again.")
@@ -379,7 +366,7 @@ class EndOfFarmNotifier {
         EndOfFarmNotifier Utils
      */
     // Lists all the ranges to the chat
-    fun listRanges() {
+    private fun listRanges() {
         // Creates header message
         val message = StringBuilder(
             """
@@ -415,7 +402,7 @@ class EndOfFarmNotifier {
 
         var color: Color? = null
         private var displayString = ""
-        private val textScale = 7
+        private const val TEXT_SCALE = 7
 
         var rangeToHighlight: Range3d? = null
         private var rangeToHighlightSetTime: Long = 0
