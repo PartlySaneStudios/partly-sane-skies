@@ -11,7 +11,7 @@ import me.partlysanestudios.partlysaneskies.PetAlert;
 import me.partlysanestudios.partlysaneskies.WikiArticleOpener;
 import me.partlysanestudios.partlysaneskies.auctionhouse.menu.AuctionHouseGui;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManager;
-import me.partlysanestudios.partlysaneskies.garden.mathematicalhoerightclicks.MathematicalHoeRightClicks;
+import me.partlysanestudios.partlysaneskies.garden.MathematicalHoeRightClicks;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.client.settings.KeyBinding;

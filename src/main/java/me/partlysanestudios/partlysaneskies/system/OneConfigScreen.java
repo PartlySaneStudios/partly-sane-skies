@@ -876,7 +876,7 @@ public class OneConfigScreen extends Config {
         min = 1,
         max = 5,
         subcategory = "End of Farm Notifier",
-        name = "Time during chimes",
+        name = "Time between chimes",
         description = "The amount of seconds between the chime sounds",
         category = "Farming"
     )
