@@ -274,7 +274,7 @@ class EndOfFarmNotifier {
                     Utils.sendClientMessage("§cUnable to create a new farm notifier. Make sure both §b//pos1§c and §b//pos2§c have been selected.")
                     return@setRunnable
                 }
-                Utils.sendClientMessage("§aCreated new Farm Notifier. Old position values have been reset.")
+                Utils.sendClientMessage("§aCreated new Farm Notifier.")
                 selectedPos1 = IntArray(0)
                 selectedPos2 = IntArray(0)
             }
