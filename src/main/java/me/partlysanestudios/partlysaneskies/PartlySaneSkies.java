@@ -21,6 +21,7 @@ package me.partlysanestudios.partlysaneskies;
 
 import cc.polyfrost.oneconfig.config.core.OneColor;
 import gg.essential.elementa.ElementaVersion;
+import ibxm.Player;
 import me.partlysanestudios.partlysaneskies.auctionhouse.menu.AuctionHouseGui;
 import me.partlysanestudios.partlysaneskies.chat.ChatAlertsManager;
 import me.partlysanestudios.partlysaneskies.chat.ChatManager;
@@ -222,6 +223,7 @@ public class PartlySaneSkies {
         ProfitMinionCalculator.registerCommand();
         MathematicalHoeRightClicks.registerCommand();
         WordEditor.registerWordEditorCommand();
+        PlayerRating.registerReprintCommand();
 
         // Initializes keybinds
         Keybinds.init();
