@@ -66,6 +66,9 @@ public class LocationBannerDisplay extends Gui {
         if (!regionName.isEmpty()) {
             color = Utils.colorCodetoColor.get(regionName.substring(3, 5));
         }
+        if (color == null) {
+            color = new Color(170, 170, 170);
+        }
 
         displayString = noColorCodeRegionName;
         lastLocation = noColorCodeRegionName;

@@ -13,8 +13,8 @@ import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.WikiArticleOpener;
-import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.EndOfFarmNotifier;
-import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.Range3d;
+import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.points.Point2d;
+import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.points.Point3d;
 import me.partlysanestudios.partlysaneskies.system.ThemeManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
@@ -43,6 +43,35 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Utils {
+    public static boolean inDungeons(){
+        String regionName = PartlySaneSkies.getRegionName();
+        String noColorCodeRegionName = me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes(regionName);
+
+        if (noColorCodeRegionName.isEmpty()) {
+            return false;
+        }
+
+        noColorCodeRegionName = me.partlysanestudios.partlysaneskies.utils.StringUtils.stripLeading(noColorCodeRegionName);
+        noColorCodeRegionName = me.partlysanestudios.partlysaneskies.utils.StringUtils.stripTrailing(noColorCodeRegionName);
+        noColorCodeRegionName = noColorCodeRegionName.replaceAll("\\P{Print}", ""); // Removes the RANDOM EMOJIS
+        return noColorCodeRegionName.toLowerCase().contains("catacombs");
+    }
+  
+    public static ItemStack getCurrentlyHoldingItem() {
+        return PartlySaneSkies.minecraft.thePlayer.getHeldItem();
+    }
+
+    public static boolean isArrOfStringsInLore(String[] arr, String[] lore) {
+        for (String line : lore) {
+            for (String arrItem : arr) {
+                if (line.contains(arrItem)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public static HashMap<String, Color> colorCodetoColor = new HashMap<>();
 
     public static void init() {
@@ -108,7 +137,6 @@ public class Utils {
 
     // If true, Sends a message discretely without the Prefix Partly Sane Skies >:
     public static void sendClientMessage(String text, boolean silent) {
-        text = (text);
         if (silent) {
             try {
                 sendClientMessage(new ChatComponentText(text));
@@ -118,7 +146,7 @@ public class Utils {
         }
         else {
             try {
-                sendClientMessage(new ChatComponentText((PartlySaneSkies.CHAT_PREFIX) + text));
+                sendClientMessage(new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + text));
             } catch (NullPointerException ignored) {
             }
         }
@@ -187,7 +215,7 @@ public class Utils {
         return Math.round(num * Math.pow(10, decimalPlaces) / Math.pow(10, decimalPlaces));
     }
 
-    public static int randint(int min, int max) {
+    public static int randInt(int min, int max) {
         return ThreadLocalRandom.current().nextInt(min, max + 1);
     }
 
@@ -212,6 +240,9 @@ public class Utils {
     }
 
     public static String getItemId(ItemStack item) {
+        if (item == null) {
+            return "";
+        }
         if (WikiArticleOpener.getItemAttributes(item) == null) {
             return "";
         }
@@ -238,6 +269,12 @@ public class Utils {
     }
 
     public static ArrayList<String> getLore(ItemStack itemStack) {
+        if (itemStack == null) {
+            return new ArrayList<>();
+        }
+        if (!itemStack.hasTagCompound() || !itemStack.getTagCompound().hasKey("display") || !itemStack.getTagCompound().getCompoundTag("display").hasKey("Lore")) {
+            return new ArrayList<>();
+        }
         NBTTagList tagList = itemStack.getTagCompound().getCompoundTag("display").getTagList("Lore", 8);
         ArrayList<String> loreList = new ArrayList<>();
         for (int i = 0; i < tagList.tagCount(); i++) {
@@ -346,7 +383,11 @@ public class Utils {
         return obj.get(splitPath[splitPath.length - 1]);
     }
 
-    public static float getDistance(Range3d.Point2d point1, Range3d.Point2d point2) {
-        return (float) Math.sqrt(Math.pow(point2.getX() - point1.getX(), 2) + Math.pow(point2.getY() - point1.getY(), 2));
+    public static float getDistance2d(Point2d point1, Point2d point2) {
+        return (float) Math.sqrt(Math.pow(point2.getPointX() - point1.getPointX(), 2) + Math.pow(point2.getPointY() - point1.getPointY(), 2));
+    }
+
+    public static float getDistance3d(Point3d point1, Point3d point2) {
+        return (float) Math.sqrt(Math.pow(point2.getPointX() - point1.getPointX(), 2) + Math.pow(point2.getPointY() - point1.getPointY(), 2) + Math.pow(point2.getPointZ() - point1.getPointZ(), 2));
     }
 }

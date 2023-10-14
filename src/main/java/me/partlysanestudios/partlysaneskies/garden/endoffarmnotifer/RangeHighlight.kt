@@ -24,13 +24,12 @@
 package me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
-import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.Range3d.Point3d
+import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.points.Point3d
 import me.partlysanestudios.partlysaneskies.system.ThemeManager
 import me.partlysanestudios.partlysaneskies.utils.Utils
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.Tessellator
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats
-import net.minecraft.util.AxisAlignedBB
 import net.minecraftforge.client.event.RenderWorldLastEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import org.lwjgl.opengl.GL11
@@ -61,7 +60,7 @@ object RangeHighlight {
             renderBox(effectiveRange, event.partialTicks, color)
         }
     }
-    private fun renderBox(range: Range3d, partialTicks: Float, color: Color) {
+    fun renderBox(range: Range3d, partialTicks: Float, color: Color) {
         try {
             renderBoxFaces(range, color, false, partialTicks)
             renderBoxEdges(range, false, partialTicks)

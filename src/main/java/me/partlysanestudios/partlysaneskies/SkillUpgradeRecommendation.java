@@ -8,7 +8,6 @@ package me.partlysanestudios.partlysaneskies;
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager;
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockPlayer;
 import me.partlysanestudios.partlysaneskies.system.commands.PSSCommand;
-import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 
 import java.io.IOException;
@@ -144,7 +143,7 @@ public class SkillUpgradeRecommendation {
                                 map = SkillUpgradeRecommendation.getRecommendedSkills(a[0]);
                             } catch (IOException e) {
                                 Utils.sendClientMessage(("Error getting data for " + a[0]
-                                        + ". Maybe the player is nicked or there is an invalid API key. Try running /api new."));
+                                        + ". Maybe the player is nicked or there is an invalid API key."));
                                 return;
                             }
                         } else {
@@ -153,7 +152,7 @@ public class SkillUpgradeRecommendation {
                             } catch (IOException e) {
                                 Utils.sendClientMessage(("Error getting data for "
                                         + PartlySaneSkies.minecraft.thePlayer.getName()
-                                        + ". Maybe the player is nicked or there is an invalid API key. Try running /api new."));
+                                        + ". Maybe the player is nicked or there is an invalid API key."));
                                 return;
                             }
                         }
