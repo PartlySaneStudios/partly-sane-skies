@@ -1,6 +1,6 @@
 /* VisitorLogbookStats.kt
  * A Kotlin class written by Erymanthus[#5074] | (u/)RayDeeUx
- * forSu386 and FlagMaster's Partly Sane Skies mod.
+ * for Su386 and FlagMaster's Partly Sane Skies mod.
  * See LICENSE for copyright and license notices.
  *
  * KOTLIN ON TOP BABYYYYYYYY
