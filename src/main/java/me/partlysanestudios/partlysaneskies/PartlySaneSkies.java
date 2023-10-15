@@ -38,6 +38,7 @@ import me.partlysanestudios.partlysaneskies.economy.minioncalculator.ProfitMinio
 import me.partlysanestudios.partlysaneskies.garden.CompostValue;
 import me.partlysanestudios.partlysaneskies.garden.GardenTradeValue;
 import me.partlysanestudios.partlysaneskies.garden.SkymartValue;
+import me.partlysanestudios.partlysaneskies.garden.VisitorLogbookStats;
 import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.EndOfFarmNotifier;
 import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.RangeHighlight;
 import me.partlysanestudios.partlysaneskies.garden.MathematicalHoeRightClicks;
@@ -198,7 +199,7 @@ public class PartlySaneSkies {
         MinecraftForge.EVENT_BUS.register(AuctionHouseGui.Companion);
         MinecraftForge.EVENT_BUS.register(new RequiredSecretsFound());
         MinecraftForge.EVENT_BUS.register(new Pickaxes());
-        MinecraftForge.EVENT_BUS.register(VisitorLogbookStats.INSTANCE);
+        MinecraftForge.EVENT_BUS.register(new VisitorLogbookStats());
         MinecraftForge.EVENT_BUS.register(eofn);
 
 
