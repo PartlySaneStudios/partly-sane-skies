@@ -11,7 +11,6 @@ import java.time.Month
 
 private const val numOfSounds = 7
 private var lastPrankTime = PartlySaneSkies.getTime();
-private var dateState = "unknown"
 
 /*
     Sound indexes:
