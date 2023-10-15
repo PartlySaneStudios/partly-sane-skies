@@ -198,6 +198,7 @@ public class PartlySaneSkies {
         MinecraftForge.EVENT_BUS.register(AuctionHouseGui.Companion);
         MinecraftForge.EVENT_BUS.register(new RequiredSecretsFound());
         MinecraftForge.EVENT_BUS.register(new Pickaxes());
+        MinecraftForge.EVENT_BUS.register(VisitorLogbookStats.INSTANCE);
         MinecraftForge.EVENT_BUS.register(eofn);
 
 
