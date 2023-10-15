@@ -33,21 +33,10 @@ class Prank {
     }
 
     private fun checkDate(): Boolean{
-
-        // If the date has already been checked, return the result
-        if (dateState != "unknown") {
-            return dateState == "valid"
-        }
-
         val today = LocalDate.now()
         val april1st = LocalDate.of(today.year, Month.APRIL, 1)
         val october31st = LocalDate.of(today.year, Month.OCTOBER, 31)
 
-        dateState = if (today == april1st || today == october31st) {
-            "valid"
-        } else {
-            "invalid"
-        }
         return today == april1st || today == october31st
     }
 
