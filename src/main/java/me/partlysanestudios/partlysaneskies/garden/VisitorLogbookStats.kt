@@ -140,7 +140,7 @@ class VisitorLogbookStats {
             .setWidth(PixelConstraint(box.getWidth() - (2 * (pad.toFloat()))))
 
 
-        var textString = "§2Garden Visitor Stats (for current page):\n§7Format: [visit | accept | pending]\n"
+        var textString = "§2Garden Visitor Stats (for current page):\n§7Format: [visit | accept | denied + pending]\n"
         textString += theBaseString
         textComponent.setText(textString)
 
