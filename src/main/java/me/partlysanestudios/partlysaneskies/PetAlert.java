@@ -16,6 +16,7 @@ import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.auctionhouse.menu.AuctionHouseGui;
 import me.partlysanestudios.partlysaneskies.system.ThemeManager;
 import me.partlysanestudios.partlysaneskies.system.commands.PSSCommand;
+import me.partlysanestudios.partlysaneskies.utils.ElementaUtils;
 import me.partlysanestudios.partlysaneskies.utils.LocationUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
@@ -54,10 +55,9 @@ public class PetAlert {
             return;
         }
         Entity usersPet = getUsersPet(PartlySaneSkies.minecraft.thePlayer.getName());
-        String petName = ("§8(Unknown)");
+        String petName = "§8(Unknown)";
         if (usersPet != null) {
             petName = parsePetNameFromEntity(usersPet.getName());
-        
         }
         
         String selectedPetName = PartlySaneSkies.config.selectedPet;
@@ -71,10 +71,8 @@ public class PetAlert {
         }
         
         if (!Utils.onCooldown(lastSoundTime, 750)) {
-            PartlySaneSkies.minecraft.getSoundHandler()
-                .playSound(
-                    PositionedSoundRecord
-                    .create(new ResourceLocation("partlysaneskies", "bell"))
+            PartlySaneSkies.minecraft.getSoundHandler().playSound(
+                    PositionedSoundRecord.create(new ResourceLocation("partlysaneskies", "bell"))
                 );
                 if (PartlySaneSkies.config.incorrectPetForMinionAlertSiren) {
                     PartlySaneSkies.minecraft.getSoundHandler().playSound(
@@ -83,8 +81,8 @@ public class PetAlert {
             lastSoundTime = PartlySaneSkies.getTime();
         }
         if (!Utils.onCooldown(lastMessageSendTime,3000)) {
-            IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + ("§cYOU CURRENTLY HAVE " + petName + "§c SELECTED AS YOUR PET. YOU WANTED TO UPGRADE " + selectedPetName + "." +
-            "\n§dClick this message or run /mutepetalert to mute the alert for " + PartlySaneSkies.config.petAlertMuteTime + " minutes."));
+            IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + "§cYOU CURRENTLY HAVE " + petName + "§c SELECTED AS YOUR PET. YOU WANTED TO UPGRADE " + selectedPetName + "." +
+            "\n§dClick this message or run /mutepetalert to mute the alert for " + PartlySaneSkies.config.petAlertMuteTime + " minutes.");
             message.getChatStyle().setChatClickEvent(new ClickEvent(Action.RUN_COMMAND, "/mutepetalert"));
             PartlySaneSkies.minecraft.ingameGUI.getChatGUI().printChatMessage(message);
             lastMessageSendTime = PartlySaneSkies.getTime();
@@ -229,7 +227,7 @@ public class PetAlert {
 
     static Window window = new Window(ElementaVersion.V2);
 
-    UIComponent box = new UIRoundedRectangle(widthScaledConstraint(5).getValue())
+    UIComponent box = new UIRoundedRectangle(ElementaUtils.widthScaledConstraint(5, window).getValue())
             .setColor(new Color(0, 0, 0, 0))
             .setChildOf(window);
 
@@ -250,10 +248,10 @@ public class PetAlert {
         }
 
         box.unhide(true);
-        box.setX(widthScaledConstraint(633))
+        box.setX(ElementaUtils.widthScaledConstraint(633, window))
                 .setY(new CenterConstraint())
-                .setWidth(widthScaledConstraint(125))
-                .setHeight(widthScaledConstraint(100));
+                .setWidth(ElementaUtils.widthScaledConstraint(125, window))
+                .setHeight(ElementaUtils.widthScaledConstraint(100, window));
 
         image.setX(new CenterConstraint())
                 .setY(new CenterConstraint())
@@ -261,7 +259,7 @@ public class PetAlert {
                 .setHeight(new PixelConstraint(box.getHeight()));
 
         textComponent.setX(new CenterConstraint())
-                .setTextScale(widthScaledConstraint(1f))
+                .setTextScale(ElementaUtils.widthScaledConstraint(1f, window))
                 .setY(new CenterConstraint())
                 .setWidth(new PixelConstraint(box.getWidth()));
 
@@ -296,13 +294,5 @@ public class PetAlert {
                 "§d" + PartlySaneSkies.config.selectedPet;
         textComponent.setText(textString);
         window.draw(new UMatrixStack());
-    }
-
-    private static float getWidthScaleFactor() {
-        return window.getWidth() / 1097f;
-    }
-
-    private static PixelConstraint widthScaledConstraint(float value) {
-        return new PixelConstraint(value * getWidthScaleFactor());
     }
 }

@@ -16,6 +16,7 @@ import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager;
 import me.partlysanestudios.partlysaneskies.system.ThemeManager;
+import me.partlysanestudios.partlysaneskies.utils.ElementaUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.gui.inventory.GuiChest;
@@ -246,7 +247,7 @@ public class CompostValue {
 
     static Window window = new Window(ElementaVersion.V2);
 
-    UIComponent box = new UIRoundedRectangle(widthScaledConstraint(5).getValue())
+    UIComponent box = new UIRoundedRectangle(ElementaUtils.widthScaledConstraint(5, window).getValue())
             .setColor(new Color(0, 0, 0, 0))
             .setChildOf(window);
     
@@ -268,20 +269,20 @@ public class CompostValue {
         }
 
         box.unhide(true);
-        box.setX(widthScaledConstraint(700))
+        box.setX(ElementaUtils.widthScaledConstraint(700, window))
             .setY(new CenterConstraint())
-            .setWidth(widthScaledConstraint(200))
-            .setHeight(widthScaledConstraint(300));
+            .setWidth(ElementaUtils.widthScaledConstraint(200, window))
+            .setHeight(ElementaUtils.widthScaledConstraint(300, window));
 
         image.setX(new CenterConstraint())
             .setY(new CenterConstraint())
             .setWidth(new PixelConstraint(box.getWidth()))
             .setHeight(new PixelConstraint(box.getHeight()));
         
-        textComponent.setX(widthScaledConstraint(pad))
-            .setTextScale(widthScaledConstraint(1f))
-            .setY(widthScaledConstraint(2 * pad))
-            .setWidth(new PixelConstraint(box.getWidth() - widthScaledConstraint(2 * pad).getValue()));
+        textComponent.setX(ElementaUtils.widthScaledConstraint(pad, window))
+            .setTextScale(ElementaUtils.widthScaledConstraint(1f, window))
+            .setY(ElementaUtils.widthScaledConstraint(2 * pad, window))
+            .setWidth(new PixelConstraint(box.getWidth() - ElementaUtils.widthScaledConstraint(2 * pad, window).getValue()));
             
 
         String textString = "§e§lTop Crops:\n\n";
@@ -299,17 +300,8 @@ public class CompostValue {
 
         textString += "§7x§d"+ StringUtils.formatNumber(Utils.round(compostAmount, 0)) +"§7 Compost currently sells for §d" + StringUtils.formatNumber(Utils.round(compostSellPrice * compostAmount, 1))  + "§7 coins.\n§8(" + StringUtils.formatNumber(Utils.round(compostSellPrice, 1)) + "/Compost)";
 
-        textString = (textString);
         textComponent.setText(textString);
 
         window.draw(new UMatrixStack());
-    }
-
-    private static float getWidthScaleFactor() {
-        return window.getWidth() / 1097f;
-    }
-
-    private static PixelConstraint widthScaledConstraint(float value) {
-        return new PixelConstraint(value * getWidthScaleFactor());
     }
 }

@@ -17,6 +17,7 @@ import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager;
 import me.partlysanestudios.partlysaneskies.system.ThemeManager;
+import me.partlysanestudios.partlysaneskies.utils.ElementaUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.gui.inventory.GuiChest;
@@ -228,7 +229,7 @@ public class GardenTradeValue {
         return totalCost;
     }
 
-    UIComponent box = new UIRoundedRectangle(widthScaledConstraint(5).getValue())
+    UIComponent box = new UIRoundedRectangle(ElementaUtils.widthScaledConstraint(5, window).getValue())
             .setColor(new Color(0, 0, 0, 0))
             .setChildOf(window);
     
@@ -250,20 +251,20 @@ public class GardenTradeValue {
         }
 
         box.unhide(true);
-        box.setX(widthScaledConstraint(700))
+        box.setX(ElementaUtils.widthScaledConstraint(700, window))
             .setY(new CenterConstraint())
-            .setWidth(widthScaledConstraint(200))
-            .setHeight(widthScaledConstraint(300));
+            .setWidth(ElementaUtils.widthScaledConstraint(200, window))
+            .setHeight(ElementaUtils.widthScaledConstraint(300, window));
 
         image.setX(new CenterConstraint())
             .setY(new CenterConstraint())
             .setWidth(new PixelConstraint(box.getWidth()))
             .setHeight(new PixelConstraint(box.getHeight()));
         
-        textComponent.setX(widthScaledConstraint(pad))
-            .setTextScale(widthScaledConstraint(1f))
-            .setY(widthScaledConstraint(2 * pad))
-            .setWidth(new PixelConstraint(box.getWidth() - widthScaledConstraint(2 * pad).getValue()));
+        textComponent.setX(ElementaUtils.widthScaledConstraint(pad, window))
+            .setTextScale(ElementaUtils.widthScaledConstraint(1f, window))
+            .setY(ElementaUtils.widthScaledConstraint(2 * pad, window))
+            .setWidth(new PixelConstraint(box.getWidth() - ElementaUtils.widthScaledConstraint(2 * pad, window).getValue()));
 
         StringBuilder textString = new StringBuilder();
 
@@ -294,13 +295,5 @@ public class GardenTradeValue {
         textComponent.setText(textString.toString());
 
         window.draw(new UMatrixStack());
-    }
-
-    private static float getWidthScaleFactor() {
-        return window.getWidth() / 1097f;
-    }
-
-    private static PixelConstraint widthScaledConstraint(float value) {
-        return new PixelConstraint(value * getWidthScaleFactor());
     }
 }
