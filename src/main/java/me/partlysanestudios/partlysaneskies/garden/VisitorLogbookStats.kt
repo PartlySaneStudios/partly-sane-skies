@@ -85,6 +85,7 @@ class VisitorLogbookStats {
 
     private fun getString(seenStats: MutableList<Int>, acceptedStats: MutableList<Int>) {
         for (indexInt in 0..(tiers.size - 1)) { //"'RaNgEtO' oR ThE '..' cALL sHoULd bE RePLaCeD wiTh 'UnTiL'"
+            if ((seenStats[indexInt] == 0 || acceptedStats[indexInt] == 0) && indexInt == 5) break
             val c = (tiers[indexInt]).take(2)
             theBaseString += "\n${tiers[indexInt]}:\n ${c}Visited: ${seenStats[indexInt]}\n ${c}Accepted: ${acceptedStats[indexInt]}\n ${c}Pending or Denied: ${Math.abs(seenStats[indexInt] - acceptedStats[indexInt])}"
         }
