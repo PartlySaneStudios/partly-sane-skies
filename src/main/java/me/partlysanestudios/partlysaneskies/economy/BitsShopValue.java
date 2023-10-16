@@ -17,6 +17,7 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager;
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockItem;
 import me.partlysanestudios.partlysaneskies.system.ThemeManager;
+import me.partlysanestudios.partlysaneskies.utils.ScoreboardUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.gui.inventory.GuiChest;
@@ -48,10 +49,10 @@ public class BitsShopValue {
         StringBuilder str = new StringBuilder();
 
         HashMap<String, Double> map = new HashMap<>();
-        long bitCount = PartlySaneSkies.getBits();
+        long bitCount = ScoreboardUtils.getBits();
         boolean filterAffordable = PartlySaneSkies.config.bitShopOnlyShowAffordable;
 
-        if (SkyblockDataManager.bitIds.size() == 0) {
+        if (SkyblockDataManager.bitIds.isEmpty()) {
             try {
                 SkyblockDataManager.initBitValues();
             } catch (IOException e) {

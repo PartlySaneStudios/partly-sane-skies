@@ -8,6 +8,7 @@ package me.partlysanestudios.partlysaneskies;
 import me.partlysanestudios.partlysaneskies.system.BannerRenderer;
 import me.partlysanestudios.partlysaneskies.system.PSSBanner;
 import me.partlysanestudios.partlysaneskies.utils.LocationUtils;
+import me.partlysanestudios.partlysaneskies.utils.ScoreboardUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
@@ -61,7 +62,7 @@ public class NoCookieWarning {
     }
 
     public static boolean hasLotsOfCoins() {
-        if (PartlySaneSkies.getCoins() > PartlySaneSkies.config.maxWithoutCookie) {
+        if (ScoreboardUtils.getCoins() > PartlySaneSkies.config.maxWithoutCookie) {
             return true;
         } else {
             return false;

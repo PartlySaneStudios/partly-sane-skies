@@ -16,7 +16,7 @@ public class LocationUtils {
     */
     public static boolean isSkyblock() {
         try {
-            if (PartlySaneSkies.getScoreboardName().toLowerCase().contains("skyblock")) {
+            if (ScoreboardUtils.getScoreboardName().toLowerCase().contains("skyblock")) {
                 return true;
             }
         } catch (NullPointerException expt) {
@@ -103,7 +103,7 @@ public class LocationUtils {
             return "";
         }
 
-        List<String> scoreboard = PartlySaneSkies.getScoreboardLines();
+        List<String> scoreboard = ScoreboardUtils.getScoreboardLines();
 
         String location = null;
 
