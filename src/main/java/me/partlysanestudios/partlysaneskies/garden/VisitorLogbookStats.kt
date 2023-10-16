@@ -37,7 +37,7 @@ import java.awt.*
 
 class VisitorLogbookStats {
 
-    private val tiers: List<String> = listOf<String>("§zTotal", "§aUncommon", "§9Rare", "§6Legendary", "§cSpecial", "§eUnknown") //total | uncommon | rare | leg | special | UNKNOWN
+    private val tiers: List<String> = listOf<String>("§fTotal", "§aUncommon", "§9Rare", "§6Legendary", "§cSpecial", "§eUnknown") //total | uncommon | rare | leg | special | UNKNOWN
     private var theBaseString = ""
 
     @SubscribeEvent
