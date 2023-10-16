@@ -6,7 +6,6 @@ package me.partlysanestudios.partlysaneskies.utils;
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 
-import javax.xml.stream.Location;
 import java.util.List;
 
 public class LocationUtils {
