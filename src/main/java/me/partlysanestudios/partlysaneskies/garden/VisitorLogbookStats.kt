@@ -37,7 +37,7 @@ import java.awt.*
 
 class VisitorLogbookStats {
 
-    private val tiers: List<String> = listOf<String>("§f§zTotal", "§aUncommon", "§9Rare", "§6Legendary", "§cSpecial", "§eUnknown") //total | uncommon | rare | leg | special | UNKNOWN
+    private val tiers: List<String> = listOf<String>("§zTotal", "§aUncommon", "§9Rare", "§6Legendary", "§cSpecial", "§eUnknown") //total | uncommon | rare | leg | special | UNKNOWN
     private var theBaseString = ""
 
     @SubscribeEvent
@@ -85,7 +85,8 @@ class VisitorLogbookStats {
 
     private fun getString(seenStats: MutableList<Int>, acceptedStats: MutableList<Int>) {
         for (indexInt in 0..(tiers.size - 1)) { //"'RaNgEtO' oR ThE '..' cALL sHoULd bE RePLaCeD wiTh 'UnTiL'" SHUT THE FUCK UP INTELLIJ LET ME CODE HOWEVER THE FUCK I WANT TO
-            theBaseString += "\n${tiers[indexInt]}: [${seenStats[indexInt]} | ${acceptedStats[indexInt]} | ${Math.abs(seenStats[indexInt] - acceptedStats[indexInt])}]"
+            val c = (tiers[indexInt]).take(2)
+            theBaseString += "\n${tiers[indexInt]}:\n ${c}Visited: [${seenStats[indexInt]}\n ${c}Accepted: ${acceptedStats[indexInt]}\n ${c}Pending or Denied:${Math.abs(seenStats[indexInt] - acceptedStats[indexInt])}]"
         }
     }
 
@@ -140,7 +141,7 @@ class VisitorLogbookStats {
             .setWidth(PixelConstraint(box.getWidth() - (2 * (pad.toFloat()))))
 
 
-        var textString = "§2Garden Visitor Stats (for current page):\n§7Format: [visit | accept | deny + pending]\n"
+        var textString = "§2Garden Visitor Stats (for current page):\n"
         textString += theBaseString
         textComponent.setText(textString)
 
