@@ -141,7 +141,9 @@ public class BitsShopValue {
             .setY(ElementaUtils.widthScaledConstraint(2 * pad, window))
             .setWidth(new PixelConstraint(box.getWidth() - ElementaUtils.widthScaledConstraint(2 * pad, window).getValue()));
 
-        textComponent.setText("§e§lTop Items:\n\n" + getString());
+        String message = "§e§lTop Items:\n\n" + getString();
+
+        textComponent.setText(message);
 
         window.draw(new UMatrixStack());
     }
