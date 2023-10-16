@@ -17,7 +17,7 @@ import java.util.Map;
 public class HelpCommands {
 
     public static void registerDiscordCommand() {
-        new PSSCommand("discord")
+        new PSSCommand("partlysaneskiesdiscord")
                 .addAlias("pssdisc")
                 .addAlias("pssd")
                 .addAlias("psdisc")
@@ -25,7 +25,7 @@ public class HelpCommands {
                 .setDescription("Join the Partly Sane Studios Discord Server")
                 .setRunnable((s, a) -> {
                     // Creates a new message with the correct text
-                    IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + ("§9Join the discord: https://discord.gg/" + PartlySaneSkies.discordCode));
+                    IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + "§9Join the discord: https://discord.gg/" + PartlySaneSkies.discordCode);
                     // Sets the text to be clickable with a link
                     message.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://discord.gg/" + PartlySaneSkies.discordCode));
                     // Prints message
@@ -128,8 +128,6 @@ public class HelpCommands {
                         return;
                     }
 
-
-
                     printHelpMessage();
 
                 }).register();
@@ -172,7 +170,6 @@ public class HelpCommands {
 
         str.append("\n§3§m-----------------------------------------------------§r");
 
-        Utils.sendClientMessage((str.toString()), true);
-
+        Utils.sendClientMessage(str.toString(), true);
     }
 }

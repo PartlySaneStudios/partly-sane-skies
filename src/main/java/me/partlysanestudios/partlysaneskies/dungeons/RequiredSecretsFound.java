@@ -9,7 +9,6 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.system.BannerRenderer;
 import me.partlysanestudios.partlysaneskies.system.PSSBanner;
 import me.partlysanestudios.partlysaneskies.utils.LocationUtils;
-import me.partlysanestudios.partlysaneskies.utils.Utils;
 import me.partlysanestudios.partlysaneskies.utils.TabListUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
