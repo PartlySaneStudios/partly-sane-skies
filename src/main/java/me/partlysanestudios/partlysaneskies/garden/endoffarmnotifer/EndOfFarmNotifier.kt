@@ -13,6 +13,7 @@ import me.partlysanestudios.partlysaneskies.system.BannerRenderer.renderNewBanne
 import me.partlysanestudios.partlysaneskies.system.PSSBanner
 import me.partlysanestudios.partlysaneskies.system.commands.PSSCommand
 import me.partlysanestudios.partlysaneskies.system.commands.PSSCommandRunnable
+import me.partlysanestudios.partlysaneskies.utils.LocationUtils
 import me.partlysanestudios.partlysaneskies.utils.StringUtils
 import me.partlysanestudios.partlysaneskies.utils.Utils
 import net.minecraft.client.audio.PositionedSoundRecord
@@ -98,7 +99,7 @@ class EndOfFarmNotifier {
         if (PartlySaneSkies.minecraft.thePlayer == null) {
             return false
         }
-        if (!inGarden()) {
+        if (!LocationUtils.inGarden()) {
             return false
         }
         if (PartlySaneSkies.minecraft.thePlayer.position == null) {
@@ -122,7 +123,7 @@ class EndOfFarmNotifier {
         if (!wandActive) {
             return
         }
-        if (!inGarden()) {
+        if (!LocationUtils.inGarden()) {
             return
         }
         if (Utils.getCurrentlyHoldingItem() == null) {
@@ -408,16 +409,5 @@ class EndOfFarmNotifier {
         private var rangeToHighlightSetTime: Long = 0
         private var wandActive = false
         private var pos = 1 // 1 is pos1, 2 is pos2
-        fun inGarden(): Boolean {
-            var location = PartlySaneSkies.getRegionName()
-            location = StringUtils.removeColorCodes(location)
-            location = StringUtils.stripLeading(location)
-            location = StringUtils.stripTrailing(location)
-            location = location.replace(
-                "\\P{Print}".toRegex(),
-                ""
-            )
-            return location.startsWith("The Garden") || location.startsWith("Plot: ")
-        }
     }
 }

@@ -26,6 +26,7 @@ package me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.points.Point3d
 import me.partlysanestudios.partlysaneskies.system.ThemeManager
+import me.partlysanestudios.partlysaneskies.utils.LocationUtils
 import me.partlysanestudios.partlysaneskies.utils.Utils
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.Tessellator
@@ -42,7 +43,7 @@ object RangeHighlight {
         if (!PartlySaneSkies.config.showFarmRegions && EndOfFarmNotifier.rangeToHighlight == null) {
             return
         }
-        if (!EndOfFarmNotifier.inGarden()) {
+        if (!LocationUtils.inGarden()) {
             return
         }
 

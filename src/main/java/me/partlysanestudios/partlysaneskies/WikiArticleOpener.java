@@ -6,6 +6,7 @@
 package me.partlysanestudios.partlysaneskies;
 
 import me.partlysanestudios.partlysaneskies.auctionhouse.menu.AuctionHouseGui;
+import me.partlysanestudios.partlysaneskies.utils.LocationUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -51,7 +52,7 @@ public class WikiArticleOpener {
     }
 
     public static void keyDown() {
-        if (!PartlySaneSkies.isSkyblock()) {
+        if (!LocationUtils.isSkyblock()) {
             return;
         }
         ItemStack item;

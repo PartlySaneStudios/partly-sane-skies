@@ -1,4 +1,3 @@
-
 //
 // Written by Su386.
 // See LICENSE for copyright and license notices.
@@ -48,8 +47,6 @@ public class MathematicalHoeRightClicks {
         }
     }
     public static boolean isHoldingHoe() {
-
-
         if (hoes == null) {
             return false;
         }
@@ -62,7 +59,6 @@ public class MathematicalHoeRightClicks {
             return false;
         }
         return hoes.contains(Utils.getItemId(heldItem));
-
     }
 
     public static void registerCommand() {

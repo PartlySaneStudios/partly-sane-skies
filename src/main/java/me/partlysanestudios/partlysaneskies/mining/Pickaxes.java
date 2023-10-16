@@ -9,6 +9,7 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.EndOfFarmNotifier;
 import me.partlysanestudios.partlysaneskies.system.BannerRenderer;
 import me.partlysanestudios.partlysaneskies.system.PSSBanner;
+import me.partlysanestudios.partlysaneskies.utils.LocationUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
@@ -25,7 +26,7 @@ public class Pickaxes {
     @SubscribeEvent
     public void onChat(ClientChatReceivedEvent event) {
         if (PartlySaneSkies.config.onlyGiveWarningOnMiningIsland){
-            if (!onMiningIsland()) return;
+            if (!LocationUtils.onMiningIsland()) return;
         }
 
         String message = StringUtils.removeColorCodes(event.message.getFormattedText());
@@ -50,7 +51,7 @@ public class Pickaxes {
         if (!PartlySaneSkies.config.blockAbilityOnPrivateIsland) {
             return;
         }
-        if (EndOfFarmNotifier.Companion.inGarden() || onPrivateIsland()){} else return; //dont mind me not wanting to nest code
+        if (LocationUtils.inGarden() || LocationUtils.onPrivateIsland()){} else return; //dont mind me not wanting to nest code
 
         if (event.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK || event.action == PlayerInteractEvent.Action.RIGHT_CLICK_AIR) {
             String[] loreOfItemInHand = Utils.getLore(Utils.getCurrentlyHoldingItem()).toArray(new String[0]);
@@ -59,42 +60,5 @@ public class Pickaxes {
                 event.setCanceled(true);
             }
         }
-    }
-
-    public static boolean onPrivateIsland() {
-        String location = PartlySaneSkies.getRegionName();
-        location = StringUtils.removeColorCodes(location);
-        location = StringUtils.stripLeading(location);
-        location = StringUtils.stripTrailing(location);
-        location = location.replaceAll("\\P{Print}", ""); // Removes the RANDOM EMOJIS THAT ARE PRESENT IN SKYBLOCK LOCATIONS      - Su rant, pls ignore
-
-        return location.startsWith("Your Island"); //Really hope that's the only private island name, and you cant rename it
-
-    }
-
-    public static boolean onMiningIsland() {
-        String location = PartlySaneSkies.getRegionName();
-        location = StringUtils.removeColorCodes(location);
-        location = StringUtils.stripLeading(location);
-        location = StringUtils.stripTrailing(location);
-        location = location.replaceAll("\\P{Print}", ""); // Removes the RANDOM EMOJIS THAT ARE PRESENT IN SKYBLOCK LOCATIONS      - Su rant, pls ignore
-
-        String[] miningLocations = {
-                "jungle", "jungle temple", "mithril deposits", "mines of divan", "goblin holdout",
-                "goblin queen's den", "precursor remnants", "lost precursor city", "crystal nucleus",
-                "magma fields", "khazad-dûm", "fairy grotto", "dragon's lair", "the forge", "forge basin",
-                "palace bridge", "royal palace", "aristocrat passage", "hanging court", "divan's gateway",
-                "far reserve", "goblin burrows", "miner's guild", "great ice wall", "the mist", "c&c minecarts co.",
-                "grand library", "barracks of heroes", "dwarven village", "the lift", "royal quarters", "lava springs",
-                "cliffside veins", "rampart's quarry", "upper mines", "royal mines", "gold mine", "coal mine",
-                "gunpowder mines", "lapis quarry", "pigman's den", "slimehill", "diamond reserve", "obsidian sanctuary", "dwarven mines"
-        };
-
-        for (String loc : miningLocations) {
-            if (location.toLowerCase().contains(loc)) {
-                return true;
-            }
-        }
-        return false;
     }
 }

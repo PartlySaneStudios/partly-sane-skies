@@ -9,6 +9,7 @@ import me.partlysanestudios.partlysaneskies.system.BannerRenderer;
 import me.partlysanestudios.partlysaneskies.system.PSSBanner;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
+import me.partlysanestudios.partlysaneskies.utils.LocationUtils;
 import net.minecraft.client.gui.Gui;
 
 import java.awt.*;
@@ -29,31 +30,11 @@ public class LocationBannerDisplay extends Gui {
         if (!PartlySaneSkies.config.locationBannerDisplay)
             return;
 
-        String regionName = PartlySaneSkies.getRegionName();
-        String noColorCodeRegionName = StringUtils.removeColorCodes(regionName);
+        String regionName = LocationUtils.getRegionName();
+        String noColorCodeRegionName = LocationUtils.getLocation();
         if (checkExpire()) {
             displayString = "";
         }
-
-        if (noColorCodeRegionName.isEmpty()) {
-            return;
-        }
-        
-        noColorCodeRegionName = StringUtils.stripLeading(noColorCodeRegionName);
-        noColorCodeRegionName = StringUtils.stripTrailing(noColorCodeRegionName);
-        noColorCodeRegionName = noColorCodeRegionName.replaceAll("\\P{Print}", ""); // Removes the RANDOM EMOJIS
-        // THAT ARE PRESENT IN SKY-BLOCK LOCATIONS
-        // LOOK AT THIS:
-        // The Catac🔮ombs (F5)
-        // The Catac👽ombs (F5)
-        // The Catac🔮ombs (F5)
-        // Dungeon H👾ub
-        // Mountain⚽
-        // Village⚽
-        // Coal Mine⚽
-        // THEY'RE NOT EVEN VISIBLE IN MINECRAFT - Su386
-        // (ITS NOT SPELLED VISABLE - j10a)
-        // (It's* - Su386)
 
         if (lastLocation.equals(noColorCodeRegionName)) {
             return;

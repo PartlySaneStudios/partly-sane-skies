@@ -48,6 +48,7 @@ import me.partlysanestudios.partlysaneskies.rngdropbanner.DropBannerDisplay;
 import me.partlysanestudios.partlysaneskies.system.*;
 import me.partlysanestudios.partlysaneskies.system.requests.Request;
 import me.partlysanestudios.partlysaneskies.system.requests.RequestsManager;
+import me.partlysanestudios.partlysaneskies.utils.LocationUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.Minecraft;
@@ -453,34 +454,10 @@ public class PartlySaneSkies {
         return System.currentTimeMillis();
     }
 
-    // Gets the current skyblock region from the scoreboard
-    public static String getRegionName() {
-        if (!isSkyblock()) {
-            return "";
-        }
-
-        List<String> scoreboard = getScoreboardLines();
-
-        String location = null;
-
-        for (String line : scoreboard) {
-            if (StringUtils.stripLeading(line).contains("⏣")) {
-                location = StringUtils.stripLeading(line).replace("⏣", "");
-                location = StringUtils.stripLeading(location);
-                break;
-            }
-        }
-
-        if (location == null) {
-            return "";
-        }
-
-        return location;
-    }
 
     // Gets the number of coins in your purse from the scoreboard
     public static long getCoins() {
-        if (!isSkyblock()) {
+        if (!LocationUtils.isSkyblock()) {
             return 0L;
         }
 
@@ -511,7 +488,7 @@ public class PartlySaneSkies {
 
     // Gets the number of bits from the scoreboard
     public static long getBits() {
-        if (!isSkyblock()) {
+        if (!LocationUtils.isSkyblock()) {
             return 0L;
         }
 
@@ -549,27 +526,6 @@ public class PartlySaneSkies {
         } catch (NumberFormatException event) {
             return 0;
         }
-    }
-
-    // Returns if the current gamemode is skyblock
-    public static boolean isSkyblock() {
-        try {
-            if (getScoreboardName().toLowerCase().contains("skyblock")) {
-                return true;
-            }
-        } catch (NullPointerException expt) {
-            return false;
-        }
-        return false;
-    }
-
-    // Returns if the current server is hypixel
-    public static boolean isHypixel() {
-        try {
-            return minecraft.getCurrentServerData().serverIP.contains(".hypixel.net");
-        } catch (NullPointerException ignored) {
-        }
-        return false;
     }
 
     // Sends a ping to the count API to track the number of users per day

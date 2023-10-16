@@ -7,6 +7,7 @@ package me.partlysanestudios.partlysaneskies;
 
 import me.partlysanestudios.partlysaneskies.system.BannerRenderer;
 import me.partlysanestudios.partlysaneskies.system.PSSBanner;
+import me.partlysanestudios.partlysaneskies.utils.LocationUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
@@ -97,7 +98,7 @@ public class NoCookieWarning {
 
     @SubscribeEvent
     public void checkCoinsTick(ClientTickEvent event) {
-        if (!PartlySaneSkies.isSkyblock()) {
+        if (!LocationUtils.isSkyblock()) {
             return;
         }
         if (!PartlySaneSkies.config.noCookieWarning) {

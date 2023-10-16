@@ -16,6 +16,7 @@ import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.auctionhouse.menu.AuctionHouseGui;
 import me.partlysanestudios.partlysaneskies.system.ThemeManager;
 import me.partlysanestudios.partlysaneskies.system.commands.PSSCommand;
+import me.partlysanestudios.partlysaneskies.utils.LocationUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.audio.PositionedSoundRecord;
@@ -92,7 +93,7 @@ public class PetAlert {
     }
 
     public static void favouritePet() {
-        if (!PartlySaneSkies.isSkyblock()) {
+        if (!LocationUtils.isSkyblock()) {
             return;
         }
         ItemStack item;
