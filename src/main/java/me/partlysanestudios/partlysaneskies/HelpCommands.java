@@ -17,7 +17,7 @@ import java.util.Map;
 public class HelpCommands {
 
     public static void registerDiscordCommand() {
-        new PSSCommand("partlysaneskiesdiscord")
+        new PSSCommand("discord")
                 .addAlias("pssdisc")
                 .addAlias("pssd")
                 .addAlias("psdisc")
