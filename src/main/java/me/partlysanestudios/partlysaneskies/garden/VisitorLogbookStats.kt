@@ -73,8 +73,8 @@ class VisitorLogbookStats {
                 "SPECIAL" -> 4
                 else -> 5
             }
-            val lineTimesVisited = noPlcwList.find{ it.contains("Times Visited: ") } ?: return
-            val lineOffersAccepted = noPlcwList.find{ it.contains("Offers Accepted: ") } ?: return
+            val lineTimesVisited = noPlcwList.find{ it.contains("Times Visited: ") } ?: break
+            val lineOffersAccepted = noPlcwList.find{ it.contains("Offers Accepted: ") } ?: break
             seenStats[rarityIndex] += lineTimesVisited.split(" ").last().replace(",", "").replace(".", "").toInt()
             acceptedStats[rarityIndex] += lineOffersAccepted.split(" ").last().replace(",", "").replace(".", "").toInt()
             seenStats[0] += lineTimesVisited.split(" ").last().replace(",", "").replace(".", "").toInt()
