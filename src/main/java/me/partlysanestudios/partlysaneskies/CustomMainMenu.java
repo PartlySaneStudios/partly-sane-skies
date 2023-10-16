@@ -26,8 +26,10 @@ import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.gui.GuiMultiplayer;
 import net.minecraft.client.gui.GuiOptions;
 import net.minecraft.client.gui.GuiSelectWorld;
+import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.GuiOpenEvent;
+import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.client.GuiModList;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -66,6 +68,7 @@ public class CustomMainMenu extends WindowScreen {
 
     private UIComponent singleplayerButton;
     private UIComponent multiplayerButton;
+    private UIComponent joinHypixelButton;
     private UIComponent modsButton;
     private UIComponent optionsButton;
     private UIComponent pssOptionsButton;
@@ -77,12 +80,14 @@ public class CustomMainMenu extends WindowScreen {
 
     private UIComponent singleplayerText;
     private UIComponent multiplayerText;
+    private UIComponent joinHypixelText;
     private UIComponent modsText;
     private UIComponent optionsText;
     private UIComponent pssOptionsText;
     private UIComponent quitText;
     private UIComponent timeText;
     private UIComponent discordText;
+    private final String hypixelIP = "mc.hypixel.net"; // I want to use "ilovecatgirls.xyz" to bad
 
     private static ArrayList<Announcement> announcements = new ArrayList<>();
     public static String latestVersion = "(Unknown)";
@@ -213,7 +218,7 @@ public class CustomMainMenu extends WindowScreen {
 
         multiplayerButton = new UIBlock()
                 .setX(new CenterConstraint())
-                .setY(new PixelConstraint(260 * scaleFactor))
+                .setY(new PixelConstraint(240 * scaleFactor))
                 .setHeight(new PixelConstraint(40 * scaleFactor))
                 .setWidth(new PixelConstraint(middleMenu.getWidth()))
                 .setColor(new Color(0, 0, 0, 0))
@@ -230,6 +235,26 @@ public class CustomMainMenu extends WindowScreen {
         multiplayerButton.onMouseEnterRunnable(() -> multiplayerText.setColor(new Color(200, 200, 200)));
 
         multiplayerButton.onMouseLeaveRunnable(() -> multiplayerText.setColor(new Color(255, 255, 255)));
+
+        joinHypixelButton = new UIBlock()
+                .setX(new CenterConstraint())
+                .setY(new PixelConstraint(280 * scaleFactor))
+                .setHeight(new PixelConstraint(40 * scaleFactor))
+                .setWidth(new PixelConstraint(middleMenu.getWidth()))
+                .setColor(new Color(0, 0, 0, 0))
+                .setChildOf(middleMenu);
+
+        joinHypixelText = new UIText("Join Hypixel")
+                .setX(new CenterConstraint())
+                .setY(new CenterConstraint())
+                .setTextScale(new PixelConstraint(1 * scaleFactor))
+                .setChildOf(joinHypixelButton);
+
+        joinHypixelButton.onMouseClickConsumer(event -> FMLClientHandler.instance().connectToServer(new GuiMultiplayer(PartlySaneSkies.minecraft.currentScreen), new ServerData("AddictionGame", hypixelIP, false)));
+
+        joinHypixelButton.onMouseEnterRunnable(() -> joinHypixelText.setColor(new Color(200, 200, 200)));
+
+        joinHypixelButton.onMouseLeaveRunnable(() -> joinHypixelText.setColor(new Color(255, 255, 255)));
 
         modsButton = new UIBlock()
                 .setX(new CenterConstraint())
@@ -387,11 +412,19 @@ public class CustomMainMenu extends WindowScreen {
                 .setTextScale(new PixelConstraint(1 * scaleFactor));
 
         multiplayerButton
-                .setY(new PixelConstraint(260 * scaleFactor))
+                .setY(new PixelConstraint(240 * scaleFactor))
                 .setHeight(new PixelConstraint(40 * scaleFactor))
                 .setWidth(new PixelConstraint(middleMenu.getWidth()));
 
         multiplayerText
+                .setTextScale(new PixelConstraint(1 * scaleFactor));
+
+        joinHypixelButton
+                .setY(new PixelConstraint(280 * scaleFactor))
+                .setHeight(new PixelConstraint(40 * scaleFactor))
+                .setWidth(new PixelConstraint(middleMenu.getWidth()));
+
+        joinHypixelText
                 .setTextScale(new PixelConstraint(1 * scaleFactor));
 
         modsButton
