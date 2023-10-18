@@ -36,6 +36,7 @@ import me.partlysanestudios.partlysaneskies.economy.minioncalculator.ProfitMinio
 import me.partlysanestudios.partlysaneskies.garden.CompostValue;
 import me.partlysanestudios.partlysaneskies.garden.GardenTradeValue;
 import me.partlysanestudios.partlysaneskies.garden.SkymartValue;
+import me.partlysanestudios.partlysaneskies.garden.VisitorLogbookStats;
 import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.EndOfFarmNotifier;
 import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.RangeHighlight;
 import me.partlysanestudios.partlysaneskies.garden.MathematicalHoeRightClicks;
@@ -197,7 +198,9 @@ public class PartlySaneSkies {
         MinecraftForge.EVENT_BUS.register(AuctionHouseGui.Companion);
         MinecraftForge.EVENT_BUS.register(new RequiredSecretsFound());
         MinecraftForge.EVENT_BUS.register(new Pickaxes());
+        MinecraftForge.EVENT_BUS.register(new VisitorLogbookStats());
         MinecraftForge.EVENT_BUS.register(eofn);
+        MinecraftForge.EVENT_BUS.register(new Prank());
 
 
 
@@ -222,6 +225,7 @@ public class PartlySaneSkies {
         ProfitMinionCalculator.registerCommand();
         MathematicalHoeRightClicks.registerCommand();
         WordEditor.registerWordEditorCommand();
+        PlayerRating.registerReprintCommand();
 
         // Initializes keybinds
         Keybinds.init();
@@ -379,10 +383,10 @@ public class PartlySaneSkies {
                 IChatComponent discordMessage = new ChatComponentText(("§9The Partly Sane Skies Discord server: https://discord.gg/" + discordCode));
                 discordMessage.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://discord.gg/" + discordCode));
                 Utils.sendClientMessage("§b§m--------------------------------------------------", true);
-                Utils.sendClientMessage("§cWe have detected you are using a dogfood version of Partly Sane Skies.", false);
+                Utils.sendClientMessage("§cWe noticed you're using a dogfood version of Partly Sane Skies.", false);
                 Utils.sendClientMessage("§c§lThis version may be unstable.", true);
-                Utils.sendClientMessage("§cOnly use it when recieving permission to do so from a Partly Sane Skies admin.", true);
-                Utils.sendClientMessage("§cReport any bugs to a Partly Sane Skies admin in a private ticket.", true);
+                Utils.sendClientMessage("§cOnly use it when told to do so by a Partly Sane Skies admin.", true);
+                Utils.sendClientMessage("§cReport any bugs to Partly Sane Skies admins in a private ticket.", true);
                 Utils.sendClientMessage("§7Version ID: §d" + VERSION, true);
                 Utils.sendClientMessage("§7Latest non-dogfood version: §d" + CustomMainMenu.latestVersion, true);
                 Utils.sendClientMessage(discordMessage);
