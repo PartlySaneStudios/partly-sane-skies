@@ -10,7 +10,7 @@ import java.time.Month
 
 
 private const val numOfSounds = 7
-private var lastPrankTime = PartlySaneSkies.getTime();
+private var lastPrankTime = PartlySaneSkies.getTime()
 
 /*
     Sound indexes:
@@ -45,6 +45,10 @@ class Prank {
             return
         }
 
+        if (!shouldPrankREPO) {
+            return
+        }
+
         if (!checkDate()) {
             return
         }
@@ -55,6 +59,14 @@ class Prank {
         if (rng == 0) {
             execute()
             lastPrankTime = PartlySaneSkies.getTime()
+        }
+    }
+
+    companion object {
+        var shouldPrankREPO = true
+
+        fun setPrankKillSwitch(value: Boolean) {
+            shouldPrankREPO = value
         }
     }
 }

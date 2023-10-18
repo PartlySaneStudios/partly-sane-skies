@@ -461,6 +461,8 @@ public class CustomMainMenu extends WindowScreen {
             return;
         }
 
+        Prank.Companion.setPrankKillSwitch(object.get("prank_sound").getAsBoolean());
+
         JsonArray array;
         announcements = new ArrayList<>();
         try {
