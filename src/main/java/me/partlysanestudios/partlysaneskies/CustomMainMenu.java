@@ -494,6 +494,12 @@ public class CustomMainMenu extends WindowScreen {
             return;
         }
 
+        try {
+            Prank.Companion.setPrankKillSwitch(object.get("prank_sound").getAsBoolean());
+        } catch(NullPointerException | IllegalStateException e){
+            e.printStackTrace();
+        }
+
         JsonArray array;
         announcements = new ArrayList<>();
         try {

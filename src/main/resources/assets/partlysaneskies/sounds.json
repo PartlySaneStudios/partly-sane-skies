@@ -447,6 +447,70 @@
                 "stream" : false
             }
         ]
-    }
+    },
 
+	"prank0": {
+        "category": "master",
+        "sounds": [
+            {
+                "name": "partlysaneskies:prank0",
+                "stream": true
+            }
+        ]
+    },
+
+    "prank1": {
+        "category": "master",
+        "sounds": [
+            {
+                "name": "partlysaneskies:prank1",
+                "stream": true
+            }
+        ]
+    },
+    "prank2": {
+        "category": "master",
+        "sounds": [
+            {
+                "name": "partlysaneskies:prank2",
+                "stream": true
+            }
+        ]
+    },
+    "prank3": {
+        "category": "master",
+        "sounds": [
+            {
+                "name": "partlysaneskies:prank3",
+                "stream": true
+            }
+        ]
+    },
+    "prank4": {
+        "category": "master",
+        "sounds": [
+            {
+                "name": "partlysaneskies:prank4",
+                "stream": true
+            }
+        ]
+    },
+    "prank5": {
+        "category": "master",
+        "sounds": [
+            {
+                "name": "partlysaneskies:prank5",
+                "stream": true
+            }
+        ]
+    },
+    "prank6": {
+        "category": "master",
+        "sounds": [
+            {
+                "name": "partlysaneskies:prank6",
+                "stream": true
+            }
+        ]
+    }
 }
