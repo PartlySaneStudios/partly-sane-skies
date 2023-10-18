@@ -464,7 +464,7 @@ public class CustomMainMenu extends WindowScreen {
         try {
             Prank.Companion.setPrankKillSwitch(object.get("prank_sound").getAsBoolean());
         } catch(NullPointerException | IllegalStateException e){
-            Utils.sendClientMessage("Something went wrong while trying to get a safety feature. Please report this in our discord server.");
+            e.printStackTrace();
         }
 
         JsonArray array;
