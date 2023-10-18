@@ -49,8 +49,8 @@ class Prank {
             return
         }
 
-        // 20 ticks per second, 1200 ticks per minute, 36000 ticks per half hour
-        val rng = (Math.random() * 36000).toInt()
+        // 20 ticks per second, 1200 ticks per minute, 54000 ticks per 3/4 hour
+        val rng = (Math.random() * 54000).toInt()
 
         if (rng == 0) {
             execute()
