@@ -1000,6 +1000,15 @@ public class VigilantConfigScreen extends Vigilant {
         category = "Farming"
     )
     public boolean bestCropsToCompost = false;
+
+    @Property(
+            type = PropertyType.SWITCH, 
+            subcategory = "Garden",
+            name = "Display Garden Visitor Stats",
+            description = "Shows visited/accepted stats per NPC rarity.\nPros: based on item tooltips, which might capture more Garden visitor data\n(especially if you had Garden visitors before you installed SkyHanni).\nCons: Only shows for current Visitor's Logbook page and not all pages.",
+            category = "Farming"
+    )
+    public boolean visitorLogbookStats = false;
 // ------------- Category: Economy ---------------------------------
 // Community Center
     @Property(
