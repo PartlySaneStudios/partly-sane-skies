@@ -1,3 +1,8 @@
+//
+// Written by J10a1n15.
+// See LICENSE for copyright and license notices.
+//
+
 package me.partlysanestudios.partlysaneskies
 
 import me.partlysanestudios.partlysaneskies.utils.Utils
@@ -63,7 +68,7 @@ class Prank {
     }
 
     companion object {
-        var shouldPrankREPO = true
+        var shouldPrankREPO = false
 
         fun setPrankKillSwitch(value: Boolean) {
             shouldPrankREPO = value

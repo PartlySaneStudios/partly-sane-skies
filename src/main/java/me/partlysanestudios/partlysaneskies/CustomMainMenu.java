@@ -460,8 +460,11 @@ public class CustomMainMenu extends WindowScreen {
             e.printStackTrace();
             return;
         }
+        try {
+            Prank.Companion.setPrankKillSwitch(object.get("prank_sound").getAsBoolean());
+        } catch(Exception e){
 
-        Prank.Companion.setPrankKillSwitch(object.get("prank_sound").getAsBoolean());
+        }
 
         JsonArray array;
         announcements = new ArrayList<>();
