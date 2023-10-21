@@ -119,8 +119,13 @@ public class Utils {
                     .getChatGUI()
                     .printChatMessage(new ChatComponentText("\n            " + print));
             StringSelection stringSelection = new StringSelection(print.toString());
-            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-            clipboard.setContents(stringSelection, null);
+            try {
+                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                clipboard.setContents(stringSelection, null);
+            } catch (IllegalStateException e) {
+
+            }
+
         } catch (NullPointerException ignored) {
         }
     }
