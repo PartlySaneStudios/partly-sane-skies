@@ -204,7 +204,7 @@ public class CompostValue {
         String pattern = StringUtils.removeColorCodes("§2§l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §r §e{compost_amount}§6/");
         String amountString = StringUtils.recognisePattern(StringUtils.removeColorCodes(amountLine), pattern, "{compost_amount}");
         
-        return amountString.replaceAll("\\D", "");
+        return amountString.replaceAll("\\d.", "");
 
     }
 
