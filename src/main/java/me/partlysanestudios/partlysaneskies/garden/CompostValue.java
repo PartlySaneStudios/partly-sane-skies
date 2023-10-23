@@ -209,7 +209,11 @@ public class CompostValue {
     }
 
     private static float getOrganicMatterFillLevel(IInventory inventory) {
-        return StringUtils.parseAbbreviatedNumber(getOrganicMatterFillLevelString(inventory));
+        String organicMatterFillLevelString = getOrganicMatterFillLevelString(inventory);
+        if (organicMatterFillLevelString.isEmpty()) {
+            return 0;
+        }
+        return StringUtils.parseAbbreviatedNumber(organicMatterFillLevelString);
     }
 
     private static String getOrganicMatterLimitString(IInventory composterInventory) {
