@@ -201,12 +201,19 @@ public class CompostValue {
             }
         }
 
-        String pattern = "§2§l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §r §e{compost_amount}§6/";
-        return StringUtils.recognisePattern(amountLine, pattern, "{compost_amount}");
+        String pattern = StringUtils.removeColorCodes("§2§l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §r §e{compost_amount}§6/");
+        String amountString = StringUtils.recognisePattern(StringUtils.removeColorCodes(amountLine), pattern, "{compost_amount}");
+        
+        return amountString.replaceAll("\\d.", "");
+
     }
 
     private static float getOrganicMatterFillLevel(IInventory inventory) {
-        return StringUtils.parseAbbreviatedNumber(getOrganicMatterFillLevelString(inventory));
+        String organicMatterFillLevelString = getOrganicMatterFillLevelString(inventory);
+        if (organicMatterFillLevelString.isEmpty()) {
+            return 0;
+        }
+        return StringUtils.parseAbbreviatedNumber(organicMatterFillLevelString);
     }
 
     private static String getOrganicMatterLimitString(IInventory composterInventory) {
