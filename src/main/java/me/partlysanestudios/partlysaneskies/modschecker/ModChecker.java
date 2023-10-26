@@ -78,7 +78,7 @@ public class ModChecker {
                 }
                 KnownMod mod = findMod(hash);
                 if (mod == null) {
-                    String message = "\n§c" + modName + " §7(" + fileName + ") §cunknown §7or outdated!";
+                    String message = "\n§c" + modName + " §7(" + fileName + ") is §cunknown §7or outdated!";
                     chatBuilder.append(message);
                     debugBuilder.append("\nUnknown mod!");
                     debugBuilder.append("\nfileName: " + fileName);
