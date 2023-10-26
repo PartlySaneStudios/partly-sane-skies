@@ -44,6 +44,7 @@ import me.partlysanestudios.partlysaneskies.garden.MathematicalHoeRightClicks;
 import me.partlysanestudios.partlysaneskies.mining.MiningEvents;
 import me.partlysanestudios.partlysaneskies.mining.Pickaxes;
 import me.partlysanestudios.partlysaneskies.mining.WormWarning;
+import me.partlysanestudios.partlysaneskies.modschecker.ModChecker;
 import me.partlysanestudios.partlysaneskies.rngdropbanner.DropBannerDisplay;
 import me.partlysanestudios.partlysaneskies.system.*;
 import me.partlysanestudios.partlysaneskies.system.requests.Request;
@@ -224,6 +225,7 @@ public class PartlySaneSkies {
         MathematicalHoeRightClicks.registerCommand();
         WordEditor.registerWordEditorCommand();
         PlayerRating.registerReprintCommand();
+        ModChecker.registerModCheckCommand();
 
         // Initializes keybinds
         Keybinds.init();
