@@ -11,11 +11,13 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager;
+import me.partlysanestudios.partlysaneskies.system.commands.PSSCommand;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,6 +34,8 @@ public class PlayerRating {
     // A map which has <Category, Total Count>
     private static HashMap<String, Integer> categoryPointMap = new HashMap<>();
     private static int totalPoints = 0;
+
+    public static String lastMessage = "";
     
     public static void initPatterns() {
         currentPlayer = PartlySaneSkies.minecraft.getSession().getUsername();
@@ -164,6 +168,16 @@ public class PlayerRating {
 
         totalPoints = 0;
     }
+    
+    public static void reprintLastScore() {
+        Utils.sendClientMessage(lastMessage, true);
+    }
+
+    public static void registerReprintCommand() {
+        new PSSCommand("reprintscore", Arrays.asList("rps", "rs"), "Reprints the last score in a dungeon run", (s, a) -> {
+            reprintLastScore();
+        }).register();
+    }
 
     // §r§fTeam Score: §r
     @SubscribeEvent
@@ -174,7 +188,8 @@ public class PlayerRating {
         // If end of dungeon
         if (event.message.getFormattedText().contains("Catacombs Experience§r")) {
             final String string = getDisplayString();
-            
+            lastMessage = string;
+
             new Thread(() -> {
                 try {
                     Thread.sleep(125);
@@ -188,6 +203,7 @@ public class PlayerRating {
                     Utils.sendClientMessage(string, true);
                 });
             }).start();
+
             if (PartlySaneSkies.config.partyChatDungeonPlayerBreakdown) {
                 PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/pc " + getChatMessage());
             }

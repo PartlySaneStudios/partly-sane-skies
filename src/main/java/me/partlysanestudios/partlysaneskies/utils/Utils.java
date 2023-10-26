@@ -13,7 +13,8 @@ import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.WikiArticleOpener;
-import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.Range3d;
+import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.points.Point2d;
+import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.points.Point3d;
 import me.partlysanestudios.partlysaneskies.system.ThemeManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
@@ -118,8 +119,13 @@ public class Utils {
                     .getChatGUI()
                     .printChatMessage(new ChatComponentText("\n            " + print));
             StringSelection stringSelection = new StringSelection(print.toString());
-            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-            clipboard.setContents(stringSelection, null);
+            try {
+                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                clipboard.setContents(stringSelection, null);
+            } catch (IllegalStateException e) {
+
+            }
+
         } catch (NullPointerException ignored) {
         }
     }
@@ -136,7 +142,6 @@ public class Utils {
 
     // If true, Sends a message discretely without the Prefix Partly Sane Skies >:
     public static void sendClientMessage(String text, boolean silent) {
-        text = (text);
         if (silent) {
             try {
                 sendClientMessage(new ChatComponentText(text));
@@ -146,7 +151,7 @@ public class Utils {
         }
         else {
             try {
-                sendClientMessage(new ChatComponentText((PartlySaneSkies.CHAT_PREFIX) + text));
+                sendClientMessage(new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + text));
             } catch (NullPointerException ignored) {
             }
         }
@@ -215,7 +220,7 @@ public class Utils {
         return Math.round(num * Math.pow(10, decimalPlaces) / Math.pow(10, decimalPlaces));
     }
 
-    public static int randint(int min, int max) {
+    public static int randInt(int min, int max) {
         return ThreadLocalRandom.current().nextInt(min, max + 1);
     }
 
@@ -383,7 +388,11 @@ public class Utils {
         return obj.get(splitPath[splitPath.length - 1]);
     }
 
-    public static float getDistance(Range3d.Point2d point1, Range3d.Point2d point2) {
-        return (float) Math.sqrt(Math.pow(point2.getX() - point1.getX(), 2) + Math.pow(point2.getY() - point1.getY(), 2));
+    public static float getDistance2d(Point2d point1, Point2d point2) {
+        return (float) Math.sqrt(Math.pow(point2.getPointX() - point1.getPointX(), 2) + Math.pow(point2.getPointY() - point1.getPointY(), 2));
+    }
+
+    public static float getDistance3d(Point3d point1, Point3d point2) {
+        return (float) Math.sqrt(Math.pow(point2.getPointX() - point1.getPointX(), 2) + Math.pow(point2.getPointY() - point1.getPointY(), 2) + Math.pow(point2.getPointZ() - point1.getPointZ(), 2));
     }
 }
