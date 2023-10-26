@@ -5,7 +5,8 @@
 
 package me.partlysanestudios.partlysaneskies.utils;
 
-import cc.polyfrost.oneconfig.config.core.OneColor;
+import me.partlysanestudios.partlysaneskies.temp.OneColor;
+import me.partlysanestudios.partlysaneskies.temp.OneColor;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

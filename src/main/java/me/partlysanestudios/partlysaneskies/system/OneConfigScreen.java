@@ -6,14 +6,7 @@
 
 package me.partlysanestudios.partlysaneskies.system;
 
-import cc.polyfrost.oneconfig.config.Config;
-import cc.polyfrost.oneconfig.config.annotations.Number;
-import cc.polyfrost.oneconfig.config.annotations.*;
-import cc.polyfrost.oneconfig.config.core.OneColor;
-import cc.polyfrost.oneconfig.config.core.OneKeyBind;
-import cc.polyfrost.oneconfig.config.data.InfoType;
-import cc.polyfrost.oneconfig.config.data.Mod;
-import cc.polyfrost.oneconfig.config.data.ModType;
+import me.partlysanestudios.partlysaneskies.temp.OneColor;
 import org.lwjgl.input.Keyboard;
 
 public class OneConfigScreen extends Config {
@@ -45,25 +38,6 @@ public class OneConfigScreen extends Config {
 
     )
     public static boolean ignored;
-
-    @HypixelKey
-    @Text(
-        secure = true, 
-        name = "API Key", 
-        category = "General", 
-        subcategory = "API", 
-        description = "Do /api new to automatically set your API Key. Do not show your API key to anyone unless you know what you're doing.",
-            size = 2
-    )
-    public String apiKey = "";
-
-    @Switch(
-            name = "Force Custom API Key",
-            category = "General",
-            subcategory = "API",
-            description = "Forces the use of a custom API key for Hypixel requests. (Requires API Key field to be populated)"
-    )
-    public boolean forceCustomAPIKey = false;
 
     @Number(
         min = .1f,

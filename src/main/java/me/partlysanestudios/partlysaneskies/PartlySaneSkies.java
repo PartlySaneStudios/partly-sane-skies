@@ -19,7 +19,8 @@
 
 package me.partlysanestudios.partlysaneskies;
 
-import cc.polyfrost.oneconfig.config.core.OneColor;
+import me.partlysanestudios.partlysaneskies.config.ConfigManager;
+import me.partlysanestudios.partlysaneskies.temp.OneColor;
 import gg.essential.elementa.ElementaVersion;
 import me.partlysanestudios.partlysaneskies.auctionhouse.menu.AuctionHouseGui;
 import me.partlysanestudios.partlysaneskies.chat.ChatAlertsManager;
@@ -197,6 +198,7 @@ public class PartlySaneSkies {
         MinecraftForge.EVENT_BUS.register(AuctionHouseGui.Companion);
         MinecraftForge.EVENT_BUS.register(new RequiredSecretsFound());
         MinecraftForge.EVENT_BUS.register(new Pickaxes());
+        MinecraftForge.EVENT_BUS.register(new ConfigManager());
         MinecraftForge.EVENT_BUS.register(eofn);
 
 
@@ -285,13 +287,6 @@ public class PartlySaneSkies {
         Utils.log(Level.INFO,"Partly Sane Skies has loaded.");
     }
 
-    public static String getAPIKey() {
-        if (config.forceCustomAPIKey) {
-            return config.apiKey;
-        }
-        return API_KEY;
-    }
-
     // Method runs every tick
     @SubscribeEvent
     public void clientTick(ClientTickEvent evnt) {
@@ -309,17 +304,6 @@ public class PartlySaneSkies {
         eofn.run();
         config.resetBrokenStrings();
         ThemeManager.run();
-    }
-
-    // Runs when the chat message starts with "Your new API key is"
-    // Updates the API key to the new API key
-    @SubscribeEvent
-    public void newApiKey(ClientChatReceivedEvent event) {
-        if (event.message.getUnformattedText().startsWith("Your new API key is ")) {
-            config.apiKey = event.message.getUnformattedText().replace("Your new API key is ", "");
-            Utils.sendClientMessage(("Saved new API key!"));
-            config.save();
-        }
     }
 
     // Runs chat analyzer for debug mode

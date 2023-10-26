@@ -5,10 +5,10 @@
 
 package me.partlysanestudios.partlysaneskies.system;
 
-import cc.polyfrost.oneconfig.config.core.OneColor;
 import gg.essential.elementa.components.UIImage;
 import gg.essential.universal.utils.ReleasedDynamicTexture;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
+import me.partlysanestudios.partlysaneskies.temp.OneColor;
 import me.partlysanestudios.partlysaneskies.utils.ImageUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.renderer.texture.TextureUtil;

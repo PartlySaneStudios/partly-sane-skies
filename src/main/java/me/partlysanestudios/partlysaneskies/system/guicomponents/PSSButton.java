@@ -5,7 +5,7 @@
 
 package me.partlysanestudios.partlysaneskies.system.guicomponents;
 
-import cc.polyfrost.oneconfig.config.core.OneColor;
+import me.partlysanestudios.partlysaneskies.temp.OneColor;
 import gg.essential.elementa.UIComponent;
 import gg.essential.elementa.components.UIBlock;
 import gg.essential.elementa.components.UIImage;
