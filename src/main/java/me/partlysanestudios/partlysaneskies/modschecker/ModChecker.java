@@ -78,7 +78,7 @@ public class ModChecker {
                 }
                 KnownMod mod = findMod(hash);
                 if (mod == null) {
-                    String message = "\n§c" + modName + " §7(" + fileName + ") §cunknown or outdated!";
+                    String message = "\n§c" + modName + " §7(" + fileName + ") §cunknown §7or outdated!";
                     chatBuilder.append(message);
                     debugBuilder.append("\nUnknown mod!");
                     debugBuilder.append("\nfileName: " + fileName);
@@ -89,11 +89,11 @@ public class ModChecker {
                     debugBuilder.append("\n ");
                 } else {
                     if (mod.latest) {
-                        String message = "\n§a" + mod.name + " §7up to date (version §e" + mod.version + "§7)";
+                        String message = "\n§a" + mod.name + " §7is up to date";
                         chatBuilder.append(message);
                     } else {
                         String latestVersion = findNewestMod(mod.name).version;
-                        String message = "\n§e" + mod.name + " §7outdated §7(§e" + mod.version + " §7-> §e" + latestVersion + "§7)";
+                        String message = "\n§e" + mod.name + " §7is §coutdated §7(§e" + mod.version + " §7-> §e" + latestVersion + "§7)";
                         chatBuilder.append(message);
                     }
                 }
