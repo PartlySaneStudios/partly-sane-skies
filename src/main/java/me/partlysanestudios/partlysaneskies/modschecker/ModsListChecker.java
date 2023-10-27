@@ -183,7 +183,7 @@ public class ModsListChecker {
     }
 
     @NotNull
-    private static String generateHash(File file) throws IOException {
+    public static String generateHash(File file) throws IOException {
         try (FileInputStream stream = new FileInputStream(file)) {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] buffer = new byte[8192];

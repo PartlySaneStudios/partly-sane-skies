@@ -13,21 +13,25 @@ class ModsFolderChecker {
         val modInfoContent = getMcModInfoFile(jarFile)
 
         if (modInfoContent.equals("")) {
-            return ModFile("", "", "", "")
+            return ModFile("", jarFile.name, "", "", "")
         }
 
 
 
 
         if (!isJsonString(modInfoContent)) {
-            return ModFile("", "", "", "")
+            return ModFile("", jarFile.name, "", "", "")
         }
 
         val json = JsonParser().parse(modInfoContent).asJsonArray[0].asJsonObject
 
-        val modId = json.get("modid")
-        val name = json.get("name")
-        val version = json.get("version")
+        val modId = json.get("modid").asString
+        val name = json.get("name").asString
+        val version = json.get("version").asString
+        val hash = ModsListChecker.generateHash(jarFile)
+        val fileName = jarFile.name
+
+        return ModFile(modId, fileName, version, name, hash)
 
     }
 
@@ -57,7 +61,7 @@ class ModsFolderChecker {
 
 
 
-    class ModFile(val modId: String, val modPath: String, val version: String, val name: String) {
+    class ModFile(val modId: String, val fileName: String, val version: String, val modName: String, val hash: String) {
 
     }
 }
