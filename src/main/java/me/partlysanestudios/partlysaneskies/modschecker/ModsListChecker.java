@@ -19,11 +19,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-public class ModChecker {
+public class ModsListChecker {
 
     public static void registerModCheckCommand() {
         new PSSCommand("modcheck", Collections.emptyList(), "Checks the mods in your mod folder if they are updated", (s, a) -> {
-            new Thread(ModChecker::run).start();
+            new Thread(ModsListChecker::run).start();
         }).register();
     }
 
