@@ -1,9 +1,9 @@
-/* 
- * 
+/*
+ *
  * Written by Su386.
  * See LICENSE for copyright and license notices.
- * 
- * 
+ *
+ *
  * Partly Sane Skies would not be possible with out the help of these projects:
  * (see CREDITS.md for more information)
  * Minecraft Forge
@@ -14,7 +14,7 @@
  * Vigilance
  * OneConfig
  * SkyCrypt
- * 
+ *
  */
 
 package me.partlysanestudios.partlysaneskies;
@@ -44,6 +44,7 @@ import me.partlysanestudios.partlysaneskies.garden.MathematicalHoeRightClicks;
 import me.partlysanestudios.partlysaneskies.mining.MiningEvents;
 import me.partlysanestudios.partlysaneskies.mining.Pickaxes;
 import me.partlysanestudios.partlysaneskies.mining.WormWarning;
+import me.partlysanestudios.partlysaneskies.modschecker.ModChecker;
 import me.partlysanestudios.partlysaneskies.rngdropbanner.DropBannerDisplay;
 import me.partlysanestudios.partlysaneskies.system.*;
 import me.partlysanestudios.partlysaneskies.system.requests.Request;
@@ -113,13 +114,13 @@ public class PartlySaneSkies {
 
 
     // Names of all the ranks to remove from people's names
-    public static final String[] RANK_NAMES = { "[VIP]", "[VIP+]", "[MVP]", "[MVP+]", "[MVP++]", "[YOUTUBE]", "[MOJANG]",
-            "[EVENTS]", "[MCP]", "[PIG]", "[PIG+]", "[PIG++]", "[PIG+++]", "[GM]", "[ADMIN]", "[OWNER]", "[NPC]" };
+    public static final String[] RANK_NAMES = {"[VIP]", "[VIP+]", "[MVP]", "[MVP+]", "[MVP++]", "[YOUTUBE]", "[MOJANG]",
+            "[EVENTS]", "[MCP]", "[PIG]", "[PIG+]", "[PIG++]", "[PIG+++]", "[GM]", "[ADMIN]", "[OWNER]", "[NPC]"};
 
     // Method runs at mod initialization
     @EventHandler
     public void init(FMLInitializationEvent evnt) {
-        Utils.log(Level.INFO,"Hallo World!");
+        Utils.log(Level.INFO, "Hallo World!");
         PartlySaneSkies.isDebugMode = false;
         PartlySaneSkies.minecraft = Minecraft.getMinecraft();
 
@@ -127,9 +128,9 @@ public class PartlySaneSkies {
         new File("./config/partly-sane-skies/").mkdirs();
 
         eofn = new EndOfFarmNotifier();
-        
+
         // Loads the config files and options
-        PartlySaneSkies.config = new OneConfigScreen();    
+        PartlySaneSkies.config = new OneConfigScreen();
         Request mainMenuRequest = null;
         try {
             mainMenuRequest = new Request("https://raw.githubusercontent.com/PartlySaneStudios/partly-sane-skies-public-data/main/data/main_menu.json", CustomMainMenu::setMainMenuInfo);
@@ -175,7 +176,6 @@ public class PartlySaneSkies {
             }
         }).start();
 
-        
 
         // Registers all the events
         MinecraftForge.EVENT_BUS.register(this);
@@ -210,7 +210,6 @@ public class PartlySaneSkies {
         MinecraftForge.EVENT_BUS.register(new Prank());
 
 
-
         // Registers all client side commands
         HelpCommands.registerPSSCommand();
         HelpCommands.registerCrepesCommand();
@@ -233,6 +232,7 @@ public class PartlySaneSkies {
         MathematicalHoeRightClicks.registerCommand();
         WordEditor.registerWordEditorCommand();
         PlayerRating.registerReprintCommand();
+        ModChecker.registerModCheckCommand();
 
         // Initializes keybinds
         Keybinds.init();
@@ -293,7 +293,7 @@ public class PartlySaneSkies {
         }).start();
 
         // Finished loading
-        Utils.log(Level.INFO,"Partly Sane Skies has loaded.");
+        Utils.log(Level.INFO, "Partly Sane Skies has loaded.");
     }
 
     public static String getAPIKey() {
@@ -378,24 +378,24 @@ public class PartlySaneSkies {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                
+
                 Utils.sendClientMessage("§b§m--------------------------------------------------", true);
 
                 Utils.sendClientMessage("§cWe have detected a new version of Partly Sane Skies.");
-                
+
                 ChatComponentText skyclientMessage = new ChatComponentText(("§aIf you are using SkyClient, make sure you update when prompted."));
                 PartlySaneSkies.minecraft.ingameGUI
                         .getChatGUI()
                         .printChatMessage(skyclientMessage);
-            
+
                 ChatComponentText githubMessage = new ChatComponentText(("§9If you are not using SkyClient, click here go to the github and download the latest version."));
                 githubMessage.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/PartlySaneStudios/partly-sane-skies/releases"));
                 githubMessage.getChatStyle().setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText("Click here to open the downloads page")));
                 PartlySaneSkies.minecraft.ingameGUI
                         .getChatGUI()
                         .printChatMessage(githubMessage);
-                
-                        Utils.sendClientMessage("§b§m--------------------------------------------------", true);
+
+                Utils.sendClientMessage("§b§m--------------------------------------------------", true);
             }).start();
         }
     }
@@ -415,8 +415,8 @@ public class PartlySaneSkies {
             e.printStackTrace();
             return null;
         }
-    
-        return new IInventory[] { upperInventory, lowerInventory };
+
+        return new IInventory[]{upperInventory, lowerInventory};
     }
 
     // Returns the name of the scoreboard without color codes
@@ -587,10 +587,8 @@ public class PartlySaneSkies {
     }
 
     public static boolean isLatestVersion() {
-        if(DOGFOOD) {
+        if (DOGFOOD) {
             return true;
-        }
-
-        else return VERSION.equals(CustomMainMenu.latestVersion);
+        } else return VERSION.equals(CustomMainMenu.latestVersion);
     }
 }
