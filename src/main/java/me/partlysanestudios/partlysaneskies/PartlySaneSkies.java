@@ -32,6 +32,7 @@ import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManager;
 import me.partlysanestudios.partlysaneskies.dungeons.permpartyselector.PermPartyManager;
 import me.partlysanestudios.partlysaneskies.dungeons.RequiredSecretsFound;
 import me.partlysanestudios.partlysaneskies.economy.BitsShopValue;
+import me.partlysanestudios.partlysaneskies.economy.CoinsToBoosterCookieConversion;
 import me.partlysanestudios.partlysaneskies.economy.minioncalculator.MinionData;
 import me.partlysanestudios.partlysaneskies.economy.minioncalculator.ProfitMinionCalculator;
 import me.partlysanestudios.partlysaneskies.garden.CompostValue;
@@ -109,6 +110,7 @@ public class PartlySaneSkies {
 
     private static LocationBannerDisplay locationBannerDisplay;
     private static EndOfFarmNotifier eofn;
+    private static CoinsToBoosterCookieConversion c2c;
 
     private static String API_KEY;
 
@@ -128,6 +130,7 @@ public class PartlySaneSkies {
         new File("./config/partly-sane-skies/").mkdirs();
 
         eofn = new EndOfFarmNotifier();
+        c2c = new CoinsToBoosterCookieConversion();
 
         // Loads the config files and options
         PartlySaneSkies.config = new OneConfigScreen();
@@ -199,6 +202,7 @@ public class PartlySaneSkies {
         MinecraftForge.EVENT_BUS.register(new RequiredSecretsFound());
         MinecraftForge.EVENT_BUS.register(new Pickaxes());
         MinecraftForge.EVENT_BUS.register(new VisitorLogbookStats());
+        MinecraftForge.EVENT_BUS.register(c2c);
         MinecraftForge.EVENT_BUS.register(eofn);
         MinecraftForge.EVENT_BUS.register(new Prank());
 
@@ -221,6 +225,7 @@ public class PartlySaneSkies {
         eofn.registerCreateRangeCommand();
         eofn.registerFarmNotifierCommand();
         eofn.registerWandCommand();
+        c2c.registerCommand();
         ProfitMinionCalculator.registerCommand();
         MathematicalHoeRightClicks.registerCommand();
         WordEditor.registerWordEditorCommand();
