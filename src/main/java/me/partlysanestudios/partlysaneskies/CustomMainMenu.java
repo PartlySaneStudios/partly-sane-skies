@@ -365,7 +365,7 @@ public class CustomMainMenu extends WindowScreen {
 
         discordText.onMouseClickConsumer(event -> Utils.openLink("https://discord.gg/" + PartlySaneSkies.discordCode));
 
-        funFactTitle = (UIWrappedText) new UIWrappedText("§8Fun Fact of the Day", true, new Color(255, 255, 255), true)
+        funFactTitle = (UIWrappedText) new UIWrappedText("§8Fun Fact of the Day", true, new Color(80, 80, 80), true)
                 .setX(new PixelConstraint((int) background.getWidth() * 0.6f))
                 .setY(new PixelConstraint(10 * scaleFactor + 20))
                 .setWidth(new PixelConstraint(700 * scaleFactor))
@@ -373,7 +373,7 @@ public class CustomMainMenu extends WindowScreen {
                 .setColor(new Color(0, 0, 0, 95))
                 .setChildOf(background);
 
-        funFactText = (UIWrappedText) new UIWrappedText(funFact, true, new Color(255, 255, 255), true)
+        funFactText = (UIWrappedText) new UIWrappedText(funFact, true, new Color(80, 80, 80), true)
                 .setX(new PixelConstraint((int) background.getWidth() * 0.6f))
                 .setY(new PixelConstraint(25 * scaleFactor + 30))
                 .setWidth(new PixelConstraint(700 * scaleFactor))
