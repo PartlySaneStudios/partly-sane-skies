@@ -1,3 +1,15 @@
+/* CoinsToBoosterCookieConversion.kt
+ * A Kotlin class written by Erymanthus[#5074] | (u/)RayDeeUx
+ * and Su386 for Su386 and FlagMaster's Partly Sane Skies mod.
+ * See LICENSE for copyright and license notices.
+ *
+ * KOTLIN ON TOP BABYYYYYYYY
+ *
+ * Wikipedium — Today at 4:08 PM
+ * Using booster cookies not irl trading lmao
+ *
+*/
+
 package me.partlysanestudios.partlysaneskies.economy
 
 import com.google.gson.JsonElement
@@ -22,10 +34,11 @@ class CoinsToBoosterCookieConversion {
     private val playerName: String by lazy { PartlySaneSkies.minecraft.thePlayer.name }
     private val boosterCookieItemId: String = "BOOSTER_COOKIE"
     private val boosterCookiePath: String = "constants/booster_cookie_price.json"
+    private val configCurr get(): Int = PartlySaneSkies.config.prefCurr
 
     private fun currencyFormatting(money: String): String {
         val boosterCookieData: JsonObject = JsonParser().parse(PublicDataManager.getFile(boosterCookiePath)).getAsJsonObject()
-        val prefCurr: String = boosterCookieData["storehypixelnet"].asJsonObject.get("order").asJsonArray[PartlySaneSkies.config.prefCurr].asString
+        val prefCurr: String = boosterCookieData["storehypixelnet"].asJsonObject.get("order").asJsonArray[configCurr].asString
         val prefCurrSymbol: String = boosterCookieData["currencysymbols"].asJsonObject.get(prefCurr).asString
         val prefCurrSymbolPlacementPrecede: Boolean = boosterCookieData["currencysymbolprecedes"].asJsonObject.get(prefCurr).asBoolean
         if (!prefCurrSymbolPlacementPrecede) {
@@ -49,7 +62,7 @@ class CoinsToBoosterCookieConversion {
             .setRunnable{ s: ICommandSender, a: Array<String> ->
                     if (a.size == 1 && a[0].toDoubleOrNull() != null) {
                         val boosterCookieData: JsonObject = JsonParser().parse(PublicDataManager.getFile(boosterCookiePath)).getAsJsonObject()
-                        val prefCurr: String = boosterCookieData["storehypixelnet"].asJsonObject.get("order").asJsonArray[PartlySaneSkies.config.prefCurr].asString
+                        val prefCurr: String = boosterCookieData["storehypixelnet"].asJsonObject.get("order").asJsonArray[configCurr].asString
                         val sSGPInPreferredCurrency = boosterCookieData["storehypixelnet"].asJsonObject.get(prefCurr).asDouble
                         val cookieValue: Double = ceil(convertToCookies(a[0].toDouble()))
                         val dollars: Double = (Math.round((cookieValue * sSGPInPreferredCurrency) * 100)) / 100.0
@@ -116,7 +129,7 @@ class CoinsToBoosterCookieConversion {
                     if (PartlySaneSkies.isDebugMode) Utils.sendClientMessage("§eCurrent profile and its networth found.")
                     if (networth >= 0.0) {
                         val boosterCookieData: JsonObject = JsonParser().parse(PublicDataManager.getFile(boosterCookiePath)).getAsJsonObject()
-                        val prefCurr: String = boosterCookieData["storehypixelnet"].asJsonObject.get("order").asJsonArray[PartlySaneSkies.config.prefCurr].asString
+                        val prefCurr: String = boosterCookieData["storehypixelnet"].asJsonObject.get("order").asJsonArray[configCurr].asString
                         val sSGPInPreferredCurrency = boosterCookieData["storehypixelnet"].asJsonObject.get(prefCurr).asDouble
                         val cookieValue: Double = ceil(convertToCookies(networth))
                         val dollars: Double = (Math.round((cookieValue * sSGPInPreferredCurrency) * 100)) / 100.0
