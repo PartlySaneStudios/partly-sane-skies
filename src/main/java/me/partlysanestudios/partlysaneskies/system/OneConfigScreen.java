@@ -934,6 +934,27 @@ public class OneConfigScreen extends Config {
     )
     public boolean bitShopOnlyShowAffordable = true;
 
+    @Dropdown(
+            category = "Economy",
+            subcategory = "Coins to Cookies Command",
+            name = "Coins to Cookies Preferred Currency",
+            description = "Select your preferred currency conversion for the /c2c command. Currencies are listed in alphabetical order.",
+            options = {
+                "AUD",
+                "BRL",
+                "CAD",
+                "DKK",
+                "EUR",
+                "NOK",
+                "NZD",
+                "PLN",
+                "GBP",
+                "SEK",
+                "USD"
+            }
+    )
+    public int prefCurr = 10;
+
     @Slider(
             min = 0,
             max = 100,
