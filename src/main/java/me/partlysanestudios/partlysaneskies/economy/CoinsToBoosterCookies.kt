@@ -119,7 +119,7 @@ class CoinsToBoosterCookieConversion {
                         val prefCurr: String = boosterCookieData["storehypixelnet"].asJsonObject.get("order").asJsonArray[PartlySaneSkies.config.prefCurr].asString
                         val sSGPInPreferredCurrency = boosterCookieData["storehypixelnet"].asJsonObject.get(prefCurr).asDouble
                         val cookieValue: Double = ceil(convertToCookies(networth))
-                        val dollars: Double = (ceil((cookieValue * sSGPInPreferredCurrency) * 100)) / 100.0
+                        val dollars: Double = (Math.round((cookieValue * sSGPInPreferredCurrency) * 100)) / 100.0
                         var namePlaceholder = "$username's"
                         if (username == PartlySaneSkies.minecraft.thePlayer.name) namePlaceholder = "Your"
                         Utils.sendClientMessage("§e$namePlaceholder total networth (both soulbound and unsoulbound) of §6${StringUtils.formatNumber(networth.toLong().toDouble())} coins §etoday is equivalent to §6${StringUtils.formatNumber(cookieValue.toDouble())} Booster Cookies, or §2${currencyFormatting(money = (StringUtils.formatNumber(dollars)))} §e(excluding sales taxes and other fees).")
