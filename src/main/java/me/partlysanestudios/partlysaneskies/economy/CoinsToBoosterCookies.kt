@@ -18,20 +18,19 @@ import kotlin.math.ceil
 
 class CoinsToBoosterCookieConversion {
 
-    private val skyCryptProfileURL = ("https://sky.shiiyu.moe/api/v2/profile/")
+    private val skyCryptProfileURL: String = ("https://sky.shiiyu.moe/api/v2/profile/")
     private val playerName: String by lazy { PartlySaneSkies.minecraft.thePlayer.name }
-    private val boosterCookieItemId = "BOOSTER_COOKIE"
+    private val boosterCookieItemId: String = "BOOSTER_COOKIE"
     private val boosterCookiePath: String = "constants/booster_cookie_price.json"
     private val boosterCookieData: JsonObject by lazy { JsonParser().parse(PublicDataManager.getFile(boosterCookiePath)).getAsJsonObject() }
     private val boosterCookieInGems: Double by lazy { boosterCookieData["ingame"].asJsonObject.get("onecookiegem").asInt.toDouble() } //see "wiki.hypixel.net/Booster_Cookie"
     private val storeHypixel: JsonObject by lazy { boosterCookieData["storehypixelnet"].asJsonObject }
-    private val smallestSkyblockGemsPackage: Double by lazy { storeHypixel.get("smallestgembundle").asInt.toDouble() } //see "store.hypixel.net/category/skyblock-gems"
-    private val prefCurr: String by lazy { storeHypixel.get("order").asJsonArray[PartlySaneSkies.config.prefCurr].asString }
-    private val prefCurrSymbol: String by lazy { boosterCookieData["currencysymbols"].asJsonObject.get(prefCurr).asString }
-    private val prefCurrSymbolPlacementPrecede: Boolean by lazy { boosterCookieData["currencysymbolprecedes"].asJsonObject.get(prefCurr).asBoolean }
-    private val sSGPInPreferredCurrency: Double by lazy { storeHypixel.get(prefCurr).asDouble } //see "store.hypixel.net/category/skyblock-gems"
+    private val smallestSkyblockGemsPackage: Double by lazy { storeHypixel.get("smallestgembundle").asInt.toDouble() }
 
     private fun currencyFormatting(money: String): String {
+        val prefCurr: String = storeHypixel.get("order").asJsonArray[PartlySaneSkies.config.prefCurr].asString
+        val prefCurrSymbol: String = boosterCookieData["currencysymbols"].asJsonObject.get(prefCurr).asString
+        val prefCurrSymbolPlacementPrecede: Boolean = boosterCookieData["currencysymbolprecedes"].asJsonObject.get(prefCurr).asBoolean
         if (!prefCurrSymbolPlacementPrecede) {
             return "$money$prefCurrSymbol"
         } else {
@@ -52,9 +51,13 @@ class CoinsToBoosterCookieConversion {
             .setDescription("Converts a given amount of coins to the IRL cost of booster cookies in your selected currency via §9/pssc§b.")
             .setRunnable{ s: ICommandSender, a: Array<String> ->
                     if (a.size == 1 && a[0].toDoubleOrNull() != null) {
+                        val prefCurr: String = storeHypixel.get("order").asJsonArray[PartlySaneSkies.config.prefCurr].asString
+                        val sSGPInPreferredCurrency = storeHypixel.get(prefCurr).asDouble
                         val cookieValue: Double = ceil(convertToCookies(a[0].toDouble()))
                         val dollars: Double = (Math.round((cookieValue * sSGPInPreferredCurrency) * 100)) / 100.0
-                        Utils.sendClientMessage("§6${StringUtils.formatNumber(abs(a[0].toDouble()))} coins §etoday is equivalent to §6${currencyFormatting(StringUtils.formatNumber(cookieValue.toLong().toDouble()))} Booster Cookies, or §2$${currencyFormatting(StringUtils.formatNumber(dollars))} §e(excluding sales taxes and other fees).")
+                        Utils.sendClientMessage("§6${StringUtils.formatNumber(abs(a[0].toDouble()))} coins §etoday is equivalent to §6${StringUtils.formatNumber(cookieValue.toLong().toDouble())} Booster Cookies, or §2$${currencyFormatting(money = (StringUtils.formatNumber(dollars)))} §e(excluding sales taxes and other fees).")
+                        Utils.sendClientMessage("§7(For reference, Booster Cookies today are worth ${StringUtils.formatNumber(ceil(SkyblockDataManager.getItem(boosterCookieItemId).getBuyPrice()).toLong().toDouble())} coins. Note that the developers of Partly Sane Skies do not support IRL trading, and the /c2c command is intended for educational purposes.)", true)
+                        if (PartlySaneSkies.isDebugMode) Utils.sendClientMessage("§eIf the currency symbol doesn't look right, please report this to us via §9/discord §eso we can find a replacement symbol that Minecraft 1.8.9 can render.", true)
                     } else {
                         if (a.isEmpty()) {
                             Utils.sendClientMessage("§cUsage: /coins2cookies [amountInCoins]")
@@ -63,7 +66,7 @@ class CoinsToBoosterCookieConversion {
                         val theOtherArg = a[0].trim().lowercase()
                         val networthMode = (theOtherArg == "networth" || theOtherArg == "nw")
                         if (a.size == 2 && networthMode && a[1] != playerName) {
-                            grabNetworth(a[1])
+                            grabNetworth(username = a[1])
                         } else if (a.size == 1 && networthMode) {
                             grabNetworth()
                         } else {
@@ -78,7 +81,6 @@ class CoinsToBoosterCookieConversion {
     private fun convertToCookies(coins: Double): Double {
         val boosterCookieBuyPrice = SkyblockDataManager.getItem(boosterCookieItemId).getBuyPrice()
         if (boosterCookieBuyPrice != -1.0) { //math adapted from NEU: https://github.com/NotEnoughUpdates/NotEnoughUpdates/blob/master/src/main/java/io/github/moulberry/notenoughupdates/profileviewer/BasicPage.java#L342
-            Utils.sendClientMessage("§7(For reference, Booster Cookies today are worth ${StringUtils.formatNumber(ceil(boosterCookieBuyPrice).toLong().toDouble())} coins.)")
             return (((abs(coins) / boosterCookieBuyPrice) * boosterCookieInGems) / smallestSkyblockGemsPackage)
         }
         return -1.0
@@ -100,7 +102,6 @@ class CoinsToBoosterCookieConversion {
                         Utils.sendClientMessage("§ePSS is having trouble accessing your profile data over SkyCrypt. Please try again; if this continues please report this to us via §9/discord§e.")
                         return@RequestRunnable
                     }
-
                     var networth: Double = -2.0
                     if (PartlySaneSkies.isDebugMode) Utils.sendClientMessage("§eFinding current profile...")
                     for (profile: Map.Entry<String,JsonElement> in profileData.entrySet())
@@ -113,12 +114,16 @@ class CoinsToBoosterCookieConversion {
                     }
                     if (PartlySaneSkies.isDebugMode) Utils.sendClientMessage("§eCurrent profile and its networth found.")
                     if (networth >= 0.0) {
+                        val prefCurr: String = storeHypixel.get("order").asJsonArray[PartlySaneSkies.config.prefCurr].asString
+                        val sSGPInPreferredCurrency = storeHypixel.get(prefCurr).asDouble
                         val cookieValue: Long = Math.round(convertToCookies(networth))
                         val dollars: Double = (Math.round((cookieValue * sSGPInPreferredCurrency) * 100)) / 100.0
                         var namePlaceholder = "$username's"
-                        if (playerName == PartlySaneSkies.minecraft.thePlayer.name) namePlaceholder = "Your "
-                        Utils.sendClientMessage("§e$namePlaceholder total networth (both soulbound and unsoulbound) of §6${StringUtils.formatNumber(networth.toLong().toDouble())} coins §etoday is equivalent to §6${StringUtils.formatNumber(cookieValue.toDouble())} Booster Cookies, or §2${currencyFormatting(StringUtils.formatNumber(dollars))} §e(excluding sales taxes and other fees).")
-                        Utils.sendClientMessage("Please use NEU's §a/pv§e command for the same conversion with your unsoulbound networth. If the currency doesn't look right, check your configs again, then consider restarting your game.", true)
+                        if (username == PartlySaneSkies.minecraft.thePlayer.name) namePlaceholder = "Your"
+                        Utils.sendClientMessage("§e$namePlaceholder total networth (both soulbound and unsoulbound) of §6${StringUtils.formatNumber(networth.toLong().toDouble())} coins §etoday is equivalent to §6${StringUtils.formatNumber(cookieValue.toDouble())} Booster Cookies, or §2${currencyFormatting(money = (StringUtils.formatNumber(dollars)))} §e(excluding sales taxes and other fees).")
+                        Utils.sendClientMessage("§7(For reference, Booster Cookies today are worth ${StringUtils.formatNumber(ceil(SkyblockDataManager.getItem(boosterCookieItemId).getBuyPrice()).toLong().toDouble())} coins. Note that the developers of Partly Sane Skies do not support IRL trading, and the /c2c command is intended for educational purposes.)", true)
+                        Utils.sendClientMessage("§ePlease use NEU's §a/pv§e command for converting your unsoulbound networth.", true)
+                        if (PartlySaneSkies.isDebugMode) Utils.sendClientMessage("§eIf the currency symbol doesn't look right, please report this to us via §9/discord §eso we can find a replacement symbol that Minecraft 1.8.9 can render.", true)
                     } else {
                         Utils.sendClientMessage("It seems like you don't have a networth at all...")
                     }
