@@ -342,6 +342,14 @@ public class OneConfigScreen extends Config {
     )
     public boolean incorrectPetForMinionAlertSiren = false;
 
+    @Switch(
+            name = "Refresh Keybind (Ctrl + R / Command + R)",
+            category = "SkyBlock",
+            description = "Refresh any menu with a \"Refresh\" button with (Ctrl + R) or (Command + R), depending on your operating system.",
+            subcategory = "Refresh Keybind"
+    )
+    public boolean refreshKeybind = false;
+
     @Text(
         category = "SkyBlock",
         subcategory = "Incorrect Pet for Minion Alert",
