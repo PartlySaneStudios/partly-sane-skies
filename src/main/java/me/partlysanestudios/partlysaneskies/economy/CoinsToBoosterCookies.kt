@@ -115,7 +115,10 @@ class CoinsToBoosterCookieConversion {
                     if (networth >= 0.0) {
                         val cookieValue: Long = Math.round(convertToCookies(networth))
                         val dollars: Double = (Math.round((cookieValue * sSGPInPreferredCurrency) * 100)) / 100.0
-                        Utils.sendClientMessage("§e$username's total networth (both soulbound and unsoulbound) of §6${StringUtils.formatNumber(networth.toLong().toDouble())} coins §etoday is equivalent to §6${StringUtils.formatNumber(cookieValue.toDouble())} Booster Cookies, or §2${currencyFormatting(StringUtils.formatNumber(dollars))} §e(excluding sales taxes and other fees). Please use NEU's §a/pv§e command for the same conversion with your unsoulbound networth.")
+                        var namePlaceholder = "$username's"
+                        if (playerName == PartlySaneSkies.minecraft.thePlayer.name) namePlaceholder = "Your "
+                        Utils.sendClientMessage("§e$namePlaceholder total networth (both soulbound and unsoulbound) of §6${StringUtils.formatNumber(networth.toLong().toDouble())} coins §etoday is equivalent to §6${StringUtils.formatNumber(cookieValue.toDouble())} Booster Cookies, or §2${currencyFormatting(StringUtils.formatNumber(dollars))} §e(excluding sales taxes and other fees).")
+                        Utils.sendClientMessage("Please use NEU's §a/pv§e command for the same conversion with your unsoulbound networth. If the currency doesn't look right, check your configs again, then consider restarting your game.", true)
                     } else {
                         Utils.sendClientMessage("It seems like you don't have a networth at all...")
                     }

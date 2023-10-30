@@ -937,8 +937,8 @@ public class OneConfigScreen extends Config {
     @Dropdown(
             category = "Economy",
             subcategory = "Coins to Cookies Command",
-            name = "Coins to Cookies Preferred Currency",
-            description = "Select your preferred currency conversion for the /c2c command. Currencies are listed in alphabetical order.",
+            name = "Coins to Cookies Preferred Currency (Requires Restart)",
+            description = "Select your preferred currency conversion for the /c2c command. Currencies are listed in alphabetical order. Default currency is USD. Once you've selected a currency, please restart your game.",
             options = {
                 "AUD",
                 "BRL",
