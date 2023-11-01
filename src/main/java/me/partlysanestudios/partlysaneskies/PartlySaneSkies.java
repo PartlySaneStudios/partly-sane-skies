@@ -139,6 +139,13 @@ public class PartlySaneSkies {
             e.printStackTrace();
         }
         RequestsManager.newRequest(mainMenuRequest);
+        Request funFactRequest = null;
+        try {
+            funFactRequest = new Request(CustomMainMenu.funFactApi, CustomMainMenu::setFunFact);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        RequestsManager.newRequest(funFactRequest);
         trackLoad();
         RequestsManager.run();
 
