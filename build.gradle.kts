@@ -12,11 +12,12 @@ plugins {
     id("xyz.deftu.gradle.tools.github-publishing") version(dgtVersion)
 }
 
-toolkit.useDevAuth()
 
 toolkitLoomHelper {
     useTweaker("cc.polyfrost.oneconfig.loader.stage0.LaunchWrapperTweaker")
+    useTweaker("me.partlysanestudios.partlysaneskies.modschecker.LaunchWrapperTweaker")
     disableRunConfigs(GameSide.SERVER)
+
 }
 
 repositories {
@@ -39,7 +40,10 @@ dependencies {
     implementation(shade("cc.polyfrost:oneconfig-wrapper-launchwrapper:1.0.0-beta+")!!)
     minecraft("com.mojang:minecraft:1.8.9")
     forge("net.minecraftforge:forge:1.8.9-11.15.1.2318-1.8.9")
+    compileOnly("org.spongepowered:mixin:0.7.11-SNAPSHOT")
 }
+
+toolkit.useDevAuth()
 
 toolkitReleases {
     if (file("changelogs/${modData.version}.md").exists()) {
@@ -58,4 +62,18 @@ toolkitGitHubPublishing {
 blossom {
     val dogfood: String by project
     replaceToken("@DOGFOOD@", dogfood)
+}
+
+tasks {
+    jar {
+        // Sets the jar manifest attributes.
+        manifest.attributes += mapOf(
+            "ModSide" to "CLIENT",
+            "TweakOrder" to "0",
+            "MixinConfigs" to "mixins.${modData.id}.json",
+            "TweakClass" to "me.partlysanestudios.partlysaneskies.modschecker.LaunchWrapperTweaker"
+        )
+        archiveClassifier.set("")
+        enabled = false
+    }
 }

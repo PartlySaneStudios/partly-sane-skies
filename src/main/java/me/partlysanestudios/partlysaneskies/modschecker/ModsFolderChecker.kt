@@ -1,9 +1,6 @@
 package me.partlysanestudios.partlysaneskies.modschecker
 
-import com.google.gson.Gson
-import com.google.gson.JsonObject
 import com.google.gson.JsonParser
-import me.partlysanestudios.partlysaneskies.modschecker.ModsListChecker.KnownMod
 import java.io.File
 import java.net.URLClassLoader
 
@@ -12,7 +9,7 @@ class ModsFolderChecker {
     fun loadModFile(jarFile: File): ModFile {
         val modInfoContent = getMcModInfoFile(jarFile)
 
-        if (modInfoContent.equals("")) {
+        if (modInfoContent.isBlank()) {
             return ModFile("", jarFile.name, "", "", "")
         }
 
