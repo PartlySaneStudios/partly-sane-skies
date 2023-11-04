@@ -12,12 +12,10 @@ plugins {
     id("xyz.deftu.gradle.tools.github-publishing") version(dgtVersion)
 }
 
-
 toolkitLoomHelper {
     useTweaker("cc.polyfrost.oneconfig.loader.stage0.LaunchWrapperTweaker")
     useTweaker("me.partlysanestudios.partlysaneskies.modschecker.LaunchWrapperTweaker")
     disableRunConfigs(GameSide.SERVER)
-
 }
 
 repositories {
@@ -25,7 +23,6 @@ repositories {
     maven("https://repo.sk1er.club/repository/maven-public/")
     maven("https://repo.sk1er.club/repository/maven-releases/")
 }
-
 
 dependencies {
     implementation(shade("gg.essential:elementa-${mcData.versionStr}-${mcData.loader.name}:531") {
