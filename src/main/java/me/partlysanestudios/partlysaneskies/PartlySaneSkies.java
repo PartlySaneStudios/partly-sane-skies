@@ -478,8 +478,8 @@ public class PartlySaneSkies {
         String location = null;
 
         for (String line : scoreboard) {
-            if (StringUtils.stripLeading(line).contains("⏣")) {
-                location = StringUtils.stripLeading(line).replace("⏣", "");
+            if (StringUtils.stripLeading(line).contains("⏣") || StringUtils.stripLeading(line).contains("ф")) {
+                location = StringUtils.stripLeading(line).contains("⏣") ? StringUtils.stripLeading(line).replace("⏣", "") : StringUtils.stripLeading(line).replace("ф", "");
                 location = StringUtils.stripLeading(location);
                 break;
             }
