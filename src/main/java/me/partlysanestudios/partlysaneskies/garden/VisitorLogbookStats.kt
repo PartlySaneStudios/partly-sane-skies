@@ -37,7 +37,7 @@ import java.awt.*
 
 class VisitorLogbookStats {
 
-    private val tiers: List<String> = listOf<String>("§f§lTotal", "§a§lUncommon", "§9§lRare", "§6Legendary", "§c§lSpecial", "§e§lUnknown") //total | uncommon | rare | leg | special | UNKNOWN
+    private val tiers: List<String> = listOf<String>("§f§lTotal", "§a§lUncommon", "§9§lRare", "§6Legendary", "§dMythic", "§c§lSpecial", "§e§lUnknown") //total | uncommon | rare | leg | mythic | special | UNKNOWN
     private var theBaseString = ""
 
     @SubscribeEvent
@@ -45,20 +45,20 @@ class VisitorLogbookStats {
         if (!isVisitorLogbook()) return
         if (!PartlySaneSkies.config.visitorLogbookStats) return
         val slots = ((PartlySaneSkies.minecraft.currentScreen as GuiChest)).inventorySlots.inventorySlots
-        var seenStats: MutableList<Int> = mutableListOf<Int>(0, 0, 0, 0, 0, 0) //total | uncommon | rare | leg | special | UNKNOWN
-        var acceptedStats: MutableList<Int> = mutableListOf<Int>(0, 0, 0, 0, 0, 0) //total | uncommon | rare | leg | special | UNKNOWN
+        val seenStats: MutableList<Int> = mutableListOf<Int>(0, 0, 0, 0, 0, 0, 0) //total | uncommon | rare | leg | mythic | special | UNKNOWN
+        val acceptedStats: MutableList<Int> = mutableListOf<Int>(0, 0, 0, 0, 0, 0, 0) //total | uncommon | rare | leg | mythic  | special | UNKNOWN
         theBaseString = ""
         for (s in slots) {
-            if (s.getStack() == null) continue //"cOnDiTiOn 'S.GeTsTaCk() == NuLL' is aLwAyS FaLsE"
+            if (s.stack == null) continue
 
-            val eItemStack = s.getStack()
+            val eItemStack = s.stack
             val lore = Utils.getLore(eItemStack)
 
             if (lore.isEmpty()) continue
             if (lore.first().contains("Page ")) break
             if (StringUtils.removeColorCodes(lore.first()).isEmpty() || lore.first().contains("This NPC hasn't visited you") || lore.first().contains("Various NPCs ") || lore.first().contains("Requirements")) continue
-            
-            var noPlcwList = mutableListOf<String>()
+
+            val noPlcwList = mutableListOf<String>()
 
             //fuck formatting codes
             for (line in lore) noPlcwList.add(StringUtils.removeColorCodes(line))
@@ -66,12 +66,13 @@ class VisitorLogbookStats {
             //Times Visited: 0
             //§7Offers Accepted: §a0
             //Offers Accepted: 0
-            val rarityIndex = when (noPlcwList.find{ it.contains("SPECIAL") || it.contains("LEGENDARY")  || it.contains("RARE") || it.contains("UNCOMMON") }) {
+            val rarityIndex = when (noPlcwList.find{ it.contains("SPECIAL") || it.contains("MYTHIC") || it.contains("LEGENDARY")  || it.contains("RARE") || it.contains("UNCOMMON") }) {
                 "UNCOMMON" -> 1
                 "RARE" -> 2
                 "LEGENDARY" -> 3
-                "SPECIAL" -> 4
-                else -> 5
+                "MYTHIC" -> 4
+                "SPECIAL" -> 5
+                else -> 6
             }
             val lineTimesVisited = noPlcwList.find{ it.contains("Times Visited: ") } ?: break
             val lineOffersAccepted = noPlcwList.find{ it.contains("Offers Accepted: ") } ?: break
@@ -100,18 +101,18 @@ class VisitorLogbookStats {
         val inventories = PartlySaneSkies.getSeparateUpperLowerInventories(gui)
         val logbook = inventories[0]
 
-        return StringUtils.removeColorCodes(logbook.getDisplayName().getFormattedText()).contains("Visitor's Logbook")
+        return StringUtils.removeColorCodes(logbook.displayName.formattedText).contains("Visitor's Logbook")
     }
 
     val window = Window(ElementaVersion.V2)
 
     val box = UIRoundedRectangle(5f)
-            .setColor(Color(0, 0, 0, 0))
-            .setChildOf(window)
-    
+        .setColor(Color(0, 0, 0, 0))
+        .setChildOf(window)
+
     val image = ThemeManager.getCurrentBackgroundUIImage()
-            .setChildOf(box)
-    
+        .setChildOf(box)
+
     val pad = 5
     var textComponent: UIWrappedText = UIWrappedText() childOf box
 
@@ -135,7 +136,7 @@ class VisitorLogbookStats {
             .setY(CenterConstraint())
             .setWidth(PixelConstraint(box.getWidth()))
             .setHeight(PixelConstraint(box.getHeight()))
-        
+
         textComponent.setX(widthScaledConstraint(pad.toFloat()))
             .setTextScale(widthScaledConstraint(1f))
             .setY(widthScaledConstraint(2 * (pad.toFloat())))
