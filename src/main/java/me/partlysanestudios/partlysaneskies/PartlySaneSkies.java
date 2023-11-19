@@ -416,7 +416,7 @@ public class PartlySaneSkies {
                     Utils.getDecodedFieldName("upperChestInventory"), true);
             lowerInventory = (IInventory) FieldUtils.readDeclaredField(gui,
                     Utils.getDecodedFieldName("lowerChestInventory"), true);
-        } catch (IllegalAccessException e) {
+        } catch (IllegalAccessException | IllegalArgumentException e) {
             e.printStackTrace();
             return null;
         }

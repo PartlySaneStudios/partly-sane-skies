@@ -163,15 +163,21 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
     companion object {
         @SubscribeEvent
         fun onGuiOpen(event: ClientTickEvent) {
-            val gui = PartlySaneSkies.minecraft.currentScreen
-            if (gui == null) {
+            if (!PartlySaneSkies.config.customAhGui) {
                 return
             }
-//            Utils.sendClientMessage("A gui has been opened")
+
+            val gui = PartlySaneSkies.minecraft.currentScreen ?: return
+            //            Utils.sendClientMessage("A gui has been opened")
 
             if (gui !is GuiChest) {
                 return
             }
+
+            if (PartlySaneSkies.getSeparateUpperLowerInventories(gui).isNullOrEmpty()){
+                return
+            }
+
             if (!isAhGui(PartlySaneSkies.getSeparateUpperLowerInventories(gui)[0])) {
 //                Utils.sendClientMessage("Not AH Gui")
                 return
@@ -183,9 +189,6 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
             }
 
             if (PartlySaneSkies.isDebugMode) {
-                return
-            }
-            if (!PartlySaneSkies.config.customAhGui) {
                 return
             }
 //            val inventory = PartlySaneSkies.getSeparateUpperLowerInventories(event.gui)[0]

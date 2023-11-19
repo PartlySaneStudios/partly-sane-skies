@@ -43,7 +43,7 @@ public class GardenTradeValue {
         }
 
         IInventory[] inventories = PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen);
-        assert inventories != null;
+        if (inventories == null) return false;
         IInventory trader = inventories[0];
 
         // Slots 29 and 33 are where the buttons should be

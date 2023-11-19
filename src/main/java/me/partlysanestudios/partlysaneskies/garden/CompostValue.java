@@ -142,7 +142,7 @@ public class CompostValue {
         }
 
         IInventory[] inventories = PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen);
-        assert inventories != null;
+        if (inventories == null) return false;
         IInventory composter = inventories[0];
 
         // Slots 22 should be the collect compost button
@@ -306,7 +306,6 @@ public class CompostValue {
 
         textString += "§7x§d"+ StringUtils.formatNumber(Utils.round(compostAmount, 0)) +"§7 Compost currently sells for §d" + StringUtils.formatNumber(Utils.round(compostSellPrice * compostAmount, 1))  + "§7 coins.\n§8(" + StringUtils.formatNumber(Utils.round(compostSellPrice, 1)) + "/Compost)";
 
-        textString = (textString);
         textComponent.setText(textString);
 
         window.draw(new UMatrixStack());

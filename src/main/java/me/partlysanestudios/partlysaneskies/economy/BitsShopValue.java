@@ -51,7 +51,7 @@ public class BitsShopValue {
         long bitCount = PartlySaneSkies.getBits();
         boolean filterAffordable = PartlySaneSkies.config.bitShopOnlyShowAffordable;
 
-        if (SkyblockDataManager.bitIds.size() == 0) {
+        if (SkyblockDataManager.bitIds.isEmpty()) {
             try {
                 SkyblockDataManager.initBitValues();
             } catch (IOException e) {
@@ -94,7 +94,7 @@ public class BitsShopValue {
         }
 
         IInventory[] inventories = PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen);
-        assert inventories != null;
+        if (inventories == null) return false;
         IInventory shop = inventories[0];
 
         return StringUtils.removeColorCodes(shop.getDisplayName().getFormattedText()).contains("Community Shop");
@@ -144,7 +144,6 @@ public class BitsShopValue {
 
         textString += getString();
         textString += "\n\n";
-        textString = (textString);
         textComponent.setText(textString);
 
         window.draw(new UMatrixStack());

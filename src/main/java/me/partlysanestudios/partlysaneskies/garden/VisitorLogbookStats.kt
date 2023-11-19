@@ -98,7 +98,7 @@ class VisitorLogbookStats {
             return false
         }
 
-        val inventories = PartlySaneSkies.getSeparateUpperLowerInventories(gui)
+        val inventories = PartlySaneSkies.getSeparateUpperLowerInventories(gui) ?: return false
         val logbook = inventories[0]
 
         return StringUtils.removeColorCodes(logbook.displayName.formattedText).contains("Visitor's Logbook")

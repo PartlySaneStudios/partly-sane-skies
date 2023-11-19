@@ -95,7 +95,7 @@ public class SkymartValue {
     }
 
     // 22
-    public static boolean isComposter() {
+    public static boolean isSkymart() {
         if (PartlySaneSkies.minecraft.currentScreen == null) {
             return false;
         }
@@ -104,7 +104,7 @@ public class SkymartValue {
         }
 
         IInventory[] inventories = PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen);
-        assert inventories != null;
+        if (inventories == null) return false;
         IInventory composter = inventories[0];
         if (!StringUtils.removeColorCodes(composter.getDisplayName().getFormattedText()).contains("SkyMart")) {
             return false;
@@ -129,7 +129,7 @@ public class SkymartValue {
 
     @SubscribeEvent
     public void renderInformation(GuiScreenEvent.BackgroundDrawnEvent event) {
-        if (!isComposter()) {
+        if (!isSkymart()) {
             box.hide();
             return;
         }
@@ -158,7 +158,6 @@ public class SkymartValue {
 
         textString += getString();
 
-        textString = (textString);
         textComponent.setText(textString);
 
         window.draw(new UMatrixStack());

@@ -159,7 +159,14 @@ public class PetAlert {
             return false;
         }
 
-        IInventory upper = Objects.requireNonNull(PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen))[0];
+        IInventory[] inventories = PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen);
+
+        if (inventories == null || inventories[0] == null) {
+            return false;
+        }
+
+        IInventory upper = inventories[0];
+
         boolean inventoryNameMatches = StringUtils.removeColorCodes(upper.getDisplayName().getFormattedText()).contains("Minion");
 
         if (!inventoryNameMatches) {
