@@ -60,8 +60,7 @@ public class GardenTradeValue {
         String acceptButtonName = StringUtils.removeColorCodes(acceptButton.getDisplayName());
         String refuseButtonName = StringUtils.removeColorCodes(refuseButton.getDisplayName());
 
-        // If the names are not equal to the desired names, then you know it screen
-        // is not the trader screen
+        // If the names are not equal to the desired names, then you know it screen is not the trader screen
         if (!refuseButtonName.equals("Refuse Offer")) {
             return false;
         }

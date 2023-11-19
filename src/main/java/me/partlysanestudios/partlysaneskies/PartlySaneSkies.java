@@ -112,8 +112,6 @@ public class PartlySaneSkies {
     private static EndOfFarmNotifier eofn;
     private static CoinsToBoosterCookieConversion c2c;
 
-    private static String API_KEY;
-
 
     // Names of all the ranks to remove from people's names
     public static final String[] RANK_NAMES = {"[VIP]", "[VIP+]", "[MVP]", "[MVP+]", "[MVP++]", "[YOUTUBE]", "[MOJANG]",
@@ -301,13 +299,6 @@ public class PartlySaneSkies {
         Utils.log(Level.INFO, "Partly Sane Skies has loaded.");
     }
 
-    public static String getAPIKey() {
-        if (config.forceCustomAPIKey) {
-            return config.apiKey;
-        }
-        return API_KEY;
-    }
-
     // Method runs every tick
     @SubscribeEvent
     public void clientTick(ClientTickEvent evnt) {
@@ -325,17 +316,6 @@ public class PartlySaneSkies {
         eofn.run();
         config.resetBrokenStrings();
         ThemeManager.run();
-    }
-
-    // Runs when the chat message starts with "Your new API key is"
-    // Updates the API key to the new API key
-    @SubscribeEvent
-    public void newApiKey(ClientChatReceivedEvent event) {
-        if (event.message.getUnformattedText().startsWith("Your new API key is ")) {
-            config.apiKey = event.message.getUnformattedText().replace("Your new API key is ", "");
-            Utils.sendClientMessage(("Saved new API key!"));
-            config.save();
-        }
     }
 
     // Runs chat analyzer for debug mode

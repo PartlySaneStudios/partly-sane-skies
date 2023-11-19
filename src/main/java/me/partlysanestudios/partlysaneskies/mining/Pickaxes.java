@@ -79,6 +79,7 @@ public class Pickaxes {
         location = StringUtils.stripTrailing(location);
         location = location.replaceAll("\\P{Print}", ""); // Removes the RANDOM EMOJIS THAT ARE PRESENT IN SKYBLOCK LOCATIONS      - Su rant, pls ignore
 
+        // TODO: CREATE AN ISLAND API
         String[] miningLocations = {
                 "jungle", "jungle temple", "mithril deposits", "mines of divan", "goblin holdout",
                 "goblin queen's den", "precursor remnants", "lost precursor city", "crystal nucleus",

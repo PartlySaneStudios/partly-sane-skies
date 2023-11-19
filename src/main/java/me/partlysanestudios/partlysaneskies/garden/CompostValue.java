@@ -294,8 +294,7 @@ public class CompostValue {
         String textString = "§e§lTop Crops:\n\n";
 
         textString += getString();
-        textString += "\n\n";
-        textString += "§e§lCompost:\n\n";
+        textString += "\n\n§e§lCompost:\n\n";
         double compostSellPrice = SkyblockDataManager.getItem("COMPOST").getBazaarSellPrice();
 
         float compostAmount = getCurrentCompostAbleToMake();
