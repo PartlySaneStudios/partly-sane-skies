@@ -179,7 +179,7 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
                 return
             }
 
-            if (PartlySaneSkies.getSeparateUpperLowerInventories(gui).isNullOrEmpty()){
+            if (MinecraftUtils.getSeparateUpperLowerInventories(gui).isNullOrEmpty()){
                 return
             }
 
