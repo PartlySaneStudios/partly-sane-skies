@@ -24,7 +24,7 @@ public class WormWarning {
                 wormWarningBannerTime = PartlySaneSkies.getTime();
                 wormWarningString = "A Worm Has Spawned!";
 
-                BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner(wormWarningString, (long) (PartlySaneSkies.config.wormWarningBannerTime * 1000), 3, PartlySaneSkies.config.wormWarningBannerColor.toJavaColor()));
+                BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner(wormWarningString, (long) (PartlySaneSkies.config.wormWarningBannerTime * 1000), 3, PartlySaneSkies.config.wormWarningBannerColor));
             }
             if (PartlySaneSkies.config.wormWarningBannerSound) {
                 PartlySaneSkies.minecraft.thePlayer.playSound("partlysaneskies:bell", 100, 1);

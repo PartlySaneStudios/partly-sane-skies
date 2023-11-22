@@ -149,7 +149,7 @@ public class SkyblockPlayer {
     }
 
     public boolean isExpired() {
-        return !Utils.onCooldown(lastUpdateTime, PartlySaneSkies.config.playerDataCacheTime * 60 * 1000L);
+        return !Utils.onCooldown(lastUpdateTime, (long) (PartlySaneSkies.config.playerDataCacheTime * 60L * 1000L));
     }
 
 //    Creates new player data by UUID

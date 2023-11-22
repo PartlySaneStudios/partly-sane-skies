@@ -160,7 +160,7 @@ public class CustomMainMenu extends WindowScreen {
                 .setY(new CenterConstraint())
                 .setHeight(new PixelConstraint(middleMenu.getHeight()))
                 .setWidth(new PixelConstraint(2 * scaleFactor))
-                .setColor(ThemeManager.getAccentColor().toJavaColor())
+                .setColor(ThemeManager.getAccentColor())
                 .setChildOf(middleMenu);
 
         middleRightBar = new UIBlock()
@@ -168,7 +168,7 @@ public class CustomMainMenu extends WindowScreen {
                 .setY(new CenterConstraint())
                 .setHeight(new PixelConstraint(middleMenu.getHeight()))
                 .setWidth(new PixelConstraint(2 * scaleFactor))
-                .setColor(ThemeManager.getAccentColor().toJavaColor())
+                .setColor(ThemeManager.getAccentColor())
                 .setChildOf(middleMenu);
 
         float titleHeight = 75;
@@ -306,7 +306,7 @@ public class CustomMainMenu extends WindowScreen {
                 .setY(new PixelConstraint(400f * scaleFactor))
                 .setHeight(new PixelConstraint(1 * scaleFactor))
                 .setWidth(new PixelConstraint(middleMenu.getWidth() * .90f))
-                .setColor(ThemeManager.getAccentColor().toJavaColor())
+                .setColor(ThemeManager.getAccentColor())
                 .setChildOf(middleMenu);
 
         pssOptionsButton = new UIBlock()
@@ -323,7 +323,7 @@ public class CustomMainMenu extends WindowScreen {
                 .setTextScale(new PixelConstraint(.735f * scaleFactor))
                 .setChildOf(pssOptionsButton);
 
-        pssOptionsButton.onMouseClickConsumer(event -> PartlySaneSkies.config.openGui());
+        pssOptionsButton.onMouseClickConsumer(event -> PartlySaneSkies.minecraft.displayGuiScreen(PartlySaneSkies.config.gui()));
 
         pssOptionsButton.onMouseEnterRunnable(() -> pssOptionsText.setColor(new Color(200, 200, 200)));
 
@@ -715,9 +715,9 @@ public class CustomMainMenu extends WindowScreen {
             timeString = currentTime.format(DateTimeFormatter.ofPattern("HH:mm:ss dd MMMM yyyy", Locale.ENGLISH));
         }
 
-        middleLeftBar.setColor(ThemeManager.getAccentColor().toJavaColor());
-        middleRightBar.setColor(ThemeManager.getAccentColor().toJavaColor());
-        optionsButtonSplitBar.setColor(ThemeManager.getAccentColor().toJavaColor());
+        middleLeftBar.setColor(ThemeManager.getAccentColor());
+        middleRightBar.setColor(ThemeManager.getAccentColor());
+        optionsButtonSplitBar.setColor(ThemeManager.getAccentColor());
         
 
         ((UIText) timeText).setText(timeString);

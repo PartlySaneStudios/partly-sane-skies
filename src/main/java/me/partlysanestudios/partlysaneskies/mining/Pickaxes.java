@@ -33,7 +33,7 @@ public class Pickaxes {
 
         if (matcher.find()) {
             if (PartlySaneSkies.config.pickaxeAbilityReadyBanner){
-                BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner("Pickaxe Ability Ready!", (long) (PartlySaneSkies.config.pickaxeBannerTime * 1000), 4.0f, PartlySaneSkies.config.pickaxeBannerColor.toJavaColor()));
+                BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner("Pickaxe Ability Ready!", (long) (PartlySaneSkies.config.pickaxeBannerTime * 1000), 4.0f, PartlySaneSkies.config.pickaxeBannerColor));
             }
             if (PartlySaneSkies.config.pickaxeAbilityReadySound) {
                 if (PartlySaneSkies.config.pickaxeAbilityReadySiren) {
