@@ -99,7 +99,9 @@ public class BitsShopValue {
         assert inventories != null;
         IInventory shop = inventories[0];
 
-        return StringUtils.INSTANCE.removeColorCodes(shop.getDisplayName().getFormattedText()).contains("Community Shop");
+        String title = StringUtils.INSTANCE.removeColorCodes(shop.getDisplayName().getFormattedText());
+
+        return title.contains("Community Shop") || title.startsWith("Bits Shop - ");
     }
 
     static Window window = new Window(ElementaVersion.V2);
