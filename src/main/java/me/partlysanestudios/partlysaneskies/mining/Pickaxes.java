@@ -28,7 +28,7 @@ public class Pickaxes {
             if (!onMiningIsland()) return;
         }
 
-        String message = StringUtils.removeColorCodes(event.message.getFormattedText());
+        String message = StringUtils.INSTANCE.removeColorCodes(event.message.getFormattedText());
         Matcher matcher = pattern.matcher(message);
 
         if (matcher.find()) {
@@ -63,9 +63,9 @@ public class Pickaxes {
 
     public static boolean onPrivateIsland() {
         String location = PartlySaneSkies.getRegionName();
-        location = StringUtils.removeColorCodes(location);
-        location = StringUtils.stripLeading(location);
-        location = StringUtils.stripTrailing(location);
+        location = StringUtils.INSTANCE.removeColorCodes(location);
+        location = StringUtils.INSTANCE.stripLeading(location);
+        location = StringUtils.INSTANCE.stripTrailing(location);
         location = location.replaceAll("\\P{Print}", ""); // Removes the RANDOM EMOJIS THAT ARE PRESENT IN SKYBLOCK LOCATIONS      - Su rant, pls ignore
 
         return location.startsWith("Your Island"); //Really hope that's the only private island name, and you cant rename it
@@ -74,9 +74,9 @@ public class Pickaxes {
 
     public static boolean onMiningIsland() {
         String location = PartlySaneSkies.getRegionName();
-        location = StringUtils.removeColorCodes(location);
-        location = StringUtils.stripLeading(location);
-        location = StringUtils.stripTrailing(location);
+        location = StringUtils.INSTANCE.removeColorCodes(location);
+        location = StringUtils.INSTANCE.stripLeading(location);
+        location = StringUtils.INSTANCE.stripTrailing(location);
         location = location.replaceAll("\\P{Print}", ""); // Removes the RANDOM EMOJIS THAT ARE PRESENT IN SKYBLOCK LOCATIONS      - Su rant, pls ignore
 
         String[] miningLocations = {

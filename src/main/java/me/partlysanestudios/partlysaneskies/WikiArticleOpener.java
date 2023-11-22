@@ -35,11 +35,11 @@ public class WikiArticleOpener {
         if (!isWaitingForArticle) {
             return;
         }
-        if (StringUtils.removeColorCodes(e.message.getFormattedText()).contains("Invalid")) {
+        if (StringUtils.INSTANCE.removeColorCodes(e.message.getFormattedText()).contains("Invalid")) {
             isWaitingForArticle = false;
             return;
         }
-        if (!StringUtils.removeColorCodes(e.message.getFormattedText()).contains("Click HERE")) {
+        if (!StringUtils.INSTANCE.removeColorCodes(e.message.getFormattedText()).contains("Click HERE")) {
             return;
         }
 

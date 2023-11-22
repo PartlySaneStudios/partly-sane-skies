@@ -49,7 +49,7 @@ public class NoCookieWarning {
     // determined
     public static int hasBoosterCookie() {
         for (IChatComponent chatComponent : getFooter().getSiblings()) {
-            if (StringUtils.removeColorCodes(chatComponent.getFormattedText()).toLowerCase()
+            if (StringUtils.INSTANCE.removeColorCodes(chatComponent.getFormattedText()).toLowerCase()
                     .contains("not active! obtain booster cookies")) {
                 return 0;
             }

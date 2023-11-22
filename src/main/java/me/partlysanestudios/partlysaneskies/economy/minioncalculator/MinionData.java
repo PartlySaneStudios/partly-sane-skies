@@ -293,7 +293,7 @@ public class MinionData {
                 totalItemProfit *= 60 * hours;
                 totalItemProfit = Utils.round(totalItemProfit, 1); // rounded to 1 decimal place
 
-                str.append("\n§7   §6x").append(StringUtils.formatNumber(totalItemProfit)).append("§7 §6").append(SkyblockDataManager.getItem(en2.getKey()).getName()).append("§7 for ").append(StringUtils.formatNumber(price)).append(" coins each.");
+                str.append("\n§7   §6x").append(StringUtils.INSTANCE.formatNumber(totalItemProfit)).append("§7 §6").append(SkyblockDataManager.getItem(en2.getKey()).getName()).append("§7 for ").append(StringUtils.INSTANCE.formatNumber(price)).append(" coins each.");
             }
 
 //            Total amount of money made in given hours by the minion
@@ -301,7 +301,7 @@ public class MinionData {
             totalMinionProfit *= 60 * hours;
             totalMinionProfit = Utils.round(totalMinionProfit, 1); // rounded to 1 decimal place
 
-            str.append("\n§7   Total: §6").append(StringUtils.formatNumber(totalMinionProfit)).append("§7 coins in ").append(StringUtils.formatNumber(hours)).append(" hours.");
+            str.append("\n§7   Total: §6").append(StringUtils.INSTANCE.formatNumber(totalMinionProfit)).append("§7 coins in ").append(StringUtils.INSTANCE.formatNumber(hours)).append(" hours.");
 
             return str.toString();
         }

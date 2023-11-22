@@ -321,12 +321,12 @@ public class SkyblockPlayer {
                     break;
                 }
             }
-            selectedPetName = StringUtils.titleCase(selectedPetName);
+            selectedPetName = StringUtils.INSTANCE.titleCase(selectedPetName);
             petName = selectedPetName;
         }
 
 
-        selectedDungeonClass = Utils.getJsonFromPath(playerProfile, "dungeons/selected_dungeon_class") == null ? "":StringUtils.titleCase(Utils.getJsonFromPath(playerProfile, "dungeons/selected_dungeon_class").getAsString());
+        selectedDungeonClass = Utils.getJsonFromPath(playerProfile, "dungeons/selected_dungeon_class") == null ? "":StringUtils.INSTANCE.titleCase(Utils.getJsonFromPath(playerProfile, "dungeons/selected_dungeon_class").getAsString());
 
         totalRuns = 0;
 

@@ -427,7 +427,7 @@ public class PartlySaneSkies {
     // Returns the name of the scoreboard without color codes
     public static String getScoreboardName() {
         String scoreboardName = minecraft.thePlayer.getWorldScoreboard().getObjectiveInDisplaySlot(1).getDisplayName();
-        return StringUtils.removeColorCodes(scoreboardName);
+        return StringUtils.INSTANCE.removeColorCodes(scoreboardName);
     }
 
     // Runs when debug key is pressed
@@ -478,9 +478,9 @@ public class PartlySaneSkies {
         String location = null;
 
         for (String line : scoreboard) {
-            if (StringUtils.stripLeading(line).contains("⏣") || StringUtils.stripLeading(line).contains("ф")) {
-                location = StringUtils.stripLeading(line).contains("⏣") ? StringUtils.stripLeading(line).replace("⏣", "") : StringUtils.stripLeading(line).replace("ф", "");
-                location = StringUtils.stripLeading(location);
+            if (StringUtils.INSTANCE.stripLeading(line).contains("⏣") || StringUtils.INSTANCE.stripLeading(line).contains("ф")) {
+                location = StringUtils.INSTANCE.stripLeading(line).contains("⏣") ? StringUtils.INSTANCE.stripLeading(line).replace("⏣", "") : StringUtils.INSTANCE.stripLeading(line).replace("ф", "");
+                location = StringUtils.INSTANCE.stripLeading(location);
                 break;
             }
         }
@@ -503,10 +503,10 @@ public class PartlySaneSkies {
         String money = null;
 
         for (String line : scoreboard) {
-            if (StringUtils.stripLeading(line).contains("Piggy:") || StringUtils.stripLeading(line).contains("Purse:")) {
-                money = StringUtils.stripLeading(StringUtils.removeColorCodes(line)).replace("Piggy: ", "");
-                money = StringUtils.stripLeading(StringUtils.removeColorCodes(money)).replace("Purse: ", "");
-                money = StringUtils.stripLeading(money);
+            if (StringUtils.INSTANCE.stripLeading(line).contains("Piggy:") || StringUtils.INSTANCE.stripLeading(line).contains("Purse:")) {
+                money = StringUtils.INSTANCE.stripLeading(StringUtils.INSTANCE.removeColorCodes(line)).replace("Piggy: ", "");
+                money = StringUtils.INSTANCE.stripLeading(StringUtils.INSTANCE.removeColorCodes(money)).replace("Purse: ", "");
+                money = StringUtils.INSTANCE.stripLeading(money);
                 money = money.replace(",", "");
                 money = money.replaceAll("\\P{Print}", "");
                 break;
@@ -534,9 +534,9 @@ public class PartlySaneSkies {
         String bits = null;
 
         for (String line : scoreboard) {
-            if (StringUtils.stripLeading(line).contains("Bits:")) {
-                bits = StringUtils.stripLeading(StringUtils.removeColorCodes(line)).replace("Bits: ", "");
-                bits = StringUtils.stripLeading(bits);
+            if (StringUtils.INSTANCE.stripLeading(line).contains("Bits:")) {
+                bits = StringUtils.INSTANCE.stripLeading(StringUtils.INSTANCE.removeColorCodes(line)).replace("Bits: ", "");
+                bits = StringUtils.INSTANCE.stripLeading(bits);
                 bits = bits.replace(",", "");
                 bits = bits.replaceAll("\\P{Print}", "");
                 break;
@@ -556,8 +556,8 @@ public class PartlySaneSkies {
             }
         }
 
-        bits = StringUtils.stripLeading(bits);
-        bits = StringUtils.stripTrailing(bits);
+        bits = StringUtils.INSTANCE.stripLeading(bits);
+        bits = StringUtils.INSTANCE.stripTrailing(bits);
         try {
             return Long.parseLong(bits);
         } catch (NumberFormatException event) {

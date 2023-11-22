@@ -30,7 +30,7 @@ public class LocationBannerDisplay extends Gui {
             return;
 
         String regionName = PartlySaneSkies.getRegionName();
-        String noColorCodeRegionName = StringUtils.removeColorCodes(regionName);
+        String noColorCodeRegionName = StringUtils.INSTANCE.removeColorCodes(regionName);
         if (checkExpire()) {
             displayString = "";
         }
@@ -39,8 +39,8 @@ public class LocationBannerDisplay extends Gui {
             return;
         }
         
-        noColorCodeRegionName = StringUtils.stripLeading(noColorCodeRegionName);
-        noColorCodeRegionName = StringUtils.stripTrailing(noColorCodeRegionName);
+        noColorCodeRegionName = StringUtils.INSTANCE.stripLeading(noColorCodeRegionName);
+        noColorCodeRegionName = StringUtils.INSTANCE.stripTrailing(noColorCodeRegionName);
         noColorCodeRegionName = noColorCodeRegionName.replaceAll("\\P{Print}", ""); // Removes the RANDOM EMOJIS
         // THAT ARE PRESENT IN SKY-BLOCK LOCATIONS
         // LOOK AT THIS:

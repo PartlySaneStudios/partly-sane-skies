@@ -121,6 +121,7 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack?, var xCons
     fun isBin(): Boolean {
         val loreList: List<String> = Utils.getLore(itemstack)
         for (line in loreList) {
+            
             if (StringUtils.removeColorCodes(line).contains("Buy it now: ")) {
                 return true
             }

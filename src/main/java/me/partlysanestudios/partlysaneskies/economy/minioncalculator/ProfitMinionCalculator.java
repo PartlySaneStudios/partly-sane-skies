@@ -302,7 +302,7 @@ public HashMap<MinionData.Minion.Upgrade, PSSToggle> addMinionUpgradeButtons() {
                     .setHeight(categoriesBar.getHeight() * .9f)
                     .setChildOf(categoriesBar);
 
-            button.setText(categoriesColorMap.get(category) + StringUtils.titleCase(category));
+            button.setText(categoriesColorMap.get(category) + StringUtils.INSTANCE.titleCase(category));
 
             button.onMouseClickConsumer(s -> {
                 selectedCategory = category;

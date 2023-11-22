@@ -65,8 +65,8 @@ public class PlayerRating {
         }
 
         player = player.replaceAll("\\P{Print}", "");
-        player = StringUtils.stripLeading(player);
-        player = StringUtils.stripTrailing(player);
+        player = StringUtils.INSTANCE.stripLeading(player);
+        player = StringUtils.INSTANCE.stripTrailing(player);
 
         // If the player has already been registered
         if (playerPointCategoryMap.containsKey(player)) {
@@ -153,11 +153,11 @@ public class PlayerRating {
 
     public static void handleMessage(String message) {
         for (Map.Entry<String, String> entry : positivePatterns.entrySet()) {
-            if (!StringUtils.startsWithPattern(message, entry.getKey(), "{player}")) {
+            if (!StringUtils.INSTANCE.startsWithPattern(message, entry.getKey(), "{player}")) {
                 continue;
             }
 
-            rackPoints(StringUtils.recognisePattern(message, entry.getKey(), "{player}"), entry.getValue());
+            rackPoints(StringUtils.INSTANCE.recognisePattern(message, entry.getKey(), "{player}"), entry.getValue());
         }
     }
 

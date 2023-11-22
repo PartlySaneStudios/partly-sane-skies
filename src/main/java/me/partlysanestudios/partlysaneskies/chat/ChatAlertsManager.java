@@ -84,8 +84,8 @@ public class ChatAlertsManager {
                             }
 
                             // Removes any leading or trailing spaces
-                            alert = new StringBuilder(StringUtils.stripLeading(alert.toString()));
-                            alert = new StringBuilder(StringUtils.stripTrailing(alert.toString()));
+                            alert = new StringBuilder(StringUtils.INSTANCE.stripLeading(alert.toString()));
+                            alert = new StringBuilder(StringUtils.INSTANCE.stripTrailing(alert.toString()));
 
                             ChatAlertsManager.addAlert(alert.toString());
 
@@ -172,7 +172,7 @@ public class ChatAlertsManager {
         
         // For each alert, format it so its ##. [alert] 
         for (String alert : chatAlertsList) {
-            message.append(StringUtils.formatNumber(i)).append(": ").append(alert).append("\n");
+            message.append(StringUtils.INSTANCE.formatNumber(i)).append(": ").append(alert).append("\n");
             i++;
         }
 
@@ -230,14 +230,14 @@ public class ChatAlertsManager {
             return message;
         }
 
-        String unformattedMessage = StringUtils.removeColorCodes(formattedMessage);
+        String unformattedMessage = StringUtils.INSTANCE.removeColorCodes(formattedMessage);
         String rawMessage = formattedMessage.substring(beginMessageIndex);
 
         // Removes all formatting and extra spaces from the message
-        rawMessage = StringUtils.removeColorCodes(rawMessage);
+        rawMessage = StringUtils.INSTANCE.removeColorCodes(rawMessage);
         rawMessage = rawMessage.replaceFirst(": ", "");
-        rawMessage = StringUtils.stripLeading(rawMessage);
-        rawMessage = StringUtils.stripTrailing(rawMessage);
+        rawMessage = StringUtils.INSTANCE.stripLeading(rawMessage);
+        rawMessage = StringUtils.INSTANCE.stripTrailing(rawMessage);
 
         String lowerCaseMessage = rawMessage.toLowerCase();
 

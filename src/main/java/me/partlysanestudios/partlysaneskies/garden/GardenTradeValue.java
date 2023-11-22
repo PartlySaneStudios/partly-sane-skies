@@ -57,8 +57,8 @@ public class GardenTradeValue {
             return false;
         }
 
-        String acceptButtonName = StringUtils.removeColorCodes(acceptButton.getDisplayName());
-        String refuseButtonName = StringUtils.removeColorCodes(refuseButton.getDisplayName());
+        String acceptButtonName = StringUtils.INSTANCE.removeColorCodes(acceptButton.getDisplayName());
+        String refuseButtonName = StringUtils.INSTANCE.removeColorCodes(refuseButton.getDisplayName());
 
         // If the names are not equal to the desired names, then you know it screen
         // is not the trader screen
@@ -116,8 +116,8 @@ public class GardenTradeValue {
 
             // Gets the name of ihe item and formats it
             String name = costLine.substring(0, costStartIndex);
-            name = StringUtils.stripLeading(name);
-            name = StringUtils.stripTrailing(name);
+            name = StringUtils.INSTANCE.stripLeading(name);
+            name = StringUtils.INSTANCE.stripTrailing(name);
 
             int amount;
             if (singleItem) {
@@ -172,8 +172,8 @@ public class GardenTradeValue {
                 continue;
             }
 
-            String strippedLine = StringUtils.stripLeading(line);
-            strippedLine = StringUtils.stripTrailing(strippedLine);
+            String strippedLine = StringUtils.INSTANCE.stripLeading(line);
+            strippedLine = StringUtils.INSTANCE.stripTrailing(strippedLine);
 
             int amountStartIndex = strippedLine.indexOf("+") + 1;
             int amountEndIndex = strippedLine.indexOf(" C");
@@ -190,7 +190,7 @@ public class GardenTradeValue {
         ArrayList<String> newList = new ArrayList<>();
 
         for (String oldLine : list) {
-            newList.add(StringUtils.removeColorCodes(oldLine));
+            newList.add(StringUtils.INSTANCE.removeColorCodes(oldLine));
         }
 
         return newList;
@@ -268,17 +268,17 @@ public class GardenTradeValue {
 
         StringBuilder textString = new StringBuilder();
 
-        textString.append("§e§lTotal Cost: §r§d").append(StringUtils.formatNumber(Utils.round(getTotalCost(), 2))).append("\n\n");
+        textString.append("§e§lTotal Cost: §r§d").append(StringUtils.INSTANCE.formatNumber(Utils.round(getTotalCost(), 2))).append("\n\n");
         
-        textString.append("§e§lCopper Received: §r§d").append(StringUtils.formatNumber(Utils.round(getCopperReturn(), 2))).append("\n\n");
+        textString.append("§e§lCopper Received: §r§d").append(StringUtils.INSTANCE.formatNumber(Utils.round(getCopperReturn(), 2))).append("\n\n");
 
         double pricePerCopper = getTotalCost() / getCopperReturn();
-        textString.append("§e§lCoins/Copper: §r§d").append(StringUtils.formatNumber(Utils.round(pricePerCopper, 2))).append("\n\n");
+        textString.append("§e§lCoins/Copper: §r§d").append(StringUtils.INSTANCE.formatNumber(Utils.round(pricePerCopper, 2))).append("\n\n");
 
         StringBuilder priceBreakdown = new StringBuilder();
         HashMap<String, Double> coinCostMap = getCoinCostMap();
         for (Map.Entry<String, Integer> en : getQuantityCostMap().entrySet()){
-            priceBreakdown.append("§7x§d").append(en.getValue()).append(" §7").append(en.getKey()).append(" for a total of §d").append(StringUtils.formatNumber(Utils.round(coinCostMap.get(en.getKey()), 2))).append("§7 coins.\n");
+            priceBreakdown.append("§7x§d").append(en.getValue()).append(" §7").append(en.getKey()).append(" for a total of §d").append(StringUtils.INSTANCE.formatNumber(Utils.round(coinCostMap.get(en.getKey()), 2))).append("§7 coins.\n");
         }
 
         textString.append("§e§lPrice Breakdown:§r\n");

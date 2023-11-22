@@ -45,14 +45,14 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Utils {
     public static boolean inDungeons(){
         String regionName = PartlySaneSkies.getRegionName();
-        String noColorCodeRegionName = me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes(regionName);
+        String noColorCodeRegionName = me.partlysanestudios.partlysaneskies.utils.StringUtils.INSTANCE.removeColorCodes(regionName);
 
         if (noColorCodeRegionName.isEmpty()) {
             return false;
         }
 
-        noColorCodeRegionName = me.partlysanestudios.partlysaneskies.utils.StringUtils.stripLeading(noColorCodeRegionName);
-        noColorCodeRegionName = me.partlysanestudios.partlysaneskies.utils.StringUtils.stripTrailing(noColorCodeRegionName);
+        noColorCodeRegionName = me.partlysanestudios.partlysaneskies.utils.StringUtils.INSTANCE.stripLeading(noColorCodeRegionName);
+        noColorCodeRegionName = me.partlysanestudios.partlysaneskies.utils.StringUtils.INSTANCE.stripTrailing(noColorCodeRegionName);
         noColorCodeRegionName = noColorCodeRegionName.replaceAll("\\P{Print}", ""); // Removes the RANDOM EMOJIS
         return noColorCodeRegionName.toLowerCase().contains("catacombs");
     }

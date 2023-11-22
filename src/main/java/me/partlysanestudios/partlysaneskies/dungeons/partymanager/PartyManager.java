@@ -85,8 +85,8 @@ public class PartyManager {
         memberName = memberName.replace("Party Finder > ", "");
         int indexOfText = memberName.indexOf("joined the dungeon group!");
         memberName = memberName.substring(0, indexOfText);
-        memberName = StringUtils.stripLeading(memberName);
-        memberName = StringUtils.stripTrailing(memberName);
+        memberName = StringUtils.INSTANCE.stripLeading(memberName);
+        memberName = StringUtils.INSTANCE.stripTrailing(memberName);
 
         try {
             loadPlayerData(memberName);

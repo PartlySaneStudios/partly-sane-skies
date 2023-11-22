@@ -124,7 +124,7 @@ public class PetAlert {
 
     // Parses a pet's name from the armor stand string. Ex: "[Lv100] Su386's *Black Cat*"
     public static String parsePetNameFromEntity(String name) {
-        name = StringUtils.removeColorCodes(name);
+        name = StringUtils.INSTANCE.removeColorCodes(name);
         int petNameStartIndex = name.indexOf("'s ") + 3; // Finds the start of the pet name. Ex: "[Lv100] Su386's *Black Cat"
         return name.substring(petNameStartIndex);
     }
@@ -139,7 +139,7 @@ public class PetAlert {
     }
 
     public static String parsePetNameFromItem(String name) {
-        name = StringUtils.removeColorCodes(name);
+        name = StringUtils.INSTANCE.removeColorCodes(name);
         int petNameStartIndex = name.indexOf("] ") + 2; // Finds the start of the pet name. Ex: "[Lv100] Su386's *Black Cat"
         return name.substring(petNameStartIndex);
     }
@@ -150,7 +150,7 @@ public class PetAlert {
         }
 
         IInventory upper = Objects.requireNonNull(PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen))[0];
-        return StringUtils.removeColorCodes(upper.getDisplayName().getFormattedText()).contains("Pets");
+        return StringUtils.INSTANCE.removeColorCodes(upper.getDisplayName().getFormattedText()).contains("Pets");
     }
 
 
@@ -160,7 +160,7 @@ public class PetAlert {
         }
 
         IInventory upper = Objects.requireNonNull(PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen))[0];
-        boolean inventoryNameMatches = StringUtils.removeColorCodes(upper.getDisplayName().getFormattedText()).contains("Minion");
+        boolean inventoryNameMatches = StringUtils.INSTANCE.removeColorCodes(upper.getDisplayName().getFormattedText()).contains("Minion");
 
         if (!inventoryNameMatches) {
             return false;
@@ -172,7 +172,7 @@ public class PetAlert {
         if (minionHeadSlot == null) {
             return false;
         }
-        String displayName = StringUtils.removeColorCodes(minionHeadSlot.getDisplayName());
+        String displayName = StringUtils.INSTANCE.removeColorCodes(minionHeadSlot.getDisplayName());
 
         return displayName.contains("Minion");
     }
@@ -183,7 +183,7 @@ public class PetAlert {
         List<Entity> petEntities = getAllPets();
         // If the pet says Ex: "[Lv100] *Su386*'s Black Cat" return that entity
         for (Entity entity : petEntities) {
-            if (StringUtils.removeColorCodes(entity.getName()).toLowerCase().contains(name.toLowerCase())) {
+            if (StringUtils.INSTANCE.removeColorCodes(entity.getName()).toLowerCase().contains(name.toLowerCase())) {
                 return entity;
             }
         }
@@ -198,7 +198,7 @@ public class PetAlert {
         // For every armor stand in the game, check if it's pet by looking for the level tag in front of the name.
         // Ex: "*[Lv*100] Su386's Black Cat"
         for (Entity entity : armorStandEntities) {
-            if (StringUtils.removeColorCodes(entity.getName()).contains("[Lv")) {
+            if (StringUtils.INSTANCE.removeColorCodes(entity.getName()).contains("[Lv")) {
                 petEntities.add(entity); // If so, add it to the list
             }
         }
