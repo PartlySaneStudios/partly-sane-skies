@@ -68,10 +68,10 @@ public class PolyfrostUrsaMinorRequest extends Request {
 
             this.requestResponse = str;
         } catch (IOException e) {
-            Utils.sendClientMessage("IOException: Contact PSS admins with your logs");
+            ChatUtils.INSTANCE.sendClientMessage("IOException: Contact PSS admins with your logs");
             e.printStackTrace();
-            Utils.sendClientMessage(e.getMessage());
-            Utils.sendClientMessage(e.getLocalizedMessage());
+            ChatUtils.INSTANCE.sendClientMessage(e.getMessage());
+            ChatUtils.INSTANCE.sendClientMessage(e.getLocalizedMessage());
             return; // if something bad happened, return null
         }
 
@@ -115,10 +115,10 @@ public class PolyfrostUrsaMinorRequest extends Request {
             }
             return connection;
         } catch (IOException e) {
-            Utils.sendClientMessage("IOException: Contact PSS admins with your logs");
+            ChatUtils.INSTANCE.sendClientMessage("IOException: Contact PSS admins with your logs");
             e.printStackTrace();
-            Utils.sendClientMessage(e.getMessage());
-            Utils.sendClientMessage(e.getLocalizedMessage());
+            ChatUtils.INSTANCE.sendClientMessage(e.getMessage());
+            ChatUtils.INSTANCE.sendClientMessage(e.getLocalizedMessage());
             return null;
         }
     }
@@ -132,10 +132,10 @@ public class PolyfrostUrsaMinorRequest extends Request {
             username = profile.getName(); // set the username and serverid - we will use these later and pass them to the server
             PolyfrostUrsaMinorRequest.serverId = serverId;
         } catch (AuthenticationException e) {
-            Utils.sendClientMessage("Authentication Exception: Contact PSS admins with your logs");
+            ChatUtils.INSTANCE.sendClientMessage("Authentication Exception: Contact PSS admins with your logs");
             e.printStackTrace();
-            Utils.sendClientMessage(e.getMessage());
-            Utils.sendClientMessage(e.getLocalizedMessage());
+            ChatUtils.INSTANCE.sendClientMessage(e.getMessage());
+            ChatUtils.INSTANCE.sendClientMessage(e.getLocalizedMessage());
             return false;
         }
         return true;

@@ -170,13 +170,13 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
             if (gui == null) {
                 return
             }
-//            Utils.sendClientMessage("A gui has been opened")
+//            ChatUtils.sendClientMessage("A gui has been opened")
 
             if (gui !is GuiChest) {
                 return
             }
             if (!isAhGui(MinecraftUtils.getSeparateUpperLowerInventories(gui)[0])) {
-//                Utils.sendClientMessage("Not AH Gui")
+//                ChatUtils.sendClientMessage("Not AH Gui")
                 return
             }
             val guiAlreadyOpen = PartlySaneSkies.minecraft.currentScreen is AuctionHouseGui
@@ -193,7 +193,7 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
             }
 //            val inventory = MinecraftUtils.getSeparateUpperLowerInventories(event.gui)[0]
 
-//            Utils.sendClientMessage("Opening menu")
+//            ChatUtils.sendClientMessage("Opening menu")
             val inventory = MinecraftUtils.getSeparateUpperLowerInventories(gui)[0]
 //            event.isCanceled = true
             if (isAuctionHouseFullyLoaded(inventory!!)) {
@@ -221,19 +221,19 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
             var inventory = MinecraftUtils.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen)[0]
 
             if (inventory == null) {
-                Utils.sendClientMessage("Error opening auction house. Inventory not open.")
+                ChatUtils.sendClientMessage("Error opening auction house. Inventory not open.")
 
                 return
             }
             if (isAuctionHouseFullyLoaded(inventory)) {
-//                Utils.sendClientMessage("Auction house is already loaded")
+//                ChatUtils.sendClientMessage("Auction house is already loaded")
                 inventory = MinecraftUtils.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen)[0]
                 val gui = AuctionHouseGui(inventory!!)
                 PartlySaneSkies.minecraft.displayGuiScreen(gui)
             } else {
                 Thread {
                     PartlySaneSkies.minecraft.addScheduledTask {
-//                        Utils.sendClientMessage("Trying again")
+//                        ChatUtils.sendClientMessage("Trying again")
                         openMenu()
                     }
                 }.start()
@@ -241,7 +241,7 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
         }
 
         private fun isAuctionHouseFullyLoaded(inventory: IInventory): Boolean {
-//            Utils.sendClientMessage("Checking if is loaded")
+//            ChatUtils.sendClientMessage("Checking if is loaded")
             for (i in 0..53) {
                 if (convertSlotToChestCoordinate(i)[0] <= 2 ||
                     convertSlotToChestCoordinate(i)[0] == 9 ||
@@ -254,13 +254,13 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
                 // Then Return false
                 if (inventory.getStackInSlot(i) == null) {
                     if (inventory.getStackInSlot(53) == null) {
-//                        Utils.sendClientMessage("Slot $i is broken")
+//                        ChatUtils.sendClientMessage("Slot $i is broken")
 
                         return false
                     } else if (Item.getIdFromItem(inventory.getStackInSlot(53).item) != 264) {
                         continue
                     }
-//                    Utils.sendClientMessage("Slot $i is broken")
+//                    ChatUtils.sendClientMessage("Slot $i is broken")
                     return false
 
                 }

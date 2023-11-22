@@ -143,7 +143,7 @@ public class Request {
 
             // If the print API errors setting is on, send a message to the client
             if (PartlySaneSkies.config.printApiErrors) {
-                Utils.sendClientMessage("Error: " + httpURLConnection.getResponseMessage() + ":" + httpURLConnection.getResponseCode() + "\nContact PSS admins for more information");
+                ChatUtils.INSTANCE.sendClientMessage("Error: " + httpURLConnection.getResponseMessage() + ":" + httpURLConnection.getResponseCode() + "\nContact PSS admins for more information");
             }
             // If not, simply print the error message to the console log 
             else {

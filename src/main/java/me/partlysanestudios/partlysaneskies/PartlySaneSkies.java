@@ -334,7 +334,7 @@ public class PartlySaneSkies {
     public void newApiKey(ClientChatReceivedEvent event) {
         if (event.message.getUnformattedText().startsWith("Your new API key is ")) {
             config.apiKey = event.message.getUnformattedText().replace("Your new API key is ", "");
-            Utils.sendClientMessage(("Saved new API key!"));
+            ChatUtils.INSTANCE.sendClientMessage(("Saved new API key!"));
             config.save();
         }
     }
@@ -365,15 +365,15 @@ public class PartlySaneSkies {
 
                 IChatComponent discordMessage = new ChatComponentText(("§9The Partly Sane Skies Discord server: https://discord.gg/" + discordCode));
                 discordMessage.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://discord.gg/" + discordCode));
-                Utils.sendClientMessage("§b§m--------------------------------------------------", true);
-                Utils.sendClientMessage("§cWe noticed you're using a dogfood version of Partly Sane Skies.", false);
-                Utils.sendClientMessage("§c§lThis version may be unstable.", true);
-                Utils.sendClientMessage("§cOnly use it when told to do so by a Partly Sane Skies admin.", true);
-                Utils.sendClientMessage("§cReport any bugs to Partly Sane Skies admins in a private ticket.", true);
-                Utils.sendClientMessage("§7Version ID: §d" + VERSION, true);
-                Utils.sendClientMessage("§7Latest non-dogfood version: §d" + CustomMainMenu.latestVersion, true);
-                Utils.sendClientMessage(discordMessage);
-                Utils.sendClientMessage("§b§m--------------------------------------------------", true);
+                ChatUtils.INSTANCE.sendClientMessage("§b§m--------------------------------------------------", true);
+                ChatUtils.INSTANCE.sendClientMessage("§cWe noticed you're using a dogfood version of Partly Sane Skies.", false);
+                ChatUtils.INSTANCE.sendClientMessage("§c§lThis version may be unstable.", true);
+                ChatUtils.INSTANCE.sendClientMessage("§cOnly use it when told to do so by a Partly Sane Skies admin.", true);
+                ChatUtils.INSTANCE.sendClientMessage("§cReport any bugs to Partly Sane Skies admins in a private ticket.", true);
+                ChatUtils.INSTANCE.sendClientMessage("§7Version ID: §d" + VERSION, true);
+                ChatUtils.INSTANCE.sendClientMessage("§7Latest non-dogfood version: §d" + CustomMainMenu.latestVersion, true);
+                ChatUtils.INSTANCE.sendClientMessage(discordMessage);
+                ChatUtils.INSTANCE.sendClientMessage("§b§m--------------------------------------------------", true);
             }).start();
         }
 
@@ -385,9 +385,9 @@ public class PartlySaneSkies {
                     e.printStackTrace();
                 }
 
-                Utils.sendClientMessage("§b§m--------------------------------------------------", true);
+                ChatUtils.INSTANCE.sendClientMessage("§b§m--------------------------------------------------", true);
 
-                Utils.sendClientMessage("§cWe have detected a new version of Partly Sane Skies.");
+                ChatUtils.INSTANCE.sendClientMessage("§cWe have detected a new version of Partly Sane Skies.");
 
                 ChatComponentText skyclientMessage = new ChatComponentText(("§aIf you are using SkyClient, make sure you update when prompted."));
                 PartlySaneSkies.minecraft.ingameGUI
@@ -401,7 +401,7 @@ public class PartlySaneSkies {
                         .getChatGUI()
                         .printChatMessage(githubMessage);
 
-                Utils.sendClientMessage("§b§m--------------------------------------------------", true);
+                ChatUtils.INSTANCE.sendClientMessage("§b§m--------------------------------------------------", true);
             }).start();
         }
     }
@@ -411,7 +411,7 @@ public class PartlySaneSkies {
     // Runs when debug key is pressed
     public static void debugMode() {
         PartlySaneSkies.isDebugMode = !PartlySaneSkies.isDebugMode;
-        Utils.sendClientMessage("Debug mode: " + PartlySaneSkies.isDebugMode);
+        ChatUtils.INSTANCE.sendClientMessage("Debug mode: " + PartlySaneSkies.isDebugMode);
         BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner("Test", 5000L, 5f, new OneColor(255, 0, 255, 1).toJavaColor()));
     }
 

@@ -129,4 +129,13 @@ object MinecraftUtils {
         }
         return loreList
     }
+
+    fun getLoreAsString(item: ItemStack): String {
+        val loreList: List<String> = item.getLore()
+        val loreString = StringBuilder()
+        for (loreLine in loreList) {
+            loreString.append(loreLine).append("\n")
+        }
+        return loreString.toString()
+    }
 }

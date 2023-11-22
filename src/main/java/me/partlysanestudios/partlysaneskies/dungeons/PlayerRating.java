@@ -170,7 +170,7 @@ public class PlayerRating {
     }
     
     public static void reprintLastScore() {
-        Utils.sendClientMessage(lastMessage, true);
+        ChatUtils.INSTANCE.sendClientMessage(lastMessage, true);
     }
 
     public static void registerReprintCommand() {
@@ -200,7 +200,7 @@ public class PlayerRating {
                     if (string.equals("")) {
                         return;
                     }
-                    Utils.sendClientMessage(string, true);
+                    ChatUtils.INSTANCE.sendClientMessage(string, true);
                 });
             }).start();
 

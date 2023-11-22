@@ -167,7 +167,7 @@ public class PartyManager {
             // Hides message
             event.setCanceled(true);
             // Sends an error message
-            Utils.sendClientMessage(("§9§m-----------------------------------------------------\n "+
+            ChatUtils.INSTANCE.sendClientMessage(("§9§m-----------------------------------------------------\n "+
                     "§r§cError: Could not run Party Manager." +
                     "\n§r§cYou are not currently in a party."
             ));
@@ -206,7 +206,7 @@ public class PartyManager {
      
     // Kicks all offline players
     public static void kickOffline() {
-        Utils.sendClientMessage("Kicking all offline members...");
+        ChatUtils.INSTANCE.sendClientMessage("Kicking all offline members...");
         PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party kickoffline");
     }
 

@@ -75,7 +75,7 @@ public class PermParty {
             PermPartyManager.save();
         } catch (IOException e) {
             e.printStackTrace();
-            Utils.sendClientMessage("Could not save Permanent Party Data.");
+            ChatUtils.INSTANCE.sendClientMessage("Could not save Permanent Party Data.");
         }
     }
 }

@@ -120,7 +120,7 @@ public class PetAlert {
         }
         String petName = parsePetNameFromItem(item.getDisplayName());
         PartlySaneSkies.config.selectedPet = petName;
-        Utils.sendClientMessage("Set " + petName + " as your favorite pet.");
+        ChatUtils.INSTANCE.sendClientMessage("Set " + petName + " as your favorite pet.");
         PartlySaneSkies.config.save();
     }
 
@@ -135,7 +135,7 @@ public class PetAlert {
         new PSSCommand("mutepetalert")
                 .setDescription("Mutes the pet alert for a set amount of minutes")
                 .setRunnable((s, a) -> {
-                    Utils.sendClientMessage("§bPet alert has been muted for " +  PartlySaneSkies.config.petAlertMuteTime + " minutes.");
+                    ChatUtils.INSTANCE.sendClientMessage("§bPet alert has been muted for " +  PartlySaneSkies.config.petAlertMuteTime + " minutes.");
                     PetAlert.lastMuteTime = PartlySaneSkies.getTime();
                 }).register();
     }

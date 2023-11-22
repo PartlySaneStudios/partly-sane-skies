@@ -87,11 +87,11 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack?, var xCons
     }
 
     fun highlightIfCheapBin() {
-//        Utils.sendClientMessage("checking")
+//        ChatUtils.sendClientMessage("checking")
         if (!isCheapBin()) {
             return
         }
-//        Utils.sendClientMessage("checked")
+//        ChatUtils.sendClientMessage("checked")
         highlightBox.setColor(ThemeManager.getAccentColor().toJavaColor().constraint)
     }
 

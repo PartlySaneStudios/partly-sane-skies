@@ -92,58 +92,7 @@ public class Utils {
         // colorCodetoColor.put("&0", new Color(0, 0, 0));
     }
 
-    public static void sendClientMessage(IChatComponent chatComponent) {
-        PartlySaneSkies.minecraft.ingameGUI
-                .getChatGUI()
-                .printChatMessage(chatComponent);
-    }
-    
-    public static void sendClientMessage(String text) {
-        sendClientMessage(text, false);
-    }
 
-    // If true, Sends a message discretely without the Prefix Partly Sane Skies >:
-    public static void sendClientMessage(String text, boolean silent) {
-        if (silent) {
-            try {
-                sendClientMessage(new ChatComponentText(text));
-
-            } catch (NullPointerException ignored) {
-            }
-        }
-        else {
-            try {
-                sendClientMessage(new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + text));
-            } catch (NullPointerException ignored) {
-            }
-        }
-    }
-
-    public static void copyStringToClipboard(String string) {
-        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(getTransferableString(string), null);
-    }
-
-    private static Transferable getTransferableString(final String string) {
-        return new Transferable() {
-            @Override
-            public DataFlavor[] getTransferDataFlavors() {
-                return new DataFlavor[] { DataFlavor.stringFlavor };
-            }
-
-            @Override
-            public boolean isDataFlavorSupported(DataFlavor flavor) {
-                return DataFlavor.stringFlavor.equals(flavor);
-            }
-
-            @Override
-            public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException {
-                if (DataFlavor.stringFlavor.equals(flavor)) {
-                    return string;
-                }
-                throw new UnsupportedFlavorException(flavor);
-            }
-        };
-    }
 
     @Deprecated
     // Deprecated: Use RequestManager and Requests instead
@@ -168,7 +117,7 @@ public class Utils {
 
         } else {
             if (PartlySaneSkies.config.printApiErrors) {
-                sendClientMessage("Error: " + httpURLConnection.getResponseMessage() + ":" + httpURLConnection.getResponseCode() + "\nContact PSS admins for more information");
+                ChatUtils.INSTANCE.sendClientMessage("Error: " + httpURLConnection.getResponseMessage() + ":" + httpURLConnection.getResponseCode() + "\nContact PSS admins for more information");
             } else {
                 Utils.log(Level.ERROR,"Error: " + httpURLConnection.getResponseMessage() + ":" + httpURLConnection.getResponseCode() + "\nContact PSS admins for more information");
             }
@@ -249,42 +198,7 @@ public class Utils {
         component.insertChildAt(image, 0);
     }
 
-    public static String getLoreAsString(ItemStack item) {
-        List<String> loreList = MinecraftUtils.INSTANCE.getLore(item);
-        StringBuilder loreString = new StringBuilder();
-        for (String loreLine : loreList) {
-            loreString.append(loreLine).append("\n");
-        }
-    
-        return loreString.toString();
-    }
 
-    public static UIImage uiimageFromResourceLocation(ResourceLocation location)  {
-        try {
-            IResource resource = Minecraft.getMinecraft().getResourceManager().getResource(location);
-
-            return new UIImage(CompletableFuture.supplyAsync(() -> {
-                try {
-                    return ImageIO.read(resource.getInputStream());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                finally {
-                    try {
-                        resource.getInputStream().close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-                return null;
-            }));
-        } catch (NullPointerException | IOException exception) {
-
-
-            return UIImage.ofResource("/assets/partlysaneskies/" + location.getResourcePath());
-//            return UIImage.ofResource("/assets/partlysaneskies/textures/null_texture.png");
-        }
-    }
 
     // Opens a link with a given URL
     public static void openLink(String url) {
@@ -296,11 +210,11 @@ public class Utils {
                 Object object = oclass.getMethod("getDesktop", new Class[0]).invoke(null);
                 oclass.getMethod("browse", new Class[] { URI.class }).invoke(object, uri);
             } catch (Throwable throwable) {
-                Utils.sendClientMessage("Couldn't open link");
+                ChatUtils.INSTANCE.sendClientMessage("Couldn't open link");
                 throwable.printStackTrace();
             }
         } catch (URISyntaxException except) {
-            Utils.sendClientMessage("Couldn't open link");
+            ChatUtils.INSTANCE.sendClientMessage("Couldn't open link");
             except.printStackTrace();
         }
     }

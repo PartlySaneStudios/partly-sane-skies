@@ -40,7 +40,7 @@ public class HelpCommands {
                 .addAlias("pssconf")
                 .setDescription("Opens the config menu")
                 .setRunnable((s, a) -> {
-                    Utils.sendClientMessage("§bOpening config menu...");
+                    ChatUtils.INSTANCE.sendClientMessage("§bOpening config menu...");
 
                     Window.Companion.enqueueRenderOperation(() -> PartlySaneSkies.config.openGui());
                 })
@@ -53,7 +53,7 @@ public class HelpCommands {
                 .setRunnable((s, a) -> {
                     printHelpMessage();
 
-                    Utils.sendClientMessage("§bOpening config menu...");
+                    ChatUtils.INSTANCE.sendClientMessage("§bOpening config menu...");
 
                     Window.Companion.enqueueRenderOperation(() -> PartlySaneSkies.config.openGui());
                 }).register();
@@ -76,7 +76,7 @@ public class HelpCommands {
                         chatcomponent.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/PartlySaneStudios/partly-sane-skies/releases"));
                     }
 
-                    Utils.sendClientMessage(chatcomponent);
+                    ChatUtils.INSTANCE.sendClientMessage(chatcomponent);
                 }).register();
     }
 
@@ -107,7 +107,7 @@ public class HelpCommands {
                             "\n§5http://www.recettes-bretonnes.fr/crepe-bretonne/recette-crepe.html" +
                             "\n§0§m-----------------------------------------------------§0");
                     chatComponent.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL,"http://www.recettes-bretonnes.fr/crepe-bretonne/recette-crepe.html"));
-                    Utils.sendClientMessage(chatComponent);
+                    ChatUtils.INSTANCE.sendClientMessage(chatComponent);
                 }).register();
 
     }
@@ -123,7 +123,7 @@ public class HelpCommands {
                 .setDescription("Show the Partly Sane Skies help message")
                 .setRunnable((s, a) -> {
                     if (a.length > 0 && configAliases.contains(a[0].toLowerCase())) {
-                        Utils.sendClientMessage("Opening config GUI...");
+                        ChatUtils.INSTANCE.sendClientMessage("Opening config GUI...");
                         Window.Companion.enqueueRenderOperation(() -> PartlySaneSkies.config.openGui());
                         return;
                     }
@@ -172,7 +172,7 @@ public class HelpCommands {
 
         str.append("\n§3§m-----------------------------------------------------§r");
 
-        Utils.sendClientMessage((str.toString()), true);
+        ChatUtils.INSTANCE.sendClientMessage((str.toString()), true);
 
     }
 }

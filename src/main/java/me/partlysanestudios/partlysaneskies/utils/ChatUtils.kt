@@ -2,6 +2,7 @@ package me.partlysanestudios.partlysaneskies.utils
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import net.minecraft.util.ChatComponentText
+import net.minecraft.util.IChatComponent
 import org.apache.logging.log4j.Level
 import java.awt.Toolkit
 import java.awt.datatransfer.StringSelection
@@ -21,6 +22,31 @@ object ChatUtils {
             } catch (e: IllegalStateException) {
             }
         } catch (ignored: NullPointerException) {
+        }
+    }
+
+    fun sendClientMessage(chatComponent: IChatComponent?) {
+        PartlySaneSkies.minecraft.ingameGUI
+            .chatGUI
+            .printChatMessage(chatComponent)
+    }
+
+    fun sendClientMessage(text: String) {
+        sendClientMessage(text, false)
+    }
+
+    // If true, Sends a message discretely without the Prefix Partly Sane Skies >:
+    fun sendClientMessage(text: String, silent: Boolean) {
+        if (silent) {
+            try {
+                sendClientMessage(ChatComponentText(text))
+            } catch (ignored: java.lang.NullPointerException) {
+            }
+        } else {
+            try {
+                sendClientMessage(ChatComponentText(PartlySaneSkies.CHAT_PREFIX + text))
+            } catch (ignored: java.lang.NullPointerException) {
+            }
         }
     }
 }

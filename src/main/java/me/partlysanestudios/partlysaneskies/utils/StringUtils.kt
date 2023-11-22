@@ -5,6 +5,10 @@
 package me.partlysanestudios.partlysaneskies.utils
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
+import java.awt.Toolkit
+import java.awt.datatransfer.DataFlavor
+import java.awt.datatransfer.Transferable
+import java.awt.datatransfer.UnsupportedFlavorException
 import java.text.DecimalFormat
 import java.util.*
 import java.util.regex.Pattern
@@ -282,6 +286,29 @@ object StringUtils {
             return parsedNum
         } catch (e: NumberFormatException) {
             return Double.NaN
+        }
+    }
+
+    fun copyStringToClipboard(string: String) {
+        Toolkit.getDefaultToolkit().systemClipboard.setContents(getTransferableString(string), null)
+    }
+    private fun getTransferableString(string: String): Transferable {
+        return object : Transferable {
+            override fun getTransferDataFlavors(): Array<DataFlavor> {
+                return arrayOf(DataFlavor.stringFlavor)
+            }
+
+            override fun isDataFlavorSupported(flavor: DataFlavor): Boolean {
+                return DataFlavor.stringFlavor.equals(flavor)
+            }
+
+            @Throws(UnsupportedFlavorException::class)
+            override fun getTransferData(flavor: DataFlavor): Any {
+                if (DataFlavor.stringFlavor.equals(flavor)) {
+                    return string
+                }
+                throw UnsupportedFlavorException(flavor)
+            }
         }
     }
 }

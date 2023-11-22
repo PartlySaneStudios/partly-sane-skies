@@ -114,7 +114,7 @@ public class SkillUpgradeRecommendation {
         message.append("\n§3§m-----------------------------------------------------§r");
 
         // Send message
-        Utils.sendClientMessage((message.toString()));
+        ChatUtils.INSTANCE.sendClientMessage((message.toString()));
     }
 
     // Populates the constant hashmap
@@ -134,7 +134,7 @@ public class SkillUpgradeRecommendation {
                 .addAlias("su")
                 .setDescription("Recommends which skill to upgrade: /skillup [username]")
                 .setRunnable((s, a) -> {
-                    Utils.sendClientMessage("Loading...");
+                    ChatUtils.INSTANCE.sendClientMessage("Loading...");
 
                     new Thread(() -> {
                         HashMap<String, Double> map;
@@ -142,7 +142,7 @@ public class SkillUpgradeRecommendation {
                             try {
                                 map = SkillUpgradeRecommendation.getRecommendedSkills(a[0]);
                             } catch (IOException e) {
-                                Utils.sendClientMessage(("Error getting data for " + a[0]
+                                ChatUtils.INSTANCE.sendClientMessage(("Error getting data for " + a[0]
                                         + ". Maybe the player is nicked or there is an invalid API key."));
                                 return;
                             }
@@ -150,7 +150,7 @@ public class SkillUpgradeRecommendation {
                             try {
                                 map = SkillUpgradeRecommendation.getRecommendedSkills(PartlySaneSkies.minecraft.thePlayer.getName());
                             } catch (IOException e) {
-                                Utils.sendClientMessage(("Error getting data for "
+                                ChatUtils.INSTANCE.sendClientMessage(("Error getting data for "
                                         + PartlySaneSkies.minecraft.thePlayer.getName()
                                         + ". Maybe the player is nicked or there is an invalid API key."));
                                 return;
