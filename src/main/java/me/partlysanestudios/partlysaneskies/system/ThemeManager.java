@@ -10,7 +10,6 @@ import gg.essential.elementa.components.UIImage;
 import gg.essential.universal.utils.ReleasedDynamicTexture;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.utils.ImageUtils;
-import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.resources.IResource;
 import net.minecraft.util.ResourceLocation;

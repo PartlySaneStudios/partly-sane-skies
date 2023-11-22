@@ -8,7 +8,6 @@ package me.partlysanestudios.partlysaneskies.system.requests;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.exceptions.AuthenticationException;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
-import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.Minecraft;
 import org.apache.commons.io.IOUtils;
 

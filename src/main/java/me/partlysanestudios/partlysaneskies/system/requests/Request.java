@@ -7,7 +7,6 @@
 package me.partlysanestudios.partlysaneskies.system.requests;
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
-import me.partlysanestudios.partlysaneskies.utils.Utils;
 import org.apache.logging.log4j.Level;
 
 import java.io.BufferedReader;

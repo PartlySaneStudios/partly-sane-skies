@@ -10,8 +10,8 @@ import kotlin.math.sqrt
 object MathUtils {
 
 
-    fun round(num: Double, decimalPlaces: Int): Double {
-        return Math.round(num * 10.pow(decimalPlaces.toDouble()) / 10.pow(decimalPlaces.toDouble())).toDouble()
+    fun Double.round(decimalPlaces: Int): Double {
+        return Math.round(this * 10.0.pow(decimalPlaces.toDouble()) / 10.0.pow(decimalPlaces.toDouble())).toDouble()
     }
 
     fun randInt(min: Int, max: Int): Int {

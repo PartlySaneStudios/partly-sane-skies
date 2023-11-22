@@ -13,11 +13,9 @@ import me.partlysanestudios.partlysaneskies.system.BannerRenderer.renderNewBanne
 import me.partlysanestudios.partlysaneskies.system.PSSBanner
 import me.partlysanestudios.partlysaneskies.system.commands.PSSCommand
 import me.partlysanestudios.partlysaneskies.system.commands.PSSCommandRunnable
-import me.partlysanestudios.partlysaneskies.utils.HypixelUtils
-import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
-import me.partlysanestudios.partlysaneskies.utils.StringUtils
+import me.partlysanestudios.partlysaneskies.utils.*
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
-import me.partlysanestudios.partlysaneskies.utils.Utils
+
 import net.minecraft.client.audio.PositionedSoundRecord
 import net.minecraft.command.ICommandSender
 import net.minecraft.util.ResourceLocation
@@ -37,7 +35,7 @@ import kotlin.math.min
 class EndOfFarmNotifier {
 
     fun run() {
-        if (!Utils.onCooldown(
+        if (!MathUtils.onCooldown(
                 rangeToHighlightSetTime,
                 (PartlySaneSkies.config.farmHightlightTime * 1000).toLong()
             )
@@ -48,7 +46,7 @@ class EndOfFarmNotifier {
             displayString = ""
             return
         }
-        if (Utils.onCooldown(
+        if (MathUtils.onCooldown(
                 lastChimeTime,
                 (PartlySaneSkies.config.farmnotifierChimeTime * 1000).toLong()
             )

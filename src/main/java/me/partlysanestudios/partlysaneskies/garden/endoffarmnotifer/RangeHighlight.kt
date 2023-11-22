@@ -26,7 +26,9 @@ package me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.points.Point3d
 import me.partlysanestudios.partlysaneskies.system.ThemeManager
-import me.partlysanestudios.partlysaneskies.utils.Utils
+import me.partlysanestudios.partlysaneskies.utils.ChatUtils
+import me.partlysanestudios.partlysaneskies.utils.ImageUtils
+
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.Tessellator
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats
@@ -48,12 +50,12 @@ object RangeHighlight {
 
         for (range in EndOfFarmNotifier.ranges) {
             var color = Color(255, 255, 255)
-            color = Utils.applyOpacityToColor(color, (.2 * 255).toInt())
+            color = ImageUtils.applyOpacityToColor(color, (.2 * 255).toInt())
 //                ChatUtils.sendClientMessage("Range to highlight: ${EndOfFarmNotifier.rangeToHighlight}, Current Range: $range")
             if (range.equals(EndOfFarmNotifier.rangeToHighlight)) {
 //                    ChatUtils.sendClientMessage("Is range to highlight")
                 color = ThemeManager.getAccentColor().toJavaColor()
-                color = Utils.applyOpacityToColor(color, (.4 * 255).toInt())
+                color = ImageUtils.applyOpacityToColor(color, (.4 * 255).toInt())
             }
 
             val effectiveRange = Range3d(range.points[0].x, range.points[0].y, range.points[0].z, range.points[1].x + 1, range.points[1].y + 1, range.points[1].z + 1)

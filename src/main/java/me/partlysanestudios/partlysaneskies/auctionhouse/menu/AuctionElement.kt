@@ -20,16 +20,18 @@ import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManage
 import me.partlysanestudios.partlysaneskies.system.ThemeManager
 import me.partlysanestudios.partlysaneskies.system.guicomponents.PSSButton
 import me.partlysanestudios.partlysaneskies.system.guicomponents.PSSItemRender
+import me.partlysanestudios.partlysaneskies.utils.HypixelUtils
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getLore
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
-import me.partlysanestudios.partlysaneskies.utils.Utils
+
 import net.minecraft.item.ItemStack
 import java.awt.Color
 import java.util.*
 
 class AuctionElement(private val slot: Int, val itemstack: ItemStack?, var xConstraint: XConstraint, var yConstraint: YConstraint, var heightConstraint: PixelConstraint, val textScale: Float) {
 
-    val skyblockItem = SkyblockDataManager.getItem(Utils.getItemId(itemstack))
+    val skyblockItem = SkyblockDataManager.getItem(HypixelUtils.getItemId(itemstack))
 
     private val boundingBox = UIBlock().constrain {
         x = xConstraint
@@ -116,7 +118,7 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack?, var xCons
     }
 
     fun clickAuction() {
-        Utils.clickOnSlot(slot)
+        MinecraftUtils.clickOnSlot(slot)
     }
 
     fun isBin(): Boolean {
@@ -234,7 +236,7 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack?, var xCons
         if (itemstack == null) {
             return ""
         }
-        return Utils.getLoreAsString(this.itemstack)
+        return MinecraftUtils.getLoreAsString(this.itemstack)
     }
 
     fun getRarity(): String {

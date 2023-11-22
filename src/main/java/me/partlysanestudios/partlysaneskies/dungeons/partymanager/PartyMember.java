@@ -16,7 +16,6 @@ import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManage
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockPlayer;
 import me.partlysanestudios.partlysaneskies.system.guicomponents.PSSButton;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
-import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.util.ResourceLocation;
 
 import java.awt.*;

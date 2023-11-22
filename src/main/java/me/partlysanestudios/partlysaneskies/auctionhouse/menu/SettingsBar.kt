@@ -14,10 +14,12 @@ import gg.essential.elementa.dsl.constrain
 import gg.essential.elementa.dsl.pixels
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.system.ThemeManager
+import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.uiImageFromResourceLocation
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getLore
 import me.partlysanestudios.partlysaneskies.utils.StringUtils
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
-import me.partlysanestudios.partlysaneskies.utils.Utils
+
 import net.minecraft.inventory.IInventory
 import net.minecraft.util.ResourceLocation
 import java.awt.Color
@@ -191,7 +193,7 @@ class SettingsBar (val xConstraint: XConstraint, val yConstraint: YConstraint, v
 
 
 
-            Utils.uiimageFromResourceLocation(ResourceLocation("partlysaneskies", imagePath)).constrain {
+            ResourceLocation("partlysaneskies", imagePath).uiImageFromResourceLocation().constrain {
                 x = CenterConstraint()
                 y = CenterConstraint()
                 width = imageSide.pixels
@@ -200,9 +202,9 @@ class SettingsBar (val xConstraint: XConstraint, val yConstraint: YConstraint, v
 
             icon.onMouseClick {
                 if (it.mouseButton == 1) {
-                    Utils.rightClickOnSlot(slot)
+                    MinecraftUtils.rightClickOnSlot(slot)
                 } else {
-                    Utils.clickOnSlot(slot)
+                    MinecraftUtils.clickOnSlot(slot)
                 }
             }
 

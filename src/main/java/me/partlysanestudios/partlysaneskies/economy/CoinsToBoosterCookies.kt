@@ -1,4 +1,4 @@
-/* CoinsToBoosterCookieConversion.kt
+/*
  * A Kotlin class written by Erymanthus[#5074] | (u/)RayDeeUx
  * and Su386 for Su386 and FlagMaster's Partly Sane Skies mod.
  * See LICENSE for copyright and license notices.
@@ -22,9 +22,11 @@ import me.partlysanestudios.partlysaneskies.system.commands.PSSCommand
 import me.partlysanestudios.partlysaneskies.system.requests.Request
 import me.partlysanestudios.partlysaneskies.system.requests.RequestRunnable
 import me.partlysanestudios.partlysaneskies.system.requests.RequestsManager
+import me.partlysanestudios.partlysaneskies.utils.ChatUtils
 import me.partlysanestudios.partlysaneskies.utils.StringUtils
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.formatNumber
-import me.partlysanestudios.partlysaneskies.utils.Utils
+import me.partlysanestudios.partlysaneskies.utils.SystemUtils.getJsonFromPath
+
 import net.minecraft.command.ICommandSender
 import kotlin.math.abs
 import kotlin.math.ceil
@@ -123,7 +125,7 @@ class CoinsToBoosterCookieConversion {
                     {
                         val theProfile = profile.value.getAsJsonObject()
                         if (theProfile.get("current").asBoolean) {
-                            networth = Utils.getJsonFromPath(theProfile,"data/networth/networth").asDouble
+                            networth = theProfile.getJsonFromPath("data/networth/networth")?.asDouble ?: -1.0
                             break
                         }
                     }

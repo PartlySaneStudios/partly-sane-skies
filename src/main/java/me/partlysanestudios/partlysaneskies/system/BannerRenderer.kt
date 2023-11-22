@@ -14,7 +14,9 @@ import gg.essential.elementa.dsl.constraint
 import gg.essential.elementa.dsl.pixels
 import gg.essential.universal.UMatrixStack
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
-import me.partlysanestudios.partlysaneskies.utils.Utils
+import me.partlysanestudios.partlysaneskies.utils.ImageUtils
+import me.partlysanestudios.partlysaneskies.utils.MathUtils
+
 import net.minecraft.client.gui.Gui
 import net.minecraftforge.client.event.RenderGameOverlayEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
@@ -115,7 +117,7 @@ class PSSBanner(val text: String, val lengthOfTimeToRender: Long, val textScale:
     }
 
     fun isOutOfDate(): Boolean {
-        return !Utils.onCooldown(renderStartTime, lengthOfTimeToRender)
+        return !MathUtils.onCooldown(renderStartTime, lengthOfTimeToRender)
     }
     fun hasStartedRendering(): Boolean {
         return renderStartTime == -1L
@@ -125,7 +127,7 @@ class PSSBanner(val text: String, val lengthOfTimeToRender: Long, val textScale:
         val alpha = getAlpha(renderStartTime, lengthOfTimeToRender / 1000.0).toInt()
 
 
-        val color = Utils.applyOpacityToColor(color, alpha)
+        val color = ImageUtils.applyOpacityToColor(color, alpha)
 //        ChatUtils.sendClientMessage("${alpha},  ${color.alpha}")
 
         return color
