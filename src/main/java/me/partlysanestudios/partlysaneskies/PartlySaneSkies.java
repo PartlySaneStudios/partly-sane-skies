@@ -32,6 +32,7 @@ import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManager;
 import me.partlysanestudios.partlysaneskies.dungeons.permpartyselector.PermPartyManager;
 import me.partlysanestudios.partlysaneskies.dungeons.RequiredSecretsFound;
 import me.partlysanestudios.partlysaneskies.economy.BitsShopValue;
+import me.partlysanestudios.partlysaneskies.economy.CoinsToBoosterCookieConversion;
 import me.partlysanestudios.partlysaneskies.economy.minioncalculator.MinionData;
 import me.partlysanestudios.partlysaneskies.economy.minioncalculator.ProfitMinionCalculator;
 import me.partlysanestudios.partlysaneskies.garden.CompostValue;
@@ -51,6 +52,7 @@ import me.partlysanestudios.partlysaneskies.system.requests.Request;
 import me.partlysanestudios.partlysaneskies.system.requests.RequestsManager;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
+import me.partlysanestudios.partlysaneskies.RefreshKeybinds;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.event.ClickEvent;
@@ -109,6 +111,7 @@ public class PartlySaneSkies {
 
     private static LocationBannerDisplay locationBannerDisplay;
     private static EndOfFarmNotifier eofn;
+    private static CoinsToBoosterCookieConversion c2c;
 
     private static String API_KEY;
 
@@ -128,6 +131,7 @@ public class PartlySaneSkies {
         new File("./config/partly-sane-skies/").mkdirs();
 
         eofn = new EndOfFarmNotifier();
+        c2c = new CoinsToBoosterCookieConversion();
 
         // Loads the config files and options
         PartlySaneSkies.config = new OneConfigScreen();
@@ -138,6 +142,13 @@ public class PartlySaneSkies {
             e.printStackTrace();
         }
         RequestsManager.newRequest(mainMenuRequest);
+        Request funFactRequest = null;
+        try {
+            funFactRequest = new Request(CustomMainMenu.funFactApi, CustomMainMenu::setFunFact);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        RequestsManager.newRequest(funFactRequest);
         trackLoad();
         RequestsManager.run();
 
@@ -199,8 +210,10 @@ public class PartlySaneSkies {
         MinecraftForge.EVENT_BUS.register(new RequiredSecretsFound());
         MinecraftForge.EVENT_BUS.register(new Pickaxes());
         MinecraftForge.EVENT_BUS.register(new VisitorLogbookStats());
+        MinecraftForge.EVENT_BUS.register(c2c);
         MinecraftForge.EVENT_BUS.register(eofn);
         MinecraftForge.EVENT_BUS.register(new Prank());
+        MinecraftForge.EVENT_BUS.register(new RefreshKeybinds());
 
 
         // Registers all client side commands
@@ -221,6 +234,7 @@ public class PartlySaneSkies {
         eofn.registerCreateRangeCommand();
         eofn.registerFarmNotifierCommand();
         eofn.registerWandCommand();
+        c2c.registerCommand();
         ProfitMinionCalculator.registerCommand();
         MathematicalHoeRightClicks.registerCommand();
         WordEditor.registerWordEditorCommand();
@@ -466,8 +480,8 @@ public class PartlySaneSkies {
         String location = null;
 
         for (String line : scoreboard) {
-            if (StringUtils.stripLeading(line).contains("⏣")) {
-                location = StringUtils.stripLeading(line).replace("⏣", "");
+            if (StringUtils.stripLeading(line).contains("⏣") || StringUtils.stripLeading(line).contains("ф")) {
+                location = StringUtils.stripLeading(line).contains("⏣") ? StringUtils.stripLeading(line).replace("⏣", "") : StringUtils.stripLeading(line).replace("ф", "");
                 location = StringUtils.stripLeading(location);
                 break;
             }
