@@ -67,7 +67,7 @@ public class ThemeManager {
         if (!lastThemeName.equals(defaultThemes[PartlySaneSkies.config.themeIndex].getName())) {
             for (UIImage image : backgroundUIImages) {
                 try {
-                    image.applyTexture(new ReleasedDynamicTexture(ImageUtils.loadImage(getCurrentBackgroundFile().getPath())));
+                    image.applyTexture(new ReleasedDynamicTexture(ImageUtils.INSTANCE.loadImage(getCurrentBackgroundFile().getPath())));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -82,7 +82,7 @@ public class ThemeManager {
                         color = data.getColor();
                     }
 
-                    data.getImage().applyTexture(new ReleasedDynamicTexture(ImageUtils.loadImage(getCurrentButtonFile(color).getPath())));
+                    data.getImage().applyTexture(new ReleasedDynamicTexture(ImageUtils.INSTANCE.loadImage(getCurrentButtonFile(color).getPath())));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -97,7 +97,7 @@ public class ThemeManager {
                         color = data.getColor();
                     }
 
-                    data.getImage().applyTexture(new ReleasedDynamicTexture(ImageUtils.loadImage(getCurrentToggleFile(data.isSelected(), color).getPath())));
+                    data.getImage().applyTexture(new ReleasedDynamicTexture(ImageUtils.INSTANCE.loadImage(getCurrentToggleFile(data.isSelected(), color).getPath())));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -316,11 +316,11 @@ public class ThemeManager {
         filePath.toFile().createNewFile();
 
 
-        ImageUtils.replaceColor(debugImage, PRIMARY_DEBUG_COLOR, primaryColor);
-        ImageUtils.replaceColor(debugImage, SECONDARY_DEBUG_COLOR, secondaryColor);
-        ImageUtils.replaceColor(debugImage, ACCENT_DEBUG_COLOR, accentColor);
+        ImageUtils.INSTANCE.replaceColor(debugImage, PRIMARY_DEBUG_COLOR, primaryColor);
+        ImageUtils.INSTANCE.replaceColor(debugImage, SECONDARY_DEBUG_COLOR, secondaryColor);
+        ImageUtils.INSTANCE.replaceColor(debugImage, ACCENT_DEBUG_COLOR, accentColor);
 
-        ImageUtils.saveImage(debugImage, filePath);
+        ImageUtils.INSTANCE.saveImage(debugImage, filePath);
 
 
 
@@ -352,11 +352,11 @@ public class ThemeManager {
         filePath.toFile().createNewFile();
 
 
-        ImageUtils.replaceColor(debugImage, PRIMARY_DEBUG_COLOR, primaryColor);
-        ImageUtils.replaceColor(debugImage, SECONDARY_DEBUG_COLOR, secondaryColor);
-        ImageUtils.replaceColor(debugImage, ACCENT_DEBUG_COLOR, accentColor);
+        ImageUtils.INSTANCE.replaceColor(debugImage, PRIMARY_DEBUG_COLOR, primaryColor);
+        ImageUtils.INSTANCE.replaceColor(debugImage, SECONDARY_DEBUG_COLOR, secondaryColor);
+        ImageUtils.INSTANCE.replaceColor(debugImage, ACCENT_DEBUG_COLOR, accentColor);
 
-        ImageUtils.saveImage(debugImage, filePath);
+        ImageUtils.INSTANCE.saveImage(debugImage, filePath);
 
 
 
@@ -388,11 +388,11 @@ public class ThemeManager {
         filePath.toFile().createNewFile();
 
 
-        ImageUtils.replaceColor(debugImage, PRIMARY_DEBUG_COLOR, primaryColor);
-        ImageUtils.replaceColor(debugImage, SECONDARY_DEBUG_COLOR, secondaryColor);
-        ImageUtils.replaceColor(debugImage, ACCENT_DEBUG_COLOR, accentColor);
+        ImageUtils.INSTANCE.replaceColor(debugImage, PRIMARY_DEBUG_COLOR, primaryColor);
+        ImageUtils.INSTANCE.replaceColor(debugImage, SECONDARY_DEBUG_COLOR, secondaryColor);
+        ImageUtils.INSTANCE.replaceColor(debugImage, ACCENT_DEBUG_COLOR, accentColor);
 
-        ImageUtils.saveImage(debugImage, filePath);
+        ImageUtils.INSTANCE.saveImage(debugImage, filePath);
 
 
         return filePath.toFile();
