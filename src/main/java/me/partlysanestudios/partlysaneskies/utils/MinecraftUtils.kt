@@ -7,13 +7,16 @@ package me.partlysanestudios.partlysaneskies.utils
 
 import com.google.common.collect.ComparisonChain
 import com.google.common.collect.Ordering
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies
+import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import net.minecraft.client.Minecraft
 import net.minecraft.client.network.NetworkPlayerInfo
+import net.minecraft.scoreboard.ScorePlayerTeam
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import java.util.stream.Collectors
 
-object TabListUtils {
+object MinecraftUtils {
     private val playerOrdering = Ordering.from { overlay1: NetworkPlayerInfo?, overlay2: NetworkPlayerInfo? ->
         comparePlayers(
             overlay1!!, overlay2!!
@@ -44,5 +47,38 @@ object TabListUtils {
             )
             .compare(overlay1.gameProfile.name, overlay2.gameProfile.name)
             .result()
+    }
+
+    // Returns the name of the scoreboard without color codes
+    fun getScoreboardName(): String {
+        val scoreboardName =
+            PartlySaneSkies.minecraft.thePlayer.worldScoreboard.getObjectiveInDisplaySlot(1).displayName
+        return scoreboardName.removeColorCodes()
+    }
+
+    // Returns a list of lines on the scoreboard,
+    // where each line is a new entry
+    fun getScoreboardLines(): List<String> {
+        return try {
+            val scoreboard = PartlySaneSkies.minecraft.theWorld.scoreboard
+            val objective = scoreboard.getObjectiveInDisplaySlot(1)
+            val scoreCollection = scoreboard.getSortedScores(objective)
+            val scoreLines: MutableList<String> = ArrayList()
+            for (score in scoreCollection) {
+                scoreLines.add(
+                    ScorePlayerTeam.formatPlayerName(
+                        scoreboard.getPlayersTeam(score.playerName),
+                        score.playerName
+                    )
+                )
+            }
+            scoreLines
+        } catch (e: IllegalArgumentException) {
+            if (e.message == "Cannot locate declared field class net.minecraft.client.gui.inventory.GuiChest.field_147015_w") {
+                println("Strange error message in PartlySaneSkies.getScoreboardLines()")
+            }
+            e.printStackTrace()
+            emptyList()
+        }
     }
 }

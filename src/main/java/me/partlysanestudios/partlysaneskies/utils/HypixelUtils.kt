@@ -22,7 +22,7 @@ object HypixelUtils {
     // Returns if the current gamemode is skyblock
     fun isSkyblock(): Boolean {
         try {
-            if (PartlySaneSkies.getScoreboardName().lowercase(Locale.getDefault()).contains("skyblock")) {
+            if (MinecraftUtils.getScoreboardName().lowercase(Locale.getDefault()).contains("skyblock")) {
                 return true
             }
         } catch (expt: NullPointerException) {
@@ -45,7 +45,7 @@ object HypixelUtils {
         if (!isSkyblock()) {
             return 0L
         }
-        val scoreboard = PartlySaneSkies.getScoreboardLines()
+        val scoreboard = MinecraftUtils.getScoreboardLines()
         var bits: String = ""
         for (line in scoreboard) {
             if (stripLeading(line).contains("Bits:")) {
@@ -80,7 +80,7 @@ object HypixelUtils {
         if (!isSkyblock()) {
             return 0L
         }
-        val scoreboard = PartlySaneSkies.getScoreboardLines()
+        val scoreboard = MinecraftUtils.getScoreboardLines()
         var money = ""
         for (line in scoreboard) {
             if (stripLeading(line).contains("Piggy:") || stripLeading(line).contains("Purse:")) {
@@ -106,7 +106,7 @@ object HypixelUtils {
         if (!isSkyblock()) {
             return ""
         }
-        val scoreboard = PartlySaneSkies.getScoreboardLines()
+        val scoreboard = MinecraftUtils.getScoreboardLines()
         var location = ""
         for (line in scoreboard) {
             if (stripLeading(line).contains("⏣") || stripLeading(

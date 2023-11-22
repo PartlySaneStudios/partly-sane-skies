@@ -406,60 +406,11 @@ public class PartlySaneSkies {
         }
     }
 
-    // Returns an array of length 2, where the 1st index is the upper inventory,
-    // and the 2nd index is the lower inventory.
-    // Returns null if there is no inventory, also returns null if there is no access to inventory
-    public static IInventory[] getSeparateUpperLowerInventories(GuiScreen gui) {
-        IInventory upperInventory;
-        IInventory lowerInventory;
-        try {
-            upperInventory = (IInventory) FieldUtils.readDeclaredField(gui,
-                    Utils.getDecodedFieldName("upperChestInventory"), true);
-            lowerInventory = (IInventory) FieldUtils.readDeclaredField(gui,
-                    Utils.getDecodedFieldName("lowerChestInventory"), true);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-            return null;
-        }
-
-        return new IInventory[]{upperInventory, lowerInventory};
-    }
-
-    // Returns the name of the scoreboard without color codes
-    public static String getScoreboardName() {
-        String scoreboardName = minecraft.thePlayer.getWorldScoreboard().getObjectiveInDisplaySlot(1).getDisplayName();
-        return StringUtils.INSTANCE.removeColorCodes(scoreboardName);
-    }
-
     // Runs when debug key is pressed
     public static void debugMode() {
         PartlySaneSkies.isDebugMode = !PartlySaneSkies.isDebugMode;
         Utils.sendClientMessage("Debug mode: " + PartlySaneSkies.isDebugMode);
         BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner("Test", 5000L, 5f, new OneColor(255, 0, 255, 1).toJavaColor()));
-    }
-
-    // Returns a list of lines on the scoreboard,
-    // where each line is a new entry
-    public static List<String> getScoreboardLines() {
-        try {
-            Scoreboard scoreboard = minecraft.theWorld.getScoreboard();
-            ScoreObjective objective = scoreboard.getObjectiveInDisplaySlot(1);
-            Collection<Score> scoreCollection = scoreboard.getSortedScores(objective);
-
-            List<String> scoreLines = new ArrayList<>();
-            for (Score score : scoreCollection) {
-                scoreLines.add(ScorePlayerTeam.formatPlayerName(scoreboard.getPlayersTeam(score.getPlayerName()),
-                        score.getPlayerName()));
-            }
-
-            return scoreLines;
-        } catch (IllegalArgumentException e) {
-            if (e.getMessage().equals("Cannot locate declared field class net.minecraft.client.gui.inventory.GuiChest.field_147015_w")) {
-                System.out.println("Strange error message in PartlySaneSkies.getScoreboardLines()");
-            }
-            e.printStackTrace();
-            return Collections.emptyList();
-        }
     }
 
 
