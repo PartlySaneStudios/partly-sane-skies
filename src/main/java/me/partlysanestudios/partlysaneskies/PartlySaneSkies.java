@@ -50,6 +50,7 @@ import me.partlysanestudios.partlysaneskies.rngdropbanner.DropBannerDisplay;
 import me.partlysanestudios.partlysaneskies.system.*;
 import me.partlysanestudios.partlysaneskies.system.requests.Request;
 import me.partlysanestudios.partlysaneskies.system.requests.RequestsManager;
+import me.partlysanestudios.partlysaneskies.utils.HypixelUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.Minecraft;
@@ -467,124 +468,6 @@ public class PartlySaneSkies {
         return System.currentTimeMillis();
     }
 
-    // Gets the current skyblock region from the scoreboard
-    public static String getRegionName() {
-        if (!isSkyblock()) {
-            return "";
-        }
-
-        List<String> scoreboard = getScoreboardLines();
-
-        String location = null;
-
-        for (String line : scoreboard) {
-            if (StringUtils.INSTANCE.stripLeading(line).contains("⏣") || StringUtils.INSTANCE.stripLeading(line).contains("ф")) {
-                location = StringUtils.INSTANCE.stripLeading(line).contains("⏣") ? StringUtils.INSTANCE.stripLeading(line).replace("⏣", "") : StringUtils.INSTANCE.stripLeading(line).replace("ф", "");
-                location = StringUtils.INSTANCE.stripLeading(location);
-                break;
-            }
-        }
-
-        if (location == null) {
-            return "";
-        }
-
-        return location;
-    }
-
-    // Gets the number of coins in your purse from the scoreboard
-    public static long getCoins() {
-        if (!isSkyblock()) {
-            return 0L;
-        }
-
-        List<String> scoreboard = getScoreboardLines();
-
-        String money = null;
-
-        for (String line : scoreboard) {
-            if (StringUtils.INSTANCE.stripLeading(line).contains("Piggy:") || StringUtils.INSTANCE.stripLeading(line).contains("Purse:")) {
-                money = StringUtils.INSTANCE.stripLeading(StringUtils.INSTANCE.removeColorCodes(line)).replace("Piggy: ", "");
-                money = StringUtils.INSTANCE.stripLeading(StringUtils.INSTANCE.removeColorCodes(money)).replace("Purse: ", "");
-                money = StringUtils.INSTANCE.stripLeading(money);
-                money = money.replace(",", "");
-                money = money.replaceAll("\\P{Print}", "");
-                break;
-            }
-        }
-
-        if (money == null) {
-            return 0L;
-        }
-        try {
-            return Long.parseLong(money);
-        } catch (NumberFormatException event) {
-            return 0;
-        }
-    }
-
-    // Gets the number of bits from the scoreboard
-    public static long getBits() {
-        if (!isSkyblock()) {
-            return 0L;
-        }
-
-        List<String> scoreboard = getScoreboardLines();
-
-        String bits = null;
-
-        for (String line : scoreboard) {
-            if (StringUtils.INSTANCE.stripLeading(line).contains("Bits:")) {
-                bits = StringUtils.INSTANCE.stripLeading(StringUtils.INSTANCE.removeColorCodes(line)).replace("Bits: ", "");
-                bits = StringUtils.INSTANCE.stripLeading(bits);
-                bits = bits.replace(",", "");
-                bits = bits.replaceAll("\\P{Print}", "");
-                break;
-            }
-        }
-
-        if (bits == null) {
-            return 0L;
-        }
-
-        String[] charsToRemove = {"(", ")", ".", "-", "+"};
-
-        for (String removalChar : charsToRemove) {
-            if (bits.contains(removalChar)) {
-                int indexOfEndOfCount = bits.indexOf(removalChar);
-                bits = bits.substring(0, indexOfEndOfCount);
-            }
-        }
-
-        bits = StringUtils.INSTANCE.stripLeading(bits);
-        bits = StringUtils.INSTANCE.stripTrailing(bits);
-        try {
-            return Long.parseLong(bits);
-        } catch (NumberFormatException event) {
-            return 0;
-        }
-    }
-
-    // Returns if the current gamemode is skyblock
-    public static boolean isSkyblock() {
-        try {
-            if (getScoreboardName().toLowerCase().contains("skyblock")) {
-                return true;
-            }
-        } catch (NullPointerException expt) {
-            return false;
-        }
-        return false;
-    }
-
-    // Returns if the current server is hypixel
-    public static boolean isHypixel() {
-        try {
-            return minecraft.getCurrentServerData().serverIP.contains(".hypixel.net");
-        } catch (NullPointerException ignored) {
-        }
-        return false;
-    }
 
     // Sends a ping to the count API to track the number of users per day
     public void trackLoad() {

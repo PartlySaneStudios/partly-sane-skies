@@ -9,6 +9,7 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.EndOfFarmNotifier;
 import me.partlysanestudios.partlysaneskies.system.BannerRenderer;
 import me.partlysanestudios.partlysaneskies.system.PSSBanner;
+import me.partlysanestudios.partlysaneskies.utils.HypixelUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
@@ -62,7 +63,7 @@ public class Pickaxes {
     }
 
     public static boolean onPrivateIsland() {
-        String location = PartlySaneSkies.getRegionName();
+        String location = HypixelUtils.INSTANCE.getRegionName();
         location = StringUtils.INSTANCE.removeColorCodes(location);
         location = StringUtils.INSTANCE.stripLeading(location);
         location = StringUtils.INSTANCE.stripTrailing(location);
@@ -73,7 +74,7 @@ public class Pickaxes {
     }
 
     public static boolean onMiningIsland() {
-        String location = PartlySaneSkies.getRegionName();
+        String location = HypixelUtils.INSTANCE.getRegionName();
         location = StringUtils.INSTANCE.removeColorCodes(location);
         location = StringUtils.INSTANCE.stripLeading(location);
         location = StringUtils.INSTANCE.stripTrailing(location);

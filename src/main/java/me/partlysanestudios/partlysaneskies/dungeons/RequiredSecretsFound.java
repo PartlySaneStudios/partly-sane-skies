@@ -8,6 +8,7 @@ package me.partlysanestudios.partlysaneskies.dungeons;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.system.BannerRenderer;
 import me.partlysanestudios.partlysaneskies.system.PSSBanner;
+import me.partlysanestudios.partlysaneskies.utils.HypixelUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import me.partlysanestudios.partlysaneskies.utils.TabListUtils;
 import net.minecraft.client.Minecraft;
@@ -24,11 +25,11 @@ public class RequiredSecretsFound {
 
     @SubscribeEvent
     public void checkRequiredSecrets(TickEvent.ClientTickEvent event) {
-        if (!PartlySaneSkies.isSkyblock()) {
+        if (!HypixelUtils.INSTANCE.isSkyblock()) {
             return;
         }
 
-        if (!Utils.inDungeons()){
+        if (!HypixelUtils.INSTANCE.inDungeons()){
             return;
         }
 
