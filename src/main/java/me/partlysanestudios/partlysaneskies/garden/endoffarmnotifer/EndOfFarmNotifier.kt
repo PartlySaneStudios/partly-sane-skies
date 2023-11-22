@@ -14,6 +14,7 @@ import me.partlysanestudios.partlysaneskies.system.PSSBanner
 import me.partlysanestudios.partlysaneskies.system.commands.PSSCommand
 import me.partlysanestudios.partlysaneskies.system.commands.PSSCommandRunnable
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
 import me.partlysanestudios.partlysaneskies.utils.StringUtils
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import me.partlysanestudios.partlysaneskies.utils.Utils
@@ -127,13 +128,13 @@ class EndOfFarmNotifier {
         if (!inGarden()) {
             return
         }
-        if (Utils.getCurrentlyHoldingItem() == null) {
+        if (MinecraftUtils.getCurrentlyHoldingItem() == null) {
             return
         }
-        if (!Utils.getCurrentlyHoldingItem().hasDisplayName()) {
+        if (!MinecraftUtils.getCurrentlyHoldingItem().hasDisplayName()) {
             return
         }
-        if (!Utils.getCurrentlyHoldingItem().getDisplayName().contains("SkyBlock Menu")) {
+        if (!MinecraftUtils.getCurrentlyHoldingItem().getDisplayName().contains("SkyBlock Menu")) {
             return
         }
         if (event.pos == null) {

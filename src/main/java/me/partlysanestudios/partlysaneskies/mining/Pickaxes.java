@@ -10,6 +10,7 @@ import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.EndOfFarmNot
 import me.partlysanestudios.partlysaneskies.system.BannerRenderer;
 import me.partlysanestudios.partlysaneskies.system.PSSBanner;
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils;
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
@@ -54,7 +55,7 @@ public class Pickaxes {
         if (EndOfFarmNotifier.Companion.inGarden() || onPrivateIsland()){} else return; //dont mind me not wanting to nest code
 
         if (event.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK || event.action == PlayerInteractEvent.Action.RIGHT_CLICK_AIR) {
-            String[] loreOfItemInHand = Utils.getLore(Utils.getCurrentlyHoldingItem()).toArray(new String[0]);
+            String[] loreOfItemInHand = MinecraftUtils.INSTANCE.getLore(MinecraftUtils.INSTANCE.getCurrentlyHoldingItem()).toArray(new String[0]);
 
             if (Utils.isArrOfStringsInLore(pickaxeAbilities, loreOfItemInHand)) {
                 event.setCanceled(true);

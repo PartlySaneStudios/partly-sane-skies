@@ -16,6 +16,7 @@ import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager;
 import me.partlysanestudios.partlysaneskies.system.ThemeManager;
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.gui.inventory.GuiChest;
@@ -141,7 +142,7 @@ public class CompostValue {
             return false;
         }
 
-        IInventory[] inventories = PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen);
+        IInventory[] inventories = MinecraftUtils.INSTANCE.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen);
         assert inventories != null;
         IInventory composter = inventories[0];
 
@@ -172,7 +173,7 @@ public class CompostValue {
 
     private static String getCompostCostString(IInventory composterInventory) {
         ItemStack infoItem = composterInventory.getStackInSlot(46);
-        ArrayList<String> loreList = Utils.getLore(infoItem);
+        ArrayList<String> loreList = MinecraftUtils.INSTANCE.getLore(infoItem);
         String costLine = "{compost_cost} organic matter stored";
         for (String line : loreList){
             String unformattedLine = StringUtils.INSTANCE.removeColorCodes(line);
@@ -192,7 +193,7 @@ public class CompostValue {
 
     private static String getOrganicMatterFillLevelString(IInventory composterInventory) {
         ItemStack infoItem = composterInventory.getStackInSlot(46);
-        ArrayList<String> loreList = Utils.getLore(infoItem);
+        ArrayList<String> loreList = MinecraftUtils.INSTANCE.getLore(infoItem);
         String amountLine = "§2§l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §r §e0§6/§e40k";
         for (String line : loreList){
             if (line.contains("§6/§e")) {
@@ -218,7 +219,7 @@ public class CompostValue {
 
     private static String getOrganicMatterLimitString(IInventory composterInventory) {
         ItemStack infoItem = composterInventory.getStackInSlot(46);
-        ArrayList<String> loreList = Utils.getLore(infoItem);
+        ArrayList<String> loreList = MinecraftUtils.INSTANCE.getLore(infoItem);
         String amountLine = "0/40k";
         for (String line : loreList){
             if (line.contains("§6/§e")) {

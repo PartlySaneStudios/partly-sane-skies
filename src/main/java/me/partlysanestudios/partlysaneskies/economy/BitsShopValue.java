@@ -18,6 +18,7 @@ import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManage
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockItem;
 import me.partlysanestudios.partlysaneskies.system.ThemeManager;
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils;
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.gui.inventory.GuiChest;
@@ -94,7 +95,7 @@ public class BitsShopValue {
             return false;
         }
 
-        IInventory[] inventories = PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen);
+        IInventory[] inventories = MinecraftUtils.INSTANCE.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen);
         assert inventories != null;
         IInventory shop = inventories[0];
 

@@ -17,6 +17,7 @@ import me.partlysanestudios.partlysaneskies.auctionhouse.menu.AuctionHouseGui;
 import me.partlysanestudios.partlysaneskies.system.ThemeManager;
 import me.partlysanestudios.partlysaneskies.system.commands.PSSCommand;
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils;
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.audio.PositionedSoundRecord;
@@ -150,7 +151,7 @@ public class PetAlert {
             return false;
         }
 
-        IInventory upper = Objects.requireNonNull(PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen))[0];
+        IInventory upper = Objects.requireNonNull(MinecraftUtils.INSTANCE.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen))[0];
         return StringUtils.INSTANCE.removeColorCodes(upper.getDisplayName().getFormattedText()).contains("Pets");
     }
 
@@ -160,7 +161,7 @@ public class PetAlert {
             return false;
         }
 
-        IInventory upper = Objects.requireNonNull(PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen))[0];
+        IInventory upper = Objects.requireNonNull(MinecraftUtils.INSTANCE.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen))[0];
         boolean inventoryNameMatches = StringUtils.INSTANCE.removeColorCodes(upper.getDisplayName().getFormattedText()).contains("Minion");
 
         if (!inventoryNameMatches) {

@@ -14,6 +14,7 @@ import gg.essential.elementa.dsl.constrain
 import gg.essential.elementa.dsl.pixels
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.system.ThemeManager
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getLore
 import me.partlysanestudios.partlysaneskies.utils.StringUtils
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import me.partlysanestudios.partlysaneskies.utils.Utils
@@ -101,7 +102,7 @@ class SettingsBar (val xConstraint: XConstraint, val yConstraint: YConstraint, v
                 var sortSelectedLine = ""
                 var sortImageName = "unknown"
                 try {
-                    val sortLoreList: List<String> = Utils.getLore(inventory.getStackInSlot(slot))
+                    val sortLoreList: List<String> = inventory.getStackInSlot(slot).getLore()
                     for (line in sortLoreList) {
                         if (line.contains("▶")) {
                             sortSelectedLine = line
@@ -129,7 +130,7 @@ class SettingsBar (val xConstraint: XConstraint, val yConstraint: YConstraint, v
                 var filterImageName = "no_filter"
                 try {
 
-                    val sortLoreList: List<String> = Utils.getLore(inventory.getStackInSlot(slot))
+                    val sortLoreList: List<String> = inventory.getStackInSlot(slot).getLore()
                     for (line in sortLoreList) {
                         if (line.contains("▶")) {
                             filterSelectedLine = line
@@ -169,7 +170,7 @@ class SettingsBar (val xConstraint: XConstraint, val yConstraint: YConstraint, v
                 var binSelectedLine = ""
                 var binImageName = "all"
                 try {
-                    val binLoreList: List<String> = Utils.getLore(inventory.getStackInSlot(slot))
+                    val binLoreList: List<String> = inventory.getStackInSlot(slot).getLore()
                     for (line in binLoreList) {
                         if (line.contains("▶")) {
                             binSelectedLine = line

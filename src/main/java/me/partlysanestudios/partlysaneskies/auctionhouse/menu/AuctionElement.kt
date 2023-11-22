@@ -20,7 +20,7 @@ import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManage
 import me.partlysanestudios.partlysaneskies.system.ThemeManager
 import me.partlysanestudios.partlysaneskies.system.guicomponents.PSSButton
 import me.partlysanestudios.partlysaneskies.system.guicomponents.PSSItemRender
-import me.partlysanestudios.partlysaneskies.utils.StringUtils
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getLore
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import me.partlysanestudios.partlysaneskies.utils.Utils
 import net.minecraft.item.ItemStack
@@ -120,7 +120,10 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack?, var xCons
     }
 
     fun isBin(): Boolean {
-        val loreList: List<String> = Utils.getLore(itemstack)
+        if (itemstack == null) {
+            return false
+        }
+        val loreList: List<String> = itemstack.getLore()
         for (line in loreList) {
             
             if (line.removeColorCodes().contains("Buy it now: ")) {
@@ -139,7 +142,10 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack?, var xCons
     }
 
     fun getPrice(): Long {
-        val loreList: List<String> = Utils.getLore(itemstack)
+        if (itemstack == null) {
+            return -1
+        }
+        val loreList: List<String> = itemstack.getLore()
         var buyItNowPrice = ""
         for (line in loreList) {
             if (line.removeColorCodes().contains("Buy it now:")
@@ -212,7 +218,7 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack?, var xCons
         if (itemstack == null) {
             return ""
         }
-        val loreList: List<String> = Utils.getLore(itemstack)
+        val loreList: List<String> = itemstack.getLore()
         for (loreLine in loreList) {
             if (loreLine.removeColorCodes().contains("Ends in:")) {
                 return loreLine.removeColorCodes().replace("Ends in: ", "")
@@ -237,7 +243,7 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack?, var xCons
             return ""
         }
         val lastLineOfLore = try {
-            val loreList = Utils.getLore(itemstack)
+            val loreList = itemstack.getLore()
             if (loreList.size - 7 - 1 < 0) {
                 return ""
             }

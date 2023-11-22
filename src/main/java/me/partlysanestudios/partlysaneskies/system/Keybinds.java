@@ -12,6 +12,7 @@ import me.partlysanestudios.partlysaneskies.WikiArticleOpener;
 import me.partlysanestudios.partlysaneskies.auctionhouse.menu.AuctionHouseGui;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManager;
 import me.partlysanestudios.partlysaneskies.garden.MathematicalHoeRightClicks;
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.client.settings.KeyBinding;
@@ -75,7 +76,7 @@ public final class Keybinds {
 
         if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
             if (PartlySaneSkies.minecraft.currentScreen instanceof AuctionHouseGui ||
-                    (PartlySaneSkies.minecraft.currentScreen instanceof GuiChest && AuctionHouseGui.Companion.isAhGui(PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen)[0]))) {
+                    (PartlySaneSkies.minecraft.currentScreen instanceof GuiChest && AuctionHouseGui.Companion.isAhGui(MinecraftUtils.INSTANCE.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen)[0]))) {
 
                 Utils.clickOnSlot(46);
             }
@@ -83,7 +84,7 @@ public final class Keybinds {
 
         if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
             if (PartlySaneSkies.minecraft.currentScreen instanceof AuctionHouseGui ||
-                    (PartlySaneSkies.minecraft.currentScreen instanceof GuiChest && AuctionHouseGui.Companion.isAhGui(PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen)[0]))) {
+                    (PartlySaneSkies.minecraft.currentScreen instanceof GuiChest && AuctionHouseGui.Companion.isAhGui(MinecraftUtils.INSTANCE.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen)[0]))) {
 
                 Utils.clickOnSlot(53);
             }

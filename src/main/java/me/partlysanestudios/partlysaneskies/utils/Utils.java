@@ -43,11 +43,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Utils {
-    public static ItemStack getCurrentlyHoldingItem() {
-        return PartlySaneSkies.minecraft.thePlayer.getHeldItem();
-    }
-
-    public static boolean isArrOfStringsInLore(String[] arr, String[] lore) {
+        public static boolean isArrOfStringsInLore(String[] arr, String[] lore) {
         for (String line : lore) {
             for (String arrItem : arr) {
                 if (line.contains(arrItem)) {
@@ -94,26 +90,6 @@ public class Utils {
         // colorCodetoColor.put("&8", new Color(85, 85, 85));
         // colorCodetoColor.put("&9", new Color(85, 85, 255));
         // colorCodetoColor.put("&0", new Color(0, 0, 0));
-    }
-
-
-    public static void visPrint(Object print) {
-        Utils.log(Level.INFO,"\n\n\n" + print.toString() + "\n\n\n");
-
-        try {
-            PartlySaneSkies.minecraft.ingameGUI
-                    .getChatGUI()
-                    .printChatMessage(new ChatComponentText("\n            " + print));
-            StringSelection stringSelection = new StringSelection(print.toString());
-            try {
-                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-                clipboard.setContents(stringSelection, null);
-            } catch (IllegalStateException e) {
-
-            }
-
-        } catch (NullPointerException ignored) {
-        }
     }
 
     public static void sendClientMessage(IChatComponent chatComponent) {
@@ -259,22 +235,6 @@ public class Utils {
         controller.windowClick(PartlySaneSkies.minecraft.thePlayer.openContainer.windowId, slot, 1, 0, PartlySaneSkies.minecraft.thePlayer);
     }
 
-    public static ArrayList<String> getLore(ItemStack itemStack) {
-        if (itemStack == null) {
-            return new ArrayList<>();
-        }
-        if (!itemStack.hasTagCompound() || !itemStack.getTagCompound().hasKey("display") || !itemStack.getTagCompound().getCompoundTag("display").hasKey("Lore")) {
-            return new ArrayList<>();
-        }
-        NBTTagList tagList = itemStack.getTagCompound().getCompoundTag("display").getTagList("Lore", 8);
-        ArrayList<String> loreList = new ArrayList<>();
-        for (int i = 0; i < tagList.tagCount(); i++) {
-            loreList.add(tagList.getStringTagAt(i));
-        }
-
-        return loreList;
-    }
-
     public static Color applyOpacityToColor(Color color, int opacity) {
         return new Color(color.getRed(), color.getGreen(), color.getBlue(), opacity);
     }
@@ -290,7 +250,7 @@ public class Utils {
     }
 
     public static String getLoreAsString(ItemStack item) {
-        List<String> loreList = getLore(item);
+        List<String> loreList = MinecraftUtils.INSTANCE.getLore(item);
         StringBuilder loreString = new StringBuilder();
         for (String loreLine : loreList) {
             loreString.append(loreLine).append("\n");

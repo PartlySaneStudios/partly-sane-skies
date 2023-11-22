@@ -28,6 +28,8 @@ import gg.essential.elementa.dsl.childOf
 import gg.essential.universal.UMatrixStack
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.system.ThemeManager
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getLore
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
 import me.partlysanestudios.partlysaneskies.utils.StringUtils
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import me.partlysanestudios.partlysaneskies.utils.Utils
@@ -53,7 +55,7 @@ class VisitorLogbookStats {
             if (s.getStack() == null) continue //"cOnDiTiOn 'S.GeTsTaCk() == NuLL' is aLwAyS FaLsE"
 
             val eItemStack = s.getStack()
-            val lore = Utils.getLore(eItemStack)
+            val lore = eItemStack.getLore()
 
             if (lore.isEmpty()) continue
             if (lore.first().contains("Page ")) break
@@ -98,8 +100,11 @@ class VisitorLogbookStats {
             return false
         }
 
-        val inventories = PartlySaneSkies.getSeparateUpperLowerInventories(gui)
+        val inventories = MinecraftUtils.getSeparateUpperLowerInventories(gui)
         val logbook = inventories[0]
+        if (logbook == null) {
+            return false
+        }
 
         return logbook.displayName.formattedText.removeColorCodes().contains("Visitor's Logbook")
     }

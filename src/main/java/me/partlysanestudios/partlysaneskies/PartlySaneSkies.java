@@ -406,6 +406,8 @@ public class PartlySaneSkies {
         }
     }
 
+
+
     // Runs when debug key is pressed
     public static void debugMode() {
         PartlySaneSkies.isDebugMode = !PartlySaneSkies.isDebugMode;

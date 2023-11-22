@@ -17,6 +17,7 @@ import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager;
 import me.partlysanestudios.partlysaneskies.system.ThemeManager;
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.gui.inventory.GuiChest;
@@ -42,7 +43,7 @@ public class GardenTradeValue {
             return false;
         }
 
-        IInventory[] inventories = PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen);
+        IInventory[] inventories = MinecraftUtils.INSTANCE.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen);
         assert inventories != null;
         IInventory trader = inventories[0];
 
@@ -70,14 +71,14 @@ public class GardenTradeValue {
 
     // Returns a hashmap containing the name of an item and the quantity
     public static HashMap<String, Integer> getQuantityCostMap() {
-        IInventory[] inventories = PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen);
+        IInventory[] inventories = MinecraftUtils.INSTANCE.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen);
         assert inventories != null;
         IInventory trader = inventories[0];
 
         // Slots 29 is where the accept buttons is
         ItemStack acceptButton = trader.getStackInSlot(29);
 
-        ArrayList<String> formattedAcceptButtonLore = Utils.getLore(acceptButton);
+        ArrayList<String> formattedAcceptButtonLore = MinecraftUtils.INSTANCE.getLore(acceptButton);
         
         // Removes all the format codes from lore
         ArrayList<String> unformattedAcceptButtonLore = removeColorCodesFromList(formattedAcceptButtonLore);
@@ -144,14 +145,14 @@ public class GardenTradeValue {
     }
 
     public static List<String> getRewardsLore() {
-        IInventory[] inventories = PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen);
+        IInventory[] inventories = MinecraftUtils.INSTANCE.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen);
         assert inventories != null;
         IInventory trader = inventories[0];
 
         // Slots 29 is where the accept buttons is
         ItemStack acceptButton = trader.getStackInSlot(29);
 
-        ArrayList<String> formattedAcceptButtonLore = Utils.getLore(acceptButton);
+        ArrayList<String> formattedAcceptButtonLore = MinecraftUtils.INSTANCE.getLore(acceptButton);
 
         // Removes all the format codes from lore
         ArrayList<String> unformattedAcceptButtonLore = removeColorCodesFromList(formattedAcceptButtonLore);
