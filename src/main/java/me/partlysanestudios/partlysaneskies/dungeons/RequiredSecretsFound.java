@@ -42,7 +42,7 @@ public class RequiredSecretsFound {
         lastCheckTime = PartlySaneSkies.getTime();
 
 
-        for (String line : TabListUtils.getTabList()) {
+        for (String line : TabListUtils.INSTANCE.getTabList()) {
             if (line.contains("Secrets Found: §r§a")) {
                 if (PartlySaneSkies.config.secretsBanner) {
                     BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner("Required Secrets Found!", (long) (PartlySaneSkies.config.secretsBannerTime * 1000), 3.0f, PartlySaneSkies.config.secretsBannerColor.toJavaColor()));
