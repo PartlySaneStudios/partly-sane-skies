@@ -1,6 +1,10 @@
 package me.partlysanestudios.partlysaneskies.utils
 
+import gg.essential.elementa.UIComponent
 import gg.essential.elementa.components.UIImage
+import gg.essential.elementa.constraints.CenterConstraint
+import gg.essential.elementa.constraints.PixelConstraint
+import me.partlysanestudios.partlysaneskies.system.ThemeManager
 import net.minecraft.client.Minecraft
 import net.minecraft.util.ResourceLocation
 import java.io.IOException
@@ -31,5 +35,14 @@ object ElementaUtils {
         } catch (exception: IOException) {
             UIImage.ofResource("/assets/partlysaneskies/" + this.resourcePath)
         }
+    }
+
+    fun UIComponent.applyBackground() {
+        val image = ThemeManager.getCurrentBackgroundUIImage()
+            .setX(CenterConstraint())
+            .setY(CenterConstraint())
+            .setWidth(PixelConstraint(this.getWidth()))
+            .setHeight(PixelConstraint(this.getHeight())) as UIImage
+        this.insertChildAt(image, 0)
     }
 }

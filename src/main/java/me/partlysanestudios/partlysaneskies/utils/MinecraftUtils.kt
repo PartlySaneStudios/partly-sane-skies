@@ -99,11 +99,11 @@ object MinecraftUtils {
         try {
             upperInventory = FieldUtils.readDeclaredField(
                 gui,
-                Utils.getDecodedFieldName("upperChestInventory"), true
+                getDecodedFieldName("upperChestInventory"), true
             ) as IInventory
             lowerInventory = FieldUtils.readDeclaredField(
                 gui,
-                Utils.getDecodedFieldName("lowerChestInventory"), true
+                getDecodedFieldName("lowerChestInventory"), true
             ) as IInventory
         } catch (e: IllegalAccessException) {
             e.printStackTrace()
@@ -137,5 +137,59 @@ object MinecraftUtils {
             loreString.append(loreLine).append("\n")
         }
         return loreString.toString()
+    }
+
+    fun rightClickOnSlot(slot: Int) {
+        val controller = PartlySaneSkies.minecraft.playerController
+        controller.windowClick(
+            PartlySaneSkies.minecraft.thePlayer.openContainer.windowId,
+            slot,
+            1,
+            0,
+            PartlySaneSkies.minecraft.thePlayer
+        )
+    }
+
+    fun clickOnSlot(slot: Int) {
+        val controller = PartlySaneSkies.minecraft.playerController
+        controller.windowClick(
+            PartlySaneSkies.minecraft.thePlayer.openContainer.windowId,
+            slot,
+            0,
+            0,
+            PartlySaneSkies.minecraft.thePlayer
+        )
+    }
+
+
+    fun getDecodedFieldName(codedName: String?): String? {
+        return object : HashMap<String?, String?>() {
+            init {
+                put("footer", "field_175255_h")
+                put("header", "field_175256_i")
+                put("upperChestInventory", "field_147015_w")
+                put("lowerChestInventory", "field_147016_v")
+                put("persistentChatGUI", "field_73840_e")
+                put("sentMessages", "field_146248_g")
+                put("streamIndicator", "field_152127_m")
+                put("updateCounter", "field_73837_f")
+                put("overlayPlayerList", "field_175196_v")
+                put("guiIngame", "field_175251_g")
+                put("chatMessages", "field_146253_i")
+                put("theSlot", "field_147006_u")
+                put("stackTagCompound", "field_77990_d")
+            }
+        }[codedName]
+    }
+
+    fun isArrOfStringsInLore(arr: Array<String?>, lore: Array<String>): Boolean {
+        for (line in lore) {
+            for (arrItem in arr) {
+                if (line.contains(arrItem!!)) {
+                    return true
+                }
+            }
+        }
+        return false
     }
 }

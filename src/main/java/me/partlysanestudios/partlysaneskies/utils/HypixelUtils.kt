@@ -1,9 +1,11 @@
 package me.partlysanestudios.partlysaneskies.utils
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
+import me.partlysanestudios.partlysaneskies.WikiArticleOpener
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.stripLeading
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.stripTrailing
+import net.minecraft.item.ItemStack
 import java.util.*
 
 object HypixelUtils {
@@ -122,4 +124,14 @@ object HypixelUtils {
         }
         return location
     }
+
+    fun getItemId(item: ItemStack?): String {
+        if (item == null) {
+            return ""
+        }
+        return if (WikiArticleOpener.getItemAttributes(item) == null) {
+            ""
+        } else WikiArticleOpener.getItemAttributes(item).getString("id")
+    }
+
 }

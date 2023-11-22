@@ -10,7 +10,7 @@ import java.awt.datatransfer.StringSelection
 object ChatUtils {
 
     fun visPrint(print: Any) {
-        Utils.log(Level.INFO, "\n\n\n$print\n\n\n".trimIndent())
+        SystemUtils.log(Level.INFO, "\n\n\n$print\n\n\n".trimIndent())
         try {
             PartlySaneSkies.minecraft.ingameGUI
                 .chatGUI

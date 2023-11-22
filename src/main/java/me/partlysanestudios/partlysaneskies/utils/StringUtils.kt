@@ -5,10 +5,7 @@
 package me.partlysanestudios.partlysaneskies.utils
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
-import java.awt.Toolkit
-import java.awt.datatransfer.DataFlavor
-import java.awt.datatransfer.Transferable
-import java.awt.datatransfer.UnsupportedFlavorException
+import java.awt.Color
 import java.text.DecimalFormat
 import java.util.*
 import java.util.regex.Pattern
@@ -289,26 +286,24 @@ object StringUtils {
         }
     }
 
-    fun copyStringToClipboard(string: String) {
-        Toolkit.getDefaultToolkit().systemClipboard.setContents(getTransferableString(string), null)
-    }
-    private fun getTransferableString(string: String): Transferable {
-        return object : Transferable {
-            override fun getTransferDataFlavors(): Array<DataFlavor> {
-                return arrayOf(DataFlavor.stringFlavor)
-            }
-
-            override fun isDataFlavorSupported(flavor: DataFlavor): Boolean {
-                return DataFlavor.stringFlavor.equals(flavor)
-            }
-
-            @Throws(UnsupportedFlavorException::class)
-            override fun getTransferData(flavor: DataFlavor): Any {
-                if (DataFlavor.stringFlavor.equals(flavor)) {
-                    return string
-                }
-                throw UnsupportedFlavorException(flavor)
-            }
-        }
+    fun colorCodeToColor(colorCode: String): Color? {
+        val colorCodetoColor = HashMap<String, Color>()
+        colorCodetoColor["§a"] = Color(85, 255, 85)
+        colorCodetoColor["§b"] = Color(85, 255, 255)
+        colorCodetoColor["§c"] = Color(255, 85, 85)
+        colorCodetoColor["§d"] = Color(255, 85, 255)
+        colorCodetoColor["§e"] = Color(255, 255, 85)
+        colorCodetoColor["§f"] = Color(0, 0, 0)
+        colorCodetoColor["§1"] = Color(0, 0, 170)
+        colorCodetoColor["§2"] = Color(0, 170, 0)
+        colorCodetoColor["§3"] = Color(0, 170, 170)
+        colorCodetoColor["§4"] = Color(170, 0, 0)
+        colorCodetoColor["§5"] = Color(170, 0, 170)
+        colorCodetoColor["§6"] = Color(255, 170, 0)
+        colorCodetoColor["§7"] = Color(170, 170, 170)
+        colorCodetoColor["§8"] = Color(85, 85, 85)
+        colorCodetoColor["§9"] = Color(85, 85, 255)
+        colorCodetoColor["§0"] = Color(0, 0, 0)
+        return colorCodetoColor[colorCode]
     }
 }

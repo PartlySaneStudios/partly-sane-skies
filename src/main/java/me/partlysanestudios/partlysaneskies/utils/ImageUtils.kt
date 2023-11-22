@@ -56,4 +56,8 @@ object ImageUtils {
         }
         return image
     }
+
+    fun applyOpacityToColor(color: Color, opacity: Int): Color {
+        return Color(color.red, color.green, color.blue, opacity)
+    }
 }
