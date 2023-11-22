@@ -86,7 +86,7 @@ class VisitorLogbookStats {
 
     private fun getString(seenStats: MutableList<Int>, acceptedStats: MutableList<Int>) {
         for (indexInt in 0..(tiers.size - 1)) { //"'RaNgEtO' oR ThE '..' cALL sHoULd bE RePLaCeD wiTh 'UnTiL'"
-            if ((seenStats[indexInt] == 0 || acceptedStats[indexInt] == 0) && indexInt == 5) break
+            if ((seenStats[indexInt] == 0 || acceptedStats[indexInt] == 0) && indexInt == 6) break // Hides the UNKNOWN tier if there are no stats for it
             val c = (tiers[indexInt]).take(2)
             theBaseString += "\n${tiers[indexInt]}:\n ${c}Visited: ${seenStats[indexInt]}\n ${c}Accepted: ${acceptedStats[indexInt]}\n ${c}Pending or Denied: ${Math.abs(seenStats[indexInt] - acceptedStats[indexInt])}"
         }
@@ -104,17 +104,17 @@ class VisitorLogbookStats {
         return StringUtils.removeColorCodes(logbook.displayName.formattedText).contains("Visitor's Logbook")
     }
 
-    val window = Window(ElementaVersion.V2)
+    private val window = Window(ElementaVersion.V2)
 
-    val box = UIRoundedRectangle(5f)
+    private val box = UIRoundedRectangle(5f)
         .setColor(Color(0, 0, 0, 0))
         .setChildOf(window)
 
-    val image = ThemeManager.getCurrentBackgroundUIImage()
+    private val image = ThemeManager.getCurrentBackgroundUIImage()
         .setChildOf(box)
 
-    val pad = 5
-    var textComponent: UIWrappedText = UIWrappedText() childOf box
+    private val pad = 5
+    private var textComponent: UIWrappedText = UIWrappedText() childOf box
 
     @SubscribeEvent
     fun renderInformation(event: GuiScreenEvent.BackgroundDrawnEvent) {
