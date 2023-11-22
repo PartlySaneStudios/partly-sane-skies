@@ -13,7 +13,8 @@ import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
-import me.partlysanestudios.partlysaneskies.utils.Utils;
+import me.partlysanestudios.partlysaneskies.utils.MathUtils;
+import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import net.minecraft.client.gui.Gui;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
@@ -44,7 +45,7 @@ public class DropBannerDisplay extends Gui {
             String dropCategory = unformattedMessage.substring(0, unformattedMessage.indexOf("! ") + 1);
 
             // Gets the colour of the drop category
-            Color dropCategoryHex = Utils.colorCodetoColor.get(formattedMessage.substring(2, 4));
+            Color dropCategoryHex = StringUtils.INSTANCE.colorCodeToColor(formattedMessage.substring(2, 4));
 
             // // Finds the amount of magic find from the message
             name = formattedMessage.substring(formattedMessage.indexOf("! ") + 2);
@@ -105,7 +106,7 @@ public class DropBannerDisplay extends Gui {
                 }
             }
 
-            if (!Utils.onCooldown(drop.timeDropped, (long) (PartlySaneSkies.config.rareDropBannerTime * 1000))){
+            if (!MathUtils.INSTANCE.onCooldown(drop.timeDropped, (long) (PartlySaneSkies.config.rareDropBannerTime * 1000))){
                 drop = null;
             }
         }

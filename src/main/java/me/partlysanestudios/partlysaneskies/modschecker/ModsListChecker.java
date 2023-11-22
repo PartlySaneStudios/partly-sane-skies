@@ -1,10 +1,17 @@
+//
+// Written by hannibal002.
+// See LICENSE for copyright and license notices.
+//
+
+
 package me.partlysanestudios.partlysaneskies.modschecker;
 
 import com.google.gson.Gson;
 import me.partlysanestudios.partlysaneskies.system.commands.PSSCommand;
 import me.partlysanestudios.partlysaneskies.system.requests.Request;
 import me.partlysanestudios.partlysaneskies.system.requests.RequestsManager;
-import me.partlysanestudios.partlysaneskies.utils.Utils;
+import me.partlysanestudios.partlysaneskies.utils.ChatUtils;
+import me.partlysanestudios.partlysaneskies.utils.SystemUtils;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.ModContainer;
 import org.jetbrains.annotations.NotNull;
@@ -99,7 +106,7 @@ public class ModsListChecker {
                 }
                 modsFound++;
             } catch (IOException e) {
-                Utils.sendClientMessage("Error reading hash of mod " + fileName + "!", true);
+                ChatUtils.INSTANCE.sendClientMessage("Error reading hash of mod " + fileName + "!", true);
                 debugBuilder.append("\nerror reading hash!");
                 debugBuilder.append("\nerror reading hash!");
                 debugBuilder.append("\nfileName: " + fileName);
@@ -109,8 +116,8 @@ public class ModsListChecker {
                 debugBuilder.append("\n ");
             }
         }
-        Utils.sendClientMessage(" \n§7Found " + modsFound + " mods:" + chatBuilder);
-        Utils.copyStringToClipboard(debugBuilder.toString());
+        ChatUtils.INSTANCE.sendClientMessage(" \n§7Found " + modsFound + " mods:" + chatBuilder);
+        SystemUtils.INSTANCE.copyStringToClipboard(debugBuilder.toString());
     }
 
     private static void loadModDataFromRepo() {
@@ -126,7 +133,7 @@ public class ModsListChecker {
                     knownMods = read(new Gson().fromJson(request.getResponse(), ModDataJson.class));
                     run2();
                 } catch (Exception e) {
-                    Utils.sendClientMessage("§cError reading the mod data from repo!");
+                    ChatUtils.INSTANCE.sendClientMessage("§cError reading the mod data from repo!");
                     e.printStackTrace();
                 }
             }));

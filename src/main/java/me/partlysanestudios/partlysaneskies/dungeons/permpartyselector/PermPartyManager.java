@@ -7,7 +7,7 @@ package me.partlysanestudios.partlysaneskies.dungeons.permpartyselector;
 
 import com.google.gson.*;
 import me.partlysanestudios.partlysaneskies.system.commands.PSSCommand;
-import me.partlysanestudios.partlysaneskies.utils.Utils;
+import me.partlysanestudios.partlysaneskies.utils.ChatUtils;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -74,7 +74,7 @@ public class PermPartyManager {
                 .setDescription("Operates the perm party manager: /permparty [<partyid>/add/remove/list/delete/new/fav]")
                 .setRunnable((sender ,args) -> {
                     if (args.length == 0) {
-                        Utils.sendClientMessage(
+                        ChatUtils.INSTANCE.sendClientMessage(
                                 (
                                         "§3/pp <partyid>\n§7Parties everyone in the perm party." +
                                                 "\n§3/pp add <partyid> <playerusername>\n§7Adds a player to the perm party." +
@@ -90,13 +90,13 @@ public class PermPartyManager {
                                 PermParty party = PermPartyManager.permPartyMap.get(args[1]);
                                 party.addMember(args[2]);
                                 PermPartyManager.permPartyMap.put(party.name, party);
-                                Utils.sendClientMessage(("Added player " + args[2] + " to party " + args[1] + "."));
+                                ChatUtils.INSTANCE.sendClientMessage(("Added player " + args[2] + " to party " + args[1] + "."));
                             } else {
-                                Utils.sendClientMessage(("§cNo party was found with the ID " + args[1]
+                                ChatUtils.INSTANCE.sendClientMessage(("§cNo party was found with the ID " + args[1]
                                         + ".\n§cCorrect usage: /pp add <partyid> <playerusername>\n§7Adds a player to the perm party."));
                             }
                         } else {
-                            Utils.sendClientMessage((
+                            ChatUtils.INSTANCE.sendClientMessage((
                                     "§cCorrect usage: /pp add <partyid> <playerusername>\n§7Adds a player to the perm party."));
                         }
                     }
@@ -110,18 +110,18 @@ public class PermPartyManager {
                                 if (party.partyMembers.contains(args[2])) {
                                     party.removeMember(args[2]);
                                     PermPartyManager.permPartyMap.put(party.name, party);
-                                    Utils.sendClientMessage("Removed member " + args[2] + " from party " + args[1] + ".");
+                                    ChatUtils.INSTANCE.sendClientMessage("Removed member " + args[2] + " from party " + args[1] + ".");
                                 } else {
-                                    Utils.sendClientMessage(("§cNo player was found with the name " + args[2]
+                                    ChatUtils.INSTANCE.sendClientMessage(("§cNo player was found with the name " + args[2]
                                             + ".\n§cCorrect usage: /pp remove <partyid> <playerusername>\n§7Removes a player from the perm party."));
                                 }
 
                             } else {
-                                Utils.sendClientMessage(("§cNo party was found with the ID " + args[1]
+                                ChatUtils.INSTANCE.sendClientMessage(("§cNo party was found with the ID " + args[1]
                                         + ".\n§cCorrect usage: /pp remove <partyid> <playerusername>\n§7Removes a player from the perm party."));
                             }
                         } else {
-                            Utils.sendClientMessage((
+                            ChatUtils.INSTANCE.sendClientMessage((
                                     "§cCorrect usage: /pp remove <partyid> <playerusername>\n§7Removes a player from the perm party."));
                         }
                     }
@@ -130,14 +130,14 @@ public class PermPartyManager {
                     else if (args[0].equalsIgnoreCase("list")) {
                         if (args.length == 1) {
                             for (PermParty party : PermPartyManager.permPartyMap.values()) {
-                                Utils.sendClientMessage(party.name + " | Members: " + party.getMemberString());
+                                ChatUtils.INSTANCE.sendClientMessage(party.name + " | Members: " + party.getMemberString());
                             }
                         } else {
                             if (PermPartyManager.permPartyMap.containsKey(args[1])) {
                                 PermParty party = PermPartyManager.permPartyMap.get(args[0]);
-                                Utils.sendClientMessage(party.name + " | Members: " + party.getMemberString());
+                                ChatUtils.INSTANCE.sendClientMessage(party.name + " | Members: " + party.getMemberString());
                             } else {
-                                Utils.sendClientMessage(("§cNo party was found with the ID " + args[1]
+                                ChatUtils.INSTANCE.sendClientMessage(("§cNo party was found with the ID " + args[1]
                                         + ".\n§cCorrect usage: /pp list {partyid}\n§7Lists all of the members in a given party. If no party is specified, lists all parties."));
                             }
                         }
@@ -145,13 +145,13 @@ public class PermPartyManager {
                         if (args.length == 2) {
                             if (PermPartyManager.permPartyMap.containsKey(args[1])) {
                                 PermPartyManager.deleteParty(args[1]);
-                                Utils.sendClientMessage("Deleted party " + args[1] + ".");
+                                ChatUtils.INSTANCE.sendClientMessage("Deleted party " + args[1] + ".");
                             } else {
-                                Utils.sendClientMessage(("§cNo party was found with the ID " + args[1]
+                                ChatUtils.INSTANCE.sendClientMessage(("§cNo party was found with the ID " + args[1]
                                         + ".\n§cCorrect usage: /pp delete <partyid>\n§7Deletes a perm party. (Note: There is no way to undo this action)."));
                             }
                         } else {
-                            Utils.sendClientMessage((
+                            ChatUtils.INSTANCE.sendClientMessage((
                                     "§cCorrect usage: /pp delete <partyid>\n§7Deletes a perm party. (Note: There is no way to undo this action)."));
                         }
                     } else if (args[0].equalsIgnoreCase("new")) {
@@ -160,17 +160,17 @@ public class PermPartyManager {
                             partyMembers.addAll(Arrays.asList(args).subList(2, args.length));
                             PermPartyManager.addParty(args[1], partyMembers);
 
-                            Utils.sendClientMessage("Created party " + args[1] + ".");
+                            ChatUtils.INSTANCE.sendClientMessage("Created party " + args[1] + ".");
                         } else {
-                            Utils.sendClientMessage(("§cCorrect usage: /pp new <partyid> {partymembers}\n§7Creates a new perm party."));
+                            ChatUtils.INSTANCE.sendClientMessage(("§cCorrect usage: /pp new <partyid> {partymembers}\n§7Creates a new perm party."));
                         }
                     } else if (args[0].equalsIgnoreCase("fav")) {
                         if (args.length == 2) {
                             if (PermPartyManager.permPartyMap.containsKey(args[1])) {
                                 PermPartyManager.favoriteParty(args[1]);
-                                Utils.sendClientMessage("Set " + args[1] + " to your favorite.");
+                                ChatUtils.INSTANCE.sendClientMessage("Set " + args[1] + " to your favorite.");
                             } else {
-                                Utils.sendClientMessage(("§cNo party was found with the ID " + args[1]
+                                ChatUtils.INSTANCE.sendClientMessage(("§cNo party was found with the ID " + args[1]
                                         + ".\n§cCorrect usage: /pp fav {partyid}\n§7Sets party as favorite. If no party is specified, parties everyone in the favorite perm party."));
                             }
                         } else {
@@ -178,7 +178,7 @@ public class PermPartyManager {
                                 PermParty party = PermPartyManager.favoriteParty;
                                 party.partyAll();
                             } else {
-                                Utils.sendClientMessage((
+                                ChatUtils.INSTANCE.sendClientMessage((
                                         "§cCorrect usage: /pp fav {partyid}\n§7Sets party as favorite. If no party is specified, parties everyone in the favorite perm party."));
                             }
 
@@ -188,7 +188,7 @@ public class PermPartyManager {
                             PermParty party = PermPartyManager.permPartyMap.get(args[0]);
                             party.partyAll();
                         } else {
-                            Utils.sendClientMessage(
+                            ChatUtils.INSTANCE.sendClientMessage(
                                     ("§cCorrect usage: /pp <partyid>\n§7Parties everyone in a party."));
                         }
                     }
@@ -222,7 +222,7 @@ public class PermPartyManager {
             save();
         } catch (IOException e) {
             e.printStackTrace();
-            Utils.sendClientMessage("Could not save Permanent Party Data.");
+            ChatUtils.INSTANCE.sendClientMessage("Could not save Permanent Party Data.");
         }
     }
 
@@ -235,7 +235,7 @@ public class PermPartyManager {
             save();
         } catch (IOException e) {
             e.printStackTrace();
-            Utils.sendClientMessage("Could not save Permanent Party Data.");
+            ChatUtils.INSTANCE.sendClientMessage("Could not save Permanent Party Data.");
             return false;
         }
         return true;
@@ -260,7 +260,7 @@ public class PermPartyManager {
             save();
         } catch (IOException e) {
             e.printStackTrace();
-            Utils.sendClientMessage("Could not save Permanent Party Data.");
+            ChatUtils.INSTANCE.sendClientMessage("Could not save Permanent Party Data.");
             return false;
         }
         return true;

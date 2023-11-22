@@ -18,8 +18,8 @@ import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManage
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockItem;
 import me.partlysanestudios.partlysaneskies.system.ThemeManager;
 import me.partlysanestudios.partlysaneskies.system.commands.PSSCommand;
+import me.partlysanestudios.partlysaneskies.utils.ChatUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
-import me.partlysanestudios.partlysaneskies.utils.Utils;
 import me.partlysanestudios.partlysaneskies.system.guicomponents.PSSButton;
 import me.partlysanestudios.partlysaneskies.system.guicomponents.PSSToggle;
 
@@ -302,7 +302,7 @@ public HashMap<MinionData.Minion.Upgrade, PSSToggle> addMinionUpgradeButtons() {
                     .setHeight(categoriesBar.getHeight() * .9f)
                     .setChildOf(categoriesBar);
 
-            button.setText(categoriesColorMap.get(category) + StringUtils.titleCase(category));
+            button.setText(categoriesColorMap.get(category) + StringUtils.INSTANCE.titleCase(category));
 
             button.onMouseClickConsumer(s -> {
                 selectedCategory = category;
@@ -321,7 +321,7 @@ public HashMap<MinionData.Minion.Upgrade, PSSToggle> addMinionUpgradeButtons() {
                 .addAlias("bm")
                 .setDescription("Opens the best minion calculator")
                 .setRunnable((s,a) -> {
-                    Utils.sendClientMessage("§bOpening Minion Calculator...");
+                    ChatUtils.INSTANCE.sendClientMessage("§bOpening Minion Calculator...");
                     new Thread(() -> PartlySaneSkies.minecraft.addScheduledTask(() -> {
                         // Code to test the minion classes
                         ProfitMinionCalculator calc = new ProfitMinionCalculator(ElementaVersion.V2);

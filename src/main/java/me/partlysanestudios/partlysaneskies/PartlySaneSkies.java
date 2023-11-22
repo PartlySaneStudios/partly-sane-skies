@@ -19,6 +19,13 @@
 
 package me.partlysanestudios.partlysaneskies;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.util.logging.LogManager;
+
+import org.jcp.xml.dsig.internal.dom.Utils;
+
 import gg.essential.elementa.ElementaVersion;
 import me.partlysanestudios.partlysaneskies.auctionhouse.menu.AuctionHouseGui;
 import me.partlysanestudios.partlysaneskies.chat.ChatAlertsManager;
@@ -35,11 +42,11 @@ import me.partlysanestudios.partlysaneskies.economy.minioncalculator.MinionData;
 import me.partlysanestudios.partlysaneskies.economy.minioncalculator.ProfitMinionCalculator;
 import me.partlysanestudios.partlysaneskies.garden.CompostValue;
 import me.partlysanestudios.partlysaneskies.garden.GardenTradeValue;
+import me.partlysanestudios.partlysaneskies.garden.MathematicalHoeRightClicks;
 import me.partlysanestudios.partlysaneskies.garden.SkymartValue;
 import me.partlysanestudios.partlysaneskies.garden.VisitorLogbookStats;
 import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.EndOfFarmNotifier;
 import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.RangeHighlight;
-import me.partlysanestudios.partlysaneskies.garden.MathematicalHoeRightClicks;
 import me.partlysanestudios.partlysaneskies.mining.MiningEvents;
 import me.partlysanestudios.partlysaneskies.mining.Pickaxes;
 import me.partlysanestudios.partlysaneskies.mining.WormWarning;
@@ -47,17 +54,11 @@ import me.partlysanestudios.partlysaneskies.rngdropbanner.DropBannerDisplay;
 import me.partlysanestudios.partlysaneskies.system.*;
 import me.partlysanestudios.partlysaneskies.system.requests.Request;
 import me.partlysanestudios.partlysaneskies.system.requests.RequestsManager;
-import me.partlysanestudios.partlysaneskies.utils.StringUtils;
-import me.partlysanestudios.partlysaneskies.utils.Utils;
+import me.partlysanestudios.partlysaneskies.utils.ChatUtils;
+import me.partlysanestudios.partlysaneskies.utils.SystemUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.event.ClickEvent;
 import net.minecraft.event.HoverEvent;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.scoreboard.Score;
-import net.minecraft.scoreboard.ScoreObjective;
-import net.minecraft.scoreboard.ScorePlayerTeam;
-import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
@@ -69,19 +70,6 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent;
-import org.apache.commons.lang3.reflect.FieldUtils;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import java.awt.*;
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
 
 
 @Mod(modid = PartlySaneSkies.MODID, version = PartlySaneSkies.VERSION, name = PartlySaneSkies.NAME)
@@ -119,7 +107,7 @@ public class PartlySaneSkies {
     // Method runs at mod initialization
     @EventHandler
     public void init(FMLInitializationEvent evnt) {
-        Utils.log(Level.INFO,"Hallo World!");
+        SystemUtils.INSTANCE.log(Level.INFO, "Hallo World!");
         PartlySaneSkies.isDebugMode = false;
         PartlySaneSkies.minecraft = Minecraft.getMinecraft();
 
@@ -230,9 +218,6 @@ public class PartlySaneSkies {
         // Initializes keybinds
         Keybinds.init();
 
-        // Initializes Utils class
-        Utils.init();
-
         MathematicalHoeRightClicks.loadHoes();
 
 
@@ -286,7 +271,7 @@ public class PartlySaneSkies {
         }).start();
 
         // Finished loading
-        Utils.log(Level.INFO,"Partly Sane Skies has loaded.");
+        SystemUtils.INSTANCE.log(Level.INFO, "Partly Sane Skies has loaded.");
     }
 
     public static String getAPIKey() {
@@ -321,8 +306,8 @@ public class PartlySaneSkies {
     public void newApiKey(ClientChatReceivedEvent event) {
         if (event.message.getUnformattedText().startsWith("Your new API key is ")) {
             config.apiKey = event.message.getUnformattedText().replace("Your new API key is ", "");
-            Utils.sendClientMessage(("Saved new API key!"));
-            config.writeData();
+            ChatUtils.INSTANCE.sendClientMessage(("Saved new API key!"));
+            config.save();
         }
     }
 
@@ -330,7 +315,7 @@ public class PartlySaneSkies {
     @SubscribeEvent
     public void chatAnalyzer(ClientChatReceivedEvent evnt) {
         if (PartlySaneSkies.isDebugMode)
-            Utils.log(Level.INFO, evnt.message.getFormattedText());
+            SystemUtils.INSTANCE.log(Level.INFO, evnt.message.getFormattedText());
     }
 
     @SubscribeEvent
@@ -382,15 +367,15 @@ public class PartlySaneSkies {
 
                 IChatComponent discordMessage = new ChatComponentText(("§9The Partly Sane Skies Discord server: https://discord.gg/" + discordCode));
                 discordMessage.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://discord.gg/" + discordCode));
-                Utils.sendClientMessage("§b§m--------------------------------------------------", true);
-                Utils.sendClientMessage("§cWe noticed you're using a dogfood version of Partly Sane Skies.", false);
-                Utils.sendClientMessage("§c§lThis version may be unstable.", true);
-                Utils.sendClientMessage("§cOnly use it when told to do so by a Partly Sane Skies admin.", true);
-                Utils.sendClientMessage("§cReport any bugs to Partly Sane Skies admins in a private ticket.", true);
-                Utils.sendClientMessage("§7Version ID: §d" + VERSION, true);
-                Utils.sendClientMessage("§7Latest non-dogfood version: §d" + CustomMainMenu.latestVersion, true);
-                Utils.sendClientMessage(discordMessage);
-                Utils.sendClientMessage("§b§m--------------------------------------------------", true);
+                ChatUtils.INSTANCE.sendClientMessage("§b§m--------------------------------------------------", true);
+                ChatUtils.INSTANCE.sendClientMessage("§cWe noticed you're using a dogfood version of Partly Sane Skies.", false);
+                ChatUtils.INSTANCE.sendClientMessage("§c§lThis version may be unstable.", true);
+                ChatUtils.INSTANCE.sendClientMessage("§cOnly use it when told to do so by a Partly Sane Skies admin.", true);
+                ChatUtils.INSTANCE.sendClientMessage("§cReport any bugs to Partly Sane Skies admins in a private ticket.", true);
+                ChatUtils.INSTANCE.sendClientMessage("§7Version ID: §d" + VERSION, true);
+                ChatUtils.INSTANCE.sendClientMessage("§7Latest non-dogfood version: §d" + CustomMainMenu.latestVersion, true);
+                ChatUtils.INSTANCE.sendClientMessage(discordMessage);
+                ChatUtils.INSTANCE.sendClientMessage("§b§m--------------------------------------------------", true);
             }).start();
         }
 
@@ -401,11 +386,11 @@ public class PartlySaneSkies {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                
-                Utils.sendClientMessage("§b§m--------------------------------------------------", true);
 
-                Utils.sendClientMessage("§cWe have detected a new version of Partly Sane Skies.");
-                
+                ChatUtils.INSTANCE.sendClientMessage("§b§m--------------------------------------------------", true);
+
+                ChatUtils.INSTANCE.sendClientMessage("§cWe have detected a new version of Partly Sane Skies.");
+
                 ChatComponentText skyclientMessage = new ChatComponentText(("§aIf you are using SkyClient, make sure you update when prompted."));
                 PartlySaneSkies.minecraft.ingameGUI
                         .getChatGUI()
@@ -417,66 +402,18 @@ public class PartlySaneSkies {
                 PartlySaneSkies.minecraft.ingameGUI
                         .getChatGUI()
                         .printChatMessage(githubMessage);
-                
-                        Utils.sendClientMessage("§b§m--------------------------------------------------", true);
+
+                ChatUtils.INSTANCE.sendClientMessage("§b§m--------------------------------------------------", true);
             }).start();
         }
     }
 
-    // Returns an array of length 2, where the 1st index is the upper inventory,
-    // and the 2nd index is the lower inventory.
-    // Returns null if there is no inventory, also returns null if there is no access to inventory
-    public static IInventory[] getSeparateUpperLowerInventories(GuiScreen gui) {
-        IInventory upperInventory;
-        IInventory lowerInventory;
-        try {
-            upperInventory = (IInventory) FieldUtils.readDeclaredField(gui,
-                    Utils.getDecodedFieldName("upperChestInventory"), true);
-            lowerInventory = (IInventory) FieldUtils.readDeclaredField(gui,
-                    Utils.getDecodedFieldName("lowerChestInventory"), true);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-            return null;
-        }
-    
-        return new IInventory[] { upperInventory, lowerInventory };
-    }
-
-    // Returns the name of the scoreboard without color codes
-    public static String getScoreboardName() {
-        String scoreboardName = minecraft.thePlayer.getWorldScoreboard().getObjectiveInDisplaySlot(1).getDisplayName();
-        return StringUtils.removeColorCodes(scoreboardName);
-    }
 
     // Runs when debug key is pressed
     public static void debugMode() {
         PartlySaneSkies.isDebugMode = !PartlySaneSkies.isDebugMode;
-        Utils.sendClientMessage("Debug mode: " + PartlySaneSkies.isDebugMode);
-        BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner("Test", 5000L, 5f, new Color(255, 0, 255, 1)));
-    }
-
-    // Returns a list of lines on the scoreboard,
-    // where each line is a new entry
-    public static List<String> getScoreboardLines() {
-        try {
-            Scoreboard scoreboard = minecraft.theWorld.getScoreboard();
-            ScoreObjective objective = scoreboard.getObjectiveInDisplaySlot(1);
-            Collection<Score> scoreCollection = scoreboard.getSortedScores(objective);
-
-            List<String> scoreLines = new ArrayList<>();
-            for (Score score : scoreCollection) {
-                scoreLines.add(ScorePlayerTeam.formatPlayerName(scoreboard.getPlayersTeam(score.getPlayerName()),
-                        score.getPlayerName()));
-            }
-
-            return scoreLines;
-        } catch (IllegalArgumentException e) {
-            if (e.getMessage().equals("Cannot locate declared field class net.minecraft.client.gui.inventory.GuiChest.field_147015_w")) {
-                System.out.println("Strange error message in PartlySaneSkies.getScoreboardLines()");
-            }
-            e.printStackTrace();
-            return Collections.emptyList();
-        }
+        ChatUtils.INSTANCE.sendClientMessage("Debug mode: " + PartlySaneSkies.isDebugMode);
+        BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner("Test", 5000L, 5f, new OneColor(255, 0, 255, 1).toJavaColor()));
     }
 
 
@@ -485,124 +422,6 @@ public class PartlySaneSkies {
         return System.currentTimeMillis();
     }
 
-    // Gets the current skyblock region from the scoreboard
-    public static String getRegionName() {
-        if (!isSkyblock()) {
-            return "";
-        }
-
-        List<String> scoreboard = getScoreboardLines();
-
-        String location = null;
-
-        for (String line : scoreboard) {
-            if (StringUtils.stripLeading(line).contains("⏣")) {
-                location = StringUtils.stripLeading(line).replace("⏣", "");
-                location = StringUtils.stripLeading(location);
-                break;
-            }
-        }
-
-        if (location == null) {
-            return "";
-        }
-
-        return location;
-    }
-
-    // Gets the number of coins in your purse from the scoreboard
-    public static long getCoins() {
-        if (!isSkyblock()) {
-            return 0L;
-        }
-
-        List<String> scoreboard = getScoreboardLines();
-
-        String money = null;
-
-        for (String line : scoreboard) {
-            if (StringUtils.stripLeading(line).contains("Piggy:") || StringUtils.stripLeading(line).contains("Purse:")) {
-                money = StringUtils.stripLeading(StringUtils.removeColorCodes(line)).replace("Piggy: ", "");
-                money = StringUtils.stripLeading(StringUtils.removeColorCodes(money)).replace("Purse: ", "");
-                money = StringUtils.stripLeading(money);
-                money = money.replace(",", "");
-                money = money.replaceAll("\\P{Print}", "");
-                break;
-            }
-        }
-
-        if (money == null) {
-            return 0L;
-        }
-        try {
-            return Long.parseLong(money);
-        } catch (NumberFormatException event) {
-            return 0;
-        }
-    }
-
-    // Gets the number of bits from the scoreboard
-    public static long getBits() {
-        if (!isSkyblock()) {
-            return 0L;
-        }
-
-        List<String> scoreboard = getScoreboardLines();
-
-        String bits = null;
-
-        for (String line : scoreboard) {
-            if (StringUtils.stripLeading(line).contains("Bits:")) {
-                bits = StringUtils.stripLeading(StringUtils.removeColorCodes(line)).replace("Bits: ", "");
-                bits = StringUtils.stripLeading(bits);
-                bits = bits.replace(",", "");
-                bits = bits.replaceAll("\\P{Print}", "");
-                break;
-            }
-        }
-
-        if (bits == null) {
-            return 0L;
-        }
-
-        String[] charsToRemove = {"(", ")", ".", "-", "+"};
-
-        for (String removalChar : charsToRemove) {
-            if (bits.contains(removalChar)) {
-                int indexOfEndOfCount = bits.indexOf(removalChar);
-                bits = bits.substring(0, indexOfEndOfCount);
-            }
-        }
-
-        bits = StringUtils.stripLeading(bits);
-        bits = StringUtils.stripTrailing(bits);
-        try {
-            return Long.parseLong(bits);
-        } catch (NumberFormatException event) {
-            return 0;
-        }
-    }
-
-    // Returns if the current gamemode is skyblock
-    public static boolean isSkyblock() {
-        try {
-            if (getScoreboardName().toLowerCase().contains("skyblock")) {
-                return true;
-            }
-        } catch (NullPointerException expt) {
-            return false;
-        }
-        return false;
-    }
-
-    // Returns if the current server is hypixel
-    public static boolean isHypixel() {
-        try {
-            return minecraft.getCurrentServerData().serverIP.contains(".hypixel.net");
-        } catch (NullPointerException ignored) {
-        }
-        return false;
-    }
 
     // Sends a ping to the count API to track the number of users per day
     public void trackLoad() {
