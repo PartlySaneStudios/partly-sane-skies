@@ -17,6 +17,7 @@ import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager;
 import me.partlysanestudios.partlysaneskies.system.ThemeManager;
+import me.partlysanestudios.partlysaneskies.utils.MathUtils;
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import net.minecraft.client.gui.inventory.GuiChest;
@@ -268,17 +269,17 @@ public class GardenTradeValue {
 
         StringBuilder textString = new StringBuilder();
 
-        textString.append("§e§lTotal Cost: §r§d").append(StringUtils.INSTANCE.formatNumber(Utils.round(getTotalCost(), 2))).append("\n\n");
+        textString.append("§e§lTotal Cost: §r§d").append(StringUtils.INSTANCE.formatNumber(MathUtils.INSTANCE.round(getTotalCost(), 2))).append("\n\n");
         
-        textString.append("§e§lCopper Received: §r§d").append(StringUtils.INSTANCE.formatNumber(Utils.round(getCopperReturn(), 2))).append("\n\n");
+        textString.append("§e§lCopper Received: §r§d").append(StringUtils.INSTANCE.formatNumber(MathUtils.INSTANCE.round(getCopperReturn(), 2))).append("\n\n");
 
         double pricePerCopper = getTotalCost() / getCopperReturn();
-        textString.append("§e§lCoins/Copper: §r§d").append(StringUtils.INSTANCE.formatNumber(Utils.round(pricePerCopper, 2))).append("\n\n");
+        textString.append("§e§lCoins/Copper: §r§d").append(StringUtils.INSTANCE.formatNumber(MathUtils.INSTANCE.round(pricePerCopper, 2))).append("\n\n");
 
         StringBuilder priceBreakdown = new StringBuilder();
         HashMap<String, Double> coinCostMap = getCoinCostMap();
         for (Map.Entry<String, Integer> en : getQuantityCostMap().entrySet()){
-            priceBreakdown.append("§7x§d").append(en.getValue()).append(" §7").append(en.getKey()).append(" for a total of §d").append(StringUtils.INSTANCE.formatNumber(Utils.round(coinCostMap.get(en.getKey()), 2))).append("§7 coins.\n");
+            priceBreakdown.append("§7x§d").append(en.getValue()).append(" §7").append(en.getKey()).append(" for a total of §d").append(StringUtils.INSTANCE.formatNumber(MathUtils.INSTANCE.round(coinCostMap.get(en.getKey()), 2))).append("§7 coins.\n");
         }
 
         textString.append("§e§lPrice Breakdown:§r\n");

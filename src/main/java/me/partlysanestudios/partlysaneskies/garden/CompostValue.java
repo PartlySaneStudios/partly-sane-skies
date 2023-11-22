@@ -16,6 +16,7 @@ import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager;
 import me.partlysanestudios.partlysaneskies.system.ThemeManager;
+import me.partlysanestudios.partlysaneskies.utils.MathUtils;
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import net.minecraft.client.gui.inventory.GuiChest;
@@ -119,7 +120,7 @@ public class CompostValue {
             if (maxCompost == fillLevel) {
                 compostAmount = getMaxCompostAbleToMake();
             }
-            str.append("§6").append(i).append(". §7x§d").append(StringUtils.INSTANCE.formatNumber(Math.ceil(cropPerCompost * compostAmount))).append(" ").append(cropName).append("§7 costing §d").append(StringUtils.INSTANCE.formatNumber(Utils.round(costPerCompost * compostAmount, 1))).append("§7 coins to fill. \n§8(x").append(StringUtils.INSTANCE.formatNumber(Math.ceil(cropPerCompost))).append("/Compost)\n");
+            str.append("§6").append(i).append(". §7x§d").append(StringUtils.INSTANCE.formatNumber(Math.ceil(cropPerCompost * compostAmount))).append(" ").append(cropName).append("§7 costing §d").append(StringUtils.INSTANCE.formatNumber(MathUtils.INSTANCE.round(costPerCompost * compostAmount, 1))).append("§7 coins to fill. \n§8(x").append(StringUtils.INSTANCE.formatNumber(Math.ceil(cropPerCompost))).append("/Compost)\n");
 
             i++;
             if (i > 5) {
@@ -302,9 +303,9 @@ public class CompostValue {
         if (maxCompost == fillLevel) {
             compostAmount = getMaxCompostAbleToMake();
         }
-        compostAmount = (float) Utils.round(compostAmount, 0);
+        compostAmount = (float) MathUtils.INSTANCE.round(compostAmount, 0);
 
-        textString += "§7x§d"+ StringUtils.INSTANCE.formatNumber(Utils.round(compostAmount, 0)) +"§7 Compost currently sells for §d" + StringUtils.INSTANCE.formatNumber(Utils.round(compostSellPrice * compostAmount, 1))  + "§7 coins.\n§8(" + StringUtils.INSTANCE.formatNumber(Utils.round(compostSellPrice, 1)) + "/Compost)";
+        textString += "§7x§d"+ StringUtils.INSTANCE.formatNumber(MathUtils.INSTANCE.round(compostAmount, 0)) +"§7 Compost currently sells for §d" + StringUtils.INSTANCE.formatNumber(MathUtils.INSTANCE.round(compostSellPrice * compostAmount, 1))  + "§7 coins.\n§8(" + StringUtils.INSTANCE.formatNumber(MathUtils.INSTANCE.round(compostSellPrice, 1)) + "/Compost)";
 
         textString = (textString);
         textComponent.setText(textString);

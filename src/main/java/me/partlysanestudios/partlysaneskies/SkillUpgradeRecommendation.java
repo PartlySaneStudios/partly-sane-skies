@@ -8,6 +8,8 @@ package me.partlysanestudios.partlysaneskies;
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager;
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockPlayer;
 import me.partlysanestudios.partlysaneskies.system.commands.PSSCommand;
+import me.partlysanestudios.partlysaneskies.utils.ChatUtils;
+import me.partlysanestudios.partlysaneskies.utils.MathUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -107,7 +109,7 @@ public class SkillUpgradeRecommendation {
         // Loops through the array backwards to get the biggest value first
         for (int i = entryArray.length - 1; i >= 0; i--) {
             Entry<String, Double> entry = entryArray[i];
-            message.append("\n").append(formatWord(entry.getKey())).append(" : ").append(Utils.round(entry.getValue(), 2));
+            message.append("\n").append(formatWord(entry.getKey())).append(" : ").append(MathUtils.INSTANCE.round(entry.getValue(), 2));
         }
 
         message.append("\n§3§m-----------------------------------------------------§r");

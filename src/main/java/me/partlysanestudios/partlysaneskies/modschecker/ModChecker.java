@@ -5,7 +5,7 @@ import me.partlysanestudios.partlysaneskies.system.commands.PSSCommand;
 import me.partlysanestudios.partlysaneskies.system.requests.Request;
 import me.partlysanestudios.partlysaneskies.system.requests.RequestsManager;
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils;
-import me.partlysanestudios.partlysaneskies.utils.StringUtils;
+import me.partlysanestudios.partlysaneskies.utils.SystemUtils;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.ModContainer;
 import org.jetbrains.annotations.NotNull;
@@ -111,7 +111,7 @@ public class ModChecker {
             }
         }
         ChatUtils.INSTANCE.sendClientMessage(" \n§7Found " + modsFound + " mods:" + chatBuilder);
-        StringUtils.INSTANCE.copyStringToClipboard(debugBuilder.toString());
+        SystemUtils.INSTANCE.copyStringToClipboard(debugBuilder.toString());
     }
 
     private static void loadModDataFromRepo() {

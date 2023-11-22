@@ -7,7 +7,10 @@
 package me.partlysanestudios.partlysaneskies.system.requests;
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
+import me.partlysanestudios.partlysaneskies.utils.ChatUtils;
+import me.partlysanestudios.partlysaneskies.utils.SystemUtils;
 import org.apache.logging.log4j.Level;
+import org.lwjgl.Sys;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -146,9 +149,9 @@ public class Request {
             }
             // If not, simply print the error message to the console log 
             else {
-                Utils.log(Level.ERROR, "Error: " + httpURLConnection.getResponseMessage() + ":" + httpURLConnection.getResponseCode() + "\nContact PSS admins for more information");
+                SystemUtils.INSTANCE.log(Level.ERROR, "Error: " + httpURLConnection.getResponseMessage() + ":" + httpURLConnection.getResponseCode() + "\nContact PSS admins for more information");
             }
-            Utils.log(Level.ERROR, "Error: " + httpURLConnection.getResponseMessage() + ":" + httpURLConnection.getResponseCode() + "\nURL: " + this.url);
+            SystemUtils.INSTANCE.log(Level.ERROR, "Error: " + httpURLConnection.getResponseMessage() + ":" + httpURLConnection.getResponseCode() + "\nURL: " + this.url);
             // Disconnect the connection
             httpURLConnection.disconnect();
         }

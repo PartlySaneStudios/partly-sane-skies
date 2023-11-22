@@ -56,7 +56,7 @@ public class Pickaxes {
         if (event.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK || event.action == PlayerInteractEvent.Action.RIGHT_CLICK_AIR) {
             String[] loreOfItemInHand = MinecraftUtils.INSTANCE.getLore(MinecraftUtils.INSTANCE.getCurrentlyHoldingItem()).toArray(new String[0]);
 
-            if (Utils.isArrOfStringsInLore(pickaxeAbilities, loreOfItemInHand)) {
+            if (MinecraftUtils.INSTANCE.isArrOfStringsInLore(pickaxeAbilities, loreOfItemInHand)) {
                 event.setCanceled(true);
             }
         }

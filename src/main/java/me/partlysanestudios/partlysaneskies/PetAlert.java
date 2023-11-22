@@ -16,9 +16,7 @@ import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.auctionhouse.menu.AuctionHouseGui;
 import me.partlysanestudios.partlysaneskies.system.ThemeManager;
 import me.partlysanestudios.partlysaneskies.system.commands.PSSCommand;
-import me.partlysanestudios.partlysaneskies.utils.HypixelUtils;
-import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils;
-import me.partlysanestudios.partlysaneskies.utils.StringUtils;
+import me.partlysanestudios.partlysaneskies.utils.*;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -66,11 +64,11 @@ public class PetAlert {
             return;
         }
 
-        if (Utils.onCooldown(lastMuteTime, (long) (PartlySaneSkies.config.petAlertMuteTime * 60L * 1000L))) {
+        if (MathUtils.INSTANCE.onCooldown(lastMuteTime, (long) (PartlySaneSkies.config.petAlertMuteTime * 60L * 1000L))) {
             return;
         }
         
-        if (!Utils.onCooldown(lastSoundTime, 750)) {
+        if (!MathUtils.INSTANCE.onCooldown(lastSoundTime, 750)) {
             PartlySaneSkies.minecraft.getSoundHandler()
                 .playSound(
                     PositionedSoundRecord
@@ -82,7 +80,7 @@ public class PetAlert {
                 }
             lastSoundTime = PartlySaneSkies.getTime();
         }
-        if (!Utils.onCooldown(lastMessageSendTime,3000)) {
+        if (!MathUtils.INSTANCE.onCooldown(lastMessageSendTime,3000)) {
             IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + ("§cYOU CURRENTLY HAVE " + petName + "§c SELECTED AS YOUR PET. YOU WANTED TO UPGRADE " + selectedPetName + "." +
             "\n§dClick this message or run /mutepetalert to mute the alert for " + PartlySaneSkies.config.petAlertMuteTime + " minutes."));
             message.getChatStyle().setChatClickEvent(new ClickEvent(Action.RUN_COMMAND, "/mutepetalert"));
@@ -114,7 +112,7 @@ public class PetAlert {
             return;
         }
 
-        if (Utils.getItemId(item).isEmpty()) {
+        if (HypixelUtils.INSTANCE.getItemId(item).isEmpty()) {
             return;
         }
         String petName = parsePetNameFromItem(item.getDisplayName());

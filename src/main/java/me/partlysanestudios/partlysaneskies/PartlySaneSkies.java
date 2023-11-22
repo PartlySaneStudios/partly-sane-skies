@@ -50,8 +50,10 @@ import me.partlysanestudios.partlysaneskies.rngdropbanner.DropBannerDisplay;
 import me.partlysanestudios.partlysaneskies.system.*;
 import me.partlysanestudios.partlysaneskies.system.requests.Request;
 import me.partlysanestudios.partlysaneskies.system.requests.RequestsManager;
+import me.partlysanestudios.partlysaneskies.utils.ChatUtils;
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
+import me.partlysanestudios.partlysaneskies.utils.SystemUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.event.ClickEvent;
@@ -122,7 +124,7 @@ public class PartlySaneSkies {
     // Method runs at mod initialization
     @EventHandler
     public void init(FMLInitializationEvent evnt) {
-        Utils.log(Level.INFO, "Hallo World!");
+        SystemUtils.INSTANCE.log(Level.INFO, "Hallo World!");
         PartlySaneSkies.isDebugMode = false;
         PartlySaneSkies.minecraft = Minecraft.getMinecraft();
 
@@ -242,9 +244,6 @@ public class PartlySaneSkies {
         // Initializes keybinds
         Keybinds.init();
 
-        // Initializes Utils class
-        Utils.init();
-
         MathematicalHoeRightClicks.loadHoes();
 
 
@@ -298,7 +297,7 @@ public class PartlySaneSkies {
         }).start();
 
         // Finished loading
-        Utils.log(Level.INFO, "Partly Sane Skies has loaded.");
+        SystemUtils.INSTANCE.log(Level.INFO, "Partly Sane Skies has loaded.");
     }
 
     public static String getAPIKey() {
@@ -342,7 +341,7 @@ public class PartlySaneSkies {
     @SubscribeEvent
     public void chatAnalyzer(ClientChatReceivedEvent evnt) {
         if (PartlySaneSkies.isDebugMode)
-            Utils.log(Level.INFO, evnt.message.getFormattedText());
+            SystemUtils.INSTANCE.log(Level.INFO, evnt.message.getFormattedText());
     }
 
     @SubscribeEvent

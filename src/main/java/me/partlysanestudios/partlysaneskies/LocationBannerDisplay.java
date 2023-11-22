@@ -8,6 +8,7 @@ package me.partlysanestudios.partlysaneskies;
 import me.partlysanestudios.partlysaneskies.system.BannerRenderer;
 import me.partlysanestudios.partlysaneskies.system.PSSBanner;
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils;
+import me.partlysanestudios.partlysaneskies.utils.ImageUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import net.minecraft.client.gui.Gui;
 
@@ -64,7 +65,7 @@ public class LocationBannerDisplay extends Gui {
         }
 
         if (!regionName.isEmpty()) {
-            color = Utils.colorCodetoColor.get(regionName.substring(3, 5));
+            color = StringUtils.INSTANCE.colorCodeToColor(regionName.substring(3, 5));
         }
         if (color == null) {
             color = new Color(170, 170, 170);

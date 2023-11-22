@@ -8,8 +8,6 @@ import kotlin.math.pow
 import kotlin.math.sqrt
 
 object MathUtils {
-
-
     fun Double.round(decimalPlaces: Int): Double {
         return Math.round(this * 10.0.pow(decimalPlaces.toDouble()) / 10.0.pow(decimalPlaces.toDouble())).toDouble()
     }

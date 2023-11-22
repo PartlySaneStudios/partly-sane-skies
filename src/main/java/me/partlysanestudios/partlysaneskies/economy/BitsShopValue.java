@@ -18,6 +18,7 @@ import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManage
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockItem;
 import me.partlysanestudios.partlysaneskies.system.ThemeManager;
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils;
+import me.partlysanestudios.partlysaneskies.utils.MathUtils;
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import net.minecraft.client.gui.inventory.GuiChest;
@@ -71,7 +72,7 @@ public class BitsShopValue {
         int i = 1;
         for (Map.Entry<String, Double> en : sortedMap.entrySet()) {
             SkyblockItem item = SkyblockDataManager.getItem(en.getKey());
-            str.append("§6").append(i).append(". §d").append(item.getName()).append("§7 costs §d").append(StringUtils.INSTANCE.formatNumber(item.getBitCost())).append("§7 bits and sells for §d").append(StringUtils.INSTANCE.formatNumber(Utils.round(item.getSellPrice(), 1))).append("§7 coins \n§8 (").append(StringUtils.INSTANCE.formatNumber(Utils.round(en.getValue(), 1))).append(" coins per bit)\n");
+            str.append("§6").append(i).append(". §d").append(item.getName()).append("§7 costs §d").append(StringUtils.INSTANCE.formatNumber(item.getBitCost())).append("§7 bits and sells for §d").append(StringUtils.INSTANCE.formatNumber(MathUtils.INSTANCE.round(item.getSellPrice(), 1))).append("§7 coins \n§8 (").append(StringUtils.INSTANCE.formatNumber(MathUtils.INSTANCE.round(en.getValue(), 1))).append(" coins per bit)\n");
             i++;
             if (i > 5) {
                 break;

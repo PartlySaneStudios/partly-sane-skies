@@ -9,6 +9,7 @@ import cc.polyfrost.oneconfig.config.core.OneColor;
 import gg.essential.elementa.components.UIImage;
 import gg.essential.universal.utils.ReleasedDynamicTexture;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
+import me.partlysanestudios.partlysaneskies.utils.ElementaUtils;
 import me.partlysanestudios.partlysaneskies.utils.ImageUtils;
 import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.resources.IResource;
@@ -112,14 +113,14 @@ public class ThemeManager {
     public static UIImage getCurrentBackgroundUIImage() {
         UIImage image;
         if (PartlySaneSkies.config.disableThemes) {
-            image = Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies", "textures/gui/base_color_background.png"));
+            image = ElementaUtils.INSTANCE.uiImageFromResourceLocation(new ResourceLocation("partlysaneskies", "textures/gui/base_color_background.png"));
 
         }
         else {
             try {
                 image = UIImage.ofFile(getCurrentBackgroundFile());
             } catch (IOException e) {
-                image = Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies", "textures/gui/base_color_background.png"));
+                image = ElementaUtils.INSTANCE.uiImageFromResourceLocation(new ResourceLocation("partlysaneskies", "textures/gui/base_color_background.png"));
             }
         }
 
@@ -135,18 +136,18 @@ public class ThemeManager {
         UIImage image;
         if (PartlySaneSkies.config.disableThemes) {
             if (accentColor.equals(getAccentColor())) {
-                image = Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies", "textures/gui/base_color_button.png"));
+                image = ElementaUtils.INSTANCE.uiImageFromResourceLocation(new ResourceLocation("partlysaneskies", "textures/gui/base_color_button.png"));
             } else {
-                image = Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies", "textures/gui/base_color_button_transparent.png"));
+                image = ElementaUtils.INSTANCE.uiImageFromResourceLocation(new ResourceLocation("partlysaneskies", "textures/gui/base_color_button_transparent.png"));
             }
         } else {
             try {
                 image = UIImage.ofFile(getCurrentButtonFile(accentColor));
             } catch (IOException e) {
                 if (accentColor.equals(getAccentColor())) {
-                    image = Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies", "textures/gui/base_color_button.png"));
+                    image = ElementaUtils.INSTANCE.uiImageFromResourceLocation(new ResourceLocation("partlysaneskies", "textures/gui/base_color_button.png"));
                 } else {
-                    image = Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies", "textures/gui/base_color_button_transparent.png"));
+                    image = ElementaUtils.INSTANCE.uiImageFromResourceLocation(new ResourceLocation("partlysaneskies", "textures/gui/base_color_button_transparent.png"));
                 }
             }
         }
@@ -168,18 +169,18 @@ public class ThemeManager {
         UIImage image;
         if (PartlySaneSkies.config.disableThemes) {
             if (selected) {
-                image = Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies" , "textures/gui/selected_toggle.png"));
+                image = ElementaUtils.INSTANCE.uiImageFromResourceLocation(new ResourceLocation("partlysaneskies" , "textures/gui/selected_toggle.png"));
             } else {
-                image = Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies" , "textures/gui/unselected_toggle.png"));
+                image = ElementaUtils.INSTANCE.uiImageFromResourceLocation(new ResourceLocation("partlysaneskies" , "textures/gui/unselected_toggle.png"));
             }
         }
         try {
             image = UIImage.ofFile(getCurrentToggleFile(selected, accentColor));
         } catch (IOException e) {
             if (selected) {
-                image = Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies" , "textures/gui/selected_toggle.png"));
+                image = ElementaUtils.INSTANCE.uiImageFromResourceLocation(new ResourceLocation("partlysaneskies" , "textures/gui/selected_toggle.png"));
             } else {
-                image = Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies" , "textures/gui/unselected_toggle.png"));
+                image = ElementaUtils.INSTANCE.uiImageFromResourceLocation(new ResourceLocation("partlysaneskies" , "textures/gui/unselected_toggle.png"));
             }
         }
 

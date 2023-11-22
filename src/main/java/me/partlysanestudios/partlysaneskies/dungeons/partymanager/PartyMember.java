@@ -15,6 +15,8 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager;
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockPlayer;
 import me.partlysanestudios.partlysaneskies.system.guicomponents.PSSButton;
+import me.partlysanestudios.partlysaneskies.utils.ElementaUtils;
+import me.partlysanestudios.partlysaneskies.utils.MathUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import net.minecraft.util.ResourceLocation;
 
@@ -188,21 +190,21 @@ public class PartyMember {
 
     private void createMemberBlockColumnOne(UIComponent memberBlock, float scaleFactor) {
 
-        new UIText("Catacombs Level: " + StringUtils.INSTANCE.formatNumber(Utils.round(this.catacombsLevel, 2)))
+        new UIText("Catacombs Level: " + StringUtils.INSTANCE.formatNumber(MathUtils.INSTANCE.round(this.catacombsLevel, 2)))
                 .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
                 .setX(new PixelConstraint(20f * scaleFactor))
                 .setY(new PixelConstraint(135f * scaleFactor))
-                .setColor(Utils.colorCodetoColor.get("§c"))
+                .setColor(StringUtils.INSTANCE.colorCodeToColor("§c"))
                 .setChildOf(memberBlock);
 
-        new UIText("Average Skill Level " + StringUtils.INSTANCE.formatNumber(Utils.round(this.averageSkillLevel, 2)))
+        new UIText("Average Skill Level " + StringUtils.INSTANCE.formatNumber(MathUtils.INSTANCE.round(this.averageSkillLevel, 2)))
                 .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
                 .setX(new PixelConstraint(20f * scaleFactor))
                 .setY(new PixelConstraint(150f * scaleFactor))
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
-        new UIText("Combat Level: " + StringUtils.INSTANCE.formatNumber(Utils.round(this.combatLevel, 2)))
+        new UIText("Combat Level: " + StringUtils.INSTANCE.formatNumber(MathUtils.INSTANCE.round(this.combatLevel, 2)))
                 .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
                 .setX(new PixelConstraint(20f * scaleFactor))
                 .setY(new PixelConstraint(165f * scaleFactor))
@@ -218,14 +220,14 @@ public class PartyMember {
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
-        new UIText("Secrets Per Run: " + StringUtils.INSTANCE.formatNumber(Utils.round(this.secretsPerRun, 2)))
+        new UIText("Secrets Per Run: " + StringUtils.INSTANCE.formatNumber(MathUtils.INSTANCE.round(this.secretsPerRun, 2)))
                 .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
                 .setX(new PixelConstraint(150f * scaleFactor))
                 .setY(new PixelConstraint(90f * scaleFactor))
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
-        new UIText("SkyBlock Level: " + Utils.round(this.skyblockLevel, 1))
+        new UIText("SkyBlock Level: " + MathUtils.INSTANCE.round(this.skyblockLevel, 1))
                 .setTextScale(new PixelConstraint(scaleFactor))
                 .setX(new PixelConstraint(20f * scaleFactor))
                 .setY(new PixelConstraint(50f * scaleFactor))
@@ -236,14 +238,14 @@ public class PartyMember {
                 .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
                 .setX(new PixelConstraint(20f * scaleFactor))
                 .setY(new PixelConstraint(75f * scaleFactor))
-                .setColor(Utils.colorCodetoColor.get("§c"))
+                .setColor(StringUtils.INSTANCE.colorCodeToColor("§c"))
                 .setChildOf(memberBlock);
 
         new UIText("❈ " + StringUtils.INSTANCE.formatNumber(Math.round(this.defense)))
                 .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
                 .setX(new PixelConstraint(20f * scaleFactor))
                 .setY(new PixelConstraint(90f * scaleFactor))
-                .setColor(Utils.colorCodetoColor.get("§a"))
+                .setColor(StringUtils.INSTANCE.colorCodeToColor("§a"))
                 .setChildOf(memberBlock);
 
         new UIText("EHP: " + StringUtils.INSTANCE.formatNumber(Math.round(this.effectHealth)))
@@ -257,7 +259,7 @@ public class PartyMember {
                 .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
                 .setX(new PixelConstraint(20f * scaleFactor))
                 .setY(new PixelConstraint(120f * scaleFactor))
-                .setColor(Utils.colorCodetoColor.get("§b"))
+                .setColor(StringUtils.INSTANCE.colorCodeToColor("§b"))
                 .setChildOf(memberBlock);
 
     }
@@ -483,7 +485,7 @@ public class PartyMember {
                 .setColor(new Color(60, 222, 79))
                 .setChildOf(memberBlock);
 
-        Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies", "textures/gui/party_finder/refresh.png"))
+        ElementaUtils.INSTANCE.uiImageFromResourceLocation(new ResourceLocation("partlysaneskies", "textures/gui/party_finder/refresh.png"))
                 .setX(new CenterConstraint())
                 .setY(new CenterConstraint())
                 .setWidth(new PixelConstraint(20f * scaleFactor))

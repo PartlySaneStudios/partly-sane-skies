@@ -286,7 +286,7 @@ object StringUtils {
         }
     }
 
-    fun colorCodeToColor(colorCode: String): Color? {
+    fun colorCodeToColor(colorCode: String): Color {
         val colorCodetoColor = HashMap<String, Color>()
         colorCodetoColor["§a"] = Color(85, 255, 85)
         colorCodetoColor["§b"] = Color(85, 255, 255)
@@ -304,6 +304,9 @@ object StringUtils {
         colorCodetoColor["§8"] = Color(85, 85, 85)
         colorCodetoColor["§9"] = Color(85, 85, 255)
         colorCodetoColor["§0"] = Color(0, 0, 0)
-        return colorCodetoColor[colorCode]
+        if (colorCodetoColor[colorCode] != null) {
+            return colorCodetoColor[colorCode]!!
+        }
+        else return Color.white
     }
 }
