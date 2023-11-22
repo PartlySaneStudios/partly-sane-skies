@@ -1,3 +1,9 @@
+//
+// Written by hannibal01.
+// See LICENSE for copyright and license notices.
+//
+
+
 package me.partlysanestudios.partlysaneskies.modschecker;
 
 import com.google.gson.annotations.Expose;
