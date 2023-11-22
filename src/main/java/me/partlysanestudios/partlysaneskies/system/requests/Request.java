@@ -7,10 +7,8 @@
 package me.partlysanestudios.partlysaneskies.system.requests;
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
-import me.partlysanestudios.partlysaneskies.utils.ChatUtils;
-import me.partlysanestudios.partlysaneskies.utils.SystemUtils;
+import me.partlysanestudios.partlysaneskies.utils.Utils;
 import org.apache.logging.log4j.Level;
-import org.lwjgl.Sys;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -145,13 +143,13 @@ public class Request {
 
             // If the print API errors setting is on, send a message to the client
             if (PartlySaneSkies.config.printApiErrors) {
-                ChatUtils.INSTANCE.sendClientMessage("Error: " + httpURLConnection.getResponseMessage() + ":" + httpURLConnection.getResponseCode() + "\nContact PSS admins for more information");
+                Utils.sendClientMessage("Error: " + httpURLConnection.getResponseMessage() + ":" + httpURLConnection.getResponseCode() + "\nContact PSS admins for more information");
             }
             // If not, simply print the error message to the console log 
             else {
-                SystemUtils.INSTANCE.log(Level.ERROR, "Error: " + httpURLConnection.getResponseMessage() + ":" + httpURLConnection.getResponseCode() + "\nContact PSS admins for more information");
+                Utils.log(Level.ERROR, "Error: " + httpURLConnection.getResponseMessage() + ":" + httpURLConnection.getResponseCode() + "\nContact PSS admins for more information");
             }
-            SystemUtils.INSTANCE.log(Level.ERROR, "Error: " + httpURLConnection.getResponseMessage() + ":" + httpURLConnection.getResponseCode() + "\nURL: " + this.url);
+            Utils.log(Level.ERROR, "Error: " + httpURLConnection.getResponseMessage() + ":" + httpURLConnection.getResponseCode() + "\nURL: " + this.url);
             // Disconnect the connection
             httpURLConnection.disconnect();
         }

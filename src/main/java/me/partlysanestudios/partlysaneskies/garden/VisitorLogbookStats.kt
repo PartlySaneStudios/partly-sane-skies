@@ -28,11 +28,8 @@ import gg.essential.elementa.dsl.childOf
 import gg.essential.universal.UMatrixStack
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.system.ThemeManager
-import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getLore
-import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
 import me.partlysanestudios.partlysaneskies.utils.StringUtils
-import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
-
+import me.partlysanestudios.partlysaneskies.utils.Utils
 import net.minecraft.client.gui.inventory.GuiChest
 import net.minecraftforge.client.event.GuiScreenEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
@@ -55,16 +52,16 @@ class VisitorLogbookStats {
             if (s.getStack() == null) continue //"cOnDiTiOn 'S.GeTsTaCk() == NuLL' is aLwAyS FaLsE"
 
             val eItemStack = s.getStack()
-            val lore = eItemStack.getLore()
+            val lore = Utils.getLore(eItemStack)
 
             if (lore.isEmpty()) continue
             if (lore.first().contains("Page ")) break
-            if (lore.first().removeColorCodes().isEmpty() || lore.first().contains("This NPC hasn't visited you") || lore.first().contains("Various NPCs ") || lore.first().contains("Requirements")) continue
+            if (StringUtils.removeColorCodes(lore.first()).isEmpty() || lore.first().contains("This NPC hasn't visited you") || lore.first().contains("Various NPCs ") || lore.first().contains("Requirements")) continue
             
             var noPlcwList = mutableListOf<String>()
 
             //fuck formatting codes
-            for (line in lore) noPlcwList.add(line.removeColorCodes())
+            for (line in lore) noPlcwList.add(StringUtils.removeColorCodes(line))
             //§7Times Visited: §a0
             //Times Visited: 0
             //§7Offers Accepted: §a0
@@ -100,13 +97,10 @@ class VisitorLogbookStats {
             return false
         }
 
-        val inventories = MinecraftUtils.getSeparateUpperLowerInventories(gui)
+        val inventories = PartlySaneSkies.getSeparateUpperLowerInventories(gui)
         val logbook = inventories[0]
-        if (logbook == null) {
-            return false
-        }
 
-        return logbook.displayName.formattedText.removeColorCodes().contains("Visitor's Logbook")
+        return StringUtils.removeColorCodes(logbook.getDisplayName().getFormattedText()).contains("Visitor's Logbook")
     }
 
     val window = Window(ElementaVersion.V2)

@@ -20,18 +20,15 @@ import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManage
 import me.partlysanestudios.partlysaneskies.system.ThemeManager
 import me.partlysanestudios.partlysaneskies.system.guicomponents.PSSButton
 import me.partlysanestudios.partlysaneskies.system.guicomponents.PSSItemRender
-import me.partlysanestudios.partlysaneskies.utils.HypixelUtils
-import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
-import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getLore
-import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
-
+import me.partlysanestudios.partlysaneskies.utils.StringUtils
+import me.partlysanestudios.partlysaneskies.utils.Utils
 import net.minecraft.item.ItemStack
 import java.awt.Color
 import java.util.*
 
 class AuctionElement(private val slot: Int, val itemstack: ItemStack?, var xConstraint: XConstraint, var yConstraint: YConstraint, var heightConstraint: PixelConstraint, val textScale: Float) {
 
-    val skyblockItem = SkyblockDataManager.getItem(HypixelUtils.getItemId(itemstack))
+    val skyblockItem = SkyblockDataManager.getItem(Utils.getItemId(itemstack))
 
     private val boundingBox = UIBlock().constrain {
         x = xConstraint
@@ -89,7 +86,7 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack?, var xCons
     }
 
     fun highlightIfCheapBin() {
-//        ChatUtils.sendClientMessage("checking")
+//        Utils.sendClientMessage("checking")
         if (!isCheapBin()) {
             return
         }
@@ -118,17 +115,13 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack?, var xCons
     }
 
     fun clickAuction() {
-        MinecraftUtils.clickOnSlot(slot)
+        Utils.clickOnSlot(slot)
     }
 
     fun isBin(): Boolean {
-        if (itemstack == null) {
-            return false
-        }
-        val loreList: List<String> = itemstack.getLore()
+        val loreList: List<String> = Utils.getLore(itemstack)
         for (line in loreList) {
-            
-            if (line.removeColorCodes().contains("Buy it now: ")) {
+            if (StringUtils.removeColorCodes(line).contains("Buy it now: ")) {
                 return true
             }
         }
@@ -144,17 +137,14 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack?, var xCons
     }
 
     fun getPrice(): Long {
-        if (itemstack == null) {
-            return -1
-        }
-        val loreList: List<String> = itemstack.getLore()
+        val loreList: List<String> = Utils.getLore(itemstack)
         var buyItNowPrice = ""
         for (line in loreList) {
-            if (line.removeColorCodes().contains("Buy it now:")
-                || line.removeColorCodes().contains("Top bid:")
-                || line.removeColorCodes().contains("Starting bid:")
+            if (StringUtils.removeColorCodes(line).contains("Buy it now:")
+                || StringUtils.removeColorCodes(line).contains("Top bid:")
+                || StringUtils.removeColorCodes(line).contains("Starting bid:")
             ) {
-                buyItNowPrice = line.removeColorCodes().replace("[^0-9]".toRegex(), "")
+                buyItNowPrice = StringUtils.removeColorCodes(line).replace("[^0-9]".toRegex(), "")
             }
         }
         if (buyItNowPrice.isEmpty()) {
@@ -220,13 +210,13 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack?, var xCons
         if (itemstack == null) {
             return ""
         }
-        val loreList: List<String> = itemstack.getLore()
+        val loreList: List<String> = Utils.getLore(itemstack)
         for (loreLine in loreList) {
-            if (loreLine.removeColorCodes().contains("Ends in:")) {
-                return loreLine.removeColorCodes().replace("Ends in: ", "")
+            if (StringUtils.removeColorCodes(loreLine).contains("Ends in:")) {
+                return StringUtils.removeColorCodes(loreLine).replace("Ends in: ", "")
             }
-            if (loreLine.removeColorCodes().contains("Ending Soon")) {
-                return loreLine.removeColorCodes()
+            if (StringUtils.removeColorCodes(loreLine).contains("Ending Soon")) {
+                return StringUtils.removeColorCodes(loreLine)
             }
         }
         return ""
@@ -236,7 +226,7 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack?, var xCons
         if (itemstack == null) {
             return ""
         }
-        return MinecraftUtils.getLoreAsString(this.itemstack)
+        return Utils.getLoreAsString(this.itemstack)
     }
 
     fun getRarity(): String {
@@ -245,11 +235,11 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack?, var xCons
             return ""
         }
         val lastLineOfLore = try {
-            val loreList = itemstack.getLore()
+            val loreList = Utils.getLore(itemstack)
             if (loreList.size - 7 - 1 < 0) {
                 return ""
             }
-            loreList[loreList.size - 7 - 1].removeColorCodes()
+            StringUtils.removeColorCodes(loreList[loreList.size - 7 - 1])
         } catch (exception: NullPointerException) {
             exception.printStackTrace()
             return ""

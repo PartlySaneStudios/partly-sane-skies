@@ -20,9 +20,7 @@ import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import me.partlysanestudios.partlysaneskies.system.ThemeManager;
 import me.partlysanestudios.partlysaneskies.system.requests.Request;
-import me.partlysanestudios.partlysaneskies.utils.ElementaUtils;
-import me.partlysanestudios.partlysaneskies.utils.MathUtils;
-import me.partlysanestudios.partlysaneskies.utils.SystemUtils;
+import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.gui.GuiMultiplayer;
@@ -129,7 +127,7 @@ public class CustomMainMenu extends WindowScreen {
         String image;
 
         if (PartlySaneSkies.config.customMainMenuImage == 0) {
-            image = "textures/gui/main_menu/" + imageIdMap.get(MathUtils.INSTANCE.randInt(1, imageIdMap.size()));
+            image = "textures/gui/main_menu/" + imageIdMap.get(Utils.randInt(1, imageIdMap.size()));
         } else
             image = "textures/gui/main_menu/" + imageIdMap.get(PartlySaneSkies.config.customMainMenuImage);
 
@@ -137,7 +135,7 @@ public class CustomMainMenu extends WindowScreen {
             background = UIImage.ofFile(new File("./config/partly-sane-skies/background.png"));
         }
         else{
-            background = ElementaUtils.INSTANCE.uiImageFromResourceLocation(new ResourceLocation("partlysaneskies", image));
+            background = Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies", image));
         }
 
 
@@ -176,7 +174,7 @@ public class CustomMainMenu extends WindowScreen {
         float titleHeight = 75;
         float titleWidth = titleHeight * (928f / 124);
 
-        titleImage = ElementaUtils.INSTANCE.uiImageFromResourceLocation((new ResourceLocation("partlysaneskies", "textures/gui/main_menu/title_text.png")))
+        titleImage = Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies", "textures/gui/main_menu/title_text.png"))
                 .setX(new CenterConstraint())
                 .setY(new PixelConstraint(50 * scaleFactor))
                 .setHeight(new PixelConstraint(titleHeight * scaleFactor))
@@ -193,7 +191,7 @@ public class CustomMainMenu extends WindowScreen {
                 .setColor(new Color(255, 0, 0))
                 .setChildOf(middleMenu);
             
-            updateWarning.onMouseClickConsumer(event -> SystemUtils.INSTANCE.openLink("https://github.com/PartlySaneStudios/partly-sane-skies/releases"));
+            updateWarning.onMouseClickConsumer(event -> Utils.openLink("https://github.com/PartlySaneStudios/partly-sane-skies/releases"));
         }
 
         if (PartlySaneSkies.config.displayAnnouncementsCustomMainMenu) {
@@ -365,7 +363,7 @@ public class CustomMainMenu extends WindowScreen {
             .setColor(new Color(69, 79, 191))
             .setChildOf(background);
 
-        discordText.onMouseClickConsumer(event -> SystemUtils.INSTANCE.openLink("https://discord.gg/" + PartlySaneSkies.discordCode));
+        discordText.onMouseClickConsumer(event -> Utils.openLink("https://discord.gg/" + PartlySaneSkies.discordCode));
 
         funFactTitle = (UIWrappedText) new UIWrappedText("Fun Fact of the Day", true, new Color(120, 120, 120), true)
                 .setX(new PixelConstraint((int) background.getWidth() * 0.6f))
@@ -383,7 +381,7 @@ public class CustomMainMenu extends WindowScreen {
                 .setColor(new Color(255, 255, 255))
                 .setChildOf(background);
 
-        funFactText.onMouseClickConsumer(event -> SystemUtils.INSTANCE.openLink(funFactWebsite));
+        funFactText.onMouseClickConsumer(event -> Utils.openLink(funFactWebsite));
     }
 
     public void resizeGui(float scaleFactor) {
@@ -665,7 +663,7 @@ public class CustomMainMenu extends WindowScreen {
             this.postNum = postNum;
             this.titleComponent = text;
 
-            text.onMouseClickConsumer(event -> SystemUtils.INSTANCE.openLink(link));
+            text.onMouseClickConsumer(event -> Utils.openLink(link));
             return (UIWrappedText) text;
         }
         public UIWrappedText createDescription(float scaleFactor, int postNum, UIComponent parent) {
@@ -678,7 +676,7 @@ public class CustomMainMenu extends WindowScreen {
             this.postNum = postNum;
             this.descriptionComponent = text;
 
-            text.onMouseClickConsumer(event -> SystemUtils.INSTANCE.openLink(link));
+            text.onMouseClickConsumer(event -> Utils.openLink(link));
             return (UIWrappedText) text;
         }
 

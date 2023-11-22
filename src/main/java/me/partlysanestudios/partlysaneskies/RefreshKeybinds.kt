@@ -13,7 +13,7 @@
  */
 package me.partlysanestudios.partlysaneskies
 
-import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
+import me.partlysanestudios.partlysaneskies.utils.Utils
 import net.minecraft.client.gui.inventory.GuiChest
 import net.minecraft.inventory.ContainerChest
 import net.minecraft.item.ItemStack
@@ -43,7 +43,7 @@ class RefreshKeybinds {
             for (i: Int in 0..53) {
                 val stackItem: ItemStack = container.getSlot(i).stack ?: continue
                 if (stackItem.displayName.contains("Refresh") && (System.currentTimeMillis() - lastClick > 300)) {
-                    MinecraftUtils.clickOnSlot(i)
+                    Utils.clickOnSlot(i)
                     lastClick = System.currentTimeMillis()
                     event.isCanceled = true
                     break

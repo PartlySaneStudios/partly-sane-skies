@@ -14,9 +14,7 @@ import gg.essential.elementa.dsl.constrain
 import gg.essential.elementa.dsl.pixels
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.system.ThemeManager
-import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.uiImageFromResourceLocation
-import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
-
+import me.partlysanestudios.partlysaneskies.utils.Utils
 import net.minecraft.inventory.IInventory
 import net.minecraft.util.ResourceLocation
 import java.awt.Color
@@ -90,7 +88,7 @@ class CategoriesBar (val xConstraint: XConstraint, val yConstraint: YConstraint,
                 } else {
                     topBarImagePaths[i]
                 }
-            ResourceLocation("partlysaneskies", imagePath).uiImageFromResourceLocation().constrain {
+            Utils.uiimageFromResourceLocation(ResourceLocation("partlysaneskies", imagePath)).constrain {
                 x = CenterConstraint()
                 y = CenterConstraint()
                 width = imageSide.pixels
@@ -99,9 +97,9 @@ class CategoriesBar (val xConstraint: XConstraint, val yConstraint: YConstraint,
 
             icon.onMouseClick {
                 if (it.mouseButton == 1) {
-                    MinecraftUtils.rightClickOnSlot(slot)
+                    Utils.rightClickOnSlot(slot)
                 } else {
-                    MinecraftUtils.clickOnSlot(slot)
+                    Utils.clickOnSlot(slot)
                 }
             }
 

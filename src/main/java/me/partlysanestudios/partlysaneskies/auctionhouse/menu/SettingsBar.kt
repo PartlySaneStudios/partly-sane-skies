@@ -14,12 +14,8 @@ import gg.essential.elementa.dsl.constrain
 import gg.essential.elementa.dsl.pixels
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.system.ThemeManager
-import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.uiImageFromResourceLocation
-import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
-import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getLore
 import me.partlysanestudios.partlysaneskies.utils.StringUtils
-import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
-
+import me.partlysanestudios.partlysaneskies.utils.Utils
 import net.minecraft.inventory.IInventory
 import net.minecraft.util.ResourceLocation
 import java.awt.Color
@@ -104,14 +100,14 @@ class SettingsBar (val xConstraint: XConstraint, val yConstraint: YConstraint, v
                 var sortSelectedLine = ""
                 var sortImageName = "unknown"
                 try {
-                    val sortLoreList: List<String> = inventory.getStackInSlot(slot).getLore()
+                    val sortLoreList: List<String> = Utils.getLore(inventory.getStackInSlot(slot))
                     for (line in sortLoreList) {
                         if (line.contains("▶")) {
                             sortSelectedLine = line
                             break
                         }
                     }
-                    sortSelectedLine = sortSelectedLine.removeColorCodes()
+                    sortSelectedLine = StringUtils.removeColorCodes(sortSelectedLine)
                     if (sortSelectedLine.lowercase(Locale.getDefault()).contains("highest")) {
                         sortImageName = "price_high_low"
                     } else if (sortSelectedLine.lowercase(Locale.getDefault()).contains("lowest")) {
@@ -132,7 +128,7 @@ class SettingsBar (val xConstraint: XConstraint, val yConstraint: YConstraint, v
                 var filterImageName = "no_filter"
                 try {
 
-                    val sortLoreList: List<String> = inventory.getStackInSlot(slot).getLore()
+                    val sortLoreList: List<String> = Utils.getLore(inventory.getStackInSlot(slot))
                     for (line in sortLoreList) {
                         if (line.contains("▶")) {
                             filterSelectedLine = line
@@ -140,7 +136,7 @@ class SettingsBar (val xConstraint: XConstraint, val yConstraint: YConstraint, v
                         }
                     }
 
-                    filterSelectedLine = filterSelectedLine.removeColorCodes()
+                    filterSelectedLine = StringUtils.removeColorCodes(filterSelectedLine)
 
                     if (filterSelectedLine.lowercase(Locale.getDefault()).contains("uncommon")) {
                         filterImageName = "uncommon"
@@ -172,14 +168,14 @@ class SettingsBar (val xConstraint: XConstraint, val yConstraint: YConstraint, v
                 var binSelectedLine = ""
                 var binImageName = "all"
                 try {
-                    val binLoreList: List<String> = inventory.getStackInSlot(slot).getLore()
+                    val binLoreList: List<String> = Utils.getLore(inventory.getStackInSlot(slot))
                     for (line in binLoreList) {
                         if (line.contains("▶")) {
                             binSelectedLine = line
                             break
                         }
                     }
-                    binSelectedLine = binSelectedLine.removeColorCodes()
+                    binSelectedLine = StringUtils.removeColorCodes(binSelectedLine)
                     if (binSelectedLine.lowercase(Locale.getDefault()).contains("bin only")) {
                         binImageName = "bin_only"
                     } else if (binSelectedLine.lowercase(Locale.getDefault()).contains("auctions only")) {
@@ -193,7 +189,7 @@ class SettingsBar (val xConstraint: XConstraint, val yConstraint: YConstraint, v
 
 
 
-            ResourceLocation("partlysaneskies", imagePath).uiImageFromResourceLocation().constrain {
+            Utils.uiimageFromResourceLocation(ResourceLocation("partlysaneskies", imagePath)).constrain {
                 x = CenterConstraint()
                 y = CenterConstraint()
                 width = imageSide.pixels
@@ -202,9 +198,9 @@ class SettingsBar (val xConstraint: XConstraint, val yConstraint: YConstraint, v
 
             icon.onMouseClick {
                 if (it.mouseButton == 1) {
-                    MinecraftUtils.rightClickOnSlot(slot)
+                    Utils.rightClickOnSlot(slot)
                 } else {
-                    MinecraftUtils.clickOnSlot(slot)
+                    Utils.clickOnSlot(slot)
                 }
             }
 

@@ -1,25 +1,18 @@
-//
-// Written by Su386.
-// See LICENSE for copyright and license notices.
-//
-
-
 package me.partlysanestudios.partlysaneskies;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-
-import org.lwjgl.input.Keyboard;
 
 import gg.essential.elementa.components.Window;
 import me.partlysanestudios.partlysaneskies.system.Keybinds;
 import me.partlysanestudios.partlysaneskies.system.commands.CommandManager;
 import me.partlysanestudios.partlysaneskies.system.commands.PSSCommand;
-import me.partlysanestudios.partlysaneskies.utils.ChatUtils;
+import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.event.ClickEvent;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
+import org.lwjgl.input.Keyboard;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 public class HelpCommands {
 
@@ -47,7 +40,7 @@ public class HelpCommands {
                 .addAlias("pssconf")
                 .setDescription("Opens the config menu")
                 .setRunnable((s, a) -> {
-                    ChatUtils.INSTANCE.sendClientMessage("§bOpening config menu...");
+                    Utils.sendClientMessage("§bOpening config menu...");
 
                     Window.Companion.enqueueRenderOperation(() -> PartlySaneSkies.minecraft.displayGuiScreen(PartlySaneSkies.config.gui()));
                 })
@@ -60,7 +53,7 @@ public class HelpCommands {
                 .setRunnable((s, a) -> {
                     printHelpMessage();
 
-                    ChatUtils.INSTANCE.sendClientMessage("§bOpening config menu...");
+                    Utils.sendClientMessage("§bOpening config menu...");
 
                     Window.Companion.enqueueRenderOperation(() -> PartlySaneSkies.minecraft.displayGuiScreen(PartlySaneSkies.config.gui()));
                 }).register();
@@ -83,7 +76,7 @@ public class HelpCommands {
                         chatcomponent.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/PartlySaneStudios/partly-sane-skies/releases"));
                     }
 
-                    ChatUtils.INSTANCE.sendClientMessage(chatcomponent);
+                    Utils.sendClientMessage(chatcomponent);
                 }).register();
     }
 
@@ -114,7 +107,7 @@ public class HelpCommands {
                             "\n§5http://www.recettes-bretonnes.fr/crepe-bretonne/recette-crepe.html" +
                             "\n§0§m-----------------------------------------------------§0");
                     chatComponent.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL,"http://www.recettes-bretonnes.fr/crepe-bretonne/recette-crepe.html"));
-                    ChatUtils.INSTANCE.sendClientMessage(chatComponent);
+                    Utils.sendClientMessage(chatComponent);
                 }).register();
 
     }
@@ -130,8 +123,8 @@ public class HelpCommands {
                 .setDescription("Show the Partly Sane Skies help message")
                 .setRunnable((s, a) -> {
                     if (a.length > 0 && configAliases.contains(a[0].toLowerCase())) {
-                        ChatUtils.INSTANCE.sendClientMessage("Opening config GUI...");
-                        Window.Companion.enqueueRenderOperation(() -> PartlySaneSkies.config.openGui());
+                        Utils.sendClientMessage("Opening config GUI...");
+                        Window.Companion.enqueueRenderOperation(() -> PartlySaneSkies.minecraft.displayGuiScreen(PartlySaneSkies.config.gui()));
                         return;
                     }
 
@@ -179,7 +172,7 @@ public class HelpCommands {
 
         str.append("\n§3§m-----------------------------------------------------§r");
 
-        ChatUtils.INSTANCE.sendClientMessage((str.toString()), true);
+        Utils.sendClientMessage((str.toString()), true);
 
     }
 }

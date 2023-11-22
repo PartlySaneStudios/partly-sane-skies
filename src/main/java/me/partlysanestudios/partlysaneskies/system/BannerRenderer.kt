@@ -14,9 +14,7 @@ import gg.essential.elementa.dsl.constraint
 import gg.essential.elementa.dsl.pixels
 import gg.essential.universal.UMatrixStack
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
-import me.partlysanestudios.partlysaneskies.utils.ImageUtils
-import me.partlysanestudios.partlysaneskies.utils.MathUtils
-
+import me.partlysanestudios.partlysaneskies.utils.Utils
 import net.minecraft.client.gui.Gui
 import net.minecraftforge.client.event.RenderGameOverlayEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
@@ -62,7 +60,7 @@ object BannerRenderer: Gui() {
                 } childOf window
         }
 
-//        ChatUtils.sendClientMessage(bannerToRender.getFadedColor().alpha.toString())
+//        Utils.sendClientMessage(bannerToRender.getFadedColor().alpha.toString())
         displayText.setColor(bannerToRender.getFadedColor())
 
         window.draw(UMatrixStack())
@@ -78,7 +76,7 @@ object BannerRenderer: Gui() {
             val banner = bannerList[i]
 
             if (banner.isOutOfDate()) {
-//                ChatUtils.sendClientMessage("Banner: ${banner.text} is out of date ${banner.renderStartTime}, ${banner.lengthOfTimeToRender}")
+//                Utils.sendClientMessage("Banner: ${banner.text} is out of date ${banner.renderStartTime}, ${banner.lengthOfTimeToRender}")
                 bannerList.removeAt(i)
             }
 
@@ -117,7 +115,7 @@ class PSSBanner(val text: String, val lengthOfTimeToRender: Long, val textScale:
     }
 
     fun isOutOfDate(): Boolean {
-        return !MathUtils.onCooldown(renderStartTime, lengthOfTimeToRender)
+        return !Utils.onCooldown(renderStartTime, lengthOfTimeToRender)
     }
     fun hasStartedRendering(): Boolean {
         return renderStartTime == -1L
@@ -127,8 +125,8 @@ class PSSBanner(val text: String, val lengthOfTimeToRender: Long, val textScale:
         val alpha = getAlpha(renderStartTime, lengthOfTimeToRender / 1000.0).toInt()
 
 
-        val color = ImageUtils.applyOpacityToColor(color, alpha)
-//        ChatUtils.sendClientMessage("${alpha},  ${color.alpha}")
+        val color = Utils.applyOpacityToColor(color, alpha)
+//        Utils.sendClientMessage("${alpha},  ${color.alpha}")
 
         return color
     }
@@ -136,27 +134,27 @@ class PSSBanner(val text: String, val lengthOfTimeToRender: Long, val textScale:
     private fun getAlpha(timeStarted: Long, displayLengthSeconds: Double): Short {
         val displayLength = displayLengthSeconds * 1000
 
-//        ChatUtils.sendClientMessage("DisplayLengthSeconds${displayLength}")
-//        ChatUtils.sendClientMessage("DisplayLength${displayLength}")
+//        Utils.sendClientMessage("DisplayLengthSeconds${displayLength}")
+//        Utils.sendClientMessage("DisplayLength${displayLength}")
 
         val fadeLength = displayLength * (1 / 6.0)
         val timeSinceStarted = PartlySaneSkies.getTime() - timeStarted
 
-//        ChatUtils.sendClientMessage(fadeLength.toString())
+//        Utils.sendClientMessage(fadeLength.toString())
         return if (0 > timeSinceStarted) {
-//            ChatUtils.sendClientMessage("Less than 0")
+//            Utils.sendClientMessage("Less than 0")
             0
         } else if (0 < timeSinceStarted && timeSinceStarted < fadeLength) {
-//            ChatUtils.sendClientMessage("Fading")
+//            Utils.sendClientMessage("Fading")
             Math.round(timeSinceStarted / fadeLength * 255).toShort()
         } else if (fadeLength < timeSinceStarted && timeSinceStarted <= displayLength - fadeLength) {
-//            ChatUtils.sendClientMessage("normal")
+//            Utils.sendClientMessage("normal")
             255
         } else if (displayLength - fadeLength < timeSinceStarted && timeSinceStarted <= displayLength) {
-//            ChatUtils.sendClientMessage("end fade")
+//            Utils.sendClientMessage("end fade")
             Math.round((-timeSinceStarted + displayLength) / fadeLength * 255).toShort()
         } else {
-//            ChatUtils.sendClientMessage("none")
+//            Utils.sendClientMessage("none")
             0
         }
     }

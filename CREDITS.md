@@ -1,28 +1,24 @@
 # Credits
 
-Discord and GitHub information for all contributors.
-
 ## Lead Developers
 
-- @su386 ([@Su386yt](https://github.com/Su386yt))
+- su386 ([Su386yt](https://github.com/Su386yt))
 
-- @flagmaster ([@FlagHater](https://github.com/FlagHater))
-
-## Developers
-
-- @j10a ([@j10a1n15](https://github.com/j10a1n15))
+- flagmaster ([FlagHater](https://github.com/FlagHater))
 
 ## Contributors
 
-- @koxx12 ([@koxx12-dev](https://github.com/koxx12-dev))
+- koxx12 ([koxx12-dev](https://github.com/koxx12-dev))
 
-- @afkuser ([@AfkUserMC](https://github.com/AfkUserMC))
+- afkuser ([AfkUserMC](https://github.com/AfkUserMC))
 
-- @hannibal2 ([@hannibal002](https://github.com/hannibal002))
+- j10a ([j10a1n15](https://github.com/j10a1n15))
 
-- @.insajd ([@whatsinsxde](https://github.com/whatsinsxde))
+- hannibal2 ([hannibal002](https://github.com/hannibal002))
 
-- @erymanthus ([@RayDeeUx](https://github.com/RayDeeUx))
+- .insajd ([whatsinsxde](https://github.com/whatsinsxde))
+
+- erymanthus ([RayDeeUx](https://github.com/RayDeeUx))
 
 ## Artists
 

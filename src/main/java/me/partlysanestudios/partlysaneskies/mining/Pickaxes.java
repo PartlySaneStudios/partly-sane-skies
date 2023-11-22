@@ -9,9 +9,8 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.EndOfFarmNotifier;
 import me.partlysanestudios.partlysaneskies.system.BannerRenderer;
 import me.partlysanestudios.partlysaneskies.system.PSSBanner;
-import me.partlysanestudios.partlysaneskies.utils.HypixelUtils;
-import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
+import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -29,7 +28,7 @@ public class Pickaxes {
             if (!onMiningIsland()) return;
         }
 
-        String message = StringUtils.INSTANCE.removeColorCodes(event.message.getFormattedText());
+        String message = StringUtils.removeColorCodes(event.message.getFormattedText());
         Matcher matcher = pattern.matcher(message);
 
         if (matcher.find()) {
@@ -54,19 +53,19 @@ public class Pickaxes {
         if (EndOfFarmNotifier.Companion.inGarden() || onPrivateIsland()){} else return; //dont mind me not wanting to nest code
 
         if (event.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK || event.action == PlayerInteractEvent.Action.RIGHT_CLICK_AIR) {
-            String[] loreOfItemInHand = MinecraftUtils.INSTANCE.getLore(MinecraftUtils.INSTANCE.getCurrentlyHoldingItem()).toArray(new String[0]);
+            String[] loreOfItemInHand = Utils.getLore(Utils.getCurrentlyHoldingItem()).toArray(new String[0]);
 
-            if (MinecraftUtils.INSTANCE.isArrOfStringsInLore(pickaxeAbilities, loreOfItemInHand)) {
+            if (Utils.isArrOfStringsInLore(pickaxeAbilities, loreOfItemInHand)) {
                 event.setCanceled(true);
             }
         }
     }
 
     public static boolean onPrivateIsland() {
-        String location = HypixelUtils.INSTANCE.getRegionName();
-        location = StringUtils.INSTANCE.removeColorCodes(location);
-        location = StringUtils.INSTANCE.stripLeading(location);
-        location = StringUtils.INSTANCE.stripTrailing(location);
+        String location = PartlySaneSkies.getRegionName();
+        location = StringUtils.removeColorCodes(location);
+        location = StringUtils.stripLeading(location);
+        location = StringUtils.stripTrailing(location);
         location = location.replaceAll("\\P{Print}", ""); // Removes the RANDOM EMOJIS THAT ARE PRESENT IN SKYBLOCK LOCATIONS      - Su rant, pls ignore
 
         return location.startsWith("Your Island"); //Really hope that's the only private island name, and you cant rename it
@@ -74,10 +73,10 @@ public class Pickaxes {
     }
 
     public static boolean onMiningIsland() {
-        String location = HypixelUtils.INSTANCE.getRegionName();
-        location = StringUtils.INSTANCE.removeColorCodes(location);
-        location = StringUtils.INSTANCE.stripLeading(location);
-        location = StringUtils.INSTANCE.stripTrailing(location);
+        String location = PartlySaneSkies.getRegionName();
+        location = StringUtils.removeColorCodes(location);
+        location = StringUtils.stripLeading(location);
+        location = StringUtils.stripTrailing(location);
         location = location.replaceAll("\\P{Print}", ""); // Removes the RANDOM EMOJIS THAT ARE PRESENT IN SKYBLOCK LOCATIONS      - Su rant, pls ignore
 
         String[] miningLocations = {

@@ -14,9 +14,8 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.system.requests.PolyfrostUrsaMinorRequest;
 import me.partlysanestudios.partlysaneskies.system.requests.Request;
 import me.partlysanestudios.partlysaneskies.system.requests.RequestsManager;
-import me.partlysanestudios.partlysaneskies.utils.MathUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
-import me.partlysanestudios.partlysaneskies.utils.SystemUtils;
+import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -83,7 +82,7 @@ public class SkyblockPlayer {
 //    Instantiates the player and data while freezing the current thread until complete
 //    Running on the main thread will freeze indefinitely
     public void instantiatePlayer() throws MalformedURLException {
-        SystemUtils.INSTANCE.log(Level.INFO, "Creating Player");
+        Utils.log(Level.INFO, "Creating Player");
 
         if (uuid == null) {
             String requestURL = "https://api.mojang.com/users/profiles/minecraft/" + username;
@@ -117,7 +116,7 @@ public class SkyblockPlayer {
 
                     }
                 }
-                SystemUtils.INSTANCE.log(Level.INFO, "Created Player. Requesting Data");
+                Utils.log(Level.INFO, "Created Player. Requesting Data");
                 try {
                     this.requestData();
                 } catch (MalformedURLException e) {
@@ -130,7 +129,7 @@ public class SkyblockPlayer {
             }, false, false));
         }
         else {
-            SystemUtils.INSTANCE.log(Level.INFO, "Created Player. Requesting Data");
+            Utils.log(Level.INFO, "Created Player. Requesting Data");
             try {
                 this.requestData();
             } catch (MalformedURLException e) {
@@ -139,18 +138,18 @@ public class SkyblockPlayer {
         }
 
         try {
-            SystemUtils.INSTANCE.log(Level.INFO, "Waiting....");
+            Utils.log(Level.INFO, "Waiting....");
             synchronized (lock) {
                 lock.wait();
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        SystemUtils.INSTANCE.log(Level.INFO, "Done waiting");
+        Utils.log(Level.INFO, "Done waiting");
     }
 
     public boolean isExpired() {
-        return !MathUtils.INSTANCE.onCooldown(lastUpdateTime, PartlySaneSkies.config.playerDataCacheTime * 60 * 1000L);
+        return !Utils.onCooldown(lastUpdateTime, (long) (PartlySaneSkies.config.playerDataCacheTime * 60L * 1000L));
     }
 
 //    Creates new player data by UUID
@@ -179,9 +178,9 @@ public class SkyblockPlayer {
                     break;
                 }
             }
-            SystemUtils.INSTANCE.log(Level.INFO, "Received Data. Populating Stats");
+            Utils.log(Level.INFO, "Received Data. Populating Stats");
             this.populateStats();
-            SystemUtils.INSTANCE.log(Level.INFO, "Player data successfully created and initiated");
+            Utils.log(Level.INFO, "Player data successfully created and initiated");
 
         }, false, false));
     }
@@ -205,62 +204,62 @@ public class SkyblockPlayer {
             }
             return;
         }
-        if (SystemUtils.INSTANCE.getJsonFromPath(selectedProfile, "members/" + uuid + "/") == null) {
+        if (Utils.getJsonFromPath(selectedProfile, "members/" + uuid + "/") == null) {
             synchronized (lock) {
                 lock.notifyAll();
             }
             return;
         }
-        JsonObject playerProfile = SystemUtils.INSTANCE.getJsonFromPath(selectedProfile, "members/" + uuid + "/").getAsJsonObject();
+        JsonObject playerProfile = Utils.getJsonFromPath(selectedProfile, "members/" + uuid + "/").getAsJsonObject();
 
 
-        skyblockLevel = SystemUtils.INSTANCE.getJsonFromPath(playerProfile, "/leveling/experience") == null ? 0:
-                SystemUtils.INSTANCE.getJsonFromPath(playerProfile, "/leveling/experience").getAsFloat()/100;
-        catacombsLevel = SystemUtils.INSTANCE.getJsonFromPath(playerProfile, "dungeons/dungeon_types/catacombs/experience") == null ? 0:
+        skyblockLevel = Utils.getJsonFromPath(playerProfile, "/leveling/experience") == null ? 0:
+                Utils.getJsonFromPath(playerProfile, "/leveling/experience").getAsFloat()/100;
+        catacombsLevel = Utils.getJsonFromPath(playerProfile, "dungeons/dungeon_types/catacombs/experience") == null ? 0:
                 catacombsLevelToExperience(
-                        SystemUtils.INSTANCE.getJsonFromPath(playerProfile, "dungeons/dungeon_types/catacombs/experience").getAsFloat());
-        combatLevel = SystemUtils.INSTANCE.getJsonFromPath(playerProfile, "experience_skill_combat") == null ? 0:
+                        Utils.getJsonFromPath(playerProfile, "dungeons/dungeon_types/catacombs/experience").getAsFloat());
+        combatLevel = Utils.getJsonFromPath(playerProfile, "experience_skill_combat") == null ? 0:
                 SkyblockDataManager.getSkill("COMBAT")
                         .getLevelFromExperience(
-                                SystemUtils.INSTANCE.getJsonFromPath(playerProfile, "experience_skill_combat").getAsFloat());
-        miningLevel = SystemUtils.INSTANCE.getJsonFromPath(playerProfile, "experience_skill_mining") == null ? 0:
+                                Utils.getJsonFromPath(playerProfile, "experience_skill_combat").getAsFloat());
+        miningLevel = Utils.getJsonFromPath(playerProfile, "experience_skill_mining") == null ? 0:
                 SkyblockDataManager.getSkill("MINING")
                         .getLevelFromExperience(
-                                SystemUtils.INSTANCE.getJsonFromPath(playerProfile, "experience_skill_mining").getAsFloat());
-        foragingLevel = SystemUtils.INSTANCE.getJsonFromPath(playerProfile, "experience_skill_foraging") == null ? 0:
+                                Utils.getJsonFromPath(playerProfile, "experience_skill_mining").getAsFloat());
+        foragingLevel = Utils.getJsonFromPath(playerProfile, "experience_skill_foraging") == null ? 0:
                 SkyblockDataManager.getSkill("FORAGING")
                         .getLevelFromExperience(
-                                SystemUtils.INSTANCE.getJsonFromPath(playerProfile, "experience_skill_foraging").getAsFloat());
-        farmingLevel = SystemUtils.INSTANCE.getJsonFromPath(playerProfile, "experience_skill_farming") == null ? 0:
+                                Utils.getJsonFromPath(playerProfile, "experience_skill_foraging").getAsFloat());
+        farmingLevel = Utils.getJsonFromPath(playerProfile, "experience_skill_farming") == null ? 0:
                 SkyblockDataManager.getSkill("FARMING")
                         .getLevelFromExperience(
-                                SystemUtils.INSTANCE.getJsonFromPath(playerProfile, "experience_skill_farming").getAsFloat());
-        enchantingLevel = SystemUtils.INSTANCE.getJsonFromPath(playerProfile, "experience_skill_enchanting") == null ? 0:
+                                Utils.getJsonFromPath(playerProfile, "experience_skill_farming").getAsFloat());
+        enchantingLevel = Utils.getJsonFromPath(playerProfile, "experience_skill_enchanting") == null ? 0:
                 SkyblockDataManager.getSkill("ENCHANTING")
                         .getLevelFromExperience(
-                                SystemUtils.INSTANCE.getJsonFromPath(playerProfile, "experience_skill_enchanting").getAsFloat());
-        fishingLevel = SystemUtils.INSTANCE.getJsonFromPath(playerProfile, "experience_skill_fishing") == null ? 0:
+                                Utils.getJsonFromPath(playerProfile, "experience_skill_enchanting").getAsFloat());
+        fishingLevel = Utils.getJsonFromPath(playerProfile, "experience_skill_fishing") == null ? 0:
                 SkyblockDataManager.getSkill("FISHING")
                         .getLevelFromExperience(
-                                SystemUtils.INSTANCE.getJsonFromPath(playerProfile, "experience_skill_fishing").getAsFloat());
-        alchemyLevel = SystemUtils.INSTANCE.getJsonFromPath(playerProfile, "experience_skill_alchemy") == null ? 0:
+                                Utils.getJsonFromPath(playerProfile, "experience_skill_fishing").getAsFloat());
+        alchemyLevel = Utils.getJsonFromPath(playerProfile, "experience_skill_alchemy") == null ? 0:
                 SkyblockDataManager.getSkill("ALCHEMY")
                         .getLevelFromExperience(
-                                SystemUtils.INSTANCE.getJsonFromPath(playerProfile, "experience_skill_alchemy").getAsFloat());
-        tamingLevel = SystemUtils.INSTANCE.getJsonFromPath(playerProfile, "experience_skill_taming") == null ? 0:
+                                Utils.getJsonFromPath(playerProfile, "experience_skill_alchemy").getAsFloat());
+        tamingLevel = Utils.getJsonFromPath(playerProfile, "experience_skill_taming") == null ? 0:
                 SkyblockDataManager.getSkill("TAMING")
                         .getLevelFromExperience(
-                                SystemUtils.INSTANCE.getJsonFromPath(playerProfile, "experience_skill_taming").getAsFloat());
+                                Utils.getJsonFromPath(playerProfile, "experience_skill_taming").getAsFloat());
         averageSkillLevel = (combatLevel + miningLevel + foragingLevel + farmingLevel + enchantingLevel + fishingLevel + alchemyLevel + tamingLevel) / 8;
 
 
 
         try {
-            if (SystemUtils.INSTANCE.getJsonFromPath(playerProfile, "inv_armor/data") == null) {
+            if (Utils.getJsonFromPath(playerProfile, "inv_armor/data") == null) {
                 armorName = new String[4];
             }
             else {
-                NBTTagList armorNBT = base64ToNbt(SystemUtils.INSTANCE.getJsonFromPath(playerProfile, "inv_armor/data").getAsString()).getTagList("i", 10);
+                NBTTagList armorNBT = base64ToNbt(Utils.getJsonFromPath(playerProfile, "inv_armor/data").getAsString()).getTagList("i", 10);
                 armorName = new String[armorNBT.tagCount()];
                 for (int i = 0; i < armorNBT.tagCount(); i++) {
 
@@ -272,12 +271,12 @@ public class SkyblockPlayer {
             e.printStackTrace();
         }
 
-        if (SystemUtils.INSTANCE.getJsonFromPath(playerProfile, "quiver/data") == null) {
+        if (Utils.getJsonFromPath(playerProfile, "quiver/data") == null) {
             arrowCount = -1;
         }
         else {
             try {
-                NBTTagList arrowNBT = base64ToNbt(SystemUtils.INSTANCE.getJsonFromPath(playerProfile, "quiver/data").getAsString()).getTagList("i", 10);
+                NBTTagList arrowNBT = base64ToNbt(Utils.getJsonFromPath(playerProfile, "quiver/data").getAsString()).getTagList("i", 10);
 
                 int sum = 0;
                 for (int i = 0; i < arrowNBT.tagCount(); i++) {
@@ -309,11 +308,11 @@ public class SkyblockPlayer {
 
 
 
-        if (SystemUtils.INSTANCE.getJsonFromPath(playerProfile, "pets") == null) {
+        if (Utils.getJsonFromPath(playerProfile, "pets") == null) {
             petName = "";
         }
         else {
-            JsonArray petsArray = SystemUtils.INSTANCE.getJsonFromPath(playerProfile, "pets").getAsJsonArray();
+            JsonArray petsArray = Utils.getJsonFromPath(playerProfile, "pets").getAsJsonArray();
             String selectedPetName = "";
             for (JsonElement element : petsArray) {
                 JsonObject petObject = element.getAsJsonObject();
@@ -322,12 +321,12 @@ public class SkyblockPlayer {
                     break;
                 }
             }
-            selectedPetName = StringUtils.INSTANCE.titleCase(selectedPetName);
+            selectedPetName = StringUtils.titleCase(selectedPetName);
             petName = selectedPetName;
         }
 
 
-        selectedDungeonClass = SystemUtils.INSTANCE.getJsonFromPath(playerProfile, "dungeons/selected_dungeon_class") == null ? "":StringUtils.INSTANCE.titleCase(SystemUtils.INSTANCE.getJsonFromPath(playerProfile, "dungeons/selected_dungeon_class").getAsString());
+        selectedDungeonClass = Utils.getJsonFromPath(playerProfile, "dungeons/selected_dungeon_class") == null ? "":StringUtils.titleCase(Utils.getJsonFromPath(playerProfile, "dungeons/selected_dungeon_class").getAsString());
 
         totalRuns = 0;
 
@@ -335,8 +334,8 @@ public class SkyblockPlayer {
 
         for (int i = 0; i < normalRunCount.length; i++) {
             String path = "dungeons/dungeon_types/catacombs/times_played/" + i;
-            if (SystemUtils.INSTANCE.getJsonFromPath(playerProfile, path) != null) {
-                normalRunCount[i] = SystemUtils.INSTANCE.getJsonFromPath(playerProfile, path).getAsInt();
+            if (Utils.getJsonFromPath(playerProfile, path) != null) {
+                normalRunCount[i] = Utils.getJsonFromPath(playerProfile, path).getAsInt();
             }
             else {
                 normalRunCount[i] = 0;
@@ -348,8 +347,8 @@ public class SkyblockPlayer {
         masterModeRunCount = new int[8];
         for (int i = 0; i < masterModeRunCount.length; i++) {
             String path = "dungeons/dungeon_types/master_catacombs/tier_completions/" + i;
-            if (SystemUtils.INSTANCE.getJsonFromPath(playerProfile, path) != null) {
-                masterModeRunCount[i] = SystemUtils.INSTANCE.getJsonFromPath(playerProfile, path).getAsInt();
+            if (Utils.getJsonFromPath(playerProfile, path) != null) {
+                masterModeRunCount[i] = Utils.getJsonFromPath(playerProfile, path).getAsInt();
             }
             else {
                 masterModeRunCount[i] = 0;
@@ -358,7 +357,7 @@ public class SkyblockPlayer {
             totalRuns += masterModeRunCount[i];
         }
 
-        secretsCount =  SystemUtils.INSTANCE.getJsonFromPath(this.playerHypixelJsonObject, "/player/achievements/skyblock_treasure_hunter") == null ? 0: SystemUtils.INSTANCE.getJsonFromPath(this.playerHypixelJsonObject, "/player/achievements/skyblock_treasure_hunter").getAsInt();
+        secretsCount =  Utils.getJsonFromPath(this.playerHypixelJsonObject, "/player/achievements/skyblock_treasure_hunter") == null ? 0: Utils.getJsonFromPath(this.playerHypixelJsonObject, "/player/achievements/skyblock_treasure_hunter").getAsInt();
 
         secretsPerRun = (float) secretsCount / totalRuns;
 

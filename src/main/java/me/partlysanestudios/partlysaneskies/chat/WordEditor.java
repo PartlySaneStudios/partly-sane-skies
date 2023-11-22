@@ -9,7 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.system.commands.PSSCommand;
-import me.partlysanestudios.partlysaneskies.utils.ChatUtils;
+import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.util.IChatComponent;
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -44,7 +44,7 @@ public class WordEditor {
 
         for (final String[] word : wordsToEdit) {
 
-            // ChatUtils.INSTANCE.sendClientMessage("Trying to replace \"" + word[0] + "\" with \"" + word[1]);
+            // Utils.sendClientMessage("Trying to replace \"" + word[0] + "\" with \"" + word[1]);
             final String wordToReplace = word[0];
             final String replacementWord = word[1];
 
@@ -92,13 +92,13 @@ public class WordEditor {
 
     public static void listWords() {
         if (WordEditor.wordsToEdit.length == 0) {
-            ChatUtils.INSTANCE.sendClientMessage("§7There are no words to replace.");
+            Utils.sendClientMessage("§7There are no words to replace.");
             return;
         }
 
-        ChatUtils.INSTANCE.sendClientMessage("§7Words to replace:");
+        Utils.sendClientMessage("§7Words to replace:");
         for (int i = 0; i < WordEditor.wordsToEdit.length; i++) {
-            ChatUtils.INSTANCE.sendClientMessage("§b" + (i + 1) + ". §7" + wordsToEdit[i][0] + " §8-> §7" + wordsToEdit[i][1]);
+            Utils.sendClientMessage("§b" + (i + 1) + ". §7" + wordsToEdit[i][0] + " §8-> §7" + wordsToEdit[i][1]);
         }
     }
 
@@ -113,7 +113,7 @@ public class WordEditor {
                 .setRunnable(((sender, args) -> {
                     if (args.length == 0 || args[0].equalsIgnoreCase("list")) {
 
-                        ChatUtils.INSTANCE.sendClientMessage("§7To add a word to replace, run §b/wordeditor add <word> <replacement>§7. To remove a word, run §b/wordeditor remove <index>§7. To list all of the words, run §b/wordeditor list§7.");
+                        Utils.sendClientMessage("§7To add a word to replace, run §b/wordeditor add <word> <replacement>§7. To remove a word, run §b/wordeditor remove <index>§7. To list all of the words, run §b/wordeditor list§7.");
 
                         WordEditor.listWords();
                         return;
@@ -121,7 +121,7 @@ public class WordEditor {
 
                     if (args[0].equalsIgnoreCase("remove")) {
                         if (args.length == 1) {
-                            ChatUtils.INSTANCE.sendClientMessage("§cError: Must provide an index to remove");
+                            Utils.sendClientMessage("§cError: Must provide an index to remove");
                             return;
                         }
 
@@ -129,15 +129,15 @@ public class WordEditor {
                         try {
                             i = Integer.parseInt(args[1]);
                         } catch (NumberFormatException e) {
-                            ChatUtils.INSTANCE.sendClientMessage("§cPlease enter a valid number index and try again.");
+                            Utils.sendClientMessage("§cPlease enter a valid number index and try again.");
                             return;
                         }
 
                         if (i > WordEditor.wordsToEdit.length || i < 1) {
-                            ChatUtils.INSTANCE.sendClientMessage("§cPlease select a valid index and try again.");
+                            Utils.sendClientMessage("§cPlease select a valid index and try again.");
                             return;
                         }
-                        ChatUtils.INSTANCE.sendClientMessage("§aRemoving: §b" + WordEditor.wordsToEdit[i - 1][0] + " §8-> §b" + WordEditor.wordsToEdit[i - 1][1]);
+                        Utils.sendClientMessage("§aRemoving: §b" + WordEditor.wordsToEdit[i - 1][0] + " §8-> §b" + WordEditor.wordsToEdit[i - 1][1]);
                         WordEditor.wordsToEdit = ArrayUtils.removeElement(WordEditor.wordsToEdit, WordEditor.wordsToEdit[i - 1]);    // Removes the element from the array
                         try {
                             WordEditor.save();
@@ -148,7 +148,7 @@ public class WordEditor {
 
                     if (args[0].equalsIgnoreCase("add")) {
                         if (args.length < 3) {
-                            ChatUtils.INSTANCE.sendClientMessage("§cError: Must provide a word and a replacement");
+                            Utils.sendClientMessage("§cError: Must provide a word and a replacement");
                             return;
                         }
 
@@ -159,7 +159,7 @@ public class WordEditor {
                             replacement += " " + args[i];
                         }
 
-                        ChatUtils.INSTANCE.sendClientMessage("§aAdding: §b" + word + " §8-> §b" + replacement);
+                        Utils.sendClientMessage("§aAdding: §b" + word + " §8-> §b" + replacement);
                         WordEditor.wordsToEdit = ArrayUtils.add(WordEditor.wordsToEdit, new String[]{word, replacement});
                         try {
                             WordEditor.save();

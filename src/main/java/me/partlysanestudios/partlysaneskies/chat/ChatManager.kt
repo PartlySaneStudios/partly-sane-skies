@@ -8,7 +8,6 @@ package me.partlysanestudios.partlysaneskies.chat
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.utils.StringUtils
-import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import net.minecraft.client.audio.PositionedSoundRecord
 import net.minecraft.event.ClickEvent
 import net.minecraft.event.HoverEvent
@@ -37,7 +36,7 @@ object ChatManager {
             return
         }
 
-        // ChatUtils.sendClientMessage("ChatManager.onChatReceived: ${event.message.formattedText}")
+        // Utils.sendClientMessage("ChatManager.onChatReceived: ${event.message.formattedText}")
 
         event.isCanceled = true // cancels the even
 
@@ -74,7 +73,7 @@ object ChatManager {
         // If the message has not changed
         if (messageToSend.equals(event.message)) {
             event.isCanceled = false // Reset the event
-            // ChatUtils.sendClientMessage("Message has not changed")
+            // Utils.sendClientMessage("Message has not changed")
             return // Exit
         }
 
@@ -165,7 +164,7 @@ object ChatManager {
     }
 
     fun IChatComponent.extractUrls(): List<String> {
-        return extractUrls(this.unformattedText.removeColorCodes())
+        return extractUrls(StringUtils.removeColorCodes(this.unformattedText))
     }
 
 //    Returns if we interact with chat at all

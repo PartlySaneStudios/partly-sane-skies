@@ -112,7 +112,7 @@ public class ChatColors {
     }
 
     public static String getPrefix(String message) {
-        message = StringUtils.INSTANCE.removeColorCodes(message);
+        message = StringUtils.removeColorCodes(message);
         if (message.startsWith("Party >")) {
             return "Party";
         }
@@ -156,7 +156,7 @@ public class ChatColors {
         String messageString = message.substring(messageStartIndex);
         String preMessageString = message.substring(0, messageStartIndex);
 
-        messageString = StringUtils.INSTANCE.removeColorCodes(messageString);
+        messageString = StringUtils.removeColorCodes(messageString);
         messageString = color + messageString;
         
         return preMessageString + messageString;
