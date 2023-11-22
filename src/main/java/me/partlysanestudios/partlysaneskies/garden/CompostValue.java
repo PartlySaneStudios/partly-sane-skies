@@ -32,9 +32,9 @@ public class CompostValue {
     public static HashMap<String, Double> compostValueMap = new HashMap<>();
     public static HashMap<String, Double> costPerOrganicMatterMap = new HashMap<>();
     public static HashMap<String, Double> costPerCompostMap = new HashMap<>();
-    public static float compostCost = 4000;
-    public static float fillLevel = 0;
-    public static float maxCompost = 40000;
+    public static double compostCost = 4000;
+    public static double fillLevel = 0;
+    public static double maxCompost = 40000;
 
     public static void init() {
         compostValueMap.put("WHEAT", 1d);
@@ -115,7 +115,7 @@ public class CompostValue {
             double cropPerCompost = compostCost / compostValueMap.get(id);
             String cropName = SkyblockDataManager.getItem(id).getName();
             double costPerCompost = en.getValue();
-            float compostAmount = getCurrentCompostAbleToMake();
+            double compostAmount = getCurrentCompostAbleToMake();
             if (maxCompost == fillLevel) {
                 compostAmount = getMaxCompostAbleToMake();
             }
@@ -186,7 +186,7 @@ public class CompostValue {
         return StringUtils.INSTANCE.recognisePattern(costLine, pattern, "{compost_cost}");
     }
 
-    private static float getCompostCost(IInventory inventory) {
+    private static double getCompostCost(IInventory inventory) {
         return StringUtils.INSTANCE.parseAbbreviatedNumber(getCompostCostString(inventory));
     }
 
@@ -208,7 +208,7 @@ public class CompostValue {
 
     }
 
-    private static float getOrganicMatterFillLevel(IInventory inventory) {
+    private static double getOrganicMatterFillLevel(IInventory inventory) {
         String organicMatterFillLevelString = getOrganicMatterFillLevelString(inventory);
         if (organicMatterFillLevelString.isEmpty()) {
             return 0;
@@ -237,15 +237,15 @@ public class CompostValue {
         return amountLine;
     }
 
-    public static float getMaxCompostAbleToMake() {
+    public static double getMaxCompostAbleToMake() {
         return maxCompost / compostCost;
     }
 
-    public static float getCurrentCompostAbleToMake() {
+    public static double getCurrentCompostAbleToMake() {
         return (maxCompost - fillLevel) / compostCost;
     }
 
-    private static float getOrganicMatterLimit(IInventory inventory) {
+    private static double getOrganicMatterLimit(IInventory inventory) {
         return StringUtils.INSTANCE.parseAbbreviatedNumber(getOrganicMatterLimitString(inventory));
     }
 
@@ -298,7 +298,7 @@ public class CompostValue {
         textString += "§e§lCompost:\n\n";
         double compostSellPrice = SkyblockDataManager.getItem("COMPOST").getBazaarSellPrice();
 
-        float compostAmount = getCurrentCompostAbleToMake();
+        double compostAmount = getCurrentCompostAbleToMake();
         if (maxCompost == fillLevel) {
             compostAmount = getMaxCompostAbleToMake();
         }

@@ -23,6 +23,7 @@ import me.partlysanestudios.partlysaneskies.system.requests.Request
 import me.partlysanestudios.partlysaneskies.system.requests.RequestRunnable
 import me.partlysanestudios.partlysaneskies.system.requests.RequestsManager
 import me.partlysanestudios.partlysaneskies.utils.StringUtils
+import me.partlysanestudios.partlysaneskies.utils.StringUtils.formatNumber
 import me.partlysanestudios.partlysaneskies.utils.Utils
 import net.minecraft.command.ICommandSender
 import kotlin.math.abs
@@ -66,8 +67,8 @@ class CoinsToBoosterCookieConversion {
                         val sSGPInPreferredCurrency = boosterCookieData["storehypixelnet"].asJsonObject.get(prefCurr).asDouble
                         val cookieValue: Double = ceil(convertToCookies(a[0].toDouble()))
                         val dollars: Double = (Math.round((cookieValue * sSGPInPreferredCurrency) * 100)) / 100.0
-                        Utils.sendClientMessage("§6${StringUtils.formatNumber(abs(a[0].toDouble()))} coins §etoday is equivalent to §6${StringUtils.formatNumber(cookieValue.toLong().toDouble())} Booster Cookies, or §2${currencyFormatting(money = (StringUtils.formatNumber(dollars)))} §e(excluding sales taxes and other fees).")
-                        Utils.sendClientMessage("§7(For reference, Booster Cookies today are worth ${StringUtils.formatNumber(ceil(SkyblockDataManager.getItem(boosterCookieItemId).getBuyPrice()).toLong().toDouble())} coins. Note that the developers of Partly Sane Skies do not support IRL trading; the /c2c command is intended for educational purposes.)", true)
+                        Utils.sendClientMessage("§6${abs(a[0].toDouble()).formatNumber()} coins §etoday is equivalent to §6${cookieValue.toLong().toDouble().formatNumber()} Booster Cookies, or §2${currencyFormatting(money = (dollars.formatNumber()))} §e(excluding sales taxes and other fees).")
+                        Utils.sendClientMessage("§7(For reference, Booster Cookies today are worth ${ceil(SkyblockDataManager.getItem(boosterCookieItemId).getBuyPrice()).toLong().toDouble().formatNumber()} coins. Note that the developers of Partly Sane Skies do not support IRL trading; the /c2c command is intended for educational purposes.)", true)
                         if (PartlySaneSkies.isDebugMode) Utils.sendClientMessage("§eIf the currency symbol doesn't look right, please report this to us via §9/discord §eso we can find a replacement symbol that Minecraft 1.8.9 can render.", true)
                     } else {
                         if (a.isEmpty()) {
@@ -135,8 +136,8 @@ class CoinsToBoosterCookieConversion {
                         val dollars: Double = (Math.round((cookieValue * sSGPInPreferredCurrency) * 100)) / 100.0
                         var namePlaceholder = "$username's"
                         if (username == PartlySaneSkies.minecraft.thePlayer.name) namePlaceholder = "Your"
-                        Utils.sendClientMessage("§e$namePlaceholder total networth (both soulbound and unsoulbound) of §6${StringUtils.formatNumber(networth.toLong().toDouble())} coins §etoday is equivalent to §6${StringUtils.formatNumber(cookieValue.toDouble())} Booster Cookies, or §2${currencyFormatting(money = (StringUtils.formatNumber(dollars)))} §e(excluding sales taxes and other fees).")
-                        Utils.sendClientMessage("§7(For reference, Booster Cookies today are worth ${StringUtils.formatNumber(ceil(SkyblockDataManager.getItem(boosterCookieItemId).getBuyPrice()).toLong().toDouble())} coins. Note that the developers of Partly Sane Skies do not support IRL trading; the /c2c command is intended for educational purposes.)", true)
+                        Utils.sendClientMessage("§e$namePlaceholder total networth (both soulbound and unsoulbound) of §6${networth.toLong().toDouble().formatNumber()} coins §etoday is equivalent to §6${cookieValue.formatNumber()} Booster Cookies, or §2${currencyFormatting(money = (dollars.formatNumber()))} §e(excluding sales taxes and other fees).")
+                        Utils.sendClientMessage("§7(For reference, Booster Cookies today are worth ${ceil(SkyblockDataManager.getItem(boosterCookieItemId).getBuyPrice()).toLong().toDouble().formatNumber()} coins. Note that the developers of Partly Sane Skies do not support IRL trading; the /c2c command is intended for educational purposes.)", true)
                         Utils.sendClientMessage("§ePlease use NEU's §a/pv§e command for converting your unsoulbound networth.", true)
                         if (PartlySaneSkies.isDebugMode) Utils.sendClientMessage("§eIf the currency symbol doesn't look right, please report this to us via §9/discord §eso we can find a replacement symbol that Minecraft 1.8.9 can render.", true)
                     } else {

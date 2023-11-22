@@ -8,6 +8,7 @@ package me.partlysanestudios.partlysaneskies.chat
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.utils.StringUtils
+import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import net.minecraft.client.audio.PositionedSoundRecord
 import net.minecraft.event.ClickEvent
 import net.minecraft.event.HoverEvent
@@ -164,7 +165,7 @@ object ChatManager {
     }
 
     fun IChatComponent.extractUrls(): List<String> {
-        return extractUrls(StringUtils.removeColorCodes(this.unformattedText))
+        return extractUrls(this.unformattedText.removeColorCodes())
     }
 
 //    Returns if we interact with chat at all

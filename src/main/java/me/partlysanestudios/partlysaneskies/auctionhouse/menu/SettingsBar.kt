@@ -15,6 +15,7 @@ import gg.essential.elementa.dsl.pixels
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.system.ThemeManager
 import me.partlysanestudios.partlysaneskies.utils.StringUtils
+import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import me.partlysanestudios.partlysaneskies.utils.Utils
 import net.minecraft.inventory.IInventory
 import net.minecraft.util.ResourceLocation
@@ -107,7 +108,7 @@ class SettingsBar (val xConstraint: XConstraint, val yConstraint: YConstraint, v
                             break
                         }
                     }
-                    sortSelectedLine = StringUtils.removeColorCodes(sortSelectedLine)
+                    sortSelectedLine = sortSelectedLine.removeColorCodes()
                     if (sortSelectedLine.lowercase(Locale.getDefault()).contains("highest")) {
                         sortImageName = "price_high_low"
                     } else if (sortSelectedLine.lowercase(Locale.getDefault()).contains("lowest")) {
@@ -136,7 +137,7 @@ class SettingsBar (val xConstraint: XConstraint, val yConstraint: YConstraint, v
                         }
                     }
 
-                    filterSelectedLine = StringUtils.removeColorCodes(filterSelectedLine)
+                    filterSelectedLine = filterSelectedLine.removeColorCodes()
 
                     if (filterSelectedLine.lowercase(Locale.getDefault()).contains("uncommon")) {
                         filterImageName = "uncommon"
@@ -175,7 +176,7 @@ class SettingsBar (val xConstraint: XConstraint, val yConstraint: YConstraint, v
                             break
                         }
                     }
-                    binSelectedLine = StringUtils.removeColorCodes(binSelectedLine)
+                    binSelectedLine = binSelectedLine.removeColorCodes()
                     if (binSelectedLine.lowercase(Locale.getDefault()).contains("bin only")) {
                         binImageName = "bin_only"
                     } else if (binSelectedLine.lowercase(Locale.getDefault()).contains("auctions only")) {

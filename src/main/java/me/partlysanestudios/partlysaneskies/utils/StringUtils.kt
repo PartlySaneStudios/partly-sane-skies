@@ -13,8 +13,9 @@ object StringUtils {
     // public static String colorCodes(String text) {
     //     return text.replace("&", "§");
     // }
-    fun removeColorCodes(text: String?): String {
-        val textBuilder = StringBuilder(text)
+
+    fun String.removeColorCodes(): String {
+        val textBuilder = StringBuilder(this)
         while (textBuilder.indexOf("§") != -1) {
             if (textBuilder.indexOf("§") == textBuilder.length - 1) {
                 textBuilder.deleteCharAt(textBuilder.indexOf("§"))
@@ -26,8 +27,10 @@ object StringUtils {
         return textBuilder.toString()
     }
 
-    fun wrapText(text: String, charNumber: Int): String {
-        val charArray = text.toCharArray()
+
+
+    fun String.wrapText(charNumber: Int): String {
+        val charArray = this.toCharArray()
         val words: MutableList<String> = ArrayList()
         val chars: MutableList<Char> = ArrayList()
         for (c in charArray) if (c == ' ') {
@@ -43,8 +46,8 @@ object StringUtils {
         val wrappedText = StringBuilder()
         val line: MutableList<String> = ArrayList()
         var wasPreviousCharFormatCode = false
-        var previousFormatCode: String? = ""
-        var currentLineFormatCode: String? = ""
+        var previousFormatCode = ""
+        var currentLineFormatCode = ""
         for (word in words) {
             charsOnLine += word.length
             if (charsOnLine >= charNumber) {
@@ -110,11 +113,11 @@ object StringUtils {
         return str
     }
 
-    fun formatNumber(num: Double): String {
+    fun Double.formatNumber(): String {
         val decimalFormat = DecimalFormat("#,###.00")
 
 //        Creates a string with the number formatted with the above decimal format
-        var formattedNum = decimalFormat.format(num)
+        var formattedNum = decimalFormat.format(this)
         var hundredsPlaceFormat = ""
         when (PartlySaneSkies.config.hundredsPlaceFormat) {
             0 -> hundredsPlaceFormat = ","
@@ -238,7 +241,8 @@ object StringUtils {
         }
     }
 
-    fun titleCase(str: String): String {
+    fun String.titleCase(): String {
+        val str = this
         val titleCase = StringBuilder()
         var nextCharUpperCase = true
         for (i in 0 until str.length) {
@@ -258,22 +262,26 @@ object StringUtils {
         return titleCase.toString()
     }
 
-    fun parseAbbreviatedNumber(num: String): Float {
-        var num = num
-        num = num.replace(" ", "")
-        val digits = num.replace("[^\\d.]".toRegex(), "")
-        var parsedNum = digits.toFloat()
-        val pattern = Pattern.compile("[^\\d.]")
-        while (num.length > 0 && pattern.matcher(num.substring(num.length - 1)).find()) {
-            val str = num.substring(num.length - 1)
-            when (str) {
-                "k" -> parsedNum *= 1000f
-                "m" -> parsedNum *= 1000000f
-                "b" -> parsedNum *= 1000000000f
-                "t" -> parsedNum *= 1000000000000f
+    fun String.parseAbbreviatedNumber(): Double {
+        try {
+            var num = this
+            num = num.replace(" ", "")
+            val digits = num.replace("[^\\d.]".toRegex(), "")
+            var parsedNum = digits.toDouble()
+            val pattern = Pattern.compile("[^\\d.]")
+            while (num.length > 0 && pattern.matcher(num.substring(num.length - 1)).find()) {
+                val str = num.substring(num.length - 1)
+                when (str) {
+                    "k" -> parsedNum *= 1000f
+                    "m" -> parsedNum *= 1000000f
+                    "b" -> parsedNum *= 1000000000f
+                    "t" -> parsedNum *= 1000000000000f
+                }
+                num = num.substring(0, num.length - 1)
             }
-            num = num.substring(0, num.length - 1)
+            return parsedNum
+        } catch (e: NumberFormatException) {
+            return Double.NaN
         }
-        return parsedNum
     }
 }

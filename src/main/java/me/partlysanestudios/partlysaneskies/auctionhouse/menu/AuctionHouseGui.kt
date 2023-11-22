@@ -19,6 +19,7 @@ import gg.essential.universal.UMatrixStack
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.system.ThemeManager
 import me.partlysanestudios.partlysaneskies.utils.StringUtils
+import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import net.minecraft.client.gui.inventory.GuiChest
 import net.minecraft.inventory.IInventory
 import net.minecraft.item.Item
@@ -205,8 +206,8 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
             if (PartlySaneSkies.minecraft.currentScreen !is GuiChest) {
                 return false
             }
-            return StringUtils.removeColorCodes(inventory.displayName.formattedText)
-                .contains("Auctions Browser") || StringUtils.removeColorCodes(inventory.displayName.formattedText)
+            return inventory.displayName.formattedText.removeColorCodes()
+                .contains("Auctions Browser") || inventory.displayName.formattedText.removeColorCodes()
                 .contains("Auctions: \"")
         }
 

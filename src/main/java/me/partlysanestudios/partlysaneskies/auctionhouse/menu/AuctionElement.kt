@@ -21,6 +21,7 @@ import me.partlysanestudios.partlysaneskies.system.ThemeManager
 import me.partlysanestudios.partlysaneskies.system.guicomponents.PSSButton
 import me.partlysanestudios.partlysaneskies.system.guicomponents.PSSItemRender
 import me.partlysanestudios.partlysaneskies.utils.StringUtils
+import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import me.partlysanestudios.partlysaneskies.utils.Utils
 import net.minecraft.item.ItemStack
 import java.awt.Color
@@ -122,7 +123,7 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack?, var xCons
         val loreList: List<String> = Utils.getLore(itemstack)
         for (line in loreList) {
             
-            if (StringUtils.removeColorCodes(line).contains("Buy it now: ")) {
+            if (line.removeColorCodes().contains("Buy it now: ")) {
                 return true
             }
         }
@@ -141,11 +142,11 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack?, var xCons
         val loreList: List<String> = Utils.getLore(itemstack)
         var buyItNowPrice = ""
         for (line in loreList) {
-            if (StringUtils.removeColorCodes(line).contains("Buy it now:")
-                || StringUtils.removeColorCodes(line).contains("Top bid:")
-                || StringUtils.removeColorCodes(line).contains("Starting bid:")
+            if (line.removeColorCodes().contains("Buy it now:")
+                || line.removeColorCodes().contains("Top bid:")
+                || line.removeColorCodes().contains("Starting bid:")
             ) {
-                buyItNowPrice = StringUtils.removeColorCodes(line).replace("[^0-9]".toRegex(), "")
+                buyItNowPrice = line.removeColorCodes().replace("[^0-9]".toRegex(), "")
             }
         }
         if (buyItNowPrice.isEmpty()) {
@@ -213,11 +214,11 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack?, var xCons
         }
         val loreList: List<String> = Utils.getLore(itemstack)
         for (loreLine in loreList) {
-            if (StringUtils.removeColorCodes(loreLine).contains("Ends in:")) {
-                return StringUtils.removeColorCodes(loreLine).replace("Ends in: ", "")
+            if (loreLine.removeColorCodes().contains("Ends in:")) {
+                return loreLine.removeColorCodes().replace("Ends in: ", "")
             }
-            if (StringUtils.removeColorCodes(loreLine).contains("Ending Soon")) {
-                return StringUtils.removeColorCodes(loreLine)
+            if (loreLine.removeColorCodes().contains("Ending Soon")) {
+                return loreLine.removeColorCodes()
             }
         }
         return ""
@@ -240,7 +241,7 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack?, var xCons
             if (loreList.size - 7 - 1 < 0) {
                 return ""
             }
-            StringUtils.removeColorCodes(loreList[loreList.size - 7 - 1])
+            loreList[loreList.size - 7 - 1].removeColorCodes()
         } catch (exception: NullPointerException) {
             exception.printStackTrace()
             return ""
