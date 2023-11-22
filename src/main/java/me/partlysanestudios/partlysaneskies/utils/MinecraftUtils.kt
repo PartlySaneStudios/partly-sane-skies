@@ -1,8 +1,10 @@
 //
-// Written by J10a1n15. Rewritten by Su386 in Kotlin.
+// Written by J10a1n15 and Su386.
 // See LICENSE for copyright and license notices.
 // Hard inspired by NotEnoughUpdates - https://github.com/NotEnoughUpdates/NotEnoughUpdates
 //
+
+
 package me.partlysanestudios.partlysaneskies.utils
 
 import com.google.common.collect.ComparisonChain
