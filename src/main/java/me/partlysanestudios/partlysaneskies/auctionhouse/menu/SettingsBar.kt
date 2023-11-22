@@ -241,7 +241,7 @@ class SettingsBar (val xConstraint: XConstraint, val yConstraint: YConstraint, v
             for (element in settingList) {
                 element.setColor(Color(0, 0, 0, 0))
             }
-            settingList[selectedItem].setColor(ThemeManager.getAccentColor())
+            settingList[selectedItem].setColor(ThemeManager.getAccentColor().toJavaColor())
         }
     }
 

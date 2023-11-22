@@ -5,6 +5,8 @@
 
 package me.partlysanestudios.partlysaneskies.utils;
 
+import cc.polyfrost.oneconfig.config.core.OneColor;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -27,20 +29,20 @@ public class ImageUtils {
     public static BufferedImage loadImage(String path) throws IOException {
         return ImageIO.read(new File(path));
     }
-//
-//    public static BufferedImage replaceColor(BufferedImage image, Color oldColor, Color newColor) {
-//        return replaceColor(image, oldColor, newColor);
-//    }
-//
-//    public static BufferedImage replaceColor(BufferedImage image, Color oldColor, Color newColor) {
-//        return replaceColor(image, oldColor, new Color(newColor));
-//    }
-//
-//    public static BufferedImage replaceColor(BufferedImage image, Color oldColor, Color newColor) {
-//        return replaceColor(image, new Color(oldColor), newColor);
-//    }
 
     public static BufferedImage replaceColor(BufferedImage image, Color oldColor, Color newColor) {
+        return replaceColor(image, new OneColor(oldColor), new OneColor(newColor));
+    }
+
+    public static BufferedImage replaceColor(BufferedImage image, OneColor oldColor, Color newColor) {
+        return replaceColor(image, oldColor, new OneColor(newColor));
+    }
+
+    public static BufferedImage replaceColor(BufferedImage image, Color oldColor, OneColor newColor) {
+        return replaceColor(image, new OneColor(oldColor), newColor);
+    }
+
+    public static BufferedImage replaceColor(BufferedImage image, OneColor oldColor, OneColor newColor) {
         int width = image.getWidth();
         int height = image.getHeight();
 
@@ -49,8 +51,8 @@ public class ImageUtils {
                 int intColor = image.getRGB(x, y);
                 Color pixelColor = new Color(intColor);
 
-                if (pixelColor.equals(oldColor)) {
-                    image.setRGB(x, y, newColor.getRGB());
+                if (pixelColor.equals(oldColor.toJavaColor())) {
+                    image.setRGB(x, y, newColor.toJavaColor().getRGB());
                 }
             }
         }

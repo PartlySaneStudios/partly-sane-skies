@@ -6,62 +6,58 @@
 
 package me.partlysanestudios.partlysaneskies.system;
 
+import cc.polyfrost.oneconfig.config.Config;
+import cc.polyfrost.oneconfig.config.annotations.Number;
+import cc.polyfrost.oneconfig.config.annotations.*;
+import cc.polyfrost.oneconfig.config.core.OneColor;
+import cc.polyfrost.oneconfig.config.core.OneKeyBind;
+import cc.polyfrost.oneconfig.config.data.InfoType;
+import cc.polyfrost.oneconfig.config.data.Mod;
+import cc.polyfrost.oneconfig.config.data.ModType;
+import org.lwjgl.input.Keyboard;
 
-import gg.essential.vigilance.Vigilant;
-import gg.essential.vigilance.data.Property;
-import gg.essential.vigilance.data.PropertyType;
+public class OneConfigScreen extends Config {
 
-import java.awt.*;
-import java.io.File;
-
-public class VigilantConfigScreen extends Vigilant {
-    public VigilantConfigScreen() {
-        super(new File("partly-sane-skies/config-vigilant.toml"));
+    public OneConfigScreen() {
+        // Available mod types: PVP, HUD, UTIL_QOL, HYPIXEL, SKYBLOCK
+        super(new Mod("Partly Sane Skies", ModType.SKYBLOCK, "/assets/partlysaneskies/textures/logo_oneconfig.png"), "partly-sane-skies/config.json");
+        initialize();
     }
-
-//    public OneConfigScreen() {
-//        // Available mod types: PVP, HUD, UTIL_QOL, HYPIXEL, SKYBLOCK
-//
-////        super(new Mod("Partly Sane Skies", ModType.SKYBLOCK, "/assets/partlysaneskies/textures/logo_oneconfig.png"), "partly-sane-skies/config.json");
-////        initialize();
-//        super.initialize();
-//    }
 
     public void resetBrokenStrings() {
         if (arrowLowChatMessage.isEmpty()) {
             arrowLowChatMessage = "Partly Sane Skies > Warning! {player} only has {count} arrows remaining!";
-            super.writeData();
+            save();
         }
         if (watcherChatMessage.isEmpty()) {
             watcherChatMessage = "Partly Sane Skies > The watcher is done spawning mobs. Ready to clear.";
-            writeData();
+            save();
         }
         if (secretsChatMessageString.isEmpty()){
             secretsChatMessageString = "Partly Sane Skies > All required secrets have been found!";
-            writeData();
+            save();
         }
     }
 
-//    @Info(
-//        type = InfoType.INFO,
-//        text = "Hover over an option to see a description and more information."
-//
-//    )
-//    public static boolean ignored;
+    @Info(
+        type = InfoType.INFO,
+        text = "Hover over an option to see a description and more information."
 
- 
-    @Property(
-        type = PropertyType.TEXT,
-        hidden = true,
+    )
+    public static boolean ignored;
+
+    @HypixelKey
+    @Text(
+        secure = true, 
         name = "API Key", 
         category = "General", 
         subcategory = "API", 
-        description = "Do /api new to automatically set your API Key. Do not show your API key to anyone unless you know what you're doing."
+        description = "Do /api new to automatically set your API Key. Do not show your API key to anyone unless you know what you're doing.",
+            size = 2
     )
     public String apiKey = "";
 
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
             name = "Force Custom API Key",
             category = "General",
             subcategory = "API",
@@ -69,10 +65,9 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public boolean forceCustomAPIKey = false;
 
-    @Property(
-        type = PropertyType.DECIMAL_SLIDER, 
-        minF = .1f,
-        maxF = 30f,
+    @Number(
+        min = .1f,
+        max = 30f,
         name = "Time between requests",
         category = "General",
         subcategory = "API",
@@ -80,20 +75,17 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public float timeBetweenRequests = 0.5f;
 
-    @Property(
-        type = PropertyType.DECIMAL_SLIDER, 
-        name = "Player Data Cache Time",
-        minF = 0,
-        
-        maxF = 90,
-        subcategory = "API",
-        description = "Saves the data from other party members to save time upon loading data about players. The bigger the value the more minFutes you will save but the less accurate your data will be.",
-        category = "General"
+    @Slider(
+            name = "Player Data Cache Time",
+            min = 0,
+            max = 90,
+            subcategory = "API",
+            description = "Saves the data from other party members to save time upon loading data about players. The bigger the value the more minutes you will save but the less accurate your data will be.",
+            category = "General"
     )
-    public float playerDataCacheTime = 5;
+    public int playerDataCacheTime = 5;
 
-    @Property(
-        type = PropertyType.SELECTOR, 
+    @Dropdown(
         options = {
             "Commas (1,000,000)",
             "Spaces (1 000 000)",
@@ -106,8 +98,7 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public int hundredsPlaceFormat = 1;
 
-    @Property(
-        type = PropertyType.SELECTOR, 
+    @Dropdown(
         options = {
             "Commas (1,52)",
             "Periods (1.52)",
@@ -119,8 +110,7 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public int decimalPlaceFormat = 1;
 
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
         category = "General",
         subcategory = "Appearance",
         name = "24 hour time",
@@ -129,8 +119,7 @@ public class VigilantConfigScreen extends Vigilant {
     public boolean hour24time = false;
     
 
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
         category = "General",
         subcategory = "Appearance",
         name = "Legacy Version Warning",
@@ -139,16 +128,14 @@ public class VigilantConfigScreen extends Vigilant {
     public boolean legacyVersionWarning = true;
     // Main Menu
 
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
         category = "General", 
         subcategory = "Main Menu", 
-        name = "Show a Custom minFecraft Main Menu"
+        name = "Show a Custom Minecraft Main Menu"
     )
     public boolean customMainMenu = true;
 
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
         category = "General", 
         subcategory = "Main Menu", 
         name = "Announcements on Main Menu",
@@ -156,8 +143,7 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public boolean displayAnnouncementsCustomMainMenu = true;
 
-    @Property(
-        type = PropertyType.SELECTOR, 
+    @Dropdown(
         options = {
             "Random Image",
             "View of Main Hub Mountain",
@@ -170,13 +156,12 @@ public class VigilantConfigScreen extends Vigilant {
         }, 
         category = "General", 
         subcategory = "Main Menu", 
-        name = "Custom minFecraft Main Menu Image",
+        name = "Custom Minecraft Main Menu Image",
         description = "Select one of our many high quality included images, or you can use your custom image.\nTo use your own image, place your image in the /config/partly-sane-skies folder and title your image background.png"
     )
     public int customMainMenuImage = 1;
 
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
         name = "Print errors in chat",
         category = "General",
         subcategory = "API",
@@ -188,8 +173,7 @@ public class VigilantConfigScreen extends Vigilant {
 
 //    ------------------ Category: Themes ---------------------
 //    Themes
-    @Property(
-        type = PropertyType.SELECTOR, 
+    @Dropdown(
             name = "Selected Theme",
             category = "Themes",
             subcategory = "Theme",
@@ -215,8 +199,7 @@ public class VigilantConfigScreen extends Vigilant {
     public int themeIndex = 0;
 
 //    Accent Color
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
             name = "Use default accent color",
             description = "Uses the default Partly Sane Skies accent color",
             category = "Themes",
@@ -224,18 +207,16 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public boolean useDefaultAccentColor = true;
 
-    @Property(
-        type = PropertyType.COLOR, 
+    @Color(
             name = "Custom Accent Color",
             description = "Choose a custom accent color for your game",
             category = "Themes",
             subcategory = "Accent Color"
     )
-    public Color accentColor = new Color(1, 255, 255, 255);
+    public OneColor accentColor = new OneColor(1, 255, 255, 255);
 
 //    Custom Themes
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
             name = "Create your own Theme",
             description = "Enable to be able to create your own custom themes",
             category = "Themes",
@@ -243,28 +224,25 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public boolean customTheme = false;
 
-    @Property(
-        type = PropertyType.COLOR, 
+    @Color(
             name = "Custom Primary Color",
             description = "Choose a custom primary color for your game",
             category = "Themes",
             subcategory = "Custom Themes"
     )
-    public Color primaryColor = new Color(42, 43, 46, 255);
+    public OneColor primaryColor = new OneColor(42, 43, 46, 255);
 
-    @Property(
-        type = PropertyType.COLOR, 
+    @Color(
             name = "Custom Secondary Color",
             description = "Choose a custom secondary color for your game",
             category = "Themes",
             subcategory = "Custom Themes"
     )
-    public Color secondaryColor = new Color(42, 43, 46, 255);
+    public OneColor secondaryColor = new OneColor(42, 43, 46, 255);
 
 
 //    Resource Packs
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
             name = "Disable themes to use resource packs",
             description = "Disable themes to be able to use resource packs to modify Partly Sane Skies menus",
             category = "Themes",
@@ -284,8 +262,7 @@ public class VigilantConfigScreen extends Vigilant {
 
     // ----------------- Category: SkyBlock -------------------
     // Rare Drop
-    @Property(
-        type = PropertyType.SWITCH,  
+    @Switch( 
         name = "Rare Drop Banner", 
         subcategory = "Rare Drop", 
         description = "On rare drop, get a Pumpkin Dicer like banner.", 
@@ -294,10 +271,9 @@ public class VigilantConfigScreen extends Vigilant {
     public boolean rareDropBanner = false;
 
 
-    @Property(
-        type = PropertyType.DECIMAL_SLIDER, 
-        minF = 1, 
-        maxF = 7, 
+    @Slider(
+        min = 1, 
+        max = 7, 
         subcategory = "Rare Drop", 
         name = "Rare Drop Banner Time", 
         description = "The amount of seconds the rare drop banner appears for.", 
@@ -305,8 +281,7 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public float rareDropBannerTime = 3.5f;
 
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
         name = "Custom Rare Drop Sound", 
         subcategory = "Rare Drop", 
         description = "Plays a custom sound when you get a rare drop.", 
@@ -315,8 +290,7 @@ public class VigilantConfigScreen extends Vigilant {
     public boolean rareDropBannerSound = false;
 
     // Location Banner
-    @Property(
-        type = PropertyType.SWITCH,  
+    @Switch( 
         name = "Location Banner", 
         subcategory = "Location Banner", 
         description = "An MMO RPG style banner shows up when you switch locations.", 
@@ -324,10 +298,9 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public boolean locationBannerDisplay = false;
 
-    @Property(
-        type = PropertyType.DECIMAL_SLIDER, 
-        minF = 1, 
-        maxF = 7, 
+    @Slider(
+        min = 1, 
+        max = 7, 
         subcategory = "Location Banner", 
         name = "Location Banner Time", 
         description = "The amount of seconds the location banner appears for.", 
@@ -336,8 +309,7 @@ public class VigilantConfigScreen extends Vigilant {
     public float locationBannerTime = 3.5f;
 
     // Open Wiki
-    @Property(
-        type = PropertyType.SWITCH,  
+    @Switch( 
         name = "Open Wiki Automatically", 
         category = "SkyBlock",
         description = "When the Open Wiki Article Keybind is used, automatically open the article without confirmation first.", 
@@ -345,58 +317,60 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public boolean openWikiAutomatically = true;
 
-    // Pet minFion Alert
-    @Property(
-        type = PropertyType.SWITCH, 
-        name = "Incorrect Pet for minFion Alert", 
+    // Pet Minion Alert
+    @Switch(
+        name = "Incorrect Pet for Minion Alert", 
         category = "SkyBlock",
-        description = "Warns you if you don't have the right pet for leveling up the minFions, that way you never lose any pet EXP because you still have your level 100 dungeon pet activated.\nRequires pets to be visible.", 
-        subcategory = "Incorrect Pet for minFion Alert"
+        description = "Warns you if you don't have the right pet for leveling up the minions, that way you never lose any pet EXP because you still have your level 100 dungeon pet activated.\nRequires pets to be visible.", 
+        subcategory = "Incorrect Pet for Minion Alert"
     )
     public boolean incorrectPetForMinionAlert = false;
 
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
             name = "Selected Pet Information",
             category = "SkyBlock",
-            description = "Gives you information about the currently selected pet while in the minFion menu\nRequires pets to be visible.",
-            subcategory = "Incorrect Pet for minFion Alert"
+            description = "Gives you information about the currently selected pet while in the minion menu\nRequires pets to be visible.",
+            subcategory = "Incorrect Pet for Minion Alert"
     )
     public boolean selectedPetInformation = false;
 
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
         name = "Air Raid Siren", 
         category = "SkyBlock",
         description = "Plays a WWII air raid siren when you have the wrong pet. \nPros: \nKeeps you up at late night grinds \n(RECOMMENDED, ESPECIALLY AT 3 AM).", 
-        subcategory = "Incorrect Pet for minFion Alert"
+        subcategory = "Incorrect Pet for Minion Alert"
     )
     public boolean incorrectPetForMinionAlertSiren = false;
 
-    @Property(
-        type = PropertyType.TEXT, 
+    @Switch(
+            name = "Refresh Keybind (Ctrl + R / Command + R / F5)",
+            category = "SkyBlock",
+            description = "Refresh any menu with a \"Refresh\" button with (Ctrl + R) or (Command + R), depending on your operating system.\nOr just use (F5).",
+            subcategory = "Refresh Keybind"
+    )
+    public boolean refreshKeybind = false;
+
+    @Text(
         category = "SkyBlock",
-        subcategory = "Incorrect Pet for minFion Alert",
+        subcategory = "Incorrect Pet for Minion Alert",
         name = "Selected Pet",
-        description = "The selected pet that will be used for minFion collecting (Use /pets and click the pet keybind to select",
-        hidden =  true
-//        size = 2
+        description = "The selected pet that will be used for minion collecting (Use /pets and click the pet keybind to select",
+        secure =  true,
+        size = 2
     )
     public String selectedPet = /*PartlySaneSkies.config.selectededPet |*/ "";
 
-    @Property(
-        type = PropertyType.DECIMAL_SLIDER, 
-        minF = 1, 
-        maxF = 15, 
-        subcategory = "Incorrect Pet for minFion Alert", 
+    @Slider(
+        min = 1, 
+        max = 15, 
+        subcategory = "Incorrect Pet for Minion Alert", 
         name = "Mute Time", 
-        description = "The amount of minFutes the pet alert will mute for when you mute it.", 
+        description = "The amount of minutes the pet alert will mute for when you mute it.", 
         category = "SkyBlock"
     )
     public float petAlertMuteTime = 7.5f;
 
-    @Property(
-        type = PropertyType.SELECTOR, 
+    @Dropdown(
         category = "SkyBlock",
         subcategory = "Enhanced SkyBlock Sounds",
         name = "Note Block Instrument Type",
@@ -419,8 +393,7 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public int customSoundOption = 0;
 
-    @Property(
-        type = PropertyType.SELECTOR, 
+    @Dropdown(
         category = "SkyBlock",
         subcategory = "Enhanced SkyBlock Sounds",
         name = "Explosions",
@@ -432,10 +405,9 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public int customExplosion = 0;
 
-    // -------------- Category: mining --------------
+    // -------------- Category: Mining --------------
     // Worm Warning
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
         name = "Worm Warning Banner", 
         subcategory = "Worm Warning", 
         description = "A banner appears on your screen when a worm spawns.", 
@@ -443,19 +415,17 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public boolean wormWarningBanner = false;
 
-    @Property(
-        type = PropertyType.COLOR, 
+    @Color(
         subcategory = "Worm Warning", 
         name = "Worm Warning Banner Color", 
         description = "The color of the worm warning text", 
         category = "Mining"
     )
-    public Color wormWarningBannerColor = new Color(34, 255, 0);
+    public OneColor wormWarningBannerColor = new OneColor(34, 255, 0);
 
-    @Property(
-        type = PropertyType.DECIMAL_SLIDER, 
-        minF = 1, 
-        maxF = 7, 
+    @Slider(
+        min = 1, 
+        max = 7, 
         subcategory = "Worm Warning", 
         name = "Worm Warning Banner Time", 
         description = "The amount of seconds the worm warning banner appears for.", 
@@ -463,8 +433,7 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public float wormWarningBannerTime = 3.5f;
 
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
         name = "Worm Warning Sound", 
         subcategory = "Worm Warning", 
         description = "Plays a sound when a worm spawns.", 
@@ -473,8 +442,7 @@ public class VigilantConfigScreen extends Vigilant {
     public boolean wormWarningBannerSound = false;
 
     //Pickaxes
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
             name = "Pickaxe Ability Ready Banner",
             subcategory = "Pickaxes",
             description = "A banner appears on your screen when your pickaxe ability is ready.",
@@ -482,8 +450,7 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public boolean pickaxeAbilityReadyBanner = true;
 
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
             name = "Pickaxe Ability Ready Sound",
             subcategory = "Pickaxes",
             description = "Plays a sound when your pickaxe ability is ready.",
@@ -491,8 +458,7 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public boolean pickaxeAbilityReadySound = false;
 
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
             name = "Use Air Raid Siren for Pickaxe Ability Ready",
             subcategory = "Pickaxes",
             description = "Plays a WWII air raid siren when your pickaxe ability is ready. \nPros: \nKeeps you up at late night grinds \n(RECOMMENDED, ESPECIALLY AT 3 AM)",
@@ -500,19 +466,17 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public boolean pickaxeAbilityReadySiren = false;
 
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
             name = "Only give a warning when you are on a mining island",
             subcategory = "Pickaxes",
-            description = "Makes it less annoying when you don't want to minFe",
+            description = "Makes it less annoying when you don't want to mine",
             category = "Mining"
     )
     public boolean onlyGiveWarningOnMiningIsland = true;
 
-    @Property(
-        type = PropertyType.DECIMAL_SLIDER, 
-            minF = 1,
-            maxF = 7,
+    @Slider(
+            min = 1,
+            max = 7,
             subcategory = "Pickaxes",
             name = "Ready Banner Time",
             description = "The amount of seconds the ready banner appears for.",
@@ -520,17 +484,15 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public float pickaxeBannerTime = 3.5f;
 
-    @Property(
-        type = PropertyType.COLOR, 
+    @Color(
             subcategory = "Pickaxes",
             name = "Ready Banner Color",
             description = "The color of the ready banner text",
             category = "Mining"
     )
-    public Color pickaxeBannerColor = new Color(255, 255, 0);
+    public OneColor pickaxeBannerColor = new OneColor(255, 255, 0);
 
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
             name = "Block Ability on Private Island (UAYOR)",
             subcategory = "Pickaxes",
             description = "Blocks the use of pickaxe abilities on your private island. (Use at your own risk)",
@@ -539,16 +501,15 @@ public class VigilantConfigScreen extends Vigilant {
     public boolean blockAbilityOnPrivateIsland = false;
 
     //Events
-//    @Info(
-//            type = InfoType.INFO,
-//            text = "Some Events may not trigger, not all have been tested. If you find an event that doesn't trigger, please report it on our discord server.",
-//            size = 2,
-//            category = "Mining",
-//            subcategory = "Events"
-//    )
+    @Info(
+            type = InfoType.INFO,
+            text = "Some Events may not trigger, not all have been tested. If you find an event that doesn't trigger, please report it on our discord server.",
+            size = 2,
+            category = "Mining",
+            subcategory = "Events"
+    )
 
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
             name = "Main Toggle",
             category = "Mining",
             subcategory = "Events",
@@ -556,8 +517,7 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public boolean miningEventsToggle = true;
 
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
             name = "Show Event Banner",
             category = "Mining",
             subcategory = "Events",
@@ -565,8 +525,7 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public boolean miningShowEventBanner = true;
 
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
             name = "Also warn 20s before event activation",
             category = "Mining",
             subcategory = "Events",
@@ -574,8 +533,7 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public boolean miningWarn20sBeforeEvent = false;
 
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
             name = "2x Powder activation sound",
             category = "Mining",
             subcategory = "Events",
@@ -583,8 +541,7 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public boolean mining2xPowderSound = false;
 
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
             name = "Gone with the wind activation sound",
             category = "Mining",
             subcategory = "Events",
@@ -592,8 +549,7 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public boolean miningGoneWithTheWindSound = false;
 
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
             name = "Better Together activation sound",
             category = "Mining",
             subcategory = "Events",
@@ -601,8 +557,7 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public boolean miningBetterTogetherSound = false;
 
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
             name = "Goblin Raid activation sound",
             category = "Mining",
             subcategory = "Events",
@@ -610,8 +565,7 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public boolean miningGoblinRaidSound = false;
 
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
             name = "Raffle activation sound",
             category = "Mining",
             subcategory = "Events",
@@ -619,8 +573,7 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public boolean miningRaffleSound = false;
 
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
             name = "Mithril Gourmand activation sound",
             category = "Mining",
             subcategory = "Events",
@@ -628,8 +581,7 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public boolean miningMithrilGourmandSound = false;
 
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
             name = "Powder Ghast activation sound",
             category = "Mining",
             subcategory = "Events",
@@ -637,8 +589,7 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public boolean miningPowderGhastSound = false;
 
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
             name = "Fallen Star activation sound",
             category = "Mining",
             subcategory = "Events",
@@ -646,10 +597,9 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public boolean miningFallenStarSound = false;
 
-    @Property(
-        type = PropertyType.DECIMAL_SLIDER, 
-            minF = 1,
-            maxF = 7,
+    @Slider(
+            min = 1,
+            max = 7,
             subcategory = "Events",
             name = "Event Banner Time",
             description = "The amount of seconds the event banner appears for.",
@@ -657,19 +607,17 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public float miningEventBannerTime = 3.5f;
 
-    @Property(
-        type = PropertyType.COLOR, 
+    @Color(
             subcategory = "Events",
             name = "Event Banner Color",
             description = "The color of the event banner text",
             category = "Mining"
     )
-    public Color miningEventBannerColor = new Color(255, 255, 255);
+    public OneColor miningEventBannerColor = new OneColor(255, 255, 255);
 
     // ------------- Category: Dungeons ---------------------------------
     // Party Manager
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
         name = "Automatically kick offline on party manager load", 
         subcategory = "Party Manager", 
         description = "Automatically kicks offline members in your party when you open party manager.", 
@@ -677,8 +625,7 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public boolean autoKickOfflinePartyManager = false;
 
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
         name = "Warn Low Arrows in Chat", 
         subcategory = "Party Manager", 
         description = "Warns you party when a member has low arrows.", 
@@ -686,29 +633,26 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public boolean warnLowArrowsInChat = false;
 
-    @Property(
-        type = PropertyType.TEXT, 
+    @Text(
         subcategory = "Party Manager", 
         name = "Arrow Low Warning", 
         description = "Message to send when a player has low arrows.\nUse {player} to signify the player's username, and {count} to signify the remaining arrow count.", 
-        category = "Dungeons"
-//            size = 2
+        category = "Dungeons",
+            size = 2
     )
     public String arrowLowChatMessage = "Partly Sane Skies > Warning! {player} only has {count} arrows remaining!";
 
-    @Property(
-        type = PropertyType.SLIDER,
+    @Number(
         name = "Arrow Low Count", 
-        minF = 0,
-        maxF = 1000,
+        min = 0,
+        max = 1000,
         subcategory = "Party Manager", 
         description = "The amount of arrows you must have to be considered low on arrows.", 
         category = "Dungeons"
     )
     public int arrowLowCount = 300;
 
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
         name = "Print errors in chat",
         category = "Dungeons",
         subcategory = "Party Manager",
@@ -717,8 +661,7 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public boolean printPartyManagerApiErrors = true;
 
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
         name = "Get data on party join", 
         subcategory = "Party Manager", 
         description = "Automatically gets the data for party members someone joins the party. This saves time and reduces the chance of the data not being able to be accessed.", 
@@ -726,8 +669,7 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public boolean getDataOnJoin = true;
 
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
         name = "Toggle Run Colors in Partymanager",
         subcategory = "Party Manager",
         description = "Toggles the colors of the runs in the party manager. ",
@@ -735,24 +677,22 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public boolean toggleRunColors = true;
 
-    @Property(
-        type = PropertyType.NUMBER,
-        name = "Customize maxF Runs for Red in Run Colors",
-        minF = 0,
-        maxF = Integer.MAX_VALUE,
+    @Number(
+        name = "Customize Max Runs for Red in Run Colors",
+        min = 0,
+        max = Integer.MAX_VALUE,
         subcategory = "Party Manager",
-        description = "Customize maxFimum runs required for the color red",
+        description = "Customize maximum runs required for the color red",
         category = "Dungeons"
     )
     public int runColorsRedMax = 1;
 
-    @Property(
-        type = PropertyType.NUMBER,
-        name = "Customize maxF Runs for Yellow in Run Colors",
-        minF = 0,
-        maxF = Integer.MAX_VALUE,
+    @Number(
+        name = "Customize Max Runs for Yellow in Run Colors",
+        min = 0,
+        max = Integer.MAX_VALUE,
         subcategory = "Party Manager",
-        description = "Customize maxFimum runs required for the color yellow",
+        description = "Customize maximum runs required for the color yellow",
         category = "Dungeons"
     )
     public int runColorsYellowMax = 9;
@@ -760,8 +700,7 @@ public class VigilantConfigScreen extends Vigilant {
 
 
     // Watcher Ready Warning
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
         name = "Watcher Ready Warning", 
         subcategory = "Watcher Ready", 
         description = "Sends a warning when the watcher is done spawning mobs.", 
@@ -769,8 +708,7 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public boolean watcherReadyBanner = false;
 
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
         name = "Watcher Ready Sound", 
         subcategory = "Watcher Ready", 
         description = "Plays a sound when the watcher is done spawning mobs.", 
@@ -778,10 +716,9 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public boolean watcherReadySound = false;
 
-    @Property(
-        type = PropertyType.DECIMAL_SLIDER, 
-        minF = 1, 
-        maxF = 7, 
+    @Slider(
+        min = 1, 
+        max = 7, 
         subcategory = "Watcher Ready", 
         name = "Watcher Ready Banner Time", 
         description = "The amount of seconds the watcher ready banner appears for.", 
@@ -789,17 +726,15 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public float watcherReadyBannerTime = 3.5f;
 
-    @Property(
-        type = PropertyType.COLOR, 
+    @Color(
         subcategory = "Watcher Ready", 
         name = "Watcher Ready Banner Color", 
         description = "The color of the watcher ready text", 
         category = "Dungeons"
     )
-    public Color watcherReadyBannerColor = new Color(255, 45, 6);
+    public OneColor watcherReadyBannerColor = new OneColor(255, 45, 6);
 
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
         name = "Watcher Ready Chat Message", 
         subcategory = "Watcher Ready", 
         description = "Send a message to your party when watcher is done spawning mobs.", 
@@ -808,18 +743,16 @@ public class VigilantConfigScreen extends Vigilant {
     public boolean watcherReadyChatMessage = false;
 
 
-    @Property(
-        type = PropertyType.TEXT, 
+    @Text(
         subcategory = "Watcher Ready", 
         name = "Watcher Ready Text", 
         description = "Message to send when the watcher is ready to clear.", 
-        category = "Dungeons"
-//            size = 2
+        category = "Dungeons",
+            size = 2
     )
     public String watcherChatMessage = "Partly Sane Skies > The watcher is done spawning mobs. Ready to clear.";
 
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
         subcategory = "Watcher Ready", 
         name = "Air Raid Siren", 
         description = "Plays a WWII air raid siren when the watcher is done spawning mobs. \nPros: \nKeeps you up at late night grinds \n(RECOMMENDED, ESPECIALLY AT 3 AM)", 
@@ -828,8 +761,7 @@ public class VigilantConfigScreen extends Vigilant {
     public boolean watcherReadyAirRaidSiren = false;
 
     // Required Secrets Found
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
             name = "Required Secrets Found Banner",
             subcategory = "Required Secrets Found",
             description = "Sends a warning when all required secrets have been found.",
@@ -837,8 +769,7 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public boolean secretsBanner = false;
 
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
             name = "Required Secrets Found Sound",
             subcategory = "Required Secrets Found",
             description = "Plays a sound when all required secrets have been found.",
@@ -846,10 +777,9 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public boolean secretsSound = false;
 
-    @Property(
-        type = PropertyType.DECIMAL_SLIDER, 
-            minF = 1,
-            maxF = 7,
+    @Slider(
+            min = 1,
+            max = 7,
             subcategory = "Required Secrets Found",
             name = "Required Secrets Found Banner Time",
             description = "The amount of seconds the required secrets found banner appears for.",
@@ -857,17 +787,15 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public float secretsBannerTime = 3.5f;
 
-    @Property(
-        type = PropertyType.COLOR, 
+    @Color(
             subcategory = "Required Secrets Found",
             name = "Required Secrets Found Banner Color",
             description = "The color of the required secrets found text",
             category = "Dungeons"
     )
-    public Color secretsBannerColor = new Color(255, 45, 6);
+    public OneColor secretsBannerColor = new OneColor(255, 45, 6);
 
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
             name = "Required Secrets Found Chat Message",
             subcategory = "Required Secrets Found",
             description = "Send a message to your party when all required secrets have been found.",
@@ -876,18 +804,16 @@ public class VigilantConfigScreen extends Vigilant {
     public boolean secretsChatMessage = false;
 
 
-    @Property(
-        type = PropertyType.TEXT, 
+    @Text(
             subcategory = "Required Secrets Found",
             name = "Required Secrets Found Text",
             description = "Message to send when all required secrets have been found.",
-            category = "Dungeons"
-//            size = 2
+            category = "Dungeons",
+            size = 2
     )
     public String secretsChatMessageString = "Partly Sane Skies > All required secrets have been found!";
 
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
             subcategory = "Required Secrets Found",
             name = "Air Raid Siren",
             description = "Plays a WWII air raid siren when all required secrets have been found. \nPros: \nKeeps you up at late night grinds \n(RECOMMENDED, ESPECIALLY AT 3 AM)",
@@ -896,17 +822,15 @@ public class VigilantConfigScreen extends Vigilant {
     public boolean secretsAirRaidSiren = false;
 
 // Dungeon Player Breakdown
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
         subcategory = "Dungeon Player Breakdown", 
         name = "Dungeon Player Breakdown", 
-        description = "At the end of the dungeon, send a message informinFg you how much of the dungeon each player has completed", 
+        description = "At the end of the dungeon, send a message informing you how much of the dungeon each player has completed", 
         category = "Dungeons"
     )
     public boolean dungeonPlayerBreakdown = false;
 
-    @Property(
-        type = PropertyType.SELECTOR, 
+    @Dropdown(
         subcategory = "Dungeon Player Breakdown", 
         name = "Message Content", 
         description = "Shows more information about how many blessings and secrets each player collected", 
@@ -919,8 +843,7 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public int enhancedDungeonPlayerBreakdown = 1;
 
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
         subcategory = "Dungeon Player Breakdown", 
         name = "Send in Party Chat", 
         description = "Send a condensed version to the rest of your party.", 
@@ -928,10 +851,9 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public boolean partyChatDungeonPlayerBreakdown = false;
 
-    // ------------- Category: FarminFg ---------------------------------
+    // ------------- Category: Farming ---------------------------------
 //    Hoes
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
             subcategory = "Hoes",
             name = "Stop right clicks on Mathematical Hoes",
             description = "Cancels the right click on mathematical hoes to prevent it from opening the recipes list. (Use at your own risk)",
@@ -939,31 +861,28 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public boolean blockHoeRightClicks = false;
 
-    @Property(
-        type = PropertyType.DECIMAL_SLIDER, 
-        minF = 1, 
-        maxF = 15, 
+    @Slider(
+        min = 1, 
+        max = 15, 
         subcategory = "Hoes", 
         name = "Allow Time", 
-        description = "The amount of minFutes the hoe will be allowed to be used for, using /allowhoerightclick.", 
+        description = "The amount of minutes the hoe will be allowed to be used for, using /allowhoerightclick.", 
         category = "Farming"
     )
     public float allowRightClickTime = 3f;
 
 
 //    Farn notifier
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
             subcategory = "End of Farm Notifier",
             category = "Farming",
             name = "Show end of farm regions"
     )
     public boolean showFarmRegions = true;
 
-    @Property(
-        type = PropertyType.DECIMAL_SLIDER, 
-        minF = 1,
-        maxF = 5,
+    @Slider(
+        min = 1,
+        max = 5,
         subcategory = "End of Farm Notifier",
         name = "Time between chimes",
         description = "The amount of seconds between the chime sounds",
@@ -971,10 +890,9 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public float farmnotifierChimeTime = 3;
 
-    @Property(
-        type = PropertyType.DECIMAL_SLIDER, 
-            minF = 1,
-            maxF = 120,
+    @Slider(
+            min = 1,
+            max = 120,
             subcategory = "End of Farm Notifier",
             name = "Highlight Time",
             description = "The amount of seconds that a highlighted region will stay highlighted for",
@@ -983,8 +901,7 @@ public class VigilantConfigScreen extends Vigilant {
     public float farmHightlightTime = 30f;
 
 // Garden
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
         subcategory = "Garden", 
         name = "Garden Shop Trade Cost", 
         description = "Gives you information about the cost of garden shop trades.", 
@@ -992,8 +909,7 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public boolean gardenShopTradeInfo = false;
     
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
         subcategory = "Garden", 
         name = "Best Crops to Compost", 
         description = "Gives you information about which crops are the best to compost.", 
@@ -1001,8 +917,7 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public boolean bestCropsToCompost = false;
 
-    @Property(
-            type = PropertyType.SWITCH, 
+    @Switch(
             subcategory = "Garden",
             name = "Display Garden Visitor Stats",
             description = "Shows visited/accepted stats per NPC rarity.\nPros: based on item tooltips, which might capture more Garden visitor data\n(especially if you had Garden visitors before you installed SkyHanni).\nCons: Only shows for current Visitor's Logbook page and not all pages.",
@@ -1011,8 +926,7 @@ public class VigilantConfigScreen extends Vigilant {
     public boolean visitorLogbookStats = false;
 // ------------- Category: Economy ---------------------------------
 // Community Center
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
         subcategory = "Community Center", 
         name = "Best Item for Bits", 
         description = "Gives you information about which item in the Bits Shop is the best to sell.", 
@@ -1020,8 +934,7 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public boolean bestBitShopItem = false;
 
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
         subcategory = "Community Center", 
             name = "Only Show Affordable Items", 
         description = "When making recommendations for what you can buy, only recommend the items that you are able to afford.", 
@@ -1029,10 +942,29 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public boolean bitShopOnlyShowAffordable = true;
 
-    @Property(
-        type = PropertyType.DECIMAL_SLIDER, 
-            minF = 0,
-            maxF = 100,
+    @Dropdown(
+            category = "Economy",
+            name = "Coins to Cookies Preferred Currency",
+            description = "Select your preferred currency conversion for the /c2c command. Currencies are listed in alphabetical order. Default currency is USD.",
+            options = {
+                "AUD",
+                "BRL",
+                "CAD",
+                "DKK",
+                "EUR",
+                "NOK",
+                "NZD",
+                "PLN",
+                "GBP",
+                "SEK",
+                "USD"
+            }
+    )
+    public int prefCurr = 10;
+
+    @Slider(
+            min = 0,
+            max = 100,
             category = "Economy",
             subcategory = "BIN Sniper",
             name = "BIN Snipe Percentage",
@@ -1042,8 +974,7 @@ public class VigilantConfigScreen extends Vigilant {
 
 
      // Auction House
-     @Property(
-        type = PropertyType.SWITCH, 
+     @Switch(
         name = "Custom Auction House GUI", 
         category = "Economy", 
         subcategory = "Auction House", 
@@ -1051,8 +982,7 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public boolean customAhGui = true;
 
-    @Property(
-        type = PropertyType.SELECTOR, 
+    @Dropdown(
 
         name = "Custom Auction House GUI Icons",
         category = "Economy",
@@ -1066,61 +996,55 @@ public class VigilantConfigScreen extends Vigilant {
     public int customAhGuiTextures = 1;
 
 
-    @Property(
-        type = PropertyType.DECIMAL_SLIDER, 
+    @Slider(
             name = "Master Scale",
-            minF = .1f,
-            maxF = 1,
+            min = .1f,
+            max = 1,
             subcategory = "Auction House",
             category = "Economy"
     )
     public float masterAuctionHouseScale = .333333f;
 
 
-    @Property(
-        type = PropertyType.DECIMAL_SLIDER, 
+    @Slider(
             name = "Item Padding",
-            minF = 0f,
-            maxF = .2f,
+            min = 0f,
+            max = .2f,
             subcategory = "Auction House",
             category = "Economy"
     )
     public float auctionHouseItemPadding = .075f;
 
-    @Property(
-        type = PropertyType.DECIMAL_SLIDER, 
+    @Slider(
             name = "Side Bar Height",
-            minF = .25f,
-            maxF = 2f,
+            min = .25f,
+            max = 2f,
             subcategory = "Auction House",
             category = "Economy"
     )
     public float auctionHouseSideBarHeight = 1.333f;
-    @Property(
-        type = PropertyType.DECIMAL_SLIDER, 
+    @Slider(
             name = "Side Bar Width",
-            minF = .25f,
-            maxF = 2,
+            min = .25f,
+            max = 2,
             subcategory = "Auction House",
             category = "Economy"
     )
     public float auctionHouseSideBarWidth = .667f;
 
-    @Property(
-        type = PropertyType.DECIMAL_SLIDER, 
+    @Slider(
             name = "Side Bar Padding",
-            minF = -.5f,
-            maxF = .5f,
+            min = -.5f,
+            max = .5f,
             subcategory = "Auction House",
             category = "Economy"
     )
     public float auctionSideBarPadding = .05f;
 
-    @Property(
-        type = PropertyType.DECIMAL_SLIDER, 
+    @Slider(
             name = "Auction House Text Scale",
-            minF = .11f,
-            maxF = 2,
+            min = .11f,
+            max = 2,
             subcategory = "Auction House",
             category = "Economy"
     )
@@ -1132,8 +1056,7 @@ public class VigilantConfigScreen extends Vigilant {
 
 
     // Excessive Coin warning
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
         name = "Excessive Coin and No Booster Cookie", 
         category = "Economy",
         description = "Warns you if you have a lot of coins in your purse and no booster cookie.", 
@@ -1141,32 +1064,29 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public boolean noCookieWarning = false;
 
-    @Property(
-        type = PropertyType.NUMBER,
-        minF = 0, 
-        maxF = Integer.MAX_VALUE,
-        name = "maxFimum Allowed Amount Without Booster Cookie", 
+    @Number(
+        min = 0, 
+        max = Integer.MAX_VALUE, 
+        name = "Maximum Allowed Amount Without Booster Cookie", 
         category = "Economy", 
-        description = "The maxFimum allowed amount of money allowed before it warns you about having no booster cookie.", 
+        description = "The maximum allowed amount of money allowed before it warns you about having no booster cookie.", 
         subcategory = "Excessive Coin Warning"
     )
     public int maxWithoutCookie = 750000;
 
-    @Property(
-        type = PropertyType.DECIMAL_SLIDER,
-        minF = 1,
-        maxF = 7,
-        subcategory = "Excessive Coin Warning",
-        name = "Excessive Coin Warning Time",
-        description = "The amount of seconds the warning appears for appears for.",
+    @Slider(
+        min = 1, 
+        max = 7, 
+        subcategory = "Excessive Coin Warning", 
+        name = "Excessive Coin Warning Time", 
+        description = "The amount of seconds the warning appears for appears for.", 
         category = "Economy"
     )
     public float noCookieWarnTime = 3.5f;
 
-    @Property(
-        type = PropertyType.SLIDER,
-        minF = 1, 
-        maxF = 300, 
+    @Slider(
+        min = 1, 
+        max = 300, 
         subcategory = "Excessive Coin Warning", 
         name = "Excessive Coin Warn Cooldown", 
         description = "The amount of seconds between each warning", 
@@ -1176,8 +1096,7 @@ public class VigilantConfigScreen extends Vigilant {
 
     //    ------------------ Category: Chat ---------------------
 //    WordEditor
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
         name = "Word Editor Main Toggle",
         category = "Chat",
         subcategory = "Word Editor",
@@ -1186,8 +1105,7 @@ public class VigilantConfigScreen extends Vigilant {
     public boolean wordEditor = true;
 
 //Chat Colors
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
             name = "Color Private Messages",
             category = "Chat",
             subcategory = "Chat Color",
@@ -1195,8 +1113,7 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public boolean colorPrivateMessages = false;
 
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
             name = "Color Nons Messages",
             category = "Chat",
             subcategory = "Chat Color",
@@ -1204,8 +1121,7 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public boolean colorNonMessages = false;
 
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
             name = "Color Party Chat",
             category = "Chat",
             subcategory = "Chat Color",
@@ -1213,8 +1129,7 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public boolean colorPartyChat = false;
 
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
             name = "Color Guild Chat",
             category = "Chat",
             subcategory = "Chat Color",
@@ -1222,8 +1137,7 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public boolean colorGuildChat = false;
 
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
             name = "Color Guild Officer Chat",
             category = "Chat",
             subcategory = "Chat Color",
@@ -1231,8 +1145,7 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public boolean colorOfficerChat = false;
 
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
             name = "SkyBlock Co-op Chat",
             category = "Chat",
             subcategory = "Chat Color",
@@ -1240,8 +1153,7 @@ public class VigilantConfigScreen extends Vigilant {
     )
     public boolean colorCoopChat = false;
 
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
             name = "Visible Colors",
             category = "Chat",
             subcategory = "Chat Color",
@@ -1250,8 +1162,7 @@ public class VigilantConfigScreen extends Vigilant {
     public boolean visibleColors = false;
 
     //Fun
-    @Property(
-        type = PropertyType.SWITCH, 
+    @Switch(
             name = "OwO Language toggle",
             category = "Chat",
             subcategory = "Fun",
@@ -1261,11 +1172,10 @@ public class VigilantConfigScreen extends Vigilant {
 
 
 //    ------------- DEBUG ------------
-//    @Property(
-//            type = PropertyType.key
-//            category = "Debug",
-//            name = "Debug Keybind"
-//    )
-//    public static OneKeyBind debugConfig = new OneKeyBind(Keyboard.KEY_NONE);
+    @KeyBind(
+            category = "Debug",
+            name = "Debug Keybind"
+    )
+    public static OneKeyBind debugConfig = new OneKeyBind(Keyboard.KEY_NONE);
 
 }

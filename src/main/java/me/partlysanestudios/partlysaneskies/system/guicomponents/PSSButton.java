@@ -5,6 +5,7 @@
 
 package me.partlysanestudios.partlysaneskies.system.guicomponents;
 
+import cc.polyfrost.oneconfig.config.core.OneColor;
 import gg.essential.elementa.UIComponent;
 import gg.essential.elementa.components.UIBlock;
 import gg.essential.elementa.components.UIImage;
@@ -28,7 +29,7 @@ public class PSSButton {
     float height;
     XConstraint xConstraint;
     YConstraint yConstraint;
-    Color color;
+    OneColor color;
     String text;
 
     public PSSButton() {
@@ -44,18 +45,18 @@ public class PSSButton {
             .setColor(new Color(255, 255, 255, 255))
             .setChildOf(buttonTexture);
         
-        this.color = new Color(0, 0, 0, 0);
+        this.color = new OneColor(0, 0, 0, 0);
     }
 
-//    public PSSButton(Color color){
-//        this(new Color(color));
-//    }
+    public PSSButton(Color color){
+        this(new OneColor(color));
+    }
 
-    public PSSButton(Color color) {
+    public PSSButton(OneColor color) {
         this.text = "";
 
         this.backgroundBlock = (UIBlock) new UIBlock()
-            .setColor(color);
+            .setColor(color.toJavaColor());
     
         this.buttonTexture = (UIImage) ThemeManager.getCurrentButtonUIImage(color)
             .setChildOf(backgroundBlock);
@@ -113,10 +114,10 @@ public class PSSButton {
         return this;
     }
 
-//    public PSSButton setColor(Color color) {
-//        return setColor(new Color(color));
-//    }
     public PSSButton setColor(Color color) {
+        return setColor(new OneColor(color));
+    }
+    public PSSButton setColor(OneColor color) {
         backgroundBlock.removeChild(buttonTexture);
 
         buttonTexture = (UIImage) ThemeManager.getCurrentButtonUIImage(color)
@@ -126,7 +127,7 @@ public class PSSButton {
             .setY(new CenterConstraint())
             .setChildOf(this.backgroundBlock);
 
-        backgroundBlock.setColor(color);
+        backgroundBlock.setColor(color.toJavaColor());
 
         return this;
     }
@@ -143,7 +144,7 @@ public class PSSButton {
 
         backgroundBlock.setColor(new Color(0, 0, 0, 0));
 
-        this.color = new Color(0, 0, 0, 0);
+        this.color = new OneColor(0, 0, 0, 0);
         return this;
     }
 

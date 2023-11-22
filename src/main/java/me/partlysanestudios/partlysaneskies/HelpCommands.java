@@ -42,7 +42,7 @@ public class HelpCommands {
                 .setRunnable((s, a) -> {
                     Utils.sendClientMessage("§bOpening config menu...");
 
-                    Window.Companion.enqueueRenderOperation(() -> PartlySaneSkies.minecraft.displayGuiScreen(PartlySaneSkies.config.gui()));
+                    Window.Companion.enqueueRenderOperation(() -> PartlySaneSkies.config.openGui());
                 })
                 .register();
     }
@@ -55,7 +55,7 @@ public class HelpCommands {
 
                     Utils.sendClientMessage("§bOpening config menu...");
 
-                    Window.Companion.enqueueRenderOperation(() -> PartlySaneSkies.minecraft.displayGuiScreen(PartlySaneSkies.config.gui()));
+                    Window.Companion.enqueueRenderOperation(() -> PartlySaneSkies.config.openGui());
                 }).register();
     }
 
@@ -124,7 +124,7 @@ public class HelpCommands {
                 .setRunnable((s, a) -> {
                     if (a.length > 0 && configAliases.contains(a[0].toLowerCase())) {
                         Utils.sendClientMessage("Opening config GUI...");
-                        Window.Companion.enqueueRenderOperation(() -> PartlySaneSkies.minecraft.displayGuiScreen(PartlySaneSkies.config.gui()));
+                        Window.Companion.enqueueRenderOperation(() -> PartlySaneSkies.config.openGui());
                         return;
                     }
 

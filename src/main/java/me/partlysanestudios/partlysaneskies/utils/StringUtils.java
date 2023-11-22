@@ -15,9 +15,9 @@ import java.util.regex.Pattern;
 
 public class StringUtils {
 
-     public static String colorCodes(String text) {
-         return text.replace("&", "§");
-     }
+    // public static String colorCodes(String text) {
+    //     return text.replace("&", "§");
+    // }
 
     public static String removeColorCodes(String text) {
         StringBuilder textBuilder = new StringBuilder(text);

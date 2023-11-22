@@ -37,7 +37,6 @@ public final class Keybinds {
     public static KeyBinding wikiKeybind;
     public static KeyBinding favouritePetKeybind;
     public static KeyBinding allowHoeRightClickKeybind;
-    public static KeyBinding debugKeybind;
 
 
     public static void init() {
@@ -52,7 +51,6 @@ public final class Keybinds {
         wikiKeybind = registerKey("Open Wiki Article", PSS_CATEGORY, Keyboard.KEY_X);
         favouritePetKeybind = registerKey("Favourite Pet", PSS_CATEGORY, Keyboard.KEY_F);
         allowHoeRightClickKeybind = registerKey("Allow Hoe Right Click", PSS_CATEGORY, Keyboard.CHAR_NONE);
-        debugKeybind = registerKey("Debug Key", PSS_CATEGORY, Keyboard.CHAR_NONE);
     }
 
     private static KeyBinding registerKey(String name, String category, int keycode) {
@@ -63,7 +61,7 @@ public final class Keybinds {
 
     @SubscribeEvent
     public void keybindWhileInGui(KeyboardInputEvent.Post event) {
-        if (Keyboard.isKeyDown(debugKeybind.getKeyCode())) {
+        if (OneConfigScreen.debugConfig.isActive()) {
             PartlySaneSkies.debugMode();
         }
 
@@ -94,12 +92,12 @@ public final class Keybinds {
 
     @SubscribeEvent
     public void checkKeyBinds(KeyInputEvent event) {
-        if (debugKeybind.isPressed()){
+        if (OneConfigScreen.debugConfig.isActive()) {
             PartlySaneSkies.debugMode();
         }
         
         if (configKey.isPressed()) {
-            PartlySaneSkies.minecraft.displayGuiScreen(PartlySaneSkies.config.gui());
+            PartlySaneSkies.config.openGui();
         }
         if (partyManagerKey.isPressed()) {
             PartyManager.startPartyManager();

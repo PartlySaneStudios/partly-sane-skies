@@ -1,9 +1,9 @@
-/* 
- * 
+/*
+ *
  * Written by Su386.
  * See LICENSE for copyright and license notices.
- * 
- * 
+ *
+ *
  * Partly Sane Skies would not be possible with out the help of these projects:
  * (see CREDITS.md for more information)
  * Minecraft Forge
@@ -14,11 +14,12 @@
  * Vigilance
  * OneConfig
  * SkyCrypt
- * 
+ *
  */
 
 package me.partlysanestudios.partlysaneskies;
 
+import cc.polyfrost.oneconfig.config.core.OneColor;
 import gg.essential.elementa.ElementaVersion;
 import me.partlysanestudios.partlysaneskies.auctionhouse.menu.AuctionHouseGui;
 import me.partlysanestudios.partlysaneskies.chat.ChatAlertsManager;
@@ -26,11 +27,12 @@ import me.partlysanestudios.partlysaneskies.chat.ChatManager;
 import me.partlysanestudios.partlysaneskies.chat.WordEditor;
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager;
 import me.partlysanestudios.partlysaneskies.dungeons.PlayerRating;
-import me.partlysanestudios.partlysaneskies.dungeons.RequiredSecretsFound;
 import me.partlysanestudios.partlysaneskies.dungeons.WatcherReady;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManager;
 import me.partlysanestudios.partlysaneskies.dungeons.permpartyselector.PermPartyManager;
+import me.partlysanestudios.partlysaneskies.dungeons.RequiredSecretsFound;
 import me.partlysanestudios.partlysaneskies.economy.BitsShopValue;
+import me.partlysanestudios.partlysaneskies.economy.CoinsToBoosterCookieConversion;
 import me.partlysanestudios.partlysaneskies.economy.minioncalculator.MinionData;
 import me.partlysanestudios.partlysaneskies.economy.minioncalculator.ProfitMinionCalculator;
 import me.partlysanestudios.partlysaneskies.garden.CompostValue;
@@ -43,12 +45,14 @@ import me.partlysanestudios.partlysaneskies.garden.MathematicalHoeRightClicks;
 import me.partlysanestudios.partlysaneskies.mining.MiningEvents;
 import me.partlysanestudios.partlysaneskies.mining.Pickaxes;
 import me.partlysanestudios.partlysaneskies.mining.WormWarning;
+import me.partlysanestudios.partlysaneskies.modschecker.ModsListChecker;
 import me.partlysanestudios.partlysaneskies.rngdropbanner.DropBannerDisplay;
 import me.partlysanestudios.partlysaneskies.system.*;
 import me.partlysanestudios.partlysaneskies.system.requests.Request;
 import me.partlysanestudios.partlysaneskies.system.requests.RequestsManager;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.Utils;
+import me.partlysanestudios.partlysaneskies.RefreshKeybinds;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.event.ClickEvent;
@@ -74,7 +78,6 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -98,28 +101,29 @@ public class PartlySaneSkies {
     //    -----------------------CHANGE TO FALSE BEFORE RELEASING
     public static final boolean DOGFOOD = Boolean.parseBoolean("@DOGFOOD@");
     public static final String CHAT_PREFIX = ("§r§b§lPartly Sane Skies§r§7>> §r");
-    public static final boolean IS_LEGACY_VERSION = true;
+    public static final boolean IS_LEGACY_VERSION = false;
     public static String discordCode = "v4PU3WeH7z";
 
-    public static VigilantConfigScreen config;
+    public static OneConfigScreen config;
     public static Minecraft minecraft;
 
     public static boolean isDebugMode;
 
     private static LocationBannerDisplay locationBannerDisplay;
     private static EndOfFarmNotifier eofn;
+    private static CoinsToBoosterCookieConversion c2c;
 
     private static String API_KEY;
 
 
     // Names of all the ranks to remove from people's names
-    public static final String[] RANK_NAMES = { "[VIP]", "[VIP+]", "[MVP]", "[MVP+]", "[MVP++]", "[YOUTUBE]", "[MOJANG]",
-            "[EVENTS]", "[MCP]", "[PIG]", "[PIG+]", "[PIG++]", "[PIG+++]", "[GM]", "[ADMIN]", "[OWNER]", "[NPC]" };
+    public static final String[] RANK_NAMES = {"[VIP]", "[VIP+]", "[MVP]", "[MVP+]", "[MVP++]", "[YOUTUBE]", "[MOJANG]",
+            "[EVENTS]", "[MCP]", "[PIG]", "[PIG+]", "[PIG++]", "[PIG+++]", "[GM]", "[ADMIN]", "[OWNER]", "[NPC]"};
 
     // Method runs at mod initialization
     @EventHandler
     public void init(FMLInitializationEvent evnt) {
-        Utils.log(Level.INFO,"Hallo World!");
+        Utils.log(Level.INFO, "Hallo World!");
         PartlySaneSkies.isDebugMode = false;
         PartlySaneSkies.minecraft = Minecraft.getMinecraft();
 
@@ -127,9 +131,10 @@ public class PartlySaneSkies {
         new File("./config/partly-sane-skies/").mkdirs();
 
         eofn = new EndOfFarmNotifier();
-        
+        c2c = new CoinsToBoosterCookieConversion();
+
         // Loads the config files and options
-        PartlySaneSkies.config = new VigilantConfigScreen();
+        PartlySaneSkies.config = new OneConfigScreen();
         Request mainMenuRequest = null;
         try {
             mainMenuRequest = new Request("https://raw.githubusercontent.com/PartlySaneStudios/partly-sane-skies-public-data/main/data/main_menu.json", CustomMainMenu::setMainMenuInfo);
@@ -137,6 +142,13 @@ public class PartlySaneSkies {
             e.printStackTrace();
         }
         RequestsManager.newRequest(mainMenuRequest);
+        Request funFactRequest = null;
+        try {
+            funFactRequest = new Request(CustomMainMenu.funFactApi, CustomMainMenu::setFunFact);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        RequestsManager.newRequest(funFactRequest);
         trackLoad();
         RequestsManager.run();
 
@@ -168,7 +180,6 @@ public class PartlySaneSkies {
             }
         }).start();
 
-        
 
         // Registers all the events
         MinecraftForge.EVENT_BUS.register(this);
@@ -199,9 +210,10 @@ public class PartlySaneSkies {
         MinecraftForge.EVENT_BUS.register(new RequiredSecretsFound());
         MinecraftForge.EVENT_BUS.register(new Pickaxes());
         MinecraftForge.EVENT_BUS.register(new VisitorLogbookStats());
+        MinecraftForge.EVENT_BUS.register(c2c);
         MinecraftForge.EVENT_BUS.register(eofn);
         MinecraftForge.EVENT_BUS.register(new Prank());
-
+        MinecraftForge.EVENT_BUS.register(new RefreshKeybinds());
 
 
         // Registers all client side commands
@@ -222,10 +234,12 @@ public class PartlySaneSkies {
         eofn.registerCreateRangeCommand();
         eofn.registerFarmNotifierCommand();
         eofn.registerWandCommand();
+        c2c.registerCommand();
         ProfitMinionCalculator.registerCommand();
         MathematicalHoeRightClicks.registerCommand();
         WordEditor.registerWordEditorCommand();
         PlayerRating.registerReprintCommand();
+        ModsListChecker.registerModCheckCommand();
 
         // Initializes keybinds
         Keybinds.init();
@@ -286,7 +300,7 @@ public class PartlySaneSkies {
         }).start();
 
         // Finished loading
-        Utils.log(Level.INFO,"Partly Sane Skies has loaded.");
+        Utils.log(Level.INFO, "Partly Sane Skies has loaded.");
     }
 
     public static String getAPIKey() {
@@ -322,7 +336,7 @@ public class PartlySaneSkies {
         if (event.message.getUnformattedText().startsWith("Your new API key is ")) {
             config.apiKey = event.message.getUnformattedText().replace("Your new API key is ", "");
             Utils.sendClientMessage(("Saved new API key!"));
-            config.writeData();
+            config.save();
         }
     }
 
@@ -338,36 +352,6 @@ public class PartlySaneSkies {
         // Code that is supposed to be here is dead code so removed on this branch
         // Code that is supposed to go here:
         // https://github.com/PartlySaneStudios/partly-sane-skies/blob/essential-based/src/main/java/me/partlysanestudios/partlysaneskies/PartlySaneSkies.java#LL303C5-L327C10
-        if (IS_LEGACY_VERSION && config.legacyVersionWarning) {
-            new Thread(() -> {
-                try {
-                    Thread.sleep(5000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                Utils.sendClientMessage("§b--------------------------------------------------", true);
-
-                Utils.sendClientMessage("§cWe have detected you are using the legacy version of Partly Sane Skies.");
-
-                ChatComponentText skyclientMessage = new ChatComponentText("§aIf you are using Skyclient, click here or run /skyclientupdater and enable beta mode.");
-                skyclientMessage.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/skyclientupdater"));
-                skyclientMessage.getChatStyle().setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText("Click here to run /skyclientupdater")));
-                PartlySaneSkies.minecraft.ingameGUI
-                        .getChatGUI()
-                        .printChatMessage(skyclientMessage);
-
-                ChatComponentText githubMessage = new ChatComponentText("§9If you are not using Skyclient, click here go to the github and download the latest version.");
-                githubMessage.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/PartlySaneStudios/partly-sane-skies/releases"));
-                githubMessage.getChatStyle().setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText("Click here to open the downloads page")));
-                PartlySaneSkies.minecraft.ingameGUI
-                        .getChatGUI()
-                        .printChatMessage(githubMessage);
-
-                Utils.sendClientMessage("§b--------------------------------------------------", true);
-                Utils.sendClientMessage("§7To disable this warning, go to the config and disable legacy version warnings", true);
-
-            }).start();
-        }
     }
 
     @SubscribeEvent
@@ -401,24 +385,24 @@ public class PartlySaneSkies {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                
+
                 Utils.sendClientMessage("§b§m--------------------------------------------------", true);
 
                 Utils.sendClientMessage("§cWe have detected a new version of Partly Sane Skies.");
-                
+
                 ChatComponentText skyclientMessage = new ChatComponentText(("§aIf you are using SkyClient, make sure you update when prompted."));
                 PartlySaneSkies.minecraft.ingameGUI
                         .getChatGUI()
                         .printChatMessage(skyclientMessage);
-            
+
                 ChatComponentText githubMessage = new ChatComponentText(("§9If you are not using SkyClient, click here go to the github and download the latest version."));
                 githubMessage.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/PartlySaneStudios/partly-sane-skies/releases"));
                 githubMessage.getChatStyle().setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText("Click here to open the downloads page")));
                 PartlySaneSkies.minecraft.ingameGUI
                         .getChatGUI()
                         .printChatMessage(githubMessage);
-                
-                        Utils.sendClientMessage("§b§m--------------------------------------------------", true);
+
+                Utils.sendClientMessage("§b§m--------------------------------------------------", true);
             }).start();
         }
     }
@@ -438,8 +422,8 @@ public class PartlySaneSkies {
             e.printStackTrace();
             return null;
         }
-    
-        return new IInventory[] { upperInventory, lowerInventory };
+
+        return new IInventory[]{upperInventory, lowerInventory};
     }
 
     // Returns the name of the scoreboard without color codes
@@ -452,7 +436,7 @@ public class PartlySaneSkies {
     public static void debugMode() {
         PartlySaneSkies.isDebugMode = !PartlySaneSkies.isDebugMode;
         Utils.sendClientMessage("Debug mode: " + PartlySaneSkies.isDebugMode);
-        BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner("Test", 5000L, 5f, new Color(255, 0, 255, 1)));
+        BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner("Test", 5000L, 5f, new OneColor(255, 0, 255, 1).toJavaColor()));
     }
 
     // Returns a list of lines on the scoreboard,
@@ -496,8 +480,8 @@ public class PartlySaneSkies {
         String location = null;
 
         for (String line : scoreboard) {
-            if (StringUtils.stripLeading(line).contains("⏣")) {
-                location = StringUtils.stripLeading(line).replace("⏣", "");
+            if (StringUtils.stripLeading(line).contains("⏣") || StringUtils.stripLeading(line).contains("ф")) {
+                location = StringUtils.stripLeading(line).contains("⏣") ? StringUtils.stripLeading(line).replace("⏣", "") : StringUtils.stripLeading(line).replace("ф", "");
                 location = StringUtils.stripLeading(location);
                 break;
             }
@@ -610,10 +594,8 @@ public class PartlySaneSkies {
     }
 
     public static boolean isLatestVersion() {
-        if(DOGFOOD) {
+        if (DOGFOOD) {
             return true;
-        }
-
-        else return VERSION.equals(CustomMainMenu.latestVersion);
+        } else return VERSION.equals(CustomMainMenu.latestVersion);
     }
 }

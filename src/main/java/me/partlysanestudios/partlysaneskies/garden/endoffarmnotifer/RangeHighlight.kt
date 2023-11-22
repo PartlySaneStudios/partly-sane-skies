@@ -52,7 +52,7 @@ object RangeHighlight {
 //                Utils.sendClientMessage("Range to highlight: ${EndOfFarmNotifier.rangeToHighlight}, Current Range: $range")
             if (range.equals(EndOfFarmNotifier.rangeToHighlight)) {
 //                    Utils.sendClientMessage("Is range to highlight")
-                color = ThemeManager.getAccentColor()
+                color = ThemeManager.getAccentColor().toJavaColor()
                 color = Utils.applyOpacityToColor(color, (.4 * 255).toInt())
             }
 

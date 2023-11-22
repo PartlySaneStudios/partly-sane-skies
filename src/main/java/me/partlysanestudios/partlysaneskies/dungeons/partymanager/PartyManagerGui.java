@@ -37,7 +37,7 @@ public class PartyManagerGui extends WindowScreen {
             .setColor(new Color(0, 0, 0, 0));
 
     // Creates the scrollable list
-    UIComponent list = new ScrollComponent("", 0f, ThemeManager.getPrimaryColor(), false, true, false, false, 15f, 1f, null)
+    UIComponent list = new ScrollComponent("", 0f, ThemeManager.getPrimaryColor().toJavaColor(), false, true, false, false, 15f, 1f, null)
             .setWidth(new PixelConstraint(background.getWidth()))
             .setHeight(new PixelConstraint(background.getHeight()))
             .setChildOf(background);

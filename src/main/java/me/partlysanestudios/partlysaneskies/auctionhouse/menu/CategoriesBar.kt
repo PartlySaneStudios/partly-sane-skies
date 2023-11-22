@@ -140,7 +140,7 @@ class CategoriesBar (val xConstraint: XConstraint, val yConstraint: YConstraint,
             for (element in categoryList) {
                 element.setColor(Color(0, 0, 0, 0))
             }
-            categoryList[selectedItem].setColor(ThemeManager.getAccentColor())
+            categoryList[selectedItem].setColor(ThemeManager.getAccentColor().toJavaColor())
         }
     }
 }
