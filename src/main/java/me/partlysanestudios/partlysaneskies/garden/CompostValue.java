@@ -16,8 +16,9 @@ import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager;
 import me.partlysanestudios.partlysaneskies.system.ThemeManager;
+import me.partlysanestudios.partlysaneskies.utils.MathUtils;
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
-import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -32,9 +33,9 @@ public class CompostValue {
     public static HashMap<String, Double> compostValueMap = new HashMap<>();
     public static HashMap<String, Double> costPerOrganicMatterMap = new HashMap<>();
     public static HashMap<String, Double> costPerCompostMap = new HashMap<>();
-    public static float compostCost = 4000;
-    public static float fillLevel = 0;
-    public static float maxCompost = 40000;
+    public static double compostCost = 4000;
+    public static double fillLevel = 0;
+    public static double maxCompost = 40000;
 
     public static void init() {
         compostValueMap.put("WHEAT", 1d);
@@ -115,11 +116,11 @@ public class CompostValue {
             double cropPerCompost = compostCost / compostValueMap.get(id);
             String cropName = SkyblockDataManager.getItem(id).getName();
             double costPerCompost = en.getValue();
-            float compostAmount = getCurrentCompostAbleToMake();
+            double compostAmount = getCurrentCompostAbleToMake();
             if (maxCompost == fillLevel) {
                 compostAmount = getMaxCompostAbleToMake();
             }
-            str.append("§6").append(i).append(". §7x§d").append(StringUtils.formatNumber(Math.ceil(cropPerCompost * compostAmount))).append(" ").append(cropName).append("§7 costing §d").append(StringUtils.formatNumber(Utils.round(costPerCompost * compostAmount, 1))).append("§7 coins to fill. \n§8(x").append(StringUtils.formatNumber(Math.ceil(cropPerCompost))).append("/Compost)\n");
+            str.append("§6").append(i).append(". §7x§d").append(StringUtils.INSTANCE.formatNumber(Math.ceil(cropPerCompost * compostAmount))).append(" ").append(cropName).append("§7 costing §d").append(StringUtils.INSTANCE.formatNumber(MathUtils.INSTANCE.round(costPerCompost * compostAmount, 1))).append("§7 coins to fill. \n§8(x").append(StringUtils.INSTANCE.formatNumber(Math.ceil(cropPerCompost))).append("/Compost)\n");
 
             i++;
             if (i > 5) {
@@ -141,7 +142,7 @@ public class CompostValue {
             return false;
         }
 
-        IInventory[] inventories = PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen);
+        IInventory[] inventories = MinecraftUtils.INSTANCE.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen);
         assert inventories != null;
         IInventory composter = inventories[0];
 
@@ -152,12 +153,12 @@ public class CompostValue {
             return false;
         }
 
-        String collectCompostButtonName = StringUtils.removeColorCodes(collectCompostButton.getDisplayName());
+        String collectCompostButtonName = StringUtils.INSTANCE.removeColorCodes(collectCompostButton.getDisplayName());
         // If the names are not equal to the desired names, then you know it screens
         if (!collectCompostButtonName.equals("Collect Compost")) {
             return false;
         }
-        if (!StringUtils.removeColorCodes(composter.getDisplayName().getFormattedText()).contains("Composter")) {
+        if (!StringUtils.INSTANCE.removeColorCodes(composter.getDisplayName().getFormattedText()).contains("Composter")) {
             return false;
         }
 
@@ -172,10 +173,10 @@ public class CompostValue {
 
     private static String getCompostCostString(IInventory composterInventory) {
         ItemStack infoItem = composterInventory.getStackInSlot(46);
-        ArrayList<String> loreList = Utils.getLore(infoItem);
+        ArrayList<String> loreList = MinecraftUtils.INSTANCE.getLore(infoItem);
         String costLine = "{compost_cost} organic matter stored";
         for (String line : loreList){
-            String unformattedLine = StringUtils.removeColorCodes(line);
+            String unformattedLine = StringUtils.INSTANCE.removeColorCodes(line);
             if (unformattedLine.contains("organic matter stored")) {
                 costLine = unformattedLine;
                 break;
@@ -183,16 +184,16 @@ public class CompostValue {
         }
 
         String pattern = "{compost_cost} organic matter stored";
-        return StringUtils.recognisePattern(costLine, pattern, "{compost_cost}");
+        return StringUtils.INSTANCE.recognisePattern(costLine, pattern, "{compost_cost}");
     }
 
-    private static float getCompostCost(IInventory inventory) {
-        return StringUtils.parseAbbreviatedNumber(getCompostCostString(inventory));
+    private static double getCompostCost(IInventory inventory) {
+        return StringUtils.INSTANCE.parseAbbreviatedNumber(getCompostCostString(inventory));
     }
 
     private static String getOrganicMatterFillLevelString(IInventory composterInventory) {
         ItemStack infoItem = composterInventory.getStackInSlot(46);
-        ArrayList<String> loreList = Utils.getLore(infoItem);
+        ArrayList<String> loreList = MinecraftUtils.INSTANCE.getLore(infoItem);
         String amountLine = "§2§l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §r §e0§6/§e40k";
         for (String line : loreList){
             if (line.contains("§6/§e")) {
@@ -201,24 +202,24 @@ public class CompostValue {
             }
         }
 
-        String pattern = StringUtils.removeColorCodes("§2§l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §r §e{compost_amount}§6/");
-        String amountString = StringUtils.recognisePattern(StringUtils.removeColorCodes(amountLine), pattern, "{compost_amount}");
+        String pattern = StringUtils.INSTANCE.removeColorCodes("§2§l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §r §e{compost_amount}§6/");
+        String amountString = StringUtils.INSTANCE.recognisePattern(StringUtils.INSTANCE.removeColorCodes(amountLine), pattern, "{compost_amount}");
         
         return amountString.replaceAll("\\d.", "");
 
     }
 
-    private static float getOrganicMatterFillLevel(IInventory inventory) {
+    private static double getOrganicMatterFillLevel(IInventory inventory) {
         String organicMatterFillLevelString = getOrganicMatterFillLevelString(inventory);
         if (organicMatterFillLevelString.isEmpty()) {
             return 0;
         }
-        return StringUtils.parseAbbreviatedNumber(organicMatterFillLevelString);
+        return StringUtils.INSTANCE.parseAbbreviatedNumber(organicMatterFillLevelString);
     }
 
     private static String getOrganicMatterLimitString(IInventory composterInventory) {
         ItemStack infoItem = composterInventory.getStackInSlot(46);
-        ArrayList<String> loreList = Utils.getLore(infoItem);
+        ArrayList<String> loreList = MinecraftUtils.INSTANCE.getLore(infoItem);
         String amountLine = "0/40k";
         for (String line : loreList){
             if (line.contains("§6/§e")) {
@@ -227,9 +228,9 @@ public class CompostValue {
             }
         }
 
-        amountLine = StringUtils.removeColorCodes(amountLine);
-        amountLine = StringUtils.stripLeading(amountLine);
-        amountLine = StringUtils.stripTrailing(amountLine);
+        amountLine = StringUtils.INSTANCE.removeColorCodes(amountLine);
+        amountLine = StringUtils.INSTANCE.stripLeading(amountLine);
+        amountLine = StringUtils.INSTANCE.stripTrailing(amountLine);
 
         int indexOfStart = amountLine.indexOf("/");
         amountLine = amountLine.substring(indexOfStart + 1);
@@ -237,16 +238,16 @@ public class CompostValue {
         return amountLine;
     }
 
-    public static float getMaxCompostAbleToMake() {
+    public static double getMaxCompostAbleToMake() {
         return maxCompost / compostCost;
     }
 
-    public static float getCurrentCompostAbleToMake() {
+    public static double getCurrentCompostAbleToMake() {
         return (maxCompost - fillLevel) / compostCost;
     }
 
-    private static float getOrganicMatterLimit(IInventory inventory) {
-        return StringUtils.parseAbbreviatedNumber(getOrganicMatterLimitString(inventory));
+    private static double getOrganicMatterLimit(IInventory inventory) {
+        return StringUtils.INSTANCE.parseAbbreviatedNumber(getOrganicMatterLimitString(inventory));
     }
 
 
@@ -298,13 +299,13 @@ public class CompostValue {
         textString += "§e§lCompost:\n\n";
         double compostSellPrice = SkyblockDataManager.getItem("COMPOST").getBazaarSellPrice();
 
-        float compostAmount = getCurrentCompostAbleToMake();
+        double compostAmount = getCurrentCompostAbleToMake();
         if (maxCompost == fillLevel) {
             compostAmount = getMaxCompostAbleToMake();
         }
-        compostAmount = (float) Utils.round(compostAmount, 0);
+        compostAmount = (float) MathUtils.INSTANCE.round(compostAmount, 0);
 
-        textString += "§7x§d"+ StringUtils.formatNumber(Utils.round(compostAmount, 0)) +"§7 Compost currently sells for §d" + StringUtils.formatNumber(Utils.round(compostSellPrice * compostAmount, 1))  + "§7 coins.\n§8(" + StringUtils.formatNumber(Utils.round(compostSellPrice, 1)) + "/Compost)";
+        textString += "§7x§d"+ StringUtils.INSTANCE.formatNumber(MathUtils.INSTANCE.round(compostAmount, 0)) +"§7 Compost currently sells for §d" + StringUtils.INSTANCE.formatNumber(MathUtils.INSTANCE.round(compostSellPrice * compostAmount, 1))  + "§7 coins.\n§8(" + StringUtils.INSTANCE.formatNumber(MathUtils.INSTANCE.round(compostSellPrice, 1)) + "/Compost)";
 
         textString = (textString);
         textComponent.setText(textString);

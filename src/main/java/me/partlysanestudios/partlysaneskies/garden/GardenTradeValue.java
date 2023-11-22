@@ -17,8 +17,9 @@ import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager;
 import me.partlysanestudios.partlysaneskies.system.ThemeManager;
+import me.partlysanestudios.partlysaneskies.utils.MathUtils;
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
-import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -42,7 +43,7 @@ public class GardenTradeValue {
             return false;
         }
 
-        IInventory[] inventories = PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen);
+        IInventory[] inventories = MinecraftUtils.INSTANCE.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen);
         assert inventories != null;
         IInventory trader = inventories[0];
 
@@ -57,8 +58,8 @@ public class GardenTradeValue {
             return false;
         }
 
-        String acceptButtonName = StringUtils.removeColorCodes(acceptButton.getDisplayName());
-        String refuseButtonName = StringUtils.removeColorCodes(refuseButton.getDisplayName());
+        String acceptButtonName = StringUtils.INSTANCE.removeColorCodes(acceptButton.getDisplayName());
+        String refuseButtonName = StringUtils.INSTANCE.removeColorCodes(refuseButton.getDisplayName());
 
         // If the names are not equal to the desired names, then you know it screen
         // is not the trader screen
@@ -70,14 +71,14 @@ public class GardenTradeValue {
 
     // Returns a hashmap containing the name of an item and the quantity
     public static HashMap<String, Integer> getQuantityCostMap() {
-        IInventory[] inventories = PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen);
+        IInventory[] inventories = MinecraftUtils.INSTANCE.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen);
         assert inventories != null;
         IInventory trader = inventories[0];
 
         // Slots 29 is where the accept buttons is
         ItemStack acceptButton = trader.getStackInSlot(29);
 
-        ArrayList<String> formattedAcceptButtonLore = Utils.getLore(acceptButton);
+        ArrayList<String> formattedAcceptButtonLore = MinecraftUtils.INSTANCE.getLore(acceptButton);
         
         // Removes all the format codes from lore
         ArrayList<String> unformattedAcceptButtonLore = removeColorCodesFromList(formattedAcceptButtonLore);
@@ -116,8 +117,8 @@ public class GardenTradeValue {
 
             // Gets the name of ihe item and formats it
             String name = costLine.substring(0, costStartIndex);
-            name = StringUtils.stripLeading(name);
-            name = StringUtils.stripTrailing(name);
+            name = StringUtils.INSTANCE.stripLeading(name);
+            name = StringUtils.INSTANCE.stripTrailing(name);
 
             int amount;
             if (singleItem) {
@@ -144,14 +145,14 @@ public class GardenTradeValue {
     }
 
     public static List<String> getRewardsLore() {
-        IInventory[] inventories = PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen);
+        IInventory[] inventories = MinecraftUtils.INSTANCE.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen);
         assert inventories != null;
         IInventory trader = inventories[0];
 
         // Slots 29 is where the accept buttons is
         ItemStack acceptButton = trader.getStackInSlot(29);
 
-        ArrayList<String> formattedAcceptButtonLore = Utils.getLore(acceptButton);
+        ArrayList<String> formattedAcceptButtonLore = MinecraftUtils.INSTANCE.getLore(acceptButton);
 
         // Removes all the format codes from lore
         ArrayList<String> unformattedAcceptButtonLore = removeColorCodesFromList(formattedAcceptButtonLore);
@@ -172,8 +173,8 @@ public class GardenTradeValue {
                 continue;
             }
 
-            String strippedLine = StringUtils.stripLeading(line);
-            strippedLine = StringUtils.stripTrailing(strippedLine);
+            String strippedLine = StringUtils.INSTANCE.stripLeading(line);
+            strippedLine = StringUtils.INSTANCE.stripTrailing(strippedLine);
 
             int amountStartIndex = strippedLine.indexOf("+") + 1;
             int amountEndIndex = strippedLine.indexOf(" C");
@@ -190,7 +191,7 @@ public class GardenTradeValue {
         ArrayList<String> newList = new ArrayList<>();
 
         for (String oldLine : list) {
-            newList.add(StringUtils.removeColorCodes(oldLine));
+            newList.add(StringUtils.INSTANCE.removeColorCodes(oldLine));
         }
 
         return newList;
@@ -268,17 +269,17 @@ public class GardenTradeValue {
 
         StringBuilder textString = new StringBuilder();
 
-        textString.append("§e§lTotal Cost: §r§d").append(StringUtils.formatNumber(Utils.round(getTotalCost(), 2))).append("\n\n");
+        textString.append("§e§lTotal Cost: §r§d").append(StringUtils.INSTANCE.formatNumber(MathUtils.INSTANCE.round(getTotalCost(), 2))).append("\n\n");
         
-        textString.append("§e§lCopper Received: §r§d").append(StringUtils.formatNumber(Utils.round(getCopperReturn(), 2))).append("\n\n");
+        textString.append("§e§lCopper Received: §r§d").append(StringUtils.INSTANCE.formatNumber(MathUtils.INSTANCE.round(getCopperReturn(), 2))).append("\n\n");
 
         double pricePerCopper = getTotalCost() / getCopperReturn();
-        textString.append("§e§lCoins/Copper: §r§d").append(StringUtils.formatNumber(Utils.round(pricePerCopper, 2))).append("\n\n");
+        textString.append("§e§lCoins/Copper: §r§d").append(StringUtils.INSTANCE.formatNumber(MathUtils.INSTANCE.round(pricePerCopper, 2))).append("\n\n");
 
         StringBuilder priceBreakdown = new StringBuilder();
         HashMap<String, Double> coinCostMap = getCoinCostMap();
         for (Map.Entry<String, Integer> en : getQuantityCostMap().entrySet()){
-            priceBreakdown.append("§7x§d").append(en.getValue()).append(" §7").append(en.getKey()).append(" for a total of §d").append(StringUtils.formatNumber(Utils.round(coinCostMap.get(en.getKey()), 2))).append("§7 coins.\n");
+            priceBreakdown.append("§7x§d").append(en.getValue()).append(" §7").append(en.getKey()).append(" for a total of §d").append(StringUtils.INSTANCE.formatNumber(MathUtils.INSTANCE.round(coinCostMap.get(en.getKey()), 2))).append("§7 coins.\n");
         }
 
         textString.append("§e§lPrice Breakdown:§r\n");

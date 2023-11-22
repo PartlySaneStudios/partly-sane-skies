@@ -13,8 +13,9 @@ import me.partlysanestudios.partlysaneskies.system.BannerRenderer.renderNewBanne
 import me.partlysanestudios.partlysaneskies.system.PSSBanner
 import me.partlysanestudios.partlysaneskies.system.commands.PSSCommand
 import me.partlysanestudios.partlysaneskies.system.commands.PSSCommandRunnable
-import me.partlysanestudios.partlysaneskies.utils.StringUtils
-import me.partlysanestudios.partlysaneskies.utils.Utils
+import me.partlysanestudios.partlysaneskies.utils.*
+import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
+
 import net.minecraft.client.audio.PositionedSoundRecord
 import net.minecraft.command.ICommandSender
 import net.minecraft.util.ResourceLocation
@@ -34,7 +35,7 @@ import kotlin.math.min
 class EndOfFarmNotifier {
 
     fun run() {
-        if (!Utils.onCooldown(
+        if (!MathUtils.onCooldown(
                 rangeToHighlightSetTime,
                 (PartlySaneSkies.config.farmHightlightTime * 1000).toLong()
             )
@@ -45,7 +46,7 @@ class EndOfFarmNotifier {
             displayString = ""
             return
         }
-        if (Utils.onCooldown(
+        if (MathUtils.onCooldown(
                 lastChimeTime,
                 (PartlySaneSkies.config.farmnotifierChimeTime * 1000).toLong()
             )
@@ -125,13 +126,13 @@ class EndOfFarmNotifier {
         if (!inGarden()) {
             return
         }
-        if (Utils.getCurrentlyHoldingItem() == null) {
+        if (MinecraftUtils.getCurrentlyHoldingItem() == null) {
             return
         }
-        if (!Utils.getCurrentlyHoldingItem().hasDisplayName()) {
+        if (!MinecraftUtils.getCurrentlyHoldingItem().hasDisplayName()) {
             return
         }
-        if (!Utils.getCurrentlyHoldingItem().getDisplayName().contains("SkyBlock Menu")) {
+        if (!MinecraftUtils.getCurrentlyHoldingItem().getDisplayName().contains("SkyBlock Menu")) {
             return
         }
         if (event.pos == null) {
@@ -145,7 +146,7 @@ class EndOfFarmNotifier {
         val x = event.pos.x
         val y = event.pos.y
         val z = event.pos.z
-        Utils.sendClientMessage("§7Set §bpositon $pos§7 to §b($x, $y, $z)§7")
+        ChatUtils.sendClientMessage("§7Set §bpositon $pos§7 to §b($x, $y, $z)§7")
         if (pos == 1) {
             selectedPos1 = intArrayOf(x, y, z)
             pos = 2
@@ -231,13 +232,13 @@ class EndOfFarmNotifier {
                 if (a.size >= 3 && a[0].isNotEmpty() && a[1].isNotEmpty() && a[2].isNotEmpty()) {
                     try {
                         selectedPos1 = intArrayOf(a[0].toInt(), a[1].toInt(), a[2].toInt())
-                        Utils.sendClientMessage("§7Set §bpositon 1§7 to §b(" + selectedPos1[0] + ", " + selectedPos1[1] + ", " + selectedPos1[2] + ")§7")
+                        ChatUtils.sendClientMessage("§7Set §bpositon 1§7 to §b(" + selectedPos1[0] + ", " + selectedPos1[1] + ", " + selectedPos1[2] + ")§7")
                     } catch (e: NumberFormatException) {
-                        Utils.sendClientMessage("§cPlease enter a valid number and try again.")
+                        ChatUtils.sendClientMessage("§cPlease enter a valid number and try again.")
                     }
                 } else {
                     selectedPos1 = intArrayOf(s.position.x - 1, s.position.y, s.position.z - 1)
-                    Utils.sendClientMessage("§7Set §bpositon 1§7 to §b(" + selectedPos1[0] + ", " + selectedPos1[1] + ", " + selectedPos1[2] + ")§7")
+                    ChatUtils.sendClientMessage("§7Set §bpositon 1§7 to §b(" + selectedPos1[0] + ", " + selectedPos1[1] + ", " + selectedPos1[2] + ")§7")
                 }
             }
             .register()
@@ -250,13 +251,13 @@ class EndOfFarmNotifier {
                 if (a.size >= 3 && a[0].isNotEmpty() && a[1].isNotEmpty() && a[2].isNotEmpty()) {
                     try {
                         selectedPos2 = intArrayOf(a[0].toInt(), a[1].toInt(), a[2].toInt())
-                        Utils.sendClientMessage("§7Set §bpositon 2§7 to §b(" + selectedPos2[0] + ", " + selectedPos2[1] + ", " + selectedPos2[2] + ")§7")
+                        ChatUtils.sendClientMessage("§7Set §bpositon 2§7 to §b(" + selectedPos2[0] + ", " + selectedPos2[1] + ", " + selectedPos2[2] + ")§7")
                     } catch (e: java.lang.NumberFormatException) {
-                        Utils.sendClientMessage("§cPlease enter a valid number and try again.")
+                        ChatUtils.sendClientMessage("§cPlease enter a valid number and try again.")
                     }
                 } else {
                     selectedPos2 = intArrayOf(s.position.x - 1, s.position.y, s.position.z - 1)
-                    Utils.sendClientMessage("§7Set §bpositon 2§7 to §b(" + selectedPos2[0] + ", " + selectedPos2[1] + ", " + selectedPos2[2] + ")§7")
+                    ChatUtils.sendClientMessage("§7Set §bpositon 2§7 to §b(" + selectedPos2[0] + ", " + selectedPos2[1] + ", " + selectedPos2[2] + ")§7")
                 }
             }
             .register()
@@ -271,10 +272,10 @@ class EndOfFarmNotifier {
                     name = a[0]
                 }
                 if (name?.let { createNewRange(it) } == null) {
-                    Utils.sendClientMessage("§cUnable to create a new farm notifier. Make sure both §b//pos1§c and §b//pos2§c have been selected.")
+                    ChatUtils.sendClientMessage("§cUnable to create a new farm notifier. Make sure both §b//pos1§c and §b//pos2§c have been selected.")
                     return@setRunnable
                 }
-                Utils.sendClientMessage("§aCreated new Farm Notifier.")
+                ChatUtils.sendClientMessage("§aCreated new Farm Notifier.")
                 selectedPos1 = IntArray(0)
                 selectedPos2 = IntArray(0)
             }
@@ -291,26 +292,26 @@ class EndOfFarmNotifier {
             .setDescription("Operates the Farm Notifier feature: //fn [list/remove/highlight/show]")
             .setRunnable(PSSCommandRunnable { s: ICommandSender?, a: Array<String> ->
                 if (a.isEmpty() || a[0].equals("list", ignoreCase = true)) {
-                    Utils.sendClientMessage("§7To create a new farm notifier, run §b//pos1§7 at one end of your selection, then run §b//pos2§7 at the other end of your farm. Once the area has been selected, run §b//create§7.\n\n§b//farmnotifier§7 command:\n§b//fn remove <index>:§7 remove a given index from the list.\n§b//fn list:§7 lists all of the farm notifiers and their indexes")
+                    ChatUtils.sendClientMessage("§7To create a new farm notifier, run §b//pos1§7 at one end of your selection, then run §b//pos2§7 at the other end of your farm. Once the area has been selected, run §b//create§7.\n\n§b//farmnotifier§7 command:\n§b//fn remove <index>:§7 remove a given index from the list.\n§b//fn list:§7 lists all of the farm notifiers and their indexes")
                     listRanges()
                     return@PSSCommandRunnable
                 }
                 if (a[0].equals("remove", ignoreCase = true)) {
                     if (a.size == 1) {
-                        Utils.sendClientMessage("§cError: Must provide an index to remove")
+                        ChatUtils.sendClientMessage("§cError: Must provide an index to remove")
                         return@PSSCommandRunnable
                     }
                     val i: Int = try {
                         a[1].toInt()
                     } catch (e: java.lang.NumberFormatException) {
-                        Utils.sendClientMessage("§cPlease enter a valid index and try again.")
+                        ChatUtils.sendClientMessage("§cPlease enter a valid index and try again.")
                         return@PSSCommandRunnable
                     }
                     if (i > ranges.size || i < 1) {
-                        Utils.sendClientMessage("§cPlease select a valid index and try again.")
+                        ChatUtils.sendClientMessage("§cPlease select a valid index and try again.")
                         return@PSSCommandRunnable
                     }
-                    Utils.sendClientMessage("§aRemoving: §b" + ranges[i - 1].toString())
+                    ChatUtils.sendClientMessage("§aRemoving: §b" + ranges[i - 1].toString())
                     ranges.removeAt(i - 1)
 
                     try {
@@ -321,18 +322,18 @@ class EndOfFarmNotifier {
                 }
                 if (a[0].equals("highlight", ignoreCase = true) || a[0].equals("show", ignoreCase = true)) {
                     if (a.size == 1) {
-                        Utils.sendClientMessage("§cError: Must provide an index to highlight")
+                        ChatUtils.sendClientMessage("§cError: Must provide an index to highlight")
                         return@PSSCommandRunnable
                     }
 
                     val i: Int = try {
                         a[1].toInt()
                     } catch (e: java.lang.NumberFormatException) {
-                        Utils.sendClientMessage("§cPlease enter a valid number index and try again.")
+                        ChatUtils.sendClientMessage("§cPlease enter a valid number index and try again.")
                         return@PSSCommandRunnable
                     }
                     if (i > ranges.size || i < 1) {
-                        Utils.sendClientMessage("§cPlease select a valid index and try again.")
+                        ChatUtils.sendClientMessage("§cPlease select a valid index and try again.")
                         return@PSSCommandRunnable
                     }
                     rangeToHighlight = ranges[i - 1]
@@ -352,7 +353,7 @@ class EndOfFarmNotifier {
             .setDescription("Toggles the wand for the End of Farm Notifier: /wand")
             .setRunnable { s: ICommandSender?, a: Array<String?>? ->
                 wandActive = !wandActive
-                Utils.sendClientMessage(
+                ChatUtils.sendClientMessage(
                     "§7The wand is now " +
                             if (wandActive) "§aactive§7. Use your §aSkyBlock menu §7to select a range using §bright click§7 as §3pos1§7 and then §3pos2§7. This is a §crepeating cycle§7. To disable the wand, run §b/wand§7 again."
                             else "§cinactive§7."
@@ -391,7 +392,7 @@ class EndOfFarmNotifier {
         }
 
         // Sends a message to the client
-        Utils.sendClientMessage(message.toString())
+        ChatUtils.sendClientMessage(message.toString())
     }
 
     companion object {
@@ -409,8 +410,8 @@ class EndOfFarmNotifier {
         private var wandActive = false
         private var pos = 1 // 1 is pos1, 2 is pos2
         fun inGarden(): Boolean {
-            var location = PartlySaneSkies.getRegionName()
-            location = StringUtils.removeColorCodes(location)
+            var location = HypixelUtils.getRegionName()
+            location = location.removeColorCodes()
             location = StringUtils.stripLeading(location)
             location = StringUtils.stripTrailing(location)
             location = location.replace(

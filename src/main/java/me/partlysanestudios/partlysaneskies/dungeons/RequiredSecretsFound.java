@@ -8,8 +8,8 @@ package me.partlysanestudios.partlysaneskies.dungeons;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.system.BannerRenderer;
 import me.partlysanestudios.partlysaneskies.system.PSSBanner;
-import me.partlysanestudios.partlysaneskies.utils.Utils;
-import me.partlysanestudios.partlysaneskies.utils.TabListUtils;
+import me.partlysanestudios.partlysaneskies.utils.HypixelUtils;
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.util.ResourceLocation;
@@ -24,11 +24,11 @@ public class RequiredSecretsFound {
 
     @SubscribeEvent
     public void checkRequiredSecrets(TickEvent.ClientTickEvent event) {
-        if (!PartlySaneSkies.isSkyblock()) {
+        if (!HypixelUtils.INSTANCE.isSkyblock()) {
             return;
         }
 
-        if (!Utils.inDungeons()){
+        if (!HypixelUtils.INSTANCE.inDungeons()){
             return;
         }
 
@@ -42,7 +42,7 @@ public class RequiredSecretsFound {
         lastCheckTime = PartlySaneSkies.getTime();
 
 
-        for (String line : TabListUtils.getTabList()) {
+        for (String line : MinecraftUtils.INSTANCE.getTabList()) {
             if (line.contains("Secrets Found: §r§a")) {
                 if (PartlySaneSkies.config.secretsBanner) {
                     BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner("Required Secrets Found!", (long) (PartlySaneSkies.config.secretsBannerTime * 1000), 3.0f, PartlySaneSkies.config.secretsBannerColor.toJavaColor()));

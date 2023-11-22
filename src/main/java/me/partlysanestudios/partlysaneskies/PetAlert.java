@@ -16,8 +16,7 @@ import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.auctionhouse.menu.AuctionHouseGui;
 import me.partlysanestudios.partlysaneskies.system.ThemeManager;
 import me.partlysanestudios.partlysaneskies.system.commands.PSSCommand;
-import me.partlysanestudios.partlysaneskies.utils.StringUtils;
-import me.partlysanestudios.partlysaneskies.utils.Utils;
+import me.partlysanestudios.partlysaneskies.utils.*;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -65,11 +64,11 @@ public class PetAlert {
             return;
         }
 
-        if (Utils.onCooldown(lastMuteTime, (long) (PartlySaneSkies.config.petAlertMuteTime * 60L * 1000L))) {
+        if (MathUtils.INSTANCE.onCooldown(lastMuteTime, (long) (PartlySaneSkies.config.petAlertMuteTime * 60L * 1000L))) {
             return;
         }
         
-        if (!Utils.onCooldown(lastSoundTime, 750)) {
+        if (!MathUtils.INSTANCE.onCooldown(lastSoundTime, 750)) {
             PartlySaneSkies.minecraft.getSoundHandler()
                 .playSound(
                     PositionedSoundRecord
@@ -81,7 +80,7 @@ public class PetAlert {
                 }
             lastSoundTime = PartlySaneSkies.getTime();
         }
-        if (!Utils.onCooldown(lastMessageSendTime,3000)) {
+        if (!MathUtils.INSTANCE.onCooldown(lastMessageSendTime,3000)) {
             IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + ("§cYOU CURRENTLY HAVE " + petName + "§c SELECTED AS YOUR PET. YOU WANTED TO UPGRADE " + selectedPetName + "." +
             "\n§dClick this message or run /mutepetalert to mute the alert for " + PartlySaneSkies.config.petAlertMuteTime + " minutes."));
             message.getChatStyle().setChatClickEvent(new ClickEvent(Action.RUN_COMMAND, "/mutepetalert"));
@@ -92,7 +91,7 @@ public class PetAlert {
     }
 
     public static void favouritePet() {
-        if (!PartlySaneSkies.isSkyblock()) {
+        if (!HypixelUtils.INSTANCE.isSkyblock()) {
             return;
         }
         ItemStack item;
@@ -113,18 +112,18 @@ public class PetAlert {
             return;
         }
 
-        if (Utils.getItemId(item).isEmpty()) {
+        if (HypixelUtils.INSTANCE.getItemId(item).isEmpty()) {
             return;
         }
         String petName = parsePetNameFromItem(item.getDisplayName());
         PartlySaneSkies.config.selectedPet = petName;
-        Utils.sendClientMessage("Set " + petName + " as your favorite pet.");
+        ChatUtils.INSTANCE.sendClientMessage("Set " + petName + " as your favorite pet.");
         PartlySaneSkies.config.save();
     }
 
     // Parses a pet's name from the armor stand string. Ex: "[Lv100] Su386's *Black Cat*"
     public static String parsePetNameFromEntity(String name) {
-        name = StringUtils.removeColorCodes(name);
+        name = StringUtils.INSTANCE.removeColorCodes(name);
         int petNameStartIndex = name.indexOf("'s ") + 3; // Finds the start of the pet name. Ex: "[Lv100] Su386's *Black Cat"
         return name.substring(petNameStartIndex);
     }
@@ -133,13 +132,13 @@ public class PetAlert {
         new PSSCommand("mutepetalert")
                 .setDescription("Mutes the pet alert for a set amount of minutes")
                 .setRunnable((s, a) -> {
-                    Utils.sendClientMessage("§bPet alert has been muted for " +  PartlySaneSkies.config.petAlertMuteTime + " minutes.");
+                    ChatUtils.INSTANCE.sendClientMessage("§bPet alert has been muted for " +  PartlySaneSkies.config.petAlertMuteTime + " minutes.");
                     PetAlert.lastMuteTime = PartlySaneSkies.getTime();
                 }).register();
     }
 
     public static String parsePetNameFromItem(String name) {
-        name = StringUtils.removeColorCodes(name);
+        name = StringUtils.INSTANCE.removeColorCodes(name);
         int petNameStartIndex = name.indexOf("] ") + 2; // Finds the start of the pet name. Ex: "[Lv100] Su386's *Black Cat"
         return name.substring(petNameStartIndex);
     }
@@ -149,8 +148,8 @@ public class PetAlert {
             return false;
         }
 
-        IInventory upper = Objects.requireNonNull(PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen))[0];
-        return StringUtils.removeColorCodes(upper.getDisplayName().getFormattedText()).contains("Pets");
+        IInventory upper = Objects.requireNonNull(MinecraftUtils.INSTANCE.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen))[0];
+        return StringUtils.INSTANCE.removeColorCodes(upper.getDisplayName().getFormattedText()).contains("Pets");
     }
 
 
@@ -159,8 +158,8 @@ public class PetAlert {
             return false;
         }
 
-        IInventory upper = Objects.requireNonNull(PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen))[0];
-        boolean inventoryNameMatches = StringUtils.removeColorCodes(upper.getDisplayName().getFormattedText()).contains("Minion");
+        IInventory upper = Objects.requireNonNull(MinecraftUtils.INSTANCE.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen))[0];
+        boolean inventoryNameMatches = StringUtils.INSTANCE.removeColorCodes(upper.getDisplayName().getFormattedText()).contains("Minion");
 
         if (!inventoryNameMatches) {
             return false;
@@ -172,7 +171,7 @@ public class PetAlert {
         if (minionHeadSlot == null) {
             return false;
         }
-        String displayName = StringUtils.removeColorCodes(minionHeadSlot.getDisplayName());
+        String displayName = StringUtils.INSTANCE.removeColorCodes(minionHeadSlot.getDisplayName());
 
         return displayName.contains("Minion");
     }
@@ -183,7 +182,7 @@ public class PetAlert {
         List<Entity> petEntities = getAllPets();
         // If the pet says Ex: "[Lv100] *Su386*'s Black Cat" return that entity
         for (Entity entity : petEntities) {
-            if (StringUtils.removeColorCodes(entity.getName()).toLowerCase().contains(name.toLowerCase())) {
+            if (StringUtils.INSTANCE.removeColorCodes(entity.getName()).toLowerCase().contains(name.toLowerCase())) {
                 return entity;
             }
         }
@@ -198,7 +197,7 @@ public class PetAlert {
         // For every armor stand in the game, check if it's pet by looking for the level tag in front of the name.
         // Ex: "*[Lv*100] Su386's Black Cat"
         for (Entity entity : armorStandEntities) {
-            if (StringUtils.removeColorCodes(entity.getName()).contains("[Lv")) {
+            if (StringUtils.INSTANCE.removeColorCodes(entity.getName()).contains("[Lv")) {
                 petEntities.add(entity); // If so, add it to the list
             }
         }
