@@ -1,8 +1,10 @@
 import xyz.deftu.gradle.utils.GameSide
 
+
 plugins {
+    val kotlin_version = "1.6.21"
     java
-    kotlin("jvm") version("1.6.21")
+    kotlin("jvm") version(kotlin_version)
     val dgtVersion = "1.18.4"
     id("xyz.deftu.gradle.tools") version(dgtVersion)
     id("xyz.deftu.gradle.tools.shadow") version(dgtVersion)
@@ -25,6 +27,7 @@ repositories {
 }
 
 dependencies {
+    val kotlin_version = "1.6.21"
     implementation(shade("gg.essential:elementa-${mcData.versionStr}-${mcData.loader.name}:531") {
         isTransitive = false
     })
@@ -38,6 +41,13 @@ dependencies {
     minecraft("com.mojang:minecraft:1.8.9")
     forge("net.minecraftforge:forge:1.8.9-11.15.1.2318-1.8.9")
     compileOnly("org.spongepowered:mixin:0.7.11-SNAPSHOT")
+    implementation(shade("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version") {})
+
+    modCompileOnly("org.apache.logging.log4j:log4j-api:2.19.0")
+    modCompileOnly("org.apache.logging.log4j:log4j-core:2.19.0")
+    modCompileOnly("com.google.code.gson:gson:2.2.4")
+
+
 }
 
 toolkit.useDevAuth()

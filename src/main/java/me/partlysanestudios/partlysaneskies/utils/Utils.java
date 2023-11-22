@@ -25,6 +25,7 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.ResourceLocation;
 import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -262,7 +263,7 @@ public class Utils {
 
     public static void log(Level level, String message) {
         for (String line : message.split("\n")) {
-            PartlySaneSkies.LOGGER.log(level, line);
+            LogManager.getLogger("Partly Sane Skies").log(level, line);
         }
 
     }
