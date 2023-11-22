@@ -8,8 +8,8 @@ package me.partlysanestudios.partlysaneskies.chat;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import me.partlysanestudios.partlysaneskies.system.commands.PSSCommand;
+import me.partlysanestudios.partlysaneskies.utils.ChatUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
-import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
 
@@ -57,7 +57,7 @@ public class ChatAlertsManager {
                 .setRunnable(((sender, args) -> {
                     // If the user doesn't provide any arguments whatsoever print message
                     if (args.length == 0) {
-                        Utils.sendClientMessage("§cIncorrect usage. Correct usage: /chatalerts add/remove/list");
+                        ChatUtils.INSTANCE.sendClientMessage("§cIncorrect usage. Correct usage: /chatalerts add/remove/list");
                         return;
                     }
 
@@ -72,7 +72,7 @@ public class ChatAlertsManager {
                         case "add":
                             // Prints error message if no message alert is given
                             if (args.length == 1) {
-                                Utils.sendClientMessage("§cIncorrect usage. Correct usage: /chatalerts add [alert]");
+                                ChatUtils.INSTANCE.sendClientMessage("§cIncorrect usage. Correct usage: /chatalerts add [alert]");
                                 break;
                             }
 
@@ -84,8 +84,8 @@ public class ChatAlertsManager {
                             }
 
                             // Removes any leading or trailing spaces
-                            alert = new StringBuilder(StringUtils.stripLeading(alert.toString()));
-                            alert = new StringBuilder(StringUtils.stripTrailing(alert.toString()));
+                            alert = new StringBuilder(StringUtils.INSTANCE.stripLeading(alert.toString()));
+                            alert = new StringBuilder(StringUtils.INSTANCE.stripTrailing(alert.toString()));
 
                             ChatAlertsManager.addAlert(alert.toString());
 
@@ -95,7 +95,7 @@ public class ChatAlertsManager {
                         case "remove":
                             // If no number is given
                             if (args.length == 1) {
-                                Utils.sendClientMessage("§cIncorrect usage. Correct usage: /chatalerts remove [number]");
+                                ChatUtils.INSTANCE.sendClientMessage("§cIncorrect usage. Correct usage: /chatalerts remove [number]");
                                 break;
                             }
 
@@ -104,7 +104,7 @@ public class ChatAlertsManager {
                             try {
                                 id = Integer.parseInt(args[1]);
                             } catch (NumberFormatException e) { // If the number cannot be parsed, prints an error message
-                                Utils.sendClientMessage("§c\"" + args[1] + "\" could not be read as a number. Correct Usage: /chatalerts remove [number]");
+                                ChatUtils.INSTANCE.sendClientMessage("§c\"" + args[1] + "\" could not be read as a number. Correct Usage: /chatalerts remove [number]");
                                 break;
                             }
 
@@ -114,7 +114,7 @@ public class ChatAlertsManager {
 
                         // If none of the above are given
                         default:
-                            Utils.sendClientMessage("§cIncorrect usage. Correct usage: /chatalerts add/remove/list");
+                            ChatUtils.INSTANCE.sendClientMessage("§cIncorrect usage. Correct usage: /chatalerts add/remove/list");
                             break;
                     }
                 }))
@@ -149,12 +149,12 @@ public class ChatAlertsManager {
         try {
             save();
         } catch (IOException e) { // If unable to save, warn user
-            Utils.sendClientMessage("§cChat Alerts was unable to save. Please try again.");
+            ChatUtils.INSTANCE.sendClientMessage("§cChat Alerts was unable to save. Please try again.");
             e.printStackTrace();
         }
 
         // Print success message
-        Utils.sendClientMessage("§b\"§d" + alert + "§b\" was successfully added as alert number §d" + chatAlertsList.size() + "§b.");
+        ChatUtils.INSTANCE.sendClientMessage("§b\"§d" + alert + "§b\" was successfully added as alert number §d" + chatAlertsList.size() + "§b.");
     }
 
     public static int getChatAlertCount() {
@@ -172,19 +172,19 @@ public class ChatAlertsManager {
         
         // For each alert, format it so its ##. [alert] 
         for (String alert : chatAlertsList) {
-            message.append(StringUtils.formatNumber(i)).append(": ").append(alert).append("\n");
+            message.append(StringUtils.INSTANCE.formatNumber(i)).append(": ").append(alert).append("\n");
             i++;
         }
 
         // Sends a message to the client
-        Utils.sendClientMessage(message.toString());
+        ChatUtils.INSTANCE.sendClientMessage(message.toString());
     }
 
     // Removes an alert given a number
     public static void removeAlert(int id) {
         // Checks if the number is in the list
         if (id > chatAlertsList.size() || chatAlertsList.size() < 0) {
-            Utils.sendClientMessage("§cChat alert number " + id + " was not found. Please enter a valid number.");
+            ChatUtils.INSTANCE.sendClientMessage("§cChat alert number " + id + " was not found. Please enter a valid number.");
             return;
         }
 
@@ -198,11 +198,11 @@ public class ChatAlertsManager {
         try {
             save();
         } catch (IOException e) { // Warns user if unable to save
-            Utils.sendClientMessage("§cChat Alerts was unable to save. Please try again.");
+            ChatUtils.INSTANCE.sendClientMessage("§cChat Alerts was unable to save. Please try again.");
             e.printStackTrace();
         }
         // Prints a success message
-        Utils.sendClientMessage("§bChat Alert number §d" + id + " §b(\"§d" + message + "§b\") was successfully removed.");
+        ChatUtils.INSTANCE.sendClientMessage("§bChat Alert number §d" + id + " §b(\"§d" + message + "§b\") was successfully removed.");
     }
 
     // All the different message prefixes
@@ -230,14 +230,14 @@ public class ChatAlertsManager {
             return message;
         }
 
-        String unformattedMessage = StringUtils.removeColorCodes(formattedMessage);
+        String unformattedMessage = StringUtils.INSTANCE.removeColorCodes(formattedMessage);
         String rawMessage = formattedMessage.substring(beginMessageIndex);
 
         // Removes all formatting and extra spaces from the message
-        rawMessage = StringUtils.removeColorCodes(rawMessage);
+        rawMessage = StringUtils.INSTANCE.removeColorCodes(rawMessage);
         rawMessage = rawMessage.replaceFirst(": ", "");
-        rawMessage = StringUtils.stripLeading(rawMessage);
-        rawMessage = StringUtils.stripTrailing(rawMessage);
+        rawMessage = StringUtils.INSTANCE.stripLeading(rawMessage);
+        rawMessage = StringUtils.INSTANCE.stripTrailing(rawMessage);
 
         String lowerCaseMessage = rawMessage.toLowerCase();
 

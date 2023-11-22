@@ -9,8 +9,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager;
+import me.partlysanestudios.partlysaneskies.utils.MathUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
-import me.partlysanestudios.partlysaneskies.utils.Utils;
+import me.partlysanestudios.partlysaneskies.utils.SystemUtils;
 import me.partlysanestudios.partlysaneskies.system.requests.Request;
 import me.partlysanestudios.partlysaneskies.system.requests.RequestsManager;
 import org.apache.logging.log4j.Level;
@@ -38,7 +39,7 @@ public class MinionData {
 //        Creates a json object from the request response
         JsonObject jsonObj = new JsonParser().parse(request.getResponse()).getAsJsonObject();
 //        Gets the minion object from the json
-        JsonObject minionObjects = Utils.getJsonFromPath(jsonObj, "/minions").getAsJsonObject();
+        JsonObject minionObjects = SystemUtils.INSTANCE.getJsonFromPath(jsonObj, "/minions").getAsJsonObject();
 
 
 //        For every item in the json, create a minion from it
@@ -50,7 +51,7 @@ public class MinionData {
         }
 
 //        Gets the fuel object from the json
-        JsonObject fuelObjects = Utils.getJsonFromPath(jsonObj, "/fuels").getAsJsonObject();
+        JsonObject fuelObjects = SystemUtils.INSTANCE.getJsonFromPath(jsonObj, "/fuels").getAsJsonObject();
         for (Map.Entry<String, JsonElement> en : fuelObjects.entrySet()) {
             String id = en.getKey();
             JsonObject fuelObj = en.getValue().getAsJsonObject();
@@ -126,17 +127,17 @@ public class MinionData {
 
         public Minion(String id, JsonObject obj) {
             this.id = id;
-            displayName = Utils.getJsonFromPath(obj, "/displayName").getAsString();
-            maxTier = Utils.getJsonFromPath(obj, "/maxTier").getAsInt();
-            category = Utils.getJsonFromPath(obj, "/category").getAsString();
+            displayName = SystemUtils.INSTANCE.getJsonFromPath(obj, "/displayName").getAsString();
+            maxTier = SystemUtils.INSTANCE.getJsonFromPath(obj, "/maxTier").getAsInt();
+            category = SystemUtils.INSTANCE.getJsonFromPath(obj, "/category").getAsString();
 
-            JsonObject dropsJson = Utils.getJsonFromPath(obj, "/drops").getAsJsonObject();
+            JsonObject dropsJson = SystemUtils.INSTANCE.getJsonFromPath(obj, "/drops").getAsJsonObject();
             drops = new HashMap<>();
             for (Map.Entry<String, JsonElement> en : dropsJson.entrySet()) {
                 drops.put(en.getKey(), en.getValue().getAsDouble());
             }
 
-            JsonObject cooldownJson = Utils.getJsonFromPath(obj, "/cooldown").getAsJsonObject();
+            JsonObject cooldownJson = SystemUtils.INSTANCE.getJsonFromPath(obj, "/cooldown").getAsJsonObject();
             cooldowns = new HashMap<>();
             for (Map.Entry<String, JsonElement> en : cooldownJson.entrySet()) {
                 cooldowns.put(Integer.parseInt(en.getKey()), en.getValue().getAsDouble());
@@ -241,7 +242,7 @@ public class MinionData {
                 try {
                     price = SkyblockDataManager.getItem(itemId).getBestPrice();
                 } catch (NullPointerException e) {
-                    Utils.log(Level.WARN, itemId + ": DOES NOT HAVE PRICE");
+                    SystemUtils.INSTANCE.log(Level.WARN, itemId + ": DOES NOT HAVE PRICE");
                 }
 
 
@@ -286,22 +287,22 @@ public class MinionData {
             for (Map.Entry<String, Double> en2 : this.getBaseItemsPerMinute(this.maxTier, upgrades, fuel).entrySet()) {
 //                Individual price of the item
                 double price = SkyblockDataManager.getItem(en2.getKey()).getBestPrice();
-                price = Utils.round(price, 1); // rounded to 1 decimal place
+                price = MathUtils.INSTANCE.round(price, 1); // rounded to 1 decimal place
 
 //                Total amount of money made by the item
                 double totalItemProfit = en2.getValue();
                 totalItemProfit *= 60 * hours;
-                totalItemProfit = Utils.round(totalItemProfit, 1); // rounded to 1 decimal place
+                totalItemProfit = MathUtils.INSTANCE.round(totalItemProfit, 1); // rounded to 1 decimal place
 
-                str.append("\n§7   §6x").append(StringUtils.formatNumber(totalItemProfit)).append("§7 §6").append(SkyblockDataManager.getItem(en2.getKey()).getName()).append("§7 for ").append(StringUtils.formatNumber(price)).append(" coins each.");
+                str.append("\n§7   §6x").append(StringUtils.INSTANCE.formatNumber(totalItemProfit)).append("§7 §6").append(SkyblockDataManager.getItem(en2.getKey()).getName()).append("§7 for ").append(StringUtils.INSTANCE.formatNumber(price)).append(" coins each.");
             }
 
 //            Total amount of money made in given hours by the minion
             double totalMinionProfit = this.getTotalProfitPerMinute(tier, upgrades, fuel);
             totalMinionProfit *= 60 * hours;
-            totalMinionProfit = Utils.round(totalMinionProfit, 1); // rounded to 1 decimal place
+            totalMinionProfit = MathUtils.INSTANCE.round(totalMinionProfit, 1); // rounded to 1 decimal place
 
-            str.append("\n§7   Total: §6").append(StringUtils.formatNumber(totalMinionProfit)).append("§7 coins in ").append(StringUtils.formatNumber(hours)).append(" hours.");
+            str.append("\n§7   Total: §6").append(StringUtils.INSTANCE.formatNumber(totalMinionProfit)).append("§7 coins in ").append(StringUtils.INSTANCE.formatNumber(hours)).append(" hours.");
 
             return str.toString();
         }
@@ -324,7 +325,7 @@ public class MinionData {
 
 //        Creates new minion fuel from the json object in the public data repo
         public MinionFuel(String id, JsonObject object) {
-            this(id, Utils.getJsonFromPath(object, "duration").getAsDouble() , Utils.getJsonFromPath(object, "speed_upgrade").getAsDouble());
+            this(id, SystemUtils.INSTANCE.getJsonFromPath(object, "duration").getAsDouble() , SystemUtils.INSTANCE.getJsonFromPath(object, "speed_upgrade").getAsDouble());
         }
 
 //        Returns the amount of fuel needed for the duration specified (in minutes)

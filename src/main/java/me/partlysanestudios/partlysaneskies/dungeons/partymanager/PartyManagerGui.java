@@ -19,7 +19,7 @@ import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.system.ThemeManager;
 import me.partlysanestudios.partlysaneskies.system.guicomponents.PSSButton;
-import me.partlysanestudios.partlysaneskies.utils.Utils;
+import me.partlysanestudios.partlysaneskies.utils.ElementaUtils;
 
 import java.awt.*;
 import java.net.MalformedURLException;
@@ -64,9 +64,9 @@ public class PartyManagerGui extends WindowScreen {
                 .setX(new CenterConstraint())
                 .setY(new PixelConstraint(10))
                 .setChildOf(list);
-        
-        
-        Utils.applyBackground(topBarBlock);
+
+
+        ElementaUtils.INSTANCE.applyBackground(topBarBlock);
 
         createPartyManagementButtons(topBarBlock, scaleFactor, partyMembers);
         createJoinFloorButtons(topBarBlock, scaleFactor);
@@ -80,7 +80,7 @@ public class PartyManagerGui extends WindowScreen {
                     .setY(new PixelConstraint(height))
                     .setChildOf(list);
 
-            Utils.applyBackground(memberBlock);
+            ElementaUtils.INSTANCE.applyBackground(memberBlock);
 
             new Thread(() -> {
                 try {

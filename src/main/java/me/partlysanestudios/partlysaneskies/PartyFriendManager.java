@@ -44,7 +44,7 @@ public class PartyFriendManager {
         if (event.message.getUnformattedText().startsWith("-----------------------------------------------------")) {
             isWaitingForMembers = false;
         }
-        String message = StringUtils.removeColorCodes(event.message.getFormattedText());
+        String message = StringUtils.INSTANCE.removeColorCodes(event.message.getFormattedText());
 
         String[] rows = message.split("\n");
 

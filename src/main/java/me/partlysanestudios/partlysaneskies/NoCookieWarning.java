@@ -7,6 +7,7 @@ package me.partlysanestudios.partlysaneskies;
 
 import me.partlysanestudios.partlysaneskies.system.BannerRenderer;
 import me.partlysanestudios.partlysaneskies.system.PSSBanner;
+import me.partlysanestudios.partlysaneskies.utils.HypixelUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
@@ -49,7 +50,7 @@ public class NoCookieWarning {
     // determined
     public static int hasBoosterCookie() {
         for (IChatComponent chatComponent : getFooter().getSiblings()) {
-            if (StringUtils.removeColorCodes(chatComponent.getFormattedText()).toLowerCase()
+            if (StringUtils.INSTANCE.removeColorCodes(chatComponent.getFormattedText()).toLowerCase()
                     .contains("not active! obtain booster cookies")) {
                 return 0;
             }
@@ -60,7 +61,7 @@ public class NoCookieWarning {
     }
 
     public static boolean hasLotsOfCoins() {
-        if (PartlySaneSkies.getCoins() > PartlySaneSkies.config.maxWithoutCookie) {
+        if (HypixelUtils.INSTANCE.getCoins() > PartlySaneSkies.config.maxWithoutCookie) {
             return true;
         } else {
             return false;
@@ -97,7 +98,7 @@ public class NoCookieWarning {
 
     @SubscribeEvent
     public void checkCoinsTick(ClientTickEvent event) {
-        if (!PartlySaneSkies.isSkyblock()) {
+        if (!HypixelUtils.INSTANCE.isSkyblock()) {
             return;
         }
         if (!PartlySaneSkies.config.noCookieWarning) {

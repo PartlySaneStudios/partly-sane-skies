@@ -8,8 +8,8 @@ package me.partlysanestudios.partlysaneskies.dungeons.partymanager;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyMember.PartyRank;
 import me.partlysanestudios.partlysaneskies.system.commands.PSSCommand;
+import me.partlysanestudios.partlysaneskies.utils.ChatUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
-import me.partlysanestudios.partlysaneskies.utils.Utils;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -85,8 +85,8 @@ public class PartyManager {
         memberName = memberName.replace("Party Finder > ", "");
         int indexOfText = memberName.indexOf("joined the dungeon group!");
         memberName = memberName.substring(0, indexOfText);
-        memberName = StringUtils.stripLeading(memberName);
-        memberName = StringUtils.stripTrailing(memberName);
+        memberName = StringUtils.INSTANCE.stripLeading(memberName);
+        memberName = StringUtils.INSTANCE.stripTrailing(memberName);
 
         try {
             loadPlayerData(memberName);
@@ -167,7 +167,7 @@ public class PartyManager {
             // Hides message
             event.setCanceled(true);
             // Sends an error message
-            Utils.sendClientMessage(("§9§m-----------------------------------------------------\n "+
+            ChatUtils.INSTANCE.sendClientMessage(("§9§m-----------------------------------------------------\n "+
                     "§r§cError: Could not run Party Manager." +
                     "\n§r§cYou are not currently in a party."
             ));
@@ -206,7 +206,7 @@ public class PartyManager {
      
     // Kicks all offline players
     public static void kickOffline() {
-        Utils.sendClientMessage("Kicking all offline members...");
+        ChatUtils.INSTANCE.sendClientMessage("Kicking all offline members...");
         PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party kickoffline");
     }
 

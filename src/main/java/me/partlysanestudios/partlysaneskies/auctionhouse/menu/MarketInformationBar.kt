@@ -16,8 +16,11 @@ import gg.essential.elementa.dsl.constrain
 import gg.essential.elementa.dsl.constraint
 import gg.essential.elementa.dsl.pixels
 import me.partlysanestudios.partlysaneskies.system.ThemeManager
+import me.partlysanestudios.partlysaneskies.utils.MathUtils
+import me.partlysanestudios.partlysaneskies.utils.MathUtils.round
 import me.partlysanestudios.partlysaneskies.utils.StringUtils
-import me.partlysanestudios.partlysaneskies.utils.Utils
+import me.partlysanestudios.partlysaneskies.utils.StringUtils.formatNumber
+
 import java.awt.Color
 
 class MarketInformationBar(xConstraint: XConstraint, yConstraint: YConstraint, heightConstraint: HeightConstraint, widthConstraint: WidthConstraint, textScaleFactor: Float) {
@@ -74,7 +77,7 @@ class MarketInformationBar(xConstraint: XConstraint, yConstraint: YConstraint, h
         var info = ""
         info += "&6Offer Information:\n\n\n"
         info += if (auction.getPrice() != -1L) {
-            "&eSelling Price: &6${StringUtils.formatNumber(auction.getPrice().toDouble())}"
+            "&eSelling Price: &6${auction.getPrice().toDouble().formatNumber()}"
         } else {
             "\n&eSelling Price: \n&8&o(Unknown)\n\n"
         }
@@ -87,32 +90,32 @@ class MarketInformationBar(xConstraint: XConstraint, yConstraint: YConstraint, h
 
         if (auction.getAmount() > 1 ) {
             info += "\n\n\n"
-            info += "\n&eQuantity: &6${StringUtils.formatNumber(auction.getAmount().toDouble())}"
-            info += "\n&eCost Per Item: &6${StringUtils.formatNumber(Utils.round(auction.getCostPerAmount(),2))} coins"
+            info += "\n&eQuantity: &6${auction.getAmount().toDouble().formatNumber()}"
+            info += "\n&eCost Per Item: &6${auction.getCostPerAmount().round(2).formatNumber()} coins"
         }
         info += "\n\n\n\n\n\n"
 
         info += "&eMarket Stats:\n\n\n"
         info += if (auction.hasLowestBin()) {
-            "\n&bCurrent Lowest Bin: &e${StringUtils.formatNumber(Utils.round(auction.getLowestBin(), 2))}"
+            "\n&bCurrent Lowest Bin: &e${auction.getLowestBin().round( 2).formatNumber()}"
         } else {
             "\n&bCurrent Lowest Bin: \n&8&o(Unknown)\n\n"
         }
 
         info += if (auction.hasAverageLowestBin()) {
-            "\n&bAverage Lowest Bin (Last Day): &e${StringUtils.formatNumber(Utils.round(auction.getAverageLowestBin(), 2))}"
+            "\n&bAverage Lowest Bin (Last Day): &e${auction.getAverageLowestBin().round(2).formatNumber()}"
         } else {
             "\n&bAverage Lowest Bin (Last Day): \n&8&o(Unknown)\n\n"
         }
 
         info += if (auction.hasLowestBin() && auction.hasAverageLowestBin()) {
-            "\n&bItem Inflation: \n&e${StringUtils.formatNumber(Utils.round(auction.getLowestBin() / auction.getAverageLowestBin() * 100.0, 2) - 100)}%\n\n"
+            "\n&bItem Inflation: \n&e${((auction.getLowestBin() / auction.getAverageLowestBin() * 100.0).round(2) - 100).formatNumber()}%\n\n"
         } else {
             "\n&bInflation: \n&8&o(Unknown)\n\n"
         }
 
         info += if (auction.hasLowestBin()) {
-            "\n&bItem Mark up: \n&e${StringUtils.formatNumber(Utils.round(auction.getPrice() / auction.getLowestBin() / auction.getAmount() * 100 - 100, 2))}%\n"
+            "\n&bItem Mark up: \n&e${(auction.getPrice() / auction.getLowestBin() / auction.getAmount() * 100 - 100).round(2).formatNumber()}%\n"
         } else {
             "\n&bItem Mark up: \n&8&o(Unknown)\n"
         }

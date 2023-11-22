@@ -5,7 +5,8 @@
 
 package me.partlysanestudios.partlysaneskies
 
-import me.partlysanestudios.partlysaneskies.utils.Utils
+
+import me.partlysanestudios.partlysaneskies.utils.MathUtils
 import net.minecraft.client.audio.PositionedSoundRecord
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
@@ -46,7 +47,7 @@ class Prank {
 
     @SubscribeEvent
     fun run(event: TickEvent.ClientTickEvent) {
-        if (!Utils.onCooldown(lastPrankTime, 300000)) { // 5 minutes
+        if (!MathUtils.onCooldown(lastPrankTime, 300000)) { // 5 minutes
             return
         }
 

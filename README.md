@@ -24,6 +24,8 @@
 Partly Sane Skies is a Minecraft mod for Hypixel SkyBlock, designed, built, and programmed by **Su386** and **FlagMaster**. 
 Credits including third party programs can be [found here (CREDITS.md)](CREDITS.md)
 
+*Check out some [other really cool mods here](https://sbmw.ca/mod-lists/skyblock-mod-list/)*
+
 ### Download
 Official Links: 
 
@@ -36,7 +38,7 @@ Place that mod in the mods folder of your Minecraft and you are good to go!
 
 *There is no "reborn" or "revamped" version of Partly Sane Skies. If you do find one, please report it in the [discord](https://discord.gg/v4PU3WeH7z).*
 
-[*(Previous changelogs)*](pages/changelogs)
+[*(Previous changelogs)*](pages/changelogs/previous_changelogs.md)
 ### Discord
 
 [Click here to join the discord](https://discord.gg/v4PU3WeH7z) for help, support, giveaways, and updates as they happen.
@@ -104,6 +106,8 @@ The config menu can also be accessed through the custom main menu.
 General and Miscellaneous features.
 
 ### Custom Main Menu
+
+*For more information, [see the Custom Main Menu page](pages/features/general/custom_main_menu.md)*
 
 Upon start up of Minecraft, a nice, SkyBlock themed main menu will display.
 There are various configurable options from SkyBlock-themed backgrounds,

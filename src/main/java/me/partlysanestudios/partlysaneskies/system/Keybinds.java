@@ -12,7 +12,8 @@ import me.partlysanestudios.partlysaneskies.WikiArticleOpener;
 import me.partlysanestudios.partlysaneskies.auctionhouse.menu.AuctionHouseGui;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManager;
 import me.partlysanestudios.partlysaneskies.garden.MathematicalHoeRightClicks;
-import me.partlysanestudios.partlysaneskies.utils.Utils;
+import me.partlysanestudios.partlysaneskies.utils.MathUtils;
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.event.ClickEvent;
@@ -75,17 +76,17 @@ public final class Keybinds {
 
         if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
             if (PartlySaneSkies.minecraft.currentScreen instanceof AuctionHouseGui ||
-                    (PartlySaneSkies.minecraft.currentScreen instanceof GuiChest && AuctionHouseGui.Companion.isAhGui(PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen)[0]))) {
+                    (PartlySaneSkies.minecraft.currentScreen instanceof GuiChest && AuctionHouseGui.Companion.isAhGui(MinecraftUtils.INSTANCE.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen)[0]))) {
 
-                Utils.clickOnSlot(46);
+                MinecraftUtils.INSTANCE.clickOnSlot(46);
             }
         }
 
         if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
             if (PartlySaneSkies.minecraft.currentScreen instanceof AuctionHouseGui ||
-                    (PartlySaneSkies.minecraft.currentScreen instanceof GuiChest && AuctionHouseGui.Companion.isAhGui(PartlySaneSkies.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen)[0]))) {
+                    (PartlySaneSkies.minecraft.currentScreen instanceof GuiChest && AuctionHouseGui.Companion.isAhGui(MinecraftUtils.INSTANCE.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen)[0]))) {
 
-                Utils.clickOnSlot(53);
+                MinecraftUtils.INSTANCE.clickOnSlot(53);
             }
         }
     }
@@ -118,7 +119,7 @@ public final class Keybinds {
             PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/storage");
         }
         if (allowHoeRightClickKeybind.isPressed()) {
-            boolean canRightClickHoe = Utils.onCooldown(MathematicalHoeRightClicks.lastAllowHoeRightClickTime, (long) (PartlySaneSkies.config.allowRightClickTime * 60L * 1000L));
+            boolean canRightClickHoe = MathUtils.INSTANCE.onCooldown(MathematicalHoeRightClicks.lastAllowHoeRightClickTime, (long) (PartlySaneSkies.config.allowRightClickTime * 60L * 1000L));
 
             if(canRightClickHoe){
                 IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + ("§dThe ability to right-click with a hoe has been §cdisabled§d again.\n§dClick this message or run /allowhoerightclick to allow right-clicks for " + PartlySaneSkies.config.allowRightClickTime + " again."));

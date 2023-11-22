@@ -6,8 +6,9 @@
 package me.partlysanestudios.partlysaneskies;
 
 import me.partlysanestudios.partlysaneskies.auctionhouse.menu.AuctionHouseGui;
+import me.partlysanestudios.partlysaneskies.utils.HypixelUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
-import me.partlysanestudios.partlysaneskies.utils.Utils;
+import me.partlysanestudios.partlysaneskies.utils.SystemUtils;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
@@ -35,23 +36,23 @@ public class WikiArticleOpener {
         if (!isWaitingForArticle) {
             return;
         }
-        if (StringUtils.removeColorCodes(e.message.getFormattedText()).contains("Invalid")) {
+        if (StringUtils.INSTANCE.removeColorCodes(e.message.getFormattedText()).contains("Invalid")) {
             isWaitingForArticle = false;
             return;
         }
-        if (!StringUtils.removeColorCodes(e.message.getFormattedText()).contains("Click HERE")) {
+        if (!StringUtils.INSTANCE.removeColorCodes(e.message.getFormattedText()).contains("Click HERE")) {
             return;
         }
 
         isWaitingForArticle = false;
         String wikiLink = e.message.getChatStyle().getChatClickEvent().getValue();
         if (PartlySaneSkies.config.openWikiAutomatically) {
-            Utils.openLink(wikiLink);
+            SystemUtils.INSTANCE.openLink(wikiLink);
         }
     }
 
     public static void keyDown() {
-        if (!PartlySaneSkies.isSkyblock()) {
+        if (!HypixelUtils.INSTANCE.isSkyblock()) {
             return;
         }
         ItemStack item;
@@ -71,10 +72,10 @@ public class WikiArticleOpener {
             return;
         }
 
-        if (Utils.getItemId(item).equals("")) {
+        if (HypixelUtils.INSTANCE.getItemId(item).equals("")) {
             return;
         }
-        WikiArticleOpener.getArticle(Utils.getItemId(item));
+        WikiArticleOpener.getArticle(HypixelUtils.INSTANCE.getItemId(item));
     }
 }
 
