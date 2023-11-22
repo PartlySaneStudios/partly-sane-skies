@@ -53,6 +53,7 @@ import me.partlysanestudios.partlysaneskies.system.requests.RequestsManager;
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils;
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
+import me.partlysanestudios.partlysaneskies.RefreshKeybinds;
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
@@ -214,6 +215,7 @@ public class PartlySaneSkies {
         MinecraftForge.EVENT_BUS.register(c2c);
         MinecraftForge.EVENT_BUS.register(eofn);
         MinecraftForge.EVENT_BUS.register(new Prank());
+        MinecraftForge.EVENT_BUS.register(new RefreshKeybinds());
 
 
         // Registers all client side commands
