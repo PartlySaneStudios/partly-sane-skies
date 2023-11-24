@@ -34,6 +34,7 @@ import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.points.Point
 import me.partlysanestudios.partlysaneskies.system.ThemeManager
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils
 import me.partlysanestudios.partlysaneskies.utils.ImageUtils
+import me.partlysanestudios.partlysaneskies.utils.IslandType
 
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.Tessellator
@@ -50,7 +51,7 @@ object RangeHighlight {
         if (!PartlySaneSkies.config.showFarmRegions && EndOfFarmNotifier.rangeToHighlight == null) {
             return
         }
-        if (!EndOfFarmNotifier.inGarden()) {
+        if (!IslandType.GARDEN.onIsland()) {
             return
         }
 

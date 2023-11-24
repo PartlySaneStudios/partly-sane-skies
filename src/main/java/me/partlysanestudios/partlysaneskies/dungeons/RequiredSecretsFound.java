@@ -9,6 +9,7 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.system.BannerRenderer;
 import me.partlysanestudios.partlysaneskies.system.PSSBanner;
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils;
+import me.partlysanestudios.partlysaneskies.utils.IslandType;
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
@@ -28,7 +29,7 @@ public class RequiredSecretsFound {
             return;
         }
 
-        if (!HypixelUtils.INSTANCE.inDungeons()){
+        if (!IslandType.CATACOMBS.onIsland()){
             return;
         }
 
