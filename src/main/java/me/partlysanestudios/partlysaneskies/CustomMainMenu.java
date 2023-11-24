@@ -370,7 +370,7 @@ public class CustomMainMenu extends WindowScreen {
         funFactTitle = (UIWrappedText) new UIWrappedText("Fun Fact of the Day", true, new Color(120, 120, 120), true)
                 .setX(new PixelConstraint((int) background.getWidth() * 0.6f))
                 .setY(new PixelConstraint(10 * scaleFactor + 20))
-                .setWidth(new PixelConstraint(700 * scaleFactor))
+                .setWidth(new PixelConstraint(300 * scaleFactor))
                 .setTextScale(new PixelConstraint(1 * scaleFactor))
                 .setColor(new Color(255, 255, 255))
                 .setChildOf(background);
@@ -378,7 +378,7 @@ public class CustomMainMenu extends WindowScreen {
         funFactText = (UIWrappedText) new UIWrappedText(funFact, true, new Color(120, 120, 120), true)
                 .setX(new PixelConstraint((int) background.getWidth() * 0.6f))
                 .setY(new PixelConstraint(25 * scaleFactor + 30))
-                .setWidth(new PixelConstraint(700 * scaleFactor))
+                .setWidth(new PixelConstraint(300 * scaleFactor))
                 .setTextScale(new PixelConstraint(1 * scaleFactor))
                 .setColor(new Color(255, 255, 255))
                 .setChildOf(background);
@@ -505,11 +505,13 @@ public class CustomMainMenu extends WindowScreen {
         funFactTitle
                 .setX(new PixelConstraint((int) background.getWidth() * 0.6f))
                 .setY(new PixelConstraint(10 * scaleFactor + 20))
+                .setWidth(new PixelConstraint(300 * scaleFactor))
                 .setTextScale(new PixelConstraint(1 * scaleFactor));
 
         funFactText
                 .setX(new PixelConstraint((int) background.getWidth() * 0.6f))
                 .setY(new PixelConstraint(25 * scaleFactor + 30))
+                .setWidth(new PixelConstraint(300 * scaleFactor))
                 .setTextScale(new PixelConstraint(1 * scaleFactor));
     }
 

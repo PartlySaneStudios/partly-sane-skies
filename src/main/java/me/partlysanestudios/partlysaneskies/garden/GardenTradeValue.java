@@ -43,8 +43,10 @@ public class GardenTradeValue {
             return false;
         }
 
+
         IInventory[] inventories = MinecraftUtils.INSTANCE.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen);
-        assert inventories != null;
+        if (inventories == null) return false;
+
         IInventory trader = inventories[0];
 
         // Slots 29 and 33 are where the buttons should be
@@ -61,8 +63,7 @@ public class GardenTradeValue {
         String acceptButtonName = StringUtils.INSTANCE.removeColorCodes(acceptButton.getDisplayName());
         String refuseButtonName = StringUtils.INSTANCE.removeColorCodes(refuseButton.getDisplayName());
 
-        // If the names are not equal to the desired names, then you know it screen
-        // is not the trader screen
+        // If the names are not equal to the desired names, then you know it screen is not the trader screen
         if (!refuseButtonName.equals("Refuse Offer")) {
             return false;
         }

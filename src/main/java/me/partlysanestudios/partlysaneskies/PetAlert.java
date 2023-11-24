@@ -52,7 +52,7 @@ public class PetAlert {
             return;
         }
         Entity usersPet = getUsersPet(PartlySaneSkies.minecraft.thePlayer.getName());
-        String petName = ("§8(Unknown)");
+        String petName = "§8(Unknown)";
         if (usersPet != null) {
             petName = parsePetNameFromEntity(usersPet.getName());
         
@@ -68,11 +68,9 @@ public class PetAlert {
             return;
         }
         
-        if (!MathUtils.INSTANCE.onCooldown(lastSoundTime, 750)) {
-            PartlySaneSkies.minecraft.getSoundHandler()
-                .playSound(
-                    PositionedSoundRecord
-                    .create(new ResourceLocation("partlysaneskies", "bell"))
+         if (!MathUtils.INSTANCE.onCooldown(lastSoundTime, 750)) {
+            PartlySaneSkies.minecraft.getSoundHandler().playSound(
+                    PositionedSoundRecord.create(new ResourceLocation("partlysaneskies", "bell"))
                 );
                 if (PartlySaneSkies.config.incorrectPetForMinionAlertSiren) {
                     PartlySaneSkies.minecraft.getSoundHandler().playSound(
@@ -81,8 +79,8 @@ public class PetAlert {
             lastSoundTime = PartlySaneSkies.getTime();
         }
         if (!MathUtils.INSTANCE.onCooldown(lastMessageSendTime,3000)) {
-            IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + ("§cYOU CURRENTLY HAVE " + petName + "§c SELECTED AS YOUR PET. YOU WANTED TO UPGRADE " + selectedPetName + "." +
-            "\n§dClick this message or run /mutepetalert to mute the alert for " + PartlySaneSkies.config.petAlertMuteTime + " minutes."));
+            IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + "§cYOU CURRENTLY HAVE " + petName + "§c SELECTED AS YOUR PET. YOU WANTED TO UPGRADE " + selectedPetName + "." +
+            "\n§dClick this message or run /mutepetalert to mute the alert for " + PartlySaneSkies.config.petAlertMuteTime + " minutes.");
             message.getChatStyle().setChatClickEvent(new ClickEvent(Action.RUN_COMMAND, "/mutepetalert"));
             PartlySaneSkies.minecraft.ingameGUI.getChatGUI().printChatMessage(message);
             lastMessageSendTime = PartlySaneSkies.getTime();
@@ -158,7 +156,14 @@ public class PetAlert {
             return false;
         }
 
-        IInventory upper = Objects.requireNonNull(MinecraftUtils.INSTANCE.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen))[0];
+        IInventory[] inventories = MinecraftUtils.INSTANCE.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen);
+
+        if (inventories == null || inventories[0] == null) {
+            return false;
+        }
+
+        IInventory upper = inventories[0];
+
         boolean inventoryNameMatches = StringUtils.INSTANCE.removeColorCodes(upper.getDisplayName().getFormattedText()).contains("Minion");
 
         if (!inventoryNameMatches) {

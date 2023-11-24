@@ -143,7 +143,8 @@ public class CompostValue {
         }
 
         IInventory[] inventories = MinecraftUtils.INSTANCE.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen);
-        assert inventories != null;
+        if (inventories == null) return false;
+
         IInventory composter = inventories[0];
 
         // Slots 22 should be the collect compost button
@@ -295,8 +296,7 @@ public class CompostValue {
         String textString = "§e§lTop Crops:\n\n";
 
         textString += getString();
-        textString += "\n\n";
-        textString += "§e§lCompost:\n\n";
+        textString += "\n\n§e§lCompost:\n\n";
         double compostSellPrice = SkyblockDataManager.getItem("COMPOST").getBazaarSellPrice();
 
         double compostAmount = getCurrentCompostAbleToMake();
@@ -307,7 +307,6 @@ public class CompostValue {
 
         textString += "§7x§d"+ StringUtils.INSTANCE.formatNumber(MathUtils.INSTANCE.round(compostAmount, 0)) +"§7 Compost currently sells for §d" + StringUtils.INSTANCE.formatNumber(MathUtils.INSTANCE.round(compostSellPrice * compostAmount, 1))  + "§7 coins.\n§8(" + StringUtils.INSTANCE.formatNumber(MathUtils.INSTANCE.round(compostSellPrice, 1)) + "/Compost)";
 
-        textString = (textString);
         textComponent.setText(textString);
 
         window.draw(new UMatrixStack());

@@ -40,7 +40,7 @@ import java.awt.*
 
 class VisitorLogbookStats {
 
-    private val tiers: List<String> = listOf<String>("§f§lTotal", "§a§lUncommon", "§9§lRare", "§6Legendary", "§c§lSpecial", "§e§lUnknown") //total | uncommon | rare | leg | special | UNKNOWN
+    private val tiers: List<String> = listOf<String>("§f§lTotal", "§a§lUncommon", "§9§lRare", "§6Legendary", "§dMythic", "§c§lSpecial", "§e§lUnknown") //total | uncommon | rare | leg | mythic | special | UNKNOWN
     private var theBaseString = ""
 
     @SubscribeEvent
@@ -48,20 +48,20 @@ class VisitorLogbookStats {
         if (!isVisitorLogbook()) return
         if (!PartlySaneSkies.config.visitorLogbookStats) return
         val slots = ((PartlySaneSkies.minecraft.currentScreen as GuiChest)).inventorySlots.inventorySlots
-        var seenStats: MutableList<Int> = mutableListOf<Int>(0, 0, 0, 0, 0, 0) //total | uncommon | rare | leg | special | UNKNOWN
-        var acceptedStats: MutableList<Int> = mutableListOf<Int>(0, 0, 0, 0, 0, 0) //total | uncommon | rare | leg | special | UNKNOWN
+        val seenStats: MutableList<Int> = mutableListOf<Int>(0, 0, 0, 0, 0, 0, 0) //total | uncommon | rare | leg | mythic | special | UNKNOWN
+        val acceptedStats: MutableList<Int> = mutableListOf<Int>(0, 0, 0, 0, 0, 0, 0) //total | uncommon | rare | leg | mythic  | special | UNKNOWN
         theBaseString = ""
         for (s in slots) {
-            if (s.getStack() == null) continue //"cOnDiTiOn 'S.GeTsTaCk() == NuLL' is aLwAyS FaLsE"
+            if (s.stack == null) continue
 
-            val eItemStack = s.getStack()
+            val eItemStack = s.stack
             val lore = eItemStack.getLore()
 
             if (lore.isEmpty()) continue
             if (lore.first().contains("Page ")) break
             if (lore.first().removeColorCodes().isEmpty() || lore.first().contains("This NPC hasn't visited you") || lore.first().contains("Various NPCs ") || lore.first().contains("Requirements")) continue
-            
-            var noPlcwList = mutableListOf<String>()
+
+            val noPlcwList = mutableListOf<String>()
 
             //fuck formatting codes
             for (line in lore) noPlcwList.add(line.removeColorCodes())
@@ -69,12 +69,13 @@ class VisitorLogbookStats {
             //Times Visited: 0
             //§7Offers Accepted: §a0
             //Offers Accepted: 0
-            val rarityIndex = when (noPlcwList.find{ it.contains("SPECIAL") || it.contains("LEGENDARY")  || it.contains("RARE") || it.contains("UNCOMMON") }) {
+            val rarityIndex = when (noPlcwList.find{ it.contains("SPECIAL") || it.contains("MYTHIC") || it.contains("LEGENDARY")  || it.contains("RARE") || it.contains("UNCOMMON") }) {
                 "UNCOMMON" -> 1
                 "RARE" -> 2
                 "LEGENDARY" -> 3
-                "SPECIAL" -> 4
-                else -> 5
+                "MYTHIC" -> 4
+                "SPECIAL" -> 5
+                else -> 6
             }
             val lineTimesVisited = noPlcwList.find{ it.contains("Times Visited: ") } ?: break
             val lineOffersAccepted = noPlcwList.find{ it.contains("Offers Accepted: ") } ?: break
@@ -88,7 +89,7 @@ class VisitorLogbookStats {
 
     private fun getString(seenStats: MutableList<Int>, acceptedStats: MutableList<Int>) {
         for (indexInt in 0..(tiers.size - 1)) { //"'RaNgEtO' oR ThE '..' cALL sHoULd bE RePLaCeD wiTh 'UnTiL'"
-            if ((seenStats[indexInt] == 0 || acceptedStats[indexInt] == 0) && indexInt == 5) break
+            if ((seenStats[indexInt] == 0 || acceptedStats[indexInt] == 0) && indexInt == 6) break // Hides the UNKNOWN tier if there are no stats for it
             val c = (tiers[indexInt]).take(2)
             theBaseString += "\n${tiers[indexInt]}:\n ${c}Visited: ${seenStats[indexInt]}\n ${c}Accepted: ${acceptedStats[indexInt]}\n ${c}Pending or Denied: ${Math.abs(seenStats[indexInt] - acceptedStats[indexInt])}"
         }
@@ -100,7 +101,8 @@ class VisitorLogbookStats {
             return false
         }
 
-        val inventories = MinecraftUtils.getSeparateUpperLowerInventories(gui)
+        val inventories = MinecraftUtils.getSeparateUpperLowerInventories(gui) ?: return false
+      
         val logbook = inventories[0]
         if (logbook == null) {
             return false
@@ -109,17 +111,17 @@ class VisitorLogbookStats {
         return logbook.displayName.formattedText.removeColorCodes().contains("Visitor's Logbook")
     }
 
-    val window = Window(ElementaVersion.V2)
+    private val window = Window(ElementaVersion.V2)
 
-    val box = UIRoundedRectangle(5f)
-            .setColor(Color(0, 0, 0, 0))
-            .setChildOf(window)
-    
-    val image = ThemeManager.getCurrentBackgroundUIImage()
-            .setChildOf(box)
-    
-    val pad = 5
-    var textComponent: UIWrappedText = UIWrappedText() childOf box
+    private val box = UIRoundedRectangle(5f)
+        .setColor(Color(0, 0, 0, 0))
+        .setChildOf(window)
+
+    private val image = ThemeManager.getCurrentBackgroundUIImage()
+        .setChildOf(box)
+
+    private val pad = 5
+    private var textComponent: UIWrappedText = UIWrappedText() childOf box
 
     @SubscribeEvent
     fun renderInformation(event: GuiScreenEvent.BackgroundDrawnEvent) {
@@ -141,7 +143,7 @@ class VisitorLogbookStats {
             .setY(CenterConstraint())
             .setWidth(PixelConstraint(box.getWidth()))
             .setHeight(PixelConstraint(box.getHeight()))
-        
+
         textComponent.setX(widthScaledConstraint(pad.toFloat()))
             .setTextScale(widthScaledConstraint(1f))
             .setY(widthScaledConstraint(2 * (pad.toFloat())))

@@ -418,7 +418,7 @@ class EndOfFarmNotifier {
                 "\\P{Print}".toRegex(),
                 ""
             )
-            return location.startsWith("The Garden") || location.startsWith("Plot: ")
+            return location.startsWith("The Garden") || location.startsWith("Plot - ")
         }
     }
 }
