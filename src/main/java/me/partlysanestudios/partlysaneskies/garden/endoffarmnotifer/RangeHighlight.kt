@@ -13,9 +13,6 @@
 // Good luck to any future devs.
 // The thoughts and prayers of the ancients are with you (Stargate Reference)
 //
-// Written by Su386.
-// See LICENSE for copyright and license notices.
-//
 
 
 //
