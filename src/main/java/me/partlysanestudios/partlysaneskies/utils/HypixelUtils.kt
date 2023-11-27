@@ -15,18 +15,6 @@ import net.minecraft.item.ItemStack
 import java.util.*
 
 object HypixelUtils {
-    fun inDungeons(): Boolean {
-        val regionName = HypixelUtils.getRegionName()
-        var noColorCodeRegionName = regionName.removeColorCodes()
-        if (noColorCodeRegionName.isEmpty()) {
-            return false
-        }
-        noColorCodeRegionName = stripLeading(noColorCodeRegionName)
-        noColorCodeRegionName = stripTrailing(noColorCodeRegionName)
-        noColorCodeRegionName = noColorCodeRegionName.replace("\\P{Print}".toRegex(), "") // Removes the RANDOM EMOJIS
-        return noColorCodeRegionName.lowercase(Locale.getDefault()).contains("catacombs")
-    }
-
     // Returns if the current gamemode is skyblock
     fun isSkyblock(): Boolean {
         try {
@@ -54,7 +42,7 @@ object HypixelUtils {
             return 0L
         }
         val scoreboard = MinecraftUtils.getScoreboardLines()
-        var bits: String = ""
+        var bits = ""
         for (line in scoreboard) {
             if (stripLeading(line).contains("Bits:")) {
                 bits = stripLeading(line.removeColorCodes()).replace("Bits: ", "")
@@ -140,4 +128,44 @@ object HypixelUtils {
         } else WikiArticleOpener.getItemAttributes(item).getString("id")
     }
 
+    fun getCurrentIsland(): IslandType {
+        for (line in MinecraftUtils.getTabList()) {
+            if (line.removeColorCodes().startsWith("Area: ") || line.removeColorCodes().startsWith("Dungeon: ")) {
+                val islandName = line.removeColorCodes().replace("Area: ", "").trim()
+
+                return IslandType.values().firstOrNull { it.islandName.equals(islandName, ignoreCase = true) } ?: IslandType.NONE
+            }
+        }
+
+        return IslandType.NONE
+    }
+}
+
+/*
+    Inspired by SkyHanni, https://github.com/hannibal002/SkyHanni/
+ */
+enum class IslandType(val islandName: String) {
+    HUB("Hub"),
+    DUNGEON_HUB("Dungeon Hub"),
+    PRIVATE_ISLAND("Private Island"),
+    GARDEN("Garden"),
+    THE_PARK("The Park"),
+    SPIDERS_DEN("Spider's Den"),
+    CRIMSON_ISLE("Crimson Isle"),
+    THE_END("The End"),
+    GOLD_MINE("Gold Mine"),
+    DEEP_CAVERNS("Deep Caverns"),
+    DWARVEN_MINES("Dwarven Mines"),
+    CRYSTAL_HOLLOWS("Crystal Hollows"),
+    FARMING_ISLAND("The Farming Islands"),
+    WINTER_ISLAND("Jerry's Workshop"), // value by sh, unconfirmed
+    RIFT("The Rift"),
+    CATACOMBS("Catacombs"),
+    KUUDRA("Kuudra"),
+
+    NONE("");
+
+    fun onIsland(): Boolean {
+        return this.islandName == HypixelUtils.getCurrentIsland().islandName
+    }
 }

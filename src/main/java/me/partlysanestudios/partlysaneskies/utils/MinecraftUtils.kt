@@ -11,7 +11,6 @@ import com.google.common.collect.ComparisonChain
 import com.google.common.collect.Ordering
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
-import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiScreen
 import net.minecraft.client.network.NetworkPlayerInfo
 import net.minecraft.inventory.IInventory
@@ -29,16 +28,14 @@ object MinecraftUtils {
         )
     }
 
-
-    @get:SideOnly(Side.CLIENT)
-    val tabList: List<String>
-        get() {
-            val players = Minecraft.getMinecraft().thePlayer.sendQueue.playerInfoMap.stream()
+    @SideOnly(Side.CLIENT)
+    fun getTabList(): List<String>{
+            val players = PartlySaneSkies.minecraft.thePlayer.sendQueue.playerInfoMap.stream()
                 .sorted(playerOrdering)
                 .collect(Collectors.toList())
             return players.stream()
                 .map { info: NetworkPlayerInfo? ->
-                    Minecraft.getMinecraft().ingameGUI.tabList.getPlayerName(info)
+                    PartlySaneSkies.minecraft.ingameGUI.tabList.getPlayerName(info)
                 }
                 .collect(Collectors.toList())
         }

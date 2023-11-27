@@ -14,7 +14,6 @@ import me.partlysanestudios.partlysaneskies.system.PSSBanner
 import me.partlysanestudios.partlysaneskies.system.commands.PSSCommand
 import me.partlysanestudios.partlysaneskies.system.commands.PSSCommandRunnable
 import me.partlysanestudios.partlysaneskies.utils.*
-import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 
 import net.minecraft.client.audio.PositionedSoundRecord
 import net.minecraft.command.ICommandSender
@@ -33,7 +32,6 @@ import kotlin.math.min
 
 
 class EndOfFarmNotifier {
-
     fun run() {
         if (!MathUtils.onCooldown(
                 rangeToHighlightSetTime,
@@ -99,7 +97,7 @@ class EndOfFarmNotifier {
         if (PartlySaneSkies.minecraft.thePlayer == null) {
             return false
         }
-        if (!inGarden()) {
+        if (!IslandType.GARDEN.onIsland()) {
             return false
         }
         if (PartlySaneSkies.minecraft.thePlayer.position == null) {
@@ -123,7 +121,7 @@ class EndOfFarmNotifier {
         if (!wandActive) {
             return
         }
-        if (!inGarden()) {
+        if (!IslandType.GARDEN.onIsland()) {
             return
         }
         if (MinecraftUtils.getCurrentlyHoldingItem() == null) {
@@ -409,16 +407,5 @@ class EndOfFarmNotifier {
         private var rangeToHighlightSetTime: Long = 0
         private var wandActive = false
         private var pos = 1 // 1 is pos1, 2 is pos2
-        fun inGarden(): Boolean {
-            var location = HypixelUtils.getRegionName()
-            location = location.removeColorCodes()
-            location = StringUtils.stripLeading(location)
-            location = StringUtils.stripTrailing(location)
-            location = location.replace(
-                "\\P{Print}".toRegex(),
-                ""
-            )
-            return location.startsWith("The Garden") || location.startsWith("Plot - ")
-        }
     }
 }
