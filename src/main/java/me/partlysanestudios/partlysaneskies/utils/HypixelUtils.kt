@@ -161,7 +161,7 @@ enum class IslandType(val islandName: String) {
     WINTER_ISLAND("Jerry's Workshop"), // value by sh, unconfirmed
     RIFT("The Rift"),
     CATACOMBS("Catacombs"),
-    KUUDRA("Instanced"),
+    KUUDRA("Kuudra"),
 
     NONE("");
 
