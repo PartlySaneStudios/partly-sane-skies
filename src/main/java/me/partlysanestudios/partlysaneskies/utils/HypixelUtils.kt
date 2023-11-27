@@ -130,7 +130,7 @@ object HypixelUtils {
 
     fun getCurrentIsland(): IslandType {
         for (line in MinecraftUtils.getTabList()) {
-            if (line.removeColorCodes().startsWith("Area: ") || line.removeColor().startsWith("Dungeon: ")) {
+            if (line.removeColorCodes().startsWith("Area: ") || line.removeColorCodes().startsWith("Dungeon: ")) {
                 val islandName = line.removeColorCodes().replace("Area: ", "").trim()
 
                 return IslandType.values().firstOrNull { it.islandName.equals(islandName, ignoreCase = true) } ?: IslandType.NONE
