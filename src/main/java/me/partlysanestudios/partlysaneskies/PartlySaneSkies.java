@@ -25,6 +25,7 @@ import me.partlysanestudios.partlysaneskies.auctionhouse.menu.AuctionHouseGui;
 import me.partlysanestudios.partlysaneskies.chat.ChatAlertsManager;
 import me.partlysanestudios.partlysaneskies.chat.ChatManager;
 import me.partlysanestudios.partlysaneskies.chat.WordEditor;
+import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager;
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager;
 import me.partlysanestudios.partlysaneskies.dungeons.PlayerRating;
 import me.partlysanestudios.partlysaneskies.dungeons.RequiredSecretsFound;
@@ -66,6 +67,7 @@ import net.minecraftforge.fml.common.network.FMLNetworkEvent;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import scala.tools.nsc.doc.model.Public;
 
 import java.io.File;
 import java.io.IOException;
@@ -203,6 +205,7 @@ public class PartlySaneSkies {
         HelpCommands.registerHelpCommand();
         HelpCommands.registerDiscordCommand();
         HelpCommands.registerConfigCommand();
+        PublicDataManager.registerDataCommand();
         PartyManager.registerCommand();
         SkillUpgradeRecommendation.registerCommand();
         PermPartyManager.registerCommand();

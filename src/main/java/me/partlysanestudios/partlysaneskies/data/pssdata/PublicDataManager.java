@@ -67,7 +67,7 @@ public class PublicDataManager {
 
         return fileCache.get(path);
     }
-    public static void updatePSSDataCommand(){
+    public static void registerDataCommand(){
         new PSSCommand("updatepssdata")
                 .addAlias("clearhashmap")
                 .addAlias("clearpssdata")
