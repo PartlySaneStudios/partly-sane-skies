@@ -31,7 +31,21 @@ import kotlin.math.max
 import kotlin.math.min
 
 
-class EndOfFarmNotifier {
+object EndOfFarmNotifier {
+    var ranges = ArrayList<Range3d>()
+    lateinit var selectedPos1: IntArray
+    lateinit var selectedPos2: IntArray
+    private var lastChimeTime: Long = 0
+
+    var color: Color? = null
+    private var displayString = ""
+    private const val TEXT_SCALE = 7
+
+    var rangeToHighlight: Range3d? = null
+    private var rangeToHighlightSetTime: Long = 0
+    private var wandActive = false
+    private var pos = 1 // 1 is pos1, 2 is pos2
+
     fun run() {
         if (!MathUtils.onCooldown(
                 rangeToHighlightSetTime,
@@ -393,19 +407,6 @@ class EndOfFarmNotifier {
         ChatUtils.sendClientMessage(message.toString())
     }
 
-    companion object {
-        var ranges = ArrayList<Range3d>()
-        lateinit var selectedPos1: IntArray
-        lateinit var selectedPos2: IntArray
-        private var lastChimeTime: Long = 0
 
-        var color: Color? = null
-        private var displayString = ""
-        private const val TEXT_SCALE = 7
 
-        var rangeToHighlight: Range3d? = null
-        private var rangeToHighlightSetTime: Long = 0
-        private var wandActive = false
-        private var pos = 1 // 1 is pos1, 2 is pos2
-    }
 }

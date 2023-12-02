@@ -27,21 +27,17 @@ import me.partlysanestudios.partlysaneskies.chat.ChatManager;
 import me.partlysanestudios.partlysaneskies.chat.WordEditor;
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager;
 import me.partlysanestudios.partlysaneskies.dungeons.PlayerRating;
+import me.partlysanestudios.partlysaneskies.dungeons.RequiredSecretsFound;
 import me.partlysanestudios.partlysaneskies.dungeons.WatcherReady;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManager;
 import me.partlysanestudios.partlysaneskies.dungeons.permpartyselector.PermPartyManager;
-import me.partlysanestudios.partlysaneskies.dungeons.RequiredSecretsFound;
 import me.partlysanestudios.partlysaneskies.economy.BitsShopValue;
 import me.partlysanestudios.partlysaneskies.economy.CoinsToBoosterCookieConversion;
 import me.partlysanestudios.partlysaneskies.economy.minioncalculator.MinionData;
 import me.partlysanestudios.partlysaneskies.economy.minioncalculator.ProfitMinionCalculator;
-import me.partlysanestudios.partlysaneskies.garden.CompostValue;
-import me.partlysanestudios.partlysaneskies.garden.GardenTradeValue;
-import me.partlysanestudios.partlysaneskies.garden.SkymartValue;
-import me.partlysanestudios.partlysaneskies.garden.VisitorLogbookStats;
+import me.partlysanestudios.partlysaneskies.garden.*;
 import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.EndOfFarmNotifier;
 import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.RangeHighlight;
-import me.partlysanestudios.partlysaneskies.garden.MathematicalHoeRightClicks;
 import me.partlysanestudios.partlysaneskies.mining.MiningEvents;
 import me.partlysanestudios.partlysaneskies.mining.Pickaxes;
 import me.partlysanestudios.partlysaneskies.mining.WormWarning;
@@ -51,19 +47,10 @@ import me.partlysanestudios.partlysaneskies.system.*;
 import me.partlysanestudios.partlysaneskies.system.requests.Request;
 import me.partlysanestudios.partlysaneskies.system.requests.RequestsManager;
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils;
-import me.partlysanestudios.partlysaneskies.utils.HypixelUtils;
-import me.partlysanestudios.partlysaneskies.utils.StringUtils;
-import me.partlysanestudios.partlysaneskies.RefreshKeybinds;
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.event.ClickEvent;
 import net.minecraft.event.HoverEvent;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.scoreboard.Score;
-import net.minecraft.scoreboard.ScoreObjective;
-import net.minecraft.scoreboard.ScorePlayerTeam;
-import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
@@ -75,7 +62,6 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent;
-import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -83,10 +69,6 @@ import org.apache.logging.log4j.Logger;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
 
 
 @Mod(modid = PartlySaneSkies.MODID, version = PartlySaneSkies.VERSION, name = PartlySaneSkies.NAME)
@@ -112,8 +94,6 @@ public class PartlySaneSkies {
     public static boolean isDebugMode;
 
     private static LocationBannerDisplay locationBannerDisplay;
-    private static EndOfFarmNotifier eofn;
-    private static CoinsToBoosterCookieConversion c2c;
 
 
     // Names of all the ranks to remove from people's names
@@ -130,8 +110,7 @@ public class PartlySaneSkies {
         // Creates the partly-sane-skies directory if not already made
         new File("./config/partly-sane-skies/").mkdirs();
 
-        eofn = new EndOfFarmNotifier();
-        c2c = new CoinsToBoosterCookieConversion();
+//        eofn = new EndOfFarmNotifier();
 
         // Loads the config files and options
         PartlySaneSkies.config = new OneConfigScreen();
@@ -168,7 +147,7 @@ public class PartlySaneSkies {
             }
 
             try {
-                eofn.load();
+                EndOfFarmNotifier.INSTANCE.load();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -210,8 +189,8 @@ public class PartlySaneSkies {
         MinecraftForge.EVENT_BUS.register(new RequiredSecretsFound());
         MinecraftForge.EVENT_BUS.register(new Pickaxes());
         MinecraftForge.EVENT_BUS.register(new VisitorLogbookStats());
-        MinecraftForge.EVENT_BUS.register(c2c);
-        MinecraftForge.EVENT_BUS.register(eofn);
+        MinecraftForge.EVENT_BUS.register(CoinsToBoosterCookieConversion.INSTANCE);
+        MinecraftForge.EVENT_BUS.register(EndOfFarmNotifier.INSTANCE);
         MinecraftForge.EVENT_BUS.register(new Prank());
         MinecraftForge.EVENT_BUS.register(new RefreshKeybinds());
 
@@ -229,12 +208,12 @@ public class PartlySaneSkies {
         PartyFriendManager.registerCommand();
         ChatAlertsManager.registerCommand();
         PetAlert.registerCommand();
-        eofn.registerPos1Command();
-        eofn.registerPos2Command();
-        eofn.registerCreateRangeCommand();
-        eofn.registerFarmNotifierCommand();
-        eofn.registerWandCommand();
-        c2c.registerCommand();
+        EndOfFarmNotifier.INSTANCE.registerPos1Command();
+        EndOfFarmNotifier.INSTANCE.registerPos2Command();
+        EndOfFarmNotifier.INSTANCE.registerCreateRangeCommand();
+        EndOfFarmNotifier.INSTANCE.registerFarmNotifierCommand();
+        EndOfFarmNotifier.INSTANCE.registerWandCommand();
+        CoinsToBoosterCookieConversion.INSTANCE.registerCommand();
         ProfitMinionCalculator.registerCommand();
         MathematicalHoeRightClicks.registerCommand();
         WordEditor.registerWordEditorCommand();
@@ -314,7 +293,7 @@ public class PartlySaneSkies {
         // Checks if the player is collecting minions
         PetAlert.runPetAlert();
 
-        eofn.run();
+        EndOfFarmNotifier.INSTANCE.run();
         config.resetBrokenStrings();
         ThemeManager.run();
     }
