@@ -67,7 +67,7 @@ import net.minecraftforge.fml.common.network.FMLNetworkEvent;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import scala.tools.nsc.doc.model.Public;
+
 
 import java.io.File;
 import java.io.IOException;
