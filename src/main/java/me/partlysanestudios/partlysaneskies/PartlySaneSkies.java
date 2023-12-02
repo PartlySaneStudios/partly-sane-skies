@@ -28,6 +28,7 @@ import me.partlysanestudios.partlysaneskies.chat.WordEditor;
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager;
 import me.partlysanestudios.partlysaneskies.dungeons.PlayerRating;
 import me.partlysanestudios.partlysaneskies.dungeons.WatcherReady;
+import me.partlysanestudios.partlysaneskies.dungeons.healeralert.HealerAlert;
 import me.partlysanestudios.partlysaneskies.dungeons.partymanager.PartyManager;
 import me.partlysanestudios.partlysaneskies.dungeons.permpartyselector.PermPartyManager;
 import me.partlysanestudios.partlysaneskies.dungeons.RequiredSecretsFound;
@@ -308,7 +309,7 @@ public class PartlySaneSkies {
 
         // Checks if the current location is the same as the previous location for the location banner display
         locationBannerDisplay.checkLocation();
-
+        HealerAlert.INSTANCE.run();
         SkyblockDataManager.runUpdater();
 
         // Checks if the player is collecting minions

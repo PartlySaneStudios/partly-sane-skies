@@ -1,12 +1,28 @@
+//
+// Written by FlagMaster with help from Su386.
+// See LICENSE for copyright and license notices.
+//
+
+
 package me.partlysanestudios.partlysaneskies.dungeons.healeralert
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
-import me.partlysanestudios.partlysaneskies.utils.IslandType
-import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
+import me.partlysanestudios.partlysaneskies.system.BannerRenderer
+import me.partlysanestudios.partlysaneskies.system.PSSBanner
+import me.partlysanestudios.partlysaneskies.utils.*
+import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
+import net.minecraft.client.audio.PositionedSoundRecord
+import net.minecraft.util.ResourceLocation
+import org.apache.logging.log4j.Level
+import java.awt.Color
 
 
 object HealerAlert {
+
+    private var lastWarnTime = 0L
+
     private fun isPlayerLowOnHealth(): Boolean {
+
         if (!IslandType.CATACOMBS.onIsland()) {
             return false
         }
@@ -14,7 +30,8 @@ object HealerAlert {
 
         val scoreBoard = MinecraftUtils.getScoreboardLines()
         for (line in scoreBoard) {
-            if (line[0] !='[') {
+            SystemUtils.log(Level.INFO, line)
+            if (line.removeColorCodes()[0] !='[') {
                 continue
 
 
@@ -30,8 +47,22 @@ object HealerAlert {
         }
         return false
     }
-    public fun run() {
+    fun run() {
         if (!PartlySaneSkies.config.healerAlert){
-            return}
+            return
+        }
+        if (isPlayerLowOnHealth()){
+            if (MathUtils.onCooldown(lastWarnTime, (PartlySaneSkies.config.healerAlertCooldownSlider * 1000).toLong())){
+                return
+            }
+            lastWarnTime = PartlySaneSkies.getTime()
+            BannerRenderer.renderNewBanner(PSSBanner("A Player In Your Party Is Low On Health", 3500, color = Color.RED))
+            PartlySaneSkies.minecraft.soundHandler
+                .playSound(PositionedSoundRecord.create(ResourceLocation("partlysaneskies", "bell")))
+        }
+
+
+q
     }
+
 }
