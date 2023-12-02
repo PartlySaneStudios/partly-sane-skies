@@ -59,7 +59,7 @@ public class ChatColors {
         }
         
         // If it does not, it highlights the nons message
-        return new ChatComponentText(insertColor(formattedMessage, StringUtils.colorCodes("&r")));
+        return new ChatComponentText(insertColor(formattedMessage, ("§r")));
     }
 
     public static String getChatColor(String prefix) {
@@ -69,42 +69,42 @@ public class ChatColors {
                     return "";
                 }
                 if (PartlySaneSkies.config.visibleColors) {
-                    return StringUtils.colorCodes("&6");
+                    return ("§6");
                 }
-                return StringUtils.colorCodes("&9");
+                return ("§9");
 
             case "guild":
                 if (!PartlySaneSkies.config.colorGuildChat) {
                     return "";
                 }
                 if (PartlySaneSkies.config.visibleColors) {
-                    return StringUtils.colorCodes("&a");
+                    return ("§a");
                 }
-                return StringUtils.colorCodes("&2");
+                return ("§2");
 
             case "officer":
                 if (!PartlySaneSkies.config.colorOfficerChat) {
                     return "";
                 }
-                return StringUtils.colorCodes("&3");
+                return ("§3");
 
             case "to":
                 if (!PartlySaneSkies.config.colorPrivateMessages) {
                     return "";
                 }
-                return StringUtils.colorCodes("&d");
+                return ("§d");
 
             case "from":
                 if (!PartlySaneSkies.config.colorPrivateMessages) {
                     return "";
                 }
-                return StringUtils.colorCodes("&d");
+                return ("§d");
 
             case "co-op":
                 if (!PartlySaneSkies.config.colorCoopChat) {
                     return "";
                 }
-                return StringUtils.colorCodes("&b");
+                return ("§b");
 
             default:
                 return "";
@@ -112,7 +112,7 @@ public class ChatColors {
     }
 
     public static String getPrefix(String message) {
-        message = StringUtils.removeColorCodes(message);
+        message = StringUtils.INSTANCE.removeColorCodes(message);
         if (message.startsWith("Party >")) {
             return "Party";
         }
@@ -156,7 +156,7 @@ public class ChatColors {
         String messageString = message.substring(messageStartIndex);
         String preMessageString = message.substring(0, messageStartIndex);
 
-        messageString = StringUtils.removeColorCodes(messageString);
+        messageString = StringUtils.INSTANCE.removeColorCodes(messageString);
         messageString = color + messageString;
         
         return preMessageString + messageString;

@@ -1,4 +1,3 @@
-
 //
 // Written by Su386.
 // See LICENSE for copyright and license notices.
@@ -12,8 +11,8 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.system.commands.PSSCommand;
 import me.partlysanestudios.partlysaneskies.system.requests.Request;
 import me.partlysanestudios.partlysaneskies.system.requests.RequestsManager;
-import me.partlysanestudios.partlysaneskies.utils.StringUtils;
-import me.partlysanestudios.partlysaneskies.utils.Utils;
+import me.partlysanestudios.partlysaneskies.utils.HypixelUtils;
+import me.partlysanestudios.partlysaneskies.utils.MathUtils;
 import net.minecraft.event.ClickEvent;
 import net.minecraft.event.ClickEvent.Action;
 import net.minecraft.item.ItemStack;
@@ -49,8 +48,6 @@ public class MathematicalHoeRightClicks {
         }
     }
     public static boolean isHoldingHoe() {
-
-
         if (hoes == null) {
             return false;
         }
@@ -62,8 +59,8 @@ public class MathematicalHoeRightClicks {
         if (heldItem == null) {
             return false;
         }
-        return hoes.contains(Utils.getItemId(heldItem));
 
+        return hoes.contains(HypixelUtils.INSTANCE.getItemId(heldItem));
     }
 
     public static void registerCommand() {
@@ -72,15 +69,15 @@ public class MathematicalHoeRightClicks {
                 .addAlias("ahrc")
                 .setDescription("Allows hoe right clicks for a few minutes")
                 .setRunnable((s, a) -> {
-                    boolean canRightClickHoe = Utils.onCooldown(MathematicalHoeRightClicks.lastAllowHoeRightClickTime, (long) (PartlySaneSkies.config.allowRightClickTime * 60L * 1000L));
+                    boolean canRightClickHoe = MathUtils.INSTANCE.onCooldown(MathematicalHoeRightClicks.lastAllowHoeRightClickTime, (long) (PartlySaneSkies.config.allowRightClickTime * 60L * 1000L));
 
                     if(canRightClickHoe){
-                        IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + StringUtils.colorCodes("&bThe ability to right-click with a hoe has been &cdisabled&b again.\n&dClick this message or run /allowhoerightclick to allow right-clicks for " + PartlySaneSkies.config.allowRightClickTime + " again."));
+                        IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + "§bThe ability to right-click with a hoe has been §cdisabled§b again.\n§dClick this message or run /allowhoerightclick to allow right-clicks for " + PartlySaneSkies.config.allowRightClickTime + " again.");
                         message.getChatStyle().setChatClickEvent(new ClickEvent(Action.RUN_COMMAND, "/allowhoerightclick"));
                         PartlySaneSkies.minecraft.ingameGUI.getChatGUI().printChatMessage(message);
                         MathematicalHoeRightClicks.lastAllowHoeRightClickTime = 0;
                     } else {
-                        IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + StringUtils.colorCodes("&bThe ability to right-click with a hoe has been &aenabled&b for " + PartlySaneSkies.config.allowRightClickTime + " minutes.\n&dClick this message or run /allowhoerightclick to disable right-clicks again."));
+                        IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + "§bThe ability to right-click with a hoe has been §aenabled§b for " + PartlySaneSkies.config.allowRightClickTime + " minutes.\n§dClick this message or run /allowhoerightclick to disable right-clicks again.");
                         message.getChatStyle().setChatClickEvent(new ClickEvent(Action.RUN_COMMAND, "/allowhoerightclick"));
                         PartlySaneSkies.minecraft.ingameGUI.getChatGUI().printChatMessage(message);
                         MathematicalHoeRightClicks.lastAllowHoeRightClickTime = PartlySaneSkies.getTime();
@@ -95,22 +92,25 @@ public class MathematicalHoeRightClicks {
             return;
         }
 
-        if (Utils.onCooldown(lastAllowHoeRightClickTime, (long) (PartlySaneSkies.config.allowRightClickTime * 60L * 1000L))) {
-            return;
+        if (event.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK || event.action == PlayerInteractEvent.Action.RIGHT_CLICK_AIR) {
+
+            if (MathUtils.INSTANCE.onCooldown(lastAllowHoeRightClickTime, (long) (PartlySaneSkies.config.allowRightClickTime * 60L * 1000L))) {
+                return;
+            }
+
+            if (!isHoldingHoe()) {
+                return;
+            }
+
+
+            if (!MathUtils.INSTANCE.onCooldown(lastMessageSendTime, 3000)) {
+                IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + "§8Right Clicks are disabled while holding a Mathematical Hoe\n§7Click this message or run /allowhoerightclick to allow right clicks for " + PartlySaneSkies.config.allowRightClickTime + " minutes.");
+                message.getChatStyle().setChatClickEvent(new ClickEvent(Action.RUN_COMMAND, "/allowhoerightclick"));
+                PartlySaneSkies.minecraft.ingameGUI.getChatGUI().printChatMessage(message);
+                lastMessageSendTime = PartlySaneSkies.getTime();
+            }
+
+            event.setCanceled(true);
         }
-
-        if (!isHoldingHoe()) {
-            return;
-        }
-
-
-        if (!Utils.onCooldown(lastMessageSendTime, 3000)) {
-            IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + StringUtils.colorCodes("&8Right Clicks are disabled while holding a Mathematical Hoe\n&7Click this message or run /allowhoerightclick to allow right clicks for " + PartlySaneSkies.config.allowRightClickTime + " minutes."));
-            message.getChatStyle().setChatClickEvent(new ClickEvent(Action.RUN_COMMAND, "/allowhoerightclick"));
-            PartlySaneSkies.minecraft.ingameGUI.getChatGUI().printChatMessage(message);
-            lastMessageSendTime = PartlySaneSkies.getTime();
-        }
-
-        event.setCanceled(true);
     }
 }

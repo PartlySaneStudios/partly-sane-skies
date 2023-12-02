@@ -8,7 +8,7 @@ package me.partlysanestudios.partlysaneskies.chat
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.utils.StringUtils
-import me.partlysanestudios.partlysaneskies.utils.Utils
+import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import net.minecraft.client.audio.PositionedSoundRecord
 import net.minecraft.event.ClickEvent
 import net.minecraft.event.HoverEvent
@@ -37,7 +37,7 @@ object ChatManager {
             return
         }
 
-        // Utils.sendClientMessage("ChatManager.onChatReceived: ${event.message.formattedText}")
+        // ChatUtils.sendClientMessage("ChatManager.onChatReceived: ${event.message.formattedText}")
 
         event.isCanceled = true // cancels the even
 
@@ -63,13 +63,18 @@ object ChatManager {
 
         // If the word editor wants to edit something
         if (WordEditor.shouldEditMessage(messageToSend)) {
-            messageToSend = ChatComponentText(StringUtils.colorCodes(WordEditor.handleWordEditorMessage(messageToSend.formattedText)));
+            messageToSend = ChatComponentText((WordEditor.handleWordEditorMessage(messageToSend.formattedText)));
+        }
+
+        // If owo language is enabled
+        if (PartlySaneSkies.config.owoLanguage) {
+            messageToSend = ChatComponentText(OwO.owoify(messageToSend.formattedText))
         }
 
         // If the message has not changed
         if (messageToSend.equals(event.message)) {
             event.isCanceled = false // Reset the event
-            // Utils.sendClientMessage("Message has not changed")
+            // ChatUtils.sendClientMessage("Message has not changed")
             return // Exit
         }
 
@@ -160,7 +165,7 @@ object ChatManager {
     }
 
     fun IChatComponent.extractUrls(): List<String> {
-        return extractUrls(StringUtils.removeColorCodes(this.unformattedText))
+        return extractUrls(this.unformattedText.removeColorCodes())
     }
 
 //    Returns if we interact with chat at all
@@ -200,6 +205,10 @@ object ChatManager {
             return true
         }
 
+        else if (config.owoLanguage){
+            return true
+        }
+
         return false
     }
 
@@ -222,6 +231,9 @@ object ChatManager {
         }
         else if (WordEditor.shouldEditMessage(this)){
             return true
+        }
+        else if(PartlySaneSkies.config.owoLanguage){
+            return true //there is almost no way this will never not trigger
         }
         else {
             return false

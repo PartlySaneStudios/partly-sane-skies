@@ -14,12 +14,6 @@ import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class WatcherReady {
-
-    public WatcherReady() {
-
-    }
-
-
     @SubscribeEvent
     public void watcherReadyChatEvent(ClientChatReceivedEvent event) {
 

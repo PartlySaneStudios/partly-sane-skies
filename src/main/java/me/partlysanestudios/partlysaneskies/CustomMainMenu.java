@@ -5,20 +5,10 @@
 
 package me.partlysanestudios.partlysaneskies;
 
-import java.awt.Color;
-import java.io.File;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Locale;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-
 import gg.essential.elementa.ElementaVersion;
 import gg.essential.elementa.UIComponent;
 import gg.essential.elementa.WindowScreen;
@@ -29,18 +19,30 @@ import gg.essential.elementa.components.UIWrappedText;
 import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import me.partlysanestudios.partlysaneskies.system.ThemeManager;
-import me.partlysanestudios.partlysaneskies.utils.StringUtils;
-import me.partlysanestudios.partlysaneskies.utils.Utils;
 import me.partlysanestudios.partlysaneskies.system.requests.Request;
+import me.partlysanestudios.partlysaneskies.utils.ElementaUtils;
+import me.partlysanestudios.partlysaneskies.utils.MathUtils;
+import me.partlysanestudios.partlysaneskies.utils.SystemUtils;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.gui.GuiMultiplayer;
 import net.minecraft.client.gui.GuiOptions;
 import net.minecraft.client.gui.GuiSelectWorld;
+import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.GuiOpenEvent;
+import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.client.GuiModList;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+
+import java.awt.*;
+import java.io.File;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Locale;
 
 public class CustomMainMenu extends WindowScreen {
 
@@ -68,6 +70,7 @@ public class CustomMainMenu extends WindowScreen {
 
     private UIComponent singleplayerButton;
     private UIComponent multiplayerButton;
+    private UIComponent joinHypixelButton;
     private UIComponent modsButton;
     private UIComponent optionsButton;
     private UIComponent pssOptionsButton;
@@ -79,12 +82,19 @@ public class CustomMainMenu extends WindowScreen {
 
     private UIComponent singleplayerText;
     private UIComponent multiplayerText;
+    private UIComponent joinHypixelText;
     private UIComponent modsText;
     private UIComponent optionsText;
     private UIComponent pssOptionsText;
     private UIComponent quitText;
     private UIComponent timeText;
     private UIComponent discordText;
+    private static String funFactWebsite = "https://uselessfacts.jsph.pl/today";
+    public static String funFactApi = "https://uselessfacts.jsph.pl/api/v2/facts/today";
+    private static String funFact = "Loading...";
+    private UIWrappedText funFactTitle;
+    private static UIWrappedText funFactText;
+    private final String hypixelIP = "mc.hypixel.net"; // I want to use "ilovecatgirls.xyz" to bad
 
     private static ArrayList<Announcement> announcements = new ArrayList<>();
     public static String latestVersion = "(Unknown)";
@@ -119,7 +129,7 @@ public class CustomMainMenu extends WindowScreen {
         String image;
 
         if (PartlySaneSkies.config.customMainMenuImage == 0) {
-            image = "textures/gui/main_menu/" + imageIdMap.get(Utils.randint(1, imageIdMap.size()));
+            image = "textures/gui/main_menu/" + imageIdMap.get(MathUtils.INSTANCE.randInt(1, imageIdMap.size()));
         } else
             image = "textures/gui/main_menu/" + imageIdMap.get(PartlySaneSkies.config.customMainMenuImage);
 
@@ -127,7 +137,7 @@ public class CustomMainMenu extends WindowScreen {
             background = UIImage.ofFile(new File("./config/partly-sane-skies/background.png"));
         }
         else{
-            background = Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies", image));
+            background = ElementaUtils.INSTANCE.uiImageFromResourceLocation(new ResourceLocation("partlysaneskies", image));
         }
 
 
@@ -166,7 +176,7 @@ public class CustomMainMenu extends WindowScreen {
         float titleHeight = 75;
         float titleWidth = titleHeight * (928f / 124);
 
-        titleImage = Utils.uiimageFromResourceLocation(new ResourceLocation("partlysaneskies", "textures/gui/main_menu/title_text.png"))
+        titleImage = ElementaUtils.INSTANCE.uiImageFromResourceLocation((new ResourceLocation("partlysaneskies", "textures/gui/main_menu/title_text.png")))
                 .setX(new CenterConstraint())
                 .setY(new PixelConstraint(50 * scaleFactor))
                 .setHeight(new PixelConstraint(titleHeight * scaleFactor))
@@ -183,7 +193,7 @@ public class CustomMainMenu extends WindowScreen {
                 .setColor(new Color(255, 0, 0))
                 .setChildOf(middleMenu);
             
-            updateWarning.onMouseClickConsumer(event -> Utils.openLink("https://github.com/PartlySaneStudios/partly-sane-skies/releases"));
+            updateWarning.onMouseClickConsumer(event -> SystemUtils.INSTANCE.openLink("https://github.com/PartlySaneStudios/partly-sane-skies/releases"));
         }
 
         if (PartlySaneSkies.config.displayAnnouncementsCustomMainMenu) {
@@ -215,7 +225,7 @@ public class CustomMainMenu extends WindowScreen {
 
         multiplayerButton = new UIBlock()
                 .setX(new CenterConstraint())
-                .setY(new PixelConstraint(260 * scaleFactor))
+                .setY(new PixelConstraint(240 * scaleFactor))
                 .setHeight(new PixelConstraint(40 * scaleFactor))
                 .setWidth(new PixelConstraint(middleMenu.getWidth()))
                 .setColor(new Color(0, 0, 0, 0))
@@ -232,6 +242,26 @@ public class CustomMainMenu extends WindowScreen {
         multiplayerButton.onMouseEnterRunnable(() -> multiplayerText.setColor(new Color(200, 200, 200)));
 
         multiplayerButton.onMouseLeaveRunnable(() -> multiplayerText.setColor(new Color(255, 255, 255)));
+
+        joinHypixelButton = new UIBlock()
+                .setX(new CenterConstraint())
+                .setY(new PixelConstraint(280 * scaleFactor))
+                .setHeight(new PixelConstraint(40 * scaleFactor))
+                .setWidth(new PixelConstraint(middleMenu.getWidth()))
+                .setColor(new Color(0, 0, 0, 0))
+                .setChildOf(middleMenu);
+
+        joinHypixelText = new UIText("Join Hypixel")
+                .setX(new CenterConstraint())
+                .setY(new CenterConstraint())
+                .setTextScale(new PixelConstraint(1 * scaleFactor))
+                .setChildOf(joinHypixelButton);
+
+        joinHypixelButton.onMouseClickConsumer(event -> FMLClientHandler.instance().connectToServer(new GuiMultiplayer(PartlySaneSkies.minecraft.currentScreen), new ServerData("AddictionGame", hypixelIP, false)));
+
+        joinHypixelButton.onMouseEnterRunnable(() -> joinHypixelText.setColor(new Color(200, 200, 200)));
+
+        joinHypixelButton.onMouseLeaveRunnable(() -> joinHypixelText.setColor(new Color(255, 255, 255)));
 
         modsButton = new UIBlock()
                 .setX(new CenterConstraint())
@@ -335,7 +365,25 @@ public class CustomMainMenu extends WindowScreen {
             .setColor(new Color(69, 79, 191))
             .setChildOf(background);
 
-        discordText.onMouseClickConsumer(event -> Utils.openLink("https://discord.gg/" + PartlySaneSkies.discordCode));
+        discordText.onMouseClickConsumer(event -> SystemUtils.INSTANCE.openLink("https://discord.gg/" + PartlySaneSkies.discordCode));
+
+        funFactTitle = (UIWrappedText) new UIWrappedText("Fun Fact of the Day", true, new Color(120, 120, 120), true)
+                .setX(new PixelConstraint((int) background.getWidth() * 0.6f))
+                .setY(new PixelConstraint(10 * scaleFactor + 20))
+                .setWidth(new PixelConstraint(300 * scaleFactor))
+                .setTextScale(new PixelConstraint(1 * scaleFactor))
+                .setColor(new Color(255, 255, 255))
+                .setChildOf(background);
+
+        funFactText = (UIWrappedText) new UIWrappedText(funFact, true, new Color(120, 120, 120), true)
+                .setX(new PixelConstraint((int) background.getWidth() * 0.6f))
+                .setY(new PixelConstraint(25 * scaleFactor + 30))
+                .setWidth(new PixelConstraint(300 * scaleFactor))
+                .setTextScale(new PixelConstraint(1 * scaleFactor))
+                .setColor(new Color(255, 255, 255))
+                .setChildOf(background);
+
+        funFactText.onMouseClickConsumer(event -> SystemUtils.INSTANCE.openLink(funFactWebsite));
     }
 
     public void resizeGui(float scaleFactor) {
@@ -389,11 +437,19 @@ public class CustomMainMenu extends WindowScreen {
                 .setTextScale(new PixelConstraint(1 * scaleFactor));
 
         multiplayerButton
-                .setY(new PixelConstraint(260 * scaleFactor))
+                .setY(new PixelConstraint(240 * scaleFactor))
                 .setHeight(new PixelConstraint(40 * scaleFactor))
                 .setWidth(new PixelConstraint(middleMenu.getWidth()));
 
         multiplayerText
+                .setTextScale(new PixelConstraint(1 * scaleFactor));
+
+        joinHypixelButton
+                .setY(new PixelConstraint(280 * scaleFactor))
+                .setHeight(new PixelConstraint(40 * scaleFactor))
+                .setWidth(new PixelConstraint(middleMenu.getWidth()));
+
+        joinHypixelText
                 .setTextScale(new PixelConstraint(1 * scaleFactor));
 
         modsButton
@@ -445,6 +501,18 @@ public class CustomMainMenu extends WindowScreen {
                 .setX(new PixelConstraint(10 * scaleFactor))
                 .setY(new PixelConstraint(background.getHeight() - 20 * scaleFactor))
                 .setTextScale(new PixelConstraint(1 * scaleFactor));
+
+        funFactTitle
+                .setX(new PixelConstraint((int) background.getWidth() * 0.6f))
+                .setY(new PixelConstraint(10 * scaleFactor + 20))
+                .setWidth(new PixelConstraint(300 * scaleFactor))
+                .setTextScale(new PixelConstraint(1 * scaleFactor));
+
+        funFactText
+                .setX(new PixelConstraint((int) background.getWidth() * 0.6f))
+                .setY(new PixelConstraint(25 * scaleFactor + 30))
+                .setWidth(new PixelConstraint(300 * scaleFactor))
+                .setTextScale(new PixelConstraint(1 * scaleFactor));
     }
 
     public static void setMainMenuInfo(Request request) {
@@ -461,6 +529,12 @@ public class CustomMainMenu extends WindowScreen {
             noInfoFound();
             e.printStackTrace();
             return;
+        }
+
+        try {
+            Prank.Companion.setPrankKillSwitch(object.get("prank_sound").getAsBoolean());
+        } catch(NullPointerException | IllegalStateException e){
+            e.printStackTrace();
         }
 
         JsonArray array;
@@ -516,6 +590,39 @@ public class CustomMainMenu extends WindowScreen {
         CustomMainMenu.announcements = new ArrayList<>();
     }
 
+    public static void setFunFact(Request request) {
+        if (!request.hasSucceeded()) {
+            return;
+        }
+
+        String responseString = request.getResponse();
+
+        JsonObject object;
+        try {
+            object = new JsonParser().parse(responseString).getAsJsonObject();
+        } catch (NullPointerException | IllegalStateException  e) {
+            noInfoFound();
+            e.printStackTrace();
+            return;
+        }
+            //{"id":"c1dbf293f84042595368168a5b1c558d","text":"%60 of all people using the Internet, use it for pornography.","source":"djtech.net","source_url":"http://www.djtech.net/humor/useless_facts.htm","language":"en","permalink":"https://uselessfacts.jsph.pl/api/v2/facts/c1dbf293f84042595368168a5b1c558d"}
+        try {
+            JsonObject factInfo = object.getAsJsonObject();
+
+            String fact = factInfo.get("text").getAsString();
+            String source = factInfo.get("source").getAsString();
+
+            CustomMainMenu.funFact = fact + "\nSource: " + source;
+            CustomMainMenu.funFactText.setText(CustomMainMenu.funFact);
+
+        } catch (NullPointerException | IllegalStateException | ClassCastException e) {
+            CustomMainMenu.funFact = "Failed to load fun fact.";
+            CustomMainMenu.funFactText.setText(CustomMainMenu.funFact);
+            CustomMainMenu.funFactWebsite = "https://uselessfacts.jsph.pl/today";
+            e.printStackTrace();
+        }
+    }
+
 
     public static class Announcement {
         private final String title;
@@ -551,7 +658,7 @@ public class CustomMainMenu extends WindowScreen {
         }
 
         public UIWrappedText createTitle(float scaleFactor, int postNum, UIComponent parent) {
-            UIComponent text = new UIWrappedText(StringUtils.colorCodes("&e" + title))
+            UIComponent text = new UIWrappedText(("§e" + title))
                 .setTextScale(new PixelConstraint(1.5f * scaleFactor))
                 .setX(new PixelConstraint(33f * scaleFactor))
                 .setY(new PixelConstraint(125 * scaleFactor + 145 * (postNum) * scaleFactor))
@@ -560,11 +667,11 @@ public class CustomMainMenu extends WindowScreen {
             this.postNum = postNum;
             this.titleComponent = text;
 
-            text.onMouseClickConsumer(event -> Utils.openLink(link));
+            text.onMouseClickConsumer(event -> SystemUtils.INSTANCE.openLink(link));
             return (UIWrappedText) text;
         }
         public UIWrappedText createDescription(float scaleFactor, int postNum, UIComponent parent) {
-            UIComponent text = new UIWrappedText(StringUtils.colorCodes("&8" + date + "&r\n&7" + description))
+            UIComponent text = new UIWrappedText(("§8" + date + "§r\n§7" + description))
                 .setTextScale(new PixelConstraint(1.33f * scaleFactor))
                 .setX(new PixelConstraint(33f * scaleFactor))
                 .setY(new PixelConstraint(160 * scaleFactor + 145 * (postNum) * scaleFactor))
@@ -573,7 +680,7 @@ public class CustomMainMenu extends WindowScreen {
             this.postNum = postNum;
             this.descriptionComponent = text;
 
-            text.onMouseClickConsumer(event -> Utils.openLink(link));
+            text.onMouseClickConsumer(event -> SystemUtils.INSTANCE.openLink(link));
             return (UIWrappedText) text;
         }
 

@@ -8,14 +8,17 @@ package me.partlysanestudios.partlysaneskies;
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager;
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockPlayer;
 import me.partlysanestudios.partlysaneskies.system.commands.PSSCommand;
-import me.partlysanestudios.partlysaneskies.utils.StringUtils;
-import me.partlysanestudios.partlysaneskies.utils.Utils;
+import me.partlysanestudios.partlysaneskies.utils.ChatUtils;
+import me.partlysanestudios.partlysaneskies.utils.MathUtils;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 
-import static java.util.Comparator.*;
+import static java.util.Comparator.naturalOrder;
 
 public class SkillUpgradeRecommendation {
 
@@ -90,13 +93,13 @@ public class SkillUpgradeRecommendation {
     // Prints the final message with the weight.
     public static void printMessage(HashMap<String, Double> map) {
         // Message header
-        StringBuilder message = new StringBuilder("&3&m-----------------------------------------------------&r\n" +
-                "&b&l&nRecommended skills to level up (In Order):&r" +
-                "\n\n&7This calculation is based off of the amount of weight each skill will add when you level it up. Lower level skills will be prioritized.&r"
+        StringBuilder message = new StringBuilder("§3§m-----------------------------------------------------§r\n" +
+                "§b§l§nRecommended skills to level up (In Order):§r" +
+                "\n\n§7This calculation is based off of the amount of weight each skill will add when you level it up. Lower level skills will be prioritized.§r"
                 +
-                "\n&7&oNote: Sometimes, low level skills such as alchemy will show up first. These skills are less important but due to the mathematical approach, they will appear first. \n"
+                "\n§7§oNote: Sometimes, low level skills such as alchemy will show up first. These skills are less important but due to the mathematical approach, they will appear first. \n"
                 +
-                "\n\n&8(Skill) : (Upgrade Importance Score)\n");
+                "\n\n§8(Skill) : (Upgrade Importance Score)\n");
 
         // Convert the entry set to an array for easier handling
         @SuppressWarnings("unchecked")
@@ -106,13 +109,13 @@ public class SkillUpgradeRecommendation {
         // Loops through the array backwards to get the biggest value first
         for (int i = entryArray.length - 1; i >= 0; i--) {
             Entry<String, Double> entry = entryArray[i];
-            message.append("\n").append(formatWord(entry.getKey())).append(" : ").append(Utils.round(entry.getValue(), 2));
+            message.append("\n").append(formatWord(entry.getKey())).append(" : ").append(MathUtils.INSTANCE.round(entry.getValue(), 2));
         }
 
-        message.append("\n&3&m-----------------------------------------------------&r");
+        message.append("\n§3§m-----------------------------------------------------§r");
 
         // Send message
-        Utils.sendClientMessage(StringUtils.colorCodes(message.toString()));
+        ChatUtils.INSTANCE.sendClientMessage((message.toString()));
     }
 
     // Populates the constant hashmap
@@ -132,7 +135,7 @@ public class SkillUpgradeRecommendation {
                 .addAlias("su")
                 .setDescription("Recommends which skill to upgrade: /skillup [username]")
                 .setRunnable((s, a) -> {
-                    Utils.sendClientMessage("Loading...");
+                    ChatUtils.INSTANCE.sendClientMessage("Loading...");
 
                     new Thread(() -> {
                         HashMap<String, Double> map;
@@ -140,17 +143,17 @@ public class SkillUpgradeRecommendation {
                             try {
                                 map = SkillUpgradeRecommendation.getRecommendedSkills(a[0]);
                             } catch (IOException e) {
-                                Utils.sendClientMessage(StringUtils.colorCodes("Error getting data for " + a[0]
-                                        + ". Maybe the player is nicked or there is an invalid API key. Try running /api new."));
+                                ChatUtils.INSTANCE.sendClientMessage(("Error getting data for " + a[0]
+                                        + ". Maybe the player is nicked or there is an invalid API key."));
                                 return;
                             }
                         } else {
                             try {
                                 map = SkillUpgradeRecommendation.getRecommendedSkills(PartlySaneSkies.minecraft.thePlayer.getName());
                             } catch (IOException e) {
-                                Utils.sendClientMessage(StringUtils.colorCodes("Error getting data for "
+                                ChatUtils.INSTANCE.sendClientMessage(("Error getting data for "
                                         + PartlySaneSkies.minecraft.thePlayer.getName()
-                                        + ". Maybe the player is nicked or there is an invalid API key. Try running /api new."));
+                                        + ". Maybe the player is nicked or there is an invalid API key."));
                                 return;
                             }
                         }

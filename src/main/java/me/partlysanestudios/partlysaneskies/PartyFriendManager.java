@@ -5,13 +5,13 @@
 
 package me.partlysanestudios.partlysaneskies;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import me.partlysanestudios.partlysaneskies.system.commands.PSSCommand;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PartyFriendManager {
     private static boolean isWaitingForMembers = false;
@@ -44,7 +44,7 @@ public class PartyFriendManager {
         if (event.message.getUnformattedText().startsWith("-----------------------------------------------------")) {
             isWaitingForMembers = false;
         }
-        String message = StringUtils.removeColorCodes(event.message.getFormattedText());
+        String message = StringUtils.INSTANCE.removeColorCodes(event.message.getFormattedText());
 
         String[] rows = message.split("\n");
 

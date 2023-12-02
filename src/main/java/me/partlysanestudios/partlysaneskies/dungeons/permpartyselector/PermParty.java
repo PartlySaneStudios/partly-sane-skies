@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.List;
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
-import me.partlysanestudios.partlysaneskies.utils.Utils;
+import me.partlysanestudios.partlysaneskies.utils.ChatUtils;
 
 public class PermParty {
     public String name;
@@ -75,7 +75,7 @@ public class PermParty {
             PermPartyManager.save();
         } catch (IOException e) {
             e.printStackTrace();
-            Utils.sendClientMessage("Could not save Permanent Party Data.");
+            ChatUtils.INSTANCE.sendClientMessage("Could not save Permanent Party Data.");
         }
     }
 }

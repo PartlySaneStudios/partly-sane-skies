@@ -1,17 +1,17 @@
 <h1> <a href="#----"> <img src = "images/banner_image.png" alt="Banner" align="center"> </a> </h1>
 
 [//]: # (<h1 align="center"> Partly Sane Skies </h1>)
-<h4 align="center"> <sup> A Quality of Life Skyblock Mod</sup> </h4>
+<h4 align="center"> <sup> A Quality of Life SkyBlock Mod</sup> </h4>
 
 <p align="center">
   <a href="https://github.com/PartlySaneStudios/partly-sane-skies/releases" target="_blank">
     <img alt="Latest Release" src="https://img.shields.io/github/v/release/PartlySaneStudios/partly-sane-skies?color=%23007EA7&label=Latest%20Version&style=for-the-badge" />
   </a>
   <a href="https://github.com/PartlySaneStudios/partly-sane-skies/releases" target="_blank">
-    <img alt="Downloads" src="https://img.shields.io/github/downloads/PartlySaneStudios/partly-sane-skies/total?color=%23007EA7&label=Downloads&style=for-the-badge" />
+    <img alt="Downloads" src="https://img.shields.io/github/downloads/PartlySaneStudios/partly-sane-skies/total?color=%23007EA7&label=GitHub Downloads&style=for-the-badge" />
   </a>
-  <a href="https://github.com/PartlySaneStudios/partly-sane-skies/graphs/contributors" target="_blank">
-    <img alt="Lines" src="https://img.shields.io/tokei/lines/github/PartlySaneStudios/partly-sane-skies?color=%23007EA7&label=Lines&style=for-the-badge" />
+  <a href="https://modrinth.com/mod/partly-sane-skies" target="_blank">
+    <img alt="Lines" src="https://img.shields.io/modrinth/dt/partly-sane-skies?color=%23007EA7&label=Modrinth Downloads&style=for-the-badge" />
   </a>
   <a href="https://discord.gg/v4PU3WeH7z" target="_blank">
     <img alt="Discord" src="https://img.shields.io/discord/1001847734766145607?color=%23007EA7&label=Discord&style=for-the-badge" />
@@ -21,14 +21,24 @@
 ## About
 
 
-Partly Sane Skies is a Minecraft mod for Hypixel Skyblock, designed, built, and programmed by **Su386** and **FlagMaster**. 
+Partly Sane Skies is a Minecraft mod for Hypixel SkyBlock, designed, built, and programmed by **Su386** and **FlagMaster**. 
 Credits including third party programs can be [found here (CREDITS.md)](CREDITS.md)
 
+*Check out some [other really cool mods here](https://sbmw.ca/mod-lists/skyblock-mod-list/)*
+
 ### Download
+Official Links: 
 
-[Click here to go to the releases page](<https://github.com/PartlySaneStudios/partly-sane-skies/releases>).
- Open the assets drop down for the latest version and download "partly-sane-skies" .jar file. Place that mod in the mods folder of your Minecraft and you are good to go!
+- [Modrinth (click here)](https://modrinth.com/mod/partly-sane-skies)
+  - Download the featured version on the sidebar.
+- [GitHub (click here)](https://github.com/PartlySaneStudios/partly-sane-skies/releases)
+  - Open the assets drop down for the latest version and download "partly-sane-skies" .jar file. 
 
+Place that mod in the mods folder of your Minecraft and you are good to go!
+
+*There is no "reborn" or "revamped" version of Partly Sane Skies. If you do find one, please report it in the [discord](https://discord.gg/v4PU3WeH7z).*
+
+[*(Previous changelogs)*](pages/changelogs/previous_changelogs.md)
 ### Discord
 
 [Click here to join the discord](https://discord.gg/v4PU3WeH7z) for help, support, giveaways, and updates as they happen.
@@ -36,6 +46,8 @@ Credits including third party programs can be [found here (CREDITS.md)](CREDITS.
 
 
 ## Features
+
+[**(Click here to see the full features page)**](pages/features/list.md)
 
 *(Click the drop-down arrows to see more)*
 
@@ -63,9 +75,11 @@ Credits including third party programs can be [found here (CREDITS.md)](CREDITS.
 
 [``//farmnotfier``, ``//fn``, ``//farmnotif``:](pages/commands.md#farmnotfier) Command to use the farm notifier system.
 
+[``/wordeditor``, ``/wordedit``, ``/wr``, ``/wordreplace``, ``/wr``] Command to replace a word in the chat with another word or a phrase.
+
 </details>
 
-To see [more information](pages/commands.md) about commands, including how to use them, **[click here to visit the command page. (Pages/commands.md)](pages/commands.md)**
+To see [more information](pages/commands.md) about commands, including how to use them, **[click here to visit the command page.](pages/commands.md)**
 
 ### Config
 
@@ -93,8 +107,10 @@ General and Miscellaneous features.
 
 ### Custom Main Menu
 
-Upon start up of Minecraft, a nice, Skyblock themed main menu will display.
-There are various configurable options from Skyblock-themed backgrounds,
+*For more information, [see the Custom Main Menu page](pages/features/general/custom_main_menu.md)*
+
+Upon start up of Minecraft, a nice, SkyBlock themed main menu will display.
+There are various configurable options from SkyBlock-themed backgrounds,
 along with an option to select a random background.
 
 ![Custom Main Menu](images/custom_main_menu.png)
@@ -111,19 +127,25 @@ When you get a rare drop, a Pumpkin Dicer or Melon Slicer like pop-up banner wil
 
 ![Custom Main Menu](images/rng_drop_banner.png)
 
-### Custom Sounds for Skyblock
+### Custom Sounds for SkyBlock
 
-Instead of the normal noteblocks, there is now the option to use computer generated, discord sounds or even live instruments to play sounds such as Skyblock music and sound effects.
-
-### Worm Warning
-
-When you are mining in the Crystal Hollows and a worm or Scatha spawns, you get a message on screen, along with a sound, warning you that a worm has spawned.
+Instead of the normal noteblocks, there is now the option to use computer generated, discord sounds or even live instruments to play sounds such as SkyBlock music and sound effects.
 
 ### Location Banner
 
-When switching to a new location region on skyblock, an MMO RPG style banner will appear, informing you that you have switched to a new region.
+When switching to a new location region on SkyBlock, an MMO RPG style banner will appear, informing you that you have switched to a new region.
 
 ![Location Banner](images/location_banner.png)
+
+### Crêpes
+
+Have you ever wanted to make crêpes, and don't have access to internet, but you do have access to SkyBlock? Well we've got you covered. Simply by doing /crêpes, you too can make crêpes from some random recipe we found on the internet.
+
+</details>
+
+<details>
+  <summary> Chat Features </summary>
+# Chat Features
 
 ### Chat Alerts
 
@@ -133,13 +155,19 @@ Using ``/ca``, you can add and remove specific phrases that will be highlighted 
 
 ### Chat Color
 
-Private messages and messages that are sent in the Party, Guild, Guild Officer, or Skyblock Co-op channels will now have the color of the channel they are sent in.
+Private messages and messages that are sent in the Party, Guild, Guild Officer, or SkyBlock Co-op channels will now have the color of the channel they are sent in.
 
 ![Chat Colors](images/chat_color.png)
 
+### OwO Wanguage
+
+This feature basically changes all chat messages to use the owo language. Please don't use this; it literally breaks the chat completely. If you do, be warned.
+
+![OwO Wanguage](images/owowangauge.png)
+
 ### Incorrect Pet for Minion Alert
 
-If you do not the right pet selected for leveling up minions, you will be warned so that you never lose any pet EXP because you still have your level 100 dungeon pet activated. An optional World War II (1938-1945) air raid siren can be activated.
+If you do not the right pet selected for leveling up minions, you will be warned so that you never lose any pet EXP because you still have your level 100 dungeon pet activated. An optional World War II (1939-1945) air raid siren can be activated.
 
 ### Pet for Minion Information Display
 
@@ -151,6 +179,21 @@ When opening the minion, your current pet selected will appear, along with the p
 
 Messages sent by nons (non-ranked players) can be configured to have the same white as the rest of the chat.
 This option is off by default but can be turned on in the PSS Config menu.
+
+### Added a Wordeditor for ingame chat
+
+Replace any word in chat to any other word, such as rp to reparty, Flagmaster to FlagHater or juju to nonbow
+
+![Word Editor 1](images/word_editor_1.png)
+
+
+![Word Editor 2](images/word_editor_2.png)
+
+
+![Word Editor 3](images/word_editor_3.png)
+
+
+![Word Editor 4](images/word_editor_4.png)
 
 </details>
 
@@ -175,7 +218,7 @@ This mod supports a variety of different themes, including dark themes, very dar
 ### Watcher Ready, Message, Warning, Siren and Sound
 
 When the watcher is done spawning mobs, a message will appear on your screen, along with an optional sound,
-party message and World War II (1938-1945) air raid siren in case the previous two don't get your attention.
+party message and World War II (1939-1945) air raid siren in case the previous two don't get your attention.
 
 ### Permanent Dungeon Party Selector
 
@@ -188,7 +231,14 @@ At the end of the dungeon, the mod will calculate what percentage of the dungeon
 and how much they contributed, showing you how useful each player was.
 In a perfectly balanced 5-player party, each player should get 20%.
 
+### Required Secrets Notifier
+
+Your teammates are throwing because they don't know you don't need 100% of secrets on lower floors? This feature sends a warning to yourself with a banner and sound (which can be an air raid siren) and a party message for your teammates.
+
+![Required Secrets Notifier](images/required_secrets.png)
+
 </details>
+
 
 <details>
   <summary> Farming and Garden Features </summary>
@@ -198,6 +248,8 @@ In a perfectly balanced 5-player party, each player should get 20%.
 ### End of Farm Notifier
 
 Create a region where you will be notified when you reach it, using the same commands as world edit. See ``/farmnotif`` under the Commands section for more information.
+
+![End of Farm Notifier](images/end_of_farm.png)
 
 ### Block Right Clicks with Mathematical Hoes
 
@@ -215,7 +267,31 @@ Shows which items are the most profitable for the copper cost. (Which ones give 
 
 ![Skymart Profit](images/skymart_profit.png)
 
+### Visitors Logbook Stats
+![Visitor's Logbook Stats](images/visitor_logbook.png)
 
+</details>
+
+<details>
+  <summary> Mining Features </summary>
+
+## Mining Features
+
+### Worm Warning
+
+When you are mining in the Crystal Hollows and a worm or Scatha spawns, you get a message on screen, along with a sound, warning you that a worm has spawned.
+
+### Mining Events Reminder
+
+The mining events reminder has a selective list of all dwarven mines & crystal hollows events. These events can be enabled separately. You can be reminded with either a banner or a banner and sound. You can choose the banner's color and display time yourself. You can also get reminded 20 seconds before the event starts.
+![Mining Events Reminder](images/mining_events.png)
+
+### Pickaxe Ability Reminder
+
+Not always aware when the pickaxe cooldown is over? Not anymore! With the new pickaxe cooldown reminder, this won't happen anymore. Need a banner? We have that! Want color in it? It's already available! Sound? Of course. It also includes PTSD, the best feature of it all—the Air Raid Siren! You can also block right-clicks on your private island, so you'll never accidentally pickoboculus your island again.
+
+![Pickaxe Ability Reminder](images/pickaxe_ability.png
+)
 
 </details>
 
@@ -285,6 +361,10 @@ A keybinding shortcut to open the wardrobe menu. Customisable in the vanilla opt
 ### Storage Menu Keybinding
 
 A keybinding shortcut to open the storage menu. Customisable in the vanilla options' menu. (``NONE`` key by default)
+
+### Hoe Right Click
+
+A Keybinding shortcut to allow Hoe Right Click for one time or for some minutes, depending on your setting. Customiseable in the vanilla options' menu. (``NONE`` by default)
 
 ### Party All Friends
 

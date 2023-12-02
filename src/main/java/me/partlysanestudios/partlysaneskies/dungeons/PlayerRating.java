@@ -6,22 +6,21 @@
 
 package me.partlysanestudios.partlysaneskies.dungeons;
 
-import java.net.MalformedURLException;
-import java.util.HashMap;
-import java.util.Map;
-
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager;
+import me.partlysanestudios.partlysaneskies.system.commands.PSSCommand;
+import me.partlysanestudios.partlysaneskies.utils.ChatUtils;
+import me.partlysanestudios.partlysaneskies.utils.MathUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
-import me.partlysanestudios.partlysaneskies.utils.Utils;
-import me.partlysanestudios.partlysaneskies.system.requests.Request;
-import me.partlysanestudios.partlysaneskies.system.requests.RequestsManager;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PlayerRating {
 
@@ -36,6 +35,8 @@ public class PlayerRating {
     // A map which has <Category, Total Count>
     private static HashMap<String, Integer> categoryPointMap = new HashMap<>();
     private static int totalPoints = 0;
+
+    public static String lastMessage = "";
     
     public static void initPatterns() {
         currentPlayer = PartlySaneSkies.minecraft.getSession().getUsername();
@@ -65,8 +66,8 @@ public class PlayerRating {
         }
 
         player = player.replaceAll("\\P{Print}", "");
-        player = StringUtils.stripLeading(player);
-        player = StringUtils.stripTrailing(player);
+        player = StringUtils.INSTANCE.stripLeading(player);
+        player = StringUtils.INSTANCE.stripTrailing(player);
 
         // If the player has already been registered
         if (playerPointCategoryMap.containsKey(player)) {
@@ -107,29 +108,29 @@ public class PlayerRating {
 
         if (PartlySaneSkies.config.enhancedDungeonPlayerBreakdown == 0) { 
             for (Map.Entry<String, HashMap<String, Integer>> entry : playerPointCategoryMap.entrySet()) {
-                String playerStr = "&d" + entry.getKey() + "  &9" + Utils.round((double) totalPlayerPoints.get(entry.getKey()) / totalPoints * 100d, 0) +"%&7 | ";
+                String playerStr = "§d" + entry.getKey() + "  §9" + MathUtils.INSTANCE.round((double) totalPlayerPoints.get(entry.getKey()) / totalPoints * 100d, 0) +"%§7 | ";
                 
                 str.append(playerStr);
             }
             
-            return StringUtils.colorCodes(str.toString());
+            return (str.toString());
         }
 
-        str.append("&a&nDungeon Overview:\n\n");
+        str.append("§a§nDungeon Overview:\n\n");
         for (Map.Entry<String, HashMap<String, Integer>> entry : playerPointCategoryMap.entrySet()) {
             String playerName = entry.getKey();
-            StringBuilder playerStr = new StringBuilder("&d" + playerName + "&7 completed &d" + Utils.round((double) totalPlayerPoints.get(playerName) / totalPoints * 100d, 0) + "%&7 of the dungeon.\n");
+            StringBuilder playerStr = new StringBuilder("§d" + playerName + "§7 completed §d" + MathUtils.INSTANCE.round((double) totalPlayerPoints.get(playerName) / totalPoints * 100d, 0) + "%§7 of the dungeon.\n");
             if (PartlySaneSkies.config.enhancedDungeonPlayerBreakdown == 2) {
-                playerStr.append("&2   Breakdown:\n");
+                playerStr.append("§2   Breakdown:\n");
                 for (Map.Entry<String, Integer> entry2 : entry.getValue().entrySet()) {
-                    playerStr.append("     &d").append(Utils.round((double) entry2.getValue() / categoryPointMap.get(entry2.getKey()) * 100d, 0)).append("%&7 of ").append(entry2.getKey()).append("\n");
+                    playerStr.append("     §d").append(MathUtils.INSTANCE.round((double) entry2.getValue() / categoryPointMap.get(entry2.getKey()) * 100d, 0)).append("%§7 of ").append(entry2.getKey()).append("\n");
                 }
             }
             
             str.append(playerStr);
         }
 
-        str = new StringBuilder(StringUtils.colorCodes(str.toString()));
+        str = new StringBuilder((str.toString()));
 
 
 
@@ -142,7 +143,7 @@ public class PlayerRating {
         str.append("Partly Sane Skies > ");
         
         for (Map.Entry<String, HashMap<String, Integer>> entry : playerPointCategoryMap.entrySet()) {
-            String playerStr = entry.getKey() + "  " + Utils.round((double) totalPlayerPoints.get(entry.getKey()) / totalPoints * 100d, 0) + "% | ";
+            String playerStr = entry.getKey() + "  " + MathUtils.INSTANCE.round((double) totalPlayerPoints.get(entry.getKey()) / totalPoints * 100d, 0) + "% | ";
             
             str.append(playerStr);
         }
@@ -153,11 +154,11 @@ public class PlayerRating {
 
     public static void handleMessage(String message) {
         for (Map.Entry<String, String> entry : positivePatterns.entrySet()) {
-            if (!StringUtils.startsWithPattern(message, entry.getKey(), "{player}")) {
+            if (!StringUtils.INSTANCE.startsWithPattern(message, entry.getKey(), "{player}")) {
                 continue;
             }
 
-            rackPoints(StringUtils.recognisePattern(message, entry.getKey(), "{player}"), entry.getValue());
+            rackPoints(StringUtils.INSTANCE.recognisePattern(message, entry.getKey(), "{player}"), entry.getValue());
         }
     }
 
@@ -167,6 +168,16 @@ public class PlayerRating {
         playerPointCategoryMap = new HashMap<>();
 
         totalPoints = 0;
+    }
+    
+    public static void reprintLastScore() {
+        ChatUtils.INSTANCE.sendClientMessage(lastMessage, true);
+    }
+
+    public static void registerReprintCommand() {
+        new PSSCommand("reprintscore", Arrays.asList("rps", "rs"), "Reprints the last score in a dungeon run", (s, a) -> {
+            reprintLastScore();
+        }).register();
     }
 
     // §r§fTeam Score: §r
@@ -178,7 +189,8 @@ public class PlayerRating {
         // If end of dungeon
         if (event.message.getFormattedText().contains("Catacombs Experience§r")) {
             final String string = getDisplayString();
-            
+            lastMessage = string;
+
             new Thread(() -> {
                 try {
                     Thread.sleep(125);
@@ -189,9 +201,10 @@ public class PlayerRating {
                     if (string.equals("")) {
                         return;
                     }
-                    Utils.sendClientMessage(string, true);
+                    ChatUtils.INSTANCE.sendClientMessage(string, true);
                 });
             }).start();
+
             if (PartlySaneSkies.config.partyChatDungeonPlayerBreakdown) {
                 PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/pc " + getChatMessage());
             }
