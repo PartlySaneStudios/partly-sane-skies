@@ -633,6 +633,7 @@ public class OneConfigScreen extends Config {
     )
     public boolean warnLowArrowsInChat = false;
 
+
     @Text(
         subcategory = "Party Manager", 
         name = "Arrow Low Warning", 
@@ -759,6 +760,36 @@ public class OneConfigScreen extends Config {
         category = "Dungeons"
     )
     public boolean watcherReadyAirRaidSiren = false;
+    // Healer Alert
+
+    @Switch(
+            subcategory = "Healer Alert",
+            name = "Healer Alert",
+            description = "Displays a banner when a teammate in Dungeons has low health.",
+            category = "Dungeons"
+    )
+    public boolean healerAlert = false;
+
+    @Dropdown(
+            subcategory = "Healer Alert",
+            name = "Alert when below...",
+            description = "Choose at what percentage healer alert will trigger",
+            category = "Dungeons",
+            options = {
+                    "25% Health",
+                    "50% Health"
+            }
+    )
+    public int colouredHealerAlert = 0;
+    @Slider(
+            subcategory = "Healer Alert",
+            name = "Cooldown Between Warnings",
+            description = "Choose the delay between Low Health Alerts",
+            category = "Dungeons",
+            min = 1f,
+            max = 15f
+    )
+    public float healerAlertCooldownSlider = 3.5f;
 
     // Required Secrets Found
     @Switch(

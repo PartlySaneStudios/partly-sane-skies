@@ -121,6 +121,9 @@ object StringUtils {
 
 //        Creates a string with the number formatted with the above decimal format
         var formattedNum = decimalFormat.format(this)
+        if (formattedNum.startsWith(".")) {
+            formattedNum = "0" + formattedNum
+        }
         var hundredsPlaceFormat = ""
         when (PartlySaneSkies.config.hundredsPlaceFormat) {
             0 -> hundredsPlaceFormat = ","
