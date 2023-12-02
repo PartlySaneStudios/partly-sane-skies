@@ -9,13 +9,23 @@ package me.partlysanestudios.partlysaneskies.utils
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.points.Point2d
 import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.points.Point3d
+import me.partlysanestudios.partlysaneskies.utils.MathUtils.round
 import java.util.concurrent.ThreadLocalRandom
 import kotlin.math.pow
 import kotlin.math.sqrt
 
 object MathUtils {
     fun Double.round(decimalPlaces: Int): Double {
-        return Math.round(this * 10.0.pow(decimalPlaces.toDouble()) / 10.0.pow(decimalPlaces.toDouble())).toDouble()
+        return Math.round(this * 10.0.pow(decimalPlaces)) / 10.0.pow(decimalPlaces).toDouble()
+    }
+
+
+    fun Double.floor(decimalPlaces: Int):Double {
+        return (this * 10.0.pow(decimalPlaces)) / 10.0.pow(decimalPlaces).toInt().toDouble()
+    }
+
+    fun Double.ceil(decimalPlaces: Int):Double {
+        return ((this * 10.0.pow(decimalPlaces)) / 10.0.pow(decimalPlaces).toInt() + 1).toDouble()
     }
 
     fun randInt(min: Int, max: Int): Int {
