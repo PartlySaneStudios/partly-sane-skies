@@ -6,8 +6,11 @@
 
 package me.partlysanestudios.partlysaneskies.data.pssdata;
 
+import me.partlysanestudios.partlysaneskies.system.commands.PSSCommand;
 import me.partlysanestudios.partlysaneskies.system.requests.Request;
 import me.partlysanestudios.partlysaneskies.system.requests.RequestsManager;
+import me.partlysanestudios.partlysaneskies.utils.ChatUtils;
+import net.minecraft.util.ChatComponentText;
 
 import java.net.MalformedURLException;
 import java.util.HashMap;
@@ -63,6 +66,20 @@ public class PublicDataManager {
         }
 
         return fileCache.get(path);
+    }
+    public static void registerDataCommand(){
+        new PSSCommand("updatepssdata")
+                .addAlias("clearhashmap")
+                .addAlias("clearpssdata")
+                .setDescription("Clears your Partly Sane Studios data")
+                .setRunnable((s, a) -> {
+                    ChatComponentText chatcomponent = new ChatComponentText("§b§4-----------------------------------------------------§7" +
+                            "\nData Refreshed" +
+                            "\n§b§4-----------------------------------------------------§0"
+                    );
+                    fileCache.clear();
+                    ChatUtils.INSTANCE.sendClientMessage(chatcomponent);
+                }).register();
     }
 
     private static class Lock {

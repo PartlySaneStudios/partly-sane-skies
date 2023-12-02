@@ -7,6 +7,7 @@
 package me.partlysanestudios.partlysaneskies;
 
 import gg.essential.elementa.components.Window;
+import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager;
 import me.partlysanestudios.partlysaneskies.system.Keybinds;
 import me.partlysanestudios.partlysaneskies.system.commands.CommandManager;
 import me.partlysanestudios.partlysaneskies.system.commands.PSSCommand;
@@ -28,6 +29,8 @@ public class HelpCommands {
                 .addAlias("pssd")
                 .addAlias("psdisc")
                 .addAlias("psdiscord")
+                .addAlias("pssdiscord")
+                .addAlias("didcord")
                 .setDescription("Join the Partly Sane Studios Discord Server")
                 .setRunnable((s, a) -> {
                     // Creates a new message with the correct text
