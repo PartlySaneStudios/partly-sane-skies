@@ -23,6 +23,7 @@ import me.partlysanestudios.partlysaneskies.system.requests.Request
 import me.partlysanestudios.partlysaneskies.system.requests.RequestRunnable
 import me.partlysanestudios.partlysaneskies.system.requests.RequestsManager
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils
+import me.partlysanestudios.partlysaneskies.utils.MathUtils.round
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.formatNumber
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.getJsonFromPath
 import net.minecraft.command.ICommandSender
@@ -80,7 +81,7 @@ object CoinsToBoosterCookieConversion {
 //                        Gets the amount of gem packages
                         val gemPackages: Double = ceil(convertCoinsToGemPackages(a[0].toDouble()))
 //                        Cost in irl money
-                        val dollars: Double = (Math.round((gemPackages * sSGPInPreferredCurrency) * 100)) / 100.0
+                        val dollars: Double = (gemPackages * sSGPInPreferredCurrency).round(2)
 
 //                        Sends message
                         ChatUtils.sendClientMessage("§6${abs(a[0].toDouble()).formatNumber()} coins §etoday is equivalent to §6${cookieQuantity.toLong().toDouble().formatNumber()} Booster Cookies, or §2${currencyFormatting(money = (dollars.formatNumber()))} §e(excluding sales taxes and other fees).")
@@ -88,7 +89,7 @@ object CoinsToBoosterCookieConversion {
                         if (PartlySaneSkies.isDebugMode) { // Optional debug message
                             ChatUtils.sendClientMessage("§eIf the currency symbol doesn't look right, please report this to us via §9/discord §eso we can find a replacement symbol that Minecraft 1.8.9 can render.", true)
                         }
-                    } else if (a.isEmpty()) {
+                    } else if (a.isEmpty() || a.size == 1) {
                         runNetworthToCoins(this.playerName)
                     } else if (a[0].contentEquals("networth", true) || a[0].contentEquals("nw", true)) {
                         if (a.size == 1) {
@@ -123,10 +124,6 @@ object CoinsToBoosterCookieConversion {
         val boosterCookieInGems = boosterCookieDataJsonObject.getJsonFromPath("ingame/onecookiegem")?.asDouble ?: 325.0
 //    Gets the samllest amount of
         val smallestSkyblockGemsPackage = boosterCookieDataJsonObject.getJsonFromPath("storehypixelnet/smallestgembundle")?.asDouble ?: 675.0
-
-        if (boosterCookieBuyPrice != -1.0) {
-            return -1.0
-        }
 
         return ((convertCoinsToBoosterCookies(coins) * boosterCookieInGems) / smallestSkyblockGemsPackage) //math adapted from NEU: https://github.com/NotEnoughUpdates/NotEnoughUpdates/blob/master/src/main/java/io/github/moulberry/notenoughupdates/profileviewer/BasicPage.java#L342
 
@@ -165,7 +162,7 @@ object CoinsToBoosterCookieConversion {
                         val prefCurr: String = boosterCookieData["storehypixelnet"].asJsonObject.get("order").asJsonArray[configCurr].asString
                         val sSGPInPreferredCurrency = boosterCookieData["storehypixelnet"].asJsonObject.get(prefCurr).asDouble
                         val cookieValue: Double = ceil(convertCoinsToGemPackages(networth))
-                        val dollars: Double = (Math.round((cookieValue * sSGPInPreferredCurrency) * 100)) / 100.0
+                        val dollars: Double =(cookieValue * sSGPInPreferredCurrency).round(2)
                         var namePlaceholder = "$username's"
                         if (username == PartlySaneSkies.minecraft.thePlayer.name) namePlaceholder = "Your"
                         ChatUtils.sendClientMessage("§e$namePlaceholder total networth (both soulbound and unsoulbound) of §6${networth.toLong().toDouble().formatNumber()} coins §etoday is equivalent to §6${cookieValue.formatNumber()} Booster Cookies, or §2${currencyFormatting(money = (dollars.formatNumber()))} §e(excluding sales taxes and other fees).")

@@ -123,13 +123,13 @@ object SystemUtils {
     //    Gets the json element from a path string in format /key/key/key/key/
     fun JsonObject.getJsonFromPath(path: String): JsonElement? {
         val splitPath = path.split("/".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-        var obj = this
+        var obj: JsonObject? = this
         // Gets the object up until the very last one
         for (i in 0 until splitPath.size - 1) {
             if (splitPath[i].isEmpty()) {
                 continue
             }
-            obj = obj.getAsJsonObject(splitPath[i])
+            obj = obj!!.getAsJsonObject(splitPath[i])
             if (obj == null) {
                 return null
             }
@@ -137,6 +137,6 @@ object SystemUtils {
 
 
 //        Gets the last object as a JsonElement
-        return obj[splitPath[splitPath.size - 1]]
+        return obj!![splitPath[splitPath.size - 1]]
     }
 }
