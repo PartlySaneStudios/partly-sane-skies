@@ -24,6 +24,7 @@ public class HelpCommands {
 
     public static void registerDiscordCommand() {
         new PSSCommand("discord")
+                .addAlias("discord")
                 .addAlias("pssdisc")
                 .addAlias("pssd")
                 .addAlias("psdisc")
