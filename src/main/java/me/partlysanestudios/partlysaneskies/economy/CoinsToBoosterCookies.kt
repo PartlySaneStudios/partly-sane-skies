@@ -44,7 +44,7 @@ object CoinsToBoosterCookieConversion {
     private fun currencyFormatting(money: String): String {
 //        Formats the currency to be the right preferred symbol
         val boosterCookieData: JsonObject = JsonParser().parse(PublicDataManager.getFile(boosterCookiePath)).getAsJsonObject()
-        val prefCurr: String = boosterCookieData["storehypixelnet"].asJsonObject.get("order").asJsonArray[configCurr].asString
+        val prefCurr: String = orderOfCurrency[configCurr]
         val prefCurrSymbol: String = boosterCookieData["currencysymbols"].asJsonObject.get(prefCurr).asString
         val prefCurrSymbolPlacementPrecede: Boolean = boosterCookieData["currencysymbolprecedes"].asJsonObject.get(prefCurr).asBoolean
         return if (!prefCurrSymbolPlacementPrecede) {
@@ -74,7 +74,7 @@ object CoinsToBoosterCookieConversion {
 //                        Gets the public data json
                         val boosterCookieData: JsonObject = JsonParser().parse(PublicDataManager.getFile(boosterCookiePath)).getAsJsonObject()
 //                        Preferred currency
-                        val prefCurr: String = boosterCookieData["storehypixelnet"].asJsonObject.get("order").asJsonArray[configCurr].asString
+                        val prefCurr: String = orderOfCurrency[configCurr]
 //                        The cost of the smallest skyblock gem package in preferred currency
                         val sSGPInPreferredCurrency = boosterCookieData["storehypixelnet"].asJsonObject.get(prefCurr).asDouble
 //                        Gets the amount of cookies
@@ -160,7 +160,7 @@ object CoinsToBoosterCookieConversion {
                     if (PartlySaneSkies.isDebugMode) ChatUtils.sendClientMessage("§eCurrent profile and its networth found.")
                     if (networth >= 0.0) {
                         val boosterCookieData: JsonObject = JsonParser().parse(PublicDataManager.getFile(boosterCookiePath)).getAsJsonObject()
-                        val prefCurr: String = boosterCookieData["storehypixelnet"].asJsonObject.get("order").asJsonArray[configCurr].asString
+                        val prefCurr: String = orderOfCurrency[configCurr]
                         val sSGPInPreferredCurrency = boosterCookieData["storehypixelnet"].asJsonObject.get(prefCurr).asDouble
                         val cookieValue: Double = ceil(convertCoinsToGemPackages(networth))
                         val dollars: Double =(cookieValue * sSGPInPreferredCurrency).round(2)
