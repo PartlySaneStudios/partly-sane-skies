@@ -60,9 +60,6 @@ object HealerAlert {
             PartlySaneSkies.minecraft.soundHandler
                 .playSound(PositionedSoundRecord.create(ResourceLocation("partlysaneskies", "bell")))
         }
-
-
-q
     }
 
 }
