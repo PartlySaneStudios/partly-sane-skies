@@ -1,3 +1,5 @@
+# This legacy version is no longer supported; please use the [main version](https://github.com/PartlySaneStudios/partly-sane-skies) instead.
+
 <h1> <a href="#----"> <img src = "images/banner_image.png" alt="Banner" align="center"> </a> </h1>
 
 [//]: # (<h1 align="center"> Partly Sane Skies </h1>)
