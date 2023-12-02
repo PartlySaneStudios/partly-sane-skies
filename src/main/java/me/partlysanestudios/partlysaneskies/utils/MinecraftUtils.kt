@@ -30,16 +30,19 @@ object MinecraftUtils {
 
     @SideOnly(Side.CLIENT)
     fun getTabList(): List<String>{
+        return try {
             val players = PartlySaneSkies.minecraft.thePlayer.sendQueue.playerInfoMap.stream()
                 .sorted(playerOrdering)
                 .collect(Collectors.toList())
-            return players.stream()
+            players.stream()
                 .map { info: NetworkPlayerInfo? ->
                     PartlySaneSkies.minecraft.ingameGUI.tabList.getPlayerName(info)
                 }
                 .collect(Collectors.toList())
+        } catch (e: Exception) {
+            ArrayList()
         }
-
+    }
     private fun comparePlayers(overlay1: NetworkPlayerInfo, overlay2: NetworkPlayerInfo): Int {
         val team1 = overlay1.playerTeam
         val team2 = overlay2.playerTeam
