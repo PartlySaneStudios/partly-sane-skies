@@ -18,6 +18,7 @@ import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
+import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager;
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager;
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockItem;
 import me.partlysanestudios.partlysaneskies.system.ThemeManager;
@@ -40,15 +41,13 @@ public class SkymartValue {
     public static HashMap<String, Integer> copperCost = new HashMap<>();
 
     public static void initCopperValues() throws IOException {
-        RequestsManager.newRequest(new Request("https://raw.githubusercontent.com/PartlySaneStudios/partly-sane-skies-public-data/main/data/constants/skymart_copper.json", s -> {
-            if (!s.hasSucceeded()) {
-                return;
-            }
-            JsonObject skymartObject = new JsonParser().parse(s.getResponse()).getAsJsonObject().getAsJsonObject("skymart");
-            for (Map.Entry<String, JsonElement> entry : skymartObject.entrySet()) {
-                copperCost.put(entry.getKey(), entry.getValue().getAsInt());
-            }
-        }));
+        String str = PublicDataManager.getFile("constants/skymart_copper.json");
+
+        JsonObject skymartObject = new JsonParser().parse(str).getAsJsonObject().getAsJsonObject("skymart");
+        for (Map.Entry<String, JsonElement> entry : skymartObject.entrySet()) {
+            copperCost.put(entry.getKey(), entry.getValue().getAsInt());
+        }
+
 
         
     }

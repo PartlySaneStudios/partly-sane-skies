@@ -8,6 +8,7 @@ package me.partlysanestudios.partlysaneskies.economy.minioncalculator;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager;
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager;
 import me.partlysanestudios.partlysaneskies.utils.MathUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
@@ -21,7 +22,7 @@ import java.util.*;
 
 public class MinionData {
 //    The URL with the location of the minion data
-    private static final String MINIONS_DATA_URL = "https://raw.githubusercontent.com/PartlySaneStudios/partly-sane-skies-public-data/main/data/constants/minion_data.json";
+    private static final String MINIONS_DATA_URL = "constants/minion_data.json";
 
 //    A hashmap with the key as the minion id, and the value as the minion object
     public static final HashMap<String, Minion> minionMap = new HashMap<>();
@@ -30,14 +31,13 @@ public class MinionData {
     public static final HashMap<String, MinionFuel> fuelMap = new HashMap<>();
 
 //    init: runs before the request ------ CALL THIS TO INIT
-    public static void preRequestInit() throws MalformedURLException {
-        RequestsManager.newRequest(new Request(MINIONS_DATA_URL, MinionData::postRequestInit));
-    }
+
 
 //    Runs after the request
-    public static void postRequestInit(Request request) {
+    public static void init() {
+        String str = PublicDataManager.getFile(MINIONS_DATA_URL);
 //        Creates a json object from the request response
-        JsonObject jsonObj = new JsonParser().parse(request.getResponse()).getAsJsonObject();
+        JsonObject jsonObj = new JsonParser().parse(str).getAsJsonObject();
 //        Gets the minion object from the json
         JsonObject minionObjects = SystemUtils.INSTANCE.getJsonFromPath(jsonObj, "/minions").getAsJsonObject();
 

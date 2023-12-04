@@ -227,8 +227,6 @@ public class PartlySaneSkies {
         // Initializes keybinds
         Keybinds.init();
 
-        MathematicalHoeRightClicks.loadHoes();
-
 
         // Initializes skill upgrade recommendation
         SkillUpgradeRecommendation.populateSkillMap();
@@ -244,40 +242,37 @@ public class PartlySaneSkies {
         }
         SkyblockDataManager.updateAll();
         CompostValue.init();
-        try {
-            SkymartValue.initCopperValues();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            MinionData.preRequestInit();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
 
         try {
             SkyblockDataManager.initSkills();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        // Loads user player data for PartyManager
         new Thread(() -> {
+            MinionData.init();
+
             try {
                 SkyblockDataManager.initBitValues();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }).start();
 
-
-        // Loads user player data for PartyManager
-        new Thread(() -> {
             try {
                 SkyblockDataManager.getPlayer(PartlySaneSkies.minecraft.getSession().getUsername());
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
-        }).start();
+
+            try {
+                SkymartValue.initCopperValues();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            MathematicalHoeRightClicks.loadHoes();
+        }, "Init Data").start();
 
         // Finished loading
         SystemUtils.INSTANCE.log(Level.INFO, "Partly Sane Skies has loaded.");
