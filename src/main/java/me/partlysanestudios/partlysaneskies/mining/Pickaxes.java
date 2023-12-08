@@ -22,7 +22,7 @@ public class Pickaxes {
     private static final Pattern pattern = Pattern.compile("(Mining Speed Boost|Pickobulus|Maniac Miner|Vein Seeker) is now available!");
     public static final String[] pickaxeAbilities = {"Mining Speed Boost", "Pickobulus", "Maniac Miner", "Vein Seeker"};
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = net.minecraftforge.fml.common.eventhandler.EventPriority.HIGHEST)
     public void onChat(ClientChatReceivedEvent event) {
         if (PartlySaneSkies.config.onlyGiveWarningOnMiningIsland){
             if (!IslandType.DWARVEN_MINES.onIsland() && !IslandType.CRYSTAL_HOLLOWS.onIsland()) return;
