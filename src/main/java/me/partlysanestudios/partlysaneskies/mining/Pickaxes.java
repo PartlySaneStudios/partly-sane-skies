@@ -42,6 +42,10 @@ public class Pickaxes {
                     PartlySaneSkies.minecraft.thePlayer.playSound("partlysaneskies:bell", 100, 1);
                 }
             }
+
+            if (PartlySaneSkies.config.hideReadyMessageFromChat) {
+                event.setCanceled(true);
+            }
         }
     }
 

@@ -479,7 +479,15 @@ public class OneConfigScreen extends Config {
     public boolean pickaxeAbilityReadySiren = false;
 
     @Switch(
-            name = "Only give a warning when you are on a mining island",
+            name = "Hide Ready Message from Chat",
+            subcategory = "Pickaxes",
+            description = "Hides the message that appears in chat when your pickaxe ability is ready.",
+            category = "Mining"
+    )
+    public boolean hideReadyMessageFromChat = false;
+
+    @Switch(
+            name = "Warn only when on a mining island.",
             subcategory = "Pickaxes",
             description = "Makes it less annoying when you don't want to mine",
             category = "Mining"
