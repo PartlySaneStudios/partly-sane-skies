@@ -37,6 +37,10 @@ public class OneConfigScreen extends Config {
             secretsChatMessageString = "Partly Sane Skies > All required secrets have been found!";
             save();
         }
+        if (pickaxeAbilityReadyBannerText.isEmpty()){
+            pickaxeAbilityReadyBannerText = "Pickaxe Ability Ready!";
+            save();
+        }
     }
 
     @Info(
@@ -450,6 +454,14 @@ public class OneConfigScreen extends Config {
     )
     public boolean pickaxeAbilityReadyBanner = true;
 
+    @Text(
+            name = "Banner Text",
+            subcategory = "Pickaxes",
+            description = "The text that appears on the banner when your pickaxe ability is ready.",
+            category = "Mining"
+    )
+    public String pickaxeAbilityReadyBannerText = "Pickaxe Ability Ready!";
+
     @Switch(
             name = "Pickaxe Ability Ready Sound",
             subcategory = "Pickaxes",
@@ -467,7 +479,15 @@ public class OneConfigScreen extends Config {
     public boolean pickaxeAbilityReadySiren = false;
 
     @Switch(
-            name = "Only give a warning when you are on a mining island",
+            name = "Hide Ready Message from Chat",
+            subcategory = "Pickaxes",
+            description = "Hides the message that appears in chat when your pickaxe ability is ready.",
+            category = "Mining"
+    )
+    public boolean hideReadyMessageFromChat = false;
+
+    @Switch(
+            name = "Warn only on mining islands.",
             subcategory = "Pickaxes",
             description = "Makes it less annoying when you don't want to mine",
             category = "Mining"
