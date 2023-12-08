@@ -37,6 +37,10 @@ public class OneConfigScreen extends Config {
             secretsChatMessageString = "Partly Sane Skies > All required secrets have been found!";
             save();
         }
+        if (pickaxeAbilityReadyBannerText.isEmpty()){
+            pickaxeAbilityReadyBannerText = "Pickaxe Ability Ready!";
+            save();
+        }
     }
 
     @Info(
@@ -449,6 +453,14 @@ public class OneConfigScreen extends Config {
             category = "Mining"
     )
     public boolean pickaxeAbilityReadyBanner = true;
+
+    @Text(
+            name = "Banner Text",
+            subcategory = "Pickaxes",
+            description = "The text that appears on the banner when your pickaxe ability is ready.",
+            category = "Mining"
+    )
+    public String pickaxeAbilityReadyBannerText = "Pickaxe Ability Ready!";
 
     @Switch(
             name = "Pickaxe Ability Ready Sound",
