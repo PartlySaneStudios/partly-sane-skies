@@ -487,7 +487,7 @@ public class OneConfigScreen extends Config {
     public boolean hideReadyMessageFromChat = false;
 
     @Switch(
-            name = "Warn only when on a mining island.",
+            name = "Warn only on mining islands.",
             subcategory = "Pickaxes",
             description = "Makes it less annoying when you don't want to mine",
             category = "Mining"
