@@ -88,8 +88,8 @@ object MinecraftUtils {
         }
     }
 
-    fun getCurrentlyHoldingItem(): ItemStack {
-        return PartlySaneSkies.minecraft.thePlayer.heldItem
+    fun getCurrentlyHoldingItem(): ItemStack? {
+        return PartlySaneSkies.minecraft.thePlayer?.heldItem
     }
 
     // Returns an array of length 2, where the 1st index is the upper inventory,

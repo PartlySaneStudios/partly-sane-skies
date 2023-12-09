@@ -141,10 +141,10 @@ object EndOfFarmNotifier {
         if (MinecraftUtils.getCurrentlyHoldingItem() == null) {
             return
         }
-        if (!MinecraftUtils.getCurrentlyHoldingItem().hasDisplayName()) {
+        if (MinecraftUtils.getCurrentlyHoldingItem()?.hasDisplayName() == false) {
             return
         }
-        if (!MinecraftUtils.getCurrentlyHoldingItem().getDisplayName().contains("SkyBlock Menu")) {
+        if (MinecraftUtils.getCurrentlyHoldingItem()?.getDisplayName()?.contains("SkyBlock Menu") == false) {
             return
         }
         if (event.pos == null) {
