@@ -22,7 +22,7 @@ public class Pickaxes {
     private static final Pattern pattern = Pattern.compile("(Mining Speed Boost|Pickobulus|Maniac Miner|Vein Seeker) is now available!");
     public static final String[] pickaxeAbilities = {"Mining Speed Boost", "Pickobulus", "Maniac Miner", "Vein Seeker"};
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = net.minecraftforge.fml.common.eventhandler.EventPriority.HIGHEST)
     public void onChat(ClientChatReceivedEvent event) {
         if (PartlySaneSkies.config.onlyGiveWarningOnMiningIsland){
             if (!IslandType.DWARVEN_MINES.onIsland() && !IslandType.CRYSTAL_HOLLOWS.onIsland()) return;
@@ -33,7 +33,7 @@ public class Pickaxes {
 
         if (matcher.find()) {
             if (PartlySaneSkies.config.pickaxeAbilityReadyBanner){
-                BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner("Pickaxe Ability Ready!", (long) (PartlySaneSkies.config.pickaxeBannerTime * 1000), 4.0f, PartlySaneSkies.config.pickaxeBannerColor.toJavaColor()));
+                BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner(PartlySaneSkies.config.pickaxeAbilityReadyBannerText, (long) (PartlySaneSkies.config.pickaxeBannerTime * 1000), 4.0f, PartlySaneSkies.config.pickaxeBannerColor.toJavaColor()));
             }
             if (PartlySaneSkies.config.pickaxeAbilityReadySound) {
                 if (PartlySaneSkies.config.pickaxeAbilityReadySiren) {
@@ -41,6 +41,10 @@ public class Pickaxes {
                 } else {
                     PartlySaneSkies.minecraft.thePlayer.playSound("partlysaneskies:bell", 100, 1);
                 }
+            }
+
+            if (PartlySaneSkies.config.hideReadyMessageFromChat) {
+                event.setCanceled(true);
             }
         }
     }
