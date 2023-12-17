@@ -50,25 +50,6 @@ public class OneConfigScreen extends Config {
     )
     public boolean ignored;
 
-    @HypixelKey
-    @Text(
-        secure = true, 
-        name = "API Key", 
-        category = "General", 
-        subcategory = "API", 
-        description = "Do /api new to automatically set your API Key. Do not show your API key to anyone unless you know what you're doing.",
-            size = 2
-    )
-    public String apiKey = "";
-
-    @Switch(
-            name = "Force Custom API Key",
-            category = "General",
-            subcategory = "API",
-            description = "Forces the use of a custom API key for Hypixel requests. (Requires API Key field to be populated)"
-    )
-    public boolean forceCustomAPIKey = false;
-
     @Number(
         min = .1f,
         max = 30f,
@@ -182,6 +163,14 @@ public class OneConfigScreen extends Config {
 
     )
     public boolean checkModsOnStartup = true;
+
+    @Switch(
+            name = "Block Dg Diagnostics",
+            category = "General",
+            subcategory = "Security",
+            description = "Blocks the Dungeon Guide Diagnostics from sending to their server."
+    )
+    public boolean blockDgDiagnostics = false;
 
 
 //    ------------------ Category: Themes ---------------------
