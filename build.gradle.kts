@@ -1,3 +1,4 @@
+import org.gradle.internal.impldep.org.bouncycastle.asn1.x500.style.RFC4519Style.owner
 import xyz.deftu.gradle.utils.GameSide
 
 plugins {
@@ -23,8 +24,12 @@ repositories {
     maven("https://repo.polyfrost.cc/releases")
     maven("https://repo.sk1er.club/repository/maven-public/")
     maven("https://repo.sk1er.club/repository/maven-releases/")
+    maven("https://repo.spongepowered.org/maven/")
 }
 
+val shadowImpl: Configuration by configurations.creating {
+    configurations.implementation.get().extendsFrom(this)
+}
 
 dependencies {
     implementation(shade("gg.essential:elementa-${mcData.versionStr}-${mcData.loader.name}:531") {
@@ -33,6 +38,9 @@ dependencies {
     implementation(shade("gg.essential:universalcraft-${mcData.versionStr}-${mcData.loader.name}:262") {
         isTransitive = false
     })
+    shadowImpl("org.spongepowered:mixin:0.7.11-SNAPSHOT") {
+        isTransitive = false
+    }
     implementation(kotlin("stdlib"))
     implementation(kotlin("gradle-plugin"))
     modCompileOnly("cc.polyfrost:oneconfig-${mcData.versionStr}-${mcData.loader.name}:0.2.0-alpha+")
@@ -58,4 +66,33 @@ toolkitGitHubPublishing {
 blossom {
     val dogfood: String by project
     replaceToken("@DOGFOOD@", dogfood)
+}
+
+val runtimeMod by configurations.creating {
+    isTransitive = false
+    isVisible = false
+}
+
+loom {
+    launchConfigs {
+        "client" {
+            property("mixin.debug", "true")
+            property("asmhelper.verbose", "true")
+            arg("--tweakClass", "cc.polyfrost.oneconfig.loader.stage0.LaunchWrapperTweaker")
+            arg("--mixin", "mixins.pss.json")
+            val modFiles = runtimeMod.files
+            arg("--mods", modFiles.joinToString(",") { it.relativeTo(file("run")).path })
+        }
+    }
+    runConfigs {
+        delete("server")
+    }
+    forge {
+        pack200Provider.set(dev.architectury.pack200.java.Pack200Adapter())
+        mixinConfig("mixins.pss.json")
+    }
+    @Suppress("UnstableApiUsage")
+    mixin {
+        defaultRefmapName.set("mixins.neuhax.refmap.json")
+    }
 }
