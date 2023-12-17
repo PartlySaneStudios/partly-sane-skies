@@ -165,12 +165,12 @@ public class OneConfigScreen extends Config {
     public boolean checkModsOnStartup = true;
 
     @Switch(
-            name = "Block Dg Diagnostics",
+            name = "Privacy Mode",
             category = "General",
-            subcategory = "Security",
-            description = "Blocks the Dungeon Guide Diagnostics from sending to their server."
+            subcategory = "Privacy",
+            description = "Blocks the diagnostics reports from other mods from being sent to their servers."
     )
-    public boolean blockDgDiagnostics = false;
+    public boolean privacyMode = true;
 
 
 //    ------------------ Category: Themes ---------------------
