@@ -1216,7 +1216,7 @@ public class OneConfigScreen extends Config {
             category = "Debug",
             name = "Debug Keybind"
     )
-    public OneKeyBind debugConfig = new OneKeyBind(Keyboard.KEY_NONE);
+    public OneKeyBind debugKeybind = new OneKeyBind(Keyboard.KEY_NONE);
 
     @Switch(
             name = "Debug Mode",
