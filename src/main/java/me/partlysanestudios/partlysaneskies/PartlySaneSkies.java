@@ -334,6 +334,7 @@ public class PartlySaneSkies {
                 ChatUtils.INSTANCE.sendClientMessage("§b§m--------------------------------------------------", true);
             }).start();
         }
+        ModChecker.runOnStartup();
 
         if (!isLatestVersion()) {
             new Thread(() -> {

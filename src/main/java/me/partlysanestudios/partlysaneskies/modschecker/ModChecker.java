@@ -32,11 +32,12 @@ public class ModChecker {
     public static void registerModCheckCommand() {
         new PSSCommand("modcheck", Collections.emptyList(), "Checks the mods in your mod folder if they are updated", (s, a) -> {
             new Thread(ModChecker::run).start();
-        }).register();
+        }).addAlias("modscheck").addAlias("modchecker").addAlias("pssmodscheck").addAlias("modschecker").register();
     }
 
     @Nullable
     private static List<KnownMod> knownMods;
+    private static boolean hasRunOnStartup;
 
     static class KnownMod {
 
@@ -52,6 +53,15 @@ public class ModChecker {
         }
     }
 
+    public static void runOnStartup() {
+        if (!PartlySaneSkies.config.checkModsOnStartup) {
+            return;
+        }
+        if (!hasRunOnStartup) {
+            hasRunOnStartup = true;
+            run();
+        }
+    }
     public static void run() {
         ChatUtils.INSTANCE.sendClientMessage("Loading...");
         loadModDataFromRepo();

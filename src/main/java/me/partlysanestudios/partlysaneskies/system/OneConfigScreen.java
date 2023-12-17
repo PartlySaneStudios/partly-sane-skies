@@ -170,6 +170,15 @@ public class OneConfigScreen extends Config {
     )
     public boolean printApiErrors = true;
 
+    @Switch(
+            name = "Check Mods On Startup",
+            category = "General",
+            subcategory = "Mods Checker",
+            description = "Automatically Send Message on Startup"
+
+    )
+    public boolean checkModsOnStartup = true;
+
 
 //    ------------------ Category: Themes ---------------------
 //    Themes
@@ -1209,4 +1218,9 @@ public class OneConfigScreen extends Config {
     )
     public static OneKeyBind debugConfig = new OneKeyBind(Keyboard.KEY_NONE);
 
+    @Switch(
+            name = "Debug Mode",
+            category = "Debug"
+    )
+    private static boolean debugMode = false;
 }
