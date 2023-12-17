@@ -201,12 +201,13 @@ public class ModChecker {
             debugBuilder.append("\n    }");
             debugBuilder.append("\n},");
         }
-        chatBuilder.append("\n\n§7If you believe any of these mods may be a mistake, report it in the PSS discord!");
+
+        chatBuilder.append("\n\n§9If you believe any of these mods may be a mistake, report it in the PSS discord! §7(/pssdiscord)");
 
 
         if (PartlySaneSkies.config.debugMode) {
             ChatUtils.INSTANCE.sendClientMessage("§8Unknown Mods:\n" + insertCharacterAfterNewLine(debugBuilder.toString(), "§8") + "\n\n");
-            SystemUtils.INSTANCE.copyStringToClipboard(debugBuilder.toString());
+            SystemUtils.INSTANCE.copyStringToClipboard("```json\n"+ debugBuilder.toString() + "\n```");
         }
 
         ChatUtils.INSTANCE.sendClientMessage(" \n§7Found " + modsFound + " mods:" + chatBuilder);

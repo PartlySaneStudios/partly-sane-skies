@@ -50,25 +50,6 @@ public class OneConfigScreen extends Config {
     )
     public boolean ignored;
 
-    @HypixelKey
-    @Text(
-        secure = true, 
-        name = "API Key", 
-        category = "General", 
-        subcategory = "API", 
-        description = "Do /api new to automatically set your API Key. Do not show your API key to anyone unless you know what you're doing.",
-            size = 2
-    )
-    public String apiKey = "";
-
-    @Switch(
-            name = "Force Custom API Key",
-            category = "General",
-            subcategory = "API",
-            description = "Forces the use of a custom API key for Hypixel requests. (Requires API Key field to be populated)"
-    )
-    public boolean forceCustomAPIKey = false;
-
     @Number(
         min = .1f,
         max = 30f,
@@ -121,7 +102,28 @@ public class OneConfigScreen extends Config {
         description = "Display time in 24-hour hour time (15:30) instead of 12 hour time (3:30 PM)"
     )
     public boolean hour24time = false;
-    
+
+    @Dropdown(
+            category = "General",
+            subcategory = "Appearance",
+            name = "Preferred Currency",
+            description = "Select your preferred currency conversion for the /c2c command. Currencies are listed in alphabetical order. Default currency is USD.",
+            options = {
+                    "AUD (Australian Dollar)",
+                    "BRL (Brazilian Real)",
+                    "CAD (Canadian Dollar)",
+                    "DKK (Danish Krone)",
+                    "EUR (Euro)",
+                    "KPW (North Korean Won)",
+                    "NOK (Norwegian Krone)",
+                    "NZD (New Zealand Dollar)",
+                    "PLN (Polish Zloty)",
+                    "GBP (Pound Sterling)",
+                    "SEK (Swedish Krona)",
+                    "USD (United States Dollar)"
+            }
+    )
+    public int prefCurr = 10;
 
     @Switch(
         category = "General",
@@ -182,6 +184,14 @@ public class OneConfigScreen extends Config {
 
     )
     public boolean checkModsOnStartup = true;
+
+    @Switch(
+            name = "Privacy Mode",
+            category = "General",
+            subcategory = "Privacy",
+            description = "Blocks the diagnostics reports from other mods from being sent to their servers."
+    )
+    public boolean privacyMode = true;
 
 
 //    ------------------ Category: Themes ---------------------
@@ -1001,26 +1011,6 @@ public class OneConfigScreen extends Config {
         category = "Economy"
     )
     public boolean bitShopOnlyShowAffordable = true;
-
-    @Dropdown(
-            category = "Economy",
-            name = "Coins to Cookies Preferred Currency",
-            description = "Select your preferred currency conversion for the /c2c command. Currencies are listed in alphabetical order. Default currency is USD.",
-            options = {
-                "AUD",
-                "BRL",
-                "CAD",
-                "DKK",
-                "EUR",
-                "NOK",
-                "NZD",
-                "PLN",
-                "GBP",
-                "SEK",
-                "USD"
-            }
-    )
-    public int prefCurr = 10;
 
     @Slider(
             min = 0,

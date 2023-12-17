@@ -93,7 +93,6 @@ public class GardenTradeValue {
             cost.add(unformattedAcceptButtonLore.get(i));
         }
 
-    
         HashMap<String, Integer> costMap = new HashMap<>();
 
         for (String costLine : cost) {
@@ -104,12 +103,14 @@ public class GardenTradeValue {
             // If the item does not have a multiple, it means it only has one
             boolean singleItem = false;
             String amountString;
-            // If there is no x, pass
+            // If there is no x, check to see if there is something there
             if (costStartIndex == -1) {
+//                If there is something there, it's an item with only one
                 if (costLine.length() > 5) {
                     singleItem = true;
                     costStartIndex = costLine.length();
                 }
+//                Ignore
                 else{
                     continue;
                 }
@@ -124,8 +125,7 @@ public class GardenTradeValue {
             int amount;
             if (singleItem) {
                 amount = 1;
-            }
-            else {
+            } else {
                 // Gets the cost of the item and converts it to an integer
                 amountString = costLine.substring(costStartIndex + 1);
                 // Replaces all non-numeric characters in the string
@@ -135,8 +135,6 @@ public class GardenTradeValue {
 
                 amount = Integer.parseInt(amountString);
             }
-
-            
 
             // Adds it to the cost map
             costMap.put(name, amount);
@@ -273,16 +271,16 @@ public class GardenTradeValue {
         double totalCost = getTotalCost();
 
         if (totalCost < 0) {
-            textString.append("§e§lTotal Cost: §r§d").append(StringUtils.INSTANCE.formatNumber(MathUtils.INSTANCE.round(totalCost, 2))).append("\n\n");
+            textString.append("§e§lTotal Cost: §r§d" + StringUtils.INSTANCE.formatNumber(MathUtils.INSTANCE.round(totalCost, 2)) + "\n\n");
         } else {
             textString.append("§e§lTotal Cost: §o§8(Unknown)§r\n\n");
         }
 
-        textString.append("§e§lCopper Received: §r§d").append(StringUtils.INSTANCE.formatNumber(MathUtils.INSTANCE.round(getCopperReturn(), 2))).append("\n\n");
+        textString.append("§e§lCopper Received: §r§d" + StringUtils.INSTANCE.formatNumber(MathUtils.INSTANCE.round(getCopperReturn(), 2)) + "\n\n");
 
         double pricePerCopper = getTotalCost() / getCopperReturn();
         if (pricePerCopper < 0) {
-            textString.append("§e§lCoins/Copper: §r§d").append(StringUtils.INSTANCE.formatNumber(MathUtils.INSTANCE.round(pricePerCopper, 2))).append("\n\n");
+            textString.append("§e§lCoins/Copper: §r§d" + StringUtils.INSTANCE.formatNumber(MathUtils.INSTANCE.round(pricePerCopper, 2)) + "\n\n");
         } else {
             textString.append("§e§lCoins/Copper: §o§8(Unknown)§r\n\n");
         }
@@ -291,11 +289,11 @@ public class GardenTradeValue {
         HashMap<String, Double> coinCostMap = getCoinCostMap();
         for (Map.Entry<String, Integer> en : getQuantityCostMap().entrySet()){
             double cost = coinCostMap.get(en.getKey());
-            if (cost < 0) {
-                priceBreakdown.append("§7x§d").append(en.getValue()).append(" §7").append(en.getKey()).append(" for a total of §d").append(StringUtils.INSTANCE.formatNumber(MathUtils.INSTANCE.round(cost, 2))).append("§7 coins.\n");
+            if (cost >= 0) {
+                priceBreakdown.append("§7x§d" + en.getValue() + " §7" + en.getKey() + " for a total of §d" + StringUtils.INSTANCE.formatNumber(MathUtils.INSTANCE.round(cost, 2)) + "§7 coins.\n");
 
             } else {
-                priceBreakdown.append("§7x§d").append(en.getValue()).append(" §7").append(en.getKey()).append(" for a total of §o§8(Unknown)§r§7 coins.\n");
+                priceBreakdown.append("§7x§d" + en.getValue() + " §7" + en.getKey() + " for a total of §o§8(Unknown)§r§7 coins.\n");
 
             }
         }
