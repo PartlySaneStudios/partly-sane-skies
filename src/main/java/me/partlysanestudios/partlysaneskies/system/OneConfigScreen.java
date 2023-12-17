@@ -48,7 +48,7 @@ public class OneConfigScreen extends Config {
         text = "Hover over an option to see a description and more information."
 
     )
-    public static boolean ignored;
+    public boolean ignored;
 
     @HypixelKey
     @Text(
@@ -173,6 +173,15 @@ public class OneConfigScreen extends Config {
         
     )
     public boolean printApiErrors = true;
+
+    @Switch(
+            name = "Check Mods On Startup",
+            category = "General",
+            subcategory = "Mods Checker",
+            description = "Automatically Send Message on Startup"
+
+    )
+    public boolean checkModsOnStartup = true;
 
 
 //    ------------------ Category: Themes ---------------------
@@ -1227,6 +1236,11 @@ public class OneConfigScreen extends Config {
             category = "Debug",
             name = "Debug Keybind"
     )
-    public static OneKeyBind debugConfig = new OneKeyBind(Keyboard.KEY_NONE);
+    public OneKeyBind debugKeybind = new OneKeyBind(Keyboard.KEY_NONE);
 
+    @Switch(
+            name = "Debug Mode",
+            category = "Debug"
+    )
+    public boolean debugMode = false;
 }

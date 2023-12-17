@@ -54,11 +54,13 @@ public class BitsShopValue {
         boolean filterAffordable = PartlySaneSkies.config.bitShopOnlyShowAffordable;
 
         if (SkyblockDataManager.bitIds.isEmpty()) {
-            try {
-                SkyblockDataManager.initBitValues();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            new Thread(() -> {
+                try {
+                    SkyblockDataManager.initBitValues();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }).start();
         }
         for (String id : SkyblockDataManager.bitIds) {
             SkyblockItem item = SkyblockDataManager.getItem(id);
