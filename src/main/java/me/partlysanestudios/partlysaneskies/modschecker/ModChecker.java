@@ -32,7 +32,7 @@ public class ModChecker {
     public static void registerModCheckCommand() {
         new PSSCommand("modcheck", new ArrayList<>(), "Checks the mods in your mod folder if they are updated", (s, a) -> {
             new Thread(ModChecker::run).start();
-        }).addAlias("modscheck").addAlias("modchecker").addAlias("pssmodscheck").addAlias("modschecker").register();
+        }).addAlias("modscheck").addAlias("modchecker").addAlias("modschecker").addAlias("pssmodscheck").addAlias("pssmodchecker").addAlias("pssmodschecker").register();
     }
 
     @Nullable
@@ -136,8 +136,7 @@ public class ModChecker {
         chatBuilder.append("\n§7Disclaimer: You should always exercise caution when downloading things from the internet. The PSS Mod Checker is not foolproof. Use at your own risk.");
 
         if (!knownMods.isEmpty()) {
-            chatBuilder.append("\n\n");
-            chatBuilder.append("\n§6Up to date Mods:");
+            chatBuilder.append("\n\n§6Up to date Mods: (" + knownMods.size() + ")");
         }
         for (ModContainer container : knownMods) {
             File modFile = container.getSource();
@@ -153,8 +152,7 @@ public class ModChecker {
         }
 
         if (!outdatedMods.isEmpty()) {
-            chatBuilder.append("\n\n");
-            chatBuilder.append("\n§6Out of date Mods:");
+            chatBuilder.append("\n\n§6Out of Date Mods: (" + outdatedMods.size() + ")");
         }
         for (ModContainer container : outdatedMods) {
             File modFile = container.getSource();
@@ -173,8 +171,7 @@ public class ModChecker {
 
 
         if (!unknownMods.isEmpty()) {
-            chatBuilder.append("\n\n");
-            chatBuilder.append("\n§cUnknown Mods Mods:");
+            chatBuilder.append("\n\n§cUnknown Mods: (" + unknownMods.size() + ")");
             chatBuilder.append("\n§7These mods have not been verified by PSS admins!");
         }
         for (ModContainer container : unknownMods) {
@@ -196,15 +193,15 @@ public class ModChecker {
             String message = "\n§c" + modName + " §7(" + fileName + ") is §cunknown!";
             chatBuilder.append(message);
 
-            debugBuilder.append("\n\"" + container.getModId() + "\" {");
-            debugBuilder.append("\n    \"name\": \"" + modName + "\"");
-            debugBuilder.append("\n    \"download\": \"" + container.getUpdateUrl() + "\"");
+            debugBuilder.append("\n\"" + container.getModId() + "\": {");
+            debugBuilder.append("\n    \"name\": \"" + modName + "\",");
+            debugBuilder.append("\n    \"download\": \"" + container.getUpdateUrl() + "\",");
             debugBuilder.append("\n    \"versions\": {");
             debugBuilder.append("\n        \"" + container.getVersion() + "\": \"" + hash + "\"");
             debugBuilder.append("\n    }");
             debugBuilder.append("\n},");
         }
-        chatBuilder.append("\n§7If you believe any of these mods may be a mistake, report in the PSS discord!");
+        chatBuilder.append("\n\n§7If you believe any of these mods may be a mistake, report it in the PSS discord!");
 
 
         if (PartlySaneSkies.config.debugMode) {
