@@ -30,7 +30,7 @@ import java.util.Map;
 public class ModChecker {
 
     public static void registerModCheckCommand() {
-        new PSSCommand("modcheck", Collections.emptyList(), "Checks the mods in your mod folder if they are updated", (s, a) -> {
+        new PSSCommand("modcheck", new ArrayList<>(), "Checks the mods in your mod folder if they are updated", (s, a) -> {
             new Thread(ModChecker::run).start();
         }).addAlias("modscheck").addAlias("modchecker").addAlias("pssmodscheck").addAlias("modschecker").register();
     }
@@ -54,13 +54,23 @@ public class ModChecker {
     }
 
     public static void runOnStartup() {
-        if (!PartlySaneSkies.config.checkModsOnStartup) {
-            return;
-        }
-        if (!hasRunOnStartup) {
-            hasRunOnStartup = true;
-            run();
-        }
+        new Thread(() -> {
+            if (!PartlySaneSkies.config.checkModsOnStartup) {
+                return;
+            }
+
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+            if (!hasRunOnStartup) {
+                hasRunOnStartup = true;
+                run();
+            }
+        }).start();
+
     }
     public static void run() {
         ChatUtils.INSTANCE.sendClientMessage("Loading...");
@@ -183,15 +193,29 @@ public class ModChecker {
             debugBuilder.append("\n    }");
             debugBuilder.append("\n},");
         }
-        chatBuilder.append("§7If you believe any of these mods may be a mistake, report in the PSS discord!");
+        chatBuilder.append("\n§7If you believe any of these mods may be a mistake, report in the PSS discord!");
 
 
-        ChatUtils.INSTANCE.sendClientMessage(" \n§7Found " + modsFound + " mods:" + chatBuilder);
         if (PartlySaneSkies.config.debugMode) {
-            ChatUtils.INSTANCE.sendClientMessage("Unknown Mods:" + debugBuilder);
+            ChatUtils.INSTANCE.sendClientMessage("§8Unknown Mods:\n" + insertCharacterAfterNewLine(debugBuilder.toString(), "§8") + "\n\n");
+            SystemUtils.INSTANCE.copyStringToClipboard(debugBuilder.toString());
         }
 
-        SystemUtils.INSTANCE.copyStringToClipboard(debugBuilder.toString());
+        ChatUtils.INSTANCE.sendClientMessage(" \n§7Found " + modsFound + " mods:" + chatBuilder);
+
+
+    }
+    private static String insertCharacterAfterNewLine(String originalString, String insertionChar) {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (char c : originalString.toCharArray()) {
+            stringBuilder.append(c);
+            if (c == '\n') {
+                stringBuilder.append(insertionChar);
+            }
+        }
+
+        return stringBuilder.toString();
     }
 
     private static void loadModDataFromRepo() {

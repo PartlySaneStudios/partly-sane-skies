@@ -107,7 +107,6 @@ public class PartlySaneSkies {
     @EventHandler
     public void init(FMLInitializationEvent evnt) {
         SystemUtils.INSTANCE.log(Level.INFO, "Hallo World!");
-        PartlySaneSkies.config.debugMode = false;
         PartlySaneSkies.minecraft = Minecraft.getMinecraft();
 
         // Creates the partly-sane-skies directory if not already made
@@ -117,6 +116,7 @@ public class PartlySaneSkies {
 
         // Loads the config files and options
         PartlySaneSkies.config = new OneConfigScreen();
+        PartlySaneSkies.config.debugMode = false;
         Request mainMenuRequest = null;
         try {
             mainMenuRequest = new Request("https://raw.githubusercontent.com/PartlySaneStudios/partly-sane-skies-public-data/main/data/main_menu.json", CustomMainMenu::setMainMenuInfo);
