@@ -195,7 +195,7 @@ public class ModChecker {
 
             debugBuilder.append("\n\"" + container.getModId() + "\": {");
             debugBuilder.append("\n    \"name\": \"" + modName + "\",");
-            debugBuilder.append("\n    \"download\": \"" + container.getUpdateUrl() + "\",");
+            debugBuilder.append("\n    \"download\": \"" + container.getMetadata().url + "\",");
             debugBuilder.append("\n    \"versions\": {");
             debugBuilder.append("\n        \"" + container.getVersion() + "\": \"" + hash + "\"");
             debugBuilder.append("\n    }");
