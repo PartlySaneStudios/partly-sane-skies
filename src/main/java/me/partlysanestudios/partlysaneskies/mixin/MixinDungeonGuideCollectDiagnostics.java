@@ -19,7 +19,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class MixinDungeonGuideCollectDiagnostics {
     @Inject(method = "sendLogActually*", at = @At("HEAD"), cancellable = true)
     public void onSendLogActuallyHead(CallbackInfo ci) {
-        if (PartlySaneSkies.config.blockDgDiagnostics)
+        if (PartlySaneSkies.config == null) {
+            return;
+        }
+        if (PartlySaneSkies.config.privacyMode) {
             ci.cancel();
+        }
     }
 }
