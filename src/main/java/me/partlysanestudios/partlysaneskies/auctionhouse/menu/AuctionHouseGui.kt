@@ -193,7 +193,7 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
                 return
             }
 
-            if (PartlySaneSkies.isDebugMode) {
+            if (PartlySaneSkies.config.debugMode) {
                 return
             }
 //            val inventory = MinecraftUtils.getSeparateUpperLowerInventories(event.gui)[0]

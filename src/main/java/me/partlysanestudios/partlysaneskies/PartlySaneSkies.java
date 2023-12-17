@@ -107,7 +107,6 @@ public class PartlySaneSkies {
     @EventHandler
     public void init(FMLInitializationEvent evnt) {
         SystemUtils.INSTANCE.log(Level.INFO, "Hallo World!");
-        PartlySaneSkies.isDebugMode = false;
         PartlySaneSkies.minecraft = Minecraft.getMinecraft();
 
         // Creates the partly-sane-skies directory if not already made
@@ -117,6 +116,7 @@ public class PartlySaneSkies {
 
         // Loads the config files and options
         PartlySaneSkies.config = new OneConfigScreen();
+        PartlySaneSkies.config.debugMode = false;
         Request mainMenuRequest = null;
         try {
             mainMenuRequest = new Request("https://raw.githubusercontent.com/PartlySaneStudios/partly-sane-skies-public-data/main/data/main_menu.json", CustomMainMenu::setMainMenuInfo);
@@ -227,8 +227,6 @@ public class PartlySaneSkies {
         // Initializes keybinds
         Keybinds.init();
 
-        MathematicalHoeRightClicks.loadHoes();
-
 
         // Initializes skill upgrade recommendation
         SkillUpgradeRecommendation.populateSkillMap();
@@ -244,40 +242,37 @@ public class PartlySaneSkies {
         }
         SkyblockDataManager.updateAll();
         CompostValue.init();
-        try {
-            SkymartValue.initCopperValues();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            MinionData.preRequestInit();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
 
         try {
             SkyblockDataManager.initSkills();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        // Loads user player data for PartyManager
         new Thread(() -> {
+            MinionData.init();
+
             try {
                 SkyblockDataManager.initBitValues();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }).start();
 
-
-        // Loads user player data for PartyManager
-        new Thread(() -> {
             try {
                 SkyblockDataManager.getPlayer(PartlySaneSkies.minecraft.getSession().getUsername());
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
-        }).start();
+
+            try {
+                SkymartValue.initCopperValues();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            MathematicalHoeRightClicks.loadHoes();
+        }, "Init Data").start();
 
         // Finished loading
         SystemUtils.INSTANCE.log(Level.INFO, "Partly Sane Skies has loaded.");
@@ -305,7 +300,7 @@ public class PartlySaneSkies {
     // Runs chat analyzer for debug mode
     @SubscribeEvent
     public void chatAnalyzer(ClientChatReceivedEvent evnt) {
-        if (PartlySaneSkies.isDebugMode)
+        if (PartlySaneSkies.config.debugMode)
             SystemUtils.INSTANCE.log(Level.INFO, evnt.message.getFormattedText());
     }
 
@@ -339,6 +334,7 @@ public class PartlySaneSkies {
                 ChatUtils.INSTANCE.sendClientMessage("§b§m--------------------------------------------------", true);
             }).start();
         }
+        ModChecker.runOnStartup();
 
         if (!isLatestVersion()) {
             new Thread(() -> {
@@ -373,8 +369,8 @@ public class PartlySaneSkies {
 
     // Runs when debug key is pressed
     public static void debugMode() {
-        PartlySaneSkies.isDebugMode = !PartlySaneSkies.isDebugMode;
-        ChatUtils.INSTANCE.sendClientMessage("Debug mode: " + PartlySaneSkies.isDebugMode);
+        PartlySaneSkies.config.debugMode = !PartlySaneSkies.config.debugMode;
+        ChatUtils.INSTANCE.sendClientMessage("Debug mode: " + PartlySaneSkies.config.debugMode);
         BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner("Test", 5000L, 5f, new OneColor(255, 0, 255, 1).toJavaColor()));
     }
 

@@ -270,17 +270,34 @@ public class GardenTradeValue {
 
         StringBuilder textString = new StringBuilder();
 
-        textString.append("§e§lTotal Cost: §r§d").append(StringUtils.INSTANCE.formatNumber(MathUtils.INSTANCE.round(getTotalCost(), 2))).append("\n\n");
-        
+        double totalCost = getTotalCost();
+
+        if (totalCost < 0) {
+            textString.append("§e§lTotal Cost: §r§d").append(StringUtils.INSTANCE.formatNumber(MathUtils.INSTANCE.round(totalCost, 2))).append("\n\n");
+        } else {
+            textString.append("§e§lTotal Cost: §o§8(Unknown)§r\n\n");
+        }
+
         textString.append("§e§lCopper Received: §r§d").append(StringUtils.INSTANCE.formatNumber(MathUtils.INSTANCE.round(getCopperReturn(), 2))).append("\n\n");
 
         double pricePerCopper = getTotalCost() / getCopperReturn();
-        textString.append("§e§lCoins/Copper: §r§d").append(StringUtils.INSTANCE.formatNumber(MathUtils.INSTANCE.round(pricePerCopper, 2))).append("\n\n");
+        if (pricePerCopper < 0) {
+            textString.append("§e§lCoins/Copper: §r§d").append(StringUtils.INSTANCE.formatNumber(MathUtils.INSTANCE.round(pricePerCopper, 2))).append("\n\n");
+        } else {
+            textString.append("§e§lCoins/Copper: §o§8(Unknown)§r\n\n");
+        }
 
         StringBuilder priceBreakdown = new StringBuilder();
         HashMap<String, Double> coinCostMap = getCoinCostMap();
         for (Map.Entry<String, Integer> en : getQuantityCostMap().entrySet()){
-            priceBreakdown.append("§7x§d").append(en.getValue()).append(" §7").append(en.getKey()).append(" for a total of §d").append(StringUtils.INSTANCE.formatNumber(MathUtils.INSTANCE.round(coinCostMap.get(en.getKey()), 2))).append("§7 coins.\n");
+            double cost = coinCostMap.get(en.getKey());
+            if (cost < 0) {
+                priceBreakdown.append("§7x§d").append(en.getValue()).append(" §7").append(en.getKey()).append(" for a total of §d").append(StringUtils.INSTANCE.formatNumber(MathUtils.INSTANCE.round(cost, 2))).append("§7 coins.\n");
+
+            } else {
+                priceBreakdown.append("§7x§d").append(en.getValue()).append(" §7").append(en.getKey()).append(" for a total of §o§8(Unknown)§r§7 coins.\n");
+
+            }
         }
 
         textString.append("§e§lPrice Breakdown:§r\n");

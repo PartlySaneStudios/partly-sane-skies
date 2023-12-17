@@ -7,6 +7,7 @@
 package me.partlysanestudios.partlysaneskies.modschecker;
 
 import com.google.gson.Gson;
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.system.commands.PSSCommand;
 import me.partlysanestudios.partlysaneskies.system.requests.Request;
 import me.partlysanestudios.partlysaneskies.system.requests.RequestsManager;
@@ -29,13 +30,14 @@ import java.util.Map;
 public class ModChecker {
 
     public static void registerModCheckCommand() {
-        new PSSCommand("modcheck", Collections.emptyList(), "Checks the mods in your mod folder if they are updated", (s, a) -> {
+        new PSSCommand("modcheck", new ArrayList<>(), "Checks the mods in your mod folder if they are updated", (s, a) -> {
             new Thread(ModChecker::run).start();
-        }).register();
+        }).addAlias("modscheck").addAlias("modchecker").addAlias("modschecker").addAlias("pssmodscheck").addAlias("pssmodchecker").addAlias("pssmodschecker").register();
     }
 
     @Nullable
     private static List<KnownMod> knownMods;
+    private static boolean hasRunOnStartup;
 
     static class KnownMod {
 
@@ -51,7 +53,27 @@ public class ModChecker {
         }
     }
 
+    public static void runOnStartup() {
+        new Thread(() -> {
+            if (!PartlySaneSkies.config.checkModsOnStartup) {
+                return;
+            }
+
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+            if (!hasRunOnStartup) {
+                hasRunOnStartup = true;
+                run();
+            }
+        }).start();
+
+    }
     public static void run() {
+        ChatUtils.INSTANCE.sendClientMessage("Loading...");
         loadModDataFromRepo();
     }
 
@@ -59,6 +81,11 @@ public class ModChecker {
         int modsFound = 0;
         StringBuilder chatBuilder = new StringBuilder();
         StringBuilder debugBuilder = new StringBuilder();
+
+        ArrayList<ModContainer> knownMods = new ArrayList<>();
+        ArrayList<ModContainer> unknownMods = new ArrayList<>();
+        ArrayList<ModContainer> outdatedMods = new ArrayList<>();
+
         for (ModContainer container : Loader.instance().getActiveModList()) {
 
             String version = container.getVersion();
@@ -85,23 +112,12 @@ public class ModChecker {
                 }
                 KnownMod mod = findMod(hash);
                 if (mod == null) {
-                    String message = "\n§c" + modName + " §7(" + fileName + ") is §cunknown §7or outdated!";
-                    chatBuilder.append(message);
-                    debugBuilder.append("\nUnknown mod!");
-                    debugBuilder.append("\nfileName: " + fileName);
-                    debugBuilder.append("\nmodName: " + modName);
-                    debugBuilder.append("\nhash: " + hash);
-                    debugBuilder.append("\nversion: " + version);
-                    debugBuilder.append("\ndisplayVersion: " + displayVersion);
-                    debugBuilder.append("\n ");
+                    unknownMods.add(container);
                 } else {
                     if (mod.latest) {
-                        String message = "\n§a" + mod.name + " §7is up to date";
-                        chatBuilder.append(message);
+                        knownMods.add(container);
                     } else {
-                        String latestVersion = findNewestMod(mod.name).version;
-                        String message = "\n§e" + mod.name + " §7is §coutdated §7(§e" + mod.version + " §7-> §e" + latestVersion + "§7)";
-                        chatBuilder.append(message);
+                        outdatedMods.add(container);
                     }
                 }
                 modsFound++;
@@ -116,8 +132,98 @@ public class ModChecker {
                 debugBuilder.append("\n ");
             }
         }
+
+        chatBuilder.append("\n§7Disclaimer: You should always exercise caution when downloading things from the internet. The PSS Mod Checker is not foolproof. Use at your own risk.");
+
+        if (!knownMods.isEmpty()) {
+            chatBuilder.append("\n\n§6Up to date Mods: (" + knownMods.size() + ")");
+        }
+        for (ModContainer container : knownMods) {
+            File modFile = container.getSource();
+            String hash = null;
+            try {
+                hash = generateHash(modFile);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            KnownMod mod = findMod(hash);
+            String message = "\n§a" + mod.name + " §7is up to date";
+            chatBuilder.append(message);
+        }
+
+        if (!outdatedMods.isEmpty()) {
+            chatBuilder.append("\n\n§6Out of Date Mods: (" + outdatedMods.size() + ")");
+        }
+        for (ModContainer container : outdatedMods) {
+            File modFile = container.getSource();
+            String hash = null;
+            try {
+                hash = generateHash(modFile);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            KnownMod mod = findMod(hash);
+
+            String latestVersion = findNewestMod(mod.name).version;
+            String message = "\n§e" + mod.name + " §7is §coutdated §7(§e" + mod.version + " §7-> §e" + latestVersion + "§7)";
+            chatBuilder.append(message);
+        }
+
+
+        if (!unknownMods.isEmpty()) {
+            chatBuilder.append("\n\n§cUnknown Mods: (" + unknownMods.size() + ")");
+            chatBuilder.append("\n§7These mods have not been verified by PSS admins!");
+        }
+        for (ModContainer container : unknownMods) {
+            String version = container.getVersion();
+            String displayVersion = container.getDisplayVersion();
+
+
+            String modName = container.getName();
+            File modFile = container.getSource();
+            String fileName = modFile.getName();
+
+            String hash = null;
+            try {
+                hash = generateHash(modFile);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            String message = "\n§c" + modName + " §7(" + fileName + ") is §cunknown!";
+            chatBuilder.append(message);
+
+            debugBuilder.append("\n\"" + container.getModId() + "\": {");
+            debugBuilder.append("\n    \"name\": \"" + modName + "\",");
+            debugBuilder.append("\n    \"download\": \"" + container.getMetadata().url + "\",");
+            debugBuilder.append("\n    \"versions\": {");
+            debugBuilder.append("\n        \"" + container.getVersion() + "\": \"" + hash + "\"");
+            debugBuilder.append("\n    }");
+            debugBuilder.append("\n},");
+        }
+        chatBuilder.append("\n\n§7If you believe any of these mods may be a mistake, report it in the PSS discord!");
+
+
+        if (PartlySaneSkies.config.debugMode) {
+            ChatUtils.INSTANCE.sendClientMessage("§8Unknown Mods:\n" + insertCharacterAfterNewLine(debugBuilder.toString(), "§8") + "\n\n");
+            SystemUtils.INSTANCE.copyStringToClipboard(debugBuilder.toString());
+        }
+
         ChatUtils.INSTANCE.sendClientMessage(" \n§7Found " + modsFound + " mods:" + chatBuilder);
-        SystemUtils.INSTANCE.copyStringToClipboard(debugBuilder.toString());
+
+
+    }
+    private static String insertCharacterAfterNewLine(String originalString, String insertionChar) {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (char c : originalString.toCharArray()) {
+            stringBuilder.append(c);
+            if (c == '\n') {
+                stringBuilder.append(insertionChar);
+            }
+        }
+
+        return stringBuilder.toString();
     }
 
     private static void loadModDataFromRepo() {
@@ -126,7 +232,7 @@ public class ModChecker {
 
         try {
             String url = "https://raw.githubusercontent.com/" + userName +
-                    "/partly-sane-skies-public-data" + "/" + branchName + "/data/constants/mods.json";
+                    "/partly-sane-skies-public-data" + "/" + branchName + "/data/mods.json";
             RequestsManager.newRequest(new Request(url, request -> {
                 knownMods = null;
                 try {

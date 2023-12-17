@@ -62,7 +62,7 @@ public final class Keybinds {
 
     @SubscribeEvent
     public void keybindWhileInGui(KeyboardInputEvent.Post event) {
-        if (OneConfigScreen.debugConfig.isActive()) {
+        if (PartlySaneSkies.config.debugKeybind.isActive()) {
             PartlySaneSkies.debugMode();
         }
 
@@ -93,7 +93,7 @@ public final class Keybinds {
 
     @SubscribeEvent
     public void checkKeyBinds(KeyInputEvent event) {
-        if (OneConfigScreen.debugConfig.isActive()) {
+        if (PartlySaneSkies.config.debugKeybind.isActive()) {
             PartlySaneSkies.debugMode();
         }
         
