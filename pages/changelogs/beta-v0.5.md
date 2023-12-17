@@ -2,13 +2,13 @@
 
 ## New
  + Mods Checker (@hannibal002 and @Su386yt)
-   - Checks your mods to find outdated, unknown and suspicious mods in your mod folder.
-   - **This only works if we have the data for all official mods, so if you believe a mod is being falsely flagged as unknown, please report it in the PSS discord!**
+   - This automatically checks your mods folder, to find outdated, unknown or suspicious mods. These mods have not been added to the trusted mods list and could potentially be malicious.
+   - **This only works if we have the data for all official mods, so if you believe a mod is being falsely flagged as unknown, please report it in the PSS discord! (Ingame Command ``/pssdiscord``)**
    - ![image](https://github.com/PartlySaneStudios/partly-sane-skies/assets/83100266/18b5977a-c6b6-4f83-80bf-61b6a1297946)
  + Privacy Mode (@j10a1n15 and @Su386yt)
-   - Blocks known mods from sending user's stacktraces to preserve user privacy.
+   - This blocks known mods from automatically sending your diagnostics data to their servers. (toggleable in config)
  + Healer Alert (@FlagHater)
-   - Worried about your dungon teammate dying because healer was too busy to check players' heath? Not anymore! With healer alert, a warning banner appears when a player is low on heath, saving you from losing your S+ run for the umpteenth time!!
+   - Worried about your dungeon teammate dying because healer was too busy to check players' heath? Not anymore! With healer alert, a warning banner appears when a player is low on heath, saving you from losing your S+ run for the umpteenth time!!
  + Clear PSS Data Command ``/updatepssdata``
    - Automatically updates all PSS data with the latest repo
  + Fun Fact on Main Menu (@j10a1n15)
