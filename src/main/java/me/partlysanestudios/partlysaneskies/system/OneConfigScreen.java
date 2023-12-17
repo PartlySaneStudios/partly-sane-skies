@@ -102,7 +102,28 @@ public class OneConfigScreen extends Config {
         description = "Display time in 24-hour hour time (15:30) instead of 12 hour time (3:30 PM)"
     )
     public boolean hour24time = false;
-    
+
+    @Dropdown(
+            category = "General",
+            subcategory = "Appearance",
+            name = "Preferred Currency",
+            description = "Select your preferred currency conversion for the /c2c command. Currencies are listed in alphabetical order. Default currency is USD.",
+            options = {
+                    "AUD (Australian Dollar)",
+                    "BRL (Brazilian Real)",
+                    "CAD (Canadian Dollar)",
+                    "DKK (Danish Krone)",
+                    "EUR (Euro)",
+                    "KPW (North Korean Won)",
+                    "NOK (Norwegian Krone)",
+                    "NZD (New Zealand Dollar)",
+                    "PLN (Polish Zloty)",
+                    "GBP (Pound Sterling)",
+                    "SEK (Swedish Krona)",
+                    "USD (United States Dollar)"
+            }
+    )
+    public int prefCurr = 10;
 
     @Switch(
         category = "General",
@@ -990,26 +1011,6 @@ public class OneConfigScreen extends Config {
         category = "Economy"
     )
     public boolean bitShopOnlyShowAffordable = true;
-
-    @Dropdown(
-            category = "Economy",
-            name = "Coins to Cookies Preferred Currency",
-            description = "Select your preferred currency conversion for the /c2c command. Currencies are listed in alphabetical order. Default currency is USD.",
-            options = {
-                "AUD",
-                "BRL",
-                "CAD",
-                "DKK",
-                "EUR",
-                "NOK",
-                "NZD",
-                "PLN",
-                "GBP",
-                "SEK",
-                "USD"
-            }
-    )
-    public int prefCurr = 10;
 
     @Slider(
             min = 0,
