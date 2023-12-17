@@ -44,7 +44,7 @@ public class OneConfigScreen extends Config {
         text = "Hover over an option to see a description and more information."
 
     )
-    public static boolean ignored;
+    public boolean ignored;
 
     @HypixelKey
     @Text(
@@ -1216,11 +1216,11 @@ public class OneConfigScreen extends Config {
             category = "Debug",
             name = "Debug Keybind"
     )
-    public static OneKeyBind debugConfig = new OneKeyBind(Keyboard.KEY_NONE);
+    public OneKeyBind debugConfig = new OneKeyBind(Keyboard.KEY_NONE);
 
     @Switch(
             name = "Debug Mode",
             category = "Debug"
     )
-    private static boolean debugMode = false;
+    public boolean debugMode = false;
 }

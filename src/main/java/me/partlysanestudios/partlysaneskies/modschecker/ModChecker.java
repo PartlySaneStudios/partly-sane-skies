@@ -187,7 +187,7 @@ public class ModChecker {
 
 
         ChatUtils.INSTANCE.sendClientMessage(" \n§7Found " + modsFound + " mods:" + chatBuilder);
-        if (PartlySaneSkies.isDebugMode) {
+        if (PartlySaneSkies.config.debugMode) {
             ChatUtils.INSTANCE.sendClientMessage("Unknown Mods:" + debugBuilder);
         }
 

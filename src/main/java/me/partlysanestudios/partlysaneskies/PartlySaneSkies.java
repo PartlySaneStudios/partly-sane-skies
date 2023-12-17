@@ -107,7 +107,7 @@ public class PartlySaneSkies {
     @EventHandler
     public void init(FMLInitializationEvent evnt) {
         SystemUtils.INSTANCE.log(Level.INFO, "Hallo World!");
-        PartlySaneSkies.isDebugMode = false;
+        PartlySaneSkies.config.debugMode = false;
         PartlySaneSkies.minecraft = Minecraft.getMinecraft();
 
         // Creates the partly-sane-skies directory if not already made
@@ -300,7 +300,7 @@ public class PartlySaneSkies {
     // Runs chat analyzer for debug mode
     @SubscribeEvent
     public void chatAnalyzer(ClientChatReceivedEvent evnt) {
-        if (PartlySaneSkies.isDebugMode)
+        if (PartlySaneSkies.config.debugMode)
             SystemUtils.INSTANCE.log(Level.INFO, evnt.message.getFormattedText());
     }
 
@@ -369,8 +369,8 @@ public class PartlySaneSkies {
 
     // Runs when debug key is pressed
     public static void debugMode() {
-        PartlySaneSkies.isDebugMode = !PartlySaneSkies.isDebugMode;
-        ChatUtils.INSTANCE.sendClientMessage("Debug mode: " + PartlySaneSkies.isDebugMode);
+        PartlySaneSkies.config.debugMode = !PartlySaneSkies.config.debugMode;
+        ChatUtils.INSTANCE.sendClientMessage("Debug mode: " + PartlySaneSkies.config.debugMode);
         BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner("Test", 5000L, 5f, new OneColor(255, 0, 255, 1).toJavaColor()));
     }
 
