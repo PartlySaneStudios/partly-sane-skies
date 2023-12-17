@@ -18,6 +18,7 @@ toolkit.useDevAuth()
 toolkitLoomHelper {
     useTweaker("cc.polyfrost.oneconfig.loader.stage0.LaunchWrapperTweaker")
     disableRunConfigs(GameSide.SERVER)
+    useForgeMixin("pss")
 }
 
 repositories {
@@ -66,33 +67,4 @@ toolkitGitHubPublishing {
 blossom {
     val dogfood: String by project
     replaceToken("@DOGFOOD@", dogfood)
-}
-
-val runtimeMod by configurations.creating {
-    isTransitive = false
-    isVisible = false
-}
-
-loom {
-    launchConfigs {
-        "client" {
-            property("mixin.debug", "true")
-            property("asmhelper.verbose", "true")
-            arg("--tweakClass", "cc.polyfrost.oneconfig.loader.stage0.LaunchWrapperTweaker")
-            arg("--mixin", "mixins.pss.json")
-            val modFiles = runtimeMod.files
-            arg("--mods", modFiles.joinToString(",") { it.relativeTo(file("run")).path })
-        }
-    }
-    runConfigs {
-        delete("server")
-    }
-    forge {
-        pack200Provider.set(dev.architectury.pack200.java.Pack200Adapter())
-        mixinConfig("mixins.pss.json")
-    }
-    @Suppress("UnstableApiUsage")
-    mixin {
-        defaultRefmapName.set("mixins.neuhax.refmap.json")
-    }
 }

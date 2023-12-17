@@ -7,6 +7,7 @@
 
 package me.partlysanestudios.partlysaneskies.mixin;
 
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
@@ -18,6 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class MixinDungeonGuideCollectDiagnostics {
     @Inject(method = "sendLogActually*", at = @At("HEAD"), cancellable = true)
     public void onSendLogActuallyHead(CallbackInfo ci) {
-        ci.cancel();
+        if (PartlySaneSkies.config.blockDgDiagnostics)
+            ci.cancel();
     }
 }
