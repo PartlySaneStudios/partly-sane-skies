@@ -53,6 +53,7 @@ public class ModChecker {
     }
 
     public static void run() {
+        ChatUtils.INSTANCE.sendClientMessage("Loading...");
         loadModDataFromRepo();
     }
 
@@ -112,8 +113,8 @@ public class ModChecker {
             }
         }
 
-        chatBuilder.append("§8Disclaimer: You should always exercise caution when downloading things from the internet. The PSS Mod Checker is not foolproof. Use at your own risk.");
-        chatBuilder.append("§6Up to date Mods:");
+        chatBuilder.append("\n§8Disclaimer: You should always exercise caution when downloading things from the internet. The PSS Mod Checker is not foolproof. Use at your own risk.");
+        chatBuilder.append("\n§6Up to date Mods:");
         for (ModContainer container : knownMods) {
             File modFile = container.getSource();
             String hash = null;
@@ -127,7 +128,7 @@ public class ModChecker {
             chatBuilder.append(message);
         }
 
-        chatBuilder.append("§6Out of date Mods:");
+        chatBuilder.append("\n§6Out of date Mods:");
         for (ModContainer container : outdatedMods) {
             File modFile = container.getSource();
             String hash = null;
@@ -143,8 +144,8 @@ public class ModChecker {
             chatBuilder.append(message);
         }
 
-        chatBuilder.append("§cUnknown Mods Mods:");
-        chatBuilder.append("§7These mods have not been verified by PSS admins!");
+        chatBuilder.append("\n§cUnknown Mods Mods:");
+        chatBuilder.append("\n§7These mods have not been verified by PSS admins!");
         for (ModContainer container : unknownMods) {
             String version = container.getVersion();
             String displayVersion = container.getDisplayVersion();
