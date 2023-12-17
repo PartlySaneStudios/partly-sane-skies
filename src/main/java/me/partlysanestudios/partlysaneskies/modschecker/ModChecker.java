@@ -126,7 +126,7 @@ public class ModChecker {
 
         try {
             String url = "https://raw.githubusercontent.com/" + userName +
-                    "/partly-sane-skies-public-data" + "/" + branchName + "/data/constants/mods.json";
+                    "/partly-sane-skies-public-data" + "/" + branchName + "/data/mods.json";
             RequestsManager.newRequest(new Request(url, request -> {
                 knownMods = null;
                 try {
