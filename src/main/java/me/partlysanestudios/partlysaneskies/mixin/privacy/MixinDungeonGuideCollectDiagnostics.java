@@ -5,7 +5,7 @@
  *
  */
 
-package me.partlysanestudios.partlysaneskies.mixin;
+package me.partlysanestudios.partlysaneskies.mixin.privacy;
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import org.spongepowered.asm.mixin.Mixin;

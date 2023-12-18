@@ -1,6 +1,7 @@
 {
   "package": "me.partlysanestudios.partlysaneskies.mixin",
   "mixins": [
-    "MixinDungeonGuideCollectDiagnostics"
+    "privacy.MixinDungeonGuideCollectDiagnostics",
+    "privacy.MixinEssentialsTelemetryManager"
   ]
 }
