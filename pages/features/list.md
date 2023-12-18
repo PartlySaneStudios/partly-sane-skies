@@ -40,6 +40,10 @@ When switching to a new location region on SkyBlock, an MMO RPG style banner wil
 
 Have you ever wanted to make crêpes, and don't have access to internet, but you do have access to SkyBlock? Well we've got you covered. Simply by doing /crêpes, you too can make crêpes from some random recipe we found on the internet.
 
+### Privacy
+
+This toggle blocks other mods wanting to send data to their servers. Currently supported mods are essentials & dungeon guide. If you know more mods that send that kind of data, feel free to report that in our discord server. This is a privacy feature, and is off by default.
+
 # Chat Features
 
 ### Chat Alerts

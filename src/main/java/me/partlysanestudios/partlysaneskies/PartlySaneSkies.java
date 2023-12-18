@@ -87,7 +87,7 @@ public class PartlySaneSkies {
     public static final String VERSION = "@MOD_VERSION@";
     //    -----------------------CHANGE TO FALSE BEFORE RELEASING
     public static final boolean DOGFOOD = Boolean.parseBoolean("@DOGFOOD@");
-    public static final String CHAT_PREFIX = ("§r§b§lPartly Sane Skies§r§7>> §r");
+    public static final String CHAT_PREFIX = "§r§b§lPartly Sane Skies§r§7>> §r";
     public static final boolean IS_LEGACY_VERSION = false;
     public static String discordCode = "v4PU3WeH7z";
 
