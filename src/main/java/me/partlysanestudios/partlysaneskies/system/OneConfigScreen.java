@@ -123,7 +123,7 @@ public class OneConfigScreen extends Config {
                     "USD (United States Dollar)"
             }
     )
-    public int prefCurr = 10;
+    public int prefCurr = 11;
 
     @Switch(
         category = "General",
