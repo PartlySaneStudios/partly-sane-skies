@@ -18,10 +18,8 @@ import java.awt.datatransfer.UnsupportedFlavorException
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
-import java.net.HttpURLConnection
-import java.net.URI
-import java.net.URISyntaxException
-import java.net.URL
+import java.net.*
+
 
 object SystemUtils {
 
@@ -101,6 +99,18 @@ object SystemUtils {
     }
 
 
+    fun isValidURL(urlString: String?): Boolean {
+        return try {
+            // Create a URL object
+            val url = URL(urlString)
+
+            // If the URL is created without throwing an exception, it's valid
+            true
+        } catch (e: MalformedURLException) {
+            // MalformedURLException is thrown if the URL is not valid
+            false
+        }
+    }
     // Opens a link with a given URL
     fun openLink(url: String?) {
         val uri: URI

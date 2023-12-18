@@ -21,6 +21,8 @@ public class ModDataJson {
 
     public static class ModInfo {
         @Expose
+        public String name;
+        @Expose
         private String download;
         @Expose
         private final Map<String, String> versions;
