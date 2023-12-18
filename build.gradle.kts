@@ -1,16 +1,16 @@
-import org.gradle.internal.impldep.org.bouncycastle.asn1.x500.style.RFC4519Style.owner
-import xyz.deftu.gradle.utils.GameSide
+import dev.deftu.gradle.utils.GameSide
 
 plugins {
     java
     kotlin("jvm") version("1.9.21")
-    val dgtVersion = "1.18.4"
-    id("xyz.deftu.gradle.tools") version(dgtVersion)
-    id("xyz.deftu.gradle.tools.shadow") version(dgtVersion)
-    id("xyz.deftu.gradle.tools.blossom") version(dgtVersion)
-    id("xyz.deftu.gradle.tools.minecraft.loom") version(dgtVersion)
-    id("xyz.deftu.gradle.tools.minecraft.releases") version(dgtVersion)
-    id("xyz.deftu.gradle.tools.github-publishing") version(dgtVersion)
+    val dgtVersion = "1.22.0"
+    id("dev.deftu.gradle.tools.resources") version(dgtVersion)
+    id("dev.deftu.gradle.tools") version(dgtVersion)
+    id("dev.deftu.gradle.tools.shadow") version(dgtVersion)
+    id("dev.deftu.gradle.tools.blossom") version(dgtVersion)
+    id("dev.deftu.gradle.tools.minecraft.loom") version(dgtVersion)
+    id("dev.deftu.gradle.tools.minecraft.releases") version(dgtVersion)
+    id("dev.deftu.gradle.tools.github-publishing") version(dgtVersion)
 }
 
 toolkit.useDevAuth()
