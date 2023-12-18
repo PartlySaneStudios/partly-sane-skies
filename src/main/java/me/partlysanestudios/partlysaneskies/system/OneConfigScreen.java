@@ -41,6 +41,16 @@ public class OneConfigScreen extends Config {
             pickaxeAbilityReadyBannerText = "Pickaxe Ability Ready!";
             save();
         }
+
+        if (repoOwner.isEmpty()) {
+            repoOwner = "PartlySaneStudios";
+            save();
+        }
+        if (repoName.isEmpty()) {
+            repoName = "partly-sane-skies-public-data";
+            save();
+        }
+
     }
 
     @Info(
@@ -69,6 +79,36 @@ public class OneConfigScreen extends Config {
             category = "General"
     )
     public int playerDataCacheTime = 5;
+
+    @Switch(
+            name = "Print errors in chat",
+            category = "General",
+            subcategory = "API",
+            description = "Send errors on getting data in chat (Recommended, however if you get spammed or have a bad internet connection, turn it off)"
+
+    )
+    public boolean printApiErrors = true;
+
+    @Text(
+            name = "Public Data Repo Owner",
+            category = "General",
+            subcategory = "API",
+            secure = true,
+            description = "Change the owner of the repo used for public data."
+
+    )
+    public String repoOwner = "PartlySaneStudios";
+
+    @Text(
+            name = "Public Data Repo Name",
+            category = "General",
+            subcategory = "API",
+            secure = true,
+            description = "Change the name of the repo used for public data."
+
+    )
+    public String repoName = "partly-sane-skies-public-data";
+
 
     @Dropdown(
         options = {
@@ -168,15 +208,6 @@ public class OneConfigScreen extends Config {
     public int customMainMenuImage = 1;
 
     @Switch(
-        name = "Print errors in chat",
-        category = "General",
-        subcategory = "API",
-        description = "Send errors on getting APIs in chat (Recommended, however if you get spammed or have a bad internet connection, turn it off)"
-        
-    )
-    public boolean printApiErrors = true;
-
-    @Switch(
             name = "Check Mods On Startup",
             category = "General",
             subcategory = "Mods Checker",
@@ -194,7 +225,7 @@ public class OneConfigScreen extends Config {
     public boolean privacyMode = true;
 
 
-//    ------------------ Category: Themes ---------------------
+    //    ------------------ Category: Themes ---------------------
 //    Themes
     @Dropdown(
             name = "Selected Theme",
@@ -691,15 +722,6 @@ public class OneConfigScreen extends Config {
         category = "Dungeons"
     )
     public int arrowLowCount = 300;
-
-    @Switch(
-        name = "Print errors in chat",
-        category = "Dungeons",
-        subcategory = "Party Manager",
-        description = "Send errors on getting data in chat (Recommended, however if you get spammed or have a bad internet connection, turn it off)"
-        
-    )
-    public boolean printPartyManagerApiErrors = true;
 
     @Switch(
         name = "Get data on party join", 

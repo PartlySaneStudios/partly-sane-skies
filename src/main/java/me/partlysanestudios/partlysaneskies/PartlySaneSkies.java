@@ -119,7 +119,7 @@ public class PartlySaneSkies {
         PartlySaneSkies.config.debugMode = false;
         Request mainMenuRequest = null;
         try {
-            mainMenuRequest = new Request("https://raw.githubusercontent.com/PartlySaneStudios/partly-sane-skies-public-data/main/data/main_menu.json", CustomMainMenu::setMainMenuInfo);
+            mainMenuRequest = new Request("https://raw.githubusercontent.com/" + PublicDataManager.getRepoOwner() + "/" +  PublicDataManager.getRepoName() + "/main/data/", CustomMainMenu::setMainMenuInfo);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }

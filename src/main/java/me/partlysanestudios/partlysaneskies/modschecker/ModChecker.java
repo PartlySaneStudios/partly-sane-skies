@@ -8,6 +8,7 @@ package me.partlysanestudios.partlysaneskies.modschecker;
 
 import com.google.gson.Gson;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
+import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager;
 import me.partlysanestudios.partlysaneskies.system.commands.PSSCommand;
 import me.partlysanestudios.partlysaneskies.system.requests.Request;
 import me.partlysanestudios.partlysaneskies.system.requests.RequestsManager;
@@ -31,7 +32,15 @@ public class ModChecker {
 
     public static void registerModCheckCommand() {
         new PSSCommand("modcheck", new ArrayList<>(), "Checks the mods in your mod folder if they are updated", (s, a) -> {
-            new Thread(ModChecker::run).start();
+            new Thread(() -> {
+                if (a.length > 0) {
+                    ChatUtils.INSTANCE.sendClientMessage("Loading... (using data from custom repository)");
+                    loadModDataFromRepo(PublicDataManager.getRepoOwner(), PublicDataManager.getRepoName());
+                } else {
+                    ChatUtils.INSTANCE.sendClientMessage("Loading...");
+                    loadModDataFromRepo();
+                }
+            }).start();
         }).addAlias("modscheck").addAlias("modchecker").addAlias("modschecker").addAlias("pssmodscheck").addAlias("pssmodchecker").addAlias("pssmodschecker").register();
     }
 
@@ -67,14 +76,11 @@ public class ModChecker {
 
             if (!hasRunOnStartup) {
                 hasRunOnStartup = true;
-                run();
+                ChatUtils.INSTANCE.sendClientMessage("Loading...");
+                loadModDataFromRepo();
             }
         }).start();
 
-    }
-    public static void run() {
-        ChatUtils.INSTANCE.sendClientMessage("Loading...");
-        loadModDataFromRepo();
     }
 
     public static void run2() {
@@ -228,12 +234,13 @@ public class ModChecker {
     }
 
     private static void loadModDataFromRepo() {
-        String userName = "PartlySaneStudios";
-        String branchName = "main";
+        loadModDataFromRepo("PartlySaneStudios", "partly-sane-skies-public-data");
+    }
 
-        try {
+    private static void loadModDataFromRepo(String userName, String repoName) {
+                try {
             String url = "https://raw.githubusercontent.com/" + userName +
-                    "/partly-sane-skies-public-data" + "/" + branchName + "/data/mods.json";
+                    "/" + repoName + "/main/data/mods.json";
             RequestsManager.newRequest(new Request(url, request -> {
                 knownMods = null;
                 try {
