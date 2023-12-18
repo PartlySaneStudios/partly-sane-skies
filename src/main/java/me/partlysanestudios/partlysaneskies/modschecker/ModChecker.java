@@ -23,7 +23,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -257,7 +256,13 @@ public class ModChecker {
             String download = modInfo.getDownload();
 
             KnownMod latest = null;
-            for (Map.Entry<String, String> e : modInfo.getVersions().entrySet()) {
+            Map<String, String> versions;
+            if (PartlySaneSkies.config.lookForBetaMods) {
+                versions = modInfo.getBetaVersions();
+            } else {
+                versions = modInfo.getVersions();
+            }
+            for (Map.Entry<String, String> e : versions.entrySet()) {
                 String version = e.getKey();
                 String hash = e.getValue();
 
