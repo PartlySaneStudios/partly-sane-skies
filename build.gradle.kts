@@ -3,7 +3,7 @@ import xyz.deftu.gradle.utils.GameSide
 
 plugins {
     java
-    kotlin("jvm") version("1.6.21")
+    kotlin("jvm") version("1.9.21")
     val dgtVersion = "1.18.4"
     id("xyz.deftu.gradle.tools") version(dgtVersion)
     id("xyz.deftu.gradle.tools.shadow") version(dgtVersion)
@@ -43,11 +43,8 @@ dependencies {
         isTransitive = false
     }
     implementation(kotlin("stdlib"))
-    implementation(kotlin("gradle-plugin"))
     modCompileOnly("cc.polyfrost:oneconfig-${mcData.versionStr}-${mcData.loader.name}:0.2.0-alpha+")
     implementation(shade("cc.polyfrost:oneconfig-wrapper-launchwrapper:1.0.0-beta+")!!)
-    minecraft("com.mojang:minecraft:1.8.9")
-    forge("net.minecraftforge:forge:1.8.9-11.15.1.2318-1.8.9")
 }
 
 toolkitReleases {
