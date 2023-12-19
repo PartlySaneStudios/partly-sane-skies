@@ -94,7 +94,7 @@ public class CustomMainMenu extends WindowScreen {
     private static String funFact = "Loading...";
     private UIWrappedText funFactTitle;
     private static UIWrappedText funFactText;
-    private final String hypixelIP = "mc.hypixel.net"; // I want to use "ilovecatgirls.xyz" to bad
+    private final String hypixelIP = "mc.hypixel.net"; // I want to use "ilovecatgirls.xyz" so bad
 
     private static ArrayList<Announcement> announcements = new ArrayList<>();
     public static String latestVersion = "(Unknown)";
@@ -116,11 +116,10 @@ public class CustomMainMenu extends WindowScreen {
     @Override
     public void initScreen(int width, int height) {
         populateMap();
+        float scaleFactor = (getWindow().getWidth()) / 1075f;
         if (background == null) {
-            float scaleFactor = (getWindow().getWidth()) / 1075f;
             populateGui(scaleFactor);
         } else {
-            float scaleFactor = (getWindow().getWidth()) / 1075f;
             resizeGui(scaleFactor);
         }
     }

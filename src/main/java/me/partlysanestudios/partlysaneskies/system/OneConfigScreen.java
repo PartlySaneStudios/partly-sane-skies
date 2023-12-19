@@ -41,6 +41,16 @@ public class OneConfigScreen extends Config {
             pickaxeAbilityReadyBannerText = "Pickaxe Ability Ready!";
             save();
         }
+
+        if (repoOwner.isEmpty()) {
+            repoOwner = "PartlySaneStudios";
+            save();
+        }
+        if (repoName.isEmpty()) {
+            repoName = "partly-sane-skies-public-data";
+            save();
+        }
+
     }
 
     @Info(
@@ -49,25 +59,6 @@ public class OneConfigScreen extends Config {
 
     )
     public boolean ignored;
-
-    @HypixelKey
-    @Text(
-        secure = true, 
-        name = "API Key", 
-        category = "General", 
-        subcategory = "API", 
-        description = "Do /api new to automatically set your API Key. Do not show your API key to anyone unless you know what you're doing.",
-            size = 2
-    )
-    public String apiKey = "";
-
-    @Switch(
-            name = "Force Custom API Key",
-            category = "General",
-            subcategory = "API",
-            description = "Forces the use of a custom API key for Hypixel requests. (Requires API Key field to be populated)"
-    )
-    public boolean forceCustomAPIKey = false;
 
     @Number(
         min = .1f,
@@ -88,6 +79,36 @@ public class OneConfigScreen extends Config {
             category = "General"
     )
     public int playerDataCacheTime = 5;
+
+    @Switch(
+            name = "Print errors in chat",
+            category = "General",
+            subcategory = "API",
+            description = "Send errors on getting data in chat (Recommended, however if you get spammed or have a bad internet connection, turn it off)"
+
+    )
+    public boolean printApiErrors = true;
+
+    @Text(
+            name = "Public Data Repo Owner",
+            category = "General",
+            subcategory = "API",
+            secure = true,
+            description = "Change the owner of the repo used for public data."
+
+    )
+    public String repoOwner = "PartlySaneStudios";
+
+    @Text(
+            name = "Public Data Repo Name",
+            category = "General",
+            subcategory = "API",
+            secure = true,
+            description = "Change the name of the repo used for public data."
+
+    )
+    public String repoName = "partly-sane-skies-public-data";
+
 
     @Dropdown(
         options = {
@@ -121,7 +142,28 @@ public class OneConfigScreen extends Config {
         description = "Display time in 24-hour hour time (15:30) instead of 12 hour time (3:30 PM)"
     )
     public boolean hour24time = false;
-    
+
+    @Dropdown(
+            category = "General",
+            subcategory = "Appearance",
+            name = "Preferred Currency",
+            description = "Select your preferred currency conversion for the /c2c command. Currencies are listed in alphabetical order. Default currency is USD.",
+            options = {
+                    "AUD (Australian Dollar)",
+                    "BRL (Brazilian Real)",
+                    "CAD (Canadian Dollar)",
+                    "DKK (Danish Krone)",
+                    "EUR (Euro)",
+                    "KPW (North Korean Won)",
+                    "NOK (Norwegian Krone)",
+                    "NZD (New Zealand Dollar)",
+                    "PLN (Polish Zloty)",
+                    "GBP (Pound Sterling)",
+                    "SEK (Swedish Krona)",
+                    "USD (United States Dollar)"
+            }
+    )
+    public int prefCurr = 11;
 
     @Switch(
         category = "General",
@@ -166,15 +208,6 @@ public class OneConfigScreen extends Config {
     public int customMainMenuImage = 1;
 
     @Switch(
-        name = "Print errors in chat",
-        category = "General",
-        subcategory = "API",
-        description = "Send errors on getting APIs in chat (Recommended, however if you get spammed or have a bad internet connection, turn it off)"
-        
-    )
-    public boolean printApiErrors = true;
-
-    @Switch(
             name = "Check Mods On Startup",
             category = "General",
             subcategory = "Mods Checker",
@@ -183,8 +216,24 @@ public class OneConfigScreen extends Config {
     )
     public boolean checkModsOnStartup = true;
 
+    @Switch(
+            name = "Use Beta Versions",
+            category = "General",
+            subcategory = "Mods Checker",
+            description = "Use the beta version of mods instead of normal versions"
+    )
+    public boolean lookForBetaMods = false;
 
-//    ------------------ Category: Themes ---------------------
+    @Switch(
+            name = "Privacy Mode",
+            category = "General",
+            subcategory = "Privacy",
+            description = "Blocks the diagnostics reports from other mods from being sent to their servers."
+    )
+    public boolean privacyMode = true;
+
+
+    //    ------------------ Category: Themes ---------------------
 //    Themes
     @Dropdown(
             name = "Selected Theme",
@@ -683,15 +732,6 @@ public class OneConfigScreen extends Config {
     public int arrowLowCount = 300;
 
     @Switch(
-        name = "Print errors in chat",
-        category = "Dungeons",
-        subcategory = "Party Manager",
-        description = "Send errors on getting data in chat (Recommended, however if you get spammed or have a bad internet connection, turn it off)"
-        
-    )
-    public boolean printPartyManagerApiErrors = true;
-
-    @Switch(
         name = "Get data on party join", 
         subcategory = "Party Manager", 
         description = "Automatically gets the data for party members someone joins the party. This saves time and reduces the chance of the data not being able to be accessed.", 
@@ -1001,26 +1041,6 @@ public class OneConfigScreen extends Config {
         category = "Economy"
     )
     public boolean bitShopOnlyShowAffordable = true;
-
-    @Dropdown(
-            category = "Economy",
-            name = "Coins to Cookies Preferred Currency",
-            description = "Select your preferred currency conversion for the /c2c command. Currencies are listed in alphabetical order. Default currency is USD.",
-            options = {
-                "AUD",
-                "BRL",
-                "CAD",
-                "DKK",
-                "EUR",
-                "NOK",
-                "NZD",
-                "PLN",
-                "GBP",
-                "SEK",
-                "USD"
-            }
-    )
-    public int prefCurr = 10;
 
     @Slider(
             min = 0,

@@ -38,7 +38,7 @@ object CoinsToBoosterCookieConversion {
     private val boosterCookieItemId: String = "BOOSTER_COOKIE"
     private val boosterCookiePath: String = "constants/booster_cookie_price.json"
     private val configCurr get(): Int = PartlySaneSkies.config.prefCurr
-    private val orderOfCurrency = arrayOf("AUD", "BRL", "CAD", "DKK", "EUR", "NOK", "NZD", "PLN", "GBP", "SEK", "USD")
+    private val orderOfCurrency = arrayOf("AUD", "BRL", "CAD", "DKK", "EUR", "KPW", "NOK", "NZD", "PLN", "GBP", "SEK", "USD")
 
 
     private fun currencyFormatting(money: String): String {
