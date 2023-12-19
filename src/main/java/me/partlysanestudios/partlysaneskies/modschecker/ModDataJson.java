@@ -26,9 +26,13 @@ public class ModDataJson {
         private String download;
         @Expose
         private final Map<String, String> versions;
+        @Expose
+        private final Map<String, String> betaVersions;
 
         public ModInfo() {
             versions = new HashMap<>();
+            betaVersions = new HashMap<>();
+
         }
 
         public String getDownload() {
@@ -37,6 +41,9 @@ public class ModDataJson {
 
         public Map<String, String> getVersions() {
             return versions;
+        }
+        public Map<String, String> getBetaVersions() {
+            return betaVersions;
         }
     }
 }

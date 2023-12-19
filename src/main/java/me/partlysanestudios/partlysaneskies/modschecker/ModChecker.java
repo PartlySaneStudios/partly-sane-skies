@@ -296,7 +296,13 @@ public class ModChecker {
             String download = modInfo.getDownload();
 
             KnownMod latest = null;
-            for (Map.Entry<String, String> e : modInfo.getVersions().entrySet()) {
+            Map<String, String> versions;
+            if (PartlySaneSkies.config.lookForBetaMods) {
+                versions = modInfo.getBetaVersions();
+            } else {
+                versions = modInfo.getVersions();
+            }
+            for (Map.Entry<String, String> e : versions.entrySet()) {
                 String version = e.getKey();
                 String hash = e.getValue();
 

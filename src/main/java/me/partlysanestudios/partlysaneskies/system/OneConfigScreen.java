@@ -186,6 +186,14 @@ public class OneConfigScreen extends Config {
     public boolean checkModsOnStartup = true;
 
     @Switch(
+            name = "Use Beta Versions",
+            category = "General",
+            subcategory = "Mods Checker",
+            description = "Use the beta version of mods instead of normal versions"
+    )
+    public boolean lookForBetaMods = false;
+
+    @Switch(
             name = "Privacy Mode",
             category = "General",
             subcategory = "Privacy",
