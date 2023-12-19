@@ -13,6 +13,10 @@ import me.partlysanestudios.partlysaneskies.system.requests.Request;
 import me.partlysanestudios.partlysaneskies.system.requests.RequestsManager;
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils;
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils;
+import net.minecraft.event.ClickEvent;
+import net.minecraft.event.HoverEvent;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.IChatComponent;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.ModContainer;
 import org.jetbrains.annotations.NotNull;
@@ -23,7 +27,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -41,14 +44,18 @@ public class ModChecker {
 
     static class KnownMod {
 
+        private final String id;
         private final String name;
+        private final String downloadLink;
         private final String version;
         private final String hash;
         private boolean latest = false;
 
-        KnownMod(String name, String version, String hash) {
+        KnownMod(String id, String name, String version, String downloadLink, String hash) {
+            this.id = id;
             this.name = name;
             this.version = version;
+            this.downloadLink = downloadLink;
             this.hash = hash;
         }
     }
@@ -79,7 +86,8 @@ public class ModChecker {
 
     public static void run2() {
         int modsFound = 0;
-        StringBuilder chatBuilder = new StringBuilder();
+        IChatComponent chatMessage = new ChatComponentText("");
+
         StringBuilder debugBuilder = new StringBuilder();
 
         ArrayList<ModContainer> knownMods = new ArrayList<>();
@@ -110,7 +118,7 @@ public class ModChecker {
                         continue;
                     }
                 }
-                KnownMod mod = findMod(hash);
+                KnownMod mod = findModFromHash(hash);
                 if (mod == null) {
                     unknownMods.add(container);
                 } else {
@@ -133,10 +141,10 @@ public class ModChecker {
             }
         }
 
-        chatBuilder.append("\n§7Disclaimer: You should always exercise caution when downloading things from the internet. The PSS Mod Checker is not foolproof. Use at your own risk.");
+        chatMessage.appendSibling(new ChatComponentText("\n§7Disclaimer: You should always exercise caution when downloading things from the internet. The PSS Mod Checker is not foolproof. Use at your own risk."));
 
         if (!knownMods.isEmpty()) {
-            chatBuilder.append("\n\n§6Up to date Mods: (" + knownMods.size() + ")");
+            chatMessage.appendSibling(new ChatComponentText("\n\n§6Up to date Mods: (" + knownMods.size() + ")"));
         }
         for (ModContainer container : knownMods) {
             File modFile = container.getSource();
@@ -146,13 +154,18 @@ public class ModChecker {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            KnownMod mod = findMod(hash);
-            String message = "\n§a" + mod.name + " §7is up to date";
-            chatBuilder.append(message);
+            KnownMod mod = findModFromHash(hash);
+            IChatComponent message = new ChatComponentText("\n§a" + mod.name + " §7is up to date");
+            if (SystemUtils.INSTANCE.isValidURL(mod.downloadLink)) {
+                message.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, mod.downloadLink));
+                message.getChatStyle().setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText("Click for the official website for " + mod.name + "!") ));
+            }
+
+            chatMessage.appendSibling(message);
         }
 
         if (!outdatedMods.isEmpty()) {
-            chatBuilder.append("\n\n§6Out of Date Mods: (" + outdatedMods.size() + ")");
+            chatMessage.appendSibling(new ChatComponentText("\n\n§6Out of Date Mods: (" + outdatedMods.size() + ")"));
         }
         for (ModContainer container : outdatedMods) {
             File modFile = container.getSource();
@@ -162,17 +175,23 @@ public class ModChecker {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            KnownMod mod = findMod(hash);
+            KnownMod mod = findModFromHash(hash);
 
-            String latestVersion = findNewestMod(mod.name).version;
-            String message = "\n§e" + mod.name + " §7is §coutdated §7(§e" + mod.version + " §7-> §e" + latestVersion + "§7)";
-            chatBuilder.append(message);
+            String latestVersion = findNewestModFromId(mod.id).version;
+            IChatComponent message = new ChatComponentText("\n§e" + mod.name + " §7is §coutdated §7(§e" + mod.version + " §7-> §e" + latestVersion + "§7)");
+
+            if (SystemUtils.INSTANCE.isValidURL(mod.downloadLink)) {
+                message.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, mod.downloadLink));
+                message.getChatStyle().setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText("Click for the official website for " + mod.name + "!") ));
+            }
+
+            chatMessage.appendSibling(message);
         }
 
 
         if (!unknownMods.isEmpty()) {
-            chatBuilder.append("\n\n§cUnknown Mods: (" + unknownMods.size() + ")");
-            chatBuilder.append("\n§7These mods have not been verified by PSS admins!");
+            chatMessage.appendSibling(new ChatComponentText("\n\n§cUnknown Mods: (" + unknownMods.size() + ")"));
+            chatMessage.appendSibling(new ChatComponentText("\n§7These mods have not been verified by PSS admins!"));
         }
         for (ModContainer container : unknownMods) {
             String version = container.getVersion();
@@ -190,19 +209,36 @@ public class ModChecker {
                 e.printStackTrace();
             }
 
-            String message = "\n§c" + modName + " §7(" + fileName + ") is §cunknown!";
-            chatBuilder.append(message);
+            ChatComponentText message = new ChatComponentText("\n§c" + modName + " §7(" + fileName + ") is §cunknown!");
+
+            try {
+                KnownMod mod = findNewestModFromId(container.getModId());
+
+                message = new ChatComponentText("\n§c" + modName + " §7(" + fileName + ") is §cunknown! §c(Verified version of " + mod.name + " found.)");
+                
+                if (SystemUtils.INSTANCE.isValidURL(mod.downloadLink)) {
+                    message.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, mod.downloadLink));
+                    message.getChatStyle().setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText("Click for the official website for " + mod.name + "!") ));
+                }
+            } catch (IllegalStateException e) {
+
+            }
+
+            chatMessage.appendSibling(message);
 
             debugBuilder.append("\n\"" + container.getModId() + "\": {");
             debugBuilder.append("\n    \"name\": \"" + modName + "\",");
             debugBuilder.append("\n    \"download\": \"" + container.getMetadata().url + "\",");
             debugBuilder.append("\n    \"versions\": {");
             debugBuilder.append("\n        \"" + container.getVersion() + "\": \"" + hash + "\"");
+            debugBuilder.append("\n    },");
+            debugBuilder.append("\n    \"betaVersions\": {");
+            debugBuilder.append("\n        \"" + container.getVersion() + "\": \"" + hash + "\"");
             debugBuilder.append("\n    }");
             debugBuilder.append("\n},");
         }
 
-        chatBuilder.append("\n\n§9If you believe any of these mods may be a mistake, report it in the PSS discord! §7(/pssdiscord)");
+        chatMessage.appendSibling(new ChatComponentText("\n\n§9If you believe any of these mods may be a mistake, report it in the PSS discord! §7(/pssdiscord)"));
 
 
         if (PartlySaneSkies.config.debugMode) {
@@ -210,7 +246,10 @@ public class ModChecker {
             SystemUtils.INSTANCE.copyStringToClipboard("```json\n"+ debugBuilder.toString() + "\n```");
         }
 
-        ChatUtils.INSTANCE.sendClientMessage(" \n§7Found " + modsFound + " mods:" + chatBuilder);
+        ChatUtils.INSTANCE.sendClientMessage(" \n§7Found " + modsFound + " mods:");
+        PartlySaneSkies.minecraft.ingameGUI
+                .getChatGUI()
+                .printChatMessage(chatMessage);
 
 
     }
@@ -252,7 +291,7 @@ public class ModChecker {
     private static List<KnownMod> read(ModDataJson modData) {
         List<KnownMod> list = new ArrayList<>();
         for (Map.Entry<String, ModDataJson.ModInfo> entry : modData.getMods().entrySet()) {
-            String modName = entry.getKey();
+            String modId = entry.getKey();
             ModDataJson.ModInfo modInfo = entry.getValue();
             String download = modInfo.getDownload();
 
@@ -261,7 +300,7 @@ public class ModChecker {
                 String version = e.getKey();
                 String hash = e.getValue();
 
-                latest = new KnownMod(modName, version, hash);
+                latest = new KnownMod(modId, modInfo.name, version, download, hash);
                 list.add(latest);
             }
             if (latest != null) {
@@ -272,20 +311,20 @@ public class ModChecker {
     }
 
     @NotNull
-    private static KnownMod findNewestMod(String name) {
+    private static KnownMod findNewestModFromId(String id) {
         if (knownMods == null) throw new IllegalStateException("known mods is null");
         for (KnownMod mod : knownMods) {
-            if (mod.name.equals(name)) {
+            if (mod.id.equals(id)) {
                 if (mod.latest) {
                     return mod;
                 }
             }
         }
-        throw new IllegalStateException("Found no newest mod with the name `" + name + "'");
+        throw new IllegalStateException("Found no newest mod with the id `" + id + "'");
     }
 
     @Nullable
-    private static KnownMod findMod(String hash) {
+    private static KnownMod findModFromHash(String hash) {
         if (knownMods == null) throw new IllegalStateException("known mods is null");
         for (KnownMod mod : knownMods) {
             if (mod.hash.equals(hash)) {
