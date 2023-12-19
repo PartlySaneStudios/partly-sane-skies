@@ -214,7 +214,7 @@ public class ModChecker {
             try {
                 KnownMod mod = findNewestModFromId(container.getModId());
 
-                message = new ChatComponentText("\n§c" + modName + " §7(" + fileName + ") is §cunknown! §c(Verified version of \" + mod.name + \" found.)");
+                message = new ChatComponentText("\n§c" + modName + " §7(" + fileName + ") is §cunknown! §c(Verified version of " + mod.name + " found.)");
                 
                 if (SystemUtils.INSTANCE.isValidURL(mod.downloadLink)) {
                     message.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, mod.downloadLink));
