@@ -95,7 +95,6 @@ public class OneConfigScreen extends Config {
             subcategory = "API",
             secure = true,
             description = "Change the owner of the repo used for public data."
-
     )
     public String repoOwner = "PartlySaneStudios";
 
@@ -105,7 +104,6 @@ public class OneConfigScreen extends Config {
             subcategory = "API",
             secure = true,
             description = "Change the name of the repo used for public data."
-
     )
     public String repoName = "partly-sane-skies-public-data";
 

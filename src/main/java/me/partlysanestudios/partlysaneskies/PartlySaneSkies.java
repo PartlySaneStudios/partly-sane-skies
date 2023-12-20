@@ -9,6 +9,7 @@
  * Minecraft Forge
  * Skytils
  * Not Enough Updates
+ * SkyHanni
  * GSON
  * Elementa
  * Vigilance
@@ -31,6 +32,9 @@ import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManage
 import me.partlysanestudios.partlysaneskies.features.chat.ChatAlertsManager;
 import me.partlysanestudios.partlysaneskies.features.chat.ChatManager;
 import me.partlysanestudios.partlysaneskies.features.chat.WordEditor;
+import me.partlysanestudios.partlysaneskies.features.commands.Crepes;
+import me.partlysanestudios.partlysaneskies.features.commands.Discord;
+import me.partlysanestudios.partlysaneskies.features.commands.Version;
 import me.partlysanestudios.partlysaneskies.features.gui.custommainmenu.CustomMainMenu;
 import me.partlysanestudios.partlysaneskies.features.dungeons.PlayerRating;
 import me.partlysanestudios.partlysaneskies.features.dungeons.RequiredSecretsFound;
@@ -129,8 +133,6 @@ public class PartlySaneSkies {
         // Creates the partly-sane-skies directory if not already made
         new File("./config/partly-sane-skies/").mkdirs();
 
-//        eofn = new EndOfFarmNotifier();
-
         // Loads the config files and options
         PartlySaneSkies.config = new OneConfigScreen();
         PartlySaneSkies.config.debugMode = false;
@@ -217,11 +219,11 @@ public class PartlySaneSkies {
 
         // Registers all client side commands
         HelpCommands.registerPSSCommand();
-        HelpCommands.registerCrepesCommand();
-        HelpCommands.registerVersionCommand();
         HelpCommands.registerHelpCommand();
-        HelpCommands.registerDiscordCommand();
         HelpCommands.registerConfigCommand();
+        Crepes.registerCrepesCommand();
+        Version.registerVersionCommand();
+        Discord.registerDiscordCommand();
         PublicDataManager.registerDataCommand();
         PartyManager.registerCommand();
         SkillUpgradeRecommendation.registerCommand();
@@ -303,6 +305,7 @@ public class PartlySaneSkies {
 
         // Checks if the current location is the same as the previous location for the location banner display
         locationBannerDisplay.checkLocation();
+
         HealerAlert.INSTANCE.run();
         SkyblockDataManager.runUpdater();
 
@@ -364,6 +367,7 @@ public class PartlySaneSkies {
                 ChatUtils.INSTANCE.sendClientMessage("§b§m--------------------------------------------------", true);
 
                 ChatUtils.INSTANCE.sendClientMessage("§cWe have detected a new version of Partly Sane Skies.");
+                ChatUtils.INSTANCE.sendClientMessage("§cYou are currently using version §d" + VERSION + "§c, the latest version is §d" + CustomMainMenu.latestVersion + "§c.");
 
                 ChatComponentText skyclientMessage = new ChatComponentText(("§aIf you are using SkyClient, make sure you update when prompted."));
                 PartlySaneSkies.minecraft.ingameGUI
