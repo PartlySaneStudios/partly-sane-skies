@@ -5,10 +5,10 @@
 
 package me.partlysanestudios.partlysaneskies.config.keybinds;
 
-import me.partlysanestudios.partlysaneskies.features.help.HelpCommands;
+import me.partlysanestudios.partlysaneskies.features.commands.HelpCommand;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.features.skills.PetAlert;
-import me.partlysanestudios.partlysaneskies.features.help.WikiArticleOpener;
+import me.partlysanestudios.partlysaneskies.features.information.WikiArticleOpener;
 import me.partlysanestudios.partlysaneskies.features.economy.auctionhousemenu.AuctionHouseGui;
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.partymanager.PartyManager;
 import me.partlysanestudios.partlysaneskies.features.farming.MathematicalHoeRightClicks;
@@ -104,7 +104,7 @@ public final class Keybinds {
             PartyManager.startPartyManager();
         }
         if (helpKey.isPressed()) {
-            HelpCommands.printHelpMessage();
+            HelpCommand.printHelpMessage();
         }
         if (craftKeybind.isPressed()) {
             PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/craft");
