@@ -4,13 +4,20 @@ plugins {
     java
     kotlin("jvm") version("1.9.21")
     val dgtVersion = "1.22.0"
-    id("dev.deftu.gradle.tools.resources") version(dgtVersion)
     id("dev.deftu.gradle.tools") version(dgtVersion)
     id("dev.deftu.gradle.tools.shadow") version(dgtVersion)
+    id("dev.deftu.gradle.tools.kotlin") version(dgtVersion)
     id("dev.deftu.gradle.tools.blossom") version(dgtVersion)
+    id("dev.deftu.gradle.tools.resources") version(dgtVersion)
     id("dev.deftu.gradle.tools.minecraft.loom") version(dgtVersion)
-    id("dev.deftu.gradle.tools.minecraft.releases") version(dgtVersion)
     id("dev.deftu.gradle.tools.github-publishing") version(dgtVersion)
+    id("dev.deftu.gradle.tools.minecraft.releases") version(dgtVersion)
+}
+
+loom {
+    forge {
+        pack200Provider.set(dev.architectury.pack200.java.Pack200Adapter())
+    }
 }
 
 toolkit.useDevAuth()
@@ -28,10 +35,6 @@ repositories {
     maven("https://repo.spongepowered.org/maven/")
 }
 
-val shadowImpl: Configuration by configurations.creating {
-    configurations.implementation.get().extendsFrom(this)
-}
-
 dependencies {
     implementation(shade("gg.essential:elementa-${mcData.versionStr}-${mcData.loader.name}:531") {
         isTransitive = false
@@ -39,12 +42,14 @@ dependencies {
     implementation(shade("gg.essential:universalcraft-${mcData.versionStr}-${mcData.loader.name}:262") {
         isTransitive = false
     })
-    shadowImpl("org.spongepowered:mixin:0.7.11-SNAPSHOT") {
+    implementation(shade("org.spongepowered:mixin:0.7.11-SNAPSHOT") {
         isTransitive = false
-    }
-    implementation(kotlin("stdlib"))
-    modCompileOnly("cc.polyfrost:oneconfig-${mcData.versionStr}-${mcData.loader.name}:0.2.0-alpha+")
+    })
     implementation(shade("cc.polyfrost:oneconfig-wrapper-launchwrapper:1.0.0-beta+")!!)
+
+    implementation(kotlin("stdlib"))
+
+    compileOnly("cc.polyfrost:oneconfig-${mcData.versionStr}-${mcData.loader.name}:0.2.0-alpha+")
 }
 
 toolkitReleases {

@@ -290,7 +290,7 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack?, var xCons
         }
     }
 
-    fun setX(xConstraint: XConstraint): AuctionElement  {
+    fun setX(xConstraint: XConstraint): AuctionElement {
         boundingBox.setX(xConstraint)
         this.xConstraint = xConstraint
         return this

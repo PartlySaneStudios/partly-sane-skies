@@ -1,16 +1,3 @@
-/*
- * A Kotlin class written by Erymanthus[#5074] | (u/)RayDeeUx
- * for Su386 and FlagMaster's Partly Sane Skies mod.
- * See LICENSE for copyright and license notices.
- *
- * KOTLIN ON TOP BABYYYYYYYY
- *
- * j10a — Today at 5:03 PM
- * Like for example the party finder page has
- * a reload button, why not be able to reload
- * ui's with the keybinds
- *
- */
 package me.partlysanestudios.partlysaneskies
 
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
@@ -36,7 +23,9 @@ class RefreshKeybinds {
         val gui: GuiChest = event.gui as? GuiChest ?: return
         val keyFnFiveDown: Boolean = Keyboard.isKeyDown(Keyboard.KEY_F5)
         val keyRDown: Boolean = Keyboard.isKeyDown(Keyboard.KEY_R)
-        val refreshKeyDownWindowsLinux: Boolean = ((Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) xor Keyboard.isKeyDown(Keyboard.KEY_RCONTROL)) && keyRDown)
+        val refreshKeyDownWindowsLinux: Boolean = ((Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) xor Keyboard.isKeyDown(
+            Keyboard.KEY_RCONTROL
+        )) && keyRDown)
         val refreshKeyDownMacOS: Boolean = ((Keyboard.isKeyDown(Keyboard.KEY_LMETA) xor Keyboard.isKeyDown(Keyboard.KEY_RMETA)) && keyRDown)
         if ((keyFnFiveDown) xor ((refreshKeyDownWindowsLinux && !operatingSystem.contains("mac")) || (refreshKeyDownMacOS && operatingSystem.contains("mac")))) {
             val container: ContainerChest = (gui).inventorySlots as ContainerChest
