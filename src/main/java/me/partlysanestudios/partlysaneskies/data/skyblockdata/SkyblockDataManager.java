@@ -8,8 +8,8 @@ package me.partlysanestudios.partlysaneskies.data.skyblockdata;
 import com.google.gson.*;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager;
-import me.partlysanestudios.partlysaneskies.system.requests.Request;
-import me.partlysanestudios.partlysaneskies.system.requests.RequestsManager;
+import me.partlysanestudios.partlysaneskies.api.Request;
+import me.partlysanestudios.partlysaneskies.api.RequestsManager;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
