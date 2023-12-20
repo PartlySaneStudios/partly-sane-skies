@@ -56,8 +56,8 @@ import me.partlysanestudios.partlysaneskies.features.farming.endoffarmnotifer.Ra
 import me.partlysanestudios.partlysaneskies.features.farming.garden.CompostValue;
 import me.partlysanestudios.partlysaneskies.features.farming.garden.GardenTradeValue;
 import me.partlysanestudios.partlysaneskies.features.farming.garden.SkymartValue;
-import me.partlysanestudios.partlysaneskies.features.help.HelpCommands;
-import me.partlysanestudios.partlysaneskies.features.help.WikiArticleOpener;
+import me.partlysanestudios.partlysaneskies.features.commands.HelpCommand;
+import me.partlysanestudios.partlysaneskies.features.information.WikiArticleOpener;
 import me.partlysanestudios.partlysaneskies.features.gui.hud.LocationBannerDisplay;
 import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.DropBannerDisplay;
 import me.partlysanestudios.partlysaneskies.features.mining.MiningEvents;
@@ -79,7 +79,6 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -217,9 +216,9 @@ public class PartlySaneSkies {
 
 
         // Registers all client side commands
-        HelpCommands.registerPSSCommand();
-        HelpCommands.registerHelpCommand();
-        HelpCommands.registerConfigCommand();
+        HelpCommand.registerPSSCommand();
+        HelpCommand.registerHelpCommand();
+        HelpCommand.registerConfigCommand();
         Crepes.registerCrepesCommand();
         Version.registerVersionCommand();
         Discord.registerDiscordCommand();

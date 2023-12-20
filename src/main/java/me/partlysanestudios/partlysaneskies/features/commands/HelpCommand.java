@@ -4,7 +4,7 @@
 //
 
 
-package me.partlysanestudios.partlysaneskies.features.help;
+package me.partlysanestudios.partlysaneskies.features.commands;
 
 import gg.essential.elementa.components.Window;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
@@ -12,16 +12,13 @@ import me.partlysanestudios.partlysaneskies.config.keybinds.Keybinds;
 import me.partlysanestudios.partlysaneskies.commands.CommandManager;
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand;
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils;
-import net.minecraft.event.ClickEvent;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.IChatComponent;
 import org.lwjgl.input.Keyboard;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public class HelpCommands {
+public class HelpCommand {
 
     public static void registerConfigCommand() {
         new PSSCommand("pssconfig")
