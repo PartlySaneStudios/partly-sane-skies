@@ -3,7 +3,7 @@
 // See LICENSE for copyright and license notices.
 //
 
-package me.partlysanestudios.partlysaneskies.features.hud.rngdropbanner;
+package me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner;
 
 import java.awt.Color;
 

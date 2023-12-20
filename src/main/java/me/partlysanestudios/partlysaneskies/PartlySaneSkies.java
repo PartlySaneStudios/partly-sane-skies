@@ -31,7 +31,7 @@ import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManage
 import me.partlysanestudios.partlysaneskies.features.chat.ChatAlertsManager;
 import me.partlysanestudios.partlysaneskies.features.chat.ChatManager;
 import me.partlysanestudios.partlysaneskies.features.chat.WordEditor;
-import me.partlysanestudios.partlysaneskies.features.custommainmenu.CustomMainMenu;
+import me.partlysanestudios.partlysaneskies.features.gui.custommainmenu.CustomMainMenu;
 import me.partlysanestudios.partlysaneskies.features.dungeons.PlayerRating;
 import me.partlysanestudios.partlysaneskies.features.dungeons.RequiredSecretsFound;
 import me.partlysanestudios.partlysaneskies.features.dungeons.WatcherReady;
@@ -54,8 +54,8 @@ import me.partlysanestudios.partlysaneskies.features.farming.garden.GardenTradeV
 import me.partlysanestudios.partlysaneskies.features.farming.garden.SkymartValue;
 import me.partlysanestudios.partlysaneskies.features.help.HelpCommands;
 import me.partlysanestudios.partlysaneskies.features.help.WikiArticleOpener;
-import me.partlysanestudios.partlysaneskies.features.hud.LocationBannerDisplay;
-import me.partlysanestudios.partlysaneskies.features.hud.rngdropbanner.DropBannerDisplay;
+import me.partlysanestudios.partlysaneskies.features.gui.hud.LocationBannerDisplay;
+import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.DropBannerDisplay;
 import me.partlysanestudios.partlysaneskies.features.mining.MiningEvents;
 import me.partlysanestudios.partlysaneskies.features.mining.Pickaxes;
 import me.partlysanestudios.partlysaneskies.features.mining.WormWarning;
@@ -94,7 +94,7 @@ import java.net.MalformedURLException;
 @Mod(modid = PartlySaneSkies.MODID, version = PartlySaneSkies.VERSION, name = PartlySaneSkies.NAME)
 public class PartlySaneSkies {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
     }
 

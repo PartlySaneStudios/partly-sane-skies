@@ -3,7 +3,7 @@
 // See LICENSE for copyright and license notices.
 //
 
-package me.partlysanestudios.partlysaneskies.features.custommainmenu;
+package me.partlysanestudios.partlysaneskies.features.gui.custommainmenu;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
