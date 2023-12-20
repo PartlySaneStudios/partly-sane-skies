@@ -87,7 +87,7 @@ public class PartlySaneSkies {
     public static final String VERSION = "@MOD_VERSION@";
     //    -----------------------CHANGE TO FALSE BEFORE RELEASING
     public static final boolean DOGFOOD = Boolean.parseBoolean("@DOGFOOD@");
-    public static final String CHAT_PREFIX = ("§r§b§lPartly Sane Skies§r§7>> §r");
+    public static final String CHAT_PREFIX = "§r§b§lPartly Sane Skies§r§7>> §r";
     public static final boolean IS_LEGACY_VERSION = false;
     public static String discordCode = "v4PU3WeH7z";
 
@@ -119,7 +119,7 @@ public class PartlySaneSkies {
         PartlySaneSkies.config.debugMode = false;
         Request mainMenuRequest = null;
         try {
-            mainMenuRequest = new Request("https://raw.githubusercontent.com/PartlySaneStudios/partly-sane-skies-public-data/main/data/main_menu.json", CustomMainMenu::setMainMenuInfo);
+            mainMenuRequest = new Request("https://raw.githubusercontent.com/" + PublicDataManager.getRepoOwner() + "/" +  PublicDataManager.getRepoName() + "/main/data/", CustomMainMenu::setMainMenuInfo);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
