@@ -1,3 +1,22 @@
+/* VisitorLogbookStats.kt
+ * A Kotlin class written by Erymanthus[#5074] | (u/)RayDeeUx
+ * for Su386 and FlagMaster's Partly Sane Skies mod.
+ * See LICENSE for copyright and license notices.
+ *
+ * KOTLIN ON TOP BABYYYYYYYY
+ *
+ * j10a — Today at 4:47 AM
+ * A sidebar like the bits shop one, would include:
+ * total visitors accepted | seen
+ * total visitors accepted | seen uncommon
+ * total visitors accepted | seen rare
+ * total visitors accepted | seen leg
+ * total visitors accepted | seen special (not sure)
+ *
+ * (presumably seen across all araities)
+*/
+
+
 package me.partlysanestudios.partlysaneskies.garden
 
 import gg.essential.elementa.ElementaVersion

@@ -1,3 +1,18 @@
+/*
+ * A Kotlin class written by Erymanthus[#5074] | (u/)RayDeeUx
+ * for Su386 and FlagMaster's Partly Sane Skies mod.
+ * See LICENSE for copyright and license notices.
+ *
+ * KOTLIN ON TOP BABYYYYYYYY
+ *
+ * j10a — Today at 5:03 PM
+ * Like for example the party finder page has
+ * a reload button, why not be able to reload
+ * ui's with the keybinds
+ *
+ */
+
+
 package me.partlysanestudios.partlysaneskies
 
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
