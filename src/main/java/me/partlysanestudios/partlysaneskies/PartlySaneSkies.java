@@ -9,6 +9,7 @@
  * Minecraft Forge
  * Skytils
  * Not Enough Updates
+ * SkyHanni
  * GSON
  * Elementa
  * Vigilance
@@ -32,6 +33,9 @@ import me.partlysanestudios.partlysaneskies.features.chat.ChatAlertsManager;
 import me.partlysanestudios.partlysaneskies.features.chat.ChatManager;
 import me.partlysanestudios.partlysaneskies.features.chat.WordEditor;
 import me.partlysanestudios.partlysaneskies.features.dungeons.AutoGG;
+import me.partlysanestudios.partlysaneskies.features.commands.Crepes;
+import me.partlysanestudios.partlysaneskies.features.commands.Discord;
+import me.partlysanestudios.partlysaneskies.features.commands.Version;
 import me.partlysanestudios.partlysaneskies.features.gui.custommainmenu.CustomMainMenu;
 import me.partlysanestudios.partlysaneskies.features.dungeons.PlayerRating;
 import me.partlysanestudios.partlysaneskies.features.dungeons.RequiredSecretsFound;
@@ -53,8 +57,8 @@ import me.partlysanestudios.partlysaneskies.features.farming.endoffarmnotifer.Ra
 import me.partlysanestudios.partlysaneskies.features.farming.garden.CompostValue;
 import me.partlysanestudios.partlysaneskies.features.farming.garden.GardenTradeValue;
 import me.partlysanestudios.partlysaneskies.features.farming.garden.SkymartValue;
-import me.partlysanestudios.partlysaneskies.features.help.HelpCommands;
-import me.partlysanestudios.partlysaneskies.features.help.WikiArticleOpener;
+import me.partlysanestudios.partlysaneskies.features.commands.HelpCommand;
+import me.partlysanestudios.partlysaneskies.features.information.WikiArticleOpener;
 import me.partlysanestudios.partlysaneskies.features.gui.hud.LocationBannerDisplay;
 import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.DropBannerDisplay;
 import me.partlysanestudios.partlysaneskies.features.mining.MiningEvents;
@@ -76,7 +80,6 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -106,7 +109,6 @@ public class PartlySaneSkies {
     //    -----------------------CHANGE TO FALSE BEFORE RELEASING
     public static final boolean DOGFOOD = Boolean.parseBoolean("@DOGFOOD@");
     public static final String CHAT_PREFIX = "§r§b§lPartly Sane Skies§r§7>> §r";
-    public static final boolean IS_LEGACY_VERSION = false;
     public static String discordCode = "v4PU3WeH7z";
 
     public static OneConfigScreen config;
@@ -129,8 +131,6 @@ public class PartlySaneSkies {
 
         // Creates the partly-sane-skies directory if not already made
         new File("./config/partly-sane-skies/").mkdirs();
-
-//        eofn = new EndOfFarmNotifier();
 
         // Loads the config files and options
         PartlySaneSkies.config = new OneConfigScreen();
@@ -218,12 +218,12 @@ public class PartlySaneSkies {
 
 
         // Registers all client side commands
-        HelpCommands.registerPSSCommand();
-        HelpCommands.registerCrepesCommand();
-        HelpCommands.registerVersionCommand();
-        HelpCommands.registerHelpCommand();
-        HelpCommands.registerDiscordCommand();
-        HelpCommands.registerConfigCommand();
+        HelpCommand.registerPSSCommand();
+        HelpCommand.registerHelpCommand();
+        HelpCommand.registerConfigCommand();
+        Crepes.registerCrepesCommand();
+        Version.registerVersionCommand();
+        Discord.registerDiscordCommand();
         PublicDataManager.registerDataCommand();
         PartyManager.registerCommand();
         SkillUpgradeRecommendation.registerCommand();
@@ -305,6 +305,7 @@ public class PartlySaneSkies {
 
         // Checks if the current location is the same as the previous location for the location banner display
         locationBannerDisplay.checkLocation();
+
         HealerAlert.INSTANCE.run();
         SkyblockDataManager.runUpdater();
 
@@ -321,13 +322,6 @@ public class PartlySaneSkies {
     public void chatAnalyzer(ClientChatReceivedEvent evnt) {
         if (PartlySaneSkies.config.debugMode)
             SystemUtils.INSTANCE.log(Level.INFO, evnt.message.getFormattedText());
-    }
-
-    @SubscribeEvent
-    public void world(WorldEvent.Load event) {
-        // Code that is supposed to be here is dead code so removed on this branch
-        // Code that is supposed to go here:
-        // https://github.com/PartlySaneStudios/partly-sane-skies/blob/essential-based/src/main/java/me/partlysanestudios/partlysaneskies/PartlySaneSkies.java#LL303C5-L327C10
     }
 
     @SubscribeEvent
@@ -366,6 +360,7 @@ public class PartlySaneSkies {
                 ChatUtils.INSTANCE.sendClientMessage("§b§m--------------------------------------------------", true);
 
                 ChatUtils.INSTANCE.sendClientMessage("§cWe have detected a new version of Partly Sane Skies.");
+                ChatUtils.INSTANCE.sendClientMessage("§cYou are currently using version §d" + VERSION + "§c, the latest version is §d" + CustomMainMenu.latestVersion + "§c.");
 
                 ChatComponentText skyclientMessage = new ChatComponentText(("§aIf you are using SkyClient, make sure you update when prompted."));
                 PartlySaneSkies.minecraft.ingameGUI
