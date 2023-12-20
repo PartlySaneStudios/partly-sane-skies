@@ -7,10 +7,8 @@
 package me.partlysanestudios.partlysaneskies.utils
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
-import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.points.Point2d
-import me.partlysanestudios.partlysaneskies.garden.endoffarmnotifer.points.Point3d
-import me.partlysanestudios.partlysaneskies.utils.MathUtils.floor
-import me.partlysanestudios.partlysaneskies.utils.MathUtils.round
+import me.partlysanestudios.partlysaneskies.features.farming.endoffarmnotifer.points.Point2d
+import me.partlysanestudios.partlysaneskies.features.farming.endoffarmnotifer.points.Point3d
 import java.util.concurrent.ThreadLocalRandom
 import kotlin.math.pow
 import kotlin.math.sqrt

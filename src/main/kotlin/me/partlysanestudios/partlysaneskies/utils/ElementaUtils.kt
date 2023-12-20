@@ -10,7 +10,7 @@ import gg.essential.elementa.UIComponent
 import gg.essential.elementa.components.UIImage
 import gg.essential.elementa.constraints.CenterConstraint
 import gg.essential.elementa.constraints.PixelConstraint
-import me.partlysanestudios.partlysaneskies.system.ThemeManager
+import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
 import net.minecraft.client.Minecraft
 import net.minecraft.util.ResourceLocation
 import java.io.IOException

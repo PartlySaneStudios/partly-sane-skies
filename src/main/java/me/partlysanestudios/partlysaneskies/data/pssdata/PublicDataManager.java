@@ -7,9 +7,9 @@
 package me.partlysanestudios.partlysaneskies.data.pssdata;
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
-import me.partlysanestudios.partlysaneskies.system.commands.PSSCommand;
-import me.partlysanestudios.partlysaneskies.system.requests.Request;
-import me.partlysanestudios.partlysaneskies.system.requests.RequestsManager;
+import me.partlysanestudios.partlysaneskies.commands.PSSCommand;
+import me.partlysanestudios.partlysaneskies.api.Request;
+import me.partlysanestudios.partlysaneskies.api.RequestsManager;
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils;
 import net.minecraft.util.ChatComponentText;
 
