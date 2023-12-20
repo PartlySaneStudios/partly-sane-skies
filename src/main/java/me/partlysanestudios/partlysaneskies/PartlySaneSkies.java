@@ -109,7 +109,6 @@ public class PartlySaneSkies {
     //    -----------------------CHANGE TO FALSE BEFORE RELEASING
     public static final boolean DOGFOOD = Boolean.parseBoolean("@DOGFOOD@");
     public static final String CHAT_PREFIX = "§r§b§lPartly Sane Skies§r§7>> §r";
-    public static final boolean IS_LEGACY_VERSION = false;
     public static String discordCode = "v4PU3WeH7z";
 
     public static OneConfigScreen config;
@@ -322,13 +321,6 @@ public class PartlySaneSkies {
     public void chatAnalyzer(ClientChatReceivedEvent evnt) {
         if (PartlySaneSkies.config.debugMode)
             SystemUtils.INSTANCE.log(Level.INFO, evnt.message.getFormattedText());
-    }
-
-    @SubscribeEvent
-    public void world(WorldEvent.Load event) {
-        // Code that is supposed to be here is dead code so removed on this branch
-        // Code that is supposed to go here:
-        // https://github.com/PartlySaneStudios/partly-sane-skies/blob/essential-based/src/main/java/me/partlysanestudios/partlysaneskies/PartlySaneSkies.java#LL303C5-L327C10
     }
 
     @SubscribeEvent
