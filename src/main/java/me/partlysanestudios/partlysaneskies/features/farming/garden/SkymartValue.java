@@ -4,7 +4,7 @@
 //
 
 
-package me.partlysanestudios.partlysaneskies.features.economy.value;
+package me.partlysanestudios.partlysaneskies.features.farming.garden;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
