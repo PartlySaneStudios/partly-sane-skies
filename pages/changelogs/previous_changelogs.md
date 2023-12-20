@@ -15,3 +15,4 @@
 | [Beta v0.4.1](beta-v0.4.1.md) | [18 October 2023](beta-v0.4.1.md)   |
 | [Beta v0.5](beta-v0.5.md)     | [17 December 2023](beta-v0.5.md)    |
 | [Beta v0.5.1](beta-v0.5.1.md) | [18 December 2023](beta-v0.5.1.md)  |
+| [Beta v0.5.2](beta-v0.5.2.md) | [20 December 2023](beta-v0.5.2.md)  |
