@@ -10,7 +10,7 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.features.skills.PetAlert;
 import me.partlysanestudios.partlysaneskies.features.help.WikiArticleOpener;
 import me.partlysanestudios.partlysaneskies.features.economy.auctionhousemenu.AuctionHouseGui;
-import me.partlysanestudios.partlysaneskies.features.dungeons.party.partymanager.partymanager.PartyManager;
+import me.partlysanestudios.partlysaneskies.features.dungeons.party.partymanager.PartyManager;
 import me.partlysanestudios.partlysaneskies.features.farming.MathematicalHoeRightClicks;
 import me.partlysanestudios.partlysaneskies.utils.MathUtils;
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils;

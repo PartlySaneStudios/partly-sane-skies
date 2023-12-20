@@ -37,7 +37,7 @@ import me.partlysanestudios.partlysaneskies.features.dungeons.RequiredSecretsFou
 import me.partlysanestudios.partlysaneskies.features.dungeons.WatcherReady;
 import me.partlysanestudios.partlysaneskies.features.dungeons.healeralert.HealerAlert;
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.PartyFriendManager;
-import me.partlysanestudios.partlysaneskies.features.dungeons.party.partymanager.partymanager.PartyManager;
+import me.partlysanestudios.partlysaneskies.features.dungeons.party.partymanager.PartyManager;
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.permpartyselector.PermPartyManager;
 import me.partlysanestudios.partlysaneskies.features.economy.BitsShopValue;
 import me.partlysanestudios.partlysaneskies.features.economy.CoinsToBoosterCookieConversion;
