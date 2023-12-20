@@ -949,6 +949,61 @@ public class OneConfigScreen extends Config {
     )
     public boolean partyChatDungeonPlayerBreakdown = false;
 
+//    Auto GG
+    @Switch(
+            subcategory = "Auto GG",
+            name = "Enable Automatic GG message",
+            description = "Sends an automatic gg message of your choosing whenever a dungeon is complete.",
+            category = "Dungeons"
+    )
+    public boolean autoGgEnabled = false;
+
+    @Slider(
+            subcategory = "Auto GG",
+            name = "Cooldown after dungeon ends",
+            description = "",
+            category = "Dungeons",
+            min = 0,
+            max = 10
+    )
+    public float autoGGCooldown = 1.5f;
+
+    @Dropdown(
+            subcategory = "Auto GG",
+            name = "Send in",
+            description = "",
+            category = "Dungeons",
+            options = {"Party Chat", "All Chat"}
+    )
+    public int sendAutoGGInWhatChat = 0;
+
+    @Text(
+            subcategory = "Auto GG",
+            category = "Dungeons",
+            name = "Text when S+ score",
+            description = "Sends this message whenever a dungeon is complete and the score is S+."
+    )
+    public String autoGGMessageSPlus = "GG Easy";
+
+    @Text(
+            subcategory = "Auto GG",
+            category = "Dungeons",
+            name = "Text when S score",
+            description = "Sends this message whenever a dungeon is complete and the score is S."
+    )
+    public String autoGGMessageS = "GG";
+
+    @Text(
+            subcategory = "Auto GG",
+            category = "Dungeons",
+            name = "Text when other score",
+            description = "Sends this message whenever a dungeon is complete and the score is not S+/S."
+    )
+    public String autoGGMessageOther = "Welp, GG";
+
+
+
+
     // ------------- Category: Farming ---------------------------------
 //    Hoes
     @Switch(

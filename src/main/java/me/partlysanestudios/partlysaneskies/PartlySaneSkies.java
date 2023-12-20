@@ -32,6 +32,7 @@ import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManage
 import me.partlysanestudios.partlysaneskies.features.chat.ChatAlertsManager;
 import me.partlysanestudios.partlysaneskies.features.chat.ChatManager;
 import me.partlysanestudios.partlysaneskies.features.chat.WordEditor;
+import me.partlysanestudios.partlysaneskies.features.dungeons.AutoGG;
 import me.partlysanestudios.partlysaneskies.features.commands.Crepes;
 import me.partlysanestudios.partlysaneskies.features.commands.Discord;
 import me.partlysanestudios.partlysaneskies.features.commands.Version;
@@ -41,7 +42,7 @@ import me.partlysanestudios.partlysaneskies.features.dungeons.RequiredSecretsFou
 import me.partlysanestudios.partlysaneskies.features.dungeons.WatcherReady;
 import me.partlysanestudios.partlysaneskies.features.dungeons.healeralert.HealerAlert;
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.PartyFriendManager;
-import me.partlysanestudios.partlysaneskies.features.dungeons.party.partymanager.partymanager.PartyManager;
+import me.partlysanestudios.partlysaneskies.features.dungeons.party.partymanager.PartyManager;
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.permpartyselector.PermPartyManager;
 import me.partlysanestudios.partlysaneskies.features.economy.BitsShopValue;
 import me.partlysanestudios.partlysaneskies.features.economy.CoinsToBoosterCookieConversion;
@@ -136,7 +137,7 @@ public class PartlySaneSkies {
         PartlySaneSkies.config.debugMode = false;
         Request mainMenuRequest = null;
         try {
-            mainMenuRequest = new Request("https://raw.githubusercontent.com/" + PublicDataManager.getRepoOwner() + "/" +  PublicDataManager.getRepoName() + "/main/data/", CustomMainMenu::setMainMenuInfo);
+            mainMenuRequest = new Request("https://raw.githubusercontent.com/" + PublicDataManager.getRepoOwner() + "/" +  PublicDataManager.getRepoName() + "/main/data/main_menu.json", CustomMainMenu::setMainMenuInfo);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -213,6 +214,7 @@ public class PartlySaneSkies {
         MinecraftForge.EVENT_BUS.register(EndOfFarmNotifier.INSTANCE);
         MinecraftForge.EVENT_BUS.register(new Prank());
         MinecraftForge.EVENT_BUS.register(new RefreshKeybinds());
+        MinecraftForge.EVENT_BUS.register(AutoGG.INSTANCE);
 
 
         // Registers all client side commands

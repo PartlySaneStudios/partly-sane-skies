@@ -187,7 +187,7 @@ public class PlayerRating {
             return;
         }
         // If end of dungeon
-        if (event.message.getFormattedText().contains("Catacombs Experience§r")) {
+        if (event.message.getFormattedText().contains("§r§c☠ §r§eDefeated §r")) {
             final String string = getDisplayString();
             lastMessage = string;
 
