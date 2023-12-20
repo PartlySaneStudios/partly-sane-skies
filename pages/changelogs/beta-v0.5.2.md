@@ -10,5 +10,6 @@
 ## Bug Fixes
 - Fixed the mod constantly saying it is out of date (@su386yt)
 - Fixed more typos (@j10a1n15)
+- Fixed bugs with versions in the suspicious mods checker (@Su386yt)
 
 **Full Changelog and Official Download Link**: https://github.com/PartlySaneStudios/partly-sane-skies/releases/tag/beta-v0.5.2
