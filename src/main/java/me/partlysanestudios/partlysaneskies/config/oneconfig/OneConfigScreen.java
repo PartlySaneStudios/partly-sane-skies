@@ -960,6 +960,25 @@ public class OneConfigScreen extends Config {
     )
     public boolean autoGgEnabled = false;
 
+    @Slider(
+            subcategory = "Auto GG",
+            name = "Cooldown after dungeon ends",
+            description = "",
+            category = "Dungeons",
+            min = 0,
+            max = 10
+    )
+    public float autoGGCooldown = 1.5f;
+
+    @Dropdown(
+            subcategory = "Auto GG",
+            name = "Send in",
+            description = "",
+            category = "Dungeons",
+            options = {"Party Chat", "All Chat"}
+    )
+    public int sendAutoGGInWhatChat = 0;
+
     @Text(
             subcategory = "Auto GG",
             category = "Dungeons",
