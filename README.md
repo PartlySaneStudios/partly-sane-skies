@@ -73,7 +73,7 @@ Place that mod in the mods folder of your Minecraft and you are good to go!
 
 [``/chatalert``, ``/ca``, ``/chal``:](pages/commands.md#chatalerts) Command to use the Chat Alerts System. (See Features)
 
-[``//farmnotfier``, ``//fn``, ``//farmnotif``:](pages/commands.md#farmnotfier) Command to use the farm notifier system.
+[``//farmnotifier``, ``//fn``, ``//farmnotif``:](pages/commands.md#farmnotfier) Command to use the farm notifier system.
 
 [``/wordeditor``, ``/wordedit``, ``/wr``, ``/wordreplace``, ``/wr``] Command to replace a word in the chat with another word or a phrase.
 
@@ -171,7 +171,7 @@ If you do not the right pet selected for leveling up minions, you will be warned
 
 ### Pet for Minion Information Display
 
-When opening the minion, your current pet selected will appear, along with the pet that you have set as favourite.
+When opening the minion, your current pet selected will appear, along with the pet that you have set as favorite.
 
 ![Pet for Minion Information Display](images/pet_minion_display.png)
 
@@ -213,7 +213,7 @@ Default: ``M``
 
 ## Custom Themes
 
-This mod supports a variety of different themes, including dark themes, very dark themes, colourful themes, and controversially, light themes. You can also choose your own accent colour, and create your own themes in the OneConfig menu under the theme section.
+This mod supports a variety of different themes, including dark themes, very dark themes, colorful themes, and controversially, light themes. You can also choose your own accent color, and create your own themes in the OneConfig menu under the theme section.
 
 ### Watcher Ready, Message, Warning, Siren and Sound
 
@@ -283,7 +283,7 @@ When you are mining in the Crystal Hollows and a worm or Scatha spawns, you get 
 
 ### Mining Events Reminder
 
-The mining events reminder has a selective list of all dwarven mines & crystal hollows events. These events can be enabled separately. You can be reminded with either a banner or a banner and sound. You can choose the banner's color and display time yourself. You can also get reminded 20 seconds before the event starts.
+The mining events reminder has a selective list of all Dwarven mines & crystal hollows events. These events can be enabled separately. You can be reminded with either a banner or a banner and sound. You can choose the banner's color and display time yourself. You can also get reminded 20 seconds before the event starts.
 ![Mining Events Reminder](images/mining_events.png)
 
 ### Pickaxe Ability Reminder
@@ -346,25 +346,25 @@ Using the keybinding, it will automatically look up the wiki article for the ite
 
 ### Pets Menu Keybinding
 
-A keybinding shortcut to open the pet menu. Customisable in the vanilla options' menu. (``NONE`` key by default)
+A keybinding shortcut to open the pet menu. Customizable in the vanilla options' menu. (``NONE`` key by default)
 
 ### Crafting Table Menu Keybinding
 
 A keybinding shortcut to open the crafting table menu.
-Customisable in the vanilla options' menu.
+Customizable in the vanilla options' menu.
 (``NONE`` key by default)
 
 ### Wardrobe Menu Keybinding
 
-A keybinding shortcut to open the wardrobe menu. Customisable in the vanilla options' menu. (``NONE`` key by default)
+A keybinding shortcut to open the wardrobe menu. Customizable in the vanilla options' menu. (``NONE`` key by default)
 
 ### Storage Menu Keybinding
 
-A keybinding shortcut to open the storage menu. Customisable in the vanilla options' menu. (``NONE`` key by default)
+A keybinding shortcut to open the storage menu. Customizable in the vanilla options' menu. (``NONE`` key by default)
 
 ### Hoe Right Click
 
-A Keybinding shortcut to allow Hoe Right Click for one time or for some minutes, depending on your setting. Customiseable in the vanilla options' menu. (``NONE`` by default)
+A Keybinding shortcut to allow Hoe Right Click for one time or for some minutes, depending on your setting. Customizable in the vanilla options' menu. (``NONE`` by default)
 
 ### Party All Friends
 
