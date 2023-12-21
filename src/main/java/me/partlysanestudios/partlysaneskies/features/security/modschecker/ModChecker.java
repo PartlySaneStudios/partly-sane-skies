@@ -90,7 +90,7 @@ public class ModChecker {
 
     }
 
-    public static void run2() {
+    public static void run() {
         int modsFound = 0;
         IChatComponent chatMessage = new ChatComponentText("");
 
@@ -149,25 +149,29 @@ public class ModChecker {
 
         chatMessage.appendSibling(new ChatComponentText("\n§7Disclaimer: You should always exercise caution when downloading things from the internet. The PSS Mod Checker is not foolproof. Use at your own risk."));
 
-        if (!knownMods.isEmpty()) {
-            chatMessage.appendSibling(new ChatComponentText("\n\n§6Up to date Mods: (" + knownMods.size() + ")"));
-        }
-        for (ModContainer container : knownMods) {
-            File modFile = container.getSource();
-            String hash = null;
-            try {
-                hash = generateHash(modFile);
-            } catch (IOException e) {
-                e.printStackTrace();
+        if (PartlySaneSkies.config.showUpToDateMods) {
+            if (!knownMods.isEmpty()) {
+                chatMessage.appendSibling(new ChatComponentText("\n\n§6Up to date Mods: (" + knownMods.size() + ")"));
             }
-            KnownMod mod = findModFromHash(hash);
-            IChatComponent message = new ChatComponentText("\n§a" + mod.name + " §7is up to date");
-            if (SystemUtils.INSTANCE.isValidURL(mod.downloadLink)) {
-                message.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, mod.downloadLink));
-                message.getChatStyle().setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText("Click for the official website for " + mod.name + "!") ));
-            }
+            for (ModContainer container : knownMods) {
+                File modFile = container.getSource();
+                String hash = null;
+                try {
+                    hash = generateHash(modFile);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                KnownMod mod = findModFromHash(hash);
+                if (mod == null) continue;
 
-            chatMessage.appendSibling(message);
+                IChatComponent message = new ChatComponentText("\n§a" + mod.name + " §7is up to date");
+                if (SystemUtils.INSTANCE.isValidURL(mod.downloadLink)) {
+                    message.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, mod.downloadLink));
+                    message.getChatStyle().setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText("Click for the official website for " + mod.name + "!")));
+                }
+
+                chatMessage.appendSibling(message);
+            }
         }
 
         if (!outdatedMods.isEmpty()) {
@@ -182,6 +186,7 @@ public class ModChecker {
                 e.printStackTrace();
             }
             KnownMod mod = findModFromHash(hash);
+            if (mod == null) continue;
 
             String latestVersion = findNewestModFromId(mod.id).version;
             IChatComponent message = new ChatComponentText("\n§e" + mod.name + " §7is §coutdated §7(§e" + mod.version + " §7-> §e" + latestVersion + "§7)");
@@ -284,7 +289,7 @@ public class ModChecker {
                 knownMods = null;
                 try {
                     knownMods = read(new Gson().fromJson(request.getResponse(), ModDataJson.class));
-                    run2();
+                    run();
                 } catch (Exception e) {
                     ChatUtils.INSTANCE.sendClientMessage("§cError reading the mod data from repo!");
                     e.printStackTrace();
