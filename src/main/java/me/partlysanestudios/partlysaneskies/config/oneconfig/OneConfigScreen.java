@@ -163,13 +163,6 @@ public class OneConfigScreen extends Config {
     )
     public int prefCurr = 11;
 
-    @Switch(
-        category = "General",
-        subcategory = "Appearance",
-        name = "Legacy Version Warning",
-        description = "Warns you if you are using a legacy version of Partly Sane Skies"
-    )
-    public boolean legacyVersionWarning = true;
     // Main Menu
 
     @Switch(
@@ -221,6 +214,14 @@ public class OneConfigScreen extends Config {
             description = "Use the beta version of mods instead of normal versions"
     )
     public boolean lookForBetaMods = false;
+
+    @Switch(
+            name = "Show up to date mods",
+            category = "General",
+            subcategory = "Mods Checker",
+            description = "Show mods that are up to date"
+    )
+    public boolean showUpToDateMods = true;
 
     @Switch(
             name = "Privacy Mode",
