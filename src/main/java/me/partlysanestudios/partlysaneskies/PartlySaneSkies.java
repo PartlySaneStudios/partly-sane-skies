@@ -67,6 +67,7 @@ import me.partlysanestudios.partlysaneskies.features.mining.WormWarning;
 import me.partlysanestudios.partlysaneskies.features.security.modschecker.ModChecker;
 import me.partlysanestudios.partlysaneskies.features.skills.PetAlert;
 import me.partlysanestudios.partlysaneskies.features.skills.SkillUpgradeRecommendation;
+import me.partlysanestudios.partlysaneskies.features.sound.Prank;
 import me.partlysanestudios.partlysaneskies.features.sound.enhancedsound.EnhancedSound;
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager;
 import me.partlysanestudios.partlysaneskies.gui.BannerRenderer;
