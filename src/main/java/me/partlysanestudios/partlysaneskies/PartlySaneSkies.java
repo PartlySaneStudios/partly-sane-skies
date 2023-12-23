@@ -37,7 +37,7 @@ import me.partlysanestudios.partlysaneskies.features.commands.Crepes;
 import me.partlysanestudios.partlysaneskies.features.commands.Discord;
 import me.partlysanestudios.partlysaneskies.features.commands.Version;
 import me.partlysanestudios.partlysaneskies.features.gui.custommainmenu.CustomMainMenu;
-import me.partlysanestudios.partlysaneskies.features.dungeons.PlayerRating;
+import me.partlysanestudios.partlysaneskies.features.dungeons.playerrating.PlayerRating;
 import me.partlysanestudios.partlysaneskies.features.dungeons.RequiredSecretsFound;
 import me.partlysanestudios.partlysaneskies.features.dungeons.WatcherReady;
 import me.partlysanestudios.partlysaneskies.features.dungeons.healeralert.HealerAlert;

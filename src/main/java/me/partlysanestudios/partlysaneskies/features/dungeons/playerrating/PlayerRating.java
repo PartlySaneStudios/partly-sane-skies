@@ -4,11 +4,12 @@
 //
 
 
-package me.partlysanestudios.partlysaneskies.features.dungeons;
+package me.partlysanestudios.partlysaneskies.features.dungeons.playerrating;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.ibm.icu.text.MessagePattern;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager;
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand;
@@ -151,6 +152,19 @@ public class PlayerRating {
         return str.toString();
     }
 
+    public static String getSlackingMembers() {
+        StringBuilder str = new StringBuilder();
+        for (Map.Entry<String, HashMap<String, Integer>> entry : playerPointCategoryMap.entrySet()) {
+            if (totalPlayerPoints.get(entry.getKey()) / (totalPoints * 1d) > PartlySaneSkies.config.dungeonSnitcherPercent / 100f) {
+                continue;
+            }
+
+            str.append("PSS Slacker Snitcher -> " + entry.getKey() + " looks to be slacking. (This could be a mistake)");
+        }
+
+        return str.toString();
+    }
+
 
     public static void handleMessage(String message) {
         for (Map.Entry<String, String> entry : positivePatterns.entrySet()) {
@@ -183,7 +197,7 @@ public class PlayerRating {
     // §r§fTeam Score: §r
     @SubscribeEvent
     public void onChatEvent(ClientChatReceivedEvent event) {
-        if (!PartlySaneSkies.config.dungeonPlayerBreakdown) {
+        if (!(PartlySaneSkies.config.dungeonPlayerBreakdown || PartlySaneSkies.config.dungeonSnitcher)) {
             return;
         }
         // If end of dungeon
@@ -191,9 +205,10 @@ public class PlayerRating {
             final String string = getDisplayString();
             lastMessage = string;
 
+
             new Thread(() -> {
                 try {
-                    Thread.sleep(125);
+                    Thread.sleep( (long) (PartlySaneSkies.config.dungeonPlayerBreakdownDelay * 1000));
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -202,12 +217,22 @@ public class PlayerRating {
                         return;
                     }
                     ChatUtils.INSTANCE.sendClientMessage(string, true);
+                    if (PartlySaneSkies.config.partyChatDungeonPlayerBreakdown) {
+                        PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/pc " + getChatMessage());
+                    }
                 });
+
+
+                if (PartlySaneSkies.config.dungeonSnitcher) {
+                    PartlySaneSkies.minecraft.addScheduledTask(() -> {
+                        if (PartlySaneSkies.config.dungeonSnitcher) {
+                            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/pc " + getChatMessage());
+                        }
+                    });
+                }
             }).start();
 
-            if (PartlySaneSkies.config.partyChatDungeonPlayerBreakdown) {
-                PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/pc " + getChatMessage());
-            }
+
             reset();
             return;
         }
