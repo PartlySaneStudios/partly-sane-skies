@@ -210,7 +210,7 @@ public class CompostValue {
         ItemStack infoItem = composterInventory.getStackInSlot(46);
         ArrayList<String> loreList = MinecraftUtils.INSTANCE.getLore(infoItem);
         String amountLine = "§2§l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §r §e0§6/§e40k";
-        String regex = "(\\\\d+|\\\\d{1,3}(,\\\\d{3})*)//(\\\\d+[^/]+)";
+        String regex = "(.*?)/(.*?)";
 
         Pattern pattern = Pattern.compile(regex);
 
@@ -246,7 +246,7 @@ public class CompostValue {
         ArrayList<String> loreList = MinecraftUtils.INSTANCE.getLore(infoItem);
         String amountLine = "0/40k";
 
-        String regex = "(\\\\d+|\\\\d{1,3}(,\\\\d{3})*)//(\\\\d+[^/]+)";
+        String regex = "(.*?)/(.*?)";
 
         Pattern pattern = Pattern.compile(regex);
 
