@@ -42,6 +42,21 @@ public class OneConfigScreen extends Config {
             save();
         }
 
+        if (autoGGMessageSPlus.isEmpty()) {
+            autoGGMessageSPlus = "GG Easy";
+            save();
+        }
+        if (autoGGMessageS.isEmpty()) {
+            autoGGMessageS = "GG";
+            save();
+        }
+        if (autoGGMessageSPlus.isEmpty()) {
+            autoGGMessageOther = "Welp, GG";
+            save();
+        }
+
+
+
         if (repoOwner.isEmpty()) {
             repoOwner = "PartlySaneStudios";
             save();
