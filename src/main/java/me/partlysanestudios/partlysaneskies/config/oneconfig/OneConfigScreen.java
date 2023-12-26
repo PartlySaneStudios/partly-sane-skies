@@ -75,6 +75,19 @@ public class OneConfigScreen extends Config {
     )
     public boolean ignored;
 
+    @Dropdown(
+            name = "Update Channel",
+            subcategory = "Updates",
+            category = "General",
+            options = {
+                    "Release",
+                    "Pre-release",
+            }
+    )
+    public int releaseChannel = Integer.parseInt("@RELEASE_CHANNEL@");
+
+
+
     @Number(
         min = .1f,
         max = 30f,
@@ -324,12 +337,6 @@ public class OneConfigScreen extends Config {
             subcategory = "Resource Packs"
     )
     public boolean disableThemes = false;
-
-
-
-
-
-
 
 
 

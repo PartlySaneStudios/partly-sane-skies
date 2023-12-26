@@ -558,9 +558,16 @@ public class CustomMainMenu extends WindowScreen {
         }
             
         try {
-            JsonObject modInfo = object.getAsJsonObject("mod_info");
+            if (PartlySaneSkies.config.releaseChannel == 0) {
+                JsonObject modInfo = object.getAsJsonObject("mod_info");
 
-            latestVersion = modInfo.get("latest_version").getAsString();
+                latestVersion = modInfo.get("latest_version").getAsString();
+            } else {
+                JsonObject modInfo = object.getAsJsonObject("prerelease_channel");
+
+                latestVersion = modInfo.get("latest_version").getAsString();
+            }
+
             // latestVersionDescription = modInfo.get("latest_version_description").getAsString();
             // latestVersionDate = modInfo.get("latest_version_release_date").getAsString();
 

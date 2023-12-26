@@ -68,5 +68,8 @@ toolkitGitHubPublishing {
 
 blossom {
     val dogfood: String by project
+    val releaseChannel: String by project
+
     replaceToken("@DOGFOOD@", dogfood)
+    replaceToken("@RELEASE_CHANNEL@", releaseChannel)
 }
