@@ -20,7 +20,6 @@
 
 package me.partlysanestudios.partlysaneskies;
 
-import cc.polyfrost.oneconfig.config.core.OneColor;
 import gg.essential.elementa.ElementaVersion;
 import me.partlysanestudios.partlysaneskies.api.Request;
 import me.partlysanestudios.partlysaneskies.api.RequestsManager;
@@ -71,8 +70,7 @@ import me.partlysanestudios.partlysaneskies.features.skills.SkillUpgradeRecommen
 import me.partlysanestudios.partlysaneskies.features.sound.Prank;
 import me.partlysanestudios.partlysaneskies.features.sound.enhancedsound.EnhancedSound;
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager;
-import me.partlysanestudios.partlysaneskies.gui.BannerRenderer;
-import me.partlysanestudios.partlysaneskies.gui.PSSBanner;
+import me.partlysanestudios.partlysaneskies.gui.hud.BannerRenderer;
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils;
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils;
 import net.minecraft.client.Minecraft;
@@ -80,7 +78,6 @@ import net.minecraft.event.ClickEvent;
 import net.minecraft.event.HoverEvent;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
-import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -245,6 +242,7 @@ public class PartlySaneSkies {
         PlayerRating.registerReprintCommand();
         ModChecker.registerModCheckCommand();
         DebugKey.INSTANCE.init();
+
 
         // Initializes keybinds
         Keybinds.init();

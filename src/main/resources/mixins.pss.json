@@ -3,5 +3,8 @@
   "mixins": [
     "mods.MixinDungeonGuideCollectDiagnostics",
     "mods.MixinEssentialsTelemetryManager"
+  ],
+  "client": [
+    "minecraft.MixinPlayerController"
   ]
 }

@@ -6,8 +6,8 @@
 package me.partlysanestudios.partlysaneskies.features.economy;
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
-import me.partlysanestudios.partlysaneskies.gui.BannerRenderer;
-import me.partlysanestudios.partlysaneskies.gui.PSSBanner;
+import me.partlysanestudios.partlysaneskies.gui.hud.BannerRenderer;
+import me.partlysanestudios.partlysaneskies.gui.hud.PSSBanner;
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import net.minecraft.client.Minecraft;

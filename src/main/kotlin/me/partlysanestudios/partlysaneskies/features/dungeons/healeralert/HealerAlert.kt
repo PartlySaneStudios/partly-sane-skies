@@ -7,8 +7,8 @@
 package me.partlysanestudios.partlysaneskies.features.dungeons.healeralert
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
-import me.partlysanestudios.partlysaneskies.gui.BannerRenderer
-import me.partlysanestudios.partlysaneskies.gui.PSSBanner
+import me.partlysanestudios.partlysaneskies.gui.hud.BannerRenderer
+import me.partlysanestudios.partlysaneskies.gui.hud.PSSBanner
 import me.partlysanestudios.partlysaneskies.utils.*
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import net.minecraft.client.audio.PositionedSoundRecord
