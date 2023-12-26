@@ -37,7 +37,7 @@ import net.minecraftforge.client.event.GuiScreenEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import java.awt.Color
 
-class VisitorLogbookStats {
+object VisitorLogbookStats {
 
     private val tiers: List<String> = listOf<String>("§f§lTotal", "§a§lUncommon", "§9§lRare", "§6Legendary", "§dMythic", "§c§lSpecial", "§e§lUnknown") //total | uncommon | rare | leg | mythic | special | UNKNOWN
     private var theBaseString = ""

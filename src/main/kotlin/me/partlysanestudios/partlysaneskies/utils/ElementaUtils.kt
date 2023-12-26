@@ -58,12 +58,42 @@ object ElementaUtils {
         val thisColorPercent = thisColorWeight/totalWeight
         val otherColorPercent = otherColorWeight/totalWeight
 
-        val finalR = this.red * thisColorPercent + otherColor.red * otherColorPercent
-        val finalG = this.green * thisColorPercent + otherColor.green * otherColorPercent
-        val finalB = this.blue * thisColorPercent + otherColor.blue * otherColorPercent
-        val finalA = this.alpha * thisColorPercent + otherColor.alpha * otherColorPercent
+        var finalR = this.red * thisColorPercent + otherColor.red * otherColorPercent
+        var finalG = this.green * thisColorPercent + otherColor.green * otherColorPercent
+        var finalB = this.blue * thisColorPercent + otherColor.blue * otherColorPercent
+        var finalA = this.alpha * thisColorPercent + otherColor.alpha * otherColorPercent
 
-        return Color(finalR, finalG, finalB, finalA)
+
+        if (finalR > 255) {
+            finalR = 255f
+        }
+        if (finalG > 255) {
+            finalG = 255f
+        }
+        if (finalB > 255) {
+            finalB = 255f
+        }
+        if (finalA > 255) {
+            finalA = 255f
+        }
+
+
+        if (finalR < 0) {
+            finalR = 0f
+        }
+        if (finalG < 0) {
+            finalG = 0f
+        }
+        if (finalB < 0) {
+            finalB = 0f
+        }
+        if (finalA < 0) {
+            finalA = 0f
+        }
+
+
+
+        return Color(finalR/255f, finalG/255f, finalB/255f, finalA/255f)
 
     }
 }

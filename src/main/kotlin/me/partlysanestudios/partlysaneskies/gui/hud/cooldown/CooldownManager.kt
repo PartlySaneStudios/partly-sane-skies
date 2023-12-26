@@ -49,15 +49,6 @@ object CooldownManager {
         return activeCooldowns;
     }
 
-    fun pruneActiveCooldowns() {
-        for (cooldown in activeCooldowns.keys) {
-            if (!cooldown.isCooldownActive()) {
-                activeCooldowns[cooldown]
-                activeCooldowns.remove(cooldown)
-            }
-        }
-    }
-
     @SubscribeEvent
     fun onScreenRender(event: RenderGameOverlayEvent.Text)  {
         val activeCooldownList = getActiveCooldowns()
@@ -71,9 +62,19 @@ object CooldownManager {
             sortedActiveCooldownsList.size
         }
 
-        for (i in 0..<cooldownsToDisplay) {
-
+        for (cooldownElement in cooldownElements) {
+            cooldownElement.setCooldownToDisplay(null);
         }
+
+        for (i in 0..<cooldownsToDisplay) {
+            cooldownElements[i].setCooldownToDisplay(sortedActiveCooldownsList[i])
+        }
+
+
+        for (cooldownElemet in cooldownElements) {
+            cooldownElemet.tick()
+        }
+
 
         window.draw(UMatrixStack())
     }

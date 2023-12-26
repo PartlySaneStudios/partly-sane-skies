@@ -7,11 +7,12 @@ import gg.essential.elementa.constraints.WidthConstraint
 import gg.essential.elementa.constraints.XConstraint
 import gg.essential.elementa.constraints.YConstraint
 import gg.essential.elementa.dsl.*
+import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.weightedAverage
 import java.awt.Color
 
 class UIHorizontalCooldownElement(val xConstraint: XConstraint, val yConstraint: YConstraint, val widthConstraint: WidthConstraint, val heightConstraint: HeightConstraint) {
 
-    var cooldown = null
+    var cooldown: Cooldown? = null
 
     val boundingBox = UIBlock().constrain {
         x = xConstraint
@@ -47,7 +48,32 @@ class UIHorizontalCooldownElement(val xConstraint: XConstraint, val yConstraint:
         return this;
     }
 
-    fun setCooldownToDisplay(cooldown: Cooldown) {
+    fun setCooldownToDisplay(cooldown: Cooldown?) {
+        this.cooldown = cooldown
+    }
+
+
+    fun tick() {
+        if (cooldown == null)  {
+            displayBox.setColor(Color(0, 0, 0, 0).constraint)
+            boundingBox.setColor(Color(0, 0, 0, 0).constraint)
+
+            return
+        }
+
+        if (!cooldown!!.isCooldownActive()) {
+            cooldown = null
+            return
+        }
+        val percentRemaining = cooldown!!.getTimeRemaining().toFloat() / cooldown!!.getTotalTime().toFloat()
+
+        val percentComplete = 1 - percentRemaining
+
+        val displayBoxColor = Color.RED.weightedAverage(percentRemaining, Color.GREEN, percentComplete)
+
+        boundingBox.setColor(Color(0f, 0f, 0f, .333f))
+        displayBox.setColor(displayBoxColor)
+        displayBox.setWidth((percentComplete * 100).percent)
 
     }
 

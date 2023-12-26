@@ -14,19 +14,19 @@ import net.minecraft.client.gui.Gui;
 
 import java.awt.*;
 
-public class LocationBannerDisplay extends Gui {
-    float TEXT_SCALE = 5f;
-    String lastLocation = "";
-    public long lastLocationTime = PartlySaneSkies.getTime();
-    String displayString = "empty";
+public class LocationBannerDisplay {
+    static float TEXT_SCALE = 5f;
+    static String lastLocation = "";
+    public static long lastLocationTime = PartlySaneSkies.getTime();
+    static String displayString = "empty";
 
-    Color color = Color.white;
+    static Color color = Color.white;
     
 
     public LocationBannerDisplay() {
     }
 
-    public void checkLocation() {
+    public static void checkLocation() {
         if (!PartlySaneSkies.config.locationBannerDisplay)
             return;
 
@@ -78,11 +78,11 @@ public class LocationBannerDisplay extends Gui {
         BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner(displayString, (long) (PartlySaneSkies.config.locationBannerTime * 1000), TEXT_SCALE, color));
     }
 
-    private boolean checkExpire() {
+    private static boolean checkExpire() {
         return getTimeSinceLastChange() > PartlySaneSkies.config.locationBannerTime * 1000;
     }
 
-    private long getTimeSinceLastChange() {
+    private static long getTimeSinceLastChange() {
         return PartlySaneSkies.getTime() - lastLocationTime;
     }
 }

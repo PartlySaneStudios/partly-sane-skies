@@ -533,7 +533,7 @@ public class CustomMainMenu extends WindowScreen {
         }
 
         try {
-            Prank.Companion.setPrankKillSwitch(object.get("prank_sound").getAsBoolean());
+            Prank.INSTANCE.setPrankKillSwitch(object.get("prank_sound").getAsBoolean());
         } catch(NullPointerException | IllegalStateException e){
             e.printStackTrace();
         }
