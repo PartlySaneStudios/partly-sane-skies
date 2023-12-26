@@ -32,6 +32,7 @@ import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManage
 import me.partlysanestudios.partlysaneskies.features.chat.ChatAlertsManager;
 import me.partlysanestudios.partlysaneskies.features.chat.ChatManager;
 import me.partlysanestudios.partlysaneskies.features.chat.WordEditor;
+import me.partlysanestudios.partlysaneskies.features.debug.DebugKey;
 import me.partlysanestudios.partlysaneskies.features.dungeons.AutoGG;
 import me.partlysanestudios.partlysaneskies.features.commands.Crepes;
 import me.partlysanestudios.partlysaneskies.features.commands.Discord;
@@ -135,7 +136,7 @@ public class PartlySaneSkies {
 
         // Loads the config files and options
         PartlySaneSkies.config = new OneConfigScreen();
-        PartlySaneSkies.config.debugMode = false;
+
         Request mainMenuRequest = null;
         try {
             mainMenuRequest = new Request("https://raw.githubusercontent.com/" + PublicDataManager.getRepoOwner() + "/" +  PublicDataManager.getRepoName() + "/main/data/main_menu.json", CustomMainMenu::setMainMenuInfo);
@@ -243,6 +244,7 @@ public class PartlySaneSkies {
         WordEditor.registerWordEditorCommand();
         PlayerRating.registerReprintCommand();
         ModChecker.registerModCheckCommand();
+        DebugKey.INSTANCE.init();
 
         // Initializes keybinds
         Keybinds.init();
@@ -318,13 +320,6 @@ public class PartlySaneSkies {
         ThemeManager.run();
     }
 
-    // Runs chat analyzer for debug mode
-    @SubscribeEvent
-    public void chatAnalyzer(ClientChatReceivedEvent evnt) {
-        if (PartlySaneSkies.config.debugMode)
-            SystemUtils.INSTANCE.log(Level.INFO, evnt.message.getFormattedText());
-    }
-
     @SubscribeEvent
     public void onClientConnectedToServer(FMLNetworkEvent.ClientConnectedToServerEvent event) {
         if (DOGFOOD) {
@@ -378,15 +373,6 @@ public class PartlySaneSkies {
                 ChatUtils.INSTANCE.sendClientMessage("§b§m--------------------------------------------------", true);
             }).start();
         }
-    }
-
-
-
-    // Runs when debug key is pressed
-    public static void debugMode() {
-        PartlySaneSkies.config.debugMode = !PartlySaneSkies.config.debugMode;
-        ChatUtils.INSTANCE.sendClientMessage("Debug mode: " + PartlySaneSkies.config.debugMode);
-        BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner("Test", 5000L, 5f, new OneColor(255, 0, 255, 1).toJavaColor()));
     }
 
 

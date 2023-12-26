@@ -17,6 +17,7 @@ import gg.essential.elementa.dsl.constraint
 import gg.essential.elementa.dsl.pixels
 import gg.essential.universal.UMatrixStack
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
+import me.partlysanestudios.partlysaneskies.features.debug.DebugKey
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
@@ -192,7 +193,7 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
                 return
             }
 
-            if (PartlySaneSkies.config.debugMode) {
+            if (DebugKey.isDebugMode()) {
                 return
             }
 //            val inventory = MinecraftUtils.getSeparateUpperLowerInventories(event.gui)[0]

@@ -12,6 +12,7 @@ import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager;
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand;
 import me.partlysanestudios.partlysaneskies.api.Request;
 import me.partlysanestudios.partlysaneskies.api.RequestsManager;
+import me.partlysanestudios.partlysaneskies.features.debug.DebugKey;
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils;
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils;
 import net.minecraft.event.ClickEvent;
@@ -247,7 +248,7 @@ public class ModChecker {
         chatMessage.appendSibling(new ChatComponentText("\n\n§9If you believe any of these mods may be a mistake, report it in the PSS discord! §7(/pssdiscord)"));
 
 
-        if (PartlySaneSkies.config.debugMode) {
+        if (DebugKey.INSTANCE.isDebugMode()) {
             ChatUtils.INSTANCE.sendClientMessage("§8Unknown Mods:\n" + insertCharacterAfterNewLine(debugBuilder.toString(), "§8") + "\n\n");
             SystemUtils.INSTANCE.copyStringToClipboard("```json\n"+ debugBuilder.toString() + "\n```");
         }

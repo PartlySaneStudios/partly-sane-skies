@@ -19,6 +19,7 @@ import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -152,17 +153,17 @@ public class PlayerRating {
         return str.toString();
     }
 
-    public static String getSlackingMembers() {
-        StringBuilder str = new StringBuilder();
+    public static ArrayList<String> getSlackingMembers() {
+        ArrayList<String> strList = new ArrayList<>();
         for (Map.Entry<String, HashMap<String, Integer>> entry : playerPointCategoryMap.entrySet()) {
             if (totalPlayerPoints.get(entry.getKey()) / (totalPoints * 1d) > PartlySaneSkies.config.dungeonSnitcherPercent / 100f) {
                 continue;
             }
 
-            str.append("PSS Slacker Snitcher -> " + entry.getKey() + " looks to be slacking. (This could be a mistake)");
+            strList.add("PSS Slacker Snitcher -> " + entry.getKey() + " looks to be slacking. (This could be a mistake)");
         }
 
-        return str.toString();
+        return strList;
     }
 
 
@@ -205,6 +206,8 @@ public class PlayerRating {
             final String string = getDisplayString();
             lastMessage = string;
 
+            final String chatMessageString = getChatMessage();
+            final ArrayList<String> slackingMembers = getSlackingMembers();
 
             new Thread(() -> {
                 try {
@@ -218,23 +221,24 @@ public class PlayerRating {
                     }
                     ChatUtils.INSTANCE.sendClientMessage(string, true);
                     if (PartlySaneSkies.config.partyChatDungeonPlayerBreakdown) {
-                        PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/pc " + getChatMessage());
+                        PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/pc " + chatMessageString);
                     }
                 });
 
-
                 if (PartlySaneSkies.config.dungeonSnitcher) {
-                    PartlySaneSkies.minecraft.addScheduledTask(() -> {
-                        if (PartlySaneSkies.config.dungeonSnitcher) {
-                            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/pc " + getChatMessage());
+                    for (String str : slackingMembers) {
+                        try {
+                            Thread.sleep(750);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
                         }
-                    });
+                        PartlySaneSkies.minecraft.addScheduledTask(() -> PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/pc " + str));
+                    }
+
                 }
             }).start();
 
-
             reset();
-            return;
         }
 
         if (event.message.getUnformattedText().contains("You are playing on profile:") || event.message.getFormattedText().contains("[NPC] §bMort§f: Here, I found this map when I first entered")) {

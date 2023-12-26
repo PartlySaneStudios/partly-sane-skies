@@ -1343,4 +1343,23 @@ public class OneConfigScreen extends Config {
             category = "Debug"
     )
     public boolean debugMode = false;
+
+
+    @Switch(
+            name = "Render TEST Banner",
+            category = "Debug"
+    )
+    public boolean debugRenderTestBanner = false;
+
+    @Switch(
+            name = "Chat Analyser",
+            category = "Debug"
+    )
+    public boolean debugChatAnalyser = false;
+
+    @Switch(
+            name = "Add a slacker to the party",
+            category = "Debug"
+    )
+    public boolean debugAddSlacker = false;
 }
