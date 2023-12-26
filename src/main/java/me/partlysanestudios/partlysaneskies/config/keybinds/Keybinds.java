@@ -7,6 +7,7 @@ package me.partlysanestudios.partlysaneskies.config.keybinds;
 
 import me.partlysanestudios.partlysaneskies.features.commands.HelpCommand;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
+import me.partlysanestudios.partlysaneskies.features.debug.DebugKey;
 import me.partlysanestudios.partlysaneskies.features.skills.PetAlert;
 import me.partlysanestudios.partlysaneskies.features.information.WikiArticleOpener;
 import me.partlysanestudios.partlysaneskies.features.economy.auctionhousemenu.AuctionHouseGui;
@@ -63,7 +64,7 @@ public final class Keybinds {
     @SubscribeEvent
     public void keybindWhileInGui(KeyboardInputEvent.Post event) {
         if (PartlySaneSkies.config.debugKeybind.isActive()) {
-            PartlySaneSkies.debugMode();
+            DebugKey.INSTANCE.onDebugKeyPress();
         }
 
         if (Keyboard.isKeyDown(wikiKeybind.getKeyCode())) {
@@ -94,7 +95,7 @@ public final class Keybinds {
     @SubscribeEvent
     public void checkKeyBinds(KeyInputEvent event) {
         if (PartlySaneSkies.config.debugKeybind.isActive()) {
-            PartlySaneSkies.debugMode();
+            DebugKey.INSTANCE.onDebugKeyPress();
         }
         
         if (configKey.isPressed()) {

@@ -28,6 +28,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import java.awt.*;
 import java.util.List;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CompostValue {
     public static HashMap<String, Double> compostValueMap = new HashMap<>();
@@ -175,17 +177,29 @@ public class CompostValue {
     private static String getCompostCostString(IInventory composterInventory) {
         ItemStack infoItem = composterInventory.getStackInSlot(46);
         ArrayList<String> loreList = MinecraftUtils.INSTANCE.getLore(infoItem);
-        String costLine = "{compost_cost} organic matter stored";
-        for (String line : loreList){
+        String costLine = "4,000";
+        String regex = "\\b(\\d{1,3}(,\\d{3})*(\\.\\d+)?|\\d+k)\\b";
+
+
+        Pattern pattern = Pattern.compile(regex);
+
+        Matcher matcher;
+        for (String line : loreList) {
             String unformattedLine = StringUtils.INSTANCE.removeColorCodes(line);
-            if (unformattedLine.contains("organic matter stored")) {
+            matcher = pattern.matcher(unformattedLine);
+            if (matcher.find()) {
                 costLine = unformattedLine;
                 break;
             }
         }
 
-        String pattern = "{compost_cost} organic matter stored";
-        return StringUtils.INSTANCE.recognisePattern(costLine, pattern, "{compost_cost}");
+        matcher = pattern.matcher(costLine);
+
+        if (matcher.find()) {
+            return matcher.group(1);
+        } else {
+            return "4000";
+        }
     }
 
     private static double getCompostCost(IInventory inventory) {
@@ -196,17 +210,26 @@ public class CompostValue {
         ItemStack infoItem = composterInventory.getStackInSlot(46);
         ArrayList<String> loreList = MinecraftUtils.INSTANCE.getLore(infoItem);
         String amountLine = "§2§l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §r §e0§6/§e40k";
+        String regex = "(.*?)/(.*?)";
+
+        Pattern pattern = Pattern.compile(regex);
+
         for (String line : loreList){
-            if (line.contains("§6/§e")) {
-                amountLine = line;
+            String unformattedLine = StringUtils.INSTANCE.removeColorCodes(line);
+            Matcher matcher = pattern.matcher(unformattedLine);
+            if (matcher.find()) {
+                amountLine = unformattedLine;
                 break;
             }
         }
 
-        String pattern = StringUtils.INSTANCE.removeColorCodes("§2§l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §r §e{compost_amount}§6/");
-        String amountString = StringUtils.INSTANCE.recognisePattern(StringUtils.INSTANCE.removeColorCodes(amountLine), pattern, "{compost_amount}");
-        
-        return amountString.replaceAll("\\d.", "");
+        amountLine = StringUtils.INSTANCE.removeColorCodes(amountLine);
+        amountLine = StringUtils.INSTANCE.stripLeading(amountLine);
+        amountLine = StringUtils.INSTANCE.stripTrailing(amountLine);
+        int indexOfStart = amountLine.indexOf("/");
+        amountLine = amountLine.substring(0, indexOfStart);
+
+        return amountLine;
 
     }
 
@@ -222,9 +245,16 @@ public class CompostValue {
         ItemStack infoItem = composterInventory.getStackInSlot(46);
         ArrayList<String> loreList = MinecraftUtils.INSTANCE.getLore(infoItem);
         String amountLine = "0/40k";
+
+        String regex = "(.*?)/(.*?)";
+
+        Pattern pattern = Pattern.compile(regex);
+
         for (String line : loreList){
-            if (line.contains("§6/§e")) {
-                amountLine = line;
+            String unformattedLine = StringUtils.INSTANCE.removeColorCodes(line);
+            Matcher matcher = pattern.matcher(unformattedLine);
+            if (matcher.find()) {
+                amountLine = unformattedLine;
                 break;
             }
         }
@@ -232,7 +262,6 @@ public class CompostValue {
         amountLine = StringUtils.INSTANCE.removeColorCodes(amountLine);
         amountLine = StringUtils.INSTANCE.stripLeading(amountLine);
         amountLine = StringUtils.INSTANCE.stripTrailing(amountLine);
-
         int indexOfStart = amountLine.indexOf("/");
         amountLine = amountLine.substring(indexOfStart + 1);
 

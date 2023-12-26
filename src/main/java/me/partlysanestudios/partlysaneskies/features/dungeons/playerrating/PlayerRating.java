@@ -4,11 +4,12 @@
 //
 
 
-package me.partlysanestudios.partlysaneskies.features.dungeons;
+package me.partlysanestudios.partlysaneskies.features.dungeons.playerrating;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.ibm.icu.text.MessagePattern;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager;
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand;
@@ -18,6 +19,7 @@ import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -151,6 +153,19 @@ public class PlayerRating {
         return str.toString();
     }
 
+    public static ArrayList<String> getSlackingMembers() {
+        ArrayList<String> strList = new ArrayList<>();
+        for (Map.Entry<String, HashMap<String, Integer>> entry : playerPointCategoryMap.entrySet()) {
+            if (totalPlayerPoints.get(entry.getKey()) / (totalPoints * 1d) > PartlySaneSkies.config.dungeonSnitcherPercent / 100f) {
+                continue;
+            }
+
+            strList.add("PSS Slacker Snitcher -> " + entry.getKey() + " looks to be slacking. (This could be a mistake)");
+        }
+
+        return strList;
+    }
+
 
     public static void handleMessage(String message) {
         for (Map.Entry<String, String> entry : positivePatterns.entrySet()) {
@@ -183,7 +198,7 @@ public class PlayerRating {
     // §r§fTeam Score: §r
     @SubscribeEvent
     public void onChatEvent(ClientChatReceivedEvent event) {
-        if (!PartlySaneSkies.config.dungeonPlayerBreakdown) {
+        if (!(PartlySaneSkies.config.dungeonPlayerBreakdown || PartlySaneSkies.config.dungeonSnitcher)) {
             return;
         }
         // If end of dungeon
@@ -191,9 +206,12 @@ public class PlayerRating {
             final String string = getDisplayString();
             lastMessage = string;
 
+            final String chatMessageString = getChatMessage();
+            final ArrayList<String> slackingMembers = getSlackingMembers();
+
             new Thread(() -> {
                 try {
-                    Thread.sleep(125);
+                    Thread.sleep( (long) (PartlySaneSkies.config.dungeonPlayerBreakdownDelay * 1000));
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -202,14 +220,25 @@ public class PlayerRating {
                         return;
                     }
                     ChatUtils.INSTANCE.sendClientMessage(string, true);
+                    if (PartlySaneSkies.config.partyChatDungeonPlayerBreakdown) {
+                        PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/pc " + chatMessageString);
+                    }
                 });
+
+                if (PartlySaneSkies.config.dungeonSnitcher) {
+                    for (String str : slackingMembers) {
+                        try {
+                            Thread.sleep(750);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                        PartlySaneSkies.minecraft.addScheduledTask(() -> PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/pc " + str));
+                    }
+
+                }
             }).start();
 
-            if (PartlySaneSkies.config.partyChatDungeonPlayerBreakdown) {
-                PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/pc " + getChatMessage());
-            }
             reset();
-            return;
         }
 
         if (event.message.getUnformattedText().contains("You are playing on profile:") || event.message.getFormattedText().contains("[NPC] §bMort§f: Here, I found this map when I first entered")) {

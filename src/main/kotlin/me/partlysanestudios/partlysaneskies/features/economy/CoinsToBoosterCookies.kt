@@ -22,6 +22,7 @@ import me.partlysanestudios.partlysaneskies.commands.PSSCommand
 import me.partlysanestudios.partlysaneskies.api.Request
 import me.partlysanestudios.partlysaneskies.api.RequestRunnable
 import me.partlysanestudios.partlysaneskies.api.RequestsManager
+import me.partlysanestudios.partlysaneskies.features.debug.DebugKey
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.floor
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.round
@@ -91,7 +92,7 @@ object CoinsToBoosterCookieConversion {
                         ChatUtils.sendClientMessage("§7(For reference, Booster Cookies today are worth ${ceil(SkyblockDataManager.getItem(
                             boosterCookieItemId
                         ).getBuyPrice()).round(1).formatNumber()} coins. Note that the developers of Partly Sane Skies do not support IRL trading; the /c2c command is intended for educational purposes.)", true)
-                        if (PartlySaneSkies.config.debugMode) { // Optional debug message
+                        if (DebugKey.isDebugMode()) { // Optional debug message
                             ChatUtils.sendClientMessage("§eIf the currency symbol doesn't look right, please report this to us via §9/discord §eso we can find a replacement symbol that Minecraft 1.8.9 can render.", true)
                         }
                     } else if (a.isEmpty() || a.size == 1) {
@@ -143,16 +144,16 @@ object CoinsToBoosterCookieConversion {
                         ChatUtils.sendClientMessage("§ePSS is having trouble contacting SkyCrypt's API. Please try again; if this continues please report this to us via §9/discord§e.")
                         return@RequestRunnable
                     }
-                    if (PartlySaneSkies.config.debugMode) ChatUtils.sendClientMessage("§eSuccessfully contacted SkyCrypt's API.")
+                    if (DebugKey.isDebugMode()) ChatUtils.sendClientMessage("§eSuccessfully contacted SkyCrypt's API.")
                     val jsonObject = (JsonParser().parse(r.getResponse()) as JsonObject)
                     val profileData = (jsonObject["profiles"] as JsonObject)
-                    if (PartlySaneSkies.config.debugMode) ChatUtils.sendClientMessage("§eProfiles obtained.")
+                    if (DebugKey.isDebugMode()) ChatUtils.sendClientMessage("§eProfiles obtained.")
                     if (profileData == null) {
                         ChatUtils.sendClientMessage("§ePSS is having trouble accessing your profile data over SkyCrypt. Please try again; if this continues please report this to us via §9/discord§e.")
                         return@RequestRunnable
                     }
                     var networth: Double = -2.0
-                    if (PartlySaneSkies.config.debugMode) ChatUtils.sendClientMessage("§eFinding current profile...")
+                    if (DebugKey.isDebugMode()) ChatUtils.sendClientMessage("§eFinding current profile...")
                     for (profile: Map.Entry<String, JsonElement> in profileData.entrySet()) {
                         val theProfile = profile.value.getAsJsonObject()
                         if (theProfile.get("current").asBoolean) {
@@ -160,7 +161,7 @@ object CoinsToBoosterCookieConversion {
                             break
                         }
                     }
-                    if (PartlySaneSkies.config.debugMode) ChatUtils.sendClientMessage("§eCurrent profile and its networth found.")
+                    if (DebugKey.isDebugMode()) ChatUtils.sendClientMessage("§eCurrent profile and its networth found.")
                     if (networth >= 0.0) {
                         val boosterCookieData: JsonObject = JsonParser().parse(
                             PublicDataManager.getFile(
@@ -199,7 +200,7 @@ object CoinsToBoosterCookieConversion {
                             "§ePlease use NEU's §a/pv§e command for converting your unsoulbound networth.",
                             true
                         )
-                        if (PartlySaneSkies.config.debugMode) ChatUtils.sendClientMessage(
+                        if (DebugKey.isDebugMode()) ChatUtils.sendClientMessage(
                             "§eIf the currency symbol doesn't look right, please report this to us via §9/discord §eso we can find a replacement symbol that Minecraft 1.8.9 can render.",
                             true
                         )
