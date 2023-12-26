@@ -252,14 +252,6 @@ public class OneConfigScreen extends Config {
     public boolean showUpToDateMods = true;
 
     @Switch(
-            name = "Show up to date mods",
-            category = "General",
-            subcategory = "Mods Checker",
-            description = "Show mods that are up to date"
-    )
-    public boolean showUpToDateMods = true;
-
-    @Switch(
             name = "Privacy Mode",
             category = "General",
             subcategory = "Privacy",
