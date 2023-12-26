@@ -248,7 +248,7 @@ public class OneConfigScreen extends Config {
             subcategory = "Mods Checker",
             description = "Use the beta version of mods instead of normal versions"
     )
-    public boolean lookForBetaMods = false;
+    public boolean lookForBetaMods = !"0".equals("@RELEASE_CHANNEL@");
 
     @Switch(
             name = "Privacy Mode",
