@@ -75,6 +75,19 @@ public class OneConfigScreen extends Config {
     )
     public boolean ignored;
 
+    @Dropdown(
+            name = "Update Channel",
+            subcategory = "Updates",
+            category = "General",
+            options = {
+                    "Release",
+                    "Pre-release",
+            }
+    )
+    public int releaseChannel = Integer.parseInt("@RELEASE_CHANNEL@");
+
+
+
     @Number(
         min = .1f,
         max = 30f,
@@ -228,7 +241,15 @@ public class OneConfigScreen extends Config {
             subcategory = "Mods Checker",
             description = "Use the beta version of mods instead of normal versions"
     )
-    public boolean lookForBetaMods = false;
+    public boolean lookForBetaMods = !"0".equals("@RELEASE_CHANNEL@");
+
+    @Switch(
+            name = "Show up to date mods",
+            category = "General",
+            subcategory = "Mods Checker",
+            description = "Show mods that are up to date"
+    )
+    public boolean showUpToDateMods = true;
 
     @Switch(
             name = "Show up to date mods",
@@ -325,12 +346,6 @@ public class OneConfigScreen extends Config {
             subcategory = "Resource Packs"
     )
     public boolean disableThemes = false;
-
-
-
-
-
-
 
 
 

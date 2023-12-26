@@ -29,6 +29,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -310,9 +311,12 @@ public class ModChecker {
 
             KnownMod latest = null;
             Map<String, String> versions;
+            Map<String, String> betaVersions = new HashMap<>(); // Creates a variable to add all of the beta versions as outdated
             if (PartlySaneSkies.config.lookForBetaMods) {
                 versions = modInfo.getBetaVersions();
             } else {
+                betaVersions = modInfo.getBetaVersions();
+
                 versions = modInfo.getVersions();
             }
             for (Map.Entry<String, String> e : versions.entrySet()) {
@@ -321,6 +325,13 @@ public class ModChecker {
 
                 latest = new KnownMod(modId, modInfo.name, version, download, hash);
                 list.add(latest);
+            }
+            for (Map.Entry<String, String> e : betaVersions.entrySet()) {
+                String version = e.getKey();
+                String hash = e.getValue();
+
+                list.add(new KnownMod(modId, modInfo.name, version, download, hash));
+
             }
             if (latest != null) {
                 latest.latest = true;
