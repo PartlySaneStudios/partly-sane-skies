@@ -1385,4 +1385,10 @@ public class OneConfigScreen extends Config {
             category = "Debug"
     )
     public boolean debugAddSlacker = false;
+    
+    @Switch(
+            name = "Send a system notification",
+            category = "Debug"
+    )
+    public boolean debugSendSystemNotification = false;
 }

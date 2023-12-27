@@ -5,6 +5,7 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.features.dungeons.playerrating.PlayerRating
 import me.partlysanestudios.partlysaneskies.gui.BannerRenderer.renderNewBanner
 import me.partlysanestudios.partlysaneskies.gui.PSSBanner
+import me.partlysanestudios.partlysaneskies.system.SystemNotification
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
 import net.minecraftforge.client.event.ClientChatReceivedEvent
@@ -35,6 +36,9 @@ object DebugKey {
             PlayerRating.rackPoints("FlagTheSlacker", "Debug Slacker")
         }
 
+        if (PartlySaneSkies.config.debugSendSystemNotification) {
+            SystemNotification.showNotification("Debug mode: ${isDebugMode()}")
+        }
 
     }
 
