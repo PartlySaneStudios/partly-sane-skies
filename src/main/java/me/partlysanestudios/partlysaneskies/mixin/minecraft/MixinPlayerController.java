@@ -16,7 +16,6 @@ public class MixinPlayerController {
 
     @Inject(method = "onPlayerDestroyBlock", at = @At("HEAD"))
     private void onPlayerDestroyBlock(BlockPos pos, EnumFacing side, CallbackInfoReturnable<Boolean> cir) {
-        ChatUtils.INSTANCE.visPrint("TEST");
         TreecapitatorCooldown.INSTANCE.checkForCooldown();
     }
 }
