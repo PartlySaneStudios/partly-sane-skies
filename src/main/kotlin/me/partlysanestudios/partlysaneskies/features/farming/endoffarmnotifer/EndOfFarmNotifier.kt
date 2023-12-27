@@ -49,7 +49,7 @@ object EndOfFarmNotifier {
     fun run() {
         if (!MathUtils.onCooldown(
                 rangeToHighlightSetTime,
-                (PartlySaneSkies.config.farmHightlightTime * 1000).toLong()
+                (PartlySaneSkies.config.farmHightlightTime * 1000).toLong() // damn we can english (its called highlight)
             )
         ) {
             rangeToHighlight = null
@@ -380,7 +380,6 @@ object EndOfFarmNotifier {
      */
     // Lists all the ranges to the chat
     private fun listRanges() {
-        // Creates header message
         val message = StringBuilder(
             """
          §d§m-----------------------------------------------------
@@ -390,7 +389,6 @@ object EndOfFarmNotifier {
          """.trimIndent()
         )
 
-        // Creates the index number on the left of the message
         var i = 1
 
         // For each alert, format it so its ##. [range]
@@ -403,10 +401,6 @@ object EndOfFarmNotifier {
             i++
         }
 
-        // Sends a message to the client
         ChatUtils.sendClientMessage(message.toString())
     }
-
-
-
 }

@@ -104,8 +104,8 @@ public class SkymartValue {
         IInventory[] inventories = MinecraftUtils.INSTANCE.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen);
         if (inventories == null) return false;
 
-        IInventory composter = inventories[0];
-        if (!StringUtils.INSTANCE.removeColorCodes(composter.getDisplayName().getFormattedText()).contains("SkyMart")) {
+        IInventory skymart = inventories[0];
+        if (!StringUtils.INSTANCE.removeColorCodes(skymart.getDisplayName().getFormattedText()).contains("SkyMart")) {
             return false;
         }
 

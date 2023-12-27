@@ -10,7 +10,6 @@ import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 object AutoGG {
-
     @SubscribeEvent
     fun handleChatEvent(event: ClientChatReceivedEvent) {
         if (!PartlySaneSkies.config.autoGgEnabled) {
@@ -20,7 +19,7 @@ object AutoGG {
             Thread() {
                 Thread.sleep((PartlySaneSkies.config.autoGGCooldown * 1000).toLong())
                 val input = event.message.unformattedText
-                val regex = "\\((.*?)\\)"
+                val regex = "\\((.*)\\)"
 
                 val pattern: Pattern = Pattern.compile(regex)
                 val matcher: Matcher = pattern.matcher(input)
@@ -54,7 +53,6 @@ object AutoGG {
                     }
                 }
             }
-
         }
     }
 }

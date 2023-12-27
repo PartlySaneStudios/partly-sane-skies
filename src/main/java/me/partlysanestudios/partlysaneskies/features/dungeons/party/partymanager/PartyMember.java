@@ -289,6 +289,7 @@ public class PartyMember {
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
+// todo: please for the love of god automate this whenever you rewrite this code
         new UIText("Floor 1: " + StringUtils.INSTANCE.formatNumber(this.f1Runs))
                 .setTextScale(new PixelConstraint(1.3f * scaleFactor))
                 .setX(new PixelConstraint(340f * scaleFactor))
