@@ -105,6 +105,7 @@ public class MinionData {
 
 
     public static class Minion {
+        // TODO: use repo
         public enum Upgrade {
             DIAMOND_SPREADING,
             KRAMPUS_HELMET,
@@ -250,36 +251,37 @@ public class MinionData {
         }
 
         public String costBreakdown(int tier, double hours, Upgrade[] upgrades, MinionFuel fuel) {
-//            Creates a colour for each prefix
-//            Will still use the british way of spelling colour so flag doen'st cry - j10a
-            String colourPrefix;
+//            Creates a color for each prefix
+//            Will still use the british way of spelling colour so flag doesn't cry - j10a
+// i regret saying that - j10a
+            String colorPrefix;
             switch(this.category) {
                 case "COMBAT":
-                    colourPrefix = "§c";
+                    colorPrefix = "§c";
                     break;
 
                 case "FARMING":
-                    colourPrefix = "§a";
+                    colorPrefix = "§a";
                     break;
 
                 case "MINING":
-                    colourPrefix = "§9";
+                    colorPrefix = "§9";
                     break;
 
                 case "FORAGING":
-                    colourPrefix = "§d";
+                    colorPrefix = "§d";
                     break;
 
                 case "FISHING":
-                    colourPrefix = "§b";
+                    colorPrefix = "§b";
                     break;
 
                 default:
-                    colourPrefix = "§7";
+                    colorPrefix = "§7";
 
             }
 
-            StringBuilder str = new StringBuilder(colourPrefix + this.displayName + "§:");
+            StringBuilder str = new StringBuilder(colorPrefix + this.displayName + "§:");
 
             for (Map.Entry<String, Double> en2 : this.getBaseItemsPerMinute(this.maxTier, upgrades, fuel).entrySet()) {
 //                Individual price of the item

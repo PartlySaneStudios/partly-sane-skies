@@ -42,7 +42,7 @@ object ChatManager {
 
         var messageToSend = event.message // Creates a new message to build off of
 
-//        If the chat colours is supposed to run
+//        If the chat colors is supposed to run
         if (ChatColors.getChatColor(
                 ChatColors.getPrefix(messageToSend.formattedText)).isNotEmpty()) {
             messageToSend = ChatColors.detectColorMessage(messageToSend)
@@ -212,7 +212,7 @@ object ChatManager {
         return false
     }
 
-    //ALSO HERE, DONT FORGET
+    //ALSO HERE, DON'T FORGET
     private fun IChatComponent.doChatMessageModify(): Boolean {
         if (this.formattedText.startsWith("{\"server\":")) {
             return false

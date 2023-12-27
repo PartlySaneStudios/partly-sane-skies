@@ -239,6 +239,7 @@ public class PartyManager {
 
     }
 
+    // TODO: reparty is no longer needed, might aswell remove it
     // Reparties all the members of the party
     public static void reparty(List<PartyMember> partyMembers) {
         // Disbands the party

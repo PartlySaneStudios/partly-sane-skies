@@ -120,7 +120,7 @@ public class ModChecker {
             try {
                 String hash = generateHash(modFile);
 
-                // FML has the same hash as "Minecraft Forge", therefore ignroing it
+                // FML has the same hash as "Minecraft Forge", therefore ignoring it
                 if (modName.equals("Forge Mod Loader")) {
                     if (hash.equals("596512ad5f12f95d8a3170321543d4455d23b8fe649c68580c5f828fe74f6668")) {
                         continue;
