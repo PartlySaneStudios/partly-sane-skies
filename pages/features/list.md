@@ -1,8 +1,19 @@
 # Features
 
+Features as of Beta v0.5.3 Prerelease 1
+
 ## General/Miscellaneous Features
 
 General and Miscellaneous features.
+
+### Mod Checker
+
+When enabled, Mod Checker automatically will check your mods list for outdated, suspicous, or unknown mods. These mods may not be on the verified mods list. If you believe a mod is being falsely flagging a mod, please report it in the PSS discord (``/pss``)
+<img width="325" alt="18b5977a-c6b6-4f83-80bf-61b6a1297946" src="https://github.com/FlagHater/partly-sane-skies-FlagHater/assets/106500506/24d3ee14-bc5e-42e7-8604-c2811216b457">
+
+### Privacy Mode
+
+This blocks known mods from automatically sending your diagnostics data to their servers.
 
 ### Custom Main Menu
 
@@ -13,6 +24,10 @@ There are various configurable options from SkyBlock-themed backgrounds,
 along with an option to select a random background.
 
 ![Custom Main Menu](/images/custom_main_menu.png)
+
+### Fun Fact on Main Menu
+
+Displays the daily fun fact on the PSS custom main menu. 
 
 ### Skill Upgrade Recommendation
 
@@ -115,12 +130,25 @@ party message and World War II (1939-1945) air raid siren in case the previous t
 
 Automatically parties everyone in a permanent dungeon party. Using ``/pp`` or ``/permparty``, you have the option to create, party, delete, and add and remove members from your permanent party. You can even add different parties such as an f6Party or a jujuNonCarry party.
 
+### Healer Alert
+
+Sends a warning banner when enabled whenever a dungeon teammate is low on health. Togglable to change from a alert at 50% health to 25% health. 
 
 ### Dungeon Player Rater
 
 At the end of the dungeon, the mod will calculate what percentage of the dungeon was cleared by each player,
 and how much they contributed, showing you how useful each player was.
 In a perfectly balanced 5-player party, each player should get 20%.
+
+### Dungeon Snitcher
+
+Calls out players who may be slacking in dungons, using the Dungon Player Rater. Uses a configurable automatated message. 
+
+![3c9449dd-b694-44d2-93e7-9d846b109912](https://github.com/FlagHater/partly-sane-skies-FlagHater/assets/106500506/f7eb2384-7c99-41ef-827b-90fd4dbb937b)
+
+### Auto GG at End of Dungeon
+
+Automatically sends a "GG" in the chat at the end of a dungeon run. 
 
 ### Required Secrets Notifier
 
