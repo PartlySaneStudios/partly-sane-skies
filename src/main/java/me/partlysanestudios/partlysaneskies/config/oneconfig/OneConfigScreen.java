@@ -1075,7 +1075,7 @@ public class OneConfigScreen extends Config {
     public float allowRightClickTime = 3f;
 
 
-//    Farn notifier
+//    Farm notifier
     @Switch(
             subcategory = "End of Farm Notifier",
             category = "Farming",
@@ -1375,10 +1375,10 @@ public class OneConfigScreen extends Config {
     public boolean debugRenderTestBanner = false;
 
     @Switch(
-            name = "Chat Analyser",
+            name = "Chat Analyzer",
             category = "Debug"
     )
-    public boolean debugChatAnalyser = false;
+    public boolean debugChatAnalyzer = false;
 
     @Switch(
             name = "Add a slacker to the party",
