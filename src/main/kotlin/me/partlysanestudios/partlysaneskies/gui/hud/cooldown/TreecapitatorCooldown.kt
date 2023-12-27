@@ -10,6 +10,8 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
+import net.minecraft.init.Items
+import net.minecraft.item.ItemStack
 
 object TreecapitatorCooldown: Cooldown() {
     override fun getTotalTime(): Long {
@@ -20,9 +22,13 @@ object TreecapitatorCooldown: Cooldown() {
         return "Treecapitator"
     }
 
+    private var treecapitatorAxe = ItemStack(Items.golden_axe);
+    override fun getItemToDisplay(): ItemStack {
+        return treecapitatorAxe
+    }
+
     fun checkForCooldown() {
         if (MinecraftUtils.getCurrentlyHoldingItem() == null) {
-            ChatUtils.visPrint("Null")
             return
         }
 
@@ -30,15 +36,14 @@ object TreecapitatorCooldown: Cooldown() {
         val idInUse = HypixelUtils.getItemId(itemInUse)
 
         if (!idInUse.equals("TREECAPITATOR_AXE")) {
-            ChatUtils.visPrint(idInUse)
             return
         }
 
         if (isCooldownActive()) {
-            ChatUtils.visPrint("Cooldown already active")
             return
         }
 
+        treecapitatorAxe = itemInUse
         this.startCooldown()
 
 

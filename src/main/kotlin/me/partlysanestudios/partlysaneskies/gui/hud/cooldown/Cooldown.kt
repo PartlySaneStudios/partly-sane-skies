@@ -8,6 +8,7 @@ package me.partlysanestudios.partlysaneskies.gui.hud.cooldown
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.utils.MathUtils
+import net.minecraft.item.ItemStack
 
 abstract class Cooldown {
     init {
@@ -59,4 +60,6 @@ abstract class Cooldown {
      * Returns the name of the cooldown
      */
     abstract fun getDisplayName(): String
+
+    abstract fun getItemToDisplay(): ItemStack
 }
