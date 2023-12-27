@@ -1375,7 +1375,7 @@ public class OneConfigScreen extends Config {
     public boolean debugRenderTestBanner = false;
 
     @Switch(
-            name = "Chat Analyzer",
+            name = "Chat Analyser",
             category = "Debug"
     )
     public boolean debugChatAnalyser = false;
