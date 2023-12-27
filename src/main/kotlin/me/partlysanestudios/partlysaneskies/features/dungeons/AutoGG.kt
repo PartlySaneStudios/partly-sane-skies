@@ -19,7 +19,7 @@ object AutoGG {
             Thread() {
                 Thread.sleep((PartlySaneSkies.config.autoGGCooldown * 1000).toLong())
                 val input = event.message.unformattedText
-                val regex = "\\((.*)\\)"
+                val regex = "\\((.*?)\\)"
 
                 val pattern: Pattern = Pattern.compile(regex)
                 val matcher: Matcher = pattern.matcher(input)
