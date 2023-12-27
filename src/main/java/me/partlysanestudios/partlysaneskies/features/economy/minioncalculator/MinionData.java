@@ -252,7 +252,7 @@ public class MinionData {
 
         public String costBreakdown(int tier, double hours, Upgrade[] upgrades, MinionFuel fuel) {
 //            Creates a color for each prefix
-//            Will still use the british way of spelling colour so flag doen'st cry - j10a
+//            Will still use the british way of spelling colour so flag doesn't cry - j10a
 // i regret saying that - j10a
             String colorPrefix;
             switch(this.category) {
