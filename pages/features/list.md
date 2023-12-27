@@ -8,12 +8,12 @@ General and Miscellaneous features.
 
 ### Mod Checker
 
-When enabled, Mod Checker automatically will check your mods list for outdated, suspicous, or unknown mods. These mods may not be on the verified mods list. If you believe a mod is being falsely flagging a mod, please report it in the PSS discord (``/pss``)
+When enabled, Mod Checker automatically will check your mods list for outdated, suspicous, or unknown mods. These mods may not be on the list of varified mods, a mod is being falsely flagged, please report it in the PSS discord (``/pss``)
 <img width="750" alt="18b5977a-c6b6-4f83-80bf-61b6a1297946" src="https://github.com/FlagHater/partly-sane-skies-FlagHater/assets/106500506/24d3ee14-bc5e-42e7-8604-c2811216b457">
 
 ### Privacy
 
-This toggle blocks other mods wanting to send data to their servers. Currently supported mods are essentials & dungeon guide. If you know more mods that send that kind of data, feel free to report that in our discord server. This is a privacy feature, and is off by default.
+This toggle blocks other mods wanting to send data to their servers. Currently supported mods are Essentials & Dungeon Guide. If you know more mods that send that kind of data, feel free to report that in our discord server. This is a privacy feature, and is off by default.
 
 ### Custom Main Menu
 
@@ -27,7 +27,7 @@ along with an option to select a random background.
 
 ### Fun Fact on Main Menu
 
-Displays the daily fun fact on the PSS custom main menu. 
+Displays a daily fun fact on the PSS custom main menu. 
 
 ### Skill Upgrade Recommendation
 
@@ -132,7 +132,7 @@ Automatically parties everyone in a permanent dungeon party. Using ``/pp`` or ``
 
 ### Healer Alert
 
-Sends a warning banner when enabled whenever a dungeon teammate is low on health. Togglable to change from a alert at 50% health to 25% health. 
+Sends a warning banner whenever a dungeon teammate is low on health. Togglable to change alert at either 50% health or 25% health. 
 
 ### Dungeon Player Rater
 
@@ -142,7 +142,7 @@ In a perfectly balanced 5-player party, each player should get 20%.
 
 ### Dungeon Snitcher
 
-Calls out players who may be slacking in dungons, using the Dungon Player Rater. Uses a configurable automatated message. 
+Calls out players who may be slacking in dungeons, using the Dungeon Player Rater. Uses a configurable automatated message. 
 
 ![3c9449dd-b694-44d2-93e7-9d846b109912](https://github.com/FlagHater/partly-sane-skies-FlagHater/assets/106500506/f7eb2384-7c99-41ef-827b-90fd4dbb937b)
 
