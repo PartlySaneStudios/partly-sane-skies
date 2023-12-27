@@ -269,7 +269,7 @@ public class MinionData {
                     break;
 
                 case "FORAGING":
-                    colouPrefix = "§d";
+                    colorPrefix = "§d";
                     break;
 
                 case "FISHING":
