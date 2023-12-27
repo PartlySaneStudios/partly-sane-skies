@@ -1378,7 +1378,7 @@ public class OneConfigScreen extends Config {
             name = "Chat Analyzer",
             category = "Debug"
     )
-    public boolean debugChatAnalyzer = false;
+    public boolean debugChatAnalyser = false;
 
     @Switch(
             name = "Add a slacker to the party",
