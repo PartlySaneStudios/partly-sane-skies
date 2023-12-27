@@ -105,7 +105,7 @@ public class MinionData {
 
 
     public static class Minion {
-        // todo: use repo
+        // TODO: use repo
         public enum Upgrade {
             DIAMOND_SPREADING,
             KRAMPUS_HELMET,

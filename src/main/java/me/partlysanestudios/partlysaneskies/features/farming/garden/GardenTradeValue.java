@@ -32,7 +32,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-// todo: lmao this could literally use an abstract class with skymart, compost, bitsshop because its like 90% the same
+// TODO: lmao this could literally use an abstract class with skymart, compost, bitsshop because its like 90% the same
 
 public class GardenTradeValue {
     private static final Window window = new Window(ElementaVersion.V2);

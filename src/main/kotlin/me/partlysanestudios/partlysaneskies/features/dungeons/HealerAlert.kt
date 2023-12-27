@@ -55,7 +55,7 @@ object HealerAlert {
                 return
             }
             lastWarnTime = PartlySaneSkies.getTime()
-            BannerRenderer.renderNewBanner(PSSBanner("A player is LOW", 3500, color = Color.RED))
+            BannerRenderer.renderNewBanner(PSSBanner("A player is low", 3500, color = Color.RED))
             PartlySaneSkies.minecraft.soundHandler
                 .playSound(PositionedSoundRecord.create(ResourceLocation("partlysaneskies", "bell")))
         }
