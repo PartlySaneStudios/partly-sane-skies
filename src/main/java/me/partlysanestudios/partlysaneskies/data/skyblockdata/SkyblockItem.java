@@ -11,7 +11,7 @@ import java.util.Comparator;
 public class SkyblockItem {
     private final String id;
     private final String name;
-    private final String rarity;
+    private final Rarity rarity;
     private final double npcSellPrice;
     private double bazaarSellPrice;
 
@@ -21,7 +21,7 @@ public class SkyblockItem {
     private double averageLowestBinPrice;
     private int bitCost;
 
-    public SkyblockItem(String id, String name, double npcSellPrice, String rarity) {
+    public SkyblockItem(String id, String name, double npcSellPrice, Rarity rarity) {
         this.id = id;
         this.name = name;
         this.rarity = rarity;
@@ -71,7 +71,7 @@ public class SkyblockItem {
         return name;
     }
 
-    public String getRarity() {
+    public Rarity getRarity() {
         return rarity;
     }
 
@@ -149,37 +149,6 @@ public class SkyblockItem {
     }
 
     public String getRarityColorCode() {
-        switch (rarity) {
-            case "COMMON":
-                return "§f";
-
-            case "UNCOMMON":
-                return "§a";
-
-            case "RARE":
-                return "§9";
-
-            case "EPIC":
-                return "§5";
-
-            case "LEGENDARY":
-                return "§6";
-
-            case "DIVINE":
-                return "§b";
-
-            case "MYTHIC":
-                return "§d";
-
-            case "SUPREME":
-                return "§4";
-
-            case "SPECIAL":
-            case "VERY_SPECIAL":
-                return "§c";
-
-            default:
-                return "";
-        }
+        return rarity.getColorCode();
     }
 }
