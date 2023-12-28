@@ -12,14 +12,12 @@ import gg.essential.elementa.constraints.CenterConstraint
 import gg.essential.elementa.dsl.percent
 import gg.essential.elementa.dsl.pixels
 import gg.essential.universal.UMatrixStack
-import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.weightedAverage
 import net.minecraftforge.client.event.RenderGameOverlayEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import java.awt.Color
-import java.util.LinkedList
+import java.util.*
 
 object CooldownManager {
-    val cooldownsDisplayableAtOnce = 3;
+    val cooldownsDisplayableAtOnce = 3
 
     val window = Window(ElementaVersion.V2)
 
@@ -46,7 +44,7 @@ object CooldownManager {
             }
         }
 
-        return activeCooldowns;
+        return activeCooldowns
     }
 
     @SubscribeEvent
@@ -63,7 +61,7 @@ object CooldownManager {
         }
 
         for (cooldownElement in cooldownElements) {
-            cooldownElement.setCooldownToDisplay(null);
+            cooldownElement.setCooldownToDisplay(null)
         }
 
         for (i in 0..<cooldownsToDisplay) {

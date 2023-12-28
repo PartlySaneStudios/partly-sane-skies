@@ -1,3 +1,9 @@
+//
+// Written by Su386.
+// See LICENSE for copyright and license notices.
+//
+
+
 package me.partlysanestudios.partlysaneskies.data.cache
 
 import com.google.gson.Gson
@@ -7,7 +13,6 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.features.debug.DebugKey
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils
 import me.partlysanestudios.partlysaneskies.utils.MathUtils
-import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getSeparateUpperLowerInventories
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import net.minecraft.client.gui.inventory.GuiChest
@@ -23,7 +28,6 @@ import java.nio.file.Paths
 import java.util.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
-import kotlin.collections.HashMap
 import kotlin.io.path.Path
 
 object PetData {
@@ -184,7 +188,7 @@ object PetData {
         if (DebugKey.isDebugMode() && PartlySaneSkies.config.debugPrintPetWorldParsingInformation) {
             ChatUtils.visPrint("founD")
         }
-        val (_, level, colorCode, owner, petType) = matchResult.destructured
+        val (_, level, colorCode, _, petType) = matchResult.destructured
         if (DebugKey.isDebugMode() && PartlySaneSkies.config.debugPrintPetWorldParsingInformation) {
             ChatUtils.visPrint(petType)
         }

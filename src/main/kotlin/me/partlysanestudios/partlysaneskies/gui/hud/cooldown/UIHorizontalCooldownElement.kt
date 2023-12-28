@@ -1,3 +1,9 @@
+//
+// Written by Su386.
+// See LICENSE for copyright and license notices.
+//
+
+
 package me.partlysanestudios.partlysaneskies.gui.hud.cooldown
 
 import gg.essential.elementa.UIComponent
@@ -41,19 +47,19 @@ class UIHorizontalCooldownElement(val xConstraint: XConstraint, val yConstraint:
 
     fun setChildOf(parent: UIComponent): UIHorizontalCooldownElement {
         boundingBox.setChildOf(parent)
-        return this;
+        return this
 
     }
 
     fun setX(xConstraint: XConstraint): UIHorizontalCooldownElement {
         boundingBox.setX(xConstraint)
-        return this;
+        return this
 
     }
 
     fun setY(yConstraint: YConstraint): UIHorizontalCooldownElement {
         boundingBox.setY(yConstraint)
-        return this;
+        return this
     }
 
     fun setCooldownToDisplay(cooldown: Cooldown?) {

@@ -8,7 +8,6 @@ package me.partlysanestudios.partlysaneskies.gui.hud.cooldown
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.data.cache.PetData
-import me.partlysanestudios.partlysaneskies.utils.ChatUtils
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
 import net.minecraft.init.Items
@@ -55,8 +54,6 @@ object TreecapitatorCooldown: Cooldown() {
 
         treecapitatorAxe = itemInUse
         this.startCooldown()
-
-
     }
 
 
