@@ -69,7 +69,7 @@ object PetData {
         this.petDataJson = petDataJson
     }
 
-    // Saves all the chat alerts data
+    // Saves all the pet data
     @Throws(IOException::class)
     fun save() {
         // Creates a new file and Gson instance
@@ -88,21 +88,24 @@ object PetData {
         writer.close()
     }
 
-    /*
-     * @returns the current pet level or -1 when a pet is not spawned or unknown
+    /**
+     * @return the current pet level or -1 when a pet is not spawned or unknown
      */
     fun getCurrentPetLevel(): Int {
         parsePetFromWorld()
         return petDataJson?.currentPetLevel ?: -1
     }
-    /*
-     * @returns the current pet name or an empty string when a pet is not spawned or unknown
+    /**
+     * @return the current pet name or an empty string when a pet is not spawned or unknown
      */
     fun getCurrentPetName(): String {
         parsePetFromWorld()
         return petDataJson?.currentPetName ?: ""
     }
 
+    /**
+     * @return the current pet rarity or Rarity.UNKNOWN when a pet is not spawned or unknown
+     */
     fun getCurrentPetRarity(): Rarity {
         parsePetFromWorld()
         return petDataJson?.currentPetRarity ?: Rarity.UNKNOWN
@@ -221,6 +224,9 @@ object PetData {
         }
     }
 
+    /**
+     * @return if the current GUI is the pets gui
+     */
     private fun isPetGui(): Boolean {
         if (PartlySaneSkies.minecraft.currentScreen !is GuiChest) {
             return false
@@ -229,7 +235,10 @@ object PetData {
         return upper.displayName.formattedText.removeColorCodes().contains("Pets")
     }
 
-    // Using that list of pets, check to see if it's owned by a specific player
+    /**
+     * Using a list of all pets from getUsersPet(), check to see if it's owned by the player
+     * @return the current user's pet
+     */
     private fun getUsersPet(): Entity? {
         val name = PartlySaneSkies.minecraft.thePlayer.getName()
         val petEntities = getAllPets()
@@ -243,7 +252,9 @@ object PetData {
         return null
     }
 
-    // Gets all the pets current loaded by the game
+    /**
+     * @return all the pets currently loaded in the world
+     */
     private fun getAllPets(): List<Entity> {
         val petEntities: MutableList<Entity> = ArrayList()
         val armorStandEntities = getAllArmorStands()
@@ -259,7 +270,9 @@ object PetData {
         return petEntities
     }
 
-    // Gets all the armor stands currently loaded by the game
+    /**
+     * @return all the armor stands currently loded in the world
+     */
     private fun getAllArmorStands(): List<Entity> {
         val armorStandEntities: MutableList<Entity> = ArrayList()
         val allEntities = getAllEntitiesInWorld()
@@ -273,11 +286,17 @@ object PetData {
         return armorStandEntities
     }
 
-    // Returns a list of all loaded entities in the world
+    /**
+     * @return all the entities loaded in the world
+     */
     private fun getAllEntitiesInWorld(): List<Entity> {
         return PartlySaneSkies.minecraft.theWorld.getLoadedEntityList()
     }
 
+
+    /**
+     * @return the rarity associated with a color code
+     */
     private fun String.getPetRarityFromColorCode(): Rarity {
         return if (this == Rarity.COMMON.colorCode) {
             Rarity.COMMON
@@ -296,6 +315,11 @@ object PetData {
         }
     }
 
+    /**
+     * An Enum class specifically for pets
+     * @param order: an integer signifying the rarity of the pet to be able to compare using operators
+     * @param colorCode: the color code relating to that rarity
+     */
     enum class Rarity(val order: Int, val colorCode: String): Comparable<Rarity> {
         UNKNOWN(-1, ""),
         COMMON(0, "§f"),
@@ -307,6 +331,13 @@ object PetData {
     }
 
 
+    /**
+     * PetDataJson is a private class representing the data that is saved in the cache
+     * @property currentPetRarity: the current pet's rarity
+     * @property currentPetLevel: The current pet's level
+     * @property currentPetName: The current pet's name
+     * @property petNameLevelMap: A two-dimensional map with the rarity as the first key, and a hashmap containing the pet name as the key and the pet level as the value as the value
+     */
     private class PetDataJson {
 
         @Expose

@@ -128,7 +128,6 @@ class PSSBanner(val text: String, val lengthOfTimeToRender: Long, val textScale:
 
 
         val color = ImageUtils.applyOpacityToColor(color, alpha)
-//        ChatUtils.sendClientMessage("${alpha},  ${color.alpha}")
 
         return color
     }
@@ -136,27 +135,19 @@ class PSSBanner(val text: String, val lengthOfTimeToRender: Long, val textScale:
     private fun getAlpha(timeStarted: Long, displayLengthSeconds: Double): Short {
         val displayLength = displayLengthSeconds * 1000
 
-//        ChatUtils.sendClientMessage("DisplayLengthSeconds${displayLength}")
-//        ChatUtils.sendClientMessage("DisplayLength${displayLength}")
 
         val fadeLength = displayLength * (1 / 6.0)
         val timeSinceStarted = PartlySaneSkies.getTime() - timeStarted
 
-//        ChatUtils.sendClientMessage(fadeLength.toString())
         return if (0 > timeSinceStarted) {
-//            ChatUtils.sendClientMessage("Less than 0")
             0
         } else if (0 < timeSinceStarted && timeSinceStarted < fadeLength) {
-//            ChatUtils.sendClientMessage("Fading")
             Math.round(timeSinceStarted / fadeLength * 255).toShort()
         } else if (fadeLength < timeSinceStarted && timeSinceStarted <= displayLength - fadeLength) {
-//            ChatUtils.sendClientMessage("normal")
             255
         } else if (displayLength - fadeLength < timeSinceStarted && timeSinceStarted <= displayLength) {
-//            ChatUtils.sendClientMessage("end fade")
             Math.round((-timeSinceStarted + displayLength) / fadeLength * 255).toShort()
         } else {
-//            ChatUtils.sendClientMessage("none")
             0
         }
     }

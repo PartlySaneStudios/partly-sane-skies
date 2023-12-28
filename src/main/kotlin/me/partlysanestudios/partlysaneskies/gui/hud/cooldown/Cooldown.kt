@@ -16,33 +16,33 @@ abstract class Cooldown {
     }
 
     private var startingTime = -1L
-    /*
-    * @return Starting time of cooldown in milliseconds
+    /**
+     * @return Starting time of cooldown in milliseconds
      */
     fun getStartingTime(): Long {
         return startingTime
     }
 
-    /*
+    /**
      * @return Ending time of the cooldown in milliseconds
      */
     fun getEndingTime(): Long {
         return getStartingTime() + getTotalTime()
     }
 
-    /*
+    /**
      * @return Total time of the cooldown in milliseconds
      */
     abstract fun getTotalTime(): Long
 
-    /*
+    /**
      * @return Time remaining of the cooldown in milliseconds
      */
     fun getTimeRemaining(): Long {
         return getEndingTime() - PartlySaneSkies.getTime()
     }
 
-    /*
+    /**
      * Starts the cooldown by setting the starting time to now
      */
     fun startCooldown() {
