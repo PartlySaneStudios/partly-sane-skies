@@ -1385,4 +1385,11 @@ public class OneConfigScreen extends Config {
             category = "Debug"
     )
     public boolean debugAddSlacker = false;
+
+
+    @Switch(
+            name = "Print pet world parsing information",
+            category = "Debug"
+    )
+    public boolean debugPrintPetWorldParsingInformation = false;
 }

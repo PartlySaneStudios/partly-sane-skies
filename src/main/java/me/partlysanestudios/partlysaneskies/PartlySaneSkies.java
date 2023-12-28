@@ -26,6 +26,7 @@ import me.partlysanestudios.partlysaneskies.api.RequestsManager;
 import me.partlysanestudios.partlysaneskies.config.keybinds.Keybinds;
 import me.partlysanestudios.partlysaneskies.config.keybinds.RefreshKeybinds;
 import me.partlysanestudios.partlysaneskies.config.oneconfig.OneConfigScreen;
+import me.partlysanestudios.partlysaneskies.data.cache.PetData;
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager;
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager;
 import me.partlysanestudios.partlysaneskies.features.chat.ChatAlertsManager;
@@ -165,6 +166,12 @@ public class PartlySaneSkies {
             }
 
             try {
+                PetData.INSTANCE.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            try {
                 EndOfFarmNotifier.INSTANCE.load();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -213,6 +220,7 @@ public class PartlySaneSkies {
         MinecraftForge.EVENT_BUS.register(RefreshKeybinds.INSTANCE);
         MinecraftForge.EVENT_BUS.register(AutoGG.INSTANCE);
         MinecraftForge.EVENT_BUS.register(CooldownManager.INSTANCE);
+        MinecraftForge.EVENT_BUS.register(PetData.INSTANCE);
 
 
         // Registers all client side commands
@@ -319,6 +327,8 @@ public class PartlySaneSkies {
         EndOfFarmNotifier.INSTANCE.run();
         config.resetBrokenStrings();
         ThemeManager.run();
+
+        PetData.INSTANCE.tick();
     }
 
     @SubscribeEvent
