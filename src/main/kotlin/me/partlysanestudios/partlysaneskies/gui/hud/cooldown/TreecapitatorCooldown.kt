@@ -8,6 +8,7 @@ package me.partlysanestudios.partlysaneskies.gui.hud.cooldown
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.data.cache.PetData
+import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
 import net.minecraft.init.Items
@@ -17,7 +18,7 @@ object TreecapitatorCooldown: Cooldown() {
     override fun getTotalTime(): Long {
         var cooldown = 2000L
 
-        if (PetData.getCurrentPetName() == "Monkey" && PetData.getCurrentPetRarity().order > PetData.Rarity.LEGENDARY.order && PetData.getCurrentPetLevel() != -1 && (PartlySaneSkies.config?.treecapCooldownMonkeyPet != false)) {
+        if (PetData.getCurrentPetName() == "Monkey" && PetData.getCurrentPetRarity().order > Rarity.LEGENDARY.order && PetData.getCurrentPetLevel() != -1 && (PartlySaneSkies.config?.treecapCooldownMonkeyPet != false)) {
             cooldown -= (cooldown * PetData.getCurrentPetLevel() / 200.0).toLong()
         }
         return cooldown

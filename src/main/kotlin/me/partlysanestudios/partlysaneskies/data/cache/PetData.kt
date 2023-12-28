@@ -10,6 +10,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.annotations.Expose
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
+import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity
 import me.partlysanestudios.partlysaneskies.features.debug.DebugKey
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils
 import me.partlysanestudios.partlysaneskies.utils.MathUtils
@@ -21,6 +22,7 @@ import net.minecraft.entity.Entity
 import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import java.io.FileWriter
+import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity.Companion.getRarityFromColorCode
 import java.io.IOException
 import java.io.Reader
 import java.nio.file.Files
@@ -46,6 +48,7 @@ object PetData {
         Thread() {
             save()
         }.start()
+
     }
 
     @Throws(IOException::class)
@@ -134,7 +137,7 @@ object PetData {
             }
 
             petDataJson?.currentPetName = matcher.group(2)
-            petDataJson?.currentPetRarity = matcher.group(1)?.getPetRarityFromColorCode() ?: Rarity.UNKNOWN
+            petDataJson?.currentPetRarity = matcher.group(1)?.getRarityFromColorCode() ?: Rarity.UNKNOWN
             petDataJson?.currentPetLevel = petDataJson?.petNameLevelMap?.get(petDataJson?.currentPetRarity)?.get(petDataJson?.currentPetName) ?: -1
         }
 
@@ -150,7 +153,7 @@ object PetData {
                 val petName = it.groupValues[2]
                 val petLevel = it.groupValues[3].toInt()
 
-                val petRarity = colorCode.getPetRarityFromColorCode()
+                val petRarity = colorCode.getRarityFromColorCode()
                 petDataJson?.petNameLevelMap?.get(petRarity)?.put(petName, petLevel)
             }
         }
@@ -165,7 +168,7 @@ object PetData {
 
             petDataJson?.currentPetLevel = petLevel.toInt()
             petDataJson?.currentPetName = petName
-            petDataJson?.currentPetRarity = colorCode.getPetRarityFromColorCode()
+            petDataJson?.currentPetRarity = colorCode.getRarityFromColorCode()
             petDataJson?.petNameLevelMap?.get(petDataJson?.currentPetRarity)?.put(petName, petLevel.toInt())
 
         }
@@ -197,7 +200,7 @@ object PetData {
             ChatUtils.visPrint(petType)
         }
         petDataJson?.currentPetName = petType
-        petDataJson?.currentPetRarity = colorCode.getPetRarityFromColorCode()
+        petDataJson?.currentPetRarity = colorCode.getRarityFromColorCode()
         if (level.toIntOrNull() != null) {
             petDataJson?.currentPetLevel = level.toInt()
         }
@@ -219,8 +222,7 @@ object PetData {
 
             val (_, petLevel, colorCode, petName) = matchResult.destructured
 
-            val petRarity = colorCode.getPetRarityFromColorCode()
-
+            val petRarity = colorCode.getRarityFromColorCode()
             petDataJson?.petNameLevelMap?.get(petRarity)?.put(petName, petLevel.toIntOrNull()?: continue) ?: continue
         }
     }
@@ -254,41 +256,9 @@ object PetData {
     }
 
 
-/**
-     * @return the rarity associated with a color code
-     */
-    private fun String.getPetRarityFromColorCode(): Rarity {
-        return if (this == Rarity.COMMON.colorCode) {
-            Rarity.COMMON
-        } else if (this == Rarity.UNKNOWN.colorCode) {
-            Rarity.UNCOMMON
-        } else if (this == Rarity.RARE.colorCode) {
-            Rarity.RARE
-        } else if (this == Rarity.EPIC.colorCode) {
-            Rarity.EPIC
-        } else if (this == Rarity.LEGENDARY.colorCode){
-            Rarity.LEGENDARY
-        } else if (Rarity.MYTHIC.colorCode == this) {
-            Rarity.MYTHIC
-        } else {
-            Rarity.UNKNOWN
-        }
-    }
 
-    /**
-     * An Enum class specifically for pets
-     * @param order: an integer signifying the rarity of the pet to be able to compare using operators
-     * @param colorCode: the color code relating to that rarity
-     */
-    enum class Rarity(val order: Int, val colorCode: String): Comparable<Rarity> {
-        UNKNOWN(-1, ""),
-        COMMON(0, "§f"),
-        UNCOMMON(1, "§a"),
-        RARE(2, "§9"),
-        EPIC(3, "§5"),
-        LEGENDARY(4, "§6"),
-        MYTHIC(5, "§d")
-    }
+
+
 
 
     /**
