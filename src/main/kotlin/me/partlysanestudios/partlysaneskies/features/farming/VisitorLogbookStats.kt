@@ -31,6 +31,7 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getLore
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getSeparateUpperLowerInventories
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import net.minecraft.client.gui.inventory.GuiChest
 import net.minecraftforge.client.event.GuiScreenEvent
@@ -100,12 +101,9 @@ object VisitorLogbookStats {
             return false
         }
 
-        val inventories = MinecraftUtils.getSeparateUpperLowerInventories(gui) ?: return false
+        val inventories = gui.getSeparateUpperLowerInventories()
 
-        val logbook = inventories[0]
-        if (logbook == null) {
-            return false
-        }
+        val logbook = inventories[0] ?: return false
 
         return logbook.displayName.formattedText.removeColorCodes().contains("Visitor's Logbook")
     }

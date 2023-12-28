@@ -4,16 +4,17 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.annotations.Expose
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
-import me.partlysanestudios.partlysaneskies.features.chat.ChatAlertsManager
 import me.partlysanestudios.partlysaneskies.features.debug.DebugKey
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils
 import me.partlysanestudios.partlysaneskies.utils.MathUtils
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getSeparateUpperLowerInventories
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
+import net.minecraft.client.gui.inventory.GuiChest
 import net.minecraft.entity.Entity
 import net.minecraft.entity.item.EntityArmorStand
 import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import java.io.File
 import java.io.FileWriter
 import java.io.IOException
 import java.io.Reader
@@ -22,6 +23,7 @@ import java.nio.file.Paths
 import java.util.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
+import kotlin.collections.HashMap
 import kotlin.io.path.Path
 
 object PetData {
@@ -31,9 +33,12 @@ object PetData {
 
     var lastSaveTime = -1L
     fun tick() {
-        if (MathUtils.onCooldown(lastSaveTime, (60*1000L*1.5).toLong())) {
+        parsePetGuiForCache()
+        if (MathUtils.onCooldown(lastSaveTime, (60*1000L*.25).toLong())) {
             return
         }
+
+        lastSaveTime = PartlySaneSkies.getTime()
         Thread() {
             save()
         }.start()
@@ -111,33 +116,35 @@ object PetData {
 
         if (event.message.unformattedText.startsWith("You summoned your")) {
             // Define the regular expression pattern
-            val regex = "You summoned your (\\w+)!"
+            val regex = "§r§aYou summoned your §r(..)(\\w+)§r§a!§r"
             // Create a Pattern object
             val pattern: Pattern = Pattern.compile(regex)
 
             // Create a Matcher object
-            val matcher: Matcher = pattern.matcher(event.message.unformattedText)
+            val matcher: Matcher = pattern.matcher(event.message.formattedText)
             if (!matcher.find()) {
                 return
             }
 
-            petDataJson?.currentPetName = matcher.group(1)
-            petDataJson?.currentPetLevel = petDataJson?.petNameLevelMap?.get(petDataJson?.currentPetName) ?: -1
+            petDataJson?.currentPetName = matcher.group(2)
+            petDataJson?.currentPetRarity = matcher.group(1)?.getPetRarityFromColorCode() ?: Rarity.UNKNOWN
+            petDataJson?.currentPetLevel = petDataJson?.petNameLevelMap?.get(petDataJson?.currentPetRarity)?.get(petDataJson?.currentPetName) ?: -1
         }
 
-        val petLevelUpRegex = "Your (\\w+) leveled up to level (\\d+)!".toRegex()
-
-        if (petLevelUpRegex.find(event.message.unformattedText) != null) {
+        val petLevelUpRegex = "§r§aYour §r(..)(\\w+) §r§aleveled up to level §r§9(\\d+)§r§a!§r".toRegex()
+        if (petLevelUpRegex.find(event.message.formattedText) != null) {
 
             // Find the match
-            val matchResult = petLevelUpRegex.find(event.message.unformattedText)
+            val matchResult = petLevelUpRegex.find(event.message.formattedText)
 
             // Extract pet name and level if a match is found
             matchResult?.let {
-                val petName = it.groupValues[1]
-                val petLevel = it.groupValues[2].toInt()
+                val colorCode = it.groupValues[1]
+                val petName = it.groupValues[2]
+                val petLevel = it.groupValues[3].toInt()
 
-                petDataJson?.petNameLevelMap?.put(petName, petLevel)
+                val petRarity = colorCode.getPetRarityFromColorCode()
+                petDataJson?.petNameLevelMap?.get(petRarity)?.put(petName, petLevel)
             }
         }
 
@@ -149,10 +156,11 @@ object PetData {
             val (_, petLevel, colorCode, petName) = matchResult.destructured
 
 
-            petDataJson?.petNameLevelMap?.put(petName, petLevel.toInt())
             petDataJson?.currentPetLevel = petLevel.toInt()
             petDataJson?.currentPetName = petName
             petDataJson?.currentPetRarity = colorCode.getPetRarityFromColorCode()
+            petDataJson?.petNameLevelMap?.get(petDataJson?.currentPetRarity)?.put(petName, petLevel.toInt())
+
         }
     }
 
@@ -185,6 +193,36 @@ object PetData {
         if (level.toIntOrNull() != null) {
             petDataJson?.currentPetLevel = level.toInt()
         }
+    }
+
+
+    private fun parsePetGuiForCache() {
+        if (!isPetGui()) {
+            return
+        }
+        val inventory = PartlySaneSkies.minecraft.currentScreen.getSeparateUpperLowerInventories()[0]?: return
+
+        for (i in 0..<inventory.sizeInventory) {
+            val item = inventory.getStackInSlot(i)?: continue
+
+            val regex = "(..)\\[Lvl (\\d+)] (..)(\\w+)".toRegex()
+
+            val matchResult = regex.find(item.displayName?: "")?: continue
+
+            val (_, petLevel, colorCode, petName) = matchResult.destructured
+
+            val petRarity = colorCode.getPetRarityFromColorCode()
+
+            petDataJson?.petNameLevelMap?.get(petRarity)?.put(petName, petLevel.toIntOrNull()?: continue) ?: continue
+        }
+    }
+
+    private fun isPetGui(): Boolean {
+        if (PartlySaneSkies.minecraft.currentScreen !is GuiChest) {
+            return false
+        }
+        val upper = PartlySaneSkies.minecraft.currentScreen.getSeparateUpperLowerInventories()[0]?: return false
+        return upper.displayName.formattedText.removeColorCodes().contains("Pets")
     }
 
     // Using that list of pets, check to see if it's owned by a specific player
@@ -266,6 +304,7 @@ object PetData {
 
 
     private class PetDataJson {
+
         @Expose
         var currentPetName: String = ""
 
@@ -276,8 +315,13 @@ object PetData {
         var currentPetRarity: Rarity = Rarity.UNKNOWN
 
         @Expose
-        val petNameLevelMap: HashMap<String, Int> = HashMap()
+        val petNameLevelMap: HashMap<Rarity, HashMap<String, Int>> = HashMap()
 
+        init {
+            for (rarity in Rarity.entries) {
+                petNameLevelMap[rarity] = HashMap()
+            }
+        }
 
     }
 

@@ -95,16 +95,16 @@ object MinecraftUtils {
     // Returns an array of length 2, where the 1st index is the upper inventory,
     // and the 2nd index is the lower inventory.
     // Returns null if there is no inventory, also returns null if there is no access to inventory
-    fun getSeparateUpperLowerInventories(gui: GuiScreen): Array<IInventory?> {
+    fun GuiScreen.getSeparateUpperLowerInventories(): Array<IInventory?> {
         val upperInventory: IInventory
         val lowerInventory: IInventory
         try {
             upperInventory = FieldUtils.readDeclaredField(
-                gui,
+                this,
                 getDecodedFieldName("upperChestInventory"), true
             ) as IInventory
             lowerInventory = FieldUtils.readDeclaredField(
-                gui,
+                this,
                 getDecodedFieldName("lowerChestInventory"), true
             ) as IInventory
         } catch (e: IllegalAccessException) {
