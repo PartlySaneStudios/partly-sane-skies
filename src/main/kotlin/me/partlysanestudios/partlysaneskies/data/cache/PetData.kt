@@ -27,7 +27,7 @@ import kotlin.io.path.Path
 object PetData {
     private var petDataJson: PetDataJson? = null
 
-    val jsonPath = Path("config/petData.json")
+    val jsonPath = Path("./config/partly-sane-skies/petData.json")
 
     var lastSaveTime = -1L
     fun tick() {
