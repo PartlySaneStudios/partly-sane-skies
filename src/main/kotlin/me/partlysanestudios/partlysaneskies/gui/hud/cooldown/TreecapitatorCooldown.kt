@@ -18,7 +18,7 @@ object TreecapitatorCooldown: Cooldown() {
     override fun getTotalTime(): Long {
         var cooldown = 2000L
 
-        if (PetData.getCurrentPetName() == "Monkey" && PetData.getCurrentPetRarity().order > PetData.Rarity.LEGENDARY.order && PetData.getCurrentPetLevel() != -1) {
+        if (PetData.getCurrentPetName() == "Monkey" && PetData.getCurrentPetRarity().order > PetData.Rarity.LEGENDARY.order && PetData.getCurrentPetLevel() != -1 && (PartlySaneSkies.config?.treecapCooldownMonkeyPet != false)) {
             cooldown -= (cooldown * PetData.getCurrentPetLevel() / 200.0).toLong()
         }
         return cooldown
@@ -34,6 +34,10 @@ object TreecapitatorCooldown: Cooldown() {
     }
 
     fun checkForCooldown() {
+        if (PartlySaneSkies.config?.treecapCooldown != true) {
+            return
+        }
+
         if (MinecraftUtils.getCurrentlyHoldingItem() == null) {
             return
         }
