@@ -68,6 +68,7 @@ import me.partlysanestudios.partlysaneskies.features.mining.WormWarning;
 import me.partlysanestudios.partlysaneskies.features.security.modschecker.ModChecker;
 import me.partlysanestudios.partlysaneskies.features.skills.PetAlert;
 import me.partlysanestudios.partlysaneskies.features.skills.SkillUpgradeRecommendation;
+import me.partlysanestudios.partlysaneskies.features.misc.SanityCheck;
 import me.partlysanestudios.partlysaneskies.features.sound.Prank;
 import me.partlysanestudios.partlysaneskies.features.sound.enhancedsound.EnhancedSound;
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager;
@@ -213,6 +214,7 @@ public class PartlySaneSkies {
         MinecraftForge.EVENT_BUS.register(new Pickaxes());
         MinecraftForge.EVENT_BUS.register(new VisitorLogbookStats());
         MinecraftForge.EVENT_BUS.register(CoinsToBoosterCookieConversion.INSTANCE);
+        MinecraftForge.EVENT_BUS.register(SanityCheck.INSTANCE);
         MinecraftForge.EVENT_BUS.register(EndOfFarmNotifier.INSTANCE);
         MinecraftForge.EVENT_BUS.register(new Prank());
         MinecraftForge.EVENT_BUS.register(new RefreshKeybinds());
@@ -239,6 +241,7 @@ public class PartlySaneSkies {
         EndOfFarmNotifier.INSTANCE.registerFarmNotifierCommand();
         EndOfFarmNotifier.INSTANCE.registerWandCommand();
         CoinsToBoosterCookieConversion.INSTANCE.registerCommand();
+        SanityCheck.INSTANCE.registerCommand();
         ProfitMinionCalculator.registerCommand();
         MathematicalHoeRightClicks.registerCommand();
         WordEditor.registerWordEditorCommand();
