@@ -13,11 +13,11 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.features.debug.DebugKey
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils
 import me.partlysanestudios.partlysaneskies.utils.MathUtils
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getAllPets
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getSeparateUpperLowerInventories
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import net.minecraft.client.gui.inventory.GuiChest
 import net.minecraft.entity.Entity
-import net.minecraft.entity.item.EntityArmorStand
 import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import java.io.FileWriter
@@ -186,6 +186,7 @@ object PetData {
             ChatUtils.visPrint("Finding pattern")
             ChatUtils.visPrint("display name ${usersPet.displayName.formattedText}")
         }
+
         val matchResult = pattern.find(usersPet.displayName.unformattedText) ?: return
 
         if (DebugKey.isDebugMode() && PartlySaneSkies.config.debugPrintPetWorldParsingInformation) {
@@ -252,49 +253,8 @@ object PetData {
         return null
     }
 
-    /**
-     * @return all the pets currently loaded in the world
-     */
-    private fun getAllPets(): List<Entity> {
-        val petEntities: MutableList<Entity> = ArrayList()
-        val armorStandEntities = getAllArmorStands()
-        val pattern = """§8\[§7Lv(\d+)§8] (§\w)([\w']+)\s*('s)? (\w+)""".toRegex()
 
-        // For every armor stand in the game, check if it's pet by looking for the level tag in front of the name.
-        // Ex: "*[Lv*100] Su386's Black Cat"
-        for (entity in armorStandEntities) {
-            if (pattern.find(entity.name) != null) {
-                petEntities.add(entity) // If so, add it to the list
-            }
-        }
-        return petEntities
-    }
-
-    /**
-     * @return all the armor stands currently loded in the world
-     */
-    private fun getAllArmorStands(): List<Entity> {
-        val armorStandEntities: MutableList<Entity> = ArrayList()
-        val allEntities = getAllEntitiesInWorld()
-
-        // For every entity in the world, check if its instance of an armor stand
-        for (entity in allEntities) {
-            if (entity is EntityArmorStand) {
-                armorStandEntities.add(entity) // If so, add it to the list
-            }
-        }
-        return armorStandEntities
-    }
-
-    /**
-     * @return all the entities loaded in the world
-     */
-    private fun getAllEntitiesInWorld(): List<Entity> {
-        return PartlySaneSkies.minecraft.theWorld.getLoadedEntityList()
-    }
-
-
-    /**
+/**
      * @return the rarity associated with a color code
      */
     private fun String.getPetRarityFromColorCode(): Rarity {
