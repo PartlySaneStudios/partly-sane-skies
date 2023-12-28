@@ -10,7 +10,6 @@ import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 object AutoGG {
-
     @SubscribeEvent
     fun handleChatEvent(event: ClientChatReceivedEvent) {
         if (!PartlySaneSkies.config.autoGgEnabled) {
@@ -54,7 +53,6 @@ object AutoGG {
                     }
                 }
             }
-
         }
     }
 }

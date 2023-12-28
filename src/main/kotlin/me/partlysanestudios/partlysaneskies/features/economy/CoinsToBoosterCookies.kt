@@ -128,7 +128,7 @@ object CoinsToBoosterCookieConversion {
         val boosterCookieDataJsonObject = JsonParser().parse(PublicDataManager.getFile(boosterCookiePath)).getAsJsonObject()
 //    Gets how many gems one booster cookie is worth
         val boosterCookieInGems = boosterCookieDataJsonObject.getJsonFromPath("ingame/onecookiegem")?.asDouble ?: 325.0
-//    Gets the samllest amount of
+//    Gets the smallest amount of
         val smallestSkyblockGemsPackage = boosterCookieDataJsonObject.getJsonFromPath("storehypixelnet/smallestgembundle")?.asDouble ?: 675.0
 
         return ((convertCoinsToBoosterCookies(coins) * boosterCookieInGems) / smallestSkyblockGemsPackage) //math adapted from NEU: https://github.com/NotEnoughUpdates/NotEnoughUpdates/blob/master/src/main/java/io/github/moulberry/notenoughupdates/profileviewer/BasicPage.java#L342

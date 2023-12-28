@@ -1076,7 +1076,7 @@ public class OneConfigScreen extends Config {
     public float allowRightClickTime = 3f;
 
 
-//    Farn notifier
+//    Farm notifier
     @Switch(
             subcategory = "End of Farm Notifier",
             category = "Farming",
