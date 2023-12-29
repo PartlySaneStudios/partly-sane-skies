@@ -17,6 +17,7 @@ import net.minecraft.entity.Entity
 import net.minecraft.entity.item.EntityArmorStand
 import net.minecraft.inventory.IInventory
 import net.minecraft.item.ItemStack
+import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.scoreboard.ScorePlayerTeam
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
@@ -236,6 +237,18 @@ object MinecraftUtils {
             }
         }
         return armorStandEntities
+    }
+
+    fun ItemStack.removeAllEnchantments(): ItemStack {
+        // Get the NBTTagCompound from the ItemStack
+        val compound = this.tagCompound ?: NBTTagCompound()
+
+        // Remove the "ench" tag, which stores enchantments
+        compound.removeTag("ench")
+
+        // Update the ItemStack with the modified NBTTagCompound
+        this.tagCompound = compound
+        return this
     }
 
 }
