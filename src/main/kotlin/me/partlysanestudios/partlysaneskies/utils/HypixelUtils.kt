@@ -1,5 +1,5 @@
 //
-// Written by Su386.
+// Written by Su386 and J10a1n15.
 // See LICENSE for copyright and license notices.
 //
 
@@ -125,7 +125,11 @@ object HypixelUtils {
         }
         return if (WikiArticleOpener.getItemAttributes(item) == null) {
             ""
-        } else WikiArticleOpener.getItemAttributes(item).getString("id")
+        } else if (WikiArticleOpener.getItemAttributes(item).getString("id") == null)  {
+            ""
+        } else {
+            WikiArticleOpener.getItemAttributes(item).getString("id")
+        }
     }
 
     fun getCurrentIsland(): IslandType {

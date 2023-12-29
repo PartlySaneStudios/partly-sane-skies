@@ -31,13 +31,14 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getLore
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getSeparateUpperLowerInventories
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import net.minecraft.client.gui.inventory.GuiChest
 import net.minecraftforge.client.event.GuiScreenEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import java.awt.Color
 
-class VisitorLogbookStats {
+object VisitorLogbookStats {
 
     private val tiers: List<String> = listOf<String>("§f§lTotal", "§a§lUncommon", "§9§lRare", "§6Legendary", "§dMythic", "§c§lSpecial", "§e§lUnknown") //total | uncommon | rare | leg | mythic | special | UNKNOWN
     private var theBaseString = ""
@@ -100,12 +101,9 @@ class VisitorLogbookStats {
             return false
         }
 
-        val inventories = MinecraftUtils.getSeparateUpperLowerInventories(gui) ?: return false
+        val inventories = gui.getSeparateUpperLowerInventories()
 
-        val logbook = inventories[0]
-        if (logbook == null) {
-            return false
-        }
+        val logbook = inventories[0] ?: return false
 
         return logbook.displayName.formattedText.removeColorCodes().contains("Visitor's Logbook")
     }
