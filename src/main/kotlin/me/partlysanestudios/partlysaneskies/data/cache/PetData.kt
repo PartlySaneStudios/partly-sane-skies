@@ -122,6 +122,7 @@ object PetData {
         if (event.message.unformattedText.startsWith("You despawned your")) {
             petDataJson?.currentPetName = ""
             petDataJson?.currentPetLevel = -1
+            petDataJson?.currentPetRarity = Rarity.UNKNOWN
         }
 
         if (event.message.unformattedText.startsWith("You summoned your")) {

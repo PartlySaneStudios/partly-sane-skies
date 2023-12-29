@@ -15,6 +15,7 @@ import gg.essential.elementa.constraints.PixelConstraint;
 import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.data.cache.PetData;
+import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity;
 import me.partlysanestudios.partlysaneskies.features.economy.auctionhousemenu.AuctionHouseGui;
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager;
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand;
@@ -69,7 +70,7 @@ public class PetAlert {
             return;
         }
         
-         if (!MathUtils.INSTANCE.onCooldown(lastSoundTime, 750)) {
+        if (!MathUtils.INSTANCE.onCooldown(lastSoundTime, 750)) {
             PartlySaneSkies.minecraft.getSoundHandler().playSound(
                     PositionedSoundRecord.create(new ResourceLocation("partlysaneskies", "bell"))
                 );
@@ -240,9 +241,18 @@ public class PetAlert {
             petColorCode = "§c";
         }
 
+        String petLevel = "";
+        if (PetData.INSTANCE.getCurrentPetLevel() != -1) {
+            petLevel = "[Lvl" + PetData.INSTANCE.getCurrentPetLevel() + "] ";
+        }
+
+        String petRarity = "";
+        if (PetData.INSTANCE.getCurrentPetRarity() != Rarity.UNKNOWN) {
+            petRarity = PetData.INSTANCE.getCurrentPetRarity().getDisplayName() + " ";
+        }
 
         String textString = "§eCurrently Selected Pet:\n" +
-                petColorCode + currentlySelectedPetName + "\n\n" +
+                petColorCode + petLevel + petRarity + currentlySelectedPetName + "\n\n" +
                 "§eDesired Pet:\n" +
                 "§d" + PartlySaneSkies.config.selectedPet;
         textComponent.setText(textString);
