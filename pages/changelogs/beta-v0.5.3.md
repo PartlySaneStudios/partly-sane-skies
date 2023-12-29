@@ -20,6 +20,8 @@
   - A bit of an experiment, but PSS will now be releasing pre-release builds. They will be accessible through Partly Sane Skies' pre-release channel, and through SkyClient's beta updater
   - Partly Sane Skies: Do ``/pssc`` and switch ``Update Channel`` to ``Pre-release``. You should also turn on ``Use Beta Versions`` in the mod checker
   - SkyClient: Do ``/scu`` and turn on ``Enable Skyclient Beta``
+- Pet alert now displays the pet level and rarity (@Su386yt)
+  - ![image](https://github.com/PartlySaneStudios/partly-sane-skies/assets/83100266/1627b47d-1f66-4c08-bb91-35e42cf7d8f4)
 
 
 
