@@ -17,7 +17,8 @@ enum class Rarity(val order: Int, val colorCode: String, val displayName: String
     DIVINE(6, "§b", "Divine"),
     ULTIMATE_COSMETIC(7, "§4", "Ultimate Cosmetic"),
     SPECIAL(8, "§c", "Special"),
-    VERY_SPECIAL(9, "§c", "Very Special");
+    VERY_SPECIAL(9, "§c", "Very Special"),
+    UNOBTAINABLE(10, "§4", "Admin");
 
     companion object {
         /**
@@ -35,6 +36,7 @@ enum class Rarity(val order: Int, val colorCode: String, val displayName: String
                 ULTIMATE_COSMETIC.colorCode -> ULTIMATE_COSMETIC
                 SPECIAL.colorCode -> SPECIAL
                 VERY_SPECIAL.colorCode -> VERY_SPECIAL
+                UNOBTAINABLE.colorCode -> UNKNOWN
 
                 else -> UNKNOWN
             }
