@@ -13,6 +13,10 @@ import me.partlysanestudios.partlysaneskies.utils.HypixelUtils
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
 import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
+import net.minecraft.nbt.NBTTagCompound
+import net.minecraft.nbt.NBTTagList
+import net.minecraft.nbt.NBTTagString
+
 
 object TreecapitatorCooldown: Cooldown() {
     override fun getTotalTime(): Long {
@@ -28,9 +32,45 @@ object TreecapitatorCooldown: Cooldown() {
         return "Treecapitator"
     }
 
-    private var treecapitatorAxe = ItemStack(Items.golden_axe);
+    private var treecapitatorAxe: ItemStack? = null;
     override fun getItemToDisplay(): ItemStack {
-        return treecapitatorAxe
+        if (treecapitatorAxe == null) {
+            val itemStack = ItemStack(Items.golden_axe)
+            itemStack.setStackDisplayName("§5Treecapitator")
+            val compound = itemStack.tagCompound ?: NBTTagCompound()
+
+            val displayCompound = compound.getCompoundTag("display") ?: NBTTagCompound()
+            val loreList = NBTTagList()
+
+            val lore = arrayOf(
+                "§9Efficiency V",
+                "§7Increases how quickly your tool",
+                "§7breaks blocks.",
+                "",
+                "§7A forceful Gold Axe which can break",
+                "§7a large amount of logs in a single hit!",
+                "§8Cooldown: §a2s",
+                "",
+                "§7§8This item can be reforged!",
+                "§5§lEPIC AXE"
+            )
+
+            // Convert lore strings to NBTTagString and add them to the list
+            for (line in lore) {
+                loreList.appendTag(NBTTagString(line))
+            }
+
+            displayCompound.setTag("Lore", loreList)
+            compound.setTag("display", displayCompound)
+
+            val extraAttributesTag = compound.getCompoundTag("ExtraAttributes") ?: NBTTagCompound()
+            extraAttributesTag.setString("id", "TREECAPITATOR_AXE")
+            compound.setTag("ExtraAttributes", extraAttributesTag)
+
+            treecapitatorAxe = itemStack
+        }
+
+        return treecapitatorAxe ?: ItemStack(Items.golden_axe)
     }
 
     fun checkForCooldown() {
@@ -53,7 +93,6 @@ object TreecapitatorCooldown: Cooldown() {
             return
         }
 
-        treecapitatorAxe = itemInUse
         this.startCooldown()
     }
 

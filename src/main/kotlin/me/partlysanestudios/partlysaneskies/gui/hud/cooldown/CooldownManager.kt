@@ -25,7 +25,7 @@ object CooldownManager {
     val cooldownElements = ArrayList<UIHorizontalCooldownElement>()
 
     fun init() {
-        var previousCooldownElement = UIHorizontalCooldownElement(CenterConstraint(), 55f.percent, 50f.pixels, 7f.pixels).setChildOf(window)
+        var previousCooldownElement = UIHorizontalCooldownElement(CenterConstraint(), 52f.percent, 50f.pixels, 7f.pixels).setChildOf(window)
 
         cooldownElements.add(previousCooldownElement)
         for (i in 2..cooldownsDisplayableAtOnce) {

@@ -15,7 +15,7 @@ enum class Rarity(val order: Int, val colorCode: String, val displayName: String
     LEGENDARY(4, "§6", "Legendary"),
     MYTHIC(5, "§d", "Mythic"),
     DIVINE(6, "§b", "Divine"),
-    SUPREME(7, "§4", "Supreme"),
+    ULTIMATE_COSMETIC(7, "§4", "Ultimate Cosmetic"),
     SPECIAL(8, "§c", "Special"),
     VERY_SPECIAL(9, "§c", "Very Special");
 
@@ -32,7 +32,7 @@ enum class Rarity(val order: Int, val colorCode: String, val displayName: String
                 LEGENDARY.colorCode -> LEGENDARY
                 MYTHIC.colorCode -> MYTHIC
                 DIVINE.colorCode -> DIVINE
-                SUPREME.colorCode -> SUPREME
+                ULTIMATE_COSMETIC.colorCode -> ULTIMATE_COSMETIC
                 SPECIAL.colorCode -> SPECIAL
                 VERY_SPECIAL.colorCode -> VERY_SPECIAL
 

@@ -8,6 +8,7 @@ package me.partlysanestudios.partlysaneskies.gui.hud.cooldown
 
 import gg.essential.elementa.UIComponent
 import gg.essential.elementa.components.UIBlock
+import gg.essential.elementa.components.UIRoundedRectangle
 import gg.essential.elementa.constraints.*
 import gg.essential.elementa.dsl.*
 import me.partlysanestudios.partlysaneskies.gui.components.PSSItemRender
@@ -20,7 +21,8 @@ class UIHorizontalCooldownElement(val xConstraint: XConstraint, val yConstraint:
 
 
 
-    val boundingBox = UIBlock().constrain {
+    val boundingBox = UIRoundedRectangle(2f).constrain {
+        radius = 4f.pixels
         x = xConstraint
         y = yConstraint
         height = heightConstraint
@@ -29,7 +31,8 @@ class UIHorizontalCooldownElement(val xConstraint: XConstraint, val yConstraint:
     }
 
 
-    val displayBox = UIBlock().constrain {
+    val displayBox = UIRoundedRectangle(2f).constrain {
+        radius = 4f.pixels
         x = 0f.pixels
         y = 0f.pixels
         height = 100f.percent
@@ -39,7 +42,7 @@ class UIHorizontalCooldownElement(val xConstraint: XConstraint, val yConstraint:
 
     val itemRender = PSSItemRender(null)
         .setScaleBasedOnWidth((boundingBox.getHeight() * 1.75).pixels)
-        .setX((-40).percent)
+        .setX((-35).percent)
         .setY(CenterConstraint())
         .setHeight((boundingBox.getHeight() * 1.75).pixels)
         .setWidth((boundingBox.getHeight() * 1.75).pixels)
