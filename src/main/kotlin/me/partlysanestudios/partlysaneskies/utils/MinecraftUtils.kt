@@ -13,8 +13,11 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import net.minecraft.client.gui.GuiScreen
 import net.minecraft.client.network.NetworkPlayerInfo
+import net.minecraft.entity.Entity
+import net.minecraft.entity.item.EntityArmorStand
 import net.minecraft.inventory.IInventory
 import net.minecraft.item.ItemStack
+import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.scoreboard.ScorePlayerTeam
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
@@ -95,16 +98,16 @@ object MinecraftUtils {
     // Returns an array of length 2, where the 1st index is the upper inventory,
     // and the 2nd index is the lower inventory.
     // Returns null if there is no inventory, also returns null if there is no access to inventory
-    fun getSeparateUpperLowerInventories(gui: GuiScreen): Array<IInventory?> {
+    fun GuiScreen.getSeparateUpperLowerInventories(): Array<IInventory?> {
         val upperInventory: IInventory
         val lowerInventory: IInventory
         try {
             upperInventory = FieldUtils.readDeclaredField(
-                gui,
+                this,
                 getDecodedFieldName("upperChestInventory"), true
             ) as IInventory
             lowerInventory = FieldUtils.readDeclaredField(
-                gui,
+                this,
                 getDecodedFieldName("lowerChestInventory"), true
             ) as IInventory
         } catch (e: IllegalAccessException) {
@@ -194,4 +197,59 @@ object MinecraftUtils {
         }
         return false
     }
+
+    /**
+     * @return all the entities loaded in the world
+     */
+    fun getAllEntitiesInWorld(): List<Entity> {
+        return PartlySaneSkies.minecraft.theWorld.getLoadedEntityList()
+    }
+
+    /**
+     * @return all the pets currently loaded in the world
+     */
+    fun getAllPets(): List<Entity> {
+        val petEntities: MutableList<Entity> = java.util.ArrayList()
+        val armorStandEntities = getAllArmorStands()
+        val pattern = """§8\[§7Lv(\d+)§8] (§\w)([\w']+)\s*('s)? (\w+)""".toRegex()
+
+        // For every armor stand in the game, check if it's pet by looking for the level tag in front of the name.
+        // Ex: "*[Lv*100] Su386's Black Cat"
+        for (entity in armorStandEntities) {
+            if (pattern.find(entity.name) != null) {
+                petEntities.add(entity) // If so, add it to the list
+            }
+        }
+        return petEntities
+    }
+
+    /**
+     * @return all the armor stands currently loded in the world
+     */
+    fun getAllArmorStands(): List<Entity> {
+        val armorStandEntities: MutableList<Entity> = java.util.ArrayList()
+        val allEntities = getAllEntitiesInWorld()
+
+        // For every entity in the world, check if its instance of an armor stand
+        for (entity in allEntities) {
+            if (entity is EntityArmorStand) {
+                armorStandEntities.add(entity) // If so, add it to the list
+            }
+        }
+        return armorStandEntities
+    }
+
+    fun ItemStack.removeAllEnchantments(): ItemStack {
+        // Get the NBTTagCompound from the ItemStack
+        val compound = this.tagCompound ?: NBTTagCompound()
+
+        // Remove the "ench" tag, which stores enchantments
+        compound.removeTag("ench")
+
+        // Update the ItemStack with the modified NBTTagCompound
+        this.tagCompound = compound
+        return this
+    }
+
 }
+

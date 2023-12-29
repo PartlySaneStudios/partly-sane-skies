@@ -134,11 +134,15 @@ public class SkyblockDataManager {
                     npcSellPrice = itemObject.get("npc_sell_price").getAsDouble();
                 }
 
-                String rarity = "COMMON";
+                String rarityString = "COMMON";
                 if (itemObject.has("tier")) {
-                    rarity = itemObject.get("tier").getAsString();
+                    rarityString = itemObject.get("tier").getAsString();
                 }
 
+                Rarity rarity = Rarity.valueOf(rarityString);
+                if (rarity == null) {
+                    rarity = Rarity.UNKNOWN;
+                }
 
                 SkyblockItem item = new SkyblockItem(id, name, npcSellPrice, rarity);
                 nameToIdMap.put(name, id);
@@ -174,7 +178,7 @@ public class SkyblockDataManager {
     @NotNull
     public static SkyblockItem getItem(String id) {
         if (!idToItemMap.containsKey(id)) {
-            return new SkyblockItem("", "", -1, "");
+            return new SkyblockItem("", "", -1, Rarity.UNKNOWN);
         }
         return idToItemMap.get(id);
     }
