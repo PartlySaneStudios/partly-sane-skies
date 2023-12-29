@@ -126,7 +126,7 @@ object PetData {
 
         if (event.message.unformattedText.startsWith("You summoned your")) {
             // Define the regular expression pattern
-            val regex = "§r§aYou summoned your §r(..)(\\w+)§r§a!§r"
+            val regex = "§r§aYou summoned your §r(..)(\\w+)( ✦)?§r§a!§r"
             // Create a Pattern object
             val pattern: Pattern = Pattern.compile(regex)
 
@@ -141,7 +141,7 @@ object PetData {
             petDataJson?.currentPetLevel = petDataJson?.petNameLevelMap?.get(petDataJson?.currentPetRarity)?.get(petDataJson?.currentPetName) ?: -1
         }
 
-        val petLevelUpRegex = "§r§aYour §r(..)(\\w+) §r§aleveled up to level §r§9(\\d+)§r§a!§r".toRegex()
+        val petLevelUpRegex = "§r§aYour §r(..)(\\w+)( ✦)? §r§aleveled up to level §r§9(\\d+)§r§a!§r".toRegex()
         if (petLevelUpRegex.find(event.message.formattedText) != null) {
 
             // Find the match
@@ -151,19 +151,19 @@ object PetData {
             matchResult?.let {
                 val colorCode = it.groupValues[1]
                 val petName = it.groupValues[2]
-                val petLevel = it.groupValues[3].toInt()
+                val petLevel = it.groupValues[4].toInt()
 
                 val petRarity = colorCode.getRarityFromColorCode()
                 petDataJson?.petNameLevelMap?.get(petRarity)?.put(petName, petLevel)
             }
         }
 
-        val autoPetRegex = """\[Lvl (\d+)] (§\w)(\w+)""".toRegex()
+        val autoPetRegex = """\[Lvl (\d+)] (§\w)(\w+)( ✦)?""".toRegex()
 
         if (autoPetRegex.find(event.message.formattedText) != null) {
             val matchResult = autoPetRegex.find(event.message.formattedText)!!
             // Extract the pet level and name
-            val (_, petLevel, colorCode, petName) = matchResult.destructured
+            val (_, petLevel, colorCode, petName, _) = matchResult.destructured
 
 
             petDataJson?.currentPetLevel = petLevel.toInt()
@@ -216,11 +216,11 @@ object PetData {
         for (i in 0..<inventory.sizeInventory) {
             val item = inventory.getStackInSlot(i)?: continue
 
-            val regex = "(..)\\[Lvl (\\d+)] (..)(\\w+)".toRegex()
+            val regex = "(..)\\[Lvl (\\d+)] (..)(\\w+)( ✦)?".toRegex()
 
             val matchResult = regex.find(item.displayName?: "")?: continue
 
-            val (_, petLevel, colorCode, petName) = matchResult.destructured
+            val (_, petLevel, colorCode, petName, _) = matchResult.destructured
 
             val petRarity = colorCode.getRarityFromColorCode()
             petDataJson?.petNameLevelMap?.get(petRarity)?.put(petName, petLevel.toIntOrNull()?: continue) ?: continue
