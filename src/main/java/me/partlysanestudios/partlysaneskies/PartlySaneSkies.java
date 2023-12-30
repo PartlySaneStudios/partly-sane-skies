@@ -20,13 +20,13 @@
 
 package me.partlysanestudios.partlysaneskies;
 
-import cc.polyfrost.oneconfig.config.core.OneColor;
 import gg.essential.elementa.ElementaVersion;
 import me.partlysanestudios.partlysaneskies.api.Request;
 import me.partlysanestudios.partlysaneskies.api.RequestsManager;
 import me.partlysanestudios.partlysaneskies.config.keybinds.Keybinds;
 import me.partlysanestudios.partlysaneskies.config.keybinds.RefreshKeybinds;
 import me.partlysanestudios.partlysaneskies.config.oneconfig.OneConfigScreen;
+import me.partlysanestudios.partlysaneskies.data.cache.PetData;
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager;
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager;
 import me.partlysanestudios.partlysaneskies.features.chat.ChatAlertsManager;
@@ -71,8 +71,9 @@ import me.partlysanestudios.partlysaneskies.features.skills.SkillUpgradeRecommen
 import me.partlysanestudios.partlysaneskies.features.sound.Prank;
 import me.partlysanestudios.partlysaneskies.features.sound.enhancedsound.EnhancedSound;
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager;
-import me.partlysanestudios.partlysaneskies.gui.BannerRenderer;
-import me.partlysanestudios.partlysaneskies.gui.PSSBanner;
+import me.partlysanestudios.partlysaneskies.gui.hud.BannerRenderer;
+import me.partlysanestudios.partlysaneskies.gui.hud.cooldown.CooldownManager;
+import me.partlysanestudios.partlysaneskies.gui.hud.cooldown.TreecapitatorCooldown;
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils;
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils;
 import net.minecraft.client.Minecraft;
@@ -80,7 +81,6 @@ import net.minecraft.event.ClickEvent;
 import net.minecraft.event.HoverEvent;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
-import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -115,10 +115,6 @@ public class PartlySaneSkies {
 
     public static OneConfigScreen config;
     public static Minecraft minecraft;
-
-    public static boolean isDebugMode;
-
-    private static LocationBannerDisplay locationBannerDisplay;
 
 
     // Names of all the ranks to remove from people's names
@@ -170,6 +166,12 @@ public class PartlySaneSkies {
             }
 
             try {
+                PetData.INSTANCE.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            try {
                 EndOfFarmNotifier.INSTANCE.load();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -194,29 +196,31 @@ public class PartlySaneSkies {
         MinecraftForge.EVENT_BUS.register(new PartyFriendManager());
         MinecraftForge.EVENT_BUS.register(new WikiArticleOpener());
         MinecraftForge.EVENT_BUS.register(new NoCookieWarning());
-        locationBannerDisplay = new LocationBannerDisplay();
-        MinecraftForge.EVENT_BUS.register(locationBannerDisplay);
         MinecraftForge.EVENT_BUS.register(new GardenTradeValue());
-        MinecraftForge.EVENT_BUS.register(ChatManager.INSTANCE);
         MinecraftForge.EVENT_BUS.register(new CompostValue());
         MinecraftForge.EVENT_BUS.register(new EnhancedSound());
         MinecraftForge.EVENT_BUS.register(new BitsShopValue());
         MinecraftForge.EVENT_BUS.register(new PlayerRating());
         MinecraftForge.EVENT_BUS.register(new SkymartValue());
         MinecraftForge.EVENT_BUS.register(new PetAlert());
-        MinecraftForge.EVENT_BUS.register(new MathematicalHoeRightClicks());
-        MinecraftForge.EVENT_BUS.register(RangeHighlight.INSTANCE);
-        MinecraftForge.EVENT_BUS.register(BannerRenderer.INSTANCE);
-        MinecraftForge.EVENT_BUS.register(new MiningEvents());
-        MinecraftForge.EVENT_BUS.register(AuctionHouseGui.Companion);
         MinecraftForge.EVENT_BUS.register(new RequiredSecretsFound());
         MinecraftForge.EVENT_BUS.register(new Pickaxes());
-        MinecraftForge.EVENT_BUS.register(new VisitorLogbookStats());
+        MinecraftForge.EVENT_BUS.register(new MathematicalHoeRightClicks());
+        MinecraftForge.EVENT_BUS.register(new MiningEvents());
+
+        MinecraftForge.EVENT_BUS.register(AuctionHouseGui.Companion);
+
+        MinecraftForge.EVENT_BUS.register(ChatManager.INSTANCE);
+        MinecraftForge.EVENT_BUS.register(RangeHighlight.INSTANCE);
+        MinecraftForge.EVENT_BUS.register(BannerRenderer.INSTANCE);
+        MinecraftForge.EVENT_BUS.register(VisitorLogbookStats.INSTANCE);
         MinecraftForge.EVENT_BUS.register(CoinsToBoosterCookieConversion.INSTANCE);
         MinecraftForge.EVENT_BUS.register(EndOfFarmNotifier.INSTANCE);
-        MinecraftForge.EVENT_BUS.register(new Prank());
-        MinecraftForge.EVENT_BUS.register(new RefreshKeybinds());
+        MinecraftForge.EVENT_BUS.register(Prank.INSTANCE);
+        MinecraftForge.EVENT_BUS.register(RefreshKeybinds.INSTANCE);
         MinecraftForge.EVENT_BUS.register(AutoGG.INSTANCE);
+        MinecraftForge.EVENT_BUS.register(CooldownManager.INSTANCE);
+        MinecraftForge.EVENT_BUS.register(PetData.INSTANCE);
 
 
         // Registers all client side commands
@@ -244,7 +248,12 @@ public class PartlySaneSkies {
         WordEditor.registerWordEditorCommand();
         PlayerRating.registerReprintCommand();
         ModChecker.registerModCheckCommand();
+
+
+        CooldownManager.INSTANCE.init();
         DebugKey.INSTANCE.init();
+
+
 
         // Initializes keybinds
         Keybinds.init();
@@ -307,7 +316,7 @@ public class PartlySaneSkies {
         RequestsManager.run();
 
         // Checks if the current location is the same as the previous location for the location banner display
-        locationBannerDisplay.checkLocation();
+        LocationBannerDisplay.checkLocation();
 
         HealerAlert.INSTANCE.run();
         SkyblockDataManager.runUpdater();
@@ -318,6 +327,8 @@ public class PartlySaneSkies {
         EndOfFarmNotifier.INSTANCE.run();
         config.resetBrokenStrings();
         ThemeManager.run();
+
+        PetData.INSTANCE.tick();
     }
 
     @SubscribeEvent

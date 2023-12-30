@@ -24,7 +24,7 @@ import net.minecraftforge.client.event.GuiScreenEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import org.lwjgl.input.Keyboard
 
-class RefreshKeybinds {
+object RefreshKeybinds {
     private val operatingSystem: String = System.getProperty("os.name").lowercase()
     private var lastClick = -1L //credit to NEU's WardrobeMouseButtons.kt for this framework
 

@@ -14,6 +14,8 @@ import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
+import me.partlysanestudios.partlysaneskies.data.cache.PetData;
+import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity;
 import me.partlysanestudios.partlysaneskies.features.economy.auctionhousemenu.AuctionHouseGui;
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager;
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand;
@@ -52,11 +54,10 @@ public class PetAlert {
         if (!isMinionGui()) {
             return;
         }
-        Entity usersPet = getUsersPet(PartlySaneSkies.minecraft.thePlayer.getName());
-        String petName = "§8(Unknown)";
-        if (usersPet != null) {
-            petName = parsePetNameFromEntity(usersPet.getName());
-        
+
+        String petName = PetData.INSTANCE.getCurrentPetName();
+        if (petName.isEmpty()) {
+            petName = "§8(Unknown)";
         }
         
         String selectedPetName = PartlySaneSkies.config.selectedPet;
@@ -69,7 +70,7 @@ public class PetAlert {
             return;
         }
         
-         if (!MathUtils.INSTANCE.onCooldown(lastSoundTime, 750)) {
+        if (!MathUtils.INSTANCE.onCooldown(lastSoundTime, 750)) {
             PartlySaneSkies.minecraft.getSoundHandler().playSound(
                     PositionedSoundRecord.create(new ResourceLocation("partlysaneskies", "bell"))
                 );
@@ -183,53 +184,6 @@ public class PetAlert {
     }
 
 
-    // Using that list of pets, check to see if it's owned by a specific player
-    public static Entity getUsersPet(String name) {
-        List<Entity> petEntities = getAllPets();
-        // If the pet says Ex: "[Lv100] *Su386*'s Black Cat" return that entity
-        for (Entity entity : petEntities) {
-            if (StringUtils.INSTANCE.removeColorCodes(entity.getName()).toLowerCase().contains(name.toLowerCase())) {
-                return entity;
-            }
-        }
-        return null;
-    }
-
-    // Gets all the pets current loaded by the game
-    private static List<Entity> getAllPets() {
-        List<Entity> petEntities = new ArrayList<>();
-        List<Entity> armorStandEntities = getAllArmorStands();
-        
-        // For every armor stand in the game, check if it's pet by looking for the level tag in front of the name.
-        // Ex: "*[Lv*100] Su386's Black Cat"
-        for (Entity entity : armorStandEntities) {
-            if (StringUtils.INSTANCE.removeColorCodes(entity.getName()).contains("[Lv")) {
-                petEntities.add(entity); // If so, add it to the list
-            }
-        }
-
-        return petEntities;
-    }
-
-    // Gets all the armor stands currently loaded by the game
-    private static List<Entity> getAllArmorStands() {
-        List<Entity> armorStandEntities = new ArrayList<>();
-        List<Entity> allEntities = getAllEntitiesInWorld();
-
-        // For every entity in the world, check if its instance of an armor stand
-        for (Entity entity : allEntities) {
-            if (entity instanceof EntityArmorStand) {
-                armorStandEntities.add(entity); // If so, add it to the list
-            }
-        }
-
-        return armorStandEntities;
-    }
-    
-    // Returns a list of all loaded entities in the world
-    private static List<Entity> getAllEntitiesInWorld() {
-        return PartlySaneSkies.minecraft.theWorld.getLoadedEntityList();
-    }
 
     static Window window = new Window(ElementaVersion.V2);
 
@@ -269,15 +223,9 @@ public class PetAlert {
                 .setY(new CenterConstraint())
                 .setWidth(new PixelConstraint(box.getWidth()));
 
-        Entity currentlySelectedPet = getUsersPet(PartlySaneSkies.minecraft.thePlayer.getName());
-
-        String currentlySelectedPetName = "";
-        if (currentlySelectedPet != null) {
-            currentlySelectedPetName = parsePetNameFromEntity(currentlySelectedPet.getName());
-        }
-
+        String currentlySelectedPetName = PetData.INSTANCE.getCurrentPetName();
         if (currentlySelectedPetName.isEmpty()) {
-            currentlySelectedPetName = ("§8(Unknown)");
+            currentlySelectedPetName = "§8(Unknown)";
         }
 
         String petColorCode;
@@ -293,9 +241,18 @@ public class PetAlert {
             petColorCode = "§c";
         }
 
+        String petLevel = "";
+        if (PetData.INSTANCE.getCurrentPetLevel() != -1) {
+            petLevel = "[Lvl" + PetData.INSTANCE.getCurrentPetLevel() + "] ";
+        }
+
+        String petRarity = "";
+        if (PetData.INSTANCE.getCurrentPetRarity() != Rarity.UNKNOWN) {
+            petRarity = PetData.INSTANCE.getCurrentPetRarity().getDisplayName() + " ";
+        }
 
         String textString = "§eCurrently Selected Pet:\n" +
-                petColorCode + currentlySelectedPetName + "\n\n" +
+                petColorCode + petLevel + petRarity + currentlySelectedPetName + "\n\n" +
                 "§eDesired Pet:\n" +
                 "§d" + PartlySaneSkies.config.selectedPet;
         textComponent.setText(textString);
