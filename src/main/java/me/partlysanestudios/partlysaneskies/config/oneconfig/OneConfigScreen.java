@@ -33,11 +33,11 @@ public class OneConfigScreen extends Config {
             watcherChatMessage = "Partly Sane Skies > The watcher is done spawning mobs. Ready to clear.";
             save();
         }
-        if (secretsChatMessageString.isEmpty()){
+        if (secretsChatMessageString.isEmpty()) {
             secretsChatMessageString = "Partly Sane Skies > All required secrets have been found!";
             save();
         }
-        if (pickaxeAbilityReadyBannerText.isEmpty()){
+        if (pickaxeAbilityReadyBannerText.isEmpty()) {
             pickaxeAbilityReadyBannerText = "Pickaxe Ability Ready!";
             save();
         }
@@ -56,7 +56,6 @@ public class OneConfigScreen extends Config {
         }
 
 
-
         if (repoOwner.isEmpty()) {
             repoOwner = "PartlySaneStudios";
             save();
@@ -65,12 +64,11 @@ public class OneConfigScreen extends Config {
             repoName = "partly-sane-skies-public-data";
             save();
         }
-
     }
 
     @Info(
-        type = InfoType.INFO,
-        text = "Hover over an option to see a description and more information."
+            type = InfoType.INFO,
+            text = "Hover over an option to see a description and more information."
 
     )
     public boolean ignored;
@@ -87,14 +85,13 @@ public class OneConfigScreen extends Config {
     public int releaseChannel = Integer.parseInt("@RELEASE_CHANNEL@");
 
 
-
     @Number(
-        min = .1f,
-        max = 30f,
-        name = "Time between requests",
-        category = "General",
-        subcategory = "API",
-        description = "The time between API calls. Only change if you know what you're doing. Changing this will reduce the amount of time API requests take, however may result in more errors"
+            min = .1f,
+            max = 30f,
+            name = "Time between requests",
+            category = "General",
+            subcategory = "API",
+            description = "The time between API calls. Only change if you know what you're doing. Changing this will reduce the amount of time API requests take, however may result in more errors"
     )
     public float timeBetweenRequests = 0.5f;
 
@@ -137,35 +134,35 @@ public class OneConfigScreen extends Config {
 
 
     @Dropdown(
-        options = {
-            "Commas (1,000,000)",
-            "Spaces (1 000 000)",
-            "Periods (1.000.000)",
-    },
-        category = "General",
-        subcategory = "Appearance",
-        name = "Hundreds Place Format",
-        description = "The separator between different hundreds places."
+            options = {
+                    "Commas (1,000,000)",
+                    "Spaces (1 000 000)",
+                    "Periods (1.000.000)",
+            },
+            category = "General",
+            subcategory = "Appearance",
+            name = "Hundreds Place Format",
+            description = "The separator between different hundreds places."
     )
     public int hundredsPlaceFormat = 1;
 
     @Dropdown(
-        options = {
-            "Commas (1,52)",
-            "Periods (1.52)",
-    },
-        category = "General",
-        subcategory = "Appearance",
-        name = "Decimal Place Format",
-        description = "The character to represent decimal places."
+            options = {
+                    "Commas (1,52)",
+                    "Periods (1.52)",
+            },
+            category = "General",
+            subcategory = "Appearance",
+            name = "Decimal Place Format",
+            description = "The character to represent decimal places."
     )
     public int decimalPlaceFormat = 1;
 
     @Switch(
-        category = "General",
-        subcategory = "Appearance",
-        name = "24 hour time",
-        description = "Display time in 24-hour hour time (15:30) instead of 12 hour time (3:30 PM)"
+            category = "General",
+            subcategory = "Appearance",
+            name = "24 hour time",
+            description = "Display time in 24-hour hour time (15:30) instead of 12 hour time (3:30 PM)"
     )
     public boolean hour24time = false;
 
@@ -194,35 +191,35 @@ public class OneConfigScreen extends Config {
     // Main Menu
 
     @Switch(
-        category = "General",
-        subcategory = "Main Menu",
-        name = "Show a Custom Minecraft Main Menu"
+            category = "General",
+            subcategory = "Main Menu",
+            name = "Show a Custom Minecraft Main Menu"
     )
     public boolean customMainMenu = true;
 
     @Switch(
-        category = "General",
-        subcategory = "Main Menu",
-        name = "Announcements on Main Menu",
-        description = "Display announcements such as recent skyblock updates on the main menu"
+            category = "General",
+            subcategory = "Main Menu",
+            name = "Announcements on Main Menu",
+            description = "Display announcements such as recent skyblock updates on the main menu"
     )
     public boolean displayAnnouncementsCustomMainMenu = true;
 
     @Dropdown(
-        options = {
-            "Random Image",
-            "View of Main Hub Mountain",
-            "Aerial View of Hub from Community House",
-            "Stunning Aerial View of Hub",
-            "View from Hub Portal (Day)",
-            "Hub Portal (Night)",
-            "Wolf Ruins",
-            "Custom Image"
-        },
-        category = "General",
-        subcategory = "Main Menu",
-        name = "Custom Minecraft Main Menu Image",
-        description = "Select one of our many high quality included images, or you can use your custom image.\nTo use your own image, place your image in the /config/partly-sane-skies folder and title your image background.png"
+            options = {
+                    "Random Image",
+                    "View of Main Hub Mountain",
+                    "Aerial View of Hub from Community House",
+                    "Stunning Aerial View of Hub",
+                    "View from Hub Portal (Day)",
+                    "Hub Portal (Night)",
+                    "Wolf Ruins",
+                    "Custom Image"
+            },
+            category = "General",
+            subcategory = "Main Menu",
+            name = "Custom Minecraft Main Menu Image",
+            description = "Select one of our many high quality included images, or you can use your custom image.\nTo use your own image, place your image in the /config/partly-sane-skies folder and title your image background.png"
     )
     public int customMainMenuImage = 1;
 
@@ -287,7 +284,7 @@ public class OneConfigScreen extends Config {
     )
     public int themeIndex = 0;
 
-//    Accent Color
+    //    Accent Color
     @Switch(
             name = "Use default accent color",
             description = "Uses the default Partly Sane Skies accent color",
@@ -304,7 +301,7 @@ public class OneConfigScreen extends Config {
     )
     public OneColor accentColor = new OneColor(1, 255, 255, 255);
 
-//    Custom Themes
+    //    Custom Themes
     @Switch(
             name = "Create your own Theme",
             description = "Enable to be able to create your own custom themes",
@@ -330,7 +327,7 @@ public class OneConfigScreen extends Config {
     public OneColor secondaryColor = new OneColor(42, 43, 46, 255);
 
 
-//    Resource Packs
+    //    Resource Packs
     @Switch(
             name = "Disable themes to use resource packs",
             description = "Disable themes to be able to use resource packs to modify Partly Sane Skies menus",
@@ -340,72 +337,69 @@ public class OneConfigScreen extends Config {
     public boolean disableThemes = false;
 
 
-
-
-
     // ----------------- Category: SkyBlock -------------------
     // Rare Drop
     @Switch(
-        name = "Rare Drop Banner",
-        subcategory = "Rare Drop",
-        description = "On rare drop, get a Pumpkin Dicer like banner.",
-        category = "SkyBlock"
+            name = "Rare Drop Banner",
+            subcategory = "Rare Drop",
+            description = "On rare drop, get a Pumpkin Dicer like banner.",
+            category = "SkyBlock"
     )
     public boolean rareDropBanner = false;
 
 
     @Slider(
-        min = 1,
-        max = 7,
-        subcategory = "Rare Drop",
-        name = "Rare Drop Banner Time",
-        description = "The amount of seconds the rare drop banner appears for.",
-        category = "SkyBlock"
+            min = 1,
+            max = 7,
+            subcategory = "Rare Drop",
+            name = "Rare Drop Banner Time",
+            description = "The amount of seconds the rare drop banner appears for.",
+            category = "SkyBlock"
     )
     public float rareDropBannerTime = 3.5f;
 
     @Switch(
-        name = "Custom Rare Drop Sound",
-        subcategory = "Rare Drop",
-        description = "Plays a custom sound when you get a rare drop.",
-        category = "SkyBlock"
+            name = "Custom Rare Drop Sound",
+            subcategory = "Rare Drop",
+            description = "Plays a custom sound when you get a rare drop.",
+            category = "SkyBlock"
     )
     public boolean rareDropBannerSound = false;
 
     // Location Banner
     @Switch(
-        name = "Location Banner",
-        subcategory = "Location Banner",
-        description = "An MMO RPG style banner shows up when you switch locations.",
-        category = "SkyBlock"
+            name = "Location Banner",
+            subcategory = "Location Banner",
+            description = "An MMO RPG style banner shows up when you switch locations.",
+            category = "SkyBlock"
     )
     public boolean locationBannerDisplay = false;
 
     @Slider(
-        min = 1,
-        max = 7,
-        subcategory = "Location Banner",
-        name = "Location Banner Time",
-        description = "The amount of seconds the location banner appears for.",
-        category = "SkyBlock"
+            min = 1,
+            max = 7,
+            subcategory = "Location Banner",
+            name = "Location Banner Time",
+            description = "The amount of seconds the location banner appears for.",
+            category = "SkyBlock"
     )
     public float locationBannerTime = 3.5f;
 
     // Open Wiki
     @Switch(
-        name = "Open Wiki Automatically",
-        category = "SkyBlock",
-        description = "When the Open Wiki Article Keybind is used, automatically open the article without confirmation first.",
-        subcategory = "Open Wiki"
+            name = "Open Wiki Automatically",
+            category = "SkyBlock",
+            description = "When the Open Wiki Article Keybind is used, automatically open the article without confirmation first.",
+            subcategory = "Open Wiki"
     )
     public boolean openWikiAutomatically = true;
 
     // Pet Minion Alert
     @Switch(
-        name = "Incorrect Pet for Minion Alert",
-        category = "SkyBlock",
-        description = "Warns you if you don't have the right pet for leveling up the minions, that way you never lose any pet EXP because you still have your level 100 dungeon pet activated.\nRequires pets to be visible.",
-        subcategory = "Incorrect Pet for Minion Alert"
+            name = "Incorrect Pet for Minion Alert",
+            category = "SkyBlock",
+            description = "Warns you if you don't have the right pet for leveling up the minions, that way you never lose any pet EXP because you still have your level 100 dungeon pet activated.\nRequires pets to be visible.",
+            subcategory = "Incorrect Pet for Minion Alert"
     )
     public boolean incorrectPetForMinionAlert = false;
 
@@ -418,10 +412,10 @@ public class OneConfigScreen extends Config {
     public boolean selectedPetInformation = false;
 
     @Switch(
-        name = "Air Raid Siren",
-        category = "SkyBlock",
-        description = "Plays a WWII air raid siren when you have the wrong pet. \nPros: \nKeeps you up at late night grinds \n(RECOMMENDED, ESPECIALLY AT 3 AM).",
-        subcategory = "Incorrect Pet for Minion Alert"
+            name = "Air Raid Siren",
+            category = "SkyBlock",
+            description = "Plays a WWII air raid siren when you have the wrong pet. \nPros: \nKeeps you up at late night grinds \n(RECOMMENDED, ESPECIALLY AT 3 AM).",
+            subcategory = "Incorrect Pet for Minion Alert"
     )
     public boolean incorrectPetForMinionAlertSiren = false;
 
@@ -434,93 +428,93 @@ public class OneConfigScreen extends Config {
     public boolean refreshKeybind = false;
 
     @Text(
-        category = "SkyBlock",
-        subcategory = "Incorrect Pet for Minion Alert",
-        name = "Selected Pet",
-        description = "The selected pet that will be used for minion collecting (Use /pets and click the pet keybind to select",
-        secure =  true,
-        size = 2
+            category = "SkyBlock",
+            subcategory = "Incorrect Pet for Minion Alert",
+            name = "Selected Pet",
+            description = "The selected pet that will be used for minion collecting (Use /pets and click the pet keybind to select",
+            secure = true,
+            size = 2
     )
     public String selectedPet = /*PartlySaneSkies.config.selectededPet |*/ "";
 
     @Slider(
-        min = 1,
-        max = 15,
-        subcategory = "Incorrect Pet for Minion Alert",
-        name = "Mute Time",
-        description = "The amount of minutes the pet alert will mute for when you mute it.",
-        category = "SkyBlock"
+            min = 1,
+            max = 15,
+            subcategory = "Incorrect Pet for Minion Alert",
+            name = "Mute Time",
+            description = "The amount of minutes the pet alert will mute for when you mute it.",
+            category = "SkyBlock"
     )
     public float petAlertMuteTime = 7.5f;
 
     @Dropdown(
-        category = "SkyBlock",
-        subcategory = "Enhanced SkyBlock Sounds",
-        name = "Note Block Instrument Type",
-        options = {
-            "Default SkyBlock Noteblocks",
-            "Clarinet (Live)",
-            "Clarinet (Computer)",
-            "Electric Piano",
-            "Flute",
-            "Organ",
-            "Piano",
-            "String Orchestra",
-            "Trombone",
-            "Trumpet",
-            "Violin",
-            "Wind Ensemble",
-            "Discord New Message Sound",
-            "Kazoo",
-        }
+            category = "SkyBlock",
+            subcategory = "Enhanced SkyBlock Sounds",
+            name = "Note Block Instrument Type",
+            options = {
+                    "Default SkyBlock Noteblocks",
+                    "Clarinet (Live)",
+                    "Clarinet (Computer)",
+                    "Electric Piano",
+                    "Flute",
+                    "Organ",
+                    "Piano",
+                    "String Orchestra",
+                    "Trombone",
+                    "Trumpet",
+                    "Violin",
+                    "Wind Ensemble",
+                    "Discord New Message Sound",
+                    "Kazoo",
+            }
     )
     public int customSoundOption = 0;
 
     @Dropdown(
-        category = "SkyBlock",
-        subcategory = "Enhanced SkyBlock Sounds",
-        name = "Explosions",
-        options = {
-            "Default",
-            "Off",
-            "Realistic"
-        }
+            category = "SkyBlock",
+            subcategory = "Enhanced SkyBlock Sounds",
+            name = "Explosions",
+            options = {
+                    "Default",
+                    "Off",
+                    "Realistic"
+            }
     )
     public int customExplosion = 0;
 
     // -------------- Category: Mining --------------
     // Worm Warning
     @Switch(
-        name = "Worm Warning Banner",
-        subcategory = "Worm Warning",
-        description = "A banner appears on your screen when a worm spawns.",
-        category = "Mining"
+            name = "Worm Warning Banner",
+            subcategory = "Worm Warning",
+            description = "A banner appears on your screen when a worm spawns.",
+            category = "Mining"
     )
     public boolean wormWarningBanner = false;
 
     @Color(
-        subcategory = "Worm Warning",
-        name = "Worm Warning Banner Color",
-        description = "The color of the worm warning text",
-        category = "Mining"
+            subcategory = "Worm Warning",
+            name = "Worm Warning Banner Color",
+            description = "The color of the worm warning text",
+            category = "Mining"
     )
     public OneColor wormWarningBannerColor = new OneColor(34, 255, 0);
 
     @Slider(
-        min = 1,
-        max = 7,
-        subcategory = "Worm Warning",
-        name = "Worm Warning Banner Time",
-        description = "The amount of seconds the worm warning banner appears for.",
-        category = "Mining"
+            min = 1,
+            max = 7,
+            subcategory = "Worm Warning",
+            name = "Worm Warning Banner Time",
+            description = "The amount of seconds the worm warning banner appears for.",
+            category = "Mining"
     )
     public float wormWarningBannerTime = 3.5f;
 
     @Switch(
-        name = "Worm Warning Sound",
-        subcategory = "Worm Warning",
-        description = "Plays a sound when a worm spawns.",
-        category = "Mining"
+            name = "Worm Warning Sound",
+            subcategory = "Worm Warning",
+            description = "Plays a sound when a worm spawns.",
+            category = "Mining"
     )
     public boolean wormWarningBannerSound = false;
 
@@ -625,6 +619,14 @@ public class OneConfigScreen extends Config {
     public boolean miningShowEventBanner = true;
 
     @Switch(
+            name = "Send System Notifications",
+            category = "Mining",
+            subcategory = "Events",
+            description = "Sends a system notification when an event is going active"
+    )
+    public boolean miningSendSystemNotifications = false;
+
+    @Switch(
             name = "Also warn 20s before event activation",
             category = "Mining",
             subcategory = "Events",
@@ -717,137 +719,136 @@ public class OneConfigScreen extends Config {
     // ------------- Category: Dungeons ---------------------------------
     // Party Manager
     @Switch(
-        name = "Automatically kick offline on party manager load",
-        subcategory = "Party Manager",
-        description = "Automatically kicks offline members in your party when you open party manager.",
-        category = "Dungeons"
+            name = "Automatically kick offline on party manager load",
+            subcategory = "Party Manager",
+            description = "Automatically kicks offline members in your party when you open party manager.",
+            category = "Dungeons"
     )
     public boolean autoKickOfflinePartyManager = false;
 
     @Switch(
-        name = "Warn Low Arrows in Chat",
-        subcategory = "Party Manager",
-        description = "Warns you party when a member has low arrows.",
-        category = "Dungeons"
+            name = "Warn Low Arrows in Chat",
+            subcategory = "Party Manager",
+            description = "Warns you party when a member has low arrows.",
+            category = "Dungeons"
     )
     public boolean warnLowArrowsInChat = false;
 
 
     @Text(
-        subcategory = "Party Manager",
-        name = "Arrow Low Warning",
-        description = "Message to send when a player has low arrows.\nUse {player} to signify the player's username, and {count} to signify the remaining arrow count.",
-        category = "Dungeons",
+            subcategory = "Party Manager",
+            name = "Arrow Low Warning",
+            description = "Message to send when a player has low arrows.\nUse {player} to signify the player's username, and {count} to signify the remaining arrow count.",
+            category = "Dungeons",
             size = 2
     )
     public String arrowLowChatMessage = "Partly Sane Skies > Warning! {player} only has {count} arrows remaining!";
 
     @Number(
-        name = "Arrow Low Count",
-        min = 0,
-        max = 1000,
-        subcategory = "Party Manager",
-        description = "The amount of arrows you must have to be considered low on arrows.",
-        category = "Dungeons"
+            name = "Arrow Low Count",
+            min = 0,
+            max = 1000,
+            subcategory = "Party Manager",
+            description = "The amount of arrows you must have to be considered low on arrows.",
+            category = "Dungeons"
     )
     public int arrowLowCount = 300;
 
     @Switch(
-        name = "Get data on party join",
-        subcategory = "Party Manager",
-        description = "Automatically gets the data for party members someone joins the party. This saves time and reduces the chance of the data not being able to be accessed.",
-        category = "Dungeons"
+            name = "Get data on party join",
+            subcategory = "Party Manager",
+            description = "Automatically gets the data for party members someone joins the party. This saves time and reduces the chance of the data not being able to be accessed.",
+            category = "Dungeons"
     )
     public boolean getDataOnJoin = true;
 
     @Switch(
-        name = "Toggle Run Colors in Partymanager",
-        subcategory = "Party Manager",
-        description = "Toggles the colors of the runs in the party manager. ",
-        category = "Dungeons"
+            name = "Toggle Run Colors in Partymanager",
+            subcategory = "Party Manager",
+            description = "Toggles the colors of the runs in the party manager. ",
+            category = "Dungeons"
     )
     public boolean toggleRunColors = true;
 
     @Number(
-        name = "Customize Max Runs for Red in Run Colors",
-        min = 0,
-        max = Integer.MAX_VALUE,
-        subcategory = "Party Manager",
-        description = "Customize maximum runs required for the color red",
-        category = "Dungeons"
+            name = "Customize Max Runs for Red in Run Colors",
+            min = 0,
+            max = Integer.MAX_VALUE,
+            subcategory = "Party Manager",
+            description = "Customize maximum runs required for the color red",
+            category = "Dungeons"
     )
     public int runColorsRedMax = 1;
 
     @Number(
-        name = "Customize Max Runs for Yellow in Run Colors",
-        min = 0,
-        max = Integer.MAX_VALUE,
-        subcategory = "Party Manager",
-        description = "Customize maximum runs required for the color yellow",
-        category = "Dungeons"
+            name = "Customize Max Runs for Yellow in Run Colors",
+            min = 0,
+            max = Integer.MAX_VALUE,
+            subcategory = "Party Manager",
+            description = "Customize maximum runs required for the color yellow",
+            category = "Dungeons"
     )
     public int runColorsYellowMax = 9;
 
 
-
     // Watcher Ready Warning
     @Switch(
-        name = "Watcher Ready Warning",
-        subcategory = "Watcher Ready",
-        description = "Sends a warning when the watcher is done spawning mobs.",
-        category = "Dungeons"
+            name = "Watcher Ready Warning",
+            subcategory = "Watcher Ready",
+            description = "Sends a warning when the watcher is done spawning mobs.",
+            category = "Dungeons"
     )
     public boolean watcherReadyBanner = false;
 
     @Switch(
-        name = "Watcher Ready Sound",
-        subcategory = "Watcher Ready",
-        description = "Plays a sound when the watcher is done spawning mobs.",
-        category = "Dungeons"
+            name = "Watcher Ready Sound",
+            subcategory = "Watcher Ready",
+            description = "Plays a sound when the watcher is done spawning mobs.",
+            category = "Dungeons"
     )
     public boolean watcherReadySound = false;
 
     @Slider(
-        min = 1,
-        max = 7,
-        subcategory = "Watcher Ready",
-        name = "Watcher Ready Banner Time",
-        description = "The amount of seconds the watcher ready banner appears for.",
-        category = "Dungeons"
+            min = 1,
+            max = 7,
+            subcategory = "Watcher Ready",
+            name = "Watcher Ready Banner Time",
+            description = "The amount of seconds the watcher ready banner appears for.",
+            category = "Dungeons"
     )
     public float watcherReadyBannerTime = 3.5f;
 
     @Color(
-        subcategory = "Watcher Ready",
-        name = "Watcher Ready Banner Color",
-        description = "The color of the watcher ready text",
-        category = "Dungeons"
+            subcategory = "Watcher Ready",
+            name = "Watcher Ready Banner Color",
+            description = "The color of the watcher ready text",
+            category = "Dungeons"
     )
     public OneColor watcherReadyBannerColor = new OneColor(255, 45, 6);
 
     @Switch(
-        name = "Watcher Ready Chat Message",
-        subcategory = "Watcher Ready",
-        description = "Send a message to your party when watcher is done spawning mobs.",
-        category = "Dungeons"
+            name = "Watcher Ready Chat Message",
+            subcategory = "Watcher Ready",
+            description = "Send a message to your party when watcher is done spawning mobs.",
+            category = "Dungeons"
     )
     public boolean watcherReadyChatMessage = false;
 
 
     @Text(
-        subcategory = "Watcher Ready",
-        name = "Watcher Ready Text",
-        description = "Message to send when the watcher is ready to clear.",
-        category = "Dungeons",
+            subcategory = "Watcher Ready",
+            name = "Watcher Ready Text",
+            description = "Message to send when the watcher is ready to clear.",
+            category = "Dungeons",
             size = 2
     )
     public String watcherChatMessage = "Partly Sane Skies > The watcher is done spawning mobs. Ready to clear.";
 
     @Switch(
-        subcategory = "Watcher Ready",
-        name = "Air Raid Siren",
-        description = "Plays a WWII air raid siren when the watcher is done spawning mobs. \nPros: \nKeeps you up at late night grinds \n(RECOMMENDED, ESPECIALLY AT 3 AM)",
-        category = "Dungeons"
+            subcategory = "Watcher Ready",
+            name = "Air Raid Siren",
+            description = "Plays a WWII air raid siren when the watcher is done spawning mobs. \nPros: \nKeeps you up at late night grinds \n(RECOMMENDED, ESPECIALLY AT 3 AM)",
+            category = "Dungeons"
     )
     public boolean watcherReadyAirRaidSiren = false;
     // Healer Alert
@@ -942,25 +943,25 @@ public class OneConfigScreen extends Config {
     )
     public boolean secretsAirRaidSiren = false;
 
-// Dungeon Player Breakdown
+    // Dungeon Player Breakdown
     @Switch(
-        subcategory = "Dungeon Player Breakdown",
-        name = "Dungeon Player Breakdown",
-        description = "At the end of the dungeon, send a message informing you how much of the dungeon each player has completed",
-        category = "Dungeons"
+            subcategory = "Dungeon Player Breakdown",
+            name = "Dungeon Player Breakdown",
+            description = "At the end of the dungeon, send a message informing you how much of the dungeon each player has completed",
+            category = "Dungeons"
     )
     public boolean dungeonPlayerBreakdown = false;
 
     @Dropdown(
-        subcategory = "Dungeon Player Breakdown",
-        name = "Message Content",
-        description = "Shows more information about how many blessings and secrets each player collected",
-        category = "Dungeons",
-        options = {
-            "Condensed",
-            "Standard",
-            "Enhanced"
-        }
+            subcategory = "Dungeon Player Breakdown",
+            name = "Message Content",
+            description = "Shows more information about how many blessings and secrets each player collected",
+            category = "Dungeons",
+            options = {
+                    "Condensed",
+                    "Standard",
+                    "Enhanced"
+            }
     )
     public int enhancedDungeonPlayerBreakdown = 1;
     @Slider(
@@ -974,10 +975,10 @@ public class OneConfigScreen extends Config {
     public float dungeonPlayerBreakdownDelay = 1f;
 
     @Switch(
-        subcategory = "Dungeon Player Breakdown",
-        name = "Send in Party Chat",
-        description = "Send a condensed version to the rest of your party.",
-        category = "Dungeons"
+            subcategory = "Dungeon Player Breakdown",
+            name = "Send in Party Chat",
+            description = "Send a condensed version to the rest of your party.",
+            category = "Dungeons"
     )
     public boolean partyChatDungeonPlayerBreakdown = false;
 
@@ -999,7 +1000,7 @@ public class OneConfigScreen extends Config {
     )
     public float dungeonSnitcherPercent = 7.5f;
 
-//    Auto GG
+    //    Auto GG
     @Switch(
             subcategory = "Auto GG",
             name = "Enable Automatic GG message",
@@ -1011,7 +1012,7 @@ public class OneConfigScreen extends Config {
     @Slider(
             subcategory = "Auto GG",
             name = "Cooldown after dungeon ends",
-            description = "",
+            description = "The amount of seconds after a dungeon ends before the auto gg message is sent.",
             category = "Dungeons",
             min = 0,
             max = 10
@@ -1021,7 +1022,7 @@ public class OneConfigScreen extends Config {
     @Dropdown(
             subcategory = "Auto GG",
             name = "Send in",
-            description = "",
+            description = "Where to send the auto gg message",
             category = "Dungeons",
             options = {"Party Chat", "All Chat"}
     )
@@ -1052,8 +1053,6 @@ public class OneConfigScreen extends Config {
     public String autoGGMessageOther = "Welp, GG";
 
 
-
-
     // ------------- Category: Farming ---------------------------------
 //    Hoes
     @Switch(
@@ -1065,17 +1064,17 @@ public class OneConfigScreen extends Config {
     public boolean blockHoeRightClicks = false;
 
     @Slider(
-        min = 1,
-        max = 15,
-        subcategory = "Hoes",
-        name = "Allow Time",
-        description = "The amount of minutes the hoe will be allowed to be used for, using /allowhoerightclick.",
-        category = "Farming"
+            min = 1,
+            max = 15,
+            subcategory = "Hoes",
+            name = "Allow Time",
+            description = "The amount of minutes the hoe will be allowed to be used for, using /allowhoerightclick.",
+            category = "Farming"
     )
     public float allowRightClickTime = 3f;
 
 
-//    Farn notifier
+    //    Farn notifier
     @Switch(
             subcategory = "End of Farm Notifier",
             category = "Farming",
@@ -1084,12 +1083,12 @@ public class OneConfigScreen extends Config {
     public boolean showFarmRegions = true;
 
     @Slider(
-        min = 1,
-        max = 5,
-        subcategory = "End of Farm Notifier",
-        name = "Time between chimes",
-        description = "The amount of seconds between the chime sounds",
-        category = "Farming"
+            min = 1,
+            max = 5,
+            subcategory = "End of Farm Notifier",
+            name = "Time between chimes",
+            description = "The amount of seconds between the chime sounds",
+            category = "Farming"
     )
     public float farmnotifierChimeTime = 3;
 
@@ -1103,20 +1102,20 @@ public class OneConfigScreen extends Config {
     )
     public float farmHightlightTime = 30f;
 
-// Garden
+    // Garden
     @Switch(
-        subcategory = "Garden",
-        name = "Garden Shop Trade Cost",
-        description = "Gives you information about the cost of garden shop trades.",
-        category = "Farming"
+            subcategory = "Garden",
+            name = "Garden Shop Trade Cost",
+            description = "Gives you information about the cost of garden shop trades.",
+            category = "Farming"
     )
     public boolean gardenShopTradeInfo = false;
 
     @Switch(
-        subcategory = "Garden",
-        name = "Best Crops to Compost",
-        description = "Gives you information about which crops are the best to compost.",
-        category = "Farming"
+            subcategory = "Garden",
+            name = "Best Crops to Compost",
+            description = "Gives you information about which crops are the best to compost.",
+            category = "Farming"
     )
     public boolean bestCropsToCompost = false;
 
@@ -1127,21 +1126,21 @@ public class OneConfigScreen extends Config {
             category = "Farming"
     )
     public boolean visitorLogbookStats = false;
-// ------------- Category: Economy ---------------------------------
+    // ------------- Category: Economy ---------------------------------
 // Community Center
     @Switch(
-        subcategory = "Community Center",
-        name = "Best Item for Bits",
-        description = "Gives you information about which item in the Bits Shop is the best to sell.",
-        category = "Economy"
+            subcategory = "Community Center",
+            name = "Best Item for Bits",
+            description = "Gives you information about which item in the Bits Shop is the best to sell.",
+            category = "Economy"
     )
     public boolean bestBitShopItem = false;
 
     @Switch(
-        subcategory = "Community Center",
+            subcategory = "Community Center",
             name = "Only Show Affordable Items",
-        description = "When making recommendations for what you can buy, only recommend the items that you are able to afford.",
-        category = "Economy"
+            description = "When making recommendations for what you can buy, only recommend the items that you are able to afford.",
+            category = "Economy"
     )
     public boolean bitShopOnlyShowAffordable = true;
 
@@ -1156,25 +1155,25 @@ public class OneConfigScreen extends Config {
     public float BINSniperPercent = 87f;
 
 
-     // Auction House
-     @Switch(
-        name = "Custom Auction House GUI",
-        category = "Economy",
-        subcategory = "Auction House",
-        description = "Toggle using the custom Auction House GUI and BIN Sniper Helper."
+    // Auction House
+    @Switch(
+            name = "Custom Auction House GUI",
+            category = "Economy",
+            subcategory = "Auction House",
+            description = "Toggle using the custom Auction House GUI and BIN Sniper Helper."
     )
     public boolean customAhGui = true;
 
     @Dropdown(
 
-        name = "Custom Auction House GUI Icons",
-        category = "Economy",
-        options = {
-            "Partly Sane Studios",
-            "FurfSky Reborn"
-        },
-        subcategory = "Auction House",
-        description = "Use either the Partly Sane Studios developed textures, or the FurfSky Reborn developed textures\n\nAll of the textures under FurfSky Reborn are fully developed by the FurfSky Reborn team.\nhttps://furfsky.net/"
+            name = "Custom Auction House GUI Icons",
+            category = "Economy",
+            options = {
+                    "Partly Sane Studios",
+                    "FurfSky Reborn"
+            },
+            subcategory = "Auction House",
+            description = "Use either the Partly Sane Studios developed textures, or the FurfSky Reborn developed textures\n\nAll of the textures under FurfSky Reborn are fully developed by the FurfSky Reborn team.\nhttps://furfsky.net/"
     )
     public int customAhGuiTextures = 1;
 
@@ -1234,46 +1233,42 @@ public class OneConfigScreen extends Config {
     public float auctionHouseTextScale = .75f;
 
 
-
-
-
-
     // Excessive Coin warning
     @Switch(
-        name = "Excessive Coin and No Booster Cookie",
-        category = "Economy",
-        description = "Warns you if you have a lot of coins in your purse and no booster cookie.",
-        subcategory = "Excessive Coin Warning"
+            name = "Excessive Coin and No Booster Cookie",
+            category = "Economy",
+            description = "Warns you if you have a lot of coins in your purse and no booster cookie.",
+            subcategory = "Excessive Coin Warning"
     )
     public boolean noCookieWarning = false;
 
     @Number(
-        min = 0,
-        max = Integer.MAX_VALUE,
-        name = "Maximum Allowed Amount Without Booster Cookie",
-        category = "Economy",
-        description = "The maximum allowed amount of money allowed before it warns you about having no booster cookie.",
-        subcategory = "Excessive Coin Warning"
+            min = 0,
+            max = Integer.MAX_VALUE,
+            name = "Maximum Allowed Amount Without Booster Cookie",
+            category = "Economy",
+            description = "The maximum allowed amount of money allowed before it warns you about having no booster cookie.",
+            subcategory = "Excessive Coin Warning"
     )
     public int maxWithoutCookie = 750000;
 
     @Slider(
-        min = 1,
-        max = 7,
-        subcategory = "Excessive Coin Warning",
-        name = "Excessive Coin Warning Time",
-        description = "The amount of seconds the warning appears for appears for.",
-        category = "Economy"
+            min = 1,
+            max = 7,
+            subcategory = "Excessive Coin Warning",
+            name = "Excessive Coin Warning Time",
+            description = "The amount of seconds the warning appears for appears for.",
+            category = "Economy"
     )
     public float noCookieWarnTime = 3.5f;
 
     @Slider(
-        min = 1,
-        max = 300,
-        subcategory = "Excessive Coin Warning",
-        name = "Excessive Coin Warn Cooldown",
-        description = "The amount of seconds between each warning",
-        category = "Economy"
+            min = 1,
+            max = 300,
+            subcategory = "Excessive Coin Warning",
+            name = "Excessive Coin Warn Cooldown",
+            description = "The amount of seconds between each warning",
+            category = "Economy"
     )
     public int noCookieWarnCooldown = 20;
 
@@ -1281,14 +1276,14 @@ public class OneConfigScreen extends Config {
     //    ------------------ Category: Chat ---------------------
 //    WordEditor
     @Switch(
-        name = "Word Editor Main Toggle",
-        category = "Chat",
-        subcategory = "Word Editor",
-        description = "Allows you to edit words in chat. Can be configured with /wordeditor"
+            name = "Word Editor Main Toggle",
+            category = "Chat",
+            subcategory = "Word Editor",
+            description = "Allows you to edit words in chat. Can be configured with /wordeditor"
     )
     public boolean wordEditor = true;
 
-//  Chat Alerts
+    //  Chat Alerts
     @Switch(
             name = "Send System Notification",
             category = "Chat",
@@ -1297,7 +1292,7 @@ public class OneConfigScreen extends Config {
     )
     public boolean chatAlertSendSystemNotification = false;
 
-//Chat Colors
+    //Chat Colors
     @Switch(
             name = "Color Private Messages",
             category = "Chat",
@@ -1364,7 +1359,7 @@ public class OneConfigScreen extends Config {
     public boolean owoLanguage = false;
 
 
-//    ------------- DEBUG ------------
+    //    ------------- DEBUG ------------
     @KeyBind(
             category = "Debug",
             name = "Debug Keybind"
@@ -1395,7 +1390,7 @@ public class OneConfigScreen extends Config {
             category = "Debug"
     )
     public boolean debugAddSlacker = false;
-    
+
     @Switch(
             name = "Send a system notification",
             category = "Debug"
