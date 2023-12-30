@@ -5,6 +5,8 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.features.dungeons.playerrating.PlayerRating
 import me.partlysanestudios.partlysaneskies.gui.hud.BannerRenderer.renderNewBanner
 import me.partlysanestudios.partlysaneskies.gui.hud.PSSBanner
+import me.partlysanestudios.partlysaneskies.renderers.waypoint.Waypoint
+import me.partlysanestudios.partlysaneskies.renderers.waypoint.WaypointManager
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
 import net.minecraftforge.client.event.ClientChatReceivedEvent
@@ -35,7 +37,23 @@ object DebugKey {
             PlayerRating.rackPoints("FlagTheSlacker", "Debug Slacker")
         }
 
-
+        if (PartlySaneSkies.config.debugSpawnWaypoint) {
+            if (PartlySaneSkies.config.debugMode) {
+                WaypointManager.addWaypoint(
+                    Waypoint(
+                        "Debug Waypoint",
+                        PartlySaneSkies.minecraft.thePlayer.position,
+                    )
+                )
+            } else {
+                WaypointManager.removeWaypoint(
+                    Waypoint(
+                        "Debug Waypoint",
+                        PartlySaneSkies.minecraft.thePlayer.position,
+                    )
+                )
+            }
+        }
     }
 
     // Runs chat analyzer for debug mode

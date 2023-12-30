@@ -74,6 +74,8 @@ import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager;
 import me.partlysanestudios.partlysaneskies.gui.hud.BannerRenderer;
 import me.partlysanestudios.partlysaneskies.gui.hud.cooldown.CooldownManager;
 import me.partlysanestudios.partlysaneskies.gui.hud.cooldown.TreecapitatorCooldown;
+import me.partlysanestudios.partlysaneskies.renderers.waypoint.WaypointManager;
+import me.partlysanestudios.partlysaneskies.renderers.waypoint.WaypointRenderer;
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils;
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils;
 import net.minecraft.client.Minecraft;
@@ -221,6 +223,9 @@ public class PartlySaneSkies {
         load(AutoGG.INSTANCE);
         load(CooldownManager.INSTANCE);
         load(PetData.INSTANCE);
+
+        // Renderer
+        load(WaypointRenderer.INSTANCE);
 
 
         // Registers all client side commands
