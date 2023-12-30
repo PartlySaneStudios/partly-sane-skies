@@ -1,30 +1,39 @@
 package me.partlysanestudios.partlysaneskies.system
 
-import java.awt.*
-import javax.swing.ImageIcon
+import java.awt.SystemTray
+import java.awt.Toolkit
+import java.awt.TrayIcon
+import java.awt.TrayIcon.MessageType
+import java.net.URL
 import javax.swing.JOptionPane
 
-object SystemNotification {
 
+object SystemNotification {
     private const val NOTIFICATION_TITLE = "PartlySaneSkies"
-    private val tray: SystemTray? = if (SystemTray.isSupported()) SystemTray.getSystemTray() else null
-    private val iconImage: ImageIcon = loadImageIcon("/assets/partlysaneskies/textures/logo.png")
 
     fun showNotification(text: String) {
-        if (tray != null) {
-            showNativeNotification(text)
+        if (SystemTray.isSupported()) {
+            showTrayNotification(text)
         } else {
             showJOptionPaneBackup(text)
+            System.err.println("System tray not supported!")
         }
     }
 
-    private fun showNativeNotification(text: String) {
+    private fun showTrayNotification(text: String) {
         try {
-            val trayIcon = TrayIcon(iconImage.image, NOTIFICATION_TITLE)
-            trayIcon.isImageAutoSize = true
-            trayIcon.toolTip = text
-            tray?.add(trayIcon)
-            trayIcon.displayMessage(NOTIFICATION_TITLE, text, TrayIcon.MessageType.INFO)
+            val tray = SystemTray.getSystemTray()
+
+            // Custom Icon doesnt seem to be possible anyway sooo idk
+            val image = Toolkit.getDefaultToolkit().createImage(URL("https://cdn.modrinth.com/data/jlWHBQtc/8be3d6a35e683c41f9ddf086fd6d56146a494d75.jpeg"))
+            val trayIcon = TrayIcon(image, "PartlySaneSkies")
+
+            trayIcon.setImageAutoSize(true)
+
+            trayIcon.setToolTip("PartlySaneSkies")
+            tray.add(trayIcon)
+
+            trayIcon.displayMessage("PartlySaneSkies", text, MessageType.INFO)
         } catch (e: Exception) {
             e.printStackTrace()
             showJOptionPaneBackup(text)
@@ -33,14 +42,5 @@ object SystemNotification {
 
     private fun showJOptionPaneBackup(text: String) {
         JOptionPane.showMessageDialog(null, text, NOTIFICATION_TITLE, JOptionPane.INFORMATION_MESSAGE)
-    }
-
-    private fun loadImageIcon(path: String): ImageIcon {
-        val url = SystemNotification::class.java.getResource(path)
-        return if (url != null) {
-            ImageIcon(url)
-        } else {
-            throw IllegalArgumentException("Image not found: $path")
-        }
     }
 }

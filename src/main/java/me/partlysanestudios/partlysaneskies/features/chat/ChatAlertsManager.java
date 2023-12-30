@@ -7,7 +7,9 @@ package me.partlysanestudios.partlysaneskies.features.chat;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand;
+import me.partlysanestudios.partlysaneskies.system.SystemNotification;
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import net.minecraft.util.ChatComponentText;
@@ -183,7 +185,7 @@ public class ChatAlertsManager {
     // Removes an alert given a number
     public static void removeAlert(int id) {
         // Checks if the number is in the list
-        if (id > chatAlertsList.size() || chatAlertsList.size() < 0) {
+        if (id > chatAlertsList.size() || id < 0) {
             ChatUtils.INSTANCE.sendClientMessage("§cChat alert number " + id + " was not found. Please enter a valid number.");
             return;
         }
@@ -208,8 +210,13 @@ public class ChatAlertsManager {
     // All the different message prefixes
     static String[] MESSAGE_PREFIXES = new String[] {"§r§7: ", "§r§f: ", "§f: "};
 
-    // Runs when a chat message is received
+    // I love overloading
     public static IChatComponent checkChatAlert(IChatComponent message) {
+        return checkChatAlert(message, false);
+    }
+
+    // Runs when a chat message is received
+    public static IChatComponent checkChatAlert(IChatComponent message, Boolean sendSystemNotification) {
         String formattedMessage = message.getFormattedText();
 
         // Finds the location after the username starts
@@ -270,7 +277,10 @@ public class ChatAlertsManager {
             charsToAdd = ("§d§l").toCharArray();
             messageBuilder.insert(alertIndexFormatted, charsToAdd, 0, charsToAdd.length);
 
-
+            // Sends System Tray
+            if (PartlySaneSkies.config.chatAlertSendSystemNotification && sendSystemNotification){
+                SystemNotification.INSTANCE.showNotification("Chat Alert " + alert  + " was triggered!");
+            }
 
             // Shows a message to user
             return new ChatComponentText(messageBuilder.toString());

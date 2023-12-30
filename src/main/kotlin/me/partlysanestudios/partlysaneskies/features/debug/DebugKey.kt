@@ -39,7 +39,6 @@ object DebugKey {
         if (PartlySaneSkies.config.debugSendSystemNotification) {
             SystemNotification.showNotification("Debug mode: ${isDebugMode()}")
         }
-
     }
 
     // Runs chat analyzer for debug mode

@@ -1277,6 +1277,7 @@ public class OneConfigScreen extends Config {
     )
     public int noCookieWarnCooldown = 20;
 
+
     //    ------------------ Category: Chat ---------------------
 //    WordEditor
     @Switch(
@@ -1286,6 +1287,15 @@ public class OneConfigScreen extends Config {
         description = "Allows you to edit words in chat. Can be configured with /wordeditor"
     )
     public boolean wordEditor = true;
+
+//  Chat Alerts
+    @Switch(
+            name = "Send System Notification",
+            category = "Chat",
+            subcategory = "Chat Alerts",
+            description = "Sends a system notification when a message triggered by the Chat Alert was send."
+    )
+    public boolean chatAlertSendSystemNotification = false;
 
 //Chat Colors
     @Switch(

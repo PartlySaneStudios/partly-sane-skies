@@ -58,7 +58,7 @@ object ChatManager {
             PartlySaneSkies.minecraft
                 .soundHandler
                 .playSound(PositionedSoundRecord.create(ResourceLocation("partlysaneskies", "flute_scale")))
-            messageToSend = ChatAlertsManager.checkChatAlert(messageToSend)
+            messageToSend = ChatAlertsManager.checkChatAlert(messageToSend, true)
         }
 
         // If the word editor wants to edit something
