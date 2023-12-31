@@ -249,6 +249,7 @@ public class PartlySaneSkies {
         WordEditor.registerWordEditorCommand();
         PlayerRating.registerReprintCommand();
         ModChecker.registerModCheckCommand();
+        PearlRefill.INSTANCE.registerCommand();
 
 
         CooldownManager.INSTANCE.init();

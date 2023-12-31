@@ -655,6 +655,15 @@ public class OneConfigScreen extends Config {
     )
     public float healerAlertCooldownSlider = 3.5f;
 
+    // Pearl Refill
+    @Switch(
+        name = "Auto Pearl Refill",
+        subcategory = "Pearl Refill",
+        description = "Automatically refills your pearls when a run starts.",
+        category = "Dungeons"
+    )
+    public boolean autoPearlRefill = false;
+
     // Required Secrets Found
     @Switch(
             name = "Required Secrets Found Banner",
