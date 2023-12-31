@@ -10,7 +10,6 @@ package me.partlysanestudios.partlysaneskies.utils
 import com.google.common.collect.ComparisonChain
 import com.google.common.collect.Ordering
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
-import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockItem
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import net.minecraft.client.gui.GuiScreen
 import net.minecraft.client.network.NetworkPlayerInfo
@@ -253,6 +252,7 @@ object MinecraftUtils {
     }
 
     /**
+     * @param skyblockId the skyblock id of the item to count
      * @return the number of items in the player's inventory
      */
     fun countItemInInventory(skyblockId: String): Int {
