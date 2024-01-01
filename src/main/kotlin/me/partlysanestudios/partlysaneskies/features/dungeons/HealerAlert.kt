@@ -7,8 +7,8 @@
 package me.partlysanestudios.partlysaneskies.features.dungeons.healeralert
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
-import me.partlysanestudios.partlysaneskies.gui.BannerRenderer
-import me.partlysanestudios.partlysaneskies.gui.PSSBanner
+import me.partlysanestudios.partlysaneskies.gui.hud.BannerRenderer
+import me.partlysanestudios.partlysaneskies.gui.hud.PSSBanner
 import me.partlysanestudios.partlysaneskies.utils.*
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import net.minecraft.client.audio.PositionedSoundRecord
@@ -18,7 +18,6 @@ import java.awt.Color
 
 
 object HealerAlert {
-
     private var lastWarnTime = 0L
 
     private fun isPlayerLowOnHealth(): Boolean {
@@ -33,9 +32,9 @@ object HealerAlert {
             SystemUtils.log(Level.INFO, line)
             if (line.removeColorCodes()[0] !='[') {
                 continue
-
-
             }
+
+            // TODO: do with regex
             val indexOfFirstSpace = line.indexOf(" ")
             val indexOfSecondSpace = line.indexOf(" ", indexOfFirstSpace + 1)
             val health = line.substring(indexOfSecondSpace)
@@ -56,10 +55,9 @@ object HealerAlert {
                 return
             }
             lastWarnTime = PartlySaneSkies.getTime()
-            BannerRenderer.renderNewBanner(PSSBanner("A Player In Your Party Is Low On Health", 3500, color = Color.RED))
+            BannerRenderer.renderNewBanner(PSSBanner("A player is low", 3500, color = Color.RED))
             PartlySaneSkies.minecraft.soundHandler
                 .playSound(PositionedSoundRecord.create(ResourceLocation("partlysaneskies", "bell")))
         }
     }
-
 }

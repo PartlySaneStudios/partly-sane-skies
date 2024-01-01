@@ -30,7 +30,15 @@ private var lastPrankTime = PartlySaneSkies.getTime()
     - 6: knock knock
 */
 
-class Prank {
+object Prank {
+
+    var shouldPrankREPO = false
+
+
+    fun setPrankKillSwitch(value: Boolean) {
+        shouldPrankREPO = value
+    }
+
     private fun execute() {
         val index = (Math.random() * numOfSounds).toInt().toString()
 
@@ -38,7 +46,7 @@ class Prank {
             .playSound(PositionedSoundRecord.create(ResourceLocation("partlysaneskies", "prank$index")))
     }
 
-    private fun checkDate(): Boolean{
+    private fun checkDate(): Boolean {
         val today = LocalDate.now()
         val april1st = LocalDate.of(today.year, Month.APRIL, 1)
         val october31st = LocalDate.of(today.year, Month.OCTOBER, 31)
@@ -68,12 +76,5 @@ class Prank {
             lastPrankTime = PartlySaneSkies.getTime()
         }
     }
-
-    companion object {
-        var shouldPrankREPO = false
-
-        fun setPrankKillSwitch(value: Boolean) {
-            shouldPrankREPO = value
-        }
-    }
 }
+

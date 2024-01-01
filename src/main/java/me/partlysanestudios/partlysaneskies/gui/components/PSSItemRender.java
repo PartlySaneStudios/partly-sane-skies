@@ -7,6 +7,7 @@ package me.partlysanestudios.partlysaneskies.gui.components;
 
 import gg.essential.elementa.UIComponent;
 import gg.essential.elementa.constraints.PixelConstraint;
+import gg.essential.elementa.constraints.WidthConstraint;
 import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import net.minecraft.client.renderer.GlStateManager;
@@ -14,8 +15,8 @@ import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.item.ItemStack;
 
 public class PSSItemRender extends UIComponent {
-    ItemStack item;
-    float itemScale = 1;
+    private ItemStack item;
+    private float itemScale = 1;
 
     public PSSItemRender(ItemStack item) {
         this.item = item;
@@ -43,6 +44,20 @@ public class PSSItemRender extends UIComponent {
         itemRenderer.renderItemAndEffectIntoGUI(stack, Math.round(x / itemScale), Math.round(y / itemScale));
         GlStateManager.popMatrix();
 
+    }
+
+    public ItemStack getItem() {
+        return item;
+    }
+
+    public PSSItemRender setItem(ItemStack item) {
+        this.item = item;
+        return this;
+    }
+
+    public UIComponent setScaleBasedOnWidth(PixelConstraint pixelConstraint) {
+        setItemScale(new PixelConstraint((pixelConstraint.getValue() / 16)));
+        return this;
     }
 
     public UIComponent setItemScale(PixelConstraint constraint) {
