@@ -14,6 +14,8 @@ import cc.polyfrost.oneconfig.config.core.OneKeyBind;
 import cc.polyfrost.oneconfig.config.data.InfoType;
 import cc.polyfrost.oneconfig.config.data.Mod;
 import cc.polyfrost.oneconfig.config.data.ModType;
+import cc.polyfrost.oneconfig.libs.universal.UKeyboard;
+import me.partlysanestudios.partlysaneskies.features.dungeons.PearlRefill;
 import org.lwjgl.input.Keyboard;
 
 public class OneConfigScreen extends Config {
@@ -22,6 +24,8 @@ public class OneConfigScreen extends Config {
         // Available mod types: PVP, HUD, UTIL_QOL, HYPIXEL, SKYBLOCK
         super(new Mod("Partly Sane Skies", ModType.SKYBLOCK, "/assets/partlysaneskies/textures/logo_oneconfig.png"), "partly-sane-skies/config.json");
         initialize();
+
+        registerKeyBind(refillPearlsKeybind, PearlRefill.INSTANCE::keybindAction);
     }
 
     public void resetBrokenStrings() {
@@ -624,8 +628,8 @@ public class OneConfigScreen extends Config {
         category = "Dungeons"
     )
     public boolean watcherReadyAirRaidSiren = false;
-    // Healer Alert
 
+    // Healer Alert
     @Switch(
             subcategory = "Healer Alert",
             name = "Healer Alert",
@@ -657,12 +661,20 @@ public class OneConfigScreen extends Config {
 
     // Pearl Refill
     @Switch(
-        name = "Auto Pearl Refill",
-        subcategory = "Pearl Refill",
-        description = "Automatically refills your pearls when a run starts.",
-        category = "Dungeons"
+            name = "Auto Pearl Refill",
+            subcategory = "Pearl Refill",
+            description = "Automatically refills your pearls when a run starts.",
+            category = "Dungeons"
     )
     public boolean autoPearlRefill = false;
+
+    @KeyBind(
+            name = "Refill Pearls Keybind",
+            subcategory = "Pearl Refill",
+            description = "The keybind to automatically refill your pearls.",
+            category = "Dungeons"
+    )
+    public static OneKeyBind refillPearlsKeybind = new OneKeyBind(UKeyboard.KEY_P);
 
     // Required Secrets Found
     @Switch(

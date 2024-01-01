@@ -5,8 +5,6 @@ import me.partlysanestudios.partlysaneskies.commands.PSSCommand
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.countItemInInventory
 import net.minecraft.command.ICommandSender
-import net.minecraft.init.Items
-import net.minecraft.item.ItemStack
 import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 
@@ -31,6 +29,10 @@ object PearlRefill {
             .setRunnable { s: ICommandSender, a: Array<String> ->
                 runPearlRefill()
             }.register()
+    }
+
+    fun keybindAction(){
+        runPearlRefill()
     }
 
     private fun runPearlRefill() {
