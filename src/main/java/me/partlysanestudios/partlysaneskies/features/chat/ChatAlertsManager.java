@@ -14,6 +14,7 @@ import me.partlysanestudios.partlysaneskies.utils.ChatUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
+import org.lwjgl.opengl.Display;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -278,7 +279,7 @@ public class ChatAlertsManager {
             messageBuilder.insert(alertIndexFormatted, charsToAdd, 0, charsToAdd.length);
 
             // Sends System Tray
-            if (PartlySaneSkies.config.chatAlertSendSystemNotification && !PartlySaneSkies.minecraft.inGameHasFocus && sendSystemNotification ){
+            if (PartlySaneSkies.config.chatAlertSendSystemNotification && !Display.isActive() && sendSystemNotification ){
                 SystemNotification.INSTANCE.showNotification("Chat Alert " + alert  + " was triggered!");
             }
 
