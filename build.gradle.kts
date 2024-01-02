@@ -49,7 +49,7 @@ dependencies {
 
     implementation(kotlin("stdlib"))
 
-    compileOnly("cc.polyfrost:oneconfig-${mcData.versionStr}-${mcData.loader.name}:0.2.2-alpha+")
+    compileOnly("cc.polyfrost:oneconfig-${mcData.versionStr}-${mcData.loader.name}:0.2.1-alpha+")
 }
 
 toolkitReleases {
