@@ -13,7 +13,7 @@
  */
 
 
-package me.partlysanestudios.partlysaneskies.config.keybinds
+package me.partlysanestudios.partlysaneskies.features.gui
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
