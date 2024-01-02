@@ -31,14 +31,14 @@ public class MiningEvents {
             showBanner = true;
             PartlySaneSkies.minecraft.thePlayer.playSound("partlysaneskies:bell", 100, 1);
             if (PartlySaneSkies.config.miningShowEventBanner) displayText = "2x Powder Event in 20s!";
-            if (PartlySaneSkies.config.miningSendSystemNotifications) SystemNotification.INSTANCE.showNotification("2x Powder Event in 20s!");
+            if (PartlySaneSkies.config.miningSendSystemNotifications && !PartlySaneSkies.minecraft.inGameHasFocus) SystemNotification.INSTANCE.showNotification("2x Powder Event in 20s!");
         }
 
         if (message.contains("§l2X POWDER STARTED!") && PartlySaneSkies.config.mining2xPowderSound) {
             showBanner = true;
             PartlySaneSkies.minecraft.thePlayer.playSound("partlysaneskies:bell", 100, 1);
             if (PartlySaneSkies.config.miningShowEventBanner) displayText = "2x Powder Event Started!";
-            if (PartlySaneSkies.config.miningSendSystemNotifications) SystemNotification.INSTANCE.showNotification("2x Powder Event Started!");
+            if (PartlySaneSkies.config.miningSendSystemNotifications && !PartlySaneSkies.minecraft.inGameHasFocus) SystemNotification.INSTANCE.showNotification("2x Powder Event Started!");
         }
 
         // Gone with the wind
@@ -46,14 +46,14 @@ public class MiningEvents {
             showBanner = true;
             PartlySaneSkies.minecraft.thePlayer.playSound("partlysaneskies:bell", 100, 1);
             if (PartlySaneSkies.config.miningShowEventBanner) displayText = "Gone with the Wind Event in 20s!";
-            if (PartlySaneSkies.config.miningSendSystemNotifications) SystemNotification.INSTANCE.showNotification("Gone with the Wind Event in 20s!");
+            if (PartlySaneSkies.config.miningSendSystemNotifications && !PartlySaneSkies.minecraft.inGameHasFocus) SystemNotification.INSTANCE.showNotification("Gone with the Wind Event in 20s!");
         }
 
         if (message.contains("§r§9§lGONE WITH THE WIND STARTED!") && PartlySaneSkies.config.miningGoneWithTheWindSound) {
             showBanner = true;
             PartlySaneSkies.minecraft.thePlayer.playSound("partlysaneskies:bell", 100, 1);
             if (PartlySaneSkies.config.miningShowEventBanner) displayText = "Gone with the Wind Event Started!";
-            if (PartlySaneSkies.config.miningSendSystemNotifications) SystemNotification.INSTANCE.showNotification("Gone with the Wind Event Started!");
+            if (PartlySaneSkies.config.miningSendSystemNotifications && !PartlySaneSkies.minecraft.inGameHasFocus) SystemNotification.INSTANCE.showNotification("Gone with the Wind Event Started!");
         }
 
         // Better Together
@@ -61,14 +61,14 @@ public class MiningEvents {
             showBanner = true;
             PartlySaneSkies.minecraft.thePlayer.playSound("partlysaneskies:bell", 100, 1);
             if (PartlySaneSkies.config.miningShowEventBanner) displayText = "Better Together Event in 20s!";
-            if (PartlySaneSkies.config.miningSendSystemNotifications) SystemNotification.INSTANCE.showNotification("Better Together Event in 20s!");
+            if (PartlySaneSkies.config.miningSendSystemNotifications && !PartlySaneSkies.minecraft.inGameHasFocus) SystemNotification.INSTANCE.showNotification("Better Together Event in 20s!");
         }
 
         if (message.contains("§r§d§lBETTER TOGETHER STARTED!") && PartlySaneSkies.config.miningBetterTogetherSound) {
             showBanner = true;
             PartlySaneSkies.minecraft.thePlayer.playSound("partlysaneskies:bell", 100, 1);
             if (PartlySaneSkies.config.miningShowEventBanner) displayText = "Better Together Event Started!";
-            if (PartlySaneSkies.config.miningSendSystemNotifications) SystemNotification.INSTANCE.showNotification("Better Together Event Started!");
+            if (PartlySaneSkies.config.miningSendSystemNotifications && !PartlySaneSkies.minecraft.inGameHasFocus) SystemNotification.INSTANCE.showNotification("Better Together Event Started!");
         }
 
         // Goblin Raid
@@ -76,14 +76,14 @@ public class MiningEvents {
             showBanner = true;
             PartlySaneSkies.minecraft.thePlayer.playSound("partlysaneskies:bell", 100, 1);
             if (PartlySaneSkies.config.miningShowEventBanner) displayText = "Goblin Raid Event in 20s!";
-            if (PartlySaneSkies.config.miningSendSystemNotifications) SystemNotification.INSTANCE.showNotification("Goblin Raid Event in 20s!");
+            if (PartlySaneSkies.config.miningSendSystemNotifications && !PartlySaneSkies.minecraft.inGameHasFocus) SystemNotification.INSTANCE.showNotification("Goblin Raid Event in 20s!");
         }
 
         if (message.contains("§r§c§lGOBLIN RAID STARTED!") && PartlySaneSkies.config.miningGoblinRaidSound) {
             showBanner = true;
             PartlySaneSkies.minecraft.thePlayer.playSound("partlysaneskies:bell", 100, 1);
             if (PartlySaneSkies.config.miningShowEventBanner) displayText = "Goblin Raid Event Started!";
-            if (PartlySaneSkies.config.miningSendSystemNotifications) SystemNotification.INSTANCE.showNotification("Goblin Raid Event Started!");
+            if (PartlySaneSkies.config.miningSendSystemNotifications && !PartlySaneSkies.minecraft.inGameHasFocus) SystemNotification.INSTANCE.showNotification("Goblin Raid Event Started!");
         }
 
         // Raffle
@@ -91,14 +91,14 @@ public class MiningEvents {
             showBanner = true;
             PartlySaneSkies.minecraft.thePlayer.playSound("partlysaneskies:bell", 100, 1);
             if (PartlySaneSkies.config.miningShowEventBanner) displayText = "Raffle Event in 20s!";
-            if (PartlySaneSkies.config.miningSendSystemNotifications) SystemNotification.INSTANCE.showNotification("Raffle Event in 20s!");
+            if (PartlySaneSkies.config.miningSendSystemNotifications && !PartlySaneSkies.minecraft.inGameHasFocus) SystemNotification.INSTANCE.showNotification("Raffle Event in 20s!");
         }
 
         if (message.contains("§r§6§lRAFFLE STARTED!") && PartlySaneSkies.config.miningRaffleSound) {
             showBanner = true;
             PartlySaneSkies.minecraft.thePlayer.playSound("partlysaneskies:bell", 100, 1);
             if (PartlySaneSkies.config.miningShowEventBanner) displayText = "Raffle Event Started!";
-            if (PartlySaneSkies.config.miningSendSystemNotifications) SystemNotification.INSTANCE.showNotification("Raffle Event Started!");
+            if (PartlySaneSkies.config.miningSendSystemNotifications && !PartlySaneSkies.minecraft.inGameHasFocus) SystemNotification.INSTANCE.showNotification("Raffle Event Started!");
         }
 
         // Gourmand
@@ -106,14 +106,14 @@ public class MiningEvents {
             showBanner = true;
             PartlySaneSkies.minecraft.thePlayer.playSound("partlysaneskies:bell", 100, 1);
             if (PartlySaneSkies.config.miningShowEventBanner) displayText = "Mithril Gourmand Event in 20s!";
-            if (PartlySaneSkies.config.miningSendSystemNotifications) SystemNotification.INSTANCE.showNotification("Mithril Gourmand Event in 20s!");
+            if (PartlySaneSkies.config.miningSendSystemNotifications && !PartlySaneSkies.minecraft.inGameHasFocus) SystemNotification.INSTANCE.showNotification("Mithril Gourmand Event in 20s!");
         }
 
         if (message.contains("§r§b§lMITHRIL GOURMAND STARTED!") && PartlySaneSkies.config.miningMithrilGourmandSound){
             showBanner = true;
             PartlySaneSkies.minecraft.thePlayer.playSound("partlysaneskies:bell", 100, 1);
             if (PartlySaneSkies.config.miningShowEventBanner) displayText = "Mithril Gourmand Event Started!";
-            if (PartlySaneSkies.config.miningSendSystemNotifications) SystemNotification.INSTANCE.showNotification("Mithril Gourmand Event Started!");
+            if (PartlySaneSkies.config.miningSendSystemNotifications && !PartlySaneSkies.minecraft.inGameHasFocus) SystemNotification.INSTANCE.showNotification("Mithril Gourmand Event Started!");
         }
 
         // Powder Ghast
@@ -121,7 +121,7 @@ public class MiningEvents {
             showBanner = true;
             PartlySaneSkies.minecraft.thePlayer.playSound("partlysaneskies:bell", 100, 1);
             if (PartlySaneSkies.config.miningShowEventBanner) displayText = "Powder Ghast Spawned!";
-            if (PartlySaneSkies.config.miningSendSystemNotifications) SystemNotification.INSTANCE.showNotification("Powder Ghast Spawned!");
+            if (PartlySaneSkies.config.miningSendSystemNotifications && !PartlySaneSkies.minecraft.inGameHasFocus) SystemNotification.INSTANCE.showNotification("Powder Ghast Spawned!");
         }
 
         // Fallen Star
@@ -129,7 +129,7 @@ public class MiningEvents {
             showBanner = true;
             PartlySaneSkies.minecraft.thePlayer.playSound("partlysaneskies:bell", 100, 1);
             if (PartlySaneSkies.config.miningShowEventBanner) displayText = "Fallen Star Spawned!";
-            if (PartlySaneSkies.config.miningSendSystemNotifications) SystemNotification.INSTANCE.showNotification("Fallen Star Spawned!");
+            if (PartlySaneSkies.config.miningSendSystemNotifications && !PartlySaneSkies.minecraft.inGameHasFocus) SystemNotification.INSTANCE.showNotification("Fallen Star Spawned!");
         }
 
         if (showBanner) {

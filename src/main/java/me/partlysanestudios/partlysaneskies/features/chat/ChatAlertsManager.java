@@ -278,7 +278,7 @@ public class ChatAlertsManager {
             messageBuilder.insert(alertIndexFormatted, charsToAdd, 0, charsToAdd.length);
 
             // Sends System Tray
-            if (PartlySaneSkies.config.chatAlertSendSystemNotification && sendSystemNotification){
+            if (PartlySaneSkies.config.chatAlertSendSystemNotification && !PartlySaneSkies.minecraft.inGameHasFocus && sendSystemNotification ){
                 SystemNotification.INSTANCE.showNotification("Chat Alert " + alert  + " was triggered!");
             }
 

@@ -2,7 +2,7 @@
 
 # New
 - System Tray Notifications (@j10a1n15)
-  - Ever missed an important message or Dwarven Mines event? With the option to enable System Notifications, you will never miss them if you use the ChatAlert or Dwarven Events Feature
+  - Ever missed an important message or Dwarven Mines event? With the option to enable System Notifications, you will never miss them if you use the ChatAlert or Dwarven Events Feature. Partly Sane Skies will automatically send push notifications when you are tabbed out of minecraft.
   - Currently supported:
     - Chat Alerts
     - Mining Events
