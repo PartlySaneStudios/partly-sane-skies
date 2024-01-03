@@ -4,7 +4,7 @@
 //
 
 
-package me.partlysanestudios.partlysaneskies.features.dungeons.healeralert
+package me.partlysanestudios.partlysaneskies.features.dungeons
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.gui.hud.BannerRenderer
