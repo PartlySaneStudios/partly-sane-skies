@@ -17,14 +17,10 @@ object WaypointRenderer {
         val mc = Minecraft.getMinecraft()
         val playerPos = mc.thePlayer.getPositionEyes(event.partialTicks)
 
-        ChatUtils.sendClientMessage("Trying to render waypoints")
-
         for (waypoint in getWaypoints()) {
             val waypointPos =
                 Vec3(waypoint.position.x.toDouble(), waypoint.position.y.toDouble(), waypoint.position.z.toDouble())
             val distance = playerPos.distanceTo(waypointPos)
-
-            ChatUtils.sendClientMessage("Rendering waypoint: ${waypoint.name} at distance: $distance")
 
             renderWaypoint(waypoint, distance)
         }
@@ -33,29 +29,23 @@ object WaypointRenderer {
     private fun renderWaypoint(waypoint: Waypoint, distance: Double) {
         // Render waypoint beam
         if (waypoint.showBeam) {
-            ChatUtils.sendClientMessage("Rendering waypoint beam")
             BeamRenderer.render(waypoint.position, waypoint.color)
         }
 
         // Render waypoint block highlight
         if (waypoint.showBlockHighlight) {
-            ChatUtils.sendClientMessage("Rendering waypoint block highlight")
             BlockHighlightRenderer.render(waypoint.position, waypoint.color)
         }
 
         // Render waypoint label
         if (waypoint.showLabel) {
-            ChatUtils.sendClientMessage("Rendering waypoint label")
             showLabel(waypoint)
         }
 
         // Render waypoint distance
         if (waypoint.showDistance) {
-            ChatUtils.sendClientMessage("Rendering waypoint distance")
             showDistance(waypoint, distance)
         }
-
-        ChatUtils.sendClientMessage("Finished rendering waypoint: ${waypoint.name}")
     }
 
     private fun showLabel(waypoint: Waypoint) {
