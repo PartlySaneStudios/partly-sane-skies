@@ -256,6 +256,7 @@ public class PartlySaneSkies {
         PlayerRating.registerReprintCommand();
         ModChecker.registerModCheckCommand();
         PearlRefill.INSTANCE.registerCommand();
+        WaypointManager.INSTANCE.registerCommand();
 
 
         CooldownManager.INSTANCE.init();

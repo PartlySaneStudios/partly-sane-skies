@@ -1441,7 +1441,7 @@ public class OneConfigScreen extends Config {
     )
   
     public boolean debugSpawnWaypoint = false;
-
+    @Switch(
             name = "Send a system notification",
             category = "Debug"
     )

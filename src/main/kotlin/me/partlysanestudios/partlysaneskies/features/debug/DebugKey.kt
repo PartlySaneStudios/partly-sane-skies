@@ -10,6 +10,7 @@ import me.partlysanestudios.partlysaneskies.renderers.waypoint.Waypoint
 import me.partlysanestudios.partlysaneskies.renderers.waypoint.WaypointManager
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
+import net.minecraft.util.BlockPos
 import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import org.apache.logging.log4j.Level
@@ -38,21 +39,25 @@ object DebugKey {
             PlayerRating.rackPoints("FlagTheSlacker", "Debug Slacker")
         }
         if (PartlySaneSkies.config.debugSpawnWaypoint) {
+            val originalPos = PartlySaneSkies.minecraft.thePlayer.position
+            val modifiedPos = BlockPos(originalPos.x - 1, originalPos.y, originalPos.z - 1)
+
             if (PartlySaneSkies.config.debugMode) {
                 WaypointManager.addWaypoint(
                     Waypoint(
                         "Debug Waypoint",
-                        PartlySaneSkies.minecraft.thePlayer.position,
+                        modifiedPos
                     )
                 )
             } else {
                 WaypointManager.removeWaypoint(
                     Waypoint(
                         "Debug Waypoint",
-                        PartlySaneSkies.minecraft.thePlayer.position,
+                        modifiedPos
                     )
                 )
             }
+        }
         if (PartlySaneSkies.config.debugSendSystemNotification) {
             SystemNotification.showNotification("Debug mode: ${isDebugMode()}")
         }
