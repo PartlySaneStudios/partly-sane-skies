@@ -3,6 +3,7 @@ package me.partlysanestudios.partlysaneskies.features.debug
 import cc.polyfrost.oneconfig.config.core.OneColor
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.features.dungeons.playerrating.PlayerRating
+import me.partlysanestudios.partlysaneskies.system.SystemNotification
 import me.partlysanestudios.partlysaneskies.gui.hud.BannerRenderer.renderNewBanner
 import me.partlysanestudios.partlysaneskies.gui.hud.PSSBanner
 import me.partlysanestudios.partlysaneskies.renderers.waypoint.Waypoint
@@ -36,7 +37,6 @@ object DebugKey {
         if (PartlySaneSkies.config.debugAddSlacker) {
             PlayerRating.rackPoints("FlagTheSlacker", "Debug Slacker")
         }
-
         if (PartlySaneSkies.config.debugSpawnWaypoint) {
             if (PartlySaneSkies.config.debugMode) {
                 WaypointManager.addWaypoint(
@@ -53,6 +53,8 @@ object DebugKey {
                     )
                 )
             }
+        if (PartlySaneSkies.config.debugSendSystemNotification) {
+            SystemNotification.showNotification("Debug mode: ${isDebugMode()}")
         }
     }
 

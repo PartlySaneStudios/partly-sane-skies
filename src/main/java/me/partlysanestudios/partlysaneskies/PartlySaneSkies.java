@@ -24,7 +24,7 @@ import gg.essential.elementa.ElementaVersion;
 import me.partlysanestudios.partlysaneskies.api.Request;
 import me.partlysanestudios.partlysaneskies.api.RequestsManager;
 import me.partlysanestudios.partlysaneskies.config.keybinds.Keybinds;
-import me.partlysanestudios.partlysaneskies.config.keybinds.RefreshKeybinds;
+import me.partlysanestudios.partlysaneskies.features.gui.RefreshKeybinds;
 import me.partlysanestudios.partlysaneskies.config.oneconfig.OneConfigScreen;
 import me.partlysanestudios.partlysaneskies.data.cache.PetData;
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager;
@@ -37,6 +37,7 @@ import me.partlysanestudios.partlysaneskies.features.dungeons.AutoGG;
 import me.partlysanestudios.partlysaneskies.features.commands.Crepes;
 import me.partlysanestudios.partlysaneskies.features.commands.Discord;
 import me.partlysanestudios.partlysaneskies.features.commands.Version;
+import me.partlysanestudios.partlysaneskies.features.dungeons.PearlRefill;
 import me.partlysanestudios.partlysaneskies.features.gui.custommainmenu.CustomMainMenu;
 import me.partlysanestudios.partlysaneskies.features.dungeons.playerrating.PlayerRating;
 import me.partlysanestudios.partlysaneskies.features.dungeons.RequiredSecretsFound;
@@ -223,6 +224,7 @@ public class PartlySaneSkies {
         load(AutoGG.INSTANCE);
         load(CooldownManager.INSTANCE);
         load(PetData.INSTANCE);
+        load(PearlRefill.INSTANCE);
 
         // Renderer
         load(WaypointRenderer.INSTANCE);
@@ -253,6 +255,7 @@ public class PartlySaneSkies {
         WordEditor.registerWordEditorCommand();
         PlayerRating.registerReprintCommand();
         ModChecker.registerModCheckCommand();
+        PearlRefill.INSTANCE.registerCommand();
 
 
         CooldownManager.INSTANCE.init();

@@ -71,10 +71,7 @@ public class RequiredSecretsFound {
     public void onChatMessage(ClientChatReceivedEvent event) {
         // I need to remember that formatted text has the §r stuff in it, not the other way around
         String formattedMessage = event.message.getFormattedText();
-        // Join dungeon
-        if (formattedMessage.contains("§r§eentered §r§aThe Catacombs§r§e") || formattedMessage.contains("§r§eentered §r§c§lMM§r§c Catacombs§r§e")) {
-            alreadySendThisRun = false;
-        }
+ 
         // Dungeon start
         if (formattedMessage.equals("§r§aStarting in 1 second.§r")) {
             alreadySendThisRun = false;
