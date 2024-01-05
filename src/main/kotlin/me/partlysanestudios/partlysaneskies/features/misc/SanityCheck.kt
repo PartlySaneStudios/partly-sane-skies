@@ -20,7 +20,7 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils
-import me.partlysanestudios.partlysaneskies.utils.MiscUtils
+import me.partlysanestudios.partlysaneskies.utils.SkyCryptUtils
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.getJsonFromPath
 import net.minecraft.command.ICommandSender
 import java.util.regex.Pattern
@@ -54,8 +54,8 @@ object SanityCheck {
                         val sanityCheckDataJsonObject: JsonObject = JsonParser().parse(PublicDataManager.getFile(sanityCheckPath)).getAsJsonObject()
                         val highestSkyblockNetworth: Double = sanityCheckDataJsonObject.getJsonFromPath("highestnwlong")?.asLong?.toDouble() ?: 360567766418.0
                         val oldestSkyblockFirstJoin: Long = sanityCheckDataJsonObject.getJsonFromPath("oldestprofileunixlong")?.asLong ?: 1560276201428
-                        val currentProfileNetworth: Double = MiscUtils.getSkyCryptNetworth(username)
-                        val currentProfileFirstJoin: Long = MiscUtils.getFirstJoinEpoch(username)
+                        val currentProfileNetworth: Double = SkyCryptUtils.getSkyCryptNetworth(username)
+                        val currentProfileFirstJoin: Long = SkyCryptUtils.getFirstJoinEpoch(username)
 
                         if (currentProfileNetworth != -1.0 && currentProfileFirstJoin != -1L) {
                             val networthRatio = 1.0 - (currentProfileNetworth / highestSkyblockNetworth)

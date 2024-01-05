@@ -9,7 +9,7 @@ import me.partlysanestudios.partlysaneskies.api.RequestsManager
 import me.partlysanestudios.partlysaneskies.features.debug.DebugKey
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.getJsonFromPath
 
-object MiscUtils {
+object SkyCryptUtils {
 
     private val skyCryptProfileURL: String = "https://sky.shiiyu.moe/api/v2/profile/"
     private val skyCryptNetworthPath: String = "data/networth/networth"

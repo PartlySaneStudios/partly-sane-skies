@@ -20,10 +20,9 @@ import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManage
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand
 import me.partlysanestudios.partlysaneskies.features.debug.DebugKey
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils
-import me.partlysanestudios.partlysaneskies.utils.HypixelUtils
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.floor
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.round
-import me.partlysanestudios.partlysaneskies.utils.MiscUtils
+import me.partlysanestudios.partlysaneskies.utils.SkyCryptUtils
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.formatNumber
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.getJsonFromPath
 import net.minecraft.command.ICommandSender
@@ -134,7 +133,7 @@ object CoinsToBoosterCookieConversion {
     }
 
     private fun runNetworthToCoins(username: String = playerName) {
-        val networth: Double = MiscUtils.getSkyCryptNetworth(username)
+        val networth: Double = SkyCryptUtils.getSkyCryptNetworth(username)
         if (networth >= 0.0) {
             val boosterCookieData: JsonObject = JsonParser().parse(
                 PublicDataManager.getFile(
