@@ -62,7 +62,7 @@ object SanityCheck {
                             val firstJoinRatio = 1.0 - (currentProfileFirstJoin.toDouble() / oldestSkyblockFirstJoin.toDouble())
                             ChatUtils.sendClientMessage("§aYou are ${(networthRatio * 100) + (firstJoinRatio * 100)}% insane.")
                         } else {
-                            ChatUtils.sendClientMessage("§eIt appears that $username does not qualify for a PSS sanity check, due to current API circumstances. Try again later, or report this to us via §9/discord §eif this issue persists.")
+                            ChatUtils.sendClientMessage("§eIt appears that $username does not qualify for a PSS sanity check, due to current API circumstances. Try again later, or report this to us via §9/pssdiscord §eif this issue persists.")
                         }
                     } else {
                         ChatUtils.sendClientMessage("§cPlease enter a valid Minecraft username to perform a §9/sanitycheck §con.")

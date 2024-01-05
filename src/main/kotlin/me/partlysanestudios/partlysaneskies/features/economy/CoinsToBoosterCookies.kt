@@ -90,7 +90,7 @@ object CoinsToBoosterCookieConversion {
                             boosterCookieItemId
                         ).getBuyPrice()).round(1).formatNumber()} coins. Note that the developers of Partly Sane Skies do not support IRL trading; the /c2c command is intended for educational purposes.)", true)
                         if (DebugKey.isDebugMode()) { // Optional debug message
-                            ChatUtils.sendClientMessage("§eIf the currency symbol doesn't look right, please report this to us via §9/discord §eso we can find a replacement symbol that Minecraft 1.8.9 can render.", true)
+                            ChatUtils.sendClientMessage("§eIf the currency symbol doesn't look right, please report this to us via §9/pssdiscord §eso we can find a replacement symbol that Minecraft 1.8.9 can render.", true)
                         }
                     } else if (a.isEmpty() || a.size == 1) {
                         runNetworthToCoins(playerName)
@@ -174,7 +174,7 @@ object CoinsToBoosterCookieConversion {
                 true
             )
             if (DebugKey.isDebugMode()) ChatUtils.sendClientMessage(
-                "§eIf the currency symbol doesn't look right, please report this to us via §9/discord §eso we can find a replacement symbol that Minecraft 1.8.9 can render.",
+                "§eIf the currency symbol doesn't look right, please report this to us via §9/pssdiscord §eso we can find a replacement symbol that Minecraft 1.8.9 can render.",
                 true
             )
         } else {

@@ -11,9 +11,9 @@ import me.partlysanestudios.partlysaneskies.utils.SystemUtils.getJsonFromPath
 
 object MiscUtils {
 
-    private val skyCryptProfileURL: String = ("https://sky.shiiyu.moe/api/v2/profile/")
-    private val skyCryptNetworthPath: String = ("data/networth/networth")
-    private val skyCryptFirstJoinPath: String = ("raw/first_join")
+    private val skyCryptProfileURL: String = "https://sky.shiiyu.moe/api/v2/profile/"
+    private val skyCryptNetworthPath: String = "data/networth/networth"
+    private val skyCryptFirstJoinPath: String = "raw/first_join"
 
     fun getSkyCryptNetworth(username: String): Double {
         var networth: Double
