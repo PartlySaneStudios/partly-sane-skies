@@ -251,5 +251,22 @@ object MinecraftUtils {
         return this
     }
 
+    /**
+     * @param skyblockId the skyblock id of the item to count
+     * @return the number of items in the player's inventory
+     */
+    fun countItemInInventory(skyblockId: String): Int {
+        var itemCount = 0
+
+        val inv = PartlySaneSkies.minecraft.thePlayer.inventory.mainInventory
+
+        for (stackInSlot in inv) {
+            if (HypixelUtils.getItemId(stackInSlot).equals(skyblockId, ignoreCase = true)) {
+                itemCount += stackInSlot.stackSize
+            }
+        }
+
+        return itemCount
+    }
 }
 

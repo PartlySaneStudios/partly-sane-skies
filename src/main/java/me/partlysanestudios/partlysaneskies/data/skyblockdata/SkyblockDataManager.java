@@ -139,10 +139,14 @@ public class SkyblockDataManager {
                     rarityString = itemObject.get("tier").getAsString();
                 }
 
-                Rarity rarity = Rarity.valueOf(rarityString);
-                if (rarity == null) {
-                    rarity = Rarity.UNKNOWN;
+
+                Rarity rarity = Rarity.UNKNOWN;
+                try {
+                    rarity = Rarity.valueOf(rarityString);
+                } catch (IllegalArgumentException e){
+                    e.printStackTrace();
                 }
+
 
                 SkyblockItem item = new SkyblockItem(id, name, npcSellPrice, rarity);
                 nameToIdMap.put(name, id);
