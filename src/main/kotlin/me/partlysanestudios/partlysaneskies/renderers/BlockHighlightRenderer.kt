@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats
 import net.minecraft.util.BlockPos
 import org.lwjgl.opengl.GL11
 
+
 object BlockHighlightRenderer {
     fun render(pos: BlockPos, color: Int) {
         renderColoredBlockHighlight(pos, color)
@@ -15,78 +16,76 @@ object BlockHighlightRenderer {
     private fun renderColoredBlockHighlight(pos: BlockPos, color: Int) {
         val minecraft = Minecraft.getMinecraft()
         val renderManager = minecraft.renderManager
+        val worldRenderer = Tessellator.getInstance().worldRenderer
 
         GlStateManager.pushMatrix()
         GlStateManager.translate(-renderManager.viewerPosX, -renderManager.viewerPosY, -renderManager.viewerPosZ)
 
-        GlStateManager.enableBlend()
-        GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO)
-
         GlStateManager.disableTexture2D()
-        GlStateManager.depthMask(false)
+        GlStateManager.disableLighting()
         GlStateManager.disableDepth()
 
-        val alpha = (color ushr 24 and 0xFF) / 255.0f
         GlStateManager.color(
             ((color shr 16) and 0xFF) / 255.0f,
             ((color shr 8) and 0xFF) / 255.0f,
             (color and 0xFF) / 255.0f,
-            alpha
+            0.4f
         )
 
-        val tessellator = Tessellator.getInstance()
-        val worldRenderer = tessellator.worldRenderer
-        worldRenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION)
+        GlStateManager.enableBlend()
+        GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO)
 
+        worldRenderer.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION)
         val x = pos.x.toDouble()
         val y = pos.y.toDouble()
         val z = pos.z.toDouble()
 
-        val expansion = 0.002
-        val offset = 1.0 - expansion
+        // front
+        worldRenderer.pos(x, y, z).endVertex()
+        worldRenderer.pos(x + 1, y, z).endVertex()
 
-        // North
-        worldRenderer.pos(x - expansion, y - expansion, z - expansion).endVertex()
-        worldRenderer.pos(x - expansion, y + offset, z - expansion).endVertex()
-        worldRenderer.pos(x + offset, y + offset, z - expansion).endVertex()
-        worldRenderer.pos(x + offset, y - expansion, z - expansion).endVertex()
+        worldRenderer.pos(x + 1, y, z).endVertex()
+        worldRenderer.pos(x + 1, y + 1, z).endVertex()
 
-        // South
-        worldRenderer.pos(x - expansion, y - expansion, z + offset).endVertex()
-        worldRenderer.pos(x + offset, y - expansion, z + offset).endVertex()
-        worldRenderer.pos(x + offset, y + offset, z + offset).endVertex()
-        worldRenderer.pos(x - expansion, y + offset, z + offset).endVertex()
+        worldRenderer.pos(x + 1, y + 1, z).endVertex()
+        worldRenderer.pos(x, y + 1, z).endVertex()
 
-        // East
-        worldRenderer.pos(x - expansion, y - expansion, z - expansion).endVertex()
-        worldRenderer.pos(x - expansion, y - expansion, z + offset).endVertex()
-        worldRenderer.pos(x - expansion, y + offset, z + offset).endVertex()
-        worldRenderer.pos(x - expansion, y + offset, z - expansion).endVertex()
+        worldRenderer.pos(x, y + 1, z).endVertex()
+        worldRenderer.pos(x, y, z).endVertex()
 
-        // West
-        worldRenderer.pos(x + offset, y - expansion, z - expansion).endVertex()
-        worldRenderer.pos(x + offset, y + offset, z - expansion).endVertex()
-        worldRenderer.pos(x + offset, y + offset, z + offset).endVertex()
-        worldRenderer.pos(x + offset, y - expansion, z + offset).endVertex()
+        // back
+        worldRenderer.pos(x, y, z + 1).endVertex()
+        worldRenderer.pos(x + 1, y, z + 1).endVertex()
 
-        // Down
-        worldRenderer.pos(x - expansion, y - expansion, z - expansion).endVertex()
-        worldRenderer.pos(x + offset, y - expansion, z - expansion).endVertex()
-        worldRenderer.pos(x + offset, y - expansion, z + offset).endVertex()
-        worldRenderer.pos(x - expansion, y - expansion, z + offset).endVertex()
+        worldRenderer.pos(x + 1, y, z + 1).endVertex()
+        worldRenderer.pos(x + 1, y + 1, z + 1).endVertex()
 
-        // Up
-        worldRenderer.pos(x - expansion, y + offset, z - expansion).endVertex()
-        worldRenderer.pos(x - expansion, y + offset, z + offset).endVertex()
-        worldRenderer.pos(x + offset, y + offset, z + offset).endVertex()
-        worldRenderer.pos(x + offset, y + offset, z - expansion).endVertex()
+        worldRenderer.pos(x + 1, y + 1, z + 1).endVertex()
+        worldRenderer.pos(x, y + 1, z + 1).endVertex()
 
-        tessellator.draw()
+        worldRenderer.pos(x, y + 1, z + 1).endVertex()
+        worldRenderer.pos(x, y, z + 1).endVertex()
 
-        GlStateManager.enableDepth()
-        GlStateManager.depthMask(true)
-        GlStateManager.enableTexture2D()
+        // sides
+        worldRenderer.pos(x, y, z).endVertex()
+        worldRenderer.pos(x, y, z + 1).endVertex()
+
+        worldRenderer.pos(x + 1, y, z).endVertex()
+        worldRenderer.pos(x + 1, y, z + 1).endVertex()
+
+        worldRenderer.pos(x + 1, y + 1, z).endVertex()
+        worldRenderer.pos(x + 1, y + 1, z + 1).endVertex()
+
+        worldRenderer.pos(x, y + 1, z).endVertex()
+        worldRenderer.pos(x, y + 1, z + 1).endVertex()
+
+
+        Tessellator.getInstance().draw()
+
         GlStateManager.disableBlend()
+        GlStateManager.enableDepth()
+        GlStateManager.enableLighting()
+        GlStateManager.enableTexture2D()
 
         GlStateManager.popMatrix()
     }
