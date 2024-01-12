@@ -9,7 +9,7 @@ General and Miscellaneous features.
 ### Mod Checker
 
 When enabled, Mod Checker automatically will check your mods list for outdated, suspicous, or unknown mods. These mods may not be on the list of verified mods. If you believe a mod is being falsely flagged, please report it in the PSS discord (``/pssdiscord``)
-<img width="750" alt="18b5977a-c6b6-4f83-80bf-61b6a1297946" src="https://github.com/FlagHater/partly-sane-skies-FlagHater/assets/106500506/24d3ee14-bc5e-42e7-8604-c2811216b457">
+![image](https://github.com/PartlySaneStudios/partly-sane-skies/assets/83100266/601f2344-ed39-47c9-bd28-e6da2c09a639)
 
 ### Privacy
 
@@ -144,7 +144,7 @@ In a perfectly balanced 5-player party, each player should get 20%.
 
 Calls out players who may be slacking in dungeons, using the Dungeon Player Rater. Uses a configurable automatated message. 
 
-![3c9449dd-b694-44d2-93e7-9d846b109912](https://github.com/FlagHater/partly-sane-skies-FlagHater/assets/106500506/f7eb2384-7c99-41ef-827b-90fd4dbb937b)
+![image](https://github.com/PartlySaneStudios/partly-sane-skies/assets/83100266/5e1fa3f2-699d-4812-b757-867bcd9f4da7)
 
 ### Auto GG at End of Dungeon
 
@@ -216,6 +216,8 @@ Never lose your coins to the void again! When the mod detects you do not have a 
 ### Coins to Cookies Converter 
 
 Using ``/cookies2coins``, you can convert a given amount of coins to an equivalent value in a real life currency of your choosing. 
+![image](https://github.com/PartlySaneStudios/partly-sane-skies/assets/83100266/1627b47d-1f66-4c08-bb91-35e42cf7d8f4)
+
 
 ### Enhanced Auction Menu and BIN Sniper
 
