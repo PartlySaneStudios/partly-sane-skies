@@ -9,7 +9,7 @@ General and Miscellaneous features.
 ### Mod Checker
 
 When enabled, Mod Checker automatically will check your mods list for outdated, suspicous, or unknown mods. These mods may not be on the list of verified mods. If you believe a mod is being falsely flagged, please report it in the PSS discord (``/pssdiscord``)
-![image](https://github.com/PartlySaneStudios/partly-sane-skies/assets/83100266/601f2344-ed39-47c9-bd28-e6da2c09a639)
+![image](/images/mod_checker.png)
 
 ### Privacy
 
@@ -144,7 +144,7 @@ In a perfectly balanced 5-player party, each player should get 20%.
 
 Calls out players who may be slacking in dungeons, using the Dungeon Player Rater. Uses a configurable automatated message. 
 
-![image](https://github.com/PartlySaneStudios/partly-sane-skies/assets/83100266/5e1fa3f2-699d-4812-b757-867bcd9f4da7)
+![image](/images/dungeon_snicher.png)
 
 ### Auto GG at End of Dungeon
 
@@ -186,7 +186,7 @@ Shows which items are the most profitable for the copper cost. (Which ones give 
 ### Treecap Cooldown
 
 Dispalys a cooldown bar inspired by the 1.9+ attack indicator. Has Monkey pet support.
-[(Cooldown showcase)](https://github.com/PartlySaneStudios/partly-sane-skies/assets/83100266/69fdead9-a682-4fc9-9830-496443c162e5) 
+[(Cooldown showcase)](/images/Treecap_Cooldown.mp4) 
 
 ## Mining Features
 
@@ -216,7 +216,7 @@ Never lose your coins to the void again! When the mod detects you do not have a 
 ### Coins to Cookies Converter 
 
 Using ``/cookies2coins``, you can convert a given amount of coins to an equivalent value in a real life currency of your choosing. 
-![image](https://github.com/PartlySaneStudios/partly-sane-skies/assets/83100266/1627b47d-1f66-4c08-bb91-35e42cf7d8f4)
+![image](/images/cookies_to_coins.png)
 
 
 ### Enhanced Auction Menu and BIN Sniper
