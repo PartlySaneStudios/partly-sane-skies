@@ -51,11 +51,6 @@ When switching to a new location region on SkyBlock, an MMO RPG style banner wil
 
 ![Location Banner](/images/location_banner.png)
 
-### System Tray Notifications
-
-Ever missed an important message or Dwarven Mines event? With the option to enable System Notifications, you will never miss them if you use the ChatAlert or Dwarven Events Feature as Partly Sane Skies will automatically send push notifications when you are tabbed out of Minecraft.
-![system_tray.png](https://raw.githubusercontent.com/PartlySaneStudios/partly-sane-skies/main/images/system_tray.png)
-
 ### Crêpes
 
 Have you ever wanted to make crêpes, and don't have access to internet, but you do have access to SkyBlock? Well we've got you covered. Simply by doing /crêpes, you too can make crêpes from some random recipe we found on the internet.
@@ -134,10 +129,6 @@ party message and World War II (1939-1945) air raid siren in case the previous t
 ### Permanent Dungeon Party Selector
 
 Automatically parties everyone in a permanent dungeon party. Using ``/pp`` or ``/permparty``, you have the option to create, party, delete, and add and remove members from your permanent party. You can even add different parties such as an f6Party or a jujuNonCarry party.
-
-### Pearl Refill
-
-Do you use pearls for your Dungeon runs and want to refill them backup to 16? With the Pearlrefill command you can automatically refill it back up to 16 from any other Stacksize, there is also a Keybind (Default P) and an option to enable auto refill at Dungeon start (use at your own risk).
 
 ### Healer Alert
 
