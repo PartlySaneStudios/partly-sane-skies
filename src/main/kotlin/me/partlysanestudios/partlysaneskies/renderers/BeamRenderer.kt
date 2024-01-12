@@ -1,20 +1,18 @@
 package me.partlysanestudios.partlysaneskies.renderers
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.minecraft
+import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.Tessellator
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats
 import net.minecraft.util.BlockPos
 import org.lwjgl.opengl.GL11
 
 object BeamRenderer {
-    fun render(pos: BlockPos, color: Int) {
-        renderBeam(pos, color)
-    }
-
-    private fun renderBeam(pos: BlockPos, color: Int) {
+    fun renderBeam(pos: BlockPos, color: Int) {
         GL11.glPushMatrix()
-        GL11.glDisable(GL11.GL_TEXTURE_2D)
+        GL11.glEnable(GL11.GL_BLEND)
         GL11.glDisable(GL11.GL_LIGHTING)
+        GL11.glDisable(GL11.GL_TEXTURE_2D)
 
         GL11.glTranslated(
             pos.x.toDouble() - minecraft.renderManager.viewerPosX,
@@ -22,16 +20,14 @@ object BeamRenderer {
             pos.z.toDouble() - minecraft.renderManager.viewerPosZ
         )
 
-        GL11.glEnable(GL11.GL_BLEND)
-        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA)
-        GL11.glDisable(GL11.GL_DEPTH_TEST)
-        GL11.glLineWidth(7.0f)
+        GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO)
+        GL11.glLineWidth(6.0f)
 
         // Set the color
         val r = ((color shr 16) and 0xFF) / 255.0f
         val g = ((color shr 8) and 0xFF) / 255.0f
         val b = (color and 0xFF) / 255.0f
-        GL11.glColor4f(r, g, b, 0.7f)
+        GL11.glColor4f(r, g, b, 1f)
 
         val x1 = 0.5
         val y1 = 0.5
@@ -45,7 +41,6 @@ object BeamRenderer {
         GL11.glEnd()
 
 
-        GL11.glEnable(GL11.GL_DEPTH_TEST)
         GL11.glDisable(GL11.GL_BLEND)
         GL11.glEnable(GL11.GL_TEXTURE_2D)
         GL11.glEnable(GL11.GL_LIGHTING)

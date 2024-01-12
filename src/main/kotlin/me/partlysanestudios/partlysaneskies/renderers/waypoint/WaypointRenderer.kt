@@ -29,12 +29,12 @@ object WaypointRenderer {
     private fun renderWaypoint(waypoint: Waypoint, distance: Double) {
         // Render waypoint beam
         if (waypoint.showBeam) {
-            BeamRenderer.render(waypoint.position, waypoint.color)
+            BeamRenderer.renderBeam(waypoint.position, waypoint.color)
         }
 
         // Render waypoint block highlight
         if (waypoint.showBlockHighlight) {
-            BlockHighlightRenderer.render(waypoint.position, waypoint.color)
+            BlockHighlightRenderer.renderColoredBlockHighlight(waypoint.position, waypoint.color)
         }
 
         // Render waypoint label

@@ -10,17 +10,17 @@ import org.lwjgl.opengl.GL11
 
 
 object BlockHighlightRenderer {
-    fun render(pos: BlockPos, color: Int) {
-        renderColoredBlockHighlight(pos, color)
-    }
-    private fun renderColoredBlockHighlight(pos: BlockPos, color: Int) {
+    fun renderColoredBlockHighlight(pos: BlockPos, color: Int) {
         val minecraft = Minecraft.getMinecraft()
         val renderManager = minecraft.renderManager
-        val worldRenderer = Tessellator.getInstance().worldRenderer
+        val tessellator = Tessellator.getInstance()
+        val worldRenderer = tessellator.worldRenderer
 
         GlStateManager.pushMatrix()
         GlStateManager.translate(-renderManager.viewerPosX, -renderManager.viewerPosY, -renderManager.viewerPosZ)
 
+
+        GlStateManager.enableBlend()
         GlStateManager.disableTexture2D()
         GlStateManager.disableLighting()
         GlStateManager.disableDepth()
@@ -29,11 +29,11 @@ object BlockHighlightRenderer {
             ((color shr 16) and 0xFF) / 255.0f,
             ((color shr 8) and 0xFF) / 255.0f,
             (color and 0xFF) / 255.0f,
-            0.4f
+            1f
         )
 
-        GlStateManager.enableBlend()
         GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO)
+        GL11.glLineWidth(4.0f)
 
         worldRenderer.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION)
         val x = pos.x.toDouble()
@@ -80,7 +80,7 @@ object BlockHighlightRenderer {
         worldRenderer.pos(x, y + 1, z + 1).endVertex()
 
 
-        Tessellator.getInstance().draw()
+        tessellator.draw()
 
         GlStateManager.disableBlend()
         GlStateManager.enableDepth()
