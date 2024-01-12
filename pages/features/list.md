@@ -144,7 +144,7 @@ In a perfectly balanced 5-player party, each player should get 20%.
 
 Calls out players who may be slacking in dungeons, using the Dungeon Player Rater. Uses a configurable automatated message. 
 
-![image](/images/dungeon_snicher.png)
+![image](/images/dungeon_snitcher.png)
 
 ### Auto GG at End of Dungeon
 
@@ -186,7 +186,7 @@ Shows which items are the most profitable for the copper cost. (Which ones give 
 ### Treecap Cooldown
 
 Dispalys a cooldown bar inspired by the 1.9+ attack indicator. Has Monkey pet support.
-[(Cooldown showcase)](/images/Treecap_Cooldown.mp4) 
+[(Cooldown showcase)](/images/treecap_cooldown.mp4) 
 
 ## Mining Features
 
