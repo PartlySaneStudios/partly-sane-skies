@@ -183,6 +183,11 @@ Shows which items are the most profitable for the copper cost. (Which ones give 
 ### Visitors Logbook Stats
 ![Visitor's Logbook Stats](/images/visitor_logbook.png)
 
+### Treecap Cooldown
+
+Dispalys a cooldown bar inspired by the 1.9+ attack indicator. Has Monkey pet support.
+[(Cooldown showcase)](https://github.com/PartlySaneStudios/partly-sane-skies/assets/83100266/69fdead9-a682-4fc9-9830-496443c162e5) 
+
 ## Mining Features
 
 ### Worm Warning
@@ -207,6 +212,10 @@ Not always aware when the pickaxe cooldown is over? Not anymore! With the new pi
 ### No Cookie Warning
 
 Never lose your coins to the void again! When the mod detects you do not have a cookie active, it will warn you to buy a new one. Optionally, it can warn you only if you have a lot of coins in your purse.
+
+### Coins to Cookies Converter 
+
+Using ``/cookies2coins``, you can convert a given amount of coins to an equivalent value in a real life currency of your choosing. 
 
 ### Enhanced Auction Menu and BIN Sniper
 
