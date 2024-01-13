@@ -88,7 +88,38 @@ public class OneConfigScreen extends Config {
     )
     public int releaseChannel = Integer.parseInt("@RELEASE_CHANNEL@");
 
+    //    Discord
 
+    @Switch(
+            category = "General",
+            subcategory = "Discord",
+            name = "Discord RPC"
+    )
+    public boolean discordRPC = true;
+
+    @Switch(
+            category = "General",
+            subcategory = "Discord",
+            name = "SBE Bad Mode"
+    )
+    public boolean sbeBadMode = true;
+
+    @Text(
+            category = "General",
+            subcategory = "Discord",
+            name = "Discord Game Name"
+    )
+    public String discordRPCName = "sbe bad";
+
+    @Text(
+            category = "General",
+            subcategory = "Discord",
+            name = "Discord Game Description"
+    )
+    public String discordRPCDescription = "Playing Hypixel Skyblock";
+
+
+    // API
     @Number(
             min = .1f,
             max = 30f,
@@ -136,35 +167,6 @@ public class OneConfigScreen extends Config {
     )
     public String repoName = "partly-sane-skies-public-data";
 
-    //    Discord
-
-    @Switch(
-            category = "General",
-            subcategory = "Discord",
-            name = "Discord RPC"
-    )
-    public boolean discordRPC = true;
-
-    @Switch(
-            category = "General",
-            subcategory = "Discord",
-            name = "SBE Bad Mode"
-    )
-    public boolean sbeBadMode = true;
-
-    @Text(
-            category = "General",
-            subcategory = "Discord",
-            name = "Discord Game Name"
-    )
-    public String discordRPCName = "sbe bad";
-
-    @Text(
-            category = "General",
-            subcategory = "Discord",
-            name = "Discord Game Description"
-    )
-    public String discordRPCDescription = "Playing Hypixel Skyblock";
 
 //    Appearance
     @Dropdown(
