@@ -42,7 +42,7 @@ import me.partlysanestudios.partlysaneskies.features.gui.custommainmenu.CustomMa
 import me.partlysanestudios.partlysaneskies.features.dungeons.playerrating.PlayerRating;
 import me.partlysanestudios.partlysaneskies.features.dungeons.RequiredSecretsFound;
 import me.partlysanestudios.partlysaneskies.features.dungeons.WatcherReady;
-import me.partlysanestudios.partlysaneskies.features.dungeons.healeralert.HealerAlert;
+import me.partlysanestudios.partlysaneskies.features.dungeons.HealerAlert;
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.PartyFriendManager;
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.partymanager.PartyManager;
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.permpartyselector.PermPartyManager;
