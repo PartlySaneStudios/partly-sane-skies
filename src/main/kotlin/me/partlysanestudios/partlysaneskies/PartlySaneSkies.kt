@@ -76,7 +76,7 @@ import net.minecraft.event.ClickEvent
 import net.minecraft.event.HoverEvent
 import net.minecraft.util.ChatComponentText
 import net.minecraft.util.IChatComponent
-import net.minecraftforge.common.MinecraftForge
+import net.minecraftforge.common.MinecraftForge.EVENT_BUS
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
@@ -194,40 +194,40 @@ class PartlySaneSkies {
 
 
         // Registers all the events
-        MinecraftForge.EVENT_BUS.register(this)
-        MinecraftForge.EVENT_BUS.register(DropBannerDisplay())
-        MinecraftForge.EVENT_BUS.register(PartyManager())
-        MinecraftForge.EVENT_BUS.register(WatcherReady())
-        MinecraftForge.EVENT_BUS.register(WormWarning())
-        MinecraftForge.EVENT_BUS.register(CustomMainMenu(ElementaVersion.V2))
-        MinecraftForge.EVENT_BUS.register(Keybinds())
-        MinecraftForge.EVENT_BUS.register(PartyFriendManager())
-        MinecraftForge.EVENT_BUS.register(WikiArticleOpener())
-        MinecraftForge.EVENT_BUS.register(NoCookieWarning())
-        MinecraftForge.EVENT_BUS.register(GardenTradeValue())
-        MinecraftForge.EVENT_BUS.register(CompostValue())
-        MinecraftForge.EVENT_BUS.register(EnhancedSound())
-        MinecraftForge.EVENT_BUS.register(BitsShopValue())
-        MinecraftForge.EVENT_BUS.register(PlayerRating())
-        MinecraftForge.EVENT_BUS.register(SkymartValue())
-        MinecraftForge.EVENT_BUS.register(PetAlert())
-        MinecraftForge.EVENT_BUS.register(RequiredSecretsFound())
-        MinecraftForge.EVENT_BUS.register(Pickaxes())
-        MinecraftForge.EVENT_BUS.register(MathematicalHoeRightClicks())
-        MinecraftForge.EVENT_BUS.register(MiningEvents())
-        MinecraftForge.EVENT_BUS.register(AuctionHouseGui)
-        MinecraftForge.EVENT_BUS.register(ChatManager)
-        MinecraftForge.EVENT_BUS.register(RangeHighlight)
-        MinecraftForge.EVENT_BUS.register(BannerRenderer)
-        MinecraftForge.EVENT_BUS.register(VisitorLogbookStats)
-        MinecraftForge.EVENT_BUS.register(CoinsToBoosterCookieConversion)
-        MinecraftForge.EVENT_BUS.register(EndOfFarmNotifier)
-        MinecraftForge.EVENT_BUS.register(Prank)
-        MinecraftForge.EVENT_BUS.register(RefreshKeybinds)
-        MinecraftForge.EVENT_BUS.register(AutoGG)
-        MinecraftForge.EVENT_BUS.register(CooldownManager)
-        MinecraftForge.EVENT_BUS.register(PetData)
-        MinecraftForge.EVENT_BUS.register(PearlRefill)
+        EVENT_BUS.register(this)
+        EVENT_BUS.register(DropBannerDisplay())
+        EVENT_BUS.register(PartyManager())
+        EVENT_BUS.register(WatcherReady())
+        EVENT_BUS.register(WormWarning())
+        EVENT_BUS.register(CustomMainMenu(ElementaVersion.V2))
+        EVENT_BUS.register(Keybinds())
+        EVENT_BUS.register(PartyFriendManager())
+        EVENT_BUS.register(WikiArticleOpener())
+        EVENT_BUS.register(NoCookieWarning())
+        EVENT_BUS.register(GardenTradeValue())
+        EVENT_BUS.register(CompostValue())
+        EVENT_BUS.register(EnhancedSound())
+        EVENT_BUS.register(BitsShopValue())
+        EVENT_BUS.register(PlayerRating())
+        EVENT_BUS.register(SkymartValue())
+        EVENT_BUS.register(PetAlert())
+        EVENT_BUS.register(RequiredSecretsFound())
+        EVENT_BUS.register(Pickaxes())
+        EVENT_BUS.register(MathematicalHoeRightClicks())
+        EVENT_BUS.register(MiningEvents())
+        EVENT_BUS.register(AuctionHouseGui)
+        EVENT_BUS.register(ChatManager)
+        EVENT_BUS.register(RangeHighlight)
+        EVENT_BUS.register(BannerRenderer)
+        EVENT_BUS.register(VisitorLogbookStats)
+        EVENT_BUS.register(CoinsToBoosterCookieConversion)
+        EVENT_BUS.register(EndOfFarmNotifier)
+        EVENT_BUS.register(Prank)
+        EVENT_BUS.register(RefreshKeybinds)
+        EVENT_BUS.register(AutoGG)
+        EVENT_BUS.register(CooldownManager)
+        EVENT_BUS.register(PetData)
+        EVENT_BUS.register(PearlRefill)
 
 
         // Registers all client side commands
@@ -258,11 +258,9 @@ class PartlySaneSkies {
         PearlRefill.registerCommand()
         CooldownManager.init()
         DebugKey.init()
-
-
+        
         // Initializes keybinds
         Keybinds.init()
-
 
         // Initializes skill upgrade recommendation
         SkillUpgradeRecommendation.populateSkillMap()
