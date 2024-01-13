@@ -75,6 +75,9 @@ import me.partlysanestudios.partlysaneskies.features.sound.enhancedsound.Enhance
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager;
 import me.partlysanestudios.partlysaneskies.gui.hud.BannerRenderer;
 import me.partlysanestudios.partlysaneskies.gui.hud.cooldown.CooldownManager;
+import me.partlysanestudios.partlysaneskies.gui.hud.cooldown.TreecapitatorCooldown;
+import me.partlysanestudios.partlysaneskies.renderers.waypoint.WaypointManager;
+import me.partlysanestudios.partlysaneskies.renderers.waypoint.WaypointRenderer;
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils;
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils;
 import net.minecraft.client.Minecraft;
@@ -178,42 +181,45 @@ public class PartlySaneSkies {
 
 
         // Registers all the events
-        MinecraftForge.EVENT_BUS.register(this);
-        MinecraftForge.EVENT_BUS.register(new DropBannerDisplay());
-        MinecraftForge.EVENT_BUS.register(new PartyManager());
-        MinecraftForge.EVENT_BUS.register(new WatcherReady());
-        MinecraftForge.EVENT_BUS.register(new WormWarning());
-        MinecraftForge.EVENT_BUS.register(new CustomMainMenu(ElementaVersion.V2));
-        MinecraftForge.EVENT_BUS.register(new Keybinds());
-        MinecraftForge.EVENT_BUS.register(new PartyFriendManager());
-        MinecraftForge.EVENT_BUS.register(new WikiArticleOpener());
-        MinecraftForge.EVENT_BUS.register(new NoCookieWarning());
-        MinecraftForge.EVENT_BUS.register(new GardenTradeValue());
-        MinecraftForge.EVENT_BUS.register(new CompostValue());
-        MinecraftForge.EVENT_BUS.register(new EnhancedSound());
-        MinecraftForge.EVENT_BUS.register(new BitsShopValue());
-        MinecraftForge.EVENT_BUS.register(new PlayerRating());
-        MinecraftForge.EVENT_BUS.register(new SkymartValue());
-        MinecraftForge.EVENT_BUS.register(new PetAlert());
-        MinecraftForge.EVENT_BUS.register(new RequiredSecretsFound());
-        MinecraftForge.EVENT_BUS.register(new Pickaxes());
-        MinecraftForge.EVENT_BUS.register(new MathematicalHoeRightClicks());
-        MinecraftForge.EVENT_BUS.register(new MiningEvents());
+        load(this);
+        load(new DropBannerDisplay());
+        load(new PartyManager());
+        load(new WatcherReady());
+        load(new WormWarning());
+        load(new CustomMainMenu(ElementaVersion.V2));
+        load(new Keybinds());
+        load(new PartyFriendManager());
+        load(new WikiArticleOpener());
+        load(new NoCookieWarning());
+        load(new GardenTradeValue());
+        load(new CompostValue());
+        load(new EnhancedSound());
+        load(new BitsShopValue());
+        load(new PlayerRating());
+        load(new SkymartValue());
+        load(new PetAlert());
+        load(new RequiredSecretsFound());
+        load(new Pickaxes());
+        load(new MathematicalHoeRightClicks());
+        load(new MiningEvents());
 
-        MinecraftForge.EVENT_BUS.register(AuctionHouseGui.Companion);
+        load(AuctionHouseGui.Companion);
 
-        MinecraftForge.EVENT_BUS.register(ChatManager.INSTANCE);
-        MinecraftForge.EVENT_BUS.register(RangeHighlight.INSTANCE);
-        MinecraftForge.EVENT_BUS.register(BannerRenderer.INSTANCE);
-        MinecraftForge.EVENT_BUS.register(VisitorLogbookStats.INSTANCE);
-        MinecraftForge.EVENT_BUS.register(CoinsToBoosterCookieConversion.INSTANCE);
-        MinecraftForge.EVENT_BUS.register(EndOfFarmNotifier.INSTANCE);
-        MinecraftForge.EVENT_BUS.register(Prank.INSTANCE);
-        MinecraftForge.EVENT_BUS.register(RefreshKeybinds.INSTANCE);
-        MinecraftForge.EVENT_BUS.register(AutoGG.INSTANCE);
-        MinecraftForge.EVENT_BUS.register(CooldownManager.INSTANCE);
-        MinecraftForge.EVENT_BUS.register(PetData.INSTANCE);
-        MinecraftForge.EVENT_BUS.register(PearlRefill.INSTANCE);
+        load(ChatManager.INSTANCE);
+        load(RangeHighlight.INSTANCE);
+        load(BannerRenderer.INSTANCE);
+        load(VisitorLogbookStats.INSTANCE);
+        load(CoinsToBoosterCookieConversion.INSTANCE);
+        load(EndOfFarmNotifier.INSTANCE);
+        load(Prank.INSTANCE);
+        load(RefreshKeybinds.INSTANCE);
+        load(AutoGG.INSTANCE);
+        load(CooldownManager.INSTANCE);
+        load(PetData.INSTANCE);
+        load(PearlRefill.INSTANCE);
+
+        // Renderer
+        load(WaypointRenderer.INSTANCE);
 
 
         // Registers all client side commands
@@ -242,6 +248,7 @@ public class PartlySaneSkies {
         PlayerRating.registerReprintCommand();
         ModChecker.registerModCheckCommand();
         PearlRefill.INSTANCE.registerCommand();
+        WaypointManager.INSTANCE.registerCommand();
 
 
         CooldownManager.INSTANCE.init();
@@ -285,6 +292,10 @@ public class PartlySaneSkies {
         }).start();
         // Finished loading
         SystemUtils.INSTANCE.log(Level.INFO, "Partly Sane Skies has loaded.");
+    }
+
+    public static void load(Object feature) {
+        MinecraftForge.EVENT_BUS.register(feature);
     }
 
     // Method runs every tick
