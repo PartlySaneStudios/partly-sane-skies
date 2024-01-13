@@ -208,9 +208,9 @@ Using real time data, the mod will now display which configurations will result 
 
 ![Best Minion Calculator](/images/best_minion_calculator.png)
 
-### Garden Shop Trade Cost
+### Visitor Trade Cost
 
-Shows you information about the garden shop trades.
+Shows you information about the visitor trades.
 
 ![Custom Main Menu](/images/garden_trade_cost.png)
 
