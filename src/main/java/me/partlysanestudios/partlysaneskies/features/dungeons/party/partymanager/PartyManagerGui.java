@@ -89,7 +89,7 @@ public class PartyManagerGui extends WindowScreen {
                     e.printStackTrace();
                 }
                 Window.Companion.enqueueRenderOperation(() -> member.createBlock(memberBlock, scaleFactor));
-            }, "Party Manager start GUI").start();
+            }).start();
 
 
             height += 220f * scaleFactor;

@@ -43,7 +43,7 @@ public class PlayerRating {
     public static void initPatterns() {
         currentPlayer = PartlySaneSkies.minecraft.getSession().getUsername();
 
-        String str = PublicDataManager.INSTANCE.getFile("constants/dungeons_player_rate_pattern_strings.json");
+        String str = PublicDataManager.getFile("constants/dungeons_player_rate_pattern_strings.json");
         if (str.equals("")) {
             return;
         }

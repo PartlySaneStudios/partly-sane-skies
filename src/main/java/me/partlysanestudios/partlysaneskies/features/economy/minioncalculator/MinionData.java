@@ -32,7 +32,7 @@ public class MinionData {
 
 //    Runs after the request
     public static void init() {
-        String str = PublicDataManager.INSTANCE.getFile(MINIONS_DATA_URL);
+        String str = PublicDataManager.getFile(MINIONS_DATA_URL);
 //        Creates a json object from the request response
         JsonObject jsonObj = new JsonParser().parse(str).getAsJsonObject();
 //        Gets the minion object from the json

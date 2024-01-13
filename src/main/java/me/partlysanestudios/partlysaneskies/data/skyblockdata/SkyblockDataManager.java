@@ -8,8 +8,8 @@ package me.partlysanestudios.partlysaneskies.data.skyblockdata;
 import com.google.gson.*;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager;
-import me.partlysanestudios.partlysaneskies.data.api.Request;
-import me.partlysanestudios.partlysaneskies.data.api.RequestsManager;
+import me.partlysanestudios.partlysaneskies.api.Request;
+import me.partlysanestudios.partlysaneskies.api.RequestsManager;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -31,42 +31,50 @@ public class SkyblockDataManager {
     }
 
     public static void updateBz() {
-        RequestsManager.INSTANCE.newRequest(new Request("https://api.hypixel.net/skyblock/bazaar", s -> {
-            if (!s.hasSucceeded()) {
-                return;
-            }
-            JsonObject object = new JsonParser().parse(s.getResponse()).getAsJsonObject().getAsJsonObject("products");
-
-
-            for (Map.Entry<String, SkyblockItem> en : idToItemMap.entrySet()) {
-                if (!object.has(en.getKey())) {
-                    continue;
+        try{
+            RequestsManager.newRequest(new Request("https://api.hypixel.net/skyblock/bazaar", s -> {
+                if (!s.hasSucceeded()) {
+                    return;
                 }
-                en.getValue().setBazaarSellPrice(object.getAsJsonObject(en.getKey()).getAsJsonObject("quick_status").get("sellPrice").getAsDouble());
-                en.getValue().setBazaarBuyPrice(object.getAsJsonObject(en.getKey()).getAsJsonObject("quick_status").get("buyPrice").getAsDouble());
-            }
-        }, false, false));
+                JsonObject object = new JsonParser().parse(s.getResponse()).getAsJsonObject().getAsJsonObject("products");
 
 
+                for (Map.Entry<String, SkyblockItem> en : idToItemMap.entrySet()) {
+                    if (!object.has(en.getKey())) {
+                        continue;
+                    }
+                    en.getValue().setBazaarSellPrice(object.getAsJsonObject(en.getKey()).getAsJsonObject("quick_status").get("sellPrice").getAsDouble());
+                    en.getValue().setBazaarBuyPrice(object.getAsJsonObject(en.getKey()).getAsJsonObject("quick_status").get("buyPrice").getAsDouble());
+                }
+            }));
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void updateAverageLowestBin() {
-        RequestsManager.INSTANCE.newRequest(new Request("https://moulberry.codes/auction_averages_lbin/1day.json", s -> {
-            if (!s.hasSucceeded()) {
-                return;
-            }
-            @SuppressWarnings("unchecked")
-            HashMap<String, Double> map = (HashMap<String, Double>) new Gson().fromJson(s.getResponse(),
-                    HashMap.class);
-
-            for (Map.Entry<String, SkyblockItem> en : idToItemMap.entrySet()) {
-                if (!map.containsKey(en.getKey())) {
-                    continue;
+        try {
+            RequestsManager.newRequest(new Request("https://moulberry.codes/auction_averages_lbin/1day.json", s -> {
+                if (!s.hasSucceeded()) {
+                    return;
                 }
-                en.getValue().setAverageLowestBinPrice(map.get(en.getKey()));
-            }
-        }, false, false));
+                @SuppressWarnings("unchecked")
+                HashMap<String, Double> map = (HashMap<String, Double>) new Gson().fromJson(s.getResponse(),
+                        HashMap.class);
 
+                for (Map.Entry<String, SkyblockItem> en : idToItemMap.entrySet()) {
+                    if (!map.containsKey(en.getKey())) {
+                        continue;
+                    }
+                    en.getValue().setAverageLowestBinPrice(map.get(en.getKey()));
+                }
+            }));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void updateAll() {
@@ -78,26 +86,31 @@ public class SkyblockDataManager {
     }
 
     public static void updateLowestBin() {
-        RequestsManager.INSTANCE.newRequest(new Request("http://moulberry.codes/lowestbin.json", s -> {
-            if (!s.hasSucceeded()) {
-                return;
-            }
-            @SuppressWarnings("unchecked")
-            HashMap<String, Double> map = (HashMap<String, Double>) new Gson().fromJson(s.getResponse(),
-                    HashMap.class);
-
-            for (Map.Entry<String, SkyblockItem> en : idToItemMap.entrySet()) {
-                if (!map.containsKey(en.getKey())) {
-                    continue;
+        try {
+            RequestsManager.newRequest(new Request("http://moulberry.codes/lowestbin.json", s -> {
+                if (!s.hasSucceeded()) {
+                    return;
                 }
-                en.getValue().setLowestBinPrice(map.get(en.getKey()));
-            }
-        }, false, false));
+                @SuppressWarnings("unchecked")
+                HashMap<String, Double> map = (HashMap<String, Double>) new Gson().fromJson(s.getResponse(),
+                        HashMap.class);
+
+                for (Map.Entry<String, SkyblockItem> en : idToItemMap.entrySet()) {
+                    if (!map.containsKey(en.getKey())) {
+                        continue;
+                    }
+                    en.getValue().setLowestBinPrice(map.get(en.getKey()));
+                }
+            }));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
     public static void initItems() throws IOException {
-        RequestsManager.INSTANCE.newRequest(new Request("https://api.hypixel.net/resources/skyblock/items", s -> {
+        RequestsManager.newRequest(new Request("https://api.hypixel.net/resources/skyblock/items", s -> {
             String itemDataString = s.getResponse();
             if (!s.hasSucceeded()) {
 
@@ -139,12 +152,12 @@ public class SkyblockDataManager {
                 nameToIdMap.put(name, id);
                 idToItemMap.put(id, item);
             }
-        }, false, false));
+        }));
 
     }
 
     public static void initBitValues() throws IOException {
-        JsonObject bitsShopObject = new JsonParser().parse(PublicDataManager.INSTANCE.getFile("constants/bits_shop.json")).getAsJsonObject().getAsJsonObject("bits_shop");
+        JsonObject bitsShopObject = new JsonParser().parse(PublicDataManager.getFile("constants/bits_shop.json")).getAsJsonObject().getAsJsonObject("bits_shop");
         for (Map.Entry<String, JsonElement> entry : bitsShopObject.entrySet()) {
             String id = entry.getKey();
             int bitCost = entry.getValue().getAsInt();
@@ -198,7 +211,7 @@ public class SkyblockDataManager {
     //    --------------------------- Skills ---------------------------
     private static HashMap<String, SkyblockSkill> idToSkillMap = new HashMap<>();
     public static void initSkills() throws MalformedURLException {
-        RequestsManager.INSTANCE.newRequest(new Request("https://api.hypixel.net/resources/skyblock/skills", s -> {
+        RequestsManager.newRequest(new Request("https://api.hypixel.net/resources/skyblock/skills", s -> {
             String itemDataString = s.getResponse();
             if (!s.hasSucceeded()) {
                 return;
@@ -234,7 +247,7 @@ public class SkyblockDataManager {
 //                Adds the skill to the map
                 idToSkillMap.put(id, skill);
             }
-        }, false, false));
+        }));
     }
 
     public static SkyblockSkill getSkill(String skillId) {

@@ -29,7 +29,7 @@ public class MathematicalHoeRightClicks {
 
     private static ArrayList<String> hoes;
     public static void loadHoes() {
-        String str = PublicDataManager.INSTANCE.getFile("constants/mathematical_hoes.json");
+        String str = PublicDataManager.getFile("constants/mathematical_hoes.json");
         JsonArray array = new JsonParser().parse(str).getAsJsonObject().get("hoes").getAsJsonArray();
 
         hoes = new ArrayList<>();

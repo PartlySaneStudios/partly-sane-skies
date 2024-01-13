@@ -10,8 +10,8 @@ import com.google.gson.Gson;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager;
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand;
-import me.partlysanestudios.partlysaneskies.data.api.Request;
-import me.partlysanestudios.partlysaneskies.data.api.RequestsManager;
+import me.partlysanestudios.partlysaneskies.api.Request;
+import me.partlysanestudios.partlysaneskies.api.RequestsManager;
 import me.partlysanestudios.partlysaneskies.features.debug.DebugKey;
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils;
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils;
@@ -40,7 +40,7 @@ public class ModChecker {
             new Thread(() -> {
                 if (a.length > 0) {
                     ChatUtils.INSTANCE.sendClientMessage("Loading... (using data from custom repository)");
-                    loadModDataFromRepo(PublicDataManager.INSTANCE.getRepoOwner(), PublicDataManager.INSTANCE.getRepoName());
+                    loadModDataFromRepo(PublicDataManager.getRepoOwner(), PublicDataManager.getRepoName());
                 } else {
                     ChatUtils.INSTANCE.sendClientMessage("Loading...");
                     loadModDataFromRepo();
@@ -284,18 +284,22 @@ public class ModChecker {
     }
 
     private static void loadModDataFromRepo(String userName, String repoName) {
-        String url = "https://raw.githubusercontent.com/" + userName +
-                "/" + repoName + "/main/data/mods.json";
-        RequestsManager.INSTANCE.newRequest(new Request(url, request -> {
-            knownMods = null;
-            try {
-                knownMods = read(new Gson().fromJson(request.getResponse(), ModDataJson.class));
-                run();
-            } catch (Exception e) {
-                ChatUtils.INSTANCE.sendClientMessage("§cError reading the mod data from repo!");
-                e.printStackTrace();
-            }
-        }, false, false));
+                try {
+            String url = "https://raw.githubusercontent.com/" + userName +
+                    "/" + repoName + "/main/data/mods.json";
+            RequestsManager.newRequest(new Request(url, request -> {
+                knownMods = null;
+                try {
+                    knownMods = read(new Gson().fromJson(request.getResponse(), ModDataJson.class));
+                    run();
+                } catch (Exception e) {
+                    ChatUtils.INSTANCE.sendClientMessage("§cError reading the mod data from repo!");
+                    e.printStackTrace();
+                }
+            }));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private static List<KnownMod> read(ModDataJson modData) {
