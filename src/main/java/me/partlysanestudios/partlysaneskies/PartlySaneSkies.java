@@ -24,7 +24,7 @@ import gg.essential.elementa.ElementaVersion;
 import me.partlysanestudios.partlysaneskies.api.Request;
 import me.partlysanestudios.partlysaneskies.api.RequestsManager;
 import me.partlysanestudios.partlysaneskies.config.keybinds.Keybinds;
-import me.partlysanestudios.partlysaneskies.config.keybinds.RefreshKeybinds;
+import me.partlysanestudios.partlysaneskies.features.gui.RefreshKeybinds;
 import me.partlysanestudios.partlysaneskies.config.oneconfig.OneConfigScreen;
 import me.partlysanestudios.partlysaneskies.data.cache.PetData;
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager;
@@ -37,11 +37,12 @@ import me.partlysanestudios.partlysaneskies.features.dungeons.AutoGG;
 import me.partlysanestudios.partlysaneskies.features.commands.Crepes;
 import me.partlysanestudios.partlysaneskies.features.commands.Discord;
 import me.partlysanestudios.partlysaneskies.features.commands.Version;
+import me.partlysanestudios.partlysaneskies.features.dungeons.PearlRefill;
 import me.partlysanestudios.partlysaneskies.features.gui.custommainmenu.CustomMainMenu;
 import me.partlysanestudios.partlysaneskies.features.dungeons.playerrating.PlayerRating;
 import me.partlysanestudios.partlysaneskies.features.dungeons.RequiredSecretsFound;
 import me.partlysanestudios.partlysaneskies.features.dungeons.WatcherReady;
-import me.partlysanestudios.partlysaneskies.features.dungeons.healeralert.HealerAlert;
+import me.partlysanestudios.partlysaneskies.features.dungeons.HealerAlert;
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.PartyFriendManager;
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.partymanager.PartyManager;
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.permpartyselector.PermPartyManager;
@@ -73,7 +74,6 @@ import me.partlysanestudios.partlysaneskies.features.sound.enhancedsound.Enhance
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager;
 import me.partlysanestudios.partlysaneskies.gui.hud.BannerRenderer;
 import me.partlysanestudios.partlysaneskies.gui.hud.cooldown.CooldownManager;
-import me.partlysanestudios.partlysaneskies.gui.hud.cooldown.TreecapitatorCooldown;
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils;
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils;
 import net.minecraft.client.Minecraft;
@@ -221,6 +221,7 @@ public class PartlySaneSkies {
         MinecraftForge.EVENT_BUS.register(AutoGG.INSTANCE);
         MinecraftForge.EVENT_BUS.register(CooldownManager.INSTANCE);
         MinecraftForge.EVENT_BUS.register(PetData.INSTANCE);
+        MinecraftForge.EVENT_BUS.register(PearlRefill.INSTANCE);
 
 
         // Registers all client side commands
@@ -248,6 +249,7 @@ public class PartlySaneSkies {
         WordEditor.registerWordEditorCommand();
         PlayerRating.registerReprintCommand();
         ModChecker.registerModCheckCommand();
+        PearlRefill.INSTANCE.registerCommand();
 
 
         CooldownManager.INSTANCE.init();
