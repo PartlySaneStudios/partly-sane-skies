@@ -19,9 +19,9 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand
-import me.partlysanestudios.partlysaneskies.api.Request
-import me.partlysanestudios.partlysaneskies.api.RequestRunnable
-import me.partlysanestudios.partlysaneskies.api.RequestsManager
+import me.partlysanestudios.partlysaneskies.data.api.Request
+import me.partlysanestudios.partlysaneskies.data.api.RequestRunnable
+import me.partlysanestudios.partlysaneskies.data.api.RequestsManager
 import me.partlysanestudios.partlysaneskies.features.debug.DebugKey
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.floor

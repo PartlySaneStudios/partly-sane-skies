@@ -8,8 +8,8 @@ package me.partlysanestudios.partlysaneskies.data.skyblockdata;
 import com.google.gson.*;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager;
-import me.partlysanestudios.partlysaneskies.api.Request;
-import me.partlysanestudios.partlysaneskies.api.RequestsManager;
+import me.partlysanestudios.partlysaneskies.data.api.Request;
+import me.partlysanestudios.partlysaneskies.data.api.RequestsManager;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -157,7 +157,7 @@ public class SkyblockDataManager {
     }
 
     public static void initBitValues() throws IOException {
-        JsonObject bitsShopObject = new JsonParser().parse(PublicDataManager.getFile("constants/bits_shop.json")).getAsJsonObject().getAsJsonObject("bits_shop");
+        JsonObject bitsShopObject = new JsonParser().parse(PublicDataManager.INSTANCE.getFile("constants/bits_shop.json")).getAsJsonObject().getAsJsonObject("bits_shop");
         for (Map.Entry<String, JsonElement> entry : bitsShopObject.entrySet()) {
             String id = entry.getKey();
             int bitCost = entry.getValue().getAsInt();

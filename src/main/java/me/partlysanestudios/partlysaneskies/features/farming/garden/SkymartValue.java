@@ -39,15 +39,13 @@ public class SkymartValue {
     public static HashMap<String, Integer> copperCost = new HashMap<>();
 
     public static void initCopperValues() throws IOException {
-        String str = PublicDataManager.getFile("constants/skymart_copper.json");
+        String str = PublicDataManager.INSTANCE.getFile("constants/skymart_copper.json");
 
         JsonObject skymartObject = new JsonParser().parse(str).getAsJsonObject().getAsJsonObject("skymart");
         for (Map.Entry<String, JsonElement> entry : skymartObject.entrySet()) {
             copperCost.put(entry.getKey(), entry.getValue().getAsInt());
         }
 
-
-        
     }
 
     // Sorts the hashmap in descending order

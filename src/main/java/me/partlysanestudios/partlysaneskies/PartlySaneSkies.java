@@ -21,8 +21,8 @@
 package me.partlysanestudios.partlysaneskies;
 
 import gg.essential.elementa.ElementaVersion;
-import me.partlysanestudios.partlysaneskies.api.Request;
-import me.partlysanestudios.partlysaneskies.api.RequestsManager;
+import me.partlysanestudios.partlysaneskies.data.api.Request;
+import me.partlysanestudios.partlysaneskies.data.api.RequestsManager;
 import me.partlysanestudios.partlysaneskies.config.keybinds.Keybinds;
 import me.partlysanestudios.partlysaneskies.features.gui.RefreshKeybinds;
 import me.partlysanestudios.partlysaneskies.config.oneconfig.OneConfigScreen;

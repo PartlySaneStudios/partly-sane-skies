@@ -4,7 +4,7 @@
 //
 
 
-package me.partlysanestudios.partlysaneskies.api;
+package me.partlysanestudios.partlysaneskies.data.api;
 
 public interface RequestRunnable {
     void run(Request request);
