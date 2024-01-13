@@ -32,8 +32,8 @@ import kotlin.math.ceil
 object CoinsToBoosterCookieConversion {
 
     private val playerName: String by lazy { PartlySaneSkies.minecraft.thePlayer.name }
-    private val boosterCookieItemId: String = "BOOSTER_COOKIE"
-    private val boosterCookiePath: String = "constants/booster_cookie_price.json"
+    private const val boosterCookieItemId: String = "BOOSTER_COOKIE"
+    private const val boosterCookiePath: String = "constants/booster_cookie_price.json"
     private val configCurr get(): Int = PartlySaneSkies.config.prefCurr
     private val orderOfCurrency = arrayOf("AUD", "BRL", "CAD", "DKK", "EUR", "KPW", "NOK", "NZD", "PLN", "GBP", "SEK", "USD")
 
@@ -66,7 +66,7 @@ object CoinsToBoosterCookieConversion {
                 ChatUtils.sendClientMessage("Loading...")
 
 //                Creates a new thread so we don't pause the entirety of the game to perform a request that won't work because a game tick needs to pass to be able to run
-                Thread() {
+                Thread({
                     if (a.size == 1 && a[0].toDoubleOrNull() != null) {
 //                        Gets the public data json
                         val boosterCookieData: JsonObject = JsonParser().parse(PublicDataManager.getFile(
@@ -103,7 +103,7 @@ object CoinsToBoosterCookieConversion {
                         ChatUtils.sendClientMessage("§cPlease enter a valid number for your §6coins to cookies §cconversion and try again.")
                         return@Thread
                     }
-                }.start()
+                }, "Coins to Cookies").start()
             }.register()
     }
 
