@@ -1,3 +1,9 @@
+//
+// Written by Su386 and from https://github.com/JnCrMx/discord-game-sdk4j/blob/master/examples.
+// See LICENSE for copyright and license notices.
+//
+
+
 package me.partlysanestudios.partlysaneskies.features.discord
 
 import de.jcm.discordgamesdk.Core
@@ -18,8 +24,8 @@ import java.util.zip.ZipEntry
 import java.util.zip.ZipInputStream
 
 
-val NORMAL_APPLICATION_ID = 1195613263845666849
-val SBE_BAD_APPLICATION_ID = 1195625408167686175
+const val NORMAL_APPLICATION_ID = 1195613263845666849
+const val SBE_BAD_APPLICATION_ID = 1195625408167686175
 
 object DiscordRPC {
     var discordLibraryPath: String = "./config/partly-sane-skies/discord-native-library"
@@ -117,7 +123,7 @@ object DiscordRPC {
 
                     try {
                         // Sleep a bit to save CPU
-                        Thread.sleep(16)
+                        Thread.sleep(50)
                     } catch (e: InterruptedException) {
                         e.printStackTrace()
                     }
@@ -142,7 +148,7 @@ object DiscordRPC {
 
 
 
-    // From https://github.com/JnCrMx/discord-game-sdk4j/blob/master/examples/DownloadNativeLibrary.java
+
     @Throws(IOException::class)
     fun downloadDiscordLibrary(path: String): File? {
         // Find out which name Discord's library has (.dll for Windows, .so for Linux)
