@@ -45,9 +45,9 @@ object PetData {
         }
 
         lastSaveTime = PartlySaneSkies.getTime()
-        Thread() {
+        Thread({
             save()
-        }.start()
+        }, "Pet Data Save").start()
 
     }
 

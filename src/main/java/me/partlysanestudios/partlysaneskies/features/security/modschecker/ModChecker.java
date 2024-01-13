@@ -286,7 +286,7 @@ public class ModChecker {
     private static void loadModDataFromRepo(String userName, String repoName) {
         String url = "https://raw.githubusercontent.com/" + userName +
                 "/" + repoName + "/main/data/mods.json";
-        RequestsManager.newRequest(new Request(url, request -> {
+        RequestsManager.INSTANCE.newRequest(new Request(url, request -> {
             knownMods = null;
             try {
                 knownMods = read(new Gson().fromJson(request.getResponse(), ModDataJson.class));

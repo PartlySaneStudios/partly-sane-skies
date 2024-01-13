@@ -82,6 +82,10 @@ public class PolyfrostUrsaMinorRequest extends Request {
             return;
         }
 
+        new Thread(() -> {
+
+        }, "Partly Sane Skies Request Manager");
+
         // If supposed to run in the next frame, run in the next frame
         if (super.isRunNextFrame()) {
             PartlySaneSkies.minecraft.addScheduledTask(() -> whenFinished.run(this));

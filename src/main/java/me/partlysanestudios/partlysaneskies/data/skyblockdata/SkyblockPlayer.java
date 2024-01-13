@@ -88,7 +88,7 @@ public class SkyblockPlayer {
         if (uuid == null) {
             String requestURL = "https://api.mojang.com/users/profiles/minecraft/" + username;
 
-            RequestsManager.newRequest(new Request(requestURL, request -> {
+            RequestsManager.INSTANCE.newRequest(new Request(requestURL, request -> {
                 if (!request.hasSucceeded()) {
                     synchronized (lock) {
                         lock.notifyAll();
@@ -160,13 +160,13 @@ public class SkyblockPlayer {
 
     private void requestData() throws MalformedURLException {
         String hypixelPlayerRequestURL = "https://api.polyfrost.cc/ursa/v1/hypixel/player/" + this.uuid;
-        RequestsManager.newRequest(new PolyfrostUrsaMinorRequest(hypixelPlayerRequestURL, request -> {
+        RequestsManager.INSTANCE.newRequest(new PolyfrostUrsaMinorRequest(hypixelPlayerRequestURL, request -> {
             this.playerHypixelJsonString = request.getResponse();
             this.playerHypixelJsonObject = new JsonParser().parse(this.playerHypixelJsonString).getAsJsonObject();
         }, false, false));
         String profileRequestURL = "https://api.polyfrost.cc/ursa/v1/hypixel/skyblock/profiles/" + this.uuid;
 
-        RequestsManager.newRequest(new PolyfrostUrsaMinorRequest(profileRequestURL, request -> {
+        RequestsManager.INSTANCE.newRequest(new PolyfrostUrsaMinorRequest(profileRequestURL, request -> {
             this.playerSkyblockJsonString = request.getResponse();
 
             this.playerSkyblockJsonObject = new JsonParser().parse(this.playerSkyblockJsonString).getAsJsonObject();

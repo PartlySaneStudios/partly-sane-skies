@@ -135,12 +135,11 @@ public class PartlySaneSkies {
 
         Request mainMenuRequest = null;
         mainMenuRequest = new Request("https://raw.githubusercontent.com/" + PublicDataManager.INSTANCE.getRepoOwner() + "/" +  PublicDataManager.INSTANCE.getRepoName() + "/main/data/main_menu.json", CustomMainMenu::setMainMenuInfo, false, false);
-        RequestsManager.newRequest(mainMenuRequest);
+        RequestsManager.INSTANCE.newRequest(mainMenuRequest);
         Request funFactRequest = null;
         funFactRequest = new Request(CustomMainMenu.funFactApi, CustomMainMenu::setFunFact, false, false);
-        RequestsManager.newRequest(funFactRequest);
+        RequestsManager.INSTANCE.newRequest(funFactRequest);
         trackLoad();
-        RequestsManager.run();
 
         // Loads extra json data
         new Thread(() -> {
@@ -306,9 +305,6 @@ public class PartlySaneSkies {
     // Method runs every tick
     @SubscribeEvent
     public void clientTick(ClientTickEvent evnt) {
-        // Runs the request manager
-        RequestsManager.run();
-
         // Checks if the current location is the same as the previous location for the location banner display
         LocationBannerDisplay.checkLocation();
 
