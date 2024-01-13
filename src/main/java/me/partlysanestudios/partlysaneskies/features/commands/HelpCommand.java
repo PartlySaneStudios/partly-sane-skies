@@ -89,7 +89,6 @@ public class HelpCommand {
                 "\n §6> Open the config: " +
                 "\n    §6> §ePress " + getOneConfigKeyBindString() + " or use /pssc" +
                 "\n    §6> §eMost features are turned off by default so to use the mod, you will need to configure the settings" +
-                "\n    §6> §eTo change the keybinding, press Esc, Options, Controls and scroll down to \"Partly Sane Skies\"." +
                 "\n" +
                 "\n" +
                 "\n §1> Join the discord" +
