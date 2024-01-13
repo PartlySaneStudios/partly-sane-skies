@@ -102,9 +102,9 @@ public class SkymartValue {
         }
 
         IInventory[] inventories = MinecraftUtils.INSTANCE.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen);
-        if (inventories == null) return false;
 
         IInventory skymart = inventories[0];
+        if (skymart == null) return false;
         if (!StringUtils.INSTANCE.removeColorCodes(skymart.getDisplayName().getFormattedText()).contains("SkyMart")) {
             return false;
         }
@@ -132,7 +132,7 @@ public class SkymartValue {
             box.hide();
             return;
         }
-        if (!PartlySaneSkies.config.bestCropsToCompost) {
+        if (!PartlySaneSkies.config.skymartValue) {
             return;
         }
 
