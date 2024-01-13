@@ -4,14 +4,13 @@
 //
 
 
-package me.partlysanestudios.partlysaneskies.gui.hud.cooldown
+package me.partlysanestudios.partlysaneskies.render.gui.hud.cooldown
 
 import gg.essential.elementa.UIComponent
-import gg.essential.elementa.components.UIBlock
 import gg.essential.elementa.components.UIRoundedRectangle
 import gg.essential.elementa.constraints.*
 import gg.essential.elementa.dsl.*
-import me.partlysanestudios.partlysaneskies.gui.components.PSSItemRender
+import me.partlysanestudios.partlysaneskies.render.gui.components.PSSItemRender
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.weightedAverage
 import java.awt.Color
 

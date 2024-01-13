@@ -1,4 +1,4 @@
-package me.partlysanestudios.partlysaneskies.renderers.waypoint
+package me.partlysanestudios.partlysaneskies.render.waypoint
 
 import net.minecraft.util.BlockPos
 

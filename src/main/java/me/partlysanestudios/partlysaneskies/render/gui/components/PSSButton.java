@@ -3,7 +3,7 @@
 // See LICENSE for copyright and license notices.
 //
 
-package me.partlysanestudios.partlysaneskies.gui.components;
+package me.partlysanestudios.partlysaneskies.render.gui.components;
 
 import cc.polyfrost.oneconfig.config.core.OneColor;
 import gg.essential.elementa.UIComponent;

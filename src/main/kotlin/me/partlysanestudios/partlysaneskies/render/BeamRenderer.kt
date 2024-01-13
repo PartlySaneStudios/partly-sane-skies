@@ -1,9 +1,7 @@
-package me.partlysanestudios.partlysaneskies.renderers
+package me.partlysanestudios.partlysaneskies.render
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.minecraft
 import net.minecraft.client.renderer.GlStateManager
-import net.minecraft.client.renderer.Tessellator
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats
 import net.minecraft.util.BlockPos
 import org.lwjgl.opengl.GL11
 

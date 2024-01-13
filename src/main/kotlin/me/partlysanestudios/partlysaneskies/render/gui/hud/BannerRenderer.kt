@@ -4,7 +4,7 @@
 //
 
 
-package me.partlysanestudios.partlysaneskies.gui.hud
+package me.partlysanestudios.partlysaneskies.render.gui.hud
 
 import gg.essential.elementa.ElementaVersion
 import gg.essential.elementa.components.UIText

@@ -4,7 +4,7 @@
 //
 
 
-package me.partlysanestudios.partlysaneskies.gui.hud.cooldown
+package me.partlysanestudios.partlysaneskies.render.gui.hud.cooldown
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.data.cache.PetData

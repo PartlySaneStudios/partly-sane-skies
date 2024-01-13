@@ -6,11 +6,10 @@
 package me.partlysanestudios.partlysaneskies.features.gui.hud;
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
-import me.partlysanestudios.partlysaneskies.gui.hud.BannerRenderer;
-import me.partlysanestudios.partlysaneskies.gui.hud.PSSBanner;
+import me.partlysanestudios.partlysaneskies.render.gui.hud.BannerRenderer;
+import me.partlysanestudios.partlysaneskies.render.gui.hud.PSSBanner;
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
-import net.minecraft.client.gui.Gui;
 
 import java.awt.*;
 

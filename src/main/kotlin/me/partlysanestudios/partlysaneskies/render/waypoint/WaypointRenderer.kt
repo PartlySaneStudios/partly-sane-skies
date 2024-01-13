@@ -1,11 +1,9 @@
-package me.partlysanestudios.partlysaneskies.renderers.waypoint
+package me.partlysanestudios.partlysaneskies.render.waypoint
 
-import me.partlysanestudios.partlysaneskies.renderers.BlockHighlightRenderer
-import me.partlysanestudios.partlysaneskies.renderers.BeamRenderer
-import me.partlysanestudios.partlysaneskies.renderers.waypoint.WaypointManager.getWaypoints
-import me.partlysanestudios.partlysaneskies.utils.ChatUtils
+import me.partlysanestudios.partlysaneskies.render.BlockHighlightRenderer
+import me.partlysanestudios.partlysaneskies.render.BeamRenderer
+import me.partlysanestudios.partlysaneskies.render.waypoint.WaypointManager.getWaypoints
 import net.minecraft.client.Minecraft
-import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.util.AxisAlignedBB
 import net.minecraft.util.Vec3
 import net.minecraftforge.client.event.RenderWorldLastEvent

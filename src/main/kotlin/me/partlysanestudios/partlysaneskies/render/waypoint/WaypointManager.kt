@@ -1,4 +1,4 @@
-package me.partlysanestudios.partlysaneskies.renderers.waypoint
+package me.partlysanestudios.partlysaneskies.render.waypoint
 
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils

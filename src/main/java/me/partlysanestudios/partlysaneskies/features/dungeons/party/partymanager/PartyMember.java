@@ -14,7 +14,7 @@ import gg.essential.elementa.constraints.PixelConstraint;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager;
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockPlayer;
-import me.partlysanestudios.partlysaneskies.gui.components.PSSButton;
+import me.partlysanestudios.partlysaneskies.render.gui.components.PSSButton;
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils;
 import me.partlysanestudios.partlysaneskies.utils.MathUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
