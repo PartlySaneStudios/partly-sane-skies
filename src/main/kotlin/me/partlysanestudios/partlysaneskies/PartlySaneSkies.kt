@@ -1,5 +1,4 @@
 /*
- *
  * Written by Su386.
  * See LICENSE for copyright and license notices.
  *
@@ -15,7 +14,6 @@
  * Vigilance
  * OneConfig
  * SkyCrypt
- *
  */
 package me.partlysanestudios.partlysaneskies
 
