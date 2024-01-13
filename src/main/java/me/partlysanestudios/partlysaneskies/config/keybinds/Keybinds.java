@@ -5,76 +5,37 @@
 
 package me.partlysanestudios.partlysaneskies.config.keybinds;
 
-import me.partlysanestudios.partlysaneskies.features.commands.HelpCommand;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
+import me.partlysanestudios.partlysaneskies.features.commands.HelpCommand;
 import me.partlysanestudios.partlysaneskies.features.debug.DebugKey;
-import me.partlysanestudios.partlysaneskies.features.skills.PetAlert;
-import me.partlysanestudios.partlysaneskies.features.information.WikiArticleOpener;
-import me.partlysanestudios.partlysaneskies.features.economy.auctionhousemenu.AuctionHouseGui;
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.partymanager.PartyManager;
+import me.partlysanestudios.partlysaneskies.features.economy.auctionhousemenu.AuctionHouseGui;
 import me.partlysanestudios.partlysaneskies.features.farming.MathematicalHoeRightClicks;
+import me.partlysanestudios.partlysaneskies.features.information.WikiArticleOpener;
+import me.partlysanestudios.partlysaneskies.features.skills.PetAlert;
 import me.partlysanestudios.partlysaneskies.utils.MathUtils;
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils;
 import net.minecraft.client.gui.inventory.GuiChest;
-import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.event.ClickEvent;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
 import net.minecraftforge.client.event.GuiScreenEvent.KeyboardInputEvent;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent;
 import org.lwjgl.input.Keyboard;
 
 public final class Keybinds {
-
-    private final static String PSS_CATEGORY = "Partly Sane Skies";
-    public static KeyBinding configKey;
-    public static KeyBinding partyManagerKey;
-    public static KeyBinding helpKey;
-    public static KeyBinding wardrobeKeybind;
-    public static KeyBinding petKeybind;
-    public static KeyBinding craftKeybind;
-    public static KeyBinding storageKeybind;
-    public static KeyBinding wikiKeybind;
-    public static KeyBinding favouritePetKeybind;
-    public static KeyBinding allowHoeRightClickKeybind;
-
-
-    public static void init() {
-        // debugKey = registerKey("Debug", PSS_CATEGORY, Keyboard.KEY_F4);
-        configKey = registerKey("Config", PSS_CATEGORY, Keyboard.KEY_F7);
-        partyManagerKey = registerKey("Party Manager", PSS_CATEGORY, Keyboard.KEY_M);
-        helpKey = registerKey("Help", PSS_CATEGORY, Keyboard.KEY_H);
-        wardrobeKeybind = registerKey("Open Wardrobe Menu", PSS_CATEGORY, Keyboard.CHAR_NONE);
-        petKeybind = registerKey("Open Pets Menu", PSS_CATEGORY, Keyboard.CHAR_NONE);
-        craftKeybind = registerKey("Open Crafting Table", PSS_CATEGORY, Keyboard.CHAR_NONE);
-        storageKeybind = registerKey("Open Storage Menu", PSS_CATEGORY, Keyboard.CHAR_NONE);
-        wikiKeybind = registerKey("Open Wiki Article", PSS_CATEGORY, Keyboard.KEY_X);
-        favouritePetKeybind = registerKey("Favourite Pet", PSS_CATEGORY, Keyboard.KEY_F);
-        allowHoeRightClickKeybind = registerKey("Allow Hoe Right Click", PSS_CATEGORY, Keyboard.CHAR_NONE);
-    }
-
-    private static KeyBinding registerKey(String name, String category, int keycode) {
-        final KeyBinding key = new KeyBinding(name, keycode, category);
-        ClientRegistry.registerKeyBinding(key);
-        return key;
-    }
-
     @SubscribeEvent
     public void keybindWhileInGui(KeyboardInputEvent.Post event) {
         if (PartlySaneSkies.config.debugKeybind.isActive()) {
             DebugKey.INSTANCE.onDebugKeyPress();
         }
-
-        if (Keyboard.isKeyDown(wikiKeybind.getKeyCode())) {
+        if (PartlySaneSkies.config.wikiKeybind.isActive()) {
             WikiArticleOpener.keyDown();
         }
-
-        if (Keyboard.isKeyDown(favouritePetKeybind.getKeyCode())) {
+        if (PartlySaneSkies.config.favouritePetKeybind.isActive()) {
             PetAlert.favouritePet();
         }
-
         if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
             if (PartlySaneSkies.minecraft.currentScreen instanceof AuctionHouseGui ||
                     (PartlySaneSkies.minecraft.currentScreen instanceof GuiChest && AuctionHouseGui.Companion.isAhGui(MinecraftUtils.INSTANCE.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen)[0]))) {
@@ -82,7 +43,6 @@ public final class Keybinds {
                 MinecraftUtils.INSTANCE.clickOnSlot(46);
             }
         }
-
         if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
             if (PartlySaneSkies.minecraft.currentScreen instanceof AuctionHouseGui ||
                     (PartlySaneSkies.minecraft.currentScreen instanceof GuiChest && AuctionHouseGui.Companion.isAhGui(MinecraftUtils.INSTANCE.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen)[0]))) {
@@ -97,29 +57,28 @@ public final class Keybinds {
         if (PartlySaneSkies.config.debugKeybind.isActive()) {
             DebugKey.INSTANCE.onDebugKeyPress();
         }
-        
-        if (configKey.isPressed()) {
+        if (PartlySaneSkies.config.oneConfigKeybind.isActive()) {
             PartlySaneSkies.config.openGui();
         }
-        if (partyManagerKey.isPressed()) {
+        if (PartlySaneSkies.config.partyManagerKeybind.isActive()) {
             PartyManager.startPartyManager();
         }
-        if (helpKey.isPressed()) {
+        if (PartlySaneSkies.config.helpKeybind.isActive()) {
             HelpCommand.printHelpMessage();
         }
-        if (craftKeybind.isPressed()) {
+        if (PartlySaneSkies.config.craftKeybind.isActive()) {
             PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/craft");
         }
-        if (petKeybind.isPressed()) {
+        if (PartlySaneSkies.config.petKeybind.isActive()) {
             PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/pets");
         }
-        if (wardrobeKeybind.isPressed()) {
+        if (PartlySaneSkies.config.wardrobeKeybind.isActive()) {
             PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/wardrobe");
         }
-        if (storageKeybind.isPressed()) {
+        if (PartlySaneSkies.config.storageKeybind.isActive()) {
             PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/storage");
         }
-        if (allowHoeRightClickKeybind.isPressed()) {
+        if (PartlySaneSkies.config.allowHoeRightClickKeybind.isActive()) {
             boolean canRightClickHoe = MathUtils.INSTANCE.onCooldown(MathematicalHoeRightClicks.lastAllowHoeRightClickTime, (long) (PartlySaneSkies.config.allowRightClickTime * 60L * 1000L));
 
             if(canRightClickHoe){
