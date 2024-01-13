@@ -20,9 +20,7 @@
 
 ## About
 
-
 Partly Sane Skies is a Minecraft mod for Hypixel SkyBlock, designed, built, and programmed by **Su386** and **FlagMaster**. 
-
 
  >📋 - Credits including third party programs can be [found here](CREDITS.md)
  
@@ -42,8 +40,6 @@ Partly Sane Skies is a Minecraft mod for Hypixel SkyBlock, designed, built, and 
 </a>
     
 
-
-
 <a href="https://modrinth.com/mod/partly-sane-skies">
     <img src="images/github_icon.png" alt="Github" width="20" height="20" style="text-align: center;">
     <span style="font-size:larger;"><sup>Github: Open the assets drop down for the latest version and download "partly-sane-skies".jar file.</sup></span>
@@ -54,14 +50,9 @@ Place that mod in the mods folder of your Minecraft and you are good to go!
 
 *There is no "reborn" or "revamped" version of Partly Sane Skies. If you do find one, please report it in the [Discord](https://discord.gg/v4PU3WeH7z).*
 
-
-
-
 ## Usage:
 
 *Click the arrows to toggle the full list of information*
-
-
 
 <details>
   <summary> <b> ⌨️ Commands </b> </summary>
@@ -90,7 +81,6 @@ Place that mod in the mods folder of your Minecraft and you are good to go!
 
 To view more information about commands, including how to use them, **[click here to visit the command page.](pages/commands.md)**
 
-
 <details>
   <summary> <b> 🛠️Config</b> </summary>
 
@@ -98,15 +88,13 @@ To view more information about commands, including how to use them, **[click her
 
 </details>
 
-***Almost all features can be enabled and modifed through the config menu.***
+***Almost all features can be enabled and modified through the config menu.***
 
 - Config Menu Command:  <code>/pss config</code> 
 
 - Default Config Keybinding:  <code>F7</code>.
 
 - The config menu can also be accessed through the [custom main menu, with the 'options' button.](pages/features/general/custom_main_menu.md)
-
-
 
 ## Top Features:
 
@@ -130,8 +118,6 @@ along with an option to select a random background.
 
 <img src="images/custom_main_menu.png" alt="Custom main menu" width="600" height="350" style="text-align: center;"> 
 
-
-
 ### RNG Drop Banner and Sound
 
 When you get a rare drop, a Pumpkin Dicer or Melon Slicer like pop-up banner will appear, along with a sound, celebrating your drop.
@@ -144,7 +130,7 @@ This mod supports a variety of different themes, including dark themes, very dar
 
 ### Custom Sounds for SkyBlock
 
-Instead of the normal noteblocks, there is now the option to use computer generated, discord sounds or even live instruments to play sounds such as SkyBlock music and sound effects.
+Instead of the normal note blocks, there is now the option to use computer generated, discord sounds or even live instruments to play sounds such as SkyBlock music and sound effects.
 
 ### Location Banner
 
@@ -175,7 +161,6 @@ This feature basically changes all chat messages to use the owo language. Please
 
 <img src="images/owowangauge.png" alt="Owolanguage" width="600" height="350" style="text-align: center;"> 
 
-
 ### Pet for Minion Information Display
 
 When opening the minion, your current pet selected will appear, along with the pet that you have set as favorite.
@@ -187,18 +172,15 @@ When opening the minion, your current pet selected will appear, along with the p
 Messages sent by nons (non-ranked players) can be configured to have the same white as the rest of the chat.
 This option is off by default but can be turned on in the PSS Config menu.
 
-### Added a Wordeditor for ingame chat
+### Word Editor for in game chat
 
-Replace any word in chat to any other word, such as rp to reparty, Flagmaster to FlagHater or juju to nonbow
+Replace any word in chat to any other word, such as rp to reparty, FlagMaster to FlagHater or juju to nonbow
 
 ![Word Editor 1](images/word_editor_1.png)
 
-
 ![Word Editor 2](images/word_editor_2.png)
 
-
 ![Word Editor 3](images/word_editor_3.png)
-
 
 ![Word Editor 4](images/word_editor_4.png)
 
@@ -218,15 +200,13 @@ Default: ``M``
 
 <img src="images/party_manager.png" alt="Party Manager" width="600" height="350" style="text-align: center;"> 
 
-
 ### Custom Themes
 
 This mod supports a variety of different themes, including dark themes, very dark themes, colorful themes, and controversially, light themes. You can also choose your own accent color, and create your own themes in the OneConfig menu under the theme section. These themes only affect the PSS user interface.
 
-                                    
 ### Pearl Refill
 
-Do you use pearls for your Dungeon runs and want to refill them backup to 16? With the Pearlrefill command you can automatically refill it back up to 16 from any other Stacksize, there is also a Keybind (Default P) and an option to enable auto refill at Dungeon start (use at your own risk)
+Do you use pearls for your Dungeon runs and want to refill them backup to 16? With the Pearl Refill command you can automatically refill it back up to 16 from any other stack size, there is also a hot key (Default ``P``) and an option to enable auto refill at Dungeon start (use at your own risk)
 
 
 ### Watcher Ready, Message, Warning, Siren and Sound
@@ -247,13 +227,10 @@ In a perfectly balanced 5-player party, each player should get 20%.
 
 ### Required Secrets Notifier
 
-Your teammates are throwing because they don't know you don't need 100% of secrets on lower floors? This feature sends a warning to yourself with a banner and sound (which can be an air raid siren) and a party message for your teammates when all the required secrets are found for a S+ run. 
+Your teammates are throwing because they don't know you don't need 100% of secrets on lower floors? This feature sends a warning to yourself with a banner and sound (which can be an air raid siren) and a party message for your teammates when all the required secrets are found for an S+ run. 
 
-<img src="images/required_secrets.png" alt="Required Secrets" width="600" height="350" style="text-align: center;"> 
-
-
+<img src="images/required_secrets.png" alt="Required Secrets" width="600" height="350" style="text-align: center;">
 </details>
-
 
 <details>
   <summary> 🌾Farming and Garden Features </summary>
@@ -266,9 +243,6 @@ Create a region where you will be notified when you reach it, using the same com
 
 <img src="images/end_of_farm.png" alt="End of Farm Notifier" width="600" height="350" style="text-align: center;"> 
 
-
-
-
 ### Top Crops to Compost
 
 Shows you information about which crops are the best to use for the composter at the current moment in time.
@@ -276,13 +250,11 @@ Shows you information about which crops are the best to use for the composter at
 <img src="images/crop_compost.png" alt="Optimal Crop Compost" width="600" height="350" style="text-align: center;"> 
 
 
-### Best Skymart Profit
+### Best SkyMart Profit
 
 Shows which items are the most profitable for the copper cost. (Which ones give the most coins per copper?)
 
-<img src="images/skymart_profit.png" alt="Skymart Profit Image" width="600" height="350" style="text-align: center;"> 
-
-
+<img src="images/skymart_profit.png" alt="SkyMart Profit Image" width="600" height="350" style="text-align: center;">
 </details>
 
 <details>
@@ -305,15 +277,11 @@ The mining events reminder has a selective list of all Dwarven mines & crystal h
 
 Not always aware when the pickaxe cooldown is over? Not anymore! With the new pickaxe cooldown reminder, this won't happen anymore. Need a banner? We have that! Want color in it? It's already available! Sound? Of course. It also includes PTSD, the best feature of it all—the Air Raid Siren! You can also block right-clicks on your private island, so you'll never accidentally pickoboculus your island again.
 
-<img src="images/pickaxe_ability.png" alt="Pickaxe Ability" width="600" height="350" style="text-align: center;"> 
-
-
+<img src="images/pickaxe_ability.png" alt="Pickaxe Ability" width="600" height="350" style="text-align: center;">
 </details>
-
 
 <details>
   <summary> 🪙 Economy Features </summary>
-  
 
 ## 🪙 Economy
 
@@ -341,9 +309,7 @@ Using real time data, the mod will now display which configurations will result 
 
 A lot of people use the bits accumulated from booster cookies to convert to items to sell on the auction house. Instead of having to guess which items are the best and for what price, it will now recommend to you the items that sell for the most coins per bit.
 
-<img src="images/bit_shop_profit.png" alt="Github Logo" width="600" height="350" style="text-align: center;"> 
-
-
+<img src="images/bit_shop_profit.png" alt="Github Logo" width="600" height="350" style="text-align: center;">
 </details>
 
 <details>
