@@ -184,7 +184,6 @@ public class PartlySaneSkies {
         MinecraftForge.EVENT_BUS.register(new WatcherReady());
         MinecraftForge.EVENT_BUS.register(new WormWarning());
         MinecraftForge.EVENT_BUS.register(new CustomMainMenu(ElementaVersion.V2));
-        MinecraftForge.EVENT_BUS.register(new Keybinds());
         MinecraftForge.EVENT_BUS.register(new PartyFriendManager());
         MinecraftForge.EVENT_BUS.register(new WikiArticleOpener());
         MinecraftForge.EVENT_BUS.register(new NoCookieWarning());
@@ -214,7 +213,7 @@ public class PartlySaneSkies {
         MinecraftForge.EVENT_BUS.register(CooldownManager.INSTANCE);
         MinecraftForge.EVENT_BUS.register(PetData.INSTANCE);
         MinecraftForge.EVENT_BUS.register(PearlRefill.INSTANCE);
-
+        MinecraftForge.EVENT_BUS.register(Keybinds.INSTANCE);
 
         // Registers all client side commands
         HelpCommand.registerPSSCommand();
@@ -230,46 +229,38 @@ public class PartlySaneSkies {
         PartyFriendManager.registerCommand();
         ChatAlertsManager.registerCommand();
         PetAlert.registerCommand();
+        ProfitMinionCalculator.registerCommand();
+        MathematicalHoeRightClicks.registerCommand();
+        WordEditor.registerWordEditorCommand();
+        PlayerRating.registerReprintCommand();
+        ModChecker.registerModCheckCommand();
+
+        PearlRefill.INSTANCE.registerCommand();
         EndOfFarmNotifier.INSTANCE.registerPos1Command();
         EndOfFarmNotifier.INSTANCE.registerPos2Command();
         EndOfFarmNotifier.INSTANCE.registerCreateRangeCommand();
         EndOfFarmNotifier.INSTANCE.registerFarmNotifierCommand();
         EndOfFarmNotifier.INSTANCE.registerWandCommand();
         CoinsToBoosterCookieConversion.INSTANCE.registerCommand();
-        ProfitMinionCalculator.registerCommand();
-        MathematicalHoeRightClicks.registerCommand();
-        WordEditor.registerWordEditorCommand();
-        PlayerRating.registerReprintCommand();
-        ModChecker.registerModCheckCommand();
-        PearlRefill.INSTANCE.registerCommand();
 
-
-        CooldownManager.INSTANCE.init();
-        DebugKey.INSTANCE.init();
-
-
-
-        // Initializes keybinds
-        Keybinds.init();
-
-
-        // Initializes skill upgrade recommendation
+//        Inits all functions
+        PublicDataManager.INSTANCE.initAllPublicData();
+        // Initializes skyblock data
         SkillUpgradeRecommendation.populateSkillMap();
-
         try {
             SkyblockDataManager.initItems();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        SkyblockDataManager.updateAll();
-
         try {
             SkyblockDataManager.initSkills();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        PublicDataManager.INSTANCE.initAllPublicData();
+        SkyblockDataManager.updateAll();
+//        *Do not call public data manager here pls and ty*
+        CooldownManager.INSTANCE.init();
+        DebugKey.INSTANCE.init();
 
         // Loads user player data for PartyManager
         new Thread(() -> {

@@ -67,6 +67,19 @@ public class HelpCommand {
                 }).register();
     }
 
+    private static String getOneConfigKeyBindString() {
+        if (PartlySaneSkies.config.oneConfigKeybind.getSize() == 0) {
+            return Keyboard.getKeyName(Keyboard.CHAR_NONE);
+        }
+
+        String str = Keyboard.getKeyName(PartlySaneSkies.config.oneConfigKeybind.getKeyBinds().get(0));
+        for (int i = 1; i < PartlySaneSkies.config.oneConfigKeybind.getSize(); i++) {
+            str += " + " +  Keyboard.getKeyName(PartlySaneSkies.config.oneConfigKeybind.getKeyBinds().get(i));
+        }
+
+        return str;
+    }
+
     public static void printHelpMessage() {
         StringBuilder str = new StringBuilder("§3§m-----------------------------------------------------§r" +
                 "\n" +
@@ -74,7 +87,7 @@ public class HelpCommand {
                 "\nPartly Sane Skies is a mod developed by Su386 and FlagMaster. This mod aims to be a quality of life mod for Hypixel SkyBlock." +
                 "\n" +
                 "\n §6> Open the config: " +
-                "\n    §6> §ePress " + Keyboard.getKeyName(Keybinds.configKey.getKeyCode()) + " or use /pssc" +
+                "\n    §6> §ePress " + getOneConfigKeyBindString() + " or use /pssc" +
                 "\n    §6> §eMost features are turned off by default so to use the mod, you will need to configure the settings" +
                 "\n    §6> §eTo change the keybinding, press Esc, Options, Controls and scroll down to \"Partly Sane Skies\"." +
                 "\n" +
