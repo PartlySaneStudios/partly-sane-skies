@@ -24,6 +24,7 @@ import gg.essential.elementa.ElementaVersion;
 import me.partlysanestudios.partlysaneskies.data.api.Request;
 import me.partlysanestudios.partlysaneskies.data.api.RequestsManager;
 import me.partlysanestudios.partlysaneskies.config.keybinds.Keybinds;
+import me.partlysanestudios.partlysaneskies.features.discord.DiscordRPC;
 import me.partlysanestudios.partlysaneskies.features.gui.RefreshKeybinds;
 import me.partlysanestudios.partlysaneskies.config.oneconfig.OneConfigScreen;
 import me.partlysanestudios.partlysaneskies.data.cache.PetData;
@@ -279,6 +280,9 @@ public class PartlySaneSkies {
             }
         }, "Init Data").start();
 
+        new Thread(() -> {
+            DiscordRPC.INSTANCE.init();
+        }).start();
         // Finished loading
         SystemUtils.INSTANCE.log(Level.INFO, "Partly Sane Skies has loaded.");
     }
