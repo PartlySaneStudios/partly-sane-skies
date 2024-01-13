@@ -7,12 +7,15 @@
 package me.partlysanestudios.partlysaneskies.features.dungeons
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
+import me.partlysanestudios.partlysaneskies.data.skyblockdata.IslandType
 import me.partlysanestudios.partlysaneskies.gui.hud.BannerRenderer
 import me.partlysanestudios.partlysaneskies.gui.hud.PSSBanner
 import me.partlysanestudios.partlysaneskies.utils.*
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import net.minecraft.client.audio.PositionedSoundRecord
 import net.minecraft.util.ResourceLocation
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
+import net.minecraftforge.fml.common.gameevent.TickEvent
 import org.apache.logging.log4j.Level
 import java.awt.Color
 
@@ -46,7 +49,9 @@ object HealerAlert {
         }
         return false
     }
-    fun run() {
+
+    @SubscribeEvent
+    fun onTick(event: TickEvent.ClientTickEvent) {
         if (!PartlySaneSkies.config.healerAlert){
             return
         }

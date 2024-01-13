@@ -293,7 +293,6 @@ public class PartlySaneSkies {
         // Checks if the current location is the same as the previous location for the location banner display
         LocationBannerDisplay.checkLocation();
 
-        HealerAlert.INSTANCE.run();
         SkyblockDataManager.runUpdater();
 
         // Checks if the player is collecting minions

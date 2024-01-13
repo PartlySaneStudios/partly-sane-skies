@@ -73,9 +73,9 @@ object PublicDataManager {
     }
 
     /**
-     * Gets the file from either the cache or the github repo
+     * Gets the file from either the cache or the GitHub repo
      *
-     * @param path the path to the file from the /data/ folder on the github repo
+     * @param path the path to the file from the /data/ folder on the GitHub repo
      * @return a string version of the json file
      */
     fun getFile(path: String): String {

@@ -37,9 +37,7 @@ object PearlRefill {
             }.register()
     }
 
-    fun keybindAction(){
-        runPearlRefill()
-    }
+    fun keybindAction(){ runPearlRefill() }
 
     private fun runPearlRefill() {
         val pearlAmount = countItemInInventory("ENDER_PEARL")

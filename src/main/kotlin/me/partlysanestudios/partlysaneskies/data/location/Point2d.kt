@@ -3,7 +3,7 @@
 // See LICENSE for copyright and license notices.
 //
 
-package me.partlysanestudios.partlysaneskies.features.farming.endoffarmnotifer.points
+package me.partlysanestudios.partlysaneskies.data.location
 
 open class Point2d(val x: Double, val y: Double) {
     fun getPointX(): Double {

@@ -7,8 +7,8 @@
 package me.partlysanestudios.partlysaneskies.utils
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
-import me.partlysanestudios.partlysaneskies.features.farming.endoffarmnotifer.points.Point2d
-import me.partlysanestudios.partlysaneskies.features.farming.endoffarmnotifer.points.Point3d
+import me.partlysanestudios.partlysaneskies.data.location.Point2d
+import me.partlysanestudios.partlysaneskies.data.location.Point3d
 import java.util.concurrent.ThreadLocalRandom
 import kotlin.math.pow
 import kotlin.math.sqrt
@@ -17,7 +17,6 @@ object MathUtils {
     fun Double.round(decimalPlaces: Int): Double {
         return Math.round(this * 10.0.pow(decimalPlaces)) / 10.0.pow(decimalPlaces)
     }
-
 
     fun Double.floor(decimalPlaces: Int):Double {
         return (this * 10.0.pow(decimalPlaces)).toInt() / 10.0.pow(decimalPlaces)
@@ -32,9 +31,10 @@ object MathUtils {
     }
 
 
-    // Takes the last time the event happened in Unix epoch time in milliseconds,
-    // and takes the length that the event should last in millisecond
-    // Returns false if the event is over, returns true if it is still ongoing
+    /** Takes the last time the event happened in Unix epoch time in milliseconds,
+    * and takes the length that the event should last in millisecond
+    * Returns false if the event is over, returns true if it is still ongoing
+    */
     fun onCooldown(lastTime: Long, length: Long): Boolean {
         return PartlySaneSkies.getTime() <= lastTime + length
     }
