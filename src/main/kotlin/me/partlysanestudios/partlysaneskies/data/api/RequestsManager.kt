@@ -79,7 +79,7 @@ object RequestsManager {
                     }
 
                     // Runs on current thread
-                    element.getWhatToRunWhenFinished()!!.run(element)
+                    element.getWhatToRunWhenFinished()?.run(element)
                     e.printStackTrace()
                 }
             }, "Request to ${element.getURL()}").start()

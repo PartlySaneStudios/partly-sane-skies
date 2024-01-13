@@ -20,6 +20,9 @@ import net.minecraft.command.ICommandSender
 import net.minecraft.util.ChatComponentText
 import java.net.MalformedURLException
 import me.partlysanestudios.partlysaneskies.features.farming.MathematicalHoeRightClicks
+import me.partlysanestudios.partlysaneskies.utils.ChatUtils
+import me.partlysanestudios.partlysaneskies.utils.SystemUtils
+import org.apache.logging.log4j.Level
 
 object PublicDataManager {
     // Add all initializing of public data here
@@ -36,17 +39,19 @@ object PublicDataManager {
     private val lock = Lock()
 
     fun initAllPublicData() {
-        for (element in dataInitFunctions) {
-            Thread() {
+        Thread() {
+            for (element in dataInitFunctions) {
                 try {
-                    element()
+                    SystemUtils.log(Level.INFO, "Loading ${element.javaClass.name} $element ")
+                    element.invoke()
                 } catch (e: Exception) {
                     e.printStackTrace()
                 } finally {
 
                 }
             }
-        }
+        }.start()
+
     }
 
     /**
