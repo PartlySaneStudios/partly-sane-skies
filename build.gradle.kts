@@ -47,8 +47,6 @@ dependencies {
     })
     implementation(shade("cc.polyfrost:oneconfig-wrapper-launchwrapper:1.0.0-beta+")!!)
 
-    implementation("com.github.JnCrMx:discord-game-sdk4j:v0.5.5")
-    
     implementation(kotlin("stdlib"))
 
     compileOnly("cc.polyfrost:oneconfig-${mcData.versionStr}-${mcData.loader.name}:0.2.0-alpha+")
