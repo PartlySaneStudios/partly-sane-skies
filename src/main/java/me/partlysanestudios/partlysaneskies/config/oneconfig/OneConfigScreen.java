@@ -191,6 +191,28 @@ public class OneConfigScreen extends Config {
             }
     )
     public int prefCurr = 11;
+//    Discord
+    
+    @Switch(
+            category = "General",
+            subcategory = "Discord",
+            name = "Discord RPC"
+    )
+    public boolean discordRPC = true;
+
+    @Text(
+            category = "General",
+            subcategory = "Discord",
+            name = "Discord Game Name"
+    )
+    public String discordRPCName = "sbe bad";
+
+    @Text(
+            category = "General",
+            subcategory = "Discord",
+            name = "Discord Game Description"
+    )
+    public String discordRPCDescription = "Playing Hypixel Skyblock";
 
     // Main Menu
 
