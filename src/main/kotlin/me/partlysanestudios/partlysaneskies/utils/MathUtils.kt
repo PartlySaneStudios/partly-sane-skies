@@ -36,7 +36,7 @@ object MathUtils {
     // and takes the length that the event should last in millisecond
     // Returns false if the event is over, returns true if it is still ongoing
     fun onCooldown(lastTime: Long, length: Long): Boolean {
-        return PartlySaneSkies.getTime() <= lastTime + length
+        return PartlySaneSkies.time <= lastTime + length
     }
 
     fun getDistance2d(point1: Point2d, point2: Point2d): Float {

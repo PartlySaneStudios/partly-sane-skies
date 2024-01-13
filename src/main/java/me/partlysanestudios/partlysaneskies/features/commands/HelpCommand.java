@@ -28,7 +28,7 @@ public class HelpCommand {
                 .setRunnable((s, a) -> {
                     ChatUtils.INSTANCE.sendClientMessage("§bOpening config menu...");
 
-                    Window.Companion.enqueueRenderOperation(() -> PartlySaneSkies.config.openGui());
+                    Window.Companion.enqueueRenderOperation(() -> PartlySaneSkies.Companion.getConfig().openGui());
                 })
                 .register();
     }
@@ -41,7 +41,7 @@ public class HelpCommand {
 
                     ChatUtils.INSTANCE.sendClientMessage("§bOpening config menu...");
 
-                    Window.Companion.enqueueRenderOperation(() -> PartlySaneSkies.config.openGui());
+                    Window.Companion.enqueueRenderOperation(() -> PartlySaneSkies.Companion.getConfig().openGui());
                 }).register();
     }
 
@@ -58,7 +58,7 @@ public class HelpCommand {
                 .setRunnable((s, a) -> {
                     if (a.length > 0 && configAliases.contains(a[0].toLowerCase())) {
                         ChatUtils.INSTANCE.sendClientMessage("Opening config GUI...");
-                        Window.Companion.enqueueRenderOperation(() -> PartlySaneSkies.config.openGui());
+                        Window.Companion.enqueueRenderOperation(() -> PartlySaneSkies.Companion.getConfig().openGui());
                         return;
                     }
 

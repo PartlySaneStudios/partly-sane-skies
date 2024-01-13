@@ -5,14 +5,14 @@
 
 package me.partlysanestudios.partlysaneskies.config.keybinds;
 
-import me.partlysanestudios.partlysaneskies.features.commands.HelpCommand;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
+import me.partlysanestudios.partlysaneskies.features.commands.HelpCommand;
 import me.partlysanestudios.partlysaneskies.features.debug.DebugKey;
-import me.partlysanestudios.partlysaneskies.features.skills.PetAlert;
-import me.partlysanestudios.partlysaneskies.features.information.WikiArticleOpener;
-import me.partlysanestudios.partlysaneskies.features.economy.auctionhousemenu.AuctionHouseGui;
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.partymanager.PartyManager;
+import me.partlysanestudios.partlysaneskies.features.economy.auctionhousemenu.AuctionHouseGui;
 import me.partlysanestudios.partlysaneskies.features.farming.MathematicalHoeRightClicks;
+import me.partlysanestudios.partlysaneskies.features.information.WikiArticleOpener;
+import me.partlysanestudios.partlysaneskies.features.skills.PetAlert;
 import me.partlysanestudios.partlysaneskies.utils.MathUtils;
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils;
 import net.minecraft.client.gui.inventory.GuiChest;
@@ -63,7 +63,7 @@ public final class Keybinds {
 
     @SubscribeEvent
     public void keybindWhileInGui(KeyboardInputEvent.Post event) {
-        if (PartlySaneSkies.config.debugKeybind.isActive()) {
+        if (PartlySaneSkies.Companion.getConfig().debugKeybind.isActive()) {
             DebugKey.INSTANCE.onDebugKeyPress();
         }
 
@@ -76,16 +76,16 @@ public final class Keybinds {
         }
 
         if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
-            if (PartlySaneSkies.minecraft.currentScreen instanceof AuctionHouseGui ||
-                    (PartlySaneSkies.minecraft.currentScreen instanceof GuiChest && AuctionHouseGui.Companion.isAhGui(MinecraftUtils.INSTANCE.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen)[0]))) {
+            if (PartlySaneSkies.Companion.getMinecraft().currentScreen instanceof AuctionHouseGui ||
+                    (PartlySaneSkies.Companion.getMinecraft().currentScreen instanceof GuiChest && AuctionHouseGui.Companion.isAhGui(MinecraftUtils.INSTANCE.getSeparateUpperLowerInventories(PartlySaneSkies.Companion.getMinecraft().currentScreen)[0]))) {
 
                 MinecraftUtils.INSTANCE.clickOnSlot(46);
             }
         }
 
         if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
-            if (PartlySaneSkies.minecraft.currentScreen instanceof AuctionHouseGui ||
-                    (PartlySaneSkies.minecraft.currentScreen instanceof GuiChest && AuctionHouseGui.Companion.isAhGui(MinecraftUtils.INSTANCE.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen)[0]))) {
+            if (PartlySaneSkies.Companion.getMinecraft().currentScreen instanceof AuctionHouseGui ||
+                    (PartlySaneSkies.Companion.getMinecraft().currentScreen instanceof GuiChest && AuctionHouseGui.Companion.isAhGui(MinecraftUtils.INSTANCE.getSeparateUpperLowerInventories(PartlySaneSkies.Companion.getMinecraft().currentScreen)[0]))) {
 
                 MinecraftUtils.INSTANCE.clickOnSlot(53);
             }
@@ -94,12 +94,12 @@ public final class Keybinds {
 
     @SubscribeEvent
     public void checkKeyBinds(KeyInputEvent event) {
-        if (PartlySaneSkies.config.debugKeybind.isActive()) {
+        if (PartlySaneSkies.Companion.getConfig().debugKeybind.isActive()) {
             DebugKey.INSTANCE.onDebugKeyPress();
         }
         
         if (configKey.isPressed()) {
-            PartlySaneSkies.config.openGui();
+            PartlySaneSkies.Companion.getConfig().openGui();
         }
         if (partyManagerKey.isPressed()) {
             PartyManager.startPartyManager();
@@ -108,30 +108,30 @@ public final class Keybinds {
             HelpCommand.printHelpMessage();
         }
         if (craftKeybind.isPressed()) {
-            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/craft");
+            PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/craft");
         }
         if (petKeybind.isPressed()) {
-            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/pets");
+            PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/pets");
         }
         if (wardrobeKeybind.isPressed()) {
-            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/wardrobe");
+            PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/wardrobe");
         }
         if (storageKeybind.isPressed()) {
-            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/storage");
+            PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/storage");
         }
         if (allowHoeRightClickKeybind.isPressed()) {
-            boolean canRightClickHoe = MathUtils.INSTANCE.onCooldown(MathematicalHoeRightClicks.lastAllowHoeRightClickTime, (long) (PartlySaneSkies.config.allowRightClickTime * 60L * 1000L));
+            boolean canRightClickHoe = MathUtils.INSTANCE.onCooldown(MathematicalHoeRightClicks.lastAllowHoeRightClickTime, (long) (PartlySaneSkies.Companion.getConfig().allowRightClickTime * 60L * 1000L));
 
             if(canRightClickHoe){
-                IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + ("§dThe ability to right-click with a hoe has been §cdisabled§d again.\n§dClick this message or run /allowhoerightclick to allow right-clicks for " + PartlySaneSkies.config.allowRightClickTime + " again."));
+                IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + ("§dThe ability to right-click with a hoe has been §cdisabled§d again.\n§dClick this message or run /allowhoerightclick to allow right-clicks for " + PartlySaneSkies.Companion.getConfig().allowRightClickTime + " again."));
                 message.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/allowhoerightclick"));
-                PartlySaneSkies.minecraft.ingameGUI.getChatGUI().printChatMessage(message);
+                PartlySaneSkies.Companion.getMinecraft().ingameGUI.getChatGUI().printChatMessage(message);
                 MathematicalHoeRightClicks.lastAllowHoeRightClickTime = 0;
             } else {
-                IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + ("§dThe ability to right-click with a hoe has been §aenabled§d for " + PartlySaneSkies.config.allowRightClickTime + " minutes.\n§dClick this message or run /allowhoerightclick to disable right-clicks again."));
+                IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + ("§dThe ability to right-click with a hoe has been §aenabled§d for " + PartlySaneSkies.Companion.getConfig().allowRightClickTime + " minutes.\n§dClick this message or run /allowhoerightclick to disable right-clicks again."));
                 message.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/allowhoerightclick"));
-                PartlySaneSkies.minecraft.ingameGUI.getChatGUI().printChatMessage(message);
-                MathematicalHoeRightClicks.lastAllowHoeRightClickTime = PartlySaneSkies.getTime();
+                PartlySaneSkies.Companion.getMinecraft().ingameGUI.getChatGUI().printChatMessage(message);
+                MathematicalHoeRightClicks.lastAllowHoeRightClickTime = PartlySaneSkies.Companion.getTime();
             }
         }
     }

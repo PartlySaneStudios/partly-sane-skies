@@ -22,7 +22,7 @@ public class PartyFriendManager {
     public static void startPartyManager() {
         isWaitingForMembers = true;
         page = 1;
-        PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/friend list");
+        PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/friend list");
         partyList.clear();
     }
 
@@ -66,7 +66,7 @@ public class PartyFriendManager {
         } else {
             isWaitingForMembers = true;
             page++;
-            PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/friend list " + page);
+            PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/friend list " + page);
         }
     }
 
@@ -82,7 +82,7 @@ public class PartyFriendManager {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                PartlySaneSkies.minecraft.addScheduledTask(() -> PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party invite " + member));
+                PartlySaneSkies.Companion.getMinecraft().addScheduledTask(() -> PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/party invite " + member));
 
             }).start();
 

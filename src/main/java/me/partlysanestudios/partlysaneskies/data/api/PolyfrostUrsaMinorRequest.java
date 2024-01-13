@@ -88,7 +88,7 @@ public class PolyfrostUrsaMinorRequest extends Request {
 
         // If supposed to run in the next frame, run in the next frame
         if (super.isRunNextFrame()) {
-            PartlySaneSkies.minecraft.addScheduledTask(() -> whenFinished.run(this));
+            PartlySaneSkies.Companion.getMinecraft().addScheduledTask(() -> whenFinished.run(this));
             return;
         }
 

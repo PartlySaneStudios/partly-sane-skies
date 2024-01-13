@@ -21,7 +21,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 public class RequiredSecretsFound {
 
     private boolean alreadySendThisRun = false;
-    private long lastCheckTime = PartlySaneSkies.getTime();
+    private long lastCheckTime = PartlySaneSkies.Companion.getTime();
 
     @SubscribeEvent
     public void checkRequiredSecrets(TickEvent.ClientTickEvent event) {
@@ -37,26 +37,26 @@ public class RequiredSecretsFound {
             return;
         }
 
-        if (lastCheckTime + 100 > PartlySaneSkies.getTime()) { //checks every 100ms
+        if (lastCheckTime + 100 > PartlySaneSkies.Companion.getTime()) { //checks every 100ms
             return;
         }
-        lastCheckTime = PartlySaneSkies.getTime();
+        lastCheckTime = PartlySaneSkies.Companion.getTime();
 
 
         for (String line : MinecraftUtils.INSTANCE.getTabList()) {
             if (line.contains("Secrets Found: §r§a")) {
-                if (PartlySaneSkies.config.secretsBanner) {
-                    BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner("Required Secrets Found!", (long) (PartlySaneSkies.config.secretsBannerTime * 1000), 3.0f, PartlySaneSkies.config.secretsBannerColor.toJavaColor()));
+                if (PartlySaneSkies.Companion.getConfig().secretsBanner) {
+                    BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner("Required Secrets Found!", (long) (PartlySaneSkies.Companion.getConfig().secretsBannerTime * 1000), 3.0f, PartlySaneSkies.Companion.getConfig().secretsBannerColor.toJavaColor()));
                 }
-                if (PartlySaneSkies.config.secretsChatMessage) {
-                    Minecraft.getMinecraft().thePlayer.sendChatMessage("/pc " + PartlySaneSkies.config.secretsChatMessageString);
+                if (PartlySaneSkies.Companion.getConfig().secretsChatMessage) {
+                    Minecraft.getMinecraft().thePlayer.sendChatMessage("/pc " + PartlySaneSkies.Companion.getConfig().secretsChatMessageString);
                 }
-                if (PartlySaneSkies.config.secretsSound) {
-                    if (PartlySaneSkies.config.secretsAirRaidSiren){
-                        PartlySaneSkies.minecraft.getSoundHandler()
+                if (PartlySaneSkies.Companion.getConfig().secretsSound) {
+                    if (PartlySaneSkies.Companion.getConfig().secretsAirRaidSiren){
+                        PartlySaneSkies.Companion.getMinecraft().getSoundHandler()
                                 .playSound(PositionedSoundRecord.create(new ResourceLocation("partlysaneskies", "airraidsiren")));
                     } else {
-                        PartlySaneSkies.minecraft.getSoundHandler()
+                        PartlySaneSkies.Companion.getMinecraft().getSoundHandler()
                                 .playSound(PositionedSoundRecord.create(new ResourceLocation("partlysaneskies", "bell")));
                     }
                 }
