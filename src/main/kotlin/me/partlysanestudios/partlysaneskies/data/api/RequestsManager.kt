@@ -1,3 +1,9 @@
+//
+// Written by Su386.
+// See LICENSE for copyright and license notices.
+//
+
+
 package me.partlysanestudios.partlysaneskies.data.api
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
@@ -20,6 +26,12 @@ object RequestsManager {
                 exception.printStackTrace()
             } finally {
 
+            }
+
+            try {
+                Thread.sleep(50)
+            } catch (e: InterruptedException) {
+                e.printStackTrace()
             }
         }
     }, "Partly Sane Skies Request Manager").start()
