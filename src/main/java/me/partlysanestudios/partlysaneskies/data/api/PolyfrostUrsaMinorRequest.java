@@ -11,6 +11,7 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils;
 import net.minecraft.client.Minecraft;
 import org.apache.commons.io.IOUtils;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -40,11 +41,11 @@ public class PolyfrostUrsaMinorRequest extends Request {
     }
 
     public PolyfrostUrsaMinorRequest(URL url, RequestRunnable function) {
-        super(url, function);
+        super(url, function, false, false);
     }
 
     public PolyfrostUrsaMinorRequest(String url, RequestRunnable function) throws MalformedURLException {
-        super(url, function);
+        super(url, function, false, false);
     }
 
     @Override
@@ -150,6 +151,7 @@ public class PolyfrostUrsaMinorRequest extends Request {
         }
     }
 
+    @NotNull
     public String getResponse() {
         if (this.requestResponse == null) {
             return "Error: {NO_RESPONSE}";

@@ -40,7 +40,7 @@ public class ModChecker {
             new Thread(() -> {
                 if (a.length > 0) {
                     ChatUtils.INSTANCE.sendClientMessage("Loading... (using data from custom repository)");
-                    loadModDataFromRepo(PublicDataManager.getRepoOwner(), PublicDataManager.getRepoName());
+                    loadModDataFromRepo(PublicDataManager.INSTANCE.getRepoOwner(), PublicDataManager.INSTANCE.getRepoName());
                 } else {
                     ChatUtils.INSTANCE.sendClientMessage("Loading...");
                     loadModDataFromRepo();
@@ -284,22 +284,18 @@ public class ModChecker {
     }
 
     private static void loadModDataFromRepo(String userName, String repoName) {
-                try {
-            String url = "https://raw.githubusercontent.com/" + userName +
-                    "/" + repoName + "/main/data/mods.json";
-            RequestsManager.newRequest(new Request(url, request -> {
-                knownMods = null;
-                try {
-                    knownMods = read(new Gson().fromJson(request.getResponse(), ModDataJson.class));
-                    run();
-                } catch (Exception e) {
-                    ChatUtils.INSTANCE.sendClientMessage("§cError reading the mod data from repo!");
-                    e.printStackTrace();
-                }
-            }));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        String url = "https://raw.githubusercontent.com/" + userName +
+                "/" + repoName + "/main/data/mods.json";
+        RequestsManager.newRequest(new Request(url, request -> {
+            knownMods = null;
+            try {
+                knownMods = read(new Gson().fromJson(request.getResponse(), ModDataJson.class));
+                run();
+            } catch (Exception e) {
+                ChatUtils.INSTANCE.sendClientMessage("§cError reading the mod data from repo!");
+                e.printStackTrace();
+            }
+        }, false, false));
     }
 
     private static List<KnownMod> read(ModDataJson modData) {

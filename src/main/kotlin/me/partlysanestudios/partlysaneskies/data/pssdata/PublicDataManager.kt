@@ -1,3 +1,8 @@
+//
+// Written by Su386.
+// See LICENSE for copyright and license notices.
+//
+
 package me.partlysanestudios.partlysaneskies.data.pssdata
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
@@ -38,18 +43,17 @@ object PublicDataManager {
         if (fileCache.containsKey(fixedPath)) {
             return fileCache[fixedPath]
         }
+        
         try {
             RequestsManager.newRequest(
-                Request("https://raw.githubusercontent.com/" + getRepoOwner() + "/" + getRepoName() + "/main/data/" + path,
-                    RequestRunnable { r: Request ->
-                        if (!r.hasSucceeded()) {
-                            (lock as Object).notifyAll()
-                            return@RequestRunnable
-                        }
-                        fileCache[path] = r.getResponse()
+                Request("https://raw.githubusercontent.com/" + getRepoOwner() + "/" + getRepoName() + "/main/data/" + fixedPath, {
+                    if (!it.hasSucceeded()) {
                         synchronized(lock) { (lock as Object).notifyAll() }
-                    })
-            )
+                        return@Request
+                    }
+                    fileCache[path] = it.getResponse()
+                    synchronized(lock) { (lock as Object).notifyAll() }
+                }))
         } catch (e: MalformedURLException) {
             synchronized(lock) { (lock as Object).notifyAll() }
         }
@@ -58,6 +62,7 @@ object PublicDataManager {
         } catch (e: InterruptedException) {
             throw RuntimeException(e)
         }
+
         return if (!fileCache.containsKey(path)) {
             ""
         } else fileCache[path]

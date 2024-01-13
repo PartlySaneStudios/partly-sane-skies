@@ -54,7 +54,7 @@ public class RequestsManager {
                 try {
                     element.startRequest();
                 } catch (IOException e) {
-                    element.setFailed();
+                    element.setFailed("");
                     // If supposed to run in the next frame, run in the next frame
                     if (element.isRunNextFrame()) {
                         PartlySaneSkies.minecraft.addScheduledTask(() -> element.getWhatToRunWhenFinished().run(element));

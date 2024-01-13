@@ -134,18 +134,10 @@ public class PartlySaneSkies {
         PartlySaneSkies.config = new OneConfigScreen();
 
         Request mainMenuRequest = null;
-        try {
-            mainMenuRequest = new Request("https://raw.githubusercontent.com/" + PublicDataManager.getRepoOwner() + "/" +  PublicDataManager.getRepoName() + "/main/data/main_menu.json", CustomMainMenu::setMainMenuInfo);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+        mainMenuRequest = new Request("https://raw.githubusercontent.com/" + PublicDataManager.INSTANCE.getRepoOwner() + "/" +  PublicDataManager.INSTANCE.getRepoName() + "/main/data/main_menu.json", CustomMainMenu::setMainMenuInfo, false, false);
         RequestsManager.newRequest(mainMenuRequest);
         Request funFactRequest = null;
-        try {
-            funFactRequest = new Request(CustomMainMenu.funFactApi, CustomMainMenu::setFunFact);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+        funFactRequest = new Request(CustomMainMenu.funFactApi, CustomMainMenu::setFunFact, false, false);
         RequestsManager.newRequest(funFactRequest);
         trackLoad();
         RequestsManager.run();
@@ -231,7 +223,7 @@ public class PartlySaneSkies {
         Crepes.registerCrepesCommand();
         Version.registerVersionCommand();
         Discord.registerDiscordCommand();
-        PublicDataManager.registerDataCommand();
+        PublicDataManager.INSTANCE.registerDataCommand();
         PartyManager.registerCommand();
         SkillUpgradeRecommendation.registerCommand();
         PermPartyManager.registerCommand();
