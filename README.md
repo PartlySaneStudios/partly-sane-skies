@@ -38,13 +38,11 @@ Partly Sane Skies is a Minecraft mod for Hypixel SkyBlock, designed, built, and 
     <img src="images/modrinth_logo.svg" alt="Modrinth Logo" width="20" height="20" style="text-align: center;">
     <span style="font-size:larger;"><sup>Modrinth: Download "Featured Version" on sidebar</sup></span>
 </a>
-    
 
-<a href="https://modrinth.com/mod/partly-sane-skies">
+<a href="[https://modrinth.com/mod/partly-sane-skies](https://github.com/PartlySaneStudios/partly-sane-skies/releases)">
     <img src="images/github_icon.png" alt="Github" width="20" height="20" style="text-align: center;">
     <span style="font-size:larger;"><sup>Github: Open the assets drop down for the latest version and download "partly-sane-skies".jar file.</sup></span>
 </a>
-    
 
 Place that mod in the mods folder of your Minecraft and you are good to go!
 
