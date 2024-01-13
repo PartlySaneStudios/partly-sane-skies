@@ -6,10 +6,9 @@
 package me.partlysanestudios.partlysaneskies.data.pssdata
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
-import me.partlysanestudios.partlysaneskies.data.api.Request
-import me.partlysanestudios.partlysaneskies.data.api.RequestRunnable
-import me.partlysanestudios.partlysaneskies.data.api.RequestsManager
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand
+import me.partlysanestudios.partlysaneskies.data.api.Request
+import me.partlysanestudios.partlysaneskies.data.api.RequestsManager
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
 import net.minecraft.command.ICommandSender
 import net.minecraft.util.ChatComponentText
@@ -19,20 +18,31 @@ object PublicDataManager {
     private val fileCache = HashMap<String, String>()
     private val lock = Lock()
 
-
+    /**
+     * @return the current repo's owner
+     */
     fun getRepoOwner(): String {
         return if (PartlySaneSkies.config == null) {
             "PartlySaneStudios"
         } else PartlySaneSkies.config.repoOwner
     }
 
+    /**
+     * @return the current repo's name
+     */
     fun getRepoName(): String {
         return if (PartlySaneSkies.config == null) {
             "partly-sane-skies-public-data"
         } else PartlySaneSkies.config.repoName
     }
 
-    fun getFile(path: String): String? {
+    /**
+     * Gets the file from either the cache or the github repo
+     *
+     * @param path the path to the file from the /data/ folder on the github repo
+     * @return a string version of the json file
+     */
+    fun getFile(path: String): String {
         var fixedPath = path
         if (fixedPath.startsWith("/")) {
             fixedPath = fixedPath.substring(1)
@@ -41,37 +51,42 @@ object PublicDataManager {
             fixedPath = fixedPath.substring(0, fixedPath.length - 1)
         }
         if (fileCache.containsKey(fixedPath)) {
-            return fileCache[fixedPath]
+            return fileCache[fixedPath]?: ""
         }
-        
+
         try {
             RequestsManager.newRequest(
                 Request("https://raw.githubusercontent.com/" + getRepoOwner() + "/" + getRepoName() + "/main/data/" + fixedPath, {
                     if (!it.hasSucceeded()) {
-                        synchronized(lock) { (lock as Object).notifyAll() }
+                        synchronized(lock) { lock.notifyAll() }
                         return@Request
                     }
                     fileCache[path] = it.getResponse()
-                    synchronized(lock) { (lock as Object).notifyAll() }
+                    synchronized(lock) { lock.notifyAll() }
                 }))
         } catch (e: MalformedURLException) {
-            synchronized(lock) { (lock as Object).notifyAll() }
+            synchronized(lock) { lock.notifyAll() }
         }
         try {
-            synchronized(lock) { (lock as Object).wait() }
+            synchronized(lock) { lock.wait() }
         } catch (e: InterruptedException) {
             throw RuntimeException(e)
         }
 
         return if (!fileCache.containsKey(path)) {
             ""
-        } else fileCache[path]
+        } else fileCache[fixedPath]?: ""
     }
 
+    /**
+     * Creates and registers the clear data command
+     */
     fun registerDataCommand() {
         PSSCommand("updatepssdata")
             .addAlias("clearhashmap")
             .addAlias("clearpssdata")
+            .addAlias("psscleardata")
+            .addAlias("pssclearcache")
             .setDescription("Clears your Partly Sane Studios data")
             .setRunnable { _: ICommandSender?, _: Array<String?>? ->
                 val chatcomponent = ChatComponentText(
@@ -86,7 +101,6 @@ object PublicDataManager {
             }.register()
     }
 
-
-    private class Lock
+    private class Lock: Object()
 
 }
