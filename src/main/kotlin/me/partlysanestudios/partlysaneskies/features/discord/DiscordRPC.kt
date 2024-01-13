@@ -18,6 +18,9 @@ import java.util.zip.ZipEntry
 import java.util.zip.ZipInputStream
 
 
+val NORMAL_APPLICATION_ID = 1195613263845666849
+val SBE_BAD_APPLICATION_ID = 1195625408167686175
+
 object DiscordRPC {
     var discordLibraryPath: String = "./config/partly-sane-skies/discord-native-library"
     var discordLibrary: File? = null
@@ -39,12 +42,34 @@ object DiscordRPC {
             sdkDownloaded = true
         }
         // Initialize the Core
-        // Initialize the Core
         Core.init(discordLibrary)
 
+        while (true) {
+            SystemUtils.log(Level.INFO, "Creating new discord RPC parameters")
+            if (PartlySaneSkies.config?.sbeBadMode == true) {
+                run()
+            } else {
+                run()
+            }
+            try {
+                // Sleep a bit to save CPU
+                Thread.sleep(600)
+            } catch (e: InterruptedException) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    fun run() {
         // Set parameters for the Core
         CreateParams().use { params ->
-            params.clientID = 1195613263845666849
+            val sbeBadMode = PartlySaneSkies.config?.sbeBadMode?: false
+            val applicationId = if (sbeBadMode) {
+                SBE_BAD_APPLICATION_ID
+            } else {
+                NORMAL_APPLICATION_ID
+            }
+            params.clientID = applicationId
             params.flags = CreateParams.getDefaultFlags()
             Core(params).use { core ->
                 try {
@@ -59,12 +84,26 @@ object DiscordRPC {
 
                 // Run callbacks forever
                 while (true) {
+                    if (PartlySaneSkies.config?.discordRPC != true) {
+                        try {
+                            // Sleep a bit to save CPU
+                            Thread.sleep(600)
+                        } catch (e: InterruptedException) {
+                            e.printStackTrace()
+                        }
+                        continue
+                    }
+                    // If the mode has changed, return so the run function can be called again with the right application id
+                    if ((PartlySaneSkies.config?.sbeBadMode == true) != sbeBadMode) {
+                        return
+                    }
+
                     try {
                         core.runCallbacks()
 
-                        if (PartlySaneSkies.config.discordRPCName != lastName || PartlySaneSkies.config.discordRPCDescription != lastMessage) {
-                            lastName = PartlySaneSkies.config.discordRPCName
-                            lastMessage =  PartlySaneSkies.config.discordRPCDescription
+                        if (PartlySaneSkies.config?.discordRPCName != lastName || PartlySaneSkies.config?.discordRPCDescription != lastMessage) {
+                            lastName = PartlySaneSkies.config?.discordRPCName?: lastName
+                            lastMessage =  PartlySaneSkies.config?.discordRPCDescription?: lastMessage
 
                             val activity = createNewActivity()
                             core.activityManager().updateActivity(activity)
@@ -87,7 +126,7 @@ object DiscordRPC {
         }
     }
 
-    fun createNewActivity(): Activity {
+    private fun createNewActivity(): Activity {
         Activity().use { activity ->
             activity.setDetails(lastName)
             activity.setState(lastMessage)

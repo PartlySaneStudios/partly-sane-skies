@@ -136,7 +136,37 @@ public class OneConfigScreen extends Config {
     )
     public String repoName = "partly-sane-skies-public-data";
 
+    //    Discord
 
+    @Switch(
+            category = "General",
+            subcategory = "Discord",
+            name = "Discord RPC"
+    )
+    public boolean discordRPC = true;
+
+    @Switch(
+            category = "General",
+            subcategory = "Discord",
+            name = "SBE Bad Mode"
+    )
+    public boolean sbeBadMode = true;
+
+    @Text(
+            category = "General",
+            subcategory = "Discord",
+            name = "Discord Game Name"
+    )
+    public String discordRPCName = "sbe bad";
+
+    @Text(
+            category = "General",
+            subcategory = "Discord",
+            name = "Discord Game Description"
+    )
+    public String discordRPCDescription = "Playing Hypixel Skyblock";
+
+//    Appearance
     @Dropdown(
             options = {
                     "Commas (1,000,000)",
@@ -191,28 +221,7 @@ public class OneConfigScreen extends Config {
             }
     )
     public int prefCurr = 11;
-//    Discord
-    
-    @Switch(
-            category = "General",
-            subcategory = "Discord",
-            name = "Discord RPC"
-    )
-    public boolean discordRPC = true;
 
-    @Text(
-            category = "General",
-            subcategory = "Discord",
-            name = "Discord Game Name"
-    )
-    public String discordRPCName = "sbe bad";
-
-    @Text(
-            category = "General",
-            subcategory = "Discord",
-            name = "Discord Game Description"
-    )
-    public String discordRPCDescription = "Playing Hypixel Skyblock";
 
     // Main Menu
 
