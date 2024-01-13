@@ -255,17 +255,12 @@ public class PartlySaneSkies {
         // Initializes skill upgrade recommendation
         SkillUpgradeRecommendation.populateSkillMap();
 
-        // API Calls
-        new Thread(PlayerRating::initPatterns).start();
-
-
         try {
             SkyblockDataManager.initItems();
         } catch (IOException e) {
             e.printStackTrace();
         }
         SkyblockDataManager.updateAll();
-        CompostValue.init();
 
         try {
             SkyblockDataManager.initSkills();
@@ -273,29 +268,15 @@ public class PartlySaneSkies {
             e.printStackTrace();
         }
 
+        PublicDataManager.INSTANCE.initAllPublicData();
+
         // Loads user player data for PartyManager
         new Thread(() -> {
-            MinionData.init();
-
-            try {
-                SkyblockDataManager.initBitValues();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
             try {
                 SkyblockDataManager.getPlayer(PartlySaneSkies.minecraft.getSession().getUsername());
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
-
-            try {
-                SkymartValue.initCopperValues();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            MathematicalHoeRightClicks.loadHoes();
         }, "Init Data").start();
 
         // Finished loading

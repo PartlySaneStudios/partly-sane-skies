@@ -67,9 +67,6 @@ public class SkymartValue {
         HashMap<String, Double> map = new HashMap<>();
         for (String id : copperCost.keySet()) {
             SkyblockItem item = SkyblockDataManager.getItem(id);
-            if (item == null) {
-                continue;
-            }
             map.put(id, item.getSellPrice() / copperCost.get(id));
         }
         LinkedHashMap<String, Double> sortedMap = sortMap(map);

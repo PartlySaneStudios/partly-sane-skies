@@ -9,14 +9,45 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand
 import me.partlysanestudios.partlysaneskies.data.api.Request
 import me.partlysanestudios.partlysaneskies.data.api.RequestsManager
+import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager
+import me.partlysanestudios.partlysaneskies.features.dungeons.playerrating.PlayerRating
+import me.partlysanestudios.partlysaneskies.features.economy.minioncalculator.MinionData
+import me.partlysanestudios.partlysaneskies.features.economy.minioncalculator.MinionData.init
+import me.partlysanestudios.partlysaneskies.features.farming.garden.CompostValue
+import me.partlysanestudios.partlysaneskies.features.farming.garden.SkymartValue
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
 import net.minecraft.command.ICommandSender
 import net.minecraft.util.ChatComponentText
 import java.net.MalformedURLException
+import me.partlysanestudios.partlysaneskies.features.farming.MathematicalHoeRightClicks
 
 object PublicDataManager {
+    // Add all initializing of public data here
+    private val dataInitFunctions: Array<() -> Unit> = arrayOf(
+        SkymartValue::initCopperValues,
+        CompostValue::init,
+        MinionData::init,
+        SkyblockDataManager::initBitValues,
+        MathematicalHoeRightClicks::loadHoes,
+        PlayerRating::initPatterns
+    )
+
     private val fileCache = HashMap<String, String>()
     private val lock = Lock()
+
+    fun initAllPublicData() {
+        for (element in dataInitFunctions) {
+            Thread() {
+                try {
+                    element()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                } finally {
+
+                }
+            }
+        }
+    }
 
     /**
      * @return the current repo's owner
@@ -98,6 +129,7 @@ object PublicDataManager {
                 )
                 fileCache.clear()
                 sendClientMessage(chatcomponent)
+                initAllPublicData()
             }.register()
     }
 
