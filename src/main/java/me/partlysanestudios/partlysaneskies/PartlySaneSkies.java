@@ -21,9 +21,10 @@
 package me.partlysanestudios.partlysaneskies;
 
 import gg.essential.elementa.ElementaVersion;
-import me.partlysanestudios.partlysaneskies.api.Request;
-import me.partlysanestudios.partlysaneskies.api.RequestsManager;
+import me.partlysanestudios.partlysaneskies.data.api.Request;
+import me.partlysanestudios.partlysaneskies.data.api.RequestsManager;
 import me.partlysanestudios.partlysaneskies.config.keybinds.Keybinds;
+import me.partlysanestudios.partlysaneskies.features.discord.DiscordRPC;
 import me.partlysanestudios.partlysaneskies.features.gui.RefreshKeybinds;
 import me.partlysanestudios.partlysaneskies.config.oneconfig.OneConfigScreen;
 import me.partlysanestudios.partlysaneskies.data.cache.PetData;
@@ -134,21 +135,12 @@ public class PartlySaneSkies {
         PartlySaneSkies.config = new OneConfigScreen();
 
         Request mainMenuRequest = null;
-        try {
-            mainMenuRequest = new Request("https://raw.githubusercontent.com/" + PublicDataManager.getRepoOwner() + "/" +  PublicDataManager.getRepoName() + "/main/data/main_menu.json", CustomMainMenu::setMainMenuInfo);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        RequestsManager.newRequest(mainMenuRequest);
+        mainMenuRequest = new Request("https://raw.githubusercontent.com/" + PublicDataManager.INSTANCE.getRepoOwner() + "/" +  PublicDataManager.INSTANCE.getRepoName() + "/main/data/main_menu.json", CustomMainMenu::setMainMenuInfo, false, false);
+        RequestsManager.INSTANCE.newRequest(mainMenuRequest);
         Request funFactRequest = null;
-        try {
-            funFactRequest = new Request(CustomMainMenu.funFactApi, CustomMainMenu::setFunFact);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        RequestsManager.newRequest(funFactRequest);
+        funFactRequest = new Request(CustomMainMenu.funFactApi, CustomMainMenu::setFunFact, false, false);
+        RequestsManager.INSTANCE.newRequest(funFactRequest);
         trackLoad();
-        RequestsManager.run();
 
         // Loads extra json data
         new Thread(() -> {
@@ -231,7 +223,7 @@ public class PartlySaneSkies {
         Crepes.registerCrepesCommand();
         Version.registerVersionCommand();
         Discord.registerDiscordCommand();
-        PublicDataManager.registerDataCommand();
+        PublicDataManager.INSTANCE.registerDataCommand();
         PartyManager.registerCommand();
         SkillUpgradeRecommendation.registerCommand();
         PermPartyManager.registerCommand();
@@ -264,17 +256,12 @@ public class PartlySaneSkies {
         // Initializes skill upgrade recommendation
         SkillUpgradeRecommendation.populateSkillMap();
 
-        // API Calls
-        new Thread(PlayerRating::initPatterns).start();
-
-
         try {
             SkyblockDataManager.initItems();
         } catch (IOException e) {
             e.printStackTrace();
         }
         SkyblockDataManager.updateAll();
-        CompostValue.init();
 
         try {
             SkyblockDataManager.initSkills();
@@ -282,31 +269,20 @@ public class PartlySaneSkies {
             e.printStackTrace();
         }
 
+        PublicDataManager.INSTANCE.initAllPublicData();
+
         // Loads user player data for PartyManager
         new Thread(() -> {
-            MinionData.init();
-
-            try {
-                SkyblockDataManager.initBitValues();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
             try {
                 SkyblockDataManager.getPlayer(PartlySaneSkies.minecraft.getSession().getUsername());
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
-
-            try {
-                SkymartValue.initCopperValues();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            MathematicalHoeRightClicks.loadHoes();
         }, "Init Data").start();
 
+        new Thread(() -> {
+            DiscordRPC.INSTANCE.init();
+        }).start();
         // Finished loading
         SystemUtils.INSTANCE.log(Level.INFO, "Partly Sane Skies has loaded.");
     }
@@ -314,9 +290,6 @@ public class PartlySaneSkies {
     // Method runs every tick
     @SubscribeEvent
     public void clientTick(ClientTickEvent evnt) {
-        // Runs the request manager
-        RequestsManager.run();
-
         // Checks if the current location is the same as the previous location for the location banner display
         LocationBannerDisplay.checkLocation();
 

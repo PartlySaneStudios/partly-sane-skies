@@ -88,7 +88,38 @@ public class OneConfigScreen extends Config {
     )
     public int releaseChannel = Integer.parseInt("@RELEASE_CHANNEL@");
 
+    //    Discord
 
+    @Switch(
+            category = "General",
+            subcategory = "Discord",
+            name = "Discord RPC"
+    )
+    public boolean discordRPC = true;
+
+    @Switch(
+            category = "General",
+            subcategory = "Discord",
+            name = "SBE Bad Mode"
+    )
+    public boolean sbeBadMode = true;
+
+    @Text(
+            category = "General",
+            subcategory = "Discord",
+            name = "Discord Game Name"
+    )
+    public String discordRPCName = "sbe bad";
+
+    @Text(
+            category = "General",
+            subcategory = "Discord",
+            name = "Discord Game Description"
+    )
+    public String discordRPCDescription = "Playing Hypixel Skyblock";
+
+
+    // API
     @Number(
             min = .1f,
             max = 30f,
@@ -137,6 +168,7 @@ public class OneConfigScreen extends Config {
     public String repoName = "partly-sane-skies-public-data";
 
 
+//    Appearance
     @Dropdown(
             options = {
                     "Commas (1,000,000)",
@@ -191,6 +223,7 @@ public class OneConfigScreen extends Config {
             }
     )
     public int prefCurr = 11;
+
 
     // Main Menu
 
@@ -1124,30 +1157,40 @@ public class OneConfigScreen extends Config {
     )
     public float farmHightlightTime = 30f;
 
-    // Garden
+    // Garden Visitors
     @Switch(
-            subcategory = "Garden",
-            name = "Garden Shop Trade Cost",
-            description = "Gives you information about the cost of garden shop trades.",
+            subcategory = "Garden Visitors",
+            name = "Visitor Trade Cost",
+            description = "Gives you information about the cost of visitor trades.",
             category = "Farming"
     )
     public boolean gardenShopTradeInfo = false;
 
     @Switch(
-            subcategory = "Garden",
+            subcategory = "Garden Visitors",
+            name = "Display Garden Visitor Stats",
+            description = "Shows visited/accepted stats per NPC rarity.\nPros: based on item tooltips, which might capture more Garden visitor data\n(especially if you had Garden visitors before you installed SkyHanni).\nCons: Only shows for current Visitor's Logbook page and not all pages.",
+            category = "Farming"
+    )
+    public boolean visitorLogbookStats = false;
+
+    // Composter
+    @Switch(
+            subcategory = "Composter",
             name = "Best Crops to Compost",
             description = "Gives you information about which crops are the best to compost.",
             category = "Farming"
     )
     public boolean bestCropsToCompost = false;
 
+    // Skymart
     @Switch(
-            subcategory = "Garden",
-            name = "Display Garden Visitor Stats",
-            description = "Shows visited/accepted stats per NPC rarity.\nPros: based on item tooltips, which might capture more Garden visitor data\n(especially if you had Garden visitors before you installed SkyHanni).\nCons: Only shows for current Visitor's Logbook page and not all pages.",
+            subcategory = "SkyMart",
+            name = "SkyMart Value",
+            description = "Gives you information about the best value crops to compost",
             category = "Farming"
     )
-    public boolean visitorLogbookStats = false;
+    public boolean skymartValue = false;
 
 // ------------- Category: Foraging ---------------------------------
 //    Treecapitator Cooldown Indicator

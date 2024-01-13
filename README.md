@@ -303,8 +303,6 @@ Using real time data, the mod will now display which configurations will result 
 
 <img src="images/best_minion_calculator.png" alt="Best Minion Calculator" width="600" height="350" style="text-align: center;"> 
 
-
-
 ### Best Bit Shop Profit
 
 A lot of people use the bits accumulated from booster cookies to convert to items to sell on the auction house. Instead of having to guess which items are the best and for what price, it will now recommend to you the items that sell for the most coins per bit.
