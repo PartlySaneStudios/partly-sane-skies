@@ -50,10 +50,10 @@ dependencies {
     implementation(shade("com.github.JnCrMx:discord-game-sdk4j:v0.5.5") {
         isTransitive = false
     })
-
+    
     implementation(kotlin("stdlib"))
 
-    compileOnly("cc.polyfrost:oneconfig-${mcData.versionStr}-${mcData.loader.name}:0.2.0-alpha+")
+    compileOnly("cc.polyfrost:oneconfig-${mcData.versionStr}-${mcData.loader.name}:0.2.2-alpha+")
 }
 
 toolkitReleases {

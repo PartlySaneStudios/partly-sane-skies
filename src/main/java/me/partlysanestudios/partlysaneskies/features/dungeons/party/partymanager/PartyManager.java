@@ -53,7 +53,7 @@ public class PartyManager {
 
 
             partyList.clear();
-        }).start();
+        }, "Party List").start();
 
     }
 
@@ -260,7 +260,7 @@ public class PartyManager {
                 // Invites the member
                 PartlySaneSkies.minecraft.addScheduledTask(() -> PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party invite " + member.username));
 
-            }).start();
+            }, "Reparty").start();
 
             // Adds 500 ms for the next message
             timeDelay += 500L;

@@ -127,6 +127,10 @@ When you get a rare drop, a Pumpkin Dicer or Melon Slicer like pop-up banner wil
 
 ![Custom Main Menu](images/rng_drop_banner.png)
 
+## Custom Themes
+
+This mod supports a variety of different themes, including dark themes, very dark themes, colorful themes, and controversially, light themes. You can also choose your own accent color, and create your own themes in the OneConfig menu under the theme section.
+
 ### Custom Sounds for SkyBlock
 
 Instead of the normal noteblocks, there is now the option to use computer generated, discord sounds or even live instruments to play sounds such as SkyBlock music and sound effects.
@@ -211,9 +215,9 @@ Default: ``M``
 
 ![Custom Main Menu](images/party_manager.png)
 
-## Custom Themes
+### Pearl Refill
 
-This mod supports a variety of different themes, including dark themes, very dark themes, colorful themes, and controversially, light themes. You can also choose your own accent color, and create your own themes in the OneConfig menu under the theme section.
+Do you use pearls for your Dungeon runs and want to refill them backup to 16? With the Pearlrefill command you can automatically refill it back up to 16 from any other Stacksize, there is also a Keybind (Default P) and an option to enable auto refill at Dungeon start (use at your own risk)
 
 ### Watcher Ready, Message, Warning, Siren and Sound
 
@@ -319,9 +323,9 @@ Using real time data, the mod will now display which configurations will result 
 
 ![Best Minion Calculator](images/best_minion_calculator.png)
 
-### Garden Shop Trade Cost
+### Visitor Trade Cost
 
-Shows you information about the garden shop trades.
+Shows you information about the visitor trades.
 
 ![Custom Main Menu](images/garden_trade_cost.png)
 
