@@ -27,12 +27,12 @@ object WaypointRenderer {
     private fun renderWaypoint(waypoint: Waypoint, distance: Double) {
         // Render waypoint beam
         if (waypoint.showBeam) {
-            BeamRenderer.renderBeam(waypoint.position, waypoint.color)
+            BeamRenderer.renderBeam(waypoint.position, waypoint.outlineColor, waypoint.fillColor)
         }
 
         // Render waypoint block highlight
         if (waypoint.showBlockHighlight) {
-            BlockHighlightRenderer.renderColoredBlockHighlight(waypoint.position, waypoint.color)
+            BlockHighlightRenderer.renderColoredBlockHighlight(waypoint.position, waypoint.outlineColor, waypoint.fillColor)
         }
 
         // Render waypoint label
@@ -65,9 +65,9 @@ object WaypointRenderer {
         val labelBox =
             AxisAlignedBB(labelX, labelY, labelZ, labelX + labelWidth, labelY + labelHeight, labelZ + labelHeight)
 
-        if (labelBox.isVecInside(Vec3(renderManager.viewerPosX, renderManager.viewerPosY, renderManager.viewerPosZ))) {
-            mc.fontRendererObj.drawString(label, labelX.toInt(), labelY.toInt(), waypoint.color)
-        }
+//        if (labelBox.isVecInside(Vec3(renderManager.viewerPosX, renderManager.viewerPosY, renderManager.viewerPosZ))) {
+//            mc.fontRendererObj.drawString(label, labelX.toInt(), labelY.toInt(), waypoint.color)
+//        }
     }
 
     private fun showDistance(waypoint: Waypoint, distance: Double) {
@@ -95,15 +95,15 @@ object WaypointRenderer {
             distanceLabelZ + distanceLabelHeight
         )
 
-        if (distanceLabelBox.isVecInside(
-                Vec3(
-                    renderManager.viewerPosX,
-                    renderManager.viewerPosY,
-                    renderManager.viewerPosZ
-                )
-            )
-        ) {
-            mc.fontRendererObj.drawString(distanceLabel, distanceLabelX.toInt(), distanceLabelY.toInt(), waypoint.color)
-        }
+//        if (distanceLabelBox.isVecInside(
+//                Vec3(
+//                    renderManager.viewerPosX,
+//                    renderManager.viewerPosY,
+//                    renderManager.viewerPosZ
+//                )
+//            )
+//        ) {
+////            mc.fontRendererObj.drawString(distanceLabel, distanceLabelX.toInt(), distanceLabelY.toInt(), waypoint.color)
+//        }
     }
 }

@@ -1,11 +1,13 @@
 package me.partlysanestudios.partlysaneskies.render.waypoint
 
 import net.minecraft.util.BlockPos
+import java.awt.Color
 
 class Waypoint(
     val name: String,
     val position: BlockPos,
-    val color: Int = 0x66FF0000,
+    val outlineColor: Color = Color(255, 0, 0, 255),
+    val fillColor: Color = Color(255, 127, 127, 127),
     val showBeam: Boolean = true,
     val showBlockHighlight: Boolean = true,
     val showLabel: Boolean = true,

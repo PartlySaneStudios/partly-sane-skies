@@ -1,3 +1,9 @@
+//
+// Written by Su386.
+// See LICENSE for copyright and license notices.
+//
+
+
 package me.partlysanestudios.partlysaneskies.render
 
 import me.partlysanestudios.partlysaneskies.render.points.Point2d
@@ -6,6 +12,13 @@ import me.partlysanestudios.partlysaneskies.utils.ChatUtils
 import net.minecraft.client.renderer.WorldRenderer
 
 object RenderPrimitives {
+    /**
+     * Renders a flat face on the plane of the given axis
+     * @param p1 a two-dimensional point where x will be the first point in the order (x, y, z)
+     * @param p2 a two-dimensional point where x will be the first point in the order (x, y, z)
+     * @param axis the plane that the face will be parallel to
+     * @param constantDimension the non changing dimension (for the x plane, z stays constant; for the y plane, y stays constant; for the z plane, x stays constant)
+     */
     fun WorldRenderer.drawPerpendicularFaceFill(p1: Point2d, p2: Point2d, axis: Axis, constantDimension: Double) {
 //        If the plane is on the x plane, then the z stays constant
         when (axis) {
@@ -43,7 +56,13 @@ object RenderPrimitives {
         }
     }
 
-
+    /**
+     * Renders an outline of a flat face on the plane of the given axis
+     * @param p1 a two-dimensional point where x will be the first point in the order (x, y, z)
+     * @param p2 a two-dimensional point where x will be the first point in the order (x, y, z)
+     * @param axis the plane that the face will be parallel to
+     * @param constantDimension the non changing dimension (for the x plane, z stays constant; for the y plane, y stays constant; for the z plane, x stays constant)
+     */
     fun WorldRenderer.drawPerpendicularFaceOutline(p1: Point2d, p2: Point2d, axis: Axis, constantDimension: Double) {
         //        If the plane is on the x plane, then the z stays constant
         when (axis) {
@@ -86,7 +105,6 @@ object RenderPrimitives {
             Axis.Z_AXIS -> {
                 val (x1, x2) = listOf(p1.x, p2.x).sorted()
                 val (y1, y2) = listOf(p1.y, p2.y).sorted()
-                ChatUtils.sendClientMessage("y" + x1)
 
 
                 this.pos(constantDimension, x1, y1).endVertex()
@@ -104,6 +122,12 @@ object RenderPrimitives {
         }
     }
 
+    /**
+     * Draws a cube with outlines
+     *
+     * @param p1 One corner of the box to draw
+     * @param p2 Opposite corner of the box to draw
+     */
     fun WorldRenderer.drawBoxOutline(p1: Point3d, p2: Point3d) {
         val (x1, x2) = listOf(p1.x, p2.x).sorted()
         val (y1, y2) = listOf(p1.y, p2.y).sorted()
@@ -123,6 +147,13 @@ object RenderPrimitives {
         this.drawPerpendicularFaceOutline(Point2d(y1, z1), Point2d(y2, z2), Axis.Z_AXIS, x2)
     }
 
+
+    /**
+     * Draws a cube's faces
+     *
+     * @param p1 One corner of the box to draw
+     * @param p2 Opposite corner of the box to draw
+     */
     fun WorldRenderer.drawBoxFill(p1: Point3d, p2: Point3d) {
         val (x1, x2) = listOf(p1.x, p2.x).sorted()
         val (y1, y2) = listOf(p1.y, p2.y).sorted()

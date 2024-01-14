@@ -1,47 +1,57 @@
 package me.partlysanestudios.partlysaneskies.render
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.minecraft
+import me.partlysanestudios.partlysaneskies.render.RenderPrimitives.drawBoxFill
+import me.partlysanestudios.partlysaneskies.render.RenderPrimitives.drawBoxOutline
+import me.partlysanestudios.partlysaneskies.render.points.Point3d
+import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.GlStateManager
+import net.minecraft.client.renderer.Tessellator
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats
 import net.minecraft.util.BlockPos
 import org.lwjgl.opengl.GL11
+import java.awt.Color
 
 object BeamRenderer {
-    fun renderBeam(pos: BlockPos, color: Int) {
-        GL11.glPushMatrix()
-        GL11.glEnable(GL11.GL_BLEND)
-        GL11.glDisable(GL11.GL_LIGHTING)
-        GL11.glDisable(GL11.GL_TEXTURE_2D)
+    fun renderBeam(pos: BlockPos, outlineColor: Color, fillColor: Color) {
+        val minecraft = Minecraft.getMinecraft()
+        val renderManager = minecraft.renderManager
+        val tessellator = Tessellator.getInstance()
+        val worldRenderer = tessellator.worldRenderer
 
-        GL11.glTranslated(
-            pos.x.toDouble() - minecraft.renderManager.viewerPosX,
-            pos.y.toDouble() - minecraft.renderManager.viewerPosY,
-            pos.z.toDouble() - minecraft.renderManager.viewerPosZ
-        )
+        GlStateManager.pushMatrix()
+        GlStateManager.translate(-renderManager.viewerPosX, -renderManager.viewerPosY, -renderManager.viewerPosZ)
+
+        GlStateManager.enableBlend()
+        GlStateManager.disableTexture2D()
+        GlStateManager.disableLighting()
+        GlStateManager.disableDepth()
+        GlStateManager.disableCull()
 
         GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO)
-        GL11.glLineWidth(6.0f)
+        GL11.glLineWidth(4.0f)
 
-        // Set the color
-        val r = ((color shr 16) and 0xFF) / 255.0f
-        val g = ((color shr 8) and 0xFF) / 255.0f
-        val b = (color and 0xFF) / 255.0f
-        GL11.glColor4f(r, g, b, 1f)
+        val x = pos.x.toDouble() + .333
+        val y = pos.y.toDouble() + 1
+        val z = pos.z.toDouble() + .333
 
-        val x1 = 0.5
-        val y1 = 0.5
-        val z1 = 0.5
-        val y2 = 256.0
-
-        // Draw the beam
-        GL11.glBegin(GL11.GL_LINES)
-        GL11.glVertex3d(x1, y1, z1)
-        GL11.glVertex3d(x1, y2, z1)
-        GL11.glEnd()
+//        worldRenderer.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION)
+//        GlStateManager.color(outlineColor.red/255f, outlineColor.green/255f, outlineColor.blue/255f, outlineColor.alpha/255f)
+//        worldRenderer.drawBoxOutline(Point3d(x, y, z), Point3d(x + .333, 256.0, z + .333))
+//        tessellator.draw()
 
 
-        GL11.glDisable(GL11.GL_BLEND)
-        GL11.glEnable(GL11.GL_TEXTURE_2D)
-        GL11.glEnable(GL11.GL_LIGHTING)
-        GL11.glPopMatrix()
+        worldRenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION)
+        GlStateManager.color(fillColor.red/255f, fillColor.green/255f, fillColor.blue/255f, fillColor.alpha/255f)
+
+        worldRenderer.drawBoxFill(Point3d(x, y, z), Point3d(x + .333, 256.0, z + .333))
+        tessellator.draw()
+
+        GlStateManager.disableBlend()
+        GlStateManager.enableDepth()
+        GlStateManager.enableLighting()
+        GlStateManager.enableTexture2D()
+
+        GlStateManager.popMatrix()
     }
 }
