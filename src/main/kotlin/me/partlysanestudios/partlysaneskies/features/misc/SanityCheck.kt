@@ -39,7 +39,7 @@ object SanityCheck {
             .addAlias("/pssinsanity")
             .addAlias("/pssinsane")
             .addAlias("/psssane")
-            .setDescription("Checks for one's sanity using one's SkyBlock networth and join date (sourced from SkyCrypt). This command is purely for fun; do not take its results seriously.")
+            .setDescription("Checks for one's sanity using their SkyBlock networth and join date (sourced from SkyCrypt). This command is purely for fun; do not take its results seriously.")
             .setRunnable { s: ICommandSender, a: Array<String> ->
                 ChatUtils.sendClientMessage("Attempting to begin sanity analysis...")
                 Thread() {
