@@ -99,7 +99,7 @@ class PartlySaneSkies {
         fun main(args: Array<String>) {
         }
 
-        var LOGGER = LogManager.getLogger("Partly Sane Skies")
+        val LOGGER = LogManager.getLogger("Partly Sane Skies")
         const val MODID = "@MOD_ID@"
         const val NAME = "@MOD_NAME@"
         const val VERSION = "@MOD_VERSION@"
@@ -145,24 +145,9 @@ class PartlySaneSkies {
 
         // Loads the config files and options
         oneConfig = OneConfigScreen()
-        var mainMenuRequest: Request? = null
-        mainMenuRequest =
-            Request("https://raw.githubusercontent.com/" + getRepoOwner() + "/" + getRepoName() + "/main/data/main_menu.json",
-                { request: Request? ->
-                    CustomMainMenu.setMainMenuInfo(
-                        request
-                    )
-                }, false, false
-            )
+        val mainMenuRequest = Request("https://raw.githubusercontent.com/" + getRepoOwner() + "/" + getRepoName() + "/main/data/main_menu.json", { request: Request -> CustomMainMenu.setMainMenuInfo(request) }, inMainThread = false, executeOnNextFrame = false)
         newRequest(mainMenuRequest)
-        var funFactRequest: Request? = null
-        funFactRequest = Request(CustomMainMenu.funFactApi,
-            { request: Request? ->
-                CustomMainMenu.setFunFact(
-                    request
-                )
-            }, false, false
-        )
+        val funFactRequest: Request = Request(CustomMainMenu.funFactApi, { request: Request -> CustomMainMenu.setFunFact(request) }, inMainThread = false,  executeOnNextFrame = false)
         newRequest(funFactRequest)
         trackLoad()
 
@@ -283,7 +268,7 @@ class PartlySaneSkies {
         Thread({
             try {
                 SkyblockDataManager.getPlayer(
-                    me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft?.session?.username ?: ""
+                    minecraft.session?.username ?: ""
                 )
             } catch (e: MalformedURLException) {
                 e.printStackTrace()
@@ -305,7 +290,7 @@ class PartlySaneSkies {
         // Checks if the player is collecting minions
         PetAlert.runPetAlert()
         ThemeManager.run()
-        config!!.resetBrokenStrings()
+        config.resetBrokenStrings()
         ThemeManager.run()
         PetData.tick()
     }
@@ -319,24 +304,15 @@ class PartlySaneSkies {
                 } catch (e: InterruptedException) {
                     e.printStackTrace()
                 }
-                val discordMessage: IChatComponent =
-                    ChatComponentText("§9The Partly Sane Skies Discord server: https://discord.gg/" + discordCode)
-                discordMessage.chatStyle.setChatClickEvent(
-                    ClickEvent(
-                        ClickEvent.Action.OPEN_URL,
-                        "https://discord.gg/" + discordCode
-                    )
-                )
+                val discordMessage: IChatComponent = ChatComponentText("§9The Partly Sane Skies Discord server: https://discord.gg/$discordCode")
+                discordMessage.chatStyle.setChatClickEvent(ClickEvent(ClickEvent.Action.OPEN_URL,"https://discord.gg/$discordCode"))
                 sendClientMessage("§b§m--------------------------------------------------", true)
                 sendClientMessage("§cWe noticed you're using a dogfood version of Partly Sane Skies.", false)
                 sendClientMessage("§c§lThis version may be unstable.", true)
                 sendClientMessage("§cOnly use it when told to do so by a Partly Sane Skies admin.", true)
                 sendClientMessage("§cReport any bugs to Partly Sane Skies admins in a private ticket.", true)
-                sendClientMessage(
-                    "§7Version ID: §d" + VERSION,
-                    true
-                )
-                sendClientMessage("§7Latest non-dogfood version: §d" + CustomMainMenu.latestVersion, true)
+                sendClientMessage("§7Version ID: §d$VERSION",true)
+                sendClientMessage("§7Latest non-dogfood version: §d${CustomMainMenu.latestVersion}", true)
                 sendClientMessage(discordMessage)
                 sendClientMessage("§b§m--------------------------------------------------", true)
             }.start()
@@ -351,10 +327,10 @@ class PartlySaneSkies {
                 }
                 sendClientMessage("§b§m--------------------------------------------------", true)
                 sendClientMessage("§cWe have detected a new version of Partly Sane Skies.")
-                sendClientMessage("§cYou are currently using version §d" + VERSION + "§c, the latest version is §d" + CustomMainMenu.latestVersion + "§c.")
+                sendClientMessage("§cYou are currently using version §d$VERSION§c, the latest version is §d" + CustomMainMenu.latestVersion + "§c.")
                 val skyclientMessage =
                     ChatComponentText("§aIf you are using SkyClient, make sure you update when prompted.")
-                minecraft!!.ingameGUI
+                minecraft.ingameGUI
                     .chatGUI
                     .printChatMessage(skyclientMessage)
                 val githubMessage =
@@ -371,7 +347,7 @@ class PartlySaneSkies {
                         ChatComponentText("Click here to open the downloads page")
                     )
                 )
-                minecraft!!.ingameGUI
+                minecraft.ingameGUI
                     .chatGUI
                     .printChatMessage(githubMessage)
                 sendClientMessage("§b§m--------------------------------------------------", true)
@@ -380,6 +356,6 @@ class PartlySaneSkies {
     }
 
     // Sends a ping to the count API to track the number of users per day
-    fun trackLoad() {}
+    private fun trackLoad() {}
 
 }
