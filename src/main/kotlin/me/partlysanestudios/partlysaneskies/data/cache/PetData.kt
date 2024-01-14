@@ -11,6 +11,7 @@ import com.google.gson.GsonBuilder
 import com.google.gson.annotations.Expose
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity
+import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity.Companion.getRarityFromColorCode
 import me.partlysanestudios.partlysaneskies.features.debug.DebugKey
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils
 import me.partlysanestudios.partlysaneskies.utils.MathUtils
@@ -22,7 +23,6 @@ import net.minecraft.entity.Entity
 import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import java.io.FileWriter
-import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity.Companion.getRarityFromColorCode
 import java.io.IOException
 import java.io.Reader
 import java.nio.file.Files
@@ -44,7 +44,7 @@ object PetData {
             return
         }
 
-        lastSaveTime = PartlySaneSkies.getTime()
+        lastSaveTime = PartlySaneSkies.time
         Thread({
             save()
         }, "Pet Data Save").start()
@@ -176,7 +176,7 @@ object PetData {
     }
 
     private fun parsePetFromWorld() {
-        if (DebugKey.isDebugMode() && PartlySaneSkies.config.debugPrintPetWorldParsingInformation) {
+        if (DebugKey.isDebugMode() && (PartlySaneSkies.config.debugPrintPetWorldParsingInformation)) {
             ChatUtils.visPrint("getting users pet")
         }
         val usersPet = getUsersPet() ?: return
@@ -212,7 +212,7 @@ object PetData {
         if (!isPetGui()) {
             return
         }
-        val inventory = PartlySaneSkies.minecraft.currentScreen.getSeparateUpperLowerInventories()[0]?: return
+        val inventory = PartlySaneSkies.minecraft.currentScreen?.getSeparateUpperLowerInventories()?.get(0) ?: return
 
         for (i in 0..<inventory.sizeInventory) {
             val item = inventory.getStackInSlot(i)?: continue
@@ -235,7 +235,7 @@ object PetData {
         if (PartlySaneSkies.minecraft.currentScreen !is GuiChest) {
             return false
         }
-        val upper = PartlySaneSkies.minecraft.currentScreen.getSeparateUpperLowerInventories()[0]?: return false
+        val upper = PartlySaneSkies.minecraft.currentScreen?.getSeparateUpperLowerInventories()?.get(0) ?: return false
         return upper.displayName.formattedText.removeColorCodes().contains("Pets")
     }
 
@@ -244,7 +244,7 @@ object PetData {
      * @return the current user's pet
      */
     private fun getUsersPet(): Entity? {
-        val name = PartlySaneSkies.minecraft.thePlayer.getName()
+        val name = PartlySaneSkies.minecraft.thePlayer?.getName()?: ""
         val petEntities = getAllPets()
         // If the pet says Ex: "[Lv100] *Su386*'s Black Cat" return that entity
 

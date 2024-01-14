@@ -39,14 +39,14 @@ abstract class Cooldown {
      * @return Time remaining of the cooldown in milliseconds
      */
     fun getTimeRemaining(): Long {
-        return getEndingTime() - PartlySaneSkies.getTime()
+        return getEndingTime() - PartlySaneSkies.time
     }
 
     /**
      * Starts the cooldown by setting the starting time to now
      */
     fun startCooldown() {
-        startingTime = PartlySaneSkies.getTime()
+        startingTime = PartlySaneSkies.time
     }
 
     /*

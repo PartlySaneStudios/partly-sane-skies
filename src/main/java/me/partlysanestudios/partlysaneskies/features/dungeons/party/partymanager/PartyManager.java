@@ -33,7 +33,7 @@ public class PartyManager {
         isWaitingForMembers = true;
 
         // If config option, kicks all offline party members
-        if (PartlySaneSkies.config.autoKickOfflinePartyManager) {
+        if (PartlySaneSkies.Companion.getConfig().autoKickOfflinePartyManager) {
             kickOffline();
         }
 
@@ -46,9 +46,9 @@ public class PartyManager {
                 e.printStackTrace();
             }
 
-            PartlySaneSkies.minecraft.addScheduledTask(() -> {
+            PartlySaneSkies.Companion.getMinecraft().addScheduledTask(() -> {
                 // Starts the party manager
-                PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party list");
+                PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/party list");
             });
 
 
@@ -70,7 +70,7 @@ public class PartyManager {
 
     @SubscribeEvent
     public void onMemberJoin(ClientChatReceivedEvent event) {
-        if (!PartlySaneSkies.config.getDataOnJoin) {
+        if (!PartlySaneSkies.Companion.getConfig().getDataOnJoin) {
             return;
         }
 
@@ -181,7 +181,7 @@ public class PartyManager {
         isMembersListed = true;
 
         // Removes the rank from the name if it is contained
-        for (String playerRank : PartlySaneSkies.RANK_NAMES) {
+        for (String playerRank : PartlySaneSkies.Companion.getRANK_NAMES()) {
             str = str.replace(playerRank, "");
         }
 
@@ -197,7 +197,7 @@ public class PartyManager {
     // Opens the party manager GUI
     public static void openGui() {
         PartyManagerGui gui = new PartyManagerGui();
-        PartlySaneSkies.minecraft.displayGuiScreen(gui);
+        PartlySaneSkies.Companion.getMinecraft().displayGuiScreen(gui);
 
         // Populates the GUI with the party list
         gui.populateGui(partyList);
@@ -206,7 +206,7 @@ public class PartyManager {
     // Kicks all offline players
     public static void kickOffline() {
         ChatUtils.INSTANCE.sendClientMessage("Kicking all offline members...");
-        PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party kickoffline");
+        PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/party kickoffline");
     }
 
     // Adds a new party member to the party list
@@ -243,7 +243,7 @@ public class PartyManager {
     // Reparties all the members of the party
     public static void reparty(List<PartyMember> partyMembers) {
         // Disbands the party
-        PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party disband");
+        PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/party disband");
         // Sets the delay 500 ms for the next message
         long timeDelay = 500L;
 
@@ -258,7 +258,7 @@ public class PartyManager {
                     e.printStackTrace();
                 }
                 // Invites the member
-                PartlySaneSkies.minecraft.addScheduledTask(() -> PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party invite " + member.username));
+                PartlySaneSkies.Companion.getMinecraft().addScheduledTask(() -> PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/party invite " + member.username));
 
             }, "Reparty").start();
 

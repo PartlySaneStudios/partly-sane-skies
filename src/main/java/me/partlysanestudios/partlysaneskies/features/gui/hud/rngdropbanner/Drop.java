@@ -5,9 +5,9 @@
 
 package me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner;
 
-import java.awt.Color;
-
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
+
+import java.awt.*;
 
 public class Drop {
     public String name;
@@ -27,6 +27,6 @@ public class Drop {
 
     public boolean isStillDisplay() {
 
-        return timeDropped + displayTime < PartlySaneSkies.getTime();
+        return timeDropped + displayTime < PartlySaneSkies.Companion.getTime();
     }
 }
