@@ -293,6 +293,22 @@ public class OneConfigScreen extends Config {
     )
     public boolean privacyMode = true;
 
+//    Config
+    @KeyBind(
+            name = "Config Hotkey",
+            category = "General",
+            subcategory = "Config"
+    )
+    public OneKeyBind oneConfigKeybind = new OneKeyBind(Keyboard.KEY_F7);
+
+    //    Help
+    @KeyBind(
+            name = "Help Hotkey",
+            category = "General",
+            subcategory = "Help"
+    )
+    public OneKeyBind helpKeybind = new OneKeyBind(Keyboard.KEY_H);
+
 
     //    ------------------ Category: Themes ---------------------
 //    Themes
@@ -430,6 +446,12 @@ public class OneConfigScreen extends Config {
             subcategory = "Open Wiki"
     )
     public boolean openWikiAutomatically = true;
+    @KeyBind(
+            name = "Wiki Article Opener Hotkey",
+            category = "SkyBlock",
+            subcategory = "Open Wiki"
+    )
+    public OneKeyBind wikiKeybind = new OneKeyBind(Keyboard.KEY_NONE);
 
     // Pet Minion Alert
     @Switch(
@@ -472,7 +494,7 @@ public class OneConfigScreen extends Config {
             secure = true,
             size = 2
     )
-    public String selectedPet = /*PartlySaneSkies.config.selectededPet |*/ "";
+    public String selectedPet = /*PartlySaneSkies.Companion.getConfig().selectededPet |*/ "";
 
     @Slider(
             min = 1,
@@ -483,6 +505,14 @@ public class OneConfigScreen extends Config {
             category = "SkyBlock"
     )
     public float petAlertMuteTime = 7.5f;
+    @KeyBind(
+            name = "Favorite Pet Hotkey",
+            category = "SkyBlock",
+            subcategory = "Incorrect Pet for Minion Alert"
+    )
+    public OneKeyBind favouritePetKeybind = new OneKeyBind(Keyboard.KEY_NONE);
+
+//    Enhanced sound
 
     @Dropdown(
             category = "SkyBlock",
@@ -518,6 +548,34 @@ public class OneConfigScreen extends Config {
             }
     )
     public int customExplosion = 0;
+
+//    Shortcuts
+//    Config
+    @KeyBind(
+            name = "Wardrobe Menu Hotkey",
+            category = "SkyBlock",
+            subcategory = "Shortcuts"
+    )
+    public OneKeyBind wardrobeKeybind = new OneKeyBind(Keyboard.KEY_NONE);
+    @KeyBind(
+            name = "Pet Menu Hotkey",
+            category = "SkyBlock",
+            subcategory = "Shortcuts"
+    )
+    public OneKeyBind petKeybind = new OneKeyBind(Keyboard.KEY_NONE);
+    @KeyBind(
+            name = "Crafting Menu Hotkey",
+            category = "SkyBlock",
+            subcategory = "Shortcuts"
+    )
+    public OneKeyBind craftKeybind = new OneKeyBind(Keyboard.KEY_NONE);
+    @KeyBind(
+            name = "Storage Menu Hotkey",
+            category = "SkyBlock",
+            subcategory = "Shortcuts"
+    )
+    public OneKeyBind storageKeybind = new OneKeyBind(Keyboard.KEY_NONE);
+
 
     // ------------- Category: Dungeons ---------------------------------
     // Party Manager
@@ -592,6 +650,13 @@ public class OneConfigScreen extends Config {
             category = "Dungeons"
     )
     public int runColorsYellowMax = 9;
+
+    @KeyBind(
+            name = "Hotkey",
+            subcategory = "Party Manager",
+            category = "Dungeons"
+    )
+    public OneKeyBind partyManagerKeybind = new OneKeyBind(Keyboard.KEY_M);
 
 
     // Watcher Ready Warning
@@ -695,7 +760,7 @@ public class OneConfigScreen extends Config {
     public boolean autoPearlRefill = false;
 
     @KeyBind(
-            name = "Refill Pearls Keybind",
+            name = "Refill Pearls Hotkey",
             subcategory = "Pearl Refill",
             description = "The keybind to automatically refill your pearls.",
             category = "Dungeons"
@@ -1128,6 +1193,13 @@ public class OneConfigScreen extends Config {
     )
     public float allowRightClickTime = 3f;
 
+    @KeyBind(
+            name = "Allow Hoe Right Clicks Opener Hotkey",
+            category = "Farming",
+            subcategory = "Hoes"
+    )
+    public OneKeyBind allowHoeRightClickKeybind = new OneKeyBind(Keyboard.KEY_NONE);
+
 
 //    Farm notifier
     @Switch(
@@ -1448,7 +1520,7 @@ public class OneConfigScreen extends Config {
     //    ------------- DEBUG ------------
     @KeyBind(
             category = "Debug",
-            name = "Debug Keybind"
+            name = "Debug Hotkey"
     )
     public OneKeyBind debugKeybind = new OneKeyBind(Keyboard.KEY_NONE);
 

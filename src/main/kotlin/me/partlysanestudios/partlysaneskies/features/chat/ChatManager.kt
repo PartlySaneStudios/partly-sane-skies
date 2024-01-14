@@ -55,9 +55,7 @@ object ChatManager {
 //        If the chat alerts manager finds something
         if (!ChatAlertsManager.checkChatAlert(messageToSend).formattedText.equals(messageToSend.formattedText)) {
             // Plays a flute sound
-            PartlySaneSkies.minecraft
-                .soundHandler
-                .playSound(PositionedSoundRecord.create(ResourceLocation("partlysaneskies", "flute_scale")))
+            PartlySaneSkies.minecraft.soundHandler?.playSound(PositionedSoundRecord.create(ResourceLocation("partlysaneskies", "flute_scale")))
             messageToSend = ChatAlertsManager.checkChatAlert(messageToSend, true)
         }
 
@@ -90,7 +88,7 @@ object ChatManager {
             messageToSend.chatStyle.chatHoverEvent = HoverEvent(event.message.chatStyle.chatHoverEvent.action, event.message.chatStyle.chatHoverEvent.value)
         }
 
-        PartlySaneSkies.minecraft.ingameGUI.chatGUI.printChatMessage(messageToSend)
+        PartlySaneSkies.minecraft.ingameGUI?.chatGUI?.printChatMessage(messageToSend)
     }
 
     fun IChatComponent.hasClickAction(): Boolean {

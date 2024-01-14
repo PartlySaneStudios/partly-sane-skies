@@ -5,11 +5,11 @@
 
 package me.partlysanestudios.partlysaneskies.features.dungeons.party.permpartyselector;
 
-import java.io.IOException;
-import java.util.List;
-
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils;
+
+import java.io.IOException;
+import java.util.List;
 
 public class PermParty {
     public String name;
@@ -45,7 +45,7 @@ public class PermParty {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                PartlySaneSkies.minecraft.addScheduledTask(() -> PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/party invite " + member));
+                PartlySaneSkies.Companion.getMinecraft().addScheduledTask(() -> PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/party invite " + member));
 
             }).start();
 

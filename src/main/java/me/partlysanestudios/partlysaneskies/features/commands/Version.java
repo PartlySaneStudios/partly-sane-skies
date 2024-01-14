@@ -17,10 +17,10 @@ public class Version {
                     ChatComponentText chatcomponent = new ChatComponentText("§b§m-----------------------------------------------------§0" +
                             "\n§b§lPartly Sane Skies Version:" +
                             "\n    §e" + PartlySaneSkies.VERSION +
-                            (PartlySaneSkies.isLatestVersion() ? "\n§aYou are using the latest version of Partly Sane Skies!" : "\n§cYou are not using the latest version of Partly Sane Skies! Click here to download the newest version!") +
+                            (PartlySaneSkies.Companion.isLatestVersion() ? "\n§aYou are using the latest version of Partly Sane Skies!" : "\n§cYou are not using the latest version of Partly Sane Skies! Click here to download the newest version!") +
                             "\n§b§m-----------------------------------------------------§0"
                     );
-                    if (!PartlySaneSkies.isLatestVersion()){
+                    if (!PartlySaneSkies.Companion.isLatestVersion()){
                         chatcomponent.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/PartlySaneStudios/partly-sane-skies/releases"));
                     }
 
