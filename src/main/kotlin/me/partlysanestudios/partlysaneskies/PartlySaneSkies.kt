@@ -36,10 +36,7 @@ import me.partlysanestudios.partlysaneskies.features.commands.HelpCommand
 import me.partlysanestudios.partlysaneskies.features.commands.Version
 import me.partlysanestudios.partlysaneskies.features.debug.DebugKey
 import me.partlysanestudios.partlysaneskies.features.discord.DiscordRPC
-import me.partlysanestudios.partlysaneskies.features.dungeons.AutoGG
-import me.partlysanestudios.partlysaneskies.features.dungeons.PearlRefill
-import me.partlysanestudios.partlysaneskies.features.dungeons.RequiredSecretsFound
-import me.partlysanestudios.partlysaneskies.features.dungeons.WatcherReady
+import me.partlysanestudios.partlysaneskies.features.dungeons.*
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.PartyFriendManager
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.partymanager.PartyManager
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.permpartyselector.PermPartyManager
@@ -234,6 +231,7 @@ class PartlySaneSkies {
         load(PearlRefill)
         load(SanityCheck)
         load(Keybinds)
+        load(HealerAlert)
 
         // Registers all client side commands
         HelpCommand.registerPSSCommand()
