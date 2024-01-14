@@ -18,14 +18,13 @@
 package me.partlysanestudios.partlysaneskies
 
 import gg.essential.elementa.ElementaVersion
-import me.partlysanestudios.partlysaneskies.config.keybinds.Keybinds
 import me.partlysanestudios.partlysaneskies.config.oneconfig.OneConfigScreen
 import me.partlysanestudios.partlysaneskies.data.api.Request
 import me.partlysanestudios.partlysaneskies.data.api.RequestsManager.newRequest
 import me.partlysanestudios.partlysaneskies.data.cache.PetData
+import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager.getRepoName
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager.getRepoOwner
-import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager
 import me.partlysanestudios.partlysaneskies.features.chat.ChatAlertsManager
 import me.partlysanestudios.partlysaneskies.features.chat.ChatManager
@@ -36,7 +35,10 @@ import me.partlysanestudios.partlysaneskies.features.commands.HelpCommand
 import me.partlysanestudios.partlysaneskies.features.commands.Version
 import me.partlysanestudios.partlysaneskies.features.debug.DebugKey
 import me.partlysanestudios.partlysaneskies.features.discord.DiscordRPC
-import me.partlysanestudios.partlysaneskies.features.dungeons.*
+import me.partlysanestudios.partlysaneskies.features.dungeons.AutoGG
+import me.partlysanestudios.partlysaneskies.features.dungeons.PearlRefill
+import me.partlysanestudios.partlysaneskies.features.dungeons.RequiredSecretsFound
+import me.partlysanestudios.partlysaneskies.features.dungeons.WatcherReady
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.PartyFriendManager
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.partymanager.PartyManager
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.permpartyselector.PermPartyManager
@@ -67,8 +69,10 @@ import me.partlysanestudios.partlysaneskies.features.skills.SkillUpgradeRecommen
 import me.partlysanestudios.partlysaneskies.features.sound.Prank
 import me.partlysanestudios.partlysaneskies.features.sound.enhancedsound.EnhancedSound
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
-import me.partlysanestudios.partlysaneskies.gui.hud.BannerRenderer
-import me.partlysanestudios.partlysaneskies.gui.hud.cooldown.CooldownManager
+import me.partlysanestudios.partlysaneskies.render.gui.hud.BannerRenderer
+import me.partlysanestudios.partlysaneskies.render.gui.hud.cooldown.CooldownManager
+import me.partlysanestudios.partlysaneskies.render.waypoint.WaypointManager
+import me.partlysanestudios.partlysaneskies.render.waypoint.WaypointRenderer
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
 import net.minecraft.client.Minecraft
@@ -227,6 +231,8 @@ class PartlySaneSkies {
         EVENT_BUS.register(CooldownManager)
         EVENT_BUS.register(PetData)
         EVENT_BUS.register(PearlRefill)
+        EVENT_BUS.register(WaypointManager)
+        EVENT_BUS.register(WaypointRenderer)
 
 
         // Registers all client side commands
