@@ -103,7 +103,7 @@ object Keybinds {
                 )
                 message.chatStyle.setChatClickEvent(ClickEvent(ClickEvent.Action.RUN_COMMAND, "/allowhoerightclick"))
                 PartlySaneSkies.minecraft.ingameGUI.chatGUI.printChatMessage(message)
-                MathematicalHoeRightClicks.lastAllowHoeRightClickTime = PartlySaneSkies.getTime()
+                MathematicalHoeRightClicks.lastAllowHoeRightClickTime = PartlySaneSkies.time
             }
         }
     }
