@@ -42,3 +42,5 @@
 - ``BannerRenderer`` class was moved from ``me.partlysanestudios.partlysaneskies.gui`` to ``me.partlysanestudios.partlysaneskies.gui.hud`` where it belongs (@Su386yt)
 - ``PSSItemRender`` now supports sizes in pixels instead of just scale (@Su386yt)
 - ``Prank``, and ``RefreshKeybinds`` classes were switched to objects; ``LocationBannerDisplay`` functions were switched to all static (@Su386yt)
+
+**Full Changelog and Official Download Link**: https://github.com/PartlySaneStudios/partly-sane-skies/releases/tag/beta-v0.5.3

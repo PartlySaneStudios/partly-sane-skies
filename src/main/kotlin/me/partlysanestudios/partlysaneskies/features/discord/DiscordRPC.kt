@@ -28,14 +28,14 @@ const val NORMAL_APPLICATION_ID = 1195613263845666849
 const val SBE_BAD_APPLICATION_ID = 1195625408167686175
 
 object DiscordRPC {
-    var discordLibraryPath: String = "./config/partly-sane-skies/discord-native-library"
-    var discordLibrary: File? = null
-    var sdkDownloaded = false
-    var lastName = "sbe bad"
-    var lastMessage = "Playing Hypixel Skyblock"
-    var startTimeStamp = Instant.now()
+    private var discordLibraryPath: String = "./config/partly-sane-skies/discord-native-library"
+    private var discordLibrary: File? = null
+    private var sdkDownloaded = false
+    private var lastName = "sbe bad"
+    private var lastMessage = "Playing Hypixel Skyblock"
+    private var startTimeStamp = Instant.now()
     fun init() {
-        if (PartlySaneSkies.config.discordRPC != true) {
+        if (!PartlySaneSkies.config.discordRPC) {
             return
         }
         startTimeStamp = Instant.now()
@@ -52,7 +52,7 @@ object DiscordRPC {
 
         while (true) {
             SystemUtils.log(Level.INFO, "Creating new discord RPC parameters")
-            if (PartlySaneSkies.config.sbeBadMode == true) {
+            if (PartlySaneSkies.config.discordPlayingMode == 1) {
                 run()
             } else {
                 run()
@@ -69,7 +69,7 @@ object DiscordRPC {
     fun run() {
         // Set parameters for the Core
         CreateParams().use { params ->
-            val sbeBadMode = PartlySaneSkies.config.sbeBadMode
+            val sbeBadMode = PartlySaneSkies.config.discordPlayingMode == 1
             val applicationId = if (sbeBadMode) {
                 SBE_BAD_APPLICATION_ID
             } else {
@@ -90,7 +90,7 @@ object DiscordRPC {
 
                 // Run callbacks forever
                 while (true) {
-                    if (PartlySaneSkies.config.discordRPC != true) {
+                    if (!PartlySaneSkies.config.discordRPC) {
                         try {
                             // Sleep a bit to save CPU
                             Thread.sleep(600)
@@ -100,7 +100,7 @@ object DiscordRPC {
                         continue
                     }
                     // If the mode has changed, return so the run function can be called again with the right application id
-                    if ((PartlySaneSkies.config.sbeBadMode == true) != sbeBadMode) {
+                    if ((PartlySaneSkies.config.discordPlayingMode == 1) != sbeBadMode) {
                         return
                     }
 
