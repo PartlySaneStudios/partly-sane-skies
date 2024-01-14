@@ -60,7 +60,7 @@ object SanityCheck {
                         if (currentProfileNetworth != -1.0 && currentProfileFirstJoin != -1L) {
                             val networthRatio = 1.0 - (currentProfileNetworth / highestSkyblockNetworth)
                             val firstJoinRatio = 1.0 - (currentProfileFirstJoin.toDouble() / oldestSkyblockFirstJoin.toDouble())
-                            ChatUtils.sendClientMessage("§aYou are ${(networthRatio * 100) + (firstJoinRatio * 100)}% insane.")
+                            ChatUtils.sendClientMessage("§a${if (username != playerName) "$username is" else "You are"} ${(networthRatio * 100) + (firstJoinRatio * 100)}% insane.")
                         } else {
                             ChatUtils.sendClientMessage("§eIt appears that $username does not qualify for a PSS sanity check, due to current API circumstances. Try again later, or report this to us via §9/pssdiscord §eif this issue persists.")
                         }
