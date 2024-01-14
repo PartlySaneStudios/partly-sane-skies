@@ -24,10 +24,10 @@ public class SkyblockDataManager {
     public static ArrayList<String> bitIds = new ArrayList<>();
     private static HashMap<String, String> nameToIdMap = new HashMap<>();
     private static HashMap<String, SkyblockItem> idToItemMap = new HashMap<>();
-    private static long lastAhUpdateTime = PartlySaneSkies.getTime();
+    private static long lastAhUpdateTime = PartlySaneSkies.Companion.getTime();
 
     public static boolean checkLastUpdate() {
-        return PartlySaneSkies.getTime() >= lastAhUpdateTime + (1000 * 60 * 5);
+        return PartlySaneSkies.Companion.getTime() >= lastAhUpdateTime + (1000 * 60 * 5);
     }
 
     public static void updateBz() {
@@ -70,7 +70,7 @@ public class SkyblockDataManager {
     }
 
     public static void updateAll() {
-        lastAhUpdateTime = PartlySaneSkies.getTime();
+        lastAhUpdateTime = PartlySaneSkies.Companion.getTime();
         updateAverageLowestBin();
         updateBz();
         updateLowestBin();
@@ -176,13 +176,13 @@ public class SkyblockDataManager {
 
     public static void runUpdater() {
         if (checkLastUpdate()) {
-            lastAhUpdateTime = PartlySaneSkies.getTime();
+            lastAhUpdateTime = PartlySaneSkies.Companion.getTime();
             new Thread(() -> {
-                lastAhUpdateTime = PartlySaneSkies.getTime();
+                lastAhUpdateTime = PartlySaneSkies.Companion.getTime();
                 updateAll();
-                lastAhUpdateTime = PartlySaneSkies.getTime();
+                lastAhUpdateTime = PartlySaneSkies.Companion.getTime();
             }).start();
-            lastAhUpdateTime = PartlySaneSkies.getTime();
+            lastAhUpdateTime = PartlySaneSkies.Companion.getTime();
         }
 
     }

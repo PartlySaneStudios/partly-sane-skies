@@ -54,7 +54,7 @@ object HealerAlert {
             if (MathUtils.onCooldown(lastWarnTime, (PartlySaneSkies.config.healerAlertCooldownSlider * 1000).toLong())){
                 return
             }
-            lastWarnTime = PartlySaneSkies.getTime()
+            lastWarnTime = PartlySaneSkies.time
             BannerRenderer.renderNewBanner(PSSBanner("A player is low", 3500, color = Color.RED))
             PartlySaneSkies.minecraft.soundHandler
                 .playSound(PositionedSoundRecord.create(ResourceLocation("partlysaneskies", "bell")))

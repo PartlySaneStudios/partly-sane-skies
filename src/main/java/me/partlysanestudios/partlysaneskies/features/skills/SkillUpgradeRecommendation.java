@@ -150,16 +150,16 @@ public class SkillUpgradeRecommendation {
                             }
                         } else {
                             try {
-                                map = SkillUpgradeRecommendation.getRecommendedSkills(PartlySaneSkies.minecraft.thePlayer.getName());
+                                map = SkillUpgradeRecommendation.getRecommendedSkills(PartlySaneSkies.Companion.getMinecraft().thePlayer.getName());
                             } catch (IOException e) {
                                 ChatUtils.INSTANCE.sendClientMessage(("Error getting data for "
-                                        + PartlySaneSkies.minecraft.thePlayer.getName()
+                                        + PartlySaneSkies.Companion.getMinecraft().thePlayer.getName()
                                         + ". Maybe the player is nicked or there is an invalid API key."));
                                 return;
                             }
                         }
 
-                        PartlySaneSkies.minecraft.addScheduledTask(() -> {
+                        PartlySaneSkies.Companion.getMinecraft().addScheduledTask(() -> {
                             SkillUpgradeRecommendation.printMessage(map);
                         });
 

@@ -494,7 +494,7 @@ public class OneConfigScreen extends Config {
             secure = true,
             size = 2
     )
-    public String selectedPet = /*PartlySaneSkies.config.selectededPet |*/ "";
+    public String selectedPet = /*PartlySaneSkies.Companion.getConfig().selectededPet |*/ "";
 
     @Slider(
             min = 1,

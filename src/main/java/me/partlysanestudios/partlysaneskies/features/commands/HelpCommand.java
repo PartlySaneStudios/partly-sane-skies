@@ -28,7 +28,7 @@ public class HelpCommand {
                 .setRunnable((s, a) -> {
                     ChatUtils.INSTANCE.sendClientMessage("§bOpening config menu...");
 
-                    Window.Companion.enqueueRenderOperation(() -> PartlySaneSkies.config.openGui());
+                    Window.Companion.enqueueRenderOperation(() -> PartlySaneSkies.Companion.getConfig().openGui());
                 })
                 .register();
     }
@@ -41,7 +41,7 @@ public class HelpCommand {
 
                     ChatUtils.INSTANCE.sendClientMessage("§bOpening config menu...");
 
-                    Window.Companion.enqueueRenderOperation(() -> PartlySaneSkies.config.openGui());
+                    Window.Companion.enqueueRenderOperation(() -> PartlySaneSkies.Companion.getConfig().openGui());
                 }).register();
     }
 
@@ -58,7 +58,7 @@ public class HelpCommand {
                 .setRunnable((s, a) -> {
                     if (a.length > 0 && configAliases.contains(a[0].toLowerCase())) {
                         ChatUtils.INSTANCE.sendClientMessage("Opening config GUI...");
-                        Window.Companion.enqueueRenderOperation(() -> PartlySaneSkies.config.openGui());
+                        Window.Companion.enqueueRenderOperation(() -> PartlySaneSkies.Companion.getConfig().openGui());
                         return;
                     }
 
@@ -68,13 +68,13 @@ public class HelpCommand {
     }
 
     private static String getOneConfigKeyBindString() {
-        if (PartlySaneSkies.config.oneConfigKeybind.getSize() == 0) {
+        if (PartlySaneSkies.Companion.getConfig().oneConfigKeybind.getSize() == 0) {
             return Keyboard.getKeyName(Keyboard.CHAR_NONE);
         }
 
-        String str = Keyboard.getKeyName(PartlySaneSkies.config.oneConfigKeybind.getKeyBinds().get(0));
-        for (int i = 1; i < PartlySaneSkies.config.oneConfigKeybind.getSize(); i++) {
-            str += " + " +  Keyboard.getKeyName(PartlySaneSkies.config.oneConfigKeybind.getKeyBinds().get(i));
+        String str = Keyboard.getKeyName(PartlySaneSkies.Companion.getConfig().oneConfigKeybind.getKeyBinds().get(0));
+        for (int i = 1; i < PartlySaneSkies.Companion.getConfig().oneConfigKeybind.getSize(); i++) {
+            str += " + " +  Keyboard.getKeyName(PartlySaneSkies.Companion.getConfig().oneConfigKeybind.getKeyBinds().get(i));
         }
 
         return str;
