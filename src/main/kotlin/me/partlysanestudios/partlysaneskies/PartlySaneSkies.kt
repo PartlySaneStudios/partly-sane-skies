@@ -200,7 +200,6 @@ class PartlySaneSkies {
         EVENT_BUS.register(WatcherReady())
         EVENT_BUS.register(WormWarning())
         EVENT_BUS.register(CustomMainMenu(ElementaVersion.V2))
-        EVENT_BUS.register(Keybinds())
         EVENT_BUS.register(PartyFriendManager())
         EVENT_BUS.register(WikiArticleOpener())
         EVENT_BUS.register(NoCookieWarning())
@@ -258,9 +257,6 @@ class PartlySaneSkies {
         PearlRefill.registerCommand()
         CooldownManager.init()
         DebugKey.init()
-        
-        // Initializes keybinds
-        Keybinds.init()
 
         // Initializes skill upgrade recommendation
         SkillUpgradeRecommendation.populateSkillMap()
