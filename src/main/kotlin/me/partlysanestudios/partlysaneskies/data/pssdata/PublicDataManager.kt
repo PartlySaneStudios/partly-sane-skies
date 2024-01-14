@@ -12,17 +12,15 @@ import me.partlysanestudios.partlysaneskies.data.api.RequestsManager
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager
 import me.partlysanestudios.partlysaneskies.features.dungeons.playerrating.PlayerRating
 import me.partlysanestudios.partlysaneskies.features.economy.minioncalculator.MinionData
-import me.partlysanestudios.partlysaneskies.features.economy.minioncalculator.MinionData.init
+import me.partlysanestudios.partlysaneskies.features.farming.MathematicalHoeRightClicks
 import me.partlysanestudios.partlysaneskies.features.farming.garden.CompostValue
 import me.partlysanestudios.partlysaneskies.features.farming.garden.SkymartValue
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
+import me.partlysanestudios.partlysaneskies.utils.SystemUtils
 import net.minecraft.command.ICommandSender
 import net.minecraft.util.ChatComponentText
-import java.net.MalformedURLException
-import me.partlysanestudios.partlysaneskies.features.farming.MathematicalHoeRightClicks
-import me.partlysanestudios.partlysaneskies.utils.ChatUtils
-import me.partlysanestudios.partlysaneskies.utils.SystemUtils
 import org.apache.logging.log4j.Level
+import java.net.MalformedURLException
 
 object PublicDataManager {
     // Add all initializing of public data here

@@ -18,14 +18,13 @@
 package me.partlysanestudios.partlysaneskies
 
 import gg.essential.elementa.ElementaVersion
-import me.partlysanestudios.partlysaneskies.config.keybinds.Keybinds
 import me.partlysanestudios.partlysaneskies.config.oneconfig.OneConfigScreen
 import me.partlysanestudios.partlysaneskies.data.api.Request
 import me.partlysanestudios.partlysaneskies.data.api.RequestsManager.newRequest
 import me.partlysanestudios.partlysaneskies.data.cache.PetData
+import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager.getRepoName
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager.getRepoOwner
-import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager
 import me.partlysanestudios.partlysaneskies.features.chat.ChatAlertsManager
 import me.partlysanestudios.partlysaneskies.features.chat.ChatManager
@@ -36,7 +35,10 @@ import me.partlysanestudios.partlysaneskies.features.commands.HelpCommand
 import me.partlysanestudios.partlysaneskies.features.commands.Version
 import me.partlysanestudios.partlysaneskies.features.debug.DebugKey
 import me.partlysanestudios.partlysaneskies.features.discord.DiscordRPC
-import me.partlysanestudios.partlysaneskies.features.dungeons.*
+import me.partlysanestudios.partlysaneskies.features.dungeons.AutoGG
+import me.partlysanestudios.partlysaneskies.features.dungeons.PearlRefill
+import me.partlysanestudios.partlysaneskies.features.dungeons.RequiredSecretsFound
+import me.partlysanestudios.partlysaneskies.features.dungeons.WatcherReady
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.PartyFriendManager
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.partymanager.PartyManager
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.permpartyselector.PermPartyManager
@@ -61,6 +63,7 @@ import me.partlysanestudios.partlysaneskies.features.information.WikiArticleOpen
 import me.partlysanestudios.partlysaneskies.features.mining.MiningEvents
 import me.partlysanestudios.partlysaneskies.features.mining.Pickaxes
 import me.partlysanestudios.partlysaneskies.features.mining.WormWarning
+import me.partlysanestudios.partlysaneskies.features.misc.SanityCheck
 import me.partlysanestudios.partlysaneskies.features.security.modschecker.ModChecker
 import me.partlysanestudios.partlysaneskies.features.skills.PetAlert
 import me.partlysanestudios.partlysaneskies.features.skills.SkillUpgradeRecommendation
@@ -227,6 +230,7 @@ class PartlySaneSkies {
         EVENT_BUS.register(CooldownManager)
         EVENT_BUS.register(PetData)
         EVENT_BUS.register(PearlRefill)
+        EVENT_BUS.register(SanityCheck)
 
 
         // Registers all client side commands

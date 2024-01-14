@@ -7,7 +7,6 @@ package me.partlysanestudios.partlysaneskies.gui.components;
 
 import gg.essential.elementa.UIComponent;
 import gg.essential.elementa.constraints.PixelConstraint;
-import gg.essential.elementa.constraints.WidthConstraint;
 import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import net.minecraft.client.renderer.GlStateManager;
