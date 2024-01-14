@@ -54,17 +54,17 @@ public class ThemeManager {
     };
 
     public static void run() {
-        if (PartlySaneSkies.config.useDefaultAccentColor) {
-            PartlySaneSkies.config.accentColor = getAccentColor();
+        if (PartlySaneSkies.Companion.getConfig().useDefaultAccentColor) {
+            PartlySaneSkies.Companion.getConfig().accentColor = getAccentColor();
         }
 
-        if (!PartlySaneSkies.config.customTheme) {
-            PartlySaneSkies.config.primaryColor = getPrimaryColor();
-            PartlySaneSkies.config.secondaryColor = getSecondaryColor();
+        if (!PartlySaneSkies.Companion.getConfig().customTheme) {
+            PartlySaneSkies.Companion.getConfig().primaryColor = getPrimaryColor();
+            PartlySaneSkies.Companion.getConfig().secondaryColor = getSecondaryColor();
         }
 
 //        If the theme has changed
-        if (!lastThemeName.equals(defaultThemes[PartlySaneSkies.config.themeIndex].getName())) {
+        if (!lastThemeName.equals(defaultThemes[PartlySaneSkies.Companion.getConfig().themeIndex].getName())) {
             for (UIImage image : backgroundUIImages) {
                 try {
                     image.applyTexture(new ReleasedDynamicTexture(ImageUtils.INSTANCE.loadImage(getCurrentBackgroundFile().getPath())));
@@ -103,7 +103,7 @@ public class ThemeManager {
                 }
             }
 
-            lastThemeName = defaultThemes[PartlySaneSkies.config.themeIndex].getName();
+            lastThemeName = defaultThemes[PartlySaneSkies.Companion.getConfig().themeIndex].getName();
         }
 
 
@@ -112,7 +112,7 @@ public class ThemeManager {
 
     public static UIImage getCurrentBackgroundUIImage() {
         UIImage image;
-        if (PartlySaneSkies.config.disableThemes) {
+        if (PartlySaneSkies.Companion.getConfig().disableThemes) {
             image = ElementaUtils.INSTANCE.uiImageFromResourceLocation(new ResourceLocation("partlysaneskies", "textures/gui/base_color_background.png"));
 
         }
@@ -134,7 +134,7 @@ public class ThemeManager {
 
     public static UIImage getCurrentButtonUIImage(OneColor accentColor) {
         UIImage image;
-        if (PartlySaneSkies.config.disableThemes) {
+        if (PartlySaneSkies.Companion.getConfig().disableThemes) {
             if (accentColor.equals(getAccentColor())) {
                 image = ElementaUtils.INSTANCE.uiImageFromResourceLocation(new ResourceLocation("partlysaneskies", "textures/gui/base_color_button.png"));
             } else {
@@ -167,7 +167,7 @@ public class ThemeManager {
 
     public static UIImage getCurrentToggleUIImage(boolean selected, OneColor accentColor) {
         UIImage image;
-        if (PartlySaneSkies.config.disableThemes) {
+        if (PartlySaneSkies.Companion.getConfig().disableThemes) {
             if (selected) {
                 image = ElementaUtils.INSTANCE.uiImageFromResourceLocation(new ResourceLocation("partlysaneskies" , "textures/gui/selected_toggle.png"));
             } else {
@@ -217,11 +217,11 @@ public class ThemeManager {
     }
 
     public static OneColor getPrimaryColor() {
-        if (!PartlySaneSkies.config.customTheme) {
-            int themeIndex = PartlySaneSkies.config.themeIndex;
+        if (!PartlySaneSkies.Companion.getConfig().customTheme) {
+            int themeIndex = PartlySaneSkies.Companion.getConfig().themeIndex;
             return new OneColor(defaultThemes[themeIndex].getPrimaryColor());
         } else {
-            return PartlySaneSkies.config.primaryColor;
+            return PartlySaneSkies.Companion.getConfig().primaryColor;
         }
     }
 
@@ -234,11 +234,11 @@ public class ThemeManager {
     }
 
     public static OneColor getSecondaryColor() {
-        if (!PartlySaneSkies.config.customTheme) {
-            int themeIndex = PartlySaneSkies.config.themeIndex;
+        if (!PartlySaneSkies.Companion.getConfig().customTheme) {
+            int themeIndex = PartlySaneSkies.Companion.getConfig().themeIndex;
             return new OneColor(defaultThemes[themeIndex].getSecondaryColor());
         } else {
-            return PartlySaneSkies.config.secondaryColor;
+            return PartlySaneSkies.Companion.getConfig().secondaryColor;
         }
     }
 
@@ -251,11 +251,11 @@ public class ThemeManager {
     }
 
     public static OneColor getAccentColor() {
-        if (PartlySaneSkies.config.useDefaultAccentColor) {
-            int themeIndex = PartlySaneSkies.config.themeIndex;
+        if (PartlySaneSkies.Companion.getConfig().useDefaultAccentColor) {
+            int themeIndex = PartlySaneSkies.Companion.getConfig().themeIndex;
             return new OneColor(defaultThemes[themeIndex].getDefaultAccentColor());
         } else {
-            return PartlySaneSkies.config.accentColor;
+            return PartlySaneSkies.Companion.getConfig().accentColor;
         }
     }
 
@@ -309,7 +309,7 @@ public class ThemeManager {
 
         ResourceLocation backgroundResourceLocation = new ResourceLocation("partlysaneskies", "textures/debug_gui_textures/background.png");
 
-        IResource debugTexture = PartlySaneSkies.minecraft.getResourceManager().getResource(backgroundResourceLocation);
+        IResource debugTexture = PartlySaneSkies.Companion.getMinecraft().getResourceManager().getResource(backgroundResourceLocation);
         BufferedImage debugImage = TextureUtil.readBufferedImage(debugTexture.getInputStream());
 
         folderPath.toFile().mkdirs();
@@ -345,7 +345,7 @@ public class ThemeManager {
 
         ResourceLocation buttonResourceLocation = new ResourceLocation("partlysaneskies", "textures/debug_gui_textures/button.png");
 
-        IResource debugTexture = PartlySaneSkies.minecraft.getResourceManager().getResource(buttonResourceLocation);
+        IResource debugTexture = PartlySaneSkies.Companion.getMinecraft().getResourceManager().getResource(buttonResourceLocation);
         BufferedImage debugImage = TextureUtil.readBufferedImage(debugTexture.getInputStream());
 
         folderPath.toFile().mkdirs();
@@ -381,7 +381,7 @@ public class ThemeManager {
 
         ResourceLocation toggleResourceLocation = new ResourceLocation("partlysaneskies", "textures/debug_gui_textures/toggle.png");
 
-        IResource debugTexture = PartlySaneSkies.minecraft.getResourceManager().getResource(toggleResourceLocation);
+        IResource debugTexture = PartlySaneSkies.Companion.getMinecraft().getResourceManager().getResource(toggleResourceLocation);
         BufferedImage debugImage = TextureUtil.readBufferedImage(debugTexture.getInputStream());
 
         folderPath.toFile().mkdirs();

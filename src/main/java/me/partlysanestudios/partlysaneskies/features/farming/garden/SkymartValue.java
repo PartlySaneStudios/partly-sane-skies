@@ -89,14 +89,14 @@ public class SkymartValue {
 
     // 22
     public static boolean isSkymart() {
-        if (PartlySaneSkies.minecraft.currentScreen == null) {
+        if (PartlySaneSkies.Companion.getMinecraft().currentScreen == null) {
             return false;
         }
-        if (!(PartlySaneSkies.minecraft.currentScreen instanceof GuiChest)) {
+        if (!(PartlySaneSkies.Companion.getMinecraft().currentScreen instanceof GuiChest)) {
             return false;
         }
 
-        IInventory[] inventories = MinecraftUtils.INSTANCE.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen);
+        IInventory[] inventories = MinecraftUtils.INSTANCE.getSeparateUpperLowerInventories(PartlySaneSkies.Companion.getMinecraft().currentScreen);
 
         IInventory skymart = inventories[0];
         if (skymart == null) return false;
@@ -127,7 +127,7 @@ public class SkymartValue {
             box.hide();
             return;
         }
-        if (!PartlySaneSkies.config.skymartValue) {
+        if (!PartlySaneSkies.Companion.getConfig().skymartValue) {
             return;
         }
 

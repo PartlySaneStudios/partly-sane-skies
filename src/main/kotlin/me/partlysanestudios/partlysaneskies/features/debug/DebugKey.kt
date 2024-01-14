@@ -34,7 +34,7 @@ object DebugKey {
     // Runs when debug key is pressed
     fun onDebugKeyPress() {
         PartlySaneSkies.config.debugMode = !PartlySaneSkies.config.debugMode
-        sendClientMessage("Debug mode: " + DebugKey.isDebugMode())
+        sendClientMessage("Debug mode: " + isDebugMode())
 
 
         if (PartlySaneSkies.config.debugRenderTestBanner) {

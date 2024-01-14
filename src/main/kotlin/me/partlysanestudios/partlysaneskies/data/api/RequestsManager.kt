@@ -42,7 +42,7 @@ object RequestsManager {
         }
 
         // The time in milliseconds between requests
-        val timeBetweenRequests = Math.round(PartlySaneSkies.config.timeBetweenRequests * 1000).toLong()
+        val timeBetweenRequests = Math.round((PartlySaneSkies.config.timeBetweenRequests?: .5F) * 1000).toLong()
         // If the time has not elapsed between requests
         if (MathUtils.onCooldown(lastRequestTime, timeBetweenRequests)) {
             return
@@ -51,7 +51,7 @@ object RequestsManager {
         // Requests and removes the 1st element in the queue
         val element = requestsQueue.poll()
         // If the request is supposed to run in the main thread
-        lastRequestTime = PartlySaneSkies.getTime()
+        lastRequestTime = PartlySaneSkies.time
         if (element == null) {
             return
         }

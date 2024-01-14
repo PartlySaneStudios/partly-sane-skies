@@ -68,7 +68,7 @@ object EndOfFarmNotifier {
         PartlySaneSkies.minecraft.soundHandler
             .playSound(PositionedSoundRecord.create(ResourceLocation("partlysaneskies", "bell")))
         displayString = "END OF FARM"
-        lastChimeTime = PartlySaneSkies.getTime()
+        lastChimeTime = PartlySaneSkies.time
         renderNewBanner(
             PSSBanner(
                 displayString,
@@ -349,7 +349,7 @@ object EndOfFarmNotifier {
                         return@PSSCommandRunnable
                     }
                     rangeToHighlight = ranges[i - 1]
-                    rangeToHighlightSetTime = PartlySaneSkies.getTime()
+                    rangeToHighlightSetTime = PartlySaneSkies.time
                 }
             })
             .register()

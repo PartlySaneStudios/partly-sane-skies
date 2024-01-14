@@ -24,7 +24,7 @@ public class Pickaxes {
 
     @SubscribeEvent(priority = net.minecraftforge.fml.common.eventhandler.EventPriority.HIGHEST)
     public void onChat(ClientChatReceivedEvent event) {
-        if (PartlySaneSkies.config.onlyGiveWarningOnMiningIsland){
+        if (PartlySaneSkies.Companion.getConfig().onlyGiveWarningOnMiningIsland){
             if (!IslandType.DWARVEN_MINES.onIsland() && !IslandType.CRYSTAL_HOLLOWS.onIsland()) return;
         }
 
@@ -32,18 +32,18 @@ public class Pickaxes {
         Matcher matcher = pattern.matcher(message);
 
         if (matcher.find()) {
-            if (PartlySaneSkies.config.pickaxeAbilityReadyBanner){
-                BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner(PartlySaneSkies.config.pickaxeAbilityReadyBannerText, (long) (PartlySaneSkies.config.pickaxeBannerTime * 1000), 4.0f, PartlySaneSkies.config.pickaxeBannerColor.toJavaColor()));
+            if (PartlySaneSkies.Companion.getConfig().pickaxeAbilityReadyBanner){
+                BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner(PartlySaneSkies.Companion.getConfig().pickaxeAbilityReadyBannerText, (long) (PartlySaneSkies.Companion.getConfig().pickaxeBannerTime * 1000), 4.0f, PartlySaneSkies.Companion.getConfig().pickaxeBannerColor.toJavaColor()));
             }
-            if (PartlySaneSkies.config.pickaxeAbilityReadySound) {
-                if (PartlySaneSkies.config.pickaxeAbilityReadySiren) {
-                    PartlySaneSkies.minecraft.thePlayer.playSound("partlysaneskies:airraidsiren", 100, 1);
+            if (PartlySaneSkies.Companion.getConfig().pickaxeAbilityReadySound) {
+                if (PartlySaneSkies.Companion.getConfig().pickaxeAbilityReadySiren) {
+                    PartlySaneSkies.Companion.getMinecraft().thePlayer.playSound("partlysaneskies:airraidsiren", 100, 1);
                 } else {
-                    PartlySaneSkies.minecraft.thePlayer.playSound("partlysaneskies:bell", 100, 1);
+                    PartlySaneSkies.Companion.getMinecraft().thePlayer.playSound("partlysaneskies:bell", 100, 1);
                 }
             }
 
-            if (PartlySaneSkies.config.hideReadyMessageFromChat) {
+            if (PartlySaneSkies.Companion.getConfig().hideReadyMessageFromChat) {
                 event.setCanceled(true);
             }
         }
@@ -51,7 +51,7 @@ public class Pickaxes {
 
     @SubscribeEvent
     public void onClick(PlayerInteractEvent event) {
-        if (!PartlySaneSkies.config.blockAbilityOnPrivateIsland) {
+        if (!PartlySaneSkies.Companion.getConfig().blockAbilityOnPrivateIsland) {
             return;
         }
         if (IslandType.GARDEN.onIsland() || IslandType.PRIVATE_ISLAND.onIsland()){} else return; //dont mind me not wanting to nest code

@@ -27,6 +27,6 @@ public class Drop {
 
     public boolean isStillDisplay() {
 
-        return timeDropped + displayTime < PartlySaneSkies.getTime();
+        return timeDropped + displayTime < PartlySaneSkies.Companion.getTime();
     }
 }
