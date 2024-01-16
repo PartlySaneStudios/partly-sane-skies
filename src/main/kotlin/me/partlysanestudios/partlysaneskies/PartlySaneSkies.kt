@@ -108,11 +108,7 @@ class PartlySaneSkies {
         val DOGFOOD = "@DOGFOOD@".toBoolean()
         const val CHAT_PREFIX = "§r§b§lPartly Sane Skies§r§7>> §r"
         var discordCode = "v4PU3WeH7z"
-        val config: OneConfigScreen
-            get() {
-                return oneConfig?: OneConfigScreen()
-            }
-        private var oneConfig: OneConfigScreen? = null
+        val config: OneConfigScreen = OneConfigScreen()
 
         val minecraft: Minecraft
             get() {
@@ -143,8 +139,6 @@ class PartlySaneSkies {
         // Creates the partly-sane-skies directory if not already made
         File("./config/partly-sane-skies/").mkdirs()
 
-        // Loads the config files and options
-        oneConfig = OneConfigScreen()
         var mainMenuRequest: Request? = null
         mainMenuRequest =
             Request("https://raw.githubusercontent.com/" + getRepoOwner() + "/" + getRepoName() + "/main/data/main_menu.json",
