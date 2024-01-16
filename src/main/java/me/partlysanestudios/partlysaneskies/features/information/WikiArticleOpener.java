@@ -20,13 +20,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class WikiArticleOpener {
     public static boolean isWaitingForArticle = false;
 
-    public static NBTTagCompound getItemAttributes(ItemStack item) {
-        if (item.getTagCompound() == null) {
-            return null;
-        }
-        return item.getTagCompound().getCompoundTag("ExtraAttributes");
-    }
-
     public static void getArticle(String id) {
         isWaitingForArticle = true;
         PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/wiki " + id);
@@ -73,7 +66,7 @@ public class WikiArticleOpener {
             return;
         }
 
-        if (HypixelUtils.INSTANCE.getItemId(item).equals("")) {
+        if (HypixelUtils.INSTANCE.getItemId(item).isEmpty()) {
             return;
         }
         WikiArticleOpener.getArticle(HypixelUtils.INSTANCE.getItemId(item));

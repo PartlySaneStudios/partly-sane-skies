@@ -6,9 +6,9 @@
 package me.partlysanestudios.partlysaneskies.features.mining;
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
-import me.partlysanestudios.partlysaneskies.render.gui.hud.BannerRenderer;
-import me.partlysanestudios.partlysaneskies.render.gui.hud.PSSBanner;
-import me.partlysanestudios.partlysaneskies.utils.IslandType;
+import me.partlysanestudios.partlysaneskies.data.skyblockdata.IslandType;
+import me.partlysanestudios.partlysaneskies.gui.hud.BannerRenderer;
+import me.partlysanestudios.partlysaneskies.gui.hud.PSSBanner;
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;

@@ -14,17 +14,15 @@ import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
+import me.partlysanestudios.partlysaneskies.commands.PSSCommand;
 import me.partlysanestudios.partlysaneskies.data.cache.PetData;
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity;
 import me.partlysanestudios.partlysaneskies.features.economy.auctionhousemenu.AuctionHouseGui;
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager;
-import me.partlysanestudios.partlysaneskies.commands.PSSCommand;
 import me.partlysanestudios.partlysaneskies.utils.*;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityArmorStand;
 import net.minecraft.event.ClickEvent;
 import net.minecraft.event.ClickEvent.Action;
 import net.minecraft.inventory.IInventory;
@@ -37,8 +35,6 @@ import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class PetAlert {

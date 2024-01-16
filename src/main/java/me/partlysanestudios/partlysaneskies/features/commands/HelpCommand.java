@@ -8,7 +8,6 @@ package me.partlysanestudios.partlysaneskies.features.commands;
 
 import gg.essential.elementa.components.Window;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
-import me.partlysanestudios.partlysaneskies.config.keybinds.Keybinds;
 import me.partlysanestudios.partlysaneskies.commands.CommandManager;
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand;
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils;

@@ -63,18 +63,17 @@ import me.partlysanestudios.partlysaneskies.features.information.WikiArticleOpen
 import me.partlysanestudios.partlysaneskies.features.mining.MiningEvents
 import me.partlysanestudios.partlysaneskies.features.mining.Pickaxes
 import me.partlysanestudios.partlysaneskies.features.mining.WormWarning
+import me.partlysanestudios.partlysaneskies.features.misc.SanityCheck
 import me.partlysanestudios.partlysaneskies.features.security.modschecker.ModChecker
 import me.partlysanestudios.partlysaneskies.features.skills.PetAlert
 import me.partlysanestudios.partlysaneskies.features.skills.SkillUpgradeRecommendation
 import me.partlysanestudios.partlysaneskies.features.sound.Prank
 import me.partlysanestudios.partlysaneskies.features.sound.enhancedsound.EnhancedSound
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
-import me.partlysanestudios.partlysaneskies.render.gui.hud.BannerRenderer
-import me.partlysanestudios.partlysaneskies.render.gui.hud.cooldown.CooldownManager
-import me.partlysanestudios.partlysaneskies.render.waypoint.WaypointManager
-import me.partlysanestudios.partlysaneskies.render.waypoint.WaypointRenderer
+import me.partlysanestudios.partlysaneskies.gui.hud.cooldown.CooldownManager
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
+import me.partlysanestudios.partlysaneskies.data.api.PolyfrostUrsaMinorRequest
 import net.minecraft.client.Minecraft
 import net.minecraft.event.ClickEvent
 import net.minecraft.event.HoverEvent
@@ -108,15 +107,11 @@ class PartlySaneSkies {
         val DOGFOOD = "@DOGFOOD@".toBoolean()
         const val CHAT_PREFIX = "§r§b§lPartly Sane Skies§r§7>> §r"
         var discordCode = "v4PU3WeH7z"
-        val config: OneConfigScreen
-            get() {
-                return oneConfig?: OneConfigScreen()
-            }
-        private var oneConfig: OneConfigScreen? = null
+        val config: OneConfigScreen = OneConfigScreen()
 
         val minecraft: Minecraft
             get() {
-                return pssMinecraft?: Minecraft.getMinecraft()
+                return pssMinecraft ?: Minecraft.getMinecraft()
             }
         private var pssMinecraft: Minecraft? = null
 
@@ -143,11 +138,26 @@ class PartlySaneSkies {
         // Creates the partly-sane-skies directory if not already made
         File("./config/partly-sane-skies/").mkdirs()
 
-        // Loads the config files and options
-        oneConfig = OneConfigScreen()
-        val mainMenuRequest = Request("https://raw.githubusercontent.com/" + getRepoOwner() + "/" + getRepoName() + "/main/data/main_menu.json", { request: Request -> CustomMainMenu.setMainMenuInfo(request) }, inMainThread = false, executeOnNextFrame = false)
+        var mainMenuRequest: Request? = null
+        mainMenuRequest =
+            Request(
+                "https://raw.githubusercontent.com/" + getRepoOwner() + "/" + getRepoName() + "/main/data/main_menu.json",
+                { request: Request? ->
+                    CustomMainMenu.setMainMenuInfo(
+                        request
+                    )
+                }, false, false
+            )
         newRequest(mainMenuRequest)
-        val funFactRequest: Request = Request(CustomMainMenu.funFactApi, { request: Request -> CustomMainMenu.setFunFact(request) }, inMainThread = false,  executeOnNextFrame = false)
+        var funFactRequest: Request? = null
+        funFactRequest = Request(
+            CustomMainMenu.funFactApi,
+            { request: Request? ->
+                CustomMainMenu.setFunFact(
+                    request
+                )
+            }, false, false
+        )
         newRequest(funFactRequest)
         trackLoad()
 
@@ -183,42 +193,43 @@ class PartlySaneSkies {
 
 
         // Registers all the events
-        EVENT_BUS.register(this)
-        EVENT_BUS.register(DropBannerDisplay())
-        EVENT_BUS.register(PartyManager())
-        EVENT_BUS.register(WatcherReady())
-        EVENT_BUS.register(WormWarning())
-        EVENT_BUS.register(CustomMainMenu(ElementaVersion.V2))
-        EVENT_BUS.register(PartyFriendManager())
-        EVENT_BUS.register(WikiArticleOpener())
-        EVENT_BUS.register(NoCookieWarning())
-        EVENT_BUS.register(GardenTradeValue())
-        EVENT_BUS.register(CompostValue())
-        EVENT_BUS.register(EnhancedSound())
-        EVENT_BUS.register(BitsShopValue())
-        EVENT_BUS.register(PlayerRating())
-        EVENT_BUS.register(SkymartValue())
-        EVENT_BUS.register(PetAlert())
-        EVENT_BUS.register(RequiredSecretsFound())
-        EVENT_BUS.register(Pickaxes())
-        EVENT_BUS.register(MathematicalHoeRightClicks())
-        EVENT_BUS.register(MiningEvents())
-        EVENT_BUS.register(AuctionHouseGui)
-        EVENT_BUS.register(ChatManager)
-        EVENT_BUS.register(RangeHighlight)
-        EVENT_BUS.register(BannerRenderer)
-        EVENT_BUS.register(VisitorLogbookStats)
-        EVENT_BUS.register(CoinsToBoosterCookieConversion)
-        EVENT_BUS.register(EndOfFarmNotifier)
-        EVENT_BUS.register(Prank)
-        EVENT_BUS.register(RefreshKeybinds)
-        EVENT_BUS.register(AutoGG)
-        EVENT_BUS.register(CooldownManager)
-        EVENT_BUS.register(PetData)
-        EVENT_BUS.register(PearlRefill)
-        EVENT_BUS.register(WaypointManager)
-        EVENT_BUS.register(WaypointRenderer)
-
+        registerEvent(this)
+        registerEvent(DropBannerDisplay())
+        registerEvent(PartyManager())
+        registerEvent(WatcherReady())
+        registerEvent(WormWarning())
+        registerEvent(CustomMainMenu(ElementaVersion.V2))
+        registerEvent(PartyFriendManager())
+        registerEvent(WikiArticleOpener())
+        registerEvent(NoCookieWarning())
+        registerEvent(GardenTradeValue())
+        registerEvent(CompostValue())
+        registerEvent(EnhancedSound())
+        registerEvent(BitsShopValue())
+        registerEvent(PlayerRating())
+        registerEvent(SkymartValue())
+        registerEvent(PetAlert())
+        registerEvent(RequiredSecretsFound())
+        registerEvent(Pickaxes())
+        registerEvent(MathematicalHoeRightClicks())
+        registerEvent(MiningEvents())
+        registerEvent(AuctionHouseGui)
+        registerEvent(ChatManager)
+        registerEvent(RangeHighlight)
+        registerEvent(VisitorLogbookStats)
+        registerEvent(CoinsToBoosterCookieConversion)
+        registerEvent(EndOfFarmNotifier)
+        registerEvent(Prank)
+        registerEvent(RefreshKeybinds)
+        registerEvent(AutoGG)
+        registerEvent(CooldownManager)
+        registerEvent(PetData)
+        registerEvent(PearlRefill)
+        registerEvent(SanityCheck)
+        registerEvent(Keybinds)
+        registerEvent(HealerAlert)
+        registerEvent(WaypointManager)
+        registerEvent(WaypointRender)
 
         // Registers all client side commands
         HelpCommand.registerPSSCommand()
@@ -249,6 +260,8 @@ class PartlySaneSkies {
         CooldownManager.init()
         DebugKey.init()
 
+        PolyfrostUrsaMinorRequest.authorize()
+
         // Initializes skill upgrade recommendation
         SkillUpgradeRecommendation.populateSkillMap()
         try {
@@ -267,9 +280,7 @@ class PartlySaneSkies {
         // Loads user player data for PartyManager
         Thread({
             try {
-                SkyblockDataManager.getPlayer(
-                    minecraft.session?.username ?: ""
-                )
+                SkyblockDataManager.getPlayer(minecraft.session?.username ?: "")
             } catch (e: MalformedURLException) {
                 e.printStackTrace()
             }
@@ -279,20 +290,26 @@ class PartlySaneSkies {
         log(Level.INFO, "Partly Sane Skies has loaded.")
     }
 
+    private fun registerEvent(file: Any) {
+        try {
+            EVENT_BUS.register(file)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
     // Method runs every tick
     @SubscribeEvent
     fun clientTick(evnt: ClientTickEvent?) {
-        // Checks if the current location is the same as the previous location for the location banner display
+        config.resetBrokenStrings()
         LocationBannerDisplay.checkLocation()
         EndOfFarmNotifier.run()
         SkyblockDataManager.runUpdater()
-
-        // Checks if the player is collecting minions
         PetAlert.runPetAlert()
         ThemeManager.run()
-        config.resetBrokenStrings()
         ThemeManager.run()
         PetData.tick()
+        HealerAlert.run()
     }
 
     @SubscribeEvent
@@ -304,15 +321,18 @@ class PartlySaneSkies {
                 } catch (e: InterruptedException) {
                     e.printStackTrace()
                 }
-                val discordMessage: IChatComponent = ChatComponentText("§9The Partly Sane Skies Discord server: https://discord.gg/$discordCode")
-                discordMessage.chatStyle.setChatClickEvent(ClickEvent(ClickEvent.Action.OPEN_URL,"https://discord.gg/$discordCode"))
+                val discordMessage: IChatComponent =
+                    ChatComponentText("§9The Partly Sane Skies Discord server: https://discord.gg/$discordCode")
+                discordMessage.chatStyle.setChatClickEvent(
+                    ClickEvent(ClickEvent.Action.OPEN_URL, "https://discord.gg/$discordCode")
+                )
                 sendClientMessage("§b§m--------------------------------------------------", true)
                 sendClientMessage("§cWe noticed you're using a dogfood version of Partly Sane Skies.", false)
                 sendClientMessage("§c§lThis version may be unstable.", true)
                 sendClientMessage("§cOnly use it when told to do so by a Partly Sane Skies admin.", true)
                 sendClientMessage("§cReport any bugs to Partly Sane Skies admins in a private ticket.", true)
-                sendClientMessage("§7Version ID: §d$VERSION",true)
-                sendClientMessage("§7Latest non-dogfood version: §d${CustomMainMenu.latestVersion}", true)
+                sendClientMessage("§7Version ID: §d$VERSION", true)
+                sendClientMessage("§7Latest non-dogfood version: §d" + CustomMainMenu.latestVersion, true)
                 sendClientMessage(discordMessage)
                 sendClientMessage("§b§m--------------------------------------------------", true)
             }.start()

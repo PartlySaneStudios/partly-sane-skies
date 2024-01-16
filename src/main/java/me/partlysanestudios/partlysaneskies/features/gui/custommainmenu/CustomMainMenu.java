@@ -19,8 +19,8 @@ import gg.essential.elementa.components.UIWrappedText;
 import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
-import me.partlysanestudios.partlysaneskies.features.sound.Prank;
 import me.partlysanestudios.partlysaneskies.data.api.Request;
+import me.partlysanestudios.partlysaneskies.features.sound.Prank;
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager;
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils;
 import me.partlysanestudios.partlysaneskies.utils.MathUtils;
@@ -621,11 +621,14 @@ public class CustomMainMenu extends WindowScreen {
             String source = factInfo.get("source").getAsString();
 
             CustomMainMenu.funFact = fact + "\nSource: " + source;
-            CustomMainMenu.funFactText.setText(CustomMainMenu.funFact);
-
+            if (CustomMainMenu.funFactText != null) {
+                CustomMainMenu.funFactText.setText(CustomMainMenu.funFact);
+            }
         } catch (NullPointerException | IllegalStateException | ClassCastException e) {
             CustomMainMenu.funFact = "Failed to load fun fact.";
-            CustomMainMenu.funFactText.setText(CustomMainMenu.funFact);
+            if (CustomMainMenu.funFactText != null) {
+                CustomMainMenu.funFactText.setText(CustomMainMenu.funFact);
+            }
             CustomMainMenu.funFactWebsite = "https://uselessfacts.jsph.pl/today";
             e.printStackTrace();
         }

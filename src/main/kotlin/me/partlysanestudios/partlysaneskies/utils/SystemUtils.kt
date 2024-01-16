@@ -23,14 +23,25 @@ import java.net.*
 
 object SystemUtils {
 
+    /**
+     * Logs a message to the console
+     * @param level The level to log the message at
+     * @param message The message to log
+     */
     fun log(level: Level?, message: String) {
         for (line in message.split("\n".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()) {
             PartlySaneSkies.LOGGER.log(level, line)
         }
     }
+
+    /**
+     * Copies a string to the clipboard
+     * @param string The string to copy
+     */
     fun copyStringToClipboard(string: String) {
         Toolkit.getDefaultToolkit().systemClipboard.setContents(getTransferableString(string), null)
     }
+
     private fun getTransferableString(string: String): Transferable {
         return object : Transferable {
             override fun getTransferDataFlavors(): Array<DataFlavor> {
@@ -52,7 +63,7 @@ object SystemUtils {
     }
 
 
-    @Deprecated("") // Deprecated: Use RequestManager and Requests instead
+    @Deprecated("Use RequestManager and Requests instead")
     @Throws(IOException::class)
     fun getRequest(urlString: String): String {
         val url = URL(urlString)
@@ -99,10 +110,13 @@ object SystemUtils {
     }
 
 
+    /**
+     * Checks if a string is a valid URL
+     */
     fun isValidURL(urlString: String?): Boolean {
         return try {
             // Create a URL object
-            val url = URL(urlString)
+            URL(urlString)
 
             // If the URL is created without throwing an exception, it's valid
             true
@@ -111,11 +125,14 @@ object SystemUtils {
             false
         }
     }
-    // Opens a link with a given URL
+
+    /**
+     * Opens a link in the default browser
+     * @param url The url to open
+     */
     fun openLink(url: String?) {
-        val uri: URI
         try {
-            uri = URI(url)
+            val uri: URI = URI(url)
             try {
                 val oclass = Class.forName("java.awt.Desktop")
                 val `object` = oclass.getMethod("getDesktop", *arrayOfNulls(0)).invoke(null)
@@ -130,7 +147,11 @@ object SystemUtils {
         }
     }
 
-    //    Gets the json element from a path string in format /key/key/key/key/
+    /**
+     * Gets the json element from a path string in format /key/key/key/key/
+     * @param path The path to get the json element from
+     * @return The json element at the path
+     */
     fun JsonObject.getJsonFromPath(path: String): JsonElement? {
         val splitPath = path.split("/".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
         var obj: JsonObject? = this
@@ -144,7 +165,6 @@ object SystemUtils {
                 return null
             }
         }
-
 
 //        Gets the last object as a JsonElement
         return obj!![splitPath[splitPath.size - 1]]

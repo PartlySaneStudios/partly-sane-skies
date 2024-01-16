@@ -5,9 +5,9 @@
 
 package me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner;
 
-import java.awt.Color;
-
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
+
+import java.awt.*;
 
 public class Drop {
     public String name;

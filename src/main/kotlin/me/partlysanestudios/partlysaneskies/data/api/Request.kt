@@ -15,6 +15,8 @@ import java.io.IOException
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
+import java.security.cert.X509Certificate
+import javax.net.ssl.*
 
 /**
  * @param url The requests URL
@@ -72,6 +74,28 @@ open class Request(private val url: URL, private val function: RequestRunnable?,
      */
     @Throws(IOException::class)
     open fun startRequest() {
+        val trustAllCerts = arrayOf<TrustManager>(object : X509TrustManager {
+            override fun getAcceptedIssuers(): Array<X509Certificate> {
+                return arrayOf()
+            }
+
+            override fun checkClientTrusted(chain: Array<X509Certificate>, authType: String) {
+            }
+
+            override fun checkServerTrusted(chain: Array<X509Certificate>, authType: String) {
+            }
+        })
+
+        // Install the all-trusting trust manager
+        val sslContext = SSLContext.getInstance("SSL")
+        sslContext.init(null, trustAllCerts, java.security.SecureRandom())
+        HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.socketFactory)
+
+        // Create an all-trusting host name verifier
+        val allHostsValid = HostnameVerifier { _, _ -> true }
+
+        // Install the all-trusting host verifier
+        HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid)
         // Opens a new connection with the url
         val httpURLConnection = url.openConnection() as HttpURLConnection
         // Sets the browser as Mozilla to bypass an insecure restrictions
