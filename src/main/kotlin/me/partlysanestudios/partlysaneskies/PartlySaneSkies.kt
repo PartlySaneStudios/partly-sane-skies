@@ -75,6 +75,7 @@ import me.partlysanestudios.partlysaneskies.gui.hud.BannerRenderer
 import me.partlysanestudios.partlysaneskies.gui.hud.cooldown.CooldownManager
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
+import me.partlysanestudios.partlysaneskies.data.api.PolyfrostUrsaMinorRequest
 import net.minecraft.client.Minecraft
 import net.minecraft.event.ClickEvent
 import net.minecraft.event.HoverEvent
@@ -256,6 +257,8 @@ class PartlySaneSkies {
         PearlRefill.registerCommand()
         CooldownManager.init()
         DebugKey.init()
+
+        PolyfrostUrsaMinorRequest.authorize()
 
         // Initializes skill upgrade recommendation
         SkillUpgradeRecommendation.populateSkillMap()

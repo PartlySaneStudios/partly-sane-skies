@@ -89,6 +89,7 @@ public class SkyblockPlayer {
             String requestURL = "https://mowojang.matdoes.dev/users/profiles/minecraft/" + username;
 
             RequestsManager.INSTANCE.newRequest(new Request(requestURL, request -> {
+                SystemUtils.INSTANCE.log(Level.INFO, request.getResponse());
                 if (!request.hasSucceeded()) {
                     synchronized (lock) {
                         lock.notifyAll();

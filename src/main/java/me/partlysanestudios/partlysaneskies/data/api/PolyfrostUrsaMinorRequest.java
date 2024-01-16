@@ -128,7 +128,7 @@ public class PolyfrostUrsaMinorRequest extends Request {
         }
     }
 
-    private static boolean authorize() {
+    public static boolean authorize() {
         String serverId = UUID.randomUUID().toString(); // generate a random serverid
         try {
             GameProfile profile = Minecraft.getMinecraft().getSession().getProfile(); // get the user's game profile
