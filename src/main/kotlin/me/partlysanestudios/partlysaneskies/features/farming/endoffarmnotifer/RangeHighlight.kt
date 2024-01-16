@@ -28,10 +28,10 @@ package me.partlysanestudios.partlysaneskies.features.farming.endoffarmnotifer
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.render.points.Point3d
+import me.partlysanestudios.partlysaneskies.data.skyblockdata.IslandType
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils
 import me.partlysanestudios.partlysaneskies.utils.ImageUtils
-import me.partlysanestudios.partlysaneskies.utils.IslandType
 
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.Tessellator

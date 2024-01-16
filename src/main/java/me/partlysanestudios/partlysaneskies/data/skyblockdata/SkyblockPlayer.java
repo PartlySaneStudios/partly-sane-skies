@@ -86,9 +86,10 @@ public class SkyblockPlayer {
         SystemUtils.INSTANCE.log(Level.INFO, "Creating Player");
 
         if (uuid == null) {
-            String requestURL = "https://api.mojang.com/users/profiles/minecraft/" + username;
+            String requestURL = "https://mowojang.matdoes.dev/users/profiles/minecraft/" + username;
 
             RequestsManager.INSTANCE.newRequest(new Request(requestURL, request -> {
+                SystemUtils.INSTANCE.log(Level.INFO, request.getResponse());
                 if (!request.hasSucceeded()) {
                     synchronized (lock) {
                         lock.notifyAll();

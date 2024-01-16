@@ -97,12 +97,13 @@ public class OneConfigScreen extends Config {
     )
     public boolean discordRPC = true;
 
-    @Switch(
+    @Dropdown(
             category = "General",
             subcategory = "Discord",
-            name = "SBE Bad Mode"
+            name = "Playing...",
+            options = { "Hypixel Skyblock", "sbe bad" }
     )
-    public boolean sbeBadMode = true;
+    public int discordPlayingMode = 0;
 
     @Text(
             category = "General",

@@ -11,6 +11,7 @@ import com.google.gson.GsonBuilder
 import com.google.gson.annotations.Expose
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity
+import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity.Companion.getRarityFromColorCode
 import me.partlysanestudios.partlysaneskies.features.debug.DebugKey
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils
 import me.partlysanestudios.partlysaneskies.utils.MathUtils
@@ -22,7 +23,6 @@ import net.minecraft.entity.Entity
 import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import java.io.FileWriter
-import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity.Companion.getRarityFromColorCode
 import java.io.IOException
 import java.io.Reader
 import java.nio.file.Files
@@ -107,7 +107,7 @@ object PetData {
     }
 
     /**
-     * @return the current pet rarity or Rarity.UNKNOWN when a pet is not spawned or unknown
+     * @return the current pet rarity or [Rarity.UNKNOWN] when a pet is not spawned or unknown
      */
     fun getCurrentPetRarity(): Rarity {
         parsePetFromWorld()
@@ -257,11 +257,6 @@ object PetData {
     }
 
 
-
-
-
-
-
     /**
      * PetDataJson is a private class representing the data that is saved in the cache
      * @property currentPetRarity: the current pet's rarity
@@ -288,10 +283,5 @@ object PetData {
                 petNameLevelMap[rarity] = HashMap()
             }
         }
-
     }
-
-
-
-
 }

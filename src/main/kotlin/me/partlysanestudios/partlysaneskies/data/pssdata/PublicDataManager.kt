@@ -12,17 +12,15 @@ import me.partlysanestudios.partlysaneskies.data.api.RequestsManager
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager
 import me.partlysanestudios.partlysaneskies.features.dungeons.playerrating.PlayerRating
 import me.partlysanestudios.partlysaneskies.features.economy.minioncalculator.MinionData
-import me.partlysanestudios.partlysaneskies.features.economy.minioncalculator.MinionData.init
+import me.partlysanestudios.partlysaneskies.features.farming.MathematicalHoeRightClicks
 import me.partlysanestudios.partlysaneskies.features.farming.garden.CompostValue
 import me.partlysanestudios.partlysaneskies.features.farming.garden.SkymartValue
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
+import me.partlysanestudios.partlysaneskies.utils.SystemUtils
 import net.minecraft.command.ICommandSender
 import net.minecraft.util.ChatComponentText
-import java.net.MalformedURLException
-import me.partlysanestudios.partlysaneskies.features.farming.MathematicalHoeRightClicks
-import me.partlysanestudios.partlysaneskies.utils.ChatUtils
-import me.partlysanestudios.partlysaneskies.utils.SystemUtils
 import org.apache.logging.log4j.Level
+import java.net.MalformedURLException
 
 object PublicDataManager {
     // Add all initializing of public data here
@@ -69,9 +67,9 @@ object PublicDataManager {
     }
 
     /**
-     * Gets the file from either the cache or the github repo
+     * Gets the file from either the cache or the GitHub repo
      *
-     * @param path the path to the file from the /data/ folder on the github repo
+     * @param path the path to the file from the /data/ folder on the GitHub repo
      * @return a string version of the json file
      */
     fun getFile(path: String): String {
