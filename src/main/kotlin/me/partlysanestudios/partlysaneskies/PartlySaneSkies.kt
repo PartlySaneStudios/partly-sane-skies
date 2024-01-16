@@ -68,7 +68,6 @@ import me.partlysanestudios.partlysaneskies.features.skills.SkillUpgradeRecommen
 import me.partlysanestudios.partlysaneskies.features.sound.Prank
 import me.partlysanestudios.partlysaneskies.features.sound.enhancedsound.EnhancedSound
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
-import me.partlysanestudios.partlysaneskies.gui.hud.BannerRenderer
 import me.partlysanestudios.partlysaneskies.gui.hud.cooldown.CooldownManager
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
@@ -191,41 +190,41 @@ class PartlySaneSkies {
 
 
         // Registers all the events
-        load(this)
-        load(DropBannerDisplay())
-        load(PartyManager())
-        load(WatcherReady())
-        load(WormWarning())
-        load(CustomMainMenu(ElementaVersion.V2))
-        load(PartyFriendManager())
-        load(WikiArticleOpener())
-        load(NoCookieWarning())
-        load(GardenTradeValue())
-        load(CompostValue())
-        load(EnhancedSound())
-        load(BitsShopValue())
-        load(PlayerRating())
-        load(SkymartValue())
-        load(PetAlert())
-        load(RequiredSecretsFound())
-        load(Pickaxes())
-        load(MathematicalHoeRightClicks())
-        load(MiningEvents())
-        load(AuctionHouseGui)
-        load(ChatManager)
-        load(RangeHighlight)
-        load(VisitorLogbookStats)
-        load(CoinsToBoosterCookieConversion)
-        load(EndOfFarmNotifier)
-        load(Prank)
-        load(RefreshKeybinds)
-        load(AutoGG)
-        load(CooldownManager)
-        load(PetData)
-        load(PearlRefill)
-        load(SanityCheck)
-        load(Keybinds)
-        load(HealerAlert)
+        registerEvent(this)
+        registerEvent(DropBannerDisplay())
+        registerEvent(PartyManager())
+        registerEvent(WatcherReady())
+        registerEvent(WormWarning())
+        registerEvent(CustomMainMenu(ElementaVersion.V2))
+        registerEvent(PartyFriendManager())
+        registerEvent(WikiArticleOpener())
+        registerEvent(NoCookieWarning())
+        registerEvent(GardenTradeValue())
+        registerEvent(CompostValue())
+        registerEvent(EnhancedSound())
+        registerEvent(BitsShopValue())
+        registerEvent(PlayerRating())
+        registerEvent(SkymartValue())
+        registerEvent(PetAlert())
+        registerEvent(RequiredSecretsFound())
+        registerEvent(Pickaxes())
+        registerEvent(MathematicalHoeRightClicks())
+        registerEvent(MiningEvents())
+        registerEvent(AuctionHouseGui)
+        registerEvent(ChatManager)
+        registerEvent(RangeHighlight)
+        registerEvent(VisitorLogbookStats)
+        registerEvent(CoinsToBoosterCookieConversion)
+        registerEvent(EndOfFarmNotifier)
+        registerEvent(Prank)
+        registerEvent(RefreshKeybinds)
+        registerEvent(AutoGG)
+        registerEvent(CooldownManager)
+        registerEvent(PetData)
+        registerEvent(PearlRefill)
+        registerEvent(SanityCheck)
+        registerEvent(Keybinds)
+        registerEvent(HealerAlert)
 
         // Registers all client side commands
         HelpCommand.registerPSSCommand()
@@ -284,7 +283,7 @@ class PartlySaneSkies {
         log(Level.INFO, "Partly Sane Skies has loaded.")
     }
 
-    private fun load(file: Any) {
+    private fun registerEvent(file: Any) {
         try {
             EVENT_BUS.register(file)
         } catch (e: Exception) {
