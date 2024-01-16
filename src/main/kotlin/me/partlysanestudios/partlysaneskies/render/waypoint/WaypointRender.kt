@@ -2,6 +2,7 @@ package me.partlysanestudios.partlysaneskies.render.waypoint
 
 import me.partlysanestudios.partlysaneskies.render.BlockHighlightRenderer
 import me.partlysanestudios.partlysaneskies.render.BeamRenderer
+import me.partlysanestudios.partlysaneskies.render.TextRenderer.renderText3d
 import me.partlysanestudios.partlysaneskies.render.waypoint.WaypointManager.getWaypoints
 import net.minecraft.client.Minecraft
 import net.minecraft.util.AxisAlignedBB
@@ -37,73 +38,13 @@ object WaypointRender {
 
         // Render waypoint label
         if (waypoint.showLabel) {
-            showLabel(waypoint)
+            renderText3d(waypoint.position.up().up(), waypoint.name)
         }
 
         // Render waypoint distance
         if (waypoint.showDistance) {
-            showDistance(waypoint, distance)
+            val distanceText = "${distance.toInt()}m"
+            renderText3d(waypoint.position.up(), distanceText)
         }
-    }
-
-    private fun showLabel(waypoint: Waypoint) {
-        val mc = Minecraft.getMinecraft()
-        val renderManager = mc.renderManager
-
-        val x = waypoint.position.x - renderManager.viewerPosX
-        val y = waypoint.position.y - renderManager.viewerPosY
-        val z = waypoint.position.z - renderManager.viewerPosZ
-
-        val label = waypoint.name
-        val labelWidth = mc.fontRendererObj.getStringWidth(label)
-        val labelHeight = mc.fontRendererObj.FONT_HEIGHT
-
-        val labelX = x - labelWidth / 2
-        val labelY = y - labelHeight / 2
-        val labelZ = z - labelHeight / 2
-
-        val labelBox =
-            AxisAlignedBB(labelX, labelY, labelZ, labelX + labelWidth, labelY + labelHeight, labelZ + labelHeight)
-
-//        if (labelBox.isVecInside(Vec3(renderManager.viewerPosX, renderManager.viewerPosY, renderManager.viewerPosZ))) {
-//            mc.fontRendererObj.drawString(label, labelX.toInt(), labelY.toInt(), waypoint.color)
-//        }
-    }
-
-    private fun showDistance(waypoint: Waypoint, distance: Double) {
-        val mc = Minecraft.getMinecraft()
-        val renderManager = mc.renderManager
-
-        val x = waypoint.position.x - renderManager.viewerPosX
-        val y = waypoint.position.y - renderManager.viewerPosY
-        val z = waypoint.position.z - renderManager.viewerPosZ
-
-        val distanceLabel = "%.2f".format(distance)
-        val distanceLabelWidth = mc.fontRendererObj.getStringWidth(distanceLabel)
-        val distanceLabelHeight = mc.fontRendererObj.FONT_HEIGHT
-
-        val distanceLabelX = x - distanceLabelWidth / 2
-        val distanceLabelY = y - distanceLabelHeight / 2
-        val distanceLabelZ = z - distanceLabelHeight / 2
-
-        val distanceLabelBox = AxisAlignedBB(
-            distanceLabelX,
-            distanceLabelY,
-            distanceLabelZ,
-            distanceLabelX + distanceLabelWidth,
-            distanceLabelY + distanceLabelHeight,
-            distanceLabelZ + distanceLabelHeight
-        )
-
-//        if (distanceLabelBox.isVecInside(
-//                Vec3(
-//                    renderManager.viewerPosX,
-//                    renderManager.viewerPosY,
-//                    renderManager.viewerPosZ
-//                )
-//            )
-//        ) {
-////            mc.fontRendererObj.drawString(distanceLabel, distanceLabelX.toInt(), distanceLabelY.toInt(), waypoint.color)
-//        }
     }
 }
