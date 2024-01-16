@@ -36,10 +36,7 @@ import me.partlysanestudios.partlysaneskies.features.commands.HelpCommand
 import me.partlysanestudios.partlysaneskies.features.commands.Version
 import me.partlysanestudios.partlysaneskies.features.debug.DebugKey
 import me.partlysanestudios.partlysaneskies.features.discord.DiscordRPC
-import me.partlysanestudios.partlysaneskies.features.dungeons.AutoGG
-import me.partlysanestudios.partlysaneskies.features.dungeons.PearlRefill
-import me.partlysanestudios.partlysaneskies.features.dungeons.RequiredSecretsFound
-import me.partlysanestudios.partlysaneskies.features.dungeons.WatcherReady
+import me.partlysanestudios.partlysaneskies.features.dungeons.*
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.PartyFriendManager
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.partymanager.PartyManager
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.permpartyselector.PermPartyManager
@@ -71,7 +68,6 @@ import me.partlysanestudios.partlysaneskies.features.skills.SkillUpgradeRecommen
 import me.partlysanestudios.partlysaneskies.features.sound.Prank
 import me.partlysanestudios.partlysaneskies.features.sound.enhancedsound.EnhancedSound
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
-import me.partlysanestudios.partlysaneskies.gui.hud.BannerRenderer
 import me.partlysanestudios.partlysaneskies.gui.hud.cooldown.CooldownManager
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
@@ -113,7 +109,7 @@ class PartlySaneSkies {
 
         val minecraft: Minecraft
             get() {
-                return pssMinecraft?: Minecraft.getMinecraft()
+                return pssMinecraft ?: Minecraft.getMinecraft()
             }
         private var pssMinecraft: Minecraft? = null
 
@@ -142,7 +138,8 @@ class PartlySaneSkies {
 
         var mainMenuRequest: Request? = null
         mainMenuRequest =
-            Request("https://raw.githubusercontent.com/" + getRepoOwner() + "/" + getRepoName() + "/main/data/main_menu.json",
+            Request(
+                "https://raw.githubusercontent.com/" + getRepoOwner() + "/" + getRepoName() + "/main/data/main_menu.json",
                 { request: Request? ->
                     CustomMainMenu.setMainMenuInfo(
                         request
@@ -151,7 +148,8 @@ class PartlySaneSkies {
             )
         newRequest(mainMenuRequest)
         var funFactRequest: Request? = null
-        funFactRequest = Request(CustomMainMenu.funFactApi,
+        funFactRequest = Request(
+            CustomMainMenu.funFactApi,
             { request: Request? ->
                 CustomMainMenu.setFunFact(
                     request
@@ -193,42 +191,42 @@ class PartlySaneSkies {
 
 
         // Registers all the events
-        EVENT_BUS.register(this)
-        EVENT_BUS.register(DropBannerDisplay())
-        EVENT_BUS.register(PartyManager())
-        EVENT_BUS.register(WatcherReady())
-        EVENT_BUS.register(WormWarning())
-        EVENT_BUS.register(CustomMainMenu(ElementaVersion.V2))
-        EVENT_BUS.register(PartyFriendManager())
-        EVENT_BUS.register(WikiArticleOpener())
-        EVENT_BUS.register(NoCookieWarning())
-        EVENT_BUS.register(GardenTradeValue())
-        EVENT_BUS.register(CompostValue())
-        EVENT_BUS.register(EnhancedSound())
-        EVENT_BUS.register(BitsShopValue())
-        EVENT_BUS.register(PlayerRating())
-        EVENT_BUS.register(SkymartValue())
-        EVENT_BUS.register(PetAlert())
-        EVENT_BUS.register(RequiredSecretsFound())
-        EVENT_BUS.register(Pickaxes())
-        EVENT_BUS.register(MathematicalHoeRightClicks())
-        EVENT_BUS.register(MiningEvents())
-        EVENT_BUS.register(AuctionHouseGui)
-        EVENT_BUS.register(ChatManager)
-        EVENT_BUS.register(RangeHighlight)
-        EVENT_BUS.register(BannerRenderer)
-        EVENT_BUS.register(VisitorLogbookStats)
-        EVENT_BUS.register(CoinsToBoosterCookieConversion)
-        EVENT_BUS.register(EndOfFarmNotifier)
-        EVENT_BUS.register(Prank)
-        EVENT_BUS.register(RefreshKeybinds)
-        EVENT_BUS.register(AutoGG)
-        EVENT_BUS.register(CooldownManager)
-        EVENT_BUS.register(PetData)
-        EVENT_BUS.register(PearlRefill)
-        EVENT_BUS.register(SanityCheck)
-        EVENT_BUS.register(Keybinds)
-        
+        registerEvent(this)
+        registerEvent(DropBannerDisplay())
+        registerEvent(PartyManager())
+        registerEvent(WatcherReady())
+        registerEvent(WormWarning())
+        registerEvent(CustomMainMenu(ElementaVersion.V2))
+        registerEvent(PartyFriendManager())
+        registerEvent(WikiArticleOpener())
+        registerEvent(NoCookieWarning())
+        registerEvent(GardenTradeValue())
+        registerEvent(CompostValue())
+        registerEvent(EnhancedSound())
+        registerEvent(BitsShopValue())
+        registerEvent(PlayerRating())
+        registerEvent(SkymartValue())
+        registerEvent(PetAlert())
+        registerEvent(RequiredSecretsFound())
+        registerEvent(Pickaxes())
+        registerEvent(MathematicalHoeRightClicks())
+        registerEvent(MiningEvents())
+        registerEvent(AuctionHouseGui)
+        registerEvent(ChatManager)
+        registerEvent(RangeHighlight)
+        registerEvent(VisitorLogbookStats)
+        registerEvent(CoinsToBoosterCookieConversion)
+        registerEvent(EndOfFarmNotifier)
+        registerEvent(Prank)
+        registerEvent(RefreshKeybinds)
+        registerEvent(AutoGG)
+        registerEvent(CooldownManager)
+        registerEvent(PetData)
+        registerEvent(PearlRefill)
+        registerEvent(SanityCheck)
+        registerEvent(Keybinds)
+        registerEvent(HealerAlert)
+
         // Registers all client side commands
         HelpCommand.registerPSSCommand()
         HelpCommand.registerHelpCommand()
@@ -278,9 +276,7 @@ class PartlySaneSkies {
         // Loads user player data for PartyManager
         Thread({
             try {
-                SkyblockDataManager.getPlayer(
-                    me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft?.session?.username ?: ""
-                )
+                SkyblockDataManager.getPlayer(minecraft.session?.username ?: "")
             } catch (e: MalformedURLException) {
                 e.printStackTrace()
             }
@@ -290,20 +286,26 @@ class PartlySaneSkies {
         log(Level.INFO, "Partly Sane Skies has loaded.")
     }
 
+    private fun registerEvent(file: Any) {
+        try {
+            EVENT_BUS.register(file)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
     // Method runs every tick
     @SubscribeEvent
     fun clientTick(evnt: ClientTickEvent?) {
-        // Checks if the current location is the same as the previous location for the location banner display
+        config.resetBrokenStrings()
         LocationBannerDisplay.checkLocation()
         EndOfFarmNotifier.run()
         SkyblockDataManager.runUpdater()
-
-        // Checks if the player is collecting minions
         PetAlert.runPetAlert()
         ThemeManager.run()
-        config!!.resetBrokenStrings()
         ThemeManager.run()
         PetData.tick()
+        HealerAlert.run()
     }
 
     @SubscribeEvent
@@ -316,22 +318,16 @@ class PartlySaneSkies {
                     e.printStackTrace()
                 }
                 val discordMessage: IChatComponent =
-                    ChatComponentText("§9The Partly Sane Skies Discord server: https://discord.gg/" + discordCode)
+                    ChatComponentText("§9The Partly Sane Skies Discord server: https://discord.gg/$discordCode")
                 discordMessage.chatStyle.setChatClickEvent(
-                    ClickEvent(
-                        ClickEvent.Action.OPEN_URL,
-                        "https://discord.gg/" + discordCode
-                    )
+                    ClickEvent(ClickEvent.Action.OPEN_URL, "https://discord.gg/$discordCode")
                 )
                 sendClientMessage("§b§m--------------------------------------------------", true)
                 sendClientMessage("§cWe noticed you're using a dogfood version of Partly Sane Skies.", false)
                 sendClientMessage("§c§lThis version may be unstable.", true)
                 sendClientMessage("§cOnly use it when told to do so by a Partly Sane Skies admin.", true)
                 sendClientMessage("§cReport any bugs to Partly Sane Skies admins in a private ticket.", true)
-                sendClientMessage(
-                    "§7Version ID: §d" + VERSION,
-                    true
-                )
+                sendClientMessage("§7Version ID: §d$VERSION", true)
                 sendClientMessage("§7Latest non-dogfood version: §d" + CustomMainMenu.latestVersion, true)
                 sendClientMessage(discordMessage)
                 sendClientMessage("§b§m--------------------------------------------------", true)
@@ -350,7 +346,7 @@ class PartlySaneSkies {
                 sendClientMessage("§cYou are currently using version §d" + VERSION + "§c, the latest version is §d" + CustomMainMenu.latestVersion + "§c.")
                 val skyclientMessage =
                     ChatComponentText("§aIf you are using SkyClient, make sure you update when prompted.")
-                minecraft!!.ingameGUI
+                minecraft.ingameGUI
                     .chatGUI
                     .printChatMessage(skyclientMessage)
                 val githubMessage =
@@ -367,7 +363,7 @@ class PartlySaneSkies {
                         ChatComponentText("Click here to open the downloads page")
                     )
                 )
-                minecraft!!.ingameGUI
+                minecraft.ingameGUI
                     .chatGUI
                     .printChatMessage(githubMessage)
                 sendClientMessage("§b§m--------------------------------------------------", true)

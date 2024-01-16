@@ -11,6 +11,7 @@ import com.google.gson.JsonParser
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand
 import me.partlysanestudios.partlysaneskies.commands.PSSCommandRunnable
+import me.partlysanestudios.partlysaneskies.data.skyblockdata.IslandType
 import me.partlysanestudios.partlysaneskies.gui.hud.BannerRenderer.renderNewBanner
 import me.partlysanestudios.partlysaneskies.gui.hud.PSSBanner
 import me.partlysanestudios.partlysaneskies.utils.*
@@ -48,7 +49,7 @@ object EndOfFarmNotifier {
     fun run() {
         if (!MathUtils.onCooldown(
                 rangeToHighlightSetTime,
-                (PartlySaneSkies.config.farmHightlightTime * 1000).toLong() // damn we can english (its called highlight)
+                (PartlySaneSkies.config.farmHightlightTime * 1000).toLong() // damn we can english (it's called highlight)
             )
         ) {
             rangeToHighlight = null
@@ -143,7 +144,7 @@ object EndOfFarmNotifier {
         if (MinecraftUtils.getCurrentlyHoldingItem()?.hasDisplayName() == false) {
             return
         }
-        if (MinecraftUtils.getCurrentlyHoldingItem()?.getDisplayName()?.contains("SkyBlock Menu") == false) {
+        if (MinecraftUtils.getCurrentlyHoldingItem()?.displayName?.contains("SkyBlock Menu") == false) {
             return
         }
         if (event.pos == null) {

@@ -170,7 +170,7 @@ object DiscordRPC {
 
         /*
         * Some systems report "amd64" (e.g. Windows and Linux), some "x86_64" (e.g. Mac OS).
-        *At this point we need the "x86_64" version, as this one is used in the ZIP.
+        * At this point we need the "x86_64" version, as this one is used in the ZIP.
         */
         if (arch == "amd64") arch = "x86_64"
 
