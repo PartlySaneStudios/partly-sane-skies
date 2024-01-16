@@ -56,7 +56,6 @@ object CoinsToBoosterCookieConversion {
     }
     fun registerCommand() {
         PSSCommand("coins2cookies")
-            .addAlias("/coins2cookies")
             .addAlias("/coinstocookies")
             .addAlias("/pssco2icok")
             .addAlias("/coi2cok")

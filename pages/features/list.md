@@ -8,7 +8,7 @@ General and Miscellaneous features.
 
 ### Mod Checker
 
-When enabled, Mod Checker automatically will check your mods list for outdated, suspicous, or unknown mods. These mods may not be on the list of verified mods. If you believe a mod is being falsely flagged, please report it in the PSS discord (``/pssdiscord``)
+When enabled, Mod Checker automatically will check your mods list for outdated, suspicious, or unknown mods. These mods may not be on the list of verified mods. If you believe a mod is being falsely flagged, please report it in the PSS discord (``/pssdiscord``)
 ![image](/images/mod_checker.png)
 
 ### Privacy
