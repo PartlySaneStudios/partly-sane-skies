@@ -294,17 +294,15 @@ class PartlySaneSkies {
     // Method runs every tick
     @SubscribeEvent
     fun clientTick(evnt: ClientTickEvent?) {
-        // Checks if the current location is the same as the previous location for the location banner display
+        config.resetBrokenStrings()
         LocationBannerDisplay.checkLocation()
         EndOfFarmNotifier.run()
         SkyblockDataManager.runUpdater()
-
-        // Checks if the player is collecting minions
         PetAlert.runPetAlert()
         ThemeManager.run()
-        config.resetBrokenStrings()
         ThemeManager.run()
         PetData.tick()
+        HealerAlert.run()
     }
 
     @SubscribeEvent
