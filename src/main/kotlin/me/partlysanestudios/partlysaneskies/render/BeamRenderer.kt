@@ -1,8 +1,6 @@
 package me.partlysanestudios.partlysaneskies.render
 
-import me.partlysanestudios.partlysaneskies.PartlySaneSkies.minecraft
 import me.partlysanestudios.partlysaneskies.render.RenderPrimitives.drawBoxFill
-import me.partlysanestudios.partlysaneskies.render.RenderPrimitives.drawBoxOutline
 import me.partlysanestudios.partlysaneskies.render.points.Point3d
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.GlStateManager

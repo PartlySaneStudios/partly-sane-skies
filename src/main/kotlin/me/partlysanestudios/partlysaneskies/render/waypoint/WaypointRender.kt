@@ -9,7 +9,7 @@ import net.minecraft.util.Vec3
 import net.minecraftforge.client.event.RenderWorldLastEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 
-object WaypointRenderer {
+object WaypointRender {
     @SubscribeEvent
     fun onRenderWorldLast(event: RenderWorldLastEvent) {
         val mc = Minecraft.getMinecraft()
