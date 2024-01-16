@@ -194,9 +194,6 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
                 return
             }
 
-            if (DebugKey.isDebugMode()) {
-                return
-            }
 //            val inventory = MinecraftUtils.getSeparateUpperLowerInventories(event.gui)[0]
 
 //            ChatUtils.sendClientMessage("Opening menu")
