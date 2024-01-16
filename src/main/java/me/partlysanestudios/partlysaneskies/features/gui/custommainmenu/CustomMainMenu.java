@@ -621,11 +621,14 @@ public class CustomMainMenu extends WindowScreen {
             String source = factInfo.get("source").getAsString();
 
             CustomMainMenu.funFact = fact + "\nSource: " + source;
-            CustomMainMenu.funFactText.setText(CustomMainMenu.funFact);
-
+            if (CustomMainMenu.funFactText != null) {
+                CustomMainMenu.funFactText.setText(CustomMainMenu.funFact);
+            }
         } catch (NullPointerException | IllegalStateException | ClassCastException e) {
             CustomMainMenu.funFact = "Failed to load fun fact.";
-            CustomMainMenu.funFactText.setText(CustomMainMenu.funFact);
+            if (CustomMainMenu.funFactText != null) {
+                CustomMainMenu.funFactText.setText(CustomMainMenu.funFact);
+            }
             CustomMainMenu.funFactWebsite = "https://uselessfacts.jsph.pl/today";
             e.printStackTrace();
         }
