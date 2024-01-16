@@ -1,8 +1,7 @@
 package me.partlysanestudios.partlysaneskies.mixin.minecraft;
 
 
-import me.partlysanestudios.partlysaneskies.gui.hud.cooldown.TreecapitatorCooldown;
-import me.partlysanestudios.partlysaneskies.utils.ChatUtils;
+import me.partlysanestudios.partlysaneskies.render.gui.hud.cooldown.TreecapitatorCooldown;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;

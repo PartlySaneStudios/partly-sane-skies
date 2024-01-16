@@ -1,3 +1,9 @@
+//
+// Written by Su386.
+// See LICENSE for copyright and license notices.
+//
+
+
 package me.partlysanestudios.partlysaneskies.features.dungeons
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
@@ -16,7 +22,7 @@ object AutoGG {
             return
         }
         if (event.message.formattedText.contains("§r§fTeam Score:")) {
-            Thread() {
+            Thread({
                 Thread.sleep((PartlySaneSkies.config.autoGGCooldown * 1000).toLong())
                 val input = event.message.unformattedText
                 val regex = "\\((.*?)\\)"
@@ -52,7 +58,7 @@ object AutoGG {
 
                     }
                 }
-            }
+            },"AutoGG wait").start()
         }
     }
 }

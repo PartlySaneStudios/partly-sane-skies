@@ -137,14 +137,14 @@ public class CompostValue {
 
     // 22
     public static boolean isComposter() {
-        if (PartlySaneSkies.minecraft.currentScreen == null) {
+        if (PartlySaneSkies.Companion.getMinecraft().currentScreen == null) {
             return false;
         }
-        if (!(PartlySaneSkies.minecraft.currentScreen instanceof GuiChest)) {
+        if (!(PartlySaneSkies.Companion.getMinecraft().currentScreen instanceof GuiChest)) {
             return false;
         }
 
-        IInventory[] inventories = MinecraftUtils.INSTANCE.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen);
+        IInventory[] inventories = MinecraftUtils.INSTANCE.getSeparateUpperLowerInventories(PartlySaneSkies.Companion.getMinecraft().currentScreen);
         if (inventories == null) return false;
 
         IInventory composter = inventories[0];
@@ -301,7 +301,7 @@ public class CompostValue {
             box.hide();
             return;
         }
-        if (!PartlySaneSkies.config.bestCropsToCompost) {
+        if (!PartlySaneSkies.Companion.getConfig().bestCropsToCompost) {
             return;
         }
 

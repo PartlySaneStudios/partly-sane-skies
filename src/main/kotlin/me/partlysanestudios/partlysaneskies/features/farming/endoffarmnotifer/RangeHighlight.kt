@@ -27,7 +27,7 @@
 package me.partlysanestudios.partlysaneskies.features.farming.endoffarmnotifer
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
-import me.partlysanestudios.partlysaneskies.features.farming.endoffarmnotifer.points.Point3d
+import me.partlysanestudios.partlysaneskies.render.points.Point3d
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils
 import me.partlysanestudios.partlysaneskies.utils.ImageUtils

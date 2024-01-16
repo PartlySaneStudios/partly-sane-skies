@@ -20,7 +20,7 @@ import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.features.sound.Prank;
-import me.partlysanestudios.partlysaneskies.api.Request;
+import me.partlysanestudios.partlysaneskies.data.api.Request;
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager;
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils;
 import me.partlysanestudios.partlysaneskies.utils.MathUtils;
@@ -105,13 +105,13 @@ public class CustomMainMenu extends WindowScreen {
 
     @SubscribeEvent
     public void openCustomMainMenu(GuiOpenEvent e) {
-        if (!(PartlySaneSkies.config.customMainMenu))
+        if (!(PartlySaneSkies.Companion.getConfig().customMainMenu))
             return;
         if (!(e.gui instanceof GuiMainMenu))
             return;
         e.setCanceled(true);
-        PartlySaneSkies.minecraft.displayGuiScreen(new CustomMainMenu(ElementaVersion.V2));
-        PartlySaneSkies.minecraft.getSoundHandler()
+        PartlySaneSkies.Companion.getMinecraft().displayGuiScreen(new CustomMainMenu(ElementaVersion.V2));
+        PartlySaneSkies.Companion.getMinecraft().getSoundHandler()
                 .playSound(PositionedSoundRecord.create(new ResourceLocation("partlysaneskies", "bell")));
     }
 
@@ -129,12 +129,12 @@ public class CustomMainMenu extends WindowScreen {
     public void populateGui(float scaleFactor) {
         String image;
 
-        if (PartlySaneSkies.config.customMainMenuImage == 0) {
+        if (PartlySaneSkies.Companion.getConfig().customMainMenuImage == 0) {
             image = "textures/gui/main_menu/" + imageIdMap.get(MathUtils.INSTANCE.randInt(1, imageIdMap.size()));
         } else
-            image = "textures/gui/main_menu/" + imageIdMap.get(PartlySaneSkies.config.customMainMenuImage);
+            image = "textures/gui/main_menu/" + imageIdMap.get(PartlySaneSkies.Companion.getConfig().customMainMenuImage);
 
-        if (PartlySaneSkies.config.customMainMenuImage == 7) {
+        if (PartlySaneSkies.Companion.getConfig().customMainMenuImage == 7) {
             background = UIImage.ofFile(new File("./config/partly-sane-skies/background.png"));
         }
         else{
@@ -185,7 +185,7 @@ public class CustomMainMenu extends WindowScreen {
                 .setChildOf(middleMenu);
 
         
-        if (!PartlySaneSkies.isLatestVersion()){
+        if (!PartlySaneSkies.Companion.isLatestVersion()){
             updateWarning = new UIWrappedText("Your version of Partly Sane Skies is out of date.\nPlease update to the latest version", true, new Color(0, 0, 0), true)
                 .setTextScale(new PixelConstraint(2.25f * scaleFactor))
                 .setX(new CenterConstraint())
@@ -197,7 +197,7 @@ public class CustomMainMenu extends WindowScreen {
             updateWarning.onMouseClickConsumer(event -> SystemUtils.INSTANCE.openLink("https://github.com/PartlySaneStudios/partly-sane-skies/releases"));
         }
 
-        if (PartlySaneSkies.config.displayAnnouncementsCustomMainMenu) {
+        if (PartlySaneSkies.Companion.getConfig().displayAnnouncementsCustomMainMenu) {
             for (int i = 0; i <= 3 && i < announcements.size(); i++) {
                 announcements.get(i).createTitle(scaleFactor, i, background);
                 announcements.get(i).createDescription(scaleFactor, i, background);
@@ -258,7 +258,7 @@ public class CustomMainMenu extends WindowScreen {
                 .setTextScale(new PixelConstraint(1 * scaleFactor))
                 .setChildOf(joinHypixelButton);
 
-        joinHypixelButton.onMouseClickConsumer(event -> FMLClientHandler.instance().connectToServer(new GuiMultiplayer(PartlySaneSkies.minecraft.currentScreen), new ServerData("AddictionGame", hypixelIP, false)));
+        joinHypixelButton.onMouseClickConsumer(event -> FMLClientHandler.instance().connectToServer(new GuiMultiplayer(PartlySaneSkies.Companion.getMinecraft().currentScreen), new ServerData("AddictionGame", hypixelIP, false)));
 
         joinHypixelButton.onMouseEnterRunnable(() -> joinHypixelText.setColor(new Color(200, 200, 200)));
 
@@ -326,7 +326,7 @@ public class CustomMainMenu extends WindowScreen {
                 .setTextScale(new PixelConstraint(.735f * scaleFactor))
                 .setChildOf(pssOptionsButton);
 
-        pssOptionsButton.onMouseClickConsumer(event -> PartlySaneSkies.config.openGui());
+        pssOptionsButton.onMouseClickConsumer(event -> PartlySaneSkies.Companion.getConfig().openGui());
 
         pssOptionsButton.onMouseEnterRunnable(() -> pssOptionsText.setColor(new Color(200, 200, 200)));
 
@@ -359,14 +359,14 @@ public class CustomMainMenu extends WindowScreen {
             .setTextScale(new PixelConstraint(.5f * scaleFactor))
             .setChildOf(middleMenu);
         
-        discordText = new UIText("Discord: discord.gg/" + PartlySaneSkies.discordCode)
+        discordText = new UIText("Discord: discord.gg/" + PartlySaneSkies.Companion.getDiscordCode())
             .setX(new PixelConstraint(10 * scaleFactor))
             .setY(new PixelConstraint(background.getHeight() - 20 * scaleFactor))
             .setTextScale(new PixelConstraint(1 * scaleFactor))
             .setColor(new Color(69, 79, 191))
             .setChildOf(background);
 
-        discordText.onMouseClickConsumer(event -> SystemUtils.INSTANCE.openLink("https://discord.gg/" + PartlySaneSkies.discordCode));
+        discordText.onMouseClickConsumer(event -> SystemUtils.INSTANCE.openLink("https://discord.gg/" + PartlySaneSkies.Companion.getDiscordCode()));
 
         funFactTitle = (UIWrappedText) new UIWrappedText("Fun Fact of the Day", true, new Color(120, 120, 120), true)
                 .setX(new PixelConstraint((int) background.getWidth() * 0.6f))
@@ -558,7 +558,7 @@ public class CustomMainMenu extends WindowScreen {
         }
             
         try {
-            if (PartlySaneSkies.config.releaseChannel == 0) {
+            if (PartlySaneSkies.Companion.getConfig().releaseChannel == 0) {
                 JsonObject modInfo = object.getAsJsonObject("mod_info");
 
                 latestVersion = modInfo.get("latest_version").getAsString();
@@ -581,9 +581,9 @@ public class CustomMainMenu extends WindowScreen {
         try {
             JsonObject modInfo = object.getAsJsonObject("mod_info");
 
-            PartlySaneSkies.discordCode = modInfo.get("discord_invite_code").getAsString();
+            PartlySaneSkies.Companion.setDiscordCode(modInfo.get("discord_invite_code").getAsString());
         } catch (NullPointerException | IllegalStateException e) {
-            PartlySaneSkies.discordCode = "v4PU3WeH7z";
+            PartlySaneSkies.Companion.setDiscordCode("v4PU3WeH7z");
             e.printStackTrace();
             // CustomMainMenu.latestVersionDate = "(Unknown)";
             // CustomMainMenu.latestVersionDescription = "";
@@ -723,7 +723,7 @@ public class CustomMainMenu extends WindowScreen {
         
         LocalDateTime currentTime = LocalDateTime.now(userZoneId);
         String timeString = currentTime.format(DateTimeFormatter.ofPattern("hh:mm:ss a  dd MMMM yyyy", Locale.ENGLISH));
-        if (PartlySaneSkies.config.hour24time) {
+        if (PartlySaneSkies.Companion.getConfig().hour24time) {
             timeString = currentTime.format(DateTimeFormatter.ofPattern("HH:mm:ss dd MMMM yyyy", Locale.ENGLISH));
         }
 

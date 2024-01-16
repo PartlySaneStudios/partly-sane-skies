@@ -20,8 +20,8 @@ import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager;
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand;
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
-import me.partlysanestudios.partlysaneskies.gui.components.PSSButton;
-import me.partlysanestudios.partlysaneskies.gui.components.PSSToggle;
+import me.partlysanestudios.partlysaneskies.render.gui.components.PSSButton;
+import me.partlysanestudios.partlysaneskies.render.gui.components.PSSToggle;
 
 import java.awt.*;
 import java.util.*;
@@ -322,10 +322,10 @@ public HashMap<MinionData.Minion.Upgrade, PSSToggle> addMinionUpgradeButtons() {
                 .setDescription("Opens the best minion calculator")
                 .setRunnable((s,a) -> {
                     ChatUtils.INSTANCE.sendClientMessage("§bOpening Minion Calculator...");
-                    new Thread(() -> PartlySaneSkies.minecraft.addScheduledTask(() -> {
+                    new Thread(() -> PartlySaneSkies.Companion.getMinecraft().addScheduledTask(() -> {
                         // Code to test the minion classes
                         ProfitMinionCalculator calc = new ProfitMinionCalculator(ElementaVersion.V2);
-                        PartlySaneSkies.minecraft.displayGuiScreen(calc);
+                        PartlySaneSkies.Companion.getMinecraft().displayGuiScreen(calc);
                     })).start();
                 })
                 .register();

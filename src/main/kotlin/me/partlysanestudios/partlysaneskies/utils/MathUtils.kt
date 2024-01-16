@@ -7,8 +7,8 @@
 package me.partlysanestudios.partlysaneskies.utils
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
-import me.partlysanestudios.partlysaneskies.features.farming.endoffarmnotifer.points.Point2d
-import me.partlysanestudios.partlysaneskies.features.farming.endoffarmnotifer.points.Point3d
+import me.partlysanestudios.partlysaneskies.render.points.Point2d
+import me.partlysanestudios.partlysaneskies.render.points.Point3d
 import java.util.concurrent.ThreadLocalRandom
 import kotlin.math.pow
 import kotlin.math.sqrt
@@ -36,7 +36,7 @@ object MathUtils {
     // and takes the length that the event should last in millisecond
     // Returns false if the event is over, returns true if it is still ongoing
     fun onCooldown(lastTime: Long, length: Long): Boolean {
-        return PartlySaneSkies.getTime() <= lastTime + length
+        return PartlySaneSkies.time <= lastTime + length
     }
 
     fun getDistance2d(point1: Point2d, point2: Point2d): Float {

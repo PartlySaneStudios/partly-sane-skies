@@ -28,7 +28,7 @@ public class HelpCommand {
                 .setRunnable((s, a) -> {
                     ChatUtils.INSTANCE.sendClientMessage("§bOpening config menu...");
 
-                    Window.Companion.enqueueRenderOperation(() -> PartlySaneSkies.config.openGui());
+                    Window.Companion.enqueueRenderOperation(() -> PartlySaneSkies.Companion.getConfig().openGui());
                 })
                 .register();
     }
@@ -41,7 +41,7 @@ public class HelpCommand {
 
                     ChatUtils.INSTANCE.sendClientMessage("§bOpening config menu...");
 
-                    Window.Companion.enqueueRenderOperation(() -> PartlySaneSkies.config.openGui());
+                    Window.Companion.enqueueRenderOperation(() -> PartlySaneSkies.Companion.getConfig().openGui());
                 }).register();
     }
 
@@ -58,13 +58,26 @@ public class HelpCommand {
                 .setRunnable((s, a) -> {
                     if (a.length > 0 && configAliases.contains(a[0].toLowerCase())) {
                         ChatUtils.INSTANCE.sendClientMessage("Opening config GUI...");
-                        Window.Companion.enqueueRenderOperation(() -> PartlySaneSkies.config.openGui());
+                        Window.Companion.enqueueRenderOperation(() -> PartlySaneSkies.Companion.getConfig().openGui());
                         return;
                     }
 
                     printHelpMessage();
 
                 }).register();
+    }
+
+    private static String getOneConfigKeyBindString() {
+        if (PartlySaneSkies.Companion.getConfig().oneConfigKeybind.getSize() == 0) {
+            return Keyboard.getKeyName(Keyboard.CHAR_NONE);
+        }
+
+        String str = Keyboard.getKeyName(PartlySaneSkies.Companion.getConfig().oneConfigKeybind.getKeyBinds().get(0));
+        for (int i = 1; i < PartlySaneSkies.Companion.getConfig().oneConfigKeybind.getSize(); i++) {
+            str += " + " +  Keyboard.getKeyName(PartlySaneSkies.Companion.getConfig().oneConfigKeybind.getKeyBinds().get(i));
+        }
+
+        return str;
     }
 
     public static void printHelpMessage() {
@@ -74,9 +87,8 @@ public class HelpCommand {
                 "\nPartly Sane Skies is a mod developed by Su386 and FlagMaster. This mod aims to be a quality of life mod for Hypixel SkyBlock." +
                 "\n" +
                 "\n §6> Open the config: " +
-                "\n    §6> §ePress " + Keyboard.getKeyName(Keybinds.configKey.getKeyCode()) + " or use /pssc" +
+                "\n    §6> §ePress " + getOneConfigKeyBindString() + " or use /pssc" +
                 "\n    §6> §eMost features are turned off by default so to use the mod, you will need to configure the settings" +
-                "\n    §6> §eTo change the keybinding, press Esc, Options, Controls and scroll down to \"Partly Sane Skies\"." +
                 "\n" +
                 "\n" +
                 "\n §1> Join the discord" +

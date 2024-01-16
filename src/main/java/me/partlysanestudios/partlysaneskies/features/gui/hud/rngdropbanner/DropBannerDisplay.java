@@ -32,11 +32,11 @@ public class DropBannerDisplay extends Gui {
     @SubscribeEvent
     public void onChatMessage(ClientChatReceivedEvent event) {
         String formattedMessage = event.message.getFormattedText();
-        if (isRareDrop(formattedMessage) && PartlySaneSkies.config.rareDropBannerSound) {
-            PartlySaneSkies.minecraft.thePlayer.playSound("partlysaneskies:rngdropjingle", 100, 1);
+        if (isRareDrop(formattedMessage) && PartlySaneSkies.Companion.getConfig().rareDropBannerSound) {
+            PartlySaneSkies.Companion.getMinecraft().thePlayer.playSound("partlysaneskies:rngdropjingle", 100, 1);
         }
 
-        if (isRareDrop(formattedMessage) && PartlySaneSkies.config.rareDropBanner) {
+        if (isRareDrop(formattedMessage) && PartlySaneSkies.Companion.getConfig().rareDropBanner) {
             String unformattedMessage = event.message.getUnformattedText();
 
 
@@ -50,7 +50,7 @@ public class DropBannerDisplay extends Gui {
             // // Finds the amount of magic find from the message
             name = formattedMessage.substring(formattedMessage.indexOf("! ") + 2);
 
-            DropBannerDisplay.drop = new Drop(name, dropCategory, 1, PartlySaneSkies.getTime(), dropCategoryHex);
+            DropBannerDisplay.drop = new Drop(name, dropCategory, 1, PartlySaneSkies.Companion.getTime(), dropCategoryHex);
         }
     }
 
@@ -96,17 +96,17 @@ public class DropBannerDisplay extends Gui {
             dropNameString = "x" + drop.amount + " " + drop.name;
             topString = drop.dropCategory;
             // It should be after a third of the rare drop time, and before 10/12ths 
-            if (PartlySaneSkies.getTime() - drop.timeDropped > (1f / 3f * PartlySaneSkies.config.rareDropBannerTime * 1000)
-                    && PartlySaneSkies.getTime()
-                            - drop.timeDropped < (10f / 12f * PartlySaneSkies.config.rareDropBannerTime * 1000)) {
-                if (Math.round((drop.timeDropped - PartlySaneSkies.getTime()) / 1000f * 4) % 2 == 0) {
+            if (PartlySaneSkies.Companion.getTime() - drop.timeDropped > (1f / 3f * PartlySaneSkies.Companion.getConfig().rareDropBannerTime * 1000)
+                    && PartlySaneSkies.Companion.getTime()
+                            - drop.timeDropped < (10f / 12f * PartlySaneSkies.Companion.getConfig().rareDropBannerTime * 1000)) {
+                if (Math.round((drop.timeDropped - PartlySaneSkies.Companion.getTime()) / 1000f * 4) % 2 == 0) {
                     categoryColor = Color.white; 
                 } else {
                     categoryColor = drop.dropCategoryColor;
                 }
             }
 
-            if (!MathUtils.INSTANCE.onCooldown(drop.timeDropped, (long) (PartlySaneSkies.config.rareDropBannerTime * 1000))){
+            if (!MathUtils.INSTANCE.onCooldown(drop.timeDropped, (long) (PartlySaneSkies.Companion.getConfig().rareDropBannerTime * 1000))){
                 drop = null;
             }
         }

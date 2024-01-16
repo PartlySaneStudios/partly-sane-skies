@@ -9,8 +9,8 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonParser
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
-import me.partlysanestudios.partlysaneskies.gui.hud.BannerRenderer.renderNewBanner
-import me.partlysanestudios.partlysaneskies.gui.hud.PSSBanner
+import me.partlysanestudios.partlysaneskies.render.gui.hud.BannerRenderer.renderNewBanner
+import me.partlysanestudios.partlysaneskies.render.gui.hud.PSSBanner
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand
 import me.partlysanestudios.partlysaneskies.commands.PSSCommandRunnable
 import me.partlysanestudios.partlysaneskies.utils.*
@@ -68,7 +68,7 @@ object EndOfFarmNotifier {
         PartlySaneSkies.minecraft.soundHandler
             .playSound(PositionedSoundRecord.create(ResourceLocation("partlysaneskies", "bell")))
         displayString = "END OF FARM"
-        lastChimeTime = PartlySaneSkies.getTime()
+        lastChimeTime = PartlySaneSkies.time
         renderNewBanner(
             PSSBanner(
                 displayString,
@@ -349,7 +349,7 @@ object EndOfFarmNotifier {
                         return@PSSCommandRunnable
                     }
                     rangeToHighlight = ranges[i - 1]
-                    rangeToHighlightSetTime = PartlySaneSkies.getTime()
+                    rangeToHighlightSetTime = PartlySaneSkies.time
                 }
             })
             .register()

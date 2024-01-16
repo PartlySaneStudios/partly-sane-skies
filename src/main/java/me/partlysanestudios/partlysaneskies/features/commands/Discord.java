@@ -18,11 +18,11 @@ public class Discord {
                 .setDescription("Join the Partly Sane Studios Discord Server")
                 .setRunnable((s, a) -> {
                     // Creates a new message with the correct text
-                    IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + "§9Join the discord: https://discord.gg/" + PartlySaneSkies.discordCode);
+                    IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + "§9Join the discord: https://discord.gg/" + PartlySaneSkies.Companion.getDiscordCode());
                     // Sets the text to be clickable with a link
-                    message.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://discord.gg/" + PartlySaneSkies.discordCode));
+                    message.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://discord.gg/" + PartlySaneSkies.Companion.getDiscordCode()));
                     // Prints message
-                    PartlySaneSkies.minecraft.ingameGUI.getChatGUI().printChatMessage(message);
+                    PartlySaneSkies.Companion.getMinecraft().ingameGUI.getChatGUI().printChatMessage(message);
                 })
                 .register();
     }

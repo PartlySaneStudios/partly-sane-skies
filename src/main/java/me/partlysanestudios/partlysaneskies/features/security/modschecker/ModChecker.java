@@ -10,8 +10,8 @@ import com.google.gson.Gson;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager;
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand;
-import me.partlysanestudios.partlysaneskies.api.Request;
-import me.partlysanestudios.partlysaneskies.api.RequestsManager;
+import me.partlysanestudios.partlysaneskies.data.api.Request;
+import me.partlysanestudios.partlysaneskies.data.api.RequestsManager;
 import me.partlysanestudios.partlysaneskies.features.debug.DebugKey;
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils;
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils;
@@ -40,7 +40,7 @@ public class ModChecker {
             new Thread(() -> {
                 if (a.length > 0) {
                     ChatUtils.INSTANCE.sendClientMessage("Loading... (using data from custom repository)");
-                    loadModDataFromRepo(PublicDataManager.getRepoOwner(), PublicDataManager.getRepoName());
+                    loadModDataFromRepo(PublicDataManager.INSTANCE.getRepoOwner(), PublicDataManager.INSTANCE.getRepoName());
                 } else {
                     ChatUtils.INSTANCE.sendClientMessage("Loading...");
                     loadModDataFromRepo();
@@ -73,7 +73,7 @@ public class ModChecker {
 
     public static void runOnStartup() {
         new Thread(() -> {
-            if (!PartlySaneSkies.config.checkModsOnStartup) {
+            if (!PartlySaneSkies.Companion.getConfig().checkModsOnStartup) {
                 return;
             }
 
@@ -151,7 +151,7 @@ public class ModChecker {
 
         chatMessage.appendSibling(new ChatComponentText("\n§7Disclaimer: You should always exercise caution when downloading things from the internet. The PSS Mod Checker is not foolproof. Use at your own risk."));
 
-        if (PartlySaneSkies.config.showUpToDateMods) {
+        if (PartlySaneSkies.Companion.getConfig().showUpToDateMods) {
             if (!knownMods.isEmpty()) {
                 chatMessage.appendSibling(new ChatComponentText("\n\n§6Up to date Mods: (" + knownMods.size() + ")"));
             }
@@ -260,7 +260,7 @@ public class ModChecker {
         }
 
         ChatUtils.INSTANCE.sendClientMessage(" \n§7Found " + modsFound + " mods:");
-        PartlySaneSkies.minecraft.ingameGUI
+        PartlySaneSkies.Companion.getMinecraft().ingameGUI
                 .getChatGUI()
                 .printChatMessage(chatMessage);
 
@@ -284,22 +284,18 @@ public class ModChecker {
     }
 
     private static void loadModDataFromRepo(String userName, String repoName) {
-                try {
-            String url = "https://raw.githubusercontent.com/" + userName +
-                    "/" + repoName + "/main/data/mods.json";
-            RequestsManager.newRequest(new Request(url, request -> {
-                knownMods = null;
-                try {
-                    knownMods = read(new Gson().fromJson(request.getResponse(), ModDataJson.class));
-                    run();
-                } catch (Exception e) {
-                    ChatUtils.INSTANCE.sendClientMessage("§cError reading the mod data from repo!");
-                    e.printStackTrace();
-                }
-            }));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        String url = "https://raw.githubusercontent.com/" + userName +
+                "/" + repoName + "/main/data/mods.json";
+        RequestsManager.INSTANCE.newRequest(new Request(url, request -> {
+            knownMods = null;
+            try {
+                knownMods = read(new Gson().fromJson(request.getResponse(), ModDataJson.class));
+                run();
+            } catch (Exception e) {
+                ChatUtils.INSTANCE.sendClientMessage("§cError reading the mod data from repo!");
+                e.printStackTrace();
+            }
+        }, false, false));
     }
 
     private static List<KnownMod> read(ModDataJson modData) {
@@ -312,7 +308,7 @@ public class ModChecker {
             KnownMod latest = null;
             Map<String, String> versions;
             Map<String, String> betaVersions = new HashMap<>(); // Creates a variable to add all of the beta versions as outdated
-            if (PartlySaneSkies.config.lookForBetaMods) {
+            if (PartlySaneSkies.Companion.getConfig().lookForBetaMods) {
                 versions = modInfo.getBetaVersions();
             } else {
                 betaVersions = modInfo.getBetaVersions();

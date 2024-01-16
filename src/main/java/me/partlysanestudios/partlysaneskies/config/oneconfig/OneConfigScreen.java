@@ -88,7 +88,38 @@ public class OneConfigScreen extends Config {
     )
     public int releaseChannel = Integer.parseInt("@RELEASE_CHANNEL@");
 
+    //    Discord
 
+    @Switch(
+            category = "General",
+            subcategory = "Discord",
+            name = "Discord RPC"
+    )
+    public boolean discordRPC = true;
+
+    @Switch(
+            category = "General",
+            subcategory = "Discord",
+            name = "SBE Bad Mode"
+    )
+    public boolean sbeBadMode = true;
+
+    @Text(
+            category = "General",
+            subcategory = "Discord",
+            name = "Discord Game Name"
+    )
+    public String discordRPCName = "sbe bad";
+
+    @Text(
+            category = "General",
+            subcategory = "Discord",
+            name = "Discord Game Description"
+    )
+    public String discordRPCDescription = "Playing Hypixel Skyblock";
+
+
+    // API
     @Number(
             min = .1f,
             max = 30f,
@@ -137,6 +168,7 @@ public class OneConfigScreen extends Config {
     public String repoName = "partly-sane-skies-public-data";
 
 
+//    Appearance
     @Dropdown(
             options = {
                     "Commas (1,000,000)",
@@ -191,6 +223,7 @@ public class OneConfigScreen extends Config {
             }
     )
     public int prefCurr = 11;
+
 
     // Main Menu
 
@@ -259,6 +292,22 @@ public class OneConfigScreen extends Config {
             description = "Blocks the diagnostics reports from other mods from being sent to their servers."
     )
     public boolean privacyMode = true;
+
+//    Config
+    @KeyBind(
+            name = "Config Hotkey",
+            category = "General",
+            subcategory = "Config"
+    )
+    public OneKeyBind oneConfigKeybind = new OneKeyBind(Keyboard.KEY_F7);
+
+    //    Help
+    @KeyBind(
+            name = "Help Hotkey",
+            category = "General",
+            subcategory = "Help"
+    )
+    public OneKeyBind helpKeybind = new OneKeyBind(Keyboard.KEY_H);
 
 
     //    ------------------ Category: Themes ---------------------
@@ -397,6 +446,12 @@ public class OneConfigScreen extends Config {
             subcategory = "Open Wiki"
     )
     public boolean openWikiAutomatically = true;
+    @KeyBind(
+            name = "Wiki Article Opener Hotkey",
+            category = "SkyBlock",
+            subcategory = "Open Wiki"
+    )
+    public OneKeyBind wikiKeybind = new OneKeyBind(Keyboard.KEY_NONE);
 
     // Pet Minion Alert
     @Switch(
@@ -439,7 +494,7 @@ public class OneConfigScreen extends Config {
             secure = true,
             size = 2
     )
-    public String selectedPet = /*PartlySaneSkies.config.selectededPet |*/ "";
+    public String selectedPet = /*PartlySaneSkies.Companion.getConfig().selectededPet |*/ "";
 
     @Slider(
             min = 1,
@@ -450,6 +505,14 @@ public class OneConfigScreen extends Config {
             category = "SkyBlock"
     )
     public float petAlertMuteTime = 7.5f;
+    @KeyBind(
+            name = "Favorite Pet Hotkey",
+            category = "SkyBlock",
+            subcategory = "Incorrect Pet for Minion Alert"
+    )
+    public OneKeyBind favouritePetKeybind = new OneKeyBind(Keyboard.KEY_NONE);
+
+//    Enhanced sound
 
     @Dropdown(
             category = "SkyBlock",
@@ -485,6 +548,34 @@ public class OneConfigScreen extends Config {
             }
     )
     public int customExplosion = 0;
+
+//    Shortcuts
+//    Config
+    @KeyBind(
+            name = "Wardrobe Menu Hotkey",
+            category = "SkyBlock",
+            subcategory = "Shortcuts"
+    )
+    public OneKeyBind wardrobeKeybind = new OneKeyBind(Keyboard.KEY_NONE);
+    @KeyBind(
+            name = "Pet Menu Hotkey",
+            category = "SkyBlock",
+            subcategory = "Shortcuts"
+    )
+    public OneKeyBind petKeybind = new OneKeyBind(Keyboard.KEY_NONE);
+    @KeyBind(
+            name = "Crafting Menu Hotkey",
+            category = "SkyBlock",
+            subcategory = "Shortcuts"
+    )
+    public OneKeyBind craftKeybind = new OneKeyBind(Keyboard.KEY_NONE);
+    @KeyBind(
+            name = "Storage Menu Hotkey",
+            category = "SkyBlock",
+            subcategory = "Shortcuts"
+    )
+    public OneKeyBind storageKeybind = new OneKeyBind(Keyboard.KEY_NONE);
+
 
     // ------------- Category: Dungeons ---------------------------------
     // Party Manager
@@ -559,6 +650,13 @@ public class OneConfigScreen extends Config {
             category = "Dungeons"
     )
     public int runColorsYellowMax = 9;
+
+    @KeyBind(
+            name = "Hotkey",
+            subcategory = "Party Manager",
+            category = "Dungeons"
+    )
+    public OneKeyBind partyManagerKeybind = new OneKeyBind(Keyboard.KEY_M);
 
 
     // Watcher Ready Warning
@@ -662,7 +760,7 @@ public class OneConfigScreen extends Config {
     public boolean autoPearlRefill = false;
 
     @KeyBind(
-            name = "Refill Pearls Keybind",
+            name = "Refill Pearls Hotkey",
             subcategory = "Pearl Refill",
             description = "The keybind to automatically refill your pearls.",
             category = "Dungeons"
@@ -1095,6 +1193,13 @@ public class OneConfigScreen extends Config {
     )
     public float allowRightClickTime = 3f;
 
+    @KeyBind(
+            name = "Allow Hoe Right Clicks Opener Hotkey",
+            category = "Farming",
+            subcategory = "Hoes"
+    )
+    public OneKeyBind allowHoeRightClickKeybind = new OneKeyBind(Keyboard.KEY_NONE);
+
 
 //    Farm notifier
     @Switch(
@@ -1124,30 +1229,40 @@ public class OneConfigScreen extends Config {
     )
     public float farmHightlightTime = 30f;
 
-    // Garden
+    // Garden Visitors
     @Switch(
-            subcategory = "Garden",
-            name = "Garden Shop Trade Cost",
-            description = "Gives you information about the cost of garden shop trades.",
+            subcategory = "Garden Visitors",
+            name = "Visitor Trade Cost",
+            description = "Gives you information about the cost of visitor trades.",
             category = "Farming"
     )
     public boolean gardenShopTradeInfo = false;
 
     @Switch(
-            subcategory = "Garden",
+            subcategory = "Garden Visitors",
+            name = "Display Garden Visitor Stats",
+            description = "Shows visited/accepted stats per NPC rarity.\nPros: based on item tooltips, which might capture more Garden visitor data\n(especially if you had Garden visitors before you installed SkyHanni).\nCons: Only shows for current Visitor's Logbook page and not all pages.",
+            category = "Farming"
+    )
+    public boolean visitorLogbookStats = false;
+
+    // Composter
+    @Switch(
+            subcategory = "Composter",
             name = "Best Crops to Compost",
             description = "Gives you information about which crops are the best to compost.",
             category = "Farming"
     )
     public boolean bestCropsToCompost = false;
 
+    // Skymart
     @Switch(
-            subcategory = "Garden",
-            name = "Display Garden Visitor Stats",
-            description = "Shows visited/accepted stats per NPC rarity.\nPros: based on item tooltips, which might capture more Garden visitor data\n(especially if you had Garden visitors before you installed SkyHanni).\nCons: Only shows for current Visitor's Logbook page and not all pages.",
+            subcategory = "SkyMart",
+            name = "SkyMart Value",
+            description = "Gives you information about the best value crops to compost",
             category = "Farming"
     )
-    public boolean visitorLogbookStats = false;
+    public boolean skymartValue = false;
 
 // ------------- Category: Foraging ---------------------------------
 //    Treecapitator Cooldown Indicator
@@ -1405,7 +1520,7 @@ public class OneConfigScreen extends Config {
     //    ------------- DEBUG ------------
     @KeyBind(
             category = "Debug",
-            name = "Debug Keybind"
+            name = "Debug Hotkey"
     )
     public OneKeyBind debugKeybind = new OneKeyBind(Keyboard.KEY_NONE);
 
@@ -1439,8 +1554,8 @@ public class OneConfigScreen extends Config {
             category = "Debug",
             description = "Spawns a waypoint at your current location"
     )
-  
     public boolean debugSpawnWaypoint = false;
+
     @Switch(
             name = "Send a system notification",
             category = "Debug"

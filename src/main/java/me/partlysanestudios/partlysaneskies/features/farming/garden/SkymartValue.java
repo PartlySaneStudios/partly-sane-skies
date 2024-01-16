@@ -39,15 +39,13 @@ public class SkymartValue {
     public static HashMap<String, Integer> copperCost = new HashMap<>();
 
     public static void initCopperValues() throws IOException {
-        String str = PublicDataManager.getFile("constants/skymart_copper.json");
+        String str = PublicDataManager.INSTANCE.getFile("constants/skymart_copper.json");
 
         JsonObject skymartObject = new JsonParser().parse(str).getAsJsonObject().getAsJsonObject("skymart");
         for (Map.Entry<String, JsonElement> entry : skymartObject.entrySet()) {
             copperCost.put(entry.getKey(), entry.getValue().getAsInt());
         }
 
-
-        
     }
 
     // Sorts the hashmap in descending order
@@ -69,9 +67,6 @@ public class SkymartValue {
         HashMap<String, Double> map = new HashMap<>();
         for (String id : copperCost.keySet()) {
             SkyblockItem item = SkyblockDataManager.getItem(id);
-            if (item == null) {
-                continue;
-            }
             map.put(id, item.getSellPrice() / copperCost.get(id));
         }
         LinkedHashMap<String, Double> sortedMap = sortMap(map);
@@ -94,17 +89,17 @@ public class SkymartValue {
 
     // 22
     public static boolean isSkymart() {
-        if (PartlySaneSkies.minecraft.currentScreen == null) {
+        if (PartlySaneSkies.Companion.getMinecraft().currentScreen == null) {
             return false;
         }
-        if (!(PartlySaneSkies.minecraft.currentScreen instanceof GuiChest)) {
+        if (!(PartlySaneSkies.Companion.getMinecraft().currentScreen instanceof GuiChest)) {
             return false;
         }
 
-        IInventory[] inventories = MinecraftUtils.INSTANCE.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen);
-        if (inventories == null) return false;
+        IInventory[] inventories = MinecraftUtils.INSTANCE.getSeparateUpperLowerInventories(PartlySaneSkies.Companion.getMinecraft().currentScreen);
 
         IInventory skymart = inventories[0];
+        if (skymart == null) return false;
         if (!StringUtils.INSTANCE.removeColorCodes(skymart.getDisplayName().getFormattedText()).contains("SkyMart")) {
             return false;
         }
@@ -132,7 +127,7 @@ public class SkymartValue {
             box.hide();
             return;
         }
-        if (!PartlySaneSkies.config.bestCropsToCompost) {
+        if (!PartlySaneSkies.Companion.getConfig().skymartValue) {
             return;
         }
 
