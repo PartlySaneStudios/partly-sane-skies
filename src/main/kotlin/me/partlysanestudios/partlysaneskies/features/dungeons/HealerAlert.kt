@@ -13,12 +13,10 @@ import me.partlysanestudios.partlysaneskies.gui.hud.PSSBanner
 import me.partlysanestudios.partlysaneskies.utils.MathUtils
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
-import me.partlysanestudios.partlysaneskies.utils.SystemUtils
 import net.minecraft.client.audio.PositionedSoundRecord
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.gameevent.TickEvent
-import org.apache.logging.log4j.Level
 import java.awt.Color
 
 
@@ -26,7 +24,6 @@ object HealerAlert {
     private var lastWarnTime = 0L
 
     private fun isPlayerLowOnHealth(): Boolean {
-
         if (!IslandType.CATACOMBS.onIsland()) {
             return false
         }
@@ -34,8 +31,7 @@ object HealerAlert {
 
         val scoreBoard = MinecraftUtils.getScoreboardLines()
         for (line in scoreBoard) {
-            SystemUtils.log(Level.INFO, line)
-            if (line.removeColorCodes()[0] !='[') {
+            if (line.removeColorCodes()[0] != '[') {
                 continue
             }
 
@@ -54,11 +50,15 @@ object HealerAlert {
 
     @SubscribeEvent
     fun onTick(event: TickEvent.ClientTickEvent) {
-        if (!PartlySaneSkies.config.healerAlert){
+        if (!PartlySaneSkies.config.healerAlert) {
             return
         }
-        if (isPlayerLowOnHealth()){
-            if (MathUtils.onCooldown(lastWarnTime, (PartlySaneSkies.config.healerAlertCooldownSlider * 1000).toLong())){
+        if (isPlayerLowOnHealth()) {
+            if (MathUtils.onCooldown(
+                    lastWarnTime,
+                    (PartlySaneSkies.config.healerAlertCooldownSlider * 1000).toLong()
+                )
+            ) {
                 return
             }
             lastWarnTime = PartlySaneSkies.time
