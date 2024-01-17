@@ -7,6 +7,7 @@
 package me.partlysanestudios.partlysaneskies.config.oneconfig;
 
 import cc.polyfrost.oneconfig.config.Config;
+import cc.polyfrost.oneconfig.config.annotations.Number;
 import org.lwjgl.input.Keyboard;
 
 import cc.polyfrost.oneconfig.config.annotations.*;
