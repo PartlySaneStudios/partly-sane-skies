@@ -15,7 +15,6 @@ import me.partlysanestudios.partlysaneskies.data.skyblockdata.IslandType
 import me.partlysanestudios.partlysaneskies.gui.hud.BannerRenderer.renderNewBanner
 import me.partlysanestudios.partlysaneskies.gui.hud.PSSBanner
 import me.partlysanestudios.partlysaneskies.utils.*
-import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
 import net.minecraft.client.audio.PositionedSoundRecord
 import net.minecraft.command.ICommandSender
 import net.minecraft.util.ResourceLocation
@@ -47,7 +46,7 @@ object EndOfFarmNotifier {
     private var wandActive = false
     private var pos = 1 // 1 is pos1, 2 is pos2
 
-    fun run() {
+    fun checkAllRangesTick() {
         if (!MathUtils.onCooldown(
                 rangeToHighlightSetTime,
                 (PartlySaneSkies.config.farmHightlightTime * 1000).toLong() // damn we can english (it's called highlight)

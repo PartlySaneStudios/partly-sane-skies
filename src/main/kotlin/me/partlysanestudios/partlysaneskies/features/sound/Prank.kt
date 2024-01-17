@@ -52,7 +52,7 @@ object Prank {
         return today == april1st || today == october31st
     }
 
-    fun run() {
+    fun checkPrankTick() {
         if (!MathUtils.onCooldown(lastPrankTime, 300000)) { // 5 minutes
             return
         }

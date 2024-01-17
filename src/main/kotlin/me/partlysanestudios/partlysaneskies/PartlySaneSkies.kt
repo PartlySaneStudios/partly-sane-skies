@@ -294,18 +294,17 @@ class PartlySaneSkies {
     // Method runs every tick
     @SubscribeEvent
     fun clientTick(evnt: ClientTickEvent) {
-        config.resetBrokenStrings()
-        LocationBannerDisplay.checkLocation()
-        EndOfFarmNotifier.run()
-        SkyblockDataManager.runUpdater()
-        PetAlert.runPetAlert()
-        ThemeManager.run()
-        ThemeManager.run()
+        config.resetBrokenStringsTick()
+        LocationBannerDisplay.checkLocationTick()
+        EndOfFarmNotifier.checkAllRangesTick()
+        SkyblockDataManager.runUpdaterTick()
+        PetAlert.runPetAlertTick()
+        ThemeManager.tick()
         PetData.tick()
-        HealerAlert.run()
+        HealerAlert.checkPlayerTick()
         RequiredSecretsFound.tick()
         NoCookieWarning.checkCoinsTick()
-        Prank.run()
+        Prank.checkPrankTick()
         AuctionHouseGui.tick()
     }
 
