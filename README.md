@@ -98,7 +98,7 @@ To view more information about commands, including how to use them, **[click her
 
 ***Note: the features below are just a small selection all PSS features: these are just some of the more popular/liked features.***
 
-*To view the complete list of all features, **[click here to visit the complete features page.](pages/features)***
+*To view the complete list of all features, **[click here to visit the complete features page.](pages/features/list.md)***
 <details>
   <summary> ⚙️ General/Miscellaneous Features </summary>
   
