@@ -15,6 +15,7 @@ import me.partlysanestudios.partlysaneskies.render.gui.hud.PSSBanner
 import me.partlysanestudios.partlysaneskies.render.waypoint.Waypoint
 import me.partlysanestudios.partlysaneskies.render.waypoint.WaypointManager
 import me.partlysanestudios.partlysaneskies.system.SystemNotification
+import me.partlysanestudios.partlysaneskies.utils.ChatUtils
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
@@ -70,6 +71,13 @@ object DebugKey {
             SystemNotification.showNotification("Debug mode: ${isDebugMode()}")
         }
 
+        if (PartlySaneSkies.config.percyMode) {
+            Thread() {
+                sendClientMessage("Dumping...")
+                PercyMode.dump()
+
+            }.start()
+        }
         if (PartlySaneSkies.config.debugPrintCurrentLocationFromIslandType) {
             sendClientMessage("Island Type: ${IslandType.getCurrentIsland()}")
         }
