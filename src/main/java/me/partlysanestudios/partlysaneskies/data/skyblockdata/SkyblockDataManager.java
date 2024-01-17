@@ -174,7 +174,7 @@ public class SkyblockDataManager {
         return idToItemMap.get(id);
     }
 
-    public static void runUpdater() {
+    public static void runUpdaterTick() {
         if (checkLastUpdate()) {
             lastAhUpdateTime = PartlySaneSkies.Companion.getTime();
             new Thread(() -> {

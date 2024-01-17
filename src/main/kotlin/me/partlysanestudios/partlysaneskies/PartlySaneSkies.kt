@@ -20,6 +20,7 @@ package me.partlysanestudios.partlysaneskies
 import gg.essential.elementa.ElementaVersion
 import me.partlysanestudios.partlysaneskies.config.keybinds.Keybinds
 import me.partlysanestudios.partlysaneskies.config.oneconfig.OneConfigScreen
+import me.partlysanestudios.partlysaneskies.data.api.PolyfrostUrsaMinorRequest
 import me.partlysanestudios.partlysaneskies.data.api.Request
 import me.partlysanestudios.partlysaneskies.data.api.RequestsManager.newRequest
 import me.partlysanestudios.partlysaneskies.data.cache.PetData
@@ -67,13 +68,13 @@ import me.partlysanestudios.partlysaneskies.features.skills.SkillUpgradeRecommen
 import me.partlysanestudios.partlysaneskies.features.sound.Prank
 import me.partlysanestudios.partlysaneskies.features.sound.enhancedsound.EnhancedSound
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
+import me.partlysanestudios.partlysaneskies.gui.hud.BannerRenderer
 import me.partlysanestudios.partlysaneskies.render.gui.hud.cooldown.CooldownManager
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
 import me.partlysanestudios.partlysaneskies.data.api.PolyfrostUrsaMinorRequest
 import me.partlysanestudios.partlysaneskies.features.dungeons.*
 import me.partlysanestudios.partlysaneskies.render.waypoint.WaypointManager
-import me.partlysanestudios.partlysaneskies.render.waypoint.WaypointRender
 import net.minecraft.client.Minecraft
 import net.minecraft.event.ClickEvent
 import net.minecraft.event.HoverEvent
@@ -201,7 +202,6 @@ class PartlySaneSkies {
         registerEvent(CustomMainMenu(ElementaVersion.V2))
         registerEvent(PartyFriendManager())
         registerEvent(WikiArticleOpener())
-        registerEvent(NoCookieWarning())
         registerEvent(GardenTradeValue())
         registerEvent(CompostValue())
         registerEvent(EnhancedSound())
@@ -209,17 +209,15 @@ class PartlySaneSkies {
         registerEvent(PlayerRating())
         registerEvent(SkymartValue())
         registerEvent(PetAlert())
-        registerEvent(RequiredSecretsFound())
         registerEvent(Pickaxes())
         registerEvent(MathematicalHoeRightClicks())
         registerEvent(MiningEvents())
-        registerEvent(AuctionHouseGui)
         registerEvent(ChatManager)
         registerEvent(RangeHighlight)
+        registerEvent(BannerRenderer)
         registerEvent(VisitorLogbookStats)
         registerEvent(CoinsToBoosterCookieConversion)
         registerEvent(EndOfFarmNotifier)
-        registerEvent(Prank)
         registerEvent(RefreshKeybinds)
         registerEvent(AutoGG)
         registerEvent(CooldownManager)
@@ -300,16 +298,19 @@ class PartlySaneSkies {
 
     // Method runs every tick
     @SubscribeEvent
-    fun clientTick(evnt: ClientTickEvent?) {
-        config.resetBrokenStrings()
-        LocationBannerDisplay.checkLocation()
-        EndOfFarmNotifier.run()
-        SkyblockDataManager.runUpdater()
-        PetAlert.runPetAlert()
-        ThemeManager.run()
-        ThemeManager.run()
+    fun clientTick(evnt: ClientTickEvent) {
+        config.resetBrokenStringsTick()
+        LocationBannerDisplay.checkLocationTick()
+        EndOfFarmNotifier.checkAllRangesTick()
+        SkyblockDataManager.runUpdaterTick()
+        PetAlert.runPetAlertTick()
+        ThemeManager.tick()
         PetData.tick()
-        HealerAlert.run()
+        HealerAlert.checkPlayerTick()
+        RequiredSecretsFound.tick()
+        NoCookieWarning.checkCoinsTick()
+        Prank.checkPrankTick()
+        AuctionHouseGui.tick()
     }
 
     @SubscribeEvent

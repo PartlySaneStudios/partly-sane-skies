@@ -28,7 +28,7 @@ public class OneConfigScreen extends Config {
         registerKeyBind(refillPearlsKeybind, PearlRefill.INSTANCE::keybindAction);
     }
 
-    public void resetBrokenStrings() {
+    public void resetBrokenStringsTick() {
         if (arrowLowChatMessage.isEmpty()) {
             arrowLowChatMessage = "Partly Sane Skies > Warning! {player} only has {count} arrows remaining!";
             save();
@@ -1568,4 +1568,11 @@ public class OneConfigScreen extends Config {
             category = "Debug"
     )
     public boolean debugPrintPetWorldParsingInformation = false;
+
+    @Switch(
+            name = "Print current location from Island Type",
+            category = "Debug"
+    )
+    public boolean debugPrintCurrentLocationFromIslandType = false;
+
 }

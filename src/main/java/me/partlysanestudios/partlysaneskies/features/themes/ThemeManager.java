@@ -53,7 +53,7 @@ public class ThemeManager {
             new Theme("Dunes (Colorful)", new Color(229, 177, 129), new Color(222, 107, 72), new Color(131, 34, 50))
     };
 
-    public static void run() {
+    public static void tick() {
         if (PartlySaneSkies.Companion.getConfig().useDefaultAccentColor) {
             PartlySaneSkies.Companion.getConfig().accentColor = getAccentColor();
         }
