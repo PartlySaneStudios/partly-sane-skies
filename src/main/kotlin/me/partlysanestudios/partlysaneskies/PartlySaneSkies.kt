@@ -210,7 +210,6 @@ class PartlySaneSkies {
         registerEvent(Pickaxes())
         registerEvent(MathematicalHoeRightClicks())
         registerEvent(MiningEvents())
-        registerEvent(AuctionHouseGui)
         registerEvent(ChatManager)
         registerEvent(RangeHighlight)
         registerEvent(BannerRenderer)
@@ -307,6 +306,7 @@ class PartlySaneSkies {
         RequiredSecretsFound.tick()
         NoCookieWarning.checkCoinsTick()
         Prank.run()
+        AuctionHouseGui.tick()
     }
 
     @SubscribeEvent
