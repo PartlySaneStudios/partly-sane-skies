@@ -110,16 +110,33 @@ These commands also work instead of ``/chatalerts``:
 ### Description
 Allows certain messages to be highlighted in chat.
 
-### Usage
-
-``/chatalerts list``: Lists all chat alerts with their associated number.
-
-``/chatalerts add [alert]``: Creates a new alert that will notify the user when ``alert`` is spotted in chat.
-
-``/chatalerts remove [number]``: Removes the alert with the given ``number`` in the list. Numbers are show with ``/chatalerts list``.
-
 </details>
 
+<!-- /clearpssdata command -->
+
+<details>
+  <summary> <code> /clearpssdata </code> </summary>
+
+## ``/clearpssdata``
+
+### Aliases
+
+These commands also work instead of ``/clearpssdata``:
+
+``/updatepssdata``
+
+``/clearhashmap``
+
+``/psscleardata``
+
+``/pssclearcache``
+
+### Description
+
+Clears your Partly Sane Studios hashmap data.  
+
+
+</details>
 
 <!-- /crepes command -->
 <details>
@@ -132,6 +149,8 @@ Allows certain messages to be highlighted in chat.
 These commands also work instead of ``/crepes``:
 
 ``/crêpes``
+``/crepe``
+``/crêpes``
 
 ### Description
 Displays vital crêpe information
@@ -143,16 +162,49 @@ Displays vital crêpe information
 </details>
 
 
+<!-- /cookies2coins command -->
+<details>
+  <summary> <code> /coins2cookies </code> </summary>
+
+## ``/coins2cookies``
+
+### Aliases
+
+These commands also work instead of ``/modchecker``:
+
+``//coins2cookies``
+
+``//coinstocookies``
+
+``//pssco2icok``
+
+``//coi2cok``
+
+``//c2c``
+
+``/coinstocookies``
+
+``/pssco2icok``
+
+``/coi2cok``
+
+``/c2c``
+
+### Description
+Converts a given amount of coins to the IRL cost of booster cookies in your selected currency(Configurable with /pss config)
+
+</details>
+
 
 <!-- //farmnotfier command -->
 <details>
   <summary> <code> //farmnotfier </code> </summary>
 
-## ``//farmnotfier`` 
+## ``//farmnotifier`` 
 
 ### Aliases
 
-These commands also work instead of ``//farmnotfier``:
+These commands also work instead of ``//farmnotifier``:
 
 ``//farmnotif``
 
@@ -244,6 +296,38 @@ Opens the most profitable minions feature
 ``/minioncalculator``: Opens the best minion calculator menu
 
 </details>
+
+
+<!-- /modchecker command -->
+<details>
+  <summary> <code> /modchecker </code> </summary>
+
+## ``/modchecker``
+
+### Aliases
+
+These commands also work instead of ``/modchecker``:
+
+``/updatepssdata``
+
+``/clearhashmap`` 
+
+``/clearpssdata``
+
+``/psscleardata`` 
+
+``/pssclearcache``
+
+### Description
+Clears Partly Sane Skies data
+
+
+
+</details>
+
+
+
+
 
 <!-- /mutepetalert command -->
 <details>
@@ -344,6 +428,34 @@ Sends a link to join the discord in chat. [Or you can just join here (https://di
 ``/pssdiscord``: Sends the link to join the discord in chat.
 
 </details>
+
+
+<!-- /sanitycheck command -->
+<details>
+  <summary> <code> /sanitycheck </code> </summary>
+
+## ``/sanitycheck``
+
+### Aliases
+
+These commands also work instead of ``/sanitycheck {username}``:
+
+``/checksanity {username}``
+
+``/psssanity {username}``
+
+``/pssinsanity {username}``
+
+``/pssinsane {username}``
+
+``/psssane {username}``
+
+### Description
+Using a users SkyBlock join date and nethworth, the SanityCheck will calculate how sane you are.
+
+</details>
+
+
 
 <!-- /skillup command -->
 <details>

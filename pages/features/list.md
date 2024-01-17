@@ -8,7 +8,7 @@ General and Miscellaneous features.
 
 ### Mod Checker
 
-When enabled, Mod Checker automatically will check your mods list for outdated, suspicous, or unknown mods. These mods may not be on the list of verified mods. If you believe a mod is being falsely flagged, please report it in the PSS discord (``/pssdiscord``)
+When enabled, Mod Checker automatically will check your mods list for outdated, suspicious, or unknown mods. These mods may not be on the list of verified mods. If you believe a mod is being falsely flagged, please report it in the PSS discord (``/pssdiscord``)
 ![image](/images/mod_checker.png)
 
 ### Privacy
@@ -26,42 +26,49 @@ along with an option to select a random background.
 ![Custom Main Menu](/images/custom_main_menu.png)
 
 ### Fun Fact on Main Menu
-
+*For more information, [see the Custom Main Menu page](general/custom_main_menu.md)*
 Displays a daily fun fact on the PSS custom main menu. 
 
 ### Skill Upgrade Recommendation
+*For more information, [see the Skill Upgrade Recommendation page](general/skill_upgrade_recommendation.md)*
 
 A helpful command to help recommend what skill you should upgrade less. Using ``/skillup <username>`` or ``/su <username>`` will provide a list of recommended skills to upgrade.
 
-![Location Banner](/images/skill_upgrade.png)
+![Skill Upgrade Recommendation](/images/skill_upgrade.png)
 
 ### RNG Drop Banner and Sound
+*For more information, [see the RNG Drop Banner](general/rng_drop_banner.md)*
 
 When you get a rare drop, a Pumpkin Dicer or Melon Slicer like pop-up banner will appear, along with a sound, celebrating your drop.
 
-![Custom Main Menu](/images/rng_drop_banner.png)
+![RNG Drop Banner](/images/rng_drop_banner.png)
 
 ## Custom Themes
+*For more information, [see the Custom Themes page](general/theme.md)*
 
 This mod supports a variety of different themes, including dark themes, very dark themes, colourful themes, and controversially, light themes. You can also choose your own accent colour, and create your own themes in the OneConfig menu under the theme section.
 
 ### Custom Sounds for SkyBlock
+*For more information, [see the Custom Sounds page](general/custom_sounds.md)*
 
 Instead of the normal noteblocks, there is now the option to use computer generated, discord sounds or even live instruments to play sounds such as SkyBlock music and sound effects.
 
 ### Location Banner
+*For more information, [see the Location Banner page](general/location_banner.md)*
 
 When switching to a new location region on SkyBlock, an MMO RPG style banner will appear, informing you that you have switched to a new region.
 
 ![Location Banner](/images/location_banner.png)
 
 ### Crêpes
+*For more information, [see the Crêpes page](general/crêpes.md)*
 
 Have you ever wanted to make crêpes, and don't have access to internet, but you do have access to SkyBlock? Well we've got you covered. Simply by doing /crêpes, you too can make crêpes from some random recipe we found on the internet.
 
 # Chat Features
 
 ### Chat Alerts
+*For more information, [see the Chat Alerts page](chat/chat_alerts.md)*
 
 Using ``/ca``, you can add and remove specific phrases that will be highlighted when someone says them. Example: If you add the word "``flag``" (using ``/ca add flag``) to Chat Alerts, it will highlight the word and play a notification when someone says it.
 
