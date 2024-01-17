@@ -10,8 +10,6 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.utils.MathUtils
 import net.minecraft.client.audio.PositionedSoundRecord
 import net.minecraft.util.ResourceLocation
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import net.minecraftforge.fml.common.gameevent.TickEvent
 import java.time.LocalDate
 import java.time.Month
 
@@ -54,8 +52,7 @@ object Prank {
         return today == april1st || today == october31st
     }
 
-    @SubscribeEvent
-    fun run(event: TickEvent.ClientTickEvent) {
+    fun run() {
         if (!MathUtils.onCooldown(lastPrankTime, 300000)) { // 5 minutes
             return
         }

@@ -27,6 +27,7 @@ import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import net.minecraft.client.gui.inventory.GuiChest
 import net.minecraft.inventory.IInventory
 import net.minecraft.item.Item
+import net.minecraftforge.client.event.GuiOpenEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent
 import java.awt.Color
@@ -167,7 +168,7 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
 
     companion object {
         @SubscribeEvent
-        fun onGuiOpen(event: ClientTickEvent) {
+        fun onGuiOpen(event: GuiOpenEvent) {
             if (!PartlySaneSkies.config.customAhGui) {
                 return
             }
