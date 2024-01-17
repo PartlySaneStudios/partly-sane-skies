@@ -16,3 +16,5 @@ Hey all, we're here to tell you about our latest update to Partly Sane Skies! Ou
 - Fixed Healer Alert not being called (@j10a1n15)
 - Fixed End of Farm Notifier (@Su386yt)
 - Fixed Location Banner, Mining Events Banner, and all other banners (@Su386yt)
+
+**Full Changelog and Official Download Link**: https://github.com/PartlySaneStudios/partly-sane-skies/releases/tag/beta-v0.5.6
