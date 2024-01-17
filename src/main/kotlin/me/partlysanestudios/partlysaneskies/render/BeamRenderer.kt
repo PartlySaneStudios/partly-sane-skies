@@ -20,11 +20,11 @@ object BeamRenderer {
         GlStateManager.pushMatrix()
         GlStateManager.translate(-renderManager.viewerPosX, -renderManager.viewerPosY, -renderManager.viewerPosZ)
 
-        GlStateManager.enableBlend()
         GlStateManager.disableTexture2D()
+        GlStateManager.disableCull()
+        GlStateManager.enableBlend()
         GlStateManager.disableLighting()
         GlStateManager.disableDepth()
-        GlStateManager.disableCull()
 
         GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO)
         GL11.glLineWidth(4.0f)
@@ -33,11 +33,6 @@ object BeamRenderer {
         val y = pos.y.toDouble() + 1
         val z = pos.z.toDouble() + .333
 
-//        worldRenderer.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION)
-//        GlStateManager.color(outlineColor.red/255f, outlineColor.green/255f, outlineColor.blue/255f, outlineColor.alpha/255f)
-//        worldRenderer.drawBoxOutline(Point3d(x, y, z), Point3d(x + .333, 256.0, z + .333))
-//        tessellator.draw()
-
 
         worldRenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION)
         GlStateManager.color(fillColor.red/255f, fillColor.green/255f, fillColor.blue/255f, fillColor.alpha/255f)
@@ -45,10 +40,10 @@ object BeamRenderer {
         worldRenderer.drawBoxFill(Point3d(x, y, z), Point3d(x + .333, 256.0, z + .333))
         tessellator.draw()
 
+        GlStateManager.resetColor()
+        GlStateManager.enableTexture2D()
         GlStateManager.disableBlend()
         GlStateManager.enableDepth()
-        GlStateManager.enableLighting()
-        GlStateManager.enableTexture2D()
 
         GlStateManager.popMatrix()
     }

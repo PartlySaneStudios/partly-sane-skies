@@ -23,11 +23,11 @@ object BlockHighlightRenderer {
         GlStateManager.pushMatrix()
         GlStateManager.translate(-renderManager.viewerPosX, -renderManager.viewerPosY, -renderManager.viewerPosZ)
 
-        GlStateManager.enableBlend()
         GlStateManager.disableTexture2D()
+        GlStateManager.disableCull()
+        GlStateManager.enableBlend()
         GlStateManager.disableLighting()
         GlStateManager.disableDepth()
-        GlStateManager.disableCull()
 
         GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO)
         GL11.glLineWidth(4.0f)
@@ -47,10 +47,11 @@ object BlockHighlightRenderer {
         worldRenderer.drawBoxFill(Point3d(x, y, z), Point3d(x + 1, y + 1, z + 1))
         tessellator.draw()
 
+        GlStateManager.resetColor()
+        GlStateManager.enableTexture2D()
         GlStateManager.disableBlend()
         GlStateManager.enableDepth()
-        GlStateManager.enableLighting()
-        GlStateManager.enableTexture2D()
+
 
         GlStateManager.popMatrix()
     }
