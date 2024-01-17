@@ -215,6 +215,7 @@ class PartlySaneSkies {
         registerEvent(AuctionHouseGui)
         registerEvent(ChatManager)
         registerEvent(RangeHighlight)
+        registerEvent(BannerRenderer)
         registerEvent(VisitorLogbookStats)
         registerEvent(CoinsToBoosterCookieConversion)
         registerEvent(EndOfFarmNotifier)
@@ -226,8 +227,6 @@ class PartlySaneSkies {
         registerEvent(PearlRefill)
         registerEvent(SanityCheck)
         registerEvent(Keybinds)
-        registerEvent(HealerAlert)
-        registerEvent(BannerRenderer)
 
         // Registers all client side commands
         HelpCommand.registerPSSCommand()
