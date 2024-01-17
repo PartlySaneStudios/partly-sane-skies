@@ -21,17 +21,19 @@ object TextRenderer {
         GlStateManager.rotate(renderManager.playerViewX, 1.0f, 0.0f, 0.0f)
         GlStateManager.scale(-0.025, -0.025, 0.025)
 
+        GlStateManager.disableCull()
+        GlStateManager.enableBlend()
         GlStateManager.disableLighting()
-        GlStateManager.depthMask(false)
         GlStateManager.disableDepth()
+
 
         GlStateManager.enableBlend()
         GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_SRC_ALPHA, GL11.GL_ONE)
 
         fontRenderer.drawString(text, -fontRenderer.getStringWidth(text) / 2, 0, 0xFFFFFF)
 
-        GlStateManager.enableLighting()
-        GlStateManager.depthMask(true)
+        GlStateManager.resetColor()
+        GlStateManager.disableBlend()
         GlStateManager.enableDepth()
 
         GlStateManager.popMatrix()
