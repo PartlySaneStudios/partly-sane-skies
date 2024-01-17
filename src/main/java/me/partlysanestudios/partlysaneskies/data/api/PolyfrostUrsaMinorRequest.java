@@ -3,7 +3,7 @@
 // See LICENSE for copyright and license notices.
 //
 
-package me.partlysanestudios.partlysaneskies.api;
+package me.partlysanestudios.partlysaneskies.data.api;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.exceptions.AuthenticationException;
@@ -11,6 +11,7 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils;
 import net.minecraft.client.Minecraft;
 import org.apache.commons.io.IOUtils;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -40,11 +41,11 @@ public class PolyfrostUrsaMinorRequest extends Request {
     }
 
     public PolyfrostUrsaMinorRequest(URL url, RequestRunnable function) {
-        super(url, function);
+        super(url, function, false, false);
     }
 
     public PolyfrostUrsaMinorRequest(String url, RequestRunnable function) throws MalformedURLException {
-        super(url, function);
+        super(url, function, false, false);
     }
 
     @Override
@@ -81,9 +82,13 @@ public class PolyfrostUrsaMinorRequest extends Request {
             return;
         }
 
+        new Thread(() -> {
+
+        }, "Partly Sane Skies Request Manager");
+
         // If supposed to run in the next frame, run in the next frame
         if (super.isRunNextFrame()) {
-            PartlySaneSkies.minecraft.addScheduledTask(() -> whenFinished.run(this));
+            PartlySaneSkies.Companion.getMinecraft().addScheduledTask(() -> whenFinished.run(this));
             return;
         }
 
@@ -150,6 +155,7 @@ public class PolyfrostUrsaMinorRequest extends Request {
         }
     }
 
+    @NotNull
     public String getResponse() {
         if (this.requestResponse == null) {
             return "Error: {NO_RESPONSE}";

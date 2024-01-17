@@ -41,6 +41,10 @@ When you get a rare drop, a Pumpkin Dicer or Melon Slicer like pop-up banner wil
 
 ![Custom Main Menu](/images/rng_drop_banner.png)
 
+## Custom Themes
+
+This mod supports a variety of different themes, including dark themes, very dark themes, colourful themes, and controversially, light themes. You can also choose your own accent colour, and create your own themes in the OneConfig menu under the theme section.
+
 ### Custom Sounds for SkyBlock
 
 Instead of the normal noteblocks, there is now the option to use computer generated, discord sounds or even live instruments to play sounds such as SkyBlock music and sound effects.
@@ -62,6 +66,14 @@ Have you ever wanted to make crêpes, and don't have access to internet, but you
 Using ``/ca``, you can add and remove specific phrases that will be highlighted when someone says them. Example: If you add the word "``flag``" (using ``/ca add flag``) to Chat Alerts, it will highlight the word and play a notification when someone says it.
 
 ![Chat Alerts](/images/chat_alerts.png)
+
+### System Tray Notifications
+Ever missed an important message or Dwarven Mines event? With the option to enable System Notifications, you will never miss them if you use the ChatAlert or Dwarven Events Feature
+- Current support:
+  - Chat Alerts
+  - Mining Events
+
+![System Tray](../../images/system_tray.png)
 
 ### Chat Color
 
@@ -115,11 +127,10 @@ kicking, party transfer buttons, etc. Included in the Party Manager GUI.
 You can open it by typing the command ``/pm`` or by using the keybinding.
 Default: ``M``
 
-![Custom Main Menu](/images/party_manager.png)
+![Party Manager](/images/party_manager.png)
 
-## Custom Themes
-
-This mod supports a variety of different themes, including dark themes, very dark themes, colourful themes, and controversially, light themes. You can also choose your own accent colour, and create your own themes in the OneConfig menu under the theme section.
+### Pearl Refill
+Do you use pearls for your Dungeon runs and want to refill them backup to 16? With the Pearlrefill command you can automatically refill it back up to 16 from any other Stacksize, there is also a Keybind (Default P) and an option to enable auto refill at Dungeon start (use at your own risk)
 
 ### Watcher Ready, Message, Warning, Siren and Sound
 
@@ -232,9 +243,9 @@ Using real time data, the mod will now display which configurations will result 
 
 ![Best Minion Calculator](/images/best_minion_calculator.png)
 
-### Garden Shop Trade Cost
+### Visitor Trade Cost
 
-Shows you information about the garden shop trades.
+Shows you information about the visitor trades.
 
 ![Custom Main Menu](/images/garden_trade_cost.png)
 

@@ -11,9 +11,9 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mojang.authlib.GameProfile;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
-import me.partlysanestudios.partlysaneskies.api.PolyfrostUrsaMinorRequest;
-import me.partlysanestudios.partlysaneskies.api.Request;
-import me.partlysanestudios.partlysaneskies.api.RequestsManager;
+import me.partlysanestudios.partlysaneskies.data.api.PolyfrostUrsaMinorRequest;
+import me.partlysanestudios.partlysaneskies.data.api.Request;
+import me.partlysanestudios.partlysaneskies.data.api.RequestsManager;
 import me.partlysanestudios.partlysaneskies.utils.MathUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils;
@@ -88,7 +88,7 @@ public class SkyblockPlayer {
         if (uuid == null) {
             String requestURL = "https://api.mojang.com/users/profiles/minecraft/" + username;
 
-            RequestsManager.newRequest(new Request(requestURL, request -> {
+            RequestsManager.INSTANCE.newRequest(new Request(requestURL, request -> {
                 if (!request.hasSucceeded()) {
                     synchronized (lock) {
                         lock.notifyAll();
@@ -150,7 +150,7 @@ public class SkyblockPlayer {
     }
 
     public boolean isExpired() {
-        return !MathUtils.INSTANCE.onCooldown(lastUpdateTime, PartlySaneSkies.config.playerDataCacheTime * 60 * 1000L);
+        return !MathUtils.INSTANCE.onCooldown(lastUpdateTime, PartlySaneSkies.Companion.getConfig().playerDataCacheTime * 60 * 1000L);
     }
 
 //    Creates new player data by UUID
@@ -160,13 +160,13 @@ public class SkyblockPlayer {
 
     private void requestData() throws MalformedURLException {
         String hypixelPlayerRequestURL = "https://api.polyfrost.cc/ursa/v1/hypixel/player/" + this.uuid;
-        RequestsManager.newRequest(new PolyfrostUrsaMinorRequest(hypixelPlayerRequestURL, request -> {
+        RequestsManager.INSTANCE.newRequest(new PolyfrostUrsaMinorRequest(hypixelPlayerRequestURL, request -> {
             this.playerHypixelJsonString = request.getResponse();
             this.playerHypixelJsonObject = new JsonParser().parse(this.playerHypixelJsonString).getAsJsonObject();
         }, false, false));
         String profileRequestURL = "https://api.polyfrost.cc/ursa/v1/hypixel/skyblock/profiles/" + this.uuid;
 
-        RequestsManager.newRequest(new PolyfrostUrsaMinorRequest(profileRequestURL, request -> {
+        RequestsManager.INSTANCE.newRequest(new PolyfrostUrsaMinorRequest(profileRequestURL, request -> {
             this.playerSkyblockJsonString = request.getResponse();
 
             this.playerSkyblockJsonObject = new JsonParser().parse(this.playerSkyblockJsonString).getAsJsonObject();
@@ -370,7 +370,7 @@ public class SkyblockPlayer {
 
 
 
-        this.lastUpdateTime = PartlySaneSkies.getTime();
+        this.lastUpdateTime = PartlySaneSkies.Companion.getTime();
         synchronized (lock) {
             lock.notifyAll();
         }

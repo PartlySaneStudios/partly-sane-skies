@@ -4,13 +4,16 @@
 //
 
 
-package me.partlysanestudios.partlysaneskies.features.dungeons.healeralert
+package me.partlysanestudios.partlysaneskies.features.dungeons
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.gui.hud.BannerRenderer
 import me.partlysanestudios.partlysaneskies.gui.hud.PSSBanner
-import me.partlysanestudios.partlysaneskies.utils.*
+import me.partlysanestudios.partlysaneskies.utils.IslandType
+import me.partlysanestudios.partlysaneskies.utils.MathUtils
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
+import me.partlysanestudios.partlysaneskies.utils.SystemUtils
 import net.minecraft.client.audio.PositionedSoundRecord
 import net.minecraft.util.ResourceLocation
 import org.apache.logging.log4j.Level
@@ -54,7 +57,7 @@ object HealerAlert {
             if (MathUtils.onCooldown(lastWarnTime, (PartlySaneSkies.config.healerAlertCooldownSlider * 1000).toLong())){
                 return
             }
-            lastWarnTime = PartlySaneSkies.getTime()
+            lastWarnTime = PartlySaneSkies.time
             BannerRenderer.renderNewBanner(PSSBanner("A player is low", 3500, color = Color.RED))
             PartlySaneSkies.minecraft.soundHandler
                 .playSound(PositionedSoundRecord.create(ResourceLocation("partlysaneskies", "bell")))

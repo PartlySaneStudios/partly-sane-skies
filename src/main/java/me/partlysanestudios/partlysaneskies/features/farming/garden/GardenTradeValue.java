@@ -38,15 +38,15 @@ public class GardenTradeValue {
     private static final Window window = new Window(ElementaVersion.V2);
     // Returns if the player is currently viewing a trading screen
     public static boolean isTrade() {
-        if (PartlySaneSkies.minecraft.currentScreen == null) {
+        if (PartlySaneSkies.Companion.getMinecraft().currentScreen == null) {
             return false;
         }
-        if (!(PartlySaneSkies.minecraft.currentScreen instanceof GuiChest)) {
+        if (!(PartlySaneSkies.Companion.getMinecraft().currentScreen instanceof GuiChest)) {
             return false;
         }
 
 
-        IInventory[] inventories = MinecraftUtils.INSTANCE.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen);
+        IInventory[] inventories = MinecraftUtils.INSTANCE.getSeparateUpperLowerInventories(PartlySaneSkies.Companion.getMinecraft().currentScreen);
         if (inventories == null) return false;
 
         IInventory trader = inventories[0];
@@ -74,7 +74,7 @@ public class GardenTradeValue {
 
     // Returns a hashmap containing the name of an item and the quantity
     public static HashMap<String, Integer> getQuantityCostMap() {
-        IInventory[] inventories = MinecraftUtils.INSTANCE.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen);
+        IInventory[] inventories = MinecraftUtils.INSTANCE.getSeparateUpperLowerInventories(PartlySaneSkies.Companion.getMinecraft().currentScreen);
         assert inventories != null;
         IInventory trader = inventories[0];
 
@@ -146,7 +146,7 @@ public class GardenTradeValue {
     }
 
     public static List<String> getRewardsLore() {
-        IInventory[] inventories = MinecraftUtils.INSTANCE.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen);
+        IInventory[] inventories = MinecraftUtils.INSTANCE.getSeparateUpperLowerInventories(PartlySaneSkies.Companion.getMinecraft().currentScreen);
         assert inventories != null;
         IInventory trader = inventories[0];
 
@@ -248,7 +248,7 @@ public class GardenTradeValue {
             box.hide();
             return;
         }
-        if (!PartlySaneSkies.config.gardenShopTradeInfo) {
+        if (!PartlySaneSkies.Companion.getConfig().gardenShopTradeInfo) {
             return;
         }
 

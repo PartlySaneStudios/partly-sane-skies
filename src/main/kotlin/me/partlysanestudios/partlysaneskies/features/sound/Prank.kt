@@ -17,7 +17,7 @@ import java.time.Month
 
 
 private const val numOfSounds = 7
-private var lastPrankTime = PartlySaneSkies.getTime()
+private var lastPrankTime = PartlySaneSkies.time
 
 /*
     Sound indexes:
@@ -73,7 +73,7 @@ object Prank {
 
         if (rng == 0) {
             execute()
-            lastPrankTime = PartlySaneSkies.getTime()
+            lastPrankTime = PartlySaneSkies.time
         }
     }
 }

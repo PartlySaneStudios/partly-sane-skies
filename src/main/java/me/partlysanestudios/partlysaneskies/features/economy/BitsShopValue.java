@@ -51,7 +51,7 @@ public class BitsShopValue {
 
         HashMap<String, Double> map = new HashMap<>();
         long bitCount = HypixelUtils.INSTANCE.getBits();
-        boolean filterAffordable = PartlySaneSkies.config.bitShopOnlyShowAffordable;
+        boolean filterAffordable = PartlySaneSkies.Companion.getConfig().bitShopOnlyShowAffordable;
 
         if (SkyblockDataManager.bitIds.isEmpty()) {
             new Thread(() -> {
@@ -90,14 +90,14 @@ public class BitsShopValue {
     }
 
     public static boolean isCommunityShop() {
-        if (PartlySaneSkies.minecraft.currentScreen == null) {
+        if (PartlySaneSkies.Companion.getMinecraft().currentScreen == null) {
             return false;
         }
-        if (!(PartlySaneSkies.minecraft.currentScreen instanceof GuiChest)) {
+        if (!(PartlySaneSkies.Companion.getMinecraft().currentScreen instanceof GuiChest)) {
             return false;
         }
 
-        IInventory[] inventories = MinecraftUtils.INSTANCE.getSeparateUpperLowerInventories(PartlySaneSkies.minecraft.currentScreen);
+        IInventory[] inventories = MinecraftUtils.INSTANCE.getSeparateUpperLowerInventories(PartlySaneSkies.Companion.getMinecraft().currentScreen);
         if (inventories == null) return false;
 
         IInventory shop = inventories[0];
@@ -126,7 +126,7 @@ public class BitsShopValue {
             box.hide();
             return;
         }
-        if (!PartlySaneSkies.config.bestBitShopItem) {
+        if (!PartlySaneSkies.Companion.getConfig().bestBitShopItem) {
             return;
         }
 

@@ -29,7 +29,7 @@ public class WikiArticleOpener {
 
     public static void getArticle(String id) {
         isWaitingForArticle = true;
-        PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/wiki " + id);
+        PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/wiki " + id);
     }
 
     @SubscribeEvent
@@ -47,7 +47,7 @@ public class WikiArticleOpener {
 
         isWaitingForArticle = false;
         String wikiLink = e.message.getChatStyle().getChatClickEvent().getValue();
-        if (PartlySaneSkies.config.openWikiAutomatically) {
+        if (PartlySaneSkies.Companion.getConfig().openWikiAutomatically) {
             SystemUtils.INSTANCE.openLink(wikiLink);
         }
     }
@@ -57,13 +57,13 @@ public class WikiArticleOpener {
             return;
         }
         ItemStack item;
-        if (!(PartlySaneSkies.minecraft.currentScreen instanceof GuiContainer)) {
+        if (!(PartlySaneSkies.Companion.getMinecraft().currentScreen instanceof GuiContainer)) {
             return;
         }
-        if (PartlySaneSkies.minecraft.currentScreen instanceof AuctionHouseGui) {
+        if (PartlySaneSkies.Companion.getMinecraft().currentScreen instanceof AuctionHouseGui) {
             return;
         }
-        GuiContainer container = (GuiContainer) PartlySaneSkies.minecraft.currentScreen;
+        GuiContainer container = (GuiContainer) PartlySaneSkies.Companion.getMinecraft().currentScreen;
         Slot slot = container.getSlotUnderMouse();
         if (slot == null)
             return;

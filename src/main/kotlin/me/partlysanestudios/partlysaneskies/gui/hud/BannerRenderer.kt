@@ -2,6 +2,8 @@
 // Written by Su386.
 // See LICENSE for copyright and license notices.
 //
+
+
 package me.partlysanestudios.partlysaneskies.gui.hud
 
 import gg.essential.elementa.ElementaVersion
@@ -108,12 +110,12 @@ object BannerRenderer: Gui() {
 }
 
 class PSSBanner(val text: String, val lengthOfTimeToRender: Long, val textScale: Float = 5f, private val color: Color = Color.red) {
-    val creationTime = PartlySaneSkies.getTime()
+    val creationTime = PartlySaneSkies.time
 
     var renderStartTime = -1L
 
     fun setRenderStartTimeNow() {
-        this.renderStartTime = PartlySaneSkies.getTime()
+        this.renderStartTime = PartlySaneSkies.time
     }
 
     fun isOutOfDate(): Boolean {
@@ -137,7 +139,7 @@ class PSSBanner(val text: String, val lengthOfTimeToRender: Long, val textScale:
 
 
         val fadeLength = displayLength * (1 / 6.0)
-        val timeSinceStarted = PartlySaneSkies.getTime() - timeStarted
+        val timeSinceStarted = PartlySaneSkies.time - timeStarted
 
         return if (0 > timeSinceStarted) {
             0

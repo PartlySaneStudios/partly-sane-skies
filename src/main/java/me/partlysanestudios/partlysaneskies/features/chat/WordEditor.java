@@ -40,7 +40,7 @@ public class WordEditor {
 
 
     public static String handleWordEditorMessage(String message) {
-        if (!PartlySaneSkies.config.wordEditor) return message;
+        if (!PartlySaneSkies.Companion.getConfig().wordEditor) return message;
 
         for (final String[] word : wordsToEdit) {
 
@@ -74,7 +74,7 @@ public class WordEditor {
 
     // Checks if the message contains a link
     public static boolean shouldEditMessage(IChatComponent message) {
-        if (!PartlySaneSkies.config.wordEditor) {
+        if (!PartlySaneSkies.Companion.getConfig().wordEditor) {
             return false;
         }
 

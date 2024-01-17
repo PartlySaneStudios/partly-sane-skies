@@ -19,20 +19,20 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class MixinEssentialsTelemetryManager {
     @Inject(method = "sendHardwareAndOSTelemetry*", at = @At("HEAD"), cancellable = true)
     public void onSendHardwareAndOSTelemetryHead(CallbackInfo ci) {
-        if (PartlySaneSkies.config == null) {
+        if (PartlySaneSkies.Companion.getConfig() == null) {
             return;
         }
-        if (PartlySaneSkies.config.privacyMode) {
+        if (PartlySaneSkies.Companion.getConfig().privacyMode) {
             ci.cancel();
         }
     }
 
     @Inject(method = "enqueue*", at = @At("HEAD"), cancellable = true)
     public void onEnqueueHead(CallbackInfo ci) {
-        if (PartlySaneSkies.config == null) {
+        if (PartlySaneSkies.Companion.getConfig() == null) {
             return;
         }
-        if (PartlySaneSkies.config.privacyMode) {
+        if (PartlySaneSkies.Companion.getConfig().privacyMode) {
             ci.cancel();
         }
     }
