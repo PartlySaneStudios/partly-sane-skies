@@ -12,6 +12,7 @@ import me.partlysanestudios.partlysaneskies.features.dungeons.playerrating.Playe
 import me.partlysanestudios.partlysaneskies.gui.hud.BannerRenderer.renderNewBanner
 import me.partlysanestudios.partlysaneskies.gui.hud.PSSBanner
 import me.partlysanestudios.partlysaneskies.system.SystemNotification
+import me.partlysanestudios.partlysaneskies.utils.ChatUtils
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
 import net.minecraftforge.client.event.ClientChatReceivedEvent
@@ -44,6 +45,14 @@ object DebugKey {
 
         if (PartlySaneSkies.config.debugSendSystemNotification) {
             SystemNotification.showNotification("Debug mode: ${isDebugMode()}")
+        }
+
+        if (PartlySaneSkies.config.percyMode) {
+            Thread() {
+                sendClientMessage("Dumping...")
+                PercyMode.dump()
+
+            }.start()
         }
     }
 

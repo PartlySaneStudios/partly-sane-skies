@@ -9,7 +9,10 @@ package me.partlysanestudios.partlysaneskies.utils
 
 import com.google.common.collect.ComparisonChain
 import com.google.common.collect.Ordering
+import gg.essential.elementa.dsl.pixels
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
+import me.partlysanestudios.partlysaneskies.features.economy.auctionhousemenu.AuctionElement
+import me.partlysanestudios.partlysaneskies.features.economy.auctionhousemenu.AuctionHouseGui
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import net.minecraft.client.gui.GuiScreen
 import net.minecraft.client.network.NetworkPlayerInfo
@@ -22,6 +25,7 @@ import net.minecraft.scoreboard.ScorePlayerTeam
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import org.apache.commons.lang3.reflect.FieldUtils
+import java.lang.IndexOutOfBoundsException
 import java.util.stream.Collectors
 
 object MinecraftUtils {
@@ -63,6 +67,21 @@ object MinecraftUtils {
         val scoreboardName =
             PartlySaneSkies.minecraft.thePlayer.worldScoreboard.getObjectiveInDisplaySlot(1).displayName
         return scoreboardName.removeColorCodes()
+    }
+
+    fun IInventory.getItemstackList(): ArrayList<ItemStack> {
+        val list = ArrayList<ItemStack>()
+
+        for (i in 0..53) {
+            try {
+                list.add(this.getStackInSlot(i) ?: continue)
+
+            } catch (_: IndexOutOfBoundsException) {
+
+            }
+        }
+
+        return list
     }
 
     // Returns a list of lines on the scoreboard,

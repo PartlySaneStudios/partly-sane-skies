@@ -1532,6 +1532,7 @@ public class OneConfigScreen extends Config {
     public boolean debugMode = false;
 
 
+
     @Switch(
             name = "Render TEST Banner",
             category = "Debug"
@@ -1561,4 +1562,37 @@ public class OneConfigScreen extends Config {
             category = "Debug"
     )
     public boolean debugPrintPetWorldParsingInformation = false;
+
+    @Switch(
+            name = "Percy Mode",
+            category = "Debug",
+            subcategory = "Percy Mode"
+    )
+    public boolean percyMode = false;
+
+    @Switch(
+            name = "Current Screen",
+            category = "Debug",
+            subcategory = "Percy Mode"
+    )
+    public boolean debugCurrentScreenDump = false;
+    @Switch(
+            name = "Entity Dump",
+            category = "Debug",
+            subcategory = "Percy Mode"
+    )
+    public boolean debugEntityDump = false;    @Switch(
+            name = "Inventory Dump",
+            category = "Debug",
+            subcategory = "Percy Mode"
+    )
+    public boolean debugInventoryDump = false;    @Switch(
+            name = "Player Dump",
+            category = "Debug",
+            subcategory = "Percy Mode"
+    )
+    public boolean debugPlayerDump = false;
+
+
+
 }

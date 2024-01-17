@@ -233,7 +233,7 @@ class PartlySaneSkies {
         EVENT_BUS.register(PearlRefill)
         EVENT_BUS.register(SanityCheck)
         EVENT_BUS.register(Keybinds)
-        
+
         // Registers all client side commands
         HelpCommand.registerPSSCommand()
         HelpCommand.registerHelpCommand()
