@@ -132,21 +132,4 @@ object HypixelUtils {
     fun getItemAttributes(item: ItemStack): NBTTagCompound? {
         return item.tagCompound?.getCompoundTag("ExtraAttributes")
     }
-
-    /**
-     * Gets the current island type from the tablist
-     * @return The current island type
-     */
-    fun getCurrentIsland(): IslandType {
-        for (line in MinecraftUtils.getTabList()) {
-            if (line.removeColorCodes().startsWith("Area: ") || line.removeColorCodes().startsWith("Dungeon: ")) {
-                val islandName = line.removeColorCodes().replace("Area: ", "").replace("Dungeon: ", "").trim()
-
-                return IslandType.entries.firstOrNull { it.islandName.equals(islandName, ignoreCase = true) }
-                    ?: IslandType.NONE
-            }
-        }
-
-        return IslandType.NONE
-    }
 }

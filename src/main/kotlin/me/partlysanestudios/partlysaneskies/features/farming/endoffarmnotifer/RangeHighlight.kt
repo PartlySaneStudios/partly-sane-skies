@@ -56,7 +56,7 @@ object RangeHighlight {
             var color = Color(255, 255, 255)
             color = ImageUtils.applyOpacityToColor(color, (.2 * 255).toInt())
 //                ChatUtils.sendClientMessage("Range to highlight: ${EndOfFarmNotifier.rangeToHighlight}, Current Range: $range")
-            if (range.equals(EndOfFarmNotifier.rangeToHighlight)) {
+            if (range == EndOfFarmNotifier.rangeToHighlight) {
 //                    ChatUtils.sendClientMessage("Is range to highlight")
                 color = ThemeManager.getAccentColor().toJavaColor()
                 color = ImageUtils.applyOpacityToColor(color, (.4 * 255).toInt())

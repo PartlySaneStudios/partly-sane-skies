@@ -46,7 +46,7 @@ object HealerAlert {
         return false
     }
 
-    fun run() {
+    fun checkPlayerTick() {
         if (!PartlySaneSkies.config.healerAlert) {
             return
         }
