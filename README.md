@@ -98,13 +98,26 @@ To view more information about commands, including how to use them, **[click her
 
 ***Note: the features below are just a small selection all PSS features: these are just some of the more popular/liked features.***
 
-*To view the complete list of all features, **[click here to visit the complete features page.](pages/features)***
+*To view the complete list of all features, **[click here to visit the complete features page.](pages/features/list.md)***
 <details>
   <summary> ⚙️ General/Miscellaneous Features </summary>
   
 ## ⚙️ General/Miscellaneous Features
 
 General and Miscellaneous features.
+
+### Mods Checker
+When enabled, Mod Checker automatically will check your mods list for outdated, suspicious, or unknown mods. These mods may not be on the list of verified mods.
+If you believe a mod is being falsely flagged, please report it in the PSS discord (/pssdiscord)
+
+
+<img src="/images/mod_checker.png" alt="Mod Checker" width="750" height="400" style="text-align: center;">
+
+
+### Privacy Mode
+When enabled, Privacy Mode blocks other mods wanting to send data to their servers. Currently supported mods are Essentials & Dungeon Guide. If you know more mods that send that kind of data, feel free to report that in our discord server. ```/pssdiscord```
+
+
 
 ### Custom Main Menu
 
