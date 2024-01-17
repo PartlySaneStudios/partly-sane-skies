@@ -8,6 +8,8 @@ package me.partlysanestudios.partlysaneskies.config.oneconfig;
 
 import cc.polyfrost.oneconfig.config.Config;
 import cc.polyfrost.oneconfig.config.annotations.Number;
+import org.lwjgl.input.Keyboard;
+
 import cc.polyfrost.oneconfig.config.annotations.*;
 import cc.polyfrost.oneconfig.config.core.OneColor;
 import cc.polyfrost.oneconfig.config.core.OneKeyBind;
@@ -16,7 +18,6 @@ import cc.polyfrost.oneconfig.config.data.Mod;
 import cc.polyfrost.oneconfig.config.data.ModType;
 import cc.polyfrost.oneconfig.libs.universal.UKeyboard;
 import me.partlysanestudios.partlysaneskies.features.dungeons.PearlRefill;
-import org.lwjgl.input.Keyboard;
 
 public class OneConfigScreen extends Config {
 
@@ -1532,6 +1533,7 @@ public class OneConfigScreen extends Config {
     public boolean debugMode = false;
 
 
+
     @Switch(
             name = "Render TEST Banner",
             category = "Debug"
@@ -1563,9 +1565,40 @@ public class OneConfigScreen extends Config {
     public boolean debugPrintPetWorldParsingInformation = false;
 
     @Switch(
-            name = "Print current location from Island Type",
-            category = "Debug"
+        name = "Print current location from Island Type",
+        category = "Debug"
     )
     public boolean debugPrintCurrentLocationFromIslandType = false;
+
+    @Switch(
+            name = "Percy Mode",
+            category = "Debug",
+            subcategory = "Percy Mode"
+    )
+    public boolean percyMode = false;
+
+    @Switch(
+            name = "Current Screen",
+            category = "Debug",
+            subcategory = "Percy Mode"
+    )
+    public boolean debugCurrentScreenDump = false;
+    @Switch(
+            name = "Entity Dump",
+            category = "Debug",
+            subcategory = "Percy Mode"
+    )
+    public boolean debugEntityDump = false;    @Switch(
+            name = "Inventory Dump",
+            category = "Debug",
+            subcategory = "Percy Mode"
+    )
+    public boolean debugInventoryDump = false;    @Switch(
+            name = "Player Dump",
+            category = "Debug",
+            subcategory = "Percy Mode"
+    )
+    public boolean debugPlayerDump = false;
+
 
 }

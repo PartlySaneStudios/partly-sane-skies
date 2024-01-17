@@ -137,8 +137,7 @@ class PartlySaneSkies {
         // Creates the partly-sane-skies directory if not already made
         File("./config/partly-sane-skies/").mkdirs()
 
-        var mainMenuRequest: Request? = null
-        mainMenuRequest =
+        val mainMenuRequest: Request =
             Request(
                 "https://raw.githubusercontent.com/" + getRepoOwner() + "/" + getRepoName() + "/main/data/main_menu.json",
                 { request: Request? ->
