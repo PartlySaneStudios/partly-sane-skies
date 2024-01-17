@@ -10,13 +10,16 @@ import cc.polyfrost.oneconfig.config.core.OneColor
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.IslandType
 import me.partlysanestudios.partlysaneskies.features.dungeons.playerrating.PlayerRating
-import me.partlysanestudios.partlysaneskies.gui.hud.BannerRenderer.renderNewBanner
-import me.partlysanestudios.partlysaneskies.gui.hud.PSSBanner
+import me.partlysanestudios.partlysaneskies.render.gui.hud.BannerRenderer.renderNewBanner
+import me.partlysanestudios.partlysaneskies.render.gui.hud.PSSBanner
+import me.partlysanestudios.partlysaneskies.render.waypoint.Waypoint
+import me.partlysanestudios.partlysaneskies.render.waypoint.WaypointManager
 import me.partlysanestudios.partlysaneskies.system.SystemNotification
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
+import net.minecraft.util.BlockPos
 import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import org.apache.logging.log4j.Level
@@ -44,7 +47,26 @@ object DebugKey {
         if (PartlySaneSkies.config.debugAddSlacker) {
             PlayerRating.rackPoints("FlagTheSlacker", "Debug Slacker")
         }
+        if (PartlySaneSkies.config.debugSpawnWaypoint) {
+            val originalPos = PartlySaneSkies.minecraft.thePlayer.position
+            val modifiedPos = BlockPos(originalPos.x - 1, originalPos.y, originalPos.z - 1)
 
+            if (PartlySaneSkies.config.debugMode) {
+                WaypointManager.addWaypoint(
+                    Waypoint(
+                        "Debug Waypoint",
+                        modifiedPos
+                    )
+                )
+            } else {
+                WaypointManager.removeWaypoint(
+                    Waypoint(
+                        "Debug Waypoint",
+                        modifiedPos
+                    )
+                )
+            }
+        }
         if (PartlySaneSkies.config.debugSendSystemNotification) {
             SystemNotification.showNotification("Debug mode: ${isDebugMode()}")
         }

@@ -296,6 +296,7 @@ object RangeHighlight {
 //            Resets
         GlStateManager.enableTexture2D()
         GlStateManager.disableBlend()
+        GlStateManager.resetColor()
     }
 
     fun getExactPlayerPosition(partialTicks: Float): Point3d {

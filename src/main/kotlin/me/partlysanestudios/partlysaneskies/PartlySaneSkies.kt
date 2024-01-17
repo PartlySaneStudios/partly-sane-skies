@@ -20,7 +20,6 @@ package me.partlysanestudios.partlysaneskies
 import gg.essential.elementa.ElementaVersion
 import me.partlysanestudios.partlysaneskies.config.keybinds.Keybinds
 import me.partlysanestudios.partlysaneskies.config.oneconfig.OneConfigScreen
-import me.partlysanestudios.partlysaneskies.data.api.PolyfrostUrsaMinorRequest
 import me.partlysanestudios.partlysaneskies.data.api.Request
 import me.partlysanestudios.partlysaneskies.data.api.RequestsManager.newRequest
 import me.partlysanestudios.partlysaneskies.data.cache.PetData
@@ -37,7 +36,6 @@ import me.partlysanestudios.partlysaneskies.features.commands.HelpCommand
 import me.partlysanestudios.partlysaneskies.features.commands.Version
 import me.partlysanestudios.partlysaneskies.features.debug.DebugKey
 import me.partlysanestudios.partlysaneskies.features.discord.DiscordRPC
-import me.partlysanestudios.partlysaneskies.features.dungeons.*
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.PartyFriendManager
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.partymanager.PartyManager
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.permpartyselector.PermPartyManager
@@ -69,10 +67,14 @@ import me.partlysanestudios.partlysaneskies.features.skills.SkillUpgradeRecommen
 import me.partlysanestudios.partlysaneskies.features.sound.Prank
 import me.partlysanestudios.partlysaneskies.features.sound.enhancedsound.EnhancedSound
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
-import me.partlysanestudios.partlysaneskies.gui.hud.BannerRenderer
-import me.partlysanestudios.partlysaneskies.gui.hud.cooldown.CooldownManager
+import me.partlysanestudios.partlysaneskies.render.gui.hud.cooldown.CooldownManager
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
+import me.partlysanestudios.partlysaneskies.data.api.PolyfrostUrsaMinorRequest
+import me.partlysanestudios.partlysaneskies.features.dungeons.*
+import me.partlysanestudios.partlysaneskies.render.gui.hud.BannerRenderer
+import me.partlysanestudios.partlysaneskies.render.waypoint.WaypointManager
+import me.partlysanestudios.partlysaneskies.render.waypoint.WaypointRender
 import net.minecraft.client.Minecraft
 import net.minecraft.event.ClickEvent
 import net.minecraft.event.HoverEvent
@@ -97,7 +99,7 @@ class PartlySaneSkies {
         fun main(args: Array<String>) {
         }
 
-        var LOGGER = LogManager.getLogger("Partly Sane Skies")
+        val LOGGER = LogManager.getLogger("Partly Sane Skies")
         const val MODID = "@MOD_ID@"
         const val NAME = "@MOD_NAME@"
         const val VERSION = "@MOD_VERSION@"
@@ -222,6 +224,9 @@ class PartlySaneSkies {
         registerEvent(PearlRefill)
         registerEvent(SanityCheck)
         registerEvent(Keybinds)
+        registerEvent(HealerAlert)
+        registerEvent(WaypointManager)
+        registerEvent(WaypointRender)
 
         // Registers all client side commands
         HelpCommand.registerPSSCommand()
@@ -251,6 +256,7 @@ class PartlySaneSkies {
         PearlRefill.registerCommand()
         CooldownManager.init()
         DebugKey.init()
+        WaypointManager.registerCommand()
 
         PolyfrostUrsaMinorRequest.authorize()
 
@@ -342,7 +348,7 @@ class PartlySaneSkies {
                 }
                 sendClientMessage("§b§m--------------------------------------------------", true)
                 sendClientMessage("§cWe have detected a new version of Partly Sane Skies.")
-                sendClientMessage("§cYou are currently using version §d" + VERSION + "§c, the latest version is §d" + CustomMainMenu.latestVersion + "§c.")
+                sendClientMessage("§cYou are currently using version §d$VERSION§c, the latest version is §d" + CustomMainMenu.latestVersion + "§c.")
                 val skyclientMessage =
                     ChatComponentText("§aIf you are using SkyClient, make sure you update when prompted.")
                 minecraft.ingameGUI
@@ -371,6 +377,6 @@ class PartlySaneSkies {
     }
 
     // Sends a ping to the count API to track the number of users per day
-    fun trackLoad() {}
+    private fun trackLoad() {}
 
 }

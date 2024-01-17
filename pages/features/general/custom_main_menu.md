@@ -57,4 +57,3 @@ to display.
 *N/A*
 
 The list of all commands can be [found here](/pages/commands.md#clearpssdata)
-

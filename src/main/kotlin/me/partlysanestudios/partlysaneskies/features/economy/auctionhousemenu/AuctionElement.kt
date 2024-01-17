@@ -18,8 +18,8 @@ import gg.essential.elementa.dsl.*
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
-import me.partlysanestudios.partlysaneskies.gui.components.PSSButton
-import me.partlysanestudios.partlysaneskies.gui.components.PSSItemRender
+import me.partlysanestudios.partlysaneskies.render.gui.components.PSSButton
+import me.partlysanestudios.partlysaneskies.render.gui.components.PSSItemRender
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getLore

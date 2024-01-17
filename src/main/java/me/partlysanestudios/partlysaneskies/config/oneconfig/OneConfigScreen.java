@@ -1553,6 +1553,13 @@ public class OneConfigScreen extends Config {
     public boolean debugAddSlacker = false;
 
     @Switch(
+            name = "Spawn Waypoint",
+            category = "Debug",
+            description = "Spawns a waypoint at your current location"
+    )
+    public boolean debugSpawnWaypoint = false;
+
+    @Switch(
             name = "Send a system notification",
             category = "Debug"
     )

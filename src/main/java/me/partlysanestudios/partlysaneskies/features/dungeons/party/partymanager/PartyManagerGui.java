@@ -18,7 +18,7 @@ import gg.essential.elementa.constraints.ScaleConstraint;
 import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager;
-import me.partlysanestudios.partlysaneskies.gui.components.PSSButton;
+import me.partlysanestudios.partlysaneskies.render.gui.components.PSSButton;
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils;
 
 import java.awt.*;
