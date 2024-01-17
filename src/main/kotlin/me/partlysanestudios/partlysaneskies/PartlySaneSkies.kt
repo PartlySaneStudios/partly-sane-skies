@@ -20,7 +20,6 @@ package me.partlysanestudios.partlysaneskies
 import gg.essential.elementa.ElementaVersion
 import me.partlysanestudios.partlysaneskies.config.keybinds.Keybinds
 import me.partlysanestudios.partlysaneskies.config.oneconfig.OneConfigScreen
-import me.partlysanestudios.partlysaneskies.data.api.PolyfrostUrsaMinorRequest
 import me.partlysanestudios.partlysaneskies.data.api.Request
 import me.partlysanestudios.partlysaneskies.data.api.RequestsManager.newRequest
 import me.partlysanestudios.partlysaneskies.data.cache.PetData
@@ -68,13 +67,14 @@ import me.partlysanestudios.partlysaneskies.features.skills.SkillUpgradeRecommen
 import me.partlysanestudios.partlysaneskies.features.sound.Prank
 import me.partlysanestudios.partlysaneskies.features.sound.enhancedsound.EnhancedSound
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
-import me.partlysanestudios.partlysaneskies.gui.hud.BannerRenderer
 import me.partlysanestudios.partlysaneskies.render.gui.hud.cooldown.CooldownManager
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
 import me.partlysanestudios.partlysaneskies.data.api.PolyfrostUrsaMinorRequest
 import me.partlysanestudios.partlysaneskies.features.dungeons.*
+import me.partlysanestudios.partlysaneskies.render.gui.hud.BannerRenderer
 import me.partlysanestudios.partlysaneskies.render.waypoint.WaypointManager
+import me.partlysanestudios.partlysaneskies.render.waypoint.WaypointRender
 import net.minecraft.client.Minecraft
 import net.minecraft.event.ClickEvent
 import net.minecraft.event.HoverEvent
