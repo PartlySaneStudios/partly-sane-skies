@@ -15,8 +15,6 @@ import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.GuiPlayerTabOverlay;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
 import java.awt.*;
@@ -97,8 +95,7 @@ public class NoCookieWarning {
         }
     }
 
-    @SubscribeEvent
-    public void checkCoinsTick(ClientTickEvent event) {
+    public static void checkCoinsTick() {
         if (!HypixelUtils.INSTANCE.isSkyblock()) {
             return;
         }
