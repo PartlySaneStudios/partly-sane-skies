@@ -107,7 +107,7 @@ object PetData {
     }
 
     /**
-     * @return the current pet rarity or Rarity.UNKNOWN when a pet is not spawned or unknown
+     * @return the current pet rarity or [Rarity.UNKNOWN] when a pet is not spawned or unknown
      */
     fun getCurrentPetRarity(): Rarity {
         parsePetFromWorld()
@@ -257,11 +257,6 @@ object PetData {
     }
 
 
-
-
-
-
-
     /**
      * PetDataJson is a private class representing the data that is saved in the cache
      * @property currentPetRarity: the current pet's rarity
@@ -288,10 +283,5 @@ object PetData {
                 petNameLevelMap[rarity] = HashMap()
             }
         }
-
     }
-
-
-
-
 }

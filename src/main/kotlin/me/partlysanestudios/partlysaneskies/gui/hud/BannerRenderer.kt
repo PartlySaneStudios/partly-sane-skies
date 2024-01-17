@@ -68,11 +68,6 @@ object BannerRenderer: Gui() {
         displayText.setColor(bannerToRender.getFadedColor())
 
         window.draw(UMatrixStack())
-
-
-        //while (bannerToRender.isOutOfDate()) {
-        //    bannerList.remove(bannerToRender)
-        //}
     }
 
     private fun cleanOutOfDateBanners() {
@@ -128,10 +123,7 @@ class PSSBanner(val text: String, val lengthOfTimeToRender: Long, val textScale:
     fun getFadedColor(): Color {
         val alpha = getAlpha(renderStartTime, lengthOfTimeToRender / 1000.0).toInt()
 
-
-        val color = ImageUtils.applyOpacityToColor(color, alpha)
-
-        return color
+        return ImageUtils.applyOpacityToColor(this.color, alpha)
     }
 
     private fun getAlpha(timeStarted: Long, displayLengthSeconds: Double): Short {

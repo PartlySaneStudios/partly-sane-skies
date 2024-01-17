@@ -25,7 +25,7 @@ public class LocationBannerDisplay {
     public LocationBannerDisplay() {
     }
 
-    public static void checkLocation() {
+    public static void checkLocationTick() {
         if (!PartlySaneSkies.Companion.getConfig().locationBannerDisplay)
             return;
 

@@ -42,7 +42,7 @@ public class PetAlert {
     public static long lastMessageSendTime = 0;
     public static long lastSoundTime = 0;
     public static long lastMuteTime = 0;
-    public static void runPetAlert() {
+    public static void runPetAlertTick() {
         if (!PartlySaneSkies.Companion.getConfig().incorrectPetForMinionAlert) {
             return;
         }

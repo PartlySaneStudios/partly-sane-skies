@@ -13,10 +13,10 @@ import java.util.*
 import java.util.regex.Pattern
 
 object StringUtils {
-    // public static String colorCodes(String text) {
-    //     return text.replace("&", "§");
-    // }
-
+    /**
+     * Removes all color codes from a string
+     * @return The string without color codes
+     */
     fun String.removeColorCodes(): String {
         val textBuilder = StringBuilder(this)
         while (textBuilder.indexOf("§") != -1) {
@@ -30,8 +30,11 @@ object StringUtils {
         return textBuilder.toString()
     }
 
-
-
+    /**
+     * Wraps text to a given number of characters
+     * @param charNumber The number of characters to wrap the text to
+     * @return The wrapped text
+     */
     fun String.wrapText(charNumber: Int): String {
         val charArray = this.toCharArray()
         val words: MutableList<String> = ArrayList()
@@ -86,6 +89,11 @@ object StringUtils {
         return wrappedText.toString()
     }
 
+    /**
+     * Converts a list of characters to a string
+     * @param chars The list of characters to convert
+     * @return The string
+     */
     fun charArrayToString(chars: List<Char>): String {
         val string = StringBuilder()
         for (c in chars) string.append(c)
@@ -122,7 +130,7 @@ object StringUtils {
 //        Creates a string with the number formatted with the above decimal format
         var formattedNum = decimalFormat.format(this)
         if (formattedNum.startsWith(".")) {
-            formattedNum = "0" + formattedNum
+            formattedNum = "0$formattedNum"
         }
         var hundredsPlaceFormat = ""
         when (PartlySaneSkies.config.hundredsPlaceFormat) {
@@ -176,11 +184,18 @@ object StringUtils {
         return str
     }
 
-    // Returns a result from a given pattern and key
-    /*
-     * Example:
-     * StringUtils.INSTANCE.recognisePattern("Wow! Su386", "Wow! {player}", "{player}");
-     * Will return "Su386" as it is finding the pattern {player}
+    /**
+     * Returns a result from a given pattern and key
+     *
+     * For example, this will return "Su386"
+     * ```kotlin
+     * recognisePattern("Wow! Su386", "Wow! {player}", "{player}");
+     * ```
+     *
+     * @param input The input to get the result from
+     * @param pattern The pattern to use to get the result
+     * @param key The key to use to get the result
+     * @return The result
      */
     fun recognisePattern(input: String, pattern: String, key: String): String {
         var result = input
@@ -251,7 +266,7 @@ object StringUtils {
         val str = this
         val titleCase = StringBuilder()
         var nextCharUpperCase = true
-        for (i in 0 until str.length) {
+        for (i in str.indices) {
             val ch = str.substring(i, i + 1)
             if (ch != " " && !nextCharUpperCase) {
                 titleCase.append(ch.lowercase(Locale.getDefault()))
@@ -275,13 +290,13 @@ object StringUtils {
             val digits = num.replace("[^\\d.]".toRegex(), "")
             var parsedNum = digits.toDouble()
             val pattern = Pattern.compile("[^\\d.]")
-            while (num.length > 0 && pattern.matcher(num.substring(num.length - 1)).find()) {
+            while (num.isNotEmpty() && pattern.matcher(num.substring(num.length - 1)).find()) {
                 val str = num.substring(num.length - 1)
                 when (str) {
-                    "k" -> parsedNum *= 1000f
-                    "m" -> parsedNum *= 1000000f
-                    "b" -> parsedNum *= 1000000000f
-                    "t" -> parsedNum *= 1000000000000f
+                    "k" -> parsedNum *= 1_000f
+                    "m" -> parsedNum *= 1_000_000f
+                    "b" -> parsedNum *= 1_000_000_000f
+                    "t" -> parsedNum *= 1_000_000_000_000f
                 }
                 num = num.substring(0, num.length - 1)
             }
@@ -292,26 +307,25 @@ object StringUtils {
     }
 
     fun colorCodeToColor(colorCode: String): Color {
-        val colorCodetoColor = HashMap<String, Color>()
-        colorCodetoColor["§a"] = Color(85, 255, 85)
-        colorCodetoColor["§b"] = Color(85, 255, 255)
-        colorCodetoColor["§c"] = Color(255, 85, 85)
-        colorCodetoColor["§d"] = Color(255, 85, 255)
-        colorCodetoColor["§e"] = Color(255, 255, 85)
-        colorCodetoColor["§f"] = Color(0, 0, 0)
-        colorCodetoColor["§1"] = Color(0, 0, 170)
-        colorCodetoColor["§2"] = Color(0, 170, 0)
-        colorCodetoColor["§3"] = Color(0, 170, 170)
-        colorCodetoColor["§4"] = Color(170, 0, 0)
-        colorCodetoColor["§5"] = Color(170, 0, 170)
-        colorCodetoColor["§6"] = Color(255, 170, 0)
-        colorCodetoColor["§7"] = Color(170, 170, 170)
-        colorCodetoColor["§8"] = Color(85, 85, 85)
-        colorCodetoColor["§9"] = Color(85, 85, 255)
-        colorCodetoColor["§0"] = Color(0, 0, 0)
-        if (colorCodetoColor[colorCode] != null) {
-            return colorCodetoColor[colorCode]!!
-        }
-        else return Color.white
+        val colorCodeToColor = HashMap<String, Color>()
+        colorCodeToColor["§a"] = Color(85, 255, 85)
+        colorCodeToColor["§b"] = Color(85, 255, 255)
+        colorCodeToColor["§c"] = Color(255, 85, 85)
+        colorCodeToColor["§d"] = Color(255, 85, 255)
+        colorCodeToColor["§e"] = Color(255, 255, 85)
+        colorCodeToColor["§f"] = Color(0, 0, 0)
+        colorCodeToColor["§1"] = Color(0, 0, 170)
+        colorCodeToColor["§2"] = Color(0, 170, 0)
+        colorCodeToColor["§3"] = Color(0, 170, 170)
+        colorCodeToColor["§4"] = Color(170, 0, 0)
+        colorCodeToColor["§5"] = Color(170, 0, 170)
+        colorCodeToColor["§6"] = Color(255, 170, 0)
+        colorCodeToColor["§7"] = Color(170, 170, 170)
+        colorCodeToColor["§8"] = Color(85, 85, 85)
+        colorCodeToColor["§9"] = Color(85, 85, 255)
+        colorCodeToColor["§0"] = Color(0, 0, 0)
+        return if (colorCodeToColor[colorCode] != null) {
+            colorCodeToColor[colorCode]!!
+        } else Color.white
     }
 }

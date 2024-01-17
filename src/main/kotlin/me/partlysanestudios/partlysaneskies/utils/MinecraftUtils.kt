@@ -36,7 +36,7 @@ object MinecraftUtils {
     }
 
     @SideOnly(Side.CLIENT)
-    fun getTabList(): List<String>{
+    fun getTabList(): List<String> {
         return try {
             val players = PartlySaneSkies.minecraft.thePlayer.sendQueue.playerInfoMap.stream()
                 .sorted(playerOrdering)
@@ -50,6 +50,7 @@ object MinecraftUtils {
             ArrayList()
         }
     }
+
     private fun comparePlayers(overlay1: NetworkPlayerInfo, overlay2: NetworkPlayerInfo): Int {
         val team1 = overlay1.playerTeam
         val team2 = overlay2.playerTeam
@@ -62,12 +63,13 @@ object MinecraftUtils {
             .result()
     }
 
-    // Returns the name of the scoreboard without color codes
-    fun getScoreboardName(): String {
-        val scoreboardName =
-            PartlySaneSkies.minecraft.thePlayer.worldScoreboard.getObjectiveInDisplaySlot(1).displayName
-        return scoreboardName.removeColorCodes()
-    }
+    /**
+     * @param color if true, returns the scoreboard name with color codes
+     * @return the name of the scoreboard
+     */
+    fun getScoreboardName(color: Boolean = false): String =
+        PartlySaneSkies.minecraft.thePlayer.worldScoreboard.getObjectiveInDisplaySlot(1).displayName
+            .let { if (color) it else it.removeColorCodes() }
 
     fun IInventory.getItemstackList(): ArrayList<ItemStack> {
         val list = ArrayList<ItemStack>()
@@ -84,8 +86,9 @@ object MinecraftUtils {
         return list
     }
 
-    // Returns a list of lines on the scoreboard,
-    // where each line is a new entry
+    /**
+     * @return the scoreboard lines
+     */
     fun getScoreboardLines(): List<String> {
         return try {
             val scoreboard = PartlySaneSkies.minecraft.theWorld.scoreboard

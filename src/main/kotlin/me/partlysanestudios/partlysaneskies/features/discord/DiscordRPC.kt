@@ -18,17 +18,19 @@ import java.io.IOException
 import java.net.HttpURLConnection
 import java.net.URL
 import java.nio.file.Files
+import java.security.cert.X509Certificate
 import java.time.Instant
 import java.util.*
 import java.util.zip.ZipEntry
 import java.util.zip.ZipInputStream
+import javax.net.ssl.*
 
 
 const val NORMAL_APPLICATION_ID = 1195613263845666849
 const val SBE_BAD_APPLICATION_ID = 1195625408167686175
 
 object DiscordRPC {
-    private var discordLibraryPath: String = "./config/partly-sane-skies/discord-native-library"
+//    private var discordLibraryPath: String = "./config/partly-sane-skies/discord-native-library"
     private var discordLibrary: File? = null
     private var sdkDownloaded = false
     private var lastName = "sbe bad"
@@ -39,7 +41,7 @@ object DiscordRPC {
             return
         }
         startTimeStamp = Instant.now()
-        discordLibrary = downloadDiscordLibrary(discordLibraryPath)
+        discordLibrary = downloadDiscordLibrary()
         if(discordLibrary == null) {
             SystemUtils.log(Level.ERROR, "Error downloading Discord SDK.")
             sdkDownloaded = false
@@ -150,7 +152,7 @@ object DiscordRPC {
 
 
     @Throws(IOException::class)
-    fun downloadDiscordLibrary(path: String): File? {
+    fun downloadDiscordLibrary(): File? {
         // Find out which name Discord's library has (.dll for Windows, .so for Linux)
         val name = "discord_game_sdk"
         val suffix: String
@@ -168,12 +170,35 @@ object DiscordRPC {
 
         /*
         * Some systems report "amd64" (e.g. Windows and Linux), some "x86_64" (e.g. Mac OS).
-        *At this point we need the "x86_64" version, as this one is used in the ZIP.
+        * At this point we need the "x86_64" version, as this one is used in the ZIP.
         */
         if (arch == "amd64") arch = "x86_64"
 
         // Path of Discord's library inside the ZIP
         val zipPath = "lib/$arch/$name$suffix"
+
+        val trustAllCerts = arrayOf<TrustManager>(object : X509TrustManager {
+            override fun getAcceptedIssuers(): Array<X509Certificate> {
+                return arrayOf()
+            }
+
+            override fun checkClientTrusted(chain: Array<X509Certificate>, authType: String) {
+            }
+
+            override fun checkServerTrusted(chain: Array<X509Certificate>, authType: String) {
+            }
+        })
+
+        // Install the all-trusting trust manager
+        val sslContext = SSLContext.getInstance("SSL")
+        sslContext.init(null, trustAllCerts, java.security.SecureRandom())
+        HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.socketFactory)
+
+        // Create an all-trusting host name verifier
+        val allHostsValid = HostnameVerifier { _, _ -> true }
+
+        // Install the all-trusting host verifier
+        HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid)
 
         // Open the URL as a ZipInputStream
         val downloadUrl = URL("https://dl-game-sdk.discordapp.net/2.5.6/discord_game_sdk.zip")

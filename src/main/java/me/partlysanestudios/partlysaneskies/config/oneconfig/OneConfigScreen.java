@@ -6,8 +6,10 @@
 
 package me.partlysanestudios.partlysaneskies.config.oneconfig;
 
-import cc.polyfrost.oneconfig.config.Config;
-import cc.polyfrost.oneconfig.config.annotations.Number;
+import java.io.ObjectInputFilter.Config;
+
+import org.lwjgl.input.Keyboard;
+
 import cc.polyfrost.oneconfig.config.annotations.*;
 import cc.polyfrost.oneconfig.config.core.OneColor;
 import cc.polyfrost.oneconfig.config.core.OneKeyBind;
@@ -16,7 +18,6 @@ import cc.polyfrost.oneconfig.config.data.Mod;
 import cc.polyfrost.oneconfig.config.data.ModType;
 import cc.polyfrost.oneconfig.libs.universal.UKeyboard;
 import me.partlysanestudios.partlysaneskies.features.dungeons.PearlRefill;
-import org.lwjgl.input.Keyboard;
 
 public class OneConfigScreen extends Config {
 
@@ -28,7 +29,7 @@ public class OneConfigScreen extends Config {
         registerKeyBind(refillPearlsKeybind, PearlRefill.INSTANCE::keybindAction);
     }
 
-    public void resetBrokenStrings() {
+    public void resetBrokenStringsTick() {
         if (arrowLowChatMessage.isEmpty()) {
             arrowLowChatMessage = "Partly Sane Skies > Warning! {player} only has {count} arrows remaining!";
             save();
@@ -1564,6 +1565,12 @@ public class OneConfigScreen extends Config {
     public boolean debugPrintPetWorldParsingInformation = false;
 
     @Switch(
+        name = "Print current location from Island Type",
+        category = "Debug"
+    )
+    public boolean debugPrintCurrentLocationFromIslandType = false;
+
+    @Switch(
             name = "Percy Mode",
             category = "Debug",
             subcategory = "Percy Mode"
@@ -1592,7 +1599,6 @@ public class OneConfigScreen extends Config {
             subcategory = "Percy Mode"
     )
     public boolean debugPlayerDump = false;
-
 
 
 }

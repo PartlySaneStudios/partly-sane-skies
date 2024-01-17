@@ -6,25 +6,23 @@
 package me.partlysanestudios.partlysaneskies.features.dungeons;
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
+import me.partlysanestudios.partlysaneskies.data.skyblockdata.IslandType;
 import me.partlysanestudios.partlysaneskies.gui.hud.BannerRenderer;
 import me.partlysanestudios.partlysaneskies.gui.hud.PSSBanner;
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils;
-import me.partlysanestudios.partlysaneskies.utils.IslandType;
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class RequiredSecretsFound {
 
-    private boolean alreadySendThisRun = false;
-    private long lastCheckTime = PartlySaneSkies.Companion.getTime();
+    private static boolean alreadySendThisRun = false;
+    private static long lastCheckTime = PartlySaneSkies.Companion.getTime();
 
-    @SubscribeEvent
-    public void checkRequiredSecrets(TickEvent.ClientTickEvent event) {
+    public static void tick() {
         if (!HypixelUtils.INSTANCE.isSkyblock()) {
             return;
         }

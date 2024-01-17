@@ -101,28 +101,29 @@ public class PartyMember {
 
 
         String[] playerArmor = player.armorName;
-        if (playerArmor.length >= 3) {
+        if (playerArmor.length >= 4 && playerArmor[3] != null) {
             helmetName = playerArmor[3];
-
-        }
-        else {
+        } else {
             helmetName = "";
         }
-        if (playerArmor.length >= 2) {
-            chestplateName = playerArmor[2];
 
-        }
-        else {
+        if (playerArmor.length >= 3 && playerArmor[2] != null) {
+            chestplateName = playerArmor[2];
+        } else {
             chestplateName = "";
         }
-        if (playerArmor.length >= 1) {
-            leggingsName = playerArmor[1];
 
-        }
-        else {
+        if (playerArmor.length >= 2 && playerArmor[1] != null) {
+            leggingsName = playerArmor[1];
+        } else {
             leggingsName = "";
         }
-        bootsName = playerArmor[0];
+
+        if (playerArmor.length >= 1 && playerArmor[0] != null) {
+            bootsName = playerArmor[0];
+        } else {
+            bootsName = "";
+        }
 
 
         // Attempts to get the selected dungeon class

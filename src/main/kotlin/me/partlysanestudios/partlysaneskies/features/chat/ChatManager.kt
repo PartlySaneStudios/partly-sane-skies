@@ -40,7 +40,7 @@ object ChatManager {
 
         event.isCanceled = true // cancels the even
 
-        var messageToSend = event.message // Creates a new message to build off of
+        var messageToSend = event.message // Creates a new message to build on
 
 //        If the chat colors is supposed to run
         if (ChatColors.getChatColor(
@@ -73,7 +73,7 @@ object ChatManager {
         if (messageToSend.equals(event.message)) {
             event.isCanceled = false // Reset the event
             // ChatUtils.sendClientMessage("Message has not changed")
-            return // Exit
+            return
         }
 
 
