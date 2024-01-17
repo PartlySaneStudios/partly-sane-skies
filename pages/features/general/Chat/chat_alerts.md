@@ -20,7 +20,7 @@ These commands also work instead of /chatalerts:
 `/chatalert, /chal, /ca` -  Base command
 `/ca add [keyword]` - Add a keyword
 `/ca remove [keyword]` - Removes a previously added chatalert keyword
-`/ca list` - Lists out all added Chatalerts 
+`/ca list` - Lists out all added chatalerts
 
 List of all Partly Sane Skies commands can [be found here](/pages/commands.md)
 
