@@ -6,8 +6,7 @@
 
 package me.partlysanestudios.partlysaneskies.config.oneconfig;
 
-import java.io.ObjectInputFilter.Config;
-
+import cc.polyfrost.oneconfig.config.Config;
 import org.lwjgl.input.Keyboard;
 
 import cc.polyfrost.oneconfig.config.annotations.*;
