@@ -257,6 +257,7 @@ class PartlySaneSkies {
         PearlRefill.registerCommand()
         CooldownManager.init()
         DebugKey.init()
+        WaypointManager.registerCommand()
 
         PolyfrostUrsaMinorRequest.authorize()
 
