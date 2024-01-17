@@ -7,6 +7,8 @@
 package me.partlysanestudios.partlysaneskies.data.skyblockdata
 
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
+import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 
 enum class IslandType(val islandName: String) {
     HUB("Hub"),
@@ -30,6 +32,25 @@ enum class IslandType(val islandName: String) {
     NONE("");
 
     fun onIsland(): Boolean {
-        return this.islandName == HypixelUtils.getCurrentIsland().islandName
+        return this == IslandType.getCurrentIsland()
+    }
+
+    companion object {
+        /**
+         * Gets the current island type from the tablist
+         * @return The current island type
+         */
+        fun getCurrentIsland(): IslandType {
+            for (line in MinecraftUtils.getTabList()) {
+                if (line.removeColorCodes().startsWith("Area: ") || line.removeColorCodes().startsWith("Dungeon: ")) {
+                    val islandName = line.removeColorCodes().replace("Area: ", "").replace("Dungeon: ", "").trim()
+
+                    return IslandType.entries.firstOrNull { it.islandName.equals(islandName, ignoreCase = true) }
+                        ?: NONE
+                }
+            }
+
+            return NONE
+        }
     }
 }

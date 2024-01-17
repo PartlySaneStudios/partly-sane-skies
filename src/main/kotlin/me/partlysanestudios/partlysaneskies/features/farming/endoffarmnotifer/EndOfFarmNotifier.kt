@@ -15,6 +15,7 @@ import me.partlysanestudios.partlysaneskies.data.skyblockdata.IslandType
 import me.partlysanestudios.partlysaneskies.gui.hud.BannerRenderer.renderNewBanner
 import me.partlysanestudios.partlysaneskies.gui.hud.PSSBanner
 import me.partlysanestudios.partlysaneskies.utils.*
+import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
 import net.minecraft.client.audio.PositionedSoundRecord
 import net.minecraft.command.ICommandSender
 import net.minecraft.util.ResourceLocation
@@ -32,16 +33,16 @@ import kotlin.math.min
 
 
 object EndOfFarmNotifier {
-    var ranges = ArrayList<Range3d>()
-    lateinit var selectedPos1: IntArray
-    lateinit var selectedPos2: IntArray
+    internal var ranges = ArrayList<Range3d>()
+    private lateinit var selectedPos1: IntArray
+    private lateinit var selectedPos2: IntArray
     private var lastChimeTime: Long = 0
 
-    var color: Color? = null
+    private var color: Color? = null
     private var displayString = ""
     private const val TEXT_SCALE = 7
 
-    var rangeToHighlight: Range3d? = null
+    internal var rangeToHighlight: Range3d? = null
     private var rangeToHighlightSetTime: Long = 0
     private var wandActive = false
     private var pos = 1 // 1 is pos1, 2 is pos2

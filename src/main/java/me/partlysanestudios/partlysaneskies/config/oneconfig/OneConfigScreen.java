@@ -1561,4 +1561,11 @@ public class OneConfigScreen extends Config {
             category = "Debug"
     )
     public boolean debugPrintPetWorldParsingInformation = false;
+
+    @Switch(
+            name = "Print current location from Island Type",
+            category = "Debug"
+    )
+    public boolean debugPrintCurrentLocationFromIslandType = false;
+
 }

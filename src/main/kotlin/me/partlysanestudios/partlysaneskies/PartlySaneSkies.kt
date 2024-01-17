@@ -72,6 +72,7 @@ import me.partlysanestudios.partlysaneskies.gui.hud.cooldown.CooldownManager
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
 import me.partlysanestudios.partlysaneskies.data.api.PolyfrostUrsaMinorRequest
+import me.partlysanestudios.partlysaneskies.gui.hud.BannerRenderer
 import net.minecraft.client.Minecraft
 import net.minecraft.event.ClickEvent
 import net.minecraft.event.HoverEvent
@@ -226,6 +227,7 @@ class PartlySaneSkies {
         registerEvent(SanityCheck)
         registerEvent(Keybinds)
         registerEvent(HealerAlert)
+        registerEvent(BannerRenderer)
 
         // Registers all client side commands
         HelpCommand.registerPSSCommand()
@@ -296,7 +298,7 @@ class PartlySaneSkies {
 
     // Method runs every tick
     @SubscribeEvent
-    fun clientTick(evnt: ClientTickEvent?) {
+    fun clientTick(evnt: ClientTickEvent) {
         config.resetBrokenStrings()
         LocationBannerDisplay.checkLocation()
         EndOfFarmNotifier.run()
