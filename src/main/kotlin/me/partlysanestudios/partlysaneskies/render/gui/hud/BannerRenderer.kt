@@ -57,7 +57,7 @@ object BannerRenderer : Gui() {
         if (displayText.getText() != bannerToRender.text) {
             displayText.setText(bannerToRender.text)
                 .constrain {
-                    textScale = PartlySaneSkies.config.bannerSize.pixels
+                    textScale = (bannerToRender.textScale * PartlySaneSkies.config.bannerSize).pixels
                     x = CenterConstraint()
                     y = (window.getHeight() * .125f).pixels
                     color = bannerToRender.getFadedColor().constraint
@@ -107,6 +107,7 @@ object BannerRenderer : Gui() {
 class PSSBanner(
     val text: String,
     val lengthOfTimeToRender: Long,
+    val textScale: Float = 5f,
     private val color: Color = Color.red
 ) {
     val creationTime = PartlySaneSkies.time

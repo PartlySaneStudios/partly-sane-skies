@@ -227,14 +227,14 @@ public class OneConfigScreen extends Config {
     public int prefCurr = 11;
 
     @Slider(
-            min = 1,
-            max = 10,
+            min = 0,
+            max = 2,
             subcategory = "Appearance",
             name = "Banner Size",
             description = "The size of the banners that appear on your screen.",
             category = "General"
     )
-    public float bannerSize = 5f;
+    public float bannerSize = 1f;
 
 
     // Main Menu
