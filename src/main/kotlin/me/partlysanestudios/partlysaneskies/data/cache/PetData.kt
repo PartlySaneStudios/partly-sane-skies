@@ -176,28 +176,28 @@ object PetData {
     }
 
     private fun parsePetFromWorld() {
-        if (DebugKey.isDebugMode() && (PartlySaneSkies.config.debugPrintPetWorldParsingInformation)) {
+        if (DebugKey.isDebugMode() && (PartlySaneSkies.config.dev.debugPrintPetWorldParsingInformation)) {
             ChatUtils.visPrint("getting users pet")
         }
         val usersPet = getUsersPet() ?: return
 
-        if (DebugKey.isDebugMode() && PartlySaneSkies.config.debugPrintPetWorldParsingInformation) {
+        if (DebugKey.isDebugMode() && PartlySaneSkies.config.dev.debugPrintPetWorldParsingInformation) {
             ChatUtils.visPrint("Creating pattern")
         }
         val pattern = """§8\[§7Lv(\d+)§8] (§\w)([\w']+)\s*('s)? (\w+)""".toRegex()
 
-        if (DebugKey.isDebugMode() && PartlySaneSkies.config.debugPrintPetWorldParsingInformation) {
+        if (DebugKey.isDebugMode() && PartlySaneSkies.config.dev.debugPrintPetWorldParsingInformation) {
             ChatUtils.visPrint("Finding pattern")
             ChatUtils.visPrint("display name ${usersPet.displayName.formattedText}")
         }
 
         val matchResult = pattern.find(usersPet.displayName.unformattedText) ?: return
 
-        if (DebugKey.isDebugMode() && PartlySaneSkies.config.debugPrintPetWorldParsingInformation) {
+        if (DebugKey.isDebugMode() && PartlySaneSkies.config.dev.debugPrintPetWorldParsingInformation) {
             ChatUtils.visPrint("founD")
         }
         val (_, level, colorCode, _, petType) = matchResult.destructured
-        if (DebugKey.isDebugMode() && PartlySaneSkies.config.debugPrintPetWorldParsingInformation) {
+        if (DebugKey.isDebugMode() && PartlySaneSkies.config.dev.debugPrintPetWorldParsingInformation) {
             ChatUtils.visPrint(petType)
         }
         petDataJson?.currentPetName = petType

@@ -63,12 +63,12 @@ public class OneConfigScreen extends Config {
         }
 
 
-        if (general.repoOwner.isEmpty()) {
-            general.repoOwner = "PartlySaneStudios";
+        if (dev.repoOwner.isEmpty()) {
+            dev.repoOwner = "PartlySaneStudios";
             save();
         }
-        if (general.repoName.isEmpty()) {
-            general.repoName = "partly-sane-skies-public-data";
+        if (dev.repoName.isEmpty()) {
+            dev.repoName = "partly-sane-skies-public-data";
             save();
         }
     }

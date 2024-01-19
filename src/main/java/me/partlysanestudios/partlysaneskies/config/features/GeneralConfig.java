@@ -25,7 +25,6 @@ public class GeneralConfig {
     public int releaseChannel = Integer.parseInt("@RELEASE_CHANNEL@");
 
     //    Discord
-
     @Switch(
             category = "General",
             subcategory = "Discord",
@@ -54,56 +53,6 @@ public class GeneralConfig {
             name = "Discord Game Description"
     )
     public String discordRPCDescription = "Playing Hypixel Skyblock";
-
-
-    // API
-    @Number(
-            min = .1f,
-            max = 30f,
-            name = "Time between requests",
-            category = "General",
-            subcategory = "API",
-            description = "The time between API calls. Only change if you know what you're doing. Changing this will reduce the amount of time API requests take, however may result in more errors"
-    )
-    public float timeBetweenRequests = 0.5f;
-
-    @Slider(
-            name = "Player Data Cache Time",
-            min = 0,
-            max = 90,
-            subcategory = "API",
-            description = "Saves the data from other party members to save time upon loading data about players. The bigger the value the more minutes you will save but the less accurate your data will be.",
-            category = "General"
-    )
-    public int playerDataCacheTime = 5;
-
-    @Switch(
-            name = "Print errors in chat",
-            category = "General",
-            subcategory = "API",
-            description = "Send errors on getting data in chat (Recommended, however if you get spammed or have a bad internet connection, turn it off)"
-
-    )
-    public boolean printApiErrors = true;
-
-    @Text(
-            name = "Public Data Repo Owner",
-            category = "General",
-            subcategory = "API",
-            secure = true,
-            description = "Change the owner of the repo used for public data."
-    )
-    public String repoOwner = "PartlySaneStudios";
-
-    @Text(
-            name = "Public Data Repo Name",
-            category = "General",
-            subcategory = "API",
-            secure = true,
-            description = "Change the name of the repo used for public data."
-    )
-    public String repoName = "partly-sane-skies-public-data";
-
 
     //    Appearance
     @Dropdown(

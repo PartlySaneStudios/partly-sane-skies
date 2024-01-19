@@ -114,7 +114,7 @@ open class Request(private val url: URL, private val function: RequestRunnable?,
             }
 
             // If the print API errors setting is on, send a message to the client
-            if (PartlySaneSkies.config.printApiErrors) {
+            if (PartlySaneSkies.config.dev.printApiErrors) {
                 sendClientMessage(
                     """
                     Error: ${httpURLConnection.getResponseMessage()}:${httpURLConnection.getResponseCode()}

@@ -81,7 +81,7 @@ object SystemUtils {
             httpURLConnection.disconnect()
             response.toString()
         } else {
-            if (PartlySaneSkies.config.general.printApiErrors) {
+            if (PartlySaneSkies.config.dev.printApiErrors) {
                 sendClientMessage(
                     """
                         Error: ${httpURLConnection.getResponseMessage()}:${httpURLConnection.getResponseCode()}
