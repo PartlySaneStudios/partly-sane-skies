@@ -21,7 +21,7 @@ class WaypointRenderPipeline() {
         waypointsToRender.add(waypoint)
     }
 
-    // Written by j10a1n15
+    // Written partially by j10a1n15
     /**
      * Renders all the waypoints in the pipeline
      *
