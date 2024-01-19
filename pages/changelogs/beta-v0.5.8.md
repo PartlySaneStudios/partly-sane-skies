@@ -1,9 +1,11 @@
 ## New
 * Added percy mode (@Su386yt)
-* Feature: Option to change Banner Size (@j10a1n15)
 * Backend: Waypoint/BlockHighlight/Beam Renderer (@j10a1n15)
 
-## Changes
+## Change
+* Feature: Option to change Banner Size (@j10a1n15)
+
+## Fix
 * Fixed incompatibilities with certificates (@Su386yt)
 
 
