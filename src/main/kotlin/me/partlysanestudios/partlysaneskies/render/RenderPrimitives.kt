@@ -6,9 +6,8 @@
 
 package me.partlysanestudios.partlysaneskies.render
 
-import me.partlysanestudios.partlysaneskies.render.points.Point2d
-import me.partlysanestudios.partlysaneskies.render.points.Point3d
-import me.partlysanestudios.partlysaneskies.utils.ChatUtils
+import me.partlysanestudios.partlysaneskies.utils.vectors.Point2d
+import me.partlysanestudios.partlysaneskies.utils.vectors.Point3d
 import net.minecraft.client.renderer.WorldRenderer
 
 object RenderPrimitives {
