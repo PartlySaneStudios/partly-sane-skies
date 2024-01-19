@@ -8,6 +8,7 @@
 package me.partlysanestudios.partlysaneskies.render.waypoint
 
 import me.partlysanestudios.partlysaneskies.render.TextRenderer
+import me.partlysanestudios.partlysaneskies.utils.MathUtils.round
 import net.minecraft.util.BlockPos
 import java.awt.Color
 
@@ -45,7 +46,7 @@ class Waypoint(
 
         // Render waypoint distance
         if (this.showDistance) {
-            val distanceText = "${distance.toInt()}m"
+            val distanceText = "${distance.round(1)}m"
             TextRenderer.renderText3d(this.position.up(), distanceText)
         }
     }
