@@ -74,99 +74,111 @@ open class Request(private val url: URL, private val function: RequestRunnable?,
      */
     @Throws(IOException::class)
     open fun startRequest() {
-        val trustAllCerts = arrayOf<TrustManager>(object : X509TrustManager {
-            override fun getAcceptedIssuers(): Array<X509Certificate> {
-                return arrayOf()
-            }
+        val defaultSSLSocketFactory = HttpsURLConnection.getDefaultSSLSocketFactory()
+        val defaultHostnameVerifier = HttpsURLConnection.getDefaultHostnameVerifier()
+        try {
+            val trustAllCerts = arrayOf<TrustManager>(object : X509TrustManager {
+                override fun getAcceptedIssuers(): Array<X509Certificate> {
+                    return arrayOf()
+                }
 
-            override fun checkClientTrusted(chain: Array<X509Certificate>, authType: String) {
-            }
+                override fun checkClientTrusted(chain: Array<X509Certificate>, authType: String) {
+                }
 
-            override fun checkServerTrusted(chain: Array<X509Certificate>, authType: String) {
-            }
-        })
+                override fun checkServerTrusted(chain: Array<X509Certificate>, authType: String) {
+                }
+            })
 
-        // Install the all-trusting trust manager
-        val sslContext = SSLContext.getInstance("SSL")
-        sslContext.init(null, trustAllCerts, java.security.SecureRandom())
-        HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.socketFactory)
+            // Install the all-trusting trust manager
+            val sslContext = SSLContext.getInstance("SSL")
+            sslContext.init(null, trustAllCerts, java.security.SecureRandom())
+            HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.socketFactory)
 
-        // Create an all-trusting host name verifier
-        val allHostsValid = HostnameVerifier { _, _ -> true }
+            // Create an all-trusting host name verifier
+            val allHostsValid = HostnameVerifier { _, _ -> true }
 
-        // Install the all-trusting host verifier
-        HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid)
-        // Opens a new connection with the url
-        val httpURLConnection = url.openConnection() as HttpURLConnection
-        // Sets the browser as Mozilla to bypass an insecure restrictions
-        httpURLConnection.setRequestProperty("User-Agent", "Partly-Sane-Skies/" + PartlySaneSkies.VERSION)
-        // Gets the response code
-        val responseCode = httpURLConnection.getResponseCode()
-        this.responseCode = responseCode
-        // Gets the response message
-        this.responseMessage = httpURLConnection.getResponseMessage()
+            // Install the all-trusting host verifier
+            HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid)
+            // Opens a new connection with the url
+            val httpURLConnection = url.openConnection() as HttpURLConnection
+            // Sets the browser as Mozilla to bypass an insecure restrictions
+            httpURLConnection.setRequestProperty("User-Agent", "Partly-Sane-Skies/" + PartlySaneSkies.VERSION)
+            // Gets the response code
+            val responseCode = httpURLConnection.getResponseCode()
+            this.responseCode = responseCode
+            // Gets the response message
+            this.responseMessage = httpURLConnection.getResponseMessage()
 
-        // If the code is not HTTP_OK -- if the request failed
-        if (responseCode != HttpURLConnection.HTTP_OK) {
-            if (tryAgainOnCodes.contains(responseCode)) {
-                RequestsManager.newRequest(this)
-                return
-            }
+            // If the code is not HTTP_OK -- if the request failed
+            if (responseCode != HttpURLConnection.HTTP_OK) {
+                if (tryAgainOnCodes.contains(responseCode)) {
+                    RequestsManager.newRequest(this)
+                    return
+                }
 
-            // If the print API errors setting is on, send a message to the client
-            if (PartlySaneSkies.config.printApiErrors) {
-                sendClientMessage(
-                    """
+                // If the print API errors setting is on, send a message to the client
+                if (PartlySaneSkies.config.printApiErrors) {
+                    sendClientMessage(
+                        """
                     Error: ${httpURLConnection.getResponseMessage()}:${httpURLConnection.getResponseCode()}
                     Contact PSS admins for more information
                     """.trimIndent()
-                )
-            } else {
+                    )
+                } else {
+                    log(
+                        Level.ERROR,
+                        """
+                    Error: ${httpURLConnection.getResponseMessage()}:${httpURLConnection.getResponseCode()}
+                    Contact PSS admins for more information
+                    """.trimIndent()
+                    )
+                }
                 log(
                     Level.ERROR,
                     """
-                    Error: ${httpURLConnection.getResponseMessage()}:${httpURLConnection.getResponseCode()}
-                    Contact PSS admins for more information
-                    """.trimIndent()
-                )
-            }
-            log(
-                Level.ERROR,
-                """
                 Error: ${httpURLConnection.getResponseMessage()}:${httpURLConnection.getResponseCode()}
                 URL: ${url}
                 """.trimIndent()
-            )
-            // Disconnect the connection
+                )
+                // Disconnect the connection
+                httpURLConnection.disconnect()
+            }
+
+            // Read the response as a string
+            val `in` = BufferedReader(InputStreamReader(httpURLConnection.inputStream))
+            var inputLine: String?
+            val response = StringBuilder()
+            while (`in`.readLine().also { inputLine = it } != null) {
+                response.append(inputLine)
+            }
+            `in`.close()
+
+            // set the requestResponse to the string that was read as a response
+            this.response = response.toString()
+
+            HttpsURLConnection.setDefaultSSLSocketFactory(defaultSSLSocketFactory)
+            HttpsURLConnection.setDefaultHostnameVerifier(defaultHostnameVerifier)
+
+            // Disconnect
             httpURLConnection.disconnect()
+            if (function == null) {
+                return
+            }
+
+            // If supposed to run in the next frame, run in the next frame
+            if (executeOnNextFrame) {
+                PartlySaneSkies.minecraft.addScheduledTask { function.run(this) }
+                return
+            }
+
+            // Runs on current thread
+            function.run(this)
+        } catch (exception: Exception) {
+            HttpsURLConnection.setDefaultSSLSocketFactory(defaultSSLSocketFactory)
+            HttpsURLConnection.setDefaultHostnameVerifier(defaultHostnameVerifier)
+            throw exception
         }
 
-        // Read the response as a string
-        val `in` = BufferedReader(InputStreamReader(httpURLConnection.inputStream))
-        var inputLine: String?
-        val response = StringBuilder()
-        while (`in`.readLine().also { inputLine = it } != null) {
-            response.append(inputLine)
-        }
-        `in`.close()
-
-        // set the requestResponse to the string that was read as a response
-        this.response = response.toString()
-
-        // Disconnect
-        httpURLConnection.disconnect()
-        if (function == null) {
-            return
-        }
-
-        // If supposed to run in the next frame, run in the next frame
-        if (executeOnNextFrame) {
-            PartlySaneSkies.minecraft.addScheduledTask { function.run(this) }
-            return
-        }
-
-        // Runs on current thread
-        function.run(this)
     }
 
     /**
