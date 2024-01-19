@@ -4,7 +4,6 @@
 //
 package me.partlysanestudios.partlysaneskies.utils.vectors
 
-import me.partlysanestudios.partlysaneskies.utils.vectors.Point2d
 import net.minecraft.util.BlockPos
 
 open class Point3d(x: Double, y: Double, val z: Double) : Point2d(x, y) {
