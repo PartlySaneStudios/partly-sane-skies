@@ -1,3 +1,10 @@
+//
+// Written by Su386 and j10a1n15.
+// See LICENSE for copyright and license notices.
+//
+
+
+
 package me.partlysanestudios.partlysaneskies.render.waypoint
 
 import me.partlysanestudios.partlysaneskies.render.BeamRenderer
@@ -16,8 +23,13 @@ class Waypoint(
     val showLabel: Boolean = true,
     val showDistance: Boolean = true
 ) {
-    // Additional properties and methods can be added based on your customization needs
-    fun render(distance: Double) {
+
+    /**
+     * Render the waypoint
+     *
+     * @param distance the distance the waypoint should display in the distance label
+     */
+    internal fun render(distance: Double) {
         // Render waypoint beam
         if (this.showBeam) {
             BeamRenderer.renderBeam(this.position, this.outlineColor, this.fillColor)
