@@ -4,7 +4,7 @@
 //
 
 
-package me.partlysanestudios.partlysaneskies.config.oneconfig;
+package me.partlysanestudios.partlysaneskies.config;
 
 import cc.polyfrost.oneconfig.config.Config;
 import cc.polyfrost.oneconfig.config.annotations.Number;
