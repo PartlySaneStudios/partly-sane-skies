@@ -226,8 +226,9 @@ class PartlySaneSkies {
         registerEvent(HealerAlert)
         registerEvent(WaypointEvents)
 
-
+        // Registers all WaypointEvents
         WaypointEvents.register(DebugKey)
+        WaypointEvents.register(TerminalWaypoints)
 
         // Registers all client side commands
         HelpCommand.registerPSSCommand()
