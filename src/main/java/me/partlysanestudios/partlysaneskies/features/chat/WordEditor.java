@@ -74,7 +74,7 @@ public class WordEditor {
 
     // Checks if the message contains a link
     public static boolean shouldEditMessage(IChatComponent message) {
-        if (!PartlySaneSkies.Companion.getConfig().wordEditor) {
+        if (!PartlySaneSkies.Companion.getConfig().chat.wordEditor) {
             return false;
         }
 
