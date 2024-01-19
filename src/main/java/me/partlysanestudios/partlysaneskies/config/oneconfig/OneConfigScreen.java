@@ -226,9 +226,18 @@ public class OneConfigScreen extends Config {
     )
     public int prefCurr = 11;
 
+    @Slider(
+            min = 1,
+            max = 10,
+            subcategory = "Appearance",
+            name = "Banner Size",
+            description = "The size of the banners that appear on your screen.",
+            category = "General"
+    )
+    public float bannerSize = 5f;
+
 
     // Main Menu
-
     @Switch(
             category = "General",
             subcategory = "Main Menu",
@@ -496,7 +505,7 @@ public class OneConfigScreen extends Config {
             secure = true,
             size = 2
     )
-    public String selectedPet = /*PartlySaneSkies.Companion.getConfig().selectededPet |*/ "";
+    public String selectedPet = "";
 
     @Slider(
             min = 1,
@@ -515,7 +524,6 @@ public class OneConfigScreen extends Config {
     public OneKeyBind favouritePetKeybind = new OneKeyBind(Keyboard.KEY_NONE);
 
 //    Enhanced sound
-
     @Dropdown(
             category = "SkyBlock",
             subcategory = "Enhanced SkyBlock Sounds",

@@ -24,7 +24,7 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import java.awt.Color
 
-object BannerRenderer: Gui() {
+object BannerRenderer : Gui() {
     private var bannerList = ArrayList<PSSBanner>()
 
     var window = Window(ElementaVersion.V2)
@@ -40,7 +40,7 @@ object BannerRenderer: Gui() {
 
 
     @SubscribeEvent
-    fun onScreenRender(event: RenderGameOverlayEvent.Text)  {
+    fun onScreenRender(event: RenderGameOverlayEvent.Text) {
         if (bannerList.isEmpty()) {
             return
         }
@@ -57,7 +57,7 @@ object BannerRenderer: Gui() {
         if (displayText.getText() != bannerToRender.text) {
             displayText.setText(bannerToRender.text)
                 .constrain {
-                    textScale = bannerToRender.textScale.pixels
+                    textScale = PartlySaneSkies.config.bannerSize.pixels
                     x = CenterConstraint()
                     y = (window.getHeight() * .125f).pixels
                     color = bannerToRender.getFadedColor().constraint
@@ -104,7 +104,11 @@ object BannerRenderer: Gui() {
     }
 }
 
-class PSSBanner(val text: String, val lengthOfTimeToRender: Long, val textScale: Float = 5f, private val color: Color = Color.red) {
+class PSSBanner(
+    val text: String,
+    val lengthOfTimeToRender: Long,
+    private val color: Color = Color.red
+) {
     val creationTime = PartlySaneSkies.time
 
     var renderStartTime = -1L
@@ -116,6 +120,7 @@ class PSSBanner(val text: String, val lengthOfTimeToRender: Long, val textScale:
     fun isOutOfDate(): Boolean {
         return !MathUtils.onCooldown(renderStartTime, lengthOfTimeToRender)
     }
+
     fun hasStartedRendering(): Boolean {
         return renderStartTime == -1L
     }
