@@ -7,7 +7,7 @@
 
 package me.partlysanestudios.partlysaneskies.render.waypoint
 
-import me.partlysanestudios.partlysaneskies.render.points.Point3d
+import me.partlysanestudios.partlysaneskies.utils.vectors.Point3d
 import net.minecraftforge.client.event.RenderWorldLastEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import kotlin.reflect.full.memberFunctions

@@ -2,9 +2,8 @@
 // Written by Su386 and J10a1n15.
 // See LICENSE for copyright and license notices.
 //
-package me.partlysanestudios.partlysaneskies.features.farming.endoffarmnotifer
+package me.partlysanestudios.partlysaneskies.utils.vectors
 
-import me.partlysanestudios.partlysaneskies.render.points.Point3d
 import kotlin.math.max
 import kotlin.math.min
 

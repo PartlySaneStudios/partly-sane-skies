@@ -3,7 +3,7 @@
 // See LICENSE for copyright and license notices.
 //
 
-package me.partlysanestudios.partlysaneskies.render.points
+package me.partlysanestudios.partlysaneskies.utils.vectors
 
 open class Point2d(val x: Double, val y: Double) {
     fun getPointX(): Double {

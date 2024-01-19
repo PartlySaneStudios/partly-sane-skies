@@ -7,8 +7,7 @@
 package me.partlysanestudios.partlysaneskies.utils
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
-import me.partlysanestudios.partlysaneskies.render.points.Point2d
-import me.partlysanestudios.partlysaneskies.render.points.Point3d
+import me.partlysanestudios.partlysaneskies.utils.vectors.Point2d
 import java.util.concurrent.ThreadLocalRandom
 import kotlin.math.pow
 import kotlin.math.sqrt

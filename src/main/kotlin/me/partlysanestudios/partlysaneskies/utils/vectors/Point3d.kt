@@ -2,8 +2,9 @@
 // Written by Su386 and J10a1n15.
 // See LICENSE for copyright and license notices.
 //
-package me.partlysanestudios.partlysaneskies.render.points
+package me.partlysanestudios.partlysaneskies.utils.vectors
 
+import me.partlysanestudios.partlysaneskies.utils.vectors.Point2d
 import net.minecraft.util.BlockPos
 
 open class Point3d(x: Double, y: Double, val z: Double) : Point2d(x, y) {

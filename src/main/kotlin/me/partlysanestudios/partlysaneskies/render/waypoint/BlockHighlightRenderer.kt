@@ -1,7 +1,8 @@
-package me.partlysanestudios.partlysaneskies.render
+package me.partlysanestudios.partlysaneskies.render.waypoint
 
 import me.partlysanestudios.partlysaneskies.render.RenderPrimitives.drawBoxFill
-import me.partlysanestudios.partlysaneskies.render.points.Point3d
+import me.partlysanestudios.partlysaneskies.render.RenderPrimitives.drawBoxOutline
+import me.partlysanestudios.partlysaneskies.utils.vectors.Point3d
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.Tessellator
@@ -10,8 +11,9 @@ import net.minecraft.util.BlockPos
 import org.lwjgl.opengl.GL11
 import java.awt.Color
 
-object BeamRenderer {
-    fun renderBeam(pos: BlockPos, outlineColor: Color, fillColor: Color) {
+
+object BlockHighlightRenderer {
+    fun renderColoredBlockHighlight(pos: BlockPos, outlineColor: Color, fillColor: Color) {
         val minecraft = Minecraft.getMinecraft()
         val renderManager = minecraft.renderManager
         val tessellator = Tessellator.getInstance()
@@ -29,21 +31,26 @@ object BeamRenderer {
         GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO)
         GL11.glLineWidth(4.0f)
 
-        val x = pos.x.toDouble() + .333
-        val y = pos.y.toDouble() + 1
-        val z = pos.z.toDouble() + .333
+        val x = pos.x.toDouble()
+        val y = pos.y.toDouble()
+        val z = pos.z.toDouble()
+
+        worldRenderer.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION)
+        GlStateManager.color(outlineColor.red/255f, outlineColor.green/255f, outlineColor.blue/255f, outlineColor.alpha/255f)
+        worldRenderer.drawBoxOutline(Point3d(x, y, z), Point3d(x + 1, y + 1, z + 1))
+        tessellator.draw()
 
 
         worldRenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION)
         GlStateManager.color(fillColor.red/255f, fillColor.green/255f, fillColor.blue/255f, fillColor.alpha/255f)
-
-        worldRenderer.drawBoxFill(Point3d(x, y, z), Point3d(x + .333, 256.0, z + .333))
+        worldRenderer.drawBoxFill(Point3d(x, y, z), Point3d(x + 1, y + 1, z + 1))
         tessellator.draw()
 
         GlStateManager.resetColor()
         GlStateManager.enableTexture2D()
         GlStateManager.disableBlend()
         GlStateManager.enableDepth()
+
 
         GlStateManager.popMatrix()
     }

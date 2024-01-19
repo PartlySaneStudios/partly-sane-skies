@@ -7,8 +7,6 @@
 
 package me.partlysanestudios.partlysaneskies.render.waypoint
 
-import me.partlysanestudios.partlysaneskies.render.BeamRenderer
-import me.partlysanestudios.partlysaneskies.render.BlockHighlightRenderer
 import me.partlysanestudios.partlysaneskies.render.TextRenderer
 import net.minecraft.util.BlockPos
 import java.awt.Color
