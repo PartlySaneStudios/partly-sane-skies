@@ -1,13 +1,13 @@
 package me.partlysanestudios.partlysaneskies.features.dungeons
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
-import me.partlysanestudios.partlysaneskies.features.farming.endoffarmnotifer.Range3d
-import me.partlysanestudios.partlysaneskies.render.points.Point3d
 import me.partlysanestudios.partlysaneskies.render.waypoint.Waypoint
 import me.partlysanestudios.partlysaneskies.render.waypoint.WaypointEvent
 import me.partlysanestudios.partlysaneskies.render.waypoint.WaypointRenderPipeline
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getAllArmorStands
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
+import me.partlysanestudios.partlysaneskies.utils.vectors.Point3d
+import me.partlysanestudios.partlysaneskies.utils.vectors.Range3d
 import org.apache.logging.log4j.Level
 import java.awt.Color
 
