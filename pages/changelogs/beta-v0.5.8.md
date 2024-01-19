@@ -5,7 +5,7 @@
 ## Change
 * Feature: Option to change Banner Size (@j10a1n15)
 
-## Fix
+## Bug Fix
 * Fixed incompatibilities with certificates (@Su386yt)
 
 
