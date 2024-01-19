@@ -30,13 +30,13 @@ import org.lwjgl.input.Keyboard
 object Keybinds {
     @SubscribeEvent
     fun keybindWhileInGui(event: KeyboardInputEvent.Post?) {
-        if (PartlySaneSkies.config.debugKeybind.isActive()) {
+        if (PartlySaneSkies.config.dev.debugKeybind.isActive()) {
             onDebugKeyPress()
         }
-        if (PartlySaneSkies.config.wikiKeybind.isActive()) {
+        if (PartlySaneSkies.config.skyblock.wikiKeybind.isActive()) {
             WikiArticleOpener.keyDown()
         }
-        if (PartlySaneSkies.config.favouritePetKeybind.isActive()) {
+        if (PartlySaneSkies.config.skyblock.favouritePetKeybind.isActive()) {
             PetAlert.favouritePet()
         }
         if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
@@ -59,46 +59,46 @@ object Keybinds {
 
     @SubscribeEvent
     fun checkKeyBinds(event: InputEvent.KeyInputEvent?) {
-        if (PartlySaneSkies.config.debugKeybind.isActive()) {
+        if (PartlySaneSkies.config.dev.debugKeybind.isActive()) {
             onDebugKeyPress()
         }
-        if (PartlySaneSkies.config.oneConfigKeybind.isActive()) {
+        if (PartlySaneSkies.config.general.oneConfigKeybind.isActive()) {
             PartlySaneSkies.config.openGui()
         }
-        if (PartlySaneSkies.config.partyManagerKeybind.isActive()) {
+        if (PartlySaneSkies.config.dungeons.partyManagerKeybind.isActive()) {
             PartyManager.startPartyManager()
         }
-        if (PartlySaneSkies.config.helpKeybind.isActive()) {
+        if (PartlySaneSkies.config.general.helpKeybind.isActive()) {
             HelpCommand.printHelpMessage()
         }
-        if (PartlySaneSkies.config.craftKeybind.isActive()) {
+        if (PartlySaneSkies.config.skyblock.craftKeybind.isActive()) {
             PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/craft")
         }
-        if (PartlySaneSkies.config.petKeybind.isActive()) {
+        if (PartlySaneSkies.config.skyblock.petKeybind.isActive()) {
             PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/pets")
         }
-        if (PartlySaneSkies.config.wardrobeKeybind.isActive()) {
+        if (PartlySaneSkies.config.skyblock.wardrobeKeybind.isActive()) {
             PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/wardrobe")
         }
-        if (PartlySaneSkies.config.storageKeybind.isActive()) {
+        if (PartlySaneSkies.config.skyblock.storageKeybind.isActive()) {
             PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/storage")
         }
-        if (PartlySaneSkies.config.allowHoeRightClickKeybind.isActive()) {
+        if (PartlySaneSkies.config.farming.allowHoeRightClickKeybind.isActive()) {
             val canRightClickHoe = onCooldown(
                 MathematicalHoeRightClicks.lastAllowHoeRightClickTime,
-                (PartlySaneSkies.config.allowRightClickTime * 60L * 1000L).toLong()
+                (PartlySaneSkies.config.farming.allowRightClickTime * 60L * 1000L).toLong()
             )
             if (canRightClickHoe) {
                 val message: IChatComponent = ChatComponentText(
                     PartlySaneSkies.CHAT_PREFIX + """§dThe ability to right-click with a hoe has been §cdisabled§d again.
-§dClick this message or run /allowhoerightclick to allow right-clicks for ${PartlySaneSkies.config.allowRightClickTime} again."""
+§dClick this message or run /allowhoerightclick to allow right-clicks for ${PartlySaneSkies.config.farming.allowRightClickTime} again."""
                 )
                 message.chatStyle.setChatClickEvent(ClickEvent(ClickEvent.Action.RUN_COMMAND, "/allowhoerightclick"))
                 PartlySaneSkies.minecraft.ingameGUI.chatGUI.printChatMessage(message)
                 MathematicalHoeRightClicks.lastAllowHoeRightClickTime = 0
             } else {
                 val message: IChatComponent = ChatComponentText(
-                    PartlySaneSkies.CHAT_PREFIX + """§dThe ability to right-click with a hoe has been §aenabled§d for ${PartlySaneSkies.config.allowRightClickTime} minutes.
+                    PartlySaneSkies.CHAT_PREFIX + """§dThe ability to right-click with a hoe has been §aenabled§d for ${PartlySaneSkies.config.farming.allowRightClickTime} minutes.
 §dClick this message or run /allowhoerightclick to disable right-clicks again."""
                 )
                 message.chatStyle.setChatClickEvent(ClickEvent(ClickEvent.Action.RUN_COMMAND, "/allowhoerightclick"))
