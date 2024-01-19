@@ -65,7 +65,7 @@ object ChatManager {
         }
 
         // If owo language is enabled
-        if (PartlySaneSkies.config.owoLanguage) {
+        if (PartlySaneSkies.config.chat.owoLanguage) {
             messageToSend = ChatComponentText(OwO.owoify(messageToSend.formattedText))
         }
 
@@ -171,27 +171,27 @@ object ChatManager {
     private fun doModifyChatEnabled(): Boolean {
         val config = PartlySaneSkies.config
 
-        if (config.colorCoopChat) {
+        if (config.chat.colorCoopChat) {
             return true
         }
 
-        else if (config.colorGuildChat) {
+        else if (config.chat.colorGuildChat) {
             return true
         }
 
-        else if (config.colorOfficerChat) {
+        else if (config.chat.colorOfficerChat) {
             return true
         }
 
-        else if (config.colorPartyChat) {
+        else if (config.chat.colorPartyChat) {
             return true
         }
 
-        else if (config.colorNonMessages) {
+        else if (config.chat.colorNonMessages) {
             return true
         }
 
-        else if (config.colorPrivateMessages) {
+        else if (config.chat.colorPrivateMessages) {
             return true
         }
 
@@ -199,11 +199,11 @@ object ChatManager {
             return true
         }
 
-        else if (WordEditor.wordsToEdit.isNotEmpty() && PartlySaneSkies.config.wordEditor) {
+        else if (WordEditor.wordsToEdit.isNotEmpty() && PartlySaneSkies.config.chat.wordEditor) {
             return true
         }
 
-        else if (config.owoLanguage){
+        else if (config.chat.owoLanguage){
             return true
         }
 
@@ -231,7 +231,7 @@ object ChatManager {
         else if (WordEditor.shouldEditMessage(this)){
             return true
         }
-        else if(PartlySaneSkies.config.owoLanguage){
+        else if(PartlySaneSkies.config.chat.owoLanguage){
             return true //there is almost no way this will never not trigger
         }
         else {

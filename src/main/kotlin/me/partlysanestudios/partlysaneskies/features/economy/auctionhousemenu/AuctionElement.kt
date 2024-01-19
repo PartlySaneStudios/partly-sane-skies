@@ -178,7 +178,7 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack?, var xCons
             return false
         }
         val averageAhPrice = SkyblockDataManager.getItem(skyblockItem.id).getSellPrice()
-        return sellingPrice <= averageAhPrice * (PartlySaneSkies.config.BINSniperPercent / 100.0)
+        return sellingPrice <= averageAhPrice * (PartlySaneSkies.config.economy.BINSniperPercent / 100.0)
     }
 
     fun getName(): String {

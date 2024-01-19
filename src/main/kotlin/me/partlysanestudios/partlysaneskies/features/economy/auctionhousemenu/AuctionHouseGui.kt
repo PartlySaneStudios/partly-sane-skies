@@ -28,17 +28,17 @@ import net.minecraft.item.Item
 import java.awt.Color
 
 class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(ElementaVersion.V2) {
-    private val heightPercent = PartlySaneSkies.config.masterAuctionHouseScale
-    private val sideBarHeightPercent = PartlySaneSkies.config.auctionHouseSideBarHeight
-    private val sideBarWidthPercent = PartlySaneSkies.config.auctionHouseSideBarWidth
-    private val sideBarPadding = 1 + PartlySaneSkies.config.auctionSideBarPadding
-    private val textScale = window.getWidth() / 1075.0f * heightPercent/.333f * PartlySaneSkies.config.auctionHouseTextScale
+    private val heightPercent = PartlySaneSkies.config.economy.masterAuctionHouseScale
+    private val sideBarHeightPercent = PartlySaneSkies.config.economy.auctionHouseSideBarHeight
+    private val sideBarWidthPercent = PartlySaneSkies.config.economy.auctionHouseSideBarWidth
+    private val sideBarPadding = 1 + PartlySaneSkies.config.economy.auctionSideBarPadding
+    private val textScale = window.getWidth() / 1075.0f * heightPercent/.333f * PartlySaneSkies.config.economy.auctionHouseTextScale
 
     private val sizeHeight = window.getHeight() * heightPercent
     private val sizeWidth = sizeHeight * 1.4725
 
-    private val boxSide = sizeHeight * ((1 - PartlySaneSkies.config.auctionHouseItemPadding * 5) / 4)
-    private val pad = sizeHeight * PartlySaneSkies.config.auctionHouseItemPadding
+    private val boxSide = sizeHeight * ((1 - PartlySaneSkies.config.economy.auctionHouseItemPadding * 5) / 4)
+    private val pad = sizeHeight * PartlySaneSkies.config.economy.auctionHouseItemPadding
 
     private val totalRows = 4
     private val totalColumns = 6
@@ -163,7 +163,7 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
 
     companion object {
         fun tick() {
-            if (!PartlySaneSkies.config.customAhGui) {
+            if (!PartlySaneSkies.config.economy.customAhGui) {
                 return
             }
 

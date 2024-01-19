@@ -56,14 +56,14 @@ object PublicDataManager {
      * @return the current repo's owner
      */
     fun getRepoOwner(): String {
-        return PartlySaneSkies.config.repoOwner?: "PartlySaneStudios"
+        return PartlySaneSkies.config.dev.repoOwner?: "PartlySaneStudios"
     }
 
     /**
      * @return the current repo's name
      */
     fun getRepoName(): String {
-        return PartlySaneSkies.config.repoName?: "partly-sane-skies-public-data"
+        return PartlySaneSkies.config.dev.repoName?: "partly-sane-skies-public-data"
     }
 
     /**

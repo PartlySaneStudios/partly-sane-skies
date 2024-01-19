@@ -111,10 +111,10 @@ object PercyMode {
         val fullObject = JsonObject()
 
         fullObject.add("time", getTimeDump())
-        if (config.debugCurrentScreenDump) fullObject.add("currentScreen", getCurrentScreenDump())
-        if (config.debugEntityDump) fullObject.add("entities", getEntityDump())
-        if (config.debugInventoryDump) fullObject.add("inventory", getInventoryDump())
-        if (config.debugPlayerDump) fullObject.add("player", getPlayerDump())
+        if (config.dev.debugCurrentScreenDump) fullObject.add("currentScreen", getCurrentScreenDump())
+        if (config.dev.debugEntityDump) fullObject.add("entities", getEntityDump())
+        if (config.dev.debugInventoryDump) fullObject.add("inventory", getInventoryDump())
+        if (config.dev.debugPlayerDump) fullObject.add("player", getPlayerDump())
 
         return fullObject
     }

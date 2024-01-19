@@ -45,7 +45,7 @@ object RangeHighlight {
 
     @SubscribeEvent
     fun onRenderWorldLast(event: RenderWorldLastEvent) {
-        if (!PartlySaneSkies.config.showFarmRegions && EndOfFarmNotifier.rangeToHighlight == null) {
+        if (!PartlySaneSkies.config.farming.showFarmRegions && EndOfFarmNotifier.rangeToHighlight == null) {
             return
         }
         if (!IslandType.GARDEN.onIsland()) {

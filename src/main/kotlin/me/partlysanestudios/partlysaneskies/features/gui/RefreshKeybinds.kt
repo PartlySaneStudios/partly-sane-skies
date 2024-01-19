@@ -30,12 +30,12 @@ object RefreshKeybinds {
 
     @SubscribeEvent
     fun onGuiKeyboardInput(event: GuiScreenEvent.KeyboardInputEvent.Pre) {
-        if (!PartlySaneSkies.config.refreshKeybind) return
+        if (!PartlySaneSkies.config.skyblock.refreshKeybind) return
         checkKeybinds(event)
     }
 
     private fun checkKeybinds(event: GuiScreenEvent) {
-        if (!PartlySaneSkies.config.refreshKeybind) return
+        if (!PartlySaneSkies.config.skyblock.refreshKeybind) return
         val gui: GuiChest = event.gui as? GuiChest ?: return
         val keyFnFiveDown: Boolean = Keyboard.isKeyDown(Keyboard.KEY_F5)
         val keyRDown: Boolean = Keyboard.isKeyDown(Keyboard.KEY_R)

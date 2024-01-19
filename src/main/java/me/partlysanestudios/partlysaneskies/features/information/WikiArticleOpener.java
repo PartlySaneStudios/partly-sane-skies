@@ -40,7 +40,7 @@ public class WikiArticleOpener {
 
         isWaitingForArticle = false;
         String wikiLink = e.message.getChatStyle().getChatClickEvent().getValue();
-        if (PartlySaneSkies.Companion.getConfig().openWikiAutomatically) {
+        if (PartlySaneSkies.Companion.getConfig().skyblock.openWikiAutomatically) {
             SystemUtils.INSTANCE.openLink(wikiLink);
         }
     }

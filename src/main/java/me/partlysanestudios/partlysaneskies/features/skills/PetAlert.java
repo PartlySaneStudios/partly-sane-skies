@@ -43,7 +43,7 @@ public class PetAlert {
     public static long lastSoundTime = 0;
     public static long lastMuteTime = 0;
     public static void runPetAlertTick() {
-        if (!PartlySaneSkies.Companion.getConfig().incorrectPetForMinionAlert) {
+        if (!PartlySaneSkies.Companion.getConfig().skyblock.incorrectPetForMinionAlert) {
             return;
         }
 
@@ -56,13 +56,13 @@ public class PetAlert {
             petName = "§8(Unknown)";
         }
         
-        String selectedPetName = PartlySaneSkies.Companion.getConfig().selectedPet;
+        String selectedPetName = PartlySaneSkies.Companion.getConfig().skyblock.selectedPet;
         
         if (petName.equalsIgnoreCase(selectedPetName)) {
             return;
         }
 
-        if (MathUtils.INSTANCE.onCooldown(lastMuteTime, (long) (PartlySaneSkies.Companion.getConfig().petAlertMuteTime * 60L * 1000L))) {
+        if (MathUtils.INSTANCE.onCooldown(lastMuteTime, (long) (PartlySaneSkies.Companion.getConfig().skyblock.petAlertMuteTime * 60L * 1000L))) {
             return;
         }
         
@@ -70,7 +70,7 @@ public class PetAlert {
             PartlySaneSkies.Companion.getMinecraft().getSoundHandler().playSound(
                     PositionedSoundRecord.create(new ResourceLocation("partlysaneskies", "bell"))
                 );
-                if (PartlySaneSkies.Companion.getConfig().incorrectPetForMinionAlertSiren) {
+                if (PartlySaneSkies.Companion.getConfig().skyblock.incorrectPetForMinionAlertSiren) {
                     PartlySaneSkies.Companion.getMinecraft().getSoundHandler().playSound(
                             PositionedSoundRecord.create(new ResourceLocation("partlysaneskies", "airraidsiren")));
                 }
@@ -78,7 +78,7 @@ public class PetAlert {
         }
         if (!MathUtils.INSTANCE.onCooldown(lastMessageSendTime,3000)) {
             IChatComponent message = new ChatComponentText(PartlySaneSkies.CHAT_PREFIX + "§cYOU CURRENTLY HAVE " + petName + "§c SELECTED AS YOUR PET. YOU WANTED TO UPGRADE " + selectedPetName + "." +
-            "\n§dClick this message or run /mutepetalert to mute the alert for " + PartlySaneSkies.Companion.getConfig().petAlertMuteTime + " minutes.");
+            "\n§dClick this message or run /mutepetalert to mute the alert for " + PartlySaneSkies.Companion.getConfig().skyblock.petAlertMuteTime + " minutes.");
             message.getChatStyle().setChatClickEvent(new ClickEvent(Action.RUN_COMMAND, "/mutepetalert"));
             PartlySaneSkies.Companion.getMinecraft().ingameGUI.getChatGUI().printChatMessage(message);
             lastMessageSendTime = PartlySaneSkies.Companion.getTime();
@@ -112,7 +112,7 @@ public class PetAlert {
             return;
         }
         String petName = parsePetNameFromItem(item.getDisplayName());
-        PartlySaneSkies.Companion.getConfig().selectedPet = petName;
+        PartlySaneSkies.Companion.getConfig().skyblock.selectedPet = petName;
         ChatUtils.INSTANCE.sendClientMessage("Set " + petName + " as your favorite pet.");
         PartlySaneSkies.Companion.getConfig().save();
     }
@@ -128,7 +128,7 @@ public class PetAlert {
         new PSSCommand("mutepetalert")
                 .setDescription("Mutes the pet alert for a set amount of minutes")
                 .setRunnable((s, a) -> {
-                    ChatUtils.INSTANCE.sendClientMessage("§bPet alert has been muted for " +  PartlySaneSkies.Companion.getConfig().petAlertMuteTime + " minutes.");
+                    ChatUtils.INSTANCE.sendClientMessage("§bPet alert has been muted for " +  PartlySaneSkies.Companion.getConfig().skyblock.petAlertMuteTime + " minutes.");
                     PetAlert.lastMuteTime = PartlySaneSkies.Companion.getTime();
                 }).register();
     }
@@ -199,7 +199,7 @@ public class PetAlert {
             box.hide();
             return;
         }
-        if (!PartlySaneSkies.Companion.getConfig().selectedPetInformation) {
+        if (!PartlySaneSkies.Companion.getConfig().skyblock.selectedPetInformation) {
             return;
         }
 
@@ -226,10 +226,10 @@ public class PetAlert {
 
         String petColorCode;
 
-        if (PartlySaneSkies.Companion.getConfig().selectedPet.isEmpty()) {
+        if (PartlySaneSkies.Companion.getConfig().skyblock.selectedPet.isEmpty()) {
             petColorCode = "§d";
         }
-        else if (currentlySelectedPetName.equalsIgnoreCase(PartlySaneSkies.Companion.getConfig().selectedPet)) {
+        else if (currentlySelectedPetName.equalsIgnoreCase(PartlySaneSkies.Companion.getConfig().skyblock.selectedPet)) {
             petColorCode = "§a";
 
         }
@@ -250,7 +250,7 @@ public class PetAlert {
         String textString = "§eCurrently Selected Pet:\n" +
                 petColorCode + petLevel + petRarity + currentlySelectedPetName + "\n\n" +
                 "§eDesired Pet:\n" +
-                "§d" + PartlySaneSkies.Companion.getConfig().selectedPet;
+                "§d" + PartlySaneSkies.Companion.getConfig().skyblock.selectedPet;
         textComponent.setText(textString);
         window.draw(new UMatrixStack());
     }

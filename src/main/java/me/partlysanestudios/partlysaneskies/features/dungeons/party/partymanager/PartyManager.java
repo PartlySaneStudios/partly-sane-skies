@@ -33,7 +33,7 @@ public class PartyManager {
         isWaitingForMembers = true;
 
         // If config option, kicks all offline party members
-        if (PartlySaneSkies.Companion.getConfig().autoKickOfflinePartyManager) {
+        if (PartlySaneSkies.Companion.getConfig().dungeons.autoKickOfflinePartyManager) {
             kickOffline();
         }
 
@@ -70,7 +70,7 @@ public class PartyManager {
 
     @SubscribeEvent
     public void onMemberJoin(ClientChatReceivedEvent event) {
-        if (!PartlySaneSkies.Companion.getConfig().getDataOnJoin) {
+        if (!PartlySaneSkies.Companion.getConfig().dungeons.getDataOnJoin) {
             return;
         }
 

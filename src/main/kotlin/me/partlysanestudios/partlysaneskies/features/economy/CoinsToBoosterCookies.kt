@@ -34,7 +34,7 @@ object CoinsToBoosterCookieConversion {
     private val playerName: String by lazy { PartlySaneSkies.minecraft.thePlayer.name }
     private const val boosterCookieItemId: String = "BOOSTER_COOKIE"
     private const val boosterCookiePath: String = "constants/booster_cookie_price.json"
-    private val configCurr get(): Int = PartlySaneSkies.config.prefCurr
+    private val configCurr get(): Int = PartlySaneSkies.config.general.prefCurr
     private val orderOfCurrency = arrayOf("AUD", "BRL", "CAD", "DKK", "EUR", "KPW", "NOK", "NZD", "PLN", "GBP", "SEK", "USD")
 
 

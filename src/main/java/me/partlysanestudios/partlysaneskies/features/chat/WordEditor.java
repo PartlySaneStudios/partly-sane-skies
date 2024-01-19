@@ -40,7 +40,7 @@ public class WordEditor {
 
 
     public static String handleWordEditorMessage(String message) {
-        if (!PartlySaneSkies.Companion.getConfig().wordEditor) return message;
+        if (!PartlySaneSkies.Companion.getConfig().chat.wordEditor) return message;
 
         for (final String[] word : wordsToEdit) {
 

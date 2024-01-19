@@ -107,7 +107,7 @@ public class PlayerRating {
     public static String getDisplayString() {
         StringBuilder str = new StringBuilder();
 
-        if (PartlySaneSkies.Companion.getConfig().enhancedDungeonPlayerBreakdown == 0) { 
+        if (PartlySaneSkies.Companion.getConfig().dungeons.enhancedDungeonPlayerBreakdown == 0) { 
             for (Map.Entry<String, HashMap<String, Integer>> entry : playerPointCategoryMap.entrySet()) {
                 String playerStr = "§d" + entry.getKey() + "  §9" + MathUtils.INSTANCE.round((double) totalPlayerPoints.get(entry.getKey()) / totalPoints * 100d, 0) +"%§7 | ";
                 
@@ -121,7 +121,7 @@ public class PlayerRating {
         for (Map.Entry<String, HashMap<String, Integer>> entry : playerPointCategoryMap.entrySet()) {
             String playerName = entry.getKey();
             StringBuilder playerStr = new StringBuilder("§d" + playerName + "§7 completed §d" + MathUtils.INSTANCE.round((double) totalPlayerPoints.get(playerName) / totalPoints * 100d, 0) + "%§7 of the dungeon.\n");
-            if (PartlySaneSkies.Companion.getConfig().enhancedDungeonPlayerBreakdown == 2) {
+            if (PartlySaneSkies.Companion.getConfig().dungeons.enhancedDungeonPlayerBreakdown == 2) {
                 playerStr.append("§2   Breakdown:\n");
                 for (Map.Entry<String, Integer> entry2 : entry.getValue().entrySet()) {
                     playerStr.append("     §d").append(MathUtils.INSTANCE.round((double) entry2.getValue() / categoryPointMap.get(entry2.getKey()) * 100d, 0)).append("%§7 of ").append(entry2.getKey()).append("\n");
@@ -155,7 +155,7 @@ public class PlayerRating {
     public static ArrayList<String> getSlackingMembers() {
         ArrayList<String> strList = new ArrayList<>();
         for (Map.Entry<String, HashMap<String, Integer>> entry : playerPointCategoryMap.entrySet()) {
-            if (totalPlayerPoints.get(entry.getKey()) / (totalPoints * 1d) > PartlySaneSkies.Companion.getConfig().dungeonSnitcherPercent / 100f) {
+            if (totalPlayerPoints.get(entry.getKey()) / (totalPoints * 1d) > PartlySaneSkies.Companion.getConfig().dungeons.dungeonSnitcherPercent / 100f) {
                 continue;
             }
 
@@ -197,7 +197,7 @@ public class PlayerRating {
     // §r§fTeam Score: §r
     @SubscribeEvent
     public void onChatEvent(ClientChatReceivedEvent event) {
-        if (!(PartlySaneSkies.Companion.getConfig().dungeonPlayerBreakdown || PartlySaneSkies.Companion.getConfig().dungeonSnitcher)) {
+        if (!(PartlySaneSkies.Companion.getConfig().dungeons.dungeonPlayerBreakdown || PartlySaneSkies.Companion.getConfig().dungeons.dungeonSnitcher)) {
             return;
         }
         // If end of dungeon
@@ -210,7 +210,7 @@ public class PlayerRating {
 
             new Thread(() -> {
                 try {
-                    Thread.sleep( (long) (PartlySaneSkies.Companion.getConfig().dungeonPlayerBreakdownDelay * 1000));
+                    Thread.sleep( (long) (PartlySaneSkies.Companion.getConfig().dungeons.dungeonPlayerBreakdownDelay * 1000));
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -219,12 +219,12 @@ public class PlayerRating {
                         return;
                     }
                     ChatUtils.INSTANCE.sendClientMessage(string, true);
-                    if (PartlySaneSkies.Companion.getConfig().partyChatDungeonPlayerBreakdown) {
+                    if (PartlySaneSkies.Companion.getConfig().dungeons.partyChatDungeonPlayerBreakdown) {
                         PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/pc " + chatMessageString);
                     }
                 });
 
-                if (PartlySaneSkies.Companion.getConfig().dungeonSnitcher) {
+                if (PartlySaneSkies.Companion.getConfig().dungeons.dungeonSnitcher) {
                     for (String str : slackingMembers) {
                         try {
                             Thread.sleep(750);

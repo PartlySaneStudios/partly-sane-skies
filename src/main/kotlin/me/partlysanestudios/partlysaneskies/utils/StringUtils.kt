@@ -133,13 +133,13 @@ object StringUtils {
             formattedNum = "0$formattedNum"
         }
         var hundredsPlaceFormat = ""
-        when (PartlySaneSkies.config.hundredsPlaceFormat) {
+        when (PartlySaneSkies.config.general.hundredsPlaceFormat) {
             0 -> hundredsPlaceFormat = ","
             1 -> hundredsPlaceFormat = " "
             2 -> hundredsPlaceFormat = "."
         }
         var decimalPlaceFormat = ""
-        when (PartlySaneSkies.config.decimalPlaceFormat) {
+        when (PartlySaneSkies.config.general.decimalPlaceFormat) {
             0 -> decimalPlaceFormat = ","
             1 -> decimalPlaceFormat = "."
         }

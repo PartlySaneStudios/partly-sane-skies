@@ -26,32 +26,32 @@ import org.apache.logging.log4j.Level
 
 object DebugKey {
     fun init() {
-        PartlySaneSkies.config.debugMode = false
+        PartlySaneSkies.config.dev.debugMode = false
     }
 
 
     fun isDebugMode(): Boolean {
-        return PartlySaneSkies.config.debugMode
+        return PartlySaneSkies.config.dev.debugMode
     }
 
     // Runs when debug key is pressed
     fun onDebugKeyPress() {
-        PartlySaneSkies.config.debugMode = !PartlySaneSkies.config.debugMode
+        PartlySaneSkies.config.dev.debugMode = !PartlySaneSkies.config.dev.debugMode
         sendClientMessage("Debug mode: " + isDebugMode())
 
 
-        if (PartlySaneSkies.config.debugRenderTestBanner) {
+        if (PartlySaneSkies.config.dev.debugRenderTestBanner) {
             renderNewBanner(PSSBanner("Test", 5000L, 5f, OneColor(255, 0, 255, 1).toJavaColor()))
         }
 
-        if (PartlySaneSkies.config.debugAddSlacker) {
+        if (PartlySaneSkies.config.dev.debugAddSlacker) {
             PlayerRating.rackPoints("FlagTheSlacker", "Debug Slacker")
         }
-        if (PartlySaneSkies.config.debugSpawnWaypoint) {
+        if (PartlySaneSkies.config.dev.debugSpawnWaypoint) {
             val originalPos = PartlySaneSkies.minecraft.thePlayer.position
             val modifiedPos = BlockPos(originalPos.x - 1, originalPos.y, originalPos.z - 1)
 
-            if (PartlySaneSkies.config.debugMode) {
+            if (PartlySaneSkies.config.dev.debugMode) {
                 WaypointManager.addWaypoint(
                     Waypoint(
                         "Debug Waypoint",
@@ -67,18 +67,18 @@ object DebugKey {
                 )
             }
         }
-        if (PartlySaneSkies.config.debugSendSystemNotification) {
+        if (PartlySaneSkies.config.dev.debugSendSystemNotification) {
             SystemNotification.showNotification("Debug mode: ${isDebugMode()}")
         }
 
-        if (PartlySaneSkies.config.percyMode) {
+        if (PartlySaneSkies.config.dev.percyMode) {
             Thread() {
                 sendClientMessage("Dumping...")
                 PercyMode.dump()
 
             }.start()
         }
-        if (PartlySaneSkies.config.debugPrintCurrentLocationFromIslandType) {
+        if (PartlySaneSkies.config.dev.debugPrintCurrentLocationFromIslandType) {
             sendClientMessage("Island Type: ${IslandType.getCurrentIsland()}")
         }
     }
@@ -86,7 +86,7 @@ object DebugKey {
     // Runs chat analyzer for debug mode
     @SubscribeEvent
     fun chatAnalyzer(evnt: ClientChatReceivedEvent) {
-        if (isDebugMode() && PartlySaneSkies.config.debugChatAnalyser) {
+        if (isDebugMode() && PartlySaneSkies.config.dev.debugChatAnalyser) {
             log(Level.INFO, evnt.message.formattedText)
         }
     }

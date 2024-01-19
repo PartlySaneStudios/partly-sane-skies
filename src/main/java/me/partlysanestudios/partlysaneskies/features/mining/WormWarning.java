@@ -20,13 +20,13 @@ public class WormWarning {
     public void wormWarningChatEvent(ClientChatReceivedEvent event) {
 
         if (event.message.getUnformattedText().startsWith("You hear the sound of something approaching...")) {
-            if (PartlySaneSkies.Companion.getConfig().wormWarningBanner) {
+            if (PartlySaneSkies.Companion.getConfig().mining.wormWarningBanner) {
                 wormWarningBannerTime = PartlySaneSkies.Companion.getTime();
                 wormWarningString = "A Worm Has Spawned!";
 
-                BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner(wormWarningString, (long) (PartlySaneSkies.Companion.getConfig().wormWarningBannerTime * 1000), 3, PartlySaneSkies.Companion.getConfig().wormWarningBannerColor.toJavaColor()));
+                BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner(wormWarningString, (long) (PartlySaneSkies.Companion.getConfig().mining.wormWarningBannerTime * 1000), 3, PartlySaneSkies.Companion.getConfig().mining.wormWarningBannerColor.toJavaColor()));
             }
-            if (PartlySaneSkies.Companion.getConfig().wormWarningBannerSound) {
+            if (PartlySaneSkies.Companion.getConfig().mining.wormWarningBannerSound) {
                 PartlySaneSkies.Companion.getMinecraft().thePlayer.playSound("partlysaneskies:bell", 100, 1);
             }
         }

@@ -15,12 +15,12 @@ import java.util.regex.Pattern
 object AutoGG {
     @SubscribeEvent
     fun handleChatEvent(event: ClientChatReceivedEvent) {
-        if (!PartlySaneSkies.config.autoGgEnabled) {
+        if (!PartlySaneSkies.config.dungeons.autoGgEnabled) {
             return
         }
         if (event.message.formattedText.contains("§r§fTeam Score:")) {
             Thread({
-                Thread.sleep((PartlySaneSkies.config.autoGGCooldown * 1000).toLong())
+                Thread.sleep((PartlySaneSkies.config.dungeons.autoGGCooldown * 1000).toLong())
                 val input = event.message.unformattedText
                 val regex = "\\((.*?)\\)"
 
@@ -30,26 +30,26 @@ object AutoGG {
                 if (matcher.find()) {
                     val score: String = matcher.group(1)
                     if (score.equals("S+")) {
-                        val message = if (PartlySaneSkies.config.sendAutoGGInWhatChat == 0) {
-                            "/pc" + PartlySaneSkies.config.autoGGMessageSPlus
+                        val message = if (PartlySaneSkies.config.dungeons.sendAutoGGInWhatChat == 0) {
+                            "/pc" + PartlySaneSkies.config.dungeons.autoGGMessageSPlus
                         } else {
-                            "/ac" + PartlySaneSkies.config.autoGGMessageSPlus
+                            "/ac" + PartlySaneSkies.config.dungeons.autoGGMessageSPlus
                         }
                         PartlySaneSkies.minecraft.thePlayer.sendChatMessage(message)
 
                     } else if (score.equals("S")) {
-                        val message = if (PartlySaneSkies.config.sendAutoGGInWhatChat == 0) {
-                            "/pc" + PartlySaneSkies.config.autoGGMessageS
+                        val message = if (PartlySaneSkies.config.dungeons.sendAutoGGInWhatChat == 0) {
+                            "/pc" + PartlySaneSkies.config.dungeons.autoGGMessageS
                         } else {
-                            "/ac" + PartlySaneSkies.config.autoGGMessageS
+                            "/ac" + PartlySaneSkies.config.dungeons.autoGGMessageS
                         }
                         PartlySaneSkies.minecraft.thePlayer.sendChatMessage(message)
 
                     } else {
-                        val message = if (PartlySaneSkies.config.sendAutoGGInWhatChat == 0) {
-                            "/pc" + PartlySaneSkies.config.autoGGMessageOther
+                        val message = if (PartlySaneSkies.config.dungeons.sendAutoGGInWhatChat == 0) {
+                            "/pc" + PartlySaneSkies.config.dungeons.autoGGMessageOther
                         } else {
-                            "/ac" + PartlySaneSkies.config.autoGGMessageOther
+                            "/ac" + PartlySaneSkies.config.dungeons.autoGGMessageOther
                         }
                         PartlySaneSkies.minecraft.thePlayer.sendChatMessage(message)
 

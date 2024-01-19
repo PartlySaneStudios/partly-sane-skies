@@ -49,7 +49,7 @@ object EndOfFarmNotifier {
     fun checkAllRangesTick() {
         if (!MathUtils.onCooldown(
                 rangeToHighlightSetTime,
-                (PartlySaneSkies.config.farmHightlightTime * 1000).toLong() // damn we can english (it's called highlight)
+                (PartlySaneSkies.config.farming.farmHightlightTime * 1000).toLong() // damn we can english (it's called highlight)
             )
         ) {
             rangeToHighlight = null
@@ -60,7 +60,7 @@ object EndOfFarmNotifier {
         }
         if (MathUtils.onCooldown(
                 lastChimeTime,
-                (PartlySaneSkies.config.farmnotifierChimeTime * 1000).toLong()
+                (PartlySaneSkies.config.farming.farmnotifierChimeTime * 1000).toLong()
             )
         ) {
             return

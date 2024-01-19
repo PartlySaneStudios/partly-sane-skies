@@ -40,16 +40,26 @@ import java.awt.Color
 
 object VisitorLogbookStats {
 
-    private val tiers: List<String> = listOf<String>("§f§lTotal", "§a§lUncommon", "§9§lRare", "§6Legendary", "§dMythic", "§c§lSpecial", "§e§lUnknown") //total | uncommon | rare | leg | mythic | special | UNKNOWN
+    private val tiers: List<String> = listOf<String>(
+        "§f§lTotal",
+        "§a§lUncommon",
+        "§9§lRare",
+        "§6Legendary",
+        "§dMythic",
+        "§c§lSpecial",
+        "§e§lUnknown"
+    ) //total | uncommon | rare | leg | mythic | special | UNKNOWN
     private var theBaseString = ""
 
     @SubscribeEvent
     fun onGuiScreen(event: GuiScreenEvent.BackgroundDrawnEvent) {
         if (!isVisitorLogbook()) return
-        if (!PartlySaneSkies.config.visitorLogbookStats) return
+        if (!PartlySaneSkies.config.farming.visitorLogbookStats) return
         val slots = ((PartlySaneSkies.minecraft.currentScreen as GuiChest)).inventorySlots.inventorySlots
-        val seenStats: MutableList<Int> = mutableListOf<Int>(0, 0, 0, 0, 0, 0, 0) //total | uncommon | rare | leg | mythic | special | UNKNOWN
-        val acceptedStats: MutableList<Int> = mutableListOf<Int>(0, 0, 0, 0, 0, 0, 0) //total | uncommon | rare | leg | mythic  | special | UNKNOWN
+        val seenStats: MutableList<Int> =
+            mutableListOf<Int>(0, 0, 0, 0, 0, 0, 0) //total | uncommon | rare | leg | mythic | special | UNKNOWN
+        val acceptedStats: MutableList<Int> =
+            mutableListOf<Int>(0, 0, 0, 0, 0, 0, 0) //total | uncommon | rare | leg | mythic  | special | UNKNOWN
         theBaseString = ""
         for (s in slots) {
             if (s.stack == null) continue
@@ -59,7 +69,10 @@ object VisitorLogbookStats {
 
             if (lore.isEmpty()) continue
             if (lore.first().contains("Page ")) break
-            if (lore.first().removeColorCodes().isEmpty() || lore.first().contains("This NPC hasn't visited you") || lore.first().contains("Various NPCs ") || lore.first().contains("Requirements")) continue
+            if (lore.first().removeColorCodes().isEmpty() || lore.first()
+                    .contains("This NPC hasn't visited you") || lore.first().contains("Various NPCs ") || lore.first()
+                    .contains("Requirements")
+            ) continue
 
             val noPlcwList = mutableListOf<String>()
 
@@ -69,7 +82,11 @@ object VisitorLogbookStats {
             //Times Visited: 0
             //§7Offers Accepted: §a0
             //Offers Accepted: 0
-            val rarityIndex = when (noPlcwList.find{ it.contains("SPECIAL") || it.contains("MYTHIC") || it.contains("LEGENDARY")  || it.contains("RARE") || it.contains("UNCOMMON") }) {
+            val rarityIndex = when (noPlcwList.find {
+                it.contains("SPECIAL") || it.contains("MYTHIC") || it.contains("LEGENDARY") || it.contains("RARE") || it.contains(
+                    "UNCOMMON"
+                )
+            }) {
                 "UNCOMMON" -> 1
                 "RARE" -> 2
                 "LEGENDARY" -> 3
@@ -77,8 +94,8 @@ object VisitorLogbookStats {
                 "SPECIAL" -> 5
                 else -> 6
             }
-            val lineTimesVisited = noPlcwList.find{ it.contains("Times Visited: ") } ?: break
-            val lineOffersAccepted = noPlcwList.find{ it.contains("Offers Accepted: ") } ?: break
+            val lineTimesVisited = noPlcwList.find { it.contains("Times Visited: ") } ?: break
+            val lineOffersAccepted = noPlcwList.find { it.contains("Offers Accepted: ") } ?: break
             seenStats[rarityIndex] += lineTimesVisited.split(" ").last().replace(",", "").replace(".", "").toInt()
             acceptedStats[rarityIndex] += lineOffersAccepted.split(" ").last().replace(",", "").replace(".", "").toInt()
             seenStats[0] += lineTimesVisited.split(" ").last().replace(",", "").replace(".", "").toInt()
@@ -91,7 +108,11 @@ object VisitorLogbookStats {
         for (indexInt in tiers.indices) {
             if ((seenStats[indexInt] == 0 || acceptedStats[indexInt] == 0) && indexInt == 6) break // Hides the UNKNOWN tier if there are no stats for it
             val c = (tiers[indexInt]).take(2)
-            theBaseString += "\n${tiers[indexInt]}:\n ${c}Visited: ${seenStats[indexInt]}\n ${c}Accepted: ${acceptedStats[indexInt]}\n ${c}Pending or Denied: ${Math.abs(seenStats[indexInt] - acceptedStats[indexInt])}"
+            theBaseString += "\n${tiers[indexInt]}:\n ${c}Visited: ${seenStats[indexInt]}\n ${c}Accepted: ${acceptedStats[indexInt]}\n ${c}Pending or Denied: ${
+                Math.abs(
+                    seenStats[indexInt] - acceptedStats[indexInt]
+                )
+            }"
         }
     }
 
@@ -126,7 +147,7 @@ object VisitorLogbookStats {
             box.hide()
             return
         }
-        if (!PartlySaneSkies.config.visitorLogbookStats) {
+        if (!PartlySaneSkies.config.farming.visitorLogbookStats) {
             return
         }
 

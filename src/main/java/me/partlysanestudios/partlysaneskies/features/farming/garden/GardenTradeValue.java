@@ -248,7 +248,7 @@ public class GardenTradeValue {
             box.hide();
             return;
         }
-        if (!PartlySaneSkies.Companion.getConfig().gardenShopTradeInfo) {
+        if (!PartlySaneSkies.Companion.getConfig().farming.gardenShopTradeInfo) {
             return;
         }
 

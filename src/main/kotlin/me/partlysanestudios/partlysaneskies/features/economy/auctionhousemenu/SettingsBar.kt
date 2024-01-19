@@ -94,7 +94,7 @@ class SettingsBar (val xConstraint: XConstraint, val yConstraint: YConstraint, v
             }.setColor(Color(0, 0, 0, 0)) childOf bottomBarImage
 
             var imagePath: String = bottomBarImagePaths[i]
-            if (PartlySaneSkies.config.customAhGuiTextures == 1) {
+            if (PartlySaneSkies.config.economy.customAhGuiTextures == 1) {
                 imagePath = bottomBarFurfSkyImagePaths[i]
             }
 

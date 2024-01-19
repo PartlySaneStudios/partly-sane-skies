@@ -301,7 +301,7 @@ public class CompostValue {
             box.hide();
             return;
         }
-        if (!PartlySaneSkies.Companion.getConfig().bestCropsToCompost) {
+        if (!PartlySaneSkies.Companion.getConfig().farming.bestCropsToCompost) {
             return;
         }
 

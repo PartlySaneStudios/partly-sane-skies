@@ -19,7 +19,7 @@ object PearlRefill {
     fun onChatMessage(event: ClientChatReceivedEvent) {
         val formattedMessage = event.message.formattedText
 
-        if (!PartlySaneSkies.config.autoPearlRefill) return
+        if (!PartlySaneSkies.config.dungeons.autoPearlRefill) return
 
         // Dungeon start
         if (formattedMessage == "§r§aStarting in 1 second.§r") {

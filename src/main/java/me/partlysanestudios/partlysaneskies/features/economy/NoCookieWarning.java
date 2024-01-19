@@ -60,7 +60,7 @@ public class NoCookieWarning {
     }
 
     public static boolean hasLotsOfCoins() {
-        if (HypixelUtils.INSTANCE.getCoins() > PartlySaneSkies.Companion.getConfig().maxWithoutCookie) {
+        if (HypixelUtils.INSTANCE.getCoins() > PartlySaneSkies.Companion.getConfig().economy.maxWithoutCookie) {
             return true;
         } else {
             return false;
@@ -72,7 +72,7 @@ public class NoCookieWarning {
         Color color = Color.red;
         displayString = "No Booster Cookie. You will lose your coins on death";
 
-        BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner(displayString, (long) (PartlySaneSkies.Companion.getConfig().noCookieWarnTime * 1000), TEXT_SCALE, color));
+        BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner(displayString, (long) (PartlySaneSkies.Companion.getConfig().economy.noCookieWarnTime * 1000), TEXT_SCALE, color));
         PartlySaneSkies.Companion.getMinecraft().getSoundHandler()
                 .playSound(PositionedSoundRecord.create(new ResourceLocation("partlysaneskies", "bell")));
     }
@@ -82,11 +82,11 @@ public class NoCookieWarning {
     }
 
     public static boolean checkExpire() {
-        return getTimeSinceLastWarn() > PartlySaneSkies.Companion.getConfig().noCookieWarnTime * 1000;
+        return getTimeSinceLastWarn() > PartlySaneSkies.Companion.getConfig().economy.noCookieWarnTime * 1000;
     }
 
     public static boolean checkWarnAgain() {
-        if (getTimeSinceLastWarn() > PartlySaneSkies.Companion.getConfig().noCookieWarnCooldown * 1000) {
+        if (getTimeSinceLastWarn() > PartlySaneSkies.Companion.getConfig().economy.noCookieWarnCooldown * 1000) {
             return true;
         }
 
@@ -99,7 +99,7 @@ public class NoCookieWarning {
         if (!HypixelUtils.INSTANCE.isSkyblock()) {
             return;
         }
-        if (!PartlySaneSkies.Companion.getConfig().noCookieWarning) {
+        if (!PartlySaneSkies.Companion.getConfig().economy.noCookieWarning) {
             return;
         }
 

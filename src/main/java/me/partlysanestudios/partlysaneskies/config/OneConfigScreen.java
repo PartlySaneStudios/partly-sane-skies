@@ -28,7 +28,7 @@ public class OneConfigScreen extends Config {
         super(new Mod("Partly Sane Skies", ModType.SKYBLOCK, "/assets/partlysaneskies/textures/logo_oneconfig.png"), "partly-sane-skies/config.json");
         initialize();
 
-        registerKeyBind(refillPearlsKeybind, PearlRefill.INSTANCE::keybindAction);
+        registerKeyBind(DungeonsConfig.refillPearlsKeybind, PearlRefill.INSTANCE::keybindAction);
     }
 
     public void resetBrokenStringsTick() {
@@ -44,8 +44,8 @@ public class OneConfigScreen extends Config {
             dungeons.secretsChatMessageString = "Partly Sane Skies > All required secrets have been found!";
             save();
         }
-        if (dungeons.pickaxeAbilityReadyBannerText.isEmpty()) {
-            dungeons.pickaxeAbilityReadyBannerText = "Pickaxe Ability Ready!";
+        if (mining.pickaxeAbilityReadyBannerText.isEmpty()) {
+            mining.pickaxeAbilityReadyBannerText = "Pickaxe Ability Ready!";
             save();
         }
 
@@ -82,4 +82,5 @@ public class OneConfigScreen extends Config {
     public ForagingConfig foraging = new ForagingConfig();
     public EconomyConfig economy = new EconomyConfig();
     public ChatConfig chat = new ChatConfig();
+    public DevConfig dev = new DevConfig();
 }

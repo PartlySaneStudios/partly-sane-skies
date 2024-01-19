@@ -85,7 +85,7 @@ class CategoriesBar (val xConstraint: XConstraint, val yConstraint: YConstraint,
             }.setColor(Color(0, 0, 0, 0)) childOf topBarImage
 
             var imagePath =
-                if (PartlySaneSkies.config.customAhGuiTextures == 1) {
+                if (PartlySaneSkies.config.economy.customAhGuiTextures == 1) {
                     topBarFurfSkyImagePaths[i]
                 } else {
                     topBarImagePaths[i]

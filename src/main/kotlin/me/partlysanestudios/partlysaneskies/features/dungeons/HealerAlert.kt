@@ -37,7 +37,7 @@ object HealerAlert {
             val indexOfFirstSpace = line.indexOf(" ")
             val indexOfSecondSpace = line.indexOf(" ", indexOfFirstSpace + 1)
             val health = line.substring(indexOfSecondSpace)
-            if (PartlySaneSkies.config.colouredHealerAlert == 1) {
+            if (PartlySaneSkies.config.dungeons.colouredHealerAlert == 1) {
                 return health.contains("§e") || health.indexOf("§c") != health.lastIndexOf("§c")
             }
             return health.indexOf("§c") != health.lastIndexOf("§c")
@@ -47,13 +47,13 @@ object HealerAlert {
     }
 
     fun checkPlayerTick() {
-        if (!PartlySaneSkies.config.healerAlert) {
+        if (!PartlySaneSkies.config.dungeons.healerAlert) {
             return
         }
         if (isPlayerLowOnHealth()) {
             if (MathUtils.onCooldown(
                     lastWarnTime,
-                    (PartlySaneSkies.config.healerAlertCooldownSlider * 1000).toLong()
+                    (PartlySaneSkies.config.dungeons.healerAlertCooldownSlider * 1000).toLong()
                 )
             ) {
                 return
