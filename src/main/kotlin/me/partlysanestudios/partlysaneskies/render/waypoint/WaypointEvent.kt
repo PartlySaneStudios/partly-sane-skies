@@ -7,6 +7,7 @@ package me.partlysanestudios.partlysaneskies.render.waypoint
  *
  * Make sure to register the object with WaypointEvents.register(object)
  */
+@Retention(AnnotationRetention.RUNTIME)
 @Target(AnnotationTarget.FUNCTION)
 annotation class WaypointEvent() {
 

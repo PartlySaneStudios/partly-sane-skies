@@ -20,6 +20,7 @@ package me.partlysanestudios.partlysaneskies
 import gg.essential.elementa.ElementaVersion
 import me.partlysanestudios.partlysaneskies.config.keybinds.Keybinds
 import me.partlysanestudios.partlysaneskies.config.oneconfig.OneConfigScreen
+import me.partlysanestudios.partlysaneskies.data.api.PolyfrostUrsaMinorRequest
 import me.partlysanestudios.partlysaneskies.data.api.Request
 import me.partlysanestudios.partlysaneskies.data.api.RequestsManager.newRequest
 import me.partlysanestudios.partlysaneskies.data.cache.PetData
@@ -36,6 +37,7 @@ import me.partlysanestudios.partlysaneskies.features.commands.HelpCommand
 import me.partlysanestudios.partlysaneskies.features.commands.Version
 import me.partlysanestudios.partlysaneskies.features.debug.DebugKey
 import me.partlysanestudios.partlysaneskies.features.discord.DiscordRPC
+import me.partlysanestudios.partlysaneskies.features.dungeons.*
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.PartyFriendManager
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.partymanager.PartyManager
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.permpartyselector.PermPartyManager
@@ -67,14 +69,11 @@ import me.partlysanestudios.partlysaneskies.features.skills.SkillUpgradeRecommen
 import me.partlysanestudios.partlysaneskies.features.sound.Prank
 import me.partlysanestudios.partlysaneskies.features.sound.enhancedsound.EnhancedSound
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
+import me.partlysanestudios.partlysaneskies.render.gui.hud.BannerRenderer
 import me.partlysanestudios.partlysaneskies.render.gui.hud.cooldown.CooldownManager
+import me.partlysanestudios.partlysaneskies.render.waypoint.WaypointEvents
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
-import me.partlysanestudios.partlysaneskies.data.api.PolyfrostUrsaMinorRequest
-import me.partlysanestudios.partlysaneskies.features.dungeons.*
-import me.partlysanestudios.partlysaneskies.render.gui.hud.BannerRenderer
-import me.partlysanestudios.partlysaneskies.render.waypoint.WaypointManager
-import me.partlysanestudios.partlysaneskies.render.waypoint.WaypointRender
 import net.minecraft.client.Minecraft
 import net.minecraft.event.ClickEvent
 import net.minecraft.event.HoverEvent
@@ -225,8 +224,10 @@ class PartlySaneSkies {
         registerEvent(SanityCheck)
         registerEvent(Keybinds)
         registerEvent(HealerAlert)
-        registerEvent(WaypointManager)
-        registerEvent(WaypointRender)
+        registerEvent(WaypointEvents)
+
+
+        WaypointEvents.register(DebugKey)
 
         // Registers all client side commands
         HelpCommand.registerPSSCommand()
@@ -310,7 +311,6 @@ class PartlySaneSkies {
         NoCookieWarning.checkCoinsTick()
         Prank.checkPrankTick()
         AuctionHouseGui.tick()
-        TerminalWaypoints.tick()
     }
 
     @SubscribeEvent
