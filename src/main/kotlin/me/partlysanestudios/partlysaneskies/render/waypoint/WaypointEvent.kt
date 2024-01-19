@@ -13,6 +13,10 @@ package me.partlysanestudios.partlysaneskies.render.waypoint
  * These functions are called during the RenderWorldLastEvent
  *
  * Make sure to register the object with WaypointEvents.register(object)
+ *
+ *
+ * @sample WaypointEvents.ExampleObject
+ *
  */
 @Retention(AnnotationRetention.RUNTIME)
 @Target(AnnotationTarget.FUNCTION)
