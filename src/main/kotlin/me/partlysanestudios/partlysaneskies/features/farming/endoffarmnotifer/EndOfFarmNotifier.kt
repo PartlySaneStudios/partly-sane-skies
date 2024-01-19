@@ -73,7 +73,6 @@ object EndOfFarmNotifier {
             PSSBanner(
                 displayString,
                 1000,
-                TEXT_SCALE.toFloat(),
                 Color.red
             )
         )

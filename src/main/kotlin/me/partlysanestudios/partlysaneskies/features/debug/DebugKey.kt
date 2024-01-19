@@ -41,7 +41,7 @@ object DebugKey {
 
 
         if (PartlySaneSkies.config.debugRenderTestBanner) {
-            renderNewBanner(PSSBanner("Test", 5000L, 5f, OneColor(255, 0, 255, 1).toJavaColor()))
+            renderNewBanner(PSSBanner("Test", 5000L, OneColor(255, 0, 255, 1).toJavaColor()))
         }
 
         if (PartlySaneSkies.config.debugAddSlacker) {

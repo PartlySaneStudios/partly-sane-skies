@@ -21,8 +21,6 @@ import java.awt.*;
 import java.lang.reflect.Field;
 
 public class NoCookieWarning {
-    private static final float TEXT_SCALE = 2.5f;
-
     private static String displayString = "";
     private static long lastWarnTime;
 
@@ -72,7 +70,7 @@ public class NoCookieWarning {
         Color color = Color.red;
         displayString = "No Booster Cookie. You will lose your coins on death";
 
-        BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner(displayString, (long) (PartlySaneSkies.Companion.getConfig().noCookieWarnTime * 1000), TEXT_SCALE, color));
+        BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner(displayString, (long) (PartlySaneSkies.Companion.getConfig().noCookieWarnTime * 1000), color));
         PartlySaneSkies.Companion.getMinecraft().getSoundHandler()
                 .playSound(PositionedSoundRecord.create(new ResourceLocation("partlysaneskies", "bell")));
     }

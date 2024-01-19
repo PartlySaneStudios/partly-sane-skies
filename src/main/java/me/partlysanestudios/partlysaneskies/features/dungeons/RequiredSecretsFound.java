@@ -44,7 +44,7 @@ public class RequiredSecretsFound {
         for (String line : MinecraftUtils.INSTANCE.getTabList()) {
             if (line.contains("Secrets Found: §r§a")) {
                 if (PartlySaneSkies.Companion.getConfig().secretsBanner) {
-                    BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner("Required Secrets Found!", (long) (PartlySaneSkies.Companion.getConfig().secretsBannerTime * 1000), 3.0f, PartlySaneSkies.Companion.getConfig().secretsBannerColor.toJavaColor()));
+                    BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner("Required Secrets Found!", (long) (PartlySaneSkies.Companion.getConfig().secretsBannerTime * 1000), PartlySaneSkies.Companion.getConfig().secretsBannerColor.toJavaColor()));
                 }
                 if (PartlySaneSkies.Companion.getConfig().secretsChatMessage) {
                     Minecraft.getMinecraft().thePlayer.sendChatMessage("/pc " + PartlySaneSkies.Companion.getConfig().secretsChatMessageString);

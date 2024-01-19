@@ -14,7 +14,6 @@ import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import java.awt.*;
 
 public class LocationBannerDisplay {
-    static float TEXT_SCALE = 5f;
     static String lastLocation = "";
     public static long lastLocationTime = PartlySaneSkies.Companion.getTime();
     static String displayString = "empty";
@@ -74,7 +73,7 @@ public class LocationBannerDisplay {
         lastLocation = noColorCodeRegionName;
         lastLocationTime = PartlySaneSkies.Companion.getTime();
 
-        BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner(displayString, (long) (PartlySaneSkies.Companion.getConfig().locationBannerTime * 1000), TEXT_SCALE, color));
+        BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner(displayString, (long) (PartlySaneSkies.Companion.getConfig().locationBannerTime * 1000), color));
     }
 
     private static boolean checkExpire() {

@@ -19,7 +19,7 @@ public class WatcherReady {
 
         if (event.message.getUnformattedText().startsWith("[BOSS] The Watcher: That will be enough for now.")) {
             if (PartlySaneSkies.Companion.getConfig().watcherReadyBanner) {
-                BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner("Watcher Ready!", (long) (PartlySaneSkies.Companion.getConfig().watcherReadyBannerTime * 1000), 3.0f, PartlySaneSkies.Companion.getConfig().watcherReadyBannerColor.toJavaColor()));
+                BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner("Watcher Ready!", (long) (PartlySaneSkies.Companion.getConfig().watcherReadyBannerTime * 1000), PartlySaneSkies.Companion.getConfig().watcherReadyBannerColor.toJavaColor()));
             }
             if (PartlySaneSkies.Companion.getConfig().watcherReadyChatMessage) {
                 PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/pc " + PartlySaneSkies.Companion.getConfig().watcherChatMessage);
