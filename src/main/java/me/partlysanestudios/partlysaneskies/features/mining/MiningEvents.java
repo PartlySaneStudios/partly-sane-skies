@@ -134,7 +134,7 @@ public class MiningEvents {
         }
 
         if (showBanner) {
-            BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner(displayText, (long) (PartlySaneSkies.Companion.getConfig().miningEventBannerTime * 1000), PartlySaneSkies.Companion.getConfig().miningEventBannerColor.toJavaColor()));
+            BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner(displayText, (long) (PartlySaneSkies.Companion.getConfig().miningEventBannerTime * 1000), 4.0f, PartlySaneSkies.Companion.getConfig().miningEventBannerColor.toJavaColor()));
         }
         showBanner = false;
     }
