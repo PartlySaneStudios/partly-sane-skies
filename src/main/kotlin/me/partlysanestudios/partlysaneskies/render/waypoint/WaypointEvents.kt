@@ -11,7 +11,9 @@ import me.partlysanestudios.partlysaneskies.render.points.Point3d
 import net.minecraftforge.client.event.RenderWorldLastEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import kotlin.reflect.full.memberFunctions
-
+/**
+ * @see WaypointEvents.ExampleObject for example
+ */
 object WaypointEvents {
     private val registeredClasses = ArrayList<Any>()
 

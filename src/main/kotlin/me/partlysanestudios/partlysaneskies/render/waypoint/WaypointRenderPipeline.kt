@@ -9,6 +9,10 @@ package me.partlysanestudios.partlysaneskies.render.waypoint
 import net.minecraft.client.Minecraft
 import net.minecraft.util.Vec3
 
+/**
+ * @see WaypointEvents.ExampleObject for example
+ * @sample WaypointEvents.ExampleObject
+ */
 class WaypointRenderPipeline() {
     private val waypointsToRender = ArrayList<Waypoint>()
 
