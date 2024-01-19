@@ -256,7 +256,6 @@ class PartlySaneSkies {
         PearlRefill.registerCommand()
         CooldownManager.init()
         DebugKey.init()
-        WaypointManager.registerCommand()
 
         PolyfrostUrsaMinorRequest.authorize()
 
@@ -311,6 +310,7 @@ class PartlySaneSkies {
         NoCookieWarning.checkCoinsTick()
         Prank.checkPrankTick()
         AuctionHouseGui.tick()
+        TerminalWaypoints.tick()
     }
 
     @SubscribeEvent

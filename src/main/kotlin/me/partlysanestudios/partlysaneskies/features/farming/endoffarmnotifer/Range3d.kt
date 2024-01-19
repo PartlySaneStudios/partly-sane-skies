@@ -25,6 +25,9 @@ class Range3d(x1: Double, y1: Double, z1: Double, x2: Double, y2: Double, z2: Do
         rangeName = ""
     }
 
+    fun isInRange(point3d: Point3d): Boolean {
+        return isInRange(point3d.x, point3d.y, point3d.z)
+    }
     fun isInRange(x: Double, y: Double, z: Double): Boolean {
         if (smallCoordinate[0] <= x && x - 1 <= largeCoordinate[0]) {
             if (smallCoordinate[1] - 1 <= y && y - 1 <= largeCoordinate[1]) {

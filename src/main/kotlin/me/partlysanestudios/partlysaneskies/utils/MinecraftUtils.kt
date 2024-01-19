@@ -224,7 +224,7 @@ object MinecraftUtils {
      * @return all the entities loaded in the world
      */
     fun getAllEntitiesInWorld(): List<Entity> {
-        return PartlySaneSkies.minecraft.theWorld.getLoadedEntityList()
+        return PartlySaneSkies.minecraft.theWorld?.getLoadedEntityList() ?: ArrayList()
     }
 
     /**

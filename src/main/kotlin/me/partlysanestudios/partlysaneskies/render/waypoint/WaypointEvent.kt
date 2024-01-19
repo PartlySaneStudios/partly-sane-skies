@@ -1,0 +1,13 @@
+package me.partlysanestudios.partlysaneskies.render.waypoint
+
+/**
+ * Any function with this annotation will get called with a WaypointRenderPipeline object.
+ * Whenever the function is run, the function can add waypoints to the render pipeline, which will then be rendered.
+ * These functions are called during the RenderWorldLastEvent
+ *
+ * Make sure to register the object with WaypointEvents.register(object)
+ */
+@Target(AnnotationTarget.FUNCTION)
+annotation class WaypointEvent() {
+
+}
