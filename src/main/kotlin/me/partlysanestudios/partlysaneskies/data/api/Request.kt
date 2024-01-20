@@ -107,9 +107,9 @@ open class Request(
     @Throws(IOException::class)
     open fun startRequest() {
         // Opens a new connection with the url
-        val httpURLConnection = url.openConnection() as HttpsURLConnection
+        val connection = url.openConnection() as HttpsURLConnection
         // Sets the browser as Mozilla to bypass an insecure restrictions
-        httpURLConnection.setRequestProperty("User-Agent", "Partly-Sane-Skies/" + PartlySaneSkies.VERSION)
+        connection.setRequestProperty("User-Agent", "Partly-Sane-Skies/" + PartlySaneSkies.VERSION)
         if (acceptAllCertificates) {
             // Create a trust manager that does not validate certificate chains
             val trustAllCerts = arrayOf<TrustManager>(object : X509TrustManager {
@@ -123,17 +123,17 @@ open class Request(
             sslContext.init(null, trustAllCerts, java.security.SecureRandom())
 
             // Apply the all-trusting SSLSocketFactory to this specific connection
-            httpURLConnection.sslSocketFactory = sslContext.socketFactory
+            connection.sslSocketFactory = sslContext.socketFactory
 
             // Optional: Apply a hostname verifier that does not perform any checks (not recommended)
-            httpURLConnection.hostnameVerifier = HostnameVerifier { _, _ -> true }
+            connection.hostnameVerifier = HostnameVerifier { _, _ -> true }
         }
 
         // Gets the response code
-        val responseCode = httpURLConnection.getResponseCode()
+        val responseCode = connection.getResponseCode()
         this.responseCode = responseCode
         // Gets the response message
-        this.responseMessage = httpURLConnection.getResponseMessage()
+        this.responseMessage = connection.getResponseMessage()
 
         // If the code is not HTTP_OK -- if the request failed
         if (responseCode != HttpsURLConnection.HTTP_OK) {
@@ -146,7 +146,7 @@ open class Request(
             if (PartlySaneSkies.config.printApiErrors) {
                 sendClientMessage(
                     """
-                Error: ${httpURLConnection.getResponseMessage()}:${httpURLConnection.getResponseCode()}
+                Error: ${connection.getResponseMessage()}:${connection.getResponseCode()}
                 Contact PSS admins for more information
                 """.trimIndent()
                 )
@@ -154,7 +154,7 @@ open class Request(
                 log(
                     Level.ERROR,
                     """
-                Error: ${httpURLConnection.getResponseMessage()}:${httpURLConnection.getResponseCode()}
+                Error: ${connection.getResponseMessage()}:${connection.getResponseCode()}
                 Contact PSS admins for more information
                 """.trimIndent()
                 )
@@ -162,16 +162,16 @@ open class Request(
             log(
                 Level.ERROR,
                 """
-            Error: ${httpURLConnection.getResponseMessage()}:${httpURLConnection.getResponseCode()}
+            Error: ${connection.getResponseMessage()}:${connection.getResponseCode()}
             URL: ${url}
             """.trimIndent()
             )
             // Disconnect the connection
-            httpURLConnection.disconnect()
+            connection.disconnect()
         }
 
         // Read the response as a string
-        val `in` = BufferedReader(InputStreamReader(httpURLConnection.inputStream))
+        val `in` = BufferedReader(InputStreamReader(connection.inputStream))
         var inputLine: String?
         val response = StringBuilder()
         while (`in`.readLine().also { inputLine = it } != null) {
@@ -183,7 +183,7 @@ open class Request(
         this.response = response.toString()
 
         // Disconnect
-        httpURLConnection.disconnect()
+        connection.disconnect()
         if (function == null) {
             return
         }
