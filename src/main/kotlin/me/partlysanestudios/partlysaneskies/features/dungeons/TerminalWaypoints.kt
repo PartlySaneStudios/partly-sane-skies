@@ -29,7 +29,7 @@ object TerminalWaypoints {
 
     @WaypointEvent
     fun onWaypointRender(pipeline: WaypointRenderPipeline) {
-        if (IslandType.getCurrentIsland() != IslandType.CATACOMBS) {
+        if (!IslandType.CATACOMBS.onIsland()) {
             return
         }
         if (DebugKey.isDebugMode()) {
