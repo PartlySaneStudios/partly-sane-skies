@@ -35,7 +35,7 @@ object TerminalWaypoints {
         if (DebugKey.isDebugMode()) {
             return
         }
-        val playerPoint3d = Point3d(minecraft.thePlayer?.posX ?: -1.0, minecraft.thePlayer?.posY ?: -1.0, minecraft.thePlayer?.posZ ?: -1.0)
+        val playerPoint3d = Point3d.asPlayer()
         val playerBoundingBox = getCurrentBoundingBox(playerPoint3d)
 
 
