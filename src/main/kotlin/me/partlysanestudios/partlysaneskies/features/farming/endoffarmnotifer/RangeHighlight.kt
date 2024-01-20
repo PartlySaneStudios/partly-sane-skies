@@ -32,7 +32,7 @@ import me.partlysanestudios.partlysaneskies.data.skyblockdata.IslandType
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
 import me.partlysanestudios.partlysaneskies.utils.vectors.Range3d
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils
-import me.partlysanestudios.partlysaneskies.utils.ImageUtils
+import me.partlysanestudios.partlysaneskies.utils.ImageUtils.applyOpacity
 
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.Tessellator
@@ -55,12 +55,12 @@ object RangeHighlight {
 
         for (range in EndOfFarmNotifier.ranges) {
             var color = Color(255, 255, 255)
-            color = ImageUtils.applyOpacityToColor(color, (.2 * 255).toInt())
+            color = color.applyOpacity((.2 * 255).toInt())
 //                ChatUtils.sendClientMessage("Range to highlight: ${EndOfFarmNotifier.rangeToHighlight}, Current Range: $range")
             if (range == EndOfFarmNotifier.rangeToHighlight) {
 //                    ChatUtils.sendClientMessage("Is range to highlight")
                 color = ThemeManager.getAccentColor().toJavaColor()
-                color = ImageUtils.applyOpacityToColor(color, (.4 * 255).toInt())
+                color = color.applyOpacity((.4 * 255).toInt())
             }
 
             val effectiveRange = Range3d(range.points[0].x, range.points[0].y, range.points[0].z, range.points[1].x + 1, range.points[1].y + 1, range.points[1].z + 1)
