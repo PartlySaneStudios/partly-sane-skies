@@ -1,9 +1,11 @@
+# Beta v0.5.8
+
 ## New
-* Added percy mode (@Su386yt)
-* Backend: Waypoint/BlockHighlight/Beam Renderer (@j10a1n15)
+* Added Percy mode (@Su386yt)
+* Added Waypoint/BlockHighlight/Beam Renderer (@j10a1n15)
 
 ## Change
-* Feature: Option to change Banner Size (@j10a1n15)
+* Added option to change Banner Size (@j10a1n15)
 
 ## Bug Fix
 * Fixed incompatibilities with certificates (@Su386yt)
