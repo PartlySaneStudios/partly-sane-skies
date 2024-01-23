@@ -103,7 +103,6 @@ class PartlySaneSkies {
         const val NAME = "@MOD_NAME@"
         const val VERSION = "@MOD_VERSION@"
 
-        //    -----------------------CHANGE TO FALSE BEFORE RELEASING
         val DOGFOOD = "@DOGFOOD@".toBoolean()
         const val CHAT_PREFIX = "§r§b§lPartly Sane Skies§r§7>> §r"
         var discordCode = "v4PU3WeH7z"
