@@ -7,6 +7,8 @@ package me.partlysanestudios.partlysaneskies.features.dungeons;
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.IslandType;
+import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent;
+import me.partlysanestudios.partlysaneskies.events.skyblock.dungeons.DungeonStartEvent;
 import me.partlysanestudios.partlysaneskies.render.gui.hud.BannerRenderer;
 import me.partlysanestudios.partlysaneskies.render.gui.hud.PSSBanner;
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils;
@@ -65,14 +67,8 @@ public class RequiredSecretsFound {
         }
     }
 
-    @SubscribeEvent
-    public void onChatMessage(ClientChatReceivedEvent event) {
-        // I need to remember that formatted text has the §r stuff in it, not the other way around
-        String formattedMessage = event.message.getFormattedText();
- 
-        // Dungeon start
-        if (formattedMessage.equals("§r§aStarting in 1 second.§r")) {
-            alreadySendThisRun = false;
-        }
+    @SubscribePSSEvent
+    public void onChatMessage(DungeonStartEvent event) {
+        alreadySendThisRun = false;
     }
 }

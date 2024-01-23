@@ -230,6 +230,7 @@ class PartlySaneSkies {
         EventManager.register(TerminalWaypoints)
         EventManager.register(playerRating)
         EventManager.register(PearlRefill)
+        EventManager.register(RequiredSecretsFound())
 
         // Registers all client side commands
         HelpCommand.registerPSSCommand()
