@@ -9,17 +9,31 @@ package me.partlysanestudios.partlysaneskies.events
 import me.partlysanestudios.partlysaneskies.events.render.RenderWaypointEvent
 import me.partlysanestudios.partlysaneskies.events.skyblock.dungeons.DungeonEndEvent
 import me.partlysanestudios.partlysaneskies.events.skyblock.dungeons.DungeonStartEvent
+import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
 import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.client.event.RenderWorldLastEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
+import org.apache.logging.log4j.Level
 import kotlin.reflect.KFunction
 import kotlin.reflect.full.memberFunctions
 
 object EventManager {
-    private val registeredObjects = ArrayList<Any>()
+    private val registeredFunctions = ArrayList<KFunction<*>>()
 
     fun register(obj: Any) {
+        val kClass = obj::class
+        for (function in kClass.memberFunctions) {
+            if (function.annotations.any { it.annotationClass != SubscribePSSEvent::class }) {
+                continue
+            }
+            val functionParameters = function.parameters
+            if (functionParameters.size != 1) {
+                log(Level.WARN, "Unable to add ${function.name} due to multiple function parameters")
+                continue
+            }
 
+            registeredFunctions.add(function)
+        }
     }
 
     private val renderWorldLastEvents: Array<Any> = arrayOf(RenderWorldLastEvent::class)
@@ -27,23 +41,18 @@ object EventManager {
     fun onScreenRender(event: RenderWorldLastEvent) {
         val waypointRenderEventFunctions = ArrayList<KFunction<*>>()
 
-        for (obj in registeredObjects) {
-            val kClass = obj::class
-            for (function in kClass.memberFunctions) {
+        for (function in registeredFunctions) {
+            if (function.annotations.any { it.annotationClass != SubscribePSSEvent::class }) {
+                continue
+            }
+            val functionParameters = function.parameters
+            if (functionParameters.size != 1) {
+                continue
+            }
+            val param = functionParameters[0]
 
-                if (function.annotations.any { it.annotationClass != SubscribePSSEvent::class }) {
-                    continue
-                }
-                val functionParameters = function.parameters
-                if (functionParameters.size != 1) {
-                    continue
-                }
-                val param = functionParameters[0]
-
-
-                if (renderWorldLastEvents.contains(param::class)) {
-                    waypointRenderEventFunctions.add(function)
-                }
+            if (renderWorldLastEvents.contains(param::class)) {
+                waypointRenderEventFunctions.add(function)
             }
         }
 
@@ -59,24 +68,21 @@ object EventManager {
         val dungeonEndEventFunctions = ArrayList<KFunction<*>>()
 
 
-        for (obj in registeredObjects) {
-            val kClass = obj::class
-            for (function in kClass.memberFunctions) {
+        for (function in registeredFunctions) {
 
-                if (function.annotations.any { it.annotationClass != SubscribePSSEvent::class }) {
-                    continue
-                }
-                val functionParameters = function.parameters
-                if (functionParameters.size != 1) {
-                    continue
-                }
-                val param = functionParameters[0]
+            if (function.annotations.any { it.annotationClass != SubscribePSSEvent::class }) {
+                continue
+            }
+            val functionParameters = function.parameters
+            if (functionParameters.size != 1) {
+                continue
+            }
+            val param = functionParameters[0]
 
 
-                if (chatEvents.contains(param::class)) {
-                    dungeonEndEventFunctions.add(function)
-                    dungeonStartEventFunctions.add(function)
-                }
+            if (chatEvents.contains(param::class)) {
+                dungeonEndEventFunctions.add(function)
+                dungeonStartEventFunctions.add(function)
             }
         }
 
