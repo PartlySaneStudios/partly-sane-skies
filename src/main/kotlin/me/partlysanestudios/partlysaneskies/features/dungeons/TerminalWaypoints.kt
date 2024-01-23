@@ -36,7 +36,7 @@ object TerminalWaypoints {
         if (DebugKey.isDebugMode()) {
             return
         }
-        val playerPoint3d = Point3d.asPlayer()
+        val playerPoint3d = Point3d.atPlayer()
         val playerBoundingBox = getCurrentBoundingBox(playerPoint3d)
 
 
