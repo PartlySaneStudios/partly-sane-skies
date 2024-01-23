@@ -28,6 +28,7 @@ import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager.getRepoName
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager.getRepoOwner
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager
+import me.partlysanestudios.partlysaneskies.events.EventManager
 import me.partlysanestudios.partlysaneskies.features.chat.ChatAlertsManager
 import me.partlysanestudios.partlysaneskies.features.chat.ChatManager
 import me.partlysanestudios.partlysaneskies.features.chat.WordEditor
@@ -71,7 +72,6 @@ import me.partlysanestudios.partlysaneskies.features.sound.enhancedsound.Enhance
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
 import me.partlysanestudios.partlysaneskies.render.gui.hud.BannerRenderer
 import me.partlysanestudios.partlysaneskies.render.gui.hud.cooldown.CooldownManager
-import me.partlysanestudios.partlysaneskies.events.render.WaypointEvents
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
 import net.minecraft.client.Minecraft
@@ -224,11 +224,10 @@ class PartlySaneSkies {
         registerEvent(SanityCheck)
         registerEvent(Keybinds)
         registerEvent(HealerAlert)
-        registerEvent(WaypointEvents)
 
         // Registers all WaypointEvents
-        WaypointEvents.register(DebugKey)
-        WaypointEvents.register(TerminalWaypoints)
+        EventManager.register(DebugKey)
+        EventManager.register(TerminalWaypoints)
 
         // Registers all client side commands
         HelpCommand.registerPSSCommand()

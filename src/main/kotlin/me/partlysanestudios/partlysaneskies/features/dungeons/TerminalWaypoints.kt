@@ -1,20 +1,15 @@
 package me.partlysanestudios.partlysaneskies.features.dungeons
 
-import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.IslandType
+import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
+import me.partlysanestudios.partlysaneskies.events.render.RenderWaypointEvent
 import me.partlysanestudios.partlysaneskies.features.debug.DebugKey
 import me.partlysanestudios.partlysaneskies.render.waypoint.Waypoint
-import me.partlysanestudios.partlysaneskies.render.waypoint.WaypointEvent
-import me.partlysanestudios.partlysaneskies.render.waypoint.WaypointRenderPipeline
 import me.partlysanestudios.partlysaneskies.utils.ImageUtils.applyOpacity
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.getDistance3d
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getAllArmorStands
-import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
 import me.partlysanestudios.partlysaneskies.utils.vectors.Point3d
 import me.partlysanestudios.partlysaneskies.utils.vectors.Range3d
-import net.minecraft.util.IChatComponent
-import net.minecraftforge.client.event.ClientChatReceivedEvent
-import org.apache.logging.log4j.Level
 import java.awt.Color
 
 object TerminalWaypoints {
@@ -27,8 +22,8 @@ object TerminalWaypoints {
     )
     private val terminals = ArrayList<F7Puzzle>()
 
-    @WaypointEvent
-    fun onWaypointRender(pipeline: WaypointRenderPipeline) {
+    @SubscribePSSEvent
+    fun onWaypointRender(event: RenderWaypointEvent) {
         if (!IslandType.CATACOMBS.onIsland()) {
             return
         }
@@ -98,7 +93,7 @@ object TerminalWaypoints {
                 )
             }
 
-            pipeline.add(waypoint)
+            event.pipeline.add(waypoint)
         }
     }
 
