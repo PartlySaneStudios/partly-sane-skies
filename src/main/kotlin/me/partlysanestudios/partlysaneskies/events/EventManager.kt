@@ -50,7 +50,7 @@ object EventManager {
             }
             val param = functionParameters[0]
 
-            if (param::class.isInstance(RenderWorldLastEvent::class)) {
+            if (param::class.isInstance(RenderWaypointEvent::class)) {
                 waypointRenderEventFunctions.add(function)
             }
         }
