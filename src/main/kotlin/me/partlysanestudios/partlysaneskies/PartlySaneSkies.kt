@@ -71,7 +71,7 @@ import me.partlysanestudios.partlysaneskies.features.sound.enhancedsound.Enhance
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
 import me.partlysanestudios.partlysaneskies.render.gui.hud.BannerRenderer
 import me.partlysanestudios.partlysaneskies.render.gui.hud.cooldown.CooldownManager
-import me.partlysanestudios.partlysaneskies.render.waypoint.WaypointEvents
+import me.partlysanestudios.partlysaneskies.events.render.WaypointEvents
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
 import net.minecraft.client.Minecraft
