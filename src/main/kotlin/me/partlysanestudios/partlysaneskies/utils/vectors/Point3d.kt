@@ -5,12 +5,13 @@
 package me.partlysanestudios.partlysaneskies.utils.vectors
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
 import net.minecraft.util.BlockPos
 
 open class Point3d(x: Double, y: Double, val z: Double) : Point2d(x, y) {
     companion object {
-        fun asPlayer(): Point3d {
-            return Point3d(PartlySaneSkies.minecraft.thePlayer?.posX ?: -1.0, PartlySaneSkies.minecraft.thePlayer?.posY ?: -1.0, PartlySaneSkies.minecraft.thePlayer?.posZ ?: -1.0)
+        fun atPlayer(): Point3d {
+            return Point3d(minecraft.thePlayer?.posX ?: -1.0, minecraft.thePlayer?.posY ?: -1.0, minecraft.thePlayer?.posZ ?: -1.0)
         }
     }
     constructor(blockPos: BlockPos): this(blockPos.x.toDouble(), blockPos.y.toDouble(), blockPos.z.toDouble())
