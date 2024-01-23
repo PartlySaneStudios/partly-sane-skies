@@ -21,18 +21,18 @@ object EventManager {
     private val registeredFunctions = ArrayList<KFunction<*>>()
 
     fun register(obj: Any) {
-        val kClass = obj::class
-        for (function in kClass.memberFunctions) {
-            if (function.annotations.any { it.annotationClass != SubscribePSSEvent::class }) {
+        val kClass = obj::class // get the class
+        for (function in kClass.memberFunctions) { // for each function in the class
+            if (function.annotations.any { it.annotationClass != SubscribePSSEvent::class }) { // if the functions are not annotated, continue
                 continue
             }
             val functionParameters = function.parameters
-            if (functionParameters.size != 1) {
+            if (functionParameters.size != 1) { // if there is not only 1 parameter
                 log(Level.WARN, "Unable to add ${function.name} due to multiple function parameters")
                 continue
             }
 
-            registeredFunctions.add(function)
+            registeredFunctions.add(function) // adds the function to a list to call
         }
     }
 
