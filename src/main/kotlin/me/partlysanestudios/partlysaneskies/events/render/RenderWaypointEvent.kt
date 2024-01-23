@@ -1,9 +1,14 @@
+//
+// Written by Su386.
+// See LICENSE for copyright and license notices.
+//
+
+
 package me.partlysanestudios.partlysaneskies.events.render
 
 import me.partlysanestudios.partlysaneskies.render.waypoint.Waypoint
 import net.minecraft.client.Minecraft
 import net.minecraft.util.Vec3
-import net.minecraftforge.client.event.RenderWorldLastEvent
 import kotlin.reflect.KFunction
 
 class RenderWaypointEvent(
