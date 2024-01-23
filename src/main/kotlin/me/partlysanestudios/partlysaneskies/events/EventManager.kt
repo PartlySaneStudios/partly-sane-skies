@@ -14,12 +14,14 @@ import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.client.event.RenderWorldLastEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import org.apache.logging.log4j.Level
+import kotlin.reflect.KClass
 import kotlin.reflect.KFunction
 import kotlin.reflect.full.hasAnnotation
+import kotlin.reflect.full.isSubclassOf
 import kotlin.reflect.full.memberFunctions
 
 object EventManager {
-    private val registeredFunctions = ArrayList<KFunction<*>>()
+    private val registeredFunctions = ArrayList<EventFunction>()
 
     fun register(obj: Any) {
         val kClass = obj::class // get the class
@@ -34,26 +36,19 @@ object EventManager {
                 continue
             }
 
-            registeredFunctions.add(function) // adds the function to a list to call
+            registeredFunctions.add(EventFunction(obj, function)) // adds the function to a list to call
             log(Level.INFO, "Registered ${function.name} from ${obj.javaClass.name} in PSS events")
         }
     }
 
     @SubscribeEvent
     fun onScreenRender(event: RenderWorldLastEvent) {
-        val waypointRenderEventFunctions = ArrayList<KFunction<*>>()
+        val waypointRenderEventFunctions = ArrayList<EventFunction>()
 
         for (function in registeredFunctions) {
-            if (function.annotations.any { it.annotationClass != SubscribePSSEvent::class }) {
-                continue
-            }
-            val functionParameters = function.parameters
-            if (functionParameters.size != 1) {
-                continue
-            }
-            val param = functionParameters[0]
+            val paramClass = function.function.parameters[1].type.classifier as? KClass<*>
 
-            if (param.type.classifier == RenderWaypointEvent::class) {
+            if (paramClass?.isSubclassOf(RenderWaypointEvent::class) == true) {
                 waypointRenderEventFunctions.add(function)
             }
         }
@@ -63,24 +58,16 @@ object EventManager {
 
     @SubscribeEvent
     fun onChatRecievedEvent(event: ClientChatReceivedEvent) {
-        val dungeonStartEventFunctions = ArrayList<KFunction<*>>()
-        val dungeonEndEventFunctions = ArrayList<KFunction<*>>()
+        val dungeonStartEventFunctions = ArrayList<EventFunction>()
+        val dungeonEndEventFunctions = ArrayList<EventFunction>()
 
         for (function in registeredFunctions) {
-            if (function.annotations.any { it.annotationClass != SubscribePSSEvent::class }) {
-                continue
-            }
-            val functionParameters = function.parameters
-            if (functionParameters.size != 1) {
-                continue
-            }
-            val param = functionParameters[0]
+            val paramClass = function.function.parameters[1].type.classifier as? KClass<*>
 
-
-            if (param.type.classifier == DungeonStartEvent::class) {
+            if (paramClass?.isSubclassOf(DungeonStartEvent::class) == true) {
                 dungeonStartEventFunctions.add(function)
             }
-            else if (param.type.classifier == DungeonEndEvent::class) {
+            else if (paramClass?.isSubclassOf(DungeonEndEvent::class) == true) {
                 dungeonEndEventFunctions.add(function)
             }
         }
@@ -90,4 +77,6 @@ object EventManager {
         DungeonStartEvent.onMessageRecieved(dungeonStartEventFunctions, message)
         DungeonEndEvent.onMessageRecieved(dungeonEndEventFunctions, message)
     }
+
+    internal class EventFunction(val obj: Any, val function: KFunction<*> )
 }

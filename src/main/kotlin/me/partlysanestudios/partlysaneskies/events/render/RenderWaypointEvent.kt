@@ -6,44 +6,29 @@
 
 package me.partlysanestudios.partlysaneskies.events.render
 
+import me.partlysanestudios.partlysaneskies.events.EventManager
 import me.partlysanestudios.partlysaneskies.render.waypoint.Waypoint
 import net.minecraft.client.Minecraft
 import net.minecraft.util.Vec3
-import kotlin.reflect.KFunction
 
 class RenderWaypointEvent(
     val pipeline: WaypointRenderPipeline
 ) {
 
     companion object {
-        fun onEventCall(partialTicks: Float, functions: ArrayList<KFunction<*>>) {
+        internal fun onEventCall(partialTicks: Float, functions: List<EventManager.EventFunction>) {
             val pipeline = WaypointRenderPipeline()
 
             for (function in functions) {
+                val event = RenderWaypointEvent(pipeline)
                 try {
-                    val event = RenderWaypointEvent(pipeline)
-                    runAnnotatedFunction(function, event)
+                    function.function.call(function.obj, event)
                 } catch (exception: Exception) {
                     exception.printStackTrace()
                 }
             }
 
             pipeline.renderAll(partialTicks)
-        }
-
-        /**
-         * Calls all functions in the object and passes a parameter
-         *
-         * @param function the function to be run
-         * @param event The [RenderWaypointEvent] that will be passed to the function
-         */
-        private fun runAnnotatedFunction(function: KFunction<*>, event: RenderWaypointEvent) {
-
-            try {
-                function.call(event)
-            } catch (exception: Exception) {
-                exception.printStackTrace()
-            }
         }
     }
 

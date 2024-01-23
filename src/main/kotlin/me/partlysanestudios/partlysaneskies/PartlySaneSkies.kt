@@ -138,25 +138,22 @@ class PartlySaneSkies {
         // Creates the partly-sane-skies directory if not already made
         File("./config/partly-sane-skies/").mkdirs()
 
-        val mainMenuRequest: Request =
+        val mainMenuRequest =
             Request(
                 "https://raw.githubusercontent.com/" + getRepoOwner() + "/" + getRepoName() + "/main/data/main_menu.json",
                 { request: Request? ->
                     CustomMainMenu.setMainMenuInfo(
                         request
                     )
-                }, false, false
-            )
+                })
         newRequest(mainMenuRequest)
-        var funFactRequest: Request? = null
-        funFactRequest = Request(
+        val funFactRequest = Request(
             CustomMainMenu.funFactApi,
             { request: Request? ->
                 CustomMainMenu.setFunFact(
                     request
                 )
-            }, false, false
-        )
+            })
         newRequest(funFactRequest)
         trackLoad()
 
@@ -222,6 +219,7 @@ class PartlySaneSkies {
         registerEvent(SanityCheck)
         registerEvent(Keybinds)
         registerEvent(HealerAlert)
+        registerEvent(EventManager)
         val playerRating = PlayerRating() // Kotlin object supremacy
         registerEvent(playerRating)
 
