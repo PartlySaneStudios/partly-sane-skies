@@ -51,6 +51,7 @@ object EventManager {
     }
 
 
+
     private val chatEvents: Array<Any> = arrayOf(DungeonStartEvent::class, DungeonEndEvent::class)
     @SubscribeEvent
     fun onChatRecievedEvent(event: ClientChatReceivedEvent) {
@@ -83,10 +84,5 @@ object EventManager {
 
         DungeonStartEvent.onMessageRecieved(dungeonStartEventFunctions, message)
         DungeonEndEvent.onMessageRecieved(dungeonEndEventFunctions, message)
-
-
-
-
-
     }
 }
