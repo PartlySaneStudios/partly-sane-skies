@@ -50,7 +50,7 @@ object EventManager {
             }
             val param = functionParameters[0]
 
-            if (param::class.isInstance(RenderWorldLastEvent)) {
+            if (param::class.isInstance(RenderWorldLastEvent::class)) {
                 waypointRenderEventFunctions.add(function)
             }
         }
@@ -74,10 +74,10 @@ object EventManager {
             val param = functionParameters[0]
 
 
-            if (param::class.isInstance(DungeonStartEvent)) {
+            if (param::class.isInstance(DungeonStartEvent::class)) {
                 dungeonStartEventFunctions.add(function)
             }
-            else if (param::class.isInstance(DungeonEndEvent)) {
+            else if (param::class.isInstance(DungeonEndEvent::class)) {
                 dungeonEndEventFunctions.add(function)
             }
         }
