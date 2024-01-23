@@ -204,7 +204,6 @@ class PartlySaneSkies {
         registerEvent(CompostValue())
         registerEvent(EnhancedSound())
         registerEvent(BitsShopValue())
-        registerEvent(PlayerRating())
         registerEvent(SkymartValue())
         registerEvent(PetAlert())
         registerEvent(Pickaxes())
@@ -220,14 +219,17 @@ class PartlySaneSkies {
         registerEvent(AutoGG)
         registerEvent(CooldownManager)
         registerEvent(PetData)
-        registerEvent(PearlRefill)
         registerEvent(SanityCheck)
         registerEvent(Keybinds)
         registerEvent(HealerAlert)
+        val playerRating = PlayerRating() // Kotlin object supremacy
+        registerEvent(playerRating)
 
-        // Registers all WaypointEvents
+        // Registers all Partly Sane Skies Events
         EventManager.register(DebugKey)
         EventManager.register(TerminalWaypoints)
+        EventManager.register(playerRating)
+        EventManager.register(PearlRefill)
 
         // Registers all client side commands
         HelpCommand.registerPSSCommand()
