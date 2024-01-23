@@ -9,6 +9,7 @@ package me.partlysanestudios.partlysaneskies.features.dungeons
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.IslandType
 import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.render.RenderWaypointEvent
+import me.partlysanestudios.partlysaneskies.events.skyblock.dungeons.DungeonStartEvent
 import me.partlysanestudios.partlysaneskies.features.debug.DebugKey
 import me.partlysanestudios.partlysaneskies.render.waypoint.Waypoint
 import me.partlysanestudios.partlysaneskies.utils.ImageUtils.applyOpacity
@@ -124,7 +125,7 @@ object TerminalWaypoints {
 
 
     @SubscribePSSEvent
-    fun onDungeonStart() { // Yes I wrote the entire event system just so that I wouldn't have to call a chat event here
+    fun onDungeonStart(event: DungeonStartEvent) { // Yes I wrote the entire event system just so that I wouldn't have to call a chat event here
         for (terminal in terminals) {
             terminal.active = false
         }

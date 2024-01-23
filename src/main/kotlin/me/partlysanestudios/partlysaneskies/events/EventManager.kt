@@ -15,6 +15,7 @@ import net.minecraftforge.client.event.RenderWorldLastEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import org.apache.logging.log4j.Level
 import kotlin.reflect.KFunction
+import kotlin.reflect.full.hasAnnotation
 import kotlin.reflect.full.memberFunctions
 
 object EventManager {
@@ -23,16 +24,18 @@ object EventManager {
     fun register(obj: Any) {
         val kClass = obj::class // get the class
         for (function in kClass.memberFunctions) { // for each function in the class
-            if (function.annotations.any { it.annotationClass != SubscribePSSEvent::class }) { // if the functions are not annotated, continue
+            if (!function.hasAnnotation<SubscribePSSEvent>()) { // if the functions are not annotated, continue
                 continue
             }
+
             val functionParameters = function.parameters
-            if (functionParameters.size != 1) { // if there is not only 1 parameter
-                log(Level.WARN, "Unable to add ${function.name} due to multiple function parameters")
+            if (functionParameters.size != 2) { // if there is not only 1 parameter (param 1 is always the instance parameter
+                log(Level.WARN, "Unable to add ${function.name} due to incorrect number of function parameters (${functionParameters.size}")
                 continue
             }
 
             registeredFunctions.add(function) // adds the function to a list to call
+            log(Level.INFO, "Registered ${function.name} from ${obj.javaClass.name} in PSS events")
         }
     }
 
@@ -50,7 +53,7 @@ object EventManager {
             }
             val param = functionParameters[0]
 
-            if (param::class.isInstance(RenderWaypointEvent::class)) {
+            if (param.type.classifier == RenderWaypointEvent::class) {
                 waypointRenderEventFunctions.add(function)
             }
         }
@@ -74,10 +77,10 @@ object EventManager {
             val param = functionParameters[0]
 
 
-            if (param::class.isInstance(DungeonStartEvent::class)) {
+            if (param.type.classifier == DungeonStartEvent::class) {
                 dungeonStartEventFunctions.add(function)
             }
-            else if (param::class.isInstance(DungeonEndEvent::class)) {
+            else if (param.type.classifier == DungeonEndEvent::class) {
                 dungeonEndEventFunctions.add(function)
             }
         }
