@@ -36,7 +36,6 @@ object EventManager {
         }
     }
 
-    private val renderWorldLastEvents: Array<Any> = arrayOf(RenderWorldLastEvent::class)
     @SubscribeEvent
     fun onScreenRender(event: RenderWorldLastEvent) {
         val waypointRenderEventFunctions = ArrayList<KFunction<*>>()
@@ -51,7 +50,7 @@ object EventManager {
             }
             val param = functionParameters[0]
 
-            if (renderWorldLastEvents.contains(param::class)) {
+            if (param::class == RenderWorldLastEvent::class) {
                 waypointRenderEventFunctions.add(function)
             }
         }
@@ -59,17 +58,12 @@ object EventManager {
         RenderWaypointEvent.onEventCall(event.partialTicks, waypointRenderEventFunctions)
     }
 
-
-
-    private val chatEvents: Array<Any> = arrayOf(DungeonStartEvent::class, DungeonEndEvent::class)
     @SubscribeEvent
     fun onChatRecievedEvent(event: ClientChatReceivedEvent) {
         val dungeonStartEventFunctions = ArrayList<KFunction<*>>()
         val dungeonEndEventFunctions = ArrayList<KFunction<*>>()
 
-
         for (function in registeredFunctions) {
-
             if (function.annotations.any { it.annotationClass != SubscribePSSEvent::class }) {
                 continue
             }
@@ -80,9 +74,11 @@ object EventManager {
             val param = functionParameters[0]
 
 
-            if (chatEvents.contains(param::class)) {
-                dungeonEndEventFunctions.add(function)
+            if (param::class == DungeonStartEvent::class) {
                 dungeonStartEventFunctions.add(function)
+            }
+            else if (param::class == DungeonEndEvent::class) {
+                dungeonEndEventFunctions.add(function)
             }
         }
 
