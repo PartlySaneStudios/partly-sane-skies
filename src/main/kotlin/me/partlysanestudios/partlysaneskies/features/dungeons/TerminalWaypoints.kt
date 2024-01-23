@@ -122,6 +122,14 @@ object TerminalWaypoints {
         return activeDevicePoses
     }
 
+
+    @SubscribePSSEvent
+    fun onDungeonStart() { // Yes I wrote the entire event system just so that I wouldn't have to call a chat event here
+        for (terminal in terminals) {
+            terminal.active = false
+        }
+    }
+
     fun findPuzzle(point3d: Point3d): F7Puzzle? {
         val pos = Point3d(point3d.toBlockPosInt())
 
