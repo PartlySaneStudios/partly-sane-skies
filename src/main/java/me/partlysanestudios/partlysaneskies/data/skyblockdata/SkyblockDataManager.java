@@ -65,7 +65,7 @@ public class SkyblockDataManager {
                 }
                 en.getValue().setAverageLowestBinPrice(map.get(en.getKey()));
             }
-        }, false, false));
+        }, false, false, true));
 
     }
 
