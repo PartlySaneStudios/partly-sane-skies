@@ -20,10 +20,17 @@ open class Point3d(x: Double, y: Double, val z: Double) : Point2d(x, y) {
         fun Vec3.toPoint3d(): Point3d {
             return Point3d(this.xCoord, this.yCoord, this.zCoord)
         }
+
+        fun BlockPos.toPoint3d(): Point3d {
+            return Point3d(this.x.toDouble(), this.y.toDouble(), this.z.toDouble())
+        }
     }
     constructor(blockPos: BlockPos): this(blockPos.x.toDouble(), blockPos.y.toDouble(), blockPos.z.toDouble())
     fun getPointZ(): Double {
         return z
+    }
+    fun distanceToPlayer(): Double {
+        return this.distanceTo(atPlayer())
     }
 
     fun toBlockPos(): BlockPos {
