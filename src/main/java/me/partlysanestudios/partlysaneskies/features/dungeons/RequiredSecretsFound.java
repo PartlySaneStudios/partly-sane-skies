@@ -68,7 +68,7 @@ public class RequiredSecretsFound {
     }
 
     @SubscribePSSEvent
-    public void onChatMessage(DungeonStartEvent event) {
+    public void onDungeonStart(DungeonStartEvent event) {
         alreadySendThisRun = false;
     }
 }
