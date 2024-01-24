@@ -1,3 +1,9 @@
+//
+// Written by j10a1n15.
+// See LICENSE for copyright and license notices.
+//
+
+
 package me.partlysanestudios.partlysaneskies.render
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies

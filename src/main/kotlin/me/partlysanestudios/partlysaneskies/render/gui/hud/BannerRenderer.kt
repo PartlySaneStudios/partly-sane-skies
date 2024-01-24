@@ -16,7 +16,7 @@ import gg.essential.elementa.dsl.constraint
 import gg.essential.elementa.dsl.pixels
 import gg.essential.universal.UMatrixStack
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
-import me.partlysanestudios.partlysaneskies.utils.ImageUtils
+import me.partlysanestudios.partlysaneskies.utils.ImageUtils.applyOpacity
 import me.partlysanestudios.partlysaneskies.utils.MathUtils
 
 import net.minecraft.client.gui.Gui
@@ -129,7 +129,7 @@ class PSSBanner(
     fun getFadedColor(): Color {
         val alpha = getAlpha(renderStartTime, lengthOfTimeToRender / 1000.0).toInt()
 
-        return ImageUtils.applyOpacityToColor(this.color, alpha)
+        return this.color.applyOpacity(alpha)
     }
 
     private fun getAlpha(timeStarted: Long, displayLengthSeconds: Double): Short {

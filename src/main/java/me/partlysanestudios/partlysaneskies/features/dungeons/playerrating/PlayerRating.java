@@ -12,6 +12,9 @@ import com.google.gson.JsonParser;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand;
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager;
+import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent;
+import me.partlysanestudios.partlysaneskies.events.skyblock.dungeons.DungeonEndEvent;
+import me.partlysanestudios.partlysaneskies.events.skyblock.dungeons.DungeonStartEvent;
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils;
 import me.partlysanestudios.partlysaneskies.utils.MathUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
@@ -194,53 +197,66 @@ public class PlayerRating {
         }).register();
     }
 
+    @SubscribePSSEvent
+    public void onDungeonStart(DungeonStartEvent event) {
+        if (!(PartlySaneSkies.Companion.getConfig().dungeonPlayerBreakdown || PartlySaneSkies.Companion.getConfig().dungeonSnitcher)) {
+            return;
+        }
+
+        reset();
+    }
+
+    @SubscribePSSEvent
+    public void onDungeonEnd(DungeonEndEvent event) {
+        if (!(PartlySaneSkies.Companion.getConfig().dungeonPlayerBreakdown || PartlySaneSkies.Companion.getConfig().dungeonSnitcher)) {
+            return;
+        }
+
+        final String string = getDisplayString();
+        lastMessage = string;
+
+        final String chatMessageString = getChatMessage();
+        final ArrayList<String> slackingMembers = getSlackingMembers();
+
+        new Thread(() -> {
+            try {
+                Thread.sleep( (long) (PartlySaneSkies.Companion.getConfig().dungeonPlayerBreakdownDelay * 1000));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            PartlySaneSkies.Companion.getMinecraft().addScheduledTask(() -> {
+                if (string.equals("")) {
+                    return;
+                }
+                ChatUtils.INSTANCE.sendClientMessage(string, true);
+                if (PartlySaneSkies.Companion.getConfig().partyChatDungeonPlayerBreakdown) {
+                    PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/pc " + chatMessageString);
+                }
+            });
+
+            if (PartlySaneSkies.Companion.getConfig().dungeonSnitcher) {
+                for (String str : slackingMembers) {
+                    try {
+                        Thread.sleep(750);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    PartlySaneSkies.Companion.getMinecraft().addScheduledTask(() -> PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/pc " + str));
+                }
+
+            }
+        }).start();
+
+        reset();
+    }
+
     // §r§fTeam Score: §r
     @SubscribeEvent
     public void onChatEvent(ClientChatReceivedEvent event) {
         if (!(PartlySaneSkies.Companion.getConfig().dungeonPlayerBreakdown || PartlySaneSkies.Companion.getConfig().dungeonSnitcher)) {
             return;
         }
-        // If end of dungeon
-        if (event.message.getFormattedText().contains("§r§c☠ §r§eDefeated §r")) {
-            final String string = getDisplayString();
-            lastMessage = string;
-
-            final String chatMessageString = getChatMessage();
-            final ArrayList<String> slackingMembers = getSlackingMembers();
-
-            new Thread(() -> {
-                try {
-                    Thread.sleep( (long) (PartlySaneSkies.Companion.getConfig().dungeonPlayerBreakdownDelay * 1000));
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                PartlySaneSkies.Companion.getMinecraft().addScheduledTask(() -> {
-                    if (string.equals("")) {
-                        return;
-                    }
-                    ChatUtils.INSTANCE.sendClientMessage(string, true);
-                    if (PartlySaneSkies.Companion.getConfig().partyChatDungeonPlayerBreakdown) {
-                        PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/pc " + chatMessageString);
-                    }
-                });
-
-                if (PartlySaneSkies.Companion.getConfig().dungeonSnitcher) {
-                    for (String str : slackingMembers) {
-                        try {
-                            Thread.sleep(750);
-                        } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
-                        }
-                        PartlySaneSkies.Companion.getMinecraft().addScheduledTask(() -> PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/pc " + str));
-                    }
-
-                }
-            }).start();
-
-            reset();
-        }
-
-        if (event.message.getUnformattedText().contains("You are playing on profile:") || event.message.getFormattedText().contains("[NPC] §bMort§f: Here, I found this map when I first entered")) {
+        if (event.message.getUnformattedText().contains("You are playing on profile:")) {
             reset();
             return;
         }
