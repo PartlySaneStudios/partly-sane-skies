@@ -13,7 +13,6 @@ import me.partlysanestudios.partlysaneskies.events.skyblock.dungeons.DungeonStar
 import me.partlysanestudios.partlysaneskies.features.debug.DebugKey
 import me.partlysanestudios.partlysaneskies.render.waypoint.Waypoint
 import me.partlysanestudios.partlysaneskies.utils.ImageUtils.applyOpacity
-import me.partlysanestudios.partlysaneskies.utils.MathUtils.getDistance3d
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getAllArmorStands
 import me.partlysanestudios.partlysaneskies.utils.vectors.Point3d
 import me.partlysanestudios.partlysaneskies.utils.vectors.Range3d
@@ -135,7 +134,7 @@ object TerminalWaypoints {
         val pos = Point3d(point3d.toBlockPosInt())
 
         for (puzzle in terminals) {
-            if (puzzle.pos.getDistance3d(pos) < 4) {
+            if (puzzle.pos.distanceTo(pos) < 4) {
                 return puzzle
             }
         }

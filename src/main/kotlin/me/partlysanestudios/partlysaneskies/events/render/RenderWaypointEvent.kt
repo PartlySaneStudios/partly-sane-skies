@@ -8,6 +8,8 @@ package me.partlysanestudios.partlysaneskies.events.render
 
 import me.partlysanestudios.partlysaneskies.events.EventManager
 import me.partlysanestudios.partlysaneskies.render.waypoint.Waypoint
+import me.partlysanestudios.partlysaneskies.utils.vectors.Point3d
+import me.partlysanestudios.partlysaneskies.utils.vectors.Point3d.Companion.toPoint3d
 import net.minecraft.client.Minecraft
 import net.minecraft.util.Vec3
 
@@ -52,14 +54,14 @@ class RenderWaypointEvent(
          */
         internal fun renderAll(partialTicks: Float) {
             val mc = Minecraft.getMinecraft()
-            val playerPos = mc.thePlayer.getPositionEyes(partialTicks)
+            val playerPos = mc.thePlayer.getPositionEyes(partialTicks).toPoint3d()
 
             for (waypoint in waypointsToRender) {
                 val waypointPos =
-                    Vec3(waypoint.position.x.toDouble(), waypoint.position.y.toDouble(), waypoint.position.z.toDouble())
+                    Point3d(waypoint.position.x.toDouble(), waypoint.position.y.toDouble(), waypoint.position.z.toDouble())
                 val distance = playerPos.distanceTo(waypointPos)
 
-                waypoint.render(distance)
+                waypoint.render(distance.toDouble())
             }
         }
     }

@@ -39,21 +39,5 @@ object MathUtils {
         return PartlySaneSkies.time <= lastTime + length
     }
 
-    fun Point2d.getDistance2d(point2: Point2d): Float {
-        return sqrt(
-            (point2.getPointX() - this.getPointX()).pow(2.0) + (point2.getPointY() - this.getPointY()).pow(
-                2.0
-            )
-        )
-            .toFloat()
-    }
 
-    fun Point3d.getDistance3d(point2: Point3d): Float {
-        return sqrt(
-            (point2.getPointX() - this.getPointX()).pow(2.0) + (point2.getPointY() - this.getPointY()).pow(
-                2.0
-            ) + (point2.getPointZ() - this.getPointZ()).pow(2.0)
-        )
-            .toFloat()
-    }
 }

@@ -8,7 +8,7 @@ class DungeonEndEvent {
             if (formattedMessage.contains("§r§c☠ §r§eDefeated §r")) {
                 for (function in functionList) {
                     try {
-                        function.function.call(function.obj, DungeonStartEvent())
+                        function.function.call(function.obj, DungeonEndEvent())
                     } catch (exception: Exception) {
                         exception.printStackTrace()
                     }
