@@ -15,7 +15,6 @@ import me.partlysanestudios.partlysaneskies.utils.SystemUtils
 import org.apache.logging.log4j.Level
 import java.io.File
 import java.io.IOException
-import java.net.HttpURLConnection
 import java.net.URL
 import java.nio.file.Files
 import java.security.cert.X509Certificate
@@ -192,20 +191,20 @@ object DiscordRPC {
         // Install the all-trusting trust manager
         val sslContext = SSLContext.getInstance("SSL")
         sslContext.init(null, trustAllCerts, java.security.SecureRandom())
-        HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.socketFactory)
+
 
         // Create an all-trusting host name verifier
         val allHostsValid = HostnameVerifier { _, _ -> true }
 
-        // Install the all-trusting host verifier
-        HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid)
 
         // Open the URL as a ZipInputStream
         val downloadUrl = URL("https://dl-game-sdk.discordapp.net/2.5.6/discord_game_sdk.zip")
-        val connection: HttpURLConnection = downloadUrl.openConnection() as HttpURLConnection
+        val connection: HttpsURLConnection = downloadUrl.openConnection() as HttpsURLConnection
         connection.setRequestProperty("User-Agent", "discord-game-sdk4j (https://github.com/JnCrMx/discord-game-sdk4j)")
         val zin = ZipInputStream(connection.getInputStream())
 
+        connection.hostnameVerifier = allHostsValid
+        connection.sslSocketFactory = sslContext.socketFactory
         // Search for the right file inside the ZIP
         var entry: ZipEntry
         while (zin.getNextEntry().also { entry = it } != null) {
