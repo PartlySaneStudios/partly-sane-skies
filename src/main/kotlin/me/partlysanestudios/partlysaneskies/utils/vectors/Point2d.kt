@@ -5,6 +5,9 @@
 
 package me.partlysanestudios.partlysaneskies.utils.vectors
 
+import kotlin.math.pow
+import kotlin.math.sqrt
+
 open class Point2d(val x: Double, val y: Double) {
     fun getPointX(): Double {
         return x
@@ -12,5 +15,12 @@ open class Point2d(val x: Double, val y: Double) {
 
     fun getPointY(): Double {
         return y
+    }
+
+    fun distanceTo(point2: Point2d): Double {
+        return sqrt(
+            (point2.getPointX() - this.getPointX()).pow(2.0) +
+            (point2.getPointY() - this.getPointY()).pow(2.0)
+        )
     }
 }

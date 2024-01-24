@@ -4,7 +4,6 @@
 //
 
 
-
 package me.partlysanestudios.partlysaneskies.render.waypoint
 
 import me.partlysanestudios.partlysaneskies.render.TextRenderer

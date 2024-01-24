@@ -28,6 +28,7 @@ import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager.getRepoName
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager.getRepoOwner
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager
+import me.partlysanestudios.partlysaneskies.events.EventManager
 import me.partlysanestudios.partlysaneskies.features.chat.ChatAlertsManager
 import me.partlysanestudios.partlysaneskies.features.chat.ChatManager
 import me.partlysanestudios.partlysaneskies.features.chat.WordEditor
@@ -71,7 +72,6 @@ import me.partlysanestudios.partlysaneskies.features.sound.enhancedsound.Enhance
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
 import me.partlysanestudios.partlysaneskies.render.gui.hud.BannerRenderer
 import me.partlysanestudios.partlysaneskies.render.gui.hud.cooldown.CooldownManager
-import me.partlysanestudios.partlysaneskies.render.waypoint.WaypointEvents
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
 import net.minecraft.client.Minecraft
@@ -103,7 +103,6 @@ class PartlySaneSkies {
         const val NAME = "@MOD_NAME@"
         const val VERSION = "@MOD_VERSION@"
 
-        //    -----------------------CHANGE TO FALSE BEFORE RELEASING
         val DOGFOOD = "@DOGFOOD@".toBoolean()
         const val CHAT_PREFIX = "§r§b§lPartly Sane Skies§r§7>> §r"
         var discordCode = "v4PU3WeH7z"
@@ -138,25 +137,22 @@ class PartlySaneSkies {
         // Creates the partly-sane-skies directory if not already made
         File("./config/partly-sane-skies/").mkdirs()
 
-        val mainMenuRequest: Request =
+        val mainMenuRequest =
             Request(
                 "https://raw.githubusercontent.com/" + getRepoOwner() + "/" + getRepoName() + "/main/data/main_menu.json",
                 { request: Request? ->
                     CustomMainMenu.setMainMenuInfo(
                         request
                     )
-                }, false, false
-            )
+                })
         newRequest(mainMenuRequest)
-        var funFactRequest: Request? = null
-        funFactRequest = Request(
+        val funFactRequest = Request(
             CustomMainMenu.funFactApi,
             { request: Request? ->
                 CustomMainMenu.setFunFact(
                     request
                 )
-            }, false, false
-        )
+            })
         newRequest(funFactRequest)
         trackLoad()
 
@@ -204,7 +200,6 @@ class PartlySaneSkies {
         registerEvent(CompostValue())
         registerEvent(EnhancedSound())
         registerEvent(BitsShopValue())
-        registerEvent(PlayerRating())
         registerEvent(SkymartValue())
         registerEvent(PetAlert())
         registerEvent(Pickaxes())
@@ -220,14 +215,19 @@ class PartlySaneSkies {
         registerEvent(AutoGG)
         registerEvent(CooldownManager)
         registerEvent(PetData)
-        registerEvent(PearlRefill)
         registerEvent(SanityCheck)
         registerEvent(Keybinds)
         registerEvent(HealerAlert)
-        registerEvent(WaypointEvents)
+        registerEvent(EventManager)
+        val playerRating = PlayerRating() // Kotlin object supremacy
+        registerEvent(playerRating)
 
-
-        WaypointEvents.register(DebugKey)
+        // Registers all Partly Sane Skies Events
+        EventManager.register(DebugKey)
+        EventManager.register(TerminalWaypoints)
+        EventManager.register(playerRating)
+        EventManager.register(PearlRefill)
+        EventManager.register(RequiredSecretsFound())
 
         // Registers all client side commands
         HelpCommand.registerPSSCommand()
