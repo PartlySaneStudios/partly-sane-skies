@@ -57,8 +57,9 @@ public class DropBannerDisplay extends Gui {
     }
 
     public static boolean isRareDrop(String formattedMessage) {
-        return formattedMessage.startsWith("§r§6§lRARE DROP! ")
-        || formattedMessage.startsWith("§r§6§lPET DROP! ");
+        Regex regex = new Regex("(§.)+(\\w)*(RARE|PET) DROP!.*");
+
+        return formattedMessage.matches(regex.toString());
     }
 
     float SMALL_TEXT_SCALE = 5f;
