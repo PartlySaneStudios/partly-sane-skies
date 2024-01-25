@@ -50,6 +50,7 @@ import me.partlysanestudios.partlysaneskies.features.economy.auctionhousemenu.Au
 import me.partlysanestudios.partlysaneskies.features.economy.minioncalculator.ProfitMinionCalculator
 import me.partlysanestudios.partlysaneskies.features.farming.MathematicalHoeRightClicks
 import me.partlysanestudios.partlysaneskies.features.farming.VisitorLogbookStats
+import me.partlysanestudios.partlysaneskies.features.farming.WrongToolCropWarning
 import me.partlysanestudios.partlysaneskies.features.farming.endoffarmnotifer.EndOfFarmNotifier
 import me.partlysanestudios.partlysaneskies.features.farming.endoffarmnotifer.RangeHighlight
 import me.partlysanestudios.partlysaneskies.features.farming.garden.CompostValue
@@ -72,6 +73,7 @@ import me.partlysanestudios.partlysaneskies.features.sound.enhancedsound.Enhance
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
 import me.partlysanestudios.partlysaneskies.render.gui.hud.BannerRenderer
 import me.partlysanestudios.partlysaneskies.render.gui.hud.cooldown.CooldownManager
+import me.partlysanestudios.partlysaneskies.render.gui.hud.cooldown.TreecapitatorCooldown
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
 import net.minecraft.client.Minecraft
@@ -228,6 +230,8 @@ class PartlySaneSkies {
         EventManager.register(playerRating)
         EventManager.register(PearlRefill)
         EventManager.register(RequiredSecretsFound())
+        EventManager.register(TreecapitatorCooldown)
+        EventManager.register(WrongToolCropWarning)
 
         // Registers all client side commands
         HelpCommand.registerPSSCommand()
