@@ -27,7 +27,7 @@ object TerminalWaypoints {
 
     private val boundingBoxes = arrayOf(
         Range3d(118.0, 103.0, 27.0, 90.0, 157.0,124.0),
-        Range3d(118.0, 103.0, 145.0, 19.0, 157.0, 118.0),
+        Range3d(118.0, 103.0, 145.0, 19.0, 157.0, 124.0),
         Range3d(-4.0, 103.0, 145.0, 19.0, 157.0, 50.0),
         Range3d(-3.0, 103.0, 26.0, 92.0, 157.0, 53.0)
     )
@@ -39,7 +39,9 @@ object TerminalWaypoints {
 
     @SubscribePSSEvent
     fun onWaypointRender(event: RenderWaypointEvent) {
-        if (!config.terminalWaypoints)
+        if (!config.terminalWaypoints) {
+            return
+        }
         if (!IslandType.CATACOMBS.onIsland()) {
             return
         }
