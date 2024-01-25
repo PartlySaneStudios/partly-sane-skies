@@ -737,7 +737,7 @@ public class OneConfigScreen extends Config {
             description = "",
             category = "Dungeons"
     )
-    public boolean terminalWaypoints = false;
+    public boolean terminalWaypoints = true;
 
     // Healer Alert
     @Switch(
@@ -869,7 +869,7 @@ public class OneConfigScreen extends Config {
     )
     public int enhancedDungeonPlayerBreakdown = 1;
     @Slider(
-            subcategory = "Dungeons Player Breakdown",
+            subcategory = "Dungeon Player Breakdown",
             name = "Delay",
             description = "Delay after a dungeon ends",
             category = "Dungeons",
