@@ -14,6 +14,7 @@ import me.partlysanestudios.partlysaneskies.features.debug.DebugKey
 import me.partlysanestudios.partlysaneskies.render.waypoint.Waypoint
 import me.partlysanestudios.partlysaneskies.utils.ImageUtils.applyOpacity
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getAllArmorStands
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getAllPlayersInWorld
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
 import me.partlysanestudios.partlysaneskies.utils.vectors.Point3d
 import me.partlysanestudios.partlysaneskies.utils.vectors.Point3d.Companion.toPoint3d
@@ -61,7 +62,7 @@ object TerminalWaypoints {
                     fillColor = Color.green.applyOpacity(50),
                     outlineColor = Color.green.applyOpacity(125)
                 )
-            } else if (puzzle.pos.distanceToPlayer() < 4) { // Inactive but someone nearby
+            } else if (puzzle.isPlayerNearby()) { // Inactive but someone nearby
                 Waypoint(
                     puzzle.type.displayName,
                     puzzle.pos.toBlockPosInt(),
@@ -157,6 +158,18 @@ object TerminalWaypoints {
             TERMINAL("Active Terminal", "Inactive Terminal", "Terminal"),
             LEVER("Activated", "Not Activated", "Lever"),
             DEVICE("Active", "Inactive", "Device")
+        }
+
+        fun isPlayerNearby(): Boolean {
+            val players = getAllPlayersInWorld()
+
+            for (player in players) {
+                if (player.position.toPoint3d().distanceTo(pos) <= 5) {
+                     return true
+                }
+            }
+
+            return false
         }
 
         override fun toString(): String {
