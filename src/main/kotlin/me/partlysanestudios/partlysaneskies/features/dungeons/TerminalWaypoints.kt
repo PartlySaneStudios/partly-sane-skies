@@ -109,7 +109,7 @@ object TerminalWaypoints {
             val stand = standPair.key
             val standName = stand.displayName.unformattedText
 
-            val active = standName.contains(type.inactiveArmorStandName)
+            val active = !standName.contains(type.inactiveArmorStandName)
             val point = stand.position.toPoint3d()
 
             val foundPuzzle = findPuzzle(point)
@@ -165,7 +165,7 @@ object TerminalWaypoints {
 
             for (player in players) {
                 if (player.position.toPoint3d().distanceTo(pos) <= 5) {
-                     return true
+                    return true
                 }
             }
 
@@ -173,7 +173,7 @@ object TerminalWaypoints {
         }
 
         override fun toString(): String {
-            return "{ pos = $pos, type = $type, active = $active }"
+            return "F7Puzzle(pos=$pos, type=$type, active=$active)"
         }
     }
 }
