@@ -26,23 +26,25 @@ import java.awt.*;
 public class DropBannerDisplay extends Gui {
     public static Drop drop;
     float scale = PartlySaneSkies.Companion.getConfig().bannerSize;
+    float SMALL_TEXT_SCALE = 5f;
+    float BIG_TEXT_SCALE = 10f;
 
-    public DropBannerDisplay() {
-    }
 
-    // Waits to detect the rare drop
     @SubscribeEvent
     public void onChatMessage(ClientChatReceivedEvent event) {
         String formattedMessage = event.message.getFormattedText();
-        if (isRareDrop(formattedMessage) && PartlySaneSkies.Companion.getConfig().rareDropBannerSound) {
+
+        if (!isRareDrop(formattedMessage)) {
+            return;
+        }
+
+        if (PartlySaneSkies.Companion.getConfig().rareDropBannerSound) {
             PartlySaneSkies.Companion.getMinecraft().thePlayer.playSound("partlysaneskies:rngdropjingle", 100, 1);
         }
 
-        if (isRareDrop(formattedMessage) && PartlySaneSkies.Companion.getConfig().rareDropBanner) {
+        if (PartlySaneSkies.Companion.getConfig().rareDropBanner) {
             String unformattedMessage = event.message.getUnformattedText();
 
-
-            String name;
             // Gets the name of the drop category
             String dropCategory = unformattedMessage.substring(0, unformattedMessage.indexOf("! ") + 1);
 
@@ -50,7 +52,7 @@ public class DropBannerDisplay extends Gui {
             Color dropCategoryHex = StringUtils.INSTANCE.colorCodeToColor(formattedMessage.substring(2, 4));
 
             // // Finds the amount of magic find from the message
-            name = formattedMessage.substring(formattedMessage.indexOf("! ") + 2);
+            String name = formattedMessage.substring(formattedMessage.indexOf("! ") + 2);
 
             DropBannerDisplay.drop = new Drop(name, dropCategory, 1, PartlySaneSkies.Companion.getTime(), dropCategoryHex);
         }
@@ -61,9 +63,6 @@ public class DropBannerDisplay extends Gui {
 
         return formattedMessage.matches(regex.toString());
     }
-
-    float SMALL_TEXT_SCALE = 5f;
-    float BIG_TEXT_SCALE = 10f;
 
     Window window = new Window(ElementaVersion.V2);
     String topString = "empty";
@@ -120,12 +119,14 @@ public class DropBannerDisplay extends Gui {
                 .setX(new CenterConstraint())
                 .setY(new PixelConstraint(window.getHeight() * .3f))
                 .setColor(categoryColor);
+
         ((UIWrappedText) dropNameText)
                 .setText(dropNameString)
                 .setTextScale(new PixelConstraint(SMALL_TEXT_SCALE / 1075 * window.getWidth()))
                 .setWidth(new PixelConstraint(window.getWidth()))
                 .setX(new CenterConstraint())
                 .setY(new PixelConstraint(topText.getBottom() + window.getHeight() * .11f * scale));
+
         window.draw(new UMatrixStack());
     }
 }
