@@ -730,6 +730,15 @@ public class OneConfigScreen extends Config {
     )
     public boolean watcherReadyAirRaidSiren = false;
 
+//    Dungeon Waypoints
+    @Switch(
+            subcategory = "Terminal Waypoints",
+            name = "Enable Waypoints for Terminals, Devices and Levers",
+            description = "",
+            category = "Dungeons"
+    )
+    public boolean terminalWaypoints = false;
+
     // Healer Alert
     @Switch(
             subcategory = "Healer Alert",
