@@ -3,9 +3,9 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.features.dungeons
 
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.IslandType
 import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.render.RenderWaypointEvent
@@ -30,6 +30,7 @@ object TerminalWaypoints {
 
     @SubscribePSSEvent
     fun onWaypointRender(event: RenderWaypointEvent) {
+        if (!config.terminalWaypoints)
         if (!IslandType.CATACOMBS.onIsland()) {
             return
         }
