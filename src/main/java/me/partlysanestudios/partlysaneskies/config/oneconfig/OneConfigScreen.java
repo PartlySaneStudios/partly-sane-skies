@@ -1586,6 +1586,14 @@ public class OneConfigScreen extends Config {
     public boolean debugPrintCurrentLocationFromIslandType = false;
 
     @Switch(
+            name = "Log cached F7 puzzles",
+            category = "Debug"
+    )
+    public boolean debugLogCachedF7Puzzles = false;
+
+    // Percy Mode
+
+    @Switch(
             name = "Percy Mode",
             category = "Debug",
             subcategory = "Percy Mode"
@@ -1603,17 +1611,21 @@ public class OneConfigScreen extends Config {
             category = "Debug",
             subcategory = "Percy Mode"
     )
-    public boolean debugEntityDump = false;    @Switch(
+    public boolean debugEntityDump = false;
+    @Switch(
             name = "Inventory Dump",
             category = "Debug",
             subcategory = "Percy Mode"
     )
-    public boolean debugInventoryDump = false;    @Switch(
+    public boolean debugInventoryDump = false;
+    @Switch(
             name = "Player Dump",
             category = "Debug",
             subcategory = "Percy Mode"
     )
     public boolean debugPlayerDump = false;
+
+
 
 
 }
