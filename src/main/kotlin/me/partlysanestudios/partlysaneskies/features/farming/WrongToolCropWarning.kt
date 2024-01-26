@@ -119,7 +119,7 @@ object WrongToolCropWarning {
             val mathematicalHoeIds: List<String>,
             val otherSkyblockHoes: List<String>,
             val otherMinecraftHoes: List<String>,
-            val requireReplenish: Boolean, // TODO: Replenish detection
+            val requireReplenish: Boolean
 
         )
     }
