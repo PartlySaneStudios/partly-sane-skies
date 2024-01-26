@@ -227,7 +227,7 @@ public class OneConfigScreen extends Config {
     public int prefCurr = 11;
 
     @Slider(
-            min = 0.1,
+            min = 0.1f,
             max = 2,
             subcategory = "Appearance",
             name = "Banner Size",
