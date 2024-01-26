@@ -1,5 +1,5 @@
 //
-// Written by Su386.
+// Written by Su386 and J10a1n15.
 // See LICENSE for copyright and license notices.
 //
 
@@ -227,7 +227,7 @@ public class OneConfigScreen extends Config {
     public int prefCurr = 11;
 
     @Slider(
-            min = 0,
+            min = 0.1,
             max = 2,
             subcategory = "Appearance",
             name = "Banner Size",
