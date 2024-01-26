@@ -7,13 +7,13 @@
 package me.partlysanestudios.partlysaneskies.utils
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
-import me.partlysanestudios.partlysaneskies.data.skyblockdata.IslandType
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.stripLeading
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.stripTrailing
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import java.util.*
+import kotlin.collections.HashMap
 
 object HypixelUtils {
     // Returns if the current gamemode is skyblock
@@ -117,19 +117,31 @@ object HypixelUtils {
 
     /**
      * Gets the item id from an item
-     * @param item The item to get the id from
      * @return The item id
      */
-    fun getItemId(item: ItemStack?): String {
-        return item?.let { getItemAttributes(it)?.getString("id") } ?: ""
+    fun ItemStack.getItemId(): String {
+        return this.getItemAttributes()?.getString("id") ?: ""
+    }
+
+    fun ItemStack.getHypixelEnchants(): Map<String, Int> {
+        val map = HashMap<String, Int>()
+
+        val enchantsCompound = this.getItemAttributes()?.getCompoundTag("enchantments") ?: return map
+
+        for (key in enchantsCompound.keySet) {
+            val enchLevel = enchantsCompound.getInteger(key)
+
+            map[key] = enchLevel
+        }
+
+        return map
     }
 
     /**
      * Gets the item attributes from an item
-     * @param item The item to get the attributes from
      * @return The item attributes
      */
-    fun getItemAttributes(item: ItemStack): NBTTagCompound? {
-        return item.tagCompound?.getCompoundTag("ExtraAttributes")
+    fun ItemStack.getItemAttributes(): NBTTagCompound? {
+        return this.tagCompound?.getCompoundTag("ExtraAttributes")
     }
 }

@@ -13,6 +13,7 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand;
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager;
 import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent;
+import me.partlysanestudios.partlysaneskies.events.data.LoadPublicDataEvent;
 import me.partlysanestudios.partlysaneskies.events.skyblock.dungeons.DungeonEndEvent;
 import me.partlysanestudios.partlysaneskies.events.skyblock.dungeons.DungeonStartEvent;
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils;
@@ -41,8 +42,9 @@ public class PlayerRating {
     private static int totalPoints = 0;
 
     public static String lastMessage = "";
-    
-    public static void initPatterns() {
+
+    @SubscribePSSEvent
+    public void initPatterns(LoadPublicDataEvent event) {
         currentPlayer = PartlySaneSkies.Companion.getMinecraft().getSession().getUsername();
 
         String str = PublicDataManager.INSTANCE.getFile("constants/dungeons_player_rate_pattern_strings.json");
@@ -55,9 +57,6 @@ public class PlayerRating {
         for (Map.Entry<String, JsonElement> entry : positivePatternsJson.entrySet()) {
             positivePatterns.put(entry.getKey(), entry.getValue().getAsString());
         }
-
-
-        
     }
 
     public static void rackPoints(String player, String category) {

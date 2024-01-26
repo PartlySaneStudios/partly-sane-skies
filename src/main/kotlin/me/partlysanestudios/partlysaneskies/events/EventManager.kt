@@ -6,7 +6,7 @@
 
 package me.partlysanestudios.partlysaneskies.events
 
-import me.partlysanestudios.partlysaneskies.events.render.RenderWaypointEvent
+import me.partlysanestudios.partlysaneskies.events.minecraft.render.RenderWaypointEvent
 import me.partlysanestudios.partlysaneskies.events.skyblock.dungeons.DungeonEndEvent
 import me.partlysanestudios.partlysaneskies.events.skyblock.dungeons.DungeonStartEvent
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
@@ -21,7 +21,7 @@ import kotlin.reflect.full.isSubclassOf
 import kotlin.reflect.full.memberFunctions
 
 object EventManager {
-    private val registeredFunctions = ArrayList<EventFunction>()
+    internal val registeredFunctions = ArrayList<EventFunction>()
 
     fun register(obj: Any) {
         val kClass = obj::class // get the class

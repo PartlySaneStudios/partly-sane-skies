@@ -13,6 +13,7 @@ import gg.essential.elementa.dsl.pixels
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.features.economy.auctionhousemenu.AuctionElement
 import me.partlysanestudios.partlysaneskies.features.economy.auctionhousemenu.AuctionHouseGui
+import me.partlysanestudios.partlysaneskies.utils.HypixelUtils.getItemId
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import net.minecraft.client.gui.GuiScreen
 import net.minecraft.client.network.NetworkPlayerInfo
@@ -297,7 +298,7 @@ object MinecraftUtils {
         val inv = PartlySaneSkies.minecraft.thePlayer.inventory.mainInventory
 
         for (stackInSlot in inv) {
-            if (HypixelUtils.getItemId(stackInSlot).equals(skyblockId, ignoreCase = true)) {
+            if ((stackInSlot?.getItemId() ?: "").equals(skyblockId, ignoreCase = true)) {
                 itemCount += stackInSlot.stackSize
             }
         }

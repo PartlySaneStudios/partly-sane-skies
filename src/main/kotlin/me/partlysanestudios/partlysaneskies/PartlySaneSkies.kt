@@ -29,6 +29,7 @@ import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager.getRe
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager.getRepoOwner
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager
 import me.partlysanestudios.partlysaneskies.events.EventManager
+import me.partlysanestudios.partlysaneskies.events.data.LoadPublicDataEvent
 import me.partlysanestudios.partlysaneskies.features.chat.ChatAlertsManager
 import me.partlysanestudios.partlysaneskies.features.chat.ChatManager
 import me.partlysanestudios.partlysaneskies.features.chat.WordEditor
@@ -47,9 +48,11 @@ import me.partlysanestudios.partlysaneskies.features.economy.BitsShopValue
 import me.partlysanestudios.partlysaneskies.features.economy.CoinsToBoosterCookieConversion
 import me.partlysanestudios.partlysaneskies.features.economy.NoCookieWarning
 import me.partlysanestudios.partlysaneskies.features.economy.auctionhousemenu.AuctionHouseGui
+import me.partlysanestudios.partlysaneskies.features.economy.minioncalculator.MinionData
 import me.partlysanestudios.partlysaneskies.features.economy.minioncalculator.ProfitMinionCalculator
 import me.partlysanestudios.partlysaneskies.features.farming.MathematicalHoeRightClicks
 import me.partlysanestudios.partlysaneskies.features.farming.VisitorLogbookStats
+import me.partlysanestudios.partlysaneskies.features.farming.WrongToolCropWarning
 import me.partlysanestudios.partlysaneskies.features.farming.endoffarmnotifer.EndOfFarmNotifier
 import me.partlysanestudios.partlysaneskies.features.farming.endoffarmnotifer.RangeHighlight
 import me.partlysanestudios.partlysaneskies.features.farming.garden.CompostValue
@@ -72,6 +75,7 @@ import me.partlysanestudios.partlysaneskies.features.sound.enhancedsound.Enhance
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
 import me.partlysanestudios.partlysaneskies.render.gui.hud.BannerRenderer
 import me.partlysanestudios.partlysaneskies.render.gui.hud.cooldown.CooldownManager
+import me.partlysanestudios.partlysaneskies.render.gui.hud.cooldown.TreecapitatorCooldown
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
 import net.minecraft.client.Minecraft
@@ -197,14 +201,18 @@ class PartlySaneSkies {
         registerEvent(PartyFriendManager())
         registerEvent(WikiArticleOpener())
         registerEvent(GardenTradeValue())
-        registerEvent(CompostValue())
         registerEvent(EnhancedSound())
         registerEvent(BitsShopValue())
-        registerEvent(SkymartValue())
         registerEvent(PetAlert())
         registerEvent(Pickaxes())
-        registerEvent(MathematicalHoeRightClicks())
         registerEvent(MiningEvents())
+        registerEvent(RequiredSecretsFound())
+        registerEvent(MinionData())
+        registerEvent(SkyblockDataManager())
+        registerEvent(PlayerRating())
+        registerEvent(SkymartValue())
+        registerEvent(CompostValue())
+        registerEvent(MathematicalHoeRightClicks())
         registerEvent(ChatManager)
         registerEvent(RangeHighlight)
         registerEvent(BannerRenderer)
@@ -219,15 +227,12 @@ class PartlySaneSkies {
         registerEvent(Keybinds)
         registerEvent(HealerAlert)
         registerEvent(EventManager)
-        val playerRating = PlayerRating() // Kotlin object supremacy
-        registerEvent(playerRating)
-
-        // Registers all Partly Sane Skies Events
-        EventManager.register(DebugKey)
-        EventManager.register(TerminalWaypoints)
-        EventManager.register(playerRating)
-        EventManager.register(PearlRefill)
-        EventManager.register(RequiredSecretsFound())
+        registerEvent(DebugKey)
+        registerEvent(TerminalWaypoints)
+        registerEvent(PearlRefill)
+        registerEvent(TreecapitatorCooldown)
+        registerEvent(WrongToolCropWarning)
+        registerEvent(WrongToolCropWarning.CropToolData)
 
         // Registers all client side commands
         HelpCommand.registerPSSCommand()
@@ -273,7 +278,7 @@ class PartlySaneSkies {
         } catch (e: IOException) {
             e.printStackTrace()
         }
-        PublicDataManager.initAllPublicData()
+        LoadPublicDataEvent.onDataLoad()
 
         // Loads user player data for PartyManager
         Thread({
@@ -288,9 +293,14 @@ class PartlySaneSkies {
         log(Level.INFO, "Partly Sane Skies has loaded.")
     }
 
-    private fun registerEvent(file: Any) {
+    private fun registerEvent(obj: Any) {
         try {
-            EVENT_BUS.register(file)
+            EVENT_BUS.register(obj)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        try {
+            EventManager.register(obj)
         } catch (e: Exception) {
             e.printStackTrace()
         }
