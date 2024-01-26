@@ -16,6 +16,7 @@ import me.partlysanestudios.partlysaneskies.utils.HypixelUtils.getItemId
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.onCooldown
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getCurrentlyHoldingItem
 import net.minecraft.client.audio.PositionedSoundRecord
+import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.ResourceLocation
 
 object WrongToolCropWarning {
@@ -34,16 +35,25 @@ object WrongToolCropWarning {
         val crop = getCrop(unlocalizedName) ?: return
 
         val id = getCurrentlyHoldingItem()?.getItemId() ?: ""
-        val minecraftName = getCurrentlyHoldingItem()?.serializeNBT()?.id ?: ""
+        val nbt = NBTTagCompound()
+        getCurrentlyHoldingItem()?.writeToNBT(nbt)
+        val minecraftName = nbt.getString("id") ?: ""
         val enchants = getCurrentlyHoldingItem()?.getHypixelEnchants() ?: HashMap()
 
-        if (config.mathematicalHoeValid && crop.mathematicalHoeIds.contains(id)) { // if mathematical hoes are valid and the tool is a valid math hoe
-            return
+        var validTool = if (config.mathematicalHoeValid && crop.mathematicalHoeIds.contains(id)) { // if mathematical hoes are valid and the tool is a valid math hoe
+            true
         } else if (config.otherSkyblockToolsValid && crop.otherSkyblockHoes.contains(id)) { // if other skyblock tools are valid and the tool is a valid skyblock tool
-            return
+            true
         } else if (config.vanillaToolsValid && crop.otherMinecraftHoes.contains(minecraftName)) { // if vanilla tools are valid and the tool is a valid vanilla tool
-            return
-        } else if (config.requireReplenish && crop.requireReplenish && enchants.containsKey("replenish") && enchants["replenish"] != 0) { // if the config setting is on, the crop requires replenish, the tool has replenish, and the replenish level is not equal to 0
+            true
+        } else {
+            false
+        }
+
+        if (config.requireReplenish && crop.requireReplenish && (!enchants.containsKey("replenish") || enchants["replenish"] == 0)) { // if the config setting is on, the crop requires replenish, the tool has replenish, and the replenish level is not equal to 0
+            validTool = false
+        }
+        if (validTool) {
             return
         }
 
