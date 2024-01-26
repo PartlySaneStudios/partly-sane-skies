@@ -1290,8 +1290,8 @@ public class OneConfigScreen extends Config {
     public boolean otherSkyblockToolsValid  = true;
     @Switch(
             subcategory = "Wrong Tool for Crop",
-            name = "Allow Vanilla Tools",
-            description = "When enabled, vanilla tools will be considered a valid tool",
+            name = "Allow Right Tool Type",
+            description = "When enabled, the system only looks for the right tool type (hoes, etc.)",
             category = "Farming"
     )
     public boolean vanillaToolsValid = false;
