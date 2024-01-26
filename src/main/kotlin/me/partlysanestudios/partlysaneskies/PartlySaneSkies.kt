@@ -206,6 +206,13 @@ class PartlySaneSkies {
         registerEvent(PetAlert())
         registerEvent(Pickaxes())
         registerEvent(MiningEvents())
+        registerEvent(RequiredSecretsFound())
+        registerEvent(MinionData())
+        registerEvent(SkyblockDataManager())
+        registerEvent(PlayerRating())
+        registerEvent(SkymartValue())
+        registerEvent(CompostValue())
+        registerEvent(MathematicalHoeRightClicks())
         registerEvent(ChatManager)
         registerEvent(RangeHighlight)
         registerEvent(BannerRenderer)
@@ -220,30 +227,12 @@ class PartlySaneSkies {
         registerEvent(Keybinds)
         registerEvent(HealerAlert)
         registerEvent(EventManager)
-        val playerRating = PlayerRating() // Kotlin object supremacy
-        registerEvent(playerRating)
-        val skymartValue = SkymartValue()
-        registerEvent(skymartValue)
-        val compostValue = CompostValue()
-        registerEvent(compostValue)
-        val mathematicalHoeRightClicks = MathematicalHoeRightClicks()
-        registerEvent(mathematicalHoeRightClicks)
-
-
-        // Registers all Partly Sane Skies Events
-        EventManager.register(RequiredSecretsFound())
-        EventManager.register(MinionData())
-        EventManager.register(SkyblockDataManager())
-        EventManager.register(DebugKey)
-        EventManager.register(TerminalWaypoints)
-        EventManager.register(PearlRefill)
-        EventManager.register(TreecapitatorCooldown)
-        EventManager.register(WrongToolCropWarning)
-        EventManager.register(WrongToolCropWarning.CropToolData)
-        EventManager.register(playerRating)
-        EventManager.register(skymartValue)
-        EventManager.register(compostValue)
-        EventManager.register(mathematicalHoeRightClicks)
+        registerEvent(DebugKey)
+        registerEvent(TerminalWaypoints)
+        registerEvent(PearlRefill)
+        registerEvent(TreecapitatorCooldown)
+        registerEvent(WrongToolCropWarning)
+        registerEvent(WrongToolCropWarning.CropToolData)
 
         // Registers all client side commands
         HelpCommand.registerPSSCommand()
@@ -304,12 +293,21 @@ class PartlySaneSkies {
         log(Level.INFO, "Partly Sane Skies has loaded.")
     }
 
-    private fun registerEvent(file: Any) {
+    private fun registerEvent(obj: Any) {
         try {
-            EVENT_BUS.register(file)
+            EVENT_BUS.register(obj)
         } catch (e: Exception) {
             e.printStackTrace()
         }
+        try {
+            EventManager.register(obj)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun Any.registerEvent() {
+        registerEvent(this)
     }
 
     // Method runs every tick
