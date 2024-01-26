@@ -1,7 +1,10 @@
+//
+// Written by Su386.
+// See LICENSE for copyright and license notices.
+//
+
 package me.partlysanestudios.partlysaneskies.mixin.minecraft;
 
-
-import me.partlysanestudios.partlysaneskies.events.EventManager;
 import me.partlysanestudios.partlysaneskies.events.minecraft.player.PlayerBreakBlockEvent;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.util.BlockPos;
