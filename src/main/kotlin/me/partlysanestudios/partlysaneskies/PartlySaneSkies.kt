@@ -306,10 +306,6 @@ class PartlySaneSkies {
         }
     }
 
-    private fun Any.registerEvent() {
-        registerEvent(this)
-    }
-
     // Method runs every tick
     @SubscribeEvent
     fun clientTick(evnt: ClientTickEvent) {
