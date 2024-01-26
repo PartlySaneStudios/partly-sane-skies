@@ -1301,7 +1301,7 @@ public class OneConfigScreen extends Config {
             description = "When enabled, the tool must have replenish if it is to be used on a replenishable crop.",
             category = "Farming"
     )
-    public boolean requireReplenish = false;
+    public boolean requireReplenish = true;
     @Switch(
             subcategory = "Wrong Tool for Crop",
             name = "Air Raid Siren",
