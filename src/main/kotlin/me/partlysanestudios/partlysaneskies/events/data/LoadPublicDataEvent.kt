@@ -12,7 +12,7 @@ class LoadPublicDataEvent() {
             Thread() {
                 for (function in functions) {
                     try {
-                        SystemUtils.log(Level.INFO, "Loading ${function.function.javaClass.name} ${function.function.name}")
+                        SystemUtils.log(Level.INFO, "Loading ${function.obj.javaClass.name} ${function.function.name}")
                         val event = LoadPublicDataEvent()
                         function.function.call(function.obj, event)
                     } catch (e: Exception) {
