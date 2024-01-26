@@ -11,6 +11,7 @@ import me.partlysanestudios.partlysaneskies.events.data.LoadPublicDataEvent
 import me.partlysanestudios.partlysaneskies.events.minecraft.player.PlayerBreakBlockEvent
 import me.partlysanestudios.partlysaneskies.render.gui.hud.BannerRenderer.renderNewBanner
 import me.partlysanestudios.partlysaneskies.render.gui.hud.PSSBanner
+import me.partlysanestudios.partlysaneskies.utils.HypixelUtils.getHypixelEnchants
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils.getItemId
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.onCooldown
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getCurrentlyHoldingItem
@@ -34,12 +35,15 @@ object WrongToolCropWarning {
 
         val id = getCurrentlyHoldingItem()?.getItemId() ?: ""
         val minecraftName = getCurrentlyHoldingItem()?.serializeNBT()?.id ?: ""
+        val enchants = getCurrentlyHoldingItem()?.getHypixelEnchants() ?: HashMap()
 
-        if (crop.mathematicalHoeIds.contains(id) && config.mathematicalHoeValid) {
+        if (config.mathematicalHoeValid && crop.mathematicalHoeIds.contains(id)) { // if mathematical hoes are valid and the tool is a valid math hoe
             return
-        } else if (crop.otherSkyblockHoes.contains(id) && config.otherSkyblockToolsValid) {
+        } else if (config.otherSkyblockToolsValid && crop.otherSkyblockHoes.contains(id)) { // if other skyblock tools are valid and the tool is a valid skyblock tool
             return
-        } else if (crop.otherMinecraftHoes.contains(minecraftName) && config.vanillaToolsValid) {
+        } else if (config.vanillaToolsValid && crop.otherMinecraftHoes.contains(minecraftName)) { // if vanilla tools are valid and the tool is a valid vanilla tool
+            return
+        } else if (config.requireReplenish && crop.requireReplenish && enchants.containsKey("replenish") && enchants["replenish"] != 0) { // if the config setting is on, the crop requires replenish, the tool has replenish, and the replenish level is not equal to 0
             return
         }
 
