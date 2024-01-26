@@ -239,6 +239,7 @@ class PartlySaneSkies {
         EventManager.register(PearlRefill)
         EventManager.register(TreecapitatorCooldown)
         EventManager.register(WrongToolCropWarning)
+        EventManager.register(WrongToolCropWarning.CropToolData)
         EventManager.register(playerRating)
         EventManager.register(skymartValue)
         EventManager.register(compostValue)

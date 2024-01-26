@@ -6,6 +6,7 @@ import com.google.gson.reflect.TypeToken
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager
 import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
+import me.partlysanestudios.partlysaneskies.events.data.LoadPublicDataEvent
 import me.partlysanestudios.partlysaneskies.events.minecraft.player.PlayerBreakBlockEvent
 
 object WrongToolCropWarning {
@@ -39,18 +40,13 @@ object WrongToolCropWarning {
         return list
     }
 
-
     internal object CropToolData {
-
-
-        var jsonObject = JsonParser().parse(PublicDataManager.getFile("constants/crop_tools.json")).asJsonObject ?: JsonObject()
-
-        val stringListType = object : TypeToken<List<String>>() {}.type
-
-
-        fun loadData() {
+        var jsonObject = JsonObject()
+        @SubscribePSSEvent
+        fun loadData(event: LoadPublicDataEvent) {
             jsonObject = JsonParser().parse(PublicDataManager.getFile("constants/crop_tools.json")).asJsonObject ?: JsonObject()
         }
+
         fun serializeCrop(cropUnlocalizedName: String, cropObject: JsonObject): Crop {
             return Crop(
                 unlocalizedName = cropUnlocalizedName,
@@ -60,7 +56,6 @@ object WrongToolCropWarning {
                 requireReplenish = cropObject["require_replenish"]?.asBoolean ?: false
             )
         }
-
 
         internal class Crop(
             val unlocalizedName: String,
