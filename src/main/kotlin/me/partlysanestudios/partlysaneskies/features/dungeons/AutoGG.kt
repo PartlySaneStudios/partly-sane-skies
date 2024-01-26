@@ -31,25 +31,25 @@ object AutoGG {
                     val score: String = matcher.group(1)
                     if (score.equals("S+")) {
                         val message = if (PartlySaneSkies.config.sendAutoGGInWhatChat == 0) {
-                            "/pc" + PartlySaneSkies.config.autoGGMessageSPlus
+                            "/pc " + PartlySaneSkies.config.autoGGMessageSPlus
                         } else {
-                            "/ac" + PartlySaneSkies.config.autoGGMessageSPlus
+                            "/ac " + PartlySaneSkies.config.autoGGMessageSPlus
                         }
                         PartlySaneSkies.minecraft.thePlayer.sendChatMessage(message)
 
                     } else if (score.equals("S")) {
                         val message = if (PartlySaneSkies.config.sendAutoGGInWhatChat == 0) {
-                            "/pc" + PartlySaneSkies.config.autoGGMessageS
+                            "/pc " + PartlySaneSkies.config.autoGGMessageS
                         } else {
-                            "/ac" + PartlySaneSkies.config.autoGGMessageS
+                            "/ac " + PartlySaneSkies.config.autoGGMessageS
                         }
                         PartlySaneSkies.minecraft.thePlayer.sendChatMessage(message)
 
                     } else {
                         val message = if (PartlySaneSkies.config.sendAutoGGInWhatChat == 0) {
-                            "/pc" + PartlySaneSkies.config.autoGGMessageOther
+                            "/pc " + PartlySaneSkies.config.autoGGMessageOther
                         } else {
-                            "/ac" + PartlySaneSkies.config.autoGGMessageOther
+                            "/ac " + PartlySaneSkies.config.autoGGMessageOther
                         }
                         PartlySaneSkies.minecraft.thePlayer.sendChatMessage(message)
 

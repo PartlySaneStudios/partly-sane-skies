@@ -737,7 +737,7 @@ public class OneConfigScreen extends Config {
             description = "",
             category = "Dungeons"
     )
-    public boolean terminalWaypoints = false;
+    public boolean terminalWaypoints = true;
 
     // Healer Alert
     @Switch(
@@ -869,7 +869,7 @@ public class OneConfigScreen extends Config {
     )
     public int enhancedDungeonPlayerBreakdown = 1;
     @Slider(
-            subcategory = "Dungeons Player Breakdown",
+            subcategory = "Dungeon Player Breakdown",
             name = "Delay",
             description = "Delay after a dungeon ends",
             category = "Dungeons",
@@ -1595,6 +1595,14 @@ public class OneConfigScreen extends Config {
     public boolean debugPrintCurrentLocationFromIslandType = false;
 
     @Switch(
+            name = "Log cached F7 puzzles",
+            category = "Debug"
+    )
+    public boolean debugLogCachedF7Puzzles = false;
+
+    // Percy Mode
+
+    @Switch(
             name = "Percy Mode",
             category = "Debug",
             subcategory = "Percy Mode"
@@ -1612,17 +1620,21 @@ public class OneConfigScreen extends Config {
             category = "Debug",
             subcategory = "Percy Mode"
     )
-    public boolean debugEntityDump = false;    @Switch(
+    public boolean debugEntityDump = false;
+    @Switch(
             name = "Inventory Dump",
             category = "Debug",
             subcategory = "Percy Mode"
     )
-    public boolean debugInventoryDump = false;    @Switch(
+    public boolean debugInventoryDump = false;
+    @Switch(
             name = "Player Dump",
             category = "Debug",
             subcategory = "Percy Mode"
     )
     public boolean debugPlayerDump = false;
+
+
 
 
 }
