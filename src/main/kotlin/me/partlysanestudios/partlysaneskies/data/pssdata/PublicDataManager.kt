@@ -9,48 +9,16 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand
 import me.partlysanestudios.partlysaneskies.data.api.Request
 import me.partlysanestudios.partlysaneskies.data.api.RequestsManager
-import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager
-import me.partlysanestudios.partlysaneskies.features.dungeons.playerrating.PlayerRating
-import me.partlysanestudios.partlysaneskies.features.economy.minioncalculator.MinionData
-import me.partlysanestudios.partlysaneskies.features.farming.MathematicalHoeRightClicks
-import me.partlysanestudios.partlysaneskies.features.farming.garden.CompostValue
-import me.partlysanestudios.partlysaneskies.features.farming.garden.SkymartValue
+import me.partlysanestudios.partlysaneskies.events.data.LoadPublicDataEvent
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
-import me.partlysanestudios.partlysaneskies.utils.SystemUtils
 import net.minecraft.command.ICommandSender
 import net.minecraft.util.ChatComponentText
-import org.apache.logging.log4j.Level
 import java.net.MalformedURLException
 
 object PublicDataManager {
     // Add all initializing of public data here
-    private val dataInitFunctions: Array<() -> Unit> = arrayOf(
-        SkymartValue::initCopperValues,
-        CompostValue::init,
-        MinionData::init,
-        SkyblockDataManager::initBitValues,
-        MathematicalHoeRightClicks::loadHoes,
-        PlayerRating::initPatterns
-    )
-
     private val fileCache = HashMap<String, String>()
     private val lock = Lock()
-
-    fun initAllPublicData() {
-        Thread() {
-            for (element in dataInitFunctions) {
-                try {
-                    SystemUtils.log(Level.INFO, "Loading ${element.javaClass.name} $element ")
-                    element.invoke()
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                } finally {
-
-                }
-            }
-        }.start()
-
-    }
 
     /**
      * @return the current repo's owner
@@ -128,7 +96,7 @@ object PublicDataManager {
                 )
                 fileCache.clear()
                 sendClientMessage(chatcomponent)
-                initAllPublicData()
+                LoadPublicDataEvent.onDataLoad()
             }.register()
     }
 

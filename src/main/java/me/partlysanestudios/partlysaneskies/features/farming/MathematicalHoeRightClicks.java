@@ -10,6 +10,8 @@ import com.google.gson.JsonParser;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand;
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager;
+import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent;
+import me.partlysanestudios.partlysaneskies.events.data.LoadPublicDataEvent;
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils;
 import me.partlysanestudios.partlysaneskies.utils.MathUtils;
 import net.minecraft.event.ClickEvent;
@@ -28,7 +30,8 @@ public class MathematicalHoeRightClicks {
     public static long lastAllowHoeRightClickTime = 0;
 
     private static ArrayList<String> hoes;
-    public static void loadHoes() {
+    @SubscribePSSEvent
+    public static void loadHoes(LoadPublicDataEvent event) {
         String str = PublicDataManager.INSTANCE.getFile("constants/mathematical_hoes.json");
         JsonArray array = new JsonParser().parse(str).getAsJsonObject().get("hoes").getAsJsonArray();
 

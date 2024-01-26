@@ -15,6 +15,8 @@ import gg.essential.elementa.constraints.PixelConstraint;
 import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager;
+import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent;
+import me.partlysanestudios.partlysaneskies.events.data.LoadPublicDataEvent;
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager;
 import me.partlysanestudios.partlysaneskies.utils.MathUtils;
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils;
@@ -39,7 +41,8 @@ public class CompostValue {
     public static double fillLevel = 0;
     public static double maxCompost = 40000;
 
-    public static void init() {
+    @SubscribePSSEvent
+    public static void init(LoadPublicDataEvent event) {
         compostValueMap.put("WHEAT", 1d);
         compostValueMap.put("HAY_BLOCK", 9d);
         compostValueMap.put("ENCHANTED_BREAD", 60d);

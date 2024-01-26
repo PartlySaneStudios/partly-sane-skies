@@ -10,6 +10,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager;
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager;
+import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent;
+import me.partlysanestudios.partlysaneskies.events.data.LoadPublicDataEvent;
 import me.partlysanestudios.partlysaneskies.utils.MathUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils;
@@ -31,7 +33,8 @@ public class MinionData {
 
 
 //    Runs after the request
-    public static void init() {
+    @SubscribePSSEvent
+    public static void init(LoadPublicDataEvent event) {
         String str = PublicDataManager.INSTANCE.getFile(MINIONS_DATA_URL);
 //        Creates a json object from the request response
         JsonObject jsonObj = new JsonParser().parse(str).getAsJsonObject();

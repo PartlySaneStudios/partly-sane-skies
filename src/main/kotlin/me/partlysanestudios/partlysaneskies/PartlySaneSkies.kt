@@ -29,6 +29,7 @@ import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager.getRe
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager.getRepoOwner
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager
 import me.partlysanestudios.partlysaneskies.events.EventManager
+import me.partlysanestudios.partlysaneskies.events.data.LoadPublicDataEvent
 import me.partlysanestudios.partlysaneskies.features.chat.ChatAlertsManager
 import me.partlysanestudios.partlysaneskies.features.chat.ChatManager
 import me.partlysanestudios.partlysaneskies.features.chat.WordEditor
@@ -47,6 +48,7 @@ import me.partlysanestudios.partlysaneskies.features.economy.BitsShopValue
 import me.partlysanestudios.partlysaneskies.features.economy.CoinsToBoosterCookieConversion
 import me.partlysanestudios.partlysaneskies.features.economy.NoCookieWarning
 import me.partlysanestudios.partlysaneskies.features.economy.auctionhousemenu.AuctionHouseGui
+import me.partlysanestudios.partlysaneskies.features.economy.minioncalculator.MinionData
 import me.partlysanestudios.partlysaneskies.features.economy.minioncalculator.ProfitMinionCalculator
 import me.partlysanestudios.partlysaneskies.features.farming.MathematicalHoeRightClicks
 import me.partlysanestudios.partlysaneskies.features.farming.VisitorLogbookStats
@@ -199,13 +201,10 @@ class PartlySaneSkies {
         registerEvent(PartyFriendManager())
         registerEvent(WikiArticleOpener())
         registerEvent(GardenTradeValue())
-        registerEvent(CompostValue())
         registerEvent(EnhancedSound())
         registerEvent(BitsShopValue())
-        registerEvent(SkymartValue())
         registerEvent(PetAlert())
         registerEvent(Pickaxes())
-        registerEvent(MathematicalHoeRightClicks())
         registerEvent(MiningEvents())
         registerEvent(ChatManager)
         registerEvent(RangeHighlight)
@@ -223,15 +222,27 @@ class PartlySaneSkies {
         registerEvent(EventManager)
         val playerRating = PlayerRating() // Kotlin object supremacy
         registerEvent(playerRating)
+        val skymartValue = SkymartValue()
+        registerEvent(skymartValue)
+        val compostValue = CompostValue()
+        registerEvent(compostValue)
+        val mathematicalHoeRightClicks = MathematicalHoeRightClicks()
+        registerEvent(mathematicalHoeRightClicks)
+
 
         // Registers all Partly Sane Skies Events
+        EventManager.register(RequiredSecretsFound())
+        EventManager.register(MinionData())
+        EventManager.register(SkyblockDataManager())
         EventManager.register(DebugKey)
         EventManager.register(TerminalWaypoints)
-        EventManager.register(playerRating)
         EventManager.register(PearlRefill)
-        EventManager.register(RequiredSecretsFound())
         EventManager.register(TreecapitatorCooldown)
         EventManager.register(WrongToolCropWarning)
+        EventManager.register(playerRating)
+        EventManager.register(skymartValue)
+        EventManager.register(compostValue)
+        EventManager.register(mathematicalHoeRightClicks)
 
         // Registers all client side commands
         HelpCommand.registerPSSCommand()
@@ -277,7 +288,7 @@ class PartlySaneSkies {
         } catch (e: IOException) {
             e.printStackTrace()
         }
-        PublicDataManager.initAllPublicData()
+        LoadPublicDataEvent.onDataLoad()
 
         // Loads user player data for PartyManager
         Thread({

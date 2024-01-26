@@ -21,6 +21,8 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager;
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager;
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockItem;
+import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent;
+import me.partlysanestudios.partlysaneskies.events.data.LoadPublicDataEvent;
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager;
 import me.partlysanestudios.partlysaneskies.utils.MathUtils;
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils;
@@ -38,7 +40,8 @@ import java.util.*;
 public class SkymartValue {
     public static HashMap<String, Integer> copperCost = new HashMap<>();
 
-    public static void initCopperValues() throws IOException {
+    @SubscribePSSEvent
+    public static void initCopperValues(LoadPublicDataEvent event) throws IOException {
         String str = PublicDataManager.INSTANCE.getFile("constants/skymart_copper.json");
 
         JsonObject skymartObject = new JsonParser().parse(str).getAsJsonObject().getAsJsonObject("skymart");

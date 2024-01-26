@@ -25,7 +25,7 @@ import kotlin.reflect.full.isSubclassOf
 import kotlin.reflect.full.memberFunctions
 
 object EventManager {
-    private val registeredFunctions = ArrayList<EventFunction>()
+    internal val registeredFunctions = ArrayList<EventFunction>()
 
     fun register(obj: Any) {
         val kClass = obj::class // get the class
@@ -80,25 +80,6 @@ object EventManager {
 
         DungeonStartEvent.onMessageRecieved(dungeonStartEventFunctions, message)
         DungeonEndEvent.onMessageRecieved(dungeonEndEventFunctions, message)
-    }
-
-
-    // Called from the mixin because writing this code in java is about 50 times harder
-    fun onPlayerBreakBlock(blockPos: BlockPos, side: EnumFacing, cir: CallbackInfoReturnable<Boolean>) {
-
-        val onPlayerBreakBlockEventFunctions = ArrayList<EventFunction>()
-
-        for (function in registeredFunctions) {
-            val paramClass = function.function.parameters[1].type.classifier as? KClass<*>
-
-            if (paramClass?.isSubclassOf(PlayerBreakBlockEvent::class) == true) {
-                onPlayerBreakBlockEventFunctions.add(function)
-            }
-        }
-
-        PlayerBreakBlockEvent.onEventCall(onPlayerBreakBlockEventFunctions, blockPos, side)
-
-
     }
 
     internal class EventFunction(val obj: Any, val function: KFunction<*> )

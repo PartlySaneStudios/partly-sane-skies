@@ -2,6 +2,7 @@ package me.partlysanestudios.partlysaneskies.mixin.minecraft;
 
 
 import me.partlysanestudios.partlysaneskies.events.EventManager;
+import me.partlysanestudios.partlysaneskies.events.minecraft.player.PlayerBreakBlockEvent;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -15,6 +16,6 @@ public class MixinPlayerController {
 
     @Inject(method = "onPlayerDestroyBlock", at = @At("HEAD"))
     private void onPlayerDestroyBlock(BlockPos pos, EnumFacing side, CallbackInfoReturnable<Boolean> cir) {
-        EventManager.INSTANCE.onPlayerBreakBlock(pos, side, cir);
+        PlayerBreakBlockEvent.Companion.onPlayerBreakBlock(pos, side, cir);
     }
 }
