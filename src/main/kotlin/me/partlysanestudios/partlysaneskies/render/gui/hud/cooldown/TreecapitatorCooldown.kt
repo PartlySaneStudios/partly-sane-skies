@@ -12,6 +12,7 @@ import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity
 import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.minecraft.player.PlayerBreakBlockEvent
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils
+import me.partlysanestudios.partlysaneskies.utils.HypixelUtils.getItemId
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
 import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
@@ -81,12 +82,9 @@ object TreecapitatorCooldown: Cooldown() {
             return
         }
 
-        if (MinecraftUtils.getCurrentlyHoldingItem() == null) {
-            return
-        }
 
-        val itemInUse = MinecraftUtils.getCurrentlyHoldingItem()!!
-        val idInUse = HypixelUtils.getItemId(itemInUse)
+        val itemInUse = MinecraftUtils.getCurrentlyHoldingItem() ?: return
+        val idInUse = itemInUse.getItemId()
 
         if (idInUse != "TREECAPITATOR_AXE") {
             return

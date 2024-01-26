@@ -21,6 +21,7 @@ import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
 import me.partlysanestudios.partlysaneskies.render.gui.components.PSSButton
 import me.partlysanestudios.partlysaneskies.render.gui.components.PSSItemRender
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils
+import me.partlysanestudios.partlysaneskies.utils.HypixelUtils.getItemId
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getLore
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
@@ -31,7 +32,7 @@ import java.util.*
 
 class AuctionElement(private val slot: Int, val itemstack: ItemStack?, var xConstraint: XConstraint, var yConstraint: YConstraint, var heightConstraint: PixelConstraint, val textScale: Float) {
 
-    val skyblockItem = SkyblockDataManager.getItem(HypixelUtils.getItemId(itemstack))
+    val skyblockItem = SkyblockDataManager.getItem(itemstack?.getItemId() ?: "")
 
     private val boundingBox = UIBlock().constrain {
         x = xConstraint

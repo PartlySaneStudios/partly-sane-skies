@@ -120,8 +120,8 @@ object HypixelUtils {
      * @param item The item to get the id from
      * @return The item id
      */
-    fun getItemId(item: ItemStack?): String {
-        return item?.let { getItemAttributes(it)?.getString("id") } ?: ""
+    fun ItemStack.getItemId(): String {
+        return this.let { getItemAttributes(it)?.getString("id") } ?: ""
     }
 
     /**

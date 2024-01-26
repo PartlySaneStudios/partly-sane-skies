@@ -32,7 +32,7 @@ object WrongToolCropWarning {
 
         val crop = getCrop(unlocalizedName) ?: return
 
-        val id = getItemId(getCurrentlyHoldingItem())
+        val id = getCurrentlyHoldingItem()?.getItemId() ?: ""
         val minecraftName = getCurrentlyHoldingItem()?.serializeNBT()?.id ?: ""
 
         if (crop.mathematicalHoeIds.contains(id) && config.mathematicalHoeValid) {
