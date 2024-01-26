@@ -41,8 +41,6 @@ public class MathematicalHoeRightClicks {
 
             hoes.add(hoe);
         }
-
-
     }
     public static boolean isHoldingHoe() {
         if (hoes == null) {
