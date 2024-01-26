@@ -56,7 +56,7 @@ public class BitsShopValue {
         if (SkyblockDataManager.bitIds.isEmpty()) {
             new Thread(() -> {
                 try {
-                    SkyblockDataManager.initBitValues(null);
+                    SkyblockDataManager.initBitValues();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

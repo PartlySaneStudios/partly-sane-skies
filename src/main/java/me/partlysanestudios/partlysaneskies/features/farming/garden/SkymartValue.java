@@ -41,7 +41,7 @@ public class SkymartValue {
     public static HashMap<String, Integer> copperCost = new HashMap<>();
 
     @SubscribePSSEvent
-    public static void initCopperValues(LoadPublicDataEvent event) throws IOException {
+    public void initCopperValues(LoadPublicDataEvent event) throws IOException {
         String str = PublicDataManager.INSTANCE.getFile("constants/skymart_copper.json");
 
         JsonObject skymartObject = new JsonParser().parse(str).getAsJsonObject().getAsJsonObject("skymart");

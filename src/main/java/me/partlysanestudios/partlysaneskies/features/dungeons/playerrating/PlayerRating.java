@@ -44,7 +44,7 @@ public class PlayerRating {
     public static String lastMessage = "";
 
     @SubscribePSSEvent
-    public static void initPatterns(LoadPublicDataEvent event) {
+    public void initPatterns(LoadPublicDataEvent event) {
         currentPlayer = PartlySaneSkies.Companion.getMinecraft().getSession().getUsername();
 
         String str = PublicDataManager.INSTANCE.getFile("constants/dungeons_player_rate_pattern_strings.json");
@@ -57,9 +57,6 @@ public class PlayerRating {
         for (Map.Entry<String, JsonElement> entry : positivePatternsJson.entrySet()) {
             positivePatterns.put(entry.getKey(), entry.getValue().getAsString());
         }
-
-
-        
     }
 
     public static void rackPoints(String player, String category) {

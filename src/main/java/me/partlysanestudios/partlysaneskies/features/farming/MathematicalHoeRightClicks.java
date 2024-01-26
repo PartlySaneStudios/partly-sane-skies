@@ -31,7 +31,7 @@ public class MathematicalHoeRightClicks {
 
     private static ArrayList<String> hoes;
     @SubscribePSSEvent
-    public static void loadHoes(LoadPublicDataEvent event) {
+    public void loadHoes(LoadPublicDataEvent event) {
         String str = PublicDataManager.INSTANCE.getFile("constants/mathematical_hoes.json");
         JsonArray array = new JsonParser().parse(str).getAsJsonObject().get("hoes").getAsJsonArray();
 

@@ -22,8 +22,6 @@ class LoadPublicDataEvent() {
                     }
                 }
             }.start()
-
-
         }
 
         internal fun onDataLoad() {

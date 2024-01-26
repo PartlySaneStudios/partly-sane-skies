@@ -34,7 +34,7 @@ public class MinionData {
 
 //    Runs after the request
     @SubscribePSSEvent
-    public static void init(LoadPublicDataEvent event) {
+    public void init(LoadPublicDataEvent event) {
         String str = PublicDataManager.INSTANCE.getFile(MINIONS_DATA_URL);
 //        Creates a json object from the request response
         JsonObject jsonObj = new JsonParser().parse(str).getAsJsonObject();

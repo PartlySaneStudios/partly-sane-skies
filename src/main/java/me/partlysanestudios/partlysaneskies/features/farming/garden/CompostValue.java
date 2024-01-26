@@ -42,7 +42,7 @@ public class CompostValue {
     public static double maxCompost = 40000;
 
     @SubscribePSSEvent
-    public static void init(LoadPublicDataEvent event) {
+    public void init(LoadPublicDataEvent event) {
         compostValueMap.put("WHEAT", 1d);
         compostValueMap.put("HAY_BLOCK", 9d);
         compostValueMap.put("ENCHANTED_BREAD", 60d);

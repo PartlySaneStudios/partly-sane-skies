@@ -146,7 +146,14 @@ public class SkyblockDataManager {
     }
 
     @SubscribePSSEvent
-    public static void initBitValues(LoadPublicDataEvent event) throws IOException {
+    public void onDataLoad(LoadPublicDataEvent event) {
+        try {
+            initBitValues();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void initBitValues() throws IOException {
         JsonObject bitsShopObject = new JsonParser().parse(PublicDataManager.INSTANCE.getFile("constants/bits_shop.json")).getAsJsonObject().getAsJsonObject("bits_shop");
         for (Map.Entry<String, JsonElement> entry : bitsShopObject.entrySet()) {
             String id = entry.getKey();

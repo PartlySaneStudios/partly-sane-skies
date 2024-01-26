@@ -13,11 +13,13 @@ class PlayerBreakBlockEvent(val point: Point3d, val side: EnumFacing) {
     companion object {
         private fun callEvent(functions: List<EventManager.EventFunction>, pos: BlockPos, side: EnumFacing) {
             for (function in functions) {
-                val event = PlayerBreakBlockEvent(pos.toPoint3d(), side)
-                function.function.call(function.obj, event)
+                try {
+                    val event = PlayerBreakBlockEvent(pos.toPoint3d(), side)
+                    function.function.call(function.obj, event)
+                } catch (exception: Exception) {
+                    exception.printStackTrace()
+                }
             }
-
-
         }
 
         // Called from the mixin because writing this code in java is about 50 times harder
