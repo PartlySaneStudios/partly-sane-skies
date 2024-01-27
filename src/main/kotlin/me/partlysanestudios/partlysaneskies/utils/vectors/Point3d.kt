@@ -70,4 +70,8 @@ open class Point3d(x: Double, y: Double, val z: Double) : Point2d(x, y) {
         return true
 
     }
+
+    override fun toString(): String {
+        return "Point3d(${super.toString()}, z=$z)"
+    }
 }

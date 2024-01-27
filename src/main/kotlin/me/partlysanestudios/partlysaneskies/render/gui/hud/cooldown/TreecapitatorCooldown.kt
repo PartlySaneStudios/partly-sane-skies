@@ -9,7 +9,10 @@ package me.partlysanestudios.partlysaneskies.render.gui.hud.cooldown
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.data.cache.PetData
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity
+import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
+import me.partlysanestudios.partlysaneskies.events.minecraft.player.PlayerBreakBlockEvent
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils
+import me.partlysanestudios.partlysaneskies.utils.HypixelUtils.getItemId
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
 import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
@@ -22,7 +25,7 @@ object TreecapitatorCooldown: Cooldown() {
     override fun getTotalTime(): Long {
         var cooldown = 2000L
 
-        if (PetData.getCurrentPetName() == "Monkey" && PetData.getCurrentPetRarity().order >= Rarity.LEGENDARY.order && PetData.getCurrentPetLevel() != -1 && (PartlySaneSkies.config.treecapCooldownMonkeyPet != false)) {
+        if (PetData.getCurrentPetName() == "Monkey" && PetData.getCurrentPetRarity().order >= Rarity.LEGENDARY.order && PetData.getCurrentPetLevel() != -1 && PartlySaneSkies.config.treecapCooldownMonkeyPet) {
             cooldown -= (cooldown * PetData.getCurrentPetLevel() / 200.0).toLong()
         }
         return cooldown
@@ -32,7 +35,7 @@ object TreecapitatorCooldown: Cooldown() {
         return "Treecapitator"
     }
 
-    private var treecapitatorAxe: ItemStack? = null;
+    private var treecapitatorAxe: ItemStack? = null
     override fun getItemToDisplay(): ItemStack {
         if (treecapitatorAxe == null) {
             val itemStack = ItemStack(Items.golden_axe)
@@ -73,19 +76,17 @@ object TreecapitatorCooldown: Cooldown() {
         return treecapitatorAxe ?: ItemStack(Items.golden_axe)
     }
 
-    fun checkForCooldown() {
-        if (PartlySaneSkies.config.treecapCooldown != true) {
+    @SubscribePSSEvent
+    fun checkForCooldown(event: PlayerBreakBlockEvent) {
+        if (!PartlySaneSkies.config.treecapCooldown) {
             return
         }
 
-        if (MinecraftUtils.getCurrentlyHoldingItem() == null) {
-            return
-        }
 
-        val itemInUse = MinecraftUtils.getCurrentlyHoldingItem()!!
-        val idInUse = HypixelUtils.getItemId(itemInUse)
+        val itemInUse = MinecraftUtils.getCurrentlyHoldingItem() ?: return
+        val idInUse = itemInUse.getItemId()
 
-        if (!idInUse.equals("TREECAPITATOR_AXE")) {
+        if (idInUse != "TREECAPITATOR_AXE") {
             return
         }
 

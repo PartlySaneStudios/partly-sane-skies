@@ -711,6 +711,15 @@ public class OneConfigScreen extends Config {
     )
     public boolean watcherReadyAirRaidSiren = false;
 
+//    Dungeon Waypoints
+    @Switch(
+            subcategory = "Terminal Waypoints",
+            name = "Enable Waypoints for Terminals, Devices and Levers",
+            description = "",
+            category = "Dungeons"
+    )
+    public boolean terminalWaypoints = true;
+
     // Healer Alert
     @Switch(
             name = "Healer Alert",
@@ -845,7 +854,7 @@ public class OneConfigScreen extends Config {
             name = "Delay",
             description = "Delay after a dungeon ends",
             category = "Dungeons",
-            subcategory = "Dungeons Player Breakdown",
+            subcategory = "Dungeon Player Breakdown",
             min = 0,
             max = 20
     )
@@ -1243,6 +1252,72 @@ public class OneConfigScreen extends Config {
     )
     public boolean visitorLogbookStats = false;
 
+//    Wrong Tool for Crop
+    @Switch(
+            subcategory = "Wrong Tool for Crop",
+            name = "Wrong Tool for Crop Enabled",
+            description = "When enabled, a warning will appear, notifying you that you are using the wrong tool for the current crop",
+            category = "Farming"
+    )
+    public boolean wrongToolForCropEnabled = false;
+
+    @Switch(
+            subcategory = "Wrong Tool for Crop",
+            name = "Allow Mathematical Hoes",
+            description = "When enabled, mathematical hoes will be considered a valid tool",
+            category = "Farming"
+    )
+    public boolean mathematicalHoeValid = true;
+    @Switch(
+            subcategory = "Wrong Tool for Crop",
+            name = "Allow Other SkyBlock Tools",
+            description = "When enabled, other SkyBlock tools will be considered a valid tool",
+            category = "Farming"
+    )
+    public boolean otherSkyblockToolsValid  = true;
+    @Switch(
+            subcategory = "Wrong Tool for Crop",
+            name = "Allow Right Tool Type",
+            description = "When enabled, the system only looks for the right tool type (hoes, etc.)",
+            category = "Farming"
+    )
+    public boolean vanillaToolsValid = false;
+    @Switch(
+            subcategory = "Wrong Tool for Crop",
+            name = "Require Replenish",
+            description = "When enabled, the tool must have replenish if it is to be used on a replenishable crop.",
+            category = "Farming"
+    )
+    public boolean requireReplenish = true;
+    @Switch(
+            subcategory = "Wrong Tool for Crop",
+            name = "Air Raid Siren",
+            description = "When enabled, the warning will contain an air raid siren",
+            category = "Farming"
+    )
+    public boolean wrongToolForCropAirRaid = false;
+
+    @Slider(
+            min = 1,
+            max = 7,
+            subcategory = "Wrong Tool for Crop",
+            name = "Banner Time",
+            description = "The amount of seconds the banner appears for.",
+            category = "Farming"
+    )
+    public float wrongToolForCropBannerTime = 3.5f;
+
+    @Slider(
+            min = 1,
+            max = 7,
+            subcategory = "Wrong Tool for Crop",
+            name = "Time Between Warnings",
+            description = "The amount of seconds between each warning.",
+            category = "Farming"
+    )
+    public float wrongToolForCropCooldown = 3.5f;
+
+
     // Composter
     @Switch(
             name = "Best Crops to Compost",
@@ -1579,6 +1654,14 @@ public class OneConfigScreen extends Config {
             category = "Dev"
     )
     public boolean debugPrintCurrentLocationFromIslandType = false;
+
+    @Switch(
+            name = "Log cached F7 puzzles",
+            category = "Debug"
+    )
+    public boolean debugLogCachedF7Puzzles = false;
+
+    // Percy Mode
 
     @Switch(
             name = "Percy Mode",

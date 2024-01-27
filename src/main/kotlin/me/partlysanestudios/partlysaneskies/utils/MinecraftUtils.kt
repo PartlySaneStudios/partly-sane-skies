@@ -13,11 +13,13 @@ import gg.essential.elementa.dsl.pixels
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.features.economy.auctionhousemenu.AuctionElement
 import me.partlysanestudios.partlysaneskies.features.economy.auctionhousemenu.AuctionHouseGui
+import me.partlysanestudios.partlysaneskies.utils.HypixelUtils.getItemId
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import net.minecraft.client.gui.GuiScreen
 import net.minecraft.client.network.NetworkPlayerInfo
 import net.minecraft.entity.Entity
 import net.minecraft.entity.item.EntityArmorStand
+import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.IInventory
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
@@ -227,6 +229,19 @@ object MinecraftUtils {
         return PartlySaneSkies.minecraft.theWorld?.getLoadedEntityList() ?: ArrayList()
     }
 
+    fun getAllPlayersInWorld(): List<Entity> {
+        val playerEntities: MutableList<Entity> = java.util.ArrayList()
+        val allEntities = getAllEntitiesInWorld()
+
+        // For every entity in the world, check if its instance of an armor stand
+        for (entity in allEntities) {
+            if (entity is EntityPlayer) {
+                playerEntities.add(entity) // If so, add it to the list
+            }
+        }
+        return playerEntities
+    }
+
     /**
      * @return all the pets currently loaded in the world
      */
@@ -283,7 +298,7 @@ object MinecraftUtils {
         val inv = PartlySaneSkies.minecraft.thePlayer.inventory.mainInventory
 
         for (stackInSlot in inv) {
-            if (HypixelUtils.getItemId(stackInSlot).equals(skyblockId, ignoreCase = true)) {
+            if ((stackInSlot?.getItemId() ?: "").equals(skyblockId, ignoreCase = true)) {
                 itemCount += stackInSlot.stackSize
             }
         }

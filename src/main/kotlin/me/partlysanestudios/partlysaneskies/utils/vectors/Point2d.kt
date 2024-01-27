@@ -23,4 +23,8 @@ open class Point2d(val x: Double, val y: Double) {
             (point2.getPointY() - this.getPointY()).pow(2.0)
         )
     }
+
+    override fun toString(): String {
+        return "Point2d(x=$x, y=$y)"
+    }
 }
