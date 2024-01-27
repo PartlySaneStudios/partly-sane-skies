@@ -1662,19 +1662,22 @@ public class OneConfigScreen extends Config {
             category = "Dev"
     )
     public boolean debugPrintCurrentLocationFromIslandType = false;
+
     @Switch(
             name = "Log cached F7 puzzles",
+            description = "Logs cached F7 puzzles.",
             category = "Debug"
     )
     public boolean debugLogCachedF7Puzzles = false;
+
     @Switch(
             name = "Print Current Cached Stats",
+            description = "Prints the current cached stats.",
             category = "Debug"
     )
     public boolean debugPrintCurrentCachedStats = false;
 
     // Percy Mode
-
     @Switch(
             name = "Percy Mode",
             description = "Toggles Percy Mode.",
