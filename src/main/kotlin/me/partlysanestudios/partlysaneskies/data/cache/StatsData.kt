@@ -4,14 +4,13 @@ import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 
 object StatsData {
+    //Public variables
 
     val currentHealth: Double get() = cachedCurrentHealth
     val maxHealth: Double get() = cachedMaxHealth
     val defense: Double get() = cachedCurrentDefense
     val currentMana: Double get() = cachedCurrentMana
     val maxMana: Double get() = cachedMaxMana
-
-
 
     private var cachedCurrentHealth = -1.0
     private var cachedMaxHealth = -1.0
@@ -31,19 +30,16 @@ object StatsData {
         parseManaFromString(message)
     }
 
-
-
-
     private fun parseHealthFromString(actionBarMessage: String) {
 
-        val healthRegex = "§(\\w)([\\d,]+)\\/([\\d,]+)❤".toRegex()
+        val healthRegex = "§\\w([\\d,]+)\\/([\\d,]+)❤".toRegex()
 
         if (!healthRegex.containsMatchIn(actionBarMessage)) {
             return
         }
         val matchResult = healthRegex.find(actionBarMessage) ?: return
 
-        val (_, health, max) = matchResult.destructured
+        val (health, max) = matchResult.destructured
 
         this.cachedCurrentHealth = health.replace(",", "").toDoubleOrNull() ?: cachedCurrentHealth
         this.cachedMaxHealth = max.replace(",", "").toDoubleOrNull() ?: cachedMaxHealth
@@ -51,14 +47,14 @@ object StatsData {
 
     private fun parseManaFromString(actionBarMessage: String) {
 
-        val manaRegex = "§(\\w)([\\d,]+)\\/([\\d,]+)✎ Mana".toRegex()
+        val manaRegex = "§\\w([\\d,]+)\\/([\\d,]+)✎ Mana".toRegex()
 
         if (!manaRegex.containsMatchIn(actionBarMessage)) {
             return
         }
         val matchResult = manaRegex.find(actionBarMessage) ?: return
 
-        val (_, current, max) = matchResult.destructured
+        val (current, max) = matchResult.destructured
 
         this.cachedCurrentMana = current.replace(",", "").toDoubleOrNull() ?: cachedCurrentMana
         this.cachedMaxMana = max.replace(",", "").toDoubleOrNull() ?: cachedMaxMana
@@ -66,14 +62,14 @@ object StatsData {
 
     private fun parseDefenseFromString(actionBarMessage: String) {
 
-        val healthRegex = "§(\\w)([\\d,]+)§a❈ Defense".toRegex()
+        val healthRegex = "§\\w([\\d,]+)§a❈ Defense".toRegex()
 
         if (!healthRegex.containsMatchIn(actionBarMessage)) {
             return
         }
         val matchResult = healthRegex.find(actionBarMessage) ?: return
 
-        val (_, current) = matchResult.destructured
+        val (current) = matchResult.destructured
 
         this.cachedCurrentDefense = current.replace(",", "").toDoubleOrNull() ?: cachedCurrentDefense
     }
