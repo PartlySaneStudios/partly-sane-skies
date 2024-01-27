@@ -21,7 +21,7 @@ import kotlin.reflect.full.isSubclassOf
 import kotlin.reflect.full.memberFunctions
 
 object EventManager {
-    internal val registeredFunctions = ArrayList<EventFunction>()
+    internal val registeredFunctions = HashMap<KClass<*>, ArrayList<EventFunction>>()
 
     fun register(obj: Any) {
         val kClass = obj::class // get the class
@@ -35,47 +35,26 @@ object EventManager {
                 log(Level.WARN, "Unable to add ${function.name} due to incorrect number of function parameters (${functionParameters.size}")
                 continue
             }
+            val paramClass = functionParameters[1].type.classifier as? KClass<*> ?: continue
 
-            registeredFunctions.add(EventFunction(obj, function)) // adds the function to a list to call
+            if (!registeredFunctions.containsKey(paramClass)) {
+                registeredFunctions[paramClass] = ArrayList()
+            }
+            registeredFunctions[paramClass]?.add(EventFunction(obj, function)) // adds the function to a list to call
             log(Level.INFO, "Registered ${function.name} from ${obj.javaClass.name} in PSS events")
         }
     }
 
     @SubscribeEvent
     fun onScreenRender(event: RenderWorldLastEvent) {
-        val waypointRenderEventFunctions = ArrayList<EventFunction>()
-
-        for (function in registeredFunctions) {
-            val paramClass = function.function.parameters[1].type.classifier as? KClass<*>
-
-            if (paramClass?.isSubclassOf(RenderWaypointEvent::class) == true) {
-                waypointRenderEventFunctions.add(function)
-            }
-        }
-
-        RenderWaypointEvent.onEventCall(event.partialTicks, waypointRenderEventFunctions)
+        RenderWaypointEvent.onEventCall(event.partialTicks, registeredFunctions[RenderWaypointEvent::class] ?: ArrayList())
     }
 
     @SubscribeEvent
     fun onChatRecievedEvent(event: ClientChatReceivedEvent) {
-        val dungeonStartEventFunctions = ArrayList<EventFunction>()
-        val dungeonEndEventFunctions = ArrayList<EventFunction>()
-
-        for (function in registeredFunctions) {
-            val paramClass = function.function.parameters[1].type.classifier as? KClass<*>
-
-            if (paramClass?.isSubclassOf(DungeonStartEvent::class) == true) {
-                dungeonStartEventFunctions.add(function)
-            }
-            else if (paramClass?.isSubclassOf(DungeonEndEvent::class) == true) {
-                dungeonEndEventFunctions.add(function)
-            }
-        }
-
         val message = event.message.formattedText
-
-        DungeonStartEvent.onMessageRecieved(dungeonStartEventFunctions, message)
-        DungeonEndEvent.onMessageRecieved(dungeonEndEventFunctions, message)
+        DungeonStartEvent.onMessageRecieved(registeredFunctions[DungeonStartEvent::class] ?: ArrayList(), message)
+        DungeonEndEvent.onMessageRecieved(registeredFunctions[DungeonEndEvent::class] ?: ArrayList(), message)
     }
 
     internal class EventFunction(val obj: Any, val function: KFunction<*> )

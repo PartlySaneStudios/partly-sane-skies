@@ -5,7 +5,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 
 object StatsData {
     //Public variables
-
     val currentHealth: Double get() = cachedCurrentHealth
     val maxHealth: Double get() = cachedMaxHealth
     val defense: Double get() = cachedCurrentDefense
@@ -31,7 +30,6 @@ object StatsData {
     }
 
     private fun parseHealthFromString(actionBarMessage: String) {
-
         val healthRegex = "§\\w([\\d,]+)\\/([\\d,]+)❤".toRegex()
 
         if (!healthRegex.containsMatchIn(actionBarMessage)) {
@@ -46,7 +44,6 @@ object StatsData {
     }
 
     private fun parseManaFromString(actionBarMessage: String) {
-
         val manaRegex = "§\\w([\\d,]+)\\/([\\d,]+)✎ Mana".toRegex()
 
         if (!manaRegex.containsMatchIn(actionBarMessage)) {
@@ -61,7 +58,6 @@ object StatsData {
     }
 
     private fun parseDefenseFromString(actionBarMessage: String) {
-
         val healthRegex = "§\\w([\\d,]+)§a❈ Defense".toRegex()
 
         if (!healthRegex.containsMatchIn(actionBarMessage)) {
