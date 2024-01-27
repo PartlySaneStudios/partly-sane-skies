@@ -197,7 +197,7 @@ public class OneConfigScreen extends Config {
             description = "The size of the banners that appear on your screen.",
             category = "General",
             subcategory = "Appearance",
-            min = 0,
+            min = 0.1f,
             max = 2
     )
     public float bannerSize = 1f;
