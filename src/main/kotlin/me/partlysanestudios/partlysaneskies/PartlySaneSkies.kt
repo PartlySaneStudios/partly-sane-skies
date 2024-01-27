@@ -24,6 +24,7 @@ import me.partlysanestudios.partlysaneskies.data.api.PolyfrostUrsaMinorRequest
 import me.partlysanestudios.partlysaneskies.data.api.Request
 import me.partlysanestudios.partlysaneskies.data.api.RequestsManager.newRequest
 import me.partlysanestudios.partlysaneskies.data.cache.PetData
+import me.partlysanestudios.partlysaneskies.data.cache.StatsData
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager.getRepoName
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager.getRepoOwner
@@ -233,6 +234,7 @@ class PartlySaneSkies {
         registerEvent(TreecapitatorCooldown)
         registerEvent(WrongToolCropWarning)
         registerEvent(WrongToolCropWarning.CropToolData)
+        registerEvent(StatsData)
 
         // Registers all client side commands
         HelpCommand.registerPSSCommand()

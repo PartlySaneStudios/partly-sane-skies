@@ -9,6 +9,7 @@ package me.partlysanestudios.partlysaneskies.features.debug
 import cc.polyfrost.oneconfig.config.core.OneColor
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
+import me.partlysanestudios.partlysaneskies.data.cache.StatsData
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.IslandType
 import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.minecraft.render.RenderWaypointEvent
@@ -19,6 +20,7 @@ import me.partlysanestudios.partlysaneskies.render.gui.hud.PSSBanner
 import me.partlysanestudios.partlysaneskies.render.waypoint.Waypoint
 import me.partlysanestudios.partlysaneskies.system.SystemNotification
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
+import me.partlysanestudios.partlysaneskies.utils.SystemUtils.copyStringToClipboard
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
 import me.partlysanestudios.partlysaneskies.utils.vectors.Point3d
 import net.minecraftforge.client.event.ClientChatReceivedEvent
@@ -71,13 +73,17 @@ object DebugKey {
         if (config.debugLogCachedF7Puzzles) {
             TerminalWaypoints.logCachedPuzzles()
         }
+        if (config.debugPrintCurrentCachedStats) {
+            sendClientMessage("Health: ${StatsData.currentHealth}/${StatsData.maxHealth}, Defense: ${StatsData.defense}, Mana: ${StatsData.currentMana}/${StatsData.maxMana}")
+        }
     }
 
     // Runs chat analyzer for debug mode
     @SubscribeEvent
-    fun chatAnalyzer(evnt: ClientChatReceivedEvent) {
-        if (isDebugMode() && PartlySaneSkies.config.debugChatAnalyser) {
-            log(Level.INFO, evnt.message.formattedText)
+    fun chatAnalyzer(event: ClientChatReceivedEvent) {
+        if (isDebugMode() && config.debugChatAnalyser) {
+            log(Level.INFO, event.message.formattedText)
+            copyStringToClipboard(event.message.formattedText)
         }
     }
 
