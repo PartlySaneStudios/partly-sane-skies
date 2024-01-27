@@ -13,6 +13,8 @@ import me.partlysanestudios.partlysaneskies.events.skyblock.dungeons.DungeonStar
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.countItemInInventory
 import net.minecraft.command.ICommandSender
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
+import net.minecraftforge.fml.common.gameevent.InputEvent
 
 object PearlRefill {
     @SubscribePSSEvent
@@ -32,7 +34,12 @@ object PearlRefill {
             }.register()
     }
 
-    fun keybindAction(){ runPearlRefill() }
+    @SubscribeEvent
+    fun checkKeyBinds(event: InputEvent.KeyInputEvent?) {
+        if (PartlySaneSkies.config.pearlRefillKeybind.isActive()) {
+            runPearlRefill()
+        }
+    }
 
     private fun runPearlRefill() {
         val pearlAmount = countItemInInventory("ENDER_PEARL")
