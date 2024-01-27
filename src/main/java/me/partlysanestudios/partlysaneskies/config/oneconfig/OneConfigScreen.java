@@ -118,7 +118,10 @@ public class OneConfigScreen extends Config {
             name = "Playing...",
             category = "General",
             subcategory = "Discord",
-            options = {"Hypixel Skyblock", "sbe bad"}
+            options = {
+                    "Hypixel Skyblock",
+                    "sbe bad"
+            }
     )
     public int discordPlayingMode = 0;
 
@@ -164,7 +167,7 @@ public class OneConfigScreen extends Config {
 
     @Switch(
             name = "24 hour time",
-            description = "Display time in 24-hour hour time (15:30) instead of 12 hour time (3:30 PM)",
+            description = "Display time in 24-hour hour time (15:30) instead of 12 hour time (3:30 PM).",
             category = "General",
             subcategory = "Appearance"
     )
@@ -206,6 +209,7 @@ public class OneConfigScreen extends Config {
     // Main Menu
     @Switch(
             name = "Show a Custom Minecraft Main Menu",
+            description = "Show a custom main menu with a background image and announcements",
             category = "General",
             subcategory = "Main Menu"
     )
@@ -213,7 +217,7 @@ public class OneConfigScreen extends Config {
 
     @Switch(
             name = "Announcements on Main Menu",
-            description = "Display announcements such as recent skyblock updates on the main menu",
+            description = "Display announcements such as recent skyblock updates on the main menu.",
             category = "General",
             subcategory = "Main Menu"
     )
@@ -221,7 +225,7 @@ public class OneConfigScreen extends Config {
 
     @Dropdown(
             name = "Custom Minecraft Main Menu Image",
-            description = "Select one of our many high quality included images, or you can use your custom image.\nTo use your own image, place your image in the /config/partly-sane-skies folder and title your image background.png",
+            description = "Select one of our many high quality included images, or you can use your custom image.\nTo use your own image, place your image in the \"/config/partly-sane-skies\" folder and title your image \"background.png\".",
             category = "General",
             subcategory = "Main Menu",
             options = {
@@ -239,7 +243,7 @@ public class OneConfigScreen extends Config {
 
     @Switch(
             name = "Check Mods On Startup",
-            description = "Automatically Send Message on Startup",
+            description = "Automatically Send Message on Startup.",
             category = "General",
             subcategory = "Mods Checker"
     )
@@ -247,7 +251,7 @@ public class OneConfigScreen extends Config {
 
     @Switch(
             name = "Use Beta Versions",
-            description = "Use the beta version of mods instead of normal versions",
+            description = "Use the beta version of mods instead of normal versions.",
             category = "General",
             subcategory = "Mods Checker"
     )
@@ -257,7 +261,7 @@ public class OneConfigScreen extends Config {
 
     @Switch(
             name = "Show up to date mods",
-            description = "Show mods that are up to date",
+            description = "Show mods that are up to date.",
             category = "General",
             subcategory = "Mods Checker"
     )
@@ -294,7 +298,7 @@ public class OneConfigScreen extends Config {
 //    Themes
     @Dropdown(
             name = "Selected Theme",
-            description = "Pick from one of our 9 custom designed themes",
+            description = "Pick from one of our 9 custom designed themes.",
             category = "Themes",
             subcategory = "Theme",
             options = {
@@ -320,7 +324,7 @@ public class OneConfigScreen extends Config {
     //    Accent Color
     @Switch(
             name = "Use default accent color",
-            description = "Uses the default Partly Sane Skies accent color",
+            description = "Uses the default Partly Sane Skies accent color.",
             category = "Themes",
             subcategory = "Accent Color"
     )
@@ -328,7 +332,7 @@ public class OneConfigScreen extends Config {
 
     @Color(
             name = "Custom Accent Color",
-            description = "Choose a custom accent color for your game",
+            description = "Choose a custom accent color for your game.",
             category = "Themes",
             subcategory = "Accent Color"
     )
@@ -337,7 +341,7 @@ public class OneConfigScreen extends Config {
     //    Custom Themes
     @Switch(
             name = "Create your own Theme",
-            description = "Enable to be able to create your own custom themes",
+            description = "Enable to be able to create your own custom themes.",
             category = "Themes",
             subcategory = "Custom Themes"
     )
@@ -345,7 +349,7 @@ public class OneConfigScreen extends Config {
 
     @Color(
             name = "Custom Primary Color",
-            description = "Choose a custom primary color for your game",
+            description = "Choose a custom primary color for your game.",
             category = "Themes",
             subcategory = "Custom Themes"
     )
@@ -353,7 +357,7 @@ public class OneConfigScreen extends Config {
 
     @Color(
             name = "Custom Secondary Color",
-            description = "Choose a custom secondary color for your game",
+            description = "Choose a custom secondary color for your game.",
             category = "Themes",
             subcategory = "Custom Themes"
     )
@@ -363,7 +367,7 @@ public class OneConfigScreen extends Config {
     //    Resource Packs
     @Switch(
             name = "Disable themes to use resource packs",
-            description = "Disable themes to be able to use resource packs to modify Partly Sane Skies menus",
+            description = "Disable themes to be able to use resource packs to modify Partly Sane Skies menus.",
             category = "Themes",
             subcategory = "Resource Packs"
     )
@@ -445,7 +449,7 @@ public class OneConfigScreen extends Config {
 
     @Switch(
             name = "Selected Pet Information",
-            description = "Gives you information about the currently selected pet while in the minion menu\nRequires pets to be visible.",
+            description = "Gives you information about the currently selected pet while in the minion menu.\nRequires pets to be visible.",
             category = "SkyBlock",
             subcategory = "Incorrect Pet for Minion Alert"
     )
@@ -469,7 +473,7 @@ public class OneConfigScreen extends Config {
 
     @Text(
             name = "Selected Pet",
-            description = "The selected pet that will be used for minion collecting (Use /pets and click the pet keybind to select",
+            description = "The selected pet that will be used for minion collecting (Use /pets and click the pet keybind to select).",
             category = "SkyBlock",
             subcategory = "Incorrect Pet for Minion Alert",
             size = 2,
@@ -615,7 +619,7 @@ public class OneConfigScreen extends Config {
 
     @Switch(
             name = "Toggle Run Colors in Partymanager",
-            description = "Toggles the colors of the runs in the party manager. ",
+            description = "Toggles the colors of the runs in the party manager.",
             category = "Dungeons",
             subcategory = "Party Manager"
     )
@@ -623,7 +627,7 @@ public class OneConfigScreen extends Config {
 
     @Number(
             name = "Customize Max Runs for Red in Run Colors",
-            description = "Customize maximum runs required for the color red",
+            description = "Customize maximum runs required for the color red.",
             category = "Dungeons",
             subcategory = "Party Manager",
             min = 0,
@@ -633,7 +637,7 @@ public class OneConfigScreen extends Config {
 
     @Number(
             name = "Customize Max Runs for Yellow in Run Colors",
-            description = "Customize maximum runs required for the color yellow",
+            description = "Customize maximum runs required for the color yellow.",
             category = "Dungeons",
             subcategory = "Party Manager",
             min = 0,
@@ -679,7 +683,7 @@ public class OneConfigScreen extends Config {
 
     @Color(
             name = "Watcher Ready Banner Color",
-            description = "The color of the watcher ready text",
+            description = "The color of the watcher ready text.",
             category = "Dungeons",
             subcategory = "Watcher Ready"
     )
@@ -714,7 +718,7 @@ public class OneConfigScreen extends Config {
 //    Dungeon Waypoints
     @Switch(
             name = "Enable Waypoints for Terminals, Devices and Levers",
-            description = "Enables waypoints for terminals, devices and levers in Phase 3 of Floor 7",
+            description = "Enables waypoints for terminals, devices and levers in Phase 3 of Floor 7.",
             category = "Dungeons",
             subcategory = "Terminal Waypoints"
     )
@@ -731,7 +735,7 @@ public class OneConfigScreen extends Config {
 
     @Dropdown(
             name = "Alert when below...",
-            description = "Choose at what percentage healer alert will trigger",
+            description = "Choose at what percentage healer alert will trigger.",
             category = "Dungeons",
             subcategory = "Healer Alert",
             options = {
@@ -742,7 +746,7 @@ public class OneConfigScreen extends Config {
     public int colouredHealerAlert = 0;
     @Slider(
             name = "Cooldown Between Warnings",
-            description = "Choose the delay between Low Health Alerts",
+            description = "Choose the delay between Low Health Alerts.",
             category = "Dungeons",
             subcategory = "Healer Alert",
             min = 1f,
@@ -797,7 +801,7 @@ public class OneConfigScreen extends Config {
 
     @Color(
             name = "Required Secrets Found Banner Color",
-            description = "The color of the required secrets found text",
+            description = "The color of the required secrets found text.",
             category = "Dungeons",
             subcategory = "Required Secrets Found"
     )
@@ -831,7 +835,7 @@ public class OneConfigScreen extends Config {
     // Dungeon Player Breakdown
     @Switch(
             name = "Dungeon Player Breakdown",
-            description = "At the end of the dungeon, send a message informing you how much of the dungeon each player has completed",
+            description = "At the end of the dungeon, send a message informing you how much of the dungeon each player has completed.",
             category = "Dungeons",
             subcategory = "Dungeon Player Breakdown"
     )
@@ -839,7 +843,7 @@ public class OneConfigScreen extends Config {
 
     @Dropdown(
             name = "Message Content",
-            description = "Shows more information about how many blessings and secrets each player collected",
+            description = "Shows more information about how many blessings and secrets each player collected.",
             category = "Dungeons",
             subcategory = "Dungeon Player Breakdown",
             options = {
@@ -852,7 +856,7 @@ public class OneConfigScreen extends Config {
 
     @Slider(
             name = "Delay",
-            description = "Delay after a dungeon ends",
+            description = "Delay after a dungeon ends.",
             category = "Dungeons",
             subcategory = "Dungeon Player Breakdown",
             min = 0,
@@ -870,7 +874,7 @@ public class OneConfigScreen extends Config {
 
     @Switch(
             name = "Dungeon Snitcher",
-            description = "Automatically sends messages recommending to kick party members",
+            description = "Automatically sends messages recommending to kick party members.",
             category = "Dungeons",
             subcategory = "Dungeon Player Breakdown"
     )
@@ -878,7 +882,7 @@ public class OneConfigScreen extends Config {
 
     @Slider(
             name = "Dungeon Snitcher Percent",
-            description = "Percentage of a dungeon complete where the player is slacking",
+            description = "Percentage of a dungeon complete where the player is slacking.",
             category = "Dungeons",
             subcategory = "Dungeon Player Breakdown",
             min = 0,
@@ -907,7 +911,7 @@ public class OneConfigScreen extends Config {
 
     @Dropdown(
             name = "Send in",
-            description = "Where to send the auto gg message",
+            description = "Where to send the auto gg message.",
             category = "Dungeons",
             subcategory = "Auto GG",
             options = {
@@ -953,7 +957,7 @@ public class OneConfigScreen extends Config {
 
     @Color(
             name = "Worm Warning Banner Color",
-            description = "The color of the worm warning text",
+            description = "The color of the worm warning text.",
             category = "Mining",
             subcategory = "Worm Warning"
     )
@@ -1020,7 +1024,7 @@ public class OneConfigScreen extends Config {
 
     @Switch(
             name = "Warn only on mining islands.",
-            description = "Makes it less annoying when you don't want to mine",
+            description = "Makes it less annoying when you don't want to mine.",
             category = "Mining",
             subcategory = "Pickaxes"
     )
@@ -1038,7 +1042,7 @@ public class OneConfigScreen extends Config {
 
     @Color(
             name = "Ready Banner Color",
-            description = "The color of the ready banner text",
+            description = "The color of the ready banner text.",
             category = "Mining",
             subcategory = "Pickaxes"
     )
@@ -1063,7 +1067,7 @@ public class OneConfigScreen extends Config {
 
     @Switch(
             name = "Main Toggle",
-            description = "Toggles the events",
+            description = "Toggles the events.",
             category = "Mining",
             subcategory = "Events"
     )
@@ -1071,7 +1075,7 @@ public class OneConfigScreen extends Config {
 
     @Switch(
             name = "Show Event Banner",
-            description = "Shows a banner when an enabled event is going active",
+            description = "Shows a banner when an enabled event is going active.",
             category = "Mining",
             subcategory = "Events"
     )
@@ -1079,7 +1083,7 @@ public class OneConfigScreen extends Config {
 
     @Switch(
             name = "Send System Notifications",
-            description = "Sends a system notification when an event is going active",
+            description = "Sends a system notification when an event is going active.",
             category = "Mining",
             subcategory = "Events"
     )
@@ -1088,7 +1092,7 @@ public class OneConfigScreen extends Config {
 
     @Switch(
             name = "Also warn 20s before event activation",
-            description = "Shows a banner and plays sound 20s before an enabled event is going active",
+            description = "Shows a banner and plays sound 20s before an enabled event is going active.",
             category = "Mining",
             subcategory = "Events"
     )
@@ -1096,7 +1100,7 @@ public class OneConfigScreen extends Config {
 
     @Switch(
             name = "2x Powder activation sound",
-            description = "Plays a sound when 2x Powder event is going active",
+            description = "Plays a sound when 2x Powder event is going active.",
             category = "Mining",
             subcategory = "Events"
     )
@@ -1104,7 +1108,7 @@ public class OneConfigScreen extends Config {
 
     @Switch(
             name = "Gone with the wind activation sound",
-            description = "Plays a sound when Gone with the wind event is going active",
+            description = "Plays a sound when Gone with the wind event is going active.",
             category = "Mining",
             subcategory = "Events"
     )
@@ -1112,7 +1116,7 @@ public class OneConfigScreen extends Config {
 
     @Switch(
             name = "Better Together activation sound",
-            description = "Plays a sound when Better Together event is going active",
+            description = "Plays a sound when Better Together event is going active.",
             category = "Mining",
             subcategory = "Events"
     )
@@ -1120,7 +1124,7 @@ public class OneConfigScreen extends Config {
 
     @Switch(
             name = "Goblin Raid activation sound",
-            description = "Plays a sound when Goblin Raid event is going active",
+            description = "Plays a sound when Goblin Raid event is going active.",
             category = "Mining",
             subcategory = "Events"
     )
@@ -1128,7 +1132,7 @@ public class OneConfigScreen extends Config {
 
     @Switch(
             name = "Raffle activation sound",
-            description = "Plays a sound when Raffle event is going active",
+            description = "Plays a sound when Raffle event is going active.",
             category = "Mining",
             subcategory = "Events"
     )
@@ -1136,7 +1140,7 @@ public class OneConfigScreen extends Config {
 
     @Switch(
             name = "Mithril Gourmand activation sound",
-            description = "Plays a sound when Mithril Gourmand event is going active",
+            description = "Plays a sound when Mithril Gourmand event is going active.",
             category = "Mining",
             subcategory = "Events"
     )
@@ -1144,7 +1148,7 @@ public class OneConfigScreen extends Config {
 
     @Switch(
             name = "Powder Ghast activation sound",
-            description = "Plays a sound when Powder Ghast is about to spawn",
+            description = "Plays a sound when Powder Ghast is about to spawn.",
             category = "Mining",
             subcategory = "Events"
     )
@@ -1152,7 +1156,7 @@ public class OneConfigScreen extends Config {
 
     @Switch(
             name = "Fallen Star activation sound",
-            description = "Plays a sound when Fallen Star is about to spawn",
+            description = "Plays a sound when Fallen Star is about to spawn.",
             category = "Mining",
             subcategory = "Events"
     )
@@ -1170,7 +1174,7 @@ public class OneConfigScreen extends Config {
 
     @Color(
             name = "Event Banner Color",
-            description = "The color of the event banner text",
+            description = "The color of the event banner text.",
             category = "Mining",
             subcategory = "Events"
     )
@@ -1209,7 +1213,7 @@ public class OneConfigScreen extends Config {
     //    Farm notifier
     @Switch(
             name = "Show end of farm regions",
-            description = "Highlights your regions",
+            description = "Highlights your regions.",
             category = "Farming",
             subcategory = "End of Farm Notifier"
     )
@@ -1217,7 +1221,7 @@ public class OneConfigScreen extends Config {
 
     @Slider(
             name = "Time between chimes",
-            description = "The amount of seconds between the chime sounds",
+            description = "The amount of seconds between the chime sounds.",
             category = "Farming",
             subcategory = "End of Farm Notifier",
             min = 1,
@@ -1227,7 +1231,7 @@ public class OneConfigScreen extends Config {
 
     @Slider(
             name = "Highlight Time",
-            description = "The amount of seconds that a highlighted region will stay highlighted for",
+            description = "The amount of seconds that a highlighted region will stay highlighted for.",
             category = "Farming",
             subcategory = "End of Farm Notifier",
             min = 1,
@@ -1255,7 +1259,7 @@ public class OneConfigScreen extends Config {
 //    Wrong Tool for Crop
     @Switch(
             name = "Wrong Tool for Crop Enabled",
-            description = "When enabled, a warning will appear, notifying you that you are using the wrong tool for the current crop",
+            description = "When enabled, a warning will appear, notifying you that you are using the wrong tool for the current crop.",
             category = "Farming",
             subcategory = "Wrong Tool for Crop"
     )
@@ -1263,7 +1267,7 @@ public class OneConfigScreen extends Config {
 
     @Switch(
             name = "Allow Mathematical Hoes",
-            description = "When enabled, mathematical hoes will be considered a valid tool",
+            description = "When enabled, mathematical hoes will be considered a valid tool.",
             category = "Farming",
             subcategory = "Wrong Tool for Crop"
     )
@@ -1271,7 +1275,7 @@ public class OneConfigScreen extends Config {
 
     @Switch(
             name = "Allow Other SkyBlock Tools",
-            description = "When enabled, other SkyBlock tools will be considered a valid tool",
+            description = "When enabled, other SkyBlock tools will be considered a valid tool.",
             category = "Farming",
             subcategory = "Wrong Tool for Crop"
     )
@@ -1279,7 +1283,7 @@ public class OneConfigScreen extends Config {
 
     @Switch(
             name = "Allow Right Tool Type",
-            description = "When enabled, the system only looks for the right tool type (hoes, etc.)",
+            description = "When enabled, the system only looks for the right tool type (hoes, etc.).",
             category = "Farming",
             subcategory = "Wrong Tool for Crop"
     )
@@ -1295,7 +1299,7 @@ public class OneConfigScreen extends Config {
 
     @Switch(
             name = "Air Raid Siren",
-            description = "When enabled, the warning will contain an air raid siren",
+            description = "When enabled, the warning will contain an air raid siren.",
             category = "Farming",
             subcategory = "Wrong Tool for Crop"
     )
@@ -1334,7 +1338,7 @@ public class OneConfigScreen extends Config {
     // Skymart
     @Switch(
             name = "SkyMart Value",
-            description = "Gives you information about the best value crops to compost",
+            description = "Gives you information about the best value crops to compost.",
             category = "Farming",
             subcategory = "SkyMart"
     )
@@ -1344,7 +1348,7 @@ public class OneConfigScreen extends Config {
 //    Treecapitator Cooldown Indicator
     @Switch(
             name = "Treecapitator Cooldown Indicator Enabled",
-            description = "Displays a cooldown indicator below your crosshair whenever your treecapitator is on cooldown",
+            description = "Displays a cooldown indicator below your crosshair whenever your treecapitator is on cooldown.",
             category = "Foraging",
             subcategory = "Treecapitator Cooldown Indicator"
     )
@@ -1352,7 +1356,7 @@ public class OneConfigScreen extends Config {
 
     @Switch(
             name = "Use Monkey Pet",
-            description = "Use the monkey pet to dynamically adjust the length of the cooldown",
+            description = "Use the monkey pet to dynamically adjust the length of the cooldown.",
             category = "Foraging",
             subcategory = "Treecapitator Cooldown Indicator"
     )
@@ -1499,7 +1503,7 @@ public class OneConfigScreen extends Config {
 
     @Slider(
             name = "Excessive Coin Warn Cooldown",
-            description = "The amount of seconds between each warning",
+            description = "The amount of seconds between each warning.",
             category = "Economy",
             subcategory = "Excessive Coin Warning",
             min = 1,
@@ -1512,7 +1516,7 @@ public class OneConfigScreen extends Config {
 //    WordEditor
     @Switch(
             name = "Word Editor Main Toggle",
-            description = "Allows you to edit words in chat. Can be configured with /wordeditor",
+            description = "Allows you to edit words in chat. Can be configured with /wordeditor.",
             category = "Chat",
             subcategory = "Word Editor"
     )
@@ -1587,7 +1591,7 @@ public class OneConfigScreen extends Config {
     //Fun
     @Switch(
             name = "OwO Language toggle",
-            description = "Replaces all chat messages with OwO language.\nThis feature basically breaks the whole chat, so please be warned",
+            description = "Replaces all chat messages with OwO language.\nThis feature basically breaks the whole chat, so please be warned.",
             category = "Chat",
             subcategory = "Chat Color"
     )
@@ -1633,28 +1637,28 @@ public class OneConfigScreen extends Config {
 
     @Switch(
             name = "Spawn Waypoint",
-            description = "Spawns a waypoint at your current location",
+            description = "Spawns a waypoint at your current location.",
             category = "Dev"
     )
     public boolean debugSpawnWaypoint = false;
 
     @Switch(
             name = "Send a system notification",
-            description = "Sends a system notification",
+            description = "Sends a system notification.",
             category = "Dev"
     )
     public boolean debugSendSystemNotification = false;
 
     @Switch(
             name = "Print pet world parsing information",
-            description = "Prints information about the pet world parsing",
+            description = "Prints information about the pet world parsing.",
             category = "Dev"
     )
     public boolean debugPrintPetWorldParsingInformation = false;
 
     @Switch(
             name = "Print current location from Island Type",
-            description = "Prints your current location from the island type",
+            description = "Prints your current location from the island type.",
             category = "Dev"
     )
     public boolean debugPrintCurrentLocationFromIslandType = false;
@@ -1669,7 +1673,7 @@ public class OneConfigScreen extends Config {
 
     @Switch(
             name = "Percy Mode",
-            description = "Toggles Percy Mode",
+            description = "Toggles Percy Mode.",
             category = "Dev",
             subcategory = "Percy Mode"
     )
@@ -1677,7 +1681,7 @@ public class OneConfigScreen extends Config {
 
     @Switch(
             name = "Current Screen",
-            description = "Dumps the current screen",
+            description = "Dumps the current screen.",
             category = "Dev",
             subcategory = "Percy Mode"
     )
@@ -1685,7 +1689,7 @@ public class OneConfigScreen extends Config {
 
     @Switch(
             name = "Entity Dump",
-            description = "Dumps all entities",
+            description = "Dumps all entities.",
             category = "Dev",
             subcategory = "Percy Mode"
     )
@@ -1693,14 +1697,14 @@ public class OneConfigScreen extends Config {
 
     @Switch(
             name = "Inventory Dump",
-            description = "Dumps your inventory",
+            description = "Dumps your inventory.",
             category = "Dev",
             subcategory = "Percy Mode"
     )
     public boolean debugInventoryDump = false;
     @Switch(
             name = "Player Dump",
-            description = "Dumps all players",
+            description = "Dumps all players.",
             category = "Dev",
             subcategory = "Percy Mode"
     )
@@ -1709,7 +1713,7 @@ public class OneConfigScreen extends Config {
     // API
     @Number(
             name = "Time between requests",
-            description = "The time between API calls. Only change if you know what you're doing. Changing this will reduce the amount of time API requests take, however may result in more errors",
+            description = "The time between API calls. Only change if you know what you're doing. Changing this will reduce the amount of time API requests take, however may result in more errors.",
             category = "Dev",
             subcategory = "API",
             min = .1f,
@@ -1729,7 +1733,7 @@ public class OneConfigScreen extends Config {
 
     @Switch(
             name = "Print errors in chat",
-            description = "Send errors on getting data in chat (Recommended, however if you get spammed or have a bad internet connection, turn it off)",
+            description = "Send errors on getting data in chat (Recommended, however if you get spammed or have a bad internet connection, turn it off).",
             category = "Dev",
             subcategory = "API"
     )
