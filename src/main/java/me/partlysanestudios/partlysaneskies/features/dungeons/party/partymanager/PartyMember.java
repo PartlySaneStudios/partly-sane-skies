@@ -266,14 +266,14 @@ public class PartyMember {
     }
 
     public Color colorFloorRuns(int floorRuns) {
-        if(!PartlySaneSkies.Companion.getConfig().toggleRunColors) {
+        if(!PartlySaneSkies.Companion.getConfig().getToggleRunColors()) {
             return Color.WHITE;
         }
 
-        if (floorRuns <= PartlySaneSkies.Companion.getConfig().runColorsRedMax) {
+        if (floorRuns <= PartlySaneSkies.Companion.getConfig().getRunColorsRedMax()) {
             return Color.RED;
         }
-        else if (floorRuns <= PartlySaneSkies.Companion.getConfig().runColorsYellowMax) {
+        else if (floorRuns <= PartlySaneSkies.Companion.getConfig().getRunColorsYellowMax()) {
             return Color.YELLOW;
         }
         else {
@@ -431,10 +431,10 @@ public class PartyMember {
                 .setChildOf(memberBlock);
         
         Color arrowWarningColor = Color.white;
-        if (this.arrowCount < PartlySaneSkies.Companion.getConfig().arrowLowCount) {
+        if (this.arrowCount < PartlySaneSkies.Companion.getConfig().getArrowLowCount()) {
             arrowWarningColor = Color.red;
-            if (PartlySaneSkies.Companion.getConfig().warnLowArrowsInChat && this.arrowCount >= 0) {
-                String message = PartlySaneSkies.Companion.getConfig().arrowLowChatMessage;
+            if (PartlySaneSkies.Companion.getConfig().getWarnLowArrowsInChat() && this.arrowCount >= 0) {
+                String message = PartlySaneSkies.Companion.getConfig().getArrowLowChatMessage();
                 message = message.replace("{player}", this.username);
                 message = message.replace("{count}", String.valueOf(this.arrowCount));
                 PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/pc " + message);

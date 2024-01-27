@@ -3,7 +3,7 @@
 // See LICENSE for copyright and license notices.
 //
 
-package me.partlysanestudios.partlysaneskies.features.gui.custommainmenu;
+package me.partlysanestudios.partlysaneskies.features.gui;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -105,7 +105,7 @@ public class CustomMainMenu extends WindowScreen {
 
     @SubscribeEvent
     public void openCustomMainMenu(GuiOpenEvent e) {
-        if (!(PartlySaneSkies.Companion.getConfig().customMainMenu))
+        if (!(PartlySaneSkies.Companion.getConfig().getCustomMainMenu()))
             return;
         if (!(e.gui instanceof GuiMainMenu))
             return;
@@ -129,12 +129,12 @@ public class CustomMainMenu extends WindowScreen {
     public void populateGui(float scaleFactor) {
         String image;
 
-        if (PartlySaneSkies.Companion.getConfig().customMainMenuImage == 0) {
+        if (PartlySaneSkies.Companion.getConfig().getCustomMainMenuImage() == 0) {
             image = "textures/gui/main_menu/" + imageIdMap.get(MathUtils.INSTANCE.randInt(1, imageIdMap.size()));
         } else
-            image = "textures/gui/main_menu/" + imageIdMap.get(PartlySaneSkies.Companion.getConfig().customMainMenuImage);
+            image = "textures/gui/main_menu/" + imageIdMap.get(PartlySaneSkies.Companion.getConfig().getCustomMainMenuImage());
 
-        if (PartlySaneSkies.Companion.getConfig().customMainMenuImage == 7) {
+        if (PartlySaneSkies.Companion.getConfig().getCustomMainMenuImage() == 7) {
             background = UIImage.ofFile(new File("./config/partly-sane-skies/background.png"));
         }
         else{
@@ -197,7 +197,7 @@ public class CustomMainMenu extends WindowScreen {
             updateWarning.onMouseClickConsumer(event -> SystemUtils.INSTANCE.openLink("https://github.com/PartlySaneStudios/partly-sane-skies/releases"));
         }
 
-        if (PartlySaneSkies.Companion.getConfig().displayAnnouncementsCustomMainMenu) {
+        if (PartlySaneSkies.Companion.getConfig().getDisplayAnnouncementsCustomMainMenu()) {
             for (int i = 0; i <= 3 && i < announcements.size(); i++) {
                 announcements.get(i).createTitle(scaleFactor, i, background);
                 announcements.get(i).createDescription(scaleFactor, i, background);
@@ -558,7 +558,7 @@ public class CustomMainMenu extends WindowScreen {
         }
             
         try {
-            if (PartlySaneSkies.Companion.getConfig().releaseChannel == 0) {
+            if (PartlySaneSkies.Companion.getConfig().getReleaseChannel() == 0) {
                 JsonObject modInfo = object.getAsJsonObject("mod_info");
 
                 latestVersion = modInfo.get("latest_version").getAsString();
@@ -726,7 +726,7 @@ public class CustomMainMenu extends WindowScreen {
         
         LocalDateTime currentTime = LocalDateTime.now(userZoneId);
         String timeString = currentTime.format(DateTimeFormatter.ofPattern("hh:mm:ss a  dd MMMM yyyy", Locale.ENGLISH));
-        if (PartlySaneSkies.Companion.getConfig().hour24time) {
+        if (PartlySaneSkies.Companion.getConfig().getHour24time()) {
             timeString = currentTime.format(DateTimeFormatter.ofPattern("HH:mm:ss dd MMMM yyyy", Locale.ENGLISH));
         }
 

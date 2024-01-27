@@ -45,14 +45,14 @@ public class RequiredSecretsFound {
 
         for (String line : MinecraftUtils.INSTANCE.getTabList()) {
             if (line.contains("Secrets Found: §r§a")) {
-                if (PartlySaneSkies.Companion.getConfig().secretsBanner) {
-                    BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner("Required Secrets Found!", (long) (PartlySaneSkies.Companion.getConfig().secretsBannerTime * 1000), 3.0f, PartlySaneSkies.Companion.getConfig().secretsBannerColor.toJavaColor()));
+                if (PartlySaneSkies.Companion.getConfig().getSecretsBanner()) {
+                    BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner("Required Secrets Found!", (long) (PartlySaneSkies.Companion.getConfig().getSecretsBannerTime() * 1000), 3.0f, PartlySaneSkies.Companion.getConfig().getSecretsBannerColor().toJavaColor()));
                 }
-                if (PartlySaneSkies.Companion.getConfig().secretsChatMessage) {
-                    Minecraft.getMinecraft().thePlayer.sendChatMessage("/pc " + PartlySaneSkies.Companion.getConfig().secretsChatMessageString);
+                if (PartlySaneSkies.Companion.getConfig().getSecretsChatMessage()) {
+                    Minecraft.getMinecraft().thePlayer.sendChatMessage("/pc " + PartlySaneSkies.Companion.getConfig().getSecretsChatMessageString());
                 }
-                if (PartlySaneSkies.Companion.getConfig().secretsSound) {
-                    if (PartlySaneSkies.Companion.getConfig().secretsAirRaidSiren){
+                if (PartlySaneSkies.Companion.getConfig().getSecretsSound()) {
+                    if (PartlySaneSkies.Companion.getConfig().getSecretsAirRaidSiren()){
                         PartlySaneSkies.Companion.getMinecraft().getSoundHandler()
                                 .playSound(PositionedSoundRecord.create(new ResourceLocation("partlysaneskies", "airraidsiren")));
                     } else {

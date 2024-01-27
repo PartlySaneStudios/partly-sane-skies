@@ -18,17 +18,17 @@ public class WatcherReady {
     public void watcherReadyChatEvent(ClientChatReceivedEvent event) {
 
         if (event.message.getUnformattedText().startsWith("[BOSS] The Watcher: That will be enough for now.")) {
-            if (PartlySaneSkies.Companion.getConfig().watcherReadyBanner) {
-                BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner("Watcher Ready!", (long) (PartlySaneSkies.Companion.getConfig().watcherReadyBannerTime * 1000), 3.0f, PartlySaneSkies.Companion.getConfig().watcherReadyBannerColor.toJavaColor()));
+            if (PartlySaneSkies.Companion.getConfig().getWatcherReadyBanner()) {
+                BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner("Watcher Ready!", (long) (PartlySaneSkies.Companion.getConfig().getWatcherReadyBannerTime() * 1000), 3.0f, PartlySaneSkies.Companion.getConfig().getWatcherReadyBannerColor().toJavaColor()));
             }
-            if (PartlySaneSkies.Companion.getConfig().watcherReadyChatMessage) {
-                PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/pc " + PartlySaneSkies.Companion.getConfig().watcherChatMessage);
+            if (PartlySaneSkies.Companion.getConfig().getWatcherReadyChatMessage()) {
+                PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/pc " + PartlySaneSkies.Companion.getConfig().getWatcherChatMessage());
             }
-            if (PartlySaneSkies.Companion.getConfig().watcherReadySound) {
+            if (PartlySaneSkies.Companion.getConfig().getWatcherReadySound()) {
                 PartlySaneSkies.Companion.getMinecraft().getSoundHandler()
                         .playSound(PositionedSoundRecord.create(new ResourceLocation("partlysaneskies", "bell")));
             }
-            if (PartlySaneSkies.Companion.getConfig().watcherReadyAirRaidSiren) {
+            if (PartlySaneSkies.Companion.getConfig().getWatcherReadyAirRaidSiren()) {
                 PartlySaneSkies.Companion.getMinecraft().getSoundHandler().playSound(
                         PositionedSoundRecord.create(new ResourceLocation("partlysaneskies", "airraidsiren")));
             }

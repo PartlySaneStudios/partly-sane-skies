@@ -151,7 +151,7 @@ public class SkyblockPlayer {
     }
 
     public boolean isExpired() {
-        return !MathUtils.INSTANCE.onCooldown(lastUpdateTime, PartlySaneSkies.Companion.getConfig().playerDataCacheTime * 60 * 1000L);
+        return !MathUtils.INSTANCE.onCooldown(lastUpdateTime, PartlySaneSkies.Companion.getConfig().getPlayerDataCacheTime() * 60 * 1000L);
     }
 
 //    Creates new player data by UUID

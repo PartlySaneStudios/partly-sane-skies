@@ -67,13 +67,13 @@ public class HelpCommand {
     }
 
     private static String getOneConfigKeyBindString() {
-        if (PartlySaneSkies.Companion.getConfig().oneConfigKeybind.getSize() == 0) {
+        if (PartlySaneSkies.Companion.getConfig().getOneConfigKeybind().getSize() == 0) {
             return Keyboard.getKeyName(Keyboard.CHAR_NONE);
         }
 
-        String str = Keyboard.getKeyName(PartlySaneSkies.Companion.getConfig().oneConfigKeybind.getKeyBinds().get(0));
-        for (int i = 1; i < PartlySaneSkies.Companion.getConfig().oneConfigKeybind.getSize(); i++) {
-            str += " + " +  Keyboard.getKeyName(PartlySaneSkies.Companion.getConfig().oneConfigKeybind.getKeyBinds().get(i));
+        String str = Keyboard.getKeyName(PartlySaneSkies.Companion.getConfig().getOneConfigKeybind().getKeyBinds().get(0));
+        for (int i = 1; i < PartlySaneSkies.Companion.getConfig().getOneConfigKeybind().getSize(); i++) {
+            str += " + " +  Keyboard.getKeyName(PartlySaneSkies.Companion.getConfig().getOneConfigKeybind().getKeyBinds().get(i));
         }
 
         return str;
