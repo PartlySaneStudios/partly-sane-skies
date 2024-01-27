@@ -111,7 +111,7 @@ class PartlySaneSkies {
         val DOGFOOD = "@DOGFOOD@".toBoolean()
         const val CHAT_PREFIX = "§r§b§lPartly Sane Skies§r§7>> §r"
         var discordCode = "v4PU3WeH7z"
-        val config: OneConfigScreen = OneConfigScreen()
+        val config: OneConfigScreen = OneConfigScreen
 
         val minecraft: Minecraft
             get() {

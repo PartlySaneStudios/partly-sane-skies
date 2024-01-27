@@ -14,7 +14,7 @@ import cc.polyfrost.oneconfig.config.data.Mod
 import cc.polyfrost.oneconfig.config.data.ModType
 import org.lwjgl.input.Keyboard
 
-class OneConfigScreen : Config(
+object OneConfigScreen : Config(
     // Available mod types: PVP, HUD, UTIL_QOL, HYPIXEL, SKYBLOCK
     Mod("Partly Sane Skies", ModType.SKYBLOCK, "/assets/partlysaneskies/textures/logo_oneconfig.png"),
     "partly-sane-skies/config.json"
@@ -75,7 +75,6 @@ class OneConfigScreen : Config(
      * // ------------- Category: CATEGORY_NAME ---------------------------------<br>
      * // SUBCATEGORY_NAME
      */
-
 
     @Info(
         type = InfoType.INFO,

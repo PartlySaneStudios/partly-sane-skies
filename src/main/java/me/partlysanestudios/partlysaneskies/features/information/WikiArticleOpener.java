@@ -13,7 +13,6 @@ import me.partlysanestudios.partlysaneskies.utils.SystemUtils;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -40,7 +39,7 @@ public class WikiArticleOpener {
 
         isWaitingForArticle = false;
         String wikiLink = e.message.getChatStyle().getChatClickEvent().getValue();
-        if (PartlySaneSkies.Companion.getConfig().openWikiAutomatically) {
+        if (PartlySaneSkies.Companion.getConfig().getOpenWikiAutomatically()) {
             SystemUtils.INSTANCE.openLink(wikiLink);
         }
     }

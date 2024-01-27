@@ -25,7 +25,7 @@ import java.awt.*;
 
 public class DropBannerDisplay extends Gui {
     public static Drop drop;
-    float scale = PartlySaneSkies.Companion.getConfig().bannerSize;
+    float scale = PartlySaneSkies.Companion.getConfig().getBannerSize();
     float SMALL_TEXT_SCALE = 5f;
     float BIG_TEXT_SCALE = 10f;
 
@@ -38,11 +38,11 @@ public class DropBannerDisplay extends Gui {
             return;
         }
 
-        if (PartlySaneSkies.Companion.getConfig().rareDropBannerSound) {
+        if (PartlySaneSkies.Companion.getConfig().getRareDropBannerSound()) {
             PartlySaneSkies.Companion.getMinecraft().thePlayer.playSound("partlysaneskies:rngdropjingle", 100, 1);
         }
 
-        if (PartlySaneSkies.Companion.getConfig().rareDropBanner) {
+        if (PartlySaneSkies.Companion.getConfig().getRareDropBanner()) {
             String unformattedMessage = event.message.getUnformattedText();
 
             // Gets the name of the drop category
@@ -97,9 +97,9 @@ public class DropBannerDisplay extends Gui {
             dropNameString = "x" + drop.amount + " " + drop.name;
             topString = drop.dropCategory;
             // It should be after a third of the rare drop time, and before 10/12ths 
-            if (PartlySaneSkies.Companion.getTime() - drop.timeDropped > (1f / 3f * PartlySaneSkies.Companion.getConfig().rareDropBannerTime * 1000)
+            if (PartlySaneSkies.Companion.getTime() - drop.timeDropped > (1f / 3f * PartlySaneSkies.Companion.getConfig().getRareDropBannerTime() * 1000)
                     && PartlySaneSkies.Companion.getTime()
-                    - drop.timeDropped < (10f / 12f * PartlySaneSkies.Companion.getConfig().rareDropBannerTime * 1000)) {
+                    - drop.timeDropped < (10f / 12f * PartlySaneSkies.Companion.getConfig().getRareDropBannerTime() * 1000)) {
                 if (Math.round((drop.timeDropped - PartlySaneSkies.Companion.getTime()) / 1000f * 4) % 2 == 0) {
                     categoryColor = Color.white;
                 } else {
@@ -107,7 +107,7 @@ public class DropBannerDisplay extends Gui {
                 }
             }
 
-            if (!MathUtils.INSTANCE.onCooldown(drop.timeDropped, (long) (PartlySaneSkies.Companion.getConfig().rareDropBannerTime * 1000))) {
+            if (!MathUtils.INSTANCE.onCooldown(drop.timeDropped, (long) (PartlySaneSkies.Companion.getConfig().getRareDropBannerTime() * 1000))) {
                 drop = null;
             }
         }

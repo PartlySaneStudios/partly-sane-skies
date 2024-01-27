@@ -27,7 +27,7 @@ public class ChatColors {
     }
 
     public static IChatComponent detectNonMessage(IChatComponent message) {
-        if (!PartlySaneSkies.Companion.getConfig().colorNonMessages) {
+        if (!PartlySaneSkies.Companion.getConfig().getColorNonMessages()) {
             return message;
         }
 
@@ -59,52 +59,47 @@ public class ChatColors {
         }
         
         // If it does not, it highlights the nons message
-        return new ChatComponentText(insertColor(formattedMessage, ("§r")));
+        return new ChatComponentText(insertColor(formattedMessage, "§r"));
     }
 
     public static String getChatColor(String prefix) {
         switch (prefix.toLowerCase()) {
             case "party":
-                if (!PartlySaneSkies.Companion.getConfig().colorPartyChat) {
+                if (!PartlySaneSkies.Companion.getConfig().getColorPartyChat()) {
                     return "";
                 }
-                if (PartlySaneSkies.Companion.getConfig().visibleColors) {
-                    return ("§6");
+                if (PartlySaneSkies.Companion.getConfig().getVisibleColors()) {
+                    return "§6";
                 }
-                return ("§9");
+                return "§9";
 
             case "guild":
-                if (!PartlySaneSkies.Companion.getConfig().colorGuildChat) {
+                if (!PartlySaneSkies.Companion.getConfig().getColorGuildChat()) {
                     return "";
                 }
-                if (PartlySaneSkies.Companion.getConfig().visibleColors) {
-                    return ("§a");
+                if (PartlySaneSkies.Companion.getConfig().getVisibleColors()) {
+                    return "§a";
                 }
-                return ("§2");
+                return "§2";
 
             case "officer":
-                if (!PartlySaneSkies.Companion.getConfig().colorOfficerChat) {
+                if (!PartlySaneSkies.Companion.getConfig().getColorOfficerChat()) {
                     return "";
                 }
-                return ("§3");
+                return "§3";
 
             case "to":
-                if (!PartlySaneSkies.Companion.getConfig().colorPrivateMessages) {
-                    return "";
-                }
-                return ("§d");
-
             case "from":
-                if (!PartlySaneSkies.Companion.getConfig().colorPrivateMessages) {
+                if (!PartlySaneSkies.Companion.getConfig().getColorPrivateMessages()) {
                     return "";
                 }
-                return ("§d");
+                return "§d";
 
             case "co-op":
-                if (!PartlySaneSkies.Companion.getConfig().colorCoopChat) {
+                if (!PartlySaneSkies.Companion.getConfig().getColorCoopChat()) {
                     return "";
                 }
-                return ("§b");
+                return "§b";
 
             default:
                 return "";
