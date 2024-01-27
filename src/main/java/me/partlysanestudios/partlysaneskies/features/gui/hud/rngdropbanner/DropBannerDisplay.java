@@ -25,9 +25,8 @@ import java.awt.*;
 
 public class DropBannerDisplay extends Gui {
     public static Drop drop;
-    float scale = PartlySaneSkies.Companion.getConfig().getBannerSize();
-    float SMALL_TEXT_SCALE = 5f;
-    float BIG_TEXT_SCALE = 10f;
+    float SMALL_TEXT_SCALE = 2.5f;
+    float BIG_TEXT_SCALE = 5f;
 
 
     @SubscribeEvent
@@ -67,20 +66,20 @@ public class DropBannerDisplay extends Gui {
     Window window = new Window(ElementaVersion.V2);
     String topString = "empty";
     String dropNameString = "empty";
-    String magicFindString = "empty";
+    String magicFindString = "empty"; // Apparently we never use the magic find string
 
-    UIComponent topText = new UIWrappedText(dropNameString, true, new Color(0, 0, 0, 0), true)
-            .setTextScale(new PixelConstraint(BIG_TEXT_SCALE / 1075 * window.getWidth() * scale))
+    UIWrappedText topText = (UIWrappedText) new UIWrappedText(dropNameString, true, new Color(0, 0, 0, 0), true)
+            .setTextScale(new PixelConstraint(BIG_TEXT_SCALE/672 * window.getHeight() * PartlySaneSkies.Companion.getConfig().getBannerSize()))
             .setWidth(new PixelConstraint(window.getWidth()))
             .setX(new CenterConstraint())
             .setY(new PixelConstraint(window.getHeight() * .333f))
             .setChildOf(window);
 
-    UIComponent dropNameText = new UIWrappedText(dropNameString, true, new Color(0, 0, 0, 0), true)
-            .setTextScale(new PixelConstraint(SMALL_TEXT_SCALE / 1075 * window.getWidth() * scale))
+    UIWrappedText dropNameText = (UIWrappedText) new UIWrappedText(dropNameString, true, new Color(0, 0, 0, 0), true)
+            .setTextScale(new PixelConstraint(SMALL_TEXT_SCALE/672 * window.getHeight() * PartlySaneSkies.Companion.getConfig().getBannerSize()))
             .setWidth(new PixelConstraint(window.getWidth()))
             .setX(new CenterConstraint())
-            .setY(new PixelConstraint(topText.getBottom() + window.getHeight() * .11f))
+            .setY(new PixelConstraint(topText.getBottom() + window.getHeight() * .05f))
             .setChildOf(window);
 
     @SubscribeEvent
@@ -96,7 +95,8 @@ public class DropBannerDisplay extends Gui {
             categoryColor = drop.dropCategoryColor;
             dropNameString = "x" + drop.amount + " " + drop.name;
             topString = drop.dropCategory;
-            // It should be after a third of the rare drop time, and before 10/12ths 
+
+            // It should blink after a third of the rare drop time, and before 5/6ths
             if (PartlySaneSkies.Companion.getTime() - drop.timeDropped > (1f / 3f * PartlySaneSkies.Companion.getConfig().getRareDropBannerTime() * 1000)
                     && PartlySaneSkies.Companion.getTime()
                     - drop.timeDropped < (10f / 12f * PartlySaneSkies.Companion.getConfig().getRareDropBannerTime() * 1000)) {
@@ -111,21 +111,26 @@ public class DropBannerDisplay extends Gui {
                 drop = null;
             }
         }
+        if (topText.getText().isEmpty() && topString.isEmpty() && dropNameText.getText().isEmpty() && dropNameString.isEmpty()) { // Small performance saver
+            return;
+        }
 
-        ((UIWrappedText) topText)
-                .setText(topString)
-                .setTextScale(new PixelConstraint(BIG_TEXT_SCALE / 1075 * window.getWidth() * scale))
-                .setWidth(new PixelConstraint(window.getWidth()))
-                .setX(new CenterConstraint())
-                .setY(new PixelConstraint(window.getHeight() * .3f))
-                .setColor(categoryColor);
+        float scale = PartlySaneSkies.Companion.getConfig().getBannerSize();
 
-        ((UIWrappedText) dropNameText)
-                .setText(dropNameString)
-                .setTextScale(new PixelConstraint(SMALL_TEXT_SCALE / 1075 * window.getWidth()))
-                .setWidth(new PixelConstraint(window.getWidth()))
-                .setX(new CenterConstraint())
-                .setY(new PixelConstraint(topText.getBottom() + window.getHeight() * .11f * scale));
+        topText
+            .setText(topString)
+            .setTextScale(new PixelConstraint(BIG_TEXT_SCALE/672 * window.getHeight() * scale))
+            .setWidth(new PixelConstraint(window.getWidth()))
+            .setX(new CenterConstraint())
+            .setY(new PixelConstraint(window.getHeight() * .3f))
+            .setColor(categoryColor);
+
+        dropNameText
+            .setText(dropNameString)
+            .setTextScale(new PixelConstraint(SMALL_TEXT_SCALE/672 * window.getHeight() * scale))
+            .setWidth(new PixelConstraint(window.getWidth()))
+            .setX(new CenterConstraint())
+            .setY(new PixelConstraint(topText.getBottom() + window.getHeight() * (.05f * scale)));
 
         window.draw(new UMatrixStack());
     }

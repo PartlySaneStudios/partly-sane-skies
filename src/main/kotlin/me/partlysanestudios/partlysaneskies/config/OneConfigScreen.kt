@@ -1544,16 +1544,24 @@ object OneConfigScreen : Config(
     @Switch(
         name = "Log cached F7 puzzles",
         description = "Logs cached F7 puzzles.",
-        category = "Debug"
+        category = "Dev"
     )
     var debugLogCachedF7Puzzles = false
 
     @Switch(
         name = "Print Current Cached Stats",
         description = "Prints the current cached stats.",
-        category = "Debug"
+        category = "Dev"
     )
     var debugPrintCurrentCachedStats = false
+
+    @Switch(
+        name = "Render RNG Drop Banner",
+        description = "Renders an RNG Drop Banner.",
+        category = "Dev"
+    )
+    var debugRenderRNGBanner = false
+
 
     // Percy Mode
     @Switch(
