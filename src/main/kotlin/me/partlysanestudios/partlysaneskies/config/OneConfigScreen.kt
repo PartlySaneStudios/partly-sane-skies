@@ -12,6 +12,7 @@ import cc.polyfrost.oneconfig.config.core.OneKeyBind
 import cc.polyfrost.oneconfig.config.data.InfoType
 import cc.polyfrost.oneconfig.config.data.Mod
 import cc.polyfrost.oneconfig.config.data.ModType
+import me.partlysanestudios.partlysaneskies.features.debug.ExampleHud
 import org.lwjgl.input.Keyboard
 
 object OneConfigScreen : Config(
@@ -76,6 +77,9 @@ object OneConfigScreen : Config(
      * // SUBCATEGORY_NAME
      */
 
+
+
+    // ------------- Category: General ---------------------------------
     @Info(
         type = InfoType.INFO,
         text = "Hover over an option to see a description and more information."
@@ -1561,6 +1565,14 @@ object OneConfigScreen : Config(
         category = "Dev"
     )
     var debugRenderRNGBanner = false
+
+    // Example HUD
+    @HUD(
+        name = "Test Hud Element",
+        category = "Dev",
+        subcategory = "Example HUD"
+    )
+    var hud = ExampleHud
 
 
     // Percy Mode

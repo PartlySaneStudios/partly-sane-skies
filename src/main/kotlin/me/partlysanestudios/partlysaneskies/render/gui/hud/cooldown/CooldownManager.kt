@@ -17,12 +17,12 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import java.util.*
 
 object CooldownManager {
-    val cooldownsDisplayableAtOnce = 3
+    private const val cooldownsDisplayableAtOnce = 3
 
     val window = Window(ElementaVersion.V2)
 
     val cooldowns = ArrayList<Cooldown>()
-    val cooldownElements = ArrayList<UIHorizontalCooldownElement>()
+    private val cooldownElements = ArrayList<UIHorizontalCooldownElement>()
 
     fun init() {
         var previousCooldownElement = UIHorizontalCooldownElement(CenterConstraint(), 52f.percent, 50f.pixels, 7f.pixels).setChildOf(
@@ -70,11 +70,9 @@ object CooldownManager {
             cooldownElements[i].setCooldownToDisplay(sortedActiveCooldownsList[i])
         }
 
-
         for (cooldownElemet in cooldownElements) {
             cooldownElemet.tick()
         }
-
 
         window.draw(UMatrixStack())
     }

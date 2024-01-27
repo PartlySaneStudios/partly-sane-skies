@@ -4,7 +4,7 @@
 //
 
 
-package me.partlysanestudios.partlysaneskies.features.foraging
+package me.partlysanestudios.partlysaneskies.features.foraging.treecapcooldown
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.data.cache.PetData
@@ -81,7 +81,6 @@ object TreecapitatorCooldown: Cooldown() {
         if (!PartlySaneSkies.config.treecapCooldown) {
             return
         }
-
 
         val itemInUse = MinecraftUtils.getCurrentlyHoldingItem() ?: return
         val idInUse = itemInUse.getItemId()

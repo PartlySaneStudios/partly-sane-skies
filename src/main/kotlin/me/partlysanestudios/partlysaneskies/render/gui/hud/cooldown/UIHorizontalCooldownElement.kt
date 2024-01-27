@@ -14,11 +14,9 @@ import me.partlysanestudios.partlysaneskies.render.gui.components.PSSItemRender
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.weightedAverage
 import java.awt.Color
 
-class UIHorizontalCooldownElement(val xConstraint: XConstraint, val yConstraint: YConstraint, val widthConstraint: WidthConstraint, val heightConstraint: HeightConstraint) {
+class UIHorizontalCooldownElement(private val xConstraint: XConstraint, private val yConstraint: YConstraint, private val widthConstraint: WidthConstraint, private val heightConstraint: HeightConstraint) {
 
-    var cooldown: Cooldown? = null
-
-
+    private var cooldown: Cooldown? = null
 
     val boundingBox = UIRoundedRectangle(2f).constrain {
         radius = 4f.pixels
@@ -30,7 +28,7 @@ class UIHorizontalCooldownElement(val xConstraint: XConstraint, val yConstraint:
     }
 
 
-    val displayBox = UIRoundedRectangle(2f).constrain {
+    private val displayBox = UIRoundedRectangle(2f).constrain {
         radius = 4f.pixels
         x = 0f.pixels
         y = 0f.pixels
@@ -39,7 +37,7 @@ class UIHorizontalCooldownElement(val xConstraint: XConstraint, val yConstraint:
         color = Color(255, 0, 0).constraint
     } childOf boundingBox
 
-    val itemRender = PSSItemRender(null)
+    private val itemRender = PSSItemRender(null)
         .setScaleBasedOnWidth((boundingBox.getHeight() * 1.75).pixels)
         .setX((-35).percent)
         .setY(CenterConstraint())
@@ -50,13 +48,11 @@ class UIHorizontalCooldownElement(val xConstraint: XConstraint, val yConstraint:
     fun setChildOf(parent: UIComponent): UIHorizontalCooldownElement {
         boundingBox.setChildOf(parent)
         return this
-
     }
 
     fun setX(xConstraint: XConstraint): UIHorizontalCooldownElement {
         boundingBox.setX(xConstraint)
         return this
-
     }
 
     fun setY(yConstraint: YConstraint): UIHorizontalCooldownElement {
