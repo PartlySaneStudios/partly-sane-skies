@@ -29,16 +29,7 @@ class PlayerBreakBlockEvent(val point: Point3d, val side: EnumFacing) {
 
         // Called from the mixin because writing this code in java is about 50 times harder
         internal fun onPlayerBreakBlock(blockPos: BlockPos, side: EnumFacing, cir: CallbackInfoReturnable<Boolean>) {
-            val onPlayerBreakBlockEventFunctions = ArrayList<EventManager.EventFunction>()
-
-            for (function in EventManager.registeredFunctions) {
-                val paramClass = function.function.parameters[1].type.classifier as? KClass<*>
-
-                if (paramClass?.isSubclassOf(PlayerBreakBlockEvent::class) == true) {
-                    onPlayerBreakBlockEventFunctions.add(function)
-                }
-            }
-            callEvent(onPlayerBreakBlockEventFunctions, blockPos, side)
+            callEvent(EventManager.registeredFunctions[PlayerBreakBlockEvent::class] ?: ArrayList(), blockPos, side)
         }
     }
 }

@@ -6,6 +6,7 @@
 package me.partlysanestudios.partlysaneskies.events.data
 
 import me.partlysanestudios.partlysaneskies.events.EventManager
+import me.partlysanestudios.partlysaneskies.events.minecraft.player.PlayerBreakBlockEvent
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils
 import org.apache.logging.log4j.Level
 import kotlin.reflect.KClass
@@ -30,16 +31,7 @@ class LoadPublicDataEvent() {
         }
 
         internal fun onDataLoad() {
-            val onPSSDataReset = ArrayList<EventManager.EventFunction>()
-
-            for (function in EventManager.registeredFunctions) {
-                val paramClass = function.function.parameters[1].type.classifier as? KClass<*>
-
-                if (paramClass?.isSubclassOf(LoadPublicDataEvent::class) == true) {
-                    onPSSDataReset.add(function)
-                }
-            }
-            callEvent(onPSSDataReset)
+            callEvent(EventManager.registeredFunctions[LoadPublicDataEvent::class] ?: ArrayList())
         }
     }
 }
