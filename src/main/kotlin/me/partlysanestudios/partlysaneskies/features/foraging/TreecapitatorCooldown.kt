@@ -4,7 +4,7 @@
 //
 
 
-package me.partlysanestudios.partlysaneskies.features.foraging.treecapcooldown
+package me.partlysanestudios.partlysaneskies.features.foraging
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.data.cache.PetData
