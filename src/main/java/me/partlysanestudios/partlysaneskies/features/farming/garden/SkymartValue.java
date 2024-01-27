@@ -130,7 +130,7 @@ public class SkymartValue {
             box.hide();
             return;
         }
-        if (!PartlySaneSkies.Companion.getConfig().skymartValue) {
+        if (!PartlySaneSkies.Companion.getConfig().getSkymartValue()) {
             return;
         }
 

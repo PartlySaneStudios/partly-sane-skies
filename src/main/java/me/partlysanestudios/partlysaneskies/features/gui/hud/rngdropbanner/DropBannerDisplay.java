@@ -12,6 +12,7 @@ import gg.essential.elementa.components.Window;
 import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import gg.essential.universal.UMatrixStack;
+import kotlin.text.Regex;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.utils.MathUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
@@ -24,23 +25,26 @@ import java.awt.*;
 
 public class DropBannerDisplay extends Gui {
     public static Drop drop;
+    float scale = PartlySaneSkies.Companion.getConfig().getBannerSize();
+    float SMALL_TEXT_SCALE = 5f;
+    float BIG_TEXT_SCALE = 10f;
 
-    public DropBannerDisplay() {
-    }
 
-    // Waits to detect the rare drop
     @SubscribeEvent
     public void onChatMessage(ClientChatReceivedEvent event) {
         String formattedMessage = event.message.getFormattedText();
-        if (isRareDrop(formattedMessage) && PartlySaneSkies.Companion.getConfig().rareDropBannerSound) {
+
+        if (!isRareDrop(formattedMessage)) {
+            return;
+        }
+
+        if (PartlySaneSkies.Companion.getConfig().getRareDropBannerSound()) {
             PartlySaneSkies.Companion.getMinecraft().thePlayer.playSound("partlysaneskies:rngdropjingle", 100, 1);
         }
 
-        if (isRareDrop(formattedMessage) && PartlySaneSkies.Companion.getConfig().rareDropBanner) {
+        if (PartlySaneSkies.Companion.getConfig().getRareDropBanner()) {
             String unformattedMessage = event.message.getUnformattedText();
 
-
-            String name;
             // Gets the name of the drop category
             String dropCategory = unformattedMessage.substring(0, unformattedMessage.indexOf("! ") + 1);
 
@@ -48,19 +52,17 @@ public class DropBannerDisplay extends Gui {
             Color dropCategoryHex = StringUtils.INSTANCE.colorCodeToColor(formattedMessage.substring(2, 4));
 
             // // Finds the amount of magic find from the message
-            name = formattedMessage.substring(formattedMessage.indexOf("! ") + 2);
+            String name = formattedMessage.substring(formattedMessage.indexOf("! ") + 2);
 
             DropBannerDisplay.drop = new Drop(name, dropCategory, 1, PartlySaneSkies.Companion.getTime(), dropCategoryHex);
         }
     }
 
     public static boolean isRareDrop(String formattedMessage) {
-        return formattedMessage.startsWith("§r§6§lRARE DROP! ")
-        || formattedMessage.startsWith("§r§6§lPET DROP! ");
-    }
+        Regex regex = new Regex("(§.)+(\\w)*(RARE|PET) DROP!.*");
 
-    float SMALL_TEXT_SCALE = 5f;
-    float BIG_TEXT_SCALE = 10f;
+        return formattedMessage.matches(regex.toString());
+    }
 
     Window window = new Window(ElementaVersion.V2);
     String topString = "empty";
@@ -68,14 +70,14 @@ public class DropBannerDisplay extends Gui {
     String magicFindString = "empty";
 
     UIComponent topText = new UIWrappedText(dropNameString, true, new Color(0, 0, 0, 0), true)
-            .setTextScale(new PixelConstraint(BIG_TEXT_SCALE/1075 * window.getWidth()))
+            .setTextScale(new PixelConstraint(BIG_TEXT_SCALE / 1075 * window.getWidth() * scale))
             .setWidth(new PixelConstraint(window.getWidth()))
             .setX(new CenterConstraint())
             .setY(new PixelConstraint(window.getHeight() * .333f))
             .setChildOf(window);
 
     UIComponent dropNameText = new UIWrappedText(dropNameString, true, new Color(0, 0, 0, 0), true)
-            .setTextScale(new PixelConstraint(SMALL_TEXT_SCALE/1075 * window.getWidth()))
+            .setTextScale(new PixelConstraint(SMALL_TEXT_SCALE / 1075 * window.getWidth() * scale))
             .setWidth(new PixelConstraint(window.getWidth()))
             .setX(new CenterConstraint())
             .setY(new PixelConstraint(topText.getBottom() + window.getHeight() * .11f))
@@ -90,40 +92,41 @@ public class DropBannerDisplay extends Gui {
             topString = "";
             magicFindString = "";
             categoryColor = new Color(255, 255, 255, 0);
-        } 
-        else {
+        } else {
             categoryColor = drop.dropCategoryColor;
             dropNameString = "x" + drop.amount + " " + drop.name;
             topString = drop.dropCategory;
             // It should be after a third of the rare drop time, and before 10/12ths 
-            if (PartlySaneSkies.Companion.getTime() - drop.timeDropped > (1f / 3f * PartlySaneSkies.Companion.getConfig().rareDropBannerTime * 1000)
+            if (PartlySaneSkies.Companion.getTime() - drop.timeDropped > (1f / 3f * PartlySaneSkies.Companion.getConfig().getRareDropBannerTime() * 1000)
                     && PartlySaneSkies.Companion.getTime()
-                            - drop.timeDropped < (10f / 12f * PartlySaneSkies.Companion.getConfig().rareDropBannerTime * 1000)) {
+                    - drop.timeDropped < (10f / 12f * PartlySaneSkies.Companion.getConfig().getRareDropBannerTime() * 1000)) {
                 if (Math.round((drop.timeDropped - PartlySaneSkies.Companion.getTime()) / 1000f * 4) % 2 == 0) {
-                    categoryColor = Color.white; 
+                    categoryColor = Color.white;
                 } else {
                     categoryColor = drop.dropCategoryColor;
                 }
             }
 
-            if (!MathUtils.INSTANCE.onCooldown(drop.timeDropped, (long) (PartlySaneSkies.Companion.getConfig().rareDropBannerTime * 1000))){
+            if (!MathUtils.INSTANCE.onCooldown(drop.timeDropped, (long) (PartlySaneSkies.Companion.getConfig().getRareDropBannerTime() * 1000))) {
                 drop = null;
             }
         }
 
         ((UIWrappedText) topText)
                 .setText(topString)
-                .setTextScale(new PixelConstraint(BIG_TEXT_SCALE/1075 * window.getWidth()))
+                .setTextScale(new PixelConstraint(BIG_TEXT_SCALE / 1075 * window.getWidth() * scale))
                 .setWidth(new PixelConstraint(window.getWidth()))
                 .setX(new CenterConstraint())
                 .setY(new PixelConstraint(window.getHeight() * .3f))
                 .setColor(categoryColor);
+
         ((UIWrappedText) dropNameText)
                 .setText(dropNameString)
-                .setTextScale(new PixelConstraint(SMALL_TEXT_SCALE/1075 * window.getWidth()))
+                .setTextScale(new PixelConstraint(SMALL_TEXT_SCALE / 1075 * window.getWidth()))
                 .setWidth(new PixelConstraint(window.getWidth()))
                 .setX(new CenterConstraint())
-                .setY(new PixelConstraint(topText.getBottom() + window.getHeight() * .11f));
+                .setY(new PixelConstraint(topText.getBottom() + window.getHeight() * .11f * scale));
+
         window.draw(new UMatrixStack());
     }
 }

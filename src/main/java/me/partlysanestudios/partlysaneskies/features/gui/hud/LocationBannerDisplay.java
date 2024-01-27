@@ -26,7 +26,7 @@ public class LocationBannerDisplay {
     }
 
     public static void checkLocationTick() {
-        if (!PartlySaneSkies.Companion.getConfig().locationBannerDisplay)
+        if (!PartlySaneSkies.Companion.getConfig().getLocationBannerDisplay())
             return;
 
         String regionName = HypixelUtils.INSTANCE.getRegionName();
@@ -74,11 +74,11 @@ public class LocationBannerDisplay {
         lastLocation = noColorCodeRegionName;
         lastLocationTime = PartlySaneSkies.Companion.getTime();
 
-        BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner(displayString, (long) (PartlySaneSkies.Companion.getConfig().locationBannerTime * 1000), TEXT_SCALE, color));
+        BannerRenderer.INSTANCE.renderNewBanner(new PSSBanner(displayString, (long) (PartlySaneSkies.Companion.getConfig().getLocationBannerTime() * 1000), TEXT_SCALE, color));
     }
 
     private static boolean checkExpire() {
-        return getTimeSinceLastChange() > PartlySaneSkies.Companion.getConfig().locationBannerTime * 1000;
+        return getTimeSinceLastChange() > PartlySaneSkies.Companion.getConfig().getLocationBannerTime() * 1000;
     }
 
     private static long getTimeSinceLastChange() {

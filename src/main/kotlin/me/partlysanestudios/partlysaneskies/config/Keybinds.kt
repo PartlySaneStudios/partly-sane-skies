@@ -4,7 +4,7 @@
 //
 
 
-package me.partlysanestudios.partlysaneskies.config.keybinds
+package me.partlysanestudios.partlysaneskies.config
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.features.commands.HelpCommand
@@ -30,13 +30,13 @@ import org.lwjgl.input.Keyboard
 object Keybinds {
     @SubscribeEvent
     fun keybindWhileInGui(event: KeyboardInputEvent.Post?) {
-        if (PartlySaneSkies.config.debugKeybind.isActive()) {
+        if (OneConfigScreen.debugKeybind.isActive()) {
             onDebugKeyPress()
         }
-        if (PartlySaneSkies.config.wikiKeybind.isActive()) {
+        if (OneConfigScreen.wikiKeybind.isActive()) {
             WikiArticleOpener.keyDown()
         }
-        if (PartlySaneSkies.config.favouritePetKeybind.isActive()) {
+        if (OneConfigScreen.favouritePetKeybind.isActive()) {
             PetAlert.favouritePet()
         }
         if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
@@ -59,46 +59,46 @@ object Keybinds {
 
     @SubscribeEvent
     fun checkKeyBinds(event: InputEvent.KeyInputEvent?) {
-        if (PartlySaneSkies.config.debugKeybind.isActive()) {
+        if (OneConfigScreen.debugKeybind.isActive()) {
             onDebugKeyPress()
         }
-        if (PartlySaneSkies.config.oneConfigKeybind.isActive()) {
+        if (OneConfigScreen.oneConfigKeybind.isActive()) {
             PartlySaneSkies.config.openGui()
         }
-        if (PartlySaneSkies.config.partyManagerKeybind.isActive()) {
+        if (OneConfigScreen.partyManagerKeybind.isActive()) {
             PartyManager.startPartyManager()
         }
-        if (PartlySaneSkies.config.helpKeybind.isActive()) {
+        if (OneConfigScreen.helpKeybind.isActive()) {
             HelpCommand.printHelpMessage()
         }
-        if (PartlySaneSkies.config.craftKeybind.isActive()) {
+        if (OneConfigScreen.craftKeybind.isActive()) {
             PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/craft")
         }
-        if (PartlySaneSkies.config.petKeybind.isActive()) {
+        if (OneConfigScreen.petKeybind.isActive()) {
             PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/pets")
         }
-        if (PartlySaneSkies.config.wardrobeKeybind.isActive()) {
+        if (OneConfigScreen.wardrobeKeybind.isActive()) {
             PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/wardrobe")
         }
-        if (PartlySaneSkies.config.storageKeybind.isActive()) {
+        if (OneConfigScreen.storageKeybind.isActive()) {
             PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/storage")
         }
-        if (PartlySaneSkies.config.allowHoeRightClickKeybind.isActive()) {
+        if (OneConfigScreen.allowHoeRightClickKeybind.isActive()) {
             val canRightClickHoe = onCooldown(
                 MathematicalHoeRightClicks.lastAllowHoeRightClickTime,
-                (PartlySaneSkies.config.allowRightClickTime * 60L * 1000L).toLong()
+                (OneConfigScreen.allowRightClickTime * 60L * 1000L).toLong()
             )
             if (canRightClickHoe) {
                 val message: IChatComponent = ChatComponentText(
                     PartlySaneSkies.CHAT_PREFIX + """§dThe ability to right-click with a hoe has been §cdisabled§d again.
-§dClick this message or run /allowhoerightclick to allow right-clicks for ${PartlySaneSkies.config.allowRightClickTime} again."""
+§dClick this message or run /allowhoerightclick to allow right-clicks for ${OneConfigScreen.allowRightClickTime} again."""
                 )
                 message.chatStyle.setChatClickEvent(ClickEvent(ClickEvent.Action.RUN_COMMAND, "/allowhoerightclick"))
                 PartlySaneSkies.minecraft.ingameGUI.chatGUI.printChatMessage(message)
                 MathematicalHoeRightClicks.lastAllowHoeRightClickTime = 0
             } else {
                 val message: IChatComponent = ChatComponentText(
-                    PartlySaneSkies.CHAT_PREFIX + """§dThe ability to right-click with a hoe has been §aenabled§d for ${PartlySaneSkies.config.allowRightClickTime} minutes.
+                    PartlySaneSkies.CHAT_PREFIX + """§dThe ability to right-click with a hoe has been §aenabled§d for ${OneConfigScreen.allowRightClickTime} minutes.
 §dClick this message or run /allowhoerightclick to disable right-clicks again."""
                 )
                 message.chatStyle.setChatClickEvent(ClickEvent(ClickEvent.Action.RUN_COMMAND, "/allowhoerightclick"))

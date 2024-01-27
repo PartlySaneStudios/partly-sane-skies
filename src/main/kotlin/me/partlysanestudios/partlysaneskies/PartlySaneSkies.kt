@@ -18,8 +18,8 @@
 package me.partlysanestudios.partlysaneskies
 
 import gg.essential.elementa.ElementaVersion
-import me.partlysanestudios.partlysaneskies.config.keybinds.Keybinds
-import me.partlysanestudios.partlysaneskies.config.oneconfig.OneConfigScreen
+import me.partlysanestudios.partlysaneskies.config.Keybinds
+import me.partlysanestudios.partlysaneskies.config.OneConfigScreen
 import me.partlysanestudios.partlysaneskies.data.api.PolyfrostUrsaMinorRequest
 import me.partlysanestudios.partlysaneskies.data.api.Request
 import me.partlysanestudios.partlysaneskies.data.api.RequestsManager.newRequest
@@ -60,7 +60,7 @@ import me.partlysanestudios.partlysaneskies.features.farming.garden.CompostValue
 import me.partlysanestudios.partlysaneskies.features.farming.garden.GardenTradeValue
 import me.partlysanestudios.partlysaneskies.features.farming.garden.SkymartValue
 import me.partlysanestudios.partlysaneskies.features.gui.RefreshKeybinds
-import me.partlysanestudios.partlysaneskies.features.gui.custommainmenu.CustomMainMenu
+import me.partlysanestudios.partlysaneskies.features.gui.CustomMainMenu
 import me.partlysanestudios.partlysaneskies.features.gui.hud.LocationBannerDisplay
 import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.DropBannerDisplay
 import me.partlysanestudios.partlysaneskies.features.information.WikiArticleOpener
@@ -111,7 +111,7 @@ class PartlySaneSkies {
         val DOGFOOD = "@DOGFOOD@".toBoolean()
         const val CHAT_PREFIX = "§r§b§lPartly Sane Skies§r§7>> §r"
         var discordCode = "v4PU3WeH7z"
-        val config: OneConfigScreen = OneConfigScreen()
+        val config: OneConfigScreen = OneConfigScreen
 
         val minecraft: Minecraft
             get() {
@@ -198,7 +198,11 @@ class PartlySaneSkies {
         registerEvent(PartyManager())
         registerEvent(WatcherReady())
         registerEvent(WormWarning())
-        registerEvent(CustomMainMenu(ElementaVersion.V2))
+        registerEvent(
+            CustomMainMenu(
+                ElementaVersion.V2
+            )
+        )
         registerEvent(PartyFriendManager())
         registerEvent(WikiArticleOpener())
         registerEvent(GardenTradeValue())

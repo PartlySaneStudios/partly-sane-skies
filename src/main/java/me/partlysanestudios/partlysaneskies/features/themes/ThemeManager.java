@@ -54,17 +54,17 @@ public class ThemeManager {
     };
 
     public static void tick() {
-        if (PartlySaneSkies.Companion.getConfig().useDefaultAccentColor) {
-            PartlySaneSkies.Companion.getConfig().accentColor = getAccentColor();
+        if (PartlySaneSkies.Companion.getConfig().getUseDefaultAccentColor()) {
+            PartlySaneSkies.Companion.getConfig().setAccentColor(getAccentColor());
         }
 
-        if (!PartlySaneSkies.Companion.getConfig().customTheme) {
-            PartlySaneSkies.Companion.getConfig().primaryColor = getPrimaryColor();
-            PartlySaneSkies.Companion.getConfig().secondaryColor = getSecondaryColor();
+        if (!PartlySaneSkies.Companion.getConfig().getCustomTheme()) {
+            PartlySaneSkies.Companion.getConfig().setPrimaryColor(getPrimaryColor());
+            PartlySaneSkies.Companion.getConfig().setSecondaryColor(getSecondaryColor());
         }
 
 //        If the theme has changed
-        if (!lastThemeName.equals(defaultThemes[PartlySaneSkies.Companion.getConfig().themeIndex].getName())) {
+        if (!lastThemeName.equals(defaultThemes[PartlySaneSkies.Companion.getConfig().getThemeIndex()].getName())) {
             for (UIImage image : backgroundUIImages) {
                 try {
                     image.applyTexture(new ReleasedDynamicTexture(ImageUtils.INSTANCE.loadImage(getCurrentBackgroundFile().getPath())));
@@ -103,7 +103,7 @@ public class ThemeManager {
                 }
             }
 
-            lastThemeName = defaultThemes[PartlySaneSkies.Companion.getConfig().themeIndex].getName();
+            lastThemeName = defaultThemes[PartlySaneSkies.Companion.getConfig().getThemeIndex()].getName();
         }
 
 
@@ -112,7 +112,7 @@ public class ThemeManager {
 
     public static UIImage getCurrentBackgroundUIImage() {
         UIImage image;
-        if (PartlySaneSkies.Companion.getConfig().disableThemes) {
+        if (PartlySaneSkies.Companion.getConfig().getDisableThemes()) {
             image = ElementaUtils.INSTANCE.uiImageFromResourceLocation(new ResourceLocation("partlysaneskies", "textures/gui/base_color_background.png"));
 
         }
@@ -134,7 +134,7 @@ public class ThemeManager {
 
     public static UIImage getCurrentButtonUIImage(OneColor accentColor) {
         UIImage image;
-        if (PartlySaneSkies.Companion.getConfig().disableThemes) {
+        if (PartlySaneSkies.Companion.getConfig().getDisableThemes()) {
             if (accentColor.equals(getAccentColor())) {
                 image = ElementaUtils.INSTANCE.uiImageFromResourceLocation(new ResourceLocation("partlysaneskies", "textures/gui/base_color_button.png"));
             } else {
@@ -167,7 +167,7 @@ public class ThemeManager {
 
     public static UIImage getCurrentToggleUIImage(boolean selected, OneColor accentColor) {
         UIImage image;
-        if (PartlySaneSkies.Companion.getConfig().disableThemes) {
+        if (PartlySaneSkies.Companion.getConfig().getDisableThemes()) {
             if (selected) {
                 image = ElementaUtils.INSTANCE.uiImageFromResourceLocation(new ResourceLocation("partlysaneskies" , "textures/gui/selected_toggle.png"));
             } else {
@@ -217,11 +217,11 @@ public class ThemeManager {
     }
 
     public static OneColor getPrimaryColor() {
-        if (!PartlySaneSkies.Companion.getConfig().customTheme) {
-            int themeIndex = PartlySaneSkies.Companion.getConfig().themeIndex;
+        if (!PartlySaneSkies.Companion.getConfig().getCustomTheme()) {
+            int themeIndex = PartlySaneSkies.Companion.getConfig().getThemeIndex();
             return new OneColor(defaultThemes[themeIndex].getPrimaryColor());
         } else {
-            return PartlySaneSkies.Companion.getConfig().primaryColor;
+            return PartlySaneSkies.Companion.getConfig().getPrimaryColor();
         }
     }
 
@@ -234,11 +234,11 @@ public class ThemeManager {
     }
 
     public static OneColor getSecondaryColor() {
-        if (!PartlySaneSkies.Companion.getConfig().customTheme) {
-            int themeIndex = PartlySaneSkies.Companion.getConfig().themeIndex;
+        if (!PartlySaneSkies.Companion.getConfig().getCustomTheme()) {
+            int themeIndex = PartlySaneSkies.Companion.getConfig().getThemeIndex();
             return new OneColor(defaultThemes[themeIndex].getSecondaryColor());
         } else {
-            return PartlySaneSkies.Companion.getConfig().secondaryColor;
+            return PartlySaneSkies.Companion.getConfig().getSecondaryColor();
         }
     }
 
@@ -251,11 +251,11 @@ public class ThemeManager {
     }
 
     public static OneColor getAccentColor() {
-        if (PartlySaneSkies.Companion.getConfig().useDefaultAccentColor) {
-            int themeIndex = PartlySaneSkies.Companion.getConfig().themeIndex;
+        if (PartlySaneSkies.Companion.getConfig().getUseDefaultAccentColor()) {
+            int themeIndex = PartlySaneSkies.Companion.getConfig().getThemeIndex();
             return new OneColor(defaultThemes[themeIndex].getDefaultAccentColor());
         } else {
-            return PartlySaneSkies.Companion.getConfig().accentColor;
+            return PartlySaneSkies.Companion.getConfig().getAccentColor();
         }
     }
 

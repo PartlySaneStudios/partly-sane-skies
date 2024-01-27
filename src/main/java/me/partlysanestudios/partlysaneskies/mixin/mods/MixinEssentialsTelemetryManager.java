@@ -22,7 +22,7 @@ public class MixinEssentialsTelemetryManager {
         if (PartlySaneSkies.Companion.getConfig() == null) {
             return;
         }
-        if (PartlySaneSkies.Companion.getConfig().privacyMode) {
+        if (PartlySaneSkies.Companion.getConfig().getPrivacyMode()) {
             ci.cancel();
         }
     }
@@ -32,7 +32,7 @@ public class MixinEssentialsTelemetryManager {
         if (PartlySaneSkies.Companion.getConfig() == null) {
             return;
         }
-        if (PartlySaneSkies.Companion.getConfig().privacyMode) {
+        if (PartlySaneSkies.Companion.getConfig().getPrivacyMode()) {
             ci.cancel();
         }
     }

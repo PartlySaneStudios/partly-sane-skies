@@ -51,7 +51,7 @@ public class BitsShopValue {
 
         HashMap<String, Double> map = new HashMap<>();
         long bitCount = HypixelUtils.INSTANCE.getBits();
-        boolean filterAffordable = PartlySaneSkies.Companion.getConfig().bitShopOnlyShowAffordable;
+        boolean filterAffordable = PartlySaneSkies.Companion.getConfig().getBitShopOnlyShowAffordable();
 
         if (SkyblockDataManager.bitIds.isEmpty()) {
             new Thread(() -> {
@@ -126,7 +126,7 @@ public class BitsShopValue {
             box.hide();
             return;
         }
-        if (!PartlySaneSkies.Companion.getConfig().bestBitShopItem) {
+        if (!PartlySaneSkies.Companion.getConfig().getBestBitShopItem()) {
             return;
         }
 
