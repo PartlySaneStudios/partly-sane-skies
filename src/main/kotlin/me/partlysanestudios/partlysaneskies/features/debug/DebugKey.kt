@@ -90,7 +90,6 @@ object DebugKey {
     private var waypointPoint = Point3d(0.0, 0.0, 0.0)
     @SubscribePSSEvent
     fun onWaypointRender(event: RenderWaypointEvent) {
-
         if (isDebugMode() && config.debugSpawnWaypoint) {
             event.pipeline.add(Waypoint("Debug Waypoint", waypointPoint.toBlockPosInt()))
         }
