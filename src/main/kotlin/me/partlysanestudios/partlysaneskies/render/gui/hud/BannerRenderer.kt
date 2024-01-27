@@ -27,7 +27,8 @@ import java.awt.Color
 object BannerRenderer : Gui() {
     private var bannerList = ArrayList<PSSBanner>()
 
-    var window = Window(ElementaVersion.V2)
+    private var window = Window(ElementaVersion.V2)
+
 
     private var displayText: UIText = UIText("{EMPTY BANNER}")
         .constrain {
@@ -38,7 +39,6 @@ object BannerRenderer : Gui() {
 
         }.setColor(Color(255, 255, 255, 0)) as UIText childOf window
 
-
     @SubscribeEvent
     fun onScreenRender(event: RenderGameOverlayEvent.Text) {
         if (bannerList.isEmpty()) {
@@ -47,21 +47,27 @@ object BannerRenderer : Gui() {
 
         cleanOutOfDateBanners()
 
-
         val bannerToRender = getMostRecentlyCreatedBanner()
 
         if (bannerToRender.text == "") {
+            if (displayText.getText().isNotEmpty()) {
+                displayText.setText("")
+            }
             return
         }
 
+        val calculatedTextScale = (bannerToRender.textScale * PartlySaneSkies.config.bannerSize)
+
         if (displayText.getText() != bannerToRender.text) {
             displayText.setText(bannerToRender.text)
-                .constrain {
-                    textScale = (bannerToRender.textScale * PartlySaneSkies.config.bannerSize).pixels
-                    x = CenterConstraint()
-                    y = (window.getHeight() * .125f).pixels
-                    color = bannerToRender.getFadedColor().constraint
-                } childOf window
+            .constrain {
+                textScale = calculatedTextScale.pixels
+                x = CenterConstraint()
+                y = (window.getHeight() * .125f).pixels
+                color = bannerToRender.getFadedColor().constraint
+            } childOf window
+        } else if (displayText.getTextScale() != calculatedTextScale.pixels.value) {
+            displayText.setTextScale(calculatedTextScale.pixels)
         }
 
 //        ChatUtils.sendClientMessage(bannerToRender.getFadedColor().alpha.toString())
