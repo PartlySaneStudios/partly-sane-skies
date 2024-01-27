@@ -713,10 +713,10 @@ public class OneConfigScreen extends Config {
 
 //    Dungeon Waypoints
     @Switch(
-            subcategory = "Terminal Waypoints",
             name = "Enable Waypoints for Terminals, Devices and Levers",
-            description = "",
-            category = "Dungeons"
+            description = "Enables waypoints for terminals, devices and levers in Phase 3 of Floor 7",
+            category = "Dungeons",
+            subcategory = "Terminal Waypoints"
     )
     public boolean terminalWaypoints = true;
 
@@ -1254,66 +1254,70 @@ public class OneConfigScreen extends Config {
 
 //    Wrong Tool for Crop
     @Switch(
-            subcategory = "Wrong Tool for Crop",
             name = "Wrong Tool for Crop Enabled",
             description = "When enabled, a warning will appear, notifying you that you are using the wrong tool for the current crop",
-            category = "Farming"
+            category = "Farming",
+            subcategory = "Wrong Tool for Crop"
     )
     public boolean wrongToolForCropEnabled = false;
 
     @Switch(
-            subcategory = "Wrong Tool for Crop",
             name = "Allow Mathematical Hoes",
             description = "When enabled, mathematical hoes will be considered a valid tool",
-            category = "Farming"
+            category = "Farming",
+            subcategory = "Wrong Tool for Crop"
     )
     public boolean mathematicalHoeValid = true;
+
     @Switch(
-            subcategory = "Wrong Tool for Crop",
             name = "Allow Other SkyBlock Tools",
             description = "When enabled, other SkyBlock tools will be considered a valid tool",
-            category = "Farming"
+            category = "Farming",
+            subcategory = "Wrong Tool for Crop"
     )
     public boolean otherSkyblockToolsValid  = true;
+
     @Switch(
-            subcategory = "Wrong Tool for Crop",
             name = "Allow Right Tool Type",
             description = "When enabled, the system only looks for the right tool type (hoes, etc.)",
-            category = "Farming"
+            category = "Farming",
+            subcategory = "Wrong Tool for Crop"
     )
     public boolean vanillaToolsValid = false;
+
     @Switch(
-            subcategory = "Wrong Tool for Crop",
             name = "Require Replenish",
             description = "When enabled, the tool must have replenish if it is to be used on a replenishable crop.",
-            category = "Farming"
+            category = "Farming",
+            subcategory = "Wrong Tool for Crop"
     )
     public boolean requireReplenish = true;
+
     @Switch(
-            subcategory = "Wrong Tool for Crop",
             name = "Air Raid Siren",
             description = "When enabled, the warning will contain an air raid siren",
-            category = "Farming"
+            category = "Farming",
+            subcategory = "Wrong Tool for Crop"
     )
     public boolean wrongToolForCropAirRaid = false;
 
     @Slider(
-            min = 1,
-            max = 7,
-            subcategory = "Wrong Tool for Crop",
             name = "Banner Time",
             description = "The amount of seconds the banner appears for.",
-            category = "Farming"
+            category = "Farming",
+            subcategory = "Wrong Tool for Crop",
+            min = 1,
+            max = 7
     )
     public float wrongToolForCropBannerTime = 3.5f;
 
     @Slider(
-            min = 1,
-            max = 7,
-            subcategory = "Wrong Tool for Crop",
             name = "Time Between Warnings",
             description = "The amount of seconds between each warning.",
-            category = "Farming"
+            category = "Farming",
+            subcategory = "Wrong Tool for Crop",
+            min = 1,
+            max = 7
     )
     public float wrongToolForCropCooldown = 3.5f;
 
