@@ -11,8 +11,6 @@ import me.partlysanestudios.partlysaneskies.utils.vectors.Point3d.Companion.toPo
 import net.minecraft.util.BlockPos
 import net.minecraft.util.EnumFacing
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable
-import kotlin.reflect.KClass
-import kotlin.reflect.full.isSubclassOf
 
 class PlayerBreakBlockEvent(val point: Point3d, val side: EnumFacing) {
     companion object {

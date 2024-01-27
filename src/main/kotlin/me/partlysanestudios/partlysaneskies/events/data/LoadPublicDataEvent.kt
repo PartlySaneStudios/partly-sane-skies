@@ -6,11 +6,8 @@
 package me.partlysanestudios.partlysaneskies.events.data
 
 import me.partlysanestudios.partlysaneskies.events.EventManager
-import me.partlysanestudios.partlysaneskies.events.minecraft.player.PlayerBreakBlockEvent
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils
 import org.apache.logging.log4j.Level
-import kotlin.reflect.KClass
-import kotlin.reflect.full.isSubclassOf
 
 class LoadPublicDataEvent() {
     companion object {

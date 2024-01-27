@@ -17,7 +17,6 @@ import org.apache.logging.log4j.Level
 import kotlin.reflect.KClass
 import kotlin.reflect.KFunction
 import kotlin.reflect.full.hasAnnotation
-import kotlin.reflect.full.isSubclassOf
 import kotlin.reflect.full.memberFunctions
 
 object EventManager {
