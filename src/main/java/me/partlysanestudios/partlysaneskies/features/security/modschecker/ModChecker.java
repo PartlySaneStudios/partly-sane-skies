@@ -73,7 +73,7 @@ public class ModChecker {
 
     public static void runOnStartup() {
         new Thread(() -> {
-            if (!PartlySaneSkies.Companion.getConfig().checkModsOnStartup) {
+            if (!PartlySaneSkies.Companion.getConfig().getCheckModsOnStartup()) {
                 return;
             }
 
@@ -151,7 +151,7 @@ public class ModChecker {
 
         chatMessage.appendSibling(new ChatComponentText("\n§7Disclaimer: You should always exercise caution when downloading things from the internet. The PSS Mod Checker is not foolproof. Use at your own risk."));
 
-        if (PartlySaneSkies.Companion.getConfig().showUpToDateMods) {
+        if (PartlySaneSkies.Companion.getConfig().getShowUpToDateMods()) {
             if (!knownMods.isEmpty()) {
                 chatMessage.appendSibling(new ChatComponentText("\n\n§6Up to date Mods: (" + knownMods.size() + ")"));
             }
@@ -308,7 +308,7 @@ public class ModChecker {
             KnownMod latest = null;
             Map<String, String> versions;
             Map<String, String> betaVersions = new HashMap<>(); // Creates a variable to add all of the beta versions as outdated
-            if (PartlySaneSkies.Companion.getConfig().lookForBetaMods) {
+            if (PartlySaneSkies.Companion.getConfig().getLookForBetaMods()) {
                 versions = modInfo.getBetaVersions();
             } else {
                 betaVersions = modInfo.getBetaVersions();
