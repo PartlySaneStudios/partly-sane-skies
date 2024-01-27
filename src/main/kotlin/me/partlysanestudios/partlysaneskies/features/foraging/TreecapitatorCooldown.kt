@@ -4,14 +4,14 @@
 //
 
 
-package me.partlysanestudios.partlysaneskies.render.gui.hud.cooldown
+package me.partlysanestudios.partlysaneskies.features.foraging
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.data.cache.PetData
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity
 import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.minecraft.player.PlayerBreakBlockEvent
-import me.partlysanestudios.partlysaneskies.utils.HypixelUtils
+import me.partlysanestudios.partlysaneskies.render.gui.hud.cooldown.Cooldown
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils.getItemId
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
 import net.minecraft.init.Items
