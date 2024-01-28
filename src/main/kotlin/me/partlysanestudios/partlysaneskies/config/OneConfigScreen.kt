@@ -495,7 +495,7 @@ object OneConfigScreen : Config(
         category = "SkyBlock",
         subcategory = "Cooldown HUD"
     )
-    var cooldownHud = CooldownHud.getOneConfigHud()
+    var cooldownHud = CooldownHud.oneConfigHud
 
     // ------------- Category: Dungeons ---------------------------------
     // Party Manager
@@ -1581,7 +1581,7 @@ object OneConfigScreen : Config(
         category = "Dev",
         subcategory = "Example HUD"
     )
-    var hud = ExampleHud.getOneConfigHud()
+    var hud = ExampleHud.oneConfigHud
 
     // Percy Mode
     @Switch(

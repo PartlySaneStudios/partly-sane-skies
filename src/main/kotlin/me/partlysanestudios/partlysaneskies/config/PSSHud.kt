@@ -32,8 +32,12 @@ abstract class PSSHud(
      * Whether the current rendering cycle is an example (when the user is configuring the main menu)
      */
     protected var example = false
-
-    private val oneConfigHud = object : Hud(enabled, x, y, positionAlignment, scale) {
+    /**
+     * If you want to have other options in the Hud, override this to return a custom OneConfig Hud
+     *
+     * @return The OneConfig hud
+     */
+    open val oneConfigHud = object : Hud(enabled, x, y, positionAlignment, scale) {
         override fun draw(matrices: UMatrixStack?, x: Float, y: Float, scale: Float, example: Boolean) {
             this@PSSHud.x = x
             this@PSSHud.y = y
@@ -60,14 +64,7 @@ abstract class PSSHud(
         }
     }
 
-    /**
-     * If you want to have other options in the Hud, override this to return a custom OneConfig Hud
-     *
-     * @return The OneConfig hud
-     */
-    open fun getOneConfigHud(): Hud {
-        return oneConfigHud
-    }
+
 
     /**
      * @return Height of the Hud's bounding box in pixels
