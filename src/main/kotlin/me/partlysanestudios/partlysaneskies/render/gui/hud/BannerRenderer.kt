@@ -25,9 +25,9 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import java.awt.Color
 
 object BannerRenderer : Gui() {
-    private var bannerList = ArrayList<PSSBanner>()
+    private val bannerList = ArrayList<PSSBanner>()
 
-    private var window = Window(ElementaVersion.V2)
+    private val window = Window(ElementaVersion.V2)
 
 
     private var displayText: UIText = UIText("{EMPTY BANNER}")

@@ -39,6 +39,7 @@ import me.partlysanestudios.partlysaneskies.features.commands.Discord
 import me.partlysanestudios.partlysaneskies.features.commands.HelpCommand
 import me.partlysanestudios.partlysaneskies.features.commands.Version
 import me.partlysanestudios.partlysaneskies.features.debug.DebugKey
+import me.partlysanestudios.partlysaneskies.features.debug.ExampleHud
 import me.partlysanestudios.partlysaneskies.features.discord.DiscordRPC
 import me.partlysanestudios.partlysaneskies.features.dungeons.*
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.PartyFriendManager
@@ -59,9 +60,10 @@ import me.partlysanestudios.partlysaneskies.features.farming.endoffarmnotifer.Ra
 import me.partlysanestudios.partlysaneskies.features.farming.garden.CompostValue
 import me.partlysanestudios.partlysaneskies.features.farming.garden.GardenTradeValue
 import me.partlysanestudios.partlysaneskies.features.farming.garden.SkymartValue
-import me.partlysanestudios.partlysaneskies.features.debug.ExampleHud
-import me.partlysanestudios.partlysaneskies.features.gui.RefreshKeybinds
+import me.partlysanestudios.partlysaneskies.features.foraging.TreecapitatorCooldown
 import me.partlysanestudios.partlysaneskies.features.gui.CustomMainMenu
+import me.partlysanestudios.partlysaneskies.features.gui.RefreshKeybinds
+import me.partlysanestudios.partlysaneskies.features.gui.hud.CooldownHud
 import me.partlysanestudios.partlysaneskies.features.gui.hud.LocationBannerDisplay
 import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.DropBannerDisplay
 import me.partlysanestudios.partlysaneskies.features.information.WikiArticleOpener
@@ -77,7 +79,6 @@ import me.partlysanestudios.partlysaneskies.features.sound.enhancedsound.Enhance
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
 import me.partlysanestudios.partlysaneskies.render.gui.hud.BannerRenderer
 import me.partlysanestudios.partlysaneskies.render.gui.hud.cooldown.CooldownManager
-import me.partlysanestudios.partlysaneskies.features.foraging.TreecapitatorCooldown
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
 import net.minecraft.client.Minecraft
@@ -237,6 +238,7 @@ class PartlySaneSkies {
         registerEvent(WrongToolCropWarning.CropToolData)
         registerEvent(StatsData)
         registerEvent(ExampleHud)
+        registerEvent(CooldownHud)
 
         // Registers all client side commands
         HelpCommand.registerPSSCommand()
@@ -264,9 +266,8 @@ class PartlySaneSkies {
         PlayerRating.registerReprintCommand()
         ModChecker.registerModCheckCommand()
         PearlRefill.registerCommand()
-        CooldownManager.init()
-        DebugKey.init()
 
+        DebugKey.init()
         PolyfrostUrsaMinorRequest.authorize()
 
         // Initializes skill upgrade recommendation

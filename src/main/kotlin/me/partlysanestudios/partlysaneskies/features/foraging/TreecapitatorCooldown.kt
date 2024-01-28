@@ -12,6 +12,7 @@ import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity
 import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.minecraft.player.PlayerBreakBlockEvent
 import me.partlysanestudios.partlysaneskies.render.gui.hud.cooldown.Cooldown
+import me.partlysanestudios.partlysaneskies.render.gui.hud.cooldown.CooldownManager
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils.getItemId
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
 import net.minecraft.init.Items
@@ -22,6 +23,9 @@ import net.minecraft.nbt.NBTTagString
 
 
 object TreecapitatorCooldown: Cooldown() {
+    init {
+        CooldownManager.registerCooldown(this)
+    }
     override fun getTotalTime(): Long {
         var cooldown = 2000L
 

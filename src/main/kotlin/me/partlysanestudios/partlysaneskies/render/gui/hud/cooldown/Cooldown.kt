@@ -11,9 +11,6 @@ import me.partlysanestudios.partlysaneskies.utils.MathUtils
 import net.minecraft.item.ItemStack
 
 abstract class Cooldown {
-    init {
-        CooldownManager.cooldowns.add(this)
-    }
 
     private var startingTime = -1L
     /**
