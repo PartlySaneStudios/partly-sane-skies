@@ -26,7 +26,7 @@ private const val cooldownsDisplayableAtOnce = 3
 private const val defaultWidth = 50
 private const val defaultHeight = 7
 private const val defaultPadding = 120f
-object CooldownHud: PSSHud(true, 960F - defaultWidth, 561.6F, 0, 1.0F) {
+object CooldownHud: PSSHud(true, 960F - defaultWidth/2, 561.6F, 0, 1.0F) {
     private val exampleCooldowns = ArrayList<ExampleCooldown>()
     private val cooldownElements = ArrayList<UIHorizontalCooldownElement>()
     private val window = Window(ElementaVersion.V2)

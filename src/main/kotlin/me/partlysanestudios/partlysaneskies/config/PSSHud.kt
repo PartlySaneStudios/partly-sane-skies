@@ -65,7 +65,7 @@ abstract class PSSHud(
      *
      * @return The OneConfig hud
      */
-    fun getOneConfigHud(): Hud {
+    open fun getOneConfigHud(): Hud {
         return oneConfigHud
     }
 
