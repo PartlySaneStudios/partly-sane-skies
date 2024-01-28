@@ -7,6 +7,7 @@ import gg.essential.elementa.components.Window
 import gg.essential.elementa.constraints.CenterConstraint
 import gg.essential.elementa.dsl.percent
 import gg.essential.elementa.dsl.pixels
+import me.partlysanestudios.partlysaneskies.config.PSSHud
 import me.partlysanestudios.partlysaneskies.render.gui.components.UIHorizontalCooldownElement
 import me.partlysanestudios.partlysaneskies.render.gui.hud.cooldown.Cooldown
 import me.partlysanestudios.partlysaneskies.render.gui.hud.cooldown.CooldownManager
@@ -21,7 +22,10 @@ private const val cooldownsDisplayableAtOnce = 3
 private const val defaultWidth = 50
 private const val defaultHeight = 7
 private const val defaultPadding = 120f
-class CooldownHud: Hud(true, 540.0F, 561.6F, 0, 1.0F) {
+object CooldownHud: PSSHud(true, 540.0F, 561.6F, 0, 1.0F) {
+    val exampleCooldowns = ArrayList<ExampleCooldown>()
+    val cooldownElements = ArrayList<UIHorizontalCooldownElement>()
+    val window = Window(ElementaVersion.V2)
     init {
         var previousCooldownElement = UIHorizontalCooldownElement(CenterConstraint(), 52f.percent, defaultWidth.pixels, defaultHeight.pixels)
             .setChildOf(window)
@@ -34,7 +38,8 @@ class CooldownHud: Hud(true, 540.0F, 561.6F, 0, 1.0F) {
             cooldownElements.add(newCooldownElement)
         }
     }
-    override fun draw(matrices: UMatrixStack?, x: Float, y: Float, scale: Float, example: Boolean) {
+    @SubscribeEvent
+    fun onScreenRender(event: RenderGameOverlayEvent.Text) {
         cooldownElements[0].boundingBox.setX(x.pixels)
         cooldownElements[0].boundingBox.setY(y.pixels)
         cooldownElements[0].boundingBox.setWidth((defaultWidth * scale).pixels)
@@ -84,13 +89,14 @@ class CooldownHud: Hud(true, 540.0F, 561.6F, 0, 1.0F) {
         for (cooldownElement in cooldownElements) {
             cooldownElement.tick()
         }
+        window.draw(gg.essential.universal.UMatrixStack())
     }
     override fun getWidth(scale: Float, example: Boolean): Float {
         return defaultWidth * scale
     }
 
     override fun getHeight(scale: Float, example: Boolean): Float {
-        if (cooldownElements.size < cooldownsDisplayableAtOnce) {
+        if ((cooldownElements?.size ?: 0) < cooldownsDisplayableAtOnce) { // Yes the safe calls are necessary because OneConfig is weird
             return 0.0F
         }
         val exampleCooldowns = ArrayList<ExampleCooldown>()
@@ -100,34 +106,18 @@ class CooldownHud: Hud(true, 540.0F, 561.6F, 0, 1.0F) {
         return bottomBoundingBoxY - topBoundingBoxY
     }
 
-    internal companion object {
-        @Transient
-        val exampleCooldowns = ArrayList<ExampleCooldown>()
-        @Transient
-        val cooldownElements = ArrayList<UIHorizontalCooldownElement>()
-        @Transient
-        val window = Window(ElementaVersion.V2)
-        class ExampleCooldown: Cooldown() {
-            private val item: Item
-            init {
-                val itemKeys = Item.itemRegistry.keys.toTypedArray()
-                val itemsLength = itemKeys.size
-                val randomIndex = MathUtils.randInt(0, itemsLength - 1)
-                item = Item.itemRegistry.getObjectById(randomIndex) ?: Items.bucket
-            }
-            override fun getTotalTime(): Long = 1000
-
-            override fun getDisplayName(): String = ""
-
-            override fun getItemToDisplay(): ItemStack = ItemStack(item)
+    class ExampleCooldown: Cooldown() {
+        private val item: Item
+        init {
+            val itemKeys = Item.itemRegistry.keys.toTypedArray()
+            val itemsLength = itemKeys.size
+            val randomIndex = MathUtils.randInt(0, itemsLength - 1)
+            item = Item.itemRegistry.getObjectById(randomIndex) ?: Items.bucket
         }
-        @SubscribeEvent
-        fun onScreenRender(event: RenderGameOverlayEvent.Text) {
-            window.draw(gg.essential.universal.UMatrixStack())
-        }
+        override fun getTotalTime(): Long = 1000
+
+        override fun getDisplayName(): String = ""
+
+        override fun getItemToDisplay(): ItemStack = ItemStack(item)
     }
-}
-//    Because of the way OneConfig works, I don't think I can store the Elementa objects/other complex objects in the Hud Class
-private object ElementaObjects {
-
 }
