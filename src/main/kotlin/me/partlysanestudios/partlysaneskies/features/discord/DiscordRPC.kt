@@ -11,6 +11,7 @@ import de.jcm.discordgamesdk.CreateParams
 import de.jcm.discordgamesdk.activity.Activity
 import de.jcm.discordgamesdk.activity.ActivityType
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
+import me.partlysanestudios.partlysaneskies.utils.HypixelUtils
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils
 import org.apache.logging.log4j.Level
 import java.io.File
@@ -100,6 +101,17 @@ object DiscordRPC {
                         }
                         continue
                     }
+
+                    if (PartlySaneSkies.config.discordRPCOnlySkyblock && !HypixelUtils.isSkyblock()) {
+                        try {
+                            // Sleep a bit to save CPU
+                            Thread.sleep(600)
+                        } catch (e: InterruptedException) {
+                            e.printStackTrace()
+                        }
+                        continue
+                    }
+
                     // If the mode has changed, return so the run function can be called again with the right application id
                     if ((PartlySaneSkies.config.discordPlayingMode == 1) != sbeBadMode) {
                         return
@@ -109,8 +121,8 @@ object DiscordRPC {
                         core.runCallbacks()
 
                         if (PartlySaneSkies.config.discordRPCName != lastName || PartlySaneSkies.config.discordRPCDescription != lastMessage) {
-                            lastName = PartlySaneSkies.config.discordRPCName?: lastName
-                            lastMessage =  PartlySaneSkies.config.discordRPCDescription?: lastMessage
+                            lastName = PartlySaneSkies.config.discordRPCName
+                            lastMessage = PartlySaneSkies.config.discordRPCDescription
 
                             val activity = createNewActivity()
                             core.activityManager().updateActivity(activity)
