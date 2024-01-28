@@ -12,6 +12,8 @@ import cc.polyfrost.oneconfig.config.core.OneKeyBind
 import cc.polyfrost.oneconfig.config.data.InfoType
 import cc.polyfrost.oneconfig.config.data.Mod
 import cc.polyfrost.oneconfig.config.data.ModType
+import me.partlysanestudios.partlysaneskies.features.debug.ExampleHud
+import me.partlysanestudios.partlysaneskies.features.gui.hud.CooldownHud
 import org.lwjgl.input.Keyboard
 
 object OneConfigScreen : Config(
@@ -76,6 +78,9 @@ object OneConfigScreen : Config(
      * // SUBCATEGORY_NAME
      */
 
+
+
+    // ------------- Category: General ---------------------------------
     @Info(
         type = InfoType.INFO,
         text = "Hover over an option to see a description and more information."
@@ -483,6 +488,14 @@ object OneConfigScreen : Config(
         subcategory = "Shortcuts"
     )
     var storageKeybind = OneKeyBind(Keyboard.KEY_NONE)
+
+    // Cooldown Hud
+    @HUD(
+        name = "Cooldown HUD",
+        category = "SkyBlock",
+        subcategory = "Cooldown HUD"
+    )
+    var cooldownHud = CooldownHud.oneConfigHud
 
     // ------------- Category: Dungeons ---------------------------------
     // Party Manager
@@ -1562,6 +1575,13 @@ object OneConfigScreen : Config(
     )
     var debugRenderRNGBanner = false
 
+    // Example HUD
+    @HUD(
+        name = "Test Hud Element",
+        category = "Dev",
+        subcategory = "Example HUD"
+    )
+    var hud = ExampleHud.oneConfigHud
 
     // Percy Mode
     @Switch(

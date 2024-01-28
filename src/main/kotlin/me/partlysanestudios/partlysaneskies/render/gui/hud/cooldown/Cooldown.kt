@@ -3,7 +3,6 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.render.gui.hud.cooldown
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
@@ -11,9 +10,6 @@ import me.partlysanestudios.partlysaneskies.utils.MathUtils
 import net.minecraft.item.ItemStack
 
 abstract class Cooldown {
-    init {
-        CooldownManager.cooldowns.add(this)
-    }
 
     private var startingTime = -1L
     /**
