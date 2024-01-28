@@ -1,11 +1,13 @@
 package me.partlysanestudios.partlysaneskies.features.gui.hud
 
 import cc.polyfrost.oneconfig.hud.Hud
+import cc.polyfrost.oneconfig.hud.Position
 import cc.polyfrost.oneconfig.libs.universal.UMatrixStack
 import gg.essential.elementa.ElementaVersion
 import gg.essential.elementa.components.Window
 import gg.essential.elementa.constraints.CenterConstraint
 import gg.essential.elementa.dsl.percent
+import gg.essential.elementa.dsl.percentOfWindow
 import gg.essential.elementa.dsl.pixels
 import me.partlysanestudios.partlysaneskies.config.PSSHud
 import me.partlysanestudios.partlysaneskies.render.gui.components.UIHorizontalCooldownElement
@@ -22,10 +24,10 @@ private const val cooldownsDisplayableAtOnce = 3
 private const val defaultWidth = 50
 private const val defaultHeight = 7
 private const val defaultPadding = 120f
-object CooldownHud: PSSHud(true, 540.0F, 561.6F, 0, 1.0F) {
-    val exampleCooldowns = ArrayList<ExampleCooldown>()
-    val cooldownElements = ArrayList<UIHorizontalCooldownElement>()
-    val window = Window(ElementaVersion.V2)
+object CooldownHud: PSSHud(true, 960F - defaultWidth, 561.6F, 0, 1.0F) {
+    private val exampleCooldowns = ArrayList<ExampleCooldown>()
+    private val cooldownElements = ArrayList<UIHorizontalCooldownElement>()
+    private val window = Window(ElementaVersion.V2)
     init {
         var previousCooldownElement = UIHorizontalCooldownElement(CenterConstraint(), 52f.percent, defaultWidth.pixels, defaultHeight.pixels)
             .setChildOf(window)
@@ -96,14 +98,9 @@ object CooldownHud: PSSHud(true, 540.0F, 561.6F, 0, 1.0F) {
     }
 
     override fun getHeight(scale: Float, example: Boolean): Float {
-        if ((cooldownElements?.size ?: 0) < cooldownsDisplayableAtOnce) { // Yes the safe calls are necessary because OneConfig is weird
-            return 0.0F
-        }
-        val exampleCooldowns = ArrayList<ExampleCooldown>()
-
-        val topBoundingBoxY = cooldownElements?.get(0)?.boundingBox?.getTop() ?: 0.0F // Yes the safe calls are necessary because OneConfig is weird
-        val bottomBoundingBoxY = cooldownElements?.get(cooldownsDisplayableAtOnce - 1)?.boundingBox?.getBottom() ?: 0.0F // Yes the safe calls are necessary because OneConfig is weird
-        return bottomBoundingBoxY - topBoundingBoxY
+        val totalBarHeights = cooldownsDisplayableAtOnce * defaultHeight * scale
+        val totalPadding = defaultPadding.percentOfWindow.value * scale * (cooldownsDisplayableAtOnce - 1)
+        return totalBarHeights + totalPadding
     }
 
     class ExampleCooldown: Cooldown() {
