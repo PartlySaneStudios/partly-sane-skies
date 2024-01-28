@@ -9,7 +9,7 @@ import cc.polyfrost.oneconfig.hud.Hud
 import cc.polyfrost.oneconfig.libs.universal.UMatrixStack
 
 /**
- * An abstraction of [cc.polyfrost.oneconfig.hud.Hud]()
+ * An abstraction of [cc.polyfrost.oneconfig.hud.Hud].
  * This is necessary because OneConfig attempts to deserialize to Json the entire object, including any properties saved.
  *
  * @see me.partlysanestudios.partlysaneskies.features.debug.ExampleHud for example
