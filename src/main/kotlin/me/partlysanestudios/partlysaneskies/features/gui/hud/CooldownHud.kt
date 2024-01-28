@@ -1,8 +1,10 @@
+//
+// Written by Su386.
+// See LICENSE for copyright and license notices.
+//
+
 package me.partlysanestudios.partlysaneskies.features.gui.hud
 
-import cc.polyfrost.oneconfig.hud.Hud
-import cc.polyfrost.oneconfig.hud.Position
-import cc.polyfrost.oneconfig.libs.universal.UMatrixStack
 import gg.essential.elementa.ElementaVersion
 import gg.essential.elementa.components.Window
 import gg.essential.elementa.constraints.CenterConstraint

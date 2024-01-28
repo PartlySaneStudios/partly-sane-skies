@@ -3,7 +3,6 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.render.gui.hud.cooldown
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
