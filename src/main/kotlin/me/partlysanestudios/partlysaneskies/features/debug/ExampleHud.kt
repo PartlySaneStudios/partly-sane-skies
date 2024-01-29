@@ -39,7 +39,7 @@ object ExampleHud: PSSHud(false, 50.0F, 50.0F) {
         if(!this.enabled) {
             return
         }
-        
+
         box.setX(x.pixels)
         box.setY(y.pixels)
         box.setHeight((scale * DEFAULT_HEIGHT).pixels)
