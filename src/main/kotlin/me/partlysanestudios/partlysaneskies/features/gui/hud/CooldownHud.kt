@@ -44,6 +44,10 @@ object CooldownHud: PSSHud(true, 960F - defaultWidth/2, 561.6F, 0, 1.0F) {
     }
     @SubscribeEvent
     fun onScreenRender(event: RenderGameOverlayEvent.Text) {
+        if(!this.enabled) {
+            return
+        }
+
         cooldownElements[0].boundingBox.setX(x.pixels)
         cooldownElements[0].boundingBox.setY(y.pixels)
         cooldownElements[0].boundingBox.setWidth((defaultWidth * scale).pixels)
