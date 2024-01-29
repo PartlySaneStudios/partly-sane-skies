@@ -218,7 +218,7 @@ object ThemeManager {
         }
     val accentColor: OneColor
         get() {
-            return if (config.useDefaultAccentColor) {
+            return if (config.useCustomAccentColor) {
                 val themeIndex: Int = config.themeIndex
                 OneColor(defaultThemes[themeIndex].defaultAccentColor)
             } else {
