@@ -33,7 +33,7 @@ object MinecraftUtils {
     /**
      * Tablist Getter hard inspired by NEU
      * NEU-Repo: https://github.com/NotEnoughUpdates/NotEnoughUpdates
-     * The Code: <file link here>
+     * The Code: https://github.com/NotEnoughUpdates/NotEnoughUpdates/blob/master/src/main/java/io/github/moulberry/notenoughupdates/util/TabListUtils.java
      *
      * Changes made:
      * - Small rewrites
