@@ -71,8 +71,21 @@ object DiscordRPC {
         }
     }
 
-    private fun shouldRun() = config.discordRPC && HypixelUtils.isSkyblock()
-    fun run() {
+    private fun shouldRun(): Boolean {
+        if (!config.discordRPC) { // if disabled, return false
+            return false
+        }
+
+        return if (config.discordRPCOnlySkyblock) { // if true, check if it's in skyblock// if not in skyblock return true
+            // if in skyblock, return true
+            HypixelUtils.isSkyblock()
+
+        } else { // if the rpc in enabled, but the only in skyblock is disabled, return true
+            true
+        }
+    }
+
+        fun run() {
         // Set parameters for the Core
         CreateParams().use { params ->
             val sbeBadMode = config.discordPlayingMode == 1
@@ -198,7 +211,7 @@ object DiscordRPC {
         val downloadUrl = URL("https://dl-game-sdk.discordapp.net/2.5.6/discord_game_sdk.zip")
         val connection: HttpsURLConnection = downloadUrl.openConnection() as HttpsURLConnection
         connection.setRequestProperty("User-Agent", "discord-game-sdk4j (https://github.com/JnCrMx/discord-game-sdk4j)")
-        val zin = ZipInputStream(connection.getInputStream())
+        val zin = ZipInputStream(connection.inputStream)
 
         connection.hostnameVerifier = allHostsValid
         connection.sslSocketFactory = sslContext.socketFactory
