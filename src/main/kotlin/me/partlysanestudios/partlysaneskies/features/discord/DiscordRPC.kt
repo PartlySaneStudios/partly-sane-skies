@@ -11,6 +11,7 @@ import de.jcm.discordgamesdk.CreateParams
 import de.jcm.discordgamesdk.activity.Activity
 import de.jcm.discordgamesdk.activity.ActivityType
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils
 import org.apache.logging.log4j.Level
@@ -50,25 +51,31 @@ object DiscordRPC {
         Core.init(discordLibrary)
 
         while (true) {
-            SystemUtils.log(Level.INFO, "Creating new discord RPC parameters")
-            run()
-            try {
-                // Sleep a bit to save CPU
-                Thread.sleep(600)
-            } catch (e: InterruptedException) {
-                e.printStackTrace()
+            if (!shouldRun()) {
+                try {
+                    // Sleep a bit to save CPU
+                    Thread.sleep(600)
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
+                }
+            } else {
+                SystemUtils.log(Level.INFO, "Creating new discord RPC parameters")
+                run()
+                try {
+                    // Sleep a bit to save CPU
+                    Thread.sleep(600)
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
+                }
             }
         }
     }
 
-    fun shouldRun() = PartlySaneSkies.config.discordRPC && HypixelUtils.isSkyblock()
+    private fun shouldRun() = config.discordRPC && HypixelUtils.isSkyblock()
     fun run() {
-        if (!shouldRun()) {
-            return
-        }
         // Set parameters for the Core
         CreateParams().use { params ->
-            val sbeBadMode = PartlySaneSkies.config.discordPlayingMode == 1
+            val sbeBadMode = config.discordPlayingMode == 1
             val applicationId = if (sbeBadMode) {
                 SBE_BAD_APPLICATION_ID
             } else {
@@ -89,26 +96,18 @@ object DiscordRPC {
 
                 // Run callbacks forever
                 while (true) {
-                    if (!shouldRun()) {
-                        try {
-                            // Sleep a bit to save CPU
-                            Thread.sleep(600)
-                        } catch (e: InterruptedException) {
-                            e.printStackTrace()
-                        }
-                        continue
-                    }
-                    // If the mode has changed, return so the run function can be called again with the right application id
-                    if ((PartlySaneSkies.config.discordPlayingMode == 1) != sbeBadMode) {
-                        return
+                    // If it should run or if the mode has changed, return so the run function can be called again with the right application id
+                    if (!shouldRun() || (config.discordPlayingMode == 1) != sbeBadMode) {
+                        core.close()
+                        return@run
                     }
 
                     try {
                         core.runCallbacks()
 
-                        if (PartlySaneSkies.config.discordRPCName != lastName || PartlySaneSkies.config.discordRPCDescription != lastMessage) {
-                            lastName = PartlySaneSkies.config.discordRPCName
-                            lastMessage = PartlySaneSkies.config.discordRPCDescription
+                        if (config.discordRPCName != lastName || config.discordRPCDescription != lastMessage) {
+                            lastName = config.discordRPCName
+                            lastMessage = config.discordRPCDescription
 
                             val activity = createNewActivity()
                             core.activityManager().updateActivity(activity)
