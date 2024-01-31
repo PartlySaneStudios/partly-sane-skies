@@ -11,6 +11,7 @@ import de.jcm.discordgamesdk.CreateParams
 import de.jcm.discordgamesdk.activity.Activity
 import de.jcm.discordgamesdk.activity.ActivityType
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
+import me.partlysanestudios.partlysaneskies.utils.HypixelUtils
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils
 import org.apache.logging.log4j.Level
 import java.io.File
@@ -36,9 +37,6 @@ object DiscordRPC {
     private var lastMessage = "Playing Hypixel Skyblock"
     private var startTimeStamp = Instant.now()
     fun init() {
-        if (!PartlySaneSkies.config.discordRPC) {
-            return
-        }
         startTimeStamp = Instant.now()
         discordLibrary = downloadDiscordLibrary()
         if(discordLibrary == null) {
@@ -53,11 +51,7 @@ object DiscordRPC {
 
         while (true) {
             SystemUtils.log(Level.INFO, "Creating new discord RPC parameters")
-            if (PartlySaneSkies.config.discordPlayingMode == 1) {
-                run()
-            } else {
-                run()
-            }
+            run()
             try {
                 // Sleep a bit to save CPU
                 Thread.sleep(600)
@@ -67,7 +61,11 @@ object DiscordRPC {
         }
     }
 
+    fun shouldRun() = PartlySaneSkies.config.discordRPC && HypixelUtils.isSkyblock()
     fun run() {
+        if (!shouldRun()) {
+            return
+        }
         // Set parameters for the Core
         CreateParams().use { params ->
             val sbeBadMode = PartlySaneSkies.config.discordPlayingMode == 1
@@ -91,7 +89,7 @@ object DiscordRPC {
 
                 // Run callbacks forever
                 while (true) {
-                    if (!PartlySaneSkies.config.discordRPC) {
+                    if (!shouldRun()) {
                         try {
                             // Sleep a bit to save CPU
                             Thread.sleep(600)
@@ -109,8 +107,8 @@ object DiscordRPC {
                         core.runCallbacks()
 
                         if (PartlySaneSkies.config.discordRPCName != lastName || PartlySaneSkies.config.discordRPCDescription != lastMessage) {
-                            lastName = PartlySaneSkies.config.discordRPCName?: lastName
-                            lastMessage =  PartlySaneSkies.config.discordRPCDescription?: lastMessage
+                            lastName = PartlySaneSkies.config.discordRPCName
+                            lastMessage = PartlySaneSkies.config.discordRPCDescription
 
                             val activity = createNewActivity()
                             core.activityManager().updateActivity(activity)
