@@ -12,7 +12,7 @@ import com.google.gson.JsonParser;
 import com.mojang.authlib.GameProfile;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.data.api.PolyfrostUrsaMinorRequest;
-import me.partlysanestudios.partlysaneskies.data.api.Request;
+import me.partlysanestudios.partlysaneskies.data.api.GetRequest;
 import me.partlysanestudios.partlysaneskies.data.api.RequestsManager;
 import me.partlysanestudios.partlysaneskies.utils.MathUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
@@ -88,7 +88,7 @@ public class SkyblockPlayer {
         if (uuid == null) {
             String requestURL = "https://mowojang.matdoes.dev/users/profiles/minecraft/" + username;
 
-            RequestsManager.INSTANCE.newRequest(new Request(requestURL, request -> {
+            RequestsManager.INSTANCE.newRequest(new GetRequest(requestURL, request -> {
                 SystemUtils.INSTANCE.log(Level.INFO, request.getResponse());
                 if (!request.hasSucceeded()) {
                     synchronized (lock) {

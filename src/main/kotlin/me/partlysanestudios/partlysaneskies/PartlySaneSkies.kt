@@ -22,6 +22,7 @@ import gg.essential.elementa.ElementaVersion
 import me.partlysanestudios.partlysaneskies.config.Keybinds
 import me.partlysanestudios.partlysaneskies.config.OneConfigScreen
 import me.partlysanestudios.partlysaneskies.data.api.PolyfrostUrsaMinorRequest
+import me.partlysanestudios.partlysaneskies.data.api.GetRequest
 import me.partlysanestudios.partlysaneskies.data.api.Request
 import me.partlysanestudios.partlysaneskies.data.api.RequestsManager.newRequest
 import me.partlysanestudios.partlysaneskies.data.cache.PetData
@@ -146,20 +147,16 @@ class PartlySaneSkies {
         File("./config/partly-sane-skies/").mkdirs()
 
         val mainMenuRequest =
-            Request(
+            GetRequest(
                 "https://raw.githubusercontent.com/" + getRepoOwner() + "/" + getRepoName() + "/main/data/main_menu.json",
                 { request: Request? ->
-                    CustomMainMenu.setMainMenuInfo(
-                        request
-                    )
+                    CustomMainMenu.setMainMenuInfo(request)
                 })
         newRequest(mainMenuRequest)
-        val funFactRequest = Request(
+        val funFactRequest = GetRequest(
             CustomMainMenu.funFactApi,
             { request: Request? ->
-                CustomMainMenu.setFunFact(
-                    request
-                )
+                CustomMainMenu.setFunFact(request)
             })
         newRequest(funFactRequest)
         trackLoad()
