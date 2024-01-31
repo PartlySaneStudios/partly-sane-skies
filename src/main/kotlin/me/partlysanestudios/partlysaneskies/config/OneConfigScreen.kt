@@ -1489,6 +1489,13 @@ object OneConfigScreen : Config(
         subcategory = "Chat Color"
     )
     var owoLanguage = false
+    @Switch(
+        name = "OwO Chat Transformer",
+        description = "Transforms every chat message you send into OwO language.",
+        category = "Chat",
+        subcategory = "Chat Color"
+    )
+    var transformOWO = false
 
     //    ------------- DEV ------------
     @KeyBind(

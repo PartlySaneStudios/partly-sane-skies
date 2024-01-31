@@ -34,6 +34,7 @@ import me.partlysanestudios.partlysaneskies.events.EventManager
 import me.partlysanestudios.partlysaneskies.events.data.LoadPublicDataEvent
 import me.partlysanestudios.partlysaneskies.features.chat.ChatAlertsManager
 import me.partlysanestudios.partlysaneskies.features.chat.ChatManager
+import me.partlysanestudios.partlysaneskies.features.chat.ChatTransformer
 import me.partlysanestudios.partlysaneskies.features.chat.WordEditor
 import me.partlysanestudios.partlysaneskies.features.commands.Crepes
 import me.partlysanestudios.partlysaneskies.features.commands.Discord
@@ -267,6 +268,10 @@ class PartlySaneSkies {
         PlayerRating.registerReprintCommand()
         ModChecker.registerModCheckCommand()
         PearlRefill.registerCommand()
+
+
+        //Use polyfrost EventManager cuz chatSendEvent makes transforming chat messages may easier
+        cc.polyfrost.oneconfig.events.EventManager.INSTANCE.register(ChatTransformer)
 
         DebugKey.init()
         PolyfrostUrsaMinorRequest.authorize()
