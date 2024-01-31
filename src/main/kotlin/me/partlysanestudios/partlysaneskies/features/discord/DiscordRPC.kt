@@ -11,6 +11,7 @@ import de.jcm.discordgamesdk.CreateParams
 import de.jcm.discordgamesdk.activity.Activity
 import de.jcm.discordgamesdk.activity.ActivityType
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils
 import org.apache.logging.log4j.Level
@@ -37,9 +38,6 @@ object DiscordRPC {
     private var lastMessage = "Playing Hypixel Skyblock"
     private var startTimeStamp = Instant.now()
     fun init() {
-        if (!PartlySaneSkies.config.discordRPC) {
-            return
-        }
         startTimeStamp = Instant.now()
         discordLibrary = downloadDiscordLibrary()
         if(discordLibrary == null) {
@@ -53,25 +51,44 @@ object DiscordRPC {
         Core.init(discordLibrary)
 
         while (true) {
-            SystemUtils.log(Level.INFO, "Creating new discord RPC parameters")
-            if (PartlySaneSkies.config.discordPlayingMode == 1) {
-                run()
+            if (!shouldRun()) {
+                try {
+                    // Sleep a bit to save CPU
+                    Thread.sleep(600)
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
+                }
             } else {
+                SystemUtils.log(Level.INFO, "Creating new discord RPC parameters")
                 run()
-            }
-            try {
-                // Sleep a bit to save CPU
-                Thread.sleep(600)
-            } catch (e: InterruptedException) {
-                e.printStackTrace()
+                try {
+                    // Sleep a bit to save CPU
+                    Thread.sleep(600)
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
+                }
             }
         }
     }
 
-    fun run() {
+    private fun shouldRun(): Boolean {
+        if (!config.discordRPC) { // if disabled, return false
+            return false
+        }
+
+        return if (config.discordRPCOnlySkyblock) { // if true, check if it's in skyblock// if not in skyblock return true
+            // if in skyblock, return true
+            HypixelUtils.isSkyblock()
+
+        } else { // if the rpc in enabled, but the only in skyblock is disabled, return true
+            true
+        }
+    }
+
+        fun run() {
         // Set parameters for the Core
         CreateParams().use { params ->
-            val sbeBadMode = PartlySaneSkies.config.discordPlayingMode == 1
+            val sbeBadMode = config.discordPlayingMode == 1
             val applicationId = if (sbeBadMode) {
                 SBE_BAD_APPLICATION_ID
             } else {
@@ -92,37 +109,18 @@ object DiscordRPC {
 
                 // Run callbacks forever
                 while (true) {
-                    if (!PartlySaneSkies.config.discordRPC) {
-                        try {
-                            // Sleep a bit to save CPU
-                            Thread.sleep(600)
-                        } catch (e: InterruptedException) {
-                            e.printStackTrace()
-                        }
-                        continue
-                    }
-
-                    if (PartlySaneSkies.config.discordRPCOnlySkyblock && !HypixelUtils.isSkyblock()) {
-                        try {
-                            // Sleep a bit to save CPU
-                            Thread.sleep(600)
-                        } catch (e: InterruptedException) {
-                            e.printStackTrace()
-                        }
-                        continue
-                    }
-
-                    // If the mode has changed, return so the run function can be called again with the right application id
-                    if ((PartlySaneSkies.config.discordPlayingMode == 1) != sbeBadMode) {
-                        return
+                    // If it should run or if the mode has changed, return so the run function can be called again with the right application id
+                    if (!shouldRun() || (config.discordPlayingMode == 1) != sbeBadMode) {
+                        core.close()
+                        return@run
                     }
 
                     try {
                         core.runCallbacks()
 
-                        if (PartlySaneSkies.config.discordRPCName != lastName || PartlySaneSkies.config.discordRPCDescription != lastMessage) {
-                            lastName = PartlySaneSkies.config.discordRPCName
-                            lastMessage = PartlySaneSkies.config.discordRPCDescription
+                        if (config.discordRPCName != lastName || config.discordRPCDescription != lastMessage) {
+                            lastName = config.discordRPCName
+                            lastMessage = config.discordRPCDescription
 
                             val activity = createNewActivity()
                             core.activityManager().updateActivity(activity)
@@ -213,7 +211,7 @@ object DiscordRPC {
         val downloadUrl = URL("https://dl-game-sdk.discordapp.net/2.5.6/discord_game_sdk.zip")
         val connection: HttpsURLConnection = downloadUrl.openConnection() as HttpsURLConnection
         connection.setRequestProperty("User-Agent", "discord-game-sdk4j (https://github.com/JnCrMx/discord-game-sdk4j)")
-        val zin = ZipInputStream(connection.getInputStream())
+        val zin = ZipInputStream(connection.inputStream)
 
         connection.hostnameVerifier = allHostsValid
         connection.sslSocketFactory = sslContext.socketFactory

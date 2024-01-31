@@ -78,7 +78,7 @@ object MinecraftUtils {
      * @return the name of the scoreboard
      */
     fun getScoreboardName(color: Boolean = false): String =
-        PartlySaneSkies.minecraft.thePlayer.worldScoreboard.getObjectiveInDisplaySlot(1).displayName
+        (PartlySaneSkies.minecraft.thePlayer?.worldScoreboard?.getObjectiveInDisplaySlot(1)?.displayName ?: "")
             .let { if (color) it else it.removeColorCodes() }
 
     fun IInventory.getItemstackList(): ArrayList<ItemStack> {
