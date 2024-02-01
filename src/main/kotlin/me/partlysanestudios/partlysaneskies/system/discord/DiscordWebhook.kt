@@ -1,12 +1,6 @@
 package me.partlysanestudios.partlysaneskies.system.discord
 
-import kotlinx.serialization.json.Json
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils
-import me.partlysanestudios.partlysaneskies.utils.SystemUtils
-import org.apache.logging.log4j.Level
-import java.io.DataOutputStream
-import java.io.OutputStreamWriter
-import java.net.HttpURLConnection
 import java.net.URL
 
 
