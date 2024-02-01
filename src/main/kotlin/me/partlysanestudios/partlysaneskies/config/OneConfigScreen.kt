@@ -359,6 +359,16 @@ object OneConfigScreen : Config(
     )
     var locationBannerTime = 3.5f
 
+    // Discord Webhook RNG Thingy
+    @Text(
+        name = "Discord Webhook URL",
+        description = "The URL of the discord webhook to send the message to.",
+        category = "SkyBlock",
+        subcategory = "Discord Webhook RNG",
+        size = 2
+    )
+    var discordWebhookURL = ""
+
     // Open Wiki
     @Switch(
         name = "Open Wiki Automatically",
@@ -1574,6 +1584,13 @@ object OneConfigScreen : Config(
         category = "Dev"
     )
     var debugRenderRNGBanner = false
+
+    @Switch(
+        name = "Send Discord Webhook",
+        description = "Sends a discord webhook.",
+        category = "Dev"
+    )
+    var debugSendDiscordWebhook = false
 
     // Example HUD
     @HUD(

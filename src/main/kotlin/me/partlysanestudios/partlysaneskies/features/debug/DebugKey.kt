@@ -22,6 +22,9 @@ import me.partlysanestudios.partlysaneskies.render.gui.hud.BannerRenderer.render
 import me.partlysanestudios.partlysaneskies.render.gui.hud.PSSBanner
 import me.partlysanestudios.partlysaneskies.render.waypoint.Waypoint
 import me.partlysanestudios.partlysaneskies.system.SystemNotification
+import me.partlysanestudios.partlysaneskies.system.discord.DiscordEmbed
+import me.partlysanestudios.partlysaneskies.system.discord.DiscordEmbedField
+import me.partlysanestudios.partlysaneskies.system.discord.DiscordWebhook
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.copyStringToClipboard
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
@@ -54,11 +57,13 @@ object DebugKey {
         if (config.debugAddSlacker) {
             PlayerRating.rackPoints("FlagTheSlacker", "Debug Slacker")
         }
+
         if (config.debugSpawnWaypoint) {
             val originalPos = PartlySaneSkies.minecraft.thePlayer.position
             val modifiedPoint = Point3d(originalPos.x - 1.0, originalPos.y.toDouble(), originalPos.z - 1.0)
             waypointPoint = modifiedPoint
         }
+
         if (config.debugSendSystemNotification) {
             SystemNotification.showNotification("Debug mode: ${isDebugMode()}")
         }
@@ -70,6 +75,7 @@ object DebugKey {
 
             }.start()
         }
+
         if (config.debugPrintCurrentLocationFromIslandType) {
             sendClientMessage("Island Type: ${IslandType.getCurrentIsland()}")
         }
@@ -77,12 +83,33 @@ object DebugKey {
         if (config.debugLogCachedF7Puzzles) {
             TerminalWaypoints.logCachedPuzzles()
         }
+
         if (config.debugPrintCurrentCachedStats) {
             sendClientMessage("Health: ${StatsData.currentHealth}/${StatsData.maxHealth}, Defense: ${StatsData.defense}, Mana: ${StatsData.currentMana}/${StatsData.maxMana}")
         }
 
         if (config.debugRenderRNGBanner) {
             DropBannerDisplay.drop = Drop("Test Name", "Test Category", 69, time, Color.MAGENTA)
+        }
+
+        if (config.debugSendDiscordWebhook) {
+            DiscordWebhook(
+                config.discordWebhookURL, "Test Content", listOf(
+                    DiscordEmbed(
+                        title = "Test Title",
+                        description = "Test Description",
+                        url = "https://www.google.com",
+                        color = 0xFF00FF,
+                        fields = listOf(
+                            DiscordEmbedField(
+                                name = "Test Field Name",
+                                value = "Test Field Value",
+                                inline = true
+                            )
+                        )
+                    )
+                )
+            ).send()
         }
     }
 
@@ -96,6 +123,7 @@ object DebugKey {
     }
 
     private var waypointPoint = Point3d(0.0, 0.0, 0.0)
+
     @SubscribePSSEvent
     fun onWaypointRender(event: RenderWaypointEvent) {
         if (isDebugMode() && config.debugSpawnWaypoint) {
