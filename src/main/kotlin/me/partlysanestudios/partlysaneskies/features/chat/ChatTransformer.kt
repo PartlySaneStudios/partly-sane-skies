@@ -10,7 +10,6 @@ import cc.polyfrost.oneconfig.events.event.ChatSendEvent
 import cc.polyfrost.oneconfig.libs.eventbus.Subscribe
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
-import net.minecraft.client.Minecraft
 
 
 //Currently only using to owoify send chat messages (meow)
