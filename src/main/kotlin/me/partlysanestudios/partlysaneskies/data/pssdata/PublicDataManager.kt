@@ -7,7 +7,7 @@ package me.partlysanestudios.partlysaneskies.data.pssdata
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand
-import me.partlysanestudios.partlysaneskies.data.api.Request
+import me.partlysanestudios.partlysaneskies.data.api.GetRequest
 import me.partlysanestudios.partlysaneskies.data.api.RequestsManager
 import me.partlysanestudios.partlysaneskies.events.data.LoadPublicDataEvent
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
@@ -54,10 +54,10 @@ object PublicDataManager {
 
         try {
             RequestsManager.newRequest(
-                Request("https://raw.githubusercontent.com/" + getRepoOwner() + "/" + getRepoName() + "/main/data/" + fixedPath, {
+                GetRequest("https://raw.githubusercontent.com/" + getRepoOwner() + "/" + getRepoName() + "/main/data/" + fixedPath, {
                     if (!it.hasSucceeded()) {
                         synchronized(lock) { lock.notifyAll() }
-                        return@Request
+                        return@GetRequest
                     }
                     fileCache[path] = it.getResponse()
                     synchronized(lock) { lock.notifyAll() }

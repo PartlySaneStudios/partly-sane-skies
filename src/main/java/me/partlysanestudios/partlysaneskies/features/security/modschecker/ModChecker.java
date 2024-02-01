@@ -9,7 +9,7 @@ package me.partlysanestudios.partlysaneskies.features.security.modschecker;
 import com.google.gson.Gson;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand;
-import me.partlysanestudios.partlysaneskies.data.api.Request;
+import me.partlysanestudios.partlysaneskies.data.api.GetRequest;
 import me.partlysanestudios.partlysaneskies.data.api.RequestsManager;
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager;
 import me.partlysanestudios.partlysaneskies.features.debug.DebugKey;
@@ -286,7 +286,7 @@ public class ModChecker {
     private static void loadModDataFromRepo(String userName, String repoName) {
         String url = "https://raw.githubusercontent.com/" + userName +
                 "/" + repoName + "/main/data/mods.json";
-        RequestsManager.INSTANCE.newRequest(new Request(url, request -> {
+        RequestsManager.INSTANCE.newRequest(new GetRequest(url, request -> {
             knownMods = null;
             try {
                 knownMods = read(new Gson().fromJson(request.getResponse(), ModDataJson.class));
