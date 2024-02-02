@@ -1,7 +1,6 @@
 //
 // Written by J10a1n15 and Su386.
 // See LICENSE for copyright and license notices.
-// Hard inspired by NotEnoughUpdates - https://github.com/NotEnoughUpdates/NotEnoughUpdates
 //
 
 
@@ -31,6 +30,15 @@ import java.lang.IndexOutOfBoundsException
 import java.util.stream.Collectors
 
 object MinecraftUtils {
+    /**
+     * Tablist Getter hard inspired by NEU
+     * NEU-Repo: https://github.com/NotEnoughUpdates/NotEnoughUpdates
+     * The Code: https://github.com/NotEnoughUpdates/NotEnoughUpdates/blob/master/src/main/java/io/github/moulberry/notenoughupdates/util/TabListUtils.java
+     *
+     * Changes made:
+     * - Small rewrites
+     * - Translated to kotlin
+    */
     private val playerOrdering = Ordering.from { overlay1: NetworkPlayerInfo?, overlay2: NetworkPlayerInfo? ->
         comparePlayers(
             overlay1!!, overlay2!!
@@ -70,7 +78,7 @@ object MinecraftUtils {
      * @return the name of the scoreboard
      */
     fun getScoreboardName(color: Boolean = false): String =
-        PartlySaneSkies.minecraft.thePlayer.worldScoreboard.getObjectiveInDisplaySlot(1).displayName
+        (PartlySaneSkies.minecraft.thePlayer?.worldScoreboard?.getObjectiveInDisplaySlot(1)?.displayName ?: "")
             .let { if (color) it else it.removeColorCodes() }
 
     fun IInventory.getItemstackList(): ArrayList<ItemStack> {
