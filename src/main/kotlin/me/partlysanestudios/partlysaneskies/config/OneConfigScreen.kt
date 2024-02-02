@@ -104,6 +104,13 @@ object OneConfigScreen : Config(
     )
     var discordRPC = true
 
+    @Switch(
+        name = "Only show Discord RPC when in Skyblock",
+        category = "General",
+        subcategory = "Discord"
+    )
+    var discordRPCOnlySkyblock = false
+
     @Dropdown(
         name = "Playing...",
         category = "General",
