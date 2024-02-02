@@ -19,7 +19,9 @@ object ChatTransformer {
     @Subscribe
     fun onChat(event: ChatSendEvent) {
         //dont mess with chats that dont want to
-        if (!doChatTransform()) return
+        if (!doChatTransform()) {
+            return
+        }
 
         event.isCancelled = true
         val msg = event.message
@@ -29,21 +31,26 @@ object ChatTransformer {
             return
         }
         //dont break commands :)
-        if (msg.startsWith("/")) return
+        if (msg.startsWith("/")){
+            return
+        }
 
         val player = PartlySaneSkies.minecraft.thePlayer
-        var transformedmsg: String? = null
+        var transformedmsg = ""
 
         if (config.transformOWO) {
             transformedmsg = OwO.owoify(msg)
         }
-        if (transformedmsg == null) return
-        // I dont know why putting this in a thread fixes it, but I do not complain
+        if (transformedmsg.isEmpty()){
+            return
+        }
+        // Putting this in a thread is needed so the recursive call doesn't wipe/duplicate the message
         Thread {
             lastmsg = transformedmsg
             player.sendChatMessage(transformedmsg)
             lastmsg = ""
         }.start()
+
     }
     private fun doChatTransform(): Boolean {
         return config.transformOWO
