@@ -50,7 +50,6 @@ object ChatTransformer {
             player.sendChatMessage(transformedmsg)
             lastmsg = ""
         }.start()
-
     }
     private fun doChatTransform(): Boolean {
         return config.transformOWO
