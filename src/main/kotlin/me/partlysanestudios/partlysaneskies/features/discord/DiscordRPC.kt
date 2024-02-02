@@ -60,7 +60,11 @@ object DiscordRPC {
                 }
             } else {
                 SystemUtils.log(Level.INFO, "Creating new discord RPC parameters")
-                run()
+                try {
+                    run()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
                 try {
                     // Sleep a bit to save CPU
                     Thread.sleep(600)
