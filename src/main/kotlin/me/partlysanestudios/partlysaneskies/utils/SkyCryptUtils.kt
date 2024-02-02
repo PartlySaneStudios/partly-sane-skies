@@ -3,7 +3,6 @@ package me.partlysanestudios.partlysaneskies.utils
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
-import me.partlysanestudios.partlysaneskies.data.api.GetRequest
 import me.partlysanestudios.partlysaneskies.data.api.Request
 import me.partlysanestudios.partlysaneskies.data.api.RequestRunnable
 import me.partlysanestudios.partlysaneskies.data.api.RequestsManager
@@ -48,7 +47,7 @@ object SkyCryptUtils {
     private fun obtainSkyCryptPlayerJSONData(username: String): JsonObject {
         lateinit var skyCryptObject: JsonObject
         RequestsManager.newRequest(
-            GetRequest((skyCryptProfileURL + username),
+            Request((skyCryptProfileURL + username),
                 RequestRunnable { r: Request ->
                     if (!r.hasSucceeded()) {
                         ChatUtils.sendClientMessage("§ePSS is having trouble contacting SkyCrypt's API. Please try again; if this continues please report this to us via §9/discord§e.")

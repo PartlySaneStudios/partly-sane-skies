@@ -7,7 +7,7 @@ package me.partlysanestudios.partlysaneskies.data.skyblockdata;
 
 import com.google.gson.*;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
-import me.partlysanestudios.partlysaneskies.data.api.GetRequest;
+import me.partlysanestudios.partlysaneskies.data.api.Request;
 import me.partlysanestudios.partlysaneskies.data.api.RequestsManager;
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager;
 import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent;
@@ -33,7 +33,7 @@ public class SkyblockDataManager {
     }
 
     public static void updateBz() {
-        RequestsManager.INSTANCE.newRequest(new GetRequest("https://api.hypixel.net/skyblock/bazaar", s -> {
+        RequestsManager.INSTANCE.newRequest(new Request("https://api.hypixel.net/skyblock/bazaar", s -> {
             if (!s.hasSucceeded()) {
                 return;
             }
@@ -53,7 +53,7 @@ public class SkyblockDataManager {
     }
 
     public static void updateAverageLowestBin() {
-        RequestsManager.INSTANCE.newRequest(new GetRequest("https://moulberry.codes/auction_averages_lbin/1day.json", s -> {
+        RequestsManager.INSTANCE.newRequest(new Request("https://moulberry.codes/auction_averages_lbin/1day.json", s -> {
             if (!s.hasSucceeded()) {
                 return;
             }
@@ -80,7 +80,7 @@ public class SkyblockDataManager {
     }
 
     public static void updateLowestBin() {
-        RequestsManager.INSTANCE.newRequest(new GetRequest("http://moulberry.codes/lowestbin.json", s -> {
+        RequestsManager.INSTANCE.newRequest(new Request("http://moulberry.codes/lowestbin.json", s -> {
             if (!s.hasSucceeded()) {
                 return;
             }
@@ -99,7 +99,7 @@ public class SkyblockDataManager {
     }
 
     public static void initItems() throws IOException {
-        RequestsManager.INSTANCE.newRequest(new GetRequest("https://api.hypixel.net/resources/skyblock/items", s -> {
+        RequestsManager.INSTANCE.newRequest(new Request("https://api.hypixel.net/resources/skyblock/items", s -> {
             String itemDataString = s.getResponse();
             if (!s.hasSucceeded()) {
 
@@ -208,7 +208,7 @@ public class SkyblockDataManager {
     //    --------------------------- Skills ---------------------------
     private static HashMap<String, SkyblockSkill> idToSkillMap = new HashMap<>();
     public static void initSkills() throws MalformedURLException {
-        RequestsManager.INSTANCE.newRequest(new GetRequest("https://api.hypixel.net/resources/skyblock/skills", s -> {
+        RequestsManager.INSTANCE.newRequest(new Request("https://api.hypixel.net/resources/skyblock/skills", s -> {
             String itemDataString = s.getResponse();
             if (!s.hasSucceeded()) {
                 return;
