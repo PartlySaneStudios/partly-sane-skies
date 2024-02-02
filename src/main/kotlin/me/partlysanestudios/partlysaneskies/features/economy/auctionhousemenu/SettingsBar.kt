@@ -55,7 +55,7 @@ class SettingsBar (val xConstraint: XConstraint, val yConstraint: YConstraint, v
         .setHeight(heightConstraint)
         .setColor(Color(0, 0, 0, 0))
 
-    private val bottomBarImage = ThemeManager.getCurrentBackgroundUIImage()
+    private val bottomBarImage = ThemeManager.currentBackgroundUIImage
         .setX(CenterConstraint())
         .setY(CenterConstraint())
         .setWidth(widthConstraint)
@@ -244,7 +244,7 @@ class SettingsBar (val xConstraint: XConstraint, val yConstraint: YConstraint, v
             for (element in settingList) {
                 element.setColor(Color(0, 0, 0, 0))
             }
-            settingList[selectedItem].setColor(ThemeManager.getAccentColor().toJavaColor())
+            settingList[selectedItem].setColor(ThemeManager.accentColor.toJavaColor())
         }
     }
 
