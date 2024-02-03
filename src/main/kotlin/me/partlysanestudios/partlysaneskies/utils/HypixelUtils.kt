@@ -18,14 +18,7 @@ import kotlin.collections.HashMap
 object HypixelUtils {
     // Returns if the current gamemode is skyblock
     fun isSkyblock(): Boolean {
-        try {
-            if (MinecraftUtils.getScoreboardName().lowercase(Locale.getDefault()).contains("skyblock")) {
-                return true
-            }
-        } catch (expt: NullPointerException) {
-            return false
-        }
-        return false
+        return MinecraftUtils.getScoreboardName().lowercase(Locale.getDefault()).contains("skyblock")
     }
 
     // Returns if the current server is hypixel

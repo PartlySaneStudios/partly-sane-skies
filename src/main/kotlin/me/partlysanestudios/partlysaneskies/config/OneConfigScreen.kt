@@ -104,6 +104,13 @@ object OneConfigScreen : Config(
     )
     var discordRPC = true
 
+    @Switch(
+        name = "Only show Discord RPC when in Skyblock",
+        category = "General",
+        subcategory = "Discord"
+    )
+    var discordRPCOnlySkyblock = false
+
     @Dropdown(
         name = "Playing...",
         category = "General",
@@ -1496,9 +1503,16 @@ object OneConfigScreen : Config(
         name = "OwO Language toggle",
         description = "Replaces all chat messages with OwO language.\nThis feature basically breaks the whole chat, so please be warned.",
         category = "Chat",
-        subcategory = "Chat Color"
+        subcategory = "Fun"
     )
     var owoLanguage = false
+    @Switch(
+        name = "OwO Chat Transformer",
+        description = "Transforms every chat message you send into OwO language.",
+        category = "Chat",
+        subcategory = "Fun"
+    )
+    var transformOWO = false
 
     //    ------------- DEV ------------
     @KeyBind(

@@ -22,7 +22,6 @@ import gg.essential.elementa.ElementaVersion
 import me.partlysanestudios.partlysaneskies.config.Keybinds
 import me.partlysanestudios.partlysaneskies.config.OneConfigScreen
 import me.partlysanestudios.partlysaneskies.data.api.PolyfrostUrsaMinorRequest
-import me.partlysanestudios.partlysaneskies.data.api.GetRequest
 import me.partlysanestudios.partlysaneskies.data.api.Request
 import me.partlysanestudios.partlysaneskies.data.api.RequestsManager.newRequest
 import me.partlysanestudios.partlysaneskies.data.cache.PetData
@@ -35,6 +34,7 @@ import me.partlysanestudios.partlysaneskies.events.EventManager
 import me.partlysanestudios.partlysaneskies.events.data.LoadPublicDataEvent
 import me.partlysanestudios.partlysaneskies.features.chat.ChatAlertsManager
 import me.partlysanestudios.partlysaneskies.features.chat.ChatManager
+import me.partlysanestudios.partlysaneskies.features.chat.ChatTransformer
 import me.partlysanestudios.partlysaneskies.features.chat.WordEditor
 import me.partlysanestudios.partlysaneskies.features.commands.Crepes
 import me.partlysanestudios.partlysaneskies.features.commands.Discord
@@ -147,16 +147,20 @@ class PartlySaneSkies {
         File("./config/partly-sane-skies/").mkdirs()
 
         val mainMenuRequest =
-            GetRequest(
+            Request(
                 "https://raw.githubusercontent.com/" + getRepoOwner() + "/" + getRepoName() + "/main/data/main_menu.json",
                 { request: Request? ->
-                    CustomMainMenu.setMainMenuInfo(request)
+                    CustomMainMenu.setMainMenuInfo(
+                        request
+                    )
                 })
         newRequest(mainMenuRequest)
-        val funFactRequest = GetRequest(
+        val funFactRequest = Request(
             CustomMainMenu.funFactApi,
             { request: Request? ->
-                CustomMainMenu.setFunFact(request)
+                CustomMainMenu.setFunFact(
+                    request
+                )
             })
         newRequest(funFactRequest)
         trackLoad()
@@ -264,6 +268,10 @@ class PartlySaneSkies {
         PlayerRating.registerReprintCommand()
         ModChecker.registerModCheckCommand()
         PearlRefill.registerCommand()
+
+
+        //Use polyfrost EventManager cuz chatSendEvent makes transforming chat messages may easier
+        cc.polyfrost.oneconfig.events.EventManager.INSTANCE.register(ChatTransformer)
 
         DebugKey.init()
         PolyfrostUrsaMinorRequest.authorize()
