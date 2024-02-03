@@ -9,6 +9,7 @@ package me.partlysanestudios.partlysaneskies.features.security.modschecker;
 import com.google.gson.Gson;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand;
+import me.partlysanestudios.partlysaneskies.data.api.GetRequest;
 import me.partlysanestudios.partlysaneskies.data.api.Request;
 import me.partlysanestudios.partlysaneskies.data.api.RequestsManager;
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager;
@@ -195,7 +196,7 @@ public class ModChecker {
 
             if (SystemUtils.INSTANCE.isValidURL(mod.downloadLink)) {
                 message.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, mod.downloadLink));
-                message.getChatStyle().setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText("Click for the official website for " + mod.name + "!") ));
+                message.getChatStyle().setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText("Click for the official website for " + mod.name + "!")));
             }
 
             chatMessage.appendSibling(message);
@@ -228,10 +229,10 @@ public class ModChecker {
                 KnownMod mod = findNewestModFromId(container.getModId());
 
                 message = new ChatComponentText("\n§c" + modName + " §7(" + fileName + ") is §cunknown! §c(Verified version of " + mod.name + " found.)");
-                
+
                 if (SystemUtils.INSTANCE.isValidURL(mod.downloadLink)) {
                     message.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, mod.downloadLink));
-                    message.getChatStyle().setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText("Click for the official website for " + mod.name + "!") ));
+                    message.getChatStyle().setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText("Click for the official website for " + mod.name + "!")));
                 }
             } catch (IllegalStateException e) {
 
@@ -256,7 +257,7 @@ public class ModChecker {
 
         if (DebugKey.INSTANCE.isDebugMode()) {
             ChatUtils.INSTANCE.sendClientMessage("§8Unknown Mods:\n" + insertCharacterAfterNewLine(debugBuilder.toString(), "§8") + "\n\n");
-            SystemUtils.INSTANCE.copyStringToClipboard("```json\n"+ debugBuilder.toString() + "\n```");
+            SystemUtils.INSTANCE.copyStringToClipboard("```json\n" + debugBuilder.toString() + "\n```");
         }
 
         ChatUtils.INSTANCE.sendClientMessage(" \n§7Found " + modsFound + " mods:");
@@ -266,6 +267,7 @@ public class ModChecker {
 
 
     }
+
     private static String insertCharacterAfterNewLine(String originalString, String insertionChar) {
         StringBuilder stringBuilder = new StringBuilder();
 
@@ -286,7 +288,7 @@ public class ModChecker {
     private static void loadModDataFromRepo(String userName, String repoName) {
         String url = "https://raw.githubusercontent.com/" + userName +
                 "/" + repoName + "/main/data/mods.json";
-        RequestsManager.INSTANCE.newRequest(new Request(url, request -> {
+        RequestsManager.INSTANCE.newRequest(new GetRequest(url, request -> {
             knownMods = null;
             try {
                 knownMods = read(new Gson().fromJson(request.getResponse(), ModDataJson.class));
