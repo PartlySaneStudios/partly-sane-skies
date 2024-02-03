@@ -53,6 +53,7 @@ class PostRequest(
         val connection = url.openConnection() as HttpsURLConnection
         // Sets the browser as Mozilla to bypass an insecure restrictions
         connection.setRequestProperty("User-Agent", "Partly-Sane-Skies/" + PartlySaneSkies.VERSION)
+        connection.setRequestProperty("Content-Type", "application/json")
         if (acceptAllCertificates) {
             // Create a trust manager that does not validate certificate chains
             val trustAllCerts = arrayOf<TrustManager>(object : X509TrustManager {

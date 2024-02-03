@@ -84,17 +84,16 @@ abstract class Request(
      */
     fun setFailed(reason: String = "") {
         if (reason != "") {
-
             this.responseMessage = reason
         }
         this.hasFailed = true
     }
 
     /**
-     * @return if the request has failed
+     * @return if the request has succeeded
      */
     fun hasSucceeded(): Boolean {
-        return if (this.responseCode != HttpsURLConnection.HTTP_OK) {
+        return if (responseCode < 200 || responseCode > 299) {
             false
         } else !hasFailed
     }
