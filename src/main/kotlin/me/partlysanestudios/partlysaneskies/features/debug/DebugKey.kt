@@ -94,7 +94,9 @@ object DebugKey {
 
         if (config.debugSendDiscordWebhook) {
             DiscordWebhook(
-                config.discordWebhookURL, "Test Content", listOf(
+                config.discordWebhookURL,
+                "Test Content",
+                listOf(
                     DiscordEmbed(
                         title = "Test Title",
                         description = "Test Description",
