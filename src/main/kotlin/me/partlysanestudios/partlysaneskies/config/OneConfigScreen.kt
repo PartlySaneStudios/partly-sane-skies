@@ -340,6 +340,16 @@ object OneConfigScreen : Config(
     )
     var rareDropBannerSound = false
 
+    // Discord Webhook RNG Thingy
+    @Text(
+        name = "Discord Webhook URL",
+        description = "The URL of the discord webhook to send the message to.",
+        category = "SkyBlock",
+        subcategory = "Discord Webhook RNG",
+        size = 2
+    )
+    var discordWebhookURL = ""
+
     // Location Banner
     @Switch(
         name = "Location Banner",
@@ -358,16 +368,6 @@ object OneConfigScreen : Config(
         max = 7f
     )
     var locationBannerTime = 3.5f
-
-    // Discord Webhook RNG Thingy
-    @Text(
-        name = "Discord Webhook URL",
-        description = "The URL of the discord webhook to send the message to.",
-        category = "SkyBlock",
-        subcategory = "Discord Webhook RNG",
-        size = 2
-    )
-    var discordWebhookURL = ""
 
     // Open Wiki
     @Switch(
