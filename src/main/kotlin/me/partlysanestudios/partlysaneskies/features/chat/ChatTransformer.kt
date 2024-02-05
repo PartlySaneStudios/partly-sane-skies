@@ -22,6 +22,8 @@ object ChatTransformer {
         if (!doChatTransform()) {
             return
         }
+        
+        val msg = event.message
 
         // dont break commands :)
         if (msg.startsWith("/")) {
@@ -29,7 +31,6 @@ object ChatTransformer {
         }
         
         event.isCancelled = true
-        val msg = event.message
         
         // Do not go into recursion (bad)
         if (lastmsg == msg) {
