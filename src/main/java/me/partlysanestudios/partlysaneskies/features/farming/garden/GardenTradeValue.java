@@ -235,7 +235,7 @@ public class GardenTradeValue {
             .setColor(new Color(0, 0, 0, 0))
             .setChildOf(window);
     
-    UIImage image = (UIImage) ThemeManager.getCurrentBackgroundUIImage()
+    UIImage image = (UIImage) ThemeManager.INSTANCE.getCurrentBackgroundUIImage()
         .setChildOf(box);
     
     float pad = 5;

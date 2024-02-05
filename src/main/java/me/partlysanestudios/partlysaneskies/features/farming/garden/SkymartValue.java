@@ -117,7 +117,7 @@ public class SkymartValue {
             .setColor(new Color(0, 0, 0, 0))
             .setChildOf(window);
     
-    UIComponent image = ThemeManager.getCurrentBackgroundUIImage()
+    UIComponent image = ThemeManager.INSTANCE.getCurrentBackgroundUIImage()
             .setChildOf(box);
     
     float pad = 5;

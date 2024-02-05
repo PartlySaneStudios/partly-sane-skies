@@ -74,7 +74,7 @@ public class ProfitMinionCalculator extends WindowScreen {
                 .setColor(Color.red)
                 .setChildOf(getWindow());
 
-        this.backgroundImage = ThemeManager.getCurrentBackgroundUIImage()
+        this.backgroundImage = ThemeManager.INSTANCE.getCurrentBackgroundUIImage()
                 .setX(new CenterConstraint())
                 .setY(new CenterConstraint())
                 .setHeight(new PixelConstraint(backgroundBox.getHeight()))
@@ -94,7 +94,7 @@ public class ProfitMinionCalculator extends WindowScreen {
                 .setY(new CenterConstraint())
                 .setHeight(new PixelConstraint(backgroundImage.getHeight() * .85f))
                 .setWidth(fromWidthScaleFactor(2f))
-                .setColor(ThemeManager.getAccentColor().toJavaColor())
+                .setColor(ThemeManager.INSTANCE.getAccentColor().toJavaColor())
                 .setChildOf(backgroundImage);
 
         this.rightBar = new UIBlock()
@@ -102,19 +102,19 @@ public class ProfitMinionCalculator extends WindowScreen {
                 .setY(new CenterConstraint())
                 .setHeight(new PixelConstraint(backgroundImage.getHeight() * .85f))
                 .setWidth(fromWidthScaleFactor(2f))
-                .setColor(ThemeManager.getAccentColor().toJavaColor())
+                .setColor(ThemeManager.INSTANCE.getAccentColor().toJavaColor())
                 .setChildOf(backgroundImage);
 
         float categoriesBarHeight = fromWidthScaleFactor(75).getValue();
         float categoriesBarPad = fromWidthScaleFactor(5).getValue();
-        this.categoriesBar = ThemeManager.getCurrentBackgroundUIImage()
+        this.categoriesBar = ThemeManager.INSTANCE.getCurrentBackgroundUIImage()
                 .setX(new CenterConstraint())
                 .setY(new PixelConstraint(backgroundBox.getTop() -(categoriesBarHeight + categoriesBarPad)))
                 .setWidth(new PixelConstraint(backgroundBox.getWidth()))
                 .setHeight(new PixelConstraint(categoriesBarHeight))
                 .setChildOf(getWindow());
 
-        this.bestMinionBar = ThemeManager.getCurrentBackgroundUIImage()
+        this.bestMinionBar = ThemeManager.INSTANCE.getCurrentBackgroundUIImage()
                 .setX(new CenterConstraint())
                 .setY(new PixelConstraint(backgroundBox.getBottom() + categoriesBarPad))
                 .setWidth(new PixelConstraint(backgroundBox.getWidth()/3f))
@@ -161,7 +161,7 @@ public class ProfitMinionCalculator extends WindowScreen {
                     .setY(new PixelConstraint(text.getHeight() + barOffset))
                     .setWidth(new PixelConstraint(rightBar.getLeft() - leftBar.getRight() - 2 * barNegation)) // set the width to the distance between the two bars with barNegation scale pixels of padding on either side
                     .setHeight(fromWidthScaleFactor(1f))
-                    .setColor(ThemeManager.getAccentColor().toJavaColor())
+                    .setColor(ThemeManager.INSTANCE.getAccentColor().toJavaColor())
                     .setChildOf(text);
 
             components.add(text);

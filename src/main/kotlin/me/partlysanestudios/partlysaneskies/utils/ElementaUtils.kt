@@ -45,7 +45,7 @@ object ElementaUtils {
     }
 
     fun UIComponent.applyBackground() {
-        val image = ThemeManager.getCurrentBackgroundUIImage()
+        val image = ThemeManager.currentBackgroundUIImage
             .setX(CenterConstraint())
             .setY(CenterConstraint())
             .setWidth(PixelConstraint(this.getWidth()))

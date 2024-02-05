@@ -97,7 +97,7 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack?, var xCons
             return
         }
 //        ChatUtils.sendClientMessage("checked")
-        highlightBox.setColor(ThemeManager.getAccentColor().toJavaColor().constraint)
+        highlightBox.setColor(ThemeManager.accentColor.toJavaColor().constraint)
     }
 
     fun loadAuctionInformationBar(informationBar: MarketInformationBar) {
@@ -289,7 +289,7 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack?, var xCons
             "MYTHIC" -> Color(255, 85, 255)
             "DIVINE" -> Color(85, 255, 255)
             "SPECIAL" -> Color(255, 85, 85)
-            else -> ThemeManager.getPrimaryColor().toJavaColor()
+            else -> ThemeManager.primaryColor.toJavaColor()
         }
     }
 

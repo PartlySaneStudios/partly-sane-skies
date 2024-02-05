@@ -187,7 +187,7 @@ public class PetAlert {
             .setColor(new Color(0, 0, 0, 0))
             .setChildOf(window);
 
-    UIComponent image = ThemeManager.getCurrentBackgroundUIImage()
+    UIComponent image = ThemeManager.INSTANCE.getCurrentBackgroundUIImage()
             .setChildOf(box);
 
     UIWrappedText textComponent = (UIWrappedText) new UIWrappedText("", true, null, true)

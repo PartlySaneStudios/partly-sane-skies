@@ -30,7 +30,7 @@ class MarketInformationBar(xConstraint: XConstraint, yConstraint: YConstraint, h
         width = widthConstraint
     }
 
-    private val backgroundImage: UIImage = ThemeManager.getCurrentBackgroundUIImage().constrain {
+    private val backgroundImage: UIImage = ThemeManager.currentBackgroundUIImage.constrain {
         x = CenterConstraint()
         y = CenterConstraint()
         height = heightConstraint

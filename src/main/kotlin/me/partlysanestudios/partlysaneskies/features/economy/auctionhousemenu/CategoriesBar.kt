@@ -47,7 +47,7 @@ class CategoriesBar (val xConstraint: XConstraint, val yConstraint: YConstraint,
         .setHeight(heightConstraint)
         .setColor(Color(0, 0, 0, 0))
 
-    private val topBarImage = ThemeManager.getCurrentBackgroundUIImage()
+    private val topBarImage = ThemeManager.currentBackgroundUIImage
         .setX(CenterConstraint())
         .setY(CenterConstraint())
         .setWidth(widthConstraint)
@@ -142,7 +142,7 @@ class CategoriesBar (val xConstraint: XConstraint, val yConstraint: YConstraint,
             for (element in categoryList) {
                 element.setColor(Color(0, 0, 0, 0))
             }
-            categoryList[selectedItem].setColor(ThemeManager.getAccentColor().toJavaColor())
+            categoryList[selectedItem].setColor(ThemeManager.accentColor.toJavaColor())
         }
     }
 }

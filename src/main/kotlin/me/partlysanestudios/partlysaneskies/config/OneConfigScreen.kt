@@ -270,12 +270,12 @@ object OneConfigScreen : Config(
 
     //    Accent Color
     @Switch(
-        name = "Use default accent color",
+        name = "Use custom accent color",
         description = "Uses the default Partly Sane Skies accent color.",
         category = "Themes",
         subcategory = "Accent Color"
     )
-    var useDefaultAccentColor = true
+    var useCustomAccentColor = false
 
     @Color(
         name = "Custom Accent Color",

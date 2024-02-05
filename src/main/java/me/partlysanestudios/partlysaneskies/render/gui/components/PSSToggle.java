@@ -40,7 +40,7 @@ public class PSSToggle {
         this.backgroundBlock = (UIBlock) new UIBlock()
                 .setColor(new Color(0, 0,0,0));
 
-        this.buttonTexture = (UIImage) ThemeManager.getCurrentToggleUIImage(false)
+        this.buttonTexture = (UIImage) ThemeManager.INSTANCE.getCurrentToggleUIImage(false)
                 .setChildOf(backgroundBlock);
 
         this.buttonTexture.onMouseClickConsumer(s -> {
@@ -65,7 +65,7 @@ public class PSSToggle {
         backgroundBlock.removeChild(buttonTexture);
 
         if (this.isSelected) {
-            this.buttonTexture = (UIImage) ThemeManager.getCurrentToggleUIImage(true)
+            this.buttonTexture = (UIImage) ThemeManager.INSTANCE.getCurrentToggleUIImage(true)
                     .setWidth(new PixelConstraint(this.width))
                     .setHeight(new PixelConstraint(this.height))
                     .setX(new CenterConstraint())
@@ -73,7 +73,7 @@ public class PSSToggle {
                     .setChildOf(this.backgroundBlock);
         }
         else {
-            this.buttonTexture = (UIImage) ThemeManager.getCurrentToggleUIImage(false)
+            this.buttonTexture = (UIImage) ThemeManager.INSTANCE.getCurrentToggleUIImage(false)
                     .setWidth(new PixelConstraint(this.width))
                     .setHeight(new PixelConstraint(this.height))
                     .setX(new CenterConstraint())
