@@ -32,6 +32,7 @@ object ChatTransformer {
         }
         //dont break commands :)
         if (msg.startsWith("/")){
+            event.isCancelled = false
             return
         }
 
