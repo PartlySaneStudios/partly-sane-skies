@@ -43,6 +43,7 @@ public class CompostValue {
 
     @SubscribePSSEvent
     public void init(LoadPublicDataEvent event) {
+        // TODO: move to repo
         compostValueMap.put("WHEAT", 1d);
         compostValueMap.put("HAY_BLOCK", 9d);
         compostValueMap.put("ENCHANTED_BREAD", 60d);
@@ -80,6 +81,7 @@ public class CompostValue {
         compostValueMap.put("NETHER_STALK", 0.33);
         compostValueMap.put("ENCHANTED_NETHER_STALK", 52.8);
         compostValueMap.put("MUTANT_NETHER_STALK", 8448d);
+        compostValueMap.put("FLOWERING_BOUQUET", 6000d);
     }
 
     public static void requestCostPerOrganicMatter() {
