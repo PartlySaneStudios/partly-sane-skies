@@ -270,7 +270,7 @@ class PartlySaneSkies {
         PearlRefill.registerCommand()
 
 
-        //Use polyfrost EventManager cuz chatSendEvent makes transforming chat messages may easier
+        // Use PolyFrost EventManager cuz chatSendEvent makes transforming chat messages way easier
         cc.polyfrost.oneconfig.events.EventManager.INSTANCE.register(ChatTransformer)
 
         DebugKey.init()
