@@ -68,6 +68,8 @@ class DropBannerDisplay {
 
         // TODO: add check for blocked drop
 
+        // TODO: add check for disallowed rarity of drop
+
         if (config.rareDropBannerSound) {
             minecraft.thePlayer.playSound("partlysaneskies:rngdropjingle", 100f, 1f)
         }
