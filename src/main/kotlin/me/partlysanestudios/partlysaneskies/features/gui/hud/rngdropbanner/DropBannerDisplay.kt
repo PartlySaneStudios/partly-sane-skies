@@ -14,7 +14,6 @@ import gg.essential.universal.UMatrixStack
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.time
-import me.partlysanestudios.partlysaneskies.utils.ChatUtils
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.onCooldown
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.colorCodeToColor
 import net.minecraftforge.client.event.ClientChatReceivedEvent
@@ -25,16 +24,17 @@ import java.awt.Color
 object DropBannerDisplay {
     var drop: Drop? = null
 
+    // Regex: https://regex101.com/r/lPUJeH/1
+    val RARE_DROP_REGEX =
+        "/(?:§.)+(?<dropTitle>[\\w\\s]*[CD]ROP!) (?:§.)+(?:\\()?(?:§.)*(?:\\d+x )?(?:§.)*(?<dropColor>§.)(?<dropName>[\\s\\w]+)(?:§.)+(?:\\((?:\\+(?:§.)*(?<mf>\\d+)% (?:§.)+✯ Magic Find(?:§.)*|[\\w\\s]+)\\)|\\))?/gm".toRegex()
+
+
     private const val SMALL_TEXT_SCALE = 2.5f
     private const val BIG_TEXT_SCALE = 5f
     private const val BANNER_HEIGHT_FACTOR = 0.333f
     private const val TEXT_SPACING_FACTOR = 0.05f
     private const val TEXT_BLINK_START_FACTOR = 1f / 3f
     private const val TEXT_BLINK_END_FACTOR = 10f / 12f
-
-    // Regex: https://regex101.com/r/lPUJeH/1
-    val RARE_DROP_REGEX =
-        "/(?:§.)+(?<dropTitle>[\\w\\s]*[CD]ROP!) (?:§.)+(?:\\()?(?:§.)*(?:\\d+x )?(?:§.)*(?<dropColor>§.)(?<dropName>[\\s\\w]+)(?:§.)+(?:\\((?:\\+(?:§.)*(?<mf>\\d+)% (?:§.)+✯ Magic Find(?:§.)*|[\\w\\s]+)\\)|\\))?/gm".toRegex()
 
     var window = Window(ElementaVersion.V2)
 
@@ -60,11 +60,14 @@ object DropBannerDisplay {
     @SubscribeEvent
     fun onChatMessage(event: ClientChatReceivedEvent) {
         val formattedMessage = event.message.formattedText
-        val unformattedMessage = event.message.unformattedText
 
-        if (!isRareDrop(formattedMessage)) {
+        /*if (!isRareDrop(formattedMessage)) {
             return
-        }
+        }*/
+
+        val match = RARE_DROP_REGEX.find(formattedMessage) ?: return
+        val (dropTitle, dropColor, dropName, mf) = match.destructured
+
 
         // TODO: add check for blocked drop
 
@@ -75,10 +78,8 @@ object DropBannerDisplay {
         }
 
         if (config.rareDropBanner) {
-            val dropCategory = unformattedMessage.substring(0, unformattedMessage.indexOf("! ") + 1)
-            val dropCategoryHex = colorCodeToColor(formattedMessage.substring(2, 4))
-            val name = formattedMessage.substring(formattedMessage.indexOf("! ") + 2)
-            drop = Drop(name, dropCategory, time, dropCategoryHex)
+            val dropCategoryHex = colorCodeToColor(dropColor)
+            drop = Drop(dropName, dropTitle, dropCategoryHex, mf.toInt(), time)
         }
     }
 
@@ -135,7 +136,7 @@ object DropBannerDisplay {
     }
 
 
-    private fun isRareDrop(formattedMessage: String): Boolean {
+    /*private fun isRareDrop(formattedMessage: String): Boolean {
         return formattedMessage.matches(RARE_DROP_REGEX)
-    }
+    }*/
 }

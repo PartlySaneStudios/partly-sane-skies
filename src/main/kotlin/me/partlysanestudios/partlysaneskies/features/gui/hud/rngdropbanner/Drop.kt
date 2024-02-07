@@ -11,8 +11,9 @@ import java.awt.Color
 class Drop(
     var name: String,
     var dropCategory: String,
+    var dropCategoryColor: Color,
+    var magicFind: Int,
     var timeDropped: Long,
-    var dropCategoryColor: Color
 ) {
     var displayTime = 0
 
