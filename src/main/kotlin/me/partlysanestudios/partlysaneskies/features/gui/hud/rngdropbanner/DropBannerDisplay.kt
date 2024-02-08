@@ -81,6 +81,8 @@ object DropBannerDisplay {
             val dropCategoryHex = colorCodeToColor(dropColor)
             drop = Drop(dropName, dropTitle, dropCategoryHex, mf.toInt(), time)
         }
+
+        // Future TODO: send discord webhook
     }
 
     @SubscribeEvent
