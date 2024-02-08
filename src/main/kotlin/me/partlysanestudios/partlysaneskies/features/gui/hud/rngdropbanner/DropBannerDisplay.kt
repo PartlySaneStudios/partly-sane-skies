@@ -14,6 +14,7 @@ import gg.essential.universal.UMatrixStack
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.time
+import me.partlysanestudios.partlysaneskies.utils.ChatUtils
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.onCooldown
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.colorCodeToColor
 import net.minecraftforge.client.event.ClientChatReceivedEvent
@@ -24,9 +25,10 @@ import java.awt.Color
 object DropBannerDisplay {
     var drop: Drop? = null
 
-    // Regex: https://regex101.com/r/lPUJeH/1
+    // Whenever someone updates the regex, please replace the regex in the following link:
+    // Regex: https://regex101.com/r/lPUJeH/3
     val RARE_DROP_REGEX =
-        "/(?:§.)+(?<dropTitle>[\\w\\s]*[CD]ROP!) (?:§.)+(?:\\()?(?:§.)*(?:\\d+x )?(?:§.)*(?<dropColor>§.)(?<dropName>[\\s\\w]+)(?:§.)+(?:\\((?:\\+(?:§.)*(?<mf>\\d+)% (?:§.)+✯ Magic Find(?:§.)*|[\\w\\s]+)\\)|\\))?/gm".toRegex()
+        "(?<dropTitle>(?:§.)+[\\w\\s]*[CD]ROP!) (?:§.)+(?:\\()?(?:§.)*(?:\\d+x )?(?:§.)*(?<dropColor>§.)(?<dropName>◆?[\\s\\w]+)(?:§.)+\\)? ?(?:(?:§.)+)?(?:\\((?:\\+(?:§.)*(?<mf>\\d+)% (?:§.)+✯ Magic Find(?:§.)*|[\\w\\s]+)\\))?".toRegex()
 
 
     private const val SMALL_TEXT_SCALE = 2.5f
@@ -61,10 +63,6 @@ object DropBannerDisplay {
     fun onChatMessage(event: ClientChatReceivedEvent) {
         val formattedMessage = event.message.formattedText
 
-        /*if (!isRareDrop(formattedMessage)) {
-            return
-        }*/
-
         val match = RARE_DROP_REGEX.find(formattedMessage) ?: return
         val (dropTitle, dropColor, dropName, mf) = match.destructured
 
@@ -94,7 +92,7 @@ object DropBannerDisplay {
         }
 
         var categoryColor = drop!!.dropCategoryColor
-        dropNameString = drop!!.name
+        dropNameString = drop!!.name + (if (drop!!.magicFind > 0) " §b(+${drop!!.magicFind}% ✯ Magic Find)" else "")
         topString = drop!!.dropCategory
 
         if ((time - drop!!.timeDropped > TEXT_BLINK_START_FACTOR * config.rareDropBannerTime * 1000)
@@ -126,17 +124,14 @@ object DropBannerDisplay {
             .setX(CenterConstraint())
             .setY(PixelConstraint(window.getHeight() * BANNER_HEIGHT_FACTOR))
             .setColor(categoryColor)
+
         dropNameText
             .setText(dropNameString)
             .setTextScale(PixelConstraint((SMALL_TEXT_SCALE / 672) * window.getHeight() * scale))
             .setWidth(PixelConstraint(window.getWidth()))
             .setX(CenterConstraint())
             .setY(PixelConstraint(topText.getBottom() + window.getHeight() * (TEXT_SPACING_FACTOR * scale)))
+
         window.draw(UMatrixStack())
     }
-
-
-    /*private fun isRareDrop(formattedMessage: String): Boolean {
-        return formattedMessage.matches(RARE_DROP_REGEX)
-    }*/
 }
