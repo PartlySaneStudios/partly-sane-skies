@@ -347,6 +347,46 @@ object OneConfigScreen : Config(
     )
     var rareDropBannerSound = false
 
+    @Switch(
+        name = "Block Common Drops",
+        description = "Blocks Drops with the rarity of Common.",
+        category = "SkyBlock",
+        subcategory = "Rare Drop"
+    )
+    var blockCommonDrops = false
+
+    @Switch(
+        name = "Block Uncommon Drops",
+        description = "Blocks Drops with the rarity of Uncommon.",
+        category = "SkyBlock",
+        subcategory = "Rare Drop"
+    )
+    var blockUncommonDrops = false
+
+    @Switch(
+        name = "Block Rare Drops",
+        description = "Blocks Drops with the rarity of Rare.",
+        category = "SkyBlock",
+        subcategory = "Rare Drop"
+    )
+    var blockRareDrops = false
+
+    @Switch(
+        name = "Block Epic Drops",
+        description = "Blocks Drops with the rarity of Epic.",
+        category = "SkyBlock",
+        subcategory = "Rare Drop"
+    )
+    var blockEpicDrops = false
+
+    @Switch(
+        name = "Block Legendary Drops",
+        description = "Blocks Drops with the rarity of Legendary.",
+        category = "SkyBlock",
+        subcategory = "Rare Drop"
+    )
+    var blockLegendaryDrops = false
+
     // Location Banner
     @Switch(
         name = "Location Banner",

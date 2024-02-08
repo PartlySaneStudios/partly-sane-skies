@@ -69,7 +69,9 @@ object DropBannerDisplay {
 
         // TODO: add check for blocked drop
 
-        // TODO: add check for disallowed rarity of drop
+        if (checkRarity(dropColor)) {
+            return
+        }
 
         if (config.rareDropBannerSound) {
             minecraft.thePlayer.playSound("partlysaneskies:rngdropjingle", 100f, 1f)
@@ -133,5 +135,16 @@ object DropBannerDisplay {
             .setY(PixelConstraint(topText.getBottom() + window.getHeight() * (TEXT_SPACING_FACTOR * scale)))
 
         window.draw(UMatrixStack())
+    }
+
+    private fun checkRarity(rarity: String): Boolean {
+        return when {
+            rarity == "§f" && config.blockCommonDrops -> true
+            rarity == "§a" && config.blockUncommonDrops -> true
+            rarity == "§9" && config.blockRareDrops -> true
+            rarity == "§5" && config.blockEpicDrops -> true
+            rarity == "§6" && config.blockLegendaryDrops -> true
+            else -> false
+        }
     }
 }
