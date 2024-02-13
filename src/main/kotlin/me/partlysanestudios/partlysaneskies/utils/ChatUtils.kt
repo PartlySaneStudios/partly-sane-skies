@@ -36,8 +36,7 @@ object ChatUtils {
         PartlySaneSkies.minecraft.ingameGUI.chatGUI.printChatMessage(chatComponent)
     }
 
-    fun sendClientMessage(text: String?) {
-        if (text == null) return
+    fun sendClientMessage(text: String) {
         sendClientMessage(text, false)
     }
 

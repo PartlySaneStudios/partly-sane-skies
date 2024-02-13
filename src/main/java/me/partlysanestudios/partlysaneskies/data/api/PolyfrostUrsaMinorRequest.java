@@ -53,7 +53,8 @@ public class PolyfrostUrsaMinorRequest extends Request {
         URL url = super.getURL();
         HttpURLConnection connection = setupConnection(url);
 
-        if (connection == null) return; // if connection is null (something bad happened), return null. you probably want null checks in your code
+        if (connection == null)
+            return; // if connection is null (something bad happened), return null. you probably want null checks in your code
         try (InputStreamReader input = new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8)) {
             String str = IOUtils.toString(input);
             if (username != null && serverId != null) { // if we passed username and serverid, we need to get the token and expiry to use in future requests
@@ -139,8 +140,12 @@ public class PolyfrostUrsaMinorRequest extends Request {
         } catch (AuthenticationException e) {
             ChatUtils.INSTANCE.sendClientMessage("Authentication Exception: Contact PSS admins with your logs");
             e.printStackTrace();
-            ChatUtils.INSTANCE.sendClientMessage(e.getMessage());
-            ChatUtils.INSTANCE.sendClientMessage(e.getLocalizedMessage());
+            if (e.getMessage() != null) {
+                ChatUtils.INSTANCE.sendClientMessage(e.getMessage());
+            }
+            if (e.getLocalizedMessage() != null) {
+                ChatUtils.INSTANCE.sendClientMessage(e.getLocalizedMessage());
+            }
             return false;
         }
         return true;
@@ -159,8 +164,7 @@ public class PolyfrostUrsaMinorRequest extends Request {
     public String getResponse() {
         if (this.requestResponse == null) {
             return "Error: {NO_RESPONSE}";
-        }
-        else if (!hasSucceeded()) {
+        } else if (!hasSucceeded()) {
             super.getErrorMessage();
         }
         return this.requestResponse;
