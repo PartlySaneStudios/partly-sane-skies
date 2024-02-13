@@ -1,5 +1,5 @@
 //
-// Written by Su386 & J10a1n15.
+// Written by Su386.
 // See LICENSE for copyright and license notices.
 //
 
@@ -14,7 +14,6 @@ import gg.essential.universal.UMatrixStack
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.time
-import me.partlysanestudios.partlysaneskies.utils.ChatUtils
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.onCooldown
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.colorCodeToColor
 import net.minecraftforge.client.event.ClientChatReceivedEvent
@@ -22,34 +21,35 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import java.awt.Color
 
-object DropBannerDisplay {
-    var drop: Drop? = null
+class DropBannerDisplay {
+    companion object {
+        var drop: Drop? = null
 
-    private const val SMALL_TEXT_SCALE = 2.5f
-    private const val BIG_TEXT_SCALE = 5f
-    private const val BANNER_HEIGHT_FACTOR = 0.333f
-    private const val TEXT_SPACING_FACTOR = 0.05f
-    private const val TEXT_BLINK_START_FACTOR = 1f / 3f
-    private const val TEXT_BLINK_END_FACTOR = 10f / 12f
+        const val SMALL_TEXT_SCALE = 2.5f
+        const val BIG_TEXT_SCALE = 5f
+        private const val BANNER_HEIGHT_FACTOR = 0.333f
+        private const val TEXT_SPACING_FACTOR = 0.05f
+        private const val TEXT_BLINK_START_FACTOR = 1f / 3f
+        private const val TEXT_BLINK_END_FACTOR = 10f / 12f
 
-    // Regex: https://regex101.com/r/lPUJeH/1
-    val RARE_DROP_REGEX =
-        "/(?:§.)+(?<dropTitle>[\\w\\s]*[CD]ROP!) (?:§.)+(?:\\()?(?:§.)*(?:\\d+x )?(?:§.)*(?<dropColor>§.)(?<dropName>[\\s\\w]+)(?:§.)+(?:\\((?:\\+(?:§.)*(?<mf>\\d+)% (?:§.)+✯ Magic Find(?:§.)*|[\\w\\s]+)\\)|\\))?/gm".toRegex()
+        // https://regex101.com/r/lPUJeH/1
+        val RARE_DROP_REGEX = "/(?:§.)+(?<dropTitle>[\\w\\s]*[CD]ROP!) (?:§.)+(?:\\()?(?:§.)*(?:\\d+x )?(?:§.)*(?<dropColor>§.)(?<dropName>[\\s\\w]+)(?:§.)+(?:\\((?:\\+(?:§.)*(?<mf>\\d+)% (?:§.)+✯ Magic Find(?:§.)*|[\\w\\s]+)\\)|\\))?/gm".toRegex()
+    }
 
     var window = Window(ElementaVersion.V2)
 
-    private var topString = ""
-    private var dropNameString = ""
-    private var magicFindString = ""
+    var topString = "empty"
+    var dropNameString = "empty"
+    var magicFindString = "empty"
 
-    private var topText = UIWrappedText(dropNameString, true, Color(0, 0, 0, 0), true).apply {
+    var topText = UIWrappedText(dropNameString, true, Color(0, 0, 0, 0), true).apply {
         setTextScale(PixelConstraint(BIG_TEXT_SCALE / 672 * window.getHeight() * config.bannerSize))
         setWidth(PixelConstraint(window.getWidth()))
         setX(CenterConstraint())
         setY(PixelConstraint(window.getHeight() * BANNER_HEIGHT_FACTOR))
         setChildOf(window)
     }
-    private var dropNameText = UIWrappedText(dropNameString, true, Color(0, 0, 0, 0), true).apply {
+    var dropNameText = UIWrappedText(dropNameString, true, Color(0, 0, 0, 0), true).apply {
         setTextScale(PixelConstraint(SMALL_TEXT_SCALE / 672 * window.getHeight() * config.bannerSize))
         setWidth(PixelConstraint(window.getWidth()))
         setX(CenterConstraint())
@@ -83,32 +83,31 @@ object DropBannerDisplay {
     }
 
     @SubscribeEvent
-    fun renderText(event: RenderGameOverlayEvent.Text) {
+    fun renderText(event: RenderGameOverlayEvent.Text?) {
+        var categoryColor: Color?
         if (drop == null) {
             dropNameString = ""
             topString = ""
             magicFindString = ""
+            categoryColor = Color(255, 255, 255, 0)
+        } else {
+            categoryColor = drop!!.dropCategoryColor
+            dropNameString = drop!!.name
+            topString = drop!!.dropCategory
 
-            return
-        }
-
-        var categoryColor = drop!!.dropCategoryColor
-        dropNameString = drop!!.name
-        topString = drop!!.dropCategory
-
-        if ((time - drop!!.timeDropped > TEXT_BLINK_START_FACTOR * config.rareDropBannerTime * 1000)
-            && (time - drop!!.timeDropped < TEXT_BLINK_END_FACTOR * config.rareDropBannerTime * 1000)
-        ) {
-            categoryColor = if (Math.round((drop!!.timeDropped - time) / 1000f * 4) % 2 == 0) {
-                Color.white
-            } else {
-                drop!!.dropCategoryColor
+            if ((time - drop!!.timeDropped > TEXT_BLINK_START_FACTOR * config.rareDropBannerTime * 1000)
+                && (time - drop!!.timeDropped < TEXT_BLINK_END_FACTOR * config.rareDropBannerTime * 1000)
+            ) {
+                categoryColor = if (Math.round((drop!!.timeDropped - time) / 1000f * 4) % 2 == 0) {
+                    Color.white
+                } else {
+                    drop!!.dropCategoryColor
+                }
             }
-        }
 
-        if (!onCooldown(drop!!.timeDropped, (config.rareDropBannerTime * 1000).toLong())) {
-            drop = null
-            return
+            if (!onCooldown(drop!!.timeDropped, (config.rareDropBannerTime * 1000).toLong())) {
+                drop = null
+            }
         }
 
         if (topText.getText().isEmpty() && topString.isEmpty() && dropNameText.getText()
@@ -124,7 +123,7 @@ object DropBannerDisplay {
             .setWidth(PixelConstraint(window.getWidth()))
             .setX(CenterConstraint())
             .setY(PixelConstraint(window.getHeight() * BANNER_HEIGHT_FACTOR))
-            .setColor(categoryColor)
+            .setColor(categoryColor!!)
         dropNameText
             .setText(dropNameString)
             .setTextScale(PixelConstraint((SMALL_TEXT_SCALE / 672) * window.getHeight() * scale))

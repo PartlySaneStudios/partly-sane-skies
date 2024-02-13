@@ -64,9 +64,10 @@ object DebugKey {
         }
 
         if (config.percyMode) {
-            Thread {
+            Thread() {
                 sendClientMessage("Dumping...")
                 PercyMode.dump()
+
             }.start()
         }
         if (config.debugPrintCurrentLocationFromIslandType) {
