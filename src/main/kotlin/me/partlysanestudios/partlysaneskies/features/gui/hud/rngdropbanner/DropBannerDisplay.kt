@@ -21,64 +21,50 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import java.awt.Color
 
-class DropBannerDisplay {
-    companion object {
-        var drop: Drop? = null
-
-        const val SMALL_TEXT_SCALE = 2.5f
-        const val BIG_TEXT_SCALE = 5f
-        private const val BANNER_HEIGHT_FACTOR = 0.333f
-        private const val TEXT_SPACING_FACTOR = 0.05f
-        private const val TEXT_BLINK_START_FACTOR = 1f / 3f
-        private const val TEXT_BLINK_END_FACTOR = 10f / 12f
-
-        // https://regex101.com/r/lPUJeH/1
-        val RARE_DROP_REGEX = "/(?:§.)+(?<dropTitle>[\\w\\s]*[CD]ROP!) (?:§.)+(?:\\()?(?:§.)*(?:\\d+x )?(?:§.)*(?<dropColor>§.)(?<dropName>[\\s\\w]+)(?:§.)+(?:\\((?:\\+(?:§.)*(?<mf>\\d+)% (?:§.)+✯ Magic Find(?:§.)*|[\\w\\s]+)\\)|\\))?/gm".toRegex()
-    }
-
-    var window = Window(ElementaVersion.V2)
-
-    var topString = "empty"
-    var dropNameString = "empty"
-    var magicFindString = "empty"
-
-    var topText = UIWrappedText(dropNameString, true, Color(0, 0, 0, 0), true).apply {
-        setTextScale(PixelConstraint(BIG_TEXT_SCALE / 672 * window.getHeight() * config.bannerSize))
-        setWidth(PixelConstraint(window.getWidth()))
-        setX(CenterConstraint())
-        setY(PixelConstraint(window.getHeight() * BANNER_HEIGHT_FACTOR))
-        setChildOf(window)
-    }
-    var dropNameText = UIWrappedText(dropNameString, true, Color(0, 0, 0, 0), true).apply {
-        setTextScale(PixelConstraint(SMALL_TEXT_SCALE / 672 * window.getHeight() * config.bannerSize))
-        setWidth(PixelConstraint(window.getWidth()))
-        setX(CenterConstraint())
-        setY(PixelConstraint(topText.getBottom() + window.getHeight() * TEXT_SPACING_FACTOR))
-        setChildOf(window)
-    }
+class DropBannerDisplay() {
+    var SMALL_TEXT_SCALE = 2.5f
+    var BIG_TEXT_SCALE = 5f
 
     @SubscribeEvent
     fun onChatMessage(event: ClientChatReceivedEvent) {
         val formattedMessage = event.message.formattedText
-        val unformattedMessage = event.message.unformattedText
-
         if (!isRareDrop(formattedMessage)) {
             return
         }
-
-        // TODO: add check for blocked drop
-
         if (config.rareDropBannerSound) {
             minecraft.thePlayer.playSound("partlysaneskies:rngdropjingle", 100f, 1f)
         }
-
         if (config.rareDropBanner) {
+            val unformattedMessage = event.message.unformattedText
+
+            // Gets the name of the drop category
             val dropCategory = unformattedMessage.substring(0, unformattedMessage.indexOf("! ") + 1)
+
+            // Gets the colour of the drop category
             val dropCategoryHex = colorCodeToColor(formattedMessage.substring(2, 4))
+
+            // // Finds the amount of magic find from the message
             val name = formattedMessage.substring(formattedMessage.indexOf("! ") + 2)
-            drop = Drop(name, dropCategory, time, dropCategoryHex)
+            drop = Drop(name, dropCategory, 1, time, dropCategoryHex)
         }
     }
+
+    var window = Window(ElementaVersion.V2)
+    var topString = "empty"
+    var dropNameString = "empty"
+    var magicFindString = "empty" // Apparently we never use the magic find string
+    var topText = UIWrappedText(dropNameString, true, Color(0, 0, 0, 0), true)
+        .setTextScale(PixelConstraint(BIG_TEXT_SCALE / 672 * window.getHeight() * config.bannerSize))
+        .setWidth(PixelConstraint(window.getWidth()))
+        .setX(CenterConstraint())
+        .setY(PixelConstraint(window.getHeight() * .333f))
+        .setChildOf(window) as UIWrappedText
+    var dropNameText = UIWrappedText(dropNameString, true, Color(0, 0, 0, 0), true)
+        .setTextScale(PixelConstraint(SMALL_TEXT_SCALE / 672 * window.getHeight() * config.bannerSize))
+        .setWidth(PixelConstraint(window.getWidth()))
+        .setX(CenterConstraint())
+        .setY(PixelConstraint(topText.getBottom() + window.getHeight() * .05f))
+        .setChildOf(window) as UIWrappedText
 
     @SubscribeEvent
     fun renderText(event: RenderGameOverlayEvent.Text?) {
@@ -90,11 +76,13 @@ class DropBannerDisplay {
             categoryColor = Color(255, 255, 255, 0)
         } else {
             categoryColor = drop!!.dropCategoryColor
-            dropNameString = drop!!.name
+            dropNameString = "x" + drop!!.amount + " " + drop!!.name
             topString = drop!!.dropCategory
 
-            if ((time - drop!!.timeDropped > TEXT_BLINK_START_FACTOR * config.rareDropBannerTime * 1000)
-                && (time - drop!!.timeDropped < TEXT_BLINK_END_FACTOR * config.rareDropBannerTime * 1000)
+            // It should blink after a third of the rare drop time, and before 5/6ths
+            if ((time - drop!!.timeDropped > 1f / 3f * config.rareDropBannerTime * 1000
+                        && time
+                        - drop!!.timeDropped < (10f / 12f * config.rareDropBannerTime * 1000))
             ) {
                 categoryColor = if (Math.round((drop!!.timeDropped - time) / 1000f * 4) % 2 == 0) {
                     Color.white
@@ -102,37 +90,38 @@ class DropBannerDisplay {
                     drop!!.dropCategoryColor
                 }
             }
-
             if (!onCooldown(drop!!.timeDropped, (config.rareDropBannerTime * 1000).toLong())) {
                 drop = null
             }
         }
-
         if (topText.getText().isEmpty() && topString.isEmpty() && dropNameText.getText()
                 .isEmpty() && dropNameString.isEmpty()
         ) {
             return
         }
-
         val scale = config.bannerSize
         topText
             .setText(topString)
             .setTextScale(PixelConstraint((BIG_TEXT_SCALE / 672) * window.getHeight() * scale))
             .setWidth(PixelConstraint(window.getWidth()))
             .setX(CenterConstraint())
-            .setY(PixelConstraint(window.getHeight() * BANNER_HEIGHT_FACTOR))
-            .setColor(categoryColor!!)
+            .setY(PixelConstraint(window.getHeight() * .3f))
+            .setColor((categoryColor)!!)
         dropNameText
             .setText(dropNameString)
             .setTextScale(PixelConstraint((SMALL_TEXT_SCALE / 672) * window.getHeight() * scale))
             .setWidth(PixelConstraint(window.getWidth()))
             .setX(CenterConstraint())
-            .setY(PixelConstraint(topText.getBottom() + window.getHeight() * (TEXT_SPACING_FACTOR * scale)))
+            .setY(PixelConstraint(topText.getBottom() + window.getHeight() * (.05f * scale)))
         window.draw(UMatrixStack())
     }
 
-
-    private fun isRareDrop(formattedMessage: String): Boolean {
-        return formattedMessage.matches(RARE_DROP_REGEX)
+    companion object {
+        var drop: Drop? = null
+        fun isRareDrop(formattedMessage: String): Boolean {
+            // §6§lRARE DROP! §r§fCarrot §r§b(+§r§b130% §r§b✯ Magic Find§r§b)
+            val regex = Regex("(§.)+(\\w)*(RARE|PET) DROP!.*")
+            return formattedMessage.matches(regex.toString().toRegex())
+        }
     }
 }

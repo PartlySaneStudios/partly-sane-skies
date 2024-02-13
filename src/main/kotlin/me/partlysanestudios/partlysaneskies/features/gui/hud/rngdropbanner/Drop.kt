@@ -11,6 +11,7 @@ import java.awt.Color
 class Drop(
     var name: String,
     var dropCategory: String,
+    var amount: Int,
     var timeDropped: Long,
     var dropCategoryColor: Color
 ) {
