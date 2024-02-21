@@ -82,6 +82,8 @@ object SkyblockDataManager {
         )
     }
 
+
+
     @Throws(IOException::class)
     fun initBitValues() {
         val bitsShopObject =
@@ -174,21 +176,19 @@ object SkyblockDataManager {
     }
 
     //    --------------------------- Players ---------------------------
-    private val playerCache = HashMap<String, SkyblockPlayer?>()
-    @Throws(MalformedURLException::class)
-    fun getPlayer(username: String): SkyblockPlayer? {
-        val player: SkyblockPlayer?
+    private val playerCache = HashMap<String, SkyblockPlayer>()
+    fun getPlayer(username: String): SkyblockPlayer {
+        val player: SkyblockPlayer
         if (playerCache.containsKey(username)) {
-            player = playerCache[username]
-            if (!player!!.isExpired) {
+            player = playerCache[username]!! // we can !! because we check above
+            if (!player.isExpired()) {
                 return player
             }
         } else {
             player = SkyblockPlayer(username)
         }
-        player.instantiatePlayer()
-        playerCache[username] =
-            player
+        player.instantiateData()
+        playerCache[username] = player
         return player
     }
 }

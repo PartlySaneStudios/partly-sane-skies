@@ -10,15 +10,19 @@ import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
+import net.minecraft.nbt.CompressedStreamTools
+import net.minecraft.nbt.NBTTagCompound
 import org.apache.logging.log4j.Level
 import java.awt.Toolkit
 import java.awt.datatransfer.DataFlavor
 import java.awt.datatransfer.Transferable
 import java.awt.datatransfer.UnsupportedFlavorException
 import java.io.BufferedReader
+import java.io.ByteArrayInputStream
 import java.io.IOException
 import java.io.InputStreamReader
 import java.net.*
+import java.util.*
 
 
 object SystemUtils {
@@ -33,6 +37,12 @@ object SystemUtils {
             PartlySaneSkies.LOGGER.log(level, line)
         }
     }
+
+    fun base64ToNbt(base64String: String): NBTTagCompound {
+        val bytes = Base64.getDecoder().decode(base64String)
+        return CompressedStreamTools.readCompressed(ByteArrayInputStream(bytes))
+    }
+
 
     /**
      * Copies a string to the clipboard

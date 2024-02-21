@@ -39,7 +39,7 @@ public class SkyblockSkill {
         return maxLevel;
     }
 
-    public float getLevelFromExperience(float experience) {
+    public double getLevelFromExperience(float experience) {
         float level = 0;
         Float[] experienceAtLevel = totalExpRequired.values().toArray(new Float[] {});
 
