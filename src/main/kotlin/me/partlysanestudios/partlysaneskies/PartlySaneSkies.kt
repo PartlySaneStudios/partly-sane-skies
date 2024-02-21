@@ -147,7 +147,7 @@ class PartlySaneSkies {
 
         val mainMenuRequest =
             Request(
-                "https://raw.githubusercontent.com/" + getRepoOwner() + "/" + getRepoName() + "/main/data/main_menu.json",
+                "${config.apiUrl}/v1/pss/publicdata?owner=" + getRepoOwner() + "&repo=" + getRepoName() + "&path=/data/main_menu.json",
                 { request: Request? ->
                     CustomMainMenu.setMainMenuInfo(
                         request

@@ -1693,6 +1693,13 @@ object OneConfigScreen : Config(
     )
     var apiUrl = "http://localhost:3000"
 
+    @Switch(
+        name = "Load API Data Directly from GitHub",
+        category = "Dev",
+        subcategory = "API Source"
+    )
+    var useGithubForPublicData = false
+
     init {
         initialize()
     }

@@ -284,8 +284,7 @@ public class ModChecker {
     }
 
     private static void loadModDataFromRepo(String userName, String repoName) {
-        String url = "https://raw.githubusercontent.com/" + userName +
-                "/" + repoName + "/main/data/mods.json";
+        String url = PartlySaneSkies.Companion.getConfig().getApiUrl() + "/v1/pss/publicdata?owner=" + userName + "&repo=" + repoName + "&path=/data/mods.json";
         RequestsManager.INSTANCE.newRequest(new Request(url, request -> {
             knownMods = null;
             try {
