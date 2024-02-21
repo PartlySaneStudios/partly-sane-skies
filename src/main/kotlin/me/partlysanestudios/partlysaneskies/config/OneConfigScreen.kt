@@ -1691,7 +1691,7 @@ object OneConfigScreen : Config(
         subcategory = "API Source",
         secure = true
     )
-    var apiUrl = "http://localhost:3000"
+    var apiUrl = "http://partlysanecloud.su386.dev"
 
     @Switch(
         name = "Load API Data Directly from GitHub",
