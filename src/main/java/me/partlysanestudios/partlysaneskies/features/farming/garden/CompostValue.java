@@ -84,7 +84,7 @@ public class CompostValue {
 
     public static void requestCostPerOrganicMatter() {
         for (Map.Entry<String, Double> en : compostValueMap.entrySet()) {
-            costPerOrganicMatterMap.put(en.getKey(), SkyblockDataManager.getItem(en.getKey()).getBuyPrice()/en.getValue());
+            costPerOrganicMatterMap.put(en.getKey(), SkyblockDataManager.INSTANCE.getItem(en.getKey()).getBuyPrice()/en.getValue());
         }
     }
 
@@ -119,7 +119,7 @@ public class CompostValue {
         for (Map.Entry<String, Double> en : map.entrySet()) {
             String id = en.getKey();
             double cropPerCompost = compostCost / compostValueMap.get(id);
-            String cropName = SkyblockDataManager.getItem(id).getName();
+            String cropName = SkyblockDataManager.INSTANCE.getItem(id).getName();
             double costPerCompost = en.getValue();
             double compostAmount = getCurrentCompostAbleToMake();
             if (maxCompost == fillLevel) {
@@ -329,7 +329,7 @@ public class CompostValue {
 
         textString += getString();
         textString += "\n\n§e§lCompost:\n\n";
-        double compostSellPrice = SkyblockDataManager.getItem("COMPOST").getBazaarSellPrice();
+        double compostSellPrice = SkyblockDataManager.INSTANCE.getItem("COMPOST").getBazaarSellPrice();
 
         double compostAmount = getCurrentCompostAbleToMake();
         if (maxCompost == fillLevel) {

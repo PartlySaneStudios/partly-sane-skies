@@ -192,7 +192,7 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack?, var xCons
         }
         return if (!SkyblockDataManager.getItem(skyblockItem.id).hasAverageLowestBin()) {
             0.0
-        } else SkyblockDataManager.getItem(skyblockItem.id).getAverageLowestBin()
+        } else SkyblockDataManager.getItem(skyblockItem.id).averageLowestBin
     }
 
     fun getLowestBin(): Double {

@@ -69,14 +69,14 @@ public class SkymartValue {
 
         HashMap<String, Double> map = new HashMap<>();
         for (String id : copperCost.keySet()) {
-            SkyblockItem item = SkyblockDataManager.getItem(id);
+            SkyblockItem item = SkyblockDataManager.INSTANCE.getItem(id);
             map.put(id, item.getSellPrice() / copperCost.get(id));
         }
         LinkedHashMap<String, Double> sortedMap = sortMap(map);
         
         int i = 1;
         for (Map.Entry<String, Double> en : sortedMap.entrySet()) {
-            SkyblockItem item = SkyblockDataManager.getItem(en.getKey());
+            SkyblockItem item = SkyblockDataManager.INSTANCE.getItem(en.getKey());
             str.append("§6").append(i).append(". §d").append(item.getName()).append("§7 costs §d").append(StringUtils.INSTANCE.formatNumber(copperCost.get(en.getKey()))).append("§7 copper and sells for §d").append(StringUtils.INSTANCE.formatNumber(MathUtils.INSTANCE.round(item.getSellPrice(), 1))).append("§7 coins \n§8 (").append(StringUtils.INSTANCE.formatNumber(MathUtils.INSTANCE.round(en.getValue(), 1))).append(" coins per copper)\n");
             i++;
             if (i > 5) {

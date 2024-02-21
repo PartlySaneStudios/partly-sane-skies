@@ -28,10 +28,10 @@ public class SkillUpgradeRecommendation {
     public static LinkedHashMap<String, Double> getRecommendedSkills(String username) throws IOException {
         HashMap<String, Double> map = new HashMap<>();
 
-        SkyblockPlayer player = SkyblockDataManager.getPlayer(username);
+        SkyblockPlayer player = SkyblockDataManager.INSTANCE.getPlayer(username);
 
         for (String skill : weightConstants.keySet()) {
-            if (getSkillLevel(skill, player) == SkyblockDataManager.getSkill(skill.toUpperCase()).getMaxLevel()) {
+            if (getSkillLevel(skill, player) == SkyblockDataManager.INSTANCE.getSkill(skill.toUpperCase()).getMaxLevel()) {
                 continue;
             }
 
@@ -209,7 +209,7 @@ public class SkillUpgradeRecommendation {
         double weightConstant = weightConstants.get(skill);
 
         // Math
-        double awayFromMaxComponent = getSkillLevel(skill, player) - SkyblockDataManager.getSkill(skill.toUpperCase()).getMaxLevel();
+        double awayFromMaxComponent = getSkillLevel(skill, player) - SkyblockDataManager.INSTANCE.getSkill(skill.toUpperCase()).getMaxLevel();
         double currentSenitherWeight = calculateSkillWeight(currentSkillLevel - 5, weightConstant);
         double nextLevelSenitherWeight = calculateSkillWeight(Math.ceil(currentSkillLevel - 5), weightConstant);
         double levelUpSenitherWeightComponent;

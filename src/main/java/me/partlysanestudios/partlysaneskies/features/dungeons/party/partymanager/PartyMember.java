@@ -85,7 +85,7 @@ public class PartyMember {
 
     public void populateData() throws MalformedURLException {
 
-        this.player = SkyblockDataManager.getPlayer(username);
+        this.player = SkyblockDataManager.INSTANCE.getPlayer(username);
 
         // Gets the player's secret count
         secretCount = player.secretsCount;

@@ -185,7 +185,7 @@ public class ProfitMinionCalculator extends WindowScreen {
         for (Map.Entry<String, MinionData.MinionFuel> en : MinionData.fuelMap.entrySet()) {
 
             String fuelId = en.getValue().id;
-            SkyblockItem fuelItem = SkyblockDataManager.getItem(fuelId);
+            SkyblockItem fuelItem = SkyblockDataManager.INSTANCE.getItem(fuelId);
 
             if (fuelItem == null) {
 
@@ -209,7 +209,7 @@ public class ProfitMinionCalculator extends WindowScreen {
 
             String fuelDisplayName = fuelItem.getName();
 
-            String fuelRarityColor = fuelItem.getRarityColorCode();
+            String fuelRarityColor = fuelItem.getRarity().getColorCode();
 
             UIWrappedText text = (UIWrappedText) new UIWrappedText(fuelRarityColor + fuelDisplayName)
                     .setX(new PixelConstraint(textXPos))
@@ -243,7 +243,7 @@ public HashMap<MinionData.Minion.Upgrade, PSSToggle> addMinionUpgradeButtons() {
         for (MinionData.Minion.Upgrade upgrade : MinionData.Minion.Upgrade.values()) {
             String upgradeId = upgrade.toString();
 
-            SkyblockItem upgradeItem = SkyblockDataManager.getItem(upgradeId);
+            SkyblockItem upgradeItem = SkyblockDataManager.INSTANCE.getItem(upgradeId);
             if (upgradeItem == null) {
                 continue;
             }
@@ -266,7 +266,7 @@ public HashMap<MinionData.Minion.Upgrade, PSSToggle> addMinionUpgradeButtons() {
 
             String upgradeItemName = upgradeItem.getName();
 
-            String upgradeItemColor = upgradeItem.getRarityColorCode();
+            String upgradeItemColor = upgradeItem.getRarity().getColorCode();
 
             UIWrappedText text = (UIWrappedText) new UIWrappedText(upgradeItemColor + upgradeItemName)
                     .setX(new PixelConstraint(textXPos))

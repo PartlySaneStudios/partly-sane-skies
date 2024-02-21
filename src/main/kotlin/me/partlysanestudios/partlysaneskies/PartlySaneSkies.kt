@@ -213,7 +213,7 @@ class PartlySaneSkies {
         registerEvent(MiningEvents())
         registerEvent(RequiredSecretsFound())
         registerEvent(MinionData())
-        registerEvent(SkyblockDataManager())
+        registerEvent(SkyblockDataManager)
         registerEvent(PlayerRating())
         registerEvent(SkymartValue())
         registerEvent(CompostValue())
@@ -279,7 +279,7 @@ class PartlySaneSkies {
         // Initializes skill upgrade recommendation
         SkillUpgradeRecommendation.populateSkillMap()
         try {
-            SkyblockDataManager.initItems()
+            SkyblockDataManager.updateAll()
         } catch (e: IOException) {
             e.printStackTrace()
         }

@@ -1671,7 +1671,7 @@ object OneConfigScreen : Config(
         name = "Public Data Repo Owner",
         description = "Change the owner of the repo used for public data.",
         category = "Dev",
-        subcategory = "API",
+        subcategory = "API Source",
         secure = true
     )
     var repoOwner = "PartlySaneStudios"
@@ -1680,10 +1680,18 @@ object OneConfigScreen : Config(
         name = "Public Data Repo Name",
         description = "Change the name of the repo used for public data.",
         category = "Dev",
-        subcategory = "API",
+        subcategory = "API Source",
         secure = true
     )
     var repoName = "partly-sane-skies-public-data"
+
+    @Text(
+        name = "API URL",
+        category = "Dev",
+        subcategory = "API Source",
+        secure = true
+    )
+    var apiUrl = "http://localhost:3000"
 
     init {
         initialize()
