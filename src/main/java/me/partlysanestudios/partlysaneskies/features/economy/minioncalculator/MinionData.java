@@ -241,7 +241,7 @@ public class MinionData {
                 double amount = en.getValue();
                 double price = 0;
                 try {
-                    price = SkyblockDataManager.getItem(itemId).getBestPrice();
+                    price = SkyblockDataManager.INSTANCE.getItem(itemId).getBestPrice();
                 } catch (NullPointerException e) {
                     SystemUtils.INSTANCE.log(Level.WARN, itemId + ": DOES NOT HAVE PRICE");
                 }
@@ -288,7 +288,7 @@ public class MinionData {
 
             for (Map.Entry<String, Double> en2 : this.getBaseItemsPerMinute(this.maxTier, upgrades, fuel).entrySet()) {
 //                Individual price of the item
-                double price = SkyblockDataManager.getItem(en2.getKey()).getBestPrice();
+                double price = SkyblockDataManager.INSTANCE.getItem(en2.getKey()).getBestPrice();
                 price = MathUtils.INSTANCE.round(price, 1); // rounded to 1 decimal place
 
 //                Total amount of money made by the item
@@ -296,7 +296,7 @@ public class MinionData {
                 totalItemProfit *= 60 * hours;
                 totalItemProfit = MathUtils.INSTANCE.round(totalItemProfit, 1); // rounded to 1 decimal place
 
-                str.append("\n§7   §6x").append(StringUtils.INSTANCE.formatNumber(totalItemProfit)).append("§7 §6").append(SkyblockDataManager.getItem(en2.getKey()).getName()).append("§7 for ").append(StringUtils.INSTANCE.formatNumber(price)).append(" coins each.");
+                str.append("\n§7   §6x").append(StringUtils.INSTANCE.formatNumber(totalItemProfit)).append("§7 §6").append(SkyblockDataManager.INSTANCE.getItem(en2.getKey()).getName()).append("§7 for ").append(StringUtils.INSTANCE.formatNumber(price)).append(" coins each.");
             }
 
 //            Total amount of money made in given hours by the minion

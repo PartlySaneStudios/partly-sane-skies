@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Level
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
+import java.net.HttpURLConnection
 import javax.net.ssl.HttpsURLConnection
 import java.net.URL
 
@@ -106,11 +107,12 @@ open class Request(
      */
     @Throws(IOException::class)
     open fun startRequest() {
+
         // Opens a new connection with the url
-        val connection = url.openConnection() as HttpsURLConnection
+        val connection = url.openConnection() as HttpURLConnection
         // Sets the browser as Mozilla to bypass an insecure restrictions
         connection.setRequestProperty("User-Agent", "Partly-Sane-Skies/" + PartlySaneSkies.VERSION)
-        if (acceptAllCertificates) {
+        if (acceptAllCertificates && connection is HttpsURLConnection) {
             // Create a trust manager that does not validate certificate chains
             val trustAllCerts = arrayOf<TrustManager>(object : X509TrustManager {
                 override fun getAcceptedIssuers(): Array<X509Certificate> = arrayOf()

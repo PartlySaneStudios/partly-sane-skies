@@ -28,10 +28,10 @@ public class SkillUpgradeRecommendation {
     public static LinkedHashMap<String, Double> getRecommendedSkills(String username) throws IOException {
         HashMap<String, Double> map = new HashMap<>();
 
-        SkyblockPlayer player = SkyblockDataManager.getPlayer(username);
+        SkyblockPlayer player = SkyblockDataManager.INSTANCE.getPlayer(username);
 
         for (String skill : weightConstants.keySet()) {
-            if (getSkillLevel(skill, player) == SkyblockDataManager.getSkill(skill.toUpperCase()).getMaxLevel()) {
+            if (getSkillLevel(skill, player) == SkyblockDataManager.INSTANCE.getSkill(skill.toUpperCase()).getMaxLevel()) {
                 continue;
             }
 
@@ -47,7 +47,7 @@ public class SkillUpgradeRecommendation {
             map.put(skill, score);
         }
 
-        double catacombsLevel = player.catacombsLevel;
+        double catacombsLevel = player.getCatacombsLevel();
 
         double maxCatacombsLevel = 50;
 
@@ -63,28 +63,28 @@ public class SkillUpgradeRecommendation {
         return sortWeightMap(map);
     }
 
-    private static float getSkillLevel(String skill, SkyblockPlayer player) {
+    private static double getSkillLevel(String skill, SkyblockPlayer player) {
         switch(skill) {
             case "mining":
-                return player.miningLevel;
+                return player.getMiningLevel();
 
             case "foraging":
-                return player.foragingLevel;
+                return player.getForagingLevel();
 
             case "enchanting":
-                return player.enchantingLevel;
+                return player.getEnchantingLevel();
 
             case "combat":
-                return player.combatLevel;
+                return player.getCombatLevel();
 
             case "fishing":
-                return player.fishingLevel;
+                return player.getFishingLevel();
 
             case "alchemy":
-                return player.alchemyLevel;
+                return player.getAlchemyLevel();
 
             case "farming" :
-                return player.farmingLevel;
+                return player.getFarmingLevel();
         }
 
         return -1;
@@ -209,7 +209,7 @@ public class SkillUpgradeRecommendation {
         double weightConstant = weightConstants.get(skill);
 
         // Math
-        double awayFromMaxComponent = getSkillLevel(skill, player) - SkyblockDataManager.getSkill(skill.toUpperCase()).getMaxLevel();
+        double awayFromMaxComponent = getSkillLevel(skill, player) - SkyblockDataManager.INSTANCE.getSkill(skill.toUpperCase()).getMaxLevel();
         double currentSenitherWeight = calculateSkillWeight(currentSkillLevel - 5, weightConstant);
         double nextLevelSenitherWeight = calculateSkillWeight(Math.ceil(currentSkillLevel - 5), weightConstant);
         double levelUpSenitherWeightComponent;

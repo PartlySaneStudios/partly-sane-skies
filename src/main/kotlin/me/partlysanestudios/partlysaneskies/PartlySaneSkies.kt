@@ -21,7 +21,6 @@ package me.partlysanestudios.partlysaneskies
 import gg.essential.elementa.ElementaVersion
 import me.partlysanestudios.partlysaneskies.config.Keybinds
 import me.partlysanestudios.partlysaneskies.config.OneConfigScreen
-import me.partlysanestudios.partlysaneskies.data.api.PolyfrostUrsaMinorRequest
 import me.partlysanestudios.partlysaneskies.data.api.Request
 import me.partlysanestudios.partlysaneskies.data.api.RequestsManager.newRequest
 import me.partlysanestudios.partlysaneskies.data.cache.PetData
@@ -148,7 +147,7 @@ class PartlySaneSkies {
 
         val mainMenuRequest =
             Request(
-                "https://raw.githubusercontent.com/" + getRepoOwner() + "/" + getRepoName() + "/main/data/main_menu.json",
+                "${config.apiUrl}/v1/pss/publicdata?owner=${getRepoOwner()}&repo=${getRepoName()}&path=/data/main_menu.json",
                 { request: Request? ->
                     CustomMainMenu.setMainMenuInfo(
                         request
@@ -213,7 +212,7 @@ class PartlySaneSkies {
         registerEvent(MiningEvents())
         registerEvent(RequiredSecretsFound())
         registerEvent(MinionData())
-        registerEvent(SkyblockDataManager())
+        registerEvent(SkyblockDataManager)
         registerEvent(PlayerRating())
         registerEvent(SkymartValue())
         registerEvent(CompostValue())
@@ -274,12 +273,11 @@ class PartlySaneSkies {
         cc.polyfrost.oneconfig.events.EventManager.INSTANCE.register(ChatTransformer)
 
         DebugKey.init()
-        PolyfrostUrsaMinorRequest.authorize()
 
         // Initializes skill upgrade recommendation
         SkillUpgradeRecommendation.populateSkillMap()
         try {
-            SkyblockDataManager.initItems()
+            SkyblockDataManager.updateAll()
         } catch (e: IOException) {
             e.printStackTrace()
         }

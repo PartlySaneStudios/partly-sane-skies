@@ -34,11 +34,11 @@ public class PartyMember {
     public String username;
     public PartyRank rank;
     public int secretCount;
-    public float skyblockLevel;
-    public float catacombsLevel;
-    public float combatLevel;
-    public float secretsPerRun;
-    public float averageSkillLevel;
+    public double skyblockLevel;
+    public double catacombsLevel;
+    public double combatLevel;
+    public double secretsPerRun;
+    public double averageSkillLevel;
 
     public String helmetName = "(Unknown)";
     public String chestplateName = "(Unknown)";
@@ -67,10 +67,10 @@ public class PartyMember {
     public int m6Runs;
     public int m7Runs;
 
-    public float health;
-    public float defense;
-    public float intelligence;
-    public float effectHealth;
+    public double health;
+    public double defense;
+    public double intelligence;
+    public double effectHealth;
     SkyblockPlayer player;
 
     // Creates a new party member based on the username and partyRank
@@ -85,22 +85,22 @@ public class PartyMember {
 
     public void populateData() throws MalformedURLException {
 
-        this.player = SkyblockDataManager.getPlayer(username);
+        this.player = SkyblockDataManager.INSTANCE.getPlayer(username);
 
         // Gets the player's secret count
-        secretCount = player.secretsCount;
+        secretCount = player.getSecretsCount();
 
         // Gets the player's catacombs' level
-        catacombsLevel = player.catacombsLevel;
+        catacombsLevel = player.getCatacombsLevel();
 
         // Gets the player's combat level
-        combatLevel = player.combatLevel;
+        combatLevel = player.getCombatLevel();
 
         // Gets the player's average skill level
-        averageSkillLevel = player.averageSkillLevel;
+        averageSkillLevel = player.getAverageSkillLevel();
 
 
-        String[] playerArmor = player.armorName;
+        String[] playerArmor = player.getArmorName();
         if (playerArmor.length >= 4 && playerArmor[3] != null) {
             helmetName = playerArmor[3];
         } else {
@@ -127,42 +127,42 @@ public class PartyMember {
 
 
         // Attempts to get the selected dungeon class
-        selectedDungeonClass = player.selectedDungeonClass;
+        selectedDungeonClass = player.getSelectedDungeonClass();
 
-        this.arrowCount = player.arrowCount;
+        this.arrowCount = player.getArrowCount();
         this.arrowCountString = String.valueOf(this.arrowCount);
         if (arrowCount == -1) { 
             this.arrowCountString = "(Unknown)";
         }
 
         // Gets all the floor runs
-        f1Runs = player.normalRunCount[1];
-        f2Runs = player.normalRunCount[2];
-        f3Runs = player.normalRunCount[3];
-        f4Runs = player.normalRunCount[4];
-        f5Runs = player.normalRunCount[5];
-        f6Runs = player.normalRunCount[6];
-        f7Runs = player.normalRunCount[7];
+        f1Runs = player.getNormalRunCount()[1];
+        f2Runs = player.getNormalRunCount()[2];
+        f3Runs = player.getNormalRunCount()[3];
+        f4Runs = player.getNormalRunCount()[4];
+        f5Runs = player.getNormalRunCount()[5];
+        f6Runs = player.getNormalRunCount()[6];
+        f7Runs = player.getNormalRunCount()[7];
 
         // Gets all the master floor runs
-        m1Runs = player.masterModeRunCount[1];
-        m2Runs = player.masterModeRunCount[2];
-        m3Runs = player.masterModeRunCount[3];
-        m4Runs = player.masterModeRunCount[4];
-        m5Runs = player.masterModeRunCount[5];
-        m6Runs = player.masterModeRunCount[6];
-        m7Runs = player.masterModeRunCount[7];
+        m1Runs = player.getMasterModeRunCount()[1];
+        m2Runs = player.getMasterModeRunCount()[2];
+        m3Runs = player.getMasterModeRunCount()[3];
+        m4Runs = player.getMasterModeRunCount()[4];
+        m5Runs = player.getMasterModeRunCount()[5];
+        m6Runs = player.getMasterModeRunCount()[6];
+        m7Runs = player.getMasterModeRunCount()[7];
 
-        petName = player.petName;
+        petName = player.getPetName();
 
-        skyblockLevel = player.skyblockLevel;
-        health = player.baseHealth;
-        intelligence = player.baseIntelligence;
-        defense = player.baseDefense;
-        effectHealth = player.baseEffectedHealth;
+        skyblockLevel = player.getSkyblockLevel();
+        health = player.getBaseHealth();
+        intelligence = player.getBaseIntelligence();
+        defense = player.getBaseDefense();
+        effectHealth = player.getBaseEffectiveHealth();
 
         // Attempts to get the average secrets per run
-        secretsPerRun = player.secretsPerRun;
+        secretsPerRun = player.getSecretsPerRun();
     }
 
     public void createBlock(UIComponent memberBlock, float scaleFactor) {
@@ -495,7 +495,7 @@ public class PartyMember {
                 .setChildOf(refreshButton);
 
         refreshButton.onMouseClickConsumer(event -> {
-            player.refresh();
+            player.setLastUpdateTime(0);
             PartlySaneSkies.Companion.getMinecraft().displayGuiScreen(null);
             PartyManager.startPartyManager();
         });
