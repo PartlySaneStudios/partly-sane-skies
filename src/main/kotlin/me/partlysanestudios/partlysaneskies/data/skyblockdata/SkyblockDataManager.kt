@@ -145,12 +145,12 @@ object SkyblockDataManager {
                     for ((id, value) in skillObject.entrySet()) {
 //                Gets the id from the key of the element
                         //                Gets the data from the skill
-                        val `object` = value.getAsJsonObject()
+                        val obj = value.getAsJsonObject()
 
 //                Gets the max level
-                        val maxLevel = `object`["maxLevel"].asInt
+                        val maxLevel = obj["maxLevel"].asInt
                         //                Gets the json array containing the level
-                        val levelArray = `object`.getAsJsonArray("levels")
+                        val levelArray = obj.getAsJsonArray("levels")
                         //                Creates a new hashmap to store the level and the total Experience Required to get to that level
                         val levelToExpMap =
                             HashMap<Int, Float>()
@@ -164,8 +164,7 @@ object SkyblockDataManager {
                         //                Instantiates a new skyblock skill with all the data
                         val skill = SkyblockSkill(id, maxLevel, levelToExpMap)
                         //                Adds the skill to the map
-                        idToSkillMap[id] =
-                            skill
+                        idToSkillMap[id] = skill
                     }
                 }, false, false
             )
@@ -179,11 +178,11 @@ object SkyblockDataManager {
     //    --------------------------- Players ---------------------------
     private val playerCache = HashMap<String, SkyblockPlayer>()
     fun getPlayer(username: String): SkyblockPlayer {
-        val player: SkyblockPlayer
+        val player: SkyblockPlayer?
         if (playerCache.containsKey(username)) {
-            player = playerCache[username]!! // we can !! because we check above
-            if (!player.isExpired()) {
-                return player
+            player = playerCache[username]
+            if (player?.isExpired() != true) {
+                return player ?: SkyblockPlayer("") // Returns an empty player if null
             }
         } else {
             player = SkyblockPlayer(username)
