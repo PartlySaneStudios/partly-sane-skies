@@ -134,11 +134,11 @@ object MinecraftUtils {
         val upperInventory: IInventory
         val lowerInventory: IInventory
         try {
-            upperInventory = FieldUtils.readDeclaredField(
+            upperInventory = FieldUtils.readField(
                 this,
                 getDecodedFieldName("upperChestInventory"), true
             ) as IInventory
-            lowerInventory = FieldUtils.readDeclaredField(
+            lowerInventory = FieldUtils.readField(
                 this,
                 getDecodedFieldName("lowerChestInventory"), true
             ) as IInventory
