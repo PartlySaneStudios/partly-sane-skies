@@ -198,7 +198,7 @@ class PartlySaneSkies {
 
         // Registers all the events
         registerEvent(this)
-        registerEvent(DropBannerDisplay())
+        registerEvent(DropBannerDisplay)
         registerEvent(PartyManager())
         registerEvent(WatcherReady())
         registerEvent(WormWarning())

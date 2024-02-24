@@ -82,7 +82,7 @@ object DebugKey {
         }
 
         if (config.debugRenderRNGBanner) {
-            DropBannerDisplay.drop = Drop("Test Name", "Test Category", 69, time, Color.MAGENTA)
+            DropBannerDisplay.drop = Drop("Test Name", "Test Category", Color.MAGENTA, 69, time)
         }
     }
 
