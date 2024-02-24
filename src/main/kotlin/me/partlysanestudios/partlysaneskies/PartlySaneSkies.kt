@@ -198,7 +198,7 @@ class PartlySaneSkies {
 
         // Registers all the events
         registerEvent(this)
-        registerEvent(DropBannerDisplay)
+        registerEvent(DropBannerDisplay())
         registerEvent(PartyManager())
         registerEvent(WatcherReady())
         registerEvent(WormWarning())
@@ -270,7 +270,7 @@ class PartlySaneSkies {
         PearlRefill.registerCommand()
 
 
-        // Use PolyFrost EventManager cuz chatSendEvent makes transforming chat messages way easier
+        //Use polyfrost EventManager cuz chatSendEvent makes transforming chat messages may easier
         cc.polyfrost.oneconfig.events.EventManager.INSTANCE.register(ChatTransformer)
 
         DebugKey.init()
