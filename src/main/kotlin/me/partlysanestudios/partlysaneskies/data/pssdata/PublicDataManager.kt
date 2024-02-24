@@ -55,9 +55,9 @@ object PublicDataManager {
 
         try {
             val url = if (config.useGithubForPublicData) {
-                "https://raw.githubusercontent.com/" + getRepoOwner() + "/" + getRepoName() + "/main/data/" + fixedPath
+                "https://raw.githubusercontent.com/${getRepoOwner()}/${getRepoName()}/main/data/${fixedPath}"
             } else {
-                "${config.apiUrl}/v1/pss/publicdata?owner=" + getRepoOwner() + "&repo=" + getRepoName() + "&path=/data/" + fixedPath
+                "${config.apiUrl}/v1/pss/publicdata?owner=${getRepoOwner()}&repo=${getRepoName()}&path=/data/${fixedPath}"
             }
             RequestsManager.newRequest(
                 Request(url, {
