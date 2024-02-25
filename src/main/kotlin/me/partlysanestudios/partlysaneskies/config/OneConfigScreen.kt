@@ -58,6 +58,10 @@ object OneConfigScreen : Config(
             repoName = "partly-sane-skies-public-data"
             save()
         }
+        if (apiUrl.isEmpty()) {
+            apiUrl = "http://partlysanecloud.su386.dev"
+            save()
+        }
     }
 
     /**
