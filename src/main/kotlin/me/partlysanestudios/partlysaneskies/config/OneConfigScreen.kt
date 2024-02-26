@@ -790,7 +790,7 @@ object OneConfigScreen : Config(
     @Switch(
         name = "Alert when dungeon team members are low",
         description = "Displays a banner when a teammate in Dungeons has low health.",
-        category = "Dungeon",
+        category = "Dungeons",
         subcategory = "Health Alert"
     )
     var healerAlert = false
@@ -798,7 +798,7 @@ object OneConfigScreen : Config(
     @Switch(
         name = "Alert when you are low",
         description = "Displays a banner when you are low on health.",
-        category = "Dungeon",
+        category = "Dungeons",
         subcategory = "Health Alert"
     )
     var alertWhenPlayerLow = false
@@ -806,7 +806,7 @@ object OneConfigScreen : Config(
     @Switch(
         name = "Alert outside of dungeons",
         description = "Alert outside of dungeons.",
-        category = "Dungeon",
+        category = "Dungeons",
         subcategory = "Health Alert"
     )
     var alertOutsideDungeons  = false
@@ -814,7 +814,7 @@ object OneConfigScreen : Config(
     @Dropdown(
         name = "Alert when below...",
         description = "Choose at what percentage healer alert will trigger.",
-        category = "Dungeon",
+        category = "Dungeons",
         subcategory = "Health Alert",
         options = ["25% Health", "50% Health"]
     )
@@ -823,7 +823,7 @@ object OneConfigScreen : Config(
     @Slider(
         name = "Cooldown Between Warnings",
         description = "Choose the delay between Low Health Alerts.",
-        category = "Dungeon",
+        category = "Dungeons",
         subcategory = "Health Alert",
         min = 1f,
         max = 15f
@@ -833,14 +833,14 @@ object OneConfigScreen : Config(
 
     @Color(
         name = "Party Members Low Color",
-        category = "Dungeon",
+        category = "Dungeons",
         subcategory = "Health Alert",
     )
     var partyMemberLowColor = OneColor(java.awt.Color.RED)
 
     @Color(
         name = "Player Low Color",
-        category = "Dungeon",
+        category = "Dungeons",
         subcategory = "Health Alert",
     )
     var playerLowColor = OneColor(java.awt.Color.RED)
