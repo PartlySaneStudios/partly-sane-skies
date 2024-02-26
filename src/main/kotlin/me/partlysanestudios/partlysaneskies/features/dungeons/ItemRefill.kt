@@ -34,7 +34,7 @@ object ItemRefill {
             .addAlias("pearlrefill")
             .addAlias("refillpearl")
             .addAlias("pr")
-            .setDescription("Refills your ender pearls to 16.")
+            .setDescription("Refills your dungeon items.")
             .setRunnable { s: ICommandSender, a: Array<String> ->
                 runItemRefil()
             }.register()
@@ -71,12 +71,12 @@ object ItemRefill {
                 itemAmount[item] = countItemInInventory(item)
             }
 
-            for (en in itemAmount.entries) {
-                val maxStackSize = SkyblockDataManager.getItem(en.key)?.getStackSize() ?: 64
-                val itemName = SkyblockDataManager.getItem(en.key)?.name ?: ""
-                if (en.value < maxStackSize) {
-                    ChatUtils.sendClientMessage("Refilling ${maxStackSize - en.value} ${itemName}s...")
-                    PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/gfs ${en.key.lowercase(Locale.getDefault())} ${maxStackSize - en.value}")
+            for (entry in itemAmount.entries) {
+                val maxStackSize = SkyblockDataManager.getItem(entry.key)?.getStackSize() ?: 64
+                val itemName = SkyblockDataManager.getItem(entry.key)?.name ?: ""
+                if (entry.value < maxStackSize) {
+                    ChatUtils.sendClientMessage("Refilling ${maxStackSize - entry.value} ${itemName}s...")
+                    PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/gfs ${entry.key.lowercase(Locale.getDefault())} ${maxStackSize - entry.value}")
                 }
 
                 Thread.sleep(2000)
