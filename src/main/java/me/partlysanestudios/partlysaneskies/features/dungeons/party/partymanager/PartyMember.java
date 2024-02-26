@@ -165,7 +165,7 @@ public class PartyMember {
         secretsPerRun = player.getSecretsPerRun();
     }
 
-    public void createBlock(UIComponent memberBlock, float scaleFactor) {
+    public void createBlock(UIComponent memberBlock, float scaleFactor, PartyManagerGui partyManagerGui) {
         // Name plate
         new UIText(this.username)
                 .setTextScale(new PixelConstraint(3f * scaleFactor))
@@ -187,6 +187,7 @@ public class PartyMember {
         createMemberBlockColumnThree(memberBlock, scaleFactor);
         createMemberBlockColumnFour(memberBlock, scaleFactor);
         createMemberBlockColumnFive(memberBlock, scaleFactor);
+        partyManagerGui.updatePartyBreakdown();
     }
 
     private void createMemberBlockColumnOne(UIComponent memberBlock, float scaleFactor) {
