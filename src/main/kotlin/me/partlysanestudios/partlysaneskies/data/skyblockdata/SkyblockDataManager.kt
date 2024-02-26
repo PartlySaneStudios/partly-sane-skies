@@ -71,7 +71,9 @@ object SkyblockDataManager {
                             en.get("averageBazaarBuy")?.asDouble ?: 0.0,
                             en.get("averageBazaarSell")?.asDouble ?: 0.0,
                             en.get("lowestBin")?.asDouble ?: 0.0,
-                            en.get("averageLowestBin")?.asDouble ?: 0.0
+                            en.get("averageLowestBin")?.asDouble ?: 0.0,
+                            en.get("material")?.asString ?: "",
+                            en.get("unstackable")?.asBoolean ?: false
                         )
 
                         idToItemMap[en.get("itemId").asString] = skyblockItem
@@ -104,10 +106,10 @@ object SkyblockDataManager {
         } else nameToIdMap[name]!!
     }
 
-    fun getItem(id: String): SkyblockItem {
+    fun getItem(id: String): SkyblockItem? {
         return if (!idToItemMap.containsKey(id)) {
-            SkyblockItem.emptyItem
-        } else idToItemMap[id]!!
+            null
+        } else idToItemMap[id]
     }
 
     fun runUpdaterTick() {
