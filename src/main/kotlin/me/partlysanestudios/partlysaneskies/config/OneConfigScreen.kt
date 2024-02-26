@@ -427,6 +427,50 @@ object OneConfigScreen : Config(
     )
     var wikiKeybind = OneKeyBind(Keyboard.KEY_NONE)
 
+    // Health Alert
+    @Switch(
+        name = "Alert when dungeon team members are low",
+        description = "Displays a banner when a teammate in Dungeons has low health.",
+        category = "SkyBlock",
+        subcategory = "Health Alert"
+    )
+    var healerAlert = false
+
+    @Switch(
+        name = "Alert when you are low",
+        description = "Displays a banner when you are low on health.",
+        category = "SkyBlock",
+        subcategory = "Health Alert"
+    )
+    var alertWhenPlayerLow = false
+
+    @Switch(
+        name = "Alert outside of dungeons",
+        description = "Alert outside of dungeons.",
+        category = "SkyBlock",
+        subcategory = "Health Alert"
+    )
+    var alertOutsideDungeons  = false
+
+    @Dropdown(
+        name = "Alert when below...",
+        description = "Choose at what percentage healer alert will trigger.",
+        category = "SkyBlock",
+        subcategory = "Healer Alert",
+        options = ["25% Health", "50% Health"]
+    )
+    var colouredHealerAlert = 0
+
+    @Slider(
+        name = "Cooldown Between Warnings",
+        description = "Choose the delay between Low Health Alerts.",
+        category = "SkyBlock",
+        subcategory = "Health Alert",
+        min = 1f,
+        max = 15f
+    )
+    var healerAlertCooldownSlider = 3.5f
+
     // Pet Minion Alert
     @Switch(
         name = "Incorrect Pet for Minion Alert",
@@ -697,34 +741,6 @@ object OneConfigScreen : Config(
         subcategory = "Terminal Waypoints"
     )
     var terminalWaypoints = true
-
-    // Healer Alert
-    @Switch(
-        name = "Healer Alert",
-        description = "Displays a banner when a teammate in Dungeons has low health.",
-        category = "Dungeons",
-        subcategory = "Healer Alert"
-    )
-    var healerAlert = false
-
-    @Dropdown(
-        name = "Alert when below...",
-        description = "Choose at what percentage healer alert will trigger.",
-        category = "Dungeons",
-        subcategory = "Healer Alert",
-        options = ["25% Health", "50% Health"]
-    )
-    var colouredHealerAlert = 0
-
-    @Slider(
-        name = "Cooldown Between Warnings",
-        description = "Choose the delay between Low Health Alerts.",
-        category = "Dungeons",
-        subcategory = "Healer Alert",
-        min = 1f,
-        max = 15f
-    )
-    var healerAlertCooldownSlider = 3.5f
 
     // Pearl Refill
     @Switch(

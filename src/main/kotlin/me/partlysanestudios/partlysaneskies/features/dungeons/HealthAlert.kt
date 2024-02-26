@@ -1,5 +1,5 @@
 //
-// Written by FlagMaster with help from Su386.
+// Written by FlagMaster and Su386.
 // See LICENSE for copyright and license notices.
 //
 
@@ -7,6 +7,9 @@
 package me.partlysanestudios.partlysaneskies.features.dungeons
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
+import me.partlysanestudios.partlysaneskies.config.OneConfigScreen
+import me.partlysanestudios.partlysaneskies.data.cache.StatsData
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.IslandType
 import me.partlysanestudios.partlysaneskies.render.gui.hud.BannerRenderer
 import me.partlysanestudios.partlysaneskies.render.gui.hud.PSSBanner
@@ -18,7 +21,7 @@ import net.minecraft.util.ResourceLocation
 import java.awt.Color
 
 
-object HealerAlert {
+object HealthAlert {
     private var lastWarnTime = 0L
 
     private fun isPlayerLowOnHealth(): Boolean {
@@ -46,14 +49,37 @@ object HealerAlert {
         return false
     }
 
-    fun checkPlayerTick() {
-        if (!PartlySaneSkies.config.healerAlert) {
-            return
+    private fun alertWhenPlayerLowOnHealth(): Boolean {
+        if (!config.alertOutsideDungeons && !IslandType.CATACOMBS.onIsland()){
+            return false
         }
-        if (isPlayerLowOnHealth()) {
+
+        val healthPercent = if (config.colouredHealerAlert == 1) {
+            .25
+        } else {
+            .5
+        }
+
+        return if (StatsData.currentHealth / StatsData.maxHealth < healthPercent) {
+            true
+        } else {
+            false
+        }
+    }
+
+    fun checkPlayerTick() {
+        var warn = false
+        if (isPlayerLowOnHealth() && OneConfigScreen.healerAlert) {
+            warn = true
+        }
+        if (alertWhenPlayerLowOnHealth() && config.alertWhenPlayerLow) {
+            warn = true
+        }
+
+        if (warn) {
             if (MathUtils.onCooldown(
                     lastWarnTime,
-                    (PartlySaneSkies.config.healerAlertCooldownSlider * 1000).toLong()
+                    (config.healerAlertCooldownSlider * 1000).toLong()
                 )
             ) {
                 return
