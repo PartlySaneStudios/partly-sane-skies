@@ -172,13 +172,13 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack?, var xCons
 
     private fun isCheapBin(): Boolean {
         val sellingPrice = getPrice()
-        if (SkyblockDataManager.getItem(skyblockItem.id) == null) {
+        if (SkyblockDataManager.getItem(skyblockItem?.id  ?: "") == null) {
             return false
         }
-        if (!SkyblockDataManager.getItem(skyblockItem.id).hasSellPrice()) {
+        if (SkyblockDataManager.getItem(skyblockItem?.id ?: "")?.hasSellPrice() != true) {
             return false
         }
-        val averageAhPrice = SkyblockDataManager.getItem(skyblockItem.id).getSellPrice()
+        val averageAhPrice = SkyblockDataManager.getItem(skyblockItem?.id ?: "")?.getSellPrice() ?: 0.0
         return sellingPrice <= averageAhPrice * (PartlySaneSkies.config.BINSniperPercent / 100.0)
     }
 
@@ -187,36 +187,36 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack?, var xCons
     }
 
     fun getAverageLowestBin(): Double {
-        if (SkyblockDataManager.getItem(skyblockItem.id) == null) {
+        if (SkyblockDataManager.getItem(skyblockItem?.id ?: "") == null) {
             return 0.0
         }
-        return if (!SkyblockDataManager.getItem(skyblockItem.id).hasAverageLowestBin()) {
+        return if (SkyblockDataManager.getItem(skyblockItem?.id ?: "")?.hasAverageLowestBin() != true) {
             0.0
-        } else SkyblockDataManager.getItem(skyblockItem.id).averageLowestBin
+        } else SkyblockDataManager.getItem(skyblockItem?.id ?: "")?.averageLowestBin ?: 0.0
     }
 
     fun getLowestBin(): Double {
         try {
-            if (!SkyblockDataManager.getItem(skyblockItem.id).hasSellPrice()) {
+            if (SkyblockDataManager.getItem(skyblockItem?.id ?: "")?.hasSellPrice() != true) {
                 return 0.0
             }
         } catch (exception: NullPointerException) {
             exception.printStackTrace()
             return 0.0
         }
-        return SkyblockDataManager.getItem(skyblockItem.id).getSellPrice()
+        return SkyblockDataManager.getItem(skyblockItem?.id ?: "")?.getSellPrice() ?: 0.0
     }
 
     fun hasLowestBin(): Boolean {
-        return if (SkyblockDataManager.getItem(skyblockItem.id) == null) {
+        return if (SkyblockDataManager.getItem(skyblockItem?.id ?: "") == null) {
             false
-        } else SkyblockDataManager.getItem(skyblockItem.id).hasSellPrice()
+        } else SkyblockDataManager.getItem(skyblockItem?.id ?: "")?.hasSellPrice() ?: false
     }
 
     fun hasAverageLowestBin(): Boolean {
-        return if (SkyblockDataManager.getItem(skyblockItem.id) == null) {
+        return if (SkyblockDataManager.getItem(skyblockItem?.id ?: "") == null) {
             false
-        } else SkyblockDataManager.getItem(skyblockItem.id).hasAverageLowestBin()
+        } else SkyblockDataManager.getItem(skyblockItem?.id ?: "")?.hasAverageLowestBin() ?: false
     }
 
     fun getFormattedEndingTime(): String {

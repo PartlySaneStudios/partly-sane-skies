@@ -233,7 +233,7 @@ class PartlySaneSkies {
         registerEvent(EventManager)
         registerEvent(DebugKey)
         registerEvent(TerminalWaypoints)
-        registerEvent(PearlRefill)
+        registerEvent(ItemRefill)
         registerEvent(TreecapitatorCooldown)
         registerEvent(WrongToolCropWarning)
         registerEvent(WrongToolCropWarning.CropToolData)
@@ -266,7 +266,7 @@ class PartlySaneSkies {
         WordEditor.registerWordEditorCommand()
         PlayerRating.registerReprintCommand()
         ModChecker.registerModCheckCommand()
-        PearlRefill.registerCommand()
+        ItemRefill.registerCommand()
 
 
         //Use polyfrost EventManager cuz chatSendEvent makes transforming chat messages may easier
