@@ -42,6 +42,8 @@ public class PartyManagerGui extends WindowScreen {
             .setHeight(new PixelConstraint(background.getHeight()))
             .setChildOf(background);
 
+    UIComponent partyBreakdownComponent;
+    List<PartyMember> partyMembers;
 
     // Applies the standard PSS background the GUI
     public PartyManagerGui() {
@@ -50,6 +52,7 @@ public class PartyManagerGui extends WindowScreen {
     }
 
     public void populateGui(List<PartyMember> partyMembers) {
+        this.partyMembers = partyMembers;
 
         // Creates a scale factor to multiply the base components by,
         // based on the original creator's (Su386yt's) screen size
@@ -88,7 +91,7 @@ public class PartyManagerGui extends WindowScreen {
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 }
-                Window.Companion.enqueueRenderOperation(() -> member.createBlock(memberBlock, scaleFactor));
+                Window.Companion.enqueueRenderOperation(() -> member.createBlock(memberBlock, scaleFactor, this));
             }, "Party Manager start GUI").start();
 
 
@@ -152,14 +155,29 @@ public class PartyManagerGui extends WindowScreen {
             partyBreakdown += "\n" + entry.getKey() + ": " + entry.getValue();
         }
 
-
-
-        new UIWrappedText(partyBreakdown)
+        partyBreakdownComponent = new UIWrappedText("Party Size: " + partyMembers.size() + "\n")
                 .setTextScale(new PixelConstraint(1 * scaleFactor))
                 .setX(new PixelConstraint(425f * scaleFactor))
                 .setY(new PixelConstraint(10f * scaleFactor))
                 .setColor(Color.white)
                 .setChildOf(topBarBlock);
+
+        updatePartyBreakdown();
+    }
+
+    public void updatePartyBreakdown() {
+        if (partyBreakdownComponent != null && partyMembers != null) {
+            String partyBreakdown = "Party Size: " + partyMembers.size() + "\n";
+
+            HashMap<String, Integer> classMap = new HashMap<>();
+            for (PartyMember member : partyMembers) {
+                classMap.put(member.selectedDungeonClass, classMap.getOrDefault(member.selectedDungeonClass, 1));
+            }
+
+            for (Map.Entry<String, Integer> entry : classMap.entrySet()) {
+                partyBreakdown += "\n" + entry.getKey() + ": " + entry.getValue();
+            }
+        }
     }
 
     public void createJoinFloorButtons(UIComponent topBarBlock, float scaleFactor) {
