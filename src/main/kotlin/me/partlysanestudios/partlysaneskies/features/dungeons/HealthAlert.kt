@@ -68,7 +68,6 @@ object HealthAlert {
     }
 
     fun checkPlayerTick() {
-        var warn = false
         if (isPlayerLowOnHealth() && OneConfigScreen.healerAlert) {
             if (MathUtils.onCooldown(
                     lastWarnTime,
@@ -81,7 +80,6 @@ object HealthAlert {
             BannerRenderer.renderNewBanner(PSSBanner("A player in your party is low", 3500, color = config.partyMemberLowColor.toJavaColor()))
             PartlySaneSkies.minecraft.soundHandler
                 .playSound(PositionedSoundRecord.create(ResourceLocation("partlysaneskies", "bell")))
-
         }
 
         if (alertWhenPlayerLowOnHealth() && config.alertWhenPlayerLow) {
@@ -96,7 +94,6 @@ object HealthAlert {
             BannerRenderer.renderNewBanner(PSSBanner("Your health is low", 3500, color = config.playerLowColor.toJavaColor()))
             PartlySaneSkies.minecraft.soundHandler
                 .playSound(PositionedSoundRecord.create(ResourceLocation("partlysaneskies", "bell")))
-
         }
     }
 }
