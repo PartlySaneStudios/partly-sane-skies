@@ -42,7 +42,7 @@ public class PartyManagerGui extends WindowScreen {
             .setHeight(new PixelConstraint(background.getHeight()))
             .setChildOf(background);
 
-    UIComponent partyBreakdownComponent;
+    UIWrappedText partyBreakdownComponent;
     List<PartyMember> partyMembers;
 
     // Applies the standard PSS background the GUI
@@ -155,7 +155,7 @@ public class PartyManagerGui extends WindowScreen {
             partyBreakdown += "\n" + entry.getKey() + ": " + entry.getValue();
         }
 
-        partyBreakdownComponent = new UIWrappedText("Party Size: " + partyMembers.size() + "\n")
+        partyBreakdownComponent = (UIWrappedText) new UIWrappedText("Party Size: " + partyMembers.size() + "\n")
                 .setTextScale(new PixelConstraint(1 * scaleFactor))
                 .setX(new PixelConstraint(425f * scaleFactor))
                 .setY(new PixelConstraint(10f * scaleFactor))
@@ -177,6 +177,8 @@ public class PartyManagerGui extends WindowScreen {
             for (Map.Entry<String, Integer> entry : classMap.entrySet()) {
                 partyBreakdown += "\n" + entry.getKey() + ": " + entry.getValue();
             }
+
+            partyBreakdownComponent.setText(partyBreakdown);
         }
     }
 
