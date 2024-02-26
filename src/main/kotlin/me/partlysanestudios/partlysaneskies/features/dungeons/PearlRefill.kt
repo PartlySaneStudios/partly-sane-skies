@@ -1,5 +1,5 @@
 //
-// Written by J10a1n15.
+// Written by J10a1n15 and Su386.
 // See LICENSE for copyright and license notices.
 //
 
