@@ -20,10 +20,10 @@ import net.minecraftforge.fml.common.gameevent.InputEvent
 import java.util.*
 import kotlin.collections.HashMap
 
-object PearlRefill {
+object ItemRefill {
     @SubscribePSSEvent
     fun onDungeonStart(event: DungeonStartEvent) {
-        if (!PartlySaneSkies.config.autoPearlRefill) return
+        if (!PartlySaneSkies.config.autoItemRefill) return
         runItemRefil()
     }
 

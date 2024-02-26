@@ -733,7 +733,7 @@ object OneConfigScreen : Config(
         category = "Dungeons",
         subcategory = "Item Refill"
     )
-    var autoPearlRefill = false
+    var autoItemRefill = false
 
     @KeyBind(
         name = "Refill Items Hotkey",
