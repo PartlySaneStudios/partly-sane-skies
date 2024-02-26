@@ -32,7 +32,9 @@ class SkyblockSkill(
                 level = (i + 1).toFloat()
             }
         }
-        level += (experience - experienceAtLevel[level.toInt() - 1]) / (experienceAtLevel[level.toInt()] - experienceAtLevel[level.toInt() - 1])
+        if (level != 0.0F) {
+            level += (experience - experienceAtLevel[level.toInt() - 1]) / (experienceAtLevel[level.toInt()] - experienceAtLevel[level.toInt() - 1])
+        }
         return level.toDouble()
     }
 }
