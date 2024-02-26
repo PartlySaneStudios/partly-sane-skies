@@ -34,7 +34,7 @@ object ItemRefill {
             .addAlias("pearlrefill")
             .addAlias("refillpearl")
             .addAlias("pr")
-            .setDescription("Refills your ender pearls to 16.")
+            .setDescription("Refills your dungeon items.")
             .setRunnable { s: ICommandSender, a: Array<String> ->
                 runItemRefil()
             }.register()
