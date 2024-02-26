@@ -240,6 +240,7 @@ class PartlySaneSkies {
         registerEvent(StatsData)
         registerEvent(ExampleHud)
         registerEvent(CooldownHud)
+        registerEvent(GoldorWall)
 
         // Registers all client side commands
         HelpCommand.registerPSSCommand()

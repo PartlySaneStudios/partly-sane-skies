@@ -698,6 +698,15 @@ object OneConfigScreen : Config(
     )
     var terminalWaypoints = true
 
+
+    @Switch(
+        name = "Enable Goldor wall",
+        description = "Shows a wall where goldor is located",
+        category = "Dungeons",
+        subcategory = "Goldor Wall"
+    )
+    var goldorWall = false
+
     // Healer Alert
     @Switch(
         name = "Healer Alert",
@@ -1632,6 +1641,13 @@ object OneConfigScreen : Config(
         category = "Dev"
     )
     var debugRenderRNGBanner = false
+
+    @Switch(
+        name = "Debug Goldor Wall",
+        description = "Debugs goldor wall",
+        category = "Dev"
+    )
+    var debugGoldorWall = false
 
     // Example HUD
     @HUD(

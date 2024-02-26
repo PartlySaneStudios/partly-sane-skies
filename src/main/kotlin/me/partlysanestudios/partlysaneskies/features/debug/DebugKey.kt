@@ -9,11 +9,13 @@ package me.partlysanestudios.partlysaneskies.features.debug
 import cc.polyfrost.oneconfig.config.core.OneColor
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.time
 import me.partlysanestudios.partlysaneskies.data.cache.StatsData
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.IslandType
 import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.minecraft.render.RenderWaypointEvent
+import me.partlysanestudios.partlysaneskies.features.dungeons.GoldorWall
 import me.partlysanestudios.partlysaneskies.features.dungeons.TerminalWaypoints
 import me.partlysanestudios.partlysaneskies.features.dungeons.playerrating.PlayerRating
 import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.Drop
@@ -83,6 +85,11 @@ object DebugKey {
 
         if (config.debugRenderRNGBanner) {
             DropBannerDisplay.drop = Drop("Test Name", "Test Category", Color.MAGENTA, 69, time)
+        }
+
+        if (config.debugGoldorWall) {
+            GoldorWall.lastGoldorPos = Point3d.atPlayer()
+            GoldorWall.lastFacingDirection = minecraft.thePlayer?.horizontalFacing?.axis
         }
     }
 

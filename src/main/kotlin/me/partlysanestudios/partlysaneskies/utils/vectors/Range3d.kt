@@ -8,13 +8,13 @@ import kotlin.math.max
 import kotlin.math.min
 
 class Range3d(x1: Double, y1: Double, z1: Double, x2: Double, y2: Double, z2: Double) {
-    private val smallCoordinate: DoubleArray
-    private val largeCoordinate: DoubleArray
+    constructor(point1: Point3d, point2: Point3d) : this(point1.x, point1.y, point1.z, point2.x, point2.y, point2.z)
+
+    private val smallCoordinate: DoubleArray = DoubleArray(3)
+    private val largeCoordinate: DoubleArray = DoubleArray(3)
     var rangeName: String
 
     init {
-        smallCoordinate = DoubleArray(3)
-        largeCoordinate = DoubleArray(3)
         smallCoordinate[0] = min(x1, x2)
         smallCoordinate[1] = min(y1, y2)
         smallCoordinate[2] = min(z1, z2)

@@ -146,7 +146,7 @@ object TerminalWaypoints {
 
 
 
-    private fun getCurrentBoundingBox(point3d: Point3d): Range3d? {
+    fun getCurrentBoundingBox(point3d: Point3d): Range3d? {
         for (boundingBox in boundingBoxes) {
             if (boundingBox.isInRange(point3d)) {
                 return boundingBox
