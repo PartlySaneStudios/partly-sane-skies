@@ -8,9 +8,7 @@ package me.partlysanestudios.partlysaneskies.features.dungeons.party.partymanage
 import gg.essential.elementa.ElementaVersion;
 import gg.essential.elementa.UIComponent;
 import gg.essential.elementa.WindowScreen;
-import gg.essential.elementa.components.ScrollComponent;
-import gg.essential.elementa.components.UIBlock;
-import gg.essential.elementa.components.UIText;
+import gg.essential.elementa.components.*;
 import gg.essential.elementa.components.Window;
 import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
@@ -23,7 +21,9 @@ import me.partlysanestudios.partlysaneskies.utils.ElementaUtils;
 
 import java.awt.*;
 import java.net.MalformedURLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PartyManagerGui extends WindowScreen {
 
@@ -141,8 +141,21 @@ public class PartyManagerGui extends WindowScreen {
                 .setTextScale(1.25f)
                 .onMouseClickConsumer(event -> PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/pc Ready?"));
 
-        new UIText("Party Size: " + partyMembers.size())
-                .setTextScale(new PixelConstraint(2f * scaleFactor))
+        String partyBreakdown = "Party Size: " + partyMembers.size() + "\n";
+
+        HashMap<String, Integer> classMap = new HashMap<>();
+        for (PartyMember member : partyMembers) {
+            classMap.put(member.selectedDungeonClass, classMap.getOrDefault(member.selectedDungeonClass, 1));
+        }
+
+        for (Map.Entry<String, Integer> entry : classMap.entrySet()) {
+            partyBreakdown += "\n" + entry.getKey() + ": " + entry.getValue();
+        }
+
+
+
+        new UIWrappedText(partyBreakdown)
+                .setTextScale(new PixelConstraint(1 * scaleFactor))
                 .setX(new PixelConstraint(425f * scaleFactor))
                 .setY(new PixelConstraint(10f * scaleFactor))
                 .setColor(Color.white)
