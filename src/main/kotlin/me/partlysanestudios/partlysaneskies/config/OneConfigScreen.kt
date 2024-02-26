@@ -720,34 +720,23 @@ object OneConfigScreen : Config(
     )
     var terminalWaypoints = true
 
-    // Healer Alert
+    // Pearl Refill
     @Switch(
-        name = "Healer Alert",
-        description = "Displays a banner when a teammate in Dungeons has low health.",
+        name = "Auto Pearl Refill",
+        description = "Automatically refills your pearls when a run starts.",
         category = "Dungeons",
-        subcategory = "Healer Alert"
+        subcategory = "Pearl Refill"
     )
-    var healerAlert = false
+    var autoPearlRefill = false
 
-    @Dropdown(
-        name = "Alert when below...",
-        description = "Choose at what percentage healer alert will trigger.",
+    @KeyBind(
+        name = "Refill Pearls Hotkey",
+        description = "The keybind to automatically refill your pearls.",
         category = "Dungeons",
-        subcategory = "Healer Alert",
-        options = ["25% Health", "50% Health"]
+        subcategory = "Pearl Refill"
     )
-    var colouredHealerAlert = 0
-
-    @Slider(
-        name = "Cooldown Between Warnings",
-        description = "Choose the delay between Low Health Alerts.",
-        category = "Dungeons",
-        subcategory = "Healer Alert",
-        min = 1f,
-        max = 15f
-    )
-    var healerAlertCooldownSlider = 3.5f
-
+    var pearlRefillKeybind = OneKeyBind(Keyboard.KEY_P)
+    
     // Item Refill
     @Switch(
         name = "Auto Item Refill",
@@ -796,6 +785,65 @@ object OneConfigScreen : Config(
         subcategory = "Item Refill"
     )
     var refillDecoys = false
+
+    // Health Alert
+    @Switch(
+        name = "Alert when dungeon team members are low",
+        description = "Displays a banner when a teammate in Dungeons has low health.",
+        category = "Dungeons",
+        subcategory = "Health Alert"
+    )
+    var healerAlert = false
+
+    @Switch(
+        name = "Alert when you are low",
+        description = "Displays a banner when you are low on health.",
+        category = "Dungeons",
+        subcategory = "Health Alert"
+    )
+    var alertWhenPlayerLow = false
+
+    @Switch(
+        name = "Alert outside of dungeons",
+        description = "Alert outside of dungeons.",
+        category = "Dungeons",
+        subcategory = "Health Alert"
+    )
+    var alertOutsideDungeons  = false
+
+    @Dropdown(
+        name = "Alert when below...",
+        description = "Choose at what percentage healer alert will trigger.",
+        category = "Dungeons",
+        subcategory = "Health Alert",
+        options = ["25% Health", "50% Health"]
+    )
+    var colouredHealerAlert = 0
+
+    @Slider(
+        name = "Cooldown Between Warnings",
+        description = "Choose the delay between Low Health Alerts.",
+        category = "Dungeons",
+        subcategory = "Health Alert",
+        min = 1f,
+        max = 15f
+    )
+    var healerAlertCooldownSlider = 3.5f
+
+
+    @Color(
+        name = "Party Members Low Color",
+        category = "Dungeons",
+        subcategory = "Health Alert",
+    )
+    var partyMemberLowColor = OneColor(java.awt.Color.RED)
+
+    @Color(
+        name = "Player Low Color",
+        category = "Dungeons",
+        subcategory = "Health Alert",
+    )
+    var playerLowColor = OneColor(java.awt.Color.RED)
 
     // Required Secrets Found
     @Switch(
