@@ -170,8 +170,13 @@ public class PartyManagerGui extends WindowScreen {
             String partyBreakdown = "Party Size: " + partyMembers.size() + "\n";
 
             HashMap<String, Integer> classMap = new HashMap<>();
+            int sum = 0;
             for (PartyMember member : partyMembers) {
+                sum++;
                 classMap.put(member.selectedDungeonClass, classMap.getOrDefault(member.selectedDungeonClass, 1));
+            }
+            if (sum != 0) {
+                classMap.put("(Unknown)", classMap.getOrDefault("(Unknown)", 0) + sum);
             }
 
             for (Map.Entry<String, Integer> entry : classMap.entrySet()) {
