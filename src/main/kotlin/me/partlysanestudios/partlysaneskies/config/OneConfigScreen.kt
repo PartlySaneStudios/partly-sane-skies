@@ -62,6 +62,10 @@ object OneConfigScreen : Config(
             apiUrl = "http://partlysanecloud.su386.dev"
             save()
         }
+        if(prettyMimicKilledString.isEmpty()) {
+            prettyMimicKilledString = "Mimic Killed!"
+            save()
+        }
     }
 
     /**
@@ -688,6 +692,24 @@ object OneConfigScreen : Config(
         subcategory = "Watcher Ready"
     )
     var watcherReadyAirRaidSiren = false
+
+    // Pretify Skytils Mimic Killed
+    @Switch(
+        name = "Pretty Mimic Killed",
+        description = "Changes the skytils mimic killed message to be more visually appealing",
+        category = "Dungeons",
+        subcategory = "Pretty Mimic Killed Message"
+    )
+    var prettyMimicKilled = true
+
+    // Pretify Skytils Mimic Killed
+    @Text(
+        name = "Pretty Mimic Killed Message",
+        description = "Changes the skytils mimic killed message to be more visually appealing",
+        category = "Dungeons",
+        subcategory = "Pretty Mimic Killed Message"
+    )
+    var prettyMimicKilledString = "Mimic Killed!"
 
     //    Dungeon Waypoints
     @Switch(
