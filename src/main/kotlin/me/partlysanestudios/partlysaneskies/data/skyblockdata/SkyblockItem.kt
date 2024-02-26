@@ -7,6 +7,9 @@ package me.partlysanestudios.partlysaneskies.data.skyblockdata
 
 import net.minecraft.item.Item
 import net.minecraft.util.ResourceLocation
+import java.util.*
+import kotlin.Comparator
+import kotlin.collections.ArrayList
 
 class SkyblockItem(
     val id: String,
@@ -97,10 +100,10 @@ class SkyblockItem(
     }
 
     fun getStackSize(): Int {
-        if (unstackable) {
-            return 1
+        return if (unstackable) {
+            1
         } else {
-             return Item.itemRegistry?.getObject(ResourceLocation("minecraft", material))?.itemStackLimit ?: 64
+            Item.itemRegistry?.getObject(ResourceLocation("minecraft", material.lowercase(Locale.getDefault())))?.itemStackLimit ?: 64
         }
     }
 

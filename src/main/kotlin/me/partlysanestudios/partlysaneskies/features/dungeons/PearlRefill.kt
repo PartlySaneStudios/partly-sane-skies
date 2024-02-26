@@ -28,7 +28,10 @@ object PearlRefill {
     }
 
     fun registerCommand() {
-        PSSCommand("pearlrefill")
+        PSSCommand("itemrefill")
+            .addAlias("refillitems")
+            .addAlias("ir")
+            .addAlias("pearlrefill")
             .addAlias("refillpearl")
             .addAlias("pr")
             .setDescription("Refills your ender pearls to 16.")
@@ -76,7 +79,7 @@ object PearlRefill {
                     PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/gfs ${en.key.lowercase(Locale.getDefault())} ${maxStackSize - en.value}")
                 }
 
-                Thread.sleep(500)
+                Thread.sleep(2000)
             }
         }.start()
 
