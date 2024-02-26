@@ -5,6 +5,9 @@
 
 package me.partlysanestudios.partlysaneskies.data.skyblockdata
 
+import net.minecraft.item.Item
+import net.minecraft.util.ResourceLocation
+
 class SkyblockItem(
     val id: String,
     val rarity: Rarity,
@@ -16,9 +19,11 @@ class SkyblockItem(
     var averageBazaarSell: Double,
     var lowestBin: Double,
     var averageLowestBin: Double,
+    var material: String,
+    var unstackable: Boolean
 ) {
     companion object {
-        val emptyItem = SkyblockItem("", Rarity.UNKNOWN, "", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+        val emptyItem = SkyblockItem("", Rarity.UNKNOWN, "", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, "", false)
     }
     var bitCost = 0
 
@@ -89,6 +94,14 @@ class SkyblockItem(
 
     fun hasBitCost(): Boolean {
         return bitCost != 0
+    }
+
+    fun getStackSize(): Int {
+        if (unstackable) {
+            return 1
+        } else {
+             return Item.itemRegistry?.getObject(ResourceLocation("minecraft", material))?.itemStackLimit ?: 64
+        }
     }
 
     fun hasAverageLowestBin(): Boolean {

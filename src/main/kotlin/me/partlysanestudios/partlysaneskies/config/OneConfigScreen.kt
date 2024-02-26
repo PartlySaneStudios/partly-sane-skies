@@ -726,22 +726,54 @@ object OneConfigScreen : Config(
     )
     var healerAlertCooldownSlider = 3.5f
 
-    // Pearl Refill
+    // Item Refill
     @Switch(
-        name = "Auto Pearl Refill",
-        description = "Automatically refills your pearls when a run starts.",
+        name = "Auto Item Refill",
+        description = "Automatically refills your utility items when a run starts.",
         category = "Dungeons",
-        subcategory = "Pearl Refill"
+        subcategory = "Item Refill"
     )
     var autoPearlRefill = false
 
     @KeyBind(
-        name = "Refill Pearls Hotkey",
+        name = "Refill Items Hotkey",
         description = "The keybind to automatically refill your pearls.",
         category = "Dungeons",
-        subcategory = "Pearl Refill"
+        subcategory = "Item Refill"
     )
-    var pearlRefillKeybind = OneKeyBind(Keyboard.KEY_P)
+    var itemRefillKeybind = OneKeyBind(Keyboard.KEY_P)
+
+    @Switch(
+        name = "Refill Ender Pearls",
+        description = "Refills ender pearls",
+        category = "Dungeons",
+        subcategory = "Item Refill"
+    )
+    var refillPearls = true
+
+    @Switch(
+        name = "Refill Superboom Tnt",
+        description = "Refills superboom tnt",
+        category = "Dungeons",
+        subcategory = "Item Refill"
+    )
+    var refillSuperboomTnt = true
+
+    @Switch(
+        name = "Refill Spirit Leaps",
+        description = "Refills spirit leaps",
+        category = "Dungeons",
+        subcategory = "Item Refill"
+    )
+    var refillSpiritLeaps = true
+
+    @Switch(
+        name = "Refill Decoys",
+        description = "Refills decoy",
+        category = "Dungeons",
+        subcategory = "Item Refill"
+    )
+    var refillDecoys = false
 
     // Required Secrets Found
     @Switch(
