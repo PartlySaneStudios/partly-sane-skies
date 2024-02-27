@@ -7,6 +7,7 @@
 package me.partlysanestudios.partlysaneskies.features.chat
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import net.minecraft.client.audio.PositionedSoundRecord
 import net.minecraft.event.ClickEvent
@@ -15,12 +16,13 @@ import net.minecraft.util.ChatComponentText
 import net.minecraft.util.IChatComponent
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.client.event.ClientChatReceivedEvent
+import net.minecraftforge.fml.common.eventhandler.EventPriority
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import java.util.regex.Pattern
 
 
 object ChatManager {
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.LOWEST)
     fun onChatReceived(event: ClientChatReceivedEvent) {
 //        If all chat modification features are disabled
         if (!doModifyChatEnabled()) {
@@ -43,8 +45,7 @@ object ChatManager {
         var messageToSend = event.message // Creates a new message to build on
 
 //        If the chat colors is supposed to run
-        if (ChatColors.getChatColor(
-                ChatColors.getPrefix(messageToSend.formattedText)).isNotEmpty()) {
+        if (ChatColors.getChatColor(ChatColors.getPrefix(messageToSend.formattedText)).isNotEmpty()) {
             messageToSend = ChatColors.detectColorMessage(messageToSend)
         }
 
@@ -74,6 +75,10 @@ object ChatManager {
             event.isCanceled = false // Reset the event
             // ChatUtils.sendClientMessage("Message has not changed")
             return
+        }
+
+        if (config.prettyMimicKilled) {
+            messageToSend = ChatComponentText(messageToSend.formattedText.replace("\$SKYTILS-DUNGEON-SCORE-MIMIC\$", config.prettyMimicKilledString))
         }
 
 
