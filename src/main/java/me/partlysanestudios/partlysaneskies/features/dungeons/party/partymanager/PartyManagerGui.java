@@ -8,9 +8,7 @@ package me.partlysanestudios.partlysaneskies.features.dungeons.party.partymanage
 import gg.essential.elementa.ElementaVersion;
 import gg.essential.elementa.UIComponent;
 import gg.essential.elementa.WindowScreen;
-import gg.essential.elementa.components.ScrollComponent;
-import gg.essential.elementa.components.UIBlock;
-import gg.essential.elementa.components.UIText;
+import gg.essential.elementa.components.*;
 import gg.essential.elementa.components.Window;
 import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
@@ -23,7 +21,9 @@ import me.partlysanestudios.partlysaneskies.utils.ElementaUtils;
 
 import java.awt.*;
 import java.net.MalformedURLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PartyManagerGui extends WindowScreen {
 
@@ -42,6 +42,8 @@ public class PartyManagerGui extends WindowScreen {
             .setHeight(new PixelConstraint(background.getHeight()))
             .setChildOf(background);
 
+    UIWrappedText partyBreakdownComponent;
+    List<PartyMember> partyMembers;
 
     // Applies the standard PSS background the GUI
     public PartyManagerGui() {
@@ -50,6 +52,7 @@ public class PartyManagerGui extends WindowScreen {
     }
 
     public void populateGui(List<PartyMember> partyMembers) {
+        this.partyMembers = partyMembers;
 
         // Creates a scale factor to multiply the base components by,
         // based on the original creator's (Su386yt's) screen size
@@ -88,7 +91,7 @@ public class PartyManagerGui extends WindowScreen {
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 }
-                Window.Companion.enqueueRenderOperation(() -> member.createBlock(memberBlock, scaleFactor));
+                Window.Companion.enqueueRenderOperation(() -> member.createBlock(memberBlock, scaleFactor, this));
             }, "Party Manager start GUI").start();
 
 
@@ -141,12 +144,47 @@ public class PartyManagerGui extends WindowScreen {
                 .setTextScale(1.25f)
                 .onMouseClickConsumer(event -> PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/pc Ready?"));
 
-        new UIText("Party Size: " + partyMembers.size())
-                .setTextScale(new PixelConstraint(2f * scaleFactor))
+        String partyBreakdown = "Party Size: " + partyMembers.size() + "\n";
+
+        HashMap<String, Integer> classMap = new HashMap<>();
+        for (PartyMember member : partyMembers) {
+            classMap.put(member.selectedDungeonClass, classMap.getOrDefault(member.selectedDungeonClass, 1));
+        }
+
+        for (Map.Entry<String, Integer> entry : classMap.entrySet()) {
+            partyBreakdown += "\n" + entry.getKey() + ": " + entry.getValue();
+        }
+
+        partyBreakdownComponent = (UIWrappedText) new UIWrappedText("Party Size: " + partyMembers.size() + "\n")
+                .setTextScale(new PixelConstraint(1 * scaleFactor))
                 .setX(new PixelConstraint(425f * scaleFactor))
                 .setY(new PixelConstraint(10f * scaleFactor))
                 .setColor(Color.white)
                 .setChildOf(topBarBlock);
+
+        updatePartyBreakdown();
+    }
+
+    public void updatePartyBreakdown() {
+        if (partyBreakdownComponent != null && partyMembers != null) {
+            String partyBreakdown = "Party Size: " + partyMembers.size() + "\n";
+
+            HashMap<String, Integer> classMap = new HashMap<>();
+            int sum = 0;
+            for (PartyMember member : partyMembers) {
+                sum++;
+                classMap.put(member.selectedDungeonClass, classMap.getOrDefault(member.selectedDungeonClass, 1));
+            }
+            if (sum != 0) {
+                classMap.put("(Unknown)", classMap.getOrDefault("(Unknown)", 0) + sum);
+            }
+
+            for (Map.Entry<String, Integer> entry : classMap.entrySet()) {
+                partyBreakdown += "\n" + entry.getKey() + ": " + entry.getValue();
+            }
+
+            partyBreakdownComponent.setText(partyBreakdown);
+        }
     }
 
     public void createJoinFloorButtons(UIComponent topBarBlock, float scaleFactor) {
