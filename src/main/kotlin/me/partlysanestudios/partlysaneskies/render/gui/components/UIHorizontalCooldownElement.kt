@@ -14,8 +14,12 @@ import me.partlysanestudios.partlysaneskies.render.gui.hud.cooldown.Cooldown
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.weightedAverage
 import java.awt.Color
 
-class UIHorizontalCooldownElement(private val xConstraint: XConstraint, private val yConstraint: YConstraint, private val widthConstraint: WidthConstraint, private val heightConstraint: HeightConstraint) {
-
+class UIHorizontalCooldownElement(
+    private val xConstraint: XConstraint,
+    private val yConstraint: YConstraint,
+    private val widthConstraint: WidthConstraint,
+    private val heightConstraint: HeightConstraint
+) {
     private var cooldown: Cooldown? = null
 
     val boundingBox = UIRoundedRectangle(2f).constrain {
@@ -24,7 +28,7 @@ class UIHorizontalCooldownElement(private val xConstraint: XConstraint, private 
         y = yConstraint
         height = heightConstraint
         width = widthConstraint
-        color = Color(0,0,0,0).constraint
+        color = Color(0, 0, 0, 0).constraint
     }
 
 
@@ -66,7 +70,7 @@ class UIHorizontalCooldownElement(private val xConstraint: XConstraint, private 
 
 
     fun tick() {
-        if (cooldown == null)  {
+        if (cooldown == null) {
             displayBox.setColor(Color(0, 0, 0, 0).constraint)
             boundingBox.setColor(Color(0, 0, 0, 0).constraint)
             itemRender.item = null

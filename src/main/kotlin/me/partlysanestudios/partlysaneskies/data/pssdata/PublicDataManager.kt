@@ -8,6 +8,7 @@ package me.partlysanestudios.partlysaneskies.data.pssdata
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand
+import me.partlysanestudios.partlysaneskies.data.api.GetRequest
 import me.partlysanestudios.partlysaneskies.data.api.Request
 import me.partlysanestudios.partlysaneskies.data.api.RequestsManager
 import me.partlysanestudios.partlysaneskies.events.data.LoadPublicDataEvent
@@ -60,10 +61,10 @@ object PublicDataManager {
                 "${config.apiUrl}/v1/pss/publicdata?owner=${getRepoOwner()}&repo=${getRepoName()}&path=/data/${fixedPath}"
             }
             RequestsManager.newRequest(
-                Request(url, {
+                GetRequest(url, {
                     if (!it.hasSucceeded()) {
                         synchronized(lock) { lock.notifyAll() }
-                        return@Request
+                        return@GetRequest
                     }
                     fileCache[path] = it.getResponse()
                     synchronized(lock) { lock.notifyAll() }

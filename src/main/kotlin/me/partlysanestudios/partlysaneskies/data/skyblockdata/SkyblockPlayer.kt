@@ -9,6 +9,7 @@ import com.google.gson.JsonParser
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.time
+import me.partlysanestudios.partlysaneskies.data.api.GetRequest
 import me.partlysanestudios.partlysaneskies.data.api.Request
 import me.partlysanestudios.partlysaneskies.data.api.RequestsManager
 import me.partlysanestudios.partlysaneskies.utils.MathUtils
@@ -67,25 +68,25 @@ class SkyblockPlayer(val username: String) {
         val requestURL = "https://mowojang.matdoes.dev/users/profiles/minecraft/$username"
 
 
-        RequestsManager.newRequest(Request(requestURL, { uuidRequest ->
+        RequestsManager.newRequest(GetRequest(requestURL, { uuidRequest ->
             if (!uuidRequest.hasSucceeded()) {
                 synchronized(lock) {
                     lock.notifyAll()
                 }
                 log(Level.ERROR, "Error getting mojang api for $username")
-                return@Request
+                return@GetRequest
             }
 
             uuid = JsonParser().parse(uuidRequest.getResponse()).getAsJsonObject().get("id")?.asString ?: ""
 
             val pssSkyblockPlayerUrl = "${config.apiUrl}/v1/hypixel/skyblockplayer?uuid=$uuid"
-            RequestsManager.newRequest(Request(pssSkyblockPlayerUrl, { skyblockPlayerResponse ->
+            RequestsManager.newRequest(GetRequest(pssSkyblockPlayerUrl, { skyblockPlayerResponse ->
                 if (!skyblockPlayerResponse.hasSucceeded()) {
                     synchronized(lock) {
                         lock.notifyAll()
                     }
                     log(Level.ERROR, "Error getting partly sane skies api $username")
-                    return@Request
+                    return@GetRequest
                 }
                 lastUpdateTime = time
 
