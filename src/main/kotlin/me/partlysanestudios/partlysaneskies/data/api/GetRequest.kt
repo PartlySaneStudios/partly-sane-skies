@@ -1,18 +1,20 @@
 package me.partlysanestudios.partlysaneskies.data.api
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
-import me.partlysanestudios.partlysaneskies.utils.ChatUtils
-import me.partlysanestudios.partlysaneskies.utils.SystemUtils
+import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
+import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
 import org.apache.logging.log4j.Level
 import java.io.BufferedReader
 import java.io.InputStreamReader
-import java.net.URL
-import java.security.cert.X509Certificate
-import javax.net.ssl.HostnameVerifier
+import java.net.HttpURLConnection
 import javax.net.ssl.HttpsURLConnection
+import java.net.URL
+
 import javax.net.ssl.SSLContext
 import javax.net.ssl.TrustManager
 import javax.net.ssl.X509TrustManager
+import java.security.cert.X509Certificate
+import javax.net.ssl.HostnameVerifier
 
 class GetRequest(
     url: URL,
@@ -48,10 +50,10 @@ class GetRequest(
     ): this(URL(url), function, inMainThread, executeOnNextFrame, false)
     override fun startRequest() {
         // Opens a new connection with the url
-        val connection = url.openConnection() as HttpsURLConnection
+        val connection = url.openConnection() as HttpURLConnection
         // Sets the browser as Mozilla to bypass an insecure restrictions
         connection.setRequestProperty("User-Agent", "Partly-Sane-Skies/" + PartlySaneSkies.VERSION)
-        if (acceptAllCertificates) {
+        if (acceptAllCertificates && connection is HttpsURLConnection) {
             // Create a trust manager that does not validate certificate chains
             val trustAllCerts = arrayOf<TrustManager>(object : X509TrustManager {
                 override fun getAcceptedIssuers(): Array<X509Certificate> = arrayOf()
@@ -85,14 +87,14 @@ class GetRequest(
 
             // If the print API errors setting is on, send a message to the client
             if (PartlySaneSkies.config.printApiErrors) {
-                ChatUtils.sendClientMessage(
+                sendClientMessage(
                     """
                 Error: ${connection.getResponseMessage()}:${connection.getResponseCode()}
                 Contact PSS admins for more information
                 """.trimIndent()
                 )
             } else {
-                SystemUtils.log(
+                log(
                     Level.ERROR,
                     """
                 Error: ${connection.getResponseMessage()}:${connection.getResponseCode()}
@@ -100,11 +102,11 @@ class GetRequest(
                 """.trimIndent()
                 )
             }
-            SystemUtils.log(
+            log(
                 Level.ERROR,
                 """
             Error: ${connection.getResponseMessage()}:${connection.getResponseCode()}
-            URL: $url
+            URL: ${url}
             """.trimIndent()
             )
             // Disconnect the connection
