@@ -59,7 +59,7 @@ object RangeHighlight {
 //                ChatUtils.sendClientMessage("Range to highlight: ${EndOfFarmNotifier.rangeToHighlight}, Current Range: $range")
             if (range == EndOfFarmNotifier.rangeToHighlight) {
 //                    ChatUtils.sendClientMessage("Is range to highlight")
-                color = ThemeManager.getAccentColor().toJavaColor()
+                color = ThemeManager.accentColor.toJavaColor()
                 color = color.applyOpacity((.4 * 255).toInt())
             }
 

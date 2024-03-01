@@ -163,7 +163,7 @@ public class CustomMainMenu extends WindowScreen {
                 .setY(new CenterConstraint())
                 .setHeight(new PixelConstraint(middleMenu.getHeight()))
                 .setWidth(new PixelConstraint(2 * scaleFactor))
-                .setColor(ThemeManager.getAccentColor().toJavaColor())
+                .setColor(ThemeManager.INSTANCE.getAccentColor().toJavaColor())
                 .setChildOf(middleMenu);
 
         middleRightBar = new UIBlock()
@@ -171,7 +171,7 @@ public class CustomMainMenu extends WindowScreen {
                 .setY(new CenterConstraint())
                 .setHeight(new PixelConstraint(middleMenu.getHeight()))
                 .setWidth(new PixelConstraint(2 * scaleFactor))
-                .setColor(ThemeManager.getAccentColor().toJavaColor())
+                .setColor(ThemeManager.INSTANCE.getAccentColor().toJavaColor())
                 .setChildOf(middleMenu);
 
         float titleHeight = 75;
@@ -309,7 +309,7 @@ public class CustomMainMenu extends WindowScreen {
                 .setY(new PixelConstraint(400f * scaleFactor))
                 .setHeight(new PixelConstraint(1 * scaleFactor))
                 .setWidth(new PixelConstraint(middleMenu.getWidth() * .90f))
-                .setColor(ThemeManager.getAccentColor().toJavaColor())
+                .setColor(ThemeManager.INSTANCE.getAccentColor().toJavaColor())
                 .setChildOf(middleMenu);
 
         pssOptionsButton = new UIBlock()
@@ -730,9 +730,9 @@ public class CustomMainMenu extends WindowScreen {
             timeString = currentTime.format(DateTimeFormatter.ofPattern("HH:mm:ss dd MMMM yyyy", Locale.ENGLISH));
         }
 
-        middleLeftBar.setColor(ThemeManager.getAccentColor().toJavaColor());
-        middleRightBar.setColor(ThemeManager.getAccentColor().toJavaColor());
-        optionsButtonSplitBar.setColor(ThemeManager.getAccentColor().toJavaColor());
+        middleLeftBar.setColor(ThemeManager.INSTANCE.getAccentColor().toJavaColor());
+        middleRightBar.setColor(ThemeManager.INSTANCE.getAccentColor().toJavaColor());
+        optionsButtonSplitBar.setColor(ThemeManager.INSTANCE.getAccentColor().toJavaColor());
         
 
         ((UIText) timeText).setText(timeString);

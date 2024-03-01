@@ -6,6 +6,7 @@
 package me.partlysanestudios.partlysaneskies.data.pssdata
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand
 import me.partlysanestudios.partlysaneskies.data.api.GetRequest
 import me.partlysanestudios.partlysaneskies.data.api.Request
@@ -54,8 +55,13 @@ object PublicDataManager {
         }
 
         try {
+            val url = if (config.useGithubForPublicData) {
+                "https://raw.githubusercontent.com/${getRepoOwner()}/${getRepoName()}/main/data/${fixedPath}"
+            } else {
+                "${config.apiUrl}/v1/pss/publicdata?owner=${getRepoOwner()}&repo=${getRepoName()}&path=/data/${fixedPath}"
+            }
             RequestsManager.newRequest(
-                GetRequest("https://raw.githubusercontent.com/" + getRepoOwner() + "/" + getRepoName() + "/main/data/" + fixedPath, {
+                GetRequest(url, {
                     if (!it.hasSucceeded()) {
                         synchronized(lock) { lock.notifyAll() }
                         return@GetRequest

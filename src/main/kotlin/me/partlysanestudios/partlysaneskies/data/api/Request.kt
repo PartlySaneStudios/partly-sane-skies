@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Level
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
+import java.net.HttpURLConnection
 import javax.net.ssl.HttpsURLConnection
 import java.net.URL
 

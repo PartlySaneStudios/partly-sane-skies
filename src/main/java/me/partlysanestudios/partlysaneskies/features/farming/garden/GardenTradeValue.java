@@ -199,11 +199,11 @@ public class GardenTradeValue {
     }
 
     public static double getItemCost(String itemId, int quantity) {
-        if (SkyblockDataManager.getItem(itemId) == null ) {
+        if (SkyblockDataManager.INSTANCE.getItem(itemId) == null ) {
             return 0;
         }
         
-        return quantity * SkyblockDataManager.getItem(itemId).getBuyPrice();
+        return quantity * SkyblockDataManager.INSTANCE.getItem(itemId).getBuyPrice();
     }
 
     public static HashMap<String, Double> getCoinCostMap() {
@@ -211,7 +211,7 @@ public class GardenTradeValue {
 
         HashMap<String, Double> coinMap = new HashMap<>();
         for (Map.Entry<String, Integer> en : quantityMap.entrySet()) {
-            String id = SkyblockDataManager.getId(en.getKey());
+            String id = SkyblockDataManager.INSTANCE.getId(en.getKey());
             double price = getItemCost(id, en.getValue());
             coinMap.put(en.getKey(), price);
         }
@@ -235,7 +235,7 @@ public class GardenTradeValue {
             .setColor(new Color(0, 0, 0, 0))
             .setChildOf(window);
     
-    UIImage image = (UIImage) ThemeManager.getCurrentBackgroundUIImage()
+    UIImage image = (UIImage) ThemeManager.INSTANCE.getCurrentBackgroundUIImage()
         .setChildOf(box);
     
     float pad = 5;

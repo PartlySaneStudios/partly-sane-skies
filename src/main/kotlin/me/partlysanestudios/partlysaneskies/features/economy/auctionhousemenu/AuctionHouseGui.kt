@@ -51,7 +51,7 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
         width = sizeWidth.pixels
     } childOf window
 
-    private val backgroundImage: UIImage = ThemeManager.getCurrentBackgroundUIImage().constrain {
+    private val backgroundImage: UIImage = ThemeManager.currentBackgroundUIImage.constrain {
         x = CenterConstraint()
         y = CenterConstraint()
         height = sizeHeight.pixels

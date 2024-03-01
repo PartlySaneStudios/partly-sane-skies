@@ -280,7 +280,7 @@ public class ChatAlertsManager {
 
             // Sends System Tray
             if (PartlySaneSkies.Companion.getConfig().getChatAlertSendSystemNotification() && !Display.isActive() && sendSystemNotification ){
-                SystemNotification.INSTANCE.showNotification("Chat Alert " + alert  + " was triggered!");
+                SystemNotification.INSTANCE.showNotification(StringUtils.INSTANCE.removeColorCodes(message.getFormattedText()));
             }
 
             // Shows a message to user

@@ -22,7 +22,6 @@ import gg.essential.elementa.ElementaVersion
 import me.partlysanestudios.partlysaneskies.config.Keybinds
 import me.partlysanestudios.partlysaneskies.config.OneConfigScreen
 import me.partlysanestudios.partlysaneskies.data.api.GetRequest
-import me.partlysanestudios.partlysaneskies.data.api.PolyfrostUrsaMinorRequest
 import me.partlysanestudios.partlysaneskies.data.api.Request
 import me.partlysanestudios.partlysaneskies.data.api.RequestsManager.newRequest
 import me.partlysanestudios.partlysaneskies.data.cache.PetData
@@ -149,7 +148,7 @@ class PartlySaneSkies {
 
         val mainMenuRequest =
             GetRequest(
-                "https://raw.githubusercontent.com/" + getRepoOwner() + "/" + getRepoName() + "/main/data/main_menu.json",
+                "${config.apiUrl}/v1/pss/publicdata?owner=${getRepoOwner()}&repo=${getRepoName()}&path=/data/main_menu.json",
                 { request: Request? ->
                     CustomMainMenu.setMainMenuInfo(
                         request
@@ -199,7 +198,7 @@ class PartlySaneSkies {
 
         // Registers all the events
         registerEvent(this)
-        registerEvent(DropBannerDisplay())
+        registerEvent(DropBannerDisplay)
         registerEvent(PartyManager())
         registerEvent(WatcherReady())
         registerEvent(WormWarning())
@@ -214,7 +213,7 @@ class PartlySaneSkies {
         registerEvent(MiningEvents())
         registerEvent(RequiredSecretsFound())
         registerEvent(MinionData())
-        registerEvent(SkyblockDataManager())
+        registerEvent(SkyblockDataManager)
         registerEvent(PlayerRating())
         registerEvent(SkymartValue())
         registerEvent(CompostValue())
@@ -231,11 +230,11 @@ class PartlySaneSkies {
         registerEvent(PetData)
         registerEvent(SanityCheck)
         registerEvent(Keybinds)
-        registerEvent(HealerAlert)
+        registerEvent(HealthAlert)
         registerEvent(EventManager)
         registerEvent(DebugKey)
         registerEvent(TerminalWaypoints)
-        registerEvent(PearlRefill)
+        registerEvent(ItemRefill)
         registerEvent(TreecapitatorCooldown)
         registerEvent(WrongToolCropWarning)
         registerEvent(WrongToolCropWarning.CropToolData)
@@ -268,19 +267,18 @@ class PartlySaneSkies {
         WordEditor.registerWordEditorCommand()
         PlayerRating.registerReprintCommand()
         ModChecker.registerModCheckCommand()
-        PearlRefill.registerCommand()
+        ItemRefill.registerCommand()
 
 
         //Use polyfrost EventManager cuz chatSendEvent makes transforming chat messages may easier
         cc.polyfrost.oneconfig.events.EventManager.INSTANCE.register(ChatTransformer)
 
         DebugKey.init()
-        PolyfrostUrsaMinorRequest.authorize()
 
         // Initializes skill upgrade recommendation
         SkillUpgradeRecommendation.populateSkillMap()
         try {
-            SkyblockDataManager.initItems()
+            SkyblockDataManager.updateAll()
         } catch (e: IOException) {
             e.printStackTrace()
         }
@@ -328,7 +326,7 @@ class PartlySaneSkies {
         PetAlert.runPetAlertTick()
         ThemeManager.tick()
         PetData.tick()
-        HealerAlert.checkPlayerTick()
+        HealthAlert.checkPlayerTick()
         RequiredSecretsFound.tick()
         NoCookieWarning.checkCoinsTick()
         Prank.checkPrankTick()

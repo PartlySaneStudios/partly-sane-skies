@@ -27,7 +27,7 @@ class ItemInformationBar(xConstraint: XConstraint, yConstraint: YConstraint, hei
         width = widthConstraint
     }
 
-    private val backgroundImage: UIImage = ThemeManager.getCurrentBackgroundUIImage().constrain {
+    private val backgroundImage: UIImage = ThemeManager.currentBackgroundUIImage.constrain {
         x = CenterConstraint()
         y = CenterConstraint()
         height = heightConstraint

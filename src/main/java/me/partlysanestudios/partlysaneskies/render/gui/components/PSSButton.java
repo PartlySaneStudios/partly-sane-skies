@@ -38,7 +38,7 @@ public class PSSButton {
         backgroundBlock = (UIBlock) new UIBlock()
             .setColor(new Color(0, 0, 0, 0));
         
-        buttonTexture = (UIImage) ThemeManager.getCurrentButtonUIImage()
+        buttonTexture = (UIImage) ThemeManager.INSTANCE.getCurrentButtonUIImage()
             .setChildOf(backgroundBlock);
 
         textComponent = (UIWrappedText) new UIWrappedText(text, false, new Color(0, 0, 0, 0), true)
@@ -58,7 +58,7 @@ public class PSSButton {
         this.backgroundBlock = (UIBlock) new UIBlock()
             .setColor(color.toJavaColor());
     
-        this.buttonTexture = (UIImage) ThemeManager.getCurrentButtonUIImage(color)
+        this.buttonTexture = (UIImage) ThemeManager.INSTANCE.getCurrentButtonUIImage(color)
             .setChildOf(backgroundBlock);
 
         this.textComponent = (UIWrappedText) new UIWrappedText(text, false, new Color(0, 0, 0, 0), true)
@@ -120,7 +120,7 @@ public class PSSButton {
     public PSSButton setColor(OneColor color) {
         backgroundBlock.removeChild(buttonTexture);
 
-        buttonTexture = (UIImage) ThemeManager.getCurrentButtonUIImage(color)
+        buttonTexture = (UIImage) ThemeManager.INSTANCE.getCurrentButtonUIImage(color)
             .setWidth(new PixelConstraint(this.width))
             .setHeight(new PixelConstraint(this.height))
             .setX(new CenterConstraint())
@@ -135,7 +135,7 @@ public class PSSButton {
     public PSSButton setDefaultColor() {
         backgroundBlock.removeChild(buttonTexture);
 
-        buttonTexture = (UIImage) ThemeManager.getCurrentButtonUIImage()
+        buttonTexture = (UIImage) ThemeManager.INSTANCE.getCurrentButtonUIImage()
             .setWidth(new PixelConstraint(this.width))
             .setHeight(new PixelConstraint(this.height))
             .setX(new CenterConstraint())

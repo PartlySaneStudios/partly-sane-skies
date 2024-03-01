@@ -53,17 +53,17 @@ public class BitsShopValue {
         long bitCount = HypixelUtils.INSTANCE.getBits();
         boolean filterAffordable = PartlySaneSkies.Companion.getConfig().getBitShopOnlyShowAffordable();
 
-        if (SkyblockDataManager.bitIds.isEmpty()) {
+        if (SkyblockDataManager.INSTANCE.getBitIds().isEmpty()) {
             new Thread(() -> {
                 try {
-                    SkyblockDataManager.initBitValues();
+                    SkyblockDataManager.INSTANCE.initBitValues();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }).start();
         }
-        for (String id : SkyblockDataManager.bitIds) {
-            SkyblockItem item = SkyblockDataManager.getItem(id);
+        for (String id : SkyblockDataManager.INSTANCE.getBitIds()) {
+            SkyblockItem item = SkyblockDataManager.INSTANCE.getItem(id);
             if (filterAffordable && bitCount < item.getBitCost()) {
                 continue;
             }
@@ -73,7 +73,7 @@ public class BitsShopValue {
         
         int i = 1;
         for (Map.Entry<String, Double> en : sortedMap.entrySet()) {
-            SkyblockItem item = SkyblockDataManager.getItem(en.getKey());
+            SkyblockItem item = SkyblockDataManager.INSTANCE.getItem(en.getKey());
             str.append("§6").append(i).append(". §d").append(item.getName()).append("§7 costs §d").append(StringUtils.INSTANCE.formatNumber(item.getBitCost())).append("§7 bits and sells for §d").append(StringUtils.INSTANCE.formatNumber(MathUtils.INSTANCE.round(item.getSellPrice(), 1))).append("§7 coins \n§8 (").append(StringUtils.INSTANCE.formatNumber(MathUtils.INSTANCE.round(en.getValue(), 1))).append(" coins per bit)\n");
             i++;
             if (i > 5) {
@@ -113,7 +113,7 @@ public class BitsShopValue {
             .setColor(new Color(0, 0, 0, 0))
             .setChildOf(window);
     
-    UIComponent image = ThemeManager.getCurrentBackgroundUIImage()
+    UIComponent image = ThemeManager.INSTANCE.getCurrentBackgroundUIImage()
             .setChildOf(box);
     
     float pad = 5;

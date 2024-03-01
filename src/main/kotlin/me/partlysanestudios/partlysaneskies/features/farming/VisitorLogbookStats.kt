@@ -114,7 +114,7 @@ object VisitorLogbookStats {
         .setColor(Color(0, 0, 0, 0))
         .setChildOf(window)
 
-    private val image = ThemeManager.getCurrentBackgroundUIImage()
+    private val image = ThemeManager.currentBackgroundUIImage
         .setChildOf(box)
 
     private val pad = 5

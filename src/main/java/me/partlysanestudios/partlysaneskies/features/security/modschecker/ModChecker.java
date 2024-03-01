@@ -3,7 +3,6 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.features.security.modschecker;
 
 import com.google.gson.Gson;
@@ -37,17 +36,20 @@ import java.util.Map;
 public class ModChecker {
 
     public static void registerModCheckCommand() {
-        new PSSCommand("modcheck", new ArrayList<>(), "Checks the mods in your mod folder if they are updated", (s, a) -> {
-            new Thread(() -> {
-                if (a.length > 0) {
-                    ChatUtils.INSTANCE.sendClientMessage("Loading... (using data from custom repository)");
-                    loadModDataFromRepo(PublicDataManager.INSTANCE.getRepoOwner(), PublicDataManager.INSTANCE.getRepoName());
-                } else {
-                    ChatUtils.INSTANCE.sendClientMessage("Loading...");
-                    loadModDataFromRepo();
-                }
-            }).start();
-        }).addAlias("modscheck").addAlias("modchecker").addAlias("modschecker").addAlias("pssmodscheck").addAlias("pssmodchecker").addAlias("pssmodschecker").register();
+        new PSSCommand("modcheck", new ArrayList<>(), "Checks the mods in your mod folder if they are updated",
+                (s, a) -> {
+                    new Thread(() -> {
+                        if (a.length > 0) {
+                            ChatUtils.INSTANCE.sendClientMessage("Loading... (using data from custom repository)");
+                            loadModDataFromRepo(PublicDataManager.INSTANCE.getRepoOwner(),
+                                    PublicDataManager.INSTANCE.getRepoName());
+                        } else {
+                            ChatUtils.INSTANCE.sendClientMessage("Loading...");
+                            loadModDataFromRepo();
+                        }
+                    }).start();
+                }).addAlias("modscheck").addAlias("modchecker").addAlias("modschecker").addAlias("pssmodscheck")
+                .addAlias("pssmodchecker").addAlias("pssmodschecker").register();
     }
 
     @Nullable
@@ -108,12 +110,12 @@ public class ModChecker {
             String version = container.getVersion();
             String displayVersion = container.getDisplayVersion();
 
-
             String modName = container.getName();
             File modFile = container.getSource();
             String fileName = modFile.getName();
 
-            // can not read hash of Minecraft Coder Pack or other stuff like Smooth Font Core
+            // can not read hash of Minecraft Coder Pack or other stuff like Smooth Font
+            // Core
             if (fileName.equals("minecraft.jar")) {
                 continue;
             }
@@ -150,7 +152,8 @@ public class ModChecker {
             }
         }
 
-        chatMessage.appendSibling(new ChatComponentText("\n§7Disclaimer: You should always exercise caution when downloading things from the internet. The PSS Mod Checker is not foolproof. Use at your own risk."));
+        chatMessage.appendSibling(new ChatComponentText(
+                "\n§7Disclaimer: You should always exercise caution when downloading things from the internet. The PSS Mod Checker is not foolproof. Use at your own risk."));
 
         if (PartlySaneSkies.Companion.getConfig().getShowUpToDateMods()) {
             if (!knownMods.isEmpty()) {
@@ -165,12 +168,15 @@ public class ModChecker {
                     e.printStackTrace();
                 }
                 KnownMod mod = findModFromHash(hash);
-                if (mod == null) continue;
+                if (mod == null)
+                    continue;
 
                 IChatComponent message = new ChatComponentText("\n§a" + mod.name + " §7is up to date");
                 if (SystemUtils.INSTANCE.isValidURL(mod.downloadLink)) {
-                    message.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, mod.downloadLink));
-                    message.getChatStyle().setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText("Click for the official website for " + mod.name + "!")));
+                    message.getChatStyle()
+                            .setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, mod.downloadLink));
+                    message.getChatStyle().setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
+                            new ChatComponentText("Click for the official website for " + mod.name + "!")));
                 }
 
                 chatMessage.appendSibling(message);
@@ -189,19 +195,21 @@ public class ModChecker {
                 e.printStackTrace();
             }
             KnownMod mod = findModFromHash(hash);
-            if (mod == null) continue;
+            if (mod == null)
+                continue;
 
             String latestVersion = findNewestModFromId(mod.id).version;
-            IChatComponent message = new ChatComponentText("\n§e" + mod.name + " §7is §coutdated §7(§e" + mod.version + " §7-> §e" + latestVersion + "§7)");
+            IChatComponent message = new ChatComponentText(
+                    "\n§e" + mod.name + " §7is §coutdated §7(§e" + mod.version + " §7-> §e" + latestVersion + "§7)");
 
             if (SystemUtils.INSTANCE.isValidURL(mod.downloadLink)) {
                 message.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, mod.downloadLink));
-                message.getChatStyle().setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText("Click for the official website for " + mod.name + "!")));
+                message.getChatStyle().setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
+                        new ChatComponentText("Click for the official website for " + mod.name + "!")));
             }
 
             chatMessage.appendSibling(message);
         }
-
 
         if (!unknownMods.isEmpty()) {
             chatMessage.appendSibling(new ChatComponentText("\n\n§cUnknown Mods: (" + unknownMods.size() + ")"));
@@ -210,7 +218,6 @@ public class ModChecker {
         for (ModContainer container : unknownMods) {
             String version = container.getVersion();
             String displayVersion = container.getDisplayVersion();
-
 
             String modName = container.getName();
             File modFile = container.getSource();
@@ -228,11 +235,14 @@ public class ModChecker {
             try {
                 KnownMod mod = findNewestModFromId(container.getModId());
 
-                message = new ChatComponentText("\n§c" + modName + " §7(" + fileName + ") is §cunknown! §c(Verified version of " + mod.name + " found.)");
+                message = new ChatComponentText("\n§c" + modName + " §7(" + fileName
+                        + ") is §cunknown! §c(Verified version of " + mod.name + " found.)");
 
                 if (SystemUtils.INSTANCE.isValidURL(mod.downloadLink)) {
-                    message.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, mod.downloadLink));
-                    message.getChatStyle().setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText("Click for the official website for " + mod.name + "!")));
+                    message.getChatStyle()
+                            .setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, mod.downloadLink));
+                    message.getChatStyle().setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
+                            new ChatComponentText("Click for the official website for " + mod.name + "!")));
                 }
             } catch (IllegalStateException e) {
 
@@ -252,11 +262,12 @@ public class ModChecker {
             debugBuilder.append("\n},");
         }
 
-        chatMessage.appendSibling(new ChatComponentText("\n\n§9If you believe any of these mods may be a mistake, report it in the PSS discord! §7(/pssdiscord)"));
-
+        chatMessage.appendSibling(new ChatComponentText(
+                "\n\n§9If you believe any of these mods may be a mistake, report it in the PSS discord! §7(/pssdiscord)"));
 
         if (DebugKey.INSTANCE.isDebugMode()) {
-            ChatUtils.INSTANCE.sendClientMessage("§8Unknown Mods:\n" + insertCharacterAfterNewLine(debugBuilder.toString(), "§8") + "\n\n");
+            ChatUtils.INSTANCE.sendClientMessage(
+                    "§8Unknown Mods:\n" + insertCharacterAfterNewLine(debugBuilder.toString(), "§8") + "\n\n");
             SystemUtils.INSTANCE.copyStringToClipboard("```json\n" + debugBuilder.toString() + "\n```");
         }
 
@@ -264,7 +275,6 @@ public class ModChecker {
         PartlySaneSkies.Companion.getMinecraft().ingameGUI
                 .getChatGUI()
                 .printChatMessage(chatMessage);
-
 
     }
 
@@ -286,8 +296,8 @@ public class ModChecker {
     }
 
     private static void loadModDataFromRepo(String userName, String repoName) {
-        String url = "https://raw.githubusercontent.com/" + userName +
-                "/" + repoName + "/main/data/mods.json";
+        String url = PartlySaneSkies.Companion.getConfig().getApiUrl() + "/v1/pss/publicdata?owner=" + userName
+                + "&repo=" + repoName + "&path=/data/mods.json";
         RequestsManager.INSTANCE.newRequest(new GetRequest(url, request -> {
             knownMods = null;
             try {
@@ -309,7 +319,8 @@ public class ModChecker {
 
             KnownMod latest = null;
             Map<String, String> versions;
-            Map<String, String> betaVersions = new HashMap<>(); // Creates a variable to add all of the beta versions as outdated
+            Map<String, String> betaVersions = new HashMap<>(); // Creates a variable to add all of the beta versions as
+                                                                // outdated
             if (PartlySaneSkies.Companion.getConfig().getLookForBetaMods()) {
                 versions = modInfo.getBetaVersions();
             } else {
@@ -340,7 +351,8 @@ public class ModChecker {
 
     @NotNull
     private static KnownMod findNewestModFromId(String id) {
-        if (knownMods == null) throw new IllegalStateException("known mods is null");
+        if (knownMods == null)
+            throw new IllegalStateException("known mods is null");
         for (KnownMod mod : knownMods) {
             if (mod.id.equals(id)) {
                 if (mod.latest) {
@@ -353,7 +365,8 @@ public class ModChecker {
 
     @Nullable
     private static KnownMod findModFromHash(String hash) {
-        if (knownMods == null) throw new IllegalStateException("known mods is null");
+        if (knownMods == null)
+            throw new IllegalStateException("known mods is null");
         for (KnownMod mod : knownMods) {
             if (mod.hash.equals(hash)) {
                 return mod;
