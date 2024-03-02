@@ -18,13 +18,15 @@ class Range3d(point1: Point3d, point2: Point3d) {
 
     init {
 
-        smallCoordinate = Point3d(min(point1.x, point1.x),
+        smallCoordinate = Point3d(
+            min(point1.x, point2.x),
             min(point1.y, point1.y),
-            min(point1.z, point1.z))
+            min(point1.z, point2.z)
+        )
         largeCoordinate = Point3d(
-            max(point1.x, point1.x),
-            max(point1.y, point1.y),
-            max(point1.z, point1.z)
+            max(point1.x, point2.x),
+            max(point1.y, point2.y),
+            max(point1.z, point2.z)
         )
         rangeName = ""
     }

@@ -31,11 +31,11 @@ object RenderEuclid {
         val firstX = lastX
         val firstZ = lastZ
         // Go around the circle, connecting the previous side to the next side
-        for (i in 1..<pointPairs.size) {
+        for (i in 0..<(pointPairs.size - 1)) {
             val point1 = Point3d(lastX, baseCenter.y, lastZ)
             val point2 = Point3d(radius * cos((interiorAngleDegrees * i)/numOfSides) + baseCenter.x, baseCenter.y + height, radius * sin((interiorAngleDegrees * i)/numOfSides) + baseCenter.z)
             val range = Range3d(point1, point2)
-
+            pointPairs[i] = range
             lastX = range.points[0].x
             lastZ = range.points[0].z
         }
