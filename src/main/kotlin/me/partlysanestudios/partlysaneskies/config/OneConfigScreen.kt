@@ -1735,6 +1735,13 @@ object OneConfigScreen : Config(
     )
     var debugRenderRNGBanner = false
 
+    @Switch(
+        name = "Generate Cylinder",
+        description = "Generates a cylinder.",
+        category = "Dev",
+    )
+    var debugCylinder = false
+
     // Example HUD
     @HUD(
         name = "Test Hud Element",
@@ -1783,14 +1790,6 @@ object OneConfigScreen : Config(
         subcategory = "Percy Mode"
     )
     var debugPlayerDump = false
-
-    @Switch(
-        name = "Generate Cylinder",
-        description = "Generates a cylinder.",
-        category = "Dev",
-        subcategory = "Percy Mode"
-    )
-    var debugCylinder = false
 
     // API
     @Number(

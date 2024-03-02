@@ -4,9 +4,11 @@ import me.partlysanestudios.partlysaneskies.render.RenderEuclid.Angle.Companion.
 import me.partlysanestudios.partlysaneskies.render.RenderEuclid.Angle.Companion.sin
 import me.partlysanestudios.partlysaneskies.render.RenderEuclid.Angle.Companion.toAngleFromDegrees
 import me.partlysanestudios.partlysaneskies.render.RenderPrimitives.drawBoxFill
+import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
 import me.partlysanestudios.partlysaneskies.utils.vectors.Point3d
 import me.partlysanestudios.partlysaneskies.utils.vectors.Range3d
 import net.minecraft.client.renderer.WorldRenderer
+import org.apache.logging.log4j.Level
 import kotlin.math.PI
 
 object RenderEuclid {
@@ -18,8 +20,9 @@ object RenderEuclid {
      * @param numOfSides Because this is minecraft, the cylinder is an approximation using a regular polygons. Because of this, the function should really be called "drawRegularPolygonalPrism"
      */
     fun WorldRenderer.drawCylinderFill(baseCenter: Point3d, radius: Double, height: Double, numOfSides: Int = 12) {
-        val interiorAngleDegrees = (360 / numOfSides).toAngleFromDegrees() // 🚨🚨🚨 please note this is in degrees. Sin and Cos functions use radians
+        val interiorAngleDegrees = ((numOfSides - 2) * 180 / numOfSides).toAngleFromDegrees() // 🚨🚨🚨 please note this is in degrees. Sin and Cos functions use radians
 
+        log(Level.INFO, interiorAngleDegrees.toString())
         val pointPairs: Array<Range3d?> = arrayOfNulls(numOfSides + 1)
 
 
@@ -39,6 +42,7 @@ object RenderEuclid {
         // Connect the last point with the first point to complete the circle
         pointPairs[pointPairs.size - 1] = Range3d(Point3d(firstX, baseCenter.y, firstZ), Point3d(firstX, baseCenter.y + height, firstZ))
 
+        log(Level.INFO, pointPairs.contentDeepToString())
         // Draw the sides
         for (pair in pointPairs) {
             pair?.points ?: continue
@@ -141,6 +145,10 @@ object RenderEuclid {
 
         operator fun rem(i: Number): Angle {
             return Angle(radians % i.toDouble())
+        }
+
+        override fun toString(): String {
+            return "Angle(radians=$radians, degrees=${this.asDegrees()})"
         }
     }
 }

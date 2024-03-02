@@ -47,10 +47,6 @@ class Range3d(point1: Point3d, point2: Point3d) {
             Point3d(largeCoordinate.x, largeCoordinate.y, largeCoordinate.z)
         )
 
-    override fun toString(): String {
-        return "§7" + rangeName + " §b(" + smallCoordinate.x + ", " + smallCoordinate.y + ", " + smallCoordinate.z + ")§7 to §b(" + largeCoordinate.x + ", " + largeCoordinate.y + ", " + largeCoordinate.z + ")"
-    }
-
     //POINT 2D AND 3D
 
 
@@ -65,5 +61,9 @@ class Range3d(point1: Point3d, point2: Point3d) {
         var result = smallCoordinate.hashCode()
         result = 31 * result + largeCoordinate.hashCode()
         return result
+    }
+
+    override fun toString(): String {
+        return "Range3d(smallCoordinate=$smallCoordinate, largeCoordinate=$largeCoordinate, rangeName='$rangeName')"
     }
 }
