@@ -17,7 +17,7 @@ object RenderEuclid {
      * @param radius The radius of the cylinder
      * @param numOfSides Because this is minecraft, the cylinder is an approximation using a regular polygons. Because of this, the function should really be called "drawRegularPolygonalPrism"
      */
-    fun WorldRenderer.drawCylinderFill(baseCenter: Point3d, radius: Double, height: Double, numOfSides: Int = 8) {
+    fun WorldRenderer.drawCylinderFill(baseCenter: Point3d, radius: Double, height: Double, numOfSides: Int = 12) {
         val interiorAngleDegrees = (360 / numOfSides).toAngleFromDegrees() // 🚨🚨🚨 please note this is in degrees. Sin and Cos functions use radians
 
         val pointPairs: Array<Range3d?> = arrayOfNulls(numOfSides + 1)

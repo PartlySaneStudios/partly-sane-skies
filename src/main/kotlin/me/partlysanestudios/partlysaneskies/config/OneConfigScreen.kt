@@ -1784,6 +1784,14 @@ object OneConfigScreen : Config(
     )
     var debugPlayerDump = false
 
+    @Switch(
+        name = "Generate Cylinder",
+        description = "Generates a cylinder.",
+        category = "Dev",
+        subcategory = "Percy Mode"
+    )
+    var debugCylinder = false
+
     // API
     @Number(
         name = "Time between requests",
