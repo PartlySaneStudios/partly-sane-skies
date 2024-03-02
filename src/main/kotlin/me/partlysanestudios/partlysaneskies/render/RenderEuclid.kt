@@ -36,8 +36,8 @@ object RenderEuclid {
             val point2 = Point3d(radius * cos((interiorAngleDegrees * i)/numOfSides) + baseCenter.x, baseCenter.y + height, radius * sin((interiorAngleDegrees * i)/numOfSides) + baseCenter.z)
             val range = Range3d(point1, point2)
             pointPairs[i] = range
-            lastX = range.points[0].x
-            lastZ = range.points[0].z
+            lastX = point2.x
+            lastZ = point2.z
         }
         // Connect the last point with the first point to complete the circle
         pointPairs[pointPairs.size - 1] = Range3d(Point3d(firstX, baseCenter.y, firstZ), Point3d(firstX, baseCenter.y + height, firstZ))
