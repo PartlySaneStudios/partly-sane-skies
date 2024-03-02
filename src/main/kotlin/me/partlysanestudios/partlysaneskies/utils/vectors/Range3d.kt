@@ -7,20 +7,25 @@ package me.partlysanestudios.partlysaneskies.utils.vectors
 import kotlin.math.max
 import kotlin.math.min
 
-class Range3d(x1: Double, y1: Double, z1: Double, x2: Double, y2: Double, z2: Double) {
-    private val smallCoordinate: DoubleArray
-    private val largeCoordinate: DoubleArray
+class Range3d(point1: Point3d, point2: Point3d) {
+    constructor(x1: Double, y1: Double, z1: Double, x2: Double, y2: Double, z2: Double): this (
+        Point3d(x1, y1, z1),
+        Point3d(x2, y2, z2)
+    )
+    private val smallCoordinate: Point3d
+    private val largeCoordinate: Point3d
     var rangeName: String
 
     init {
-        smallCoordinate = DoubleArray(3)
-        largeCoordinate = DoubleArray(3)
-        smallCoordinate[0] = min(x1, x2)
-        smallCoordinate[1] = min(y1, y2)
-        smallCoordinate[2] = min(z1, z2)
-        largeCoordinate[0] = max(x1, x2)
-        largeCoordinate[1] = max(y1, y2)
-        largeCoordinate[2] = max(z1, z2)
+
+        smallCoordinate = Point3d(min(point1.x, point1.x),
+            min(point1.y, point1.y),
+            min(point1.z, point1.z))
+        largeCoordinate = Point3d(
+            max(point1.x, point1.x),
+            max(point1.y, point1.y),
+            max(point1.z, point1.z)
+        )
         rangeName = ""
     }
 
@@ -28,9 +33,9 @@ class Range3d(x1: Double, y1: Double, z1: Double, x2: Double, y2: Double, z2: Do
         return isInRange(point3d.x, point3d.y, point3d.z)
     }
     fun isInRange(x: Double, y: Double, z: Double): Boolean {
-        if (smallCoordinate[0] <= x && x - 1 <= largeCoordinate[0]) {
-            if (smallCoordinate[1] - 1 <= y && y - 1 <= largeCoordinate[1]) {
-                return smallCoordinate[2] <= z && z - 1 <= largeCoordinate[2]
+        if (smallCoordinate.x <= x && x - 1 <= largeCoordinate.x) {
+            if (smallCoordinate.y - 1 <= y && y - 1 <= largeCoordinate.y) {
+                return smallCoordinate.z <= z && z - 1 <= largeCoordinate.z
             }
         }
         return false
@@ -38,31 +43,27 @@ class Range3d(x1: Double, y1: Double, z1: Double, x2: Double, y2: Double, z2: Do
 
     val points: Array<Point3d>
         get() = arrayOf(
-            Point3d(
-                smallCoordinate[0], smallCoordinate[1], smallCoordinate[2]
-            ), Point3d(
-                largeCoordinate[0],
-                largeCoordinate[1], largeCoordinate[2]
-            )
+            Point3d(smallCoordinate.x, smallCoordinate.y, smallCoordinate.z),
+            Point3d(largeCoordinate.x, largeCoordinate.y, largeCoordinate.z)
         )
 
     override fun toString(): String {
-        return "§7" + rangeName + " §b(" + smallCoordinate[0] + ", " + smallCoordinate[1] + ", " + smallCoordinate[2] + ")§7 to §b(" + largeCoordinate[0] + ", " + largeCoordinate[1] + ", " + largeCoordinate[2] + ")"
+        return "§7" + rangeName + " §b(" + smallCoordinate.x + ", " + smallCoordinate.y + ", " + smallCoordinate.z + ")§7 to §b(" + largeCoordinate.x + ", " + largeCoordinate.y + ", " + largeCoordinate.z + ")"
     }
 
     //POINT 2D AND 3D
 
 
-    override fun equals(o: Any?): Boolean {
-        if (this === o) return true
-        if (o == null || javaClass != o.javaClass) return false
-        val range3d = o as Range3d
-        return smallCoordinate.contentEquals(range3d.smallCoordinate) && largeCoordinate.contentEquals(range3d.largeCoordinate)
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || javaClass != other.javaClass) return false
+        val range3d = other as Range3d
+        return smallCoordinate == range3d.smallCoordinate && largeCoordinate == range3d.largeCoordinate
     }
 
     override fun hashCode(): Int {
-        var result = smallCoordinate.contentHashCode()
-        result = 31 * result + largeCoordinate.contentHashCode()
+        var result = smallCoordinate.hashCode()
+        result = 31 * result + largeCoordinate.hashCode()
         return result
     }
 }
