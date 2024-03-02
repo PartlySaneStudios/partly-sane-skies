@@ -19,15 +19,15 @@ object RenderEuclid {
      */
     fun WorldRenderer.drawCylinderFill(baseCenter: Point3d, radius: Double, height: Double, numOfSides: Int = 8) {
         val interiorAngleDegrees = (360 / numOfSides).toAngleFromDegrees() // 🚨🚨🚨 please note this is in degrees. Sin and Cos functions use radians
-        val sideLength = 2 * radius * cos(interiorAngleDegrees / 2)
 
         val pointPairs: Array<Range3d?> = arrayOfNulls(numOfSides + 1)
 
 
-        var lastX = radius * cos((interiorAngleDegrees * 0)/numOfSides) + baseCenter.x
-        var lastZ = radius * sin((interiorAngleDegrees * 0)/numOfSides) + baseCenter.z
+        var lastX = radius * cos((interiorAngleDegrees * 0)/numOfSides) + baseCenter.x // Set the first x
+        var lastZ = radius * sin((interiorAngleDegrees * 0)/numOfSides) + baseCenter.z // Set the first x
         val firstX = lastX
         val firstZ = lastZ
+        // Go around the circle, connecting the previous side to the next side
         for (i in 1..<pointPairs.size) {
             val point1 = Point3d(lastX, baseCenter.y, lastZ)
             val point2 = Point3d(radius * cos((interiorAngleDegrees * i)/numOfSides) + baseCenter.x, baseCenter.y + height, radius * sin((interiorAngleDegrees * i)/numOfSides) + baseCenter.z)
@@ -36,9 +36,10 @@ object RenderEuclid {
             lastX = range.points[0].x
             lastZ = range.points[0].z
         }
+        // Connect the last point with the first point to complete the circle
         pointPairs[pointPairs.size - 1] = Range3d(Point3d(firstX, baseCenter.y, firstZ), Point3d(firstX, baseCenter.y + height, firstZ))
 
-
+        // Draw the sides
         for (pair in pointPairs) {
             pair?.points ?: continue
             this.drawBoxFill(pair.points[0], pair.points[1])
