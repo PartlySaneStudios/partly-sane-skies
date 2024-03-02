@@ -41,7 +41,7 @@ object RenderEuclid {
             lastZ = point2.z
         }
         // Connect the last point with the first point to complete the circle
-        pointPairs.add(Range3d(Point3d(firstX, baseCenter.y, firstZ), Point3d(lastX, baseCenter.y + height, lastZ)))
+        pointPairs.add(Range3d(Point3d(lastX, baseCenter.y, lastZ), Point3d(firstX, baseCenter.y + height, firstZ)))
         // Draw the sides
         for (pair in pointPairs) {
             this.drawDiagonalFaceFill(pair, RenderPrimitives.Axis.Y_AXIS)
@@ -50,7 +50,6 @@ object RenderEuclid {
 
     private fun calculatePoint(radius: Double, numOfSides: Int, currentSide: Int): Point2d {
         val angle = ((360 / numOfSides) * currentSide).toAngleFromDegrees()
-        log(Level.INFO, angle.asDegrees().toString())
         val x = cos(angle) * radius
         val y = sin(angle) * radius
         return Point2d(x, y)

@@ -19,17 +19,19 @@ object RenderPrimitives {
         val p2 = range.points[1]
         val p3: Point3d
         val p4: Point3d
-        if (axisOfRotation == Axis.Y_AXIS) {
-            p3 = Point3d(p1.x, p2.y, p1.z)
-            p4 = Point3d(p2.x, p1.y, p2.z)
-        } else if (axisOfRotation == Axis.X_AXIS){
-            p3 = Point3d(p1.x, p2.y, p2.z)
-            p4 = Point3d(p2.x, p1.y, p1.z)
-        } else if (axisOfRotation == Axis.Z_AXIS) {
-            p3 = Point3d(p2.x, p2.y, p1.z)
-            p4 = Point3d(p1.x, p1.y, p2.z)
-        } else {
-            throw IllegalArgumentException("Invalid Axis of Rotation $axisOfRotation")
+        when (axisOfRotation) {
+            Axis.Y_AXIS -> {
+                p3 = Point3d(p1.x, p2.y, p1.z)
+                p4 = Point3d(p2.x, p1.y, p2.z)
+            }
+            Axis.X_AXIS -> {
+                p3 = Point3d(p1.x, p2.y, p2.z)
+                p4 = Point3d(p2.x, p1.y, p1.z)
+            }
+            Axis.Z_AXIS -> {
+                p3 = Point3d(p2.x, p2.y, p1.z)
+                p4 = Point3d(p1.x, p1.y, p2.z)
+            }
         }
         // Add vertices for the face
         this.pos(p1.x, p1.y, p1.z).endVertex() // bottom corner

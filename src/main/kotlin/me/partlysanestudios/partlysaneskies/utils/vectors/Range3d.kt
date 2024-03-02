@@ -7,29 +7,24 @@ package me.partlysanestudios.partlysaneskies.utils.vectors
 import kotlin.math.max
 import kotlin.math.min
 
-class Range3d(point1: Point3d, point2: Point3d) {
+class Range3d(private val point1: Point3d, private val point2: Point3d) {
     constructor(x1: Double, y1: Double, z1: Double, x2: Double, y2: Double, z2: Double): this (
         Point3d(x1, y1, z1),
         Point3d(x2, y2, z2)
     )
-    private val smallCoordinate: Point3d
-    private val largeCoordinate: Point3d
-    var rangeName: String
 
-    init {
+    var rangeName: String = ""
 
-        smallCoordinate = Point3d(
-            min(point1.x, point2.x),
-            min(point1.y, point1.y),
-            min(point1.z, point2.z)
-        )
-        largeCoordinate = Point3d(
-            max(point1.x, point2.x),
-            max(point1.y, point2.y),
-            max(point1.z, point2.z)
-        )
-        rangeName = ""
-    }
+    private val smallCoordinate = Point3d(
+        min(point1.x, point2.x),
+        min(point1.y, point1.y),
+        min(point1.z, point2.z)
+    )
+    private val largeCoordinate = Point3d(
+        max(point1.x, point2.x),
+        max(point1.y, point2.y),
+        max(point1.z, point2.z)
+    )
 
     fun isInRange(point3d: Point3d): Boolean {
         return isInRange(point3d.x, point3d.y, point3d.z)
@@ -43,12 +38,19 @@ class Range3d(point1: Point3d, point2: Point3d) {
         return false
     }
 
-    val points: Array<Point3d>
-        get() = arrayOf(
-            Point3d(smallCoordinate.x, smallCoordinate.y, smallCoordinate.z),
-            Point3d(largeCoordinate.x, largeCoordinate.y, largeCoordinate.z)
-        )
+    val sortedPoints: Array<Point3d>
+        get() {
+            return arrayOf(
+                Point3d(smallCoordinate.x, smallCoordinate.y, smallCoordinate.z),
+                Point3d(largeCoordinate.x, largeCoordinate.y, largeCoordinate.z)
+            )
+        }
 
+
+    val points: Array<Point3d>
+        get() {
+            return arrayOf(Point3d(point1.x, point1.y, point1.z), Point3d(point2.x, point2.y, point2.z))
+        }
     //POINT 2D AND 3D
 
 

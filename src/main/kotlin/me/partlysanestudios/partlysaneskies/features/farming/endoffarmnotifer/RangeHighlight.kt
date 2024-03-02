@@ -63,7 +63,7 @@ object RangeHighlight {
                 color = color.applyOpacity((.4 * 255).toInt())
             }
 
-            val effectiveRange = Range3d(range.points[0].x, range.points[0].y, range.points[0].z, range.points[1].x + 1, range.points[1].y + 1, range.points[1].z + 1)
+            val effectiveRange = Range3d(range.sortedPoints[0].x, range.sortedPoints[0].y, range.sortedPoints[0].z, range.sortedPoints[1].x + 1, range.sortedPoints[1].y + 1, range.sortedPoints[1].z + 1)
             renderBox(effectiveRange, event.partialTicks, color)
         }
     }
@@ -72,11 +72,11 @@ object RangeHighlight {
             renderBoxFaces(range, color, false, partialTicks)
             renderBoxEdges(range, false, partialTicks)
 
-            val pos1Block = Range3d(range.points[0].x, range.points[0].y, range.points[0].z, range.points[0].x + 1, range.points[0].y + 1, range.points[0].z + 1)
+            val pos1Block = Range3d(range.sortedPoints[0].x, range.sortedPoints[0].y, range.sortedPoints[0].z, range.sortedPoints[0].x + 1, range.sortedPoints[0].y + 1, range.sortedPoints[0].z + 1)
             renderBoxFaces(pos1Block, Color(255, 100, 100, (.75 * 255).toInt()), false, partialTicks)
             renderBoxEdges(pos1Block, false, partialTicks)
 
-            val pos2Block = Range3d(range.points[1].x, range.points[1].y, range.points[1].z, range.points[1].x - 1, range.points[1].y - 1, range.points[1].z - 1)
+            val pos2Block = Range3d(range.sortedPoints[1].x, range.sortedPoints[1].y, range.sortedPoints[1].z, range.sortedPoints[1].x - 1, range.sortedPoints[1].y - 1, range.sortedPoints[1].z - 1)
             renderBoxFaces(pos2Block, Color(100, 100, 255, (.75 * 255).toInt()), false, partialTicks)
             renderBoxEdges(pos2Block, false, partialTicks)
         } catch (e: NullPointerException) {
@@ -103,26 +103,26 @@ object RangeHighlight {
 
 
         //            Gets the x y z adn z where 1 is the smaller coordinate and 2 is the bigger one
-        var x1 = range.points[0].x
-        var x2 = range.points[1].x
+        var x1 = range.sortedPoints[0].x
+        var x2 = range.sortedPoints[1].x
 
-        var y1 = range.points[0].y
-        var y2 = range.points[1].y
+        var y1 = range.sortedPoints[0].y
+        var y2 = range.sortedPoints[1].y
 
-        var z1 = range.points[0].z
-        var z2 = range.points[1].z
+        var z1 = range.sortedPoints[0].z
+        var z2 = range.sortedPoints[1].z
 
         if(!renderRelativeToPlayer) {
             val playerPos = getExactPlayerPosition(partialTicks)
             //            Gets the x y z adn z where 1 is the smaller coordinate and 2 is the bigger one
-            x1 = range.points[0].x - playerPos.x
-            x2 = range.points[1].x - playerPos.x
+            x1 = range.sortedPoints[0].x - playerPos.x
+            x2 = range.sortedPoints[1].x - playerPos.x
 
-            y1 = range.points[0].y - playerPos.y
-            y2 = range.points[1].y - playerPos.y
+            y1 = range.sortedPoints[0].y - playerPos.y
+            y2 = range.sortedPoints[1].y - playerPos.y
 
-            z1 = range.points[0].z - playerPos.z
-            z2 = range.points[1].z - playerPos.z
+            z1 = range.sortedPoints[0].z - playerPos.z
+            z2 = range.sortedPoints[1].z - playerPos.z
         }
 
 
@@ -197,25 +197,25 @@ object RangeHighlight {
         val worldRenderer = tessellator.worldRenderer
 
         //            Gets the x y z adn z where 1 is the smaller coordinate and 2 is the bigger one
-        var x1 = range.points[0].x
-        var x2 = range.points[1].x
+        var x1 = range.sortedPoints[0].x
+        var x2 = range.sortedPoints[1].x
 
-        var y1 = range.points[0].y
-        var y2 = range.points[1].y
+        var y1 = range.sortedPoints[0].y
+        var y2 = range.sortedPoints[1].y
 
-        var z1 = range.points[0].z
-        var z2 = range.points[1].z
+        var z1 = range.sortedPoints[0].z
+        var z2 = range.sortedPoints[1].z
         if(!renderRelativeToPlayer) {
             val playerPos = getExactPlayerPosition(partialTicks)
             //            Gets the x y z adn z where 1 is the smaller coordinate and 2 is the bigger one
-            x1 = range.points[0].x - playerPos.x
-            x2 = range.points[1].x - playerPos.x
+            x1 = range.sortedPoints[0].x - playerPos.x
+            x2 = range.sortedPoints[1].x - playerPos.x
 
-            y1 = range.points[0].y - playerPos.y
-            y2 = range.points[1].y - playerPos.y
+            y1 = range.sortedPoints[0].y - playerPos.y
+            y2 = range.sortedPoints[1].y - playerPos.y
 
-            z1 = range.points[0].z - playerPos.z
-            z2 = range.points[1].z - playerPos.z
+            z1 = range.sortedPoints[0].z - playerPos.z
+            z2 = range.sortedPoints[1].z - playerPos.z
         }
 
 
