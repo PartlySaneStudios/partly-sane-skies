@@ -20,6 +20,7 @@ import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.Drop
 import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.DropBannerDisplay
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
 import me.partlysanestudios.partlysaneskies.render.RenderEuclid.drawCylinderFill
+import me.partlysanestudios.partlysaneskies.render.RenderEuclid.drawCylinderOutline
 import me.partlysanestudios.partlysaneskies.render.RenderPrimitives.drawBoxFill
 import me.partlysanestudios.partlysaneskies.render.gui.hud.BannerRenderer.renderNewBanner
 import me.partlysanestudios.partlysaneskies.render.gui.hud.PSSBanner
@@ -144,6 +145,11 @@ object DebugKey {
         worldRenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION)
         GlStateManager.color(ThemeManager.accentColor.toJavaColor().red/255f, ThemeManager.accentColor.toJavaColor().green/255f, ThemeManager.accentColor.toJavaColor().blue/255f, (ThemeManager.accentColor.toJavaColor().alpha/255f) * .667f)
         worldRenderer.drawCylinderFill(cylinderPoint, 8.0, 20.0)
+        tessellator.draw()
+
+        worldRenderer.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION)
+        GlStateManager.color(1.0F, 0.0F, 0.0F, 1.0F)
+        worldRenderer.drawCylinderOutline(cylinderPoint, 8.0, 20.0)
         tessellator.draw()
 
         GlStateManager.resetColor()
