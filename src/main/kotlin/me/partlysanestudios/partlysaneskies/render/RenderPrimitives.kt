@@ -8,9 +8,37 @@ package me.partlysanestudios.partlysaneskies.render
 
 import me.partlysanestudios.partlysaneskies.utils.vectors.Point2d
 import me.partlysanestudios.partlysaneskies.utils.vectors.Point3d
+import me.partlysanestudios.partlysaneskies.utils.vectors.Range3d
 import net.minecraft.client.renderer.WorldRenderer
+import java.lang.IllegalArgumentException
 
 object RenderPrimitives {
+
+    fun WorldRenderer.drawDiagonalFaceFill(range: Range3d, axisOfRotation: Axis) {
+        val p1 = range.points[0]
+        val p2 = range.points[1]
+        val p3: Point3d
+        val p4: Point3d
+        if (axisOfRotation == Axis.Y_AXIS) {
+            p3 = Point3d(p1.x, p2.y, p1.z)
+            p4 = Point3d(p2.x, p1.y, p2.z)
+        } else if (axisOfRotation == Axis.X_AXIS){
+            p3 = Point3d(p1.x, p2.y, p2.z)
+            p4 = Point3d(p2.x, p1.y, p1.z)
+        } else if (axisOfRotation == Axis.Z_AXIS) {
+            p3 = Point3d(p2.x, p2.y, p1.z)
+            p4 = Point3d(p1.x, p1.y, p2.z)
+        } else {
+            throw IllegalArgumentException("Invalid Axis of Rotation $axisOfRotation")
+        }
+        // Add vertices for the face
+        this.pos(p1.x, p1.y, p1.z).endVertex() // bottom corner
+        this.pos(p3.x, p3.y, p3.z).endVertex() // top left
+        this.pos(p2.x, p2.y, p2.z).endVertex() // top right
+        this.pos(p4.x, p4.y, p4.z).endVertex() // bottom right
+    }
+
+
     /**
      * Renders a flat face on the plane of the given axis
      * @param p1 a two-dimensional point where x will be the first point in the order (x, y, z)

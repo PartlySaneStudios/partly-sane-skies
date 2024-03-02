@@ -4,7 +4,9 @@ import me.partlysanestudios.partlysaneskies.render.RenderEuclid.Angle.Companion.
 import me.partlysanestudios.partlysaneskies.render.RenderEuclid.Angle.Companion.sin
 import me.partlysanestudios.partlysaneskies.render.RenderEuclid.Angle.Companion.toAngleFromDegrees
 import me.partlysanestudios.partlysaneskies.render.RenderPrimitives.drawBoxFill
+import me.partlysanestudios.partlysaneskies.render.RenderPrimitives.drawDiagonalFaceFill
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
+import me.partlysanestudios.partlysaneskies.utils.vectors.Point2d
 import me.partlysanestudios.partlysaneskies.utils.vectors.Point3d
 import me.partlysanestudios.partlysaneskies.utils.vectors.Range3d
 import net.minecraft.client.renderer.WorldRenderer
@@ -19,35 +21,39 @@ object RenderEuclid {
      * @param radius The radius of the cylinder
      * @param numOfSides Because this is minecraft, the cylinder is an approximation using a regular polygons. Because of this, the function should really be called "drawRegularPolygonalPrism"
      */
-    fun WorldRenderer.drawCylinderFill(baseCenter: Point3d, radius: Double, height: Double, numOfSides: Int = 12) {
-        val interiorAngleDegrees = ((numOfSides - 2) * 180 / numOfSides).toAngleFromDegrees() // 🚨🚨🚨 please note this is in degrees. Sin and Cos functions use radians
-
-        log(Level.INFO, interiorAngleDegrees.toString())
-        val pointPairs: Array<Range3d?> = arrayOfNulls(numOfSides + 1)
+    fun WorldRenderer.drawCylinderFill(baseCenter: Point3d, radius: Double, height: Double, numOfSides: Int = 48) {
+        val pointPairs: ArrayList<Range3d> = ArrayList()
 
 
-        var lastX = radius * cos((interiorAngleDegrees * 0)/numOfSides) + baseCenter.x // Set the first x
-        var lastZ = radius * sin((interiorAngleDegrees * 0)/numOfSides) + baseCenter.z // Set the first x
+
+        var lastX = calculatePoint(radius, numOfSides, 0).x + baseCenter.x // Set the first x = (cos(angle) * r = 0) + the center of the circle
+        var lastZ = calculatePoint(radius, numOfSides, 0).y + baseCenter.z // Set the first z = (sin(angle) * r = r) + the center of the circle
         val firstX = lastX
         val firstZ = lastZ
         // Go around the circle, connecting the previous side to the next side
-        for (i in 0..<(pointPairs.size - 1)) {
+        for (i in 1..<numOfSides) {
+            val circlePoint = calculatePoint(radius, numOfSides, i)
             val point1 = Point3d(lastX, baseCenter.y, lastZ)
-            val point2 = Point3d(radius * cos((interiorAngleDegrees * i)/numOfSides) + baseCenter.x, baseCenter.y + height, radius * sin((interiorAngleDegrees * i)/numOfSides) + baseCenter.z)
+            val point2 = Point3d(circlePoint.x + baseCenter.x, baseCenter.y + height, circlePoint.y + baseCenter.z)
             val range = Range3d(point1, point2)
-            pointPairs[i] = range
+            pointPairs.add(range)
             lastX = point2.x
             lastZ = point2.z
         }
         // Connect the last point with the first point to complete the circle
-        pointPairs[pointPairs.size - 1] = Range3d(Point3d(firstX, baseCenter.y, firstZ), Point3d(firstX, baseCenter.y + height, firstZ))
-
-        log(Level.INFO, pointPairs.contentDeepToString())
+        pointPairs.add(Range3d(Point3d(firstX, baseCenter.y, firstZ), Point3d(lastX, baseCenter.y + height, lastZ)))
         // Draw the sides
         for (pair in pointPairs) {
-            pair?.points ?: continue
-            this.drawBoxFill(pair.points[0], pair.points[1])
+            this.drawDiagonalFaceFill(pair, RenderPrimitives.Axis.Y_AXIS)
         }
+    }
+
+    private fun calculatePoint(radius: Double, numOfSides: Int, currentSide: Int): Point2d {
+        val angle = ((360 / numOfSides) * currentSide).toAngleFromDegrees()
+        log(Level.INFO, angle.asDegrees().toString())
+        val x = cos(angle) * radius
+        val y = sin(angle) * radius
+        return Point2d(x, y)
     }
 
     class Angle(private val radians: Double) {
@@ -56,7 +62,7 @@ object RenderEuclid {
              * @return An angle object given a number of degrees
              */
             fun Number.toAngleFromDegrees(): Angle {
-                return Angle((180 / PI) * this.toDouble())
+                return Angle((PI / 180) * this.toDouble())
             }
 
             /**
