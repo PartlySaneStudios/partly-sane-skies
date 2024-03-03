@@ -9,6 +9,7 @@ import me.partlysanestudios.partlysaneskies.utils.geometry.orientation.Angle.Com
 import me.partlysanestudios.partlysaneskies.utils.geometry.orientation.Angle.Companion.sin
 import me.partlysanestudios.partlysaneskies.utils.geometry.orientation.Angle.Companion.toAngleFromDegrees
 import me.partlysanestudios.partlysaneskies.render.RenderPrimitives.drawDiagonalFaceFill
+import me.partlysanestudios.partlysaneskies.utils.geometry.orientation.Axis
 import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Point2d
 import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Point3d
 import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Range3d
