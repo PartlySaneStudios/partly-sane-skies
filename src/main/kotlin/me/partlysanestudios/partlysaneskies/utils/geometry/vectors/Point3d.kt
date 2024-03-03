@@ -2,9 +2,8 @@
 // Written by Su386 and J10a1n15.
 // See LICENSE for copyright and license notices.
 //
-package me.partlysanestudios.partlysaneskies.utils.vectors
+package me.partlysanestudios.partlysaneskies.utils.geometry.vectors
 
-import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
 import net.minecraft.util.BlockPos
 import net.minecraft.util.Vec3
@@ -50,20 +49,20 @@ open class Point3d(x: Double, y: Double, val z: Double) : Point2d(x, y) {
     }
 
 
-    override fun equals(obj: Any?): Boolean {
-        if (obj == null) {
+    override fun equals(other: Any?): Boolean {
+        if (other == null) {
             return false
         }
-        if (obj !is Point3d) {
+        if (other !is Point3d) {
             return false
         }
-        if (obj.x != x) {
+        if (other.x != x) {
             return false
         }
-        if (obj.y != y) {
+        if (other.y != y) {
             return false
         }
-        if (obj.z != z) {
+        if (other.z != z) {
             return false
         }
 

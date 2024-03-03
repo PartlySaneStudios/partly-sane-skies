@@ -6,8 +6,8 @@
 package me.partlysanestudios.partlysaneskies.events.minecraft.player
 
 import me.partlysanestudios.partlysaneskies.events.EventManager
-import me.partlysanestudios.partlysaneskies.utils.vectors.Point3d
-import me.partlysanestudios.partlysaneskies.utils.vectors.Point3d.Companion.toPoint3d
+import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Point3d
+import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Point3d.Companion.toPoint3d
 import net.minecraft.util.BlockPos
 import net.minecraft.util.EnumFacing
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable

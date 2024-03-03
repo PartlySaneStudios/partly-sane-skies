@@ -6,11 +6,41 @@
 
 package me.partlysanestudios.partlysaneskies.render
 
-import me.partlysanestudios.partlysaneskies.utils.vectors.Point2d
-import me.partlysanestudios.partlysaneskies.utils.vectors.Point3d
+import me.partlysanestudios.partlysaneskies.utils.geometry.orientation.Axis
+import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Point2d
+import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Point3d
+import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Range3d
 import net.minecraft.client.renderer.WorldRenderer
 
 object RenderPrimitives {
+
+    fun WorldRenderer.drawDiagonalFaceFill(range: Range3d, axisOfRotation: Axis) {
+        val p1 = range.points[0]
+        val p2 = range.points[1]
+        val p3: Point3d
+        val p4: Point3d
+        when (axisOfRotation) {
+            Axis.Y_AXIS -> {
+                p3 = Point3d(p1.x, p2.y, p1.z)
+                p4 = Point3d(p2.x, p1.y, p2.z)
+            }
+            Axis.X_AXIS -> {
+                p3 = Point3d(p1.x, p2.y, p2.z)
+                p4 = Point3d(p2.x, p1.y, p1.z)
+            }
+            Axis.Z_AXIS -> {
+                p3 = Point3d(p2.x, p2.y, p1.z)
+                p4 = Point3d(p1.x, p1.y, p2.z)
+            }
+        }
+        // Add vertices for the face
+        this.pos(p1.x, p1.y, p1.z).endVertex() // bottom corner
+        this.pos(p3.x, p3.y, p3.z).endVertex() // top left
+        this.pos(p2.x, p2.y, p2.z).endVertex() // top right
+        this.pos(p4.x, p4.y, p4.z).endVertex() // bottom right
+    }
+
+
     /**
      * Renders a flat face on the plane of the given axis
      * @param p1 a two-dimensional point where x will be the first point in the order (x, y, z)
@@ -172,11 +202,5 @@ object RenderPrimitives {
         this.drawPerpendicularFaceFill(Point2d(y1, z1), Point2d(y2, z2), Axis.Z_AXIS, x2)
     }
 
-
-    enum class Axis {
-        X_AXIS,
-        Y_AXIS,
-        Z_AXIS
-    }
 
 }
