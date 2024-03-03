@@ -6,11 +6,11 @@
 
 package me.partlysanestudios.partlysaneskies.render
 
-import me.partlysanestudios.partlysaneskies.utils.vectors.Point2d
-import me.partlysanestudios.partlysaneskies.utils.vectors.Point3d
-import me.partlysanestudios.partlysaneskies.utils.vectors.Range3d
+import me.partlysanestudios.partlysaneskies.utils.geometry.orientation.Axis
+import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Point2d
+import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Point3d
+import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Range3d
 import net.minecraft.client.renderer.WorldRenderer
-import java.lang.IllegalArgumentException
 
 object RenderPrimitives {
 
@@ -202,11 +202,5 @@ object RenderPrimitives {
         this.drawPerpendicularFaceFill(Point2d(y1, z1), Point2d(y2, z2), Axis.Z_AXIS, x2)
     }
 
-
-    enum class Axis {
-        X_AXIS,
-        Y_AXIS,
-        Z_AXIS
-    }
 
 }

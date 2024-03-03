@@ -21,7 +21,6 @@ import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.DropB
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
 import me.partlysanestudios.partlysaneskies.render.RenderEuclid.drawCylinderFill
 import me.partlysanestudios.partlysaneskies.render.RenderEuclid.drawCylinderOutline
-import me.partlysanestudios.partlysaneskies.render.RenderPrimitives.drawBoxFill
 import me.partlysanestudios.partlysaneskies.render.gui.hud.BannerRenderer.renderNewBanner
 import me.partlysanestudios.partlysaneskies.render.gui.hud.PSSBanner
 import me.partlysanestudios.partlysaneskies.render.waypoint.Waypoint
@@ -29,8 +28,7 @@ import me.partlysanestudios.partlysaneskies.system.SystemNotification
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.copyStringToClipboard
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
-import me.partlysanestudios.partlysaneskies.utils.vectors.Point3d
-import me.partlysanestudios.partlysaneskies.utils.vectors.Range3d
+import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Point3d
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.Tessellator
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats

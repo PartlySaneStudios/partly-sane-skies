@@ -27,10 +27,10 @@
 package me.partlysanestudios.partlysaneskies.features.farming.endoffarmnotifer
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
-import me.partlysanestudios.partlysaneskies.utils.vectors.Point3d
+import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Point3d
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.IslandType
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
-import me.partlysanestudios.partlysaneskies.utils.vectors.Range3d
+import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Range3d
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils
 import me.partlysanestudios.partlysaneskies.utils.ImageUtils.applyOpacity
 

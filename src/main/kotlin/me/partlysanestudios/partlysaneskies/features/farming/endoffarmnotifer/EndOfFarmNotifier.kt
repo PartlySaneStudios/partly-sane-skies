@@ -14,7 +14,7 @@ import me.partlysanestudios.partlysaneskies.commands.PSSCommandRunnable
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.IslandType
 import me.partlysanestudios.partlysaneskies.render.gui.hud.BannerRenderer.renderNewBanner
 import me.partlysanestudios.partlysaneskies.render.gui.hud.PSSBanner
-import me.partlysanestudios.partlysaneskies.utils.vectors.Range3d
+import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Range3d
 import me.partlysanestudios.partlysaneskies.utils.*
 import net.minecraft.client.audio.PositionedSoundRecord
 import net.minecraft.command.ICommandSender

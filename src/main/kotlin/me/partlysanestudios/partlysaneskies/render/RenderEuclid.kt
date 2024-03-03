@@ -5,15 +5,14 @@
 
 package me.partlysanestudios.partlysaneskies.render
 
-import me.partlysanestudios.partlysaneskies.render.RenderEuclid.Angle.Companion.cos
-import me.partlysanestudios.partlysaneskies.render.RenderEuclid.Angle.Companion.sin
-import me.partlysanestudios.partlysaneskies.render.RenderEuclid.Angle.Companion.toAngleFromDegrees
+import me.partlysanestudios.partlysaneskies.utils.geometry.orientation.Angle.Companion.cos
+import me.partlysanestudios.partlysaneskies.utils.geometry.orientation.Angle.Companion.sin
+import me.partlysanestudios.partlysaneskies.utils.geometry.orientation.Angle.Companion.toAngleFromDegrees
 import me.partlysanestudios.partlysaneskies.render.RenderPrimitives.drawDiagonalFaceFill
-import me.partlysanestudios.partlysaneskies.utils.vectors.Point2d
-import me.partlysanestudios.partlysaneskies.utils.vectors.Point3d
-import me.partlysanestudios.partlysaneskies.utils.vectors.Range3d
+import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Point2d
+import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Point3d
+import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Range3d
 import net.minecraft.client.renderer.WorldRenderer
-import kotlin.math.PI
 
 object RenderEuclid {
 
@@ -49,7 +48,7 @@ object RenderEuclid {
         pointPairs.add(Range3d(Point3d(lastX, baseCenter.y, lastZ), Point3d(firstX, baseCenter.y + height, firstZ)))
         // Draw the sides
         for (pair in pointPairs) {
-            this.drawDiagonalFaceFill(pair, RenderPrimitives.Axis.Y_AXIS)
+            this.drawDiagonalFaceFill(pair, Axis.Y_AXIS)
         }
     }
 
@@ -109,105 +108,4 @@ object RenderEuclid {
         return Point2d(x, y)
     }
 
-    class Angle(private val radians: Double) {
-        companion object {
-            /**
-             * @return An angle object given a number of degrees
-             */
-            fun Number.toAngleFromDegrees(): Angle {
-                return Angle((PI / 180) * this.toDouble())
-            }
-
-            /**
-             * @return An angle object given a number of radians
-             */
-            fun Number.toAngleFromRadians(): Angle {
-                return Angle(this.toDouble())
-            }
-
-            /**
-             * @return The sine of an angle
-             */
-            fun sin(angle: Angle): Double {
-                return kotlin.math.sin(angle.asRadians())
-            }
-
-            /**
-             * @return The cosine of an angle
-             */
-            fun cos(angle: Angle): Double {
-                return kotlin.math.cos(angle.asRadians())
-            }
-
-            /**
-             * @return The tangent of an angle
-             */
-            fun tan(angle: Angle): Double {
-                return kotlin.math.tan(angle.asRadians())
-            }
-
-            /**
-             * @return The arc sine of an angle
-             */
-            fun asin(angle: Angle): Double {
-                return kotlin.math.asin(angle.asRadians())
-            }
-
-            /**
-             * @return The arc cosine of an angle
-             */
-            fun acos(angle: Angle): Double {
-                return kotlin.math.acos(angle.asRadians())
-            }
-
-            /**
-             * @return The arc tangent of an angle
-             */
-            fun atan(angle: Angle): Double {
-                return kotlin.math.atan(angle.asRadians())
-            }
-
-        }
-
-
-        /**
-         * @return The number of degrees this angle represents
-         */
-        fun asDegrees(): Double {
-            return (180/PI) * radians
-        }
-
-        /**
-         * @return The number of radians this angle represents
-         */
-        fun asRadians(): Double {
-            return radians
-        }
-
-
-
-        operator fun minus(i: Number): Angle {
-            return Angle(radians - i.toDouble())
-        }
-
-        operator fun plus(i: Number): Angle {
-            return Angle(radians + i.toDouble())
-        }
-
-        operator fun div(i: Number): Angle {
-            return Angle(radians / i.toDouble())
-        }
-
-        operator fun times(i: Number): Angle {
-            return Angle(radians * i.toDouble())
-        }
-
-        operator fun rem(i: Number): Angle {
-            return Angle(radians % i.toDouble())
-        }
-
-        override fun toString(): String {
-            return "Angle(radians=$radians, degrees=${this.asDegrees()})"
-        }
-    }
 }
