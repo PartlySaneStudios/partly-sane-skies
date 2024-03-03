@@ -7,7 +7,7 @@ package me.partlysanestudios.partlysaneskies.utils.geometry.orientation
 
 import kotlin.math.PI
 
-class Angle(private val radians: Double) {
+class Angle private constructor(private val radians: Double) {
     companion object {
         /**
          * @return An angle object given a number of degrees
