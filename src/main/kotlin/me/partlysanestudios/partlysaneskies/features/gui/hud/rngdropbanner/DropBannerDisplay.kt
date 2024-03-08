@@ -14,7 +14,6 @@ import gg.essential.universal.UMatrixStack
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.time
-import me.partlysanestudios.partlysaneskies.utils.ChatUtils
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.onCooldown
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.colorCodeToColor
 import net.minecraftforge.client.event.ClientChatReceivedEvent
@@ -65,8 +64,6 @@ object DropBannerDisplay {
         val match = RARE_DROP_REGEX.find(formattedMessage) ?: return
         val (dropCategoryColor, dropCategory, dropColor, name, magicFind) = match.destructured
 
-        ChatUtils.sendClientMessage(dropCategoryColor.replace("§", "&"))
-
         // TODO: add check for blocked drop
 
         if (checkRarity(dropColor)) {
@@ -107,8 +104,6 @@ object DropBannerDisplay {
                 drop!!.dropCategoryColor
             }
         }
-
-        ChatUtils.sendClientMessage("Color: $categoryColor")
 
         if (!onCooldown(drop!!.timeDropped, (config.rareDropBannerTime * 1000).toLong())) {
             drop = null
