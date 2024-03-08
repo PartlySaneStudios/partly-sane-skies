@@ -26,9 +26,9 @@ object DropBannerDisplay {
     var drop: Drop? = null
 
     // Whenever someone updates the regex, please replace the regex in the following link:
-    // Regex: https://regex101.com/r/lPUJeH/3
+    // Regex: https://regex101.com/r/lPUJeH/8
     val RARE_DROP_REGEX =
-        "(?<dropTitle>(?:§.)+[\\w\\s]*[CD]ROP!) (?:§.)+(?:\\()?(?:§.)*(?:\\d+x )?(?:§.)*(?<dropColor>§.)(?<dropName>◆?[\\s\\w]+)(?:§.)+\\)? ?(?:(?:§.)+)?(?:\\((?:\\+(?:§.)*(?<mf>\\d+)% (?:§.)+✯ Magic Find(?:§.)*|[\\w\\s]+)\\))?".toRegex()
+        "(?:§r)*(?<dropCategoryColor>§.)(?:§.)+(?<dropCategory>[\\w\\s]*[CD]ROP!) (?:§.)+(?:\\()?(?:§.)*(?:\\d+x )?(?:§.)*(?<dropColor>§.)(?<name>◆?[\\s\\w]+)(?:§.)+\\)? ?(?:(?:§.)+)?(?:\\((?:\\+(?:§.)*(?<magicFind>\\d+)% (?:§.)+✯ Magic Find(?:§.)*|[\\w\\s]+)\\))?".toRegex()
 
 
     private const val SMALL_TEXT_SCALE = 2.5f
@@ -42,7 +42,6 @@ object DropBannerDisplay {
 
     private var topString = ""
     private var dropNameString = ""
-    private var magicFindString = ""
 
     private var topText = UIWrappedText(dropNameString, true, Color(0, 0, 0, 0), true).apply {
         setTextScale(PixelConstraint(BIG_TEXT_SCALE / 672 * window.getHeight() * config.bannerSize))
@@ -64,8 +63,9 @@ object DropBannerDisplay {
         val formattedMessage = event.message.formattedText
 
         val match = RARE_DROP_REGEX.find(formattedMessage) ?: return
-        val (dropTitle, dropColor, dropName, mf) = match.destructured
+        val (dropCategoryColor, dropCategory, dropColor, name, magicFind) = match.destructured
 
+        ChatUtils.sendClientMessage(dropCategoryColor.replace("§", "&"))
 
         // TODO: add check for blocked drop
 
@@ -78,8 +78,8 @@ object DropBannerDisplay {
         }
 
         if (config.rareDropBanner) {
-            val dropCategoryHex = colorCodeToColor(dropColor)
-            drop = Drop(dropName, dropTitle, dropCategoryHex, mf.toInt(), time)
+            val dropCategoryHex = colorCodeToColor(dropCategoryColor)
+            drop = Drop(name, dropCategory, dropCategoryHex, magicFind.toInt(), time)
         }
 
         // Future TODO: send discord webhook
@@ -90,7 +90,6 @@ object DropBannerDisplay {
         if (drop == null) {
             dropNameString = ""
             topString = ""
-            magicFindString = ""
 
             return
         }
@@ -108,6 +107,8 @@ object DropBannerDisplay {
                 drop!!.dropCategoryColor
             }
         }
+
+        ChatUtils.sendClientMessage("Color: $categoryColor")
 
         if (!onCooldown(drop!!.timeDropped, (config.rareDropBannerTime * 1000).toLong())) {
             drop = null
