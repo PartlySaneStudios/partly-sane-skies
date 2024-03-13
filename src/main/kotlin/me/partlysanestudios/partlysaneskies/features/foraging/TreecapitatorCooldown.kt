@@ -121,7 +121,11 @@ object TreecapitatorCooldown: Cooldown() {
         for (x in -1..1) {
             for (y in -1..1) {
                 for (z in -1..1) {
-                    if (isWood(point + Point3d(x.toDouble(), y.toDouble(), z.toDouble()))) {
+                    val newPoint = point + Point3d(x.toDouble(), y.toDouble(), z.toDouble())
+                    if (newPoint == point) {
+                        continue
+                    }
+                    if (isWood(newPoint)) {
                         return true
                     }
                 }
