@@ -2,6 +2,7 @@
 // Written by Su386.
 // See LICENSE for copyright and license notices.
 //
+
 package me.partlysanestudios.partlysaneskies.config
 
 import cc.polyfrost.oneconfig.config.Config
@@ -719,6 +720,14 @@ object OneConfigScreen : Config(
         subcategory = "Terminal Waypoints"
     )
     var terminalWaypoints = true
+
+    @Switch(
+        name = "Enable Goldor wall",
+        description = "Shows a wall where goldor is located",
+        category = "Dungeons",
+        subcategory = "Goldor Wall"
+    )
+    var goldorWall = false
 
     // Pearl Refill
     @Switch(
@@ -1734,6 +1743,13 @@ object OneConfigScreen : Config(
         category = "Dev"
     )
     var debugRenderRNGBanner = false
+
+    @Switch(
+        name = "Debug Goldor Wall",
+        description = "Debugs goldor wall",
+        category = "Dev"
+    )
+    var debugGoldorWall = false
 
     @Switch(
         name = "Generate Cylinder",
