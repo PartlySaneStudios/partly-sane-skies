@@ -14,9 +14,9 @@ import me.partlysanestudios.partlysaneskies.features.debug.DebugKey.isDebugMode
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager.accentColor
 import me.partlysanestudios.partlysaneskies.render.RenderPrimitives.drawBoxFill
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
-import me.partlysanestudios.partlysaneskies.utils.vectors.Point3d
-import me.partlysanestudios.partlysaneskies.utils.vectors.Point3d.Companion.toPoint3d
-import me.partlysanestudios.partlysaneskies.utils.vectors.Range3d
+import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Point3d
+import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Point3d.Companion.toPoint3d
+import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Range3d
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.Tessellator
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats
