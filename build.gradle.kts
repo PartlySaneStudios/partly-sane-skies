@@ -36,10 +36,10 @@ repositories {
 }
 
 dependencies {
-    implementation(shade("gg.essential:elementa-${mcData.versionStr}-${mcData.loader.name}:531") {
+    implementation(shade("gg.essential:elementa-${mcData.versionStr}-${mcData.loader.name}:636") {
         isTransitive = false
     })
-    implementation(shade("gg.essential:universalcraft-${mcData.versionStr}-${mcData.loader.name}:262") {
+    implementation(shade("gg.essential:universalcraft-${mcData.versionStr}-${mcData.loader.name}:323") {
         isTransitive = false
     })
     implementation(shade("org.spongepowered:mixin:0.7.11-SNAPSHOT") {

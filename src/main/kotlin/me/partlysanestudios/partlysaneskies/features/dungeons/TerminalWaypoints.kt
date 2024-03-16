@@ -16,9 +16,9 @@ import me.partlysanestudios.partlysaneskies.utils.ImageUtils.applyOpacity
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getAllArmorStands
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getAllPlayersInWorld
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
-import me.partlysanestudios.partlysaneskies.utils.vectors.Point3d
-import me.partlysanestudios.partlysaneskies.utils.vectors.Point3d.Companion.toPoint3d
-import me.partlysanestudios.partlysaneskies.utils.vectors.Range3d
+import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Point3d
+import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Point3d.Companion.toPoint3d
+import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Range3d
 import net.minecraft.entity.Entity
 import org.apache.logging.log4j.Level.*
 import java.awt.Color

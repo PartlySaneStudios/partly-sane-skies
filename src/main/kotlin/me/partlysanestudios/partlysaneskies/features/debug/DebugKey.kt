@@ -20,6 +20,9 @@ import me.partlysanestudios.partlysaneskies.features.dungeons.TerminalWaypoints
 import me.partlysanestudios.partlysaneskies.features.dungeons.playerrating.PlayerRating
 import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.Drop
 import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.DropBannerDisplay
+import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
+import me.partlysanestudios.partlysaneskies.render.RenderEuclid.drawCylinderFill
+import me.partlysanestudios.partlysaneskies.render.RenderEuclid.drawCylinderOutline
 import me.partlysanestudios.partlysaneskies.render.gui.hud.BannerRenderer.renderNewBanner
 import me.partlysanestudios.partlysaneskies.render.gui.hud.PSSBanner
 import me.partlysanestudios.partlysaneskies.render.waypoint.Waypoint
@@ -27,10 +30,15 @@ import me.partlysanestudios.partlysaneskies.system.SystemNotification
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.copyStringToClipboard
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
-import me.partlysanestudios.partlysaneskies.utils.vectors.Point3d
+import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Point3d
+import net.minecraft.client.renderer.GlStateManager
+import net.minecraft.client.renderer.Tessellator
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats
 import net.minecraftforge.client.event.ClientChatReceivedEvent
+import net.minecraftforge.client.event.RenderWorldLastEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import org.apache.logging.log4j.Level
+import org.lwjgl.opengl.GL11
 import java.awt.Color
 
 object DebugKey {
@@ -91,6 +99,10 @@ object DebugKey {
             GoldorWall.lastGoldorPos = Point3d.atPlayer()
             GoldorWall.lastFacingDirection = minecraft.thePlayer?.horizontalFacing?.axis
         }
+        
+        if (config.debugCylinder) {
+            cylinderPoint = Point3d.atPlayer()
+        }
     }
 
     // Runs chat analyzer for debug mode
@@ -108,5 +120,49 @@ object DebugKey {
         if (isDebugMode() && config.debugSpawnWaypoint) {
             event.pipeline.add(Waypoint("Debug Waypoint", waypointPoint.toBlockPosInt()))
         }
+    }
+
+    private var cylinderPoint = Point3d(0.0, 0.0, 0.0)
+    @SubscribeEvent
+    fun onWorldRenderLast(event: RenderWorldLastEvent) {
+
+        if (!(isDebugMode() && config.debugCylinder)) {
+            return
+        }
+        //            Sets the correct state
+        val renderManager = PartlySaneSkies.minecraft.renderManager
+
+        GlStateManager.pushMatrix()
+        GlStateManager.translate(-renderManager.viewerPosX, -renderManager.viewerPosY, -renderManager.viewerPosZ)
+
+        GlStateManager.disableTexture2D()
+        GlStateManager.disableCull()
+        GlStateManager.enableBlend()
+        GlStateManager.disableLighting()
+
+        GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO)
+        GL11.glLineWidth(4.0f)
+
+
+//            Gets the tessellator
+        val tessellator = Tessellator.getInstance() // from my understanding it's just a tesseract but for nerdier nerds
+        val worldRenderer = tessellator.worldRenderer
+
+        worldRenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION)
+        GlStateManager.color(ThemeManager.accentColor.toJavaColor().red/255f, ThemeManager.accentColor.toJavaColor().green/255f, ThemeManager.accentColor.toJavaColor().blue/255f, (ThemeManager.accentColor.toJavaColor().alpha/255f) * .667f)
+        worldRenderer.drawCylinderFill(cylinderPoint, 8.0, 20.0)
+        tessellator.draw()
+
+        worldRenderer.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION)
+        GlStateManager.color(1.0F, 0.0F, 0.0F, 1.0F)
+        worldRenderer.drawCylinderOutline(cylinderPoint, 8.0, 20.0)
+        tessellator.draw()
+
+        GlStateManager.resetColor()
+        GlStateManager.enableTexture2D()
+        GlStateManager.disableBlend()
+        GlStateManager.enableDepth()
+
+        GlStateManager.popMatrix()
     }
 }

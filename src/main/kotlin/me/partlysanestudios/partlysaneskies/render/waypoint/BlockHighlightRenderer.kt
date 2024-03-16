@@ -8,7 +8,7 @@ package me.partlysanestudios.partlysaneskies.render.waypoint
 
 import me.partlysanestudios.partlysaneskies.render.RenderPrimitives.drawBoxFill
 import me.partlysanestudios.partlysaneskies.render.RenderPrimitives.drawBoxOutline
-import me.partlysanestudios.partlysaneskies.utils.vectors.Point3d
+import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Point3d
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.Tessellator
