@@ -299,7 +299,7 @@ class PartlySaneSkies {
         }, "Init Data").start()
         Thread { DiscordRPC.init() }.start()
         // Finished loading
-        log(Level.INFO, "Partly Sane Skies has loaded.")
+        log(Level.INFO, "Partly Sane Skies has loaded (Version: ${VERSION}).")
     }
 
     private fun registerEvent(obj: Any) {
