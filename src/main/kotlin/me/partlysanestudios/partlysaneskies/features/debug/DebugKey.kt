@@ -90,7 +90,7 @@ object DebugKey {
         }
 
         if (config.debugRenderRNGBanner) {
-            DropBannerDisplay.drop = Drop("Test Name", "Test Category", Color.MAGENTA, 69, time)
+            DropBannerDisplay.drop = Drop("Test Name", "Test Category", Color.MAGENTA, "§d", 69, time)
         }
         if (config.debugCylinder) {
             cylinderPoint = Point3d.atPlayer()
