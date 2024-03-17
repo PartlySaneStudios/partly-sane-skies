@@ -14,6 +14,8 @@ import me.partlysanestudios.partlysaneskies.render.gui.hud.cooldown.Cooldown
 import me.partlysanestudios.partlysaneskies.render.gui.hud.cooldown.CooldownManager
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils.getItemId
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
+import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Point3d
+import net.minecraft.block.material.Material
 import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
@@ -25,6 +27,7 @@ object TreecapitatorCooldown: Cooldown() {
     init {
         CooldownManager.registerCooldown(this)
     }
+
     override fun getTotalTime(): Long {
         var cooldown = 2000L
 
@@ -92,12 +95,43 @@ object TreecapitatorCooldown: Cooldown() {
             return
         }
 
-        if (isCooldownActive()) {
+        if (isCooldownActive()) { // Checks if it a
+            return
+        }
+
+
+        if (!isWood(event.point)) { // Checks if the block is wood
+            return
+        }
+
+        if (!isAdjacentToWood(event.point)) { // Checks if the block is adjacent to wood
             return
         }
 
         this.startCooldown()
     }
 
+    private fun isWood(point: Point3d): Boolean {
+        val block = point.getBlockAtPoint()
+        val material = block?.material
+        return material == Material.wood
+    }
 
+    private fun isAdjacentToWood(point: Point3d): Boolean {
+        for (x in -1..1) {
+            for (y in -1..1) {
+                for (z in -1..1) {
+                    if (x == 0 && y == 0 && z == 0) {
+                        continue
+                    }
+
+                    val pointOffset = Point3d(x.toDouble(), y.toDouble(), z.toDouble())
+                    if (isWood(point + pointOffset)) {
+                        return true
+                    }
+                }
+            }
+        }
+        return false
+    }
 }

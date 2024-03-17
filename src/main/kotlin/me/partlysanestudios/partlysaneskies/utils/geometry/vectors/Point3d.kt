@@ -5,6 +5,9 @@
 package me.partlysanestudios.partlysaneskies.utils.geometry.vectors
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
+import net.minecraft.block.Block
+import net.minecraft.block.state.BlockState
+import net.minecraft.block.state.IBlockState
 import net.minecraft.util.BlockPos
 import net.minecraft.util.Vec3
 import kotlin.math.pow
@@ -72,5 +75,18 @@ open class Point3d(x: Double, y: Double, val z: Double) : Point2d(x, y) {
 
     override fun toString(): String {
         return "Point3d(${super.toString()}, z=$z)"
+    }
+
+
+    fun getBlockAtPoint(): Block? {
+        return minecraft.theWorld.getBlockState(this.toBlockPos())?.block
+    }
+
+    operator fun plus(point: Point3d): Point3d {
+        return Point3d(point.x + this.x,  point.y + this.y, point.z + this.z)
+    }
+
+    operator fun minus(point: Point3d): Point3d {
+        return Point3d(point.x - this.x,  point.y - this.y, point.z - this.z)
     }
 }
