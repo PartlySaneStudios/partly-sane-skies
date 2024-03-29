@@ -24,6 +24,7 @@
 | [Beta v0.5.8](beta-v0.5.8.md) | [19 January 2024](beta-v0.5.8.md)   |
 | [Beta v0.5.9](beta-v0.5.9.md) | [21 January 2024](beta-v0.5.9.md)   |
 | [Beta v0.6](beta-v0.6.md)     | [26 February 2024](beta-v0.6.md)    |
+| [Beta v0.6.1](beta-v0.6.1.md) | [29 March 2024](beta-v0.6.1.md)     |
 
 
 
