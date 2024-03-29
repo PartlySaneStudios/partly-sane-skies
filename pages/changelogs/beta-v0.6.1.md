@@ -1,5 +1,10 @@
 # Beta v0.6.1
 
+Hey everyone! This update fixes some of pretty important bugs, as well as contains a few polishing changes. 
+We have been making some server side changes, which affect all version after v0.6, regardless of update status. 
+If you have experienced issues with getting price data, the server was probably down for maintenance but should be fixed now.
+Enjoy the update!
+
 ## Changes
 - Removed the ``/bm`` command alias from the best minion calculator due to conflict with better map (@Su386yt)
 - Added rarity colour to the RNG Drop Banner (@Su386yt)
