@@ -26,6 +26,7 @@ import me.partlysanestudios.partlysaneskies.data.api.RequestsManager.newRequest
 import me.partlysanestudios.partlysaneskies.data.cache.PetData
 import me.partlysanestudios.partlysaneskies.data.cache.StatsData
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager
+import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager.getPublicDataUrl
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager.getRepoName
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager.getRepoOwner
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager
@@ -147,7 +148,7 @@ class PartlySaneSkies {
 
         val mainMenuRequest =
             Request(
-                "${config.apiUrl}/v1/pss/publicdata?owner=${getRepoOwner()}&repo=${getRepoName()}&path=/data/main_menu.json",
+                getPublicDataUrl(getRepoOwner(), getRepoName(), "main_menu.json"),
                 { request: Request? ->
                     CustomMainMenu.setMainMenuInfo(
                         request

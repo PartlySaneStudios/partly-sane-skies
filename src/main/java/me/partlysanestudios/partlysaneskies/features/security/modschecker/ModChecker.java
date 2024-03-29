@@ -33,6 +33,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion;
+import static me.partlysanestudios.partlysaneskies.PartlySaneSkies.config;
+
 public class ModChecker {
 
     public static void registerModCheckCommand() {
@@ -284,7 +287,12 @@ public class ModChecker {
     }
 
     private static void loadModDataFromRepo(String userName, String repoName) {
-        String url = PartlySaneSkies.Companion.getConfig().getApiUrl() + "/v1/pss/publicdata?owner=" + userName + "&repo=" + repoName + "&path=/data/mods.json";
+        String url;
+        if (Companion.getConfig().getUseGithubForPublicData()) {
+            url = "https://raw.githubusercontent.com/" + userName + "/" + repoName + "/main/data/mods.json";
+        } else {
+            url = PartlySaneSkies.Companion.getConfig().getApiUrl() + "/v1/pss/publicdata?owner=" + userName + "&repo=" + repoName + "&path=/data/mods.json";
+        }
         RequestsManager.INSTANCE.newRequest(new Request(url, request -> {
             knownMods = null;
             try {
