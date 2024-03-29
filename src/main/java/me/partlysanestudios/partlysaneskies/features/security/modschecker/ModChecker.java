@@ -34,7 +34,6 @@ import java.util.List;
 import java.util.Map;
 
 import static me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion;
-import static me.partlysanestudios.partlysaneskies.PartlySaneSkies.config;
 
 public class ModChecker {
 
