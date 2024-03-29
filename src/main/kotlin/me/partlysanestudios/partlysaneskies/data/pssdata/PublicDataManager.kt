@@ -54,11 +54,7 @@ object PublicDataManager {
         }
 
         try {
-            val url = if (config.useGithubForPublicData) {
-                "https://raw.githubusercontent.com/${getRepoOwner()}/${getRepoName()}/main/data/${fixedPath}"
-            } else {
-                "${config.apiUrl}/v1/pss/publicdata?owner=${getRepoOwner()}&repo=${getRepoName()}&path=/data/${fixedPath}"
-            }
+            val url = getPublicDataUrl(getRepoOwner(), getRepoName(), fixedPath)
             RequestsManager.newRequest(
                 Request(url, {
                     if (!it.hasSucceeded()) {
@@ -82,6 +78,13 @@ object PublicDataManager {
         } else fileCache[fixedPath]?: ""
     }
 
+    fun getPublicDataUrl(repoOwner: String, repoName: String, filePath: String): String {
+        return if (config.useGithubForPublicData) {
+            "https://raw.githubusercontent.com/${repoOwner}/${repoName}/main/data/${filePath}"
+        } else {
+            "${config.apiUrl}/v1/pss/publicdata?owner=${repoOwner}&repo=${repoName}&path=/data/${filePath}"
+        }
+    }
     /**
      * Creates and registers the clear data command
      */
