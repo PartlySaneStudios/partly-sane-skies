@@ -19,3 +19,11 @@
 | [Beta v0.5.3](beta-v0.5.3.md) | [28 December 2023](beta-v0.5.3.md)  |
 | [Beta v0.5.4](beta-v0.5.4.md) | [02 January 2024](beta-v0.5.4.md)   |
 | [Beta v0.5.5](beta-v0.5.5.md) | [13 January 2024](beta-v0.5.5.md)   |
+| [Beta v0.5.6](beta-v0.5.6.md) | [17 January 2024](beta-v0.5.6.md)   |
+| [Beta v0.5.7](beta-v0.5.7.md) | [17 January 2024](beta-v0.5.7.md)   |
+| [Beta v0.5.8](beta-v0.5.8.md) | [19 January 2024](beta-v0.5.8.md)   |
+| [Beta v0.5.9](beta-v0.5.9.md) | [21 January 2024](beta-v0.5.9.md)   |
+| [Beta v0.6](beta-v0.6.md)     | [26 February 2024](beta-v0.6.md)    |
+
+
+
