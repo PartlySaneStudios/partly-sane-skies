@@ -76,7 +76,7 @@ object DropBannerDisplay {
 
         if (config.rareDropBanner) {
             val dropCategoryHex = colorCodeToColor(dropCategoryColor)
-            drop = Drop(name, dropCategory, dropCategoryHex, magicFind.toIntOrNull()?: 0, time)
+            drop = Drop(name, dropCategory, dropCategoryHex, dropColor, magicFind.toIntOrNull() ?: 0, time)
         }
 
         // Future TODO: send discord webhook
