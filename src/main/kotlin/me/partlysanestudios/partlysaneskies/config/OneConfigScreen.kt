@@ -1751,6 +1751,13 @@ object OneConfigScreen : Config(
         category = "Dev"
     )
     var debugSendDiscordWebhook = false
+  
+    @Switch(
+        name = "Generate Cylinder",
+        description = "Generates a cylinder.",
+        category = "Dev",
+    )
+    var debugCylinder = false
 
     // Example HUD
     @HUD(

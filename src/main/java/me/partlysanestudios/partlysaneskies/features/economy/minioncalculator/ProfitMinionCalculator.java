@@ -318,7 +318,6 @@ public HashMap<MinionData.Minion.Upgrade, PSSToggle> addMinionUpgradeButtons() {
                 .addAlias("minioncalc")
                 .addAlias("bestminion")
                 .addAlias("mc")
-                .addAlias("bm")
                 .setDescription("Opens the best minion calculator")
                 .setRunnable((s,a) -> {
                     ChatUtils.INSTANCE.sendClientMessage("§bOpening Minion Calculator...");
