@@ -1,0 +1,48 @@
+{
+	"schemaVersion": 1,
+	"id": "partlysaneskies",
+	"version": "${mod_version}",
+	"name": "Partly Sane Skies",
+	"description": "This is an example description! Tell everyone what your mod is about!",
+	"authors": [
+		"Me!"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/partlysaneskies/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			{
+				"value": "me.partlysaneskies.PartlySaneSkies",
+				"adapter": "kotlin"
+			}
+		],
+		"client": [
+			{
+				"value": "me.partlysaneskies.PartlySaneSkiesClient",
+				"adapter": "kotlin"
+			}
+		]
+	},
+	"mixins": [
+		"partlysaneskies.mixins.json",
+		{
+			"config": "partlysaneskies.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.15.9",
+		"minecraft": "~1.20.4",
+		"java": ">=17",
+		"fabric-api": "*",
+		"fabric-language-kotlin": ">=1.9.23"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}

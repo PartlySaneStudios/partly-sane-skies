@@ -14,18 +14,18 @@ plugins {
     id("dev.deftu.gradle.tools.minecraft.releases") version(dgtVersion)
 }
 
-loom {
-    forge {
-        pack200Provider.set(dev.architectury.pack200.java.Pack200Adapter())
-    }
-}
+//loom {
+//    forge {
+//        pack200Provider.set(dev.architectury.pack200.java.Pack200Adapter())
+//    }
+//}
 
 toolkit.useDevAuth()
 
 toolkitLoomHelper {
     useTweaker("cc.polyfrost.oneconfig.loader.stage0.LaunchWrapperTweaker")
     disableRunConfigs(GameSide.SERVER)
-    useForgeMixin("pss")
+
 }
 
 repositories {
@@ -38,7 +38,7 @@ repositories {
 }
 
 dependencies {
-    implementation(shade("gg.essential:elementa-${mcData.versionStr}-${mcData.loader.name}:636") {
+    implementation(shade("gg.essential:elementa-1.18.1-${mcData.loader.name}:636") {
         isTransitive = false
     })
     implementation(shade("gg.essential:universalcraft-${mcData.versionStr}-${mcData.loader.name}:323") {
@@ -55,7 +55,7 @@ dependencies {
     
     implementation(kotlin("stdlib"))
 
-    compileOnly("cc.polyfrost:oneconfig-${mcData.versionStr}-${mcData.loader.name}:0.2.2-alpha+")
+//    compileOnly("cc.polyfrost:oneconfig-${mcData.versionStr}-${mcData.loader.name}:0.2.2-alpha+")
 }
 
 toolkitReleases {
