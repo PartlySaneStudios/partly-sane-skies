@@ -40,7 +40,7 @@ object CrystalHollowsGemstoneMapper {
                     val currentTime = time
                     val timeElapsed = startTime - currentTime
                     val estimatedTotalTime = (rangeSize * timeElapsed) / checkedBlocks
-                    val timeLeft = startTime + estimatedTotalTime - currentTime
+                    val timeLeft = estimatedTotalTime - timeElapsed
 
                     val minutesLeft = timeLeft / 1000 / 60
                     sendClientMessage("Checking block (${x.formatNumber()}, ${y.formatNumber()}, ${z.formatNumber()}) -- ${checkedBlocks.formatNumber()} / ${rangeSize.formatNumber()} (${(checkedBlocks/rangeSize *  100).round(1)}%, ${minutesLeft.round(2).formatNumber()} minutes left)")
