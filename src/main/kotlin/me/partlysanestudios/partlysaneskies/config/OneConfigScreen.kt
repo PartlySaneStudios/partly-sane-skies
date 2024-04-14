@@ -1742,6 +1742,13 @@ object OneConfigScreen : Config(
     )
     var debugCylinder = false
 
+    @Switch(
+        name = "Scan crystal hollows crystals",
+        description = "Don't use this",
+        category = "Dev",
+    )
+    var debugScanCrystalHollowsCrystals = false
+
     // Example HUD
     @HUD(
         name = "Test Hud Element",

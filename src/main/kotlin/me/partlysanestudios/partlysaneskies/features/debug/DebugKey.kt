@@ -95,6 +95,10 @@ object DebugKey {
         if (config.debugCylinder) {
             cylinderPoint = Point3d.atPlayer()
         }
+
+        if (config.debugScanCrystalHollowsCrystals) {
+            CrystalHollowsGemstoneMapper.scanWorld()
+        }
     }
 
     // Runs chat analyzer for debug mode
