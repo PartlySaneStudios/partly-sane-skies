@@ -124,7 +124,7 @@ object StringUtils {
         return str
     }
 
-    fun Double.formatNumber(): String {
+    fun Number.formatNumber(): String {
         val decimalFormat = DecimalFormat("#,###.00")
 
 //        Creates a string with the number formatted with the above decimal format

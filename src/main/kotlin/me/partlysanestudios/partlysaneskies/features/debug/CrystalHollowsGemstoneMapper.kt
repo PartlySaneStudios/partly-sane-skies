@@ -2,8 +2,11 @@ package me.partlysanestudios.partlysaneskies.features.debug
 
 import com.google.gson.GsonBuilder
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.time
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.round
+import me.partlysanestudios.partlysaneskies.utils.StringUtils
+import me.partlysanestudios.partlysaneskies.utils.StringUtils.formatNumber
 import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Point3d
 import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Range3d
 import net.minecraft.block.material.Material
@@ -28,12 +31,16 @@ object CrystalHollowsGemstoneMapper {
         val rangeSize = (range.sortedPoints[1].x - range.sortedPoints[0].x) * (range.sortedPoints[1].y - range.sortedPoints[0].y) *  (range.sortedPoints[1].z - range.sortedPoints[0].z)
         var checkedBlocks = 0
         val gemstones = LinkedList<Gemstone>()
+        val startTime = time
 
         for (x in range.sortedPoints[0].x.toInt()..range.sortedPoints[1].x.toInt()) {
             for (y in range.sortedPoints[0].y.toInt()..range.sortedPoints[1].y.toInt()) {
                 for (z in range.sortedPoints[0].z.toInt()..range.sortedPoints[1].z.toInt()) {
                     checkedBlocks++
-                    sendClientMessage("Checking block $checkedBlocks / $rangeSize (${(checkedBlocks/rangeSize *  100).round(1)}%)")
+                    val timeElapsed = startTime - time
+                    val estimatedTotalTime = (rangeSize * timeElapsed) / checkedBlocks
+                    val timeLeft = (startTime + timeElapsed)
+                    sendClientMessage("Checking block ($x, $y, $z) -- ${checkedBlocks.formatNumber()} / ${rangeSize.formatNumber()} (${(checkedBlocks/rangeSize *  100).round(1)}%)")
                     val point = Point3d(x.toDouble(), y.toDouble(), z.toDouble())
 
                     if (!isGlass(world.getBlockState(point.toBlockPosInt()))) {
