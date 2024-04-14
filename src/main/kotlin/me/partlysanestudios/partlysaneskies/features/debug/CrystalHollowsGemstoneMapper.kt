@@ -37,10 +37,13 @@ object CrystalHollowsGemstoneMapper {
             for (y in range.sortedPoints[0].y.toInt()..range.sortedPoints[1].y.toInt()) {
                 for (z in range.sortedPoints[0].z.toInt()..range.sortedPoints[1].z.toInt()) {
                     checkedBlocks++
-                    val timeElapsed = startTime - time
+                    val currentTime = time
+                    val timeElapsed = startTime - currentTime
                     val estimatedTotalTime = (rangeSize * timeElapsed) / checkedBlocks
-                    val timeLeft = (startTime + timeElapsed)
-                    sendClientMessage("Checking block ($x, $y, $z) -- ${checkedBlocks.formatNumber()} / ${rangeSize.formatNumber()} (${(checkedBlocks/rangeSize *  100).round(1)}%)")
+                    val timeLeft = startTime + estimatedTotalTime - currentTime
+
+                    val minutesLeft = timeLeft / 1000 / 60
+                    sendClientMessage("Checking block (${x.formatNumber()}, ${y.formatNumber()}, ${z.formatNumber()}) -- ${checkedBlocks.formatNumber()} / ${rangeSize.formatNumber()} (${(checkedBlocks/rangeSize *  100).round(1)}%, ${minutesLeft.round(2).formatNumber()} minutes left)")
                     val point = Point3d(x.toDouble(), y.toDouble(), z.toDouble())
 
                     if (!isGlass(world.getBlockState(point.toBlockPosInt()))) {
