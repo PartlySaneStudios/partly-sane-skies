@@ -102,7 +102,12 @@ object CrystalHollowsGemstoneMapper {
 
             val averagePoint = Point3d((sumX/coordinates.size()).round(1), (sumY/coordinates.size()).round(1), (sumZ/coordinates.size()).round(1))
 
-            val type = "COLOR_${world.getBlockState(firstPoint.toBlockPosInt()).getValue(PropertyEnum.create("color", EnumDyeColor::class.java))}"
+            try {
+                val type = "COLOR_${world.getBlockState(firstPoint.toBlockPosInt()).getValue(PropertyEnum.create("color", EnumDyeColor::class.java))}"
+
+            } catch (e: Exception) {
+                continue
+            }
 
             gemstones.add(PrettyGemstone(averagePoint, type, coordinates.size()))
         }
