@@ -7,23 +7,20 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.time
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.round
-import me.partlysanestudios.partlysaneskies.utils.StringUtils
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.formatNumber
 import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Point3d
 import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Range3d
 import net.minecraft.block.material.Material
+import net.minecraft.block.properties.PropertyEnum
 import net.minecraft.block.state.IBlockState
+import net.minecraft.item.EnumDyeColor
 import java.io.File
 import java.io.FileWriter
-import java.net.URI
-import java.net.URL
-import java.nio.file.Path
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.*
-import kotlin.collections.ArrayList
 
 object CrystalHollowsGemstoneMapper {
 
@@ -99,13 +96,13 @@ object CrystalHollowsGemstoneMapper {
             for (coordElement in coordinates) {
                 val coordObj = coordElement.asJsonObject
                 sumX += coordObj.get("x").asDouble
-                sumY += coordObj.get("x").asDouble
-                sumZ += coordObj.get("x").asDouble
+                sumY += coordObj.get("y").asDouble
+                sumZ += coordObj.get("z").asDouble
             }
 
             val averagePoint = Point3d((sumX/coordinates.size()).round(1), (sumY/coordinates.size()).round(1), (sumZ/coordinates.size()).round(1))
 
-            val type = "COLOR_${world.getBlockState(firstPoint.toBlockPosInt()).block.blockColor}"
+            val type = "COLOR_${world.getBlockState(firstPoint.toBlockPosInt()).getValue(PropertyEnum.create("color", EnumDyeColor::class.java))}"
 
             gemstones.add(PrettyGemstone(averagePoint, type, coordinates.size()))
         }
@@ -121,7 +118,7 @@ object CrystalHollowsGemstoneMapper {
         @Expose
         val type: String,
         @Expose
-        val size: Int
+        val size: Int,
     )
 
 
