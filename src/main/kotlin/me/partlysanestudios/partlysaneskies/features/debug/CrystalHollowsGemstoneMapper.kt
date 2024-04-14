@@ -83,7 +83,7 @@ object CrystalHollowsGemstoneMapper {
         var i = 0.0
         for (element in jsonArray) {
             i++
-            sendClientMessage("Converting crystal ${i.formatNumber()} of ${totalLength.formatNumber()} (${(i/totalLength * 100).round(1).formatNumber()})...")
+            sendClientMessage("Converting crystal ${i.formatNumber()} of ${totalLength.formatNumber()} (${(i/totalLength * 100).round(1).formatNumber()}%)...")
             val obj = element.asJsonObject
 
             val coordinates = obj.get("coordinates").asJsonArray
