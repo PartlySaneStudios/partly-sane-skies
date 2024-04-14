@@ -1749,6 +1749,13 @@ object OneConfigScreen : Config(
     )
     var debugScanCrystalHollowsCrystals = false
 
+    @Switch(
+        name = "Convert crystal hollows crystals scan to pretty data",
+        description = "Don't use this pt. 2",
+        category = "Dev",
+    )
+    var debugConvertScanToPrettyData = false
+
     // Example HUD
     @HUD(
         name = "Test Hud Element",

@@ -101,6 +101,12 @@ object DebugKey {
                 CrystalHollowsGemstoneMapper.scanWorld()
             }.start()
         }
+
+        if (config.debugConvertScanToPrettyData) {
+            Thread() {
+                CrystalHollowsGemstoneMapper.getPrettyData()
+            }.start()
+        }
     }
 
     // Runs chat analyzer for debug mode
