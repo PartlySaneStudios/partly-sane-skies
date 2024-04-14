@@ -97,7 +97,9 @@ object DebugKey {
         }
 
         if (config.debugScanCrystalHollowsCrystals) {
-            CrystalHollowsGemstoneMapper.scanWorld()
+            Thread() {
+                CrystalHollowsGemstoneMapper.scanWorld()
+            }.start()
         }
     }
 
