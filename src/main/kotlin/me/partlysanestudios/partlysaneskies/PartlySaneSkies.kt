@@ -72,6 +72,7 @@ import me.partlysanestudios.partlysaneskies.features.information.WikiArticleOpen
 import me.partlysanestudios.partlysaneskies.features.mining.MiningEvents
 import me.partlysanestudios.partlysaneskies.features.mining.Pickaxes
 import me.partlysanestudios.partlysaneskies.features.mining.WormWarning
+import me.partlysanestudios.partlysaneskies.features.mining.crystalhollows.gemstonewaypoints.GemstoneData
 import me.partlysanestudios.partlysaneskies.features.misc.SanityCheck
 import me.partlysanestudios.partlysaneskies.features.security.modschecker.ModChecker
 import me.partlysanestudios.partlysaneskies.features.skills.PetAlert
@@ -241,6 +242,7 @@ class PartlySaneSkies {
         registerEvent(StatsData)
         registerEvent(ExampleHud)
         registerEvent(CooldownHud)
+        registerEvent(GemstoneData)
 
         // Registers all client side commands
         HelpCommand.registerPSSCommand()

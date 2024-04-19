@@ -106,6 +106,7 @@ object CrystalHollowsGemstoneMapper {
                 val type = "COLOR_${world.getBlockState(firstPoint.toBlockPosInt()).getValue(PropertyEnum.create("color", EnumDyeColor::class.java))}"
                 gemstones.add(PrettyGemstone(averagePoint, type, coordinates.size()))
             } catch (e: Exception) {
+                e.printStackTrace()
                 continue
             }
 
