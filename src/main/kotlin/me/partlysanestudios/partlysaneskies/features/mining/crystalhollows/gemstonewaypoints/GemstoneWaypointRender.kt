@@ -1,6 +1,7 @@
 package me.partlysanestudios.partlysaneskies.features.mining.crystalhollows.gemstonewaypoints
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
+import me.partlysanestudios.partlysaneskies.data.skyblockdata.IslandType
 import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.minecraft.render.RenderWaypointEvent
 import me.partlysanestudios.partlysaneskies.render.waypoint.Waypoint
@@ -14,6 +15,10 @@ object GemstoneWaypointRender {
     @SubscribePSSEvent
     fun onWaypointRenderEvent(event: RenderWaypointEvent) {
         if (!config.renderWaypoints) {
+            return
+        }
+
+        if (!IslandType.CRYSTAL_HOLLOWS.onIsland()) {
             return
         }
 
