@@ -60,7 +60,13 @@ object GemstoneWaypointRender {
                         if (gemstone.size < config.gemstoneMinSize) {
                             continue
                         }
-                        val waypoint = Waypoint(gemstone.type.name, gemstone.block.toBlockPos(), gemstone.type.color.applyOpacity(255), gemstone.type.color.applyOpacity(100))
+                        val waypoint = Waypoint(
+                            "${gemstone.type.displayName} Gemstone | Size: ${gemstone.size}",
+                            gemstone.block.toBlockPos(),
+                            outlineColor = gemstone.type.color.applyOpacity(255),
+                            fillColor = gemstone.type.color.applyOpacity(100),
+                            showBeam = config.showBeam
+                        )
                         event.pipeline.add(waypoint)
                     }
                 }

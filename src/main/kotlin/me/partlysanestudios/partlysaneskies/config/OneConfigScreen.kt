@@ -1153,6 +1153,15 @@ object OneConfigScreen : Config(
     var gemstoneMinSize = 0
 
     @Switch(
+        name = "Show waypoint beam",
+        description = "Show a beam going from the waypoint to the top of the world. Disable with large amounts of waypoints",
+        category = "Mining",
+        subcategory = "Gemstone Waypoints",
+        size = 2
+    )
+    var showBeam = false
+
+    @Switch(
         name = "Show Topaz Waypoints",
         description = "Shows Topaz waypoints",
         category = "Mining",
