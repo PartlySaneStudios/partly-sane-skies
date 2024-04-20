@@ -1136,7 +1136,7 @@ object OneConfigScreen : Config(
         name = "Waypoint Render Distance (Chunks)",
         description = "Radius of chunks to render waypoints in. (Only works in integer denominations)",
         category = "Mining",
-        subcategory = "Pickaxes",
+        subcategory = "Gemstone Waypoints",
         min = 1f,
         max = 16f
     )

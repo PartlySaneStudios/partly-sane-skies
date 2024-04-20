@@ -4,6 +4,7 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.minecraft.render.RenderWaypointEvent
 import me.partlysanestudios.partlysaneskies.render.waypoint.Waypoint
+import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
 import me.partlysanestudios.partlysaneskies.utils.ImageUtils.applyOpacity
 import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Point2d
 import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Point3d
@@ -52,7 +53,7 @@ object GemstoneWaypointRender {
 
                 for (type in gemstonesTypesToShow) {
                     for (gemstone in chunkData[type] ?: continue) {
-                        val waypoint = Waypoint(gemstone.type.name, gemstone.block.toBlockPos(), gemstone.type.color.applyOpacity(125), gemstone.type.color.applyOpacity(255))
+                        val waypoint = Waypoint(gemstone.type.name, gemstone.block.toBlockPos(), gemstone.type.color.applyOpacity(255), gemstone.type.color.applyOpacity(100))
                         event.pipeline.add(waypoint)
                     }
                 }
