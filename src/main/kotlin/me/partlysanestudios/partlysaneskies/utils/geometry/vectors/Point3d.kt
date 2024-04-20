@@ -2,6 +2,7 @@
 // Written by Su386 and J10a1n15.
 // See LICENSE for copyright and license notices.
 //
+
 package me.partlysanestudios.partlysaneskies.utils.geometry.vectors
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft

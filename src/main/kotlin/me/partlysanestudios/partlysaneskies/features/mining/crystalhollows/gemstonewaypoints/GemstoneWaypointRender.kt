@@ -1,3 +1,9 @@
+//
+// Written by Su386.
+// See LICENSE for copyright and license notices.
+//
+
+
 package me.partlysanestudios.partlysaneskies.features.mining.crystalhollows.gemstonewaypoints
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
