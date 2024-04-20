@@ -62,7 +62,7 @@ open class Point3d(x: Double, y: Double, val z: Double) : Point2d(x, y) {
     }
 
     fun toChunk(): Point2d {
-        return Point2d((this.x/8).toInt().toDouble(), (this.z/8).toInt().toDouble())
+        return Point2d((this.x/16).toInt().toDouble(), (this.z/16).toInt().toDouble())
     }
 
     operator fun plus(point: Point3d): Point3d {
