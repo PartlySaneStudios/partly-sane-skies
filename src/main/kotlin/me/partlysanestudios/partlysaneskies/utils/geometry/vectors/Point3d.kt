@@ -52,26 +52,6 @@ open class Point3d(x: Double, y: Double, val z: Double) : Point2d(x, y) {
     }
 
 
-    override fun equals(other: Any?): Boolean {
-        if (other == null) {
-            return false
-        }
-        if (other !is Point3d) {
-            return false
-        }
-        if (other.x != x) {
-            return false
-        }
-        if (other.y != y) {
-            return false
-        }
-        if (other.z != z) {
-            return false
-        }
-
-        return true
-
-    }
 
     override fun toString(): String {
         return "Point3d(${super.toString()}, z=$z)"
@@ -92,5 +72,21 @@ open class Point3d(x: Double, y: Double, val z: Double) : Point2d(x, y) {
 
     operator fun minus(point: Point3d): Point3d {
         return Point3d(point.x - this.x,  point.y - this.y, point.z - this.z)
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+        if (!super.equals(other)) return false
+
+        other as Point3d
+
+        return z == other.z
+    }
+
+    override fun hashCode(): Int {
+        var result = super.hashCode()
+        result = 31 * result + z.hashCode()
+        return result
     }
 }
