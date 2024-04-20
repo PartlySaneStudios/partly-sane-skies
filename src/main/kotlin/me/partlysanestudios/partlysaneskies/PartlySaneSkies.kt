@@ -64,6 +64,7 @@ import me.partlysanestudios.partlysaneskies.features.farming.garden.GardenTradeV
 import me.partlysanestudios.partlysaneskies.features.farming.garden.SkymartValue
 import me.partlysanestudios.partlysaneskies.features.foraging.TreecapitatorCooldown
 import me.partlysanestudios.partlysaneskies.features.gui.CustomMainMenu
+import me.partlysanestudios.partlysaneskies.features.gui.CustomMainMenu.setFunFact
 import me.partlysanestudios.partlysaneskies.features.gui.RefreshKeybinds
 import me.partlysanestudios.partlysaneskies.features.gui.hud.CooldownHud
 import me.partlysanestudios.partlysaneskies.features.gui.hud.LocationBannerDisplay
@@ -155,14 +156,6 @@ class PartlySaneSkies {
                     )
                 })
         newRequest(mainMenuRequest)
-        val funFactRequest = Request(
-            CustomMainMenu.funFactApi,
-            { request: Request? ->
-                CustomMainMenu.setFunFact(
-                    request
-                )
-            })
-        newRequest(funFactRequest)
         trackLoad()
 
         // Loads extra json data
