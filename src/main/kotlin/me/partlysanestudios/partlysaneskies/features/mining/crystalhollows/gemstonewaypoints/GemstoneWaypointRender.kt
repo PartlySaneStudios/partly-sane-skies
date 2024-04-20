@@ -42,7 +42,7 @@ object GemstoneWaypointRender {
             gemstonesTypesToShow.add(GemstoneData.GemstoneType.JADE)
         }
 
-        val renderDistance = config.waypointRenderDistance
+        val renderDistance = config.gemstoneWaypointRenderDistance
 
         val playerChunk = Point3d.atPlayer().toChunk()
 
@@ -57,6 +57,9 @@ object GemstoneWaypointRender {
 
                 for (type in gemstonesTypesToShow) {
                     for (gemstone in chunkData[type] ?: continue) {
+                        if (gemstone.size < config.gemstoneMinSize) {
+                            continue
+                        }
                         val waypoint = Waypoint(gemstone.type.name, gemstone.block.toBlockPos(), gemstone.type.color.applyOpacity(255), gemstone.type.color.applyOpacity(100))
                         event.pipeline.add(waypoint)
                     }

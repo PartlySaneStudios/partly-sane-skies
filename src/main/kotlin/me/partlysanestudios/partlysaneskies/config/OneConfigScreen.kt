@@ -1133,14 +1133,24 @@ object OneConfigScreen : Config(
     var renderWaypoints = false
 
     @Slider(
-        name = "Waypoint Render Distance (Chunks)",
+        name = "Gemstone Waypoint Render Distance (Chunks)",
         description = "Radius of chunks to render waypoints in. (Only works in integer denominations)",
         category = "Mining",
         subcategory = "Gemstone Waypoints",
         min = 1f,
         max = 16f
     )
-    var waypointRenderDistance = 6
+    var gemstoneWaypointRenderDistance = 6
+
+    @Slider(
+        name = "Minimum Gemstone Size",
+        description = "Hides gemstones that are smaller than this size.",
+        category = "Mining",
+        subcategory = "Gemstone Waypoints",
+        min = 0f,
+        max = 100f
+    )
+    var gemstoneMinSize = 0
 
     @Switch(
         name = "Show Topaz Waypoints",
