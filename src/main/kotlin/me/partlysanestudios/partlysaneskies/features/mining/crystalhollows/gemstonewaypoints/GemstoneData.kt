@@ -32,6 +32,7 @@ object GemstoneData {
         Thread({
             val startTime = time
             val publicDataResponse = PublicDataManager.getFile("constants/gemstone_locations.json")
+//            log(Level.INFO, publicDataResponse)
             val publicDataArray = JsonParser().parse(publicDataResponse).asJsonArray
 
             for (element in publicDataArray) {
@@ -39,9 +40,8 @@ object GemstoneData {
                 registerLocation(gemstone)
             }
 
-            val timeElasped = startTime - time
-            log(Level.INFO, "Loaded all gemstone data in ${timeElasped / 1000} seconds")
-
+            val timeElasped = time - startTime
+            log(Level.INFO, "Loaded all gemstone data in ${timeElasped / 1000.0} seconds")
         }, "GemstoneLoadData").start()
 
     }
