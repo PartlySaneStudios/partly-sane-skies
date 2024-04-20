@@ -107,6 +107,12 @@ object DebugKey {
                 CrystalHollowsGemstoneMapper.getPrettyData()
             }.start()
         }
+
+        if (config.debugConvertPrettyDataToNoNucleus) {
+            Thread() {
+                CrystalHollowsGemstoneMapper.removeNucleusCords()
+            }.start()
+        }
     }
 
     // Runs chat analyzer for debug mode

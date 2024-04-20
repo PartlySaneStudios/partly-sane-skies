@@ -1,6 +1,7 @@
 package me.partlysanestudios.partlysaneskies.features.debug
 
 import com.google.gson.GsonBuilder
+import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import com.google.gson.annotations.Expose
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
@@ -117,6 +118,35 @@ object CrystalHollowsGemstoneMapper {
         sendClientMessage("Data dumped.")
     }
 
+
+    fun removeNucleusCords() {
+        val filePath = File("./config/partly-sane-skies/prettygemstone.json")
+        sendClientMessage("Loading data...")
+        val json = JsonParser().parse(filePath.reader())
+        sendClientMessage("Converting data...")
+        val jsonArray = json.asJsonArray
+
+        val crystalNucleusRange = Range3d(Point3d(463.0, 64.0, 460.0), Point3d(559.0, 187.0, 562.0))
+        val totalLength = jsonArray.size()
+        val list = ArrayList<JsonObject>()
+        var i = 0.0
+        for (element in jsonArray) {
+            sendClientMessage("Converting crystal ${i.formatNumber()} of ${totalLength.formatNumber()} (${(i/totalLength * 100).round(1).formatNumber()}%)...")
+
+            val obj = element.asJsonObject
+            val midpoint = obj.getAsJsonObject("midPoint3d")
+            val point = Point3d(midpoint["x"].asDouble, midpoint["y"].asDouble, midpoint["z"].asDouble)
+            if (crystalNucleusRange.isInRange(point)) {
+                continue
+            }
+            list.add(obj)
+            i++
+        }
+
+        sendClientMessage("Dumping data...")
+        dumpPrettyGemstoneDataNoNucleus(list)
+        sendClientMessage("Data dumped.")
+    }
     private class PrettyGemstone(
         @Expose
         val midPoint3d: Point3d,
@@ -161,6 +191,27 @@ object CrystalHollowsGemstoneMapper {
         File("./config/partly-sane-skies/dumps/").mkdirs()
         // Declares the file
         val file = File("./config/partly-sane-skies/dumps/pretty-gemstone-dump-${formattedDate}.json")
+        file.createNewFile()
+        file.setWritable(true)
+        // Saves teh data to the file
+        val writer = FileWriter(file)
+        writer.write(json)
+        writer.close()
+    }
+
+    private fun dumpPrettyGemstoneDataNoNucleus(gemstones: List<JsonObject>) {
+        val json = GsonBuilder().setPrettyPrinting().create().toJson(gemstones)
+        // Format the Instant to a human-readable date and time
+        // Convert epoch time to LocalDateTime
+        val dateTime = LocalDateTime.ofInstant(Instant.now(), ZoneId.systemDefault())
+
+        // Format the LocalDateTime to a human-readable date and time
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss")
+        val formattedDate = dateTime.format(formatter)
+
+        File("./config/partly-sane-skies/dumps/").mkdirs()
+        // Declares the file
+        val file = File("./config/partly-sane-skies/dumps/nonucleus-gemstone-dump-${formattedDate}.json")
         file.createNewFile()
         file.setWritable(true)
         // Saves teh data to the file

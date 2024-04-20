@@ -1826,6 +1826,13 @@ object OneConfigScreen : Config(
     )
     var debugConvertScanToPrettyData = false
 
+    @Switch(
+        name = "Remove Crystal Nucleus Coords from Crystal hollows pretty data",
+        description = "Don't use this pt. 3",
+        category = "Dev"
+    )
+    var debugConvertPrettyDataToNoNucleus = false
+
     // Example HUD
     @HUD(
         name = "Test Hud Element",
