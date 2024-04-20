@@ -6,8 +6,6 @@ package me.partlysanestudios.partlysaneskies.utils.geometry.vectors
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
 import net.minecraft.block.Block
-import net.minecraft.block.state.BlockState
-import net.minecraft.block.state.IBlockState
 import net.minecraft.util.BlockPos
 import net.minecraft.util.Vec3
 import kotlin.math.pow
