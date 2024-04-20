@@ -9,6 +9,7 @@ import me.partlysanestudios.partlysaneskies.events.data.LoadPublicDataEvent
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
 import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Point3d
 import org.apache.logging.log4j.Level
+import java.awt.Color
 
 object GemstoneData {
 
@@ -54,13 +55,13 @@ object GemstoneData {
         return Gemstone(type, block, size)
     }
 
-    enum class GemstoneType {
-        TOPAZ,
-        RUBY,
-        AMETHYST,
-        AMBER,
-        JADE,
-        SAPPHIRE
+    enum class GemstoneType(name: String, color: Color) {
+        TOPAZ("Topaz", Color(0xFFFF55)),
+        RUBY("Ruby", Color(0xFF5555)),
+        AMETHYST("Amethyst", Color(0xFF55FF)),
+        AMBER("Amber", Color(0xFFAA00)),
+        JADE("Jade", Color(0x55FF55)),
+        SAPPHIRE("Sapphire", Color(0x5555FF))
     }
 
     class Gemstone(val type: GemstoneType, val block: Point3d, val size: Int) {
