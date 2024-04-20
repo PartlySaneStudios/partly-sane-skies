@@ -82,8 +82,8 @@ open class Point3d(x: Double, y: Double, val z: Double) : Point2d(x, y) {
         return minecraft.theWorld.getBlockState(this.toBlockPos())?.block
     }
 
-    fun toChunk(): Point3d {
-        return Point3d((this.x/8).toInt().toDouble(), (this.y/8).toInt().toDouble(),(this.z/8).toInt().toDouble())
+    fun toChunk(): Point2d {
+        return Point2d((this.x/8).toInt().toDouble(), (this.z/8).toInt().toDouble())
     }
 
     operator fun plus(point: Point3d): Point3d {

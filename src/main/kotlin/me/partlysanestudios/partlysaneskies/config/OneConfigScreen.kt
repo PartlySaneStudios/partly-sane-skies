@@ -1122,6 +1122,76 @@ object OneConfigScreen : Config(
     )
     var blockAbilityOnPrivateIsland = false
 
+    // Gemstone Waypoints
+    @Switch(
+        name = "Render Gemstone Waypoints",
+        description = "Shows Topaz waypoints",
+        category = "Mining",
+        subcategory = "Gemstone Waypoints",
+        size = 2
+    )
+    var renderWaypoints = false
+
+    @Slider(
+        name = "Waypoint Render Distance (Chunks)",
+        description = "Radius of chunks to render waypoints in. (Only works in integer denominations)",
+        category = "Mining",
+        subcategory = "Pickaxes",
+        min = 1f,
+        max = 16f
+    )
+    var waypointRenderDistance = 6
+
+    @Switch(
+        name = "Show Topaz Waypoints",
+        description = "Shows Topaz waypoints",
+        category = "Mining",
+        subcategory = "Gemstone Waypoints"
+    )
+    var topazWaypoints = true
+
+    @Switch(
+        name = "Show Ruby Waypoints",
+        description = "Shows Ruby waypoints",
+        category = "Mining",
+        subcategory = "Gemstone Waypoints"
+    )
+    var rubyWaypoints = true
+
+    @Switch(
+        name = "Show Sapphire Waypoints",
+        description = "Shows Sapphire waypoints",
+        category = "Mining",
+        subcategory = "Gemstone Waypoints"
+    )
+    var sapphireWaypoints = true
+
+    @Switch(
+        name = "Show Amethyst Waypoints",
+        description = "Shows Amethyst waypoints",
+        category = "Mining",
+        subcategory = "Gemstone Waypoints"
+    )
+    var amethystWaypoints = true
+
+    @Switch(
+        name = "Show Amber Waypoints",
+        description = "Shows Amber waypoints",
+        category = "Mining",
+        subcategory = "Gemstone Waypoints"
+    )
+    var amberWaypoints = true
+
+    @Switch(
+    name = "Show Jade Waypoints",
+    description = "Shows Jade waypoints",
+    category = "Mining",
+    subcategory = "Gemstone Waypoints"
+    )
+    var jadeWaypoints = true
+
+
+
     //Events
     @Info(
         type = InfoType.INFO,

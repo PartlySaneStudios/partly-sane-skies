@@ -7,13 +7,14 @@ import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager
 import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.data.LoadPublicDataEvent
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
+import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Point2d
 import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Point3d
 import org.apache.logging.log4j.Level
 import java.awt.Color
 
 object GemstoneData {
 
-    val map = HashMap<Point3d, HashMap<GemstoneType, ArrayList<Gemstone>>>()
+    val map = HashMap<Point2d, HashMap<GemstoneType, ArrayList<Gemstone>>>()
     private fun registerLocation(gemstone: Gemstone) {
         val chunk = gemstone.chunk
         if (!map.containsKey(chunk)) {
@@ -55,7 +56,7 @@ object GemstoneData {
         return Gemstone(type, block, size)
     }
 
-    enum class GemstoneType(name: String, color: Color) {
+    enum class GemstoneType(val displayName: String, val color: Color) {
         TOPAZ("Topaz", Color(0xFFFF55)),
         RUBY("Ruby", Color(0xFF5555)),
         AMETHYST("Amethyst", Color(0xFF55FF)),
@@ -65,6 +66,6 @@ object GemstoneData {
     }
 
     class Gemstone(val type: GemstoneType, val block: Point3d, val size: Int) {
-        val chunk: Point3d get() = block.toChunk()
+        val chunk: Point2d get() = block.toChunk()
     }
 }
