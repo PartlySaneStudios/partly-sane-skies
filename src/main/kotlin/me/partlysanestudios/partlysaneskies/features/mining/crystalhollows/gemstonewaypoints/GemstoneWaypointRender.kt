@@ -19,7 +19,7 @@ object GemstoneWaypointRender {
 
     @SubscribePSSEvent
     fun onWaypointRenderEvent(event: RenderWaypointEvent) {
-        if (!config.renderWaypoints) {
+        if (!config.renderGemstoneWaypoints) {
             return
         }
 
