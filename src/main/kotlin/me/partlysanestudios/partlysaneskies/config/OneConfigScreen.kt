@@ -1160,7 +1160,7 @@ object OneConfigScreen : Config(
         subcategory = "Gemstone Waypoints",
         size = 2
     )
-    var showBeam = false
+    var showGemstoneBeam = false
 
     @Switch(
         name = "Show Topaz Waypoints",
