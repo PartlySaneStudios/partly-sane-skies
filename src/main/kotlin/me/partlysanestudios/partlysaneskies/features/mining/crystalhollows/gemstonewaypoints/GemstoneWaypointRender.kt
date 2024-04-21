@@ -71,7 +71,7 @@ object GemstoneWaypointRender {
                             gemstone.block.toBlockPos(),
                             outlineColor = gemstone.type.color.applyOpacity(255),
                             fillColor = gemstone.type.color.applyOpacity(100),
-                            showBeam = config.showBeam
+                            showBeam = config.showGemstoneBeam
                         )
                         event.pipeline.add(waypoint)
                     }
