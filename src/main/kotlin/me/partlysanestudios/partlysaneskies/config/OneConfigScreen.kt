@@ -1131,7 +1131,7 @@ object OneConfigScreen : Config(
         subcategory = "Gemstone Waypoints",
         size = 2
     )
-    var renderWaypoints = false
+    var renderGemstoneWaypoints = false
 
     @Slider(
         name = "Gemstone Waypoint Render Distance (Chunks)",
