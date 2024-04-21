@@ -21,6 +21,7 @@ import gg.essential.elementa.constraints.PixelConstraint;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.data.api.Request;
 import me.partlysanestudios.partlysaneskies.data.api.RequestsManager;
+import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager;
 import me.partlysanestudios.partlysaneskies.features.sound.Prank;
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager;
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils;
@@ -596,7 +597,7 @@ public class CustomMainMenu extends WindowScreen {
     public static void setFunFact() {
         String url = PartlySaneSkies.Companion.getConfig().getApiUrl() + "/v1/pss/funfact";
         RequestsManager.INSTANCE.newRequest(new Request(url, request -> {
-            //try {
+            try {
                 // {"funFact":"Americans on the average eat 18 acres of pizza every day."}
                 JsonObject factInfo = new JsonParser().parse(request.getResponse()).getAsJsonObject();
 
@@ -607,11 +608,11 @@ public class CustomMainMenu extends WindowScreen {
 
                 funFactText.setText(fact);
 
-           /*} catch (NullPointerException | IllegalStateException | ClassCastException e) {
+            } catch (NullPointerException | IllegalStateException | ClassCastException e) {
                 if (CustomMainMenu.funFactText != null) {
                     CustomMainMenu.funFactText.setText("Failed to load fun fact.");
                 }
-            }*/
+            }
         }, false, false));
     }
 
