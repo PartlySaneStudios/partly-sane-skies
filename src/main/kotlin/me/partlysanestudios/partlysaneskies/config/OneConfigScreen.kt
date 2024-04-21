@@ -1131,7 +1131,7 @@ object OneConfigScreen : Config(
         subcategory = "Gemstone Waypoints",
         size = 2
     )
-    var renderWaypoints = false
+    var renderGemstoneWaypoints = false
 
     @Slider(
         name = "Gemstone Waypoint Render Distance (Chunks)",
@@ -1151,7 +1151,7 @@ object OneConfigScreen : Config(
         min = 0f,
         max = 100f
     )
-    var gemstoneMinSize = 0
+    var gemstoneMinSize = 15
 
     @Switch(
         name = "Show waypoint beam",
@@ -1160,7 +1160,7 @@ object OneConfigScreen : Config(
         subcategory = "Gemstone Waypoints",
         size = 2
     )
-    var showBeam = false
+    var showGemstoneBeam = false
 
     @Switch(
         name = "Show Topaz Waypoints",

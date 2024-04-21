@@ -19,7 +19,7 @@ object GemstoneWaypointRender {
 
     @SubscribePSSEvent
     fun onWaypointRenderEvent(event: RenderWaypointEvent) {
-        if (!config.renderWaypoints) {
+        if (!config.renderGemstoneWaypoints) {
             return
         }
 
@@ -71,7 +71,7 @@ object GemstoneWaypointRender {
                             gemstone.block.toBlockPos(),
                             outlineColor = gemstone.type.color.applyOpacity(255),
                             fillColor = gemstone.type.color.applyOpacity(100),
-                            showBeam = config.showBeam
+                            showBeam = config.showGemstoneBeam
                         )
                         event.pipeline.add(waypoint)
                     }

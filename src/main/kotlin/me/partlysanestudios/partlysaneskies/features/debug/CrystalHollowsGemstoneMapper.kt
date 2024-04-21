@@ -190,7 +190,7 @@ object CrystalHollowsGemstoneMapper {
         val file = File("./config/partly-sane-skies/dumps/gemstone-dump-${formattedDate}.json")
         file.createNewFile()
         file.setWritable(true)
-        // Saves teh data to the file
+        // Saves the data to the file
         val writer = FileWriter(file)
         writer.write(json)
         writer.close()
@@ -232,7 +232,7 @@ object CrystalHollowsGemstoneMapper {
         val file = File("./config/partly-sane-skies/dumps/nonucleus-gemstone-dump-${formattedDate}.json")
         file.createNewFile()
         file.setWritable(true)
-        // Saves teh data to the file
+        // Saves the data to the file
         val writer = FileWriter(file)
         writer.write(json)
         writer.close()
