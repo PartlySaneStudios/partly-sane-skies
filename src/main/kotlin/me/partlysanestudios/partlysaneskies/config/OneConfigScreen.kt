@@ -1151,7 +1151,7 @@ object OneConfigScreen : Config(
         min = 0f,
         max = 100f
     )
-    var gemstoneMinSize = 0
+    var gemstoneMinSize = 15
 
     @Switch(
         name = "Show waypoint beam",
