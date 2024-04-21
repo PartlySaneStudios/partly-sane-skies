@@ -20,6 +20,8 @@ import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.data.api.Request;
+import me.partlysanestudios.partlysaneskies.data.api.RequestsManager;
+import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager;
 import me.partlysanestudios.partlysaneskies.features.sound.Prank;
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager;
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils;
@@ -50,7 +52,6 @@ public class CustomMainMenu extends WindowScreen {
 
     public CustomMainMenu(ElementaVersion version) {
         super(version);
-
     }
 
     HashMap<Integer, String> imageIdMap = new HashMap<>();
@@ -91,9 +92,6 @@ public class CustomMainMenu extends WindowScreen {
     private UIComponent quitText;
     private UIComponent timeText;
     private UIComponent discordText;
-    private static String funFactWebsite = "https://uselessfacts.jsph.pl/today";
-    public static String funFactApi = "https://uselessfacts.jsph.pl/api/v2/facts/today";
-    private static String funFact = "Loading...";
     private UIWrappedText funFactTitle;
     private static UIWrappedText funFactText;
     private final String hypixelIP = "mc.hypixel.net"; // I want to use "ilovecatgirls.xyz" so bad
@@ -110,6 +108,7 @@ public class CustomMainMenu extends WindowScreen {
         if (!(e.gui instanceof GuiMainMenu))
             return;
         e.setCanceled(true);
+        setFunFact();
         PartlySaneSkies.Companion.getMinecraft().displayGuiScreen(new CustomMainMenu(ElementaVersion.V2));
         PartlySaneSkies.Companion.getMinecraft().getSoundHandler()
                 .playSound(PositionedSoundRecord.create(new ResourceLocation("partlysaneskies", "bell")));
@@ -136,8 +135,7 @@ public class CustomMainMenu extends WindowScreen {
 
         if (PartlySaneSkies.Companion.getConfig().getCustomMainMenuImage() == 7) {
             background = UIImage.ofFile(new File("./config/partly-sane-skies/background.png"));
-        }
-        else{
+        } else {
             background = ElementaUtils.INSTANCE.uiImageFromResourceLocation(new ResourceLocation("partlysaneskies", image));
         }
 
@@ -148,7 +146,7 @@ public class CustomMainMenu extends WindowScreen {
                 .setWidth(new PixelConstraint(getWindow().getWidth()))
                 .setHeight(new PixelConstraint(getWindow().getHeight()))
                 .setChildOf(getWindow());
-        
+
 
         middleMenu = new UIBlock()
                 .setX(new PixelConstraint(300 * scaleFactor))
@@ -184,16 +182,16 @@ public class CustomMainMenu extends WindowScreen {
                 .setWidth(new PixelConstraint(titleWidth * scaleFactor))
                 .setChildOf(middleMenu);
 
-        
-        if (!PartlySaneSkies.Companion.isLatestVersion()){
+
+        if (!PartlySaneSkies.Companion.isLatestVersion()) {
             updateWarning = new UIWrappedText("Your version of Partly Sane Skies is out of date.\nPlease update to the latest version", true, new Color(0, 0, 0), true)
-                .setTextScale(new PixelConstraint(2.25f * scaleFactor))
-                .setX(new CenterConstraint())
-                .setY(new PixelConstraint(133 * scaleFactor))
-                .setWidth(new PixelConstraint(700 * scaleFactor))
-                .setColor(new Color(255, 0, 0))
-                .setChildOf(middleMenu);
-            
+                    .setTextScale(new PixelConstraint(2.25f * scaleFactor))
+                    .setX(new CenterConstraint())
+                    .setY(new PixelConstraint(133 * scaleFactor))
+                    .setWidth(new PixelConstraint(700 * scaleFactor))
+                    .setColor(new Color(255, 0, 0))
+                    .setChildOf(middleMenu);
+
             updateWarning.onMouseClickConsumer(event -> SystemUtils.INSTANCE.openLink("https://github.com/PartlySaneStudios/partly-sane-skies/releases"));
         }
 
@@ -353,18 +351,18 @@ public class CustomMainMenu extends WindowScreen {
         quitButton.onMouseLeaveRunnable(() -> quitText.setColor(new Color(255, 255, 255)));
 
         timeText = new UIText()
-            .setX(new CenterConstraint())
-            .setY(new PixelConstraint(middleMenu.getHeight() - 10 * scaleFactor))
-            .setColor(Color.white)
-            .setTextScale(new PixelConstraint(.5f * scaleFactor))
-            .setChildOf(middleMenu);
-        
+                .setX(new CenterConstraint())
+                .setY(new PixelConstraint(middleMenu.getHeight() - 10 * scaleFactor))
+                .setColor(Color.white)
+                .setTextScale(new PixelConstraint(.5f * scaleFactor))
+                .setChildOf(middleMenu);
+
         discordText = new UIText("Discord: discord.gg/" + PartlySaneSkies.Companion.getDiscordCode())
-            .setX(new PixelConstraint(10 * scaleFactor))
-            .setY(new PixelConstraint(background.getHeight() - 20 * scaleFactor))
-            .setTextScale(new PixelConstraint(1 * scaleFactor))
-            .setColor(new Color(69, 79, 191))
-            .setChildOf(background);
+                .setX(new PixelConstraint(10 * scaleFactor))
+                .setY(new PixelConstraint(background.getHeight() - 20 * scaleFactor))
+                .setTextScale(new PixelConstraint(1 * scaleFactor))
+                .setColor(new Color(69, 79, 191))
+                .setChildOf(background);
 
         discordText.onMouseClickConsumer(event -> SystemUtils.INSTANCE.openLink("https://discord.gg/" + PartlySaneSkies.Companion.getDiscordCode()));
 
@@ -376,15 +374,13 @@ public class CustomMainMenu extends WindowScreen {
                 .setColor(new Color(255, 255, 255))
                 .setChildOf(background);
 
-        funFactText = (UIWrappedText) new UIWrappedText(funFact, true, new Color(120, 120, 120), true)
+        funFactText = (UIWrappedText) new UIWrappedText("Loading...", true, new Color(120, 120, 120), true)
                 .setX(new PixelConstraint((int) background.getWidth() * 0.6f))
                 .setY(new PixelConstraint(25 * scaleFactor + 30))
                 .setWidth(new PixelConstraint(300 * scaleFactor))
                 .setTextScale(new PixelConstraint(1 * scaleFactor))
                 .setColor(new Color(255, 255, 255))
                 .setChildOf(background);
-
-        funFactText.onMouseClickConsumer(event -> SystemUtils.INSTANCE.openLink(funFactWebsite));
     }
 
     public void resizeGui(float scaleFactor) {
@@ -418,10 +414,10 @@ public class CustomMainMenu extends WindowScreen {
 
         if (updateWarning != null) {
             updateWarning
-                .setTextScale(new PixelConstraint(2.25f * scaleFactor))
-                .setX(new CenterConstraint())
-                .setWidth(new PixelConstraint(700 * scaleFactor))
-                .setY(new PixelConstraint(133 * scaleFactor));
+                    .setTextScale(new PixelConstraint(2.25f * scaleFactor))
+                    .setX(new CenterConstraint())
+                    .setWidth(new PixelConstraint(700 * scaleFactor))
+                    .setY(new PixelConstraint(133 * scaleFactor));
         }
 
         for (int i = 0; i <= 3 && i < announcements.size(); i++) {
@@ -526,7 +522,7 @@ public class CustomMainMenu extends WindowScreen {
         JsonObject object;
         try {
             object = new JsonParser().parse(responseString).getAsJsonObject();
-        } catch (NullPointerException | IllegalStateException  e) {
+        } catch (NullPointerException | IllegalStateException e) {
             noInfoFound();
             e.printStackTrace();
             return;
@@ -534,7 +530,7 @@ public class CustomMainMenu extends WindowScreen {
 
         try {
             Prank.INSTANCE.setPrankKillSwitch(object.get("prank_sound").getAsBoolean());
-        } catch(NullPointerException | IllegalStateException e){
+        } catch (NullPointerException | IllegalStateException e) {
             e.printStackTrace();
         }
 
@@ -548,7 +544,7 @@ public class CustomMainMenu extends WindowScreen {
                 String title = announcement.get("name").getAsString();
                 String desc = announcement.get("description").getAsString();
                 String date = announcement.get("date").getAsString();
-                
+
                 String urlString = announcement.get("link").getAsString();
 
                 announcements.add(new CustomMainMenu.Announcement(title, date, desc, urlString));
@@ -556,7 +552,7 @@ public class CustomMainMenu extends WindowScreen {
         } catch (NullPointerException | IllegalStateException e) {
             e.printStackTrace();
         }
-            
+
         try {
             if (PartlySaneSkies.Companion.getConfig().getReleaseChannel() == 0) {
                 JsonObject modInfo = object.getAsJsonObject("mod_info");
@@ -588,7 +584,7 @@ public class CustomMainMenu extends WindowScreen {
             // CustomMainMenu.latestVersionDate = "(Unknown)";
             // CustomMainMenu.latestVersionDescription = "";
         }
-        
+
     }
 
     public static void noInfoFound() {
@@ -598,40 +594,26 @@ public class CustomMainMenu extends WindowScreen {
         CustomMainMenu.announcements = new ArrayList<>();
     }
 
-    public static void setFunFact(Request request) {
-        if (!request.hasSucceeded()) {
-            return;
-        }
+    public static void setFunFact() {
+        String url = PartlySaneSkies.Companion.getConfig().getApiUrl() + "/v1/pss/funfact";
+        RequestsManager.INSTANCE.newRequest(new Request(url, request -> {
+            try {
+                // {"funFact":"Americans on the average eat 18 acres of pizza every day."}
+                JsonObject factInfo = new JsonParser().parse(request.getResponse()).getAsJsonObject();
 
-        String responseString = request.getResponse();
+                String fact = factInfo.get("funFact").getAsString();
 
-        JsonObject object;
-        try {
-            object = new JsonParser().parse(responseString).getAsJsonObject();
-        } catch (NullPointerException | IllegalStateException  e) {
-            noInfoFound();
-            e.printStackTrace();
-            return;
-        }
-            //{"id":"c1dbf293f84042595368168a5b1c558d","text":"%60 of all people using the Internet, use it for pornography.","source":"djtech.net","source_url":"http://www.djtech.net/humor/useless_facts.htm","language":"en","permalink":"https://uselessfacts.jsph.pl/api/v2/facts/c1dbf293f84042595368168a5b1c558d"}
-        try {
-            JsonObject factInfo = object.getAsJsonObject();
+                System.out.println("Response: " + factInfo);
+                System.out.println("Fun Fact: " + fact);
 
-            String fact = factInfo.get("text").getAsString();
-            String source = factInfo.get("source").getAsString();
+                funFactText.setText(fact);
 
-            CustomMainMenu.funFact = fact + "\nSource: " + source;
-            if (CustomMainMenu.funFactText != null) {
-                CustomMainMenu.funFactText.setText(CustomMainMenu.funFact);
+            } catch (NullPointerException | IllegalStateException | ClassCastException e) {
+                if (CustomMainMenu.funFactText != null) {
+                    CustomMainMenu.funFactText.setText("Failed to load fun fact.");
+                }
             }
-        } catch (NullPointerException | IllegalStateException | ClassCastException e) {
-            CustomMainMenu.funFact = "Failed to load fun fact.";
-            if (CustomMainMenu.funFactText != null) {
-                CustomMainMenu.funFactText.setText(CustomMainMenu.funFact);
-            }
-            CustomMainMenu.funFactWebsite = "https://uselessfacts.jsph.pl/today";
-            e.printStackTrace();
-        }
+        }, false, false));
     }
 
 
@@ -644,7 +626,7 @@ public class CustomMainMenu extends WindowScreen {
         private int postNum;
         private UIComponent titleComponent;
         private UIComponent descriptionComponent;
-        
+
         public Announcement(String title, String date, String description, String link) {
             this.title = title;
             this.date = date;
@@ -655,7 +637,7 @@ public class CustomMainMenu extends WindowScreen {
         public String getLink() {
             return this.link;
         }
-        
+
         public String getTitle() {
             return this.title;
         }
@@ -670,24 +652,25 @@ public class CustomMainMenu extends WindowScreen {
 
         public UIWrappedText createTitle(float scaleFactor, int postNum, UIComponent parent) {
             UIComponent text = new UIWrappedText(("§e" + title))
-                .setTextScale(new PixelConstraint(1.5f * scaleFactor))
-                .setX(new PixelConstraint(33f * scaleFactor))
-                .setY(new PixelConstraint(125 * scaleFactor + 145 * (postNum) * scaleFactor))
-                .setWidth(new PixelConstraint(256 * scaleFactor))
-                .setChildOf(parent);
+                    .setTextScale(new PixelConstraint(1.5f * scaleFactor))
+                    .setX(new PixelConstraint(33f * scaleFactor))
+                    .setY(new PixelConstraint(125 * scaleFactor + 145 * (postNum) * scaleFactor))
+                    .setWidth(new PixelConstraint(256 * scaleFactor))
+                    .setChildOf(parent);
             this.postNum = postNum;
             this.titleComponent = text;
 
             text.onMouseClickConsumer(event -> SystemUtils.INSTANCE.openLink(link));
             return (UIWrappedText) text;
         }
+
         public UIWrappedText createDescription(float scaleFactor, int postNum, UIComponent parent) {
             UIComponent text = new UIWrappedText(("§8" + date + "§r\n§7" + description))
-                .setTextScale(new PixelConstraint(1.33f * scaleFactor))
-                .setX(new PixelConstraint(33f * scaleFactor))
-                .setY(new PixelConstraint(160 * scaleFactor + 145 * (postNum) * scaleFactor))
-                .setWidth(new PixelConstraint(250 * scaleFactor))
-                .setChildOf(parent);
+                    .setTextScale(new PixelConstraint(1.33f * scaleFactor))
+                    .setX(new PixelConstraint(33f * scaleFactor))
+                    .setY(new PixelConstraint(160 * scaleFactor + 145 * (postNum) * scaleFactor))
+                    .setWidth(new PixelConstraint(250 * scaleFactor))
+                    .setChildOf(parent);
             this.postNum = postNum;
             this.descriptionComponent = text;
 
@@ -700,10 +683,10 @@ public class CustomMainMenu extends WindowScreen {
                 return;
             }
             this.titleComponent
-                .setTextScale(new PixelConstraint(1.5f * scaleFactor))
-                .setX(new PixelConstraint(33f * scaleFactor))
-                .setY(new PixelConstraint(125 * scaleFactor + 145 * (postNum) * scaleFactor))
-                .setWidth(new PixelConstraint(250 * scaleFactor));
+                    .setTextScale(new PixelConstraint(1.5f * scaleFactor))
+                    .setX(new PixelConstraint(33f * scaleFactor))
+                    .setY(new PixelConstraint(125 * scaleFactor + 145 * (postNum) * scaleFactor))
+                    .setWidth(new PixelConstraint(250 * scaleFactor));
         }
 
         public void updateDescriptionComponent(float scaleFactor) {
@@ -711,10 +694,10 @@ public class CustomMainMenu extends WindowScreen {
                 return;
             }
             this.descriptionComponent
-                .setTextScale(new PixelConstraint(1.33f * scaleFactor))
-                .setX(new PixelConstraint(33f * scaleFactor))
-                .setY(new PixelConstraint(160 * scaleFactor + 145 * (postNum) * scaleFactor))
-                .setWidth(new PixelConstraint(250 * scaleFactor));
+                    .setTextScale(new PixelConstraint(1.33f * scaleFactor))
+                    .setX(new PixelConstraint(33f * scaleFactor))
+                    .setY(new PixelConstraint(160 * scaleFactor + 145 * (postNum) * scaleFactor))
+                    .setWidth(new PixelConstraint(250 * scaleFactor));
         }
     }
 
@@ -723,7 +706,7 @@ public class CustomMainMenu extends WindowScreen {
         super.onDrawScreen(matrixStack, mouseX, mouseY, partialTicks);
 
         ZoneId userZoneId = ZoneId.systemDefault();
-        
+
         LocalDateTime currentTime = LocalDateTime.now(userZoneId);
         String timeString = currentTime.format(DateTimeFormatter.ofPattern("hh:mm:ss a  dd MMMM yyyy", Locale.ENGLISH));
         if (PartlySaneSkies.Companion.getConfig().getHour24time()) {
@@ -733,7 +716,7 @@ public class CustomMainMenu extends WindowScreen {
         middleLeftBar.setColor(ThemeManager.INSTANCE.getAccentColor().toJavaColor());
         middleRightBar.setColor(ThemeManager.INSTANCE.getAccentColor().toJavaColor());
         optionsButtonSplitBar.setColor(ThemeManager.INSTANCE.getAccentColor().toJavaColor());
-        
+
 
         ((UIText) timeText).setText(timeString);
     }

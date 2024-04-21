@@ -197,7 +197,7 @@ public class ModChecker {
 
             if (SystemUtils.INSTANCE.isValidURL(mod.downloadLink)) {
                 message.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, mod.downloadLink));
-                message.getChatStyle().setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText("Click for the official website for " + mod.name + "!") ));
+                message.getChatStyle().setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText("Click for the official website for " + mod.name + "!")));
             }
 
             chatMessage.appendSibling(message);
@@ -230,10 +230,10 @@ public class ModChecker {
                 KnownMod mod = findNewestModFromId(container.getModId());
 
                 message = new ChatComponentText("\n§c" + modName + " §7(" + fileName + ") is §cunknown! §c(Verified version of " + mod.name + " found.)");
-                
+
                 if (SystemUtils.INSTANCE.isValidURL(mod.downloadLink)) {
                     message.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, mod.downloadLink));
-                    message.getChatStyle().setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText("Click for the official website for " + mod.name + "!") ));
+                    message.getChatStyle().setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText("Click for the official website for " + mod.name + "!")));
                 }
             } catch (IllegalStateException e) {
 
@@ -258,7 +258,7 @@ public class ModChecker {
 
         if (DebugKey.INSTANCE.isDebugMode()) {
             ChatUtils.INSTANCE.sendClientMessage("§8Unknown Mods:\n" + insertCharacterAfterNewLine(debugBuilder.toString(), "§8") + "\n\n");
-            SystemUtils.INSTANCE.copyStringToClipboard("```json\n"+ debugBuilder.toString() + "\n```");
+            SystemUtils.INSTANCE.copyStringToClipboard("```json\n" + debugBuilder.toString() + "\n```");
         }
 
         ChatUtils.INSTANCE.sendClientMessage(" \n§7Found " + modsFound + " mods:");
@@ -268,6 +268,7 @@ public class ModChecker {
 
 
     }
+
     private static String insertCharacterAfterNewLine(String originalString, String insertionChar) {
         StringBuilder stringBuilder = new StringBuilder();
 
@@ -313,7 +314,7 @@ public class ModChecker {
 
             KnownMod latest = null;
             Map<String, String> versions;
-            Map<String, String> betaVersions = new HashMap<>(); // Creates a variable to add all of the beta versions as outdated
+            Map<String, String> betaVersions = new HashMap<>(); // Creates a variable to add all the beta versions as outdated
             if (PartlySaneSkies.Companion.getConfig().getLookForBetaMods()) {
                 versions = modInfo.getBetaVersions();
             } else {
