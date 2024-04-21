@@ -88,29 +88,47 @@ object CrystalHollowsGemstoneMapper {
             val obj = element.asJsonObject
 
             val coordinates = obj.get("coordinates").asJsonArray
-            var sumX = 0.0
-            var sumY = 0.0
-            var sumZ = 0.0
 
-            val firstPointObj = coordinates[0].asJsonObject
-            val firstPoint = Point3d(firstPointObj.get("x").asDouble, firstPointObj.get("y").asDouble, firstPointObj.get("z").asDouble)
+            val map = HashMap<String, ArrayList<JsonObject>>()
+
             for (coordElement in coordinates) {
                 val coordObj = coordElement.asJsonObject
-                sumX += coordObj.get("x").asDouble
-                sumY += coordObj.get("y").asDouble
-                sumZ += coordObj.get("z").asDouble
+                val point = Point3d(coordObj.get("x").asDouble, coordObj.get("y").asDouble, coordObj.get("z").asDouble)
+                try {
+                    val type = "COLOR_${world.getBlockState(point.toBlockPosInt()).getValue(PropertyEnum.create("color", EnumDyeColor::class.java))}"
+
+                    if (!map.contains(type)) {
+                        map[type] = ArrayList<JsonObject>()
+                    }
+
+                    map[type]?.add(coordObj)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    continue
+                }
             }
 
-            val averagePoint = Point3d((sumX/coordinates.size()).round(1), (sumY/coordinates.size()).round(1), (sumZ/coordinates.size()).round(1))
+            for (en in map.entries) {
+                var sumX = 0.0
+                var sumY = 0.0
+                var sumZ = 0.0
 
-            try {
-                val type = "COLOR_${world.getBlockState(firstPoint.toBlockPosInt()).getValue(PropertyEnum.create("color", EnumDyeColor::class.java))}"
-                gemstones.add(PrettyGemstone(averagePoint, type, coordinates.size()))
-            } catch (e: Exception) {
-                e.printStackTrace()
-                continue
+                for (coordObj in en.value) {
+                    sumX += coordObj.get("x").asDouble
+                    sumY += coordObj.get("y").asDouble
+                    sumZ += coordObj.get("z").asDouble
+                }
+
+                val averagePoint = Point3d((sumX/en.value.size).round(1), (sumY/en.value.size).round(1), (sumZ/en.value.size).round(1))
+
+                try {
+                    val type = en.key
+                    gemstones.add(PrettyGemstone(averagePoint, type, en.value.size))
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    continue
+                }
             }
-
         }
 
         sendClientMessage("Dumping data...")
