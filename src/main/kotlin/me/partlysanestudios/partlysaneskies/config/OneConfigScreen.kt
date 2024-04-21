@@ -2,6 +2,7 @@
 // Written by Su386.
 // See LICENSE for copyright and license notices.
 //
+
 package me.partlysanestudios.partlysaneskies.config
 
 import cc.polyfrost.oneconfig.config.Config
@@ -1122,6 +1123,95 @@ object OneConfigScreen : Config(
     )
     var blockAbilityOnPrivateIsland = false
 
+    // Gemstone Waypoints
+    @Switch(
+        name = "Render Gemstone Waypoints",
+        description = "Shows Topaz waypoints",
+        category = "Mining",
+        subcategory = "Gemstone Waypoints",
+        size = 2
+    )
+    var renderGemstoneWaypoints = false
+
+    @Slider(
+        name = "Gemstone Waypoint Render Distance (Chunks)",
+        description = "Radius of chunks to render waypoints in. (Only works in integer denominations)",
+        category = "Mining",
+        subcategory = "Gemstone Waypoints",
+        min = 1f,
+        max = 16f
+    )
+    var gemstoneWaypointRenderDistance = 6
+
+    @Slider(
+        name = "Minimum Gemstone Size",
+        description = "Hides gemstones that are smaller than this size.",
+        category = "Mining",
+        subcategory = "Gemstone Waypoints",
+        min = 0f,
+        max = 100f
+    )
+    var gemstoneMinSize = 15
+
+    @Switch(
+        name = "Show waypoint beam",
+        description = "Show a beam going from the waypoint to the top of the world. Disable with large amounts of waypoints",
+        category = "Mining",
+        subcategory = "Gemstone Waypoints",
+        size = 2
+    )
+    var showGemstoneBeam = false
+
+    @Switch(
+        name = "Show Topaz Waypoints",
+        description = "Shows Topaz waypoints",
+        category = "Mining",
+        subcategory = "Gemstone Waypoints"
+    )
+    var topazWaypoints = true
+
+    @Switch(
+        name = "Show Ruby Waypoints",
+        description = "Shows Ruby waypoints",
+        category = "Mining",
+        subcategory = "Gemstone Waypoints"
+    )
+    var rubyWaypoints = true
+
+    @Switch(
+        name = "Show Sapphire Waypoints",
+        description = "Shows Sapphire waypoints",
+        category = "Mining",
+        subcategory = "Gemstone Waypoints"
+    )
+    var sapphireWaypoints = true
+
+    @Switch(
+        name = "Show Amethyst Waypoints",
+        description = "Shows Amethyst waypoints",
+        category = "Mining",
+        subcategory = "Gemstone Waypoints"
+    )
+    var amethystWaypoints = true
+
+    @Switch(
+        name = "Show Amber Waypoints",
+        description = "Shows Amber waypoints",
+        category = "Mining",
+        subcategory = "Gemstone Waypoints"
+    )
+    var amberWaypoints = true
+
+    @Switch(
+    name = "Show Jade Waypoints",
+    description = "Shows Jade waypoints",
+    category = "Mining",
+    subcategory = "Gemstone Waypoints"
+    )
+    var jadeWaypoints = true
+
+
+
     //Events
     @Info(
         type = InfoType.INFO,
@@ -1741,6 +1831,27 @@ object OneConfigScreen : Config(
         category = "Dev",
     )
     var debugCylinder = false
+
+    @Switch(
+        name = "Scan crystal hollows crystals",
+        description = "Don't use this",
+        category = "Dev",
+    )
+    var debugScanCrystalHollowsCrystals = false
+
+    @Switch(
+        name = "Convert crystal hollows crystals scan to pretty data",
+        description = "Don't use this pt. 2",
+        category = "Dev",
+    )
+    var debugConvertScanToPrettyData = false
+
+    @Switch(
+        name = "Remove Crystal Nucleus Coords from Crystal hollows pretty data",
+        description = "Don't use this pt. 3",
+        category = "Dev"
+    )
+    var debugConvertPrettyDataToNoNucleus = false
 
     // Example HUD
     @HUD(

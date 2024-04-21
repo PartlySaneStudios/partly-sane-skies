@@ -3,7 +3,6 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.features.debug
 
 import cc.polyfrost.oneconfig.config.core.OneColor
@@ -94,6 +93,24 @@ object DebugKey {
         }
         if (config.debugCylinder) {
             cylinderPoint = Point3d.atPlayer()
+        }
+
+        if (config.debugScanCrystalHollowsCrystals) {
+            Thread() {
+                CrystalHollowsGemstoneMapper.scanWorld()
+            }.start()
+        }
+
+        if (config.debugConvertScanToPrettyData) {
+            Thread() {
+                CrystalHollowsGemstoneMapper.getPrettyData()
+            }.start()
+        }
+
+        if (config.debugConvertPrettyDataToNoNucleus) {
+            Thread() {
+                CrystalHollowsGemstoneMapper.removeNucleusCords()
+            }.start()
         }
     }
 
