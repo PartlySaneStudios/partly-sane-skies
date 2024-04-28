@@ -246,7 +246,7 @@ object OneConfigScreen : Config(
         category = "General",
         subcategory = "Privacy"
     )
-    var privacyMode = true
+    var privacyMode = false
 
     //    Config
     @KeyBind(
