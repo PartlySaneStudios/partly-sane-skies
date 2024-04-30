@@ -18,7 +18,7 @@ object PrivacyMode {
     }
 
     fun enablePrivacyMode() {
-        log(Level.INFO, "Privacy mode has been enabled Privacy Mode Option: ${config.privacyMode}")
+        log(Level.INFO, "Privacy mode has been enabled. Privacy Mode Option: ${config.privacyMode}")
     }
 
 }
