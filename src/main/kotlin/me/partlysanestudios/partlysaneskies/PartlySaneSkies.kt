@@ -64,14 +64,13 @@ import me.partlysanestudios.partlysaneskies.features.farming.garden.GardenTradeV
 import me.partlysanestudios.partlysaneskies.features.farming.garden.SkymartValue
 import me.partlysanestudios.partlysaneskies.features.foraging.TreecapitatorCooldown
 import me.partlysanestudios.partlysaneskies.features.gui.CustomMainMenu
-import me.partlysanestudios.partlysaneskies.features.gui.CustomMainMenu.setFunFact
 import me.partlysanestudios.partlysaneskies.features.gui.RefreshKeybinds
 import me.partlysanestudios.partlysaneskies.features.gui.hud.CooldownHud
 import me.partlysanestudios.partlysaneskies.features.gui.hud.LocationBannerDisplay
 import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.DropBannerDisplay
 import me.partlysanestudios.partlysaneskies.features.information.WikiArticleOpener
 import me.partlysanestudios.partlysaneskies.features.mining.MiningEvents
-import me.partlysanestudios.partlysaneskies.features.mining.Pickaxes
+import me.partlysanestudios.partlysaneskies.features.mining.PickaxeWarning
 import me.partlysanestudios.partlysaneskies.features.mining.WormWarning
 import me.partlysanestudios.partlysaneskies.features.mining.crystalhollows.gemstonewaypoints.GemstoneData
 import me.partlysanestudios.partlysaneskies.features.mining.crystalhollows.gemstonewaypoints.GemstoneWaypointRender
@@ -205,7 +204,7 @@ class PartlySaneSkies {
         registerEvent(EnhancedSound())
         registerEvent(BitsShopValue())
         registerEvent(PetAlert())
-        registerEvent(Pickaxes())
+        registerEvent(PickaxeWarning())
         registerEvent(MiningEvents())
         registerEvent(RequiredSecretsFound())
         registerEvent(MinionData())
