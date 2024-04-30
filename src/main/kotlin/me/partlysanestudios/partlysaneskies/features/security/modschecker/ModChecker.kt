@@ -1,7 +1,8 @@
 //
-// Written by hannibal002.
+// Written by hannibal002 and Su386.
 // See LICENSE for copyright and license notices.
 //
+
 package me.partlysanestudios.partlysaneskies.features.security.modschecker
 
 import com.google.gson.Gson
