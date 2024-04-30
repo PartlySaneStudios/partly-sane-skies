@@ -293,7 +293,7 @@ object ModChecker {
 
     private fun read(modData: ModDataJson): List<KnownMod> {
         val list: MutableList<KnownMod> = ArrayList()
-        for ((modId, modInfo) in modData.mods) {
+        for ((modId, modInfo) in modData.mods ?: return ArrayList()) {
             val download = modInfo.download
             var latest: KnownMod? = null
             var versions: Map<String, String>
