@@ -2,6 +2,7 @@
 // Written by Su386.
 // See LICENSE for copyright and license notices.
 //
+
 package me.partlysanestudios.partlysaneskies.features.information
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
@@ -64,4 +65,14 @@ object WikiArticleOpener {
         getArticle(item.getItemId())
     }
 }
+
+/*
+ * Ca_mo is in the mod now ig
+ * https://media.discordapp.net/attachments/1082885746400178286/1093721027273556098/image.png
+ * Ca_mo will now be in everyone's Partly Sane Skies
+ */
+
+// hi ca_mo - j10a
+
+// Nearly forgot camo. Camo is now in kt (even better than full hd) - Su386
 
