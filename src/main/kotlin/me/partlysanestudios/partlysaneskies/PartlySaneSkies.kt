@@ -75,6 +75,7 @@ import me.partlysanestudios.partlysaneskies.features.mining.Pickaxes
 import me.partlysanestudios.partlysaneskies.features.mining.WormWarning
 import me.partlysanestudios.partlysaneskies.features.mining.crystalhollows.gemstonewaypoints.GemstoneData
 import me.partlysanestudios.partlysaneskies.features.mining.crystalhollows.gemstonewaypoints.GemstoneWaypointRender
+import me.partlysanestudios.partlysaneskies.features.misc.PrivacyMode
 import me.partlysanestudios.partlysaneskies.features.misc.SanityCheck
 import me.partlysanestudios.partlysaneskies.features.security.modschecker.ModChecker
 import me.partlysanestudios.partlysaneskies.features.skills.PetAlert
@@ -296,6 +297,10 @@ class PartlySaneSkies {
             }
         }, "Init Data").start()
         Thread { DiscordRPC.init() }.start()
+
+        if (config.privacyMode == 2) {
+            PrivacyMode.enablePrivacyMode = true
+        }
         // Finished loading
         log(Level.INFO, "Partly Sane Skies has loaded (Version: ${VERSION}).")
     }

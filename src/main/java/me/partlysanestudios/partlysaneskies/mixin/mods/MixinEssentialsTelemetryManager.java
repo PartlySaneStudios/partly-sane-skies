@@ -1,13 +1,12 @@
-/*
- *
- * Written by J10a1n15.
- * See LICENSE for copyright and license notices.
- *
- */
+//
+// Written by J10a1n15 and Su386.
+// See LICENSE for copyright and license notices.
+//
 
 package me.partlysanestudios.partlysaneskies.mixin.mods;
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
+import me.partlysanestudios.partlysaneskies.features.misc.PrivacyMode;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
@@ -22,7 +21,7 @@ public class MixinEssentialsTelemetryManager {
         if (PartlySaneSkies.Companion.getConfig() == null) {
             return;
         }
-        if (PartlySaneSkies.Companion.getConfig().getPrivacyMode()) {
+        if (PrivacyMode.INSTANCE.shouldBlockTelemetry()) {
             ci.cancel();
         }
     }
@@ -32,7 +31,7 @@ public class MixinEssentialsTelemetryManager {
         if (PartlySaneSkies.Companion.getConfig() == null) {
             return;
         }
-        if (PartlySaneSkies.Companion.getConfig().getPrivacyMode()) {
+        if (PrivacyMode.INSTANCE.shouldBlockTelemetry()) {
             ci.cancel();
         }
     }
