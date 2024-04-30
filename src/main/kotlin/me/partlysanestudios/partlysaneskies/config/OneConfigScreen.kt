@@ -210,6 +210,7 @@ object OneConfigScreen : Config(
         description = "Select one of our many high quality included images, or you can use your custom image.\nTo use your own image, place your image in the \"/config/partly-sane-skies\" folder and title your image \"background.png\".",
         category = "General",
         subcategory = "Main Menu",
+        size = 2,
         options = ["Random Image", "View of Main Hub Mountain", "Aerial View of Hub from Community House", "Stunning Aerial View of Hub", "View from Hub Portal (Day)", "Hub Portal (Night)", "Wolf Ruins", "Custom Image"]
     )
     var customMainMenuImage = 1
@@ -240,13 +241,20 @@ object OneConfigScreen : Config(
     )
     var showUpToDateMods = true
 
-    @Switch(
+    @Dropdown(
         name = "Privacy Mode",
-        description = "Blocks the diagnostics reports from other mods from being sent to their servers.",
+        description = "Blocks the diagnostics reports from other mods from being sent to their servers. (Partly Sane Skies cannot guarantee it's ability to stop all data)",
         category = "General",
-        subcategory = "Privacy"
+        subcategory = "Privacy",
+        size = 2,
+        options = [
+            "[Off] Always allow mods to send telemetry",
+            "[Protected] Block telemetry after startup (recommended)",
+            "[Strong] Block telemetry after mod initialization ",
+            "[Strict] Always block telemetry (May causes crashes)"
+        ]
     )
-    var privacyMode = true
+    var privacyMode = 1
 
     //    Config
     @KeyBind(

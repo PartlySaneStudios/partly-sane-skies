@@ -22,6 +22,7 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.data.api.Request;
 import me.partlysanestudios.partlysaneskies.data.api.RequestsManager;
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager;
+import me.partlysanestudios.partlysaneskies.features.misc.PrivacyMode;
 import me.partlysanestudios.partlysaneskies.features.sound.Prank;
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager;
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils;
@@ -109,6 +110,11 @@ public class CustomMainMenu extends WindowScreen {
             return;
         e.setCanceled(true);
         setFunFact();
+
+        if (PartlySaneSkies.Companion.getConfig().getPrivacyMode() == 1) {
+            PrivacyMode.INSTANCE.enablePrivacyMode();
+        }
+
         PartlySaneSkies.Companion.getMinecraft().displayGuiScreen(new CustomMainMenu(ElementaVersion.V2));
         PartlySaneSkies.Companion.getMinecraft().getSoundHandler()
                 .playSound(PositionedSoundRecord.create(new ResourceLocation("partlysaneskies", "bell")));
