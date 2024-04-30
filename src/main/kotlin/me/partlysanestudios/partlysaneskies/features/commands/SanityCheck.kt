@@ -14,8 +14,8 @@ import java.util.regex.Pattern
 object SanityCheck {
 
     private val playerName: String by lazy { PartlySaneSkies.minecraft.thePlayer.name }
-    private val sanityCheckPath: String = "constants/sanity_check_data.json"
-    private val usernameRegex: String = "^[a-zA-Z0-9_]{2,16}\$"
+    private const val sanityCheckPath: String = "constants/sanity_check_data.json"
+    private const val usernameRegex: String = "^[a-zA-Z0-9_]{2,16}\$"
     private val usernamePattern: Pattern = Pattern.compile(usernameRegex)
 
     fun registerCommand() {
@@ -26,9 +26,9 @@ object SanityCheck {
             .addAlias("/pssinsane")
             .addAlias("/psssane")
             .setDescription("Checks for one's sanity. This command is purely for fun; do not take its results seriously.")
-            .setRunnable { s: ICommandSender, a: Array<String> ->
+            .setRunnable { _: ICommandSender, a: Array<String> ->
                 ChatUtils.sendClientMessage("Attempting to begin sanity analysis...")
-                Thread() {
+                Thread {
                     var username = playerName
                     if (a.size > 1) {
                         ChatUtils.sendClientMessage("Correct Usage: /sanitycheck {username}")
