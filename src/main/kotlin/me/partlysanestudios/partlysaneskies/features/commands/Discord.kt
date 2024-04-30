@@ -31,7 +31,6 @@ object Discord {
                 message.chatStyle.setChatClickEvent(ClickEvent(ClickEvent.Action.OPEN_URL,"https://discord.gg/$discordCode"))
                 // Prints message
                 minecraft.ingameGUI.chatGUI.printChatMessage(message)
-            }
-            .register()
+            }.register()
     }
 }
