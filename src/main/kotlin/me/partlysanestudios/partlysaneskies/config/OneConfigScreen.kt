@@ -210,6 +210,7 @@ object OneConfigScreen : Config(
         description = "Select one of our many high quality included images, or you can use your custom image.\nTo use your own image, place your image in the \"/config/partly-sane-skies\" folder and title your image \"background.png\".",
         category = "General",
         subcategory = "Main Menu",
+        size = 2,
         options = ["Random Image", "View of Main Hub Mountain", "Aerial View of Hub from Community House", "Stunning Aerial View of Hub", "View from Hub Portal (Day)", "Hub Portal (Night)", "Wolf Ruins", "Custom Image"]
     )
     var customMainMenuImage = 1
