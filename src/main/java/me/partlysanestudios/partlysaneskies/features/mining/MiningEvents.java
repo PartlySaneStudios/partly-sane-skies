@@ -17,6 +17,7 @@ import org.lwjgl.opengl.Display;
 
 public class MiningEvents {
     // TODO: lmao this needs a rewrite
+    // I was almost gonna convert to kt and then I realized I would have to rewrite it
     private static boolean showBanner = false;
 
     @SubscribeEvent
