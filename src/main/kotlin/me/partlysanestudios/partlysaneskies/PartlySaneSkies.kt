@@ -199,7 +199,6 @@ class PartlySaneSkies {
         registerEvent(WormWarning())
         registerEvent(CustomMainMenu(ElementaVersion.V2))
         registerEvent(PartyFriendManager())
-        registerEvent(WikiArticleOpener())
         registerEvent(GardenTradeValue())
         registerEvent(EnhancedSound())
         registerEvent(BitsShopValue())
@@ -238,6 +237,7 @@ class PartlySaneSkies {
         registerEvent(CooldownHud)
         registerEvent(GemstoneData)
         registerEvent(GemstoneWaypointRender)
+        registerEvent(WikiArticleOpener)
 
         // Registers all client side commands
         HelpCommand.registerPSSCommand()
