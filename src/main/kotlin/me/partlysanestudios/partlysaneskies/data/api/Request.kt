@@ -49,7 +49,6 @@ open class Request(
     ): this(URL(url), function, inMainThread, executeOnNextFrame, acceptAllCertificates)
 
 //    Constructor without certificate option
-    @Deprecated("Use constructor with acceptAllCertificates option")
     constructor(
         url: URL,
         function: RequestRunnable?,
@@ -58,7 +57,6 @@ open class Request(
     ): this(url, function, inMainThread, executeOnNextFrame, false)
 
 //    Constructor without certificates option
-    @Deprecated("Use constructor with acceptAllCertificates option")
     constructor(
         url: String,
         function: RequestRunnable?,
