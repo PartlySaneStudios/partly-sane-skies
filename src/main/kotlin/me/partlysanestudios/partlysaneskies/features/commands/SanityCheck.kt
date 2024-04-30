@@ -1,18 +1,4 @@
-/*
- * A Kotlin class written by Erymanthus[#5074] | (u/)RayDeeUx
- * for Su386 and FlagMaster's Partly Sane Skies mod.
- * See LICENSE for copyright and license notices.
- *
- * KOTLIN ON TOP BABYYYYYYYY
- *
- * Skirtdungoner — Today at 10:41 AM
- * /checksanity <input
- * > Partly Sane Skies > <input> has xxx% sanity.
- * Or smth idk
- *
-*/
-
-package me.partlysanestudios.partlysaneskies.features.misc
+package me.partlysanestudios.partlysaneskies.features.commands
 
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
@@ -51,7 +37,11 @@ object SanityCheck {
                         username = a[0]
                     }
                     if (validateUsernameByRegex(username)) {
-                        val sanityCheckDataJsonObject: JsonObject = JsonParser().parse(PublicDataManager.getFile(sanityCheckPath)).getAsJsonObject()
+                        val sanityCheckDataJsonObject: JsonObject = JsonParser().parse(
+                            PublicDataManager.getFile(
+                                sanityCheckPath
+                            )
+                        ).getAsJsonObject()
                         val highestSkyblockNetworth: Double = sanityCheckDataJsonObject.getJsonFromPath("highestnwlong")?.asLong?.toDouble() ?: 360567766418.0
                         val oldestSkyblockFirstJoin: Long = sanityCheckDataJsonObject.getJsonFromPath("oldestprofileunixlong")?.asLong ?: 1560276201428
                         val currentProfileNetworth: Double = SkyCryptUtils.getSkyCryptNetworth(username)

@@ -75,8 +75,8 @@ import me.partlysanestudios.partlysaneskies.features.mining.Pickaxes
 import me.partlysanestudios.partlysaneskies.features.mining.WormWarning
 import me.partlysanestudios.partlysaneskies.features.mining.crystalhollows.gemstonewaypoints.GemstoneData
 import me.partlysanestudios.partlysaneskies.features.mining.crystalhollows.gemstonewaypoints.GemstoneWaypointRender
-import me.partlysanestudios.partlysaneskies.features.misc.PrivacyMode
-import me.partlysanestudios.partlysaneskies.features.misc.SanityCheck
+import me.partlysanestudios.partlysaneskies.features.security.PrivacyMode
+import me.partlysanestudios.partlysaneskies.features.commands.SanityCheck
 import me.partlysanestudios.partlysaneskies.features.security.modschecker.ModChecker
 import me.partlysanestudios.partlysaneskies.features.skills.PetAlert
 import me.partlysanestudios.partlysaneskies.features.skills.SkillUpgradeRecommendation
