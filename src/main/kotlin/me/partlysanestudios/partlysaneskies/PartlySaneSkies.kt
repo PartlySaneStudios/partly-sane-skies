@@ -193,7 +193,6 @@ class PartlySaneSkies {
 
         // Registers all the events
         registerEvent(this)
-        registerEvent(SkyblockDataManager)
         registerEvent(PartyManager())
         registerEvent(WatcherReady())
         registerEvent(WormWarning())
@@ -211,6 +210,7 @@ class PartlySaneSkies {
         registerEvent(SkymartValue())
         registerEvent(CompostValue())
         registerEvent(MathematicalHoeRightClicks())
+        registerEvent(SkyblockDataManager)
         registerEvent(DropBannerDisplay)
         registerEvent(ChatManager)
         registerEvent(RangeHighlight)
