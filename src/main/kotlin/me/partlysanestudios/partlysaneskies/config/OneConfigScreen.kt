@@ -240,13 +240,19 @@ object OneConfigScreen : Config(
     )
     var showUpToDateMods = true
 
-    @Switch(
+    @Dropdown(
         name = "Privacy Mode",
-        description = "Blocks the diagnostics reports from other mods from being sent to their servers.",
+        description = "Blocks the diagnostics reports from other mods from being sent to their servers. (Partly Sane Skies cannot guarantee it's ability to stop all data)",
         category = "General",
-        subcategory = "Privacy"
+        subcategory = "Privacy",
+        options = [
+            "[Off] Always allow mods to send telemetry",
+            "[Protected] Allow telemetry after startup (recommended)",
+            "[Strong] Allow telemetry after mod initialization ",
+            "[Strict] Always block telemetry (May causes crashes)"
+        ]
     )
-    var privacyMode = true
+    var privacyMode = 1
 
     //    Config
     @KeyBind(
