@@ -299,7 +299,7 @@ class PartlySaneSkies {
         Thread { DiscordRPC.init() }.start()
 
         if (config.privacyMode == 2) {
-            PrivacyMode.enablePrivacyMode = true
+            PrivacyMode.enablePrivacyMode()
         }
         // Finished loading
         log(Level.INFO, "Partly Sane Skies has loaded (Version: ${VERSION}).")

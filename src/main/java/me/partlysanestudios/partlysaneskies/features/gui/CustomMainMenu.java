@@ -112,7 +112,7 @@ public class CustomMainMenu extends WindowScreen {
         setFunFact();
 
         if (PartlySaneSkies.Companion.getConfig().getPrivacyMode() == 1) {
-            PrivacyMode.INSTANCE.setEnablePrivacyMode(true);
+            PrivacyMode.INSTANCE.enablePrivacyMode();
         }
 
         PartlySaneSkies.Companion.getMinecraft().displayGuiScreen(new CustomMainMenu(ElementaVersion.V2));
