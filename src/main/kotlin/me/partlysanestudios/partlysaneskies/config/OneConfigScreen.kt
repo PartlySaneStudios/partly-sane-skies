@@ -245,6 +245,7 @@ object OneConfigScreen : Config(
         description = "Blocks the diagnostics reports from other mods from being sent to their servers. (Partly Sane Skies cannot guarantee it's ability to stop all data)",
         category = "General",
         subcategory = "Privacy",
+        size = 2,
         options = [
             "[Off] Always allow mods to send telemetry",
             "[Protected] Allow telemetry after startup (recommended)",
