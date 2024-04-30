@@ -71,7 +71,7 @@ import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.DropB
 import me.partlysanestudios.partlysaneskies.features.information.WikiArticleOpener
 import me.partlysanestudios.partlysaneskies.features.mining.MiningEvents
 import me.partlysanestudios.partlysaneskies.features.mining.PickaxeWarning
-import me.partlysanestudios.partlysaneskies.features.mining.WormWarning
+import me.partlysanestudios.partlysaneskies.features.mining.crystalhollows.WormWarning
 import me.partlysanestudios.partlysaneskies.features.mining.crystalhollows.gemstonewaypoints.GemstoneData
 import me.partlysanestudios.partlysaneskies.features.mining.crystalhollows.gemstonewaypoints.GemstoneWaypointRender
 import me.partlysanestudios.partlysaneskies.features.security.PrivacyMode
@@ -195,7 +195,6 @@ class PartlySaneSkies {
         registerEvent(this)
         registerEvent(PartyManager())
         registerEvent(WatcherReady())
-        registerEvent(WormWarning())
         registerEvent(CustomMainMenu(ElementaVersion.V2))
         registerEvent(PartyFriendManager())
         registerEvent(GardenTradeValue())
@@ -238,6 +237,7 @@ class PartlySaneSkies {
         registerEvent(GemstoneData)
         registerEvent(GemstoneWaypointRender)
         registerEvent(WikiArticleOpener)
+        registerEvent(WormWarning)
 
         // Registers all client side commands
         HelpCommand.registerPSSCommand()
