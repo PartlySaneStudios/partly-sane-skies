@@ -248,8 +248,8 @@ object OneConfigScreen : Config(
         size = 2,
         options = [
             "[Off] Always allow mods to send telemetry",
-            "[Protected] Allow telemetry after startup (recommended)",
-            "[Strong] Allow telemetry after mod initialization ",
+            "[Protected] Block telemetry after startup (recommended)",
+            "[Strong] Block telemetry after mod initialization ",
             "[Strict] Always block telemetry (May causes crashes)"
         ]
     )
