@@ -14,7 +14,7 @@ import me.partlysanestudios.partlysaneskies.render.gui.hud.cooldown.Cooldown
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.weightedAverage
 import java.awt.Color
 
-class UIHorizontalCooldownElement(private val xConstraint: XConstraint, private val yConstraint: YConstraint, private val widthConstraint: WidthConstraint, private val heightConstraint: HeightConstraint) {
+class PSSHorizontalCooldown(private val xConstraint: XConstraint, private val yConstraint: YConstraint, private val widthConstraint: WidthConstraint, private val heightConstraint: HeightConstraint) {
 
     private var cooldown: Cooldown? = null
 
@@ -45,17 +45,17 @@ class UIHorizontalCooldownElement(private val xConstraint: XConstraint, private 
         .setWidth((boundingBox.getHeight() * 1.75).pixels)
         .setChildOf(boundingBox) as PSSItemRender
 
-    fun setChildOf(parent: UIComponent): UIHorizontalCooldownElement {
+    fun setChildOf(parent: UIComponent): PSSHorizontalCooldown {
         boundingBox.setChildOf(parent)
         return this
     }
 
-    fun setX(xConstraint: XConstraint): UIHorizontalCooldownElement {
+    fun setX(xConstraint: XConstraint): PSSHorizontalCooldown {
         boundingBox.setX(xConstraint)
         return this
     }
 
-    fun setY(yConstraint: YConstraint): UIHorizontalCooldownElement {
+    fun setY(yConstraint: YConstraint): PSSHorizontalCooldown {
         boundingBox.setY(yConstraint)
         return this
     }

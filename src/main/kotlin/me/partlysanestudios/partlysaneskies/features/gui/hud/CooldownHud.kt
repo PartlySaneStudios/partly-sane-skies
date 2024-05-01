@@ -12,7 +12,7 @@ import gg.essential.elementa.dsl.percent
 import gg.essential.elementa.dsl.percentOfWindow
 import gg.essential.elementa.dsl.pixels
 import me.partlysanestudios.partlysaneskies.config.PSSHud
-import me.partlysanestudios.partlysaneskies.render.gui.components.UIHorizontalCooldownElement
+import me.partlysanestudios.partlysaneskies.render.gui.components.PSSHorizontalCooldown
 import me.partlysanestudios.partlysaneskies.render.gui.hud.cooldown.Cooldown
 import me.partlysanestudios.partlysaneskies.render.gui.hud.cooldown.CooldownManager
 import me.partlysanestudios.partlysaneskies.utils.MathUtils
@@ -28,15 +28,15 @@ private const val defaultHeight = 7
 private const val defaultPadding = 120f
 object CooldownHud: PSSHud(true, 960F - defaultWidth/2, 561.6F, 0, 1.0F) {
     private val exampleCooldowns = ArrayList<ExampleCooldown>()
-    private val cooldownElements = ArrayList<UIHorizontalCooldownElement>()
+    private val cooldownElements = ArrayList<PSSHorizontalCooldown>()
     private val window = Window(ElementaVersion.V2)
     init {
-        var previousCooldownElement = UIHorizontalCooldownElement(CenterConstraint(), 52f.percent, defaultWidth.pixels, defaultHeight.pixels)
+        var previousCooldownElement = PSSHorizontalCooldown(CenterConstraint(), 52f.percent, defaultWidth.pixels, defaultHeight.pixels)
             .setChildOf(window)
 
         cooldownElements.add(previousCooldownElement)
         for (i in 2..cooldownsDisplayableAtOnce) {
-            val newCooldownElement = UIHorizontalCooldownElement(CenterConstraint(), defaultPadding.percent, defaultWidth.pixels, defaultHeight.pixels)
+            val newCooldownElement = PSSHorizontalCooldown(CenterConstraint(), defaultPadding.percent, defaultWidth.pixels, defaultHeight.pixels)
                 .setChildOf(previousCooldownElement.boundingBox)
             previousCooldownElement = newCooldownElement
             cooldownElements.add(newCooldownElement)
