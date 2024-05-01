@@ -43,6 +43,7 @@ object PlayerRating {
     private var totalPoints = 0
 
     private var lastMessage = ""
+    
     @SubscribePSSEvent
     fun initPatterns(event: LoadPublicDataEvent) {
         currentPlayer = minecraft.session.username
