@@ -13,7 +13,7 @@ import net.minecraft.client.gui.FontRenderer
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.item.ItemStack
 
-class PSSItemRender(var item: ItemStack) : UIComponent() {
+class PSSItemRender(var item: ItemStack?) : UIComponent() {
     private var itemScale = 1f
     override fun draw(matrixStack: UMatrixStack) {
         beforeDrawCompat(matrixStack)
