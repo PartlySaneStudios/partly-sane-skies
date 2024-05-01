@@ -190,7 +190,6 @@ class PartlySaneSkies {
         // Registers all the events
         registerEvent(this)
         registerEvent(PartyManager())
-        registerEvent(WatcherReady())
         registerEvent(CustomMainMenu(ElementaVersion.V2))
         registerEvent(PartyFriendManager())
         registerEvent(GardenTradeValue())
@@ -234,6 +233,7 @@ class PartlySaneSkies {
         registerEvent(WormWarning)
         registerEvent(PlayerRating)
         registerEvent(PickaxeWarning)
+        registerEvent(WatcherReady)
 
         // Registers all client side commands
         HelpCommand.registerPSSCommand()
