@@ -60,7 +60,7 @@ public class PSSCommand {
     }
 
     public ICommand register() {
-        return CommandManager.registerCommand(this);
+        return CommandManager.INSTANCE.registerCommand(this);
     }
     public String getName() {
         return name;
@@ -82,7 +82,7 @@ public class PSSCommand {
         this.registered = true;
     }
     public boolean isRegistered() {
-        return CommandManager.commandList.containsKey(name);
+        return CommandManager.INSTANCE.getCommandList().containsKey(name);
     }
     public ICommand getICommand() {
         return this.command;

@@ -53,7 +53,7 @@ object PlayerRating {
         }
     }
 
-    private fun rackPoints(playerString: String, category: String) {
+    fun rackPoints(playerString: String, category: String) {
         var player = playerString
         if (player.equals("You", ignoreCase = true)) {
             player = currentPlayer
@@ -148,7 +148,7 @@ object PlayerRating {
             }
             
             val (playerName) = key.find(message)?.destructured ?: return
-            PlayerRating.rackPoints(playerName, value)
+            rackPoints(playerName, value)
         }
     }
 

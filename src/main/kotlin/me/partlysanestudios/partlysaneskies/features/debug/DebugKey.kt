@@ -14,7 +14,7 @@ import me.partlysanestudios.partlysaneskies.data.skyblockdata.IslandType
 import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.minecraft.render.RenderWaypointEvent
 import me.partlysanestudios.partlysaneskies.features.dungeons.TerminalWaypoints
-import me.partlysanestudios.partlysaneskies.features.dungeons.playerrating.PlayerRating
+import me.partlysanestudios.partlysaneskies.features.dungeons.PlayerRating
 import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.Drop
 import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.DropBannerDisplay
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
