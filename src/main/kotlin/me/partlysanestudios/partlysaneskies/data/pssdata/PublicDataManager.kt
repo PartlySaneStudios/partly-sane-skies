@@ -97,7 +97,7 @@ object PublicDataManager {
             .addAlias("psscleardata")
             .addAlias("pssclearcache")
             .setDescription("Clears your Partly Sane Studios data")
-            .setRunnable { _: ICommandSender?, _: Array<String?>? ->
+            .setRunnable { _: ICommandSender?, _: Array<String> ->
                 val chatcomponent = ChatComponentText(
                     """
                 §b§4-----------------------------------------------------§7

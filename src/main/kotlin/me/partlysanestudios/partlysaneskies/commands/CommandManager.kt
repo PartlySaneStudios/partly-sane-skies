@@ -26,11 +26,11 @@ object CommandManager {
             }
 
             override fun getCommandUsage(sender: ICommandSender): String {
-                return pssCommand.description
+                return pssCommand.getDescription()
             }
 
             override fun getCommandAliases(): List<String> {
-                return pssCommand.aliases
+                return pssCommand.getAliases()
             }
 
             @Throws(CommandException::class)

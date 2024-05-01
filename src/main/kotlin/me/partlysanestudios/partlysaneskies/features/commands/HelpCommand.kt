@@ -19,7 +19,7 @@ object HelpCommand {
             .addAlias("pssc")
             .addAlias("pssconf")
             .setDescription("Opens the config menu")
-            .setRunnable { _: ICommandSender?, _: Array<String?>? ->
+            .setRunnable { _: ICommandSender, _: Array<String> ->
                 sendClientMessage("§bOpening config menu...")
                 enqueueRenderOperation(Runnable { config.openGui() })
             }
@@ -29,7 +29,7 @@ object HelpCommand {
     fun registerPSSCommand() {
         PSSCommand("pss")
             .setDescription("Prints help message and opens the config menu")
-            .setRunnable { _: ICommandSender?, _: Array<String?>? ->
+            .setRunnable { _: ICommandSender?, _: Array<String> ->
                 printHelpMessage()
                 sendClientMessage("§bOpening config menu...")
                 enqueueRenderOperation(Runnable { config.openGui() })
@@ -92,10 +92,10 @@ Partly Sane Skies is a mod developed by Su386 and FlagMaster. This mod aims to b
         for ((_, command) in CommandManager.commandList) {
             str.append("\n")
             str.append("\n §b> /").append(command.name)
-            for (alias in command.aliases) {
+            for (alias in command.getAliases()) {
                 str.append(", /").append(alias)
             }
-            str.append("\n§3    > ").append(command.description)
+            str.append("\n§3    > ").append(command.getDescription())
         }
         str.append("\n§3§m-----------------------------------------------------§r")
         sendClientMessage(str.toString(), true)

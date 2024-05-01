@@ -10,9 +10,9 @@ import net.minecraft.command.ICommand
 import net.minecraft.command.ICommandSender
 
 class PSSCommand(val name: String) {
-    var aliases: MutableList<String> = ArrayList<String>()
-    var description: String = ""
-    var runnable = PSSCommandRunnable { _: ICommandSender?, _: Array<String> -> }
+    private var aliases: MutableList<String> = ArrayList<String>()
+    private var description: String = ""
+    private var runnable = PSSCommandRunnable { _: ICommandSender?, _: Array<String> -> }
     var iCommand: ICommand? = null
     var isRegistered = false
 
@@ -48,7 +48,7 @@ class PSSCommand(val name: String) {
         return this
     }
 
-    fun runRunnable(sender: ICommandSender?, args: Array<String>) {
+    fun runRunnable(sender: ICommandSender, args: Array<String>) {
         runnable.run(sender, args)
     }
 
@@ -59,5 +59,12 @@ class PSSCommand(val name: String) {
     fun setICommand(iCommand: ICommand?): PSSCommand {
         this.iCommand = iCommand
         return this
+    }
+
+    fun getAliases(): List<String> {
+        return aliases
+    }
+    fun getDescription(): String {
+        return description
     }
 }

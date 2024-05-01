@@ -24,7 +24,7 @@ object Discord {
             .addAlias("pssdiscord")
             .addAlias("didcord")
             .setDescription("Join the Partly Sane Studios Discord Server")
-            .setRunnable { _: ICommandSender?, _: Array<String?>? ->
+            .setRunnable { _: ICommandSender?, _: Array<String> ->
                 // Creates a new message with the correct text
                 val message: IChatComponent = ChatComponentText(PartlySaneSkies.CHAT_PREFIX + "§9Join the discord: https://discord.gg/$discordCode")
                 // Sets the text to be clickable with a link

@@ -20,7 +20,7 @@ object Version {
             .addAlias("pssv")
             .addAlias("partlysaneskiesv")
             .setDescription("Prints the version of Partly Sane Skies you are using")
-            .setRunnable { _: ICommandSender?, _: Array<String?>? ->
+            .setRunnable { _: ICommandSender?, _: Array<String> ->
                 val chatcomponent = ChatComponentText(
                     """§b§m-----------------------------------------------------§0
                     §b§lPartly Sane Skies Version:

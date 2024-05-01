@@ -26,7 +26,7 @@ object SanityCheck {
             .addAlias("/pssinsane")
             .addAlias("/psssane")
             .setDescription("Checks for one's sanity. This command is purely for fun; do not take its results seriously.")
-            .setRunnable { _: ICommandSender, a: Array<String> ->
+            .setRunnable { _: ICommandSender?, a: Array<String> ->
                 ChatUtils.sendClientMessage("Attempting to begin sanity analysis...")
                 Thread {
                     var username = playerName

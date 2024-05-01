@@ -279,7 +279,7 @@ object EndOfFarmNotifier {
     fun registerCreateRangeCommand() {
         PSSCommand("/create")
             .setDescription("Creates the range from two positions: //create [name]")
-            .setRunnable { s: ICommandSender?, a: Array<String?> ->
+            .setRunnable { s: ICommandSender, a: Array<String> ->
                 var name: String? = ""
                 if (a.isNotEmpty()) {
                     name = a[0]
@@ -364,7 +364,7 @@ object EndOfFarmNotifier {
             .addAlias("psswand")
             .addAlias("partlysaneskieswand")
             .setDescription("Toggles the wand for the End of Farm Notifier: /wand")
-            .setRunnable { s: ICommandSender?, a: Array<String?>? ->
+            .setRunnable { _: ICommandSender?, _: Array<String>? ->
                 wandActive = !wandActive
                 ChatUtils.sendClientMessage(
                     "§7The wand is now " +
