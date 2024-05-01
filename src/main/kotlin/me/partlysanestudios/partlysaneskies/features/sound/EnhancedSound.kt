@@ -2,7 +2,7 @@
 // Written by Su386.
 // See LICENSE for copyright and license notices.
 //
-package me.partlysanestudios.partlysaneskies.features.sound.enhancedsound
+package me.partlysanestudios.partlysaneskies.features.sound
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
@@ -13,6 +13,7 @@ import net.minecraftforge.client.event.sound.PlaySoundEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 
 object EnhancedSound {
+
     private val instruments = arrayOf(
         "live_clarinet",
         "clarinet",
@@ -68,13 +69,17 @@ object EnhancedSound {
             }
         }
     }
+
     @SubscribeEvent
     fun onSoundEvent(event: PlaySoundEvent) {
         if (event.name.equals("note.pling", ignoreCase = true)) {
             if (config.customSoundOption == 0) {
                 return
             }
-            val sound = buildReplacementSound(event, ResourceLocation("partlysaneskies", "tenor_" + instruments[config.customSoundOption - 1]))
+            val sound = buildReplacementSound(
+                event,
+                ResourceLocation("partlysaneskies", "tenor_" + instruments[config.customSoundOption - 1])
+            )
             event.result = sound
             minecraft.soundHandler
                 .playSound(sound)
@@ -83,14 +88,20 @@ object EnhancedSound {
             if (config.customSoundOption == 0) {
                 return
             }
-            val sound = buildReplacementSound(event, ResourceLocation("partlysaneskies", "bass_" + instruments[config.customSoundOption - 1]))
+            val sound = buildReplacementSound(
+                event,
+                ResourceLocation("partlysaneskies", "bass_" + instruments[config.customSoundOption - 1])
+            )
             event.result = sound
             minecraft.soundHandler.playSound(sound)
         } else if (event.name.equals("note.harp", ignoreCase = true)) {
             if (config.customSoundOption == 0) {
                 return
             }
-            val sound = buildReplacementSound(event, ResourceLocation("partlysaneskies", "alto_" + instruments[config.customSoundOption - 1]))
+            val sound = buildReplacementSound(
+                event,
+                ResourceLocation("partlysaneskies", "alto_" + instruments[config.customSoundOption - 1])
+            )
 
             event.result = sound
             minecraft.soundHandler.playSound(sound)

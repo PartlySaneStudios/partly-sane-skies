@@ -9,7 +9,9 @@ package me.partlysanestudios.partlysaneskies.render.gui.hud.cooldown
 import java.util.*
 
 object CooldownManager {
+
     private val cooldowns = ArrayList<Cooldown>()
+
     fun getActiveCooldowns(): List<Cooldown> {
         val activeCooldowns = LinkedList<Cooldown>()
 

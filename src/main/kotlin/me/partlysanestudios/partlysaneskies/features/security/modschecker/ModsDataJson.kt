@@ -19,14 +19,9 @@ class ModDataJson {
         val download: String = ""
 
         @Expose
-        val versions: Map<String, String>
+        val versions: Map<String, String> = HashMap()
 
         @Expose
-        val betaVersions: Map<String, String>
-
-        init {
-            versions = HashMap()
-            betaVersions = HashMap()
-        }
+        val betaVersions: Map<String, String> = HashMap()
     }
 }

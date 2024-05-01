@@ -21,8 +21,17 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import java.util.regex.Pattern
 
 object PickaxeWarning {
+
     private val pattern = Pattern.compile("(Mining Speed Boost|Pickobulus|Maniac Miner|Vein Seeker) is now available!")
-    val pickaxeAbilities = arrayOf<String?>("Mining Speed Boost", "Pickobulus", "Maniac Miner", "Vein Seeker")
+    private val pickaxeAbilities = arrayOf<String?>(
+        "Mining Speed Boost",
+        "Pickobulus",
+        "Maniac Miner",
+        "Vein Seeker",
+        "Hazardous Miner",
+        "Gemstone Infusion"
+    )
+
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     fun onChat(event: ClientChatReceivedEvent) {
         if (config.onlyGiveWarningOnMiningIsland) {

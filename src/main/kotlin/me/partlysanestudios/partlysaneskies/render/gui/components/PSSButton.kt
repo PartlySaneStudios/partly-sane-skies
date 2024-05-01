@@ -20,6 +20,7 @@ import java.awt.Color
 import java.util.function.Consumer
 
 class PSSButton {
+
     private var backgroundBlock: UIBlock
     private var buttonTexture: UIImage
     private var textComponent: UIWrappedText
@@ -43,6 +44,7 @@ class PSSButton {
     }
 
     constructor(color: Color?) : this(OneColor(color!!))
+
     constructor(color: OneColor) {
         text = ""
         backgroundBlock = UIBlock()
@@ -139,8 +141,8 @@ class PSSButton {
     val component: UIComponent
         get() = buttonTexture
 
-    fun setBackgroundVisibility(`val`: Boolean): PSSButton {
-        if (`val`) {
+    fun setBackgroundVisibility(value: Boolean): PSSButton {
+        if (value) {
             buttonTexture.unhide(true)
             for (child in buttonTexture.children) {
                 child.unhide(true)

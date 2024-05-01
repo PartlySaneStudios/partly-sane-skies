@@ -14,7 +14,12 @@ import me.partlysanestudios.partlysaneskies.render.gui.hud.cooldown.Cooldown
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.weightedAverage
 import java.awt.Color
 
-class PSSHorizontalCooldown(private val xConstraint: XConstraint, private val yConstraint: YConstraint, private val widthConstraint: WidthConstraint, private val heightConstraint: HeightConstraint) {
+class PSSHorizontalCooldown(
+    private val xConstraint: XConstraint,
+    private val yConstraint: YConstraint,
+    private val widthConstraint: WidthConstraint,
+    private val heightConstraint: HeightConstraint
+) {
 
     private var cooldown: Cooldown? = null
 
@@ -24,9 +29,8 @@ class PSSHorizontalCooldown(private val xConstraint: XConstraint, private val yC
         y = yConstraint
         height = heightConstraint
         width = widthConstraint
-        color = Color(0,0,0,0).constraint
+        color = Color(0, 0, 0, 0).constraint
     }
-
 
     private val displayBox = UIRoundedRectangle(2f).constrain {
         radius = 4f.pixels
@@ -64,9 +68,8 @@ class PSSHorizontalCooldown(private val xConstraint: XConstraint, private val yC
         this.cooldown = cooldown
     }
 
-
     fun tick() {
-        if (cooldown == null)  {
+        if (cooldown == null) {
             displayBox.setColor(Color(0, 0, 0, 0).constraint)
             boundingBox.setColor(Color(0, 0, 0, 0).constraint)
             itemRender.item = null
@@ -74,10 +77,11 @@ class PSSHorizontalCooldown(private val xConstraint: XConstraint, private val yC
             return
         }
 
-        if (cooldown?.isCooldownActive() != true)  {
+        if (cooldown?.isCooldownActive() != true) {
             cooldown = null
             return
         }
+
         val percentRemaining = cooldown!!.getTimeRemaining().toFloat() / cooldown!!.getTotalTime().toFloat()
 
         val percentComplete = 1 - percentRemaining
@@ -88,8 +92,5 @@ class PSSHorizontalCooldown(private val xConstraint: XConstraint, private val yC
         boundingBox.setColor(Color(0f, 0f, 0f, .4f))
         displayBox.setColor(displayBoxColor)
         displayBox.setWidth((percentComplete * 100).percent)
-
     }
-
-
 }

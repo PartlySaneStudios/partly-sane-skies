@@ -11,11 +11,13 @@ import net.minecraft.util.BlockPos
 import net.minecraftforge.client.ClientCommandHandler
 
 object CommandManager {
+
+    var commandList = HashMap<String, PSSCommand>()
+
     fun getCommand(commandName: String): PSSCommand? {
         return commandList[commandName]
     }
 
-    var commandList = HashMap<String, PSSCommand>()
     fun registerCommand(pssCommand: PSSCommand): ICommand? {
         if (pssCommand.isRegistered) {
             return null
@@ -42,7 +44,11 @@ object CommandManager {
                 return true
             }
 
-            override fun addTabCompletionOptions(sender: ICommandSender, args: Array<String>, pos: BlockPos): List<String> {
+            override fun addTabCompletionOptions(
+                sender: ICommandSender,
+                args: Array<String>,
+                pos: BlockPos
+            ): List<String> {
                 return ArrayList()
             }
 
