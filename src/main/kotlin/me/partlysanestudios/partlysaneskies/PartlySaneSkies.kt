@@ -193,11 +193,9 @@ class PartlySaneSkies {
         registerEvent(CustomMainMenu(ElementaVersion.V2))
         registerEvent(PartyFriendManager())
         registerEvent(GardenTradeValue())
-        registerEvent(EnhancedSound())
         registerEvent(BitsShopValue())
         registerEvent(PetAlert())
         registerEvent(MiningEvents())
-        registerEvent(RequiredSecretsFound())
         registerEvent(MinionData())
         registerEvent(SkymartValue())
         registerEvent(CompostValue())
@@ -234,6 +232,8 @@ class PartlySaneSkies {
         registerEvent(PlayerRating)
         registerEvent(PickaxeWarning)
         registerEvent(WatcherReady)
+        registerEvent(RequiredSecretsFound)
+        registerEvent(EnhancedSound)
 
         // Registers all client side commands
         HelpCommand.registerPSSCommand()
