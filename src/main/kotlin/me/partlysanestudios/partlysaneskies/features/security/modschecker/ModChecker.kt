@@ -46,8 +46,8 @@ object ModChecker {
                     loadModDataFromRepo()
                 }
             }.start()
-        }.addAlias("modscheck").addAlias("modchecker").addAlias("modschecker").addAlias("pssmodscheck")
-            .addAlias("pssmodchecker").addAlias("pssmodschecker").register()
+        }.addAlias("modscheck", "modchecker", "modschecker", "pssmodscheck", "pssmodchecker", "pssmodschecker")
+            .register()
     }
 
     private var knownMods: List<KnownMod> = ArrayList<KnownMod>()
@@ -84,7 +84,7 @@ object ModChecker {
             val modFile = container.source
             val fileName = modFile.getName()
 
-            // can not read hash of Minecraft Coder Pack or other stuff like Smooth Font Core
+            // Cannot read hash of Minecraft Coder Pack or other stuff like Smooth Font Core
             if (fileName == "minecraft.jar") {
                 continue
             }
@@ -145,7 +145,12 @@ object ModChecker {
                 val message: IChatComponent = ChatComponentText("\n§a${mod.name} §7is up to date")
                 if (isValidURL(mod.downloadLink)) {
                     message.chatStyle.setChatClickEvent(ClickEvent(ClickEvent.Action.OPEN_URL, mod.downloadLink))
-                    message.chatStyle.setChatHoverEvent(HoverEvent(HoverEvent.Action.SHOW_TEXT, ChatComponentText("Click for the official website for " + mod.name + "!")))
+                    message.chatStyle.setChatHoverEvent(
+                        HoverEvent(
+                            HoverEvent.Action.SHOW_TEXT,
+                            ChatComponentText("Click for the official website for " + mod.name + "!")
+                        )
+                    )
                 }
                 chatMessage.appendSibling(message)
             }
@@ -161,12 +166,18 @@ object ModChecker {
             } catch (e: IOException) {
                 e.printStackTrace()
             }
-            val mod = findModFromHash(hash)?: continue
+            val mod = findModFromHash(hash) ?: continue
             val latestVersion = findNewestModFromId(mod.id).version
-            val message: IChatComponent = ChatComponentText("\n§e${mod.name} §7is §coutdated §7(§e${mod.version} §7-> §e$latestVersion§7)")
+            val message: IChatComponent =
+                ChatComponentText("\n§e${mod.name} §7is §coutdated §7(§e${mod.version} §7-> §e$latestVersion§7)")
             if (isValidURL(mod.downloadLink)) {
                 message.chatStyle.setChatClickEvent(ClickEvent(ClickEvent.Action.OPEN_URL, mod.downloadLink))
-                message.chatStyle.setChatHoverEvent(HoverEvent(HoverEvent.Action.SHOW_TEXT, ChatComponentText("Click for the official website for " + mod.name + "!")))
+                message.chatStyle.setChatHoverEvent(
+                    HoverEvent(
+                        HoverEvent.Action.SHOW_TEXT,
+                        ChatComponentText("Click for the official website for " + mod.name + "!")
+                    )
+                )
             }
             chatMessage.appendSibling(message)
         }
@@ -197,7 +208,8 @@ object ModChecker {
             var message = ChatComponentText("\n§c$modName §7($fileName) is §cunknown!")
             try {
                 val mod = findNewestModFromId(container.modId)
-                message = ChatComponentText("\n§c$modName §7($fileName) is §cunknown! §c(Verified version of ${mod.name} found.)")
+                message =
+                    ChatComponentText("\n§c$modName §7($fileName) is §cunknown! §c(Verified version of ${mod.name} found.)")
 
                 if (isValidURL(mod.downloadLink)) {
                     message.chatStyle.setChatClickEvent(ClickEvent(ClickEvent.Action.OPEN_URL, mod.downloadLink))

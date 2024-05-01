@@ -12,6 +12,7 @@ import net.minecraft.event.ClickEvent
 import net.minecraft.util.ChatComponentText
 
 object Crepes {
+
     fun registerCrepesCommand() {
         PSSCommand("crepes")
             .addAlias("crêpes")

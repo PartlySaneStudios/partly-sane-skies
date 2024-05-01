@@ -20,14 +20,15 @@ import net.minecraft.client.audio.PositionedSoundRecord
 import net.minecraft.util.ResourceLocation
 
 object RequiredSecretsFound {
+
+    private var alreadySendThisRun = false
+    private var lastCheckTime = time
+
     @SubscribePSSEvent
     fun onDungeonStart(event: DungeonStartEvent?) {
         alreadySendThisRun = false
     }
 
-
-    private var alreadySendThisRun = false
-    private var lastCheckTime = time
     fun tick() {
         if (!isSkyblock()) {
             return
@@ -42,6 +43,7 @@ object RequiredSecretsFound {
             return
         }
         lastCheckTime = time
+
         for (line in getTabList()) {
             if (line.contains("Secrets Found: §r§a")) {
                 if (config.secretsBanner) {
@@ -62,5 +64,4 @@ object RequiredSecretsFound {
             }
         }
     }
-
 }

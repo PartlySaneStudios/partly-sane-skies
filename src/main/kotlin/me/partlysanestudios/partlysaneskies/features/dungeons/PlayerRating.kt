@@ -28,6 +28,7 @@ import org.apache.logging.log4j.Level
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
 
 object PlayerRating {
+
     private var currentPlayer = ""
 
     private var positiveRegexs = HashMap<Regex, String>()
@@ -191,6 +192,7 @@ object PlayerRating {
         lastMessage = string
         val chatMessageString = getChatMessage()
         val slackingMembers = getSlackingMembers()
+
         Thread {
             try {
                 Thread.sleep((config.dungeonPlayerBreakdownDelay * 1000).toLong())

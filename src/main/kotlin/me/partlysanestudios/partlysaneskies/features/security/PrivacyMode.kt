@@ -5,6 +5,7 @@ import me.partlysanestudios.partlysaneskies.utils.SystemUtils
 import org.apache.logging.log4j.Level
 
 object PrivacyMode {
+
     private var enablePrivacyMode = false
 
     fun shouldBlockTelemetry(): Boolean {

@@ -14,10 +14,10 @@ import org.lwjgl.input.Keyboard
 import java.util.*
 
 object HelpCommand {
+
     fun registerConfigCommand() {
         PSSCommand("pssconfig")
-            .addAlias("pssc")
-            .addAlias("pssconf")
+            .addAlias("pssc", "pssconf")
             .setDescription("Opens the config menu")
             .setRunnable { _: ICommandSender, _: Array<String> ->
                 sendClientMessage("§bOpening config menu...")
@@ -39,12 +39,7 @@ object HelpCommand {
     private var configAliases: List<String> = mutableListOf("conf", "c", "config")
     fun registerHelpCommand() {
         PSSCommand("psshelp")
-            .addAlias("pssh")
-            .addAlias("pshelp")
-            .addAlias("helpss")
-            .addAlias("helppss")
-            .addAlias("psshelp")
-            .addAlias("helpihavenoideawhatpartlysaneskiesis")
+            .addAlias("pssh", "helpss", "helppss", "pshelp", "helpihavenoideawhatpartlysaneskiesis")
             .setDescription("Show the Partly Sane Skies help message")
             .setRunnable { _: ICommandSender?, a: Array<String> ->
                 if (a.isNotEmpty() && configAliases.contains(a[0].lowercase(Locale.getDefault()))) {

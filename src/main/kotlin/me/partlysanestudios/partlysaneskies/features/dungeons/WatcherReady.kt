@@ -15,20 +15,36 @@ import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 
 object WatcherReady {
+
     @SubscribeEvent
     fun watcherReadyChatEvent(event: ClientChatReceivedEvent) {
         if (event.message.unformattedText.startsWith("[BOSS] The Watcher: That will be enough for now.")) {
             if (config.watcherReadyBanner) {
-                renderNewBanner(PSSBanner("Watcher Ready!", (config.watcherReadyBannerTime * 1000).toLong(), 3.0f, config.watcherReadyBannerColor.toJavaColor()))
+                renderNewBanner(
+                    PSSBanner(
+                        "Watcher Ready!",
+                        (config.watcherReadyBannerTime * 1000).toLong(),
+                        3.0f,
+                        config.watcherReadyBannerColor.toJavaColor()
+                    )
+                )
             }
             if (config.watcherReadyChatMessage) {
                 minecraft.thePlayer.sendChatMessage("/pc " + config.watcherChatMessage)
             }
             if (config.watcherReadySound) {
-                minecraft.soundHandler.playSound(PositionedSoundRecord.create(ResourceLocation("partlysaneskies", "bell")))
+                minecraft.soundHandler.playSound(
+                    PositionedSoundRecord.create(
+                        ResourceLocation("partlysaneskies", "bell")
+                    )
+                )
             }
             if (config.watcherReadyAirRaidSiren) {
-                minecraft.soundHandler.playSound(PositionedSoundRecord.create(ResourceLocation("partlysaneskies", "airraidsiren")))
+                minecraft.soundHandler.playSound(
+                    PositionedSoundRecord.create(
+                        ResourceLocation("partlysaneskies", "airraidsiren")
+                    )
+                )
             }
         }
     }

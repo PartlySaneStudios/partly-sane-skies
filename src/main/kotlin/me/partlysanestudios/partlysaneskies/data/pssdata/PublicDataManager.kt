@@ -17,6 +17,7 @@ import net.minecraft.util.ChatComponentText
 import java.net.MalformedURLException
 
 object PublicDataManager {
+
     // Add all initializing of public data here
     private val fileCache = HashMap<String, String>()
     private val lock = Lock()

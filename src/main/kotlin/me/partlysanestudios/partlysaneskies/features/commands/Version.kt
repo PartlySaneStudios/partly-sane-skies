@@ -14,6 +14,7 @@ import net.minecraft.event.ClickEvent
 import net.minecraft.util.ChatComponentText
 
 object Version {
+
     fun registerVersionCommand() {
         PSSCommand("partlysaneskiesversion")
             .addAlias("pssversion")
