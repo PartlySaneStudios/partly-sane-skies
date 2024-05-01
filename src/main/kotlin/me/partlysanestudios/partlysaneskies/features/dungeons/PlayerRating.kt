@@ -11,17 +11,21 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager.getFile
+import me.partlysanestudios.partlysaneskies.data.skyblockdata.IslandType
 import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.data.LoadPublicDataEvent
 import me.partlysanestudios.partlysaneskies.events.skyblock.dungeons.DungeonEndEvent
 import me.partlysanestudios.partlysaneskies.events.skyblock.dungeons.DungeonStartEvent
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.round
+import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.stripLeading
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.stripTrailing
 import net.minecraft.command.ICommandSender
 import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
+import org.apache.logging.log4j.Level
+import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
 
 object PlayerRating {
     private var currentPlayer = ""
@@ -40,9 +44,9 @@ object PlayerRating {
 
     private var lastMessage = ""
     @SubscribePSSEvent
-    fun initPatterns(event: LoadPublicDataEvent?) {
+    fun initPatterns(event: LoadPublicDataEvent) {
         currentPlayer = minecraft.session.username
-        val str = getFile("constants/dungeons_player_rate_regex_strings.json")
+        val str = getFile("constants/dungeon_player_rate_regex_strings.json")
         if (str == "") {
             return
         }
@@ -143,7 +147,7 @@ object PlayerRating {
 
     private fun handleMessage(message: String) {
         for ((key, value) in positiveRegexs) {
-            if (!(key.matches(message))) {
+            if (!(key.containsMatchIn(message.removeColorCodes()))) {
                 continue
             }
             
@@ -228,8 +232,10 @@ object PlayerRating {
             reset()
             return
         }
+        if (!IslandType.CATACOMBS.onIsland()) {
+            return
+        }
+        
         handleMessage(event.message.unformattedText)
     }
-
-
 }
