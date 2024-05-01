@@ -38,6 +38,13 @@ class PSSCommand(val name: String) {
         return this
     }
 
+    fun addAlias(vararg aliases: String): PSSCommand {
+        for (alias in aliases) {
+            this.aliases.add(alias)
+        }
+        return this
+    }
+
     fun setRunnable(runnable: PSSCommandRunnable): PSSCommand {
         this.runnable = runnable
         return this
