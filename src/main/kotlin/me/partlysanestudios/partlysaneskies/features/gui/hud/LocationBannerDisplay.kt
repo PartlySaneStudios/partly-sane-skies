@@ -18,11 +18,13 @@ import java.awt.Color
 import java.util.*
 
 object LocationBannerDisplay {
+
     private var TEXT_SCALE = 5f
     private var lastLocation = ""
     private var lastLocationTime = time
     private var displayString = "empty"
     var color: Color = Color.white
+
     fun checkLocationTick() {
         if (!config.locationBannerDisplay) return
         val regionName = getRegionName()

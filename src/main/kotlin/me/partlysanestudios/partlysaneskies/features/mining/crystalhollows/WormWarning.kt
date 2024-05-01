@@ -14,8 +14,10 @@ import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 
 object WormWarning {
-    var wormWarningString = ""
-    var wormWarningBannerTime: Long = 0
+
+    private var wormWarningString = ""
+    private var wormWarningBannerTime: Long = 0
+
     @SubscribeEvent
     fun wormWarningChatEvent(event: ClientChatReceivedEvent) {
         if (event.message.unformattedText.startsWith("You hear the sound of something approaching...")) {

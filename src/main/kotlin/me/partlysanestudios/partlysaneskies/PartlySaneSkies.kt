@@ -75,7 +75,7 @@ import me.partlysanestudios.partlysaneskies.features.security.modschecker.ModChe
 import me.partlysanestudios.partlysaneskies.features.skills.PetAlert
 import me.partlysanestudios.partlysaneskies.features.skills.SkillUpgradeRecommendation
 import me.partlysanestudios.partlysaneskies.features.sound.Prank
-import me.partlysanestudios.partlysaneskies.features.sound.enhancedsound.EnhancedSound
+import me.partlysanestudios.partlysaneskies.features.sound.EnhancedSound
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
 import me.partlysanestudios.partlysaneskies.render.gui.hud.BannerRenderer
 import me.partlysanestudios.partlysaneskies.render.gui.hud.cooldown.CooldownManager

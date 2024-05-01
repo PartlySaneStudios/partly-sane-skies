@@ -26,25 +26,35 @@ private const val cooldownsDisplayableAtOnce = 3
 private const val defaultWidth = 50
 private const val defaultHeight = 7
 private const val defaultPadding = 120f
-object CooldownHud: PSSHud(true, 960F - defaultWidth/2, 561.6F, 0, 1.0F) {
+
+object CooldownHud : PSSHud(true, 960F - defaultWidth / 2, 561.6F, 0, 1.0F) {
+
     private val exampleCooldowns = ArrayList<ExampleCooldown>()
     private val cooldownElements = ArrayList<PSSHorizontalCooldown>()
     private val window = Window(ElementaVersion.V2)
+
     init {
-        var previousCooldownElement = PSSHorizontalCooldown(CenterConstraint(), 52f.percent, defaultWidth.pixels, defaultHeight.pixels)
-            .setChildOf(window)
+        var previousCooldownElement =
+            PSSHorizontalCooldown(CenterConstraint(), 52f.percent, defaultWidth.pixels, defaultHeight.pixels)
+                .setChildOf(window)
 
         cooldownElements.add(previousCooldownElement)
         for (i in 2..cooldownsDisplayableAtOnce) {
-            val newCooldownElement = PSSHorizontalCooldown(CenterConstraint(), defaultPadding.percent, defaultWidth.pixels, defaultHeight.pixels)
+            val newCooldownElement = PSSHorizontalCooldown(
+                CenterConstraint(),
+                defaultPadding.percent,
+                defaultWidth.pixels,
+                defaultHeight.pixels
+            )
                 .setChildOf(previousCooldownElement.boundingBox)
             previousCooldownElement = newCooldownElement
             cooldownElements.add(newCooldownElement)
         }
     }
+
     @SubscribeEvent
     fun onScreenRender(event: RenderGameOverlayEvent.Text) {
-        if(!this.enabled) {
+        if (!this.enabled) {
             return
         }
 
@@ -99,6 +109,7 @@ object CooldownHud: PSSHud(true, 960F - defaultWidth/2, 561.6F, 0, 1.0F) {
         }
         window.draw(gg.essential.universal.UMatrixStack())
     }
+
     override fun getWidth(scale: Float, example: Boolean): Float {
         return defaultWidth * scale
     }
@@ -109,14 +120,16 @@ object CooldownHud: PSSHud(true, 960F - defaultWidth/2, 561.6F, 0, 1.0F) {
         return totalBarHeights + totalPadding
     }
 
-    class ExampleCooldown: Cooldown() {
+    class ExampleCooldown : Cooldown() {
         private val item: Item
+
         init {
             val itemKeys = Item.itemRegistry.keys.toTypedArray()
             val itemsLength = itemKeys.size
             val randomIndex = MathUtils.randInt(0, itemsLength - 1)
             item = Item.itemRegistry.getObjectById(randomIndex) ?: Items.bucket
         }
+
         override fun getTotalTime(): Long = 1000
 
         override fun getDisplayName(): String = ""

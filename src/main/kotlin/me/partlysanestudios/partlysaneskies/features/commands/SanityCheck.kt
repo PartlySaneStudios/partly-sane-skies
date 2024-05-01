@@ -20,11 +20,7 @@ object SanityCheck {
 
     fun registerCommand() {
         PSSCommand("sanitycheck")
-            .addAlias("/checksanity")
-            .addAlias("/psssanity")
-            .addAlias("/pssinsanity")
-            .addAlias("/pssinsane")
-            .addAlias("/psssane")
+            .addAlias("checksanity", "psssanity", "pssinsanity", "pssinsane", "psssane")
             .setDescription("Checks for one's sanity. This command is purely for fun; do not take its results seriously.")
             .setRunnable { _: ICommandSender?, a: Array<String> ->
                 ChatUtils.sendClientMessage("Attempting to begin sanity analysis...")

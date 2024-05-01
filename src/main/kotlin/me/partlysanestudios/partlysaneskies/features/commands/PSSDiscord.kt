@@ -17,10 +17,7 @@ import net.minecraft.util.IChatComponent
 object PSSDiscord {
     fun registerDiscordCommand() {
         PSSCommand("pssdiscord")
-            .addAlias("pssdisc")
-            .addAlias("pssd")
-            .addAlias("psdisc")
-            .addAlias("psdiscord")
+            .addAlias("pssdisc", "pssd", "psdisc", "psdiscord")
             .setDescription("Join the Partly Sane Studios PSSDiscord Server")
             .setRunnable { _: ICommandSender?, _: Array<String> ->
                 // Creates a new message with the correct text

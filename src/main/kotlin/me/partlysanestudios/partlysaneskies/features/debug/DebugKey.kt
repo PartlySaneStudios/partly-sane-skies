@@ -39,6 +39,7 @@ import org.lwjgl.opengl.GL11
 import java.awt.Color
 
 object DebugKey {
+
     fun init() {
         config.debugMode = false
     }
@@ -71,7 +72,7 @@ object DebugKey {
         }
 
         if (config.percyMode) {
-            Thread() {
+            Thread {
                 sendClientMessage("Dumping...")
                 PercyMode.dump()
 
@@ -96,19 +97,19 @@ object DebugKey {
         }
 
         if (config.debugScanCrystalHollowsCrystals) {
-            Thread() {
+            Thread {
                 CrystalHollowsGemstoneMapper.scanWorld()
             }.start()
         }
 
         if (config.debugConvertScanToPrettyData) {
-            Thread() {
+            Thread {
                 CrystalHollowsGemstoneMapper.getPrettyData()
             }.start()
         }
 
         if (config.debugConvertPrettyDataToNoNucleus) {
-            Thread() {
+            Thread {
                 CrystalHollowsGemstoneMapper.removeNucleusCords()
             }.start()
         }

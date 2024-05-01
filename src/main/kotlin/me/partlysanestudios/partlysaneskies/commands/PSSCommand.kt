@@ -4,12 +4,12 @@
 //
 package me.partlysanestudios.partlysaneskies.commands
 
-import me.partlysanestudios.partlysaneskies.commands.CommandManager.commandList
 import me.partlysanestudios.partlysaneskies.commands.CommandManager.registerCommand
 import net.minecraft.command.ICommand
 import net.minecraft.command.ICommandSender
 
 class PSSCommand(val name: String) {
+
     private var aliases: MutableList<String> = ArrayList<String>()
     private var description: String = ""
     private var runnable = PSSCommandRunnable { _: ICommandSender?, _: Array<String> -> }
@@ -18,18 +18,18 @@ class PSSCommand(val name: String) {
 
     constructor(
         name: String,
-        aliases: MutableList<String> ,
+        aliases: MutableList<String>,
         description: String,
         runnable: PSSCommandRunnable,
     ) : this(name, aliases, description) {
         this.runnable = runnable
     }
 
-    constructor(name: String, aliases: MutableList<String> , description: String) : this(name, aliases) {
+    constructor(name: String, aliases: MutableList<String>, description: String) : this(name, aliases) {
         this.description = description
     }
 
-    constructor(name: String, aliases: MutableList<String> ) : this(name) {
+    constructor(name: String, aliases: MutableList<String>) : this(name) {
         this.aliases = aliases
     }
 
@@ -42,6 +42,7 @@ class PSSCommand(val name: String) {
         this.aliases.addAll(aliases)
         return this
     }
+
     fun setRunnable(runnable: PSSCommandRunnable): PSSCommand {
         this.runnable = runnable
         return this
@@ -68,6 +69,7 @@ class PSSCommand(val name: String) {
     fun getAliases(): List<String> {
         return aliases
     }
+
     fun getDescription(): String {
         return description
     }

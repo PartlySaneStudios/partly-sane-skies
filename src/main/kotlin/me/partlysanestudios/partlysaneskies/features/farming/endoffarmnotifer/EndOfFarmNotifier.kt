@@ -33,12 +33,12 @@ import kotlin.math.min
 
 
 object EndOfFarmNotifier {
+
     internal var ranges = ArrayList<Range3d>()
     private lateinit var selectedPos1: IntArray
     private lateinit var selectedPos2: IntArray
     private var lastChimeTime: Long = 0
 
-    private var color: Color? = null
     private var displayString = ""
     private const val TEXT_SCALE = 7
 
@@ -81,7 +81,7 @@ object EndOfFarmNotifier {
     }
 
     private fun createNewRange(name: String): Range3d? {
-        if (selectedPos1.isEmpty()|| selectedPos2.isEmpty()) {
+        if (selectedPos1.isEmpty() || selectedPos2.isEmpty()) {
             return null
         }
         val smallY: Double =

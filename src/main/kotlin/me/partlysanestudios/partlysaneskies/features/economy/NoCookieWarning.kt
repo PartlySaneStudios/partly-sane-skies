@@ -22,9 +22,11 @@ import java.awt.Color
 import java.util.*
 
 object NoCookieWarning {
+
     private const val TEXT_SCALE = 2.5f
     private var displayString = ""
     private var lastWarnTime = 0L
+
     private val footer: IChatComponent?
         get() {
             val tabList = Minecraft.getMinecraft().ingameGUI.tabList

@@ -18,6 +18,7 @@ import java.awt.Color
 import java.util.function.Consumer
 
 class PSSToggle {
+
     private var width = 0f
     private var height = 0f
     private var xConstraint: XConstraint? = null
@@ -46,6 +47,7 @@ class PSSToggle {
     fun getState(): Boolean {
         return this.state
     }
+
     fun updateState(): PSSToggle {
         val children = buttonTexture.children
         backgroundBlock.removeChild(buttonTexture)
@@ -102,7 +104,7 @@ class PSSToggle {
         return this
     }
 
-    //    This method fires when the button has been clicked
+    // This method fires when the button has been clicked
     fun onMouseClickConsumer(method: Consumer<UIClickEvent>): PSSToggle {
         backgroundBlock.onMouseClickConsumer(method)
         return this

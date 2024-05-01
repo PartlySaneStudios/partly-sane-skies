@@ -19,12 +19,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 
 object WikiArticleOpener {
 
-
     private var isWaitingForArticle = false
-    private fun getArticle(id: String) {
-        isWaitingForArticle = true
-        minecraft.thePlayer.sendChatMessage("/wiki $id")
-    }
 
     @SubscribeEvent
     fun openArticle(e: ClientChatReceivedEvent) {
@@ -44,6 +39,7 @@ object WikiArticleOpener {
             openLink(wikiLink)
         }
     }
+
     fun keyDown() {
         if (!isSkyblock()) {
             return
@@ -63,6 +59,11 @@ object WikiArticleOpener {
             return
         }
         getArticle(item.getItemId())
+    }
+
+    private fun getArticle(id: String) {
+        isWaitingForArticle = true
+        minecraft.thePlayer.sendChatMessage("/wiki $id")
     }
 }
 
