@@ -74,7 +74,7 @@ class PSSHorizontalCooldown(private val xConstraint: XConstraint, private val yC
             return
         }
 
-        if (!cooldown!!.isCooldownActive()) {
+        if (cooldown?.isCooldownActive() != true)  {
             cooldown = null
             return
         }
