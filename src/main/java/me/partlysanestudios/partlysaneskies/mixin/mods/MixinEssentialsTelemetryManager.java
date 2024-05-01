@@ -6,7 +6,7 @@
 package me.partlysanestudios.partlysaneskies.mixin.mods;
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
-import me.partlysanestudios.partlysaneskies.features.misc.PrivacyMode;
+import me.partlysanestudios.partlysaneskies.features.security.PrivacyMode;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;

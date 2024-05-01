@@ -36,10 +36,7 @@ import me.partlysanestudios.partlysaneskies.features.chat.ChatAlertsManager
 import me.partlysanestudios.partlysaneskies.features.chat.ChatManager
 import me.partlysanestudios.partlysaneskies.features.chat.ChatTransformer
 import me.partlysanestudios.partlysaneskies.features.chat.WordEditor
-import me.partlysanestudios.partlysaneskies.features.commands.Crepes
-import me.partlysanestudios.partlysaneskies.features.commands.Discord
-import me.partlysanestudios.partlysaneskies.features.commands.HelpCommand
-import me.partlysanestudios.partlysaneskies.features.commands.Version
+import me.partlysanestudios.partlysaneskies.features.commands.*
 import me.partlysanestudios.partlysaneskies.features.debug.DebugKey
 import me.partlysanestudios.partlysaneskies.features.debug.ExampleHud
 import me.partlysanestudios.partlysaneskies.features.discord.DiscordRPC
@@ -47,7 +44,6 @@ import me.partlysanestudios.partlysaneskies.features.dungeons.*
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.PartyFriendManager
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.partymanager.PartyManager
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.permpartyselector.PermPartyManager
-import me.partlysanestudios.partlysaneskies.features.dungeons.playerrating.PlayerRating
 import me.partlysanestudios.partlysaneskies.features.economy.BitsShopValue
 import me.partlysanestudios.partlysaneskies.features.economy.CoinsToBoosterCookieConversion
 import me.partlysanestudios.partlysaneskies.features.economy.NoCookieWarning
@@ -64,24 +60,22 @@ import me.partlysanestudios.partlysaneskies.features.farming.garden.GardenTradeV
 import me.partlysanestudios.partlysaneskies.features.farming.garden.SkymartValue
 import me.partlysanestudios.partlysaneskies.features.foraging.TreecapitatorCooldown
 import me.partlysanestudios.partlysaneskies.features.gui.CustomMainMenu
-import me.partlysanestudios.partlysaneskies.features.gui.CustomMainMenu.setFunFact
 import me.partlysanestudios.partlysaneskies.features.gui.RefreshKeybinds
 import me.partlysanestudios.partlysaneskies.features.gui.hud.CooldownHud
 import me.partlysanestudios.partlysaneskies.features.gui.hud.LocationBannerDisplay
 import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.DropBannerDisplay
 import me.partlysanestudios.partlysaneskies.features.information.WikiArticleOpener
 import me.partlysanestudios.partlysaneskies.features.mining.MiningEvents
-import me.partlysanestudios.partlysaneskies.features.mining.Pickaxes
-import me.partlysanestudios.partlysaneskies.features.mining.WormWarning
+import me.partlysanestudios.partlysaneskies.features.mining.PickaxeWarning
+import me.partlysanestudios.partlysaneskies.features.mining.crystalhollows.WormWarning
 import me.partlysanestudios.partlysaneskies.features.mining.crystalhollows.gemstonewaypoints.GemstoneData
 import me.partlysanestudios.partlysaneskies.features.mining.crystalhollows.gemstonewaypoints.GemstoneWaypointRender
-import me.partlysanestudios.partlysaneskies.features.misc.PrivacyMode
-import me.partlysanestudios.partlysaneskies.features.misc.SanityCheck
+import me.partlysanestudios.partlysaneskies.features.security.PrivacyMode
 import me.partlysanestudios.partlysaneskies.features.security.modschecker.ModChecker
 import me.partlysanestudios.partlysaneskies.features.skills.PetAlert
 import me.partlysanestudios.partlysaneskies.features.skills.SkillUpgradeRecommendation
 import me.partlysanestudios.partlysaneskies.features.sound.Prank
-import me.partlysanestudios.partlysaneskies.features.sound.enhancedsound.EnhancedSound
+import me.partlysanestudios.partlysaneskies.features.sound.EnhancedSound
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
 import me.partlysanestudios.partlysaneskies.render.gui.hud.BannerRenderer
 import me.partlysanestudios.partlysaneskies.render.gui.hud.cooldown.CooldownManager
@@ -100,6 +94,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent
 import net.minecraftforge.fml.common.network.FMLNetworkEvent.ClientConnectedToServerEvent
 import org.apache.logging.log4j.Level
 import org.apache.logging.log4j.LogManager
+import org.apache.logging.log4j.Logger
 import java.io.File
 import java.io.IOException
 import java.net.MalformedURLException
@@ -111,7 +106,7 @@ class PartlySaneSkies {
         fun main(args: Array<String>) {
         }
 
-        val LOGGER = LogManager.getLogger("Partly Sane Skies")
+        val LOGGER: Logger = LogManager.getLogger("Partly Sane Skies")
         const val MODID = "@MOD_ID@"
         const val NAME = "@MOD_NAME@"
         const val VERSION = "@MOD_VERSION@"
@@ -143,7 +138,7 @@ class PartlySaneSkies {
 
     // Method runs at mod initialization
     @Mod.EventHandler
-    fun init(evnt: FMLInitializationEvent?) {
+    fun init(event: FMLInitializationEvent?) {
         log(Level.INFO, "Hallo World!")
         pssMinecraft = Minecraft.getMinecraft()
 
@@ -194,26 +189,18 @@ class PartlySaneSkies {
 
         // Registers all the events
         registerEvent(this)
-        registerEvent(DropBannerDisplay)
         registerEvent(PartyManager())
-        registerEvent(WatcherReady())
-        registerEvent(WormWarning())
         registerEvent(CustomMainMenu(ElementaVersion.V2))
         registerEvent(PartyFriendManager())
-        registerEvent(WikiArticleOpener())
         registerEvent(GardenTradeValue())
-        registerEvent(EnhancedSound())
         registerEvent(BitsShopValue())
         registerEvent(PetAlert())
-        registerEvent(Pickaxes())
         registerEvent(MiningEvents())
-        registerEvent(RequiredSecretsFound())
         registerEvent(MinionData())
-        registerEvent(SkyblockDataManager)
-        registerEvent(PlayerRating())
         registerEvent(SkymartValue())
         registerEvent(CompostValue())
-        registerEvent(MathematicalHoeRightClicks())
+        registerEvent(SkyblockDataManager)
+        registerEvent(DropBannerDisplay)
         registerEvent(ChatManager)
         registerEvent(RangeHighlight)
         registerEvent(BannerRenderer)
@@ -239,6 +226,14 @@ class PartlySaneSkies {
         registerEvent(CooldownHud)
         registerEvent(GemstoneData)
         registerEvent(GemstoneWaypointRender)
+        registerEvent(WikiArticleOpener)
+        registerEvent(WormWarning)
+        registerEvent(PlayerRating)
+        registerEvent(PickaxeWarning)
+        registerEvent(WatcherReady)
+        registerEvent(RequiredSecretsFound)
+        registerEvent(EnhancedSound)
+        registerEvent(MathematicalHoeRightClicks)
 
         // Registers all client side commands
         HelpCommand.registerPSSCommand()
@@ -246,7 +241,7 @@ class PartlySaneSkies {
         HelpCommand.registerConfigCommand()
         Crepes.registerCrepesCommand()
         Version.registerVersionCommand()
-        Discord.registerDiscordCommand()
+        PSSDiscord.registerDiscordCommand()
         PublicDataManager.registerDataCommand()
         PartyManager.registerCommand()
         SkillUpgradeRecommendation.registerCommand()
@@ -345,7 +340,7 @@ class PartlySaneSkies {
                     e.printStackTrace()
                 }
                 val discordMessage: IChatComponent =
-                    ChatComponentText("§9The Partly Sane Skies Discord server: https://discord.gg/$discordCode")
+                    ChatComponentText("§9The Partly Sane Skies PSSDiscord server: https://discord.gg/$discordCode")
                 discordMessage.chatStyle.setChatClickEvent(
                     ClickEvent(ClickEvent.Action.OPEN_URL, "https://discord.gg/$discordCode")
                 )

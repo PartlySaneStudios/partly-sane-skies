@@ -17,6 +17,7 @@ import net.minecraft.util.ChatComponentText
 import java.net.MalformedURLException
 
 object PublicDataManager {
+
     // Add all initializing of public data here
     private val fileCache = HashMap<String, String>()
     private val lock = Lock()
@@ -97,7 +98,7 @@ object PublicDataManager {
             .addAlias("psscleardata")
             .addAlias("pssclearcache")
             .setDescription("Clears your Partly Sane Studios data")
-            .setRunnable { _: ICommandSender?, _: Array<String?>? ->
+            .setRunnable { _: ICommandSender?, _: Array<String> ->
                 val chatcomponent = ChatComponentText(
                     """
                 §b§4-----------------------------------------------------§7
