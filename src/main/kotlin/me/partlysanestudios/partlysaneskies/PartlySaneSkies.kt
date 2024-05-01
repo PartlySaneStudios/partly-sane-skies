@@ -241,7 +241,7 @@ class PartlySaneSkies {
         HelpCommand.registerConfigCommand()
         Crepes.registerCrepesCommand()
         Version.registerVersionCommand()
-        Discord.registerDiscordCommand()
+        PSSDiscord.registerDiscordCommand()
         PublicDataManager.registerDataCommand()
         PartyManager.registerCommand()
         SkillUpgradeRecommendation.registerCommand()
@@ -340,7 +340,7 @@ class PartlySaneSkies {
                     e.printStackTrace()
                 }
                 val discordMessage: IChatComponent =
-                    ChatComponentText("§9The Partly Sane Skies Discord server: https://discord.gg/$discordCode")
+                    ChatComponentText("§9The Partly Sane Skies PSSDiscord server: https://discord.gg/$discordCode")
                 discordMessage.chatStyle.setChatClickEvent(
                     ClickEvent(ClickEvent.Action.OPEN_URL, "https://discord.gg/$discordCode")
                 )

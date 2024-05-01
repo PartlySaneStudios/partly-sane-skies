@@ -14,16 +14,14 @@ import net.minecraft.event.ClickEvent
 import net.minecraft.util.ChatComponentText
 import net.minecraft.util.IChatComponent
 
-object Discord {
+object PSSDiscord {
     fun registerDiscordCommand() {
-        PSSCommand("discord")
+        PSSCommand("pssdiscord")
             .addAlias("pssdisc")
             .addAlias("pssd")
             .addAlias("psdisc")
             .addAlias("psdiscord")
-            .addAlias("pssdiscord")
-            .addAlias("didcord")
-            .setDescription("Join the Partly Sane Studios Discord Server")
+            .setDescription("Join the Partly Sane Studios PSSDiscord Server")
             .setRunnable { _: ICommandSender?, _: Array<String> ->
                 // Creates a new message with the correct text
                 val message: IChatComponent = ChatComponentText(PartlySaneSkies.CHAT_PREFIX + "§9Join the discord: https://discord.gg/$discordCode")
