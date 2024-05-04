@@ -18,6 +18,8 @@
 
 package me.partlysanestudios.partlysaneskies
 
+import com.google.gson.JsonObject
+import com.google.gson.JsonParser
 import me.partlysanestudios.partlysaneskies.config.Keybinds
 import me.partlysanestudios.partlysaneskies.config.OneConfigScreen
 import me.partlysanestudios.partlysaneskies.data.api.Request
@@ -30,6 +32,7 @@ import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager.getRe
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager.getRepoOwner
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager
 import me.partlysanestudios.partlysaneskies.events.EventManager
+import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.data.LoadPublicDataEvent
 import me.partlysanestudios.partlysaneskies.features.chat.ChatAlertsManager
 import me.partlysanestudios.partlysaneskies.features.chat.ChatManager
@@ -58,6 +61,7 @@ import me.partlysanestudios.partlysaneskies.features.farming.garden.CompostValue
 import me.partlysanestudios.partlysaneskies.features.farming.garden.GardenTradeValue
 import me.partlysanestudios.partlysaneskies.features.farming.garden.SkymartValue
 import me.partlysanestudios.partlysaneskies.features.foraging.TreecapitatorCooldown
+import me.partlysanestudios.partlysaneskies.features.gui.CustomMainMenu
 import me.partlysanestudios.partlysaneskies.features.gui.CustomMainMenuJava
 import me.partlysanestudios.partlysaneskies.features.gui.RefreshKeybinds
 import me.partlysanestudios.partlysaneskies.features.gui.hud.CooldownHud
@@ -73,10 +77,9 @@ import me.partlysanestudios.partlysaneskies.features.security.PrivacyMode
 import me.partlysanestudios.partlysaneskies.features.security.modschecker.ModChecker
 import me.partlysanestudios.partlysaneskies.features.skills.PetAlert
 import me.partlysanestudios.partlysaneskies.features.skills.SkillUpgradeRecommendation
-import me.partlysanestudios.partlysaneskies.features.sound.Prank
 import me.partlysanestudios.partlysaneskies.features.sound.EnhancedSound
+import me.partlysanestudios.partlysaneskies.features.sound.Prank
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
-import me.partlysanestudios.partlysaneskies.features.gui.CustomMainMenu
 import me.partlysanestudios.partlysaneskies.render.gui.hud.BannerRenderer
 import me.partlysanestudios.partlysaneskies.render.gui.hud.cooldown.CooldownManager
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
@@ -131,9 +134,17 @@ class PartlySaneSkies {
             // Returns the time in milliseconds
             get() = System.currentTimeMillis()
         val isLatestVersion: Boolean
-            get() = if (DOGFOOD) {
-                true
-            } else VERSION == CustomMainMenuJava.latestVersion
+            get() {
+                if (DOGFOOD) {
+                    return true
+                } else if (latestVersion == "(Unknown)") {
+                    return true
+                } else {
+                    return VERSION == latestVersion
+                }
+            }
+
+        var latestVersion = "(Unknown)"
     }
 
     // Method runs at mod initialization
@@ -333,6 +344,45 @@ class PartlySaneSkies {
         AuctionHouseGui.tick()
     }
 
+    @SubscribePSSEvent
+    fun loadMainMenuJson(event: LoadPublicDataEvent) {
+        val data = PublicDataManager.getFile("main_menu.json")
+        val jsonObj = JsonParser().parse(data).asJsonObject
+        try {
+            if (config.releaseChannel == 0) {
+                val modInfo: JsonObject = jsonObj.getAsJsonObject("mod_info")
+                latestVersion = modInfo["latest_version"].asString
+            } else {
+                val modInfo: JsonObject = jsonObj.getAsJsonObject("prerelease_channel")
+                latestVersion = modInfo["latest_version"].asString
+            }
+
+            // latestVersionDescription = modInfo.get("latest_version_description").getAsString();
+            // latestVersionDate = modInfo.get("latest_version_release_date").getAsString();
+        } catch (e: NullPointerException) {
+            latestVersion = "(Unknown)"
+            e.printStackTrace()
+            // latestVersionDate = "(Unknown)";
+            // latestVersionDescription = "";
+        } catch (e: IllegalStateException) {
+            latestVersion = "(Unknown)"
+            e.printStackTrace()
+        }
+
+        try {
+            val modInfo: JsonObject = jsonObj.getAsJsonObject("mod_info")
+            discordCode = modInfo["discord_invite_code"].asString
+        } catch (e: NullPointerException) {
+            discordCode = "v4PU3WeH7z"
+            e.printStackTrace()
+            // latestVersionDate = "(Unknown)";
+            // latestVersionDescription = "";
+        } catch (e: IllegalStateException) {
+            discordCode = "v4PU3WeH7z"
+            e.printStackTrace()
+        }
+    }
+
     @SubscribeEvent
     fun onClientConnectedToServer(event: ClientConnectedToServerEvent?) {
         if (DOGFOOD) {
@@ -353,7 +403,7 @@ class PartlySaneSkies {
                 sendClientMessage("§cOnly use it when told to do so by a Partly Sane Skies admin.", true)
                 sendClientMessage("§cReport any bugs to Partly Sane Skies admins in a private ticket.", true)
                 sendClientMessage("§7Version ID: §d$VERSION", true)
-                sendClientMessage("§7Latest non-dogfood version: §d" + CustomMainMenuJava.latestVersion, true)
+                sendClientMessage("§7Latest non-dogfood version: §dlatestVersion", true)
                 sendClientMessage(discordMessage)
                 sendClientMessage("§b§m--------------------------------------------------", true)
             }.start()
@@ -368,7 +418,7 @@ class PartlySaneSkies {
                 }
                 sendClientMessage("§b§m--------------------------------------------------", true)
                 sendClientMessage("§cWe have detected a new version of Partly Sane Skies.")
-                sendClientMessage("§cYou are currently using version §d$VERSION§c, the latest version is §d" + CustomMainMenuJava.latestVersion + "§c.")
+                sendClientMessage("§cYou are currently using version §d$VERSION§c, the latest version is §d$latestVersion§c.")
                 val skyclientMessage =
                     ChatComponentText("§aIf you are using SkyClient, make sure you update when prompted.")
                 minecraft.ingameGUI

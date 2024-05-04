@@ -97,7 +97,7 @@ public class CustomMainMenuJava extends WindowScreen {
     private final String hypixelIP = "mc.hypixel.net"; // I want to use "ilovecatgirls.xyz" so bad
 
     private static ArrayList<Announcement> announcements = new ArrayList<>();
-    public static String latestVersion = "(Unknown)";
+    private static String latestVersion = "(Unknown)";
     // private static String latestVersionDate;
     // private static String latestVersionDescription;
 
