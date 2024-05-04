@@ -70,7 +70,7 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
         height = 100.percent
         x = CenterConstraint()
         y = CenterConstraint()
-        color = Color.red.constraint
+        color = Color(0, 0, 0, 0).constraint
     } childOf window
 
     private val backgroundImage = getBackgroundImage().constrain {
