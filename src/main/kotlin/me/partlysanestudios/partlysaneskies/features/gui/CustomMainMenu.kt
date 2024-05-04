@@ -81,7 +81,7 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
     } childOf backgroundBox
 
     private val middleMenuBackground = UIBlock().constrain {
-        x = 300.scaledPixels
+        x = 350.scaledPixels
         y = CenterConstraint()
         height = 100.percent
         width = 125.scaledPixels
@@ -356,7 +356,7 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
 
     private fun createAnnouncements(announcements: ArrayList<Announcement>) {
         val startY = 125.scaledPixels
-        val padY = 10.scaledPixels
+        val padY = 15.scaledPixels
 
         var parent: UIComponent = backgroundBox
         var yConstraint: YConstraint = startY
@@ -365,7 +365,7 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
             val title = UIWrappedText().constrain {
                 x = xConstraint
                 y = yConstraint
-                width = 250.scaledPixels
+                width = 300.scaledPixels
                 textScale = 1.5.scaledPixels
             }.setText(
                 "§e${announcement.title}"
@@ -376,7 +376,7 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
             val description = UIWrappedText().constrain {
                 x = 0.percent
                 y = 100.percent + 5.scaledPixels
-                width = 250.scaledPixels
+                width = 100.percent
                 textScale = 1.33.scaledPixels
             }.setText(
                 "§8${announcement.date}§r\n§7${announcement.description}"
