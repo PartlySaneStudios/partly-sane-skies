@@ -48,9 +48,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 
-public class CustomMainMenu extends WindowScreen {
+public class CustomMainMenuJava extends WindowScreen {
 
-    public CustomMainMenu(ElementaVersion version) {
+    public CustomMainMenuJava(ElementaVersion version) {
         super(version);
     }
 
@@ -114,7 +114,7 @@ public class CustomMainMenu extends WindowScreen {
             PrivacyMode.INSTANCE.enablePrivacyMode();
         }
 
-        PartlySaneSkies.Companion.getMinecraft().displayGuiScreen(new CustomMainMenu(ElementaVersion.V2));
+        PartlySaneSkies.Companion.getMinecraft().displayGuiScreen(new CustomMainMenuJava(ElementaVersion.V2));
         PartlySaneSkies.Companion.getMinecraft().getSoundHandler()
                 .playSound(PositionedSoundRecord.create(new ResourceLocation("partlysaneskies", "bell")));
     }
@@ -552,7 +552,7 @@ public class CustomMainMenu extends WindowScreen {
 
                 String urlString = announcement.get("link").getAsString();
 
-                announcements.add(new CustomMainMenu.Announcement(title, date, desc, urlString));
+                announcements.add(new CustomMainMenuJava.Announcement(title, date, desc, urlString));
             }
         } catch (NullPointerException | IllegalStateException e) {
             e.printStackTrace();
@@ -573,7 +573,7 @@ public class CustomMainMenu extends WindowScreen {
             // latestVersionDate = modInfo.get("latest_version_release_date").getAsString();
 
         } catch (NullPointerException | IllegalStateException e) {
-            CustomMainMenu.latestVersion = "(Unknown)";
+            CustomMainMenuJava.latestVersion = "(Unknown)";
             e.printStackTrace();
             // CustomMainMenu.latestVersionDate = "(Unknown)";
             // CustomMainMenu.latestVersionDescription = "";
@@ -593,10 +593,10 @@ public class CustomMainMenu extends WindowScreen {
     }
 
     public static void noInfoFound() {
-        CustomMainMenu.latestVersion = "(Unknown)";
+        CustomMainMenuJava.latestVersion = "(Unknown)";
         // CustomMainMenu.latestVersionDate = "(Unknown)";
         // CustomMainMenu.latestVersionDescription = "";
-        CustomMainMenu.announcements = new ArrayList<>();
+        CustomMainMenuJava.announcements = new ArrayList<>();
     }
 
     public static void setFunFact() {
@@ -614,8 +614,8 @@ public class CustomMainMenu extends WindowScreen {
                 funFactText.setText(fact);
 
             } catch (NullPointerException | IllegalStateException | ClassCastException e) {
-                if (CustomMainMenu.funFactText != null) {
-                    CustomMainMenu.funFactText.setText("Failed to load fun fact.");
+                if (CustomMainMenuJava.funFactText != null) {
+                    CustomMainMenuJava.funFactText.setText("Failed to load fun fact.");
                 }
             }
         }, false, false));

@@ -8,12 +8,13 @@ package me.partlysanestudios.partlysaneskies.utils
 
 import gg.essential.elementa.UIComponent
 import gg.essential.elementa.components.UIImage
-import gg.essential.elementa.constraints.CenterConstraint
-import gg.essential.elementa.constraints.PixelConstraint
+import gg.essential.elementa.constraints.*
+import gg.essential.elementa.constraints.resolution.ConstraintVisitor
 import gg.essential.elementa.dsl.pixels
 import gg.essential.universal.UResolution
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
+import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.scaledPixels
 import net.minecraft.client.Minecraft
 import net.minecraft.util.ResourceLocation
 import org.apache.logging.log4j.Level
@@ -26,23 +27,22 @@ object ElementaUtils {
 
     val windowHeight: Int get() = UResolution.scaledHeight
     val windowWidth: Int get() = UResolution.scaledWidth
-    val Number.scaledPixels: PixelConstraint get() {
-
+    val scaleFactor: Double get() {
         val constantWidth = 1280.0
         val constantHeight = 800.0
 
 
-        val width = ElementaUtils.windowWidth
-        val height = ElementaUtils.windowHeight
+        val width = windowWidth
+        val height = windowHeight
 
-        return if (width < height) { // scaling based on smallest dimension
-            val scaleFactor = width / constantWidth
-            (this.toDouble() * scaleFactor).pixels
+
+        return if (width > height) {
+            width / constantWidth
         } else {
-            val scaleFactor = height / constantHeight
-            (this.toDouble() * scaleFactor).pixels
+            height / constantHeight
         }
     }
+
 
     fun ResourceLocation.uiImageFromResourceLocation(): UIImage {
         return try {

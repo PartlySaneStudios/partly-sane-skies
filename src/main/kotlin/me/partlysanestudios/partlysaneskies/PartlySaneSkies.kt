@@ -18,7 +18,6 @@
 
 package me.partlysanestudios.partlysaneskies
 
-import gg.essential.elementa.ElementaVersion
 import me.partlysanestudios.partlysaneskies.config.Keybinds
 import me.partlysanestudios.partlysaneskies.config.OneConfigScreen
 import me.partlysanestudios.partlysaneskies.data.api.Request
@@ -59,7 +58,7 @@ import me.partlysanestudios.partlysaneskies.features.farming.garden.CompostValue
 import me.partlysanestudios.partlysaneskies.features.farming.garden.GardenTradeValue
 import me.partlysanestudios.partlysaneskies.features.farming.garden.SkymartValue
 import me.partlysanestudios.partlysaneskies.features.foraging.TreecapitatorCooldown
-import me.partlysanestudios.partlysaneskies.features.gui.CustomMainMenu
+import me.partlysanestudios.partlysaneskies.features.gui.CustomMainMenuJava
 import me.partlysanestudios.partlysaneskies.features.gui.RefreshKeybinds
 import me.partlysanestudios.partlysaneskies.features.gui.hud.CooldownHud
 import me.partlysanestudios.partlysaneskies.features.gui.hud.LocationBannerDisplay
@@ -77,6 +76,7 @@ import me.partlysanestudios.partlysaneskies.features.skills.SkillUpgradeRecommen
 import me.partlysanestudios.partlysaneskies.features.sound.Prank
 import me.partlysanestudios.partlysaneskies.features.sound.EnhancedSound
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
+import me.partlysanestudios.partlysaneskies.features.gui.CustomMainMenu
 import me.partlysanestudios.partlysaneskies.render.gui.hud.BannerRenderer
 import me.partlysanestudios.partlysaneskies.render.gui.hud.cooldown.CooldownManager
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
@@ -133,7 +133,7 @@ class PartlySaneSkies {
         val isLatestVersion: Boolean
             get() = if (DOGFOOD) {
                 true
-            } else VERSION == CustomMainMenu.latestVersion
+            } else VERSION == CustomMainMenuJava.latestVersion
     }
 
     // Method runs at mod initialization
@@ -149,7 +149,7 @@ class PartlySaneSkies {
             Request(
                 getPublicDataUrl(getRepoOwner(), getRepoName(), "main_menu.json"),
                 { request: Request? ->
-                    CustomMainMenu.setMainMenuInfo(
+                    CustomMainMenuJava.setMainMenuInfo(
                         request
                     )
                 })
@@ -190,7 +190,7 @@ class PartlySaneSkies {
         // Registers all the events
         registerEvent(this)
         registerEvent(PartyManager())
-        registerEvent(CustomMainMenu(ElementaVersion.V2))
+        registerEvent(CustomMainMenu.Companion)
         registerEvent(PartyFriendManager())
         registerEvent(GardenTradeValue())
         registerEvent(BitsShopValue())
@@ -350,7 +350,7 @@ class PartlySaneSkies {
                 sendClientMessage("§cOnly use it when told to do so by a Partly Sane Skies admin.", true)
                 sendClientMessage("§cReport any bugs to Partly Sane Skies admins in a private ticket.", true)
                 sendClientMessage("§7Version ID: §d$VERSION", true)
-                sendClientMessage("§7Latest non-dogfood version: §d" + CustomMainMenu.latestVersion, true)
+                sendClientMessage("§7Latest non-dogfood version: §d" + CustomMainMenuJava.latestVersion, true)
                 sendClientMessage(discordMessage)
                 sendClientMessage("§b§m--------------------------------------------------", true)
             }.start()
@@ -365,7 +365,7 @@ class PartlySaneSkies {
                 }
                 sendClientMessage("§b§m--------------------------------------------------", true)
                 sendClientMessage("§cWe have detected a new version of Partly Sane Skies.")
-                sendClientMessage("§cYou are currently using version §d$VERSION§c, the latest version is §d" + CustomMainMenu.latestVersion + "§c.")
+                sendClientMessage("§cYou are currently using version §d$VERSION§c, the latest version is §d" + CustomMainMenuJava.latestVersion + "§c.")
                 val skyclientMessage =
                     ChatComponentText("§aIf you are using SkyClient, make sure you update when prompted.")
                 minecraft.ingameGUI
