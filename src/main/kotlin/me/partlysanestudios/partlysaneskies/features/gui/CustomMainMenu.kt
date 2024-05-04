@@ -403,7 +403,7 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
                     val date = announcement["date"].asString
                     val urlString = announcement["link"].asString
 
-                    announcements.add(Announcement(title, desc, data, urlString))
+                    announcements.add(Announcement(title, desc, date, urlString))
                 }
 
                 createAnnouncements(announcements)
