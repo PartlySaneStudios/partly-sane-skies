@@ -1861,6 +1861,13 @@ object OneConfigScreen : Config(
     )
     var debugConvertPrettyDataToNoNucleus = false
 
+    @Switch(
+        name = "Log display size",
+        description = "Logs the width and height of the display",
+        category = "Dev"
+    )
+    var debugLogDisplaySize = false
+
     // Example HUD
     @HUD(
         name = "Test Hud Element",

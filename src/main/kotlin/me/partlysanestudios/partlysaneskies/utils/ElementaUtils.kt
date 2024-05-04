@@ -10,15 +10,40 @@ import gg.essential.elementa.UIComponent
 import gg.essential.elementa.components.UIImage
 import gg.essential.elementa.constraints.CenterConstraint
 import gg.essential.elementa.constraints.PixelConstraint
+import gg.essential.elementa.dsl.pixels
+import gg.essential.universal.UResolution
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
 import net.minecraft.client.Minecraft
 import net.minecraft.util.ResourceLocation
+import org.apache.logging.log4j.Level
 import java.awt.Color
 import java.io.IOException
 import java.util.concurrent.CompletableFuture
 import javax.imageio.ImageIO
 
 object ElementaUtils {
+
+    val windowHeight: Int get() = UResolution.scaledHeight
+    val windowWidth: Int get() = UResolution.scaledWidth
+    val Number.scaledPixels: PixelConstraint get() {
+
+        val constantWidth = 1280.0
+        val constantHeight = 800.0
+
+
+        val width = ElementaUtils.windowWidth
+        val height = ElementaUtils.windowHeight
+
+        return if (width < height) { // scaling based on smallest dimension
+            val scaleFactor = width / constantWidth
+            (this.toDouble() * scaleFactor).pixels
+        } else {
+            val scaleFactor = height / constantHeight
+            (this.toDouble() * scaleFactor).pixels
+        }
+    }
+
     fun ResourceLocation.uiImageFromResourceLocation(): UIImage {
         return try {
             val resource = Minecraft.getMinecraft().resourceManager.getResource(this)
