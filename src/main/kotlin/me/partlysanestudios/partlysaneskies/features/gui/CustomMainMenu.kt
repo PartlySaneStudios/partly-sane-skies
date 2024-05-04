@@ -2,12 +2,14 @@ package me.partlysanestudios.partlysaneskies.features.gui
 
 import com.google.gson.JsonParser
 import gg.essential.elementa.ElementaVersion
+import gg.essential.elementa.UIComponent
 import gg.essential.elementa.WindowScreen
 import gg.essential.elementa.components.UIBlock
 import gg.essential.elementa.components.UIImage
 import gg.essential.elementa.components.UIText
 import gg.essential.elementa.components.UIWrappedText
 import gg.essential.elementa.constraints.CenterConstraint
+import gg.essential.elementa.constraints.XConstraint
 import gg.essential.elementa.constraints.YConstraint
 import gg.essential.elementa.dsl.*
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
@@ -346,25 +348,27 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
     }
 
     private fun createAnnouncements(announcements: ArrayList<Announcement>) {
-        val startX = 125.scaledPixels
-        val padX = 10.scaledPixels
+        val startY = 125.scaledPixels
+        val padY = 10.scaledPixels
 
-        var currentX: YConstraint = startX
+        var parent: UIComponent = backgroundBox
+        var yConstraint: YConstraint = startY
+        var xConstraint: XConstraint = 33.scaledPixels
         for (announcement in announcements) {
             val title = UIWrappedText().constrain {
-                x = 33.scaledPixels
-                y = currentX
+                x = xConstraint
+                y = yConstraint
                 width = 250.scaledPixels
                 textScale = 1.5.scaledPixels
             }.setText(
                 "§e${announcement.title}"
             ).onMouseClick {
                 SystemUtils.openLink(announcement.link)
-            } childOf backgroundBox
+            } childOf parent
 
             val description = UIWrappedText().constrain {
-                x = 33.scaledPixels
-                y = title.getHeight().pixels + 5.scaledPixels
+                x = 0.percent
+                y = 100.percent + 5.scaledPixels
                 width = 250.scaledPixels
                 textScale = 1.33.scaledPixels
             }.setText(
@@ -376,7 +380,15 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
             announcement.titleComponent = title as UIWrappedText
             announcement.descriptionComponent = description as UIWrappedText
 
-            currentX += (title.getHeight() + description.getHeight()).pixels + padX
+            if (description.getBottom() > window.getBottom()) {
+                title.setColor(Color(0, 0, 0, 0))
+                description.setColor(Color(0, 0, 0, 0))
+                break
+            }
+
+            parent = description
+            yConstraint = 100.percent + padY
+            xConstraint = 0.percent
         }
     }
 
