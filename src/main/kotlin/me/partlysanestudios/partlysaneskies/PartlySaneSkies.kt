@@ -155,6 +155,9 @@ class PartlySaneSkies {
                 })
         newRequest(mainMenuRequest)
         trackLoad()
+        Thread {
+            PublicDataManager.getFile("main_menu.json")
+        }.start()
 
         // Loads extra json data
         Thread {

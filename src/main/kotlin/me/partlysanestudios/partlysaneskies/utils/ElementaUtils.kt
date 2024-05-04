@@ -8,16 +8,12 @@ package me.partlysanestudios.partlysaneskies.utils
 
 import gg.essential.elementa.UIComponent
 import gg.essential.elementa.components.UIImage
-import gg.essential.elementa.constraints.*
-import gg.essential.elementa.constraints.resolution.ConstraintVisitor
-import gg.essential.elementa.dsl.pixels
+import gg.essential.elementa.constraints.CenterConstraint
+import gg.essential.elementa.constraints.PixelConstraint
 import gg.essential.universal.UResolution
-import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
-import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.scaledPixels
 import net.minecraft.client.Minecraft
 import net.minecraft.util.ResourceLocation
-import org.apache.logging.log4j.Level
 import java.awt.Color
 import java.io.IOException
 import java.util.concurrent.CompletableFuture

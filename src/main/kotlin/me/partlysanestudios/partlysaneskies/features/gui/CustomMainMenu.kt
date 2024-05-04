@@ -1,5 +1,6 @@
 package me.partlysanestudios.partlysaneskies.features.gui
 
+import com.google.gson.JsonParser
 import gg.essential.elementa.ElementaVersion
 import gg.essential.elementa.WindowScreen
 import gg.essential.elementa.components.UIBlock
@@ -7,10 +8,12 @@ import gg.essential.elementa.components.UIImage
 import gg.essential.elementa.components.UIText
 import gg.essential.elementa.components.UIWrappedText
 import gg.essential.elementa.constraints.CenterConstraint
+import gg.essential.elementa.constraints.YConstraint
 import gg.essential.elementa.dsl.*
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.discordCode
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
+import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager
 import me.partlysanestudios.partlysaneskies.features.security.PrivacyMode.enablePrivacyMode
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
 import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
@@ -339,6 +342,72 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
             UIImage.ofFile(File("./config/partly-sane-skies/background.png"))
         } else {
             ResourceLocation("partlysaneskies", image).uiImageFromResourceLocation()
+        }
+    }
+
+    private fun createAnnouncements(announcements: ArrayList<Announcement>) {
+        val startX = 125.scaledPixels
+        val padX = 10.scaledPixels
+
+        var currentX: YConstraint = startX
+        for (announcement in announcements) {
+            val title = UIWrappedText().constrain {
+                x = 33.scaledPixels
+                y = currentX
+                width = 250.scaledPixels
+                textScale = 1.5.scaledPixels
+            }.setText(
+                "§e${announcement.title}"
+            ).onMouseClick {
+                SystemUtils.openLink(announcement.link)
+            } childOf backgroundBox
+
+            val description = UIWrappedText().constrain {
+                x = 33.scaledPixels
+                y = title.getHeight().pixels + 5.scaledPixels
+                width = 250.scaledPixels
+                textScale = 1.33.scaledPixels
+            }.setText(
+                "§8${announcement.date}§r\n§7${announcement.description}"
+            ).onMouseClick {
+                SystemUtils.openLink(announcement.link)
+            } childOf title
+
+            announcement.titleComponent = title as UIWrappedText
+            announcement.descriptionComponent = description as UIWrappedText
+
+            currentX += (title.getHeight() + description.getHeight()).pixels + padX
+        }
+    }
+
+
+    private class Announcement(val title: String, val description: String, val date: String, val link: String) {
+        var titleComponent: UIWrappedText? = null
+        var descriptionComponent: UIWrappedText? = null
+    }
+
+
+    init {
+        if (config.displayAnnouncementsCustomMainMenu) {
+            Thread {
+                val data = PublicDataManager.getFile("main_menu.json")
+                val jsonObject = JsonParser().parse(data).asJsonObject
+
+                val announcementJsonArray = jsonObject["announcements"].asJsonArray
+                val announcements = ArrayList<Announcement>()
+
+                for (element in announcementJsonArray) {
+                    val announcement = element.getAsJsonObject()
+                    val title = announcement["name"].asString
+                    val desc = announcement["description"].asString
+                    val date = announcement["date"].asString
+                    val urlString = announcement["link"].asString
+
+                    announcements.add(Announcement(title, desc, data, urlString))
+                }
+
+                createAnnouncements(announcements)
+            }.start()
         }
     }
 }
