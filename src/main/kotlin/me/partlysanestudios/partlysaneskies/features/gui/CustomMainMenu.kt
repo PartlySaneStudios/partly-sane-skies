@@ -12,12 +12,15 @@ import gg.essential.elementa.constraints.CenterConstraint
 import gg.essential.elementa.constraints.XConstraint
 import gg.essential.elementa.constraints.YConstraint
 import gg.essential.elementa.dsl.*
+import gg.essential.universal.UMatrixStack
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.discordCode
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager
 import me.partlysanestudios.partlysaneskies.features.security.PrivacyMode.enablePrivacyMode
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
+import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager.accentColor
 import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.uiImageFromResourceLocation
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.randInt
@@ -35,6 +38,10 @@ import net.minecraftforge.fml.client.GuiModList
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import java.awt.Color
 import java.io.File
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
     companion object {
@@ -421,5 +428,24 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
                 createAnnouncements(announcements)
             }.start()
         }
+        if (!PartlySaneSkies.isLatestVersion) {
+            updateWarning.setColor(Color.red)
+        }
+    }
+
+    override fun onDrawScreen(matrixStack: UMatrixStack, mouseX: Int, mouseY: Int, partialTicks: Float) {
+        super.onDrawScreen(matrixStack, mouseX, mouseY, partialTicks)
+
+        val userZoneId = ZoneId.systemDefault()
+        val currentTime = LocalDateTime.now(userZoneId)
+        var timeString = currentTime.format(DateTimeFormatter.ofPattern("hh:mm:ss a  dd MMMM yyyy", Locale.ENGLISH))
+        if (config.hour24time) {
+            timeString = currentTime.format(DateTimeFormatter.ofPattern("HH:mm:ss dd MMMM yyyy", Locale.ENGLISH))
+        }
+        timeText.setText(timeString)
+
+        rightMiddleMenuSide.setColor(accentColor.toJavaColor())
+        leftMiddleMenuSide.setColor(accentColor.toJavaColor())
+        optionsDivide.setColor(accentColor.toJavaColor())
     }
 }

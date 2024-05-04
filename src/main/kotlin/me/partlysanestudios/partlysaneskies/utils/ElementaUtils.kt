@@ -32,7 +32,7 @@ object ElementaUtils {
         val height = windowHeight
 
 
-        return if (width > height) {
+        return if (width < height) {
             width / constantWidth
         } else {
             height / constantHeight
