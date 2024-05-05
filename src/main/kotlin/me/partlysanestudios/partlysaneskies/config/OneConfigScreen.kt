@@ -205,6 +205,14 @@ object OneConfigScreen : Config(
     )
     var displayAnnouncementsCustomMainMenu = true
 
+    @Switch(
+        name = "Fun Facts on Main Menu",
+        description = "Display cool facts on the main menu.",
+        category = "General",
+        subcategory = "Main Menu"
+    )
+    var displayFunFactsOnCustomMainMenu = true
+
     @Dropdown(
         name = "Custom Minecraft Main Menu Image",
         description = "Select one of our many high quality included images, or you can use your custom image.\nTo use your own image, place your image in the \"/config/partly-sane-skies\" folder and title your image \"background.png\".",
@@ -215,6 +223,8 @@ object OneConfigScreen : Config(
     )
     var customMainMenuImage = 1
 
+
+    // Mods Checker
     @Switch(
         name = "Check Mods On Startup",
         description = "Automatically Send Message on Startup.",

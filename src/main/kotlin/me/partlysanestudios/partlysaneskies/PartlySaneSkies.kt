@@ -169,6 +169,9 @@ class PartlySaneSkies {
         Thread {
             PublicDataManager.getFile("main_menu.json")
         }.start()
+        Thread {
+            CustomMainMenu.loadFunFact()
+        }
 
         // Loads extra json data
         Thread {
