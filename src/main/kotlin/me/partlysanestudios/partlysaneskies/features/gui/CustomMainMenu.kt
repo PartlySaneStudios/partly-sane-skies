@@ -1,3 +1,8 @@
+//
+// Written by Su386.
+// See LICENSE for copyright and license notices.
+//
+
 package me.partlysanestudios.partlysaneskies.features.gui
 
 import com.google.gson.JsonParser
@@ -177,7 +182,7 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
         }
     } childOf middleMenuBackground
 
-    private val singlePlayerText = UIWrappedText("Singleplayer").constrain {
+    private val singlePlayerText = UIWrappedText("Singleplayer", centered = true).constrain {
         x = CenterConstraint()
         y = CenterConstraint()
         textScale = 1.scaledPixels
@@ -210,7 +215,7 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
         }
     } childOf middleMenuBackground
 
-    private val multiPlayerText = UIWrappedText("Multiplayer").constrain {
+    private val multiPlayerText = UIWrappedText("Multiplayer", centered = true).constrain {
         x = CenterConstraint()
         y = CenterConstraint()
         textScale = 1.scaledPixels
@@ -235,7 +240,7 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
         }
     } childOf middleMenuBackground
 
-    private val joinHypixelText = UIWrappedText("Join Hypixel").constrain {
+    private val joinHypixelText = UIWrappedText("Join Hypixel", centered = true).constrain {
         x = CenterConstraint()
         y = CenterConstraint()
         textScale = 1.scaledPixels
@@ -260,7 +265,7 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
         }
     } childOf middleMenuBackground
 
-    private val modsText = UIWrappedText("Mods").constrain {
+    private val modsText = UIWrappedText("Mods", centered = true).constrain {
         x = CenterConstraint()
         y = CenterConstraint()
         textScale = 1.scaledPixels
@@ -285,7 +290,7 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
         }
     } childOf middleMenuBackground
 
-    private val optionsText = UIWrappedText("Options").constrain {
+    private val optionsText = UIWrappedText("Options", centered = true).constrain {
         x = CenterConstraint()
         y = CenterConstraint()
         textScale = 1.scaledPixels
@@ -300,7 +305,6 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
         color = accentColor.toJavaColor().constraint
     } childOf middleMenuBackground
 
-
     private val pssOptionsButton = UIBlock().constrain {
         x = CenterConstraint()
         y = 400.scaledPixels
@@ -308,7 +312,7 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
         width = 100.percent
         color = Color(0, 0, 0, 0).constraint
     }.onMouseClick {
-        mc.displayGuiScreen(GuiSelectWorld(this@CustomMainMenu))
+        config.openGui()
     }.onMouseEnter {
         for (child in this.children) {
             child.setColor(Color(255, 255, 255))
@@ -319,7 +323,7 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
         }
     } childOf middleMenuBackground
 
-    private val pssOptionsText = UIWrappedText("Partly Sane Skies Config").constrain {
+    private val pssOptionsText = UIWrappedText("Partly Sane Skies Config", centered = true).constrain {
         x = CenterConstraint()
         y = CenterConstraint()
         textScale = 0.735.scaledPixels
@@ -333,7 +337,7 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
         width = 100.percent
         color = Color(0, 0, 0, 0).constraint
     }.onMouseClick {
-        mc.displayGuiScreen(GuiSelectWorld(this@CustomMainMenu))
+        mc.shutdown()
     }.onMouseEnter {
         for (child in this.children) {
             child.setColor(Color(255, 255, 255))
@@ -344,14 +348,14 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
         }
     } childOf middleMenuBackground
 
-    private val quitText = UIWrappedText("Quit").constrain {
+    private val quitText = UIWrappedText("Quit", centered = true).constrain {
         x = CenterConstraint()
         y = CenterConstraint()
         textScale = 1.scaledPixels
         color = Color.white.constraint
     } childOf quitButton
 
-    private val timeText = UIWrappedText().constrain {
+    private val timeText = UIWrappedText(centered = true).constrain {
         x = CenterConstraint()
         y = (100.percent - 10.scaledPixels)
         color = Color.white.constraint
@@ -425,7 +429,7 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
                     color = accentColor.toJavaColor().constraint
                 } childOf (funFact.descriptionComponent ?: parent)
 
-                displayAnnouncements(0.percent, 100.percent + 30.scaledPixels + 1.5.scaledPixels, funFact.descriptionComponent ?: parent)
+                displayAnnouncements(0.percent, 100.percent + 32.scaledPixels, funFact.descriptionComponent ?: parent)
             }
 
         }
@@ -446,7 +450,7 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
             x = 0.percent
             y = 100.percent + 5.scaledPixels
             width = 100.percent
-            textScale = 1.33.pixels
+            textScale = 1.33.scaledPixels
         } childOf funFactHeading
         funFactText.setText("§7${funFact.description}")
 
