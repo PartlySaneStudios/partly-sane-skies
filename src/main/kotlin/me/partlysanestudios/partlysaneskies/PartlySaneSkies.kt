@@ -22,14 +22,9 @@ import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import me.partlysanestudios.partlysaneskies.config.Keybinds
 import me.partlysanestudios.partlysaneskies.config.OneConfigScreen
-import me.partlysanestudios.partlysaneskies.data.api.Request
-import me.partlysanestudios.partlysaneskies.data.api.RequestsManager.newRequest
 import me.partlysanestudios.partlysaneskies.data.cache.PetData
 import me.partlysanestudios.partlysaneskies.data.cache.StatsData
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager
-import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager.getPublicDataUrl
-import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager.getRepoName
-import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager.getRepoOwner
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager
 import me.partlysanestudios.partlysaneskies.events.EventManager
 import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
@@ -62,7 +57,6 @@ import me.partlysanestudios.partlysaneskies.features.farming.garden.GardenTradeV
 import me.partlysanestudios.partlysaneskies.features.farming.garden.SkymartValue
 import me.partlysanestudios.partlysaneskies.features.foraging.TreecapitatorCooldown
 import me.partlysanestudios.partlysaneskies.features.gui.CustomMainMenu
-import me.partlysanestudios.partlysaneskies.features.gui.CustomMainMenuJava
 import me.partlysanestudios.partlysaneskies.features.gui.RefreshKeybinds
 import me.partlysanestudios.partlysaneskies.features.gui.hud.CooldownHud
 import me.partlysanestudios.partlysaneskies.features.gui.hud.LocationBannerDisplay
@@ -156,15 +150,6 @@ class PartlySaneSkies {
         // Creates the partly-sane-skies directory if not already made
         File("./config/partly-sane-skies/").mkdirs()
 
-        val mainMenuRequest =
-            Request(
-                getPublicDataUrl(getRepoOwner(), getRepoName(), "main_menu.json"),
-                { request: Request? ->
-                    CustomMainMenuJava.setMainMenuInfo(
-                        request
-                    )
-                })
-        newRequest(mainMenuRequest)
         trackLoad()
         Thread {
             PublicDataManager.getFile("main_menu.json")
