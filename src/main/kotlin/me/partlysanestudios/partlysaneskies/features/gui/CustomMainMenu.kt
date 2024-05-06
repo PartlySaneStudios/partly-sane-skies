@@ -368,6 +368,8 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
         y = (100.percent - 20.scaledPixels)
         textScale = 1.scaledPixels
         color = Color(69, 79, 191).constraint
+    }.onMouseClick {
+        SystemUtils.openLink("https://discord.gg/$discordCode")
     } childOf backgroundImage
 
 
