@@ -41,6 +41,7 @@ import net.minecraftforge.client.event.GuiOpenEvent
 import net.minecraftforge.fml.client.FMLClientHandler
 import net.minecraftforge.fml.client.GuiModList
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
+import org.apache.logging.log4j.Level
 import java.awt.Color
 import java.io.File
 import java.time.LocalDateTime
@@ -174,7 +175,7 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
         mc.displayGuiScreen(GuiSelectWorld(this@CustomMainMenu))
     }.onMouseEnter {
         for (child in this.children) {
-            child.setColor(Color(255, 255, 255))
+            child.setColor(Color(200, 200, 200))
         }
     }.onMouseLeave {
         for (child in this.children) {
@@ -189,7 +190,7 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
         color = Color.white.constraint
     }.onMouseEnter {
         for (child in this.children) {
-            child.setColor(Color(255, 255, 255))
+            child.setColor(Color(200, 200, 200))
         }
     }.onMouseLeave {
         for (child in this.children) {
@@ -207,7 +208,7 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
         mc.displayGuiScreen(GuiMultiplayer(this@CustomMainMenu))
     }.onMouseEnter {
         for (child in this.children) {
-            child.setColor(Color(255, 255, 255))
+            child.setColor(Color(200, 200, 200))
         }
     }.onMouseLeave {
         for (child in this.children) {
@@ -232,7 +233,7 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
         FMLClientHandler.instance().connectToServer(GuiMultiplayer(minecraft.currentScreen), ServerData("AddictionGame", "hypixel.net", false))
     }.onMouseEnter {
         for (child in this.children) {
-            child.setColor(Color(255, 255, 255))
+            child.setColor(Color(200, 200, 200))
         }
     }.onMouseLeave {
         for (child in this.children) {
@@ -257,7 +258,7 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
         mc.displayGuiScreen(GuiModList(this@CustomMainMenu))
     }.onMouseEnter {
         for (child in this.children) {
-            child.setColor(Color(255, 255, 255))
+            child.setColor(Color(200, 200, 200))
         }
     }.onMouseLeave {
         for (child in this.children) {
@@ -282,7 +283,7 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
         mc.displayGuiScreen(GuiOptions(this@CustomMainMenu, mc.gameSettings))
     }.onMouseEnter {
         for (child in this.children) {
-            child.setColor(Color(255, 255, 255))
+            child.setColor(Color(200, 200, 200))
         }
     }.onMouseLeave {
         for (child in this.children) {
@@ -315,7 +316,7 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
         config.openGui()
     }.onMouseEnter {
         for (child in this.children) {
-            child.setColor(Color(255, 255, 255))
+            child.setColor(Color(200, 200, 200))
         }
     }.onMouseLeave {
         for (child in this.children) {
@@ -340,7 +341,7 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
         mc.shutdown()
     }.onMouseEnter {
         for (child in this.children) {
-            child.setColor(Color(255, 255, 255))
+            child.setColor(Color(200, 200, 200))
         }
     }.onMouseLeave {
         for (child in this.children) {
