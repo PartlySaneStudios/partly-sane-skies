@@ -157,8 +157,8 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
 
     private val updateWarning = UIWrappedText(text = "Your version of Partly Sane Skies is out of date.\nPlease update to the latest version", centered = true).constrain {
         textScale = 2.25.scaledPixels
-        x = 133.scaledPixels
-        y = CenterConstraint()
+        x = CenterConstraint()
+        y = 133.scaledPixels
         width = 700.scaledPixels
         color = Color(0, 0, 0, 0).constraint
     }.onMouseClick {
