@@ -11,6 +11,7 @@ import gg.essential.elementa.UIComponent
 import gg.essential.elementa.WindowScreen
 import gg.essential.elementa.components.UIBlock
 import gg.essential.elementa.components.UIImage
+import gg.essential.elementa.components.UIRoundedRectangle
 import gg.essential.elementa.components.UIWrappedText
 import gg.essential.elementa.constraints.CenterConstraint
 import gg.essential.elementa.constraints.XConstraint
@@ -132,17 +133,33 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
         color = Color(0, 0, 0, 75).constraint
     } childOf backgroundImage
 
-    private val leftMiddleMenuSide = UIBlock().constrain {
+    private val topLeftMiddleMenuSide  =  UIRoundedRectangle(5.0f).constrain {
         x = (-2).scaledPixels
-        y = CenterConstraint()
+        y = (-5).scaledPixels
+        height = 50.scaledPixels
+        width = 2.scaledPixels
+        color = accentColor.toJavaColor().constraint
+    } childOf middleMenuBackground
+
+    private val leftMiddleMenuSide =  UIRoundedRectangle(5.0f).constrain {
+        x = (-2).scaledPixels
+        y = 50.scaledPixels + 75.scaledPixels + 5.scaledPixels
         height = 100.percent
         width = 2.scaledPixels
         color = accentColor.toJavaColor().constraint
     } childOf middleMenuBackground
 
-    private val rightMiddleMenuSide = UIBlock().constrain {
+    private val topRightMiddleMenuSide = UIRoundedRectangle(5.0f).constrain {
         x = 100.percent
-        y = CenterConstraint()
+        y = (-5).scaledPixels
+        height = 50.scaledPixels
+        width = 2.scaledPixels
+        color = accentColor.toJavaColor().constraint
+    } childOf middleMenuBackground
+
+    private val rightMiddleMenuSide =  UIRoundedRectangle(5.0f).constrain {
+        x = 100.percent
+        y = 50.scaledPixels + 75.scaledPixels + 5.scaledPixels
         height = 100.percent
         width = 2.scaledPixels
         color = accentColor.toJavaColor().constraint
@@ -152,7 +169,7 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
         x = CenterConstraint()
         y = 50.scaledPixels
         height = 75.scaledPixels
-        width = (75 * (928f / 124)).scaledPixels // Ratio between width and height * height
+        width = (75 * (473.0 / 166.0)).scaledPixels // Ratio between width and height * height
     } childOf middleMenuBackground
 
     private val updateWarning = UIWrappedText(text = "Your version of Partly Sane Skies is out of date.\nPlease update to the latest version", centered = true).constrain {
@@ -298,7 +315,7 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
         color = Color.white.constraint
     } childOf optionsButton
 
-    private val optionsDivide = UIBlock().constrain {
+    private val optionsDivide = UIRoundedRectangle(5.0f).constrain {
         x = CenterConstraint()
         y = 400.scaledPixels
         height = 1.scaledPixels
@@ -424,7 +441,7 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
 
         if (config.displayAnnouncementsCustomMainMenu) {
             if (funFact.descriptionComponent != null) {
-                funFactDivideBar = UIBlock().constrain {
+                funFactDivideBar = UIRoundedRectangle(5.0f).constrain {
                     width = 90.percent
                     height = 1.5.scaledPixels
                     x = CenterConstraint()
@@ -544,8 +561,10 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
         }
         timeText.setText(timeString)
 
-        rightMiddleMenuSide.setColor(accentColor.toJavaColor())
+        topLeftMiddleMenuSide.setColor(accentColor.toJavaColor())
         leftMiddleMenuSide.setColor(accentColor.toJavaColor())
+        topRightMiddleMenuSide.setColor(accentColor.toJavaColor())
+        rightMiddleMenuSide.setColor(accentColor.toJavaColor())
         optionsDivide.setColor(accentColor.toJavaColor())
         funFactDivideBar?.setColor(accentColor.toJavaColor())
     }
