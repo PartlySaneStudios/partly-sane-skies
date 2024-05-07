@@ -106,6 +106,7 @@ object ThemeManager {
         get() = getCurrentButtonUIImage(accentColor)
 
     fun getCurrentButtonUIImage(accentColor: OneColor): UIImage {
+        val accentColor: OneColor = accentColor
         val image: UIImage
         if (config.disableThemes) {
             image = if ((accentColor == ThemeManager.accentColor)) {
@@ -134,6 +135,7 @@ object ThemeManager {
     }
 
     fun getCurrentToggleUIImage(selected: Boolean, accentColor: OneColor): UIImage {
+        var accentColor: OneColor = accentColor
         var image: UIImage
         if (config.disableThemes) {
             image = if (selected) {
@@ -216,7 +218,7 @@ object ThemeManager {
         }
     val accentColor: OneColor
         get() {
-            return if (!config.useCustomAccentColor) {
+            return if (config.useCustomAccentColor) {
                 val themeIndex: Int = config.themeIndex
                 OneColor(defaultThemes[themeIndex].defaultAccentColor)
             } else {
