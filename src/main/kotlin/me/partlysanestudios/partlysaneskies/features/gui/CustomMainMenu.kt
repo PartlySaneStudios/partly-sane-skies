@@ -382,11 +382,20 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
 
     private val discordText = UIWrappedText("Discord: discord.gg/$discordCode").constrain {
         x = 10.scaledPixels
-        y = (100.percent - 20.scaledPixels)
+        y = 10.scaledPixels(alignOpposite = true)
+        textScale = 1.scaledPixels
+        color = accentColor.toJavaColor().constraint
+    }.onMouseClick {
+        SystemUtils.openLink("https://discord.gg/$discordCode")
+    } childOf backgroundImage
+
+    private val partlySaneSkiesText = UIWrappedText("Made by: Partly Sane Skies").constrain {
+        x = 10.scaledPixels(alignOpposite = true)
+        y = 10.scaledPixels(alignOpposite = true)
         textScale = 1.scaledPixels
         color = Color(69, 79, 191).constraint
     }.onMouseClick {
-        SystemUtils.openLink("https://discord.gg/$discordCode")
+        SystemUtils.openLink("https://github.com/PartlySaneStudios/partly-sane-skies")
     } childOf backgroundImage
 
 
@@ -567,5 +576,6 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
         rightMiddleMenuSide.setColor(accentColor.toJavaColor())
         optionsDivide.setColor(accentColor.toJavaColor())
         funFactDivideBar?.setColor(accentColor.toJavaColor())
+        partlySaneSkiesText.setColor(accentColor.toJavaColor())
     }
 }
