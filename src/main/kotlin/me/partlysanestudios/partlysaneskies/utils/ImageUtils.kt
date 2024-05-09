@@ -17,6 +17,8 @@ import javax.imageio.ImageIO
 object ImageUtils {
     //    Save all images in ./config/partly-sane-skies/image_variants/{name of base image}/{name of coloured image}
     private const val IMAGE_SAVE_PATH = "./config/partly-sane-skies/image_variants/"
+
+
     @Throws(IOException::class)
     fun saveImage(image: BufferedImage, path: Path) {
         val output = path.toFile()
