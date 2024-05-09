@@ -156,7 +156,7 @@ class PartlySaneSkies {
         }.start()
         Thread {
             CustomMainMenu.loadFunFact()
-        }
+        }.start()
 
         // Loads extra json data
         Thread {
