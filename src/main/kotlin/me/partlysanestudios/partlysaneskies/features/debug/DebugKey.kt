@@ -6,6 +6,10 @@
 package me.partlysanestudios.partlysaneskies.features.debug
 
 import cc.polyfrost.oneconfig.config.core.OneColor
+import gg.essential.elementa.ElementaVersion
+import gg.essential.elementa.WindowScreen
+import gg.essential.elementa.components.Window
+import gg.essential.universal.UResolution
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.time
@@ -25,6 +29,7 @@ import me.partlysanestudios.partlysaneskies.render.gui.hud.PSSBanner
 import me.partlysanestudios.partlysaneskies.render.waypoint.Waypoint
 import me.partlysanestudios.partlysaneskies.system.SystemNotification
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
+import me.partlysanestudios.partlysaneskies.utils.SystemUtils
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.copyStringToClipboard
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
 import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Point3d
@@ -113,6 +118,16 @@ object DebugKey {
                 CrystalHollowsGemstoneMapper.removeNucleusCords()
             }.start()
         }
+        if (config.debugLogDisplaySize) {
+            val width = UResolution.scaledWidth
+            val height = UResolution.scaledHeight
+            sendClientMessage("$width, $height")
+            val window = Window(ElementaVersion.V5)
+            val windowWidth = window.getWidth()
+            val windowHeight = window.getHeight()
+            sendClientMessage("$windowWidth, $windowHeight")
+        }
+
     }
 
     // Runs chat analyzer for debug mode
