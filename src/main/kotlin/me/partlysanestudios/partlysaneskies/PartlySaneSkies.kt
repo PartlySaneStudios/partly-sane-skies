@@ -200,7 +200,6 @@ class PartlySaneSkies {
         registerEvent(MiningEvents())
         registerEvent(MinionData())
         registerEvent(SkymartValue())
-        registerEvent(CompostValue())
         registerEvent(SkyblockDataManager)
         registerEvent(DropBannerDisplay)
         registerEvent(ChatManager)
@@ -236,6 +235,7 @@ class PartlySaneSkies {
         registerEvent(RequiredSecretsFound)
         registerEvent(EnhancedSound)
         registerEvent(MathematicalHoeRightClicks)
+        registerEvent(CompostValue)
 
         // Registers all client side commands
         HelpCommand.registerPSSCommand()

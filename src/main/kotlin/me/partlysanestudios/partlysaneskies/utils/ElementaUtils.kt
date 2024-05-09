@@ -65,13 +65,15 @@ object ElementaUtils {
         }
     }
 
-    fun UIComponent.applyBackground() {
+    fun UIComponent.applyBackground(): UIComponent {
         val image = ThemeManager.currentBackgroundUIImage
             .setX(CenterConstraint())
             .setY(CenterConstraint())
             .setWidth(PixelConstraint(this.getWidth()))
             .setHeight(PixelConstraint(this.getHeight())) as UIImage
         this.insertChildAt(image, 0)
+
+        return this
     }
 
     fun Color.weightedAverage(thisColorWeight: Float, otherColor: Color, otherColorWeight: Float): Color {
