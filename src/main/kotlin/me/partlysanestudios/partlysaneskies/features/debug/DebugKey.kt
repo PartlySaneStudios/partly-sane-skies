@@ -3,10 +3,13 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.features.debug
 
 import cc.polyfrost.oneconfig.config.core.OneColor
+import gg.essential.elementa.ElementaVersion
+import gg.essential.elementa.WindowScreen
+import gg.essential.elementa.components.Window
+import gg.essential.universal.UResolution
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
@@ -17,7 +20,7 @@ import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.minecraft.render.RenderWaypointEvent
 import me.partlysanestudios.partlysaneskies.features.dungeons.GoldorWall
 import me.partlysanestudios.partlysaneskies.features.dungeons.TerminalWaypoints
-import me.partlysanestudios.partlysaneskies.features.dungeons.playerrating.PlayerRating
+import me.partlysanestudios.partlysaneskies.features.dungeons.PlayerRating
 import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.Drop
 import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.DropBannerDisplay
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
@@ -28,6 +31,7 @@ import me.partlysanestudios.partlysaneskies.render.gui.hud.PSSBanner
 import me.partlysanestudios.partlysaneskies.render.waypoint.Waypoint
 import me.partlysanestudios.partlysaneskies.system.SystemNotification
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
+import me.partlysanestudios.partlysaneskies.utils.SystemUtils
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.copyStringToClipboard
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
 import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Point3d
@@ -42,6 +46,7 @@ import org.lwjgl.opengl.GL11
 import java.awt.Color
 
 object DebugKey {
+
     fun init() {
         config.debugMode = false
     }
@@ -74,7 +79,7 @@ object DebugKey {
         }
 
         if (config.percyMode) {
-            Thread() {
+            Thread {
                 sendClientMessage("Dumping...")
                 PercyMode.dump()
 
@@ -92,7 +97,7 @@ object DebugKey {
         }
 
         if (config.debugRenderRNGBanner) {
-            DropBannerDisplay.drop = Drop("Test Name", "Test Category", Color.MAGENTA, 69, time)
+            DropBannerDisplay.drop = Drop("Test Name", "Test Category", Color.MAGENTA, "§d", 69, time)
         }
 
         if (config.debugGoldorWall) {
@@ -103,6 +108,34 @@ object DebugKey {
         if (config.debugCylinder) {
             cylinderPoint = Point3d.atPlayer()
         }
+
+        if (config.debugScanCrystalHollowsCrystals) {
+            Thread {
+                CrystalHollowsGemstoneMapper.scanWorld()
+            }.start()
+        }
+
+        if (config.debugConvertScanToPrettyData) {
+            Thread {
+                CrystalHollowsGemstoneMapper.getPrettyData()
+            }.start()
+        }
+
+        if (config.debugConvertPrettyDataToNoNucleus) {
+            Thread {
+                CrystalHollowsGemstoneMapper.removeNucleusCords()
+            }.start()
+        }
+        if (config.debugLogDisplaySize) {
+            val width = UResolution.scaledWidth
+            val height = UResolution.scaledHeight
+            sendClientMessage("$width, $height")
+            val window = Window(ElementaVersion.V5)
+            val windowWidth = window.getWidth()
+            val windowHeight = window.getHeight()
+            sendClientMessage("$windowWidth, $windowHeight")
+        }
+
     }
 
     // Runs chat analyzer for debug mode

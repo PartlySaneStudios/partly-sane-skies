@@ -2,9 +2,11 @@
 // Written by Su386 and J10a1n15.
 // See LICENSE for copyright and license notices.
 //
+
 package me.partlysanestudios.partlysaneskies.utils.geometry.vectors
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
+import net.minecraft.block.Block
 import net.minecraft.util.BlockPos
 import net.minecraft.util.Vec3
 import kotlin.math.pow
@@ -49,28 +51,41 @@ open class Point3d(x: Double, y: Double, val z: Double) : Point2d(x, y) {
     }
 
 
-    override fun equals(other: Any?): Boolean {
-        if (other == null) {
-            return false
-        }
-        if (other !is Point3d) {
-            return false
-        }
-        if (other.x != x) {
-            return false
-        }
-        if (other.y != y) {
-            return false
-        }
-        if (other.z != z) {
-            return false
-        }
-
-        return true
-
-    }
 
     override fun toString(): String {
         return "Point3d(${super.toString()}, z=$z)"
+    }
+
+
+    fun getBlockAtPoint(): Block? {
+        return minecraft.theWorld.getBlockState(this.toBlockPos())?.block
+    }
+
+    fun toChunk(): Point2d {
+        return Point2d((this.x/16).toInt().toDouble(), (this.z/16).toInt().toDouble())
+    }
+
+    operator fun plus(point: Point3d): Point3d {
+        return Point3d(point.x + this.x,  point.y + this.y, point.z + this.z)
+    }
+
+    operator fun minus(point: Point3d): Point3d {
+        return Point3d(point.x - this.x,  point.y - this.y, point.z - this.z)
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+        if (!super.equals(other)) return false
+
+        other as Point3d
+
+        return z == other.z
+    }
+
+    override fun hashCode(): Int {
+        var result = super.hashCode()
+        result = 31 * result + z.hashCode()
+        return result
     }
 }

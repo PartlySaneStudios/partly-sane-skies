@@ -12,6 +12,7 @@ class Drop(
     var name: String,
     var dropCategory: String,
     var dropCategoryColor: Color,
+    var dropRarityColorCode: String,
     var magicFind: Int,
     var timeDropped: Long,
 ) {

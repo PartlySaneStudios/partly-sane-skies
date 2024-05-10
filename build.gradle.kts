@@ -29,6 +29,8 @@ toolkitLoomHelper {
 }
 
 repositories {
+    mavenCentral()
+    mavenLocal()
     maven("https://repo.polyfrost.cc/releases")
     maven("https://repo.sk1er.club/repository/maven-public/")
     maven("https://repo.sk1er.club/repository/maven-releases/")
@@ -47,7 +49,7 @@ dependencies {
     })
     implementation(shade("cc.polyfrost:oneconfig-wrapper-launchwrapper:1.0.0-beta+")!!)
 
-    implementation(shade("com.github.JnCrMx:discord-game-sdk4j:v0.5.5") {
+    implementation(shade("com.github.NetheriteMiner:DiscordIPC:3106be5") {
         isTransitive = false
     })
     
