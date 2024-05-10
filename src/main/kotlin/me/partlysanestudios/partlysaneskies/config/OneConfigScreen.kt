@@ -617,6 +617,14 @@ object OneConfigScreen : Config(
     var getDataOnJoin = true
 
     @Switch(
+        name = "Arrow Low Warning Upon Player Join",
+        description = "Automatically sends the low arrow warning when the player joins the party, as opposed to waiting for the menu to open.",
+        category = "Dungeons",
+        subcategory = "Party Manager"
+    )
+    var warnLowArrowsOnPlayerJoin = false
+
+    @Switch(
         name = "Toggle Run Colors in Partymanager",
         description = "Toggles the colors of the runs in the party manager.",
         category = "Dungeons",

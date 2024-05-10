@@ -88,7 +88,7 @@ public class PartyManager {
         memberName = StringUtils.INSTANCE.stripTrailing(memberName);
 
         try {
-            loadPlayerData(memberName);
+            loadPlayerData(memberName, PartlySaneSkies.Companion.getConfig().getWarnLowArrowsOnPlayerJoin());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -225,12 +225,19 @@ public class PartyManager {
     }
 
     // Loads the information the player and caches
-    public static void loadPlayerData(String username) throws IOException {
+    public static void loadPlayerData(String username, Boolean warnArrows) throws IOException {
         // Creates a new player
         PartyMember player = new PartyMember(username, PartyMember.PartyRank.LEADER);
         new Thread (() -> {
             try {
                 player.populateData();
+
+                if (warnArrows && player.arrowCount < PartlySaneSkies.Companion.getConfig().getArrowLowCount() && player.arrowCount >= 0) {
+                    String message = PartlySaneSkies.Companion.getConfig().getArrowLowChatMessage();
+                    message = message.replace("{player}", player.username);
+                    message = message.replace("{count}", String.valueOf(player.arrowCount));
+                    PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/pc " + message);
+                }
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
