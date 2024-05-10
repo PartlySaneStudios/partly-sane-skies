@@ -5,7 +5,9 @@ import gg.essential.elementa.UIComponent
 import gg.essential.elementa.components.UIBlock
 import gg.essential.elementa.components.UIWrappedText
 import gg.essential.elementa.constraints.CenterConstraint
+import gg.essential.elementa.dsl.childOf
 import gg.essential.elementa.dsl.constrain
+import gg.essential.elementa.dsl.constraint
 import gg.essential.elementa.dsl.percent
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager
@@ -26,6 +28,7 @@ import me.partlysanestudios.partlysaneskies.utils.StringUtils.stripTrailing
 import net.minecraft.client.gui.inventory.GuiChest
 import net.minecraft.inventory.IInventory
 import net.minecraftforge.client.event.GuiScreenEvent
+import java.awt.Color
 import java.util.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -33,17 +36,20 @@ import kotlin.math.ceil
 
 object CompostValue: SidePanel() {
     override val component: UIComponent = UIBlock().applyBackground().constrain {
-        x = 700.scaledPixels
+        x = 800.scaledPixels
         y = CenterConstraint()
+        width = 200.scaledPixels
+        height = 300.scaledPixels
+        color = Color(0, 0, 0, 0).constraint
     }
 
     private val textCompenent = UIWrappedText().constrain {
         x = CenterConstraint()
         y = CenterConstraint()
-        height = 100.percent
-        width = 100.percent
+        height = 95.percent
+        width = 95.percent
         textScale = 1.scaledPixels
-    }
+    } childOf component
 
     private var maxCompost = 0.0
     private var fillLevel = 0.0
@@ -55,11 +61,15 @@ object CompostValue: SidePanel() {
     override fun frameUpdate(event: GuiScreenEvent.BackgroundDrawnEvent) {
         val composter: IInventory = minecraft.currentScreen?.getSeparateUpperLowerInventories()?.get(0) ?: return
 
-        compostCost = getCompostCost(composter)
-        fillLevel = getOrganicMatterFillLevel(composter)
-        maxCompost = getOrganicMatterLimit(composter)
+        try {
+            compostCost = getCompostCost(composter)
+            fillLevel = getOrganicMatterFillLevel(composter)
+            maxCompost = getOrganicMatterLimit(composter)
 
-        updateString()
+            updateString()
+        } catch (_: NullPointerException) {
+
+        }
     }
 
     override fun shouldDisplayPanel(): Boolean {
@@ -113,6 +123,7 @@ object CompostValue: SidePanel() {
 
         textCompenent.setText(textString)
     }
+
     private fun getString(): String {
         var str = ""
         updateCostPerOrganicMatterMap()
@@ -126,7 +137,7 @@ object CompostValue: SidePanel() {
             if (maxCompost == fillLevel) {
                 compostAmount = getMaxCompostAbleToMake()
             }
-            str += "§6${i}. §7x§d${ceil(cropPerCompost * compostAmount).formatNumber()} ${cropName}§7 costing §d${(costPerCompost * compostAmount).round(1).formatNumber()}§7 coins to fill. \n§8(x${ceil(cropPerCompost).formatNumber()}/Compost)]n"
+            str += "§6${i}. §7x§d${ceil(cropPerCompost * compostAmount).formatNumber()} ${cropName}§7 costing §d${(costPerCompost * compostAmount).round(1).formatNumber()}§7 coins to fill. \n§8(x${ceil(cropPerCompost).formatNumber()}/Compost)\n"
             i++
             if (i > 5) {
                 break
@@ -156,7 +167,7 @@ object CompostValue: SidePanel() {
     private fun getCompostCostString(composterInventory: IInventory): String {
         val infoItem = composterInventory.getStackInSlot(46)
         val loreList = infoItem.getLore()
-        var costLine: String? = "4,000"
+        var costLine = "4,000"
         val regex = "\\b(\\d{1,3}(,\\d{3})*(\\.\\d+)?|\\d+k)\\b"
         val pattern = Pattern.compile(regex)
         var matcher: Matcher

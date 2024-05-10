@@ -16,27 +16,28 @@ abstract class SidePanel {
 
     internal val window = Window(ElementaVersion.V5)
 
+    private var parented = false
+
     init {
-        component childOf window
     }
 
 
     @SubscribeEvent
     open fun onScreenRender(event: GuiScreenEvent.BackgroundDrawnEvent) {
+        if (!parented) {
+            component childOf window
+            parented = true
+        }
         if (!shouldDisplayPanel()) {
             component.hide()
             return
         }
 
         component.unhide()
-        component.setWidth(700.scaledPixels)
-            .setY(CenterConstraint())
 
         frameUpdate(event)
 
         window.draw(UMatrixStack())
-
-
     }
 
     // This is called only when the shouldDisplayPanel is true
