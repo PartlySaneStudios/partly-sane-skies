@@ -10,10 +10,7 @@ import gg.essential.elementa.UIComponent
 import gg.essential.elementa.components.UIBlock
 import gg.essential.elementa.components.UIWrappedText
 import gg.essential.elementa.constraints.CenterConstraint
-import gg.essential.elementa.dsl.childOf
-import gg.essential.elementa.dsl.constrain
-import gg.essential.elementa.dsl.constraint
-import gg.essential.elementa.dsl.percent
+import gg.essential.elementa.dsl.*
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager.getItem
@@ -21,6 +18,7 @@ import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.data.LoadPublicDataEvent
 import me.partlysanestudios.partlysaneskies.features.gui.SidePanel
 import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
+import me.partlysanestudios.partlysaneskies.utils.ElementaUtils
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.applyBackground
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.round
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getLore
@@ -65,6 +63,15 @@ object CompostValue: SidePanel() {
 
     override fun frameUpdate(event: GuiScreenEvent.BackgroundDrawnEvent) {
         val composter: IInventory = minecraft.currentScreen?.getSeparateUpperLowerInventories()?.get(0) ?: return
+
+
+        if (minecraft.currentScreen is GuiChest) {
+            val currentScreen = minecraft.currentScreen as GuiChest
+
+            val xCoord = (ElementaUtils.windowWidth / 2 + currentScreen.width / 2).pixels + 10.scaledPixels
+
+            component.setX(xCoord)
+        }
 
         try {
             compostCost = getCompostCost(composter)
