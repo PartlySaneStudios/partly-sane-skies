@@ -170,7 +170,7 @@ object CompostValue: SidePanel() {
         val infoItem = composterInventory.getStackInSlot(46)
         val loreList = infoItem.getLore()
         var costLine = "4,000"
-        val regex = "\\b(\\d{1,3}(,\\d{3})*(\\.\\d+)?|\\d+k)\\b"
+        val regex = "The composter must have (\\d{1,3}(,\\d{3}))\\b"
         val pattern = Pattern.compile(regex)
         var matcher: Matcher
         for (line in loreList) {
