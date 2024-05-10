@@ -25,9 +25,11 @@ import me.partlysanestudios.partlysaneskies.utils.StringUtils.parseAbbreviatedNu
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.stripLeading
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.stripTrailing
+import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
 import net.minecraft.client.gui.inventory.GuiChest
 import net.minecraft.inventory.IInventory
 import net.minecraftforge.client.event.GuiScreenEvent
+import org.apache.logging.log4j.Level
 import java.awt.Color
 import java.util.*
 import java.util.regex.Matcher
@@ -43,7 +45,7 @@ object CompostValue: SidePanel() {
         color = Color(0, 0, 0, 0).constraint
     }
 
-    private val textCompenent = UIWrappedText().constrain {
+    private val textComponent = UIWrappedText().constrain {
         x = CenterConstraint()
         y = CenterConstraint()
         height = 95.percent
@@ -117,11 +119,10 @@ object CompostValue: SidePanel() {
         if (maxCompost == fillLevel) {
             compostAmount = getMaxCompostAbleToMake()
         }
-        compostAmount = compostAmount.round(0).toFloat().toDouble()
 
         textString += "§7x§d${compostAmount.round(0).formatNumber()}§7 Compost currently sells for §d${(compostSellPrice * compostAmount).round(1).formatNumber()}§7 coins.\n§8(${compostSellPrice.round(1).formatNumber()}/Compost)"
 
-        textCompenent.setText(textString)
+        textComponent.setText(textString)
     }
 
     private fun getString(): String {
@@ -161,6 +162,7 @@ object CompostValue: SidePanel() {
 
 
     private fun getCompostCost(inventory: IInventory): Double {
+        log(Level.INFO, "getCompostCostString ${getCompostCostString(inventory)}")
         return getCompostCostString(inventory).parseAbbreviatedNumber()
     }
 
@@ -189,6 +191,7 @@ object CompostValue: SidePanel() {
 
     private fun getOrganicMatterFillLevel(inventory: IInventory): Double {
         val organicMatterFillLevelString = getOrganicMatterFillLevelString(inventory)
+        log(Level.INFO, "organicMatterFillLevelString $organicMatterFillLevelString")
 
         return if (organicMatterFillLevelString.isEmpty()) {
             0.0
@@ -200,27 +203,28 @@ object CompostValue: SidePanel() {
     private fun getOrganicMatterFillLevelString(composterInventory: IInventory): String {
         val infoItem = composterInventory.getStackInSlot(46)
         val loreList = infoItem.getLore()
-        var amountLine =
-            "§2§l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §l§m §r §e0§6/§e40k"
-        val regex = "(.*?)/(.*?)"
+        var costLine = "0"
+        val regex = "\\b(\\d{1,3}(,\\d{3})*(\\.\\d+)?|\\d+k)\\b"
         val pattern = Pattern.compile(regex)
+        var matcher: Matcher
         for (line in loreList) {
             val unformattedLine = line.removeColorCodes()
-            val matcher = pattern.matcher(unformattedLine)
+            matcher = pattern.matcher(unformattedLine)
             if (matcher.find()) {
-                amountLine = unformattedLine
+                costLine = unformattedLine
                 break
             }
         }
-        amountLine = amountLine.removeColorCodes()
-        amountLine = stripLeading(amountLine)
-        amountLine = stripTrailing(amountLine)
-        val indexOfStart = amountLine.indexOf("/")
-        amountLine = amountLine.substring(0, indexOfStart)
-        return amountLine
+        matcher = pattern.matcher(costLine)
+        return if (matcher.find()) {
+            matcher.group(1)
+        } else {
+            "0"
+        }
     }
 
     private fun getOrganicMatterLimit(inventory: IInventory): Double {
+        log(Level.INFO, "getOrganicMatterLimitString ${getOrganicMatterLimitString(inventory)}")
         return getOrganicMatterLimitString(inventory).parseAbbreviatedNumber()
     }
 
