@@ -259,7 +259,7 @@ object CompostValue: SidePanel() {
     }
 
     private fun sortMap(map: HashMap<String, Double>): Map<String, Double> {
-        return map.entries.sortedBy { it.key }.associate { it.toPair() }.toMap()
+        return map.entries.sortedBy { it.value }.associate { it.toPair() }.toMap()
     }
 
 }
