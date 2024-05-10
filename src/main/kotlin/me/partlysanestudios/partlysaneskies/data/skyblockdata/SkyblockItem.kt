@@ -43,19 +43,17 @@ class SkyblockItem(
     }
 
     fun getBuyPrice(): Double {
-        return if (bazaarSellPrice != 0.0) {
-            bazaarSellPrice
+        return if (bazaarBuyPrice != 0.0) {
+            bazaarBuyPrice
         } else if (lowestBin != 0.0) {
             lowestBin
-        } else if (npcSellPrice != 0.0) {
-            npcSellPrice
         } else {
             0.0
         }
     }
 
     fun getAverageBuyPrice(): Double {
-        return if (bazaarSellPrice != 0.0) {
+        return if (averageBazaarBuy != 0.0) {
             averageBazaarBuy
         } else if (lowestBin != 0.0) {
             averageLowestBin

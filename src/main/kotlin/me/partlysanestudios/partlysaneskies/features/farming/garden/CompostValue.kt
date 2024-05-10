@@ -1,3 +1,8 @@
+//
+// Written by Su386.
+// See LICENSE for copyright and license notices.
+//
+
 package me.partlysanestudios.partlysaneskies.features.farming.garden
 
 import com.google.gson.JsonParser
@@ -25,13 +30,10 @@ import me.partlysanestudios.partlysaneskies.utils.StringUtils.parseAbbreviatedNu
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.stripLeading
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.stripTrailing
-import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
 import net.minecraft.client.gui.inventory.GuiChest
 import net.minecraft.inventory.IInventory
 import net.minecraftforge.client.event.GuiScreenEvent
-import org.apache.logging.log4j.Level
 import java.awt.Color
-import java.util.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 import kotlin.math.ceil
@@ -60,6 +62,7 @@ object CompostValue: SidePanel() {
     private val compostValueMap = HashMap<String, Double>()
     private val costPerOrganicMatterMap = HashMap<String, Double>()
     private val costPerCompostMap = HashMap<String, Double>()
+
     override fun frameUpdate(event: GuiScreenEvent.BackgroundDrawnEvent) {
         val composter: IInventory = minecraft.currentScreen?.getSeparateUpperLowerInventories()?.get(0) ?: return
 
@@ -113,7 +116,7 @@ object CompostValue: SidePanel() {
         var textString = "§e§lTop Crops:\n\n"
         textString += getString()
         textString += "\n\n§e§lCompost:\n\n"
-        val compostSellPrice = getItem("COMPOST")!!.bazaarSellPrice
+        val compostSellPrice = getItem("COMPOST")?.bazaarSellPrice ?: 0.0
 
         var compostAmount = getCurrentCompostAbleToMake()
         if (maxCompost == fillLevel) {
@@ -162,7 +165,6 @@ object CompostValue: SidePanel() {
 
 
     private fun getCompostCost(inventory: IInventory): Double {
-        log(Level.INFO, "getCompostCostString ${getCompostCostString(inventory)}")
         return getCompostCostString(inventory).parseAbbreviatedNumber()
     }
 
@@ -191,7 +193,6 @@ object CompostValue: SidePanel() {
 
     private fun getOrganicMatterFillLevel(inventory: IInventory): Double {
         val organicMatterFillLevelString = getOrganicMatterFillLevelString(inventory)
-        log(Level.INFO, "organicMatterFillLevelString $organicMatterFillLevelString")
 
         return if (organicMatterFillLevelString.isEmpty()) {
             0.0
@@ -224,7 +225,6 @@ object CompostValue: SidePanel() {
     }
 
     private fun getOrganicMatterLimit(inventory: IInventory): Double {
-        log(Level.INFO, "getOrganicMatterLimitString ${getOrganicMatterLimitString(inventory)}")
         return getOrganicMatterLimitString(inventory).parseAbbreviatedNumber()
     }
 
