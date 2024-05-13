@@ -74,6 +74,8 @@ object SkymartValue: SidePanel() {
     private val copperCost = HashMap<String, Int>()
 
     override fun onPanelRender(event: GuiScreenEvent.BackgroundDrawnEvent) {
+        alignPanel()
+
         var textString = "§e§lTop Items:\n\n"
 
         textString += getString()

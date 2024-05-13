@@ -193,7 +193,6 @@ class PartlySaneSkies {
         registerEvent(this)
         registerEvent(PartyManager())
         registerEvent(PartyFriendManager())
-        registerEvent(VisitorTradeValue())
         registerEvent(PetAlert())
         registerEvent(MiningEvents())
         registerEvent(MinionData())
@@ -234,6 +233,7 @@ class PartlySaneSkies {
         registerEvent(CompostValue)
         registerEvent(BitsShopValue)
         registerEvent(SkymartValue)
+        registerEvent(VisitorTradeValue)
         registerEvent(CustomMainMenu.Companion)
         registerEvent(WrongToolCropWarning.CropToolData)
 

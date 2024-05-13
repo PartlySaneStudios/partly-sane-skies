@@ -11,16 +11,16 @@ import java.util.concurrent.ThreadLocalRandom
 import kotlin.math.pow
 
 object MathUtils {
-    fun Double.round(decimalPlaces: Int): Double {
-        return Math.round(this * 10.0.pow(decimalPlaces)) / 10.0.pow(decimalPlaces)
+    fun Number.round(decimalPlaces: Int): Double {
+        return Math.round(this.toDouble() * 10.0.pow(decimalPlaces)) / 10.0.pow(decimalPlaces)
     }
 
-    fun Double.floor(decimalPlaces: Int):Double {
-        return (this * 10.0.pow(decimalPlaces)).toInt() / 10.0.pow(decimalPlaces)
+    fun Number.floor(decimalPlaces: Int):Double {
+        return (this.toDouble() * 10.0.pow(decimalPlaces)).toInt() / 10.0.pow(decimalPlaces)
     }
 
-    fun Double.ceil(decimalPlaces: Int):Double {
-        return (this * 10.0.pow(decimalPlaces)).toInt() / 10.0.pow(decimalPlaces)
+    fun Number.ceil(decimalPlaces: Int):Double {
+        return (this.toDouble() * 10.0.pow(decimalPlaces)).toInt() / 10.0.pow(decimalPlaces)
     }
 
     fun randInt(min: Int, max: Int): Int {
