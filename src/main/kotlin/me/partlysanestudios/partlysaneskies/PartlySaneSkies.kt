@@ -192,10 +192,8 @@ class PartlySaneSkies {
         // Registers all the events
         registerEvent(this)
         registerEvent(PartyManager())
-        registerEvent(CustomMainMenu.Companion)
         registerEvent(PartyFriendManager())
         registerEvent(GardenTradeValue())
-        registerEvent(BitsShopValue())
         registerEvent(PetAlert())
         registerEvent(MiningEvents())
         registerEvent(MinionData())
@@ -221,7 +219,6 @@ class PartlySaneSkies {
         registerEvent(ItemRefill)
         registerEvent(TreecapitatorCooldown)
         registerEvent(WrongToolCropWarning)
-        registerEvent(WrongToolCropWarning.CropToolData)
         registerEvent(StatsData)
         registerEvent(ExampleHud)
         registerEvent(CooldownHud)
@@ -236,6 +233,10 @@ class PartlySaneSkies {
         registerEvent(EnhancedSound)
         registerEvent(MathematicalHoeRightClicks)
         registerEvent(CompostValue)
+        registerEvent(BitsShopValue)
+        registerEvent(CustomMainMenu.Companion)
+        registerEvent(WrongToolCropWarning.CropToolData)
+
 
         // Registers all client side commands
         HelpCommand.registerPSSCommand()

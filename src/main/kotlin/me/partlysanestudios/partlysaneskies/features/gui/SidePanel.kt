@@ -59,6 +59,7 @@ abstract class SidePanel {
 
     /**
      * This function can be overriden to add functions to run every frame the panel is rendered.
+     * This function is empty; no super class are required.
      * This function is only run when [shouldDisplayPanel] returns true.
      */
     open fun onPanelRender(event: GuiScreenEvent.BackgroundDrawnEvent) {}

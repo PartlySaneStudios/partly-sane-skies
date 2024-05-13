@@ -85,9 +85,6 @@ object SkyblockDataManager {
         )
     }
 
-
-
-    @Throws(IOException::class)
     fun initBitValues() {
         val bitsShopObject =
             JsonParser().parse(getFile("constants/bits_shop.json")).getAsJsonObject().getAsJsonObject("bits_shop")
