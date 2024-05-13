@@ -53,7 +53,7 @@ import me.partlysanestudios.partlysaneskies.features.farming.WrongToolCropWarnin
 import me.partlysanestudios.partlysaneskies.features.farming.endoffarmnotifer.EndOfFarmNotifier
 import me.partlysanestudios.partlysaneskies.features.farming.endoffarmnotifer.RangeHighlight
 import me.partlysanestudios.partlysaneskies.features.farming.garden.CompostValue
-import me.partlysanestudios.partlysaneskies.features.farming.garden.GardenTradeValue
+import me.partlysanestudios.partlysaneskies.features.farming.garden.VisitorTradeValue
 import me.partlysanestudios.partlysaneskies.features.farming.garden.SkymartValue
 import me.partlysanestudios.partlysaneskies.features.foraging.TreecapitatorCooldown
 import me.partlysanestudios.partlysaneskies.features.gui.CustomMainMenu
@@ -193,7 +193,7 @@ class PartlySaneSkies {
         registerEvent(this)
         registerEvent(PartyManager())
         registerEvent(PartyFriendManager())
-        registerEvent(GardenTradeValue())
+        registerEvent(VisitorTradeValue())
         registerEvent(PetAlert())
         registerEvent(MiningEvents())
         registerEvent(MinionData())
