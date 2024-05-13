@@ -50,11 +50,11 @@ object BitsShopValue: SidePanel() {
     } childOf panelBaseComponent
 
     override fun onPanelRender(event: GuiScreenEvent.BackgroundDrawnEvent) {
-        var textString: String? = "§e§lTop Items:\n\n"
+        var textString = "§e§lTop Items:\n\n"
 
         textString += getString()
         textString += "\n\n"
-        textComponent.setText(textString!!)
+        textComponent.setText(textString)
     }
 
     override fun shouldDisplayPanel(): Boolean {
