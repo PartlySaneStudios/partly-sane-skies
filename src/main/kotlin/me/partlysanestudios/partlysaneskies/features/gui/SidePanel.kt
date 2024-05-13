@@ -9,7 +9,6 @@ import gg.essential.elementa.dsl.pixels
 import gg.essential.elementa.dsl.plus
 import gg.essential.universal.UMatrixStack
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
-import me.partlysanestudios.partlysaneskies.features.farming.garden.CompostValue
 import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
@@ -18,50 +17,70 @@ import net.minecraftforge.client.event.GuiScreenEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import org.apache.commons.lang3.reflect.FieldUtils
 
+/**
+ * Basic implementation of a GUI rendering on the side of a chest.
+ */
 abstract class SidePanel {
-    abstract val component: UIComponent
+    /**
+     * The base of the panel. This is aligned, shown, hidden and moved by the [onScreenRender], and [alignPanel] functions
+     */
+    abstract val panelBaseComponent: UIComponent
 
-    internal val window = Window(ElementaVersion.V5)
+    /**
+     * The distance between the edge of the chest Gui and the edge of the panel.
+     * Used by the [alignPanel] function.
+     */
     open val pad: XConstraint = 10.scaledPixels
 
     private var parented = false
+    internal val window = Window(ElementaVersion.V5)
 
-    init {
-    }
-
-
+    /**
+     * Basic render code. Can be overridden for custom implementaions.
+     * @param event an event of type [GuiScreenEvent.BackgroundDrawnEvent] passed by the Forge EventBus.
+     */
     @SubscribeEvent
     open fun onScreenRender(event: GuiScreenEvent.BackgroundDrawnEvent) {
         if (!parented) {
-            component childOf window
+            panelBaseComponent childOf window
             parented = true
         }
         if (!shouldDisplayPanel()) {
-            component.hide()
+            panelBaseComponent.hide()
             return
         }
 
-        component.unhide()
+        panelBaseComponent.unhide()
 
-        frameUpdate(event)
+        onPanelRender(event)
 
         window.draw(UMatrixStack())
     }
 
-    // This is called only when the shouldDisplayPanel is true
-    open fun frameUpdate(event: GuiScreenEvent.BackgroundDrawnEvent) {}
+    /**
+     * This function can be overriden to add functions to run every frame the panel is rendered.
+     * This function is only run when [shouldDisplayPanel] returns true.
+     */
+    open fun onPanelRender(event: GuiScreenEvent.BackgroundDrawnEvent) {}
 
-
-    // This is never called. You must call this to align
+    /**
+     * This function automatically aligns the [panelBaseComponent] panel to be [pad] distance from the edge of the chest.
+     * This does not rescale when the gui is rescaled and should be called regularly.
+     * This function is not natively called.
+     */
     open fun alignPanel() {
         if (shouldDisplayPanel()) {
             val currentScreen = PartlySaneSkies.minecraft.currentScreen as GuiChest
             val xSize = FieldUtils.readField(currentScreen, MinecraftUtils.getDecodedFieldName("xSize"), true) as Int
             val xCoord = (ElementaUtils.windowWidth / 2 + xSize / 2).pixels + pad
 
-            component.setX(xCoord)
+            panelBaseComponent.setX(xCoord)
         }
     }
 
+    /**
+     * Called every time the checks for display
+     * @return Whether the panel should be is rendered
+     */
     abstract fun shouldDisplayPanel(): Boolean
 }

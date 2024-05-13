@@ -19,10 +19,8 @@ import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.data.LoadPublicDataEvent
 import me.partlysanestudios.partlysaneskies.features.gui.SidePanel
 import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
-import me.partlysanestudios.partlysaneskies.utils.ElementaUtils
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.applyBackground
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.round
-import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getDecodedFieldName
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getLore
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getSeparateUpperLowerInventories
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.formatNumber
@@ -33,14 +31,13 @@ import me.partlysanestudios.partlysaneskies.utils.StringUtils.stripTrailing
 import net.minecraft.client.gui.inventory.GuiChest
 import net.minecraft.inventory.IInventory
 import net.minecraftforge.client.event.GuiScreenEvent
-import org.apache.commons.lang3.reflect.FieldUtils
 import java.awt.Color
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 import kotlin.math.ceil
 
 object CompostValue: SidePanel() {
-    override val component: UIComponent = UIBlock().applyBackground().constrain {
+    override val panelBaseComponent: UIComponent = UIBlock().applyBackground().constrain {
         x = 800.scaledPixels
         y = CenterConstraint()
         width = 200.scaledPixels
@@ -54,7 +51,7 @@ object CompostValue: SidePanel() {
         height = 95.percent
         width = 95.percent
         textScale = 1.scaledPixels
-    } childOf component
+    } childOf panelBaseComponent
 
     private var maxCompost = 0.0
     private var fillLevel = 0.0
@@ -64,7 +61,7 @@ object CompostValue: SidePanel() {
     private val costPerOrganicMatterMap = HashMap<String, Double>()
     private val costPerCompostMap = HashMap<String, Double>()
 
-    override fun frameUpdate(event: GuiScreenEvent.BackgroundDrawnEvent) {
+    override fun onPanelRender(event: GuiScreenEvent.BackgroundDrawnEvent) {
         val composter: IInventory = minecraft.currentScreen?.getSeparateUpperLowerInventories()?.get(0) ?: return
 
         alignPanel()
@@ -75,9 +72,7 @@ object CompostValue: SidePanel() {
             maxCompost = getOrganicMatterLimit(composter)
 
             updateString()
-        } catch (_: NullPointerException) {
-
-        }
+        } catch (_: NullPointerException) { }
     }
 
     override fun shouldDisplayPanel(): Boolean {
@@ -269,5 +264,4 @@ object CompostValue: SidePanel() {
     private fun sortMap(map: HashMap<String, Double>): Map<String, Double> {
         return map.entries.sortedBy { it.value }.associate { it.toPair() }.toMap()
     }
-
 }
