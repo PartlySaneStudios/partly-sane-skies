@@ -11,6 +11,7 @@ import gg.essential.elementa.components.UIBlock
 import gg.essential.elementa.components.UIWrappedText
 import gg.essential.elementa.constraints.CenterConstraint
 import gg.essential.elementa.dsl.*
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager.getItem
@@ -21,6 +22,7 @@ import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelCo
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.applyBackground
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.round
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getDecodedFieldName
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getLore
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getSeparateUpperLowerInventories
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.formatNumber
@@ -31,6 +33,7 @@ import me.partlysanestudios.partlysaneskies.utils.StringUtils.stripTrailing
 import net.minecraft.client.gui.inventory.GuiChest
 import net.minecraft.inventory.IInventory
 import net.minecraftforge.client.event.GuiScreenEvent
+import org.apache.commons.lang3.reflect.FieldUtils
 import java.awt.Color
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -64,14 +67,7 @@ object CompostValue: SidePanel() {
     override fun frameUpdate(event: GuiScreenEvent.BackgroundDrawnEvent) {
         val composter: IInventory = minecraft.currentScreen?.getSeparateUpperLowerInventories()?.get(0) ?: return
 
-
-        if (minecraft.currentScreen is GuiChest) {
-            val currentScreen = minecraft.currentScreen as GuiChest
-
-            val xCoord = (ElementaUtils.windowWidth / 2 + currentScreen.width / 2).pixels + 10.scaledPixels
-
-            component.setX(xCoord)
-        }
+        alignPanel()
 
         try {
             compostCost = getCompostCost(composter)
@@ -85,9 +81,14 @@ object CompostValue: SidePanel() {
     }
 
     override fun shouldDisplayPanel(): Boolean {
+        if (!config.bestCropsToCompost) {
+            return false
+        }
+
         if (minecraft.currentScreen == null) {
             return false
         }
+
         if (minecraft.currentScreen !is GuiChest) {
             return false
         }
