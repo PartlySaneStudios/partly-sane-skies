@@ -129,12 +129,12 @@ class PartlySaneSkies {
             get() = System.currentTimeMillis()
         val isLatestVersion: Boolean
             get() {
-                if (DOGFOOD) {
-                    return true
+                return if (DOGFOOD) {
+                    true
                 } else if (latestVersion == "(Unknown)") {
-                    return true
+                    true
                 } else {
-                    return VERSION == latestVersion
+                    VERSION == latestVersion
                 }
             }
 
@@ -338,12 +338,12 @@ class PartlySaneSkies {
         val data = PublicDataManager.getFile("main_menu.json")
         val jsonObj = JsonParser().parse(data).asJsonObject
         try {
-            if (config.releaseChannel == 0) {
+            latestVersion = if (config.releaseChannel == 0) {
                 val modInfo: JsonObject = jsonObj.getAsJsonObject("mod_info")
-                latestVersion = modInfo["latest_version"].asString
+                modInfo["latest_version"].asString
             } else {
                 val modInfo: JsonObject = jsonObj.getAsJsonObject("prerelease_channel")
-                latestVersion = modInfo["latest_version"].asString
+                modInfo["latest_version"].asString
             }
 
             // latestVersionDescription = modInfo.get("latest_version_description").getAsString();
