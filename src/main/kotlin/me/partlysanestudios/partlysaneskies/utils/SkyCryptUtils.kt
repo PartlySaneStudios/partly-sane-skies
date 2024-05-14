@@ -21,10 +21,6 @@ object SkyCryptUtils {
         val skyCryptObject = obtainSkyCryptPlayerJSONData(username)
         val profileData = (skyCryptObject["profiles"] as JsonObject)
         if (DebugKey.isDebugMode()) ChatUtils.sendClientMessage("§eProfiles obtained.")
-        if (profileData == null) {
-            ChatUtils.sendClientMessage("§ePSS is having trouble accessing your profile data over SkyCrypt. Please try again; if this continues please report this to us via §9/discord§e.")
-            return 0.0
-        }
         val currentProfile: JsonObject = findCurrentProfile(profileData)
         networth = currentProfile.getJsonFromPath(skyCryptNetworthPath)?.asDouble ?: -1.0
         if (DebugKey.isDebugMode()) ChatUtils.sendClientMessage("§eCurrent profile and its networth found.")
@@ -36,10 +32,6 @@ object SkyCryptUtils {
         val skyCryptObject = obtainSkyCryptPlayerJSONData(username)
         val profileData = (skyCryptObject["profiles"] as JsonObject)
         if (DebugKey.isDebugMode()) ChatUtils.sendClientMessage("§eProfiles obtained.")
-        if (profileData == null) {
-            ChatUtils.sendClientMessage("§ePSS is having trouble accessing your profile data over SkyCrypt. Please try again; if this continues please report this to us via §9/discord§e.")
-            return -1L
-        }
         val currentProfile: JsonObject = findCurrentProfile(profileData)
         firstJoinEpoch = currentProfile.getJsonFromPath(skyCryptFirstJoinPath)?.asLong ?: -1L
         return firstJoinEpoch

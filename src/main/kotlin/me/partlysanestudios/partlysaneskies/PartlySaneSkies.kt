@@ -22,9 +22,6 @@ import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import me.partlysanestudios.partlysaneskies.config.Keybinds
 import me.partlysanestudios.partlysaneskies.config.OneConfigScreen
-import me.partlysanestudios.partlysaneskies.data.api.GetRequest
-import me.partlysanestudios.partlysaneskies.data.api.Request
-import me.partlysanestudios.partlysaneskies.data.api.RequestsManager.newRequest
 import me.partlysanestudios.partlysaneskies.data.cache.PetData
 import me.partlysanestudios.partlysaneskies.data.cache.StatsData
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager
@@ -153,23 +150,6 @@ class PartlySaneSkies {
         // Creates the partly-sane-skies directory if not already made
         File("./config/partly-sane-skies/").mkdirs()
 
-        val mainMenuRequest =
-            GetRequest(
-                getPublicDataUrl(getRepoOwner(), getRepoName(), "main_menu.json"),
-                { request: Request? ->
-                    CustomMainMenu.setMainMenuInfo(
-                        request
-                    )
-                })
-        newRequest(mainMenuRequest)
-        val funFactRequest = GetRequest(
-            CustomMainMenu.funFactApi,
-            { request: Request? ->
-                CustomMainMenu.setFunFact(
-                    request
-                )
-            })
-        newRequest(funFactRequest)
         trackLoad()
         Thread {
             PublicDataManager.getFile("main_menu.json")
@@ -337,7 +317,7 @@ class PartlySaneSkies {
 
     // Method runs every tick
     @SubscribeEvent
-    fun clientTick(evnt: ClientTickEvent) {
+    fun clientTick(event: ClientTickEvent) {
         config.resetBrokenStringsTick()
         LocationBannerDisplay.checkLocationTick()
         EndOfFarmNotifier.checkAllRangesTick()

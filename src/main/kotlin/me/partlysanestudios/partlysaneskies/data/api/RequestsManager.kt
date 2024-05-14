@@ -42,7 +42,7 @@ object RequestsManager {
         }
 
         // The time in milliseconds between requests
-        val timeBetweenRequests = Math.round((PartlySaneSkies.config.timeBetweenRequests?: .5F) * 1000).toLong()
+        val timeBetweenRequests = Math.round(PartlySaneSkies.config.timeBetweenRequests * 1000).toLong()
         // If the time has not elapsed between requests
         if (MathUtils.onCooldown(lastRequestTime, timeBetweenRequests)) {
             return
@@ -56,17 +56,7 @@ object RequestsManager {
             return
         }
         if (element.isMainThread()) {
-            if (PartlySaneSkies.minecraft != null) {
-                PartlySaneSkies.minecraft.addScheduledTask {
-                    try {
-                        element.startRequest()
-                    } catch (e: IOException) {
-                        element.setFailed("{THREW_IOEXEPCTION}")
-                        e.printStackTrace()
-                    }
-                }
-
-            } else {
+            PartlySaneSkies.minecraft.addScheduledTask {
                 try {
                     element.startRequest()
                 } catch (e: IOException) {
