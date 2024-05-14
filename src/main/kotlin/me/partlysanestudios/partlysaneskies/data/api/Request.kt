@@ -31,22 +31,21 @@ import javax.net.ssl.HostnameVerifier
  * @param acceptAllCertificates If true, the request will accept all certificates for response
  * @author Su386
  */
-open class Request(
-    private val url: URL,
-    private val function: RequestRunnable?,
-    private val inMainThread:
-    Boolean = false,
-    private val executeOnNextFrame: Boolean = false,
-    private val acceptAllCertificates: Boolean = false
+abstract class Request(
+    internal val url: URL,
+    internal val function: RequestRunnable?,
+    internal val inMainThread: Boolean = false,
+    internal val executeOnNextFrame: Boolean = false,
+    internal val acceptAllCertificates: Boolean = false
 ) {
-//    Constructor with string url and certificate option
+    //    Constructor with string url and certificate option
     constructor(
         url: String,
         function: RequestRunnable?,
         inMainThread: Boolean = false,
         executeOnNextFrame: Boolean = false,
         acceptAllCertificates: Boolean = false
-    ): this(URL(url), function, inMainThread, executeOnNextFrame, acceptAllCertificates)
+    ) : this(URL(url), function, inMainThread, executeOnNextFrame, acceptAllCertificates)
 
 //    Constructor without certificate option
     constructor(
@@ -54,7 +53,7 @@ open class Request(
         function: RequestRunnable?,
         inMainThread: Boolean = false,
         executeOnNextFrame: Boolean = false
-    ): this(url, function, inMainThread, executeOnNextFrame, false)
+    ) : this(url, function, inMainThread, executeOnNextFrame, false)
 
 //    Constructor without certificates option
     constructor(
@@ -62,19 +61,23 @@ open class Request(
         function: RequestRunnable?,
         inMainThread: Boolean = false,
         executeOnNextFrame: Boolean = false
-    ): this(URL(url), function, inMainThread, executeOnNextFrame, false)
+    ) : this(URL(url), function, inMainThread, executeOnNextFrame, false)
 
     // A string that contains the response message (not body)
-    private var responseMessage = ""
+    internal var responseMessage = ""
+
     // An int that contains the response code
-    private var responseCode = -1
+    internal var responseCode = -1
+
     // A boolean to determining if there was an unknown failure
     // Gets set to true when setFailed(reason) is called
-    private var hasFailed = false
+    internal var hasFailed = false
+
     // The String that contains the JSON response
-    private var response = ""
+    internal var response = ""
+
     // A list that contains all the HTTP codes where the request should rerun
-    private var tryAgainOnCodes = ArrayList<Int>()
+    internal var tryAgainOnCodes = ArrayList<Int>()
 
 
     /**
@@ -104,99 +107,7 @@ open class Request(
      * Sends the get request
      */
     @Throws(IOException::class)
-    open fun startRequest() {
-
-        // Opens a new connection with the url
-        val connection = url.openConnection() as HttpURLConnection
-        // Sets the browser as Mozilla to bypass an insecure restrictions
-        connection.setRequestProperty("User-Agent", "Partly-Sane-Skies/" + PartlySaneSkies.VERSION)
-        if (acceptAllCertificates && connection is HttpsURLConnection) {
-            // Create a trust manager that does not validate certificate chains
-            val trustAllCerts = arrayOf<TrustManager>(object : X509TrustManager {
-                override fun getAcceptedIssuers(): Array<X509Certificate> = arrayOf()
-                override fun checkClientTrusted(chain: Array<X509Certificate>, authType: String) {}
-                override fun checkServerTrusted(chain: Array<X509Certificate>, authType: String) {}
-            })
-
-            // Install the all-trusting trust manager for a specific SSL context
-            val sslContext = SSLContext.getInstance("SSL")
-            sslContext.init(null, trustAllCerts, java.security.SecureRandom())
-
-            // Apply the all-trusting SSLSocketFactory to this specific connection
-            connection.sslSocketFactory = sslContext.socketFactory
-
-            // Optional: Apply a hostname verifier that does not perform any checks (not recommended)
-            connection.hostnameVerifier = HostnameVerifier { _, _ -> true }
-        }
-
-        // Gets the response code
-        val responseCode = connection.getResponseCode()
-        this.responseCode = responseCode
-        // Gets the response message
-        this.responseMessage = connection.getResponseMessage()
-
-        // If the code is not HTTP_OK -- if the request failed
-        if (responseCode != HttpsURLConnection.HTTP_OK) {
-            if (tryAgainOnCodes.contains(responseCode)) {
-                RequestsManager.newRequest(this)
-                return
-            }
-
-            // If the print API errors setting is on, send a message to the client
-            if (PartlySaneSkies.config.printApiErrors) {
-                sendClientMessage(
-                    """
-                Error: ${connection.getResponseMessage()}:${connection.getResponseCode()}
-                Contact PSS admins for more information
-                """.trimIndent()
-                )
-            } else {
-                log(
-                    Level.ERROR,
-                    """
-                Error: ${connection.getResponseMessage()}:${connection.getResponseCode()}
-                Contact PSS admins for more information
-                """.trimIndent()
-                )
-            }
-            log(
-                Level.ERROR,
-                """
-            Error: ${connection.getResponseMessage()}:${connection.getResponseCode()}
-            URL: ${url}
-            """.trimIndent()
-            )
-            // Disconnect the connection
-            connection.disconnect()
-        }
-
-        // Read the response as a string
-        val `in` = BufferedReader(InputStreamReader(connection.inputStream))
-        var inputLine: String?
-        val response = StringBuilder()
-        while (`in`.readLine().also { inputLine = it } != null) {
-            response.append(inputLine)
-        }
-        `in`.close()
-
-        // set the requestResponse to the string that was read as a response
-        this.response = response.toString()
-
-        // Disconnect
-        connection.disconnect()
-        if (function == null) {
-            return
-        }
-
-        // If supposed to run in the next frame, run in the next frame
-        if (executeOnNextFrame) {
-            PartlySaneSkies.minecraft.addScheduledTask { function.run(this) }
-            return
-        }
-
-        // Runs on current thread
-        function.run(this)
-    }
+    abstract fun startRequest()
 
     /**
      * @return the request runnable
@@ -253,7 +164,4 @@ open class Request(
     fun getErrorMessage(): String {
         return "Error: " + this.responseMessage + ":" + this.responseCode
     }
-
-
-
 }
