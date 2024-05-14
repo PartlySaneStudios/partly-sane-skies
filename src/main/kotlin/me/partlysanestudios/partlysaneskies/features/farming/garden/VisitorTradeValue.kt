@@ -92,52 +92,48 @@ object VisitorTradeValue: SidePanel() {
     override fun onPanelRender(event: GuiScreenEvent.BackgroundDrawnEvent) {
         alignPanel()
 
-        var textString = StringBuilder()
+        var textString = ""
 
-        val totalCost: Double = getTotalCost()
+        val totalCost = getTotalCost()
 
-        if (totalCost < 0) {
-            textString.append("§e§lTotal Cost: §r§d" + totalCost.round(2).formatNumber() + "\n\n")
+        textString += if (totalCost > 0) {
+            "§e§lTotal Cost: §r§d${totalCost.round(2).formatNumber()}\n\n"
         } else {
-            textString.append("§e§lTotal Cost: §o§8(Unknown)§r\n\n")
+            "§e§lTotal Cost: §o§8(Unknown)§r\n\n"
         }
 
-        textString.append(
-            "§e§lCopper Received: §r§d" + getCopperReturn().round(2).formatNumber() + "\n\n"
-        )
+        textString += "§e§lCopper Received: §r§d${getCopperReturn().round(2).formatNumber()}\n\n"
+
 
         val pricePerCopper: Double = getTotalCost() / getCopperReturn()
-        if (pricePerCopper < 0) {
-            textString.append("§e§lCoins/Copper: §r§d" + pricePerCopper.round(2).formatNumber() + "\n\n")
+        textString += if (pricePerCopper > 0) {
+            "§e§lCoins/Copper: §r§d${pricePerCopper.round(2).formatNumber()}\n\n"
         } else {
-            textString.append("§e§lCoins/Copper: §o§8(Unknown)§r\n\n")
+            "§e§lCoins/Copper: §o§8(Unknown)§r\n\n"
         }
 
-        val priceBreakdown = StringBuilder()
+        var priceBreakdown = ""
         val coinCostMap: HashMap<String, Double> = getCoinCostMap()
         for ((key, value) in getQuantityCostMap().entries) {
             val cost = coinCostMap[key] ?: continue
-            if (cost >= 0) {
-                priceBreakdown.append(
-                    "§7x§d" + value + " §7" + key + " for a total of §d" + cost.round(2).formatNumber() + "§7 coins.\n"
-                )
+
+            priceBreakdown += if (cost >= 0) {
+                "§7x§d${value}§7 $key for a total of §d${cost.round(2).formatNumber()}§7 coins.\n"
             } else {
-                priceBreakdown.append("§7x§d$value §7$key for a total of §o§8(Unknown)§r§7 coins.\n")
+                "§7x§d$value §7$key for a total of §o§8(Unknown)§r§7 coins.\n"
             }
         }
 
-        textString.append("§e§lPrice Breakdown:§r\n")
-        textString.append(priceBreakdown)
-        textString.append("\n\n")
+        textString += "§e§lPrice Breakdown:§r\n"
+        textString += priceBreakdown
+        textString += "\n\n"
 
-        textString.append("§e§lRewards:§r\n")
+        textString += "§e§lRewards:§r\n"
         for (line in getRewardsLore()) {
-            textString.append(line).append("\n")
+            textString += "$line\n"
         }
 
-        textString = StringBuilder(textString.toString())
-
-        textComponent.setText(textString.toString())
+        textComponent.setText(textString)
     }
 
     // Returns a hashmap containing the name of an item and the quantity
@@ -202,7 +198,7 @@ object VisitorTradeValue: SidePanel() {
         return costMap
     }
 
-    fun getRewardsLore(): List<String> {
+    private fun getRewardsLore(): List<String> {
         val inventories = minecraft.currentScreen.getSeparateUpperLowerInventories()
         val trader = inventories[0] ?: return ArrayList<String>()
 
@@ -250,7 +246,9 @@ object VisitorTradeValue: SidePanel() {
         val coinMap = HashMap<String, Double>()
         for ((key, value) in quantityMap) {
             val id = getId(key)
+
             val price: Double = getItemCost(id, value)
+
             coinMap[key] = price
         }
         return coinMap
@@ -259,9 +257,11 @@ object VisitorTradeValue: SidePanel() {
     private fun getTotalCost(): Double {
         val costMap: HashMap<String, Double> = getCoinCostMap()
         var totalCost = 0.0
+
         for (individualCost in costMap.values) {
             totalCost += individualCost
         }
+
         return totalCost
     }
     
