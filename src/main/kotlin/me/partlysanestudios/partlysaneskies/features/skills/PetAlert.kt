@@ -49,7 +49,7 @@ object PetAlert: SidePanel() {
     override val panelBaseComponent: UIComponent = UIBlock().applyBackground().constrain {
         x = 800.scaledPixels
         y = CenterConstraint()
-        width = 125.scaledPixels
+        width = 175.scaledPixels
         height = 100.scaledPixels
         color = Color(0, 0, 0, 0).constraint
     }
@@ -57,7 +57,6 @@ object PetAlert: SidePanel() {
     private val textComponent = UIWrappedText(centered = true).constrain {
         x = CenterConstraint()
         y = CenterConstraint()
-        height = 95.percent
         width = 95.percent
         textScale = 1.scaledPixels
     } childOf panelBaseComponent
