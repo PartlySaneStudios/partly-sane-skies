@@ -47,8 +47,7 @@ abstract class Request(
         acceptAllCertificates: Boolean = false
     ) : this(URL(url), function, inMainThread, executeOnNextFrame, acceptAllCertificates)
 
-    //    Constructor without certificate option
-    @Deprecated("Use constructor with acceptAllCertificates option")
+//    Constructor without certificate option
     constructor(
         url: URL,
         function: RequestRunnable?,
@@ -56,8 +55,7 @@ abstract class Request(
         executeOnNextFrame: Boolean = false
     ) : this(url, function, inMainThread, executeOnNextFrame, false)
 
-    //    Constructor without certificates option
-    @Deprecated("Use constructor with acceptAllCertificates option")
+//    Constructor without certificates option
     constructor(
         url: String,
         function: RequestRunnable?,

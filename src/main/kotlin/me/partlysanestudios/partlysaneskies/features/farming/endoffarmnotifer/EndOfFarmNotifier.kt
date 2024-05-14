@@ -33,12 +33,12 @@ import kotlin.math.min
 
 
 object EndOfFarmNotifier {
+
     internal var ranges = ArrayList<Range3d>()
     private lateinit var selectedPos1: IntArray
     private lateinit var selectedPos2: IntArray
     private var lastChimeTime: Long = 0
 
-    private var color: Color? = null
     private var displayString = ""
     private const val TEXT_SCALE = 7
 
@@ -81,7 +81,7 @@ object EndOfFarmNotifier {
     }
 
     private fun createNewRange(name: String): Range3d? {
-        if (selectedPos1.isEmpty()|| selectedPos2.isEmpty()) {
+        if (selectedPos1.isEmpty() || selectedPos2.isEmpty()) {
             return null
         }
         val smallY: Double =
@@ -279,7 +279,7 @@ object EndOfFarmNotifier {
     fun registerCreateRangeCommand() {
         PSSCommand("/create")
             .setDescription("Creates the range from two positions: //create [name]")
-            .setRunnable { s: ICommandSender?, a: Array<String?> ->
+            .setRunnable { s: ICommandSender, a: Array<String> ->
                 var name: String? = ""
                 if (a.isNotEmpty()) {
                     name = a[0]
@@ -364,7 +364,7 @@ object EndOfFarmNotifier {
             .addAlias("psswand")
             .addAlias("partlysaneskieswand")
             .setDescription("Toggles the wand for the End of Farm Notifier: /wand")
-            .setRunnable { s: ICommandSender?, a: Array<String?>? ->
+            .setRunnable { _: ICommandSender?, _: Array<String>? ->
                 wandActive = !wandActive
                 ChatUtils.sendClientMessage(
                     "§7The wand is now " +

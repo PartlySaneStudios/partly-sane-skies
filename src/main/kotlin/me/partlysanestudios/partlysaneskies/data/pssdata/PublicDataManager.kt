@@ -18,6 +18,7 @@ import net.minecraft.util.ChatComponentText
 import java.net.MalformedURLException
 
 object PublicDataManager {
+
     // Add all initializing of public data here
     private val fileCache = HashMap<String, String>()
     private val lock = Lock()
@@ -26,14 +27,14 @@ object PublicDataManager {
      * @return the current repo's owner
      */
     fun getRepoOwner(): String {
-        return PartlySaneSkies.config.repoOwner?: "PartlySaneStudios"
+        return PartlySaneSkies.config.repoOwner ?: "PartlySaneStudios"
     }
 
     /**
      * @return the current repo's name
      */
     fun getRepoName(): String {
-        return PartlySaneSkies.config.repoName?: "partly-sane-skies-public-data"
+        return PartlySaneSkies.config.repoName ?: "partly-sane-skies-public-data"
     }
 
     /**
@@ -51,7 +52,7 @@ object PublicDataManager {
             fixedPath = fixedPath.substring(0, fixedPath.length - 1)
         }
         if (fileCache.containsKey(fixedPath)) {
-            return fileCache[fixedPath]?: ""
+            return fileCache[fixedPath] ?: ""
         }
 
         try {
@@ -64,7 +65,8 @@ object PublicDataManager {
                     }
                     fileCache[path] = it.getResponse()
                     synchronized(lock) { lock.notifyAll() }
-                }))
+                })
+            )
         } catch (e: MalformedURLException) {
             synchronized(lock) { lock.notifyAll() }
         }
@@ -76,7 +78,7 @@ object PublicDataManager {
 
         return if (!fileCache.containsKey(path)) {
             ""
-        } else fileCache[fixedPath]?: ""
+        } else fileCache[fixedPath] ?: ""
     }
 
     fun getPublicDataUrl(repoOwner: String, repoName: String, filePath: String): String {
@@ -86,6 +88,7 @@ object PublicDataManager {
             "${config.apiUrl}/v1/pss/publicdata?owner=${repoOwner}&repo=${repoName}&path=/data/${filePath}"
         }
     }
+
     /**
      * Creates and registers the clear data command
      */
@@ -96,7 +99,7 @@ object PublicDataManager {
             .addAlias("psscleardata")
             .addAlias("pssclearcache")
             .setDescription("Clears your Partly Sane Studios data")
-            .setRunnable { _: ICommandSender?, _: Array<String?>? ->
+            .setRunnable { _: ICommandSender?, _: Array<String> ->
                 val chatcomponent = ChatComponentText(
                     """
                 §b§4-----------------------------------------------------§7
@@ -109,7 +112,6 @@ object PublicDataManager {
                 LoadPublicDataEvent.onDataLoad()
             }.register()
     }
-
-    private class Lock: Object()
+    private class Lock : Object()
 
 }

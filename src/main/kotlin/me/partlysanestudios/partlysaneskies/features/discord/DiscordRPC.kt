@@ -10,6 +10,7 @@ import com.jagrosh.discordipc.IPCClient
 import com.jagrosh.discordipc.IPCListener
 import com.jagrosh.discordipc.entities.RichPresence
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
+import me.partlysanestudios.partlysaneskies.features.debug.DebugKey
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils
 import org.apache.logging.log4j.Level
@@ -36,20 +37,28 @@ object DiscordRPC {
                     // Sleep a bit to save CPU
                     Thread.sleep(600)
                 } catch (e: InterruptedException) {
-                    e.printStackTrace()
+                    if (DebugKey.isDebugMode()) {
+                        e.printStackTrace()
+                    }
                 }
             } else {
-                SystemUtils.log(Level.INFO, "Creating new discord RPC parameters")
+                if (DebugKey.isDebugMode()) {
+                    SystemUtils.log(Level.INFO, "Creating new discord RPC parameters")
+                }
                 try {
                     run()
                 } catch (e: Exception) {
-                    e.printStackTrace()
+                    if (DebugKey.isDebugMode()) {
+                        e.printStackTrace()
+                    }
                 }
                 try {
                     // Sleep a bit to save CPU
                     Thread.sleep(600)
                 } catch (e: InterruptedException) {
-                    e.printStackTrace()
+                    if (DebugKey.isDebugMode()) {
+                        e.printStackTrace()
+                    }
                 }
             }
         }
