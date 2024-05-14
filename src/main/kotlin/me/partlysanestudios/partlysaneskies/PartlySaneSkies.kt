@@ -193,7 +193,6 @@ class PartlySaneSkies {
         registerEvent(this)
         registerEvent(PartyManager())
         registerEvent(PartyFriendManager())
-        registerEvent(PetAlert())
         registerEvent(MiningEvents())
         registerEvent(MinionData())
         registerEvent(SkyblockDataManager)
@@ -236,7 +235,7 @@ class PartlySaneSkies {
         registerEvent(VisitorTradeValue)
         registerEvent(CustomMainMenu.Companion)
         registerEvent(WrongToolCropWarning.CropToolData)
-
+        registerEvent(PetAlert)
 
 
         // Registers all client side commands
