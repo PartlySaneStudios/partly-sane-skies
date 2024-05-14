@@ -9,6 +9,7 @@ import com.google.gson.Gson
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand
+import me.partlysanestudios.partlysaneskies.data.api.GetRequest
 import me.partlysanestudios.partlysaneskies.data.api.Request
 import me.partlysanestudios.partlysaneskies.data.api.RequestsManager.newRequest
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager.getRepoName
@@ -33,7 +34,7 @@ object ModChecker {
     fun registerModCheckCommand() {
         PSSCommand(
             "modcheck", ArrayList(), "Checks the mods in your mod folder if they are updated"
-        ) { s: ICommandSender, a: Array<String> ->
+        ) { _: ICommandSender, a: Array<String> ->
             Thread {
                 if (a.isNotEmpty()) {
                     sendClientMessage("Loading... (using data from custom repository)")
@@ -292,7 +293,7 @@ object ModChecker {
         } else {
             config.apiUrl + "/v1/pss/publicdata?owner=" + userName + "&repo=" + repoName + "&path=/data/mods.json"
         }
-        newRequest(Request(url, { request: Request ->
+        newRequest(GetRequest(url, { request: Request ->
             knownMods = ArrayList()
             try {
                 knownMods = read(Gson().fromJson(request.getResponse(), ModDataJson::class.java))
