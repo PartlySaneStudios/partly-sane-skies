@@ -31,6 +31,7 @@ import me.partlysanestudios.partlysaneskies.utils.HypixelUtils.getItemId
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils.isSkyblock
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.onCooldown
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getSeparateUpperLowerInventories
+import me.partlysanestudios.partlysaneskies.utils.StringUtils.pluralize
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import net.minecraft.client.audio.PositionedSoundRecord
 import net.minecraft.client.gui.inventory.GuiChest
@@ -134,7 +135,7 @@ object PetAlert: SidePanel() {
         }
 
         if (!onCooldown(lastMessageSendTime, 3000)) {
-            val message: IChatComponent = ChatComponentText("${PartlySaneSkies.CHAT_PREFIX}§cYOU CURRENTLY HAVE $petName§c SELECTED AS YOUR PET. YOU WANTED TO UPGRADE $selectedPetName.\n§dClick this message or run /mutepetalert to mute the alert for ${config.petAlertMuteTime} minutes.")
+            val message: IChatComponent = ChatComponentText("${PartlySaneSkies.CHAT_PREFIX}§cYOU CURRENTLY HAVE $petName§c SELECTED AS YOUR PET. YOU WANTED TO UPGRADE $selectedPetName.\n§dClick this message or run /mutepetalert to mute the alert for ${config.petAlertMuteTime} ${"minutes".pluralize(config.petAlertMuteTime)}.")
             message.chatStyle.setChatClickEvent(ClickEvent(ClickEvent.Action.RUN_COMMAND, "/mutepetalert"))
             minecraft.ingameGUI.chatGUI.printChatMessage(message)
             lastMessageSendTime = time

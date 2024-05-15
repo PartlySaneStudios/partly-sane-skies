@@ -112,6 +112,14 @@ object StringUtils {
         return str
     }
 
+    fun String.pluralize(number: Number): String{
+        return if (number == 1) {
+            this
+        } else {
+            "${this}s"
+        }
+    }
+
     fun stripTrailing(str: String): String {
         var str = str
         if (str == "") {
