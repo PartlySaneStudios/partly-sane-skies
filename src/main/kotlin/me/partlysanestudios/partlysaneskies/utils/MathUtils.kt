@@ -29,7 +29,7 @@ object MathUtils {
 
     fun <K : Any,V: Number> Map<K, V>.sortMap(reverseOrder: Boolean = false): Map<K, V> {
         return if (reverseOrder) {
-            this.entries.sortedByDescending { it.value.toDouble() }.associate { it.toPair() }
+            this.entries.sortedByDescending { it.value.toDouble() }
         } else {
             this.entries.sortedBy { it.value.toDouble() }
         }.associate { it.toPair() }
