@@ -27,6 +27,14 @@ object MathUtils {
         return ThreadLocalRandom.current().nextInt(min, max + 1)
     }
 
+    fun <K : Any,V: Number> Map<K, V>.sortMap(reverseOrder: Boolean = false): Map<K, V> {
+        return if (reverseOrder) {
+            this.entries.sortedByDescending { it.value.toDouble() }.associate { it.toPair() }
+        } else {
+            this.entries.sortedBy { it.value.toDouble() }.associate { it.toPair() }
+        }
+    }
+
 
     /** Takes the last time the event happened in Unix epoch time in milliseconds,
     * and takes the length that the event should last in millisecond

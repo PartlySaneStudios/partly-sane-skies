@@ -23,6 +23,7 @@ import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelCo
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.applyBackground
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils.getBits
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.round
+import me.partlysanestudios.partlysaneskies.utils.MathUtils.sortMap
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getSeparateUpperLowerInventories
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.formatNumber
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
@@ -104,7 +105,7 @@ object BitsShopValue: SidePanel() {
             }
             map[id] = (item?.getSellPrice() ?: 0.0) / (item?.bitCost ?: 0)
         }
-        val sortedMap = sortMap(map)
+        val sortedMap = map.sortMap(true)
         var i = 1
         for ((key, value) in sortedMap) {
             val item = getItem(key) ?: continue
@@ -119,9 +120,5 @@ object BitsShopValue: SidePanel() {
         }
 
         return str
-    }
-
-    private fun sortMap(map: HashMap<String, Double>): Map<String, Double> {
-        return map.entries.sortedBy { it.value }.reversed().associate { it.toPair() }.toMap()
     }
 }

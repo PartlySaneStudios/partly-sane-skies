@@ -25,6 +25,7 @@ import me.partlysanestudios.partlysaneskies.features.gui.SidePanel
 import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.applyBackground
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.round
+import me.partlysanestudios.partlysaneskies.utils.MathUtils.sortMap
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getSeparateUpperLowerInventories
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.formatNumber
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
@@ -101,7 +102,7 @@ object SkymartValue: SidePanel() {
             val item = getItem(id) ?: continue
             map[id] = item.getSellPrice() / (copperCost[id] ?: 1)
         }
-        val sortedMap = sortMap(map)
+        val sortedMap = map.sortMap()
         var i = 1
         for ((key, value) in sortedMap) {
 
@@ -115,9 +116,5 @@ object SkymartValue: SidePanel() {
         }
 
         return str
-    }
-
-    private fun sortMap(map: HashMap<String, Double>): Map<String, Double> {
-        return map.entries.sortedBy { it.value }.associate { it.toPair() }.toMap()
     }
 }

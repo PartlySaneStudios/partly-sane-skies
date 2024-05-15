@@ -21,6 +21,7 @@ import me.partlysanestudios.partlysaneskies.features.gui.SidePanel
 import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.applyBackground
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.round
+import me.partlysanestudios.partlysaneskies.utils.MathUtils.sortMap
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getLore
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getSeparateUpperLowerInventories
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.formatNumber
@@ -135,7 +136,7 @@ object CompostValue: SidePanel() {
         var str = ""
         updateCostPerOrganicMatterMap()
         updateCostPerCompostMap()
-        val map = sortMap(costPerCompostMap)
+        val map = costPerCompostMap.sortMap()
         var i = 1
         for ((id, costPerCompost) in map) {
             val cropPerCompost = compostCost / (compostValueMap[id] ?: continue)
@@ -259,9 +260,5 @@ object CompostValue: SidePanel() {
         val indexOfStart = amountLine.indexOf("/")
         amountLine = amountLine.substring(indexOfStart + 1)
         return amountLine
-    }
-
-    private fun sortMap(map: HashMap<String, Double>): Map<String, Double> {
-        return map.entries.sortedBy { it.value }.associate { it.toPair() }.toMap()
     }
 }
