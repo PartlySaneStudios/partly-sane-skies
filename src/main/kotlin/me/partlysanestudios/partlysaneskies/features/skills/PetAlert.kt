@@ -148,10 +148,6 @@ object PetAlert: SidePanel() {
 
         val inventories = minecraft.currentScreen.getSeparateUpperLowerInventories()
 
-        if (inventories[0] == null) {
-            return false
-        }
-
         val upper = inventories[0] ?: return false
         val inventoryNameMatches = upper.displayName.formattedText.removeColorCodes().contains("Minion")
         if (!inventoryNameMatches) {
