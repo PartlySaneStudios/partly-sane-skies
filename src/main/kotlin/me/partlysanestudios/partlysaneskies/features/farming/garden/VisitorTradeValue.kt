@@ -145,7 +145,7 @@ object VisitorTradeValue: SidePanel() {
         val formattedAcceptButtonLore = acceptButton.getLore()
 
         // Removes all the format codes from lore
-        val unformattedAcceptButtonLore = removeColorCodesFromList(formattedAcceptButtonLore)
+        val unformattedAcceptButtonLore = formattedAcceptButtonLore.removeColorCodes()
         val costLineIndex = unformattedAcceptButtonLore.indexOf("Items Required:")
         val rewardsStartIndex = unformattedAcceptButtonLore.indexOf("Rewards:")
 
@@ -206,13 +206,13 @@ object VisitorTradeValue: SidePanel() {
         val formattedAcceptButtonLore = acceptButton.getLore()
 
         // Removes all the format codes from lore
-        val unformattedAcceptButtonLore = removeColorCodesFromList(formattedAcceptButtonLore)
+        val unformattedAcceptButtonLore = formattedAcceptButtonLore.removeColorCodes()
         val rewardsStartIndex = unformattedAcceptButtonLore.indexOf("Rewards:")
         return formattedAcceptButtonLore.subList(rewardsStartIndex, formattedAcceptButtonLore.size)
     }
 
     private fun getCopperReturn(): Int {
-        val unformattedRewardsLore: List<String> = removeColorCodesFromList(getRewardsLore())
+        val unformattedRewardsLore: List<String> = getRewardsLore().removeColorCodes()
         for (line in unformattedRewardsLore) {
             if (!line.contains(" Copper")) {
                 continue
@@ -229,15 +229,6 @@ object VisitorTradeValue: SidePanel() {
 
     private fun getItemCost(itemId: String, quantity: Int): Double {
         return quantity * (getItem(itemId)?.getBuyPrice() ?: return 0.0)
-    }
-
-    // Returns a new list with all format codes removed
-    private fun removeColorCodesFromList(list: List<String>): ArrayList<String> {
-        val newList = ArrayList<String>()
-        for (oldLine in list) {
-            newList.add(oldLine.removeColorCodes())
-        }
-        return newList
     }
 
     private fun getCoinCostMap(): HashMap<String, Double> {
