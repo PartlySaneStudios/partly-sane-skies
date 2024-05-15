@@ -168,7 +168,6 @@ object PetAlert: SidePanel() {
         }
 
 
-
         if (!isPetGui()) {
             return
         }
