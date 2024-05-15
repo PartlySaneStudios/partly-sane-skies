@@ -189,7 +189,7 @@ object PetAlert: SidePanel() {
 
     fun registerCommand() {
         PSSCommand("mutepetalert")
-            .setDescription("Mutes the pet alert for a set amount of minutes")
+            .setDescription("Mutes the pet alert for a set amount of minutes.")
             .setRunnable { _: ICommandSender, _: Array<String> ->
                 sendClientMessage("§bPet alert has been muted for " + config.petAlertMuteTime + " minutes.")
                 lastMuteTime = time
