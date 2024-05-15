@@ -31,7 +31,7 @@ object MathUtils {
         return if (reverseOrder) {
             this.entries.sortedByDescending { it.value.toDouble() }.associate { it.toPair() }
         } else {
-            this.entries.sortedBy { it.value.toDouble() }.associate { it.toPair() }
+            this.entries.sortedBy { it.value.toDouble() }
         }.associate { it.toPair() }
     }
 
