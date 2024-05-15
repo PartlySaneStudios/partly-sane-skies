@@ -27,7 +27,7 @@ object MathUtils {
         return ThreadLocalRandom.current().nextInt(min, max + 1)
     }
 
-    fun <K : Any,V: Number> Map<K, V>.sortMap(reverseOrder: Boolean = false): Map<K, V> {
+    fun <K : Any, V: Number> Map<K, V>.sortMap(reverseOrder: Boolean = false): Map<K, V> {
         return if (reverseOrder) {
             this.entries.sortedByDescending { it.value.toDouble() }
         } else {
