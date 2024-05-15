@@ -172,10 +172,6 @@ object PetAlert: SidePanel() {
             return
         }
 
-        if (minecraft.currentScreen is AuctionHouseGui) {
-            return
-        }
-
         val container = minecraft.currentScreen as GuiContainer
         val slot = container.slotUnderMouse ?: return
         val item = slot.stack
