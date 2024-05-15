@@ -32,7 +32,7 @@ object MathUtils {
             this.entries.sortedByDescending { it.value.toDouble() }.associate { it.toPair() }
         } else {
             this.entries.sortedBy { it.value.toDouble() }.associate { it.toPair() }
-        }
+        }.associate { it.toPair() }
     }
 
 
