@@ -747,6 +747,14 @@ object OneConfigScreen : Config(
     )
     var terminalWaypoints = true
 
+    @Switch(
+        name = "Enable Goldor wall",
+        description = "Shows a wall where goldor is located",
+        category = "Dungeons",
+        subcategory = "Goldor Wall"
+    )
+    var goldorWall = false
+
     // Pearl Refill
     @Switch(
         name = "Auto Pearl Refill",
@@ -1850,6 +1858,13 @@ object OneConfigScreen : Config(
         category = "Dev"
     )
     var debugRenderRNGBanner = false
+
+    @Switch(
+        name = "Debug Goldor Wall",
+        description = "Debugs goldor wall",
+        category = "Dev"
+    )
+    var debugGoldorWall = false
 
     @Switch(
         name = "Generate Cylinder",

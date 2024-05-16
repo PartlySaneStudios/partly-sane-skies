@@ -219,6 +219,7 @@ class PartlySaneSkies {
         registerEvent(StatsData)
         registerEvent(ExampleHud)
         registerEvent(CooldownHud)
+        registerEvent(GoldorWall)
         registerEvent(GemstoneData)
         registerEvent(GemstoneWaypointRender)
         registerEvent(WikiArticleOpener)
