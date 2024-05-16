@@ -11,8 +11,10 @@ import com.google.common.collect.Ordering
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.mixin.minecraft.MixinGuiChest
 import me.partlysanestudios.partlysaneskies.mixin.minecraft.MixinGuiContainer
+import me.partlysanestudios.partlysaneskies.mixin.minecraft.MixinGuiPlayerTabOverlay
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils.getItemId
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
+import net.minecraft.client.gui.GuiPlayerTabOverlay
 import net.minecraft.client.gui.inventory.GuiChest
 import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.client.network.NetworkPlayerInfo
@@ -23,6 +25,7 @@ import net.minecraft.inventory.IInventory
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.scoreboard.ScorePlayerTeam
+import net.minecraft.util.IChatComponent
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import java.util.stream.Collectors
@@ -151,6 +154,10 @@ object MinecraftUtils {
      */
     val GuiContainer.ySize: Int get() {
         return (this as MixinGuiContainer).`partlysaneskies$getYSize`()
+    }
+
+    val GuiPlayerTabOverlay.footer: IChatComponent get() {
+        return (this as MixinGuiPlayerTabOverlay).`partlySaneSkies$getFooter`()
     }
 
     fun ItemStack.getLore(): java.util.ArrayList<String> {

@@ -11,13 +11,10 @@ import me.partlysanestudios.partlysaneskies.render.gui.hud.BannerRenderer.render
 import me.partlysanestudios.partlysaneskies.render.gui.hud.PSSBanner
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils.getCoins
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils.isSkyblock
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.footer
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
-import net.minecraft.client.Minecraft
 import net.minecraft.client.audio.PositionedSoundRecord
-import net.minecraft.client.gui.GuiPlayerTabOverlay
-import net.minecraft.util.IChatComponent
 import net.minecraft.util.ResourceLocation
-import net.minecraftforge.fml.relauncher.ReflectionHelper
 import java.awt.Color
 import java.util.*
 
@@ -27,35 +24,17 @@ object NoCookieWarning {
     private var displayString = ""
     private var lastWarnTime = 0L
 
-    private val footer: IChatComponent?
-        get() {
-            val tabList = Minecraft.getMinecraft().ingameGUI.tabList
-            val footerField = ReflectionHelper.findField(
-                GuiPlayerTabOverlay::class.java, "field_175255_h", "footer"
-            )
-            val footer = try {
-                footerField[tabList] as IChatComponent
-            } catch (e: IllegalArgumentException) {
-                e.printStackTrace()
-                return null
-            } catch (e: IllegalAccessException) {
-                e.printStackTrace()
-                return null
-            }
-            return footer
-        }
-
     // Returns 1 if it has a cookie, 0 if it doesn't and -1 if it cannot be
     // determined
     private fun hasBoosterCookie(): Int {
-        for (chatComponent in footer!!.siblings) {
+        for (chatComponent in minecraft.ingameGUI.tabList.footer.siblings) {
             if (chatComponent.formattedText.removeColorCodes().lowercase(Locale.getDefault())
                     .contains("not active! obtain booster cookies")
             ) {
                 return 0
             }
         }
-        return if (footer!!.siblings.isEmpty()) -1 else 1
+        return if (minecraft.ingameGUI.tabList.footer.siblings.isEmpty()) -1 else 1
     }
 
     private fun hasLotsOfCoins(): Boolean {
