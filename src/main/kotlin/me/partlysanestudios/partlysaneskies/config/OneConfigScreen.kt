@@ -1887,8 +1887,8 @@ object OneConfigScreen : Config(
     var debugLogDisplaySize = false
 
     @Switch(
-        name = "Test dev env",
-        description = "",
+        name = "Display inventory information",
+        description = "Logs the chest contents, xSize and ySize of a GuiChest",
         category = "Dev"
     )
     var testDevEnv = false
