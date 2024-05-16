@@ -19,7 +19,7 @@ import gg.essential.universal.UMatrixStack
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.features.debug.DebugKey
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
-import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.upperInventory
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.chestInventory
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import net.minecraft.client.gui.inventory.GuiChest
 import net.minecraft.inventory.IInventory
@@ -175,7 +175,7 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
             }
 
 
-            if (!isAhGui(gui.upperInventory)) {
+            if (!isAhGui(gui.chestInventory)) {
 //                ChatUtils.sendClientMessage("Not AH Gui")
                 return
             }
@@ -191,7 +191,7 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
 //            val inventory = MinecraftUtils.getSeparateUpperLowerInventories(event.gui)[0]
 
 //            ChatUtils.sendClientMessage("Opening menu")
-            val inventory = gui.upperInventory
+            val inventory = gui.chestInventory
 //            event.isCanceled = true
             if (isAuctionHouseFullyLoaded(inventory)) {
                 val ahGui = AuctionHouseGui(inventory)
@@ -215,11 +215,11 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
         }
 
         private fun openMenu() {
-            var inventory = (PartlySaneSkies.minecraft.currentScreen as GuiChest).upperInventory
+            var inventory = (PartlySaneSkies.minecraft.currentScreen as GuiChest).chestInventory
 
             if (isAuctionHouseFullyLoaded(inventory)) {
 //                ChatUtils.sendClientMessage("Auction house is already loaded")
-                inventory = (PartlySaneSkies.minecraft.currentScreen as GuiChest).upperInventory
+                inventory = (PartlySaneSkies.minecraft.currentScreen as GuiChest).chestInventory
                 val gui = AuctionHouseGui(inventory)
                 PartlySaneSkies.minecraft.displayGuiScreen(gui)
             } else {

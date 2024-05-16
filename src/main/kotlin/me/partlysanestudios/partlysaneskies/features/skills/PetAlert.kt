@@ -29,7 +29,7 @@ import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.applyBackground
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils.getItemId
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils.isSkyblock
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.onCooldown
-import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.upperInventory
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.chestInventory
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.pluralize
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import net.minecraft.client.audio.PositionedSoundRecord
@@ -145,7 +145,7 @@ object PetAlert: SidePanel() {
             return false
         }
 
-        val upper = (minecraft.currentScreen as GuiChest).upperInventory
+        val upper = (minecraft.currentScreen as GuiChest).chestInventory
         val inventoryNameMatches = upper.displayName.formattedText.removeColorCodes().contains("Minion")
         if (!inventoryNameMatches) {
             return false
@@ -208,7 +208,7 @@ object PetAlert: SidePanel() {
             return false
         }
 
-        val upper = (minecraft.currentScreen as GuiChest).upperInventory
+        val upper = (minecraft.currentScreen as GuiChest).chestInventory
         return upper.displayName.formattedText.removeColorCodes().contains("Pets")
     }
 
