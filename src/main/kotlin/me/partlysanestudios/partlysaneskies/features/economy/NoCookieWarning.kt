@@ -28,9 +28,7 @@ object NoCookieWarning {
     // determined
     private fun hasBoosterCookie(): Int {
         for (chatComponent in minecraft.ingameGUI.tabList.footer.siblings) {
-            if (chatComponent.formattedText.removeColorCodes().lowercase(Locale.getDefault())
-                    .contains("not active! obtain booster cookies")
-            ) {
+            if (chatComponent.formattedText.removeColorCodes().lowercase(Locale.getDefault()).contains("not active! obtain booster cookies")) {
                 return 0
             }
         }
