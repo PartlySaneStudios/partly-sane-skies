@@ -11,8 +11,8 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getItemstackList
-import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.chestInventory
-import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.mainInventory
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.containerInventory
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.playerInventory
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils
 import net.minecraft.client.gui.inventory.GuiChest
 import net.minecraft.nbt.NBTTagCompound
@@ -31,7 +31,7 @@ object PercyMode {
         val screenObj = JsonObject()
         val currentScreen = PartlySaneSkies.minecraft.currentScreen
         if (currentScreen is GuiChest) {
-            val inventories = arrayOf(currentScreen.mainInventory, currentScreen.chestInventory)
+            val inventories = arrayOf(currentScreen.playerInventory, currentScreen.containerInventory)
             for (inventory in inventories) {
                 val invArray = JsonArray()
 

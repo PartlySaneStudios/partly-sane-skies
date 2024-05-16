@@ -21,7 +21,7 @@ import me.partlysanestudios.partlysaneskies.features.gui.SidePanel
 import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.applyBackground
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.round
-import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.chestInventory
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.containerInventory
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getLore
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.formatNumber
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
@@ -61,7 +61,7 @@ object VisitorTradeValue: SidePanel() {
             return false
         }
 
-        val trader = (minecraft.currentScreen as GuiChest).chestInventory
+        val trader = (minecraft.currentScreen as GuiChest).containerInventory
 
         // Slots 29 and 33 are where the buttons should be
         val acceptButton = trader.getStackInSlot(29)
@@ -134,7 +134,7 @@ object VisitorTradeValue: SidePanel() {
 
     // Returns a hashmap containing the name of an item and the quantity
     private fun getQuantityCostMap(): HashMap<String, Int> {
-        val trader = (minecraft.currentScreen as GuiChest).chestInventory
+        val trader = (minecraft.currentScreen as GuiChest).containerInventory
 
         // Slots 29 is where the accept buttons is
         val acceptButton = trader.getStackInSlot(29)
@@ -194,7 +194,7 @@ object VisitorTradeValue: SidePanel() {
     }
 
     private fun getRewardsLore(): List<String> {
-        val trader = (minecraft.currentScreen as GuiChest).chestInventory
+        val trader = (minecraft.currentScreen as GuiChest).containerInventory
 
         // Slots 29 is where the accept buttons is
         val acceptButton = trader.getStackInSlot(29)

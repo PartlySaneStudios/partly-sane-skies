@@ -29,7 +29,7 @@ import gg.essential.elementa.dsl.childOf
 import gg.essential.universal.UMatrixStack
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
-import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.chestInventory
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.containerInventory
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getLore
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import net.minecraft.client.gui.inventory.GuiChest
@@ -100,7 +100,7 @@ object VisitorLogbookStats {
             return false
         }
 
-        val logbook = gui.chestInventory
+        val logbook = gui.containerInventory
 
         return logbook.displayName.formattedText.removeColorCodes().contains("Visitor's Logbook")
     }

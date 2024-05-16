@@ -26,7 +26,7 @@ import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelCo
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.applyBackground
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.round
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.sortMap
-import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.chestInventory
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.containerInventory
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.formatNumber
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import net.minecraft.client.gui.inventory.GuiChest
@@ -63,7 +63,7 @@ object SkymartValue: SidePanel() {
             return false
         }
 
-        val skymart = (minecraft.currentScreen as GuiChest).chestInventory
+        val skymart = (minecraft.currentScreen as GuiChest).containerInventory
 
         return skymart.displayName.formattedText.removeColorCodes().contains("SkyMart")
     }

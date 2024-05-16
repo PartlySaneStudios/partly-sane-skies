@@ -15,7 +15,7 @@ import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity.Companion.g
 import me.partlysanestudios.partlysaneskies.features.debug.DebugKey
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils
 import me.partlysanestudios.partlysaneskies.utils.MathUtils
-import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.chestInventory
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.containerInventory
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getAllPets
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import net.minecraft.client.gui.inventory.GuiChest
@@ -213,7 +213,7 @@ object PetData {
             return
         }
 
-        val inventory = (PartlySaneSkies.minecraft.currentScreen as GuiChest).chestInventory
+        val inventory = (PartlySaneSkies.minecraft.currentScreen as GuiChest).containerInventory
 
         for (i in 0..<inventory.sizeInventory) {
             val item = inventory.getStackInSlot(i)?: continue
@@ -237,7 +237,7 @@ object PetData {
         if (currentScreen !is GuiChest) {
             return false
         }
-        val upper = currentScreen.chestInventory
+        val upper = currentScreen.containerInventory
         return upper.displayName.formattedText.removeColorCodes().contains("Pets")
     }
 

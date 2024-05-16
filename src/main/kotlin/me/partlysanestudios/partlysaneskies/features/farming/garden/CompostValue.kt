@@ -25,7 +25,7 @@ import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelCo
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.applyBackground
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.round
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.sortMap
-import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.chestInventory
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.containerInventory
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getLore
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.formatNumber
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.parseAbbreviatedNumber
@@ -71,7 +71,7 @@ object CompostValue: SidePanel() {
     private val costPerCompostMap = HashMap<String, Double>()
 
     override fun onPanelRender(event: GuiScreenEvent.BackgroundDrawnEvent) {
-        val composter: IInventory = (minecraft.currentScreen as GuiChest).chestInventory
+        val composter: IInventory = (minecraft.currentScreen as GuiChest).containerInventory
 
         alignPanel()
 
@@ -97,7 +97,7 @@ object CompostValue: SidePanel() {
             return false
         }
 
-        val composter = (minecraft.currentScreen as GuiChest).chestInventory
+        val composter = (minecraft.currentScreen as GuiChest).containerInventory
 
         val collectCompostButton = composter.getStackInSlot(13) ?: return false
 

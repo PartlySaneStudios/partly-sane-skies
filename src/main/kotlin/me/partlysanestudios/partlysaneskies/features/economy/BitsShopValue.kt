@@ -24,7 +24,7 @@ import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.applyBackground
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils.getBits
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.round
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.sortMap
-import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.chestInventory
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.containerInventory
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.formatNumber
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import net.minecraft.client.gui.inventory.GuiChest
@@ -72,7 +72,7 @@ object BitsShopValue: SidePanel() {
             return false
         }
 
-        val shop = (minecraft.currentScreen as GuiChest).chestInventory
+        val shop = (minecraft.currentScreen as GuiChest).containerInventory
 
         val title = shop.displayName.formattedText.removeColorCodes()
 
