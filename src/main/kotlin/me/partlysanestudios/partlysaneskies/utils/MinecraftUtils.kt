@@ -13,7 +13,6 @@ import me.partlysanestudios.partlysaneskies.mixin.minecraft.MixinGuiChest
 import me.partlysanestudios.partlysaneskies.mixin.minecraft.MixinGuiContainer
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils.getItemId
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
-import net.minecraft.client.gui.GuiScreen
 import net.minecraft.client.gui.inventory.GuiChest
 import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.client.network.NetworkPlayerInfo
@@ -127,16 +126,16 @@ object MinecraftUtils {
     }
 
     /**
-     * @return The top of a GuiChest screen
+     * @return The main inventory of the player
      */
-    val GuiChest.upperInventory: IInventory get() {
+    val GuiChest.mainInventory: IInventory get() {
         return (this as MixinGuiChest).`partlysaneskies$getUpperChestInventory`()
     }
 
     /**
-     * @return The bottom of a GuiChest screen
+     * @return Any inventory that is not the main inventory of the player
      */
-    val GuiChest.lowerInventory: IInventory get() {
+    val GuiChest.chestInventory: IInventory get() {
         return (this as MixinGuiChest).`partlysaneskies$getLowerChestInventory`()
     }
 
