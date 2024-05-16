@@ -129,7 +129,7 @@ object MinecraftUtils {
     }
 
     /**
-     * @return The inventory at the bottom of the gui. ([GuiChest.upperChestInventory] field)
+     * @return The inventory of the player at the bottom of the gui. ([GuiChest.upperChestInventory] field)
      */
     val GuiChest.playerInventory: IInventory get() {
         return (this as MixinGuiChest).`partlysaneskies$getUpperChestInventory`()
