@@ -26,13 +26,12 @@ import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelCo
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.applyBackground
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.round
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.sortMap
-import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getSeparateUpperLowerInventories
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.upperInventory
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.formatNumber
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import net.minecraft.client.gui.inventory.GuiChest
 import net.minecraftforge.client.event.GuiScreenEvent
 import java.awt.Color
-import java.io.IOException
 
 object SkymartValue: SidePanel() {
     override val panelBaseComponent: UIComponent = UIBlock().applyBackground().constrain {
@@ -64,9 +63,7 @@ object SkymartValue: SidePanel() {
             return false
         }
 
-        val inventories = minecraft.currentScreen.getSeparateUpperLowerInventories()
-
-        val skymart = inventories[0] ?: return false
+        val skymart = (minecraft.currentScreen as GuiChest).upperInventory
 
         return skymart.displayName.formattedText.removeColorCodes().contains("SkyMart")
     }

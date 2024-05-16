@@ -8,10 +8,7 @@ package me.partlysanestudios.partlysaneskies.utils
 
 import com.google.common.collect.ComparisonChain
 import com.google.common.collect.Ordering
-import gg.essential.elementa.dsl.pixels
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
-import me.partlysanestudios.partlysaneskies.features.economy.auctionhousemenu.AuctionElement
-import me.partlysanestudios.partlysaneskies.features.economy.auctionhousemenu.AuctionHouseGui
 import me.partlysanestudios.partlysaneskies.mixin.minecraft.MixinGuiChest
 import me.partlysanestudios.partlysaneskies.mixin.minecraft.MixinGuiContainer
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils.getItemId
@@ -29,8 +26,6 @@ import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.scoreboard.ScorePlayerTeam
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
-import org.apache.commons.lang3.reflect.FieldUtils
-import java.lang.IndexOutOfBoundsException
 import java.util.stream.Collectors
 
 object MinecraftUtils {
@@ -131,34 +126,32 @@ object MinecraftUtils {
         return PartlySaneSkies.minecraft.thePlayer?.heldItem
     }
 
+    /**
+     * @return The top of a GuiChest screen
+     */
     val GuiChest.upperInventory: IInventory get() {
         return (this as MixinGuiChest).`partlysaneskies$getUpperChestInventory`()
     }
 
+    /**
+     * @return The bottom of a GuiChest screen
+     */
     val GuiChest.lowerInventory: IInventory get() {
         return (this as MixinGuiChest).`partlysaneskies$getLowerChestInventory`()
     }
 
+    /**
+     * @return the [GuiChest.xSize] field that is protected in the GuiContainer class
+     */
     val GuiContainer.xSize: Int get() {
         return (this as MixinGuiContainer).`partlysaneskies$getXSize`()
     }
 
+    /**
+     * @return the [GuiChest.ySize] field that is protected in the GuiContainer class
+     */
     val GuiContainer.ySize: Int get() {
         return (this as MixinGuiContainer).`partlysaneskies$getYSize`()
-    }
-
-    // Returns an array of length 2, where the 1st index is the upper inventory,
-    // and the 2nd index is the lower inventory.
-    // Returns null if there is no inventory, also returns null if there is no access to inventory
-    fun GuiScreen.getSeparateUpperLowerInventories(): Array<IInventory?> {
-        if (this !is GuiChest) {
-            return arrayOf(null, null)
-        }
-
-        val upperInventory = this.upperInventory
-        val lowerInventory = this.lowerInventory
-
-        return arrayOf(upperInventory, lowerInventory)
     }
 
     fun ItemStack.getLore(): java.util.ArrayList<String> {

@@ -7,14 +7,12 @@
 package me.partlysanestudios.partlysaneskies.features.debug
 
 import com.google.gson.*
-import kotlinx.serialization.json.Json
-import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
-import me.partlysanestudios.partlysaneskies.features.farming.endoffarmnotifer.EndOfFarmNotifier
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
-import me.partlysanestudios.partlysaneskies.utils.ChatUtils.visPrint
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getItemstackList
-import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getSeparateUpperLowerInventories
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.lowerInventory
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.upperInventory
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils
 import net.minecraft.client.gui.inventory.GuiChest
 import net.minecraft.nbt.NBTTagCompound
@@ -31,19 +29,19 @@ object PercyMode {
         val jsonObject = JsonObject()
 
         val screenObj = JsonObject()
-        if (PartlySaneSkies.minecraft.currentScreen is GuiChest) {
-            val inventories = PartlySaneSkies.minecraft.currentScreen.getSeparateUpperLowerInventories()
+        val currentScreen = PartlySaneSkies.minecraft.currentScreen
+        if (currentScreen is GuiChest) {
+            val inventories = arrayOf(currentScreen.upperInventory, currentScreen.lowerInventory)
             for (inventory in inventories) {
                 val invArray = JsonArray()
 
-                for (item in inventory?.getItemstackList() ?: listOf()) {
-
+                for (item in inventory.getItemstackList()) {
                     val nbt = NBTTagCompound()
                     item.writeToNBT(nbt)
-                    invArray.add(Gson().toJsonTree(nbt)?.asJsonObject?: JsonObject())
+                    invArray.add(Gson().toJsonTree(nbt)?.asJsonObject ?: JsonObject())
                 }
 
-                screenObj.add(inventory?.name ?: "", invArray)
+                screenObj.add(inventory.name, invArray)
             }
         }
 

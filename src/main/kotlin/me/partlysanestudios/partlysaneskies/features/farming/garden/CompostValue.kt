@@ -10,7 +10,10 @@ import gg.essential.elementa.UIComponent
 import gg.essential.elementa.components.UIBlock
 import gg.essential.elementa.components.UIWrappedText
 import gg.essential.elementa.constraints.CenterConstraint
-import gg.essential.elementa.dsl.*
+import gg.essential.elementa.dsl.childOf
+import gg.essential.elementa.dsl.constrain
+import gg.essential.elementa.dsl.constraint
+import gg.essential.elementa.dsl.percent
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager
@@ -23,7 +26,7 @@ import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.applyBackground
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.round
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.sortMap
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getLore
-import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getSeparateUpperLowerInventories
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.upperInventory
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.formatNumber
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.parseAbbreviatedNumber
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
@@ -35,6 +38,11 @@ import net.minecraftforge.client.event.GuiScreenEvent
 import java.awt.Color
 import java.util.regex.Matcher
 import java.util.regex.Pattern
+import kotlin.collections.HashMap
+import kotlin.collections.component1
+import kotlin.collections.component2
+import kotlin.collections.iterator
+import kotlin.collections.set
 import kotlin.math.ceil
 
 object CompostValue: SidePanel() {
@@ -63,7 +71,7 @@ object CompostValue: SidePanel() {
     private val costPerCompostMap = HashMap<String, Double>()
 
     override fun onPanelRender(event: GuiScreenEvent.BackgroundDrawnEvent) {
-        val composter: IInventory = minecraft.currentScreen?.getSeparateUpperLowerInventories()?.get(0) ?: return
+        val composter: IInventory = (minecraft.currentScreen as GuiChest).upperInventory
 
         alignPanel()
 
@@ -89,11 +97,9 @@ object CompostValue: SidePanel() {
             return false
         }
 
-        val inventories = minecraft.currentScreen.getSeparateUpperLowerInventories()
+        val composter = (minecraft.currentScreen as GuiChest).upperInventory
 
-        val composter = inventories[0]
-
-        val collectCompostButton = composter?.getStackInSlot(13) ?: return false
+        val collectCompostButton = composter.getStackInSlot(13) ?: return false
 
         val collectCompostButtonName = collectCompostButton.displayName.removeColorCodes()
 

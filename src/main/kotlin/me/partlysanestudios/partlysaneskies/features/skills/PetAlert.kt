@@ -22,7 +22,6 @@ import me.partlysanestudios.partlysaneskies.data.cache.PetData.getCurrentPetLeve
 import me.partlysanestudios.partlysaneskies.data.cache.PetData.getCurrentPetName
 import me.partlysanestudios.partlysaneskies.data.cache.PetData.getCurrentPetRarity
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity
-import me.partlysanestudios.partlysaneskies.features.economy.auctionhousemenu.AuctionHouseGui
 import me.partlysanestudios.partlysaneskies.features.gui.SidePanel
 import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
@@ -30,7 +29,7 @@ import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.applyBackground
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils.getItemId
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils.isSkyblock
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.onCooldown
-import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getSeparateUpperLowerInventories
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.upperInventory
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.pluralize
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import net.minecraft.client.audio.PositionedSoundRecord
@@ -38,7 +37,6 @@ import net.minecraft.client.gui.inventory.GuiChest
 import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.command.ICommandSender
 import net.minecraft.event.ClickEvent
-import net.minecraft.item.ItemStack
 import net.minecraft.util.ChatComponentText
 import net.minecraft.util.IChatComponent
 import net.minecraft.util.ResourceLocation
@@ -147,9 +145,7 @@ object PetAlert: SidePanel() {
             return false
         }
 
-        val inventories = minecraft.currentScreen.getSeparateUpperLowerInventories()
-
-        val upper = inventories[0] ?: return false
+        val upper = (minecraft.currentScreen as GuiChest).upperInventory
         val inventoryNameMatches = upper.displayName.formattedText.removeColorCodes().contains("Minion")
         if (!inventoryNameMatches) {
             return false
@@ -212,7 +208,7 @@ object PetAlert: SidePanel() {
             return false
         }
 
-        val upper = minecraft.currentScreen.getSeparateUpperLowerInventories()[0] ?: return false
+        val upper = (minecraft.currentScreen as GuiChest).upperInventory
         return upper.displayName.formattedText.removeColorCodes().contains("Pets")
     }
 

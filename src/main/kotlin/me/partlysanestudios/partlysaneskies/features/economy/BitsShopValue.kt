@@ -24,14 +24,13 @@ import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.applyBackground
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils.getBits
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.round
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.sortMap
-import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getSeparateUpperLowerInventories
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.upperInventory
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.formatNumber
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import net.minecraft.client.gui.inventory.GuiChest
 import net.minecraftforge.client.event.GuiScreenEvent
 import java.awt.Color
 import java.io.IOException
-import java.util.*
 
 object BitsShopValue: SidePanel() {
     override val panelBaseComponent: UIComponent = UIBlock().applyBackground().constrain {
@@ -73,9 +72,7 @@ object BitsShopValue: SidePanel() {
             return false
         }
 
-        val inventories = minecraft.currentScreen.getSeparateUpperLowerInventories()
-
-        val shop = inventories[0] ?: return false
+        val shop = (minecraft.currentScreen as GuiChest).upperInventory
 
         val title = shop.displayName.formattedText.removeColorCodes()
 
