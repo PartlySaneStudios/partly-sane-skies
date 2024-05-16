@@ -16,12 +16,10 @@ import gg.essential.universal.UMatrixStack
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils
-import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.xSize
 import net.minecraft.client.gui.inventory.GuiChest
 import net.minecraftforge.client.event.GuiScreenEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import org.apache.commons.lang3.reflect.FieldUtils
 
 /**
  * Basic implementation of a GUI rendering on the side of a chest.

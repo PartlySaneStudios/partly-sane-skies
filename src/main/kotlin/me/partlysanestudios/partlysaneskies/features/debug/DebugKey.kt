@@ -12,6 +12,7 @@ import gg.essential.elementa.components.Window
 import gg.essential.universal.UResolution
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.time
 import me.partlysanestudios.partlysaneskies.data.cache.StatsData
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.IslandType
@@ -29,10 +30,15 @@ import me.partlysanestudios.partlysaneskies.render.gui.hud.PSSBanner
 import me.partlysanestudios.partlysaneskies.render.waypoint.Waypoint
 import me.partlysanestudios.partlysaneskies.system.SystemNotification
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getItemstackList
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.upperInventory
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.xSize
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.ySize
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.copyStringToClipboard
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
 import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Point3d
+import net.minecraft.client.gui.inventory.GuiChest
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.Tessellator
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats
@@ -126,6 +132,17 @@ object DebugKey {
             val windowWidth = window.getWidth()
             val windowHeight = window.getHeight()
             sendClientMessage("$windowWidth, $windowHeight")
+        }
+
+        if (config.testDevEnv) {
+            if (minecraft.currentScreen !is GuiChest) {
+                sendClientMessage("Not Chest")
+            } else {
+                val chest = minecraft.currentScreen as GuiChest
+                sendClientMessage("Inventory: ${chest.upperInventory.getItemstackList()}")
+                sendClientMessage("xSize: ${chest.xSize}")
+                sendClientMessage("ySize: ${chest.ySize}")
+            }
         }
 
     }

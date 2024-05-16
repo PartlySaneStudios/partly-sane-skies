@@ -1886,6 +1886,13 @@ object OneConfigScreen : Config(
     )
     var debugLogDisplaySize = false
 
+    @Switch(
+        name = "Test dev env",
+        description = "",
+        category = "Dev"
+    )
+    var testDevEnv = false
+
     // Example HUD
     @HUD(
         name = "Test Hud Element",
