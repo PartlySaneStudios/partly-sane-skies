@@ -74,7 +74,7 @@ object MathematicalHoeRightClicks {
                 return false
             }
             val heldItem = minecraft.thePlayer.heldItem ?: return false
-            return hoes!!.contains(heldItem.getItemId())
+            return hoes.contains(heldItem.getItemId())
         }
 
     fun registerCommand() {

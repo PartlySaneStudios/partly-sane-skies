@@ -57,8 +57,6 @@ class SkyblockPlayer(val username: String) {
 
     private class Lock: Object()
 
-    private val lock = Lock()
-
     fun isExpired(): Boolean {
         return !MathUtils.onCooldown(lastUpdateTime, config.playerDataCacheTime * 60 * 1000L)
     }
@@ -66,6 +64,7 @@ class SkyblockPlayer(val username: String) {
     fun instantiateData() {
         val requestURL = "https://mowojang.matdoes.dev/users/profiles/minecraft/$username"
 
+        val lock = Lock()
 
         RequestsManager.newRequest(Request(requestURL, { uuidRequest ->
             if (!uuidRequest.hasSucceeded()) {
