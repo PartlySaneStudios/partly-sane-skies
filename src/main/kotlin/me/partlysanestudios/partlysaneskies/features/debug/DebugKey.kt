@@ -30,6 +30,7 @@ import me.partlysanestudios.partlysaneskies.render.gui.hud.PSSBanner
 import me.partlysanestudios.partlysaneskies.render.waypoint.Waypoint
 import me.partlysanestudios.partlysaneskies.system.SystemNotification
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.containerInventory
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getItemstackList
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.upperInventory
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.xSize
@@ -139,7 +140,7 @@ object DebugKey {
                 sendClientMessage("Not Chest")
             } else {
                 val chest = minecraft.currentScreen as GuiChest
-                sendClientMessage("Inventory: ${chest.upperInventory.getItemstackList()}")
+                sendClientMessage("Inventory: ${chest.containerInventory.getItemstackList()}")
                 sendClientMessage("xSize: ${chest.xSize}")
                 sendClientMessage("ySize: ${chest.ySize}")
             }
