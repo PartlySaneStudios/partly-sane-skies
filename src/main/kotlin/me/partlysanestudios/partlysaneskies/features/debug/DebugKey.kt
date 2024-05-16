@@ -9,7 +9,6 @@ import cc.polyfrost.oneconfig.config.core.OneColor
 import gg.essential.elementa.ElementaVersion
 import gg.essential.elementa.components.Window
 import gg.essential.universal.UResolution
-import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.time
@@ -72,7 +71,7 @@ object DebugKey {
             PlayerRating.rackPoints("FlagTheSlacker", "Debug Slacker")
         }
         if (config.debugSpawnWaypoint) {
-            val originalPos = PartlySaneSkies.minecraft.thePlayer.position
+            val originalPos = minecraft.thePlayer.position
             val modifiedPoint = Point3d(originalPos.x - 1.0, originalPos.y.toDouble(), originalPos.z - 1.0)
             waypointPoint = modifiedPoint
         }
@@ -170,7 +169,7 @@ object DebugKey {
             return
         }
         //            Sets the correct state
-        val renderManager = PartlySaneSkies.minecraft.renderManager
+        val renderManager = minecraft.renderManager
 
         GlStateManager.pushMatrix()
         GlStateManager.translate(-renderManager.viewerPosX, -renderManager.viewerPosY, -renderManager.viewerPosZ)
