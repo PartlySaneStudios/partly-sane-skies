@@ -17,6 +17,7 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.xSize
 import net.minecraft.client.gui.inventory.GuiChest
 import net.minecraftforge.client.event.GuiScreenEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
@@ -77,7 +78,7 @@ abstract class SidePanel {
     open fun alignPanel() {
         if (shouldDisplayPanel()) {
             val currentScreen = PartlySaneSkies.minecraft.currentScreen as GuiChest
-            val xSize = FieldUtils.readField(currentScreen, MinecraftUtils.getDecodedFieldName("xSize"), true) as Int
+            val xSize = currentScreen.xSize
             val xCoord = (ElementaUtils.windowWidth / 2 + xSize / 2).pixels + pad
 
             panelBaseComponent.setX(xCoord)
