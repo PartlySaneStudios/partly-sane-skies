@@ -215,6 +215,8 @@ object MinecraftUtils {
                 put("chatMessages", "field_146253_i")
                 put("theSlot", "field_147006_u")
                 put("stackTagCompound", "field_77990_d")
+                put("xSize", "field_146999_f")
+                put("ySize", "field_147000_g")
             }
         }[codedName]
     }

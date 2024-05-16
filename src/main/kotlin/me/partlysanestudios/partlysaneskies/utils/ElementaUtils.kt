@@ -10,6 +10,7 @@ import gg.essential.elementa.UIComponent
 import gg.essential.elementa.components.UIImage
 import gg.essential.elementa.constraints.CenterConstraint
 import gg.essential.elementa.constraints.PixelConstraint
+import gg.essential.elementa.dsl.percent
 import gg.essential.universal.UResolution
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
 import net.minecraft.client.Minecraft
@@ -65,13 +66,15 @@ object ElementaUtils {
         }
     }
 
-    fun UIComponent.applyBackground() {
+    fun UIComponent.applyBackground(): UIComponent {
         val image = ThemeManager.currentBackgroundUIImage
             .setX(CenterConstraint())
             .setY(CenterConstraint())
-            .setWidth(PixelConstraint(this.getWidth()))
-            .setHeight(PixelConstraint(this.getHeight())) as UIImage
+            .setWidth(100.percent)
+            .setHeight(100.percent) as UIImage
         this.insertChildAt(image, 0)
+
+        return this
     }
 
     fun Color.weightedAverage(thisColorWeight: Float, otherColor: Color, otherColorWeight: Float): Color {

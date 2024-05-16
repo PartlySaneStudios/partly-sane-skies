@@ -112,6 +112,23 @@ object StringUtils {
         return str
     }
 
+    fun String.pluralize(number: Number): String{
+        return if (number == 1) {
+            this
+        } else {
+            "${this}s"
+        }
+    }
+
+    // Returns a new list with all format codes removed
+    fun List<String>.removeColorCodes(): ArrayList<String> {
+        val newList = ArrayList<String>()
+        for (oldLine in this) {
+            newList.add(oldLine.removeColorCodes())
+        }
+        return newList
+    }
+
     fun stripTrailing(str: String): String {
         var str = str
         if (str == "") {
