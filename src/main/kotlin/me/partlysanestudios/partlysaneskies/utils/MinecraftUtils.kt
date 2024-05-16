@@ -8,13 +8,15 @@ package me.partlysanestudios.partlysaneskies.utils
 
 import com.google.common.collect.ComparisonChain
 import com.google.common.collect.Ordering
-import gg.essential.elementa.dsl.pixels
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
-import me.partlysanestudios.partlysaneskies.features.economy.auctionhousemenu.AuctionElement
-import me.partlysanestudios.partlysaneskies.features.economy.auctionhousemenu.AuctionHouseGui
+import me.partlysanestudios.partlysaneskies.mixin.minecraft.MixinGuiChest
+import me.partlysanestudios.partlysaneskies.mixin.minecraft.MixinGuiContainer
+import me.partlysanestudios.partlysaneskies.mixin.minecraft.MixinGuiPlayerTabOverlay
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils.getItemId
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
-import net.minecraft.client.gui.GuiScreen
+import net.minecraft.client.gui.GuiPlayerTabOverlay
+import net.minecraft.client.gui.inventory.GuiChest
+import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.client.network.NetworkPlayerInfo
 import net.minecraft.entity.Entity
 import net.minecraft.entity.item.EntityArmorStand
@@ -23,10 +25,9 @@ import net.minecraft.inventory.IInventory
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.scoreboard.ScorePlayerTeam
+import net.minecraft.util.IChatComponent
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
-import org.apache.commons.lang3.reflect.FieldUtils
-import java.lang.IndexOutOfBoundsException
 import java.util.stream.Collectors
 
 object MinecraftUtils {
@@ -127,32 +128,39 @@ object MinecraftUtils {
         return PartlySaneSkies.minecraft.thePlayer?.heldItem
     }
 
-    // Returns an array of length 2, where the 1st index is the upper inventory,
-    // and the 2nd index is the lower inventory.
-    // Returns null if there is no inventory, also returns null if there is no access to inventory
-    fun GuiScreen.getSeparateUpperLowerInventories(): Array<IInventory?> {
-        val upperInventory: IInventory
-        val lowerInventory: IInventory
-        try {
-            upperInventory = FieldUtils.readField(
-                this,
-                getDecodedFieldName("upperChestInventory"), true
-            ) as IInventory
-            lowerInventory = FieldUtils.readField(
-                this,
-                getDecodedFieldName("lowerChestInventory"), true
-            ) as IInventory
-        } catch (e: IllegalAccessException) {
-            e.printStackTrace()
-            return arrayOf(null, null)
-        }
-        return arrayOf(upperInventory, lowerInventory)
+    /**
+     * @return The inventory of the player at the bottom of the gui. ([GuiChest.upperChestInventory] field)
+     */
+    val GuiChest.playerInventory: IInventory get() {
+        return (this as MixinGuiChest).`partlysaneskies$getUpperChestInventory`()
+    }
+
+    /**
+     * @return The inventory of any container at the top of the gui. ([GuiChest.lowerChestInventory] field)
+     */
+    val GuiChest.containerInventory: IInventory get() {
+        return (this as MixinGuiChest).`partlysaneskies$getLowerChestInventory`()
+    }
+
+    /**
+     * @return the [GuiChest.xSize] field that is protected in the GuiContainer class
+     */
+    val GuiContainer.xSize: Int get() {
+        return (this as MixinGuiContainer).`partlysaneskies$getXSize`()
+    }
+
+    /**
+     * @return the [GuiChest.ySize] field that is protected in the GuiContainer class
+     */
+    val GuiContainer.ySize: Int get() {
+        return (this as MixinGuiContainer).`partlysaneskies$getYSize`()
+    }
+
+    val GuiPlayerTabOverlay.footer: IChatComponent get() {
+        return (this as MixinGuiPlayerTabOverlay).`partlySaneSkies$getFooter`()
     }
 
     fun ItemStack.getLore(): java.util.ArrayList<String> {
-        if (this == null) {
-            return java.util.ArrayList()
-        }
         if (!this.hasTagCompound() || !this.tagCompound.hasKey("display") || !this.tagCompound.getCompoundTag(
                 "display"
             ).hasKey("Lore")
@@ -196,29 +204,6 @@ object MinecraftUtils {
             0,
             PartlySaneSkies.minecraft.thePlayer
         )
-    }
-
-
-    fun getDecodedFieldName(codedName: String?): String? {
-        return object : HashMap<String?, String?>() {
-            init {
-                put("footer", "field_175255_h")
-                put("header", "field_175256_i")
-                put("upperChestInventory", "field_147015_w")
-                put("lowerChestInventory", "field_147016_v")
-                put("persistentChatGUI", "field_73840_e")
-                put("sentMessages", "field_146248_g")
-                put("streamIndicator", "field_152127_m")
-                put("updateCounter", "field_73837_f")
-                put("overlayPlayerList", "field_175196_v")
-                put("guiIngame", "field_175251_g")
-                put("chatMessages", "field_146253_i")
-                put("theSlot", "field_147006_u")
-                put("stackTagCompound", "field_77990_d")
-                put("xSize", "field_146999_f")
-                put("ySize", "field_147000_g")
-            }
-        }[codedName]
     }
 
     fun isArrOfStringsInLore(arr: Array<String?>, lore: Array<String>): Boolean {

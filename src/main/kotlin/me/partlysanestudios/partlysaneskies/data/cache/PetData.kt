@@ -15,8 +15,8 @@ import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity.Companion.g
 import me.partlysanestudios.partlysaneskies.features.debug.DebugKey
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils
 import me.partlysanestudios.partlysaneskies.utils.MathUtils
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.containerInventory
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getAllPets
-import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getSeparateUpperLowerInventories
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import net.minecraft.client.gui.inventory.GuiChest
 import net.minecraft.entity.Entity
@@ -212,14 +212,15 @@ object PetData {
         if (!isPetGui()) {
             return
         }
-        val inventory = PartlySaneSkies.minecraft.currentScreen?.getSeparateUpperLowerInventories()?.get(0) ?: return
+
+        val inventory = (PartlySaneSkies.minecraft.currentScreen as GuiChest).containerInventory
 
         for (i in 0..<inventory.sizeInventory) {
             val item = inventory.getStackInSlot(i)?: continue
 
             val regex = "(§.)\\[Lvl (\\d+)] (§.)(\\w+(\\s\\w+)*)( ✦)?".toRegex()
 
-            val matchResult = regex.find(item.displayName?: "")?: continue
+            val matchResult = regex.find(item.displayName?: "") ?: continue
 
             val (_, petLevel, colorCode, petName, _) = matchResult.destructured
 
@@ -232,10 +233,11 @@ object PetData {
      * @return if the current GUI is the pets gui
      */
     private fun isPetGui(): Boolean {
-        if (PartlySaneSkies.minecraft.currentScreen !is GuiChest) {
+        val currentScreen = PartlySaneSkies.minecraft.currentScreen
+        if (currentScreen !is GuiChest) {
             return false
         }
-        val upper = PartlySaneSkies.minecraft.currentScreen?.getSeparateUpperLowerInventories()?.get(0) ?: return false
+        val upper = currentScreen.containerInventory
         return upper.displayName.formattedText.removeColorCodes().contains("Pets")
     }
 
