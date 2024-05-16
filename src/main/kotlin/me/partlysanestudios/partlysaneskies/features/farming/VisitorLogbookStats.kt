@@ -50,7 +50,7 @@ object VisitorLogbookStats {
         val seenStats: MutableList<Int> = mutableListOf<Int>(0, 0, 0, 0, 0, 0, 0) //total | uncommon | rare | leg | mythic | special | UNKNOWN
         val acceptedStats: MutableList<Int> = mutableListOf<Int>(0, 0, 0, 0, 0, 0, 0) //total | uncommon | rare | leg | mythic  | special | UNKNOWN
         theBaseString = ""
-        for (s in slots) {
+        for (s in slots) { // I don't want to touch this - Su
             if (s.stack == null) continue
 
             val eItemStack = s.stack
