@@ -37,8 +37,8 @@ object BitsShopValue: SidePanel() {
     override val panelBaseComponent: UIComponent = UIBlock().applyBackground().constrain {
         x = 800.scaledPixels
         y = CenterConstraint()
-        width = 200.scaledPixels
-        height = 300.scaledPixels
+        width = 225.scaledPixels
+        height = 350.scaledPixels
         color = Color(0, 0, 0, 0).constraint
     }
 
