@@ -77,7 +77,7 @@ object VisitorLogbookData {
             return
         }
         val chest = screen.containerInventory
-        for (i in 9..45) {
+        for (i in 9..44) {
             val item = chest.getStackInSlot(i) ?: continue
             val lore = item.getLore()
 
@@ -111,7 +111,12 @@ object VisitorLogbookData {
 
             val visitor = Visitor(displayName, rarity, timesVisited, timesAccepted)
             data?.visitors?.set(displayName.removeColorCodes(), visitor)
-        } }
+        }
+
+        Thread({
+            save()
+        }, "Visitor Data Save").start()
+    }
 
     fun getVisitor(name: String): Visitor? {
         return data?.visitors?.get(name) ?: Visitor("", Rarity.UNKNOWN, 0, 0)

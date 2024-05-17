@@ -178,6 +178,11 @@ class PartlySaneSkies {
                 e.printStackTrace()
             }
             try {
+                VisitorLogbookData.load()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+            try {
                 EndOfFarmNotifier.load()
             } catch (e: IOException) {
                 e.printStackTrace()
