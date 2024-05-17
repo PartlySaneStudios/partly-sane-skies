@@ -78,16 +78,22 @@ object VisitorLogbookStats: SidePanel() {
 
         val timesVisited = HashMap<Rarity, Int>()
         val timesAccepted = HashMap<Rarity, Int>()
+        val uniqueVisits = HashMap<Rarity, Int>()
+        val uniqueAccepts = HashMap<Rarity, Int>()
 
         for (visitor in getAllVisitors()) { // I don't want to touch this - Su // I touched this - Su
             timesAccepted[visitor.rarity] = (timesAccepted[visitor.rarity] ?: 0) + visitor.timesAccepted
             timesVisited[visitor.rarity] = (timesVisited[visitor.rarity] ?: 0) + visitor.timesVisited
+            if (visitor.timesVisited > 0) {
+                uniqueVisits[visitor.rarity] = (uniqueVisits[visitor.rarity] ?: 0) + 1
+                uniqueAccepts[visitor.rarity] = (uniqueAccepts[visitor.rarity] ?: 0) + 1
+            }
         }
-        val text = getString(timesVisited, timesAccepted)
+        val text = getString(timesVisited, timesAccepted, uniqueVisits, uniqueAccepts)
         textComponent.setText(text)
     }
 
-    private fun getString(visited:  HashMap<Rarity, Int>, accepted: HashMap<Rarity, Int>): String {
+    private fun getString(visited:  HashMap<Rarity, Int>, accepted: HashMap<Rarity, Int>, uniqueVisits:  HashMap<Rarity, Int>, uniqueAccepts: HashMap<Rarity, Int>): String {
         var str = ""
         val rarities = Rarity.entries.toTypedArray().sortedBy { it.order }
         for (rarity in rarities) {
@@ -97,9 +103,9 @@ object VisitorLogbookStats: SidePanel() {
             str +=
             """
                 ${rarity.colorCode}${rarity.displayName} Visitors:
-                §7Total Visits: §d${(visited[rarity] ?: 0).formatNumber()}
-                §7Accepted: §d${(accepted[rarity] ?: 0).formatNumber()}
-                §7Denied/Pending: §d${((visited[rarity] ?: 0) - (accepted[rarity] ?: 0)).formatNumber()}
+                §7Total Visits: §d${(visited[rarity] ?: 0).formatNumber()}§7 (Unique: §d${(uniqueVisits[rarity] ?: 0).formatNumber()}§7)
+                §7Accepted: §d${(accepted[rarity] ?: 0).formatNumber()}§7 (Unique: §d${(uniqueAccepts[rarity] ?: 0).formatNumber()}§7)
+                §7Denied/Pending: §d${((visited[rarity] ?: 0) - (accepted[rarity] ?: 0)).formatNumber()}§7 (Unique: §d${((uniqueVisits[rarity] ?: 0) - (uniqueAccepts[rarity] ?: 0)).formatNumber()}§7)
                 
                 
             """.trimIndent()
