@@ -85,18 +85,18 @@ object VisitorLogbookData {
                 continue
             }
 
-            val noColorLore = lore.removeColorCodes()
             //§7Times Visited: §0
             //Times Visited: 0
             //§7Offers Accepted: §a0
             //Offers Accepted: 0
-            val timesVisitedRegex = "Times Visited: (\\d+(?:,\\d+)*)".toRegex()
-            val offersAcceptedRegex = "Offers Accepted: (\\d+(?:,\\d+)*)".toRegex()
-            val colorCodeName = item.displayName
             val displayName = item.displayName
             val rarity = item.displayName.substring(2,4).getRarityFromColorCode()
 
+            val noColorLore = lore.removeColorCodes()
 
+
+            val timesVisitedRegex = "Times Visited: (\\d+(?:,\\d+)*)".toRegex()
+            val offersAcceptedRegex = "Offers Accepted: (\\d+(?:,\\d+)*)".toRegex()
             var timesAccepted = 0
             var timesVisited = 0
             for (line in noColorLore) {
