@@ -104,7 +104,9 @@ object VisitorLogbookData {
                 }
             }
 
-            val visitor = Visitor(displayName, rarity, timesVisited, timesAccepted)
+            val texture = item.tagCompound?.getCompoundTag("SkullOwner")?.getCompoundTag("Properties")?.getTagList("textures", 10)?.getCompoundTagAt(0)?.getString("Value") ?: ""
+
+            val visitor = Visitor(displayName, rarity, texture, timesVisited, timesAccepted)
             data?.visitors?.set(displayName, visitor)
         }
 
@@ -129,7 +131,7 @@ object VisitorLogbookData {
         return logbook.displayName.formattedText.removeColorCodes().contains("Visitor's Logbook")
     }
 
-    class Visitor (val displayName: String, val rarity: Rarity, val timesVisited: Int, val timesAccepted: Int) {
+    class Visitor (val displayName: String, val rarity: Rarity, val headTexture: String, val timesVisited: Int, val timesAccepted: Int) {
         val name get() = displayName.removeColorCodes()
     }
 
