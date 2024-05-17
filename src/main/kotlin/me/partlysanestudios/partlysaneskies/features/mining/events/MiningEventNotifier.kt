@@ -39,7 +39,9 @@ object MiningEventNotifier {
                 if (config.miningShowEventBanner && !Display.isActive()) {
                     showNotification(text)
                 }
-                if (config.miningShowEventBanner) renderNewBanner(PSSBanner(text, (config.miningEventBannerTime * 1000).toLong(), 4f))
+                if (config.miningShowEventBanner) {
+                    renderNewBanner(PSSBanner(text, (config.miningEventBannerTime * 1000).toLong(), 4f))
+                 }
             }
         }
     }
