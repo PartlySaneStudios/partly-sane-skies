@@ -94,7 +94,6 @@ object VisitorLogbookData {
 
             val noColorLore = lore.removeColorCodes()
 
-
             val timesVisitedRegex = "Times Visited: (\\d+(?:,\\d+)*)".toRegex()
             val offersAcceptedRegex = "Offers Accepted: (\\d+(?:,\\d+)*)".toRegex()
             var timesAccepted = 0
@@ -119,7 +118,7 @@ object VisitorLogbookData {
     }
 
     fun getVisitor(name: String): Visitor? {
-        return data?.visitors?.get(name) ?: Visitor("", Rarity.UNKNOWN, 0, 0)
+        return data?.visitors?.get(name)
     }
 
     fun getAllVisitors(): MutableCollection<Visitor> {
