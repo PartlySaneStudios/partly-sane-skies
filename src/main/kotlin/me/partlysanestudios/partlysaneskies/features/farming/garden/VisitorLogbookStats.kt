@@ -13,7 +13,7 @@
  * total visitors accepted | seen leg
  * total visitors accepted | seen special (not sure)
  *
- * (presumably seen across all araities)
+ * (presumably seen across all rarities)
 */
 
 
@@ -89,8 +89,8 @@ object VisitorLogbookStats: SidePanel() {
                 uniqueAccepts[visitor.rarity] = (uniqueAccepts[visitor.rarity] ?: 0) + 1
             }
         }
-        val text = getString(timesVisited, timesAccepted, uniqueVisits, uniqueAccepts)
-        textComponent.setText(text)
+
+        textComponent.setText(getString(timesVisited, timesAccepted, uniqueVisits, uniqueAccepts))
     }
 
     private fun getString(visited:  HashMap<Rarity, Int>, accepted: HashMap<Rarity, Int>, uniqueVisits:  HashMap<Rarity, Int>, uniqueAccepts: HashMap<Rarity, Int>): String {
