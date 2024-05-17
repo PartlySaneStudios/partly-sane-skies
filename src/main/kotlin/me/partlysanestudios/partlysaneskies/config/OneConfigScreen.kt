@@ -1347,14 +1347,6 @@ object OneConfigScreen : Config(
     )
     var miningEventBannerTime = 3.5f
 
-    @Color(
-        name = "Event Banner Color",
-        description = "The color of the event banner text.",
-        category = "Mining",
-        subcategory = "Events"
-    )
-    var miningEventBannerColor = OneColor(255, 255, 255)
-
     // ------------- Category: Farming ---------------------------------
     //    Hoes
     @Switch(
