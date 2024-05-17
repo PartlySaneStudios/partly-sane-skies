@@ -36,7 +36,9 @@ object MiningEventNotifier {
             if (it.triggeredEvent20s(message) && config.miningWarn20sBeforeEvent) {
                 mc.thePlayer.playSound("partlysaneskies:bell", 100F, 1F)
                 val text = it.color + it.event20s
-                if (config.miningShowEventBanner && !Display.isActive()) showNotification(text)
+                if (config.miningShowEventBanner && !Display.isActive()) {
+                    showNotification(text)
+                }
                 if (config.miningShowEventBanner) renderNewBanner(PSSBanner(text, (config.miningEventBannerTime * 1000).toLong(), 4f))
             }
         }
