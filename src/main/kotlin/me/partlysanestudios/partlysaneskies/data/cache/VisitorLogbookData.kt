@@ -105,7 +105,7 @@ object VisitorLogbookData {
             }
 
             val visitor = Visitor(displayName, rarity, timesVisited, timesAccepted)
-            data?.visitors?.set(displayName.removeColorCodes(), visitor)
+            data?.visitors?.set(displayName, visitor)
         }
 
         Thread({
