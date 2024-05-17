@@ -85,10 +85,6 @@ object VisitorLogbookData {
                 continue
             }
 
-            //§7Times Visited: §0
-            //Times Visited: 0
-            //§7Offers Accepted: §a0
-            //Offers Accepted: 0
             val displayName = item.displayName
             val rarity = item.displayName.substring(2,4).getRarityFromColorCode()
 
@@ -122,7 +118,7 @@ object VisitorLogbookData {
     }
 
     fun getAllVisitors(): MutableCollection<Visitor> {
-        return data?.visitors?.values ?: ArrayList<Visitor>()
+        return data?.visitors?.values ?: ArrayList()
     }
 
     fun isVisitorLogbook(screen: GuiScreen): Boolean {

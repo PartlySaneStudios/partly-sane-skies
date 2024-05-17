@@ -80,8 +80,6 @@ object VisitorLogbookStats: SidePanel() {
         val timesAccepted = HashMap<Rarity, Int>()
 
         for (visitor in getAllVisitors()) { // I don't want to touch this - Su // I touched this - Su
-            if (visitor.rarity == Rarity.UNKNOWN) {
-            }
             timesAccepted[visitor.rarity] = (timesAccepted[visitor.rarity] ?: 0) + visitor.timesAccepted
             timesVisited[visitor.rarity] = (timesVisited[visitor.rarity] ?: 0) + visitor.timesVisited
         }
@@ -91,8 +89,7 @@ object VisitorLogbookStats: SidePanel() {
 
     private fun getString(visited:  HashMap<Rarity, Int>, accepted: HashMap<Rarity, Int>): String {
         var str = ""
-        val rarities = Rarity.entries.toTypedArray()
-        rarities.sortBy { it.order }
+        val rarities = Rarity.entries.toTypedArray().sortedBy { it.order }
         for (rarity in rarities) {
             if (!visited.contains(rarity)) {
                 continue
@@ -106,7 +103,6 @@ object VisitorLogbookStats: SidePanel() {
                 
                 
             """.trimIndent()
-
         }
         return str
     }
