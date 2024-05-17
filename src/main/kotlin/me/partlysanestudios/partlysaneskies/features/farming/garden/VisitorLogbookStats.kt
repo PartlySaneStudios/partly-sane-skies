@@ -99,8 +99,8 @@ object VisitorLogbookStats: SidePanel() {
             }
             str +=
             """
-                ${rarity.colorCode}${rarity.displayName}
-                §7Times Visited: §d${(visited[rarity] ?: 0).formatNumber()}
+                ${rarity.colorCode}${rarity.displayName} Visitors:
+                §7Total: §d${(visited[rarity] ?: 0).formatNumber()}
                 §7Accepted: §d${(accepted[rarity] ?: 0).formatNumber()}
                 §7Denied/Pending: §d${((visited[rarity] ?: 0) - (accepted[rarity] ?: 0)).formatNumber()}
                 
@@ -108,7 +108,6 @@ object VisitorLogbookStats: SidePanel() {
             """.trimIndent()
 
         }
-
         return str
     }
 }
