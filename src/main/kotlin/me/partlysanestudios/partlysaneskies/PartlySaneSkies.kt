@@ -48,7 +48,7 @@ import me.partlysanestudios.partlysaneskies.features.economy.auctionhousemenu.Au
 import me.partlysanestudios.partlysaneskies.features.economy.minioncalculator.MinionData
 import me.partlysanestudios.partlysaneskies.features.economy.minioncalculator.ProfitMinionCalculator
 import me.partlysanestudios.partlysaneskies.features.farming.MathematicalHoeRightClicks
-import me.partlysanestudios.partlysaneskies.features.farming.VisitorLogbookStats
+import me.partlysanestudios.partlysaneskies.features.farming.garden.VisitorLogbookStats
 import me.partlysanestudios.partlysaneskies.features.farming.WrongToolCropWarning
 import me.partlysanestudios.partlysaneskies.features.farming.endoffarmnotifer.EndOfFarmNotifier
 import me.partlysanestudios.partlysaneskies.features.farming.endoffarmnotifer.RangeHighlight

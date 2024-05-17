@@ -17,81 +17,116 @@
 */
 
 
-package me.partlysanestudios.partlysaneskies.features.farming
+package me.partlysanestudios.partlysaneskies.features.farming.garden
 
-import gg.essential.elementa.ElementaVersion
-import gg.essential.elementa.components.UIRoundedRectangle
+import gg.essential.elementa.UIComponent
+import gg.essential.elementa.components.UIBlock
 import gg.essential.elementa.components.UIWrappedText
-import gg.essential.elementa.components.Window
 import gg.essential.elementa.constraints.CenterConstraint
-import gg.essential.elementa.constraints.PixelConstraint
 import gg.essential.elementa.dsl.childOf
-import gg.essential.universal.UMatrixStack
+import gg.essential.elementa.dsl.constrain
+import gg.essential.elementa.dsl.constraint
+import gg.essential.elementa.dsl.percent
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
-import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
+import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity
+import me.partlysanestudios.partlysaneskies.features.gui.SidePanel
+import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
+import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.applyBackground
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.containerInventory
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getItemstackList
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getLore
+import me.partlysanestudios.partlysaneskies.utils.StringUtils.formatNumber
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import net.minecraft.client.gui.inventory.GuiChest
 import net.minecraftforge.client.event.GuiScreenEvent
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import java.awt.Color
+import java.util.*
+import kotlin.collections.HashMap
 
-object VisitorLogbookStats {
+object VisitorLogbookStats: SidePanel() {
 
-    private val tiers: List<String> = listOf<String>("§f§lTotal", "§a§lUncommon", "§9§lRare", "§6Legendary", "§dMythic", "§c§lSpecial", "§e§lUnknown") //total | uncommon | rare | leg | mythic | special | UNKNOWN
-    private var theBaseString = ""
+    override val panelBaseComponent: UIComponent = UIBlock().applyBackground().constrain {
+        x = 800.scaledPixels
+        y = CenterConstraint()
+        width = 225.scaledPixels
+        height = 350.scaledPixels
+        color = Color(0, 0, 0, 0).constraint
+    }
 
-    @SubscribeEvent
-    fun onGuiScreen(event: GuiScreenEvent.BackgroundDrawnEvent) {
-        if (!isVisitorLogbook()) return
-        if (!PartlySaneSkies.config.visitorLogbookStats) return
-        val slots = ((PartlySaneSkies.minecraft.currentScreen as GuiChest)).inventorySlots.inventorySlots
-        val seenStats: MutableList<Int> = mutableListOf<Int>(0, 0, 0, 0, 0, 0, 0) //total | uncommon | rare | leg | mythic | special | UNKNOWN
-        val acceptedStats: MutableList<Int> = mutableListOf<Int>(0, 0, 0, 0, 0, 0, 0) //total | uncommon | rare | leg | mythic  | special | UNKNOWN
-        theBaseString = ""
-        for (s in slots) { // I don't want to touch this - Su
-            if (s.stack == null) continue
+    private val textComponent = UIWrappedText().constrain {
+        x = CenterConstraint()
+        y = CenterConstraint()
+        height = 95.percent
+        width = 95.percent
+        textScale = 1.scaledPixels
+    } childOf panelBaseComponent
 
-            val eItemStack = s.stack
-            val lore = eItemStack.getLore()
+    override fun shouldDisplayPanel(): Boolean {
+        return if (!isVisitorLogbook()) {
+            false
+        } else if (!PartlySaneSkies.config.visitorLogbookStats) {
+            false
+        } else {
+            true
+        }
+    }
 
-            if (lore.isEmpty()) continue
-            if (lore.first().contains("Page ")) break
-            if (lore.first().removeColorCodes().isEmpty() || lore.first().contains("This NPC hasn't visited you") || lore.first().contains("Various NPCs ") || lore.first().contains("Requirements")) continue
 
-            val noPlcwList = mutableListOf<String>()
+    override fun onPanelRender(event: GuiScreenEvent.BackgroundDrawnEvent) {
+        alignPanel()
 
-            //fuck formatting codes
-            for (line in lore) noPlcwList.add(line.removeColorCodes())
-            //§7Times Visited: §a0
+        val slots = (PartlySaneSkies.minecraft.currentScreen as GuiChest).containerInventory.getItemstackList()
+        val visited = HashMap<Rarity, Int>()
+        val accepted = HashMap<Rarity, Int>()
+        for (item in slots) { // I don't want to touch this - Su // I touched this - Su
+            val lore = item.getLore()
+
+            if (lore.isEmpty()) {
+                continue
+            }
+
+            val noColorLore = lore.removeColorCodes()
+            //§7Times Visited: §0
             //Times Visited: 0
             //§7Offers Accepted: §a0
             //Offers Accepted: 0
-            val rarityIndex = when (noPlcwList.find{ it.contains("SPECIAL") || it.contains("MYTHIC") || it.contains("LEGENDARY")  || it.contains("RARE") || it.contains("UNCOMMON") }) {
-                "UNCOMMON" -> 1
-                "RARE" -> 2
-                "LEGENDARY" -> 3
-                "MYTHIC" -> 4
-                "SPECIAL" -> 5
-                else -> 6
+            val timesVisitedRegex = "Times Visited: (\\d+(?:,\\d+)*)".toRegex()
+            val offersAcceptedRegex = "Offer Accepted: (\\d+(?:,\\d+)*)".toRegex()
+            var rarity = Rarity.UNKNOWN
+            for (line in noColorLore) {
+                for (enum in Rarity.entries) {
+                    if (line.lowercase().contains(enum.toString().lowercase())) {
+                        rarity = enum
+                        break
+                    }
+                }
+                if (offersAcceptedRegex.containsMatchIn(line)) {
+                    val find = offersAcceptedRegex.find(line)?.destructured ?: continue
+                    accepted[rarity] = (accepted[rarity] ?: 0) + 1
+                } else if (timesVisitedRegex.containsMatchIn(line)) {
+                    val find = timesVisitedRegex.find(line)?.destructured ?: continue
+                    visited[rarity] = (visited[rarity] ?: 0) + 1
+                }
             }
-            val lineTimesVisited = noPlcwList.find{ it.contains("Times Visited: ") } ?: break
-            val lineOffersAccepted = noPlcwList.find{ it.contains("Offers Accepted: ") } ?: break
-            seenStats[rarityIndex] += lineTimesVisited.split(" ").last().replace(",", "").replace(".", "").toInt()
-            acceptedStats[rarityIndex] += lineOffersAccepted.split(" ").last().replace(",", "").replace(".", "").toInt()
-            seenStats[0] += lineTimesVisited.split(" ").last().replace(",", "").replace(".", "").toInt()
-            acceptedStats[0] += lineOffersAccepted.split(" ").last().replace(",", "").replace(".", "").toInt()
         }
-        getString(seenStats, acceptedStats)
+
+        textComponent.setText(getString(visited, accepted))
     }
 
-    private fun getString(seenStats: MutableList<Int>, acceptedStats: MutableList<Int>) {
-        for (indexInt in tiers.indices) {
-            if ((seenStats[indexInt] == 0 || acceptedStats[indexInt] == 0) && indexInt == 6) break // Hides the UNKNOWN tier if there are no stats for it
-            val c = (tiers[indexInt]).take(2)
-            theBaseString += "\n${tiers[indexInt]}:\n ${c}Visited: ${seenStats[indexInt]}\n ${c}Accepted: ${acceptedStats[indexInt]}\n ${c}Pending or Denied: ${Math.abs(seenStats[indexInt] - acceptedStats[indexInt])}"
+    private fun getString(visited:  HashMap<Rarity, Int>, accepted: HashMap<Rarity, Int>): String {
+        var str = ""
+        for (rarity in accepted.keys) {
+            str +=
+            """${rarity.colorCode}${rarity.displayName}
+                §7Times Visited: §d${(visited[rarity] ?: 0).formatNumber()}
+                §7Accepted: §d${(accepted[rarity] ?: 0).formatNumber()}
+                §7Denied/Pending: §d${((visited[rarity] ?: 0) - (accepted[rarity] ?: 0)).formatNumber()}
+                
+            """.trimIndent()
+
         }
+
+        return str
     }
 
     private fun isVisitorLogbook(): Boolean {
@@ -99,64 +134,8 @@ object VisitorLogbookStats {
         if (gui !is GuiChest) {
             return false
         }
-
         val logbook = gui.containerInventory
 
         return logbook.displayName.formattedText.removeColorCodes().contains("Visitor's Logbook")
     }
-
-    private val window = Window(ElementaVersion.V2)
-
-    private val box = UIRoundedRectangle(5f)
-        .setColor(Color(0, 0, 0, 0))
-        .setChildOf(window)
-
-    private val image = ThemeManager.currentBackgroundUIImage
-        .setChildOf(box)
-
-    private val pad = 5
-    private var textComponent: UIWrappedText = UIWrappedText() childOf box
-
-    @SubscribeEvent
-    fun renderInformation(event: GuiScreenEvent.BackgroundDrawnEvent) {
-        if (!isVisitorLogbook()) {
-            box.hide()
-            return
-        }
-        if (!PartlySaneSkies.config.visitorLogbookStats) {
-            return
-        }
-
-        box.unhide(true)
-        box.setX(widthScaledConstraint(700f))
-            .setY(CenterConstraint())
-            .setWidth(widthScaledConstraint(250f))
-            .setHeight(widthScaledConstraint(300f))
-
-        image.setX(CenterConstraint())
-            .setY(CenterConstraint())
-            .setWidth(PixelConstraint(box.getWidth()))
-            .setHeight(PixelConstraint(box.getHeight()))
-
-        textComponent.setX(widthScaledConstraint(pad.toFloat()))
-            .setTextScale(widthScaledConstraint(1f))
-            .setY(widthScaledConstraint(2 * (pad.toFloat())))
-            .setWidth(PixelConstraint(box.getWidth() - (2 * (pad.toFloat()))))
-
-
-        var textString = "§2Garden Visitor Stats (for current page):\n"
-        textString += theBaseString
-        textComponent.setText(textString)
-
-        window.draw(UMatrixStack())
-    }
-
-    private fun getWidthScaleFactor(): Float {
-        return window.getWidth() / 1097f
-    }
-
-    private fun widthScaledConstraint(value: Float): PixelConstraint {
-        return PixelConstraint(value * getWidthScaleFactor())
-    }
-
 }
