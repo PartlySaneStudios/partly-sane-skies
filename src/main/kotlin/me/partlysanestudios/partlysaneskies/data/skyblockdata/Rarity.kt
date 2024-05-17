@@ -32,7 +32,7 @@ enum class Rarity(val order: Int, val colorCode: String, val displayName: String
         fun String.getRarityFromColorCode(): Rarity {
             return when(this) {
                 COMMON.colorCode -> COMMON
-                UNKNOWN.colorCode -> UNCOMMON
+                UNCOMMON.colorCode -> UNCOMMON
                 RARE.colorCode -> RARE
                 EPIC.colorCode -> EPIC
                 LEGENDARY.colorCode -> LEGENDARY

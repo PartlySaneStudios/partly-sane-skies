@@ -1,5 +1,5 @@
 /* VisitorLogbookStats.kt
- * A Kotlin class written by Erymanthus[#5074] | (u/)RayDeeUx
+ * A Kotlin class written by Erymanthus[#5074] | (u/)RayDeeUx and Su386
  * for Su386 and FlagMaster's Partly Sane Skies mod.
  * See LICENSE for copyright and license notices.
  *
@@ -28,20 +28,20 @@ import gg.essential.elementa.dsl.constrain
 import gg.essential.elementa.dsl.constraint
 import gg.essential.elementa.dsl.percent
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
+import me.partlysanestudios.partlysaneskies.data.cache.VisitorLogbookData.getAllVisitors
+import me.partlysanestudios.partlysaneskies.data.cache.VisitorLogbookData.isVisitorLogbook
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity
 import me.partlysanestudios.partlysaneskies.features.gui.SidePanel
 import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
+import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.applyBackground
-import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.containerInventory
-import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getItemstackList
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getLore
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.formatNumber
-import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
-import net.minecraft.client.gui.inventory.GuiChest
 import net.minecraftforge.client.event.GuiScreenEvent
 import java.awt.Color
-import java.util.*
 import kotlin.collections.HashMap
+import kotlin.math.log
 
 object VisitorLogbookStats: SidePanel() {
 
@@ -62,7 +62,7 @@ object VisitorLogbookStats: SidePanel() {
     } childOf panelBaseComponent
 
     override fun shouldDisplayPanel(): Boolean {
-        return if (!isVisitorLogbook()) {
+        return if (!isVisitorLogbook(minecraft.currentScreen)) {
             false
         } else if (!PartlySaneSkies.config.visitorLogbookStats) {
             false
@@ -72,70 +72,43 @@ object VisitorLogbookStats: SidePanel() {
     }
 
 
+
     override fun onPanelRender(event: GuiScreenEvent.BackgroundDrawnEvent) {
         alignPanel()
 
-        val slots = (PartlySaneSkies.minecraft.currentScreen as GuiChest).containerInventory.getItemstackList()
-        val visited = HashMap<Rarity, Int>()
-        val accepted = HashMap<Rarity, Int>()
-        for (item in slots) { // I don't want to touch this - Su // I touched this - Su
-            val lore = item.getLore()
+        val timesVisited = HashMap<Rarity, Int>()
+        val timesAccepted = HashMap<Rarity, Int>()
 
-            if (lore.isEmpty()) {
-                continue
+        for (visitor in getAllVisitors()) { // I don't want to touch this - Su // I touched this - Su
+            if (visitor.rarity == Rarity.UNKNOWN) {
             }
-
-            val noColorLore = lore.removeColorCodes()
-            //§7Times Visited: §0
-            //Times Visited: 0
-            //§7Offers Accepted: §a0
-            //Offers Accepted: 0
-            val timesVisitedRegex = "Times Visited: (\\d+(?:,\\d+)*)".toRegex()
-            val offersAcceptedRegex = "Offer Accepted: (\\d+(?:,\\d+)*)".toRegex()
-            var rarity = Rarity.UNKNOWN
-            for (line in noColorLore) {
-                for (enum in Rarity.entries) {
-                    if (line.lowercase().contains(enum.toString().lowercase())) {
-                        rarity = enum
-                        break
-                    }
-                }
-                if (offersAcceptedRegex.containsMatchIn(line)) {
-                    val find = offersAcceptedRegex.find(line)?.destructured ?: continue
-                    accepted[rarity] = (accepted[rarity] ?: 0) + 1
-                } else if (timesVisitedRegex.containsMatchIn(line)) {
-                    val find = timesVisitedRegex.find(line)?.destructured ?: continue
-                    visited[rarity] = (visited[rarity] ?: 0) + 1
-                }
-            }
+            timesAccepted[visitor.rarity] = (timesAccepted[visitor.rarity] ?: 0) + visitor.timesAccepted
+            timesVisited[visitor.rarity] = (timesVisited[visitor.rarity] ?: 0) + visitor.timesVisited
         }
-
-        textComponent.setText(getString(visited, accepted))
+        val text = getString(timesVisited, timesAccepted)
+        textComponent.setText(text)
     }
 
     private fun getString(visited:  HashMap<Rarity, Int>, accepted: HashMap<Rarity, Int>): String {
         var str = ""
-        for (rarity in accepted.keys) {
+        val rarities = Rarity.entries.toTypedArray()
+        rarities.sortBy { it.order }
+        for (rarity in rarities) {
+            if (!visited.contains(rarity)) {
+                continue
+            }
             str +=
-            """${rarity.colorCode}${rarity.displayName}
+            """
+                ${rarity.colorCode}${rarity.displayName}
                 §7Times Visited: §d${(visited[rarity] ?: 0).formatNumber()}
                 §7Accepted: §d${(accepted[rarity] ?: 0).formatNumber()}
                 §7Denied/Pending: §d${((visited[rarity] ?: 0) - (accepted[rarity] ?: 0)).formatNumber()}
+                
                 
             """.trimIndent()
 
         }
 
         return str
-    }
-
-    private fun isVisitorLogbook(): Boolean {
-        val gui = PartlySaneSkies.minecraft.currentScreen ?: return false
-        if (gui !is GuiChest) {
-            return false
-        }
-        val logbook = gui.containerInventory
-
-        return logbook.displayName.formattedText.removeColorCodes().contains("Visitor's Logbook")
     }
 }

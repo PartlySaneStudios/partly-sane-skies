@@ -24,6 +24,7 @@ import me.partlysanestudios.partlysaneskies.config.Keybinds
 import me.partlysanestudios.partlysaneskies.config.OneConfigScreen
 import me.partlysanestudios.partlysaneskies.data.cache.PetData
 import me.partlysanestudios.partlysaneskies.data.cache.StatsData
+import me.partlysanestudios.partlysaneskies.data.cache.VisitorLogbookData
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager
 import me.partlysanestudios.partlysaneskies.events.EventManager
@@ -48,13 +49,13 @@ import me.partlysanestudios.partlysaneskies.features.economy.auctionhousemenu.Au
 import me.partlysanestudios.partlysaneskies.features.economy.minioncalculator.MinionData
 import me.partlysanestudios.partlysaneskies.features.economy.minioncalculator.ProfitMinionCalculator
 import me.partlysanestudios.partlysaneskies.features.farming.MathematicalHoeRightClicks
-import me.partlysanestudios.partlysaneskies.features.farming.garden.VisitorLogbookStats
 import me.partlysanestudios.partlysaneskies.features.farming.WrongToolCropWarning
 import me.partlysanestudios.partlysaneskies.features.farming.endoffarmnotifer.EndOfFarmNotifier
 import me.partlysanestudios.partlysaneskies.features.farming.endoffarmnotifer.RangeHighlight
 import me.partlysanestudios.partlysaneskies.features.farming.garden.CompostValue
-import me.partlysanestudios.partlysaneskies.features.farming.garden.VisitorTradeValue
 import me.partlysanestudios.partlysaneskies.features.farming.garden.SkymartValue
+import me.partlysanestudios.partlysaneskies.features.farming.garden.VisitorLogbookStats
+import me.partlysanestudios.partlysaneskies.features.farming.garden.VisitorTradeValue
 import me.partlysanestudios.partlysaneskies.features.foraging.TreecapitatorCooldown
 import me.partlysanestudios.partlysaneskies.features.gui.CustomMainMenu
 import me.partlysanestudios.partlysaneskies.features.gui.RefreshKeybinds
@@ -326,6 +327,7 @@ class PartlySaneSkies {
         PetAlert.runPetAlertTick()
         ThemeManager.tick()
         PetData.tick()
+        VisitorLogbookData.scanForVisitors()
         HealthAlert.checkPlayerTick()
         RequiredSecretsFound.tick()
         NoCookieWarning.checkCoinsTick()
