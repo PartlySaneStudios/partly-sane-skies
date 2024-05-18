@@ -9,11 +9,13 @@ package me.partlysanestudios.partlysaneskies.events
 import me.partlysanestudios.partlysaneskies.events.minecraft.render.RenderWaypointEvent
 import me.partlysanestudios.partlysaneskies.events.skyblock.dungeons.DungeonEndEvent
 import me.partlysanestudios.partlysaneskies.events.skyblock.dungeons.DungeonStartEvent
+import me.partlysanestudios.partlysaneskies.events.skyblock.dungeons.RequiredSecretsFoundEvent
 import me.partlysanestudios.partlysaneskies.events.skyblock.dungeons.WatcherReadyEvent
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
 import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.client.event.RenderWorldLastEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
+import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent
 import org.apache.logging.log4j.Level
 import kotlin.reflect.KClass
 import kotlin.reflect.KFunction
@@ -43,6 +45,11 @@ object EventManager {
             registeredFunctions[paramClass]?.add(EventFunction(obj, function)) // adds the function to a list to call
             log(Level.INFO, "Registered ${function.name} from ${obj.javaClass.name} in PSS events")
         }
+    }
+
+    @SubscribeEvent
+    fun onTick(event: ClientTickEvent) {
+        RequiredSecretsFoundEvent.tick(registeredFunctions[RequiredSecretsFoundEvent::class] ?: ArrayList())
     }
 
     @SubscribeEvent

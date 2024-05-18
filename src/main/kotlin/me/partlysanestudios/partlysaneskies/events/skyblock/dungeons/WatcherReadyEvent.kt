@@ -17,7 +17,7 @@ class WatcherReadyEvent {
             if (formattedMessage.removeColorCodes().startsWith("[BOSS] The Watcher: That will be enough for now.") && IslandType.CATACOMBS.onIsland()) {
                 for (function in functionList) {
                     try {
-                        function.function.call(function.obj, DungeonStartEvent())
+                        function.function.call(function.obj, WatcherReadyEvent())
                     } catch (exception: Exception) {
                         exception.printStackTrace()
                     }
