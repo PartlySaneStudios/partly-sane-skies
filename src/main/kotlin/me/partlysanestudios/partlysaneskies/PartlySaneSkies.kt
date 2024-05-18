@@ -42,7 +42,7 @@ import me.partlysanestudios.partlysaneskies.features.dungeons.party.PartyFriendM
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.partymanager.PartyManager
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.permpartyselector.PermPartyManager
 import me.partlysanestudios.partlysaneskies.features.economy.BitsShopValue
-import me.partlysanestudios.partlysaneskies.features.economy.CoinsToBoosterCookieConversion
+import me.partlysanestudios.partlysaneskies.features.economy.CoinsToCookiesConversion
 import me.partlysanestudios.partlysaneskies.features.economy.NoCookieWarning
 import me.partlysanestudios.partlysaneskies.features.economy.auctionhousemenu.AuctionHouseGui
 import me.partlysanestudios.partlysaneskies.features.economy.minioncalculator.MinionData
@@ -201,7 +201,7 @@ class PartlySaneSkies {
         registerEvent(RangeHighlight)
         registerEvent(BannerRenderer)
         registerEvent(VisitorLogbookStats)
-        registerEvent(CoinsToBoosterCookieConversion)
+        registerEvent(CoinsToCookiesConversion)
         registerEvent(EndOfFarmNotifier)
         registerEvent(RefreshKeybinds)
         registerEvent(AutoGG)
@@ -257,7 +257,7 @@ class PartlySaneSkies {
         EndOfFarmNotifier.registerCreateRangeCommand()
         EndOfFarmNotifier.registerFarmNotifierCommand()
         EndOfFarmNotifier.registerWandCommand()
-        CoinsToBoosterCookieConversion.registerCommand()
+        CoinsToCookiesConversion.registerCommand()
         ProfitMinionCalculator.registerCommand()
         MathematicalHoeRightClicks.registerCommand()
         WordEditor.registerWordEditorCommand()
