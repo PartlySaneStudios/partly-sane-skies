@@ -1,16 +1,16 @@
+//
+// Written by J10a1n15 and Su386.
+// See LICENSE for copyright and license notices.
+//
+
 package me.partlysanestudios.partlysaneskies.events.skyblock.dungeons
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.IslandType
 import me.partlysanestudios.partlysaneskies.events.EventManager
 import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
-import me.partlysanestudios.partlysaneskies.render.gui.hud.BannerRenderer
-import me.partlysanestudios.partlysaneskies.render.gui.hud.PSSBanner
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
-import net.minecraft.client.Minecraft
-import net.minecraft.client.audio.PositionedSoundRecord
-import net.minecraft.util.ResourceLocation
 
 class RequiredSecretsFoundEvent {
     companion object {
