@@ -29,6 +29,7 @@ import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManage
 import me.partlysanestudios.partlysaneskies.events.EventManager
 import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.data.LoadPublicDataEvent
+import me.partlysanestudios.partlysaneskies.events.skyblock.dungeons.RequiredSecretsFoundEvent
 import me.partlysanestudios.partlysaneskies.features.chat.ChatAlertsManager
 import me.partlysanestudios.partlysaneskies.features.chat.ChatManager
 import me.partlysanestudios.partlysaneskies.features.chat.ChatTransformer
@@ -236,6 +237,7 @@ class PartlySaneSkies {
         registerEvent(CustomMainMenu.Companion)
         registerEvent(WrongToolCropWarning.CropToolData)
         registerEvent(PetAlert)
+        registerEvent(RequiredSecretsFoundEvent)
 
 
         // Registers all client side commands
