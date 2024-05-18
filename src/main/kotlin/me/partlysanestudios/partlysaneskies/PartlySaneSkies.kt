@@ -329,7 +329,6 @@ class PartlySaneSkies {
         ThemeManager.tick()
         PetData.tick()
         HealthAlert.checkPlayerTick()
-        RequiredSecretsFound.tick()
         NoCookieWarning.checkCoinsTick()
         Prank.checkPrankTick()
         AuctionHouseGui.tick()
