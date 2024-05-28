@@ -107,7 +107,7 @@ object VisitorLogbookData {
             val texture = item.tagCompound?.getCompoundTag("SkullOwner")?.getCompoundTag("Properties")?.getTagList("textures", 10)?.getCompoundTagAt(0)?.getString("Value") ?: ""
 
             val visitor = Visitor(displayName, rarity, texture, timesVisited, timesAccepted)
-            data?.visitors?.set(displayName, visitor)
+            data?.visitors?.set("$displayName+$texture", visitor)
         }
 
         Thread({
@@ -116,7 +116,19 @@ object VisitorLogbookData {
     }
 
     fun getVisitor(name: String): Visitor? {
-        return data?.visitors?.get(name)
+        val visitor = data?.visitors?.get(name)
+        if (visitor == null) {
+            for (visitor in (data?.visitors?.values) ?: ArrayList()) {
+                if (visitor.name == name) {
+                    return visitor
+                }
+
+            }
+            return null
+
+        } else {
+            return visitor
+        }
     }
 
     fun getAllVisitors(): MutableCollection<Visitor> {
