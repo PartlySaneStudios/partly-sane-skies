@@ -411,7 +411,7 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
         )
 
         val image: String = if (config.customMainMenuImage == 0) {
-            "textures/gui/main_menu/" + images[randInt(1, images.size)]
+            "textures/gui/main_menu/" + images[randInt(1, images.size - 1)]
         } else if (config.customMainMenuImage < 7) {
             "textures/gui/main_menu/" + images[config.customMainMenuImage]
         } else {
