@@ -1188,6 +1188,16 @@ object OneConfigScreen : Config(
     )
     var showGemstoneBeam = false
 
+    @Slider(
+        name = "Brightness",
+        description = "The brightness of the beam and block Highlight.",
+        category = "Mining",
+        subcategory = "Gemstone Waypoints",
+        min = 0f,
+        max = 1f
+    )
+    var gemstoneBrightness = 1f
+
     @Switch(
         name = "Show Topaz Waypoints",
         description = "Shows Topaz waypoints",
