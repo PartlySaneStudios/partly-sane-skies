@@ -12,6 +12,7 @@ import me.partlysanestudios.partlysaneskies.events.skyblock.mining.MinesEvent
 import me.partlysanestudios.partlysaneskies.render.gui.hud.BannerRenderer.renderNewBanner
 import me.partlysanestudios.partlysaneskies.render.gui.hud.PSSBanner
 import me.partlysanestudios.partlysaneskies.system.SystemNotification.showNotification
+import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import org.lwjgl.opengl.Display
 
 object MiningEventNotifier {
@@ -25,7 +26,7 @@ object MiningEventNotifier {
         minecraft.thePlayer.playSound("partlysaneskies:bell", 100F, 1F)
         val text = event.miningEvent.color + event.miningEvent.event
         if (config.miningSendSystemNotifications && !Display.isActive()) {
-            showNotification(text)
+            showNotification(text.removeColorCodes())
         }
         if (config.miningShowEventBanner) {
             renderNewBanner(PSSBanner(text, (config.miningEventBannerTime * 1000).toLong(), 4f))
