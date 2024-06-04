@@ -24,7 +24,7 @@ object MiningEventNotifier {
 
         minecraft.thePlayer.playSound("partlysaneskies:bell", 100F, 1F)
         val text = event.miningEvent.color + event.miningEvent.event
-        if (config.miningShowEventBanner && !Display.isActive()) {
+        if (config.miningSendSystemNotifications && !Display.isActive()) {
             showNotification(text)
         }
         if (config.miningShowEventBanner) {
