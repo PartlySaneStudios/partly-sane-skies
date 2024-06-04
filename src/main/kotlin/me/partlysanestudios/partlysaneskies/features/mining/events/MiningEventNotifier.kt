@@ -5,8 +5,8 @@
 
 package me.partlysanestudios.partlysaneskies.features.mining.events
 
-import cc.polyfrost.oneconfig.utils.dsl.mc
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
 import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.skyblock.mining.MinesEvent
 import me.partlysanestudios.partlysaneskies.render.gui.hud.BannerRenderer.renderNewBanner
@@ -22,7 +22,7 @@ object MiningEventNotifier {
 
         if (event.miningEvent.config().not()) return
 
-        mc.thePlayer.playSound("partlysaneskies:bell", 100F, 1F)
+        minecraft.thePlayer.playSound("partlysaneskies:bell", 100F, 1F)
         val text = event.miningEvent.color + event.miningEvent.event
         if (config.miningShowEventBanner && !Display.isActive()) {
             showNotification(text)
