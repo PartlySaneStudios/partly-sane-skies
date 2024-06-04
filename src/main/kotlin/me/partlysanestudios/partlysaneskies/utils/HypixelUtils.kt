@@ -7,13 +7,13 @@
 package me.partlysanestudios.partlysaneskies.utils
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
+import me.partlysanestudios.partlysaneskies.data.skyblockdata.IslandType
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.stripLeading
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.stripTrailing
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import java.util.*
-import kotlin.collections.HashMap
 
 object HypixelUtils {
     // Returns if the current gamemode is skyblock
@@ -137,4 +137,7 @@ object HypixelUtils {
     fun ItemStack.getItemAttributes(): NBTTagCompound? {
         return this.tagCompound?.getCompoundTag("ExtraAttributes")
     }
+
+    fun inAdvancedMiningIsland() =
+        IslandType.DWARVEN_MINES.onIsland() || IslandType.CRYSTAL_HOLLOWS.onIsland() || IslandType.MINESHAFT.onIsland()
 }

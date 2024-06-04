@@ -9,6 +9,7 @@ package me.partlysanestudios.partlysaneskies.events
 import me.partlysanestudios.partlysaneskies.events.minecraft.render.RenderWaypointEvent
 import me.partlysanestudios.partlysaneskies.events.skyblock.dungeons.DungeonEndEvent
 import me.partlysanestudios.partlysaneskies.events.skyblock.dungeons.DungeonStartEvent
+import me.partlysanestudios.partlysaneskies.events.skyblock.mining.MinesEvent
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
 import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.client.event.RenderWorldLastEvent
@@ -54,6 +55,7 @@ object EventManager {
         val message = event.message.formattedText
         DungeonStartEvent.onMessageRecieved(registeredFunctions[DungeonStartEvent::class] ?: ArrayList(), message)
         DungeonEndEvent.onMessageRecieved(registeredFunctions[DungeonEndEvent::class] ?: ArrayList(), message)
+        MinesEvent.onMessageRecieved(registeredFunctions[MinesEvent::class] ?: ArrayList(), message)
     }
 
     internal class EventFunction(val obj: Any, val function: KFunction<*> )

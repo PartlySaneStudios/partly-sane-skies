@@ -2,74 +2,96 @@ package me.partlysanestudios.partlysaneskies.features.mining.events
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 
-enum class MiningEvent (
+enum class MiningEvent(
     val event: String,
     val color: String,
     val triggeredEvent: (String) -> Boolean,
     val config: () -> Boolean,
-    val event20s: String = "",
-    val triggeredEvent20s: (String) -> Boolean = { false },
 ) {
     POWDER(
         "2x Powder",
         "§b⚑",
         { it.contains("§l2X POWDER STARTED!") },
-        config::mining2xPowderSound,
+        { config.mining2xPowderSound }
+    ),
+    POWDER20(
         "2x Powder Event in 20s!",
-        { it.contains("The §b2x Powder §eevent starts in §a20 §eseconds!") }
+        "§b⚑",
+        { it.contains("The §b2x Powder §eevent starts in §a20 §eseconds!") },
+        { config.mining2xPowderSound && config.miningWarn20sBeforeEvent }
     ),
     WIND(
         "Gone with the Wind",
         "§9⚑",
         { it.contains("§r§9§lGONE WITH THE WIND STARTED!") },
-        config::miningGoneWithTheWindSound,
+        { config.miningGoneWithTheWindSound }
+    ),
+    WIND20(
         "Gone with the Wind Event in 20s!",
-        { it.contains("The §9Gone with the Wind §eevent starts in §a20 §eseconds!") }
+        "§9⚑",
+        { it.contains("The §9Gone with the Wind §eevent starts in §a20 §eseconds!") },
+        { config.miningGoneWithTheWindSound && config.miningWarn20sBeforeEvent }
     ),
     BETTER_TOGETHER(
         "Better Together",
         "§d⚑",
         { it.contains("§r§d§lBETTER TOGETHER STARTED!") },
-        config::miningBetterTogetherSound,
+        { config.miningBetterTogetherSound }
+    ),
+    BETTER_TOGETHER20(
         "Better Together Event in 20s!",
-        { it.contains("The §dBetter Together §eevent starts in §a20 §eseconds!") }
+        "§d⚑",
+        { it.contains("The §dBetter Together §eevent starts in §a20 §eseconds!") },
+        { config.miningBetterTogetherSound && config.miningWarn20sBeforeEvent }
     ),
     RAID(
         "Goblin Raid",
         "§c⚑",
         { it.contains("§r§c§lGOBLIN RAID STARTED!") },
-        config::miningGoblinRaidSound,
+        { config.miningGoblinRaidSound }
+    ),
+    RAID20(
         "Goblin Raid Event in 20s!",
-        { it.contains("The §cGoblin Raid §eevent starts in §a20 §eseconds!") }
+        "§c⚑",
+        { it.contains("The §cGoblin Raid §eevent starts in §a20 §eseconds!") },
+        { config.miningGoblinRaidSound && config.miningWarn20sBeforeEvent }
     ),
     RAFFLE(
         "Raffle",
         "§6⚑",
         { it.contains("§r§6§lRAFFLE STARTED!") },
-        config::miningRaffleSound,
+        { config.miningRaffleSound }
+    ),
+    RAFFLE20(
         "Raffle Event in 20s!",
-        { it.contains("The §6Raffle §eevent starts in §a20 §eseconds!") }
+        "§6⚑",
+        { it.contains("The §6Raffle §eevent starts in §a20 §eseconds!") },
+        { config.miningRaffleSound && config.miningWarn20sBeforeEvent }
     ),
     GOURMAND(
         "Mithril Gourmand",
         "§b⚑",
         { it.contains("§r§b§lMITHRIL GOURMAND STARTED!") },
-        config::miningMithrilGourmandSound,
+        { config.miningMithrilGourmandSound }
+    ),
+    GOURMAND20(
         "Mithril Gourmand Event in 20s!",
-        { it.contains("The §bMithril Gourmand §eevent starts in §a20 §eseconds!") }
+        "§b⚑",
+        { it.contains("The §bMithril Gourmand §eevent starts in §a20 §eseconds!") },
+        { config.miningMithrilGourmandSound && config.miningWarn20sBeforeEvent }
     ),
 
     POWDER_GHAST(
         "Powder Ghast",
         "§r§6",
         { it.contains("§r§6§lPOWDER GHAST!") },
-        config::miningPowderGhastSound
+        { config.miningPowderGhastSound }
     ),
     FALLEN_STAR(
         "Fallen Star",
         "§r§5",
         { it.contains("§r§5§l✯ §r§eA §r§5Fallen Star §r§ehas crashed at ") },
-        config::miningFallenStarSound
+        { config.miningFallenStarSound }
     )
 }
 
