@@ -16,7 +16,6 @@ import me.partlysanestudios.partlysaneskies.events.data.LoadPublicDataEvent
 import me.partlysanestudios.partlysaneskies.events.minecraft.player.PlayerBreakBlockEvent
 import me.partlysanestudios.partlysaneskies.render.gui.hud.BannerRenderer.renderNewBanner
 import me.partlysanestudios.partlysaneskies.render.gui.hud.PSSBanner
-import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils.getHypixelEnchants
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils.getItemId
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.onCooldown
@@ -27,12 +26,13 @@ import net.minecraft.util.ResourceLocation
 
 object WrongToolCropWarning {
     private var lastWarnTime = -1L
+
     @SubscribePSSEvent
     fun onBlockBreak(event: PlayerBreakBlockEvent) {
         if (!config.wrongToolForCropEnabled) {
             return
         }
-        if (onCooldown(lastWarnTime, (config.wrongToolForCropCooldown*1000).toLong())) {
+        if (onCooldown(lastWarnTime, (config.wrongToolForCropCooldown * 1000).toLong())) {
             return
         }
         val block = minecraft.theWorld.getBlockState(event.point.toBlockPos())?.block
@@ -46,15 +46,16 @@ object WrongToolCropWarning {
         val minecraftName = nbt.getString("id") ?: ""
         val enchants = getCurrentlyHoldingItem()?.getHypixelEnchants() ?: HashMap()
 
-        var validTool = if (config.mathematicalHoeValid && crop.mathematicalHoeIds.contains(id)) { // if mathematical hoes are valid and the tool is a valid math hoe
-            true
-        } else if (config.otherSkyblockToolsValid && crop.otherSkyblockHoes.contains(id)) { // if other skyblock tools are valid and the tool is a valid skyblock tool
-            true
-        } else if (config.vanillaToolsValid && crop.otherMinecraftHoes.contains(minecraftName)) { // if vanilla tools are valid and the tool is a valid vanilla tool
-            true
-        } else {
-            false
-        }
+        var validTool =
+            if (config.mathematicalHoeValid && crop.mathematicalHoeIds.contains(id)) { // if mathematical hoes are valid and the tool is a valid math hoe
+                true
+            } else if (config.otherSkyblockToolsValid && crop.otherSkyblockHoes.contains(id)) { // if other skyblock tools are valid and the tool is a valid skyblock tool
+                true
+            } else if (config.vanillaToolsValid && crop.otherMinecraftHoes.contains(minecraftName)) { // if vanilla tools are valid and the tool is a valid vanilla tool
+                true
+            } else {
+                false
+            }
 
         if (config.requireReplenish && crop.requireReplenish && !(enchants.containsKey("replenish") && enchants["replenish"] != 0)) { // if the config setting is on, the crop requires replenish, the tool has replenish, and the replenish level is not equal to 0
             validTool = false
@@ -99,9 +100,11 @@ object WrongToolCropWarning {
 
     internal object CropToolData {
         var jsonObject = JsonObject()
+
         @SubscribePSSEvent
         fun loadData(event: LoadPublicDataEvent) {
-            jsonObject = JsonParser().parse(PublicDataManager.getFile("constants/crop_tools.json")).asJsonObject ?: JsonObject()
+            jsonObject =
+                JsonParser().parse(PublicDataManager.getFile("constants/crop_tools.json")).asJsonObject ?: JsonObject()
         }
 
         fun serializeCrop(cropUnlocalizedName: String, cropObject: JsonObject): Crop {

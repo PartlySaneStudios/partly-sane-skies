@@ -6,7 +6,6 @@
 package me.partlysanestudios.partlysaneskies.data.skyblockdata
 
 import com.google.gson.JsonParser
-import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.time
 import me.partlysanestudios.partlysaneskies.data.api.Request
@@ -55,7 +54,7 @@ class SkyblockPlayer(val username: String) {
     var baseEffectiveHealth = 0.0
 
 
-    private class Lock: Object()
+    private class Lock : Object()
 
     fun isExpired(): Boolean {
         return !MathUtils.onCooldown(lastUpdateTime, config.playerDataCacheTime * 60 * 1000L)
@@ -88,7 +87,8 @@ class SkyblockPlayer(val username: String) {
                 }
                 lastUpdateTime = time
 
-                val skyblockPlayerObject = JsonParser().parse(skyblockPlayerResponse.getResponse()).asJsonObject["skyblockPlayer"].asJsonObject
+                val skyblockPlayerObject =
+                    JsonParser().parse(skyblockPlayerResponse.getResponse()).asJsonObject["skyblockPlayer"].asJsonObject
 
                 selectedProfileUUID = skyblockPlayerObject["currentProfileId"]?.asString ?: ""
                 val profiles = skyblockPlayerObject["profiles"].asJsonArray
@@ -97,20 +97,29 @@ class SkyblockPlayer(val username: String) {
                     if (profObj["selected"].asBoolean) {
                         skyblockLevel = profObj["skyblockExperience"].asDouble / 100
                         catacombsLevel = catacombsLevelToExperience(profObj["catacombsExperience"].asFloat)
-                        combatLevel = SkyblockDataManager.getSkill("COMBAT")?.getLevelFromExperience(profObj["combatExperience"].asFloat) ?: 0.0
-                        miningLevel = SkyblockDataManager.getSkill("MINING")?.getLevelFromExperience(profObj["miningExperience"].asFloat) ?: 0.0
-                        foragingLevel = SkyblockDataManager.getSkill("FORAGING")?.getLevelFromExperience(profObj["foragingExperience"].asFloat) ?: 0.0
-                        farmingLevel = SkyblockDataManager.getSkill("FARMING")?.getLevelFromExperience(profObj["farmingExperience"].asFloat) ?: 0.0
-                        enchantingLevel = SkyblockDataManager.getSkill("ENCHANTING")?.getLevelFromExperience(profObj["enchantingExperience"].asFloat) ?: 0.0
-                        fishingLevel = SkyblockDataManager.getSkill("FISHING")?.getLevelFromExperience(profObj["fishingExperience"].asFloat) ?: 0.0
-                        alchemyLevel = SkyblockDataManager.getSkill("ALCHEMY")?.getLevelFromExperience(profObj["alchemyExperience"].asFloat) ?: 0.0
-                        tamingLevel = SkyblockDataManager.getSkill("TAMING")?.getLevelFromExperience(profObj["tamingExperience"].asFloat) ?: 0.0
-                        averageSkillLevel = (combatLevel + miningLevel + foragingLevel + farmingLevel + enchantingLevel + fishingLevel + alchemyLevel + tamingLevel) / 8
+                        combatLevel = SkyblockDataManager.getSkill("COMBAT")
+                            ?.getLevelFromExperience(profObj["combatExperience"].asFloat) ?: 0.0
+                        miningLevel = SkyblockDataManager.getSkill("MINING")
+                            ?.getLevelFromExperience(profObj["miningExperience"].asFloat) ?: 0.0
+                        foragingLevel = SkyblockDataManager.getSkill("FORAGING")
+                            ?.getLevelFromExperience(profObj["foragingExperience"].asFloat) ?: 0.0
+                        farmingLevel = SkyblockDataManager.getSkill("FARMING")
+                            ?.getLevelFromExperience(profObj["farmingExperience"].asFloat) ?: 0.0
+                        enchantingLevel = SkyblockDataManager.getSkill("ENCHANTING")
+                            ?.getLevelFromExperience(profObj["enchantingExperience"].asFloat) ?: 0.0
+                        fishingLevel = SkyblockDataManager.getSkill("FISHING")
+                            ?.getLevelFromExperience(profObj["fishingExperience"].asFloat) ?: 0.0
+                        alchemyLevel = SkyblockDataManager.getSkill("ALCHEMY")
+                            ?.getLevelFromExperience(profObj["alchemyExperience"].asFloat) ?: 0.0
+                        tamingLevel = SkyblockDataManager.getSkill("TAMING")
+                            ?.getLevelFromExperience(profObj["tamingExperience"].asFloat) ?: 0.0
+                        averageSkillLevel =
+                            (combatLevel + miningLevel + foragingLevel + farmingLevel + enchantingLevel + fishingLevel + alchemyLevel + tamingLevel) / 8
                         petName = profObj["petName"].asString.titleCase()
                         selectedDungeonClass = profObj["selectedDungeonClass"].asString.titleCase()
                         totalRuns = profObj["totalRuns"].asInt
                         secretsCount = profObj["secretsCount"].asInt
-                        secretsPerRun = secretsCount/totalRuns.toDouble()
+                        secretsPerRun = secretsCount / totalRuns.toDouble()
                         baseHealth = profObj["baseHealth"].asDouble
                         baseDefense = profObj["baseDefense"].asDouble
                         baseIntelligence = profObj["baseIntelligence"].asDouble
@@ -120,7 +129,8 @@ class SkyblockPlayer(val username: String) {
                         if (profObj["armorData"] == null) {
                             armorName = arrayOf("", "", "", "")
                         } else {
-                            val armorNBT: NBTTagList = SystemUtils.base64ToNbt(profObj["armorData"].asString).getTagList("i", 10)
+                            val armorNBT: NBTTagList =
+                                SystemUtils.base64ToNbt(profObj["armorData"].asString).getTagList("i", 10)
                             armorName = arrayOf("", "", "", "")
                             for (i in 0 until armorNBT.tagCount()) {
                                 armorName[i] =
@@ -129,7 +139,8 @@ class SkyblockPlayer(val username: String) {
                             }
                         }
 
-                        val arrowNBT: NBTTagList = SystemUtils.base64ToNbt(profObj["quiverData"].asString).getTagList("i", 10)
+                        val arrowNBT: NBTTagList =
+                            SystemUtils.base64ToNbt(profObj["quiverData"].asString).getTagList("i", 10)
 
                         var sum = -1
                         for (i in 0 until arrowNBT.tagCount()) {

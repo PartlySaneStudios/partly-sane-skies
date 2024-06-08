@@ -20,13 +20,13 @@ import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Point3d
 import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Point3d.Companion.toPoint3d
 import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Range3d
 import net.minecraft.entity.Entity
-import org.apache.logging.log4j.Level.*
+import org.apache.logging.log4j.Level.INFO
 import java.awt.Color
 
 object TerminalWaypoints {
 
     private val boundingBoxes = arrayOf(
-        Range3d(118.0, 103.0, 27.0, 90.0, 157.0,124.0),
+        Range3d(118.0, 103.0, 27.0, 90.0, 157.0, 124.0),
         Range3d(118.0, 103.0, 145.0, 19.0, 157.0, 120.0),
         Range3d(-4.0, 103.0, 145.0, 19.0, 157.0, 50.0),
         Range3d(-3.0, 103.0, 26.0, 92.0, 157.0, 53.0)
@@ -145,7 +145,6 @@ object TerminalWaypoints {
     }
 
 
-
     private fun getCurrentBoundingBox(point3d: Point3d): Range3d? {
         for (boundingBox in boundingBoxes) {
             if (boundingBox.isInRange(point3d)) {
@@ -157,7 +156,8 @@ object TerminalWaypoints {
 
     class F7Puzzle(val pos: Point3d, val type: Type) {
         var active = false
-        enum class Type(val activeArmorStandName: String, val inactiveArmorStandName: String, val  displayName: String) {
+
+        enum class Type(val activeArmorStandName: String, val inactiveArmorStandName: String, val displayName: String) {
             TERMINAL("Active Terminal", "Inactive Terminal", "Terminal"),
             LEVER("Activated", "Not Activated", "Lever"),
             DEVICE("Active", "Inactive", "Device")

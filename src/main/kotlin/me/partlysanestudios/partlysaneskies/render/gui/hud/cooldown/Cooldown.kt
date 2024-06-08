@@ -12,6 +12,7 @@ import net.minecraft.item.ItemStack
 abstract class Cooldown {
 
     private var startingTime = -1L
+
     /**
      * @return Starting time of cooldown in milliseconds
      */

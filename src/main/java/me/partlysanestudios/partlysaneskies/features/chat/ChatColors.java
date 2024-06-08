@@ -57,7 +57,7 @@ public class ChatColors {
         if (containsRankNames) {
             return message;
         }
-        
+
         // If it does not, it highlights the nons message
         return new ChatComponentText(insertColor(formattedMessage, "§r"));
     }
@@ -110,24 +110,15 @@ public class ChatColors {
         message = StringUtils.INSTANCE.removeColorCodes(message);
         if (message.startsWith("Party >")) {
             return "Party";
-        }
-
-        else if (message.startsWith("Guild >")) {
+        } else if (message.startsWith("Guild >")) {
             return "Guild";
-        }
-
-        else if (message.startsWith("Officer >")) {
+        } else if (message.startsWith("Officer >")) {
             return "Officer";
-        }
-        
-        else if (message.startsWith("To ")) {
+        } else if (message.startsWith("To ")) {
             return "To";
-        }
-
-        else if (message.startsWith("From ")) {
+        } else if (message.startsWith("From ")) {
             return "From";
-        }
-        else if (message.startsWith("Co-op >")) {
+        } else if (message.startsWith("Co-op >")) {
             return "Co-op";
         }
 
@@ -139,7 +130,7 @@ public class ChatColors {
 
         for (String prefix : ChatAlertsManager.MESSAGE_PREFIXES) {
             if (message.contains(prefix)) {
-                messageStartIndex =  message.indexOf(prefix) + prefix.length();
+                messageStartIndex = message.indexOf(prefix) + prefix.length();
                 break;
             }
         }
@@ -153,7 +144,7 @@ public class ChatColors {
 
         messageString = StringUtils.INSTANCE.removeColorCodes(messageString);
         messageString = color + messageString;
-        
+
         return preMessageString + messageString;
     }
 }

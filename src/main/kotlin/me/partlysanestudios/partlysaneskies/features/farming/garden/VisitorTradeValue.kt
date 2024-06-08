@@ -31,7 +31,7 @@ import net.minecraft.client.gui.inventory.GuiChest
 import net.minecraftforge.client.event.GuiScreenEvent
 import java.awt.Color
 
-object VisitorTradeValue: SidePanel() {
+object VisitorTradeValue : SidePanel() {
     override val panelBaseComponent: UIComponent = UIBlock().applyBackground().constrain {
         x = 800.scaledPixels
         y = CenterConstraint()
@@ -52,11 +52,11 @@ object VisitorTradeValue: SidePanel() {
         if (!config.gardenShopTradeInfo) {
             return false
         }
-        
+
         if (minecraft.currentScreen == null) {
             return false
         }
-        
+
         if (minecraft.currentScreen !is GuiChest) {
             return false
         }
@@ -80,7 +80,7 @@ object VisitorTradeValue: SidePanel() {
         // If the names are not equal to the desired names, then you know it screen is not the trader screen
         return if (refuseButtonName != "Refuse Offer") {
             false
-        } else  {
+        } else {
             acceptButtonName == "Accept Offer"
         }
     }
@@ -249,5 +249,5 @@ object VisitorTradeValue: SidePanel() {
 
         return totalCost
     }
-    
+
 }

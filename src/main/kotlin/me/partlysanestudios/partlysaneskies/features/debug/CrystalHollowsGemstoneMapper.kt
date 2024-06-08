@@ -31,7 +31,8 @@ object CrystalHollowsGemstoneMapper {
 
     fun scanWorld() {
         alreadyCheckedCoords = ArrayList()
-        val rangeSize = (range.sortedPoints[1].x - range.sortedPoints[0].x) * (range.sortedPoints[1].y - range.sortedPoints[0].y) *  (range.sortedPoints[1].z - range.sortedPoints[0].z)
+        val rangeSize =
+            (range.sortedPoints[1].x - range.sortedPoints[0].x) * (range.sortedPoints[1].y - range.sortedPoints[0].y) * (range.sortedPoints[1].z - range.sortedPoints[0].z)
         var checkedBlocks = 0
         val gemstones = LinkedList<Gemstone>()
         val startTime = time
@@ -46,7 +47,13 @@ object CrystalHollowsGemstoneMapper {
                     val timeLeft = estimatedTotalTime - timeElapsed
 
                     val minutesLeft = timeLeft / 1000 / 60
-                    sendClientMessage("Checking block (${x.formatNumber()}, ${y.formatNumber()}, ${z.formatNumber()})\n${checkedBlocks.formatNumber()} / ${rangeSize.formatNumber()} (${(checkedBlocks/rangeSize *  100).round(1)}%, ${minutesLeft.round(2).formatNumber()} minutes left)...")
+                    sendClientMessage(
+                        "Checking block (${x.formatNumber()}, ${y.formatNumber()}, ${z.formatNumber()})\n${checkedBlocks.formatNumber()} / ${rangeSize.formatNumber()} (${
+                            (checkedBlocks / rangeSize * 100).round(
+                                1
+                            )
+                        }%, ${minutesLeft.round(2).formatNumber()} minutes left)..."
+                    )
                     val point = Point3d(x.toDouble(), y.toDouble(), z.toDouble())
 
                     if (!isGlass(world.getBlockState(point.toBlockPosInt()))) {
@@ -62,7 +69,12 @@ object CrystalHollowsGemstoneMapper {
                     gemstoneCoords.add(point)
                     extractGemstone(point, gemstoneCoords)
 
-                    gemstones.add(Gemstone(gemstoneCoords, world.getBlockState(point.toBlockPosInt()).block.localizedName))
+                    gemstones.add(
+                        Gemstone(
+                            gemstoneCoords,
+                            world.getBlockState(point.toBlockPosInt()).block.localizedName
+                        )
+                    )
                 }
             }
         }
@@ -84,7 +96,13 @@ object CrystalHollowsGemstoneMapper {
         var i = 0.0
         for (element in jsonArray) {
             i++
-            sendClientMessage("Converting crystal ${i.formatNumber()} of ${totalLength.formatNumber()} (${(i/totalLength * 100).round(1).formatNumber()}%)...")
+            sendClientMessage(
+                "Converting crystal ${i.formatNumber()} of ${totalLength.formatNumber()} (${
+                    (i / totalLength * 100).round(
+                        1
+                    ).formatNumber()
+                }%)..."
+            )
             val obj = element.asJsonObject
 
             val coordinates = obj.get("coordinates").asJsonArray
@@ -95,7 +113,10 @@ object CrystalHollowsGemstoneMapper {
                 val coordObj = coordElement.asJsonObject
                 val point = Point3d(coordObj.get("x").asDouble, coordObj.get("y").asDouble, coordObj.get("z").asDouble)
                 try {
-                    val type = "COLOR_${world.getBlockState(point.toBlockPosInt()).getValue(PropertyEnum.create("color", EnumDyeColor::class.java))}"
+                    val type = "COLOR_${
+                        world.getBlockState(point.toBlockPosInt())
+                            .getValue(PropertyEnum.create("color", EnumDyeColor::class.java))
+                    }"
 
                     if (!map.contains(type)) {
                         map[type] = ArrayList<JsonObject>()
@@ -119,7 +140,11 @@ object CrystalHollowsGemstoneMapper {
                     sumZ += coordObj.get("z").asDouble
                 }
 
-                val averagePoint = Point3d((sumX/en.value.size).round(1), (sumY/en.value.size).round(1), (sumZ/en.value.size).round(1))
+                val averagePoint = Point3d(
+                    (sumX / en.value.size).round(1),
+                    (sumY / en.value.size).round(1),
+                    (sumZ / en.value.size).round(1)
+                )
 
                 try {
                     val type = en.key
@@ -149,7 +174,13 @@ object CrystalHollowsGemstoneMapper {
         val list = ArrayList<JsonObject>()
         var i = 0.0
         for (element in jsonArray) {
-            sendClientMessage("Converting crystal ${i.formatNumber()} of ${totalLength.formatNumber()} (${(i/totalLength * 100).round(1).formatNumber()}%)...")
+            sendClientMessage(
+                "Converting crystal ${i.formatNumber()} of ${totalLength.formatNumber()} (${
+                    (i / totalLength * 100).round(
+                        1
+                    ).formatNumber()
+                }%)..."
+            )
 
             val obj = element.asJsonObject
             val midpoint = obj.getAsJsonObject("midPoint3d")
@@ -165,6 +196,7 @@ object CrystalHollowsGemstoneMapper {
         dumpPrettyGemstoneDataNoNucleus(list)
         sendClientMessage("Data dumped.")
     }
+
     private class PrettyGemstone(
         @Expose
         val midPoint3d: Point3d,
@@ -272,20 +304,21 @@ object CrystalHollowsGemstoneMapper {
 
 
     private class Gemstone(val coordinates: List<Point3d>, val type: String) {
-        val geographicMiddle: Point3d get() {
-            var xPoints = 0.0
-            var yPoints = 0.0
-            var zPoints = 0.0
+        val geographicMiddle: Point3d
+            get() {
+                var xPoints = 0.0
+                var yPoints = 0.0
+                var zPoints = 0.0
 
 
-            for (point in coordinates) {
-                xPoints += point.x
-                yPoints += point.y
-                zPoints += point.z
+                for (point in coordinates) {
+                    xPoints += point.x
+                    yPoints += point.y
+                    zPoints += point.z
+                }
+
+                return Point3d(xPoints / coordinates.size, yPoints / coordinates.size, zPoints / coordinates.size)
             }
-
-            return Point3d(xPoints/coordinates.size, yPoints/coordinates.size, zPoints/coordinates.size)
-        }
 
     }
 }

@@ -45,7 +45,7 @@ object RefreshKeybinds {
             ((Keyboard.isKeyDown(Keyboard.KEY_LMETA) xor Keyboard.isKeyDown(Keyboard.KEY_RMETA)) && keyRDown)
         if (
             (keyFnFiveDown) xor ((refreshKeyDownWindowsLinux && !operatingSystem.contains("mac"))
-            || (refreshKeyDownMacOS && operatingSystem.contains("mac")))
+                    || (refreshKeyDownMacOS && operatingSystem.contains("mac")))
         ) {
             val container: ContainerChest = (gui).inventorySlots as ContainerChest
             for (i: Int in 0..53) {

@@ -112,7 +112,7 @@ object StringUtils {
         return str
     }
 
-    fun String.pluralize(number: Number): String{
+    fun String.pluralize(number: Number): String {
         return if (number == 1) {
             this
         } else {

@@ -92,7 +92,8 @@ object DropBannerDisplay {
         }
 
         var categoryColor = drop!!.dropCategoryColor
-        dropNameString = drop!!.dropRarityColorCode + drop!!.name + (if (drop!!.magicFind > 0) " §b(+${drop!!.magicFind}% ✯ Magic Find)" else "")
+        dropNameString =
+            drop!!.dropRarityColorCode + drop!!.name + (if (drop!!.magicFind > 0) " §b(+${drop!!.magicFind}% ✯ Magic Find)" else "")
         topString = drop!!.dropCategory
 
         if ((time - drop!!.timeDropped > TEXT_BLINK_START_FACTOR * config.rareDropBannerTime * 1000)

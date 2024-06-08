@@ -5,7 +5,6 @@
 
 package me.partlysanestudios.partlysaneskies.data.pssdata
 
-import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand
 import me.partlysanestudios.partlysaneskies.data.api.Request
@@ -25,14 +24,14 @@ object PublicDataManager {
      * @return the current repo's owner
      */
     fun getRepoOwner(): String {
-        return PartlySaneSkies.config.repoOwner ?: "PartlySaneStudios"
+        return config.repoOwner
     }
 
     /**
      * @return the current repo's name
      */
     fun getRepoName(): String {
-        return PartlySaneSkies.config.repoName ?: "partly-sane-skies-public-data"
+        return config.repoName
     }
 
     /**
@@ -111,6 +110,7 @@ object PublicDataManager {
                 LoadPublicDataEvent.onDataLoad()
             }.register()
     }
+
     private class Lock : Object()
 
 }

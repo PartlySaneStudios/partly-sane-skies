@@ -100,8 +100,14 @@ object MathematicalHoeRightClicks {
 
                     0
                 } else {
-                    val message: IChatComponent = ChatComponentText("${PartlySaneSkies.CHAT_PREFIX}§bThe ability to right-click with a hoe has been §aenabled§b for ${config.allowRightClickTime} minutes.\n§dClick this message or run /allowhoerightclick to disable right-clicks again.")
-                    message.chatStyle.setChatClickEvent(ClickEvent(ClickEvent.Action.RUN_COMMAND, "/allowhoerightclick"))
+                    val message: IChatComponent =
+                        ChatComponentText("${PartlySaneSkies.CHAT_PREFIX}§bThe ability to right-click with a hoe has been §aenabled§b for ${config.allowRightClickTime} minutes.\n§dClick this message or run /allowhoerightclick to disable right-clicks again.")
+                    message.chatStyle.setChatClickEvent(
+                        ClickEvent(
+                            ClickEvent.Action.RUN_COMMAND,
+                            "/allowhoerightclick"
+                        )
+                    )
 
                     minecraft.ingameGUI.chatGUI.printChatMessage(message)
 

@@ -14,6 +14,7 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 public interface MixinGuiContainer {
     @Accessor("xSize")
     int partlysaneskies$getXSize();
+
     @Accessor("ySize")
     int partlysaneskies$getYSize();
 }

@@ -33,7 +33,7 @@ import net.minecraft.client.gui.inventory.GuiChest
 import net.minecraftforge.client.event.GuiScreenEvent
 import java.awt.Color
 
-object SkymartValue: SidePanel() {
+object SkymartValue : SidePanel() {
     override val panelBaseComponent: UIComponent = UIBlock().applyBackground().constrain {
         x = 800.scaledPixels
         y = CenterConstraint()
@@ -104,7 +104,9 @@ object SkymartValue: SidePanel() {
         for ((key, value) in sortedMap) {
 
             val item = getItem(key) ?: SkyblockItem.emptyItem
-            str += "§6$i. §d${item.name}§7 costs §d${copperCost[key]?.formatNumber() ?: 0}§7 copper and sells for §d${item.getSellPrice().round(1).formatNumber()}§7 coins \n§8 (${value.round(1).formatNumber()} coins per copper)\n"
+            str += "§6$i. §d${item.name}§7 costs §d${copperCost[key]?.formatNumber() ?: 0}§7 copper and sells for §d${
+                item.getSellPrice().round(1).formatNumber()
+            }§7 coins \n§8 (${value.round(1).formatNumber()} coins per copper)\n"
 
             i++
             if (i > 5) {

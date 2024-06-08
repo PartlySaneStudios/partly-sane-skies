@@ -63,7 +63,7 @@ object OneConfigScreen : Config(
             apiUrl = "http://partlysanecloud.su386.dev"
             save()
         }
-        if(prettyMimicKilledString.isEmpty()) {
+        if (prettyMimicKilledString.isEmpty()) {
             prettyMimicKilledString = "Mimic Killed!"
             save()
         }
@@ -86,7 +86,6 @@ object OneConfigScreen : Config(
      * // ------------- Category: CATEGORY_NAME ---------------------------------<br>
      * // SUBCATEGORY_NAME
      */
-
 
 
     // ------------- Category: General ---------------------------------
@@ -763,7 +762,7 @@ object OneConfigScreen : Config(
         subcategory = "Pearl Refill"
     )
     var pearlRefillKeybind = OneKeyBind(Keyboard.KEY_P)
-    
+
     // Item Refill
     @Switch(
         name = "Auto Item Refill",
@@ -836,7 +835,7 @@ object OneConfigScreen : Config(
         category = "Dungeons",
         subcategory = "Health Alert"
     )
-    var alertOutsideDungeons  = false
+    var alertOutsideDungeons = false
 
     @Dropdown(
         name = "Alert when below...",
@@ -1239,13 +1238,12 @@ object OneConfigScreen : Config(
     var amberWaypoints = true
 
     @Switch(
-    name = "Show Jade Waypoints",
-    description = "Shows Jade waypoints",
-    category = "Mining",
-    subcategory = "Gemstone Waypoints"
+        name = "Show Jade Waypoints",
+        description = "Shows Jade waypoints",
+        category = "Mining",
+        subcategory = "Gemstone Waypoints"
     )
     var jadeWaypoints = true
-
 
 
     //Events
@@ -1768,6 +1766,7 @@ object OneConfigScreen : Config(
         subcategory = "Fun"
     )
     var owoLanguage = false
+
     @Switch(
         name = "OwO Chat Transformer",
         description = "Transforms every chat message you send into OwO language.",

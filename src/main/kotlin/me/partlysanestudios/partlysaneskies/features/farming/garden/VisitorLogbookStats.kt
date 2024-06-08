@@ -34,16 +34,12 @@ import me.partlysanestudios.partlysaneskies.data.cache.VisitorLogbookData.isVisi
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity
 import me.partlysanestudios.partlysaneskies.features.gui.SidePanel
 import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
-import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.applyBackground
-import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getLore
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.formatNumber
 import net.minecraftforge.client.event.GuiScreenEvent
 import java.awt.Color
-import kotlin.collections.HashMap
-import kotlin.math.log
 
-object VisitorLogbookStats: SidePanel() {
+object VisitorLogbookStats : SidePanel() {
 
     override val panelBaseComponent: UIComponent = UIBlock().applyBackground().constrain {
         x = 800.scaledPixels
@@ -72,7 +68,6 @@ object VisitorLogbookStats: SidePanel() {
     }
 
 
-
     override fun onPanelRender(event: GuiScreenEvent.BackgroundDrawnEvent) {
         alignPanel()
 
@@ -93,7 +88,12 @@ object VisitorLogbookStats: SidePanel() {
         textComponent.setText(getString(timesVisited, timesAccepted, uniqueVisits, uniqueAccepts))
     }
 
-    private fun getString(visited:  HashMap<Rarity, Int>, accepted: HashMap<Rarity, Int>, uniqueVisits:  HashMap<Rarity, Int>, uniqueAccepts: HashMap<Rarity, Int>): String {
+    private fun getString(
+        visited: HashMap<Rarity, Int>,
+        accepted: HashMap<Rarity, Int>,
+        uniqueVisits: HashMap<Rarity, Int>,
+        uniqueAccepts: HashMap<Rarity, Int>
+    ): String {
         var str = ""
         val rarities = Rarity.entries.toTypedArray().sortedBy { it.order }
         for (rarity in rarities) {
@@ -101,7 +101,7 @@ object VisitorLogbookStats: SidePanel() {
                 continue
             }
             str +=
-            """
+                """
                 ${rarity.colorCode}${rarity.displayName} Visitors:
                 §7Total Visits: §d${(visited[rarity] ?: 0).formatNumber()}§7 (Unique: §d${(uniqueVisits[rarity] ?: 0).formatNumber()}§7)
                 §7Accepted: §d${(accepted[rarity] ?: 0).formatNumber()}§7 (Unique: §d${(uniqueAccepts[rarity] ?: 0).formatNumber()}§7)

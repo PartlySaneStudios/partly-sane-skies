@@ -18,7 +18,7 @@ object RequestsManager {
 
 
     val thread = Thread({
-        while(true) {
+        while (true) {
             try {
                 run()
 
@@ -42,7 +42,7 @@ object RequestsManager {
         }
 
         // The time in milliseconds between requests
-        val timeBetweenRequests = Math.round((PartlySaneSkies.config.timeBetweenRequests?: .5F) * 1000).toLong()
+        val timeBetweenRequests = Math.round(PartlySaneSkies.config.timeBetweenRequests * 1000).toLong()
         // If the time has not elapsed between requests
         if (MathUtils.onCooldown(lastRequestTime, timeBetweenRequests)) {
             return

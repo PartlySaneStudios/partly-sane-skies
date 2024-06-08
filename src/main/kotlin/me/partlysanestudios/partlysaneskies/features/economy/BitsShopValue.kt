@@ -32,7 +32,7 @@ import net.minecraftforge.client.event.GuiScreenEvent
 import java.awt.Color
 import java.io.IOException
 
-object BitsShopValue: SidePanel() {
+object BitsShopValue : SidePanel() {
     override val panelBaseComponent: UIComponent = UIBlock().applyBackground().constrain {
         x = 800.scaledPixels
         y = CenterConstraint()
@@ -106,7 +106,9 @@ object BitsShopValue: SidePanel() {
         var i = 1
         for ((key, value) in sortedMap) {
             val item = getItem(key) ?: continue
-            str += "§6$i. §d ${item.name}§7 costs §d${item.bitCost.formatNumber()}§7 bits and sells for §d${item.getSellPrice().round(1).formatNumber()}§7 coins \n§8 (${value.round(1).formatNumber()} coins per bit)\n"
+            str += "§6$i. §d ${item.name}§7 costs §d${item.bitCost.formatNumber()}§7 bits and sells for §d${
+                item.getSellPrice().round(1).formatNumber()
+            }§7 coins \n§8 (${value.round(1).formatNumber()} coins per bit)\n"
             i++
             if (i > 5) {
                 break
