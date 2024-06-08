@@ -12,14 +12,13 @@ import com.google.gson.annotations.Expose
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity.Companion.getRarityFromColorCode
-import me.partlysanestudios.partlysaneskies.features.debug.DebugKey
-import me.partlysanestudios.partlysaneskies.utils.ChatUtils
 import me.partlysanestudios.partlysaneskies.utils.MathUtils
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.containerInventory
-import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getAllPets
+import me.partlysanestudios.partlysaneskies.utils.StringUtils.nextAfter
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
+import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeResets
 import net.minecraft.client.gui.inventory.GuiChest
-import net.minecraft.entity.Entity
 import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import java.io.FileWriter
@@ -37,9 +36,13 @@ object PetData {
 
     val jsonPath = Path("./config/partly-sane-skies/petData.json")
 
+    val petNameRegex = "§.\\[Lvl (\\d+)] (§.)(\\w+(\\s\\w+)*)(?: ✦)?".toRegex()
+
+
     var lastSaveTime = -1L
     fun tick() {
         parsePetGuiForCache()
+        parsePetFromTablist()
         if (MathUtils.onCooldown(lastSaveTime, (60 * 1000L * .25).toLong())) {
             return
         }
@@ -94,27 +97,17 @@ object PetData {
     /**
      * @return the current pet level or -1 when a pet is not spawned or unknown
      */
-    fun getCurrentPetLevel(): Int {
-        parsePetFromWorld()
-        return petDataJson?.currentPetLevel ?: -1
-    }
+    fun getCurrentPetLevel() = petDataJson?.currentPetLevel ?: -1
 
     /**
      * @return the current pet name or an empty string when a pet is not spawned or unknown
      */
-    fun getCurrentPetName(): String {
-        parsePetFromWorld()
-        return petDataJson?.currentPetName ?: ""
-    }
+    fun getCurrentPetName() = petDataJson?.currentPetName ?: ""
 
     /**
      * @return the current pet rarity or [Rarity.UNKNOWN] when a pet is not spawned or unknown
      */
-    fun getCurrentPetRarity(): Rarity {
-        parsePetFromWorld()
-        return petDataJson?.currentPetRarity ?: Rarity.UNKNOWN
-    }
-
+    fun getCurrentPetRarity() = petDataJson?.currentPetRarity ?: Rarity.UNKNOWN
 
     @SubscribeEvent
     fun parseFromChat(event: ClientChatReceivedEvent) {
@@ -160,12 +153,10 @@ object PetData {
             }
         }
 
-        val autoPetRegex = """\[Lvl (\d+)] (§\w)(\w+(\s\w+)*)( ✦)""".toRegex()
-
-        if (autoPetRegex.find(event.message.formattedText) != null) {
-            val matchResult = autoPetRegex.find(event.message.formattedText)!!
+        if (petNameRegex.find(event.message.formattedText) != null) {
+            val matchResult = petNameRegex.find(event.message.formattedText)!!
             // Extract the pet level and name
-            val (_, petLevel, colorCode, petName, _, _) = matchResult.destructured
+            val (petLevel, colorCode, petName) = matchResult.destructured
 
 
             petDataJson?.currentPetLevel = petLevel.toInt()
@@ -176,38 +167,19 @@ object PetData {
         }
     }
 
-    private fun parsePetFromWorld() {
-        if (DebugKey.isDebugMode() && (PartlySaneSkies.config.debugPrintPetWorldParsingInformation)) {
-            ChatUtils.visPrint("getting users pet")
-        }
-        val usersPet = getUsersPet() ?: return
+    private fun parsePetFromTablist() {
+        val tablist = MinecraftUtils.getTabList()
 
-        if (DebugKey.isDebugMode() && PartlySaneSkies.config.debugPrintPetWorldParsingInformation) {
-            ChatUtils.visPrint("Creating pattern")
-        }
-        val pattern = """§8\[§7Lv(\d+)§8] (§\w)([\w']+)\s*('s)? (\w+)""".toRegex()
+        val pet = tablist.nextAfter("§e§lPet:")?.removeResets()?.trim() ?: return
 
-        if (DebugKey.isDebugMode() && PartlySaneSkies.config.debugPrintPetWorldParsingInformation) {
-            ChatUtils.visPrint("Finding pattern")
-            ChatUtils.visPrint("display name ${usersPet.displayName.formattedText}")
-        }
+        petNameRegex.find(pet)?.let {
+            val (petLevel, colorCode, petName) = it.destructured
 
-        val matchResult = pattern.find(usersPet.displayName.unformattedText) ?: return
-
-        if (DebugKey.isDebugMode() && PartlySaneSkies.config.debugPrintPetWorldParsingInformation) {
-            ChatUtils.visPrint("founD")
-        }
-        val (_, level, colorCode, _, petType) = matchResult.destructured
-        if (DebugKey.isDebugMode() && PartlySaneSkies.config.debugPrintPetWorldParsingInformation) {
-            ChatUtils.visPrint(petType)
-        }
-        petDataJson?.currentPetName = petType
-        petDataJson?.currentPetRarity = colorCode.getRarityFromColorCode()
-        if (level.toIntOrNull() != null) {
-            petDataJson?.currentPetLevel = level.toInt()
+            petDataJson?.currentPetName = petName
+            petDataJson?.currentPetLevel = petLevel.toInt()
+            petDataJson?.currentPetRarity = colorCode.getRarityFromColorCode()
         }
     }
-
 
     private fun parsePetGuiForCache() {
         if (!isPetGui()) {
@@ -219,11 +191,9 @@ object PetData {
         for (i in 0..<inventory.sizeInventory) {
             val item = inventory.getStackInSlot(i) ?: continue
 
-            val regex = "(§.)\\[Lvl (\\d+)] (§.)(\\w+(\\s\\w+)*)( ✦)?".toRegex()
+            val matchResult = petNameRegex.find(item.displayName ?: "") ?: continue
 
-            val matchResult = regex.find(item.displayName ?: "") ?: continue
-
-            val (_, petLevel, colorCode, petName, _) = matchResult.destructured
+            val (petLevel, colorCode, petName) = matchResult.destructured
 
             val petRarity = colorCode.getRarityFromColorCode()
             petDataJson?.petNameLevelMap?.get(petRarity)?.put(petName, petLevel.toIntOrNull() ?: continue) ?: continue
@@ -241,26 +211,6 @@ object PetData {
         val upper = currentScreen.containerInventory
         return upper.displayName.formattedText.removeColorCodes().contains("Pets")
     }
-
-    /**
-     * Using a list of all pets from getUsersPet(), check to see if it's owned by the player
-     * @return the current user's pet
-     */
-    private fun getUsersPet(): Entity? {
-        val name = PartlySaneSkies.minecraft.thePlayer?.name ?: ""
-        val petEntities = getAllPets()
-        // If the pet says Ex: "[Lv100] *Su386*'s Black Cat" return that entity
-
-        for (entity in petEntities) {
-            if (entity.name.removeColorCodes().lowercase(Locale.getDefault())
-                    .contains(name.lowercase(Locale.getDefault()))
-            ) {
-                return entity
-            }
-        }
-        return null
-    }
-
 
     /**
      * PetDataJson is a private class representing the data that is saved in the cache

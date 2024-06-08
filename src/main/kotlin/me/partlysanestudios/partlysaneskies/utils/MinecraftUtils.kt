@@ -9,6 +9,7 @@ package me.partlysanestudios.partlysaneskies.utils
 import com.google.common.collect.ComparisonChain
 import com.google.common.collect.Ordering
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
+import me.partlysanestudios.partlysaneskies.data.cache.PetData
 import me.partlysanestudios.partlysaneskies.mixin.minecraft.MixinGuiChest
 import me.partlysanestudios.partlysaneskies.mixin.minecraft.MixinGuiContainer
 import me.partlysanestudios.partlysaneskies.mixin.minecraft.MixinGuiPlayerTabOverlay
@@ -248,12 +249,11 @@ object MinecraftUtils {
     fun getAllPets(): List<Entity> {
         val petEntities: MutableList<Entity> = java.util.ArrayList()
         val armorStandEntities = getAllArmorStands()
-        val pattern = """§8\[§7Lv(\d+)§8] (§\w)([\w']+)\s*('s)? (\w+)""".toRegex()
 
         // For every armor stand in the game, check if it's pet by looking for the level tag in front of the name.
-        // Ex: "*[Lv*100] Su386's Black Cat"
+        // Ex: "[Lv100] Black Cat"
         for (entity in armorStandEntities) {
-            if (pattern.find(entity.name) != null) {
+            if (PetData.petNameRegex.find(entity.name) != null) {
                 petEntities.add(entity) // If so, add it to the list
             }
         }
