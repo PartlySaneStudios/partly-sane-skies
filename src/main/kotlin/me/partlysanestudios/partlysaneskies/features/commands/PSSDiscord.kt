@@ -20,15 +20,9 @@ object PSSDiscord {
             .setDescription("Join the Partly Sane Studios PSSDiscord Server")
             .setRunnable { _: ICommandSender?, _: Array<String> ->
                 // Creates a new message with the correct text
-                val message =
-                    ChatComponentText(PartlySaneSkies.CHAT_PREFIX + "§9Join the discord: https://discord.gg/$discordCode")
+                val message = ChatComponentText(PartlySaneSkies.CHAT_PREFIX + "§9Join the discord: https://discord.gg/$discordCode")
                 // Sets the text to be clickable with a link
-                message.chatStyle.setChatClickEvent(
-                    ClickEvent(
-                        ClickEvent.Action.OPEN_URL,
-                        "https://discord.gg/$discordCode"
-                    )
-                )
+                message.chatStyle.setChatClickEvent(ClickEvent(ClickEvent.Action.OPEN_URL, "https://discord.gg/$discordCode"))
                 // Prints message
                 minecraft.ingameGUI.chatGUI.printChatMessage(message)
             }.register()

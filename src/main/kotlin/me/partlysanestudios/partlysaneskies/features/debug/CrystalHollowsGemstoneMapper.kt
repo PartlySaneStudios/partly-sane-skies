@@ -49,9 +49,7 @@ object CrystalHollowsGemstoneMapper {
                     val minutesLeft = timeLeft / 1000 / 60
                     sendClientMessage(
                         "Checking block (${x.formatNumber()}, ${y.formatNumber()}, ${z.formatNumber()})\n${checkedBlocks.formatNumber()} / ${rangeSize.formatNumber()} " +
-                                "(${(checkedBlocks / rangeSize * 100).round(1)}%, ${
-                                    minutesLeft.round(2).formatNumber()
-                                } minutes left)..."
+                                "(${(checkedBlocks / rangeSize * 100).round(1)}%, ${minutesLeft.round(2).formatNumber()} minutes left)..."
                     )
                     val point = Point3d(x.toDouble(), y.toDouble(), z.toDouble())
 
@@ -68,12 +66,7 @@ object CrystalHollowsGemstoneMapper {
                     gemstoneCoords.add(point)
                     extractGemstone(point, gemstoneCoords)
 
-                    gemstones.add(
-                        Gemstone(
-                            gemstoneCoords,
-                            world.getBlockState(point.toBlockPosInt()).block.localizedName
-                        )
-                    )
+                    gemstones.add(Gemstone(gemstoneCoords, world.getBlockState(point.toBlockPosInt()).block.localizedName))
                 }
             }
         }

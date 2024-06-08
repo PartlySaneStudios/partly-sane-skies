@@ -76,16 +76,7 @@ object ThemeManager {
             for (data: ToggleData in toggleDataList) {
                 try {
                     val color = data.color
-                    data.image.applyTexture(
-                        ReleasedDynamicTexture(
-                            loadImage(
-                                getCurrentToggleFile(
-                                    data.isSelected,
-                                    color
-                                ).path
-                            )
-                        )
-                    )
+                    data.image.applyTexture(ReleasedDynamicTexture(loadImage(getCurrentToggleFile(data.isSelected, color).path)))
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
@@ -96,19 +87,11 @@ object ThemeManager {
 
     val currentBackgroundUIImage: UIImage
         get() {
-            val image: UIImage = if (config.disableThemes) {
-                ResourceLocation(
-                    "partlysaneskies",
-                    "textures/gui/base_color_background.png"
-                ).uiImageFromResourceLocation()
+            val image: UIImage = if (config.disableThemes) { ResourceLocation("partlysaneskies", "textures/gui/base_color_background.png").uiImageFromResourceLocation()
             } else {
                 try {
                     UIImage.ofFile(currentBackgroundFile)
-                } catch (e: IOException) {
-                    ResourceLocation(
-                        "partlysaneskies",
-                        "textures/gui/base_color_background.png"
-                    ).uiImageFromResourceLocation()
+                } catch (e: IOException) { ResourceLocation("partlysaneskies", "textures/gui/base_color_background.png").uiImageFromResourceLocation()
                 }
             }
             backgroundUIImages.add(image)
@@ -123,25 +106,14 @@ object ThemeManager {
             image = if ((accentColor == ThemeManager.accentColor)) {
                 ResourceLocation("partlysaneskies", "textures/gui/base_color_button.png").uiImageFromResourceLocation()
             } else {
-                ResourceLocation(
-                    "partlysaneskies",
-                    "textures/gui/base_color_button_transparent.png"
-                ).uiImageFromResourceLocation()
+                ResourceLocation("partlysaneskies", "textures/gui/base_color_button_transparent.png").uiImageFromResourceLocation()
             }
         } else {
             image = try {
                 UIImage.ofFile(getCurrentButtonFile(accentColor))
             } catch (e: IOException) {
-                if ((accentColor == ThemeManager.accentColor)) {
-                    ResourceLocation(
-                        "partlysaneskies",
-                        "textures/gui/base_color_button.png"
-                    ).uiImageFromResourceLocation()
-                } else {
-                    ResourceLocation(
-                        "partlysaneskies",
-                        "textures/gui/base_color_button_transparent.png"
-                    ).uiImageFromResourceLocation()
+                if ((accentColor == ThemeManager.accentColor)) { ResourceLocation("partlysaneskies", "textures/gui/base_color_button.png").uiImageFromResourceLocation()
+                } else { ResourceLocation("partlysaneskies", "textures/gui/base_color_button_transparent.png").uiImageFromResourceLocation()
                 }
             }
         }

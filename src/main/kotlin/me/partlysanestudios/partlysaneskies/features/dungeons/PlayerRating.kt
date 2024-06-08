@@ -217,9 +217,7 @@ object PlayerRating {
                         throw RuntimeException(e)
                     }
                     minecraft.addScheduledTask {
-                        minecraft.thePlayer.sendChatMessage(
-                            "/pc $str"
-                        )
+                        minecraft.thePlayer.sendChatMessage("/pc $str")
                     }
                 }
             }
