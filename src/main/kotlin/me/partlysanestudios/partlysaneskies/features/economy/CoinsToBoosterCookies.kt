@@ -100,9 +100,7 @@ object CoinsToBoosterCookieConversion {
                         ChatUtils.sendClientMessage(
                             "§7(For reference, Booster Cookies today are worth ${
                                 ceil(
-                                    SkyblockDataManager.getItem(
-                                        boosterCookieItemId
-                                    )?.getBuyPrice() ?: 0.0
+                                    SkyblockDataManager.getItem(boosterCookieItemId)?.getBuyPrice() ?: 0.0
                                 ).round(1).formatNumber()
                             } coins. Note that the developers of Partly Sane Skies do not support IRL trading; the /c2c command is intended for educational purposes.)",
                             true

@@ -196,7 +196,7 @@ class SkyblockPlayer(val username: String) {
     }
 
 
-    var catacombsExperiencePerLevel = intArrayOf(
+    private var catacombsExperiencePerLevel = intArrayOf(
         50,
         75,
         110,
