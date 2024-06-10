@@ -47,7 +47,14 @@ object RequiredSecretsFound {
         for (line in getTabList()) {
             if (line.contains("Secrets Found: §r§a")) {
                 if (config.secretsBanner) {
-                    renderNewBanner(PSSBanner("Required Secrets Found!", (config.secretsBannerTime * 1000).toLong(), 3.0f, config.secretsBannerColor.toJavaColor()))
+                    renderNewBanner(
+                        PSSBanner(
+                            "Required Secrets Found!",
+                            (config.secretsBannerTime * 1000).toLong(),
+                            3.0f,
+                            config.secretsBannerColor.toJavaColor()
+                        )
+                    )
                 }
                 if (config.secretsChatMessage) {
                     Minecraft.getMinecraft().thePlayer.sendChatMessage("/pc " + config.secretsChatMessageString)

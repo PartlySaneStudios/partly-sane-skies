@@ -15,11 +15,11 @@ object MathUtils {
         return Math.round(this.toDouble() * 10.0.pow(decimalPlaces)) / 10.0.pow(decimalPlaces)
     }
 
-    fun Number.floor(decimalPlaces: Int):Double {
+    fun Number.floor(decimalPlaces: Int): Double {
         return (this.toDouble() * 10.0.pow(decimalPlaces)).toInt() / 10.0.pow(decimalPlaces)
     }
 
-    fun Number.ceil(decimalPlaces: Int):Double {
+    fun Number.ceil(decimalPlaces: Int): Double {
         return (this.toDouble() * 10.0.pow(decimalPlaces)).toInt() / 10.0.pow(decimalPlaces)
     }
 
@@ -27,7 +27,7 @@ object MathUtils {
         return ThreadLocalRandom.current().nextInt(min, max + 1)
     }
 
-    fun <K : Any, V: Number> Map<K, V>.sortMap(reverseOrder: Boolean = false): Map<K, V> {
+    fun <K : Any, V : Number> Map<K, V>.sortMap(reverseOrder: Boolean = false): Map<K, V> {
         return if (reverseOrder) {
             this.entries.sortedByDescending { it.value.toDouble() }
         } else {
@@ -37,9 +37,9 @@ object MathUtils {
 
 
     /** Takes the last time the event happened in Unix epoch time in milliseconds,
-    * and takes the length that the event should last in millisecond
-    * Returns false if the event is over, returns true if it is still ongoing
-    */
+     * and takes the length that the event should last in millisecond
+     * Returns false if the event is over, returns true if it is still ongoing
+     */
     fun onCooldown(lastTime: Long, length: Long): Boolean {
         return PartlySaneSkies.time <= lastTime + length
     }

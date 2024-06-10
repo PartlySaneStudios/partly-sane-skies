@@ -42,13 +42,23 @@ object BlockHighlightRenderer {
         val z = pos.z.toDouble()
 
         worldRenderer.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION)
-        GlStateManager.color(outlineColor.red/255f, outlineColor.green/255f, outlineColor.blue/255f, outlineColor.alpha/255f)
+        GlStateManager.color(
+            outlineColor.red / 255f,
+            outlineColor.green / 255f,
+            outlineColor.blue / 255f,
+            outlineColor.alpha / 255f
+        )
         worldRenderer.drawBoxOutline(Point3d(x, y, z), Point3d(x + 1, y + 1, z + 1))
         tessellator.draw()
 
 
         worldRenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION)
-        GlStateManager.color(fillColor.red/255f, fillColor.green/255f, fillColor.blue/255f, fillColor.alpha/255f)
+        GlStateManager.color(
+            fillColor.red / 255f,
+            fillColor.green / 255f,
+            fillColor.blue / 255f,
+            fillColor.alpha / 255f
+        )
         worldRenderer.drawBoxFill(Point3d(x, y, z), Point3d(x + 1, y + 1, z + 1))
         tessellator.draw()
 

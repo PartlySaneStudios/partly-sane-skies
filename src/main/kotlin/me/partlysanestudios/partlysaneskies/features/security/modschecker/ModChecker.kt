@@ -15,6 +15,7 @@ import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager.getRe
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager.getRepoOwner
 import me.partlysanestudios.partlysaneskies.features.debug.DebugKey.isDebugMode
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
+import me.partlysanestudios.partlysaneskies.utils.SystemUtils
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.copyStringToClipboard
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.isValidURL
 import net.minecraft.command.ICommandSender
@@ -71,6 +72,11 @@ object ModChecker {
     }
 
     fun run() {
+        if (SystemUtils.isDevelopmentEnvironment()) {
+            sendClientMessage("§cYou are running in a development environment. Mod checking is disabled.")
+            return
+        }
+
         var modsFound = 0
         val chatMessage: IChatComponent = ChatComponentText("")
         val debugBuilder = StringBuilder()

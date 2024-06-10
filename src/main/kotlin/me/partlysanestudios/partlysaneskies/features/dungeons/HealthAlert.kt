@@ -18,7 +18,6 @@ import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import net.minecraft.client.audio.PositionedSoundRecord
 import net.minecraft.util.ResourceLocation
-import java.awt.Color
 
 
 object HealthAlert {
@@ -41,7 +40,7 @@ object HealthAlert {
             val indexOfFirstSpace = line.indexOf(" ").takeIf { it >= 0 } ?: return false
             val indexOfSecondSpace = line.indexOf(" ", indexOfFirstSpace + 1).takeIf { it >= 0 } ?: return false
             val health = line.substring(indexOfSecondSpace)
-            if (PartlySaneSkies.config.colouredHealerAlert == 1) {
+            if (config.colouredHealerAlert == 1) {
                 return health.contains("§e") || health.indexOf("§c") != health.lastIndexOf("§c")
             }
             return health.indexOf("§c") != health.lastIndexOf("§c")

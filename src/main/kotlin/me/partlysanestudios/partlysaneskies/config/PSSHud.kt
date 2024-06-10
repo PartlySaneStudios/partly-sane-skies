@@ -32,6 +32,7 @@ abstract class PSSHud(
      * Whether the current rendering cycle is an example (when the user is configuring the main menu)
      */
     protected var example = false
+
     /**
      * If you want to have other options in the Hud, override this to return a custom OneConfig Hud
      *
@@ -63,7 +64,6 @@ abstract class PSSHud(
             }
         }
     }
-
 
 
     /**

@@ -27,27 +27,25 @@ import java.awt.*;
 import java.util.*;
 
 public class ProfitMinionCalculator extends WindowScreen {
+    static final String[] categories = {"ALL", "FORAGING", "MINING", "FISHING", "FARMING", "COMBAT"};
+    static final HashMap<String, String> categoriesColorMap = new HashMap<String, String>();
+    public int upgradeSlotsUnavailable = 0;
     MinionData.MinionFuel selectedFuel = null;
     MinionData.Minion.Upgrade[] upgrades = {};
     double hours = 24;
     String selectedCategory;
-
     UIComponent backgroundBox;
-
     ScrollComponent mainTextScrollComponent;
     UIComponent backgroundImage;
     UIComponent leftBar;
     UIComponent rightBar;
     UIComponent categoriesBar;
     UIComponent bestMinionBar;
-
     HashMap<String, PSSToggle> fuelToggles;
     ArrayList<UIComponent> minionTexts;
     HashMap<MinionData.Minion.Upgrade, PSSToggle> upgradeToggleMap;
-    public int upgradeSlotsUnavailable = 0;
-
-    static final String[] categories = {"ALL", "FORAGING", "MINING", "FISHING", "FARMING", "COMBAT"};
-    static final HashMap<String, String> categoriesColorMap = new HashMap<String, String>();
+    //    Upgrades that don't actually modify anything
+    String[] uselessUpgrades = {"Auto-Smelter", "Compactor", "Super Compactor", "Dwarven Super Compactor"};
 
     public ProfitMinionCalculator(ElementaVersion version) {
         super(version);
@@ -63,6 +61,23 @@ public class ProfitMinionCalculator extends WindowScreen {
         this.upgradeToggleMap = addMinionUpgradeButtons();
         addCategories();
         addBestMinionCalculator();
+    }
+
+    public static void registerCommand() {
+        new PSSCommand("minioncalculator")
+                .addAlias("minioncalc")
+                .addAlias("bestminion")
+                .addAlias("mc")
+                .setDescription("Opens the best minion calculator")
+                .setRunnable((s, a) -> {
+                    ChatUtils.INSTANCE.sendClientMessage("§bOpening Minion Calculator...");
+                    new Thread(() -> PartlySaneSkies.Companion.getMinecraft().addScheduledTask(() -> {
+                        // Code to test the minion classes
+                        ProfitMinionCalculator calc = new ProfitMinionCalculator(ElementaVersion.V2);
+                        PartlySaneSkies.Companion.getMinecraft().displayGuiScreen(calc);
+                    })).start();
+                })
+                .register();
     }
 
     public void setUpBackground() {
@@ -90,7 +105,7 @@ public class ProfitMinionCalculator extends WindowScreen {
                 .setChildOf(backgroundImage);
 
         this.leftBar = new UIBlock()
-                .setX(new PixelConstraint(backgroundImage.getWidth() * (1/5f)))
+                .setX(new PixelConstraint(backgroundImage.getWidth() * (1 / 5f)))
                 .setY(new CenterConstraint())
                 .setHeight(new PixelConstraint(backgroundImage.getHeight() * .85f))
                 .setWidth(fromWidthScaleFactor(2f))
@@ -98,7 +113,7 @@ public class ProfitMinionCalculator extends WindowScreen {
                 .setChildOf(backgroundImage);
 
         this.rightBar = new UIBlock()
-                .setX(new PixelConstraint(backgroundImage.getWidth() * (4/5f)))
+                .setX(new PixelConstraint(backgroundImage.getWidth() * (4 / 5f)))
                 .setY(new CenterConstraint())
                 .setHeight(new PixelConstraint(backgroundImage.getHeight() * .85f))
                 .setWidth(fromWidthScaleFactor(2f))
@@ -109,7 +124,7 @@ public class ProfitMinionCalculator extends WindowScreen {
         float categoriesBarPad = fromWidthScaleFactor(5).getValue();
         this.categoriesBar = ThemeManager.INSTANCE.getCurrentBackgroundUIImage()
                 .setX(new CenterConstraint())
-                .setY(new PixelConstraint(backgroundBox.getTop() -(categoriesBarHeight + categoriesBarPad)))
+                .setY(new PixelConstraint(backgroundBox.getTop() - (categoriesBarHeight + categoriesBarPad)))
                 .setWidth(new PixelConstraint(backgroundBox.getWidth()))
                 .setHeight(new PixelConstraint(categoriesBarHeight))
                 .setChildOf(getWindow());
@@ -117,12 +132,12 @@ public class ProfitMinionCalculator extends WindowScreen {
         this.bestMinionBar = ThemeManager.INSTANCE.getCurrentBackgroundUIImage()
                 .setX(new CenterConstraint())
                 .setY(new PixelConstraint(backgroundBox.getBottom() + categoriesBarPad))
-                .setWidth(new PixelConstraint(backgroundBox.getWidth()/3f))
+                .setWidth(new PixelConstraint(backgroundBox.getWidth() / 3f))
                 .setHeight(new PixelConstraint(categoriesBarHeight))
                 .setChildOf(getWindow());
     }
 
-//    Adds the most profitable minion's text to the middle section. Also returns a list with the objects in order
+    //    Adds the most profitable minion's text to the middle section. Also returns a list with the objects in order
     public ArrayList<UIComponent> addMinionBreakdownText(String category) {
         selectedCategory = category;
         ArrayList<UIComponent> components = new ArrayList<>();
@@ -142,7 +157,7 @@ public class ProfitMinionCalculator extends WindowScreen {
                 continue;
             }
 //            Creates a string with the Minion name, and it's cost breakdown
-            String str = "§7"+ i + ". " +  en.getKey().costBreakdown(en.getKey().maxTier, this.hours, this.upgrades, this.selectedFuel);
+            String str = "§7" + i + ". " + en.getKey().costBreakdown(en.getKey().maxTier, this.hours, this.upgrades, this.selectedFuel);
 
 //            Creates a WrappedText object with said string
             UIComponent text = new UIWrappedText(str)
@@ -231,7 +246,7 @@ public class ProfitMinionCalculator extends WindowScreen {
         return components;
     }
 
-public HashMap<MinionData.Minion.Upgrade, PSSToggle> addMinionUpgradeButtons() {
+    public HashMap<MinionData.Minion.Upgrade, PSSToggle> addMinionUpgradeButtons() {
         HashMap<MinionData.Minion.Upgrade, PSSToggle> components = new HashMap<>();
 
         float yPos = fromWidthScaleFactor(5).getValue();
@@ -288,7 +303,6 @@ public HashMap<MinionData.Minion.Upgrade, PSSToggle> addMinionUpgradeButtons() {
         return components;
     }
 
-
     public void addCategories() {
         float pad = fromWidthScaleFactor(10).getValue();
         float blockWidth = (categoriesBar.getWidth() - (categories.length + 1) * pad) / categories.length;
@@ -309,29 +323,10 @@ public HashMap<MinionData.Minion.Upgrade, PSSToggle> addMinionUpgradeButtons() {
                 this.minionTexts = updateMinionData();
             });
 
-            xPos += blockWidth + pad ;
+            xPos += blockWidth + pad;
         }
     }
 
-    public static void registerCommand() {
-        new PSSCommand("minioncalculator")
-                .addAlias("minioncalc")
-                .addAlias("bestminion")
-                .addAlias("mc")
-                .setDescription("Opens the best minion calculator")
-                .setRunnable((s,a) -> {
-                    ChatUtils.INSTANCE.sendClientMessage("§bOpening Minion Calculator...");
-                    new Thread(() -> PartlySaneSkies.Companion.getMinecraft().addScheduledTask(() -> {
-                        // Code to test the minion classes
-                        ProfitMinionCalculator calc = new ProfitMinionCalculator(ElementaVersion.V2);
-                        PartlySaneSkies.Companion.getMinecraft().displayGuiScreen(calc);
-                    })).start();
-                })
-                .register();
-    }
-
-//    Upgrades that don't actually modify anything
-    String[] uselessUpgrades = {"Auto-Smelter", "Compactor", "Super Compactor", "Dwarven Super Compactor"};
     public void addBestMinionCalculator() {
         float heightPos = 0;
         float yPad = fromWidthScaleFactor(6).getValue();
@@ -350,8 +345,7 @@ public HashMap<MinionData.Minion.Upgrade, PSSToggle> addMinionUpgradeButtons() {
 
                 if (toggle.getState()) {
                     upgradeSlotsUnavailable++;
-                }
-                else {
+                } else {
                     upgradeSlotsUnavailable--;
                 }
             });
@@ -382,7 +376,7 @@ public HashMap<MinionData.Minion.Upgrade, PSSToggle> addMinionUpgradeButtons() {
         });
     }
 
-//    Sets the upgrades array to the current selected upgrade at index 0, and the
+    //    Sets the upgrades array to the current selected upgrade at index 0, and the
 //    second most recently selected upgrade at index 1
     public void changeUpgrade(MinionData.Minion.Upgrade selectedUpgrade, boolean state) {
         PSSToggle toggle = upgradeToggleMap.get(selectedUpgrade);
@@ -396,7 +390,7 @@ public HashMap<MinionData.Minion.Upgrade, PSSToggle> addMinionUpgradeButtons() {
 
         resetUpgradeToggles();
 
-        ArrayList< MinionData.Minion.Upgrade> temp = new ArrayList<>();
+        ArrayList<MinionData.Minion.Upgrade> temp = new ArrayList<>();
 //        If the selected upgrade is not equal to null, add it
         if (selectedUpgrade != null) {
             temp.add(selectedUpgrade);
@@ -459,7 +453,7 @@ public HashMap<MinionData.Minion.Upgrade, PSSToggle> addMinionUpgradeButtons() {
     }
 
     public void resetUpgrades() {
-        upgrades = new MinionData.Minion.Upgrade[] {};
+        upgrades = new MinionData.Minion.Upgrade[]{};
         resetUpgradeToggles();
     }
 
@@ -474,7 +468,7 @@ public HashMap<MinionData.Minion.Upgrade, PSSToggle> addMinionUpgradeButtons() {
     }
 
     private PixelConstraint fromWidthScaleFactor(float pos) {
-        return new PixelConstraint( (float) (pos * (this.getWindow().getWidth() / 1000d)));
+        return new PixelConstraint((float) (pos * (this.getWindow().getWidth() / 1000d)));
     }
 
     public void getBestMinionSettings() {
@@ -507,14 +501,14 @@ public HashMap<MinionData.Minion.Upgrade, PSSToggle> addMinionUpgradeButtons() {
                     MinionData.Minion.Upgrade[] testUpgrades = null;
                     switch (availableSlots) {
                         case 0:
-                            testUpgrades = new MinionData.Minion.Upgrade[] {};
+                            testUpgrades = new MinionData.Minion.Upgrade[]{};
                             break;
                         case 1:
-                            testUpgrades = new MinionData.Minion.Upgrade[] {upgrade1};
+                            testUpgrades = new MinionData.Minion.Upgrade[]{upgrade1};
                             break;
 
                         case 2:
-                            testUpgrades = new MinionData.Minion.Upgrade[] {upgrade1, upgrade2};
+                            testUpgrades = new MinionData.Minion.Upgrade[]{upgrade1, upgrade2};
                             break;
                     }
 

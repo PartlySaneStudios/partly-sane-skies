@@ -38,12 +38,11 @@ import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.command.ICommandSender
 import net.minecraft.event.ClickEvent
 import net.minecraft.util.ChatComponentText
-import net.minecraft.util.IChatComponent
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.client.event.GuiScreenEvent
 import java.awt.Color
 
-object PetAlert: SidePanel() {
+object PetAlert : SidePanel() {
 
     override val panelBaseComponent: UIComponent = UIBlock().applyBackground().constrain {
         x = 800.scaledPixels
@@ -126,14 +125,25 @@ object PetAlert: SidePanel() {
             minecraft.soundHandler.playSound(PositionedSoundRecord.create(ResourceLocation("partlysaneskies", "bell")))
 
             if (config.incorrectPetForMinionAlertSiren) {
-                minecraft.soundHandler.playSound(PositionedSoundRecord.create(ResourceLocation("partlysaneskies", "airraidsiren")))
+                minecraft.soundHandler.playSound(
+                    PositionedSoundRecord.create(
+                        ResourceLocation(
+                            "partlysaneskies",
+                            "airraidsiren"
+                        )
+                    )
+                )
             }
 
             lastSoundTime = time
         }
 
         if (!onCooldown(lastMessageSendTime, 3000)) {
-            val message: IChatComponent = ChatComponentText("${PartlySaneSkies.CHAT_PREFIX}§cYOU CURRENTLY HAVE $petName§c SELECTED AS YOUR PET. YOU WANTED TO UPGRADE $selectedPetName.\n§dClick this message or run /mutepetalert to mute the alert for ${config.petAlertMuteTime} ${"minutes".pluralize(config.petAlertMuteTime)}.")
+            val message = ChatComponentText(
+                "${PartlySaneSkies.CHAT_PREFIX}§cYOU CURRENTLY HAVE $petName§c SELECTED AS YOUR PET. YOU WANTED TO UPGRADE $selectedPetName.\n§dClick this message or run /mutepetalert to mute the alert for ${config.petAlertMuteTime} ${
+                    "minutes".pluralize(config.petAlertMuteTime)
+                }."
+            )
             message.chatStyle.setChatClickEvent(ClickEvent(ClickEvent.Action.RUN_COMMAND, "/mutepetalert"))
             minecraft.ingameGUI.chatGUI.printChatMessage(message)
             lastMessageSendTime = time
@@ -214,7 +224,8 @@ object PetAlert: SidePanel() {
 
     private fun parsePetNameFromItem(name: String): String {
         val fixedName = name.removeColorCodes()
-        val petNameStartIndex = fixedName.indexOf("] ") + 2 // Finds the start of the pet name. Ex: "[Lv100] Su386's *Black Cat"
+        val petNameStartIndex =
+            fixedName.indexOf("] ") + 2 // Finds the start of the pet name. Ex: "[Lv100] Su386's *Black Cat"
         return fixedName.substring(petNameStartIndex)
     }
 }

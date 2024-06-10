@@ -14,23 +14,31 @@ import gg.essential.elementa.constraints.CenterConstraint
 import gg.essential.elementa.constraints.PixelConstraint
 import gg.essential.elementa.constraints.XConstraint
 import gg.essential.elementa.constraints.YConstraint
-import gg.essential.elementa.dsl.*
+import gg.essential.elementa.dsl.childOf
+import gg.essential.elementa.dsl.constrain
+import gg.essential.elementa.dsl.constraint
+import gg.essential.elementa.dsl.pixels
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
 import me.partlysanestudios.partlysaneskies.render.gui.components.PSSButton
 import me.partlysanestudios.partlysaneskies.render.gui.components.PSSItemRender
-import me.partlysanestudios.partlysaneskies.utils.HypixelUtils
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils.getItemId
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getLore
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
-
 import net.minecraft.item.ItemStack
 import java.awt.Color
 import java.util.*
 
-class AuctionElement(private val slot: Int, val itemstack: ItemStack?, var xConstraint: XConstraint, var yConstraint: YConstraint, var heightConstraint: PixelConstraint, val textScale: Float) {
+class AuctionElement(
+    private val slot: Int,
+    val itemstack: ItemStack?,
+    var xConstraint: XConstraint,
+    var yConstraint: YConstraint,
+    var heightConstraint: PixelConstraint,
+    val textScale: Float
+) {
 
     val skyblockItem = SkyblockDataManager.getItem(itemstack?.getItemId() ?: "")
 
@@ -109,7 +117,8 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack?, var xCons
             informationBar.clearInfo()
         }
     }
-    fun loadItemInformationBar(informationBar: ItemInformationBar){
+
+    fun loadItemInformationBar(informationBar: ItemInformationBar) {
         val auction = this
         boundingBox.onMouseEnter {
             informationBar.loadAuction(auction)
@@ -130,7 +139,7 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack?, var xCons
         }
         val loreList: List<String> = itemstack.getLore()
         for (line in loreList) {
-            
+
             if (line.removeColorCodes().contains("Buy it now: ")) {
                 return true
             }
@@ -172,7 +181,7 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack?, var xCons
 
     private fun isCheapBin(): Boolean {
         val sellingPrice = getPrice()
-        if (SkyblockDataManager.getItem(skyblockItem?.id  ?: "") == null) {
+        if (SkyblockDataManager.getItem(skyblockItem?.id ?: "") == null) {
             return false
         }
         if (SkyblockDataManager.getItem(skyblockItem?.id ?: "")?.hasSellPrice() != true) {
@@ -313,7 +322,7 @@ class AuctionElement(private val slot: Int, val itemstack: ItemStack?, var xCons
         }
 
         this.heightConstraint = heightConstraint
-        val boxHeight = heightConstraint.value * 2/3.0f
+        val boxHeight = heightConstraint.value * 2 / 3.0f
         val boxY = 0
         box.setWidth(boxHeight).setHeight(boxHeight)
         box.setY(boxY.pixels)

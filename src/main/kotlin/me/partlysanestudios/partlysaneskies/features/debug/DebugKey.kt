@@ -154,6 +154,7 @@ object DebugKey {
     }
 
     private var waypointPoint = Point3d(0.0, 0.0, 0.0)
+
     @SubscribePSSEvent
     fun onWaypointRender(event: RenderWaypointEvent) {
         if (isDebugMode() && config.debugSpawnWaypoint) {
@@ -162,6 +163,7 @@ object DebugKey {
     }
 
     private var cylinderPoint = Point3d(0.0, 0.0, 0.0)
+
     @SubscribeEvent
     fun onWorldRenderLast(event: RenderWorldLastEvent) {
 
@@ -188,7 +190,12 @@ object DebugKey {
         val worldRenderer = tessellator.worldRenderer
 
         worldRenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION)
-        GlStateManager.color(ThemeManager.accentColor.toJavaColor().red/255f, ThemeManager.accentColor.toJavaColor().green/255f, ThemeManager.accentColor.toJavaColor().blue/255f, (ThemeManager.accentColor.toJavaColor().alpha/255f) * .667f)
+        GlStateManager.color(
+            ThemeManager.accentColor.toJavaColor().red / 255f,
+            ThemeManager.accentColor.toJavaColor().green / 255f,
+            ThemeManager.accentColor.toJavaColor().blue / 255f,
+            (ThemeManager.accentColor.toJavaColor().alpha / 255f) * .667f
+        )
         worldRenderer.drawCylinderFill(cylinderPoint, 8.0, 20.0)
         tessellator.draw()
 

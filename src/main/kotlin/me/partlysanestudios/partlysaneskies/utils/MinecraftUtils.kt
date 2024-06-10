@@ -40,7 +40,7 @@ object MinecraftUtils {
      * Changes made:
      * - Small rewrites
      * - Translated to kotlin
-    */
+     */
     private val playerOrdering = Ordering.from { overlay1: NetworkPlayerInfo?, overlay2: NetworkPlayerInfo? ->
         comparePlayers(
             overlay1!!, overlay2!!
@@ -132,34 +132,39 @@ object MinecraftUtils {
     /**
      * @return The inventory of the player at the bottom of the gui. ([GuiChest.upperChestInventory] field)
      */
-    val GuiChest.playerInventory: IInventory get() {
-        return (this as MixinGuiChest).`partlysaneskies$getUpperChestInventory`()
-    }
+    val GuiChest.playerInventory: IInventory
+        get() {
+            return (this as MixinGuiChest).`partlysaneskies$getUpperChestInventory`()
+        }
 
     /**
      * @return The inventory of any container at the top of the gui. ([GuiChest.lowerChestInventory] field)
      */
-    val GuiChest.containerInventory: IInventory get() {
-        return (this as MixinGuiChest).`partlysaneskies$getLowerChestInventory`()
-    }
+    val GuiChest.containerInventory: IInventory
+        get() {
+            return (this as MixinGuiChest).`partlysaneskies$getLowerChestInventory`()
+        }
 
     /**
      * @return the [GuiChest.xSize] field that is protected in the GuiContainer class
      */
-    val GuiContainer.xSize: Int get() {
-        return (this as MixinGuiContainer).`partlysaneskies$getXSize`()
-    }
+    val GuiContainer.xSize: Int
+        get() {
+            return (this as MixinGuiContainer).`partlysaneskies$getXSize`()
+        }
 
     /**
      * @return the [GuiChest.ySize] field that is protected in the GuiContainer class
      */
-    val GuiContainer.ySize: Int get() {
-        return (this as MixinGuiContainer).`partlysaneskies$getYSize`()
-    }
+    val GuiContainer.ySize: Int
+        get() {
+            return (this as MixinGuiContainer).`partlysaneskies$getYSize`()
+        }
 
-    val GuiPlayerTabOverlay.footer: IChatComponent get() {
-        return (this as MixinGuiPlayerTabOverlay).`partlySaneSkies$getFooter`()
-    }
+    val GuiPlayerTabOverlay.footer: IChatComponent
+        get() {
+            return (this as MixinGuiPlayerTabOverlay).`partlySaneSkies$getFooter`()
+        }
 
     fun ItemStack.getLore(): java.util.ArrayList<String> {
         if (!this.hasTagCompound() || !this.tagCompound.hasKey("display") || !this.tagCompound.getCompoundTag(

@@ -81,7 +81,8 @@ object SkyblockDataManager {
 
                     }
 
-                }, inMainThread = false, executeOnNextFrame = false, acceptAllCertificates = false)
+                }, inMainThread = false, executeOnNextFrame = false, acceptAllCertificates = false
+            )
         )
     }
 
@@ -125,10 +126,12 @@ object SkyblockDataManager {
 
     //    --------------------------- Skills ---------------------------
     private var idToSkillMap = HashMap<String, SkyblockSkill>()
+
     @Throws(MalformedURLException::class)
     fun initSkills() {
         newRequest(
-            Request("https://api.hypixel.net/resources/skyblock/skills",
+            Request(
+                "https://api.hypixel.net/resources/skyblock/skills",
                 RequestRunnable { s: Request ->
                     val itemDataString = s.getResponse()
                     if (!s.hasSucceeded()) {

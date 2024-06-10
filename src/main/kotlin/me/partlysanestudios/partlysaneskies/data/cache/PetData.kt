@@ -109,7 +109,6 @@ object PetData {
      */
     fun getCurrentPetRarity() = petDataJson?.currentPetRarity ?: Rarity.UNKNOWN
 
-
     @SubscribeEvent
     fun parseFromChat(event: ClientChatReceivedEvent) {
 //        Parse despawn message

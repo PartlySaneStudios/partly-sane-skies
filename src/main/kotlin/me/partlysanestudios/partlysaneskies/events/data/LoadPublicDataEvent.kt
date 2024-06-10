@@ -9,10 +9,10 @@ import me.partlysanestudios.partlysaneskies.events.EventManager
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils
 import org.apache.logging.log4j.Level
 
-class LoadPublicDataEvent() {
+class LoadPublicDataEvent {
     companion object {
         private fun callEvent(functions: List<EventManager.EventFunction>) {
-            Thread() {
+            Thread {
                 for (function in functions) {
                     try {
                         SystemUtils.log(Level.INFO, "Loading ${function.obj.javaClass.name} ${function.function.name}")

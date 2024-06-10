@@ -19,10 +19,10 @@ import java.util.HashMap;
 import java.util.List;
 
 public class PartyManager {
+    private static final List<PartyMember> partyList = new ArrayList<>();
+    public static HashMap<String, PartyMember> playerCache = new HashMap<>();
     private static boolean isWaitingForMembers = false;
     private static boolean isMembersListed = false;
-    public static HashMap<String, PartyMember> playerCache = new HashMap<>();
-    private static final List<PartyMember> partyList = new ArrayList<>();
 
     public PartyManager() {
 
@@ -68,114 +68,6 @@ public class PartyManager {
                 .register();
     }
 
-    @SubscribeEvent
-    public void onMemberJoin(ClientChatReceivedEvent event) {
-        if (!PartlySaneSkies.Companion.getConfig().getGetDataOnJoin()) {
-            return;
-        }
-
-        String unformattedMessage = event.message.getUnformattedText();
-        // If the message is not a join dungeon message
-        if (!(unformattedMessage.startsWith("Party Finder >") || unformattedMessage.contains("joined the dungeon group!"))) {
-            return;
-        }
-
-        String memberName = unformattedMessage;
-        memberName = memberName.replace("Party Finder > ", "");
-        int indexOfText = memberName.indexOf("joined the dungeon group!");
-        memberName = memberName.substring(0, indexOfText);
-        memberName = StringUtils.INSTANCE.stripLeading(memberName);
-        memberName = StringUtils.INSTANCE.stripTrailing(memberName);
-
-        try {
-            loadPlayerData(memberName, PartlySaneSkies.Companion.getConfig().getWarnLowArrowsOnPlayerJoin());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    // Upon chat message receives, it will check to see if it is the party list
-    @SubscribeEvent
-    public void getMembers(ClientChatReceivedEvent event) {
-        // If it's not waiting for party members, it returns
-        if (!isWaitingForMembers) {
-            return;
-        }
-
-        // If the message says "leader"
-        if (event.message.getUnformattedText().startsWith("Party Leader: ")) {
-            // Hides the message
-            event.setCanceled(true);
-            
-            // Gets the message contents
-            String text = event.message.getUnformattedText();
-            // Removes the header
-            text = text.replace("Party Leader: ", "");
-            // Processes the list
-            processList(text, PartyMember.PartyRank.MEMBER);
-        }
-
-        // If the message says "Party Moderators: "
-        else if (event.message.getUnformattedText().startsWith("Party Moderators: ")) {
-            // Hides the message
-            event.setCanceled(true);
-            String text = event.message.getUnformattedText();
-            
-            // Removes the header
-            text = text.replace("Party Moderators: ", "");
-            processList(text, PartyMember.PartyRank.MODERATOR);
-        }
-
-        // If the message says "Party Members: "
-        else if (event.message.getUnformattedText().startsWith("Party Members: ")) {
-            // Hides the message
-            event.setCanceled(true);
-            
-            // Gets the message contents
-            String text = event.message.getUnformattedText();
-            // Removes the header
-            text = text.replace("Party Members: ", "");
-            // Processes the list
-            processList(text, PartyMember.PartyRank.MEMBER);
-        }
-
-        // Hides the beginning of the "Party Members" list
-        else if (event.message.getUnformattedText().startsWith("Party Members (")) {
-            event.setCanceled(true);
-        }
-
-        // Detects the closing line -----
-        // when all the members have been listed and the bar appears, its end of the message
-        else if (isMembersListed && event.message.getUnformattedText().startsWith("-----------------------------------------------------")) {
-            // Hides the message
-            event.setCanceled(true);
-            // Resets
-            isMembersListed = false;
-            isWaitingForMembers = false;
-            // Opens the message
-            openGui();
-        }
-
-        // Hides the ---------------------
-        else if (event.message.getUnformattedText().startsWith("-----------------------------------------------------")) {
-            event.setCanceled(true);
-        }
-
-        // If the player is not in the party
-        else if (event.message.getUnformattedText().startsWith("You are not currently in a party.")) {
-            // Hides message
-            event.setCanceled(true);
-            // Sends an error message
-            ChatUtils.INSTANCE.sendClientMessage(("§9§m-----------------------------------------------------\n "+
-                    "§r§cError: Could not run Party Manager." +
-                    "\n§r§cYou are not currently in a party."
-            ));
-            // Resets
-            isMembersListed = false;
-            isWaitingForMembers = false;
-        }
-    }
-
     private static void processList(String str, PartyMember.PartyRank rank) {
         // Members have started being listed
         isMembersListed = true;
@@ -202,7 +94,7 @@ public class PartyManager {
         // Populates the GUI with the party list
         gui.populateGui(partyList);
     }
-     
+
     // Kicks all offline players
     public static void kickOffline() {
         ChatUtils.INSTANCE.sendClientMessage("Kicking all offline members...");
@@ -228,7 +120,7 @@ public class PartyManager {
     public static void loadPlayerData(String username, Boolean warnArrows) throws IOException {
         // Creates a new player
         PartyMember player = new PartyMember(username, PartyMember.PartyRank.LEADER);
-        new Thread (() -> {
+        new Thread(() -> {
             try {
                 player.populateData();
 
@@ -271,6 +163,114 @@ public class PartyManager {
 
             // Adds 500 ms for the next message
             timeDelay += 500L;
+        }
+    }
+
+    @SubscribeEvent
+    public void onMemberJoin(ClientChatReceivedEvent event) {
+        if (!PartlySaneSkies.Companion.getConfig().getGetDataOnJoin()) {
+            return;
+        }
+
+        String unformattedMessage = event.message.getUnformattedText();
+        // If the message is not a join dungeon message
+        if (!(unformattedMessage.startsWith("Party Finder >") || unformattedMessage.contains("joined the dungeon group!"))) {
+            return;
+        }
+
+        String memberName = unformattedMessage;
+        memberName = memberName.replace("Party Finder > ", "");
+        int indexOfText = memberName.indexOf("joined the dungeon group!");
+        memberName = memberName.substring(0, indexOfText);
+        memberName = StringUtils.INSTANCE.stripLeading(memberName);
+        memberName = StringUtils.INSTANCE.stripTrailing(memberName);
+
+        try {
+            loadPlayerData(memberName, PartlySaneSkies.Companion.getConfig().getWarnLowArrowsOnPlayerJoin());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Upon chat message receives, it will check to see if it is the party list
+    @SubscribeEvent
+    public void getMembers(ClientChatReceivedEvent event) {
+        // If it's not waiting for party members, it returns
+        if (!isWaitingForMembers) {
+            return;
+        }
+
+        // If the message says "leader"
+        if (event.message.getUnformattedText().startsWith("Party Leader: ")) {
+            // Hides the message
+            event.setCanceled(true);
+
+            // Gets the message contents
+            String text = event.message.getUnformattedText();
+            // Removes the header
+            text = text.replace("Party Leader: ", "");
+            // Processes the list
+            processList(text, PartyMember.PartyRank.MEMBER);
+        }
+
+        // If the message says "Party Moderators: "
+        else if (event.message.getUnformattedText().startsWith("Party Moderators: ")) {
+            // Hides the message
+            event.setCanceled(true);
+            String text = event.message.getUnformattedText();
+
+            // Removes the header
+            text = text.replace("Party Moderators: ", "");
+            processList(text, PartyMember.PartyRank.MODERATOR);
+        }
+
+        // If the message says "Party Members: "
+        else if (event.message.getUnformattedText().startsWith("Party Members: ")) {
+            // Hides the message
+            event.setCanceled(true);
+
+            // Gets the message contents
+            String text = event.message.getUnformattedText();
+            // Removes the header
+            text = text.replace("Party Members: ", "");
+            // Processes the list
+            processList(text, PartyMember.PartyRank.MEMBER);
+        }
+
+        // Hides the beginning of the "Party Members" list
+        else if (event.message.getUnformattedText().startsWith("Party Members (")) {
+            event.setCanceled(true);
+        }
+
+        // Detects the closing line -----
+        // when all the members have been listed and the bar appears, its end of the message
+        else if (isMembersListed && event.message.getUnformattedText().startsWith("-----------------------------------------------------")) {
+            // Hides the message
+            event.setCanceled(true);
+            // Resets
+            isMembersListed = false;
+            isWaitingForMembers = false;
+            // Opens the message
+            openGui();
+        }
+
+        // Hides the ---------------------
+        else if (event.message.getUnformattedText().startsWith("-----------------------------------------------------")) {
+            event.setCanceled(true);
+        }
+
+        // If the player is not in the party
+        else if (event.message.getUnformattedText().startsWith("You are not currently in a party.")) {
+            // Hides message
+            event.setCanceled(true);
+            // Sends an error message
+            ChatUtils.INSTANCE.sendClientMessage(("§9§m-----------------------------------------------------\n " +
+                    "§r§cError: Could not run Party Manager." +
+                    "\n§r§cYou are not currently in a party."
+            ));
+            // Resets
+            isMembersListed = false;
+            isWaitingForMembers = false;
         }
     }
 }
