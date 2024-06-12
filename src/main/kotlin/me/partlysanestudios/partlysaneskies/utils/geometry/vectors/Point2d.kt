@@ -20,7 +20,7 @@ open class Point2d(val x: Double, val y: Double) {
     fun distanceTo(point2: Point2d): Double {
         return sqrt(
             (point2.getPointX() - this.getPointX()).pow(2.0) +
-            (point2.getPointY() - this.getPointY()).pow(2.0)
+                    (point2.getPointY() - this.getPointY()).pow(2.0)
         )
     }
 
@@ -29,13 +29,12 @@ open class Point2d(val x: Double, val y: Double) {
     }
 
 
-
     operator fun plus(point: Point2d): Point2d {
-        return Point2d(point.x + this.x,  point.y + this.y)
+        return Point2d(point.x + this.x, point.y + this.y)
     }
 
     operator fun minus(point: Point2d): Point2d {
-        return Point2d(point.x - this.x,  point.y - this.y)
+        return Point2d(point.x - this.x, point.y - this.y)
     }
 
     override fun equals(other: Any?): Boolean {

@@ -63,7 +63,7 @@ object OneConfigScreen : Config(
             apiUrl = "http://partlysanecloud.su386.dev"
             save()
         }
-        if(prettyMimicKilledString.isEmpty()) {
+        if (prettyMimicKilledString.isEmpty()) {
             prettyMimicKilledString = "Mimic Killed!"
             save()
         }
@@ -86,7 +86,6 @@ object OneConfigScreen : Config(
      * // ------------- Category: CATEGORY_NAME ---------------------------------<br>
      * // SUBCATEGORY_NAME
      */
-
 
 
     // ------------- Category: General ---------------------------------
@@ -773,7 +772,7 @@ object OneConfigScreen : Config(
         subcategory = "Pearl Refill"
     )
     var pearlRefillKeybind = OneKeyBind(Keyboard.KEY_P)
-    
+
     // Item Refill
     @Switch(
         name = "Auto Item Refill",
@@ -846,7 +845,7 @@ object OneConfigScreen : Config(
         category = "Dungeons",
         subcategory = "Health Alert"
     )
-    var alertOutsideDungeons  = false
+    var alertOutsideDungeons = false
 
     @Dropdown(
         name = "Alert when below...",
@@ -1198,6 +1197,16 @@ object OneConfigScreen : Config(
     )
     var showGemstoneBeam = false
 
+    @Slider(
+        name = "Brightness",
+        description = "The brightness of the beam and block Highlight.",
+        category = "Mining",
+        subcategory = "Gemstone Waypoints",
+        min = 0f,
+        max = 1f
+    )
+    var gemstoneBrightness = 1f
+
     @Switch(
         name = "Show Topaz Waypoints",
         description = "Shows Topaz waypoints",
@@ -1239,13 +1248,12 @@ object OneConfigScreen : Config(
     var amberWaypoints = true
 
     @Switch(
-    name = "Show Jade Waypoints",
-    description = "Shows Jade waypoints",
-    category = "Mining",
-    subcategory = "Gemstone Waypoints"
+        name = "Show Jade Waypoints",
+        description = "Shows Jade waypoints",
+        category = "Mining",
+        subcategory = "Gemstone Waypoints"
     )
     var jadeWaypoints = true
-
 
 
     //Events
@@ -1768,6 +1776,7 @@ object OneConfigScreen : Config(
         subcategory = "Fun"
     )
     var owoLanguage = false
+
     @Switch(
         name = "OwO Chat Transformer",
         description = "Transforms every chat message you send into OwO language.",
@@ -1902,6 +1911,13 @@ object OneConfigScreen : Config(
         category = "Dev"
     )
     var debugLogDisplaySize = false
+
+    @Switch(
+        name = "Display inventory information",
+        description = "Logs the chest contents, xSize and ySize of a GuiChest",
+        category = "Dev"
+    )
+    var testDevEnv = false
 
     // Example HUD
     @HUD(

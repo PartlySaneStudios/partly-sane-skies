@@ -43,7 +43,12 @@ object Crepes {
                     §0§m-----------------------------------------------------§0
                     """.trimIndent()
                 )
-                chatComponent.chatStyle.setChatClickEvent(ClickEvent(ClickEvent.Action.OPEN_URL,"http://www.recettes-bretonnes.fr/crepe-bretonne/recette-crepe.html"))
+                chatComponent.chatStyle.setChatClickEvent(
+                    ClickEvent(
+                        ClickEvent.Action.OPEN_URL,
+                        "http://www.recettes-bretonnes.fr/crepe-bretonne/recette-crepe.html"
+                    )
+                )
                 sendClientMessage(chatComponent)
             }.register()
     }

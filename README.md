@@ -135,7 +135,7 @@ When you get a rare drop, a Pumpkin Dicer or Melon Slicer like pop-up banner wil
 
 <img src="images/rng_drop_banner.png" alt="RNG drop banner" width="600" height="350" style="text-align: center;"> 
 
-## Custom Themes
+### Custom Themes
 
 This mod supports a variety of different themes, including dark themes, very dark themes, colorful themes, and controversially, light themes. You can also choose your own accent color, and create your own themes in the OneConfig menu under the theme section.
 

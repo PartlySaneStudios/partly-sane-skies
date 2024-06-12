@@ -5,7 +5,6 @@
 
 package me.partlysanestudios.partlysaneskies.data.pssdata
 
-import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand
 import me.partlysanestudios.partlysaneskies.data.api.GetRequest
@@ -21,7 +20,6 @@ object PublicDataManager {
 
     // Add all initializing of public data here
     private val fileCache = HashMap<String, String>()
-    private val lock = Lock()
 
     /**
      * @return the current repo's owner
@@ -55,6 +53,7 @@ object PublicDataManager {
             return fileCache[fixedPath] ?: ""
         }
 
+        val lock = Lock()
         try {
             val url = getPublicDataUrl(getRepoOwner(), getRepoName(), fixedPath)
             RequestsManager.newRequest(
@@ -112,6 +111,7 @@ object PublicDataManager {
                 LoadPublicDataEvent.onDataLoad()
             }.register()
     }
+
     private class Lock : Object()
 
 }

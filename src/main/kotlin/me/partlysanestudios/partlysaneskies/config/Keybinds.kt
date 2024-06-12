@@ -17,7 +17,7 @@ import me.partlysanestudios.partlysaneskies.features.information.WikiArticleOpen
 import me.partlysanestudios.partlysaneskies.features.skills.PetAlert
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.onCooldown
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.clickOnSlot
-import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getSeparateUpperLowerInventories
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.containerInventory
 import net.minecraft.client.gui.inventory.GuiChest
 import net.minecraft.event.ClickEvent
 import net.minecraft.util.ChatComponentText
@@ -41,7 +41,7 @@ object Keybinds {
         }
         if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
             if (PartlySaneSkies.minecraft.currentScreen is AuctionHouseGui || PartlySaneSkies.minecraft.currentScreen is GuiChest && isAhGui(
-                    PartlySaneSkies.minecraft.currentScreen.getSeparateUpperLowerInventories()[0]
+                    (PartlySaneSkies.minecraft.currentScreen as GuiChest).containerInventory
                 )
             ) {
                 clickOnSlot(46)
@@ -49,7 +49,7 @@ object Keybinds {
         }
         if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
             if (PartlySaneSkies.minecraft.currentScreen is AuctionHouseGui || PartlySaneSkies.minecraft.currentScreen is GuiChest && isAhGui(
-                    PartlySaneSkies.minecraft.currentScreen.getSeparateUpperLowerInventories()[0]
+                    (PartlySaneSkies.minecraft.currentScreen as GuiChest).containerInventory
                 )
             ) {
                 clickOnSlot(53)

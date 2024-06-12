@@ -32,7 +32,7 @@ class RenderWaypointEvent(
         }
     }
 
-    class WaypointRenderPipeline() {
+    class WaypointRenderPipeline {
         private val waypointsToRender = ArrayList<Waypoint>()
 
         /**

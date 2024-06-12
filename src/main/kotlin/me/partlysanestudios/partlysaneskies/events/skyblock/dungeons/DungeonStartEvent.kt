@@ -8,7 +8,6 @@ package me.partlysanestudios.partlysaneskies.events.skyblock.dungeons
 
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.IslandType
 import me.partlysanestudios.partlysaneskies.events.EventManager
-import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 
 class DungeonStartEvent {

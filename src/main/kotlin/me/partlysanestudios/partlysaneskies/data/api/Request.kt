@@ -14,14 +14,9 @@ import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
-import javax.net.ssl.HttpsURLConnection
 import java.net.URL
-
-import javax.net.ssl.SSLContext
-import javax.net.ssl.TrustManager
-import javax.net.ssl.X509TrustManager
 import java.security.cert.X509Certificate
-import javax.net.ssl.HostnameVerifier
+import javax.net.ssl.*
 
 /**
  * @param url The requests URL
@@ -47,7 +42,7 @@ abstract class Request(
         acceptAllCertificates: Boolean = false
     ) : this(URL(url), function, inMainThread, executeOnNextFrame, acceptAllCertificates)
 
-//    Constructor without certificate option
+    //    Constructor without certificate option
     constructor(
         url: URL,
         function: RequestRunnable?,
@@ -55,7 +50,7 @@ abstract class Request(
         executeOnNextFrame: Boolean = false
     ) : this(url, function, inMainThread, executeOnNextFrame, false)
 
-//    Constructor without certificates option
+    //    Constructor without certificates option
     constructor(
         url: String,
         function: RequestRunnable?,

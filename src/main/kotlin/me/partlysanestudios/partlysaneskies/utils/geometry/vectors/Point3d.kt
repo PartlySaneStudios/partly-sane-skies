@@ -15,7 +15,11 @@ import kotlin.math.sqrt
 open class Point3d(x: Double, y: Double, val z: Double) : Point2d(x, y) {
     companion object {
         fun atPlayer(): Point3d {
-            return Point3d(minecraft.thePlayer?.posX ?: -1.0, minecraft.thePlayer?.posY ?: -1.0, minecraft.thePlayer?.posZ ?: -1.0)
+            return Point3d(
+                minecraft.thePlayer?.posX ?: -1.0,
+                minecraft.thePlayer?.posY ?: -1.0,
+                minecraft.thePlayer?.posZ ?: -1.0
+            )
         }
 
         fun Vec3.toPoint3d(): Point3d {
@@ -26,10 +30,13 @@ open class Point3d(x: Double, y: Double, val z: Double) : Point2d(x, y) {
             return Point3d(this.x.toDouble(), this.y.toDouble(), this.z.toDouble())
         }
     }
-    constructor(blockPos: BlockPos): this(blockPos.x.toDouble(), blockPos.y.toDouble(), blockPos.z.toDouble())
+
+    constructor(blockPos: BlockPos) : this(blockPos.x.toDouble(), blockPos.y.toDouble(), blockPos.z.toDouble())
+
     fun getPointZ(): Double {
         return z
     }
+
     fun distanceToPlayer(): Double {
         return this.distanceTo(atPlayer())
     }
@@ -45,11 +52,10 @@ open class Point3d(x: Double, y: Double, val z: Double) : Point2d(x, y) {
     fun distanceTo(point2: Point3d): Double {
         return sqrt(
             (point2.getPointX() - this.getPointX()).pow(2.0) +
-            (point2.getPointY() - this.getPointY()).pow(2.0) +
-            (point2.getPointZ() - this.getPointZ()).pow(2.0)
+                    (point2.getPointY() - this.getPointY()).pow(2.0) +
+                    (point2.getPointZ() - this.getPointZ()).pow(2.0)
         )
     }
-
 
 
     override fun toString(): String {
@@ -62,15 +68,15 @@ open class Point3d(x: Double, y: Double, val z: Double) : Point2d(x, y) {
     }
 
     fun toChunk(): Point2d {
-        return Point2d((this.x/16).toInt().toDouble(), (this.z/16).toInt().toDouble())
+        return Point2d((this.x / 16).toInt().toDouble(), (this.z / 16).toInt().toDouble())
     }
 
     operator fun plus(point: Point3d): Point3d {
-        return Point3d(point.x + this.x,  point.y + this.y, point.z + this.z)
+        return Point3d(point.x + this.x, point.y + this.y, point.z + this.z)
     }
 
     operator fun minus(point: Point3d): Point3d {
-        return Point3d(point.x - this.x,  point.y - this.y, point.z - this.z)
+        return Point3d(point.x - this.x, point.y - this.y, point.z - this.z)
     }
 
     override fun equals(other: Any?): Boolean {

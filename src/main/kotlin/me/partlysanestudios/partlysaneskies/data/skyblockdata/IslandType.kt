@@ -6,7 +6,6 @@
 
 package me.partlysanestudios.partlysaneskies.data.skyblockdata
 
-import me.partlysanestudios.partlysaneskies.utils.HypixelUtils
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 

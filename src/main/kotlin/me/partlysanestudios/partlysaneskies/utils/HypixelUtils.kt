@@ -13,7 +13,6 @@ import me.partlysanestudios.partlysaneskies.utils.StringUtils.stripTrailing
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import java.util.*
-import kotlin.collections.HashMap
 
 object HypixelUtils {
     // Returns if the current gamemode is skyblock

@@ -20,45 +20,14 @@ import org.apache.logging.log4j.Level;
 import java.util.*;
 
 public class MinionData {
-//    The URL with the location of the minion data
+    //    A hashmap with the key as the minion id, and the value as the minion object
+    public static final HashMap<String, Minion> minionMap = new HashMap<>();
+    //    A Hashmap with the key as the id of the fuel, and the value as the fuel object
+    public static final HashMap<String, MinionFuel> fuelMap = new HashMap<>();
+    //    The URL with the location of the minion data
     private static final String MINIONS_DATA_URL = "constants/minion_data.json";
 
-//    A hashmap with the key as the minion id, and the value as the minion object
-    public static final HashMap<String, Minion> minionMap = new HashMap<>();
-
-//    A Hashmap with the key as the id of the fuel, and the value as the fuel object
-    public static final HashMap<String, MinionFuel> fuelMap = new HashMap<>();
-
 //    init: runs before the request ------ CALL THIS TO INIT
-
-
-//    Runs after the request
-    @SubscribePSSEvent
-    public void init(LoadPublicDataEvent event) {
-        String str = PublicDataManager.INSTANCE.getFile(MINIONS_DATA_URL);
-//        Creates a json object from the request response
-        JsonObject jsonObj = new JsonParser().parse(str).getAsJsonObject();
-//        Gets the minion object from the json
-        JsonObject minionObjects = SystemUtils.INSTANCE.getJsonFromPath(jsonObj, "/minions").getAsJsonObject();
-
-
-//        For every item in the json, create a minion from it
-        for (Map.Entry<String, JsonElement> en : minionObjects.entrySet()) {
-            String id = en.getKey();
-            JsonObject minionObj = en.getValue().getAsJsonObject();
-            Minion minion= new Minion(id, minionObj);
-            minionMap.put(id, minion); // Add the minion to the minion map
-        }
-
-//        Gets the fuel object from the json
-        JsonObject fuelObjects = SystemUtils.INSTANCE.getJsonFromPath(jsonObj, "/fuels").getAsJsonObject();
-        for (Map.Entry<String, JsonElement> en : fuelObjects.entrySet()) {
-            String id = en.getKey();
-            JsonObject fuelObj = en.getValue().getAsJsonObject();
-            MinionFuel fuel = new MinionFuel (id, fuelObj);
-            fuelMap.put(id, fuel); // Add the fuel to the fuel map
-        }
-    }
 
     public static String getMostProfitMinionString(double hours, Minion.Upgrade[] upgrades, MinionFuel fuel) {
         StringBuilder str = new StringBuilder("§7In §6" + hours + "§7 hour(s): (Upgrade:" + Arrays.asList(upgrades) + ")");
@@ -82,7 +51,7 @@ public class MinionData {
         for (Map.Entry<String, Minion> en : minionMap.entrySet()) {
             Minion minion = en.getValue();
             double minionProfit = 0;
-            minionProfit +=  minion.getTotalProfitPerMinute(minion.maxTier, upgrades, fuel);
+            minionProfit += minion.getTotalProfitPerMinute(minion.maxTier, upgrades, fuel);
 
             priceMap.put(minion, minionProfit);
         }
@@ -106,24 +75,42 @@ public class MinionData {
         return sortedMap;
     }
 
+    //    Runs after the request
+    @SubscribePSSEvent
+    public void init(LoadPublicDataEvent event) {
+        String str = PublicDataManager.INSTANCE.getFile(MINIONS_DATA_URL);
+//        Creates a json object from the request response
+        JsonObject jsonObj = new JsonParser().parse(str).getAsJsonObject();
+//        Gets the minion object from the json
+        JsonObject minionObjects = SystemUtils.INSTANCE.getJsonFromPath(jsonObj, "/minions").getAsJsonObject();
+
+
+//        For every item in the json, create a minion from it
+        for (Map.Entry<String, JsonElement> en : minionObjects.entrySet()) {
+            String id = en.getKey();
+            JsonObject minionObj = en.getValue().getAsJsonObject();
+            Minion minion = new Minion(id, minionObj);
+            minionMap.put(id, minion); // Add the minion to the minion map
+        }
+
+//        Gets the fuel object from the json
+        JsonObject fuelObjects = SystemUtils.INSTANCE.getJsonFromPath(jsonObj, "/fuels").getAsJsonObject();
+        for (Map.Entry<String, JsonElement> en : fuelObjects.entrySet()) {
+            String id = en.getKey();
+            JsonObject fuelObj = en.getValue().getAsJsonObject();
+            MinionFuel fuel = new MinionFuel(id, fuelObj);
+            fuelMap.put(id, fuel); // Add the fuel to the fuel map
+        }
+    }
 
     public static class Minion {
-        // TODO: use repo
-        public enum Upgrade {
-            DIAMOND_SPREADING,
-            KRAMPUS_HELMET,
-            POTATO_SPREADING,
-            MINION_EXPANDER,
-            FLYCATCHER_UPGRADE,
-            LESSER_SOULFLOW_ENGINE,
-            SOULFLOW_ENGINE
-        }
         public final String id;
         public final String displayName;
         public final HashMap<String, Double> drops;
         public final HashMap<Integer, Double> cooldowns;
         public final String category;
         public final int maxTier;
+        String[] kraumpusSpeedIncrease = {"SNOW_GENERATOR"};
 
 
         public Minion(String id, JsonObject obj) {
@@ -150,16 +137,13 @@ public class MinionData {
             return id + ": Drops:" + drops.toString() + " Cooldowns:" + cooldowns.toString();
         }
 
-        String[] kraumpusSpeedIncrease = {"SNOW_GENERATOR"};
-
         public HashMap<String, Double> getBaseItemsPerMinute(int tier, Upgrade[] upgrades, MinionFuel fuel) {
             List<Upgrade> upgradesList = Arrays.asList(upgrades);
             double cooldownInSeconds = cooldowns.get(tier);
 
             if (tier > maxTier) {
                 cooldownInSeconds = cooldowns.get(maxTier);
-            }
-            else {
+            } else {
                 cooldownInSeconds = cooldowns.get(tier);
             }
 
@@ -207,10 +191,9 @@ public class MinionData {
 //            Adds the gifts generated by Krampus helm
             if (upgradesList.contains(Upgrade.KRAMPUS_HELMET)) {
                 if (Arrays.asList(kraumpusSpeedIncrease).contains(id)) {
-                    items.put("RED_GIFT",  baseItemsProduced * 0.0045/100d * 4d);
-                }
-                else {
-                    items.put("RED_GIFT",  baseItemsProduced * 0.0045/100d);
+                    items.put("RED_GIFT", baseItemsProduced * 0.0045 / 100d * 4d);
+                } else {
+                    items.put("RED_GIFT", baseItemsProduced * 0.0045 / 100d);
                 }
             }
 
@@ -226,7 +209,7 @@ public class MinionData {
 
 //            Added the soulflow generated by the soulflow engines
             if (upgradesList.contains(Upgrade.SOULFLOW_ENGINE) || upgradesList.contains(Upgrade.LESSER_SOULFLOW_ENGINE)) {
-                items.put("RAW_SOULFLOW", 1d/3);
+                items.put("RAW_SOULFLOW", 1d / 3);
             }
 
 
@@ -258,7 +241,7 @@ public class MinionData {
 //            Will still use the british way of spelling colour so flag doesn't cry - j10a
 // i regret saying that - j10a
             String colorPrefix;
-            switch(this.category) {
+            switch (this.category) {
                 case "COMBAT":
                     colorPrefix = "§c";
                     break;
@@ -308,16 +291,27 @@ public class MinionData {
 
             return str.toString();
         }
+
+        // TODO: use repo
+        public enum Upgrade {
+            DIAMOND_SPREADING,
+            KRAMPUS_HELMET,
+            POTATO_SPREADING,
+            MINION_EXPANDER,
+            FLYCATCHER_UPGRADE,
+            LESSER_SOULFLOW_ENGINE,
+            SOULFLOW_ENGINE
+        }
     }
 
 
     public static class MinionFuel {
-//        Skyblock item id for the fuel
+        //        Skyblock item id for the fuel
         public final String id;
-//        Duration time in minutes
+        //        Duration time in minutes
         public final double duration;
-//        Upgrade speed
-        public final double  upgrade;
+        //        Upgrade speed
+        public final double upgrade;
 
         public MinionFuel(String id, double duration, double upgrade) {
             this.duration = duration;
@@ -325,17 +319,17 @@ public class MinionData {
             this.id = id;
         }
 
-//        Creates new minion fuel from the json object in the public data repo
+        //        Creates new minion fuel from the json object in the public data repo
         public MinionFuel(String id, JsonObject object) {
-            this(id, SystemUtils.INSTANCE.getJsonFromPath(object, "duration").getAsDouble() , SystemUtils.INSTANCE.getJsonFromPath(object, "speed_upgrade").getAsDouble());
+            this(id, SystemUtils.INSTANCE.getJsonFromPath(object, "duration").getAsDouble(), SystemUtils.INSTANCE.getJsonFromPath(object, "speed_upgrade").getAsDouble());
         }
 
-//        Returns the amount of fuel needed for the duration specified (in minutes)
+        //        Returns the amount of fuel needed for the duration specified (in minutes)
         public double amountNeeded(double minuteDuration) {
             if (duration == -1) {
                 return -1;
             }
-            return minuteDuration / duration ;
+            return minuteDuration / duration;
         }
     }
 }

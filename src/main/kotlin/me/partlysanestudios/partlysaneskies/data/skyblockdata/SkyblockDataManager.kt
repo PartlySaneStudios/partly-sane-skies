@@ -82,13 +82,11 @@ object SkyblockDataManager {
 
                     }
 
-                }, inMainThread = false, executeOnNextFrame = false, acceptAllCertificates = false)
+                }, inMainThread = false, executeOnNextFrame = false, acceptAllCertificates = false
+            )
         )
     }
 
-
-
-    @Throws(IOException::class)
     fun initBitValues() {
         val bitsShopObject =
             JsonParser().parse(getFile("constants/bits_shop.json")).getAsJsonObject().getAsJsonObject("bits_shop")
@@ -129,6 +127,7 @@ object SkyblockDataManager {
 
     //    --------------------------- Skills ---------------------------
     private var idToSkillMap = HashMap<String, SkyblockSkill>()
+
     @Throws(MalformedURLException::class)
     fun initSkills() {
         newRequest(
