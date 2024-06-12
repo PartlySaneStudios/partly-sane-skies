@@ -41,7 +41,12 @@ object BeamRenderer {
 
 
         worldRenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION)
-        GlStateManager.color(fillColor.red/255f, fillColor.green/255f, fillColor.blue/255f, fillColor.alpha/255f)
+        GlStateManager.color(
+            fillColor.red / 255f,
+            fillColor.green / 255f,
+            fillColor.blue / 255f,
+            fillColor.alpha / 255f
+        )
 
         worldRenderer.drawBoxFill(Point3d(x, y, z), Point3d(x + .333, 256.0, z + .333))
         tessellator.draw()

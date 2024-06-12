@@ -6,7 +6,6 @@
 package me.partlysanestudios.partlysaneskies.data.skyblockdata
 
 import com.google.gson.JsonParser
-import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.time
 import me.partlysanestudios.partlysaneskies.data.api.GetRequest
@@ -56,9 +55,7 @@ class SkyblockPlayer(val username: String) {
     var baseEffectiveHealth = 0.0
 
 
-    private class Lock: Object()
-
-    private val lock = Lock()
+    private class Lock : Object()
 
     fun isExpired(): Boolean {
         return !MathUtils.onCooldown(lastUpdateTime, config.playerDataCacheTime * 60 * 1000L)
@@ -67,6 +64,7 @@ class SkyblockPlayer(val username: String) {
     fun instantiateData() {
         val requestURL = "https://mowojang.matdoes.dev/users/profiles/minecraft/$username"
 
+        val lock = Lock()
 
         RequestsManager.newRequest(GetRequest(requestURL, { uuidRequest ->
             if (!uuidRequest.hasSucceeded()) {
@@ -90,7 +88,8 @@ class SkyblockPlayer(val username: String) {
                 }
                 lastUpdateTime = time
 
-                val skyblockPlayerObject = JsonParser().parse(skyblockPlayerResponse.getResponse()).asJsonObject["skyblockPlayer"].asJsonObject
+                val skyblockPlayerObject =
+                    JsonParser().parse(skyblockPlayerResponse.getResponse()).asJsonObject["skyblockPlayer"].asJsonObject
 
                 selectedProfileUUID = skyblockPlayerObject["currentProfileId"]?.asString ?: ""
                 val profiles = skyblockPlayerObject["profiles"].asJsonArray
@@ -112,7 +111,7 @@ class SkyblockPlayer(val username: String) {
                         selectedDungeonClass = profObj["selectedDungeonClass"].asString.titleCase()
                         totalRuns = profObj["totalRuns"].asInt
                         secretsCount = profObj["secretsCount"].asInt
-                        secretsPerRun = secretsCount/totalRuns.toDouble()
+                        secretsPerRun = secretsCount / totalRuns.toDouble()
                         baseHealth = profObj["baseHealth"].asDouble
                         baseDefense = profObj["baseDefense"].asDouble
                         baseIntelligence = profObj["baseIntelligence"].asDouble
@@ -122,7 +121,8 @@ class SkyblockPlayer(val username: String) {
                         if (profObj["armorData"] == null) {
                             armorName = arrayOf("", "", "", "")
                         } else {
-                            val armorNBT: NBTTagList = SystemUtils.base64ToNbt(profObj["armorData"].asString).getTagList("i", 10)
+                            val armorNBT: NBTTagList =
+                                SystemUtils.base64ToNbt(profObj["armorData"].asString).getTagList("i", 10)
                             armorName = arrayOf("", "", "", "")
                             for (i in 0 until armorNBT.tagCount()) {
                                 armorName[i] =
@@ -131,7 +131,8 @@ class SkyblockPlayer(val username: String) {
                             }
                         }
 
-                        val arrowNBT: NBTTagList = SystemUtils.base64ToNbt(profObj["quiverData"].asString).getTagList("i", 10)
+                        val arrowNBT: NBTTagList =
+                            SystemUtils.base64ToNbt(profObj["quiverData"].asString).getTagList("i", 10)
 
                         var sum = -1
                         for (i in 0 until arrowNBT.tagCount()) {
@@ -187,7 +188,7 @@ class SkyblockPlayer(val username: String) {
     }
 
 
-    var catacombsExperiencePerLevel = intArrayOf(
+    private var catacombsExperiencePerLevel = intArrayOf(
         50,
         75,
         110,

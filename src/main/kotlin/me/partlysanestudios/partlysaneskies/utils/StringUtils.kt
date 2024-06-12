@@ -1,5 +1,5 @@
 //
-// Written by Su386.
+// Written by Su386 and J10a1n15.
 // See LICENSE for copyright and license notices.
 //
 
@@ -31,6 +31,18 @@ object StringUtils {
     }
 
     /**
+     * Removes all color codes from a list of strings
+     * @return The list of strings without color codes
+     */
+    fun List<String>.removeColorCodes() = this.map { it.removeColorCodes() }
+
+    /**
+     * Removes all color codes from a string
+     * @return The string without color codes
+     */
+    fun String.removeResets() = this.replace("§r", "")
+
+    /**
      * Wraps text to a given number of characters
      * @param charNumber The number of characters to wrap the text to
      * @return The wrapped text
@@ -39,13 +51,15 @@ object StringUtils {
         val charArray = this.toCharArray()
         val words: MutableList<String> = ArrayList()
         val chars: MutableList<Char> = ArrayList()
+
         for (c in charArray) if (c == ' ') {
-            words.add(charArrayToString(chars))
+            words.add(chars.joinToString(""))
             chars.clear()
         } else {
             chars.add(c)
         }
-        words.add(charArrayToString(chars))
+
+        words.add(chars.joinToString(""))
 
         // ----------------------------------------
         var charsOnLine = 0
@@ -89,17 +103,6 @@ object StringUtils {
         return wrappedText.toString()
     }
 
-    /**
-     * Converts a list of characters to a string
-     * @param chars The list of characters to convert
-     * @return The string
-     */
-    fun charArrayToString(chars: List<Char>): String {
-        val string = StringBuilder()
-        for (c in chars) string.append(c)
-        return string.toString()
-    }
-
     fun stripLeading(str: String): String {
         var str = str
         if (str == "") {
@@ -110,6 +113,14 @@ object StringUtils {
             str = stripLeading(str)
         }
         return str
+    }
+
+    fun String.pluralize(number: Number): String {
+        return if (number == 1) {
+            this
+        } else {
+            "${this}s"
+        }
     }
 
     fun stripTrailing(str: String): String {
@@ -263,11 +274,10 @@ object StringUtils {
     }
 
     fun String.titleCase(): String {
-        val str = this
         val titleCase = StringBuilder()
         var nextCharUpperCase = true
-        for (i in str.indices) {
-            val ch = str.substring(i, i + 1)
+        for (i in this.indices) {
+            val ch = this.substring(i, i + 1)
             if (ch != " " && !nextCharUpperCase) {
                 titleCase.append(ch.lowercase(Locale.getDefault()))
                 continue
@@ -328,4 +338,14 @@ object StringUtils {
             colorCodeToColor[colorCode]!!
         } else Color.white
     }
+
+    fun List<String>.nextAfter(element: String): String? {
+        val index = this.indexOf(element)
+        return if (index in 0 until this.size - 1) {
+            this[index + 1]
+        } else {
+            null
+        }
+    }
+
 }

@@ -8,8 +8,6 @@ package me.partlysanestudios.partlysaneskies.data.skyblockdata
 import net.minecraft.item.Item
 import net.minecraft.util.ResourceLocation
 import java.util.*
-import kotlin.Comparator
-import kotlin.collections.ArrayList
 
 class SkyblockItem(
     val id: String,
@@ -28,6 +26,7 @@ class SkyblockItem(
     companion object {
         val emptyItem = SkyblockItem("", Rarity.UNKNOWN, "", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, "", false)
     }
+
     var bitCost = 0
 
     fun getSellPrice(): Double {
@@ -43,19 +42,17 @@ class SkyblockItem(
     }
 
     fun getBuyPrice(): Double {
-        return if (bazaarSellPrice != 0.0) {
-            bazaarSellPrice
+        return if (bazaarBuyPrice != 0.0) {
+            bazaarBuyPrice
         } else if (lowestBin != 0.0) {
             lowestBin
-        } else if (npcSellPrice != 0.0) {
-            npcSellPrice
         } else {
             0.0
         }
     }
 
     fun getAverageBuyPrice(): Double {
-        return if (bazaarSellPrice != 0.0) {
+        return if (averageBazaarBuy != 0.0) {
             averageBazaarBuy
         } else if (lowestBin != 0.0) {
             averageLowestBin
@@ -103,7 +100,12 @@ class SkyblockItem(
         return if (unstackable) {
             1
         } else {
-            Item.itemRegistry?.getObject(ResourceLocation("minecraft", material.lowercase(Locale.getDefault())))?.itemStackLimit ?: 64
+            Item.itemRegistry?.getObject(
+                ResourceLocation(
+                    "minecraft",
+                    material.lowercase(Locale.getDefault())
+                )
+            )?.itemStackLimit ?: 64
         }
     }
 

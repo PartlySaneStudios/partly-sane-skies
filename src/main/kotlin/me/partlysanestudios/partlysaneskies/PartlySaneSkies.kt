@@ -24,6 +24,7 @@ import me.partlysanestudios.partlysaneskies.config.Keybinds
 import me.partlysanestudios.partlysaneskies.config.OneConfigScreen
 import me.partlysanestudios.partlysaneskies.data.cache.PetData
 import me.partlysanestudios.partlysaneskies.data.cache.StatsData
+import me.partlysanestudios.partlysaneskies.data.cache.VisitorLogbookData
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager
 import me.partlysanestudios.partlysaneskies.events.EventManager
@@ -48,13 +49,13 @@ import me.partlysanestudios.partlysaneskies.features.economy.auctionhousemenu.Au
 import me.partlysanestudios.partlysaneskies.features.economy.minioncalculator.MinionData
 import me.partlysanestudios.partlysaneskies.features.economy.minioncalculator.ProfitMinionCalculator
 import me.partlysanestudios.partlysaneskies.features.farming.MathematicalHoeRightClicks
-import me.partlysanestudios.partlysaneskies.features.farming.VisitorLogbookStats
 import me.partlysanestudios.partlysaneskies.features.farming.WrongToolCropWarning
 import me.partlysanestudios.partlysaneskies.features.farming.endoffarmnotifer.EndOfFarmNotifier
 import me.partlysanestudios.partlysaneskies.features.farming.endoffarmnotifer.RangeHighlight
 import me.partlysanestudios.partlysaneskies.features.farming.garden.CompostValue
-import me.partlysanestudios.partlysaneskies.features.farming.garden.GardenTradeValue
 import me.partlysanestudios.partlysaneskies.features.farming.garden.SkymartValue
+import me.partlysanestudios.partlysaneskies.features.farming.garden.VisitorLogbookStats
+import me.partlysanestudios.partlysaneskies.features.farming.garden.VisitorTradeValue
 import me.partlysanestudios.partlysaneskies.features.foraging.TreecapitatorCooldown
 import me.partlysanestudios.partlysaneskies.features.gui.CustomMainMenu
 import me.partlysanestudios.partlysaneskies.features.gui.RefreshKeybinds
@@ -129,12 +130,12 @@ class PartlySaneSkies {
             get() = System.currentTimeMillis()
         val isLatestVersion: Boolean
             get() {
-                if (DOGFOOD) {
-                    return true
+                return if (DOGFOOD) {
+                    true
                 } else if (latestVersion == "(Unknown)") {
-                    return true
+                    true
                 } else {
-                    return VERSION == latestVersion
+                    VERSION == latestVersion
                 }
             }
 
@@ -177,6 +178,11 @@ class PartlySaneSkies {
                 e.printStackTrace()
             }
             try {
+                VisitorLogbookData.load()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+            try {
                 EndOfFarmNotifier.load()
             } catch (e: IOException) {
                 e.printStackTrace()
@@ -192,15 +198,9 @@ class PartlySaneSkies {
         // Registers all the events
         registerEvent(this)
         registerEvent(PartyManager())
-        registerEvent(CustomMainMenu.Companion)
         registerEvent(PartyFriendManager())
-        registerEvent(GardenTradeValue())
-        registerEvent(BitsShopValue())
-        registerEvent(PetAlert())
         registerEvent(MiningEvents())
         registerEvent(MinionData())
-        registerEvent(SkymartValue())
-        registerEvent(CompostValue())
         registerEvent(SkyblockDataManager)
         registerEvent(DropBannerDisplay)
         registerEvent(ChatManager)
@@ -222,7 +222,6 @@ class PartlySaneSkies {
         registerEvent(ItemRefill)
         registerEvent(TreecapitatorCooldown)
         registerEvent(WrongToolCropWarning)
-        registerEvent(WrongToolCropWarning.CropToolData)
         registerEvent(StatsData)
         registerEvent(ExampleHud)
         registerEvent(CooldownHud)
@@ -236,6 +235,14 @@ class PartlySaneSkies {
         registerEvent(RequiredSecretsFound)
         registerEvent(EnhancedSound)
         registerEvent(MathematicalHoeRightClicks)
+        registerEvent(CompostValue)
+        registerEvent(BitsShopValue)
+        registerEvent(SkymartValue)
+        registerEvent(VisitorTradeValue)
+        registerEvent(CustomMainMenu.Companion)
+        registerEvent(WrongToolCropWarning.CropToolData)
+        registerEvent(PetAlert)
+
 
         // Registers all client side commands
         HelpCommand.registerPSSCommand()
@@ -325,6 +332,7 @@ class PartlySaneSkies {
         PetAlert.runPetAlertTick()
         ThemeManager.tick()
         PetData.tick()
+        VisitorLogbookData.scanForVisitors()
         HealthAlert.checkPlayerTick()
         RequiredSecretsFound.tick()
         NoCookieWarning.checkCoinsTick()
@@ -337,12 +345,12 @@ class PartlySaneSkies {
         val data = PublicDataManager.getFile("main_menu.json")
         val jsonObj = JsonParser().parse(data).asJsonObject
         try {
-            if (config.releaseChannel == 0) {
+            latestVersion = if (config.releaseChannel == 0) {
                 val modInfo: JsonObject = jsonObj.getAsJsonObject("mod_info")
-                latestVersion = modInfo["latest_version"].asString
+                modInfo["latest_version"].asString
             } else {
                 val modInfo: JsonObject = jsonObj.getAsJsonObject("prerelease_channel")
-                latestVersion = modInfo["latest_version"].asString
+                modInfo["latest_version"].asString
             }
 
             // latestVersionDescription = modInfo.get("latest_version_description").getAsString();

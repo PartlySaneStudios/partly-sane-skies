@@ -24,10 +24,12 @@ object RenderPrimitives {
                 p3 = Point3d(p1.x, p2.y, p1.z)
                 p4 = Point3d(p2.x, p1.y, p2.z)
             }
+
             Axis.X_AXIS -> {
                 p3 = Point3d(p1.x, p2.y, p2.z)
                 p4 = Point3d(p2.x, p1.y, p1.z)
             }
+
             Axis.Z_AXIS -> {
                 p3 = Point3d(p2.x, p2.y, p1.z)
                 p4 = Point3d(p1.x, p1.y, p2.z)

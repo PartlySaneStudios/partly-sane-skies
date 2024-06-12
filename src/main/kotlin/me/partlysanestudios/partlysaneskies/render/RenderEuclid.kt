@@ -5,10 +5,10 @@
 
 package me.partlysanestudios.partlysaneskies.render
 
+import me.partlysanestudios.partlysaneskies.render.RenderPrimitives.drawDiagonalFaceFill
 import me.partlysanestudios.partlysaneskies.utils.geometry.orientation.Angle.Companion.cos
 import me.partlysanestudios.partlysaneskies.utils.geometry.orientation.Angle.Companion.sin
 import me.partlysanestudios.partlysaneskies.utils.geometry.orientation.Angle.Companion.toAngleFromDegrees
-import me.partlysanestudios.partlysaneskies.render.RenderPrimitives.drawDiagonalFaceFill
 import me.partlysanestudios.partlysaneskies.utils.geometry.orientation.Axis
 import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Point2d
 import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Point3d
@@ -27,9 +27,16 @@ object RenderEuclid {
         val pointPairs: ArrayList<Range3d> = ArrayList()
 
 
-
-        var lastX = calculatePoint(radius, numOfSides, 0).x + baseCenter.x // Set the first x = (cos(angle) * r = 0) + the center of the circle
-        var lastZ = calculatePoint(radius, numOfSides, 0).y + baseCenter.z // Set the first z = (sin(angle) * r = r) + the center of the circle
+        var lastX = calculatePoint(
+            radius,
+            numOfSides,
+            0
+        ).x + baseCenter.x // Set the first x = (cos(angle) * r = 0) + the center of the circle
+        var lastZ = calculatePoint(
+            radius,
+            numOfSides,
+            0
+        ).y + baseCenter.z // Set the first z = (sin(angle) * r = r) + the center of the circle
         val firstX = lastX
         val firstZ = lastZ
         // Go around the circle, connecting the previous side to the next side
@@ -64,8 +71,16 @@ object RenderEuclid {
         val topPointPairs: ArrayList<Range3d> = ArrayList()
 
 
-        var lastX = calculatePoint(radius, numOfSides, 0).x + baseCenter.x // Set the first x = (cos(angle) * r = 0) + the center of the circle
-        var lastZ = calculatePoint(radius, numOfSides, 0).y + baseCenter.z // Set the first z = (sin(angle) * r = r) + the center of the circle
+        var lastX = calculatePoint(
+            radius,
+            numOfSides,
+            0
+        ).x + baseCenter.x // Set the first x = (cos(angle) * r = 0) + the center of the circle
+        var lastZ = calculatePoint(
+            radius,
+            numOfSides,
+            0
+        ).y + baseCenter.z // Set the first z = (sin(angle) * r = r) + the center of the circle
         val firstX = lastX
         val firstZ = lastZ
         // Go around the circle, connecting the previous side to the next side
@@ -87,7 +102,12 @@ object RenderEuclid {
         }
         // Connect the last point with the first point to complete the circle
         bottomPointPairs.add(Range3d(Point3d(lastX, baseCenter.y, lastZ), Point3d(firstX, baseCenter.y, firstZ)))
-        topPointPairs.add(Range3d(Point3d(lastX, baseCenter.y + height, lastZ), Point3d(firstX, baseCenter.y + height, firstZ)))
+        topPointPairs.add(
+            Range3d(
+                Point3d(lastX, baseCenter.y + height, lastZ),
+                Point3d(firstX, baseCenter.y + height, firstZ)
+            )
+        )
 
         // Draw the sides
         for (i in bottomPointPairs.indices) {

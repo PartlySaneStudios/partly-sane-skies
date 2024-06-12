@@ -7,18 +7,17 @@ package me.partlysanestudios.partlysaneskies.features.debug
 
 import cc.polyfrost.oneconfig.config.core.OneColor
 import gg.essential.elementa.ElementaVersion
-import gg.essential.elementa.WindowScreen
 import gg.essential.elementa.components.Window
 import gg.essential.universal.UResolution
-import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.time
 import me.partlysanestudios.partlysaneskies.data.cache.StatsData
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.IslandType
 import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.minecraft.render.RenderWaypointEvent
-import me.partlysanestudios.partlysaneskies.features.dungeons.TerminalWaypoints
 import me.partlysanestudios.partlysaneskies.features.dungeons.PlayerRating
+import me.partlysanestudios.partlysaneskies.features.dungeons.TerminalWaypoints
 import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.Drop
 import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.DropBannerDisplay
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
@@ -32,10 +31,14 @@ import me.partlysanestudios.partlysaneskies.system.discord.DiscordEmbed
 import me.partlysanestudios.partlysaneskies.system.discord.DiscordEmbedField
 import me.partlysanestudios.partlysaneskies.system.discord.DiscordWebhook
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
-import me.partlysanestudios.partlysaneskies.utils.SystemUtils
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.containerInventory
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getItemstackList
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.xSize
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.ySize
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.copyStringToClipboard
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
 import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Point3d
+import net.minecraft.client.gui.inventory.GuiChest
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.Tessellator
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats
@@ -72,7 +75,7 @@ object DebugKey {
         }
 
         if (config.debugSpawnWaypoint) {
-            val originalPos = PartlySaneSkies.minecraft.thePlayer.position
+            val originalPos = minecraft.thePlayer.position
             val modifiedPoint = Point3d(originalPos.x - 1.0, originalPos.y.toDouble(), originalPos.z - 1.0)
             waypointPoint = modifiedPoint
         }
@@ -156,6 +159,17 @@ object DebugKey {
             sendClientMessage("$windowWidth, $windowHeight")
         }
 
+        if (config.testDevEnv) {
+            if (minecraft.currentScreen !is GuiChest) {
+                sendClientMessage("Not Chest")
+            } else {
+                val chest = minecraft.currentScreen as GuiChest
+                sendClientMessage("Inventory: ${chest.containerInventory.getItemstackList()}")
+                sendClientMessage("xSize: ${chest.xSize}")
+                sendClientMessage("ySize: ${chest.ySize}")
+            }
+        }
+
     }
 
     // Runs chat analyzer for debug mode
@@ -177,6 +191,7 @@ object DebugKey {
     }
 
     private var cylinderPoint = Point3d(0.0, 0.0, 0.0)
+
     @SubscribeEvent
     fun onWorldRenderLast(event: RenderWorldLastEvent) {
 
@@ -184,7 +199,7 @@ object DebugKey {
             return
         }
         //            Sets the correct state
-        val renderManager = PartlySaneSkies.minecraft.renderManager
+        val renderManager = minecraft.renderManager
 
         GlStateManager.pushMatrix()
         GlStateManager.translate(-renderManager.viewerPosX, -renderManager.viewerPosY, -renderManager.viewerPosZ)
@@ -203,7 +218,12 @@ object DebugKey {
         val worldRenderer = tessellator.worldRenderer
 
         worldRenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION)
-        GlStateManager.color(ThemeManager.accentColor.toJavaColor().red/255f, ThemeManager.accentColor.toJavaColor().green/255f, ThemeManager.accentColor.toJavaColor().blue/255f, (ThemeManager.accentColor.toJavaColor().alpha/255f) * .667f)
+        GlStateManager.color(
+            ThemeManager.accentColor.toJavaColor().red / 255f,
+            ThemeManager.accentColor.toJavaColor().green / 255f,
+            ThemeManager.accentColor.toJavaColor().blue / 255f,
+            (ThemeManager.accentColor.toJavaColor().alpha / 255f) * .667f
+        )
         worldRenderer.drawCylinderFill(cylinderPoint, 8.0, 20.0)
         tessellator.draw()
 

@@ -14,11 +14,7 @@ import me.partlysanestudios.partlysaneskies.features.debug.DebugKey
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils
 import org.apache.logging.log4j.Level
-import java.io.File
 import java.time.Instant
-import java.time.OffsetDateTime
-import java.util.*
-import javax.net.ssl.*
 
 
 const val NORMAL_APPLICATION_ID = 1195613263845666849

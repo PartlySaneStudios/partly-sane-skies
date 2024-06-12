@@ -13,7 +13,6 @@ import gg.essential.elementa.constraints.XConstraint
 import gg.essential.elementa.constraints.YConstraint
 import gg.essential.elementa.events.UIClickEvent
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager.getCurrentToggleUIImage
-import net.minecraft.util.ResourceLocation
 import java.awt.Color
 import java.util.function.Consumer
 

@@ -22,16 +22,16 @@ object ChatTransformer {
         if (!doChatTransform()) {
             return
         }
-        
+
         val msg = event.message
 
         // dont break commands :)
         if (msg.startsWith("/")) {
             return
         }
-        
+
         event.isCancelled = true
-        
+
         // Do not go into recursion (bad)
         if (lastmsg == msg) {
             event.isCancelled = false
@@ -56,7 +56,7 @@ object ChatTransformer {
             lastmsg = ""
         }.start()
     }
-    
+
     private fun doChatTransform(): Boolean {
         return config.transformOWO
     }

@@ -5,6 +5,9 @@
     "mods.MixinEssentialsTelemetryManager"
   ],
   "client": [
+    "minecraft.MixinGuiChest",
+    "minecraft.MixinGuiContainer",
+    "minecraft.MixinGuiPlayerTabOverlay",
     "minecraft.MixinPlayerController"
   ]
 }

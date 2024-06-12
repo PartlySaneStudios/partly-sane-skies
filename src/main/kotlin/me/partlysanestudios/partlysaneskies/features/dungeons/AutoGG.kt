@@ -55,7 +55,7 @@ object AutoGG {
 
                     }
                 }
-            },"AutoGG wait").start()
+            }, "AutoGG wait").start()
         }
     }
 }

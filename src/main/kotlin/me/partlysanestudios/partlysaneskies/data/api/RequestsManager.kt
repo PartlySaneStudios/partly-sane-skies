@@ -18,7 +18,7 @@ object RequestsManager {
 
 
     val thread = Thread({
-        while(true) {
+        while (true) {
             try {
                 run()
 

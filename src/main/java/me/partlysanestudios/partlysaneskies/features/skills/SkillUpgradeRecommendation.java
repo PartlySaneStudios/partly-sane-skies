@@ -64,7 +64,7 @@ public class SkillUpgradeRecommendation {
     }
 
     private static double getSkillLevel(String skill, SkyblockPlayer player) {
-        switch(skill) {
+        switch (skill) {
             case "mining":
                 return player.getMiningLevel();
 
@@ -83,7 +83,7 @@ public class SkillUpgradeRecommendation {
             case "alchemy":
                 return player.getAlchemyLevel();
 
-            case "farming" :
+            case "farming":
                 return player.getFarmingLevel();
         }
 

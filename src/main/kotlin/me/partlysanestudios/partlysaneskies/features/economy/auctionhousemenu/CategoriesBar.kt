@@ -21,7 +21,13 @@ import net.minecraft.inventory.IInventory
 import net.minecraft.util.ResourceLocation
 import java.awt.Color
 
-class CategoriesBar (val xConstraint: XConstraint, val yConstraint: YConstraint, val heightConstraint: HeightConstraint, val widthConstraint: WidthConstraint, val inventory: IInventory) {
+class CategoriesBar(
+    val xConstraint: XConstraint,
+    val yConstraint: YConstraint,
+    val heightConstraint: HeightConstraint,
+    val widthConstraint: WidthConstraint,
+    val inventory: IInventory
+) {
     val topBarImagePaths = arrayOf(
         "textures/gui/custom_ah/weapons_icon.png",
         "textures/gui/custom_ah/armor_icon.png",
@@ -62,6 +68,7 @@ class CategoriesBar (val xConstraint: XConstraint, val yConstraint: YConstraint,
     private val imageSide = categoryHeight * .9
 
     private val categoryList = ArrayList<UIComponent>()
+
     init {
         val paneType = inventory.getStackInSlot(1).itemDamage
 
@@ -109,7 +116,7 @@ class CategoriesBar (val xConstraint: XConstraint, val yConstraint: YConstraint,
         }
     }
 
-    fun loadItemInformationBar(informationBar: ItemInformationBar){
+    fun loadItemInformationBar(informationBar: ItemInformationBar) {
         for (i in 0 until categoryList.size) {
             val slot = i * 9
 
@@ -134,7 +141,6 @@ class CategoriesBar (val xConstraint: XConstraint, val yConstraint: YConstraint,
     fun setChildOf(component: UIComponent) {
         topBar.setChildOf(component)
     }
-
 
 
     fun update() {
