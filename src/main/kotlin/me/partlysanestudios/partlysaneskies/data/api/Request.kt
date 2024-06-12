@@ -92,7 +92,7 @@ abstract class Request(
      * @return if the request has failed
      */
     fun hasSucceeded(): Boolean {
-        return if (this.responseCode != HttpsURLConnection.HTTP_OK) {
+        return if (responseCode !in 200..299) {
             false
         } else !hasFailed
     }

@@ -14,7 +14,7 @@ import javax.net.ssl.*
 class PostRequest(
     url: URL,
     function: RequestRunnable?,
-    val postContent: String,
+    private val postContent: String,
     inMainThread: Boolean = false,
     executeOnNextFrame: Boolean = false,
     acceptAllCertificates: Boolean = false,
@@ -86,7 +86,7 @@ class PostRequest(
         this.responseMessage = connection.getResponseMessage()
 
         // If the code is not HTTP_OK -- if the request failed
-        if (responseCode != HttpsURLConnection.HTTP_OK) {
+        if (responseCode !in 200..299) {
             if (tryAgainOnCodes.contains(responseCode)) {
                 RequestsManager.newRequest(this)
                 return
