@@ -72,7 +72,7 @@ toolkitGitHubPublishing {
     repository.set("partly-sane-skies")
 }
 
-blossom {
+bloom {
     val dogfood: String by project
     val releaseChannel: String by project
 
