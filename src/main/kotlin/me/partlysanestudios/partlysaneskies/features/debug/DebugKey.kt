@@ -27,6 +27,9 @@ import me.partlysanestudios.partlysaneskies.render.gui.hud.BannerRenderer.render
 import me.partlysanestudios.partlysaneskies.render.gui.hud.PSSBanner
 import me.partlysanestudios.partlysaneskies.render.waypoint.Waypoint
 import me.partlysanestudios.partlysaneskies.system.SystemNotification
+import me.partlysanestudios.partlysaneskies.system.discord.DiscordEmbed
+import me.partlysanestudios.partlysaneskies.system.discord.DiscordEmbedField
+import me.partlysanestudios.partlysaneskies.system.discord.DiscordWebhook
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.containerInventory
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getItemstackList
@@ -70,11 +73,13 @@ object DebugKey {
         if (config.debugAddSlacker) {
             PlayerRating.rackPoints("FlagTheSlacker", "Debug Slacker")
         }
+
         if (config.debugSpawnWaypoint) {
             val originalPos = minecraft.thePlayer.position
             val modifiedPoint = Point3d(originalPos.x - 1.0, originalPos.y.toDouble(), originalPos.z - 1.0)
             waypointPoint = modifiedPoint
         }
+
         if (config.debugSendSystemNotification) {
             SystemNotification.showNotification("Debug mode: ${isDebugMode()}")
         }
@@ -86,6 +91,7 @@ object DebugKey {
 
             }.start()
         }
+
         if (config.debugPrintCurrentLocationFromIslandType) {
             sendClientMessage("Island Type: ${IslandType.getCurrentIsland()}")
         }
@@ -93,6 +99,7 @@ object DebugKey {
         if (config.debugLogCachedF7Puzzles) {
             TerminalWaypoints.logCachedPuzzles()
         }
+
         if (config.debugPrintCurrentCachedStats) {
             sendClientMessage("Health: ${StatsData.currentHealth}/${StatsData.maxHealth}, Defense: ${StatsData.defense}, Mana: ${StatsData.currentMana}/${StatsData.maxMana}")
         }
@@ -104,6 +111,27 @@ object DebugKey {
             cylinderPoint = Point3d.atPlayer()
         }
 
+        if (config.debugSendDiscordWebhook) {
+            DiscordWebhook(
+                config.discordWebhookURL,
+                "Test Content",
+                listOf(
+                    DiscordEmbed(
+                        title = "Test Title",
+                        description = "Test Description",
+                        url = "https://www.google.com",
+                        color = 0xFF00FF,
+                        fields = listOf(
+                            DiscordEmbedField(
+                                name = "Test Field Name",
+                                value = "Test Field Value",
+                                inline = true
+                            )
+                        )
+                    )
+                )
+            ).send()
+        }
         if (config.debugScanCrystalHollowsCrystals) {
             Thread {
                 CrystalHollowsGemstoneMapper.scanWorld()

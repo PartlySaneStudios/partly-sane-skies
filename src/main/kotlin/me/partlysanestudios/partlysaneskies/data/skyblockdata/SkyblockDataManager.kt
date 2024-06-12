@@ -8,6 +8,7 @@ package me.partlysanestudios.partlysaneskies.data.skyblockdata
 import com.google.gson.JsonParser
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.time
+import me.partlysanestudios.partlysaneskies.data.api.GetRequest
 import me.partlysanestudios.partlysaneskies.data.api.Request
 import me.partlysanestudios.partlysaneskies.data.api.RequestRunnable
 import me.partlysanestudios.partlysaneskies.data.api.RequestsManager.newRequest
@@ -44,7 +45,7 @@ object SkyblockDataManager {
     @Throws(IOException::class)
     private fun updateItems() {
         newRequest(
-            Request("${config.apiUrl}/v1/hypixel/skyblockitem",
+            GetRequest("${config.apiUrl}/v1/hypixel/skyblockitem",
                 RequestRunnable { s: Request ->
                     val itemDataString = s.getResponse()
                     if (!s.hasSucceeded()) {
@@ -130,8 +131,7 @@ object SkyblockDataManager {
     @Throws(MalformedURLException::class)
     fun initSkills() {
         newRequest(
-            Request(
-                "https://api.hypixel.net/resources/skyblock/skills",
+            GetRequest("https://api.hypixel.net/resources/skyblock/skills",
                 RequestRunnable { s: Request ->
                     val itemDataString = s.getResponse()
                     if (!s.hasSucceeded()) {

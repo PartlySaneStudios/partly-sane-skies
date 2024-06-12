@@ -1,5 +1,5 @@
 //
-// Written by Su386.
+// Written by Su386 and J10a1n15.
 // See LICENSE for copyright and license notices.
 //
 
@@ -413,6 +413,16 @@ object OneConfigScreen : Config(
     )
     var blockLegendaryDrops = false
 
+    // Discord Webhook RNG Thingy
+    @Text(
+        name = "Discord Webhook URL",
+        description = "The URL of the discord webhook to send the message to.",
+        category = "SkyBlock",
+        subcategory = "Discord Webhook RNG",
+        size = 2
+    )
+    var discordWebhookURL = ""
+
     // Location Banner
     @Switch(
         name = "Location Banner",
@@ -719,19 +729,19 @@ object OneConfigScreen : Config(
     )
     var watcherReadyAirRaidSiren = false
 
-    // Pretify Skytils Mimic Killed
+    // Prettify Skytils Mimic Killed
     @Switch(
         name = "Pretty Mimic Killed",
-        description = "Changes the skytils mimic killed message to be more visually appealing",
+        description = "Changes the Skytils mimic killed message to be more visually appealing",
         category = "Dungeons",
         subcategory = "Pretty Mimic Killed Message"
     )
     var prettyMimicKilled = true
 
-    // Pretify Skytils Mimic Killed
+    // Prettify Skytils Mimic Killed
     @Text(
         name = "Pretty Mimic Killed Message",
-        description = "Changes the skytils mimic killed message to be more visually appealing",
+        description = "Changes the Skytils mimic killed message to be more visually appealing",
         category = "Dungeons",
         subcategory = "Pretty Mimic Killed Message"
     )
@@ -1860,6 +1870,13 @@ object OneConfigScreen : Config(
     )
     var debugRenderRNGBanner = false
 
+    @Switch(
+        name = "Send Discord Webhook",
+        description = "Sends a discord webhook.",
+        category = "Dev"
+    )
+    var debugSendDiscordWebhook = false
+  
     @Switch(
         name = "Generate Cylinder",
         description = "Generates a cylinder.",

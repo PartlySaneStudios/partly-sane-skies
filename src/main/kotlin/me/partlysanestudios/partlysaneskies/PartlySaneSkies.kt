@@ -324,7 +324,7 @@ class PartlySaneSkies {
 
     // Method runs every tick
     @SubscribeEvent
-    fun clientTick(evnt: ClientTickEvent) {
+    fun clientTick(event: ClientTickEvent) {
         config.resetBrokenStringsTick()
         LocationBannerDisplay.checkLocationTick()
         EndOfFarmNotifier.checkAllRangesTick()
