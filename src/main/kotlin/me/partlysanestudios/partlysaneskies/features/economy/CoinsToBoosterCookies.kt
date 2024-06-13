@@ -29,7 +29,7 @@ import net.minecraft.command.ICommandSender
 import kotlin.math.abs
 import kotlin.math.ceil
 
-object CoinsToBoosterCookieConversion {
+object CoinsToBoosterCookies {
 
     private val playerName: String by lazy { PartlySaneSkies.minecraft.thePlayer.name }
     private const val boosterCookieItemId: String = "BOOSTER_COOKIE"
