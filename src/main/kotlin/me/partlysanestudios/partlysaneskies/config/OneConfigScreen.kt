@@ -145,7 +145,7 @@ object OneConfigScreen : Config(
     @Text(
         name = "Discord Webhook URL",
         description = "The URL of the discord webhook to send the message to.",
-        category = "SkyBlock",
+        category = "General",
         subcategory = "Discord",
         size = 2
     )
