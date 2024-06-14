@@ -1,20 +1,26 @@
-package me.partlysanestudios.partlysaneskies.system.discord
+//
+// Written by J10a1n15.
+// See LICENSE for copyright and license notices.
+//
 
-object DiscordWebhookSerializer {
-    fun serialize(webhook: DiscordWebhook): String {
+
+package me.partlysanestudios.partlysaneskies.features.discord.webhooks
+
+object WebhookSerializer {
+    fun serialize(webhook: WebhookData): String {
         val builder = StringBuilder()
         builder.append("{")
         if (webhook.content != null) {
             builder.append("\"content\":\"${webhook.content}\"")
         }
-        if (webhook.embeds != null) {
+        if (webhook.embedData != null) {
             if (webhook.content != null) {
                 builder.append(",")
             }
             builder.append("\"embeds\":[")
-            for (i in webhook.embeds!!.indices) {
-                builder.append(DiscordEmbedSerializer.serialize(webhook.embeds!![i]))
-                if (i != webhook.embeds!!.size - 1) {
+            for (i in webhook.embedData!!.indices) {
+                builder.append(DiscordEmbedSerializer.serialize(webhook.embedData!![i]))
+                if (i != webhook.embedData!!.size - 1) {
                     builder.append(",")
                 }
             }
@@ -25,38 +31,38 @@ object DiscordWebhookSerializer {
     }
 
     object DiscordEmbedSerializer {
-            fun serialize(embed: DiscordEmbed): String {
+            fun serialize(embedData: EmbedData): String {
                 val builder = StringBuilder()
                 builder.append("{")
-                if (embed.title != null) {
-                    builder.append("\"title\":\"${embed.title}\"")
+                if (embedData.title != null) {
+                    builder.append("\"title\":\"${embedData.title}\"")
                 }
-                if (embed.description != null) {
-                    if (embed.title != null) {
+                if (embedData.description != null) {
+                    if (embedData.title != null) {
                         builder.append(",")
                     }
-                    builder.append("\"description\":\"${embed.description}\"")
+                    builder.append("\"description\":\"${embedData.description}\"")
                 }
-                if (embed.url != null) {
-                    if (embed.title != null || embed.description != null) {
+                if (embedData.url != null) {
+                    if (embedData.title != null || embedData.description != null) {
                         builder.append(",")
                     }
-                    builder.append("\"url\":\"${embed.url}\"")
+                    builder.append("\"url\":\"${embedData.url}\"")
                 }
-                if (embed.color != null) {
-                    if (embed.title != null || embed.description != null || embed.url != null) {
+                if (embedData.color != null) {
+                    if (embedData.title != null || embedData.description != null || embedData.url != null) {
                         builder.append(",")
                     }
-                    builder.append("\"color\":${embed.color!!}")
+                    builder.append("\"color\":${embedData.color!!}")
                 }
-                if (embed.fields != null) {
-                    if (embed.title != null || embed.description != null || embed.url != null || embed.color != null) {
+                if (embedData.fields != null) {
+                    if (embedData.title != null || embedData.description != null || embedData.url != null || embedData.color != null) {
                         builder.append(",")
                     }
                     builder.append("\"fields\":[")
-                    for (i in embed.fields!!.indices) {
-                        builder.append(DiscordEmbedFieldSerializer.serialize(embed.fields!![i]))
-                        if (i != embed.fields!!.size - 1) {
+                    for (i in embedData.fields!!.indices) {
+                        builder.append(DiscordEmbedFieldSerializer.serialize(embedData.fields!![i]))
+                        if (i != embedData.fields!!.size - 1) {
                             builder.append(",")
                         }
                     }
@@ -68,7 +74,7 @@ object DiscordWebhookSerializer {
     }
 
     object DiscordEmbedFieldSerializer {
-            fun serialize(field: DiscordEmbedField): String {
+            fun serialize(field: EmbedField): String {
                 val builder = StringBuilder()
                 builder.append("{")
                 builder.append("\"name\":\"${field.name}\"")

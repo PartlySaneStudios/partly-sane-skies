@@ -3,6 +3,7 @@
 // See LICENSE for copyright and license notices.
 //
 
+
 package me.partlysanestudios.partlysaneskies.features.debug
 
 import cc.polyfrost.oneconfig.config.core.OneColor
@@ -27,9 +28,6 @@ import me.partlysanestudios.partlysaneskies.render.gui.hud.BannerRenderer.render
 import me.partlysanestudios.partlysaneskies.render.gui.hud.PSSBanner
 import me.partlysanestudios.partlysaneskies.render.waypoint.Waypoint
 import me.partlysanestudios.partlysaneskies.system.SystemNotification
-import me.partlysanestudios.partlysaneskies.system.discord.DiscordEmbed
-import me.partlysanestudios.partlysaneskies.system.discord.DiscordEmbedField
-import me.partlysanestudios.partlysaneskies.system.discord.DiscordWebhook
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.containerInventory
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getItemstackList
@@ -112,25 +110,7 @@ object DebugKey {
         }
 
         if (config.debugSendDiscordWebhook) {
-            DiscordWebhook(
-                config.discordWebhookURL,
-                "Test Content",
-                listOf(
-                    DiscordEmbed(
-                        title = "Test Title",
-                        description = "Test Description",
-                        url = "https://www.google.com",
-                        color = 0xFF00FF,
-                        fields = listOf(
-                            DiscordEmbedField(
-                                name = "Test Field Name",
-                                value = "Test Field Value",
-                                inline = true
-                            )
-                        )
-                    )
-                )
-            ).send()
+            ExampleWebhook.trigger()
         }
         if (config.debugScanCrystalHollowsCrystals) {
             Thread {

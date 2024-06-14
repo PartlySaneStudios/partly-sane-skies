@@ -43,7 +43,7 @@ import me.partlysanestudios.partlysaneskies.features.dungeons.party.PartyFriendM
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.partymanager.PartyManager
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.permpartyselector.PermPartyManager
 import me.partlysanestudios.partlysaneskies.features.economy.BitsShopValue
-import me.partlysanestudios.partlysaneskies.features.economy.CoinsToBoosterCookieConversion
+import me.partlysanestudios.partlysaneskies.features.economy.CoinsToBoosterCookies
 import me.partlysanestudios.partlysaneskies.features.economy.NoCookieWarning
 import me.partlysanestudios.partlysaneskies.features.economy.auctionhousemenu.AuctionHouseGui
 import me.partlysanestudios.partlysaneskies.features.economy.minioncalculator.MinionData
@@ -144,7 +144,7 @@ class PartlySaneSkies {
 
     // Method runs at mod initialization
     @Mod.EventHandler
-    fun init(event: FMLInitializationEvent?) {
+    fun init(event: FMLInitializationEvent) {
         log(Level.INFO, "Hallo World!")
         pssMinecraft = Minecraft.getMinecraft()
 
@@ -207,7 +207,7 @@ class PartlySaneSkies {
         registerEvent(RangeHighlight)
         registerEvent(BannerRenderer)
         registerEvent(VisitorLogbookStats)
-        registerEvent(CoinsToBoosterCookieConversion)
+        registerEvent(CoinsToBoosterCookies)
         registerEvent(EndOfFarmNotifier)
         registerEvent(RefreshKeybinds)
         registerEvent(AutoGG)
@@ -263,7 +263,7 @@ class PartlySaneSkies {
         EndOfFarmNotifier.registerCreateRangeCommand()
         EndOfFarmNotifier.registerFarmNotifierCommand()
         EndOfFarmNotifier.registerWandCommand()
-        CoinsToBoosterCookieConversion.registerCommand()
+        CoinsToBoosterCookies.registerCommand()
         ProfitMinionCalculator.registerCommand()
         MathematicalHoeRightClicks.registerCommand()
         WordEditor.registerWordEditorCommand()
@@ -272,7 +272,7 @@ class PartlySaneSkies {
         ItemRefill.registerCommand()
 
 
-        //Use polyfrost EventManager cuz chatSendEvent makes transforming chat messages may easier
+        //Use Polyfrost EventManager cuz chatSendEvent makes transforming chat messages may easier
         cc.polyfrost.oneconfig.events.EventManager.INSTANCE.register(ChatTransformer)
 
         DebugKey.init()

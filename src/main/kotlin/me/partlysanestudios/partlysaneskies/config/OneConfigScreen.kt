@@ -3,6 +3,7 @@
 // See LICENSE for copyright and license notices.
 //
 
+
 package me.partlysanestudios.partlysaneskies.config
 
 import cc.polyfrost.oneconfig.config.Config
@@ -140,6 +141,15 @@ object OneConfigScreen : Config(
         subcategory = "Discord"
     )
     var discordRPCDescription = "Playing Hypixel Skyblock"
+
+    @Text(
+        name = "Discord Webhook URL",
+        description = "The URL of the discord webhook to send the message to.",
+        category = "General",
+        subcategory = "Discord",
+        size = 2
+    )
+    var discordWebhookURL = ""
 
     //    Appearance
     @Dropdown(
@@ -412,16 +422,6 @@ object OneConfigScreen : Config(
         subcategory = "Rare Drop"
     )
     var blockLegendaryDrops = false
-
-    // Discord Webhook RNG Thingy
-    @Text(
-        name = "Discord Webhook URL",
-        description = "The URL of the discord webhook to send the message to.",
-        category = "SkyBlock",
-        subcategory = "Discord Webhook RNG",
-        size = 2
-    )
-    var discordWebhookURL = ""
 
     // Location Banner
     @Switch(
