@@ -38,11 +38,12 @@ object SanityCheck {
                                 sanityCheckPath
                             )
                         ).getAsJsonObject()
-                        val highestSkyblockNetworth: Double =
+                        val highestSkyblockNetworth =
                             sanityCheckDataJsonObject.getJsonFromPath("highestnwlong")?.asLong?.toDouble()
                                 ?: 360567766418.0
-                        val oldestSkyblockFirstJoin: Long =
-                            sanityCheckDataJsonObject.getJsonFromPath("oldestprofileunixlong")?.asLong ?: 1560276201428
+                        val oldestSkyblockFirstJoin =
+                            sanityCheckDataJsonObject.getJsonFromPath("oldestprofileunixlong")?.asLong
+                                ?: 1560276201428
                         val currentProfileNetworth: Double = SkyCryptUtils.getSkyCryptNetworth(username)
                         val currentProfileFirstJoin: Long = SkyCryptUtils.getFirstJoinEpoch(username)
 

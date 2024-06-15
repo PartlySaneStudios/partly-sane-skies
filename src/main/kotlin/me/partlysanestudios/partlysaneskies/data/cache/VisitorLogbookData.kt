@@ -150,7 +150,7 @@ object VisitorLogbookData {
         val rarity: Rarity,
         val headTexture: String,
         val timesVisited: Int,
-        val timesAccepted: Int
+        val timesAccepted: Int,
     ) {
         val name get() = displayName.removeColorCodes()
     }

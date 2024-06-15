@@ -48,11 +48,8 @@ object CrystalHollowsGemstoneMapper {
 
                     val minutesLeft = timeLeft / 1000 / 60
                     sendClientMessage(
-                        "Checking block (${x.formatNumber()}, ${y.formatNumber()}, ${z.formatNumber()})\n${checkedBlocks.formatNumber()} / ${rangeSize.formatNumber()} (${
-                            (checkedBlocks / rangeSize * 100).round(
-                                1
-                            )
-                        }%, ${minutesLeft.round(2).formatNumber()} minutes left)..."
+                        "Checking block (${x.formatNumber()}, ${y.formatNumber()}, ${z.formatNumber()})\n${checkedBlocks.formatNumber()} / ${rangeSize.formatNumber()} " +
+                                "(${(checkedBlocks / rangeSize * 100).round(1)}%, ${minutesLeft.round(2).formatNumber()} minutes left)..."
                     )
                     val point = Point3d(x.toDouble(), y.toDouble(), z.toDouble())
 
@@ -97,11 +94,8 @@ object CrystalHollowsGemstoneMapper {
         for (element in jsonArray) {
             i++
             sendClientMessage(
-                "Converting crystal ${i.formatNumber()} of ${totalLength.formatNumber()} (${
-                    (i / totalLength * 100).round(
-                        1
-                    ).formatNumber()
-                }%)..."
+                "Converting crystal ${i.formatNumber()} of ${totalLength.formatNumber()} " +
+                        "(${(i / totalLength * 100).round(1).formatNumber()}%)..."
             )
             val obj = element.asJsonObject
 
@@ -117,14 +111,11 @@ object CrystalHollowsGemstoneMapper {
                         world.getBlockState(point.toBlockPosInt())
                             .getValue(PropertyEnum.create("color", EnumDyeColor::class.java))
                     }"
-
-                    if (!map.contains(type)) {
-                        map[type] = ArrayList<JsonObject>()
-                    }
+                    val color = world.getBlockState(point.toBlockPosInt())
+                        .getValue(PropertyEnum.create("color", EnumDyeColor::class.java))
 
                     map[type]?.add(coordObj)
                 } catch (e: Exception) {
-                    e.printStackTrace()
                     continue
                 }
             }
@@ -175,11 +166,8 @@ object CrystalHollowsGemstoneMapper {
         var i = 0.0
         for (element in jsonArray) {
             sendClientMessage(
-                "Converting crystal ${i.formatNumber()} of ${totalLength.formatNumber()} (${
-                    (i / totalLength * 100).round(
-                        1
-                    ).formatNumber()
-                }%)..."
+                "Converting crystal ${i.formatNumber()} of ${totalLength.formatNumber()} " +
+                        "(${(i / totalLength * 100).round(1).formatNumber()}%)..."
             )
 
             val obj = element.asJsonObject

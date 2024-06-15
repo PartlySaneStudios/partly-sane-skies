@@ -38,7 +38,6 @@ import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.command.ICommandSender
 import net.minecraft.event.ClickEvent
 import net.minecraft.util.ChatComponentText
-import net.minecraft.util.IChatComponent
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.client.event.GuiScreenEvent
 import java.awt.Color
@@ -140,7 +139,7 @@ object PetAlert : SidePanel() {
         }
 
         if (!onCooldown(lastMessageSendTime, 3000)) {
-            val message: IChatComponent = ChatComponentText(
+            val message = ChatComponentText(
                 "${PartlySaneSkies.CHAT_PREFIX}§cYOU CURRENTLY HAVE $petName§c SELECTED AS YOUR PET. YOU WANTED TO UPGRADE $selectedPetName.\n§dClick this message or run /mutepetalert to mute the alert for ${config.petAlertMuteTime} ${
                     "minutes".pluralize(config.petAlertMuteTime)
                 }."

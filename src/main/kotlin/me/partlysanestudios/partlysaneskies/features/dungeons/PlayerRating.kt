@@ -100,18 +100,16 @@ object PlayerRating {
         var str = StringBuilder()
         if (config.enhancedDungeonPlayerBreakdown == 0) {
             for ((key) in playerPointCategoryMap) {
-                val playerStr = "§d$key  §9" + ((totalPlayerPoints[key]?.toDouble()
-                    ?: 0.0) / totalPoints * 100.0).round(0) + "%§7 | "
+                val totalPoints = ((totalPlayerPoints[key]?.toDouble() ?: 0.0) / totalPoints * 100.0).round(0)
+                val playerStr = "§d$key  §9$totalPoints%§7 | "
                 str.append(playerStr)
             }
             return str.toString()
         }
         str.append("§a§nDungeon Overview:\n\n")
         for ((playerName, value) in playerPointCategoryMap) {
-            val playerStr = StringBuilder(
-                "§d$playerName§7 completed §d" + ((totalPlayerPoints[playerName]?.toDouble()
-                    ?: 0.0) / totalPoints * 100.0).round(0) + "%§7 of the dungeon.\n"
-            )
+            val totalPoints = ((totalPlayerPoints[playerName]?.toDouble() ?: 0.0) / totalPoints * 100.0).round(0)
+            val playerStr = StringBuilder("§d$playerName§7 completed §d$totalPoints%§7 of the dungeon.\n")
             if (config.enhancedDungeonPlayerBreakdown == 2) {
                 playerStr.append("§2   Breakdown:\n")
                 for ((key, value1) in value) {
@@ -132,8 +130,8 @@ object PlayerRating {
         val str = java.lang.StringBuilder()
         str.append("Partly Sane Skies > ")
         for ((key) in playerPointCategoryMap) {
-            val playerStr =
-                "$key  " + ((totalPlayerPoints[key]?.toDouble() ?: 0.0) / totalPoints * 100.0).round(0) + "% | "
+            val totalPoints = ((totalPlayerPoints[key]?.toDouble() ?: 0.0) / totalPoints * 100.0).round(0)
+            val playerStr = "$key  $totalPoints% | "
             str.append(playerStr)
         }
         return str.toString()
@@ -219,9 +217,7 @@ object PlayerRating {
                         throw RuntimeException(e)
                     }
                     minecraft.addScheduledTask {
-                        minecraft.thePlayer.sendChatMessage(
-                            "/pc $str"
-                        )
+                        minecraft.thePlayer.sendChatMessage("/pc $str")
                     }
                 }
             }

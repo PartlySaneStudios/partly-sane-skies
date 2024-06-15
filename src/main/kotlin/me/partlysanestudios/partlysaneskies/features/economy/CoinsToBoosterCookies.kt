@@ -29,7 +29,7 @@ import net.minecraft.command.ICommandSender
 import kotlin.math.abs
 import kotlin.math.ceil
 
-object CoinsToBoosterCookieConversion {
+object CoinsToBoosterCookies {
 
     private val playerName: String by lazy { PartlySaneSkies.minecraft.thePlayer.name }
     private const val boosterCookieItemId: String = "BOOSTER_COOKIE"
@@ -90,23 +90,8 @@ object CoinsToBoosterCookieConversion {
                         val dollars: Double = (gemPackages * sSGPInPreferredCurrency).floor(2)
 
 //                        Sends message
-                        ChatUtils.sendClientMessage(
-                            "§6${abs(a[0].toDouble()).formatNumber()} coins §etoday is equivalent to §6${
-                                cookieQuantity.round(
-                                    3
-                                ).formatNumber()
-                            } Booster Cookies, or §2${currencyFormatting(money = (dollars.formatNumber()))} §e(excluding sales taxes and other fees)."
-                        )
-                        ChatUtils.sendClientMessage(
-                            "§7(For reference, Booster Cookies today are worth ${
-                                ceil(
-                                    SkyblockDataManager.getItem(
-                                        boosterCookieItemId
-                                    )?.getBuyPrice() ?: 0.0
-                                ).round(1).formatNumber()
-                            } coins. Note that the developers of Partly Sane Skies do not support IRL trading; the /c2c command is intended for educational purposes.)",
-                            true
-                        )
+                        ChatUtils.sendClientMessage("§6${abs(a[0].toDouble()).formatNumber()} coins §etoday is equivalent to §6${cookieQuantity.round(3).formatNumber()} Booster Cookies, or §2${currencyFormatting(money = (dollars.formatNumber()))} §e(excluding sales taxes and other fees).")
+                        ChatUtils.sendClientMessage("§7(For reference, Booster Cookies today are worth ${ceil(SkyblockDataManager.getItem(boosterCookieItemId)?.getBuyPrice() ?: 0.0).round(1).formatNumber()} coins. Note that the developers of Partly Sane Skies do not support IRL trading; the /c2c command is intended for educational purposes.)", true)
                         if (DebugKey.isDebugMode()) { // Optional debug message
                             ChatUtils.sendClientMessage(
                                 "§eIf the currency symbol doesn't look right, please report this to us via §9/pssdiscord §eso we can find a replacement symbol that Minecraft 1.8.9 can render.",

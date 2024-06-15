@@ -22,6 +22,7 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.discordCode
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
+import me.partlysanestudios.partlysaneskies.data.api.GetRequest
 import me.partlysanestudios.partlysaneskies.data.api.Request
 import me.partlysanestudios.partlysaneskies.data.api.RequestsManager.newRequest
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager
@@ -79,7 +80,7 @@ class CustomMainMenu : WindowScreen(ElementaVersion.V5) {
             }
             val url = config.apiUrl + "/v1/pss/funfact"
             val lock = Lock()
-            newRequest(Request(url, { request: Request ->
+            newRequest(GetRequest(url, { request: Request ->
                 try {
                     val factInfo = JsonParser().parse(request.getResponse()).getAsJsonObject()
                     val fact = factInfo["funFact"].asString

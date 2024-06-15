@@ -56,17 +56,7 @@ object RequestsManager {
             return
         }
         if (element.isMainThread()) {
-            if (PartlySaneSkies.minecraft != null) {
-                PartlySaneSkies.minecraft.addScheduledTask {
-                    try {
-                        element.startRequest()
-                    } catch (e: IOException) {
-                        element.setFailed("{THREW_IOEXEPCTION}")
-                        e.printStackTrace()
-                    }
-                }
-
-            } else {
+            PartlySaneSkies.minecraft.addScheduledTask {
                 try {
                     element.startRequest()
                 } catch (e: IOException) {

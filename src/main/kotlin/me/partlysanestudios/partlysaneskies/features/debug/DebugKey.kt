@@ -3,6 +3,7 @@
 // See LICENSE for copyright and license notices.
 //
 
+
 package me.partlysanestudios.partlysaneskies.features.debug
 
 import cc.polyfrost.oneconfig.config.core.OneColor
@@ -70,11 +71,13 @@ object DebugKey {
         if (config.debugAddSlacker) {
             PlayerRating.rackPoints("FlagTheSlacker", "Debug Slacker")
         }
+
         if (config.debugSpawnWaypoint) {
             val originalPos = minecraft.thePlayer.position
             val modifiedPoint = Point3d(originalPos.x - 1.0, originalPos.y.toDouble(), originalPos.z - 1.0)
             waypointPoint = modifiedPoint
         }
+
         if (config.debugSendSystemNotification) {
             SystemNotification.showNotification("Debug mode: ${isDebugMode()}")
         }
@@ -86,6 +89,7 @@ object DebugKey {
 
             }.start()
         }
+
         if (config.debugPrintCurrentLocationFromIslandType) {
             sendClientMessage("Island Type: ${IslandType.getCurrentIsland()}")
         }
@@ -93,6 +97,7 @@ object DebugKey {
         if (config.debugLogCachedF7Puzzles) {
             TerminalWaypoints.logCachedPuzzles()
         }
+
         if (config.debugPrintCurrentCachedStats) {
             sendClientMessage("Health: ${StatsData.currentHealth}/${StatsData.maxHealth}, Defense: ${StatsData.defense}, Mana: ${StatsData.currentMana}/${StatsData.maxMana}")
         }
@@ -104,6 +109,9 @@ object DebugKey {
             cylinderPoint = Point3d.atPlayer()
         }
 
+        if (config.debugSendDiscordWebhook) {
+            ExampleWebhook.trigger()
+        }
         if (config.debugScanCrystalHollowsCrystals) {
             Thread {
                 CrystalHollowsGemstoneMapper.scanWorld()
