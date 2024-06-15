@@ -1,30 +1,22 @@
 package me.partlysanestudios.partlysaneskies.features.discord.webhooks
 
 import gg.essential.elementa.ElementaVersion
-import gg.essential.elementa.UIComponent
 import gg.essential.elementa.WindowScreen
 import gg.essential.elementa.components.UIBlock
-import gg.essential.elementa.components.UIRoundedRectangle
 import gg.essential.elementa.components.UIWrappedText
 import gg.essential.elementa.constraints.CenterConstraint
-import gg.essential.elementa.constraints.XConstraint
-import gg.essential.elementa.constraints.YConstraint
 import gg.essential.elementa.dsl.*
 import gg.essential.universal.UMatrixStack
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand
-import me.partlysanestudios.partlysaneskies.features.debug.ExampleWebhook
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
 import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
-import net.minecraft.client.gui.inventory.GuiChest
 import java.awt.Color
 
 class WebhookMenu: WindowScreen(ElementaVersion.V5) {
 
     companion object {
-        internal var webhookEvents = ArrayList<WebhookEvent>()
-
         fun registerWebhookCommand() {
 
             PSSCommand("webhook")

@@ -14,13 +14,10 @@ import me.partlysanestudios.partlysaneskies.features.discord.webhooks.EmbedData
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.EmbedField
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.WebhookData
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.WebhookEvent
+import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
+import org.apache.logging.log4j.Level
 
 object ExampleWebhook: WebhookEvent() {
-    init {
-
-        register()
-    }
-
     // Optional override
     // In this case, because we have a config option additionally, I decided to sync them
     override var enabled: Boolean

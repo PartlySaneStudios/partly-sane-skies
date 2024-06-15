@@ -37,6 +37,7 @@ import me.partlysanestudios.partlysaneskies.features.chat.WordEditor
 import me.partlysanestudios.partlysaneskies.features.commands.*
 import me.partlysanestudios.partlysaneskies.features.debug.DebugKey
 import me.partlysanestudios.partlysaneskies.features.debug.ExampleHud
+import me.partlysanestudios.partlysaneskies.features.debug.ExampleWebhook
 import me.partlysanestudios.partlysaneskies.features.discord.DiscordRPC
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.WebhookMenu
 import me.partlysanestudios.partlysaneskies.features.dungeons.*
@@ -272,6 +273,8 @@ class PartlySaneSkies {
         ModChecker.registerModCheckCommand()
         ItemRefill.registerCommand()
         WebhookMenu.registerWebhookCommand()
+
+        ExampleWebhook.register()
 
 
         //Use Polyfrost EventManager cuz chatSendEvent makes transforming chat messages may easier
