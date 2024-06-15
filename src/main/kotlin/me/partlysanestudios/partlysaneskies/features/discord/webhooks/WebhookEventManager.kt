@@ -9,8 +9,12 @@ package me.partlysanestudios.partlysaneskies.features.discord.webhooks
 import java.util.LinkedList
 
 object WebhookEventManager {
-    private val webhookEvents: MutableList<WebhookEvent> = LinkedList()
+    val webhookEvents: MutableList<WebhookEvent> = LinkedList()
     fun registerWebhook(webhookEvent: WebhookEvent) {
         webhookEvents.add(webhookEvent)
+
+        if (!webhookEvent.hidden) {
+            WebhookMenu.webhookEvents.add(webhookEvent)
+        }
     }
 }

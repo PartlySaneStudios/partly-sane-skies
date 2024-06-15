@@ -38,6 +38,7 @@ import me.partlysanestudios.partlysaneskies.features.commands.*
 import me.partlysanestudios.partlysaneskies.features.debug.DebugKey
 import me.partlysanestudios.partlysaneskies.features.debug.ExampleHud
 import me.partlysanestudios.partlysaneskies.features.discord.DiscordRPC
+import me.partlysanestudios.partlysaneskies.features.discord.webhooks.WebhookMenu
 import me.partlysanestudios.partlysaneskies.features.dungeons.*
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.PartyFriendManager
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.partymanager.PartyManager
@@ -270,6 +271,7 @@ class PartlySaneSkies {
         PlayerRating.registerReprintCommand()
         ModChecker.registerModCheckCommand()
         ItemRefill.registerCommand()
+        WebhookMenu.registerWebhookCommand()
 
 
         //Use Polyfrost EventManager cuz chatSendEvent makes transforming chat messages may easier

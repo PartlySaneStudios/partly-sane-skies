@@ -17,6 +17,7 @@ import me.partlysanestudios.partlysaneskies.features.discord.webhooks.WebhookEve
 
 object ExampleWebhook: WebhookEvent() {
     init {
+
         register()
     }
 

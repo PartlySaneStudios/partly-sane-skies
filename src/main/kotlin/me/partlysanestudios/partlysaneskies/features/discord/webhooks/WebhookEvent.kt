@@ -10,6 +10,7 @@ import gg.essential.elementa.UIComponent
 
 abstract class WebhookEvent {
     open var enabled = false
+    open val hidden = false
     abstract val icon: UIComponent
 
     fun register() {
