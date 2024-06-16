@@ -20,7 +20,7 @@ class WebhookMenu: WindowScreen(ElementaVersion.V5) {
         fun registerWebhookCommand() {
 
             PSSCommand("webhook")
-                .addAlias("webhooks", "wb", "discordwebhook", "discordwebhooks")
+                .addAlias("webhooks", "wh", "discordwebhook", "discordwebhooks")
                 .setRunnable { _, _ ->
                     Thread() {
                         minecraft.addScheduledTask { minecraft.displayGuiScreen(WebhookMenu()) }
@@ -61,27 +61,40 @@ class WebhookMenu: WindowScreen(ElementaVersion.V5) {
         color = Color.green.constraint
     } childOf activeWebhooksPanel
 
-    private val webhookOptionsPanel  = ThemeManager.currentBackgroundUIImage.constrain {
+    private val webhookOptionsPanel = ThemeManager.currentBackgroundUIImage.constrain {
         x = CenterConstraint()
         y = CenterConstraint() + 20.scaledPixels + (300 / 2).scaledPixels
         width = (300 + 300 + 75).scaledPixels
         height = 150.scaledPixels
     } childOf window
 
+    private val sideSwitchButton = ThemeManager.currentBackgroundUIImage.constrain {
+        x = CenterConstraint()
+        y = CenterConstraint()
+        width = 50.scaledPixels
+        height = 50.scaledPixels
+    }.onMouseClick {
+        if (selectedIcon == null) {
+            return@onMouseClick
+        }
+
+    } childOf window
 
     private var webhookIcons = ArrayList<WebhookIcon>()
+    var selectedIcon: WebhookIcon? = null
 
     init {
-        addAllRegisterdWebhooks()
+        addAllRegisteredWebhooks()
         updateLocations()
-
     }
 
-    private fun addAllRegisterdWebhooks() {
+    private fun addAllRegisteredWebhooks() {
         sendClientMessage(WebhookEventManager.webhookEvents.size.toString())
         for (event in WebhookEventManager.webhookEvents) {
             sendClientMessage("Adding webhook")
-            webhookIcons.add(WebhookIcon(event))
+            val icon = WebhookIcon(event)
+            icon.menu = this
+            webhookIcons.add(icon)
         }
     }
 
@@ -96,7 +109,7 @@ class WebhookMenu: WindowScreen(ElementaVersion.V5) {
             }
         }
 
-        val startX = 5.0
+        val startX = 10.0
 
         var x = startX
         var y = 25.0
@@ -105,7 +118,6 @@ class WebhookMenu: WindowScreen(ElementaVersion.V5) {
         val pad = 7.5
 
         for (icon in disabled) {
-            sendClientMessage("icon disabled")
             icon.iconBox
                 .setX(x.scaledPixels)
                 .setY(y.scaledPixels)
@@ -123,8 +135,6 @@ class WebhookMenu: WindowScreen(ElementaVersion.V5) {
         x = startX
         y = 25.0
         for (icon in enabled) {
-            sendClientMessage("icon enabled")
-
             icon.iconBox
                 .setX(x.scaledPixels)
                 .setY(y.scaledPixels)
@@ -147,7 +157,6 @@ class WebhookMenu: WindowScreen(ElementaVersion.V5) {
         for (icon in webhookIcons) {
             if (icon.hovering) {
                 drawHoveringText(icon.text, mouseX, mouseY)
-                sendClientMessage("draw")
                 break
             }
         }
@@ -155,6 +164,7 @@ class WebhookMenu: WindowScreen(ElementaVersion.V5) {
 
     class WebhookIcon(private val webhookEvent: WebhookEvent) {
         var hovering = false
+        var menu: WebhookMenu? = null
         var text = arrayListOf("Test")
         var enabled: Boolean get() {
             return webhookEvent.enabled
@@ -164,11 +174,18 @@ class WebhookMenu: WindowScreen(ElementaVersion.V5) {
         val iconBox = UIBlock().constrain {
 
         }.onMouseEnter {
-            sendClientMessage("enter")
             hovering = true
         }.onMouseLeave {
-            sendClientMessage("leave")
             hovering = false
+        }.onMouseClick {
+            if (menu?.selectedIcon == this@WebhookIcon) {
+                menu?.selectedIcon = null
+            } else {
+                menu?.selectedIcon = this@WebhookIcon
+            }
+        }
+        init {
+            webhookEvent.icon.setChildOf(iconBox)
         }
     }
 }
