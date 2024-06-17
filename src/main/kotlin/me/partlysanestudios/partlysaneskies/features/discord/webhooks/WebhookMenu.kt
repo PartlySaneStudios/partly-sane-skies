@@ -10,6 +10,7 @@ import gg.essential.universal.UMatrixStack
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
+import me.partlysanestudios.partlysaneskies.render.gui.components.PSSToggle
 import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
 import java.awt.Color
@@ -98,6 +99,13 @@ class WebhookMenu: WindowScreen(ElementaVersion.V5) {
         }
     }
 
+    private fun updateSelected() {
+        for (icon in webhookIcons) {
+            icon.toggle.setState(false)
+        }
+
+        selectedIcon?.toggle?.setState(true)
+    }
     private fun updateLocations() {
         val enabled = ArrayList<WebhookIcon>()
         val disabled = ArrayList<WebhookIcon>()
@@ -183,9 +191,24 @@ class WebhookMenu: WindowScreen(ElementaVersion.V5) {
             } else {
                 menu?.selectedIcon = this@WebhookIcon
             }
+            menu?.updateSelected()
         }
+
+        val toggle = PSSToggle()
+            .setHeight(100.percent)
+            .setWidth(100.percent)
+            .setX(CenterConstraint())
+            .setY(CenterConstraint())
+            .setChildOf(iconBox)
+
         init {
-            webhookEvent.icon.setChildOf(iconBox)
+            webhookEvent.icon.constrain {
+                x = CenterConstraint()
+                y = CenterConstraint()
+                height = 100.percent
+                width = 100.percent
+            }
+            webhookEvent.icon.setChildOf(toggle.component)
         }
     }
 }

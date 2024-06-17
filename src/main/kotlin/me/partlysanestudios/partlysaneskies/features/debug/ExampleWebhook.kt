@@ -14,8 +14,10 @@ import me.partlysanestudios.partlysaneskies.features.discord.webhooks.EmbedData
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.EmbedField
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.WebhookData
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.WebhookEvent
+import me.partlysanestudios.partlysaneskies.utils.ImageUtils.applyOpacity
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
 import org.apache.logging.log4j.Level
+import java.awt.Color
 
 object ExampleWebhook: WebhookEvent() {
     // Optional override
@@ -34,7 +36,7 @@ object ExampleWebhook: WebhookEvent() {
         }
 
         WebhookData(
-            PartlySaneSkies.config.discordWebhookURL,
+            config.discordWebhookURL,
             "Test Content",
             listOf(
                 EmbedData(
@@ -54,5 +56,5 @@ object ExampleWebhook: WebhookEvent() {
         ).send()
     }
 
-    override val icon: UIComponent = UIBlock()
+    override val icon: UIComponent = UIBlock().setColor(Color(255, 0, 0, 200))
 }

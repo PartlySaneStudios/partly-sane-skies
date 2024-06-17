@@ -217,8 +217,8 @@ public class ProfitMinionCalculator extends WindowScreen {
             PSSToggle toggle = new PSSToggle()
                     .setX(fromWidthScaleFactor(0))
                     .setY(new CenterConstraint())
-                    .setWidth(fromWidthScaleFactor(25).getValue())
-                    .setHeight(fromWidthScaleFactor(25).getValue())
+                    .setWidth(fromWidthScaleFactor(25))
+                    .setHeight(fromWidthScaleFactor(25))
                     .setChildOf(fuelContainer.getComponent());
             float textXPos = toggle.getComponent().getWidth() + textPad;
 
@@ -273,8 +273,8 @@ public class ProfitMinionCalculator extends WindowScreen {
             PSSToggle toggle = new PSSToggle()
                     .setX(fromWidthScaleFactor(0))
                     .setY(new CenterConstraint())
-                    .setWidth(fromWidthScaleFactor(25).getValue())
-                    .setHeight(fromWidthScaleFactor(25).getValue())
+                    .setWidth(fromWidthScaleFactor(25))
+                    .setHeight(fromWidthScaleFactor(25))
                     .setChildOf(upgradeContainer.getComponent());
             float textXPos = toggle.getComponent().getWidth() + textPad;
 
@@ -336,8 +336,8 @@ public class ProfitMinionCalculator extends WindowScreen {
             PSSToggle toggle = new PSSToggle()
                     .setX(fromWidthScaleFactor(10))
                     .setY(new PixelConstraint(heightPos))
-                    .setHeight(fromWidthScaleFactor(12).getValue())
-                    .setWidth(fromWidthScaleFactor(12).getValue())
+                    .setHeight(fromWidthScaleFactor(12))
+                    .setWidth(fromWidthScaleFactor(12))
                     .setChildOf(bestMinionBar);
 
             toggle.onMouseClickConsumer(s -> {
