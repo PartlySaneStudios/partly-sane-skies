@@ -7,16 +7,12 @@
 package me.partlysanestudios.partlysaneskies.features.debug
 
 import gg.essential.elementa.UIComponent
-import gg.essential.elementa.components.UIBlock
-import me.partlysanestudios.partlysaneskies.PartlySaneSkies
+import gg.essential.elementa.components.UICircle
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.EmbedData
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.EmbedField
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.WebhookData
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.WebhookEvent
-import me.partlysanestudios.partlysaneskies.utils.ImageUtils.applyOpacity
-import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
-import org.apache.logging.log4j.Level
 import java.awt.Color
 
 object ExampleWebhook: WebhookEvent() {
@@ -56,5 +52,5 @@ object ExampleWebhook: WebhookEvent() {
         ).send()
     }
 
-    override val icon: UIComponent = UIBlock().setColor(Color(255, 0, 0, 200))
+    override val icon: UIComponent = UICircle().setColor(Color(255, 0, 0, 100))
 }

@@ -71,7 +71,7 @@ class WebhookMenu: WindowScreen(ElementaVersion.V5) {
 
     private val sideSwitchButton = ThemeManager.currentBackgroundUIImage.constrain {
         x = CenterConstraint()
-        y = CenterConstraint()
+        y = CenterConstraint() - (300 / 2).scaledPixels
         width = 50.scaledPixels
         height = 50.scaledPixels
     }.onMouseClick {
@@ -79,6 +79,8 @@ class WebhookMenu: WindowScreen(ElementaVersion.V5) {
             return@onMouseClick
         }
 
+        selectedIcon?.enabled = !(selectedIcon?.enabled ?: false)
+        updateLocations()
     } childOf window
 
     private var webhookIcons = ArrayList<WebhookIcon>()
