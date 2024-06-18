@@ -6,9 +6,9 @@
 
 package me.partlysanestudios.partlysaneskies.features.discord.webhooks
 
-import ConfigManager
 import gg.essential.elementa.UIComponent
 import me.partlysanestudios.partlysaneskies.config.psconfig.Config
+import me.partlysanestudios.partlysaneskies.config.psconfig.ConfigManager
 import me.partlysanestudios.partlysaneskies.config.psconfig.Toggle
 import me.partlysanestudios.partlysaneskies.config.psconfig.Toggle.Companion.asBoolean
 import me.partlysanestudios.partlysaneskies.config.psconfig.Toggle.Companion.asToggle

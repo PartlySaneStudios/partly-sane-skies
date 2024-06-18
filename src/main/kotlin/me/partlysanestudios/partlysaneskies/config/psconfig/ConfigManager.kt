@@ -4,7 +4,7 @@
 //
 
 
-me.partlysanestudios.partlysaneskies.config.psconfig
+package me.partlysanestudios.partlysaneskies.config.psconfig
 
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonParser

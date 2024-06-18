@@ -9,8 +9,6 @@ package me.partlysanestudios.partlysaneskies.features.debug
 import gg.essential.elementa.UIComponent
 import gg.essential.elementa.components.UICircle
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
-import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
-import me.partlysanestudios.partlysaneskies.config.psconfig.Config
 import me.partlysanestudios.partlysaneskies.config.psconfig.Toggle
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.EmbedData
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.EmbedField

@@ -10,7 +10,6 @@ import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
 import org.apache.logging.log4j.Level
-import java.lang.IllegalArgumentException
 
 class Config : ConfigOption() {
 

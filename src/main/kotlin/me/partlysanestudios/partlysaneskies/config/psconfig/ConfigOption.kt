@@ -7,7 +7,6 @@
 package me.partlysanestudios.partlysaneskies.config.psconfig
 
 import com.google.gson.JsonElement
-import java.util.LinkedList
 
 abstract class ConfigOption {
 
