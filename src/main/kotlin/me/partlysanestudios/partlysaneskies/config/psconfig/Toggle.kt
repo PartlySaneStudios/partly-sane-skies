@@ -6,7 +6,7 @@ import com.google.gson.JsonParser
 class Toggle(
     val name: String,
     val description: String = "",
-    val defaultState: Boolean = false
+    defaultState: Boolean = false
 ): ConfigOption() {
     companion object {
         val ConfigOption.asToggle: Toggle

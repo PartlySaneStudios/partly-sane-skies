@@ -4,8 +4,9 @@ import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
 import org.apache.logging.log4j.Level
+import java.lang.IllegalArgumentException
 
-class Config(): ConfigOption() {
+class Config : ConfigOption() {
 
     companion object {
         val ConfigOption.asConfig: Config
@@ -37,6 +38,7 @@ class Config(): ConfigOption() {
 
         if (indexOfSplit == -1) {
             options[path] = configOption
+            configOption.parent = this
             return
         }
 
@@ -71,5 +73,14 @@ class Config(): ConfigOption() {
             obj.add(option.key, option.value.saveToJson())
         }
         return obj
+    }
+
+    var savePath: String? = null
+    fun save() {
+        if (parent != null) {
+            ConfigManager.saveConfig(savePath ?: throw IllegalArgumentException("Uable to Save. No save path provided. Config is not registered."), this)
+        } else {
+            (parent as? Config)?.save() ?: throw IllegalArgumentException("Unable to save. Parent of config is not a config.")
+        }
     }
 }

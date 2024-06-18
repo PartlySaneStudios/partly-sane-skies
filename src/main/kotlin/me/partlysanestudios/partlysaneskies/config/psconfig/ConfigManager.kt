@@ -12,6 +12,7 @@ object ConfigManager {
 
     private val configs = HashMap<String, Config>()
     fun registerNewConfig(savePath: String, config: Config) {
+        config.savePath = savePath
         configs[savePath] = config
     }
 
@@ -27,7 +28,7 @@ object ConfigManager {
         }
     }
 
-    private fun saveConfig(savePath: String, config: Config) {
+    fun saveConfig(savePath: String, config: Config) {
         // Creates a new file and Gson instance
         val file = Path(savePath).toFile()
         val builder = GsonBuilder()
