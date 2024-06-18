@@ -1,5 +1,10 @@
 package me.partlysanestudios.partlysaneskies.config.psconfig
 
+import com.google.gson.JsonElement
+import com.google.gson.JsonObject
+import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
+import org.apache.logging.log4j.Level
+
 class Config(): ConfigOption() {
 
     companion object {
@@ -40,5 +45,31 @@ class Config(): ConfigOption() {
         val newConfig = Config()
         options[firstKey] = newConfig
         newConfig.registerOption(path.substring(indexOfSplit), configOption)
+    }
+
+    override fun loadFromJson(element: JsonElement) {
+        val obj = element.asJsonObject
+
+        for (option in options.entries) {
+            // If the parameter exists
+            if (obj.has(option.key)) {
+                try {
+                    option.value.loadFromJson(obj.get(option.key))
+
+                } catch (e: Exception) {
+                    log(Level.ERROR, "Error loading option ${option.key}")
+                    throw e
+                }
+            }
+        }
+    }
+
+    override fun saveToJson(): JsonElement {
+        val obj = JsonObject()
+
+        for (option in options.entries) {
+            obj.add(option.key, option.value.saveToJson())
+        }
+        return obj
     }
 }
