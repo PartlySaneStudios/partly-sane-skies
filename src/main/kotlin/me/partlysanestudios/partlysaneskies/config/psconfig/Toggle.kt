@@ -2,6 +2,7 @@ package me.partlysanestudios.partlysaneskies.config.psconfig
 
 import com.google.gson.JsonElement
 import com.google.gson.JsonParser
+import me.partlysanestudios.partlysaneskies.config.psconfig.Config.Companion.asConfig
 
 class Toggle(
     val name: String,
@@ -20,7 +21,13 @@ class Toggle(
             }
     }
 
-    var state = defaultState
+    private var cachedState = defaultState
+    var state: Boolean get() {
+        return cachedState
+    } set(value) {
+        cachedState = value
+        parent?.asConfig?.save()
+    }
     override fun loadFromJson(element: JsonElement) {
         state = element.asBoolean
     }

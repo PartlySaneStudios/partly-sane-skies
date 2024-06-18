@@ -77,7 +77,7 @@ class Config : ConfigOption() {
 
     var savePath: String? = null
     fun save() {
-        if (parent != null) {
+        if (parent == null) {
             ConfigManager.saveConfig(savePath ?: throw IllegalArgumentException("Uable to Save. No save path provided. Config is not registered."), this)
         } else {
             (parent as? Config)?.save() ?: throw IllegalArgumentException("Unable to save. Parent of config is not a config.")

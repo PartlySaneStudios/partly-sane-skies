@@ -7,18 +7,40 @@
 package me.partlysanestudios.partlysaneskies.features.discord.webhooks
 
 import gg.essential.elementa.UIComponent
+import me.partlysanestudios.partlysaneskies.config.psconfig.Config
+import me.partlysanestudios.partlysaneskies.config.psconfig.ConfigManager
+import me.partlysanestudios.partlysaneskies.config.psconfig.Toggle
+import me.partlysanestudios.partlysaneskies.config.psconfig.Toggle.Companion.asBoolean
+import me.partlysanestudios.partlysaneskies.config.psconfig.Toggle.Companion.asToggle
 
-abstract class WebhookEvent {
-    open var enabled = false
-    open val hidden = false
+abstract class WebhookEvent(defaultEnabledState: Boolean = false) {
+    companion object {
+        private const val WEBHOOK_FOLDER_PATH = "webhooks/"
+    }
+    var enabled: Boolean get() {
+        return config.find("enabled")?.asBoolean ?: false
+    } set(value) {
+        config.find("enabled")?.asToggle?.state = value
+    }
+
     abstract val icon: UIComponent
     abstract val id: String
     abstract val name: String
+    val config: Config = Config()
 
 
+    init {
+        config.registerOption("enabled", Toggle("Enabled", defaultState = defaultEnabledState))
+    }
 
 
-    fun register() {
+    // Registers the config and the webhook
+    fun registerAll() {
+        ConfigManager.registerNewConfig(WEBHOOK_FOLDER_PATH + id, config)
         WebhookEventManager.registerWebhook(this)
+    }
+
+    fun registerConfig() {
+
     }
 }

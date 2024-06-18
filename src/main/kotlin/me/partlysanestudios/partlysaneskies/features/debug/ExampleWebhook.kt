@@ -8,7 +8,10 @@ package me.partlysanestudios.partlysaneskies.features.debug
 
 import gg.essential.elementa.UIComponent
 import gg.essential.elementa.components.UICircle
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
+import me.partlysanestudios.partlysaneskies.config.psconfig.Config
+import me.partlysanestudios.partlysaneskies.config.psconfig.Toggle
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.EmbedData
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.EmbedField
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.WebhookData
@@ -16,13 +19,6 @@ import me.partlysanestudios.partlysaneskies.features.discord.webhooks.WebhookEve
 import java.awt.Color
 
 object ExampleWebhook: WebhookEvent() {
-    // Optional override
-    // In this case, because we have a config option additionally, I decided to sync them
-    override var enabled: Boolean
-        get() = config.debugSendDiscordWebhook
-        set(value) { config.debugSendDiscordWebhook = value }
-
-
     // Use events for this. In this case, it's debug key.
     // Debug key event when
     // TODO: Debug key event
@@ -32,7 +28,7 @@ object ExampleWebhook: WebhookEvent() {
         }
 
         WebhookData(
-            config.discordWebhookURL,
+            PartlySaneSkies.config.discordWebhookURL,
             "Test Content",
             listOf(
                 EmbedData(
@@ -53,4 +49,13 @@ object ExampleWebhook: WebhookEvent() {
     }
 
     override val icon: UIComponent = UICircle().setColor(Color(255, 0, 0, 100))
+    override val id: String = "example"
+    override val name: String = "Example Webhook"
+
+    init {
+        config.registerOption("testOption", Toggle("Test option", "This is a test description", false))
+        config.registerOption("testOption2", Toggle("Test option", "This is a test description", false))
+        config.registerOption("testOption3", Toggle("Test option", "This is a test description", false))
+
+    }
 }

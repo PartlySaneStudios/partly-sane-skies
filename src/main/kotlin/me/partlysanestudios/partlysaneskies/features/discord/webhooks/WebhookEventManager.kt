@@ -12,6 +12,7 @@ import java.util.LinkedList
 
 object WebhookEventManager {
     val webhookEvents = ArrayList<WebhookEvent>()
+
     fun registerWebhook(webhookEvent: WebhookEvent) {
         webhookEvents.add(webhookEvent)
     }

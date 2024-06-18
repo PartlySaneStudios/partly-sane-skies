@@ -22,6 +22,7 @@ import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import me.partlysanestudios.partlysaneskies.config.Keybinds
 import me.partlysanestudios.partlysaneskies.config.OneConfigScreen
+import me.partlysanestudios.partlysaneskies.config.psconfig.ConfigManager
 import me.partlysanestudios.partlysaneskies.data.cache.PetData
 import me.partlysanestudios.partlysaneskies.data.cache.StatsData
 import me.partlysanestudios.partlysaneskies.data.cache.VisitorLogbookData
@@ -274,7 +275,9 @@ class PartlySaneSkies {
         ItemRefill.registerCommand()
         WebhookMenu.registerWebhookCommand()
 
-        ExampleWebhook.register()
+        ExampleWebhook.registerAll()
+
+        ConfigManager.loadAllConfigs()
 
 
         //Use Polyfrost EventManager cuz chatSendEvent makes transforming chat messages may easier

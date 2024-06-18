@@ -2,18 +2,27 @@ package me.partlysanestudios.partlysaneskies.config.psconfig
 
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonParser
-import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
 import org.apache.logging.log4j.Level
 import java.io.FileWriter
+import java.nio.file.Files
 import kotlin.io.path.Path
 
 object ConfigManager {
 
     private val configs = HashMap<String, Config>()
+
+    // Save path should not include the /config/partly-sane-skies/
     fun registerNewConfig(savePath: String, config: Config) {
-        config.savePath = savePath
-        configs[savePath] = config
+        var path = savePath
+        if (savePath.startsWith("/")) {
+            path = savePath.substring(1)
+        }
+        if (!savePath.endsWith(".json")) {
+            path = "$savePath.json"
+        }
+        config.savePath = path
+        configs[path] = config
     }
 
     fun saveAllConfigs() {
@@ -29,8 +38,12 @@ object ConfigManager {
     }
 
     fun saveConfig(savePath: String, config: Config) {
-        // Creates a new file and Gson instance
-        val file = Path(savePath).toFile()
+        val path = Path("./config/partly-sane-skies/$savePath")
+        val file = path.toFile()
+        file.mkdirs()
+        file.createNewFile()
+        file.setWritable(true)
+
         val builder = GsonBuilder()
         builder.setPrettyPrinting()
         builder.serializeSpecialFloatingPointValues()
@@ -46,13 +59,25 @@ object ConfigManager {
     }
 
     private fun loadConfig(savePath: String, config: Config) {
-        val data = PublicDataManager.getFile(savePath)
-        val element = JsonParser().parse(data)
-        try {
-            config.loadFromJson(element)
-        } catch (e: Exception) {
-            log(Level.ERROR, "Error loading config with path $savePath")
-            e.printStackTrace()
+        val path = Path("./config/partly-sane-skies/$savePath")
+
+        val file = path.toFile()
+        file.mkdirs()
+        file.setWritable(true)
+        file.setReadable(true)
+
+        // If it is the first time creating a file, we insert the default values in
+        if (file.createNewFile()) {
+            saveConfig(savePath, config)
+        } else { // Else, we load the data
+            val element = JsonParser().parse(file.reader())
+            try {
+                config.loadFromJson(element)
+            } catch (e: Exception) {
+                log(Level.ERROR, "Error loading config with path $savePath")
+                e.printStackTrace()
+            }
         }
+
     }
 }
