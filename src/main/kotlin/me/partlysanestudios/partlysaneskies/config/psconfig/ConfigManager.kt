@@ -1,4 +1,10 @@
-package me.partlysanestudios.partlysaneskies.config.psconfig
+//
+// Written by Su386.
+// See LICENSE for copyright and license notices.
+//
+
+
+me.partlysanestudios.partlysaneskies.config.psconfig
 
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonParser
