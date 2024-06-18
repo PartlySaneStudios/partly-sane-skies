@@ -12,6 +12,11 @@ abstract class WebhookEvent {
     open var enabled = false
     open val hidden = false
     abstract val icon: UIComponent
+    abstract val id: String
+    abstract val name: String
+
+
+
 
     fun register() {
         WebhookEventManager.registerWebhook(this)
