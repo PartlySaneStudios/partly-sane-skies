@@ -89,6 +89,24 @@ object RareDropGUIManager {
                 "Zombie Soldier Boots",
             ),
         ),
-
+        RareDropPreset(
+            "Useless End Drops",
+            listOf(
+                "Ender Helmet",
+                "Ender Chestplate",
+                "Ender Leggings",
+                "Ender Boots",
+                "Ender Belt",
+                "Ender Cloak",
+                "Ender Gauntlet",
+                "Ender Necklace",
+                "Enchanted Ender Pearl",
+                "End Stone Bow",
+                "Ender Monocle",
+                "Enchanted Eye of Ender",
+                "Enchanted End Stone",
+                "Enchanted Obsidian",
+            )
+        )
     )
 }
