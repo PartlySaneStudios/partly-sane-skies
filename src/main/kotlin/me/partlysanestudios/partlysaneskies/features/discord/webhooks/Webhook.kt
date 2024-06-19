@@ -17,11 +17,8 @@ abstract class Webhook(defaultEnabledState: Boolean = false) {
     companion object {
         private const val WEBHOOK_FOLDER_PATH = "webhooks/"
     }
-    var enabled: Boolean get() {
-        return config.find("enabled")?.asBoolean ?: false
-    } set(value) {
-        config.find("enabled")?.asToggle?.state = value
-    }
+    var enabled: Boolean get() = config.find("enabled")?.asBoolean ?: false
+        set(value) { config.find("enabled")?.asToggle?.state = value }
 
     abstract val icon: UIComponent
     abstract val id: String

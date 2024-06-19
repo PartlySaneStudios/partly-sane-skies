@@ -16,24 +16,17 @@ class Toggle(
     defaultState: Boolean = false
 ): ConfigOption() {
     companion object {
-        val ConfigOption.asToggle: Toggle
-            get() {
-                return this as Toggle
-            }
-
-        val ConfigOption.asBoolean: Boolean
-            get() {
-                return this.asToggle.state
-            }
+        val ConfigOption.asToggle get() = this as Toggle
+        val ConfigOption.asBoolean get() = this.asToggle.state
     }
 
     private var cachedState = defaultState
-    var state: Boolean get() {
-        return cachedState
-    } set(value) {
-        cachedState = value
-        parent?.asConfig?.save()
-    }
+    var state: Boolean get() = cachedState
+        set(value) {
+            cachedState = value
+            parent?.asConfig?.save()
+        }
+
     override fun loadFromJson(element: JsonElement) {
         state = element.asBoolean
     }
