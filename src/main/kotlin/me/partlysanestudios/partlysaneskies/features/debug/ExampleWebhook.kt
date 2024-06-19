@@ -14,10 +14,10 @@ import me.partlysanestudios.partlysaneskies.config.psconfig.Toggle
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.EmbedData
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.EmbedField
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.WebhookData
-import me.partlysanestudios.partlysaneskies.features.discord.webhooks.WebhookEvent
+import me.partlysanestudios.partlysaneskies.features.discord.webhooks.Webhook
 import java.awt.Color
 
-object ExampleWebhook: WebhookEvent() {
+object ExampleWebhook: Webhook() {
     // Use events for this. In this case, it's debug key.
     // Debug key event when
     // TODO: Debug key event

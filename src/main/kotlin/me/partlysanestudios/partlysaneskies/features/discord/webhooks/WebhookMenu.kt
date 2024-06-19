@@ -1,3 +1,9 @@
+//
+// Written by Su386.
+// See LICENSE for copyright and license notices.
+//
+
+
 package me.partlysanestudios.partlysaneskies.features.discord.webhooks
 
 import gg.essential.elementa.ElementaVersion
@@ -256,7 +262,7 @@ class WebhookMenu: WindowScreen(ElementaVersion.V5) {
         }
     }
 
-    private class WebhookIcon(val webhookEvent: WebhookEvent) {
+    private class WebhookIcon(val webhookEvent: Webhook) {
         var hovering = false
         var menu: WebhookMenu? = null
         var text = arrayListOf("§d${webhookEvent.name}")
