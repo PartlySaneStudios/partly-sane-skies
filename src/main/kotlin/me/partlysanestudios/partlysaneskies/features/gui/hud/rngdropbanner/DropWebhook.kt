@@ -45,14 +45,20 @@ object DropWebhook: Webhook() {
 
         val title = drop.dropCategory
         val name = drop.name
-        val description = "Magic Find: ${drop.magicFind}"
+        val description = "${drop.magicFind}% ✯ Magic Find!"
+        
+        var color = drop.dropRarity.colorCode.colorCodeToColor().asHex
+        if (drop.dropRarity == Rarity.UNKNOWN) {
+            color = Color.white.asHex
+        }
+
         WebhookData(
             url = PartlySaneSkies.config.discordWebhookURL,
             content = " ",
             embedData = listOf(
                 EmbedData(
                     title = title,
-                    color = drop.dropRarity.colorCode.colorCodeToColor().asHex,
+                    color = color,
                     fields = listOf(
                         EmbedField(
                             name = name,
@@ -66,6 +72,6 @@ object DropWebhook: Webhook() {
     }
 
     private fun shouldBlockDrop(rarity: Rarity): Boolean {
-        return config.find("send${rarity.displayName}")?.asBoolean == true
+        return config.find("send${rarity.displayName}")?.asBoolean != true
     }
 }
