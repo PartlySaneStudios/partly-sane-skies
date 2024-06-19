@@ -21,6 +21,7 @@ import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager;
 import me.partlysanestudios.partlysaneskies.render.gui.components.PSSButton;
 import me.partlysanestudios.partlysaneskies.render.gui.components.PSSToggle;
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils;
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 
 import java.awt.*;
@@ -71,11 +72,7 @@ public class ProfitMinionCalculator extends WindowScreen {
                 .setDescription("Opens the best minion calculator")
                 .setRunnable((s, a) -> {
                     ChatUtils.INSTANCE.sendClientMessage("§bOpening Minion Calculator...");
-                    new Thread(() -> PartlySaneSkies.Companion.getMinecraft().addScheduledTask(() -> {
-                        // Code to test the minion classes
-                        ProfitMinionCalculator calc = new ProfitMinionCalculator(ElementaVersion.V2);
-                        PartlySaneSkies.Companion.getMinecraft().displayGuiScreen(calc);
-                    })).start();
+                    MinecraftUtils.INSTANCE.displayGuiScreen(new ProfitMinionCalculator(ElementaVersion.V2));
                 })
                 .register();
     }
