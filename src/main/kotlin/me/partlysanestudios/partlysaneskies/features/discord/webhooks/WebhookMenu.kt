@@ -23,6 +23,7 @@ import me.partlysanestudios.partlysaneskies.config.psconfig.Toggle.Companion.asT
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
 import me.partlysanestudios.partlysaneskies.render.gui.components.PSSToggle
 import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
 import java.awt.Color
 
 class WebhookMenu: WindowScreen(ElementaVersion.V5) {
@@ -30,11 +31,7 @@ class WebhookMenu: WindowScreen(ElementaVersion.V5) {
         fun registerWebhookCommand() {
             PSSCommand("webhook")
                 .addAlias("webhooks", "wh", "discordwebhook", "discordwebhooks")
-                .setRunnable { _, _ ->
-                    Thread {
-                        minecraft.addScheduledTask { minecraft.displayGuiScreen(WebhookMenu()) }
-                    }.start()
-                }
+                .setRunnable { _, _ -> MinecraftUtils.displayGuiScreen(WebhookMenu())}
                 .setDescription("Opens the menu to edit webhook events")
                 .register()
         }
