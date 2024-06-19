@@ -36,7 +36,7 @@ class Config : ConfigOption() {
         return newConfig.asConfig.find(path)
     }
 
-    private val options = HashMap<String, ConfigOption>()
+    private val options = LinkedHashMap<String, ConfigOption>()
     // Recursively create new options to get to the path
     fun registerOption(path: String, configOption: ConfigOption) {
         val indexOfSplit = path.indexOf("/")
@@ -52,6 +52,10 @@ class Config : ConfigOption() {
         val newConfig = Config()
         options[firstKey] = newConfig
         newConfig.registerOption(path.substring(indexOfSplit), configOption)
+    }
+
+    fun getAllOptions(): LinkedHashMap<String, ConfigOption> {
+        return options.clone() as LinkedHashMap<String, ConfigOption>
     }
 
     override fun loadFromJson(element: JsonElement) {

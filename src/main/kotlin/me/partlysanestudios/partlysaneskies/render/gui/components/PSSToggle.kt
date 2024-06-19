@@ -99,6 +99,16 @@ class PSSToggle {
         return this
     }
 
+    fun hide(instantly: Boolean = false) {
+        backgroundBlock.hide(instantly)
+        buttonTexture.hide(instantly)
+    }
+
+    fun unhide(instantly: Boolean = false) {
+        backgroundBlock.unhide(instantly)
+        buttonTexture.unhide(instantly)
+    }
+
     fun setChildOf(parent: UIComponent): PSSToggle {
         backgroundBlock.setChildOf(parent)
         return this

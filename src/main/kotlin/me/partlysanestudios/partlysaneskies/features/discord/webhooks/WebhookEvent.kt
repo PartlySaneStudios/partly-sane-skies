@@ -27,10 +27,11 @@ abstract class WebhookEvent(defaultEnabledState: Boolean = false) {
     abstract val id: String
     abstract val name: String
     val config: Config = Config()
+    open val hidden = false
 
 
     init {
-        config.registerOption("enabled", Toggle("Enabled", defaultState = defaultEnabledState))
+        config.registerOption("enabled", Toggle("Enabled", description = "Enable the webhook", defaultState = defaultEnabledState))
     }
 
 
@@ -38,9 +39,5 @@ abstract class WebhookEvent(defaultEnabledState: Boolean = false) {
     fun registerAll() {
         ConfigManager.registerNewConfig(WEBHOOK_FOLDER_PATH + id, config)
         WebhookEventManager.registerWebhook(this)
-    }
-
-    fun registerConfig() {
-
     }
 }

@@ -8,12 +8,14 @@ package me.partlysanestudios.partlysaneskies.features.debug
 
 import gg.essential.elementa.UIComponent
 import gg.essential.elementa.components.UICircle
+import gg.essential.elementa.dsl.percent
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.config.psconfig.Toggle
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.EmbedData
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.EmbedField
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.WebhookData
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.WebhookEvent
+import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
 import java.awt.Color
 
 object ExampleWebhook: WebhookEvent() {
@@ -46,14 +48,15 @@ object ExampleWebhook: WebhookEvent() {
         ).send()
     }
 
-    override val icon: UIComponent = UICircle().setColor(Color(255, 0, 0, 100))
+    override val icon: UIComponent = UICircle().setColor(Color(255, 0, 0, 100)).setRadius(5.scaledPixels)
     override val id: String = "example"
     override val name: String = "Example Webhook"
+    override val hidden = true
 
     init {
         config.registerOption("testOption", Toggle("Test option", "This is a test description", false))
-        config.registerOption("testOption2", Toggle("Test option", "This is a test description", false))
-        config.registerOption("testOption3", Toggle("Test option", "This is a test description", false))
+        config.registerOption("testOption2", Toggle("Test option 2", "This is a test description for 2", false))
+        config.registerOption("testOption3", Toggle("Test option 3", "This is a test description for option 3", false))
 
     }
 }
