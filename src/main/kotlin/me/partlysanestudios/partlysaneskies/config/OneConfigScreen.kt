@@ -1920,7 +1920,7 @@ object OneConfigScreen : Config(
     var testDevEnv = false
 
     // Discord
-    @HUD(
+    @Switch(
         name = "Show hidden webhooks in webhook menu",
         category = "Dev",
         subcategory = "Discord"

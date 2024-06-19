@@ -15,7 +15,6 @@ import me.partlysanestudios.partlysaneskies.features.discord.webhooks.EmbedData
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.EmbedField
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.WebhookData
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.WebhookEvent
-import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
 import java.awt.Color
 
 object ExampleWebhook: WebhookEvent() {
@@ -48,7 +47,7 @@ object ExampleWebhook: WebhookEvent() {
         ).send()
     }
 
-    override val icon: UIComponent = UICircle().setColor(Color(255, 0, 0, 100)).setRadius(5.scaledPixels)
+    override val icon: UIComponent = UICircle().setColor(Color(255, 0, 0, 100)).setRadius(75.percent)
     override val id: String = "example"
     override val name: String = "Example Webhook"
     override val hidden = true
