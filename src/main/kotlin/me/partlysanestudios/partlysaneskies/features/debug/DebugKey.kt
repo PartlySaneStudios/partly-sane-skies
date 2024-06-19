@@ -15,6 +15,7 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.time
 import me.partlysanestudios.partlysaneskies.data.cache.StatsData
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.IslandType
+import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity
 import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.minecraft.render.RenderWaypointEvent
 import me.partlysanestudios.partlysaneskies.features.dungeons.PlayerRating
@@ -103,7 +104,7 @@ object DebugKey {
         }
 
         if (config.debugRenderRNGBanner) {
-            DropBannerDisplay.drop = Drop("Test Name", "Test Category", Color.MAGENTA, "§d", 69, time)
+            DropBannerDisplay.dropToRender = Drop("Test Name", "Test Category", Color.MAGENTA, Rarity.UNOBTAINABLE, 69, time)
         }
         if (config.debugCylinder) {
             cylinderPoint = Point3d.atPlayer()

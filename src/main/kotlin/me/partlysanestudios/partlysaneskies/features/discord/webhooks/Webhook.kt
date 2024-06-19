@@ -26,6 +26,7 @@ abstract class Webhook(defaultEnabledState: Boolean = false) {
     abstract val icon: UIComponent
     abstract val id: String
     abstract val name: String
+    abstract val description: String
     val config: Config = Config()
     open val hidden = false
 
@@ -36,7 +37,7 @@ abstract class Webhook(defaultEnabledState: Boolean = false) {
 
 
     // Registers the config and the webhook
-    fun registerAll() {
+    fun register() {
         ConfigManager.registerNewConfig(WEBHOOK_FOLDER_PATH + id, config)
         WebhookEventManager.registerWebhook(this)
     }

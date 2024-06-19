@@ -6,13 +6,14 @@
 package me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.time
+import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity
 import java.awt.Color
 
 class Drop(
     var name: String,
     var dropCategory: String,
     var dropCategoryColor: Color,
-    var dropRarityColorCode: String,
+    var dropRarity: Rarity,
     var magicFind: Int,
     var timeDropped: Long,
 ) {
