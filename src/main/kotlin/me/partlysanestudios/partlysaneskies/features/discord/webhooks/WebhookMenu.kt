@@ -296,8 +296,6 @@ class WebhookMenu: WindowScreen(ElementaVersion.V5) {
             webhookEvent.icon.constrain {
                 x = CenterConstraint()
                 y = CenterConstraint()
-                height = 100.percent
-                width = 100.percent
             }
             webhookEvent.icon childOf toggle.component
         }
