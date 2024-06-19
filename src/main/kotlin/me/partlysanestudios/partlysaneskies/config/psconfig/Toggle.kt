@@ -21,7 +21,8 @@ class Toggle(
     }
 
     private var cachedState = defaultState
-    var state: Boolean get() = cachedState
+    var state
+        get() = cachedState
         set(value) {
             cachedState = value
             parent?.asConfig?.save()
