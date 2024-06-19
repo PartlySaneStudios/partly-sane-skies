@@ -49,13 +49,12 @@ class PSSToggle {
             getCurrentToggleUIImage(true)
         } else {
             getCurrentToggleUIImage(false)
+        }.constrain {
+            width = 100.percent
+            height = 100.percent
+            x = CenterConstraint()
+            y = CenterConstraint()
         }
-
-        buttonTexture
-            .setWidth(100.percent)
-            .setHeight(100.percent)
-            .setX(CenterConstraint())
-            .setY(CenterConstraint())
 
         backgroundBlock.insertChildAt(buttonTexture, 0)
 

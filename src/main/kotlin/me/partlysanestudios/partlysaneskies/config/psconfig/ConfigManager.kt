@@ -46,7 +46,7 @@ object ConfigManager {
     fun saveConfig(savePath: String, config: Config) {
         val path = Path("./config/partly-sane-skies/$savePath")
         val file = path.toFile()
-        file.mkdirs()
+        file.parentFile.mkdirs()
         file.createNewFile()
         file.setWritable(true)
 
@@ -68,7 +68,7 @@ object ConfigManager {
         val path = Path("./config/partly-sane-skies/$savePath")
 
         val file = path.toFile()
-        file.mkdirs()
+        file.parentFile.mkdirs()
         file.setWritable(true)
         file.setReadable(true)
 

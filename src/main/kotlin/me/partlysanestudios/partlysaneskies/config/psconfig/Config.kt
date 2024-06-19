@@ -14,10 +14,7 @@ import org.apache.logging.log4j.Level
 class Config : ConfigOption() {
 
     companion object {
-        val ConfigOption.asConfig: Config
-            get() {
-                return this as Config
-            }
+        val ConfigOption.asConfig get() = this as Config
     }
     // Recursively find paths for options
     fun find(path: String): ConfigOption? {

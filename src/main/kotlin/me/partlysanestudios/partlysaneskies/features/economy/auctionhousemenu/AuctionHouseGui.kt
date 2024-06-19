@@ -236,21 +236,14 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
                 .contains("Auctions: \"")
         }
 
-        private fun openMenu() {
+        private fun openMenu(): AuctionHouseGui {
             var inventory = (PartlySaneSkies.minecraft.currentScreen as GuiChest).containerInventory
 
-            if (isAuctionHouseFullyLoaded(inventory)) {
-//                ChatUtils.sendClientMessage("Auction house is already loaded")
+            return if (isAuctionHouseFullyLoaded(inventory)) {
                 inventory = (PartlySaneSkies.minecraft.currentScreen as GuiChest).containerInventory
-                val gui = AuctionHouseGui(inventory)
-                PartlySaneSkies.minecraft.displayGuiScreen(gui)
+                AuctionHouseGui(inventory)
             } else {
-                Thread {
-                    PartlySaneSkies.minecraft.addScheduledTask {
-//                        ChatUtils.sendClientMessage("Trying again")
-                        openMenu()
-                    }
-                }.start()
+                openMenu()
             }
         }
 
