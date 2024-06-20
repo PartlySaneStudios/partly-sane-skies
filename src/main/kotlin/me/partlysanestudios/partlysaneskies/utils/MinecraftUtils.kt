@@ -10,12 +10,14 @@ import com.google.common.collect.ComparisonChain
 import com.google.common.collect.Ordering
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.data.cache.PetData
+import me.partlysanestudios.partlysaneskies.features.discord.webhooks.WebhookMenu
 import me.partlysanestudios.partlysaneskies.mixin.minecraft.MixinGuiChest
 import me.partlysanestudios.partlysaneskies.mixin.minecraft.MixinGuiContainer
 import me.partlysanestudios.partlysaneskies.mixin.minecraft.MixinGuiPlayerTabOverlay
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils.getItemId
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import net.minecraft.client.gui.GuiPlayerTabOverlay
+import net.minecraft.client.gui.GuiScreen
 import net.minecraft.client.gui.inventory.GuiChest
 import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.client.network.NetworkPlayerInfo
@@ -61,6 +63,10 @@ object MinecraftUtils {
         } catch (e: Exception) {
             ArrayList()
         }
+    }
+
+    fun displayGuiScreen(guiScreen: GuiScreen) {
+        Thread { PartlySaneSkies.minecraft.addScheduledTask { PartlySaneSkies.minecraft.displayGuiScreen(guiScreen) } }.start()
     }
 
     private fun comparePlayers(overlay1: NetworkPlayerInfo, overlay2: NetworkPlayerInfo): Int {

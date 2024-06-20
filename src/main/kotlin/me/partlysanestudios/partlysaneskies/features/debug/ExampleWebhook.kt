@@ -7,26 +7,17 @@
 package me.partlysanestudios.partlysaneskies.features.debug
 
 import gg.essential.elementa.UIComponent
-import gg.essential.elementa.components.UIBlock
+import gg.essential.elementa.components.UICircle
+import gg.essential.elementa.dsl.percent
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
-import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
+import me.partlysanestudios.partlysaneskies.config.psconfig.Toggle
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.EmbedData
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.EmbedField
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.WebhookData
-import me.partlysanestudios.partlysaneskies.features.discord.webhooks.WebhookEvent
+import me.partlysanestudios.partlysaneskies.features.discord.webhooks.Webhook
+import java.awt.Color
 
-object ExampleWebhook: WebhookEvent() {
-    init {
-        register()
-    }
-
-    // Optional override
-    // In this case, because we have a config option additionally, I decided to sync them
-    override var enabled: Boolean
-        get() = config.debugSendDiscordWebhook
-        set(value) { config.debugSendDiscordWebhook = value }
-
-
+object ExampleWebhook: Webhook() {
     // Use events for this. In this case, it's debug key.
     // Debug key event when
     // TODO: Debug key event
@@ -56,5 +47,15 @@ object ExampleWebhook: WebhookEvent() {
         ).send()
     }
 
-    override val icon: UIComponent = UIBlock()
+    override val icon: UIComponent = UICircle().setColor(Color(255, 0, 0, 100)).setRadius(75.percent)
+    override val id: String = "example"
+    override val name: String = "Example Webhook"
+    override val hidden = true
+
+    init {
+        config.registerOption("testOption", Toggle("Test option", "This is a test description", false))
+        config.registerOption("testOption2", Toggle("Test option 2", "This is a test description for 2", false))
+        config.registerOption("testOption3", Toggle("Test option 3", "This is a test description for option 3", false))
+
+    }
 }

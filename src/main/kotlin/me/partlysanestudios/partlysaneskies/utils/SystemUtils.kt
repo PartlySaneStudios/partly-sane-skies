@@ -33,7 +33,7 @@ object SystemUtils {
      * @param level The level to log the message at
      * @param message The message to log
      */
-    fun log(level: Level?, message: String) {
+    fun log(level: Level = Level.INFO, message: String) {
         for (line in message.split("\n".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()) {
             PartlySaneSkies.LOGGER.log(level, line)
         }
