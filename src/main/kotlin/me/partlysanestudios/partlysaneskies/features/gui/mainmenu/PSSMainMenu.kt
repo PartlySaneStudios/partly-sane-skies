@@ -3,7 +3,7 @@
 // See LICENSE for copyright and license notices.
 //
 
-package me.partlysanestudios.partlysaneskies.features.gui
+package me.partlysanestudios.partlysaneskies.features.gui.mainmenu
 
 import com.google.gson.JsonParser
 import gg.essential.elementa.ElementaVersion
@@ -50,7 +50,7 @@ import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.*
 
-class CustomMainMenu : WindowScreen(ElementaVersion.V5) {
+class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
     companion object {
         @SubscribeEvent
         fun onGuiOpen(event: GuiOpenEvent) {
@@ -69,7 +69,7 @@ class CustomMainMenu : WindowScreen(ElementaVersion.V5) {
                 enablePrivacyMode()
             }
 
-            minecraft.displayGuiScreen(CustomMainMenu())
+            minecraft.displayGuiScreen(PSSMainMenu())
             minecraft.soundHandler.playSound(PositionedSoundRecord.create(ResourceLocation("partlysaneskies", "bell")))
         }
 
@@ -194,7 +194,7 @@ class CustomMainMenu : WindowScreen(ElementaVersion.V5) {
         width = middleMenuBackground.getWidth().pixels
         color = Color(0, 0, 0, 0).constraint
     }.onMouseClick {
-        mc.displayGuiScreen(GuiSelectWorld(this@CustomMainMenu))
+        mc.displayGuiScreen(GuiSelectWorld(this@PSSMainMenu))
     }.onMouseEnter {
         for (child in this.children) {
             child.setColor(Color(200, 200, 200))
@@ -227,7 +227,7 @@ class CustomMainMenu : WindowScreen(ElementaVersion.V5) {
         width = middleMenuBackground.getWidth().pixels
         color = Color(0, 0, 0, 0).constraint
     }.onMouseClick {
-        mc.displayGuiScreen(GuiMultiplayer(this@CustomMainMenu))
+        mc.displayGuiScreen(GuiMultiplayer(this@PSSMainMenu))
     }.onMouseEnter {
         for (child in this.children) {
             child.setColor(Color(200, 200, 200))
@@ -278,7 +278,7 @@ class CustomMainMenu : WindowScreen(ElementaVersion.V5) {
         width = middleMenuBackground.getWidth().pixels
         color = Color(0, 0, 0, 0).constraint
     }.onMouseClick {
-        mc.displayGuiScreen(GuiModList(this@CustomMainMenu))
+        mc.displayGuiScreen(GuiModList(this@PSSMainMenu))
     }.onMouseEnter {
         for (child in this.children) {
             child.setColor(Color(200, 200, 200))
@@ -303,7 +303,7 @@ class CustomMainMenu : WindowScreen(ElementaVersion.V5) {
         width = 100.percent
         color = Color(0, 0, 0, 0).constraint
     }.onMouseClick {
-        mc.displayGuiScreen(GuiOptions(this@CustomMainMenu, mc.gameSettings))
+        mc.displayGuiScreen(GuiOptions(this@PSSMainMenu, mc.gameSettings))
     }.onMouseEnter {
         for (child in this.children) {
             child.setColor(Color(200, 200, 200))
