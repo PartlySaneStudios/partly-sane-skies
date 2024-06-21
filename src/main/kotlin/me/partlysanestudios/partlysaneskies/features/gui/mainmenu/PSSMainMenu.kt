@@ -32,6 +32,7 @@ import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelCo
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.uiImage
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.randInt
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils
+import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
 import net.minecraft.client.audio.PositionedSoundRecord
 import net.minecraft.client.gui.GuiMainMenu
 import net.minecraft.client.gui.GuiMultiplayer
@@ -84,8 +85,8 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
                 try {
                     val factInfo = JsonParser().parse(request.getResponse()).getAsJsonObject()
                     val fact = factInfo["funFact"].asString
-                    println("Response: $factInfo")
-                    println("Fun Fact: $fact")
+                    log("Response: $factInfo")
+                    log("Fun Fact: $fact")
 
                     cachedFunFact = FunFact("Fact of the Day", fact)
                     synchronized(lock) {
@@ -411,7 +412,7 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
         x = 10.scaledPixels
         y = 10.scaledPixels(alignOpposite = true)
         textScale = 1.scaledPixels
-        color = accentColor.toJavaColor().constraint
+        color = Color(69, 79, 191).constraint
     }.onMouseClick {
         SystemUtils.openLink("https://discord.gg/$discordCode")
     } childOf backgroundImage
@@ -420,7 +421,7 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
         x = 10.scaledPixels(alignOpposite = true)
         y = 10.scaledPixels(alignOpposite = true)
         textScale = 1.scaledPixels
-        color = Color(69, 79, 191).constraint
+        color = accentColor.toJavaColor().constraint
     }.onMouseClick {
         SystemUtils.openLink("https://github.com/PartlySaneStudios/partly-sane-skies")
     } childOf backgroundImage
