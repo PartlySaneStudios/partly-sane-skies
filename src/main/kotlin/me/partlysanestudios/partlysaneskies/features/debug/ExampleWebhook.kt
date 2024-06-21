@@ -48,14 +48,14 @@ object ExampleWebhook: Webhook() {
     }
 
     override val icon: UIComponent = UICircle().setColor(Color(255, 0, 0, 100)).setRadius(75.percent)
-    override val id: String = "example"
-    override val name: String = "Example Webhook"
+    override val id = "example"
+    override val name = "Example Webhook"
+    override val description = ""
     override val hidden = true
 
     init {
         config.registerOption("testOption", Toggle("Test option", "This is a test description", false))
         config.registerOption("testOption2", Toggle("Test option 2", "This is a test description for 2", false))
         config.registerOption("testOption3", Toggle("Test option 3", "This is a test description for option 3", false))
-
     }
 }

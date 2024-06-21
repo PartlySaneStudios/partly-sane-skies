@@ -316,27 +316,26 @@ object StringUtils {
         }
     }
 
-    fun colorCodeToColor(colorCode: String): Color {
-        val colorCodeToColor = HashMap<String, Color>()
-        colorCodeToColor["§a"] = Color(85, 255, 85)
-        colorCodeToColor["§b"] = Color(85, 255, 255)
-        colorCodeToColor["§c"] = Color(255, 85, 85)
-        colorCodeToColor["§d"] = Color(255, 85, 255)
-        colorCodeToColor["§e"] = Color(255, 255, 85)
-        colorCodeToColor["§f"] = Color(0, 0, 0)
-        colorCodeToColor["§1"] = Color(0, 0, 170)
-        colorCodeToColor["§2"] = Color(0, 170, 0)
-        colorCodeToColor["§3"] = Color(0, 170, 170)
-        colorCodeToColor["§4"] = Color(170, 0, 0)
-        colorCodeToColor["§5"] = Color(170, 0, 170)
-        colorCodeToColor["§6"] = Color(255, 170, 0)
-        colorCodeToColor["§7"] = Color(170, 170, 170)
-        colorCodeToColor["§8"] = Color(85, 85, 85)
-        colorCodeToColor["§9"] = Color(85, 85, 255)
-        colorCodeToColor["§0"] = Color(0, 0, 0)
-        return if (colorCodeToColor[colorCode] != null) {
-            colorCodeToColor[colorCode]!!
-        } else Color.white
+    fun String.colorCodeToColor(): Color {
+        return when (this) {
+            "§a" -> Color(85, 255, 85)
+            "§b" -> Color(85, 255, 255)
+            "§c" -> Color(255, 85, 85)
+            "§d" -> Color(255, 85, 255)
+            "§e" -> Color(255, 255, 85)
+            "§f" -> Color(0, 0, 0)
+            "§1" -> Color(0, 0, 170)
+            "§2" -> Color(0, 170, 0)
+            "§3" -> Color(0, 170, 170)
+            "§4" -> Color(170, 0, 0)
+            "§5" -> Color(170, 0, 170)
+            "§6" -> Color(255, 170, 0)
+            "§7" -> Color(170, 170, 170)
+            "§8" -> Color(85, 85, 85)
+            "§9" -> Color(85, 85, 255)
+            "§0" -> Color(0, 0, 0)
+            else -> Color.white
+        }
     }
 
     fun List<String>.nextAfter(element: String): String? {

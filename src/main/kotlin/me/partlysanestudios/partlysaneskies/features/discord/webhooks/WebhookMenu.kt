@@ -257,7 +257,15 @@ class WebhookMenu: WindowScreen(ElementaVersion.V5) {
     private class WebhookIcon(val webhookEvent: Webhook) {
         var hovering = false
         var menu: WebhookMenu? = null
-        var text = arrayListOf("§d${webhookEvent.name}")
+
+        val text: MutableList<String> get() {
+            val list = arrayListOf<String>()
+            list.add("§d${webhookEvent.name}")
+            for (line in (webhookEvent.description).split("\n")) {
+                list.add("§7$line")
+            }
+            return list
+        }
         var enabled: Boolean get() {
             return webhookEvent.enabled
         } set(value) {
@@ -288,8 +296,6 @@ class WebhookMenu: WindowScreen(ElementaVersion.V5) {
             webhookEvent.icon.constrain {
                 x = CenterConstraint()
                 y = CenterConstraint()
-                height = 100.percent
-                width = 100.percent
             }
             webhookEvent.icon childOf toggle.component
         }
