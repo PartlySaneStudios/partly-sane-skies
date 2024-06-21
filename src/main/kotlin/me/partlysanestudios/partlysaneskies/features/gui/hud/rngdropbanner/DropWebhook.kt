@@ -50,7 +50,7 @@ object DropWebhook: Webhook() {
                 continue
             }
             val displayName = rarity.displayName
-            config.registerOption("send$displayName", Toggle("Send $displayName Drops", "Allow the webhook to drops of ${displayName.lowercase()} rarity.", true))
+            config.registerOption("send$displayName", Toggle("Send $displayName Drops", "Allow the webhook to send drops of ${displayName.lowercase()} rarity.", true))
         }
     }
     fun trigger(drop: Drop) {
@@ -66,9 +66,10 @@ object DropWebhook: Webhook() {
         val name = drop.name
         val description = "${drop.magicFind}% ✯ Magic Find!"
 
-        var color = drop.dropRarity.colorCode.colorCodeToColor().asHex
-        if (drop.dropRarity == Rarity.UNKNOWN) {
-            color = Color.white.asHex
+        val color = if (drop.dropRarity == Rarity.UNKNOWN) {
+            Color.white.asHex
+        } else {
+            drop.dropRarity.colorCode.colorCodeToColor().asHex
         }
 
         WebhookData(
@@ -90,7 +91,5 @@ object DropWebhook: Webhook() {
         ).send()
     }
 
-    private fun shouldBlockDrop(rarity: Rarity): Boolean {
-        return config.find("send${rarity.displayName}")?.asBoolean != true
-    }
+    private fun shouldBlockDrop(rarity: Rarity) = config.find("send${rarity.displayName}")?.asBoolean != true
 }

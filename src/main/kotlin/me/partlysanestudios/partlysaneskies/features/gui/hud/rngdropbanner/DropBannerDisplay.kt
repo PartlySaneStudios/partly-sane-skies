@@ -104,7 +104,11 @@ object DropBannerDisplay {
         dropNameString = "${item.dropRarity.colorCode}${item.name} ${if (item.magicFind > 0) "§b(+${item.magicFind}% ✯ Magic Find)" else ""}"
         topString = item.dropCategory
 
-        if ((time - item.timeDropped > TEXT_BLINK_START_FACTOR * config.rareDropBannerTime * 1000) && (time - item.timeDropped < TEXT_BLINK_END_FACTOR * config.rareDropBannerTime * 1000)) {
+        if (
+            (time - item.timeDropped > TEXT_BLINK_START_FACTOR * config.rareDropBannerTime * 1000)
+            &&
+            (time - item.timeDropped < TEXT_BLINK_END_FACTOR * config.rareDropBannerTime * 1000)
+        ) {
             categoryColor = if (Math.round((item.timeDropped - time) / 1000f * 4) % 2 == 0) {
                 Color.white
             } else {
