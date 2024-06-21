@@ -45,10 +45,8 @@ object DropWebhook: Webhook() {
     override val description: String = "Automatically send a Discord message\nwhenever a rare item has dropped"
 
     init {
-        for (rarity in Rarity.entries) {
-            if (rarity == Rarity.UNKNOWN) {
-                continue
-            }
+        val rarities = arrayOf(Rarity.COMMON, Rarity.UNCOMMON, Rarity.RARE, Rarity.EPIC, Rarity.LEGENDARY, Rarity.MYTHIC, Rarity.DIVINE)
+        for (rarity in rarities) {
             val displayName = rarity.displayName
             config.registerOption("send$displayName", Toggle("Send $displayName Drops", "Allow the webhook to send drops of ${displayName.lowercase()} rarity.", true))
         }
