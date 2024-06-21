@@ -22,7 +22,11 @@ import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import me.partlysanestudios.partlysaneskies.config.Keybinds
 import me.partlysanestudios.partlysaneskies.config.OneConfigScreen
+import me.partlysanestudios.partlysaneskies.config.psconfig.Config
 import me.partlysanestudios.partlysaneskies.config.psconfig.ConfigManager
+import me.partlysanestudios.partlysaneskies.config.psconfig.Toggle
+import me.partlysanestudios.partlysaneskies.config.psconfig.Toggle.Companion.asBoolean
+import me.partlysanestudios.partlysaneskies.config.psconfig.Toggle.Companion.asToggle
 import me.partlysanestudios.partlysaneskies.data.cache.PetData
 import me.partlysanestudios.partlysaneskies.data.cache.StatsData
 import me.partlysanestudios.partlysaneskies.data.cache.VisitorLogbookData
@@ -116,6 +120,7 @@ class PartlySaneSkies {
         const val CHAT_PREFIX = "§r§b§lPartly Sane Skies§r§7>> §r"
         var discordCode = "v4PU3WeH7z"
         val config: OneConfigScreen = OneConfigScreen
+        var firstLaunch = false
 
         val minecraft: Minecraft
             get() {
@@ -275,7 +280,11 @@ class PartlySaneSkies {
         ItemRefill.registerCommand()
         WebhookMenu.registerWebhookCommand()
 
-        ExampleWebhook.registerAll()
+        registerCoreConfig()
+        ExampleWebhook.register()
+        DropWebhook.register()
+
+
 
         ConfigManager.loadAllConfigs()
 
@@ -313,6 +322,9 @@ class PartlySaneSkies {
         if (config.privacyMode == 2) {
             PrivacyMode.enablePrivacyMode()
         }
+
+        checkFirstLaunch()
+
         // Finished loading
         log(Level.INFO, "Partly Sane Skies has loaded (Version: ${VERSION}).")
     }
@@ -385,6 +397,20 @@ class PartlySaneSkies {
             discordCode = "v4PU3WeH7z"
             e.printStackTrace()
         }
+    }
+
+    private fun checkFirstLaunch() {
+        if (coreConfig.find("alreadyStarted")?.asBoolean != true) {
+            firstLaunch = true
+            coreConfig.find("alreadyStarted")?.asToggle?.state = true
+            log("Partly Sane Skies starting for the first time")
+        }
+    }
+
+    private val coreConfig = Config()
+        .registerOption("alreadyStarted", Toggle("Already Started", "Has this already been started with PSS enabled?", false))
+    private fun registerCoreConfig() {
+        ConfigManager.registerNewConfig("psscore.json", coreConfig)
     }
 
     @SubscribeEvent
