@@ -64,7 +64,6 @@ import me.partlysanestudios.partlysaneskies.features.farming.garden.SkymartValue
 import me.partlysanestudios.partlysaneskies.features.farming.garden.VisitorLogbookStats
 import me.partlysanestudios.partlysaneskies.features.farming.garden.VisitorTradeValue
 import me.partlysanestudios.partlysaneskies.features.foraging.TreecapitatorCooldown
-import me.partlysanestudios.partlysaneskies.features.gui.PSSMainMenu
 import me.partlysanestudios.partlysaneskies.features.gui.RefreshKeybinds
 import me.partlysanestudios.partlysaneskies.features.gui.hud.CooldownHud
 import me.partlysanestudios.partlysaneskies.features.gui.hud.LocationBannerDisplay
