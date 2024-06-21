@@ -121,7 +121,8 @@ class PartlySaneSkies {
         const val CHAT_PREFIX = "§r§b§lPartly Sane Skies§r§7>> §r"
         var discordCode = "v4PU3WeH7z"
         val config: OneConfigScreen = OneConfigScreen
-        var firstLaunch = false
+        private var cachedFirstLaunch = false
+        val isFirstLaunch get() = cachedFirstLaunch
 
         val minecraft: Minecraft
             get() {
@@ -402,7 +403,7 @@ class PartlySaneSkies {
 
     private fun checkFirstLaunch() {
         if (coreConfig.find("alreadyStarted")?.asBoolean != true) {
-            firstLaunch = true
+            cachedFirstLaunch = true
             coreConfig.find("alreadyStarted")?.asToggle?.state = true
             log("Partly Sane Skies starting for the first time")
         }

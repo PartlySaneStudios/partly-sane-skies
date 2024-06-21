@@ -7,7 +7,9 @@ package me.partlysanestudios.partlysaneskies.render.gui.components
 
 import gg.essential.elementa.UIComponent
 import gg.essential.elementa.constraints.PixelConstraint
+import gg.essential.elementa.constraints.ScaleConstraint
 import gg.essential.elementa.constraints.WidthConstraint
+import gg.essential.elementa.dsl.div
 import gg.essential.universal.UMatrixStack
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
 import net.minecraft.client.gui.FontRenderer
@@ -46,11 +48,11 @@ class PSSItemRender(var item: ItemStack?, val autoScaleWidth: Boolean = false) :
     }
 
     fun setScaleBasedOnWidth(pixelConstraint: WidthConstraint): UIComponent {
-        setItemScale(PixelConstraint(pixelConstraint.cachedValue / 16))
+        setItemScale(pixelConstraint / 16)
         return this
     }
 
-    fun setItemScale(constraint: PixelConstraint): UIComponent {
+    fun setItemScale(constraint: ScaleConstraint): UIComponent {
         itemScale = constraint.value
         return this
     }

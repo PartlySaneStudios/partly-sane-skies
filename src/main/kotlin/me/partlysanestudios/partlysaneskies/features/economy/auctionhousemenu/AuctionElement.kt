@@ -14,10 +14,7 @@ import gg.essential.elementa.constraints.CenterConstraint
 import gg.essential.elementa.constraints.PixelConstraint
 import gg.essential.elementa.constraints.XConstraint
 import gg.essential.elementa.constraints.YConstraint
-import gg.essential.elementa.dsl.childOf
-import gg.essential.elementa.dsl.constrain
-import gg.essential.elementa.dsl.constraint
-import gg.essential.elementa.dsl.pixels
+import gg.essential.elementa.dsl.*
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
@@ -34,13 +31,13 @@ import java.util.*
 class AuctionElement(
     private val slot: Int,
     val itemstack: ItemStack?,
-    var xConstraint: XConstraint,
-    var yConstraint: YConstraint,
-    var heightConstraint: PixelConstraint,
+    private var xConstraint: XConstraint,
+    private var yConstraint: YConstraint,
+    private var heightConstraint: PixelConstraint,
     val textScale: Float
 ) {
 
-    val skyblockItem = SkyblockDataManager.getItem(itemstack?.getItemId() ?: "")
+    private val skyblockItem = SkyblockDataManager.getItem(itemstack?.getItemId() ?: "")
 
     private val boundingBox = UIBlock().constrain {
         x = xConstraint
@@ -53,16 +50,16 @@ class AuctionElement(
     private val highlightBox = UIRoundedRectangle(7.5f).constrain {
         x = CenterConstraint()
         y = CenterConstraint()
-        width = (heightConstraint.value * 1.2).pixels
-        height = (heightConstraint.value * 1.2).pixels
+        width = (heightConstraint * 1.2)
+        height = (heightConstraint * 1.2)
         color = Color(0, 0, 0, 0).constraint
     } childOf boundingBox
 
     private val box: PSSButton = PSSButton()
         .setX(CenterConstraint())
         .setY(CenterConstraint())
-        .setWidth(heightConstraint.value)
-        .setHeight(heightConstraint.value)
+        .setWidth(heightConstraint)
+        .setHeight(heightConstraint)
         .setColor(getRarityColor())
         .setChildOf(boundingBox)
         .onMouseClickConsumer {
@@ -75,7 +72,7 @@ class AuctionElement(
     private val itemRender: PSSItemRender = PSSItemRender(
         itemstack
     )
-        .setItemScale((heightConstraint.value / 16).pixels)
+        .setItemScale(heightConstraint / 16)
         .setX(CenterConstraint())
         .setY(CenterConstraint())
         .setWidth(itemHeight.pixels)
@@ -129,7 +126,7 @@ class AuctionElement(
 
     }
 
-    fun clickAuction() {
+    private fun clickAuction() {
         MinecraftUtils.clickOnSlot(slot)
     }
 
@@ -251,7 +248,7 @@ class AuctionElement(
         return MinecraftUtils.getLoreAsString(this.itemstack)
     }
 
-    fun getRarity(): String {
+    private fun getRarity(): String {
         var str = ""
         if (itemstack == null) {
             return ""
@@ -287,7 +284,7 @@ class AuctionElement(
         return str
     }
 
-    fun getRarityColor(): Color {
+    private fun getRarityColor(): Color {
         val rarity = getRarity()
         return when (rarity) {
             "COMMON" -> Color(255, 255, 255)
@@ -322,7 +319,7 @@ class AuctionElement(
         }
 
         this.heightConstraint = heightConstraint
-        val boxHeight = heightConstraint.value * 2 / 3.0f
+        val boxHeight = heightConstraint * 2 / 3.0f
         val boxY = 0
         box.setWidth(boxHeight).setHeight(boxHeight)
         box.setY(boxY.pixels)
@@ -330,8 +327,8 @@ class AuctionElement(
 
 //        val itemX = boxHeight / 2
 
-        itemRender.setItemScale((boxHeight / 16).pixels).setWidth(boxHeight.pixels).setHeight(boxHeight.pixels)
-        nameComponent.setY((boxHeight + 0.05 * heightConstraint.value).pixels)
+        itemRender.setItemScale((boxHeight / 16)).setWidth(boxHeight).setHeight(boxHeight)
+        nameComponent.setY((boxHeight + heightConstraint * 0.05))
             .setHeight((heightConstraint.value * .667).pixels)
             .setWidth((heightConstraint.value * 1.25).pixels)
 

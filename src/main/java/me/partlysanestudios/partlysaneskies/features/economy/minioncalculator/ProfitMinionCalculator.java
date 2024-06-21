@@ -207,8 +207,7 @@ public class ProfitMinionCalculator extends WindowScreen {
             PSSButton fuelContainer = new PSSButton()
                     .setX(fromWidthScaleFactor(10))
                     .setY(new PixelConstraint(yPos))
-                    .setWidth(leftBar.getLeft() - mainTextScrollComponent.getLeft() - fromWidthScaleFactor(20).getValue())
-                    .setHeight(fromWidthScaleFactor(40).getValue())
+                    .setWidth(new PixelConstraint(leftBar.getLeft() - mainTextScrollComponent.getLeft() - fromWidthScaleFactor(20).getValue()))
                     .setChildOf(mainTextScrollComponent);
 
             PSSToggle toggle = new PSSToggle()
@@ -263,8 +262,8 @@ public class ProfitMinionCalculator extends WindowScreen {
             PSSButton upgradeContainer = new PSSButton()
                     .setX(new PixelConstraint(rightBar.getRight() - rightBar.getWidth() - mainTextScrollComponent.getLeft() + fromWidthScaleFactor(10).getValue()))
                     .setY(new PixelConstraint(yPos))
-                    .setWidth(mainTextScrollComponent.getRight() - rightBar.getRight() - rightBar.getWidth() - fromWidthScaleFactor(20).getValue())
-                    .setHeight(fromWidthScaleFactor(40).getValue())
+                    .setWidth(new PixelConstraint(mainTextScrollComponent.getRight() - rightBar.getRight() - rightBar.getWidth() - fromWidthScaleFactor(20).getValue()))
+                    .setHeight(fromWidthScaleFactor(40))
                     .setChildOf(mainTextScrollComponent);
 
             PSSToggle toggle = new PSSToggle()
@@ -309,8 +308,8 @@ public class ProfitMinionCalculator extends WindowScreen {
             PSSButton button = new PSSButton()
                     .setX(new PixelConstraint(xPos))
                     .setY(new CenterConstraint())
-                    .setWidth(blockWidth)
-                    .setHeight(categoriesBar.getHeight() * .9f)
+                    .setWidth(new PixelConstraint(blockWidth))
+                    .setHeight(new PixelConstraint(categoriesBar.getHeight() * .9f))
                     .setChildOf(categoriesBar);
 
             button.setText(categoriesColorMap.get(category) + StringUtils.INSTANCE.titleCase(category));
@@ -361,10 +360,10 @@ public class ProfitMinionCalculator extends WindowScreen {
         PSSButton button = new PSSButton(Color.green)
                 .setX(fromWidthScaleFactor(180))
                 .setY(new CenterConstraint())
-                .setHeight(fromWidthScaleFactor(60).getValue())
-                .setWidth(fromWidthScaleFactor(100).getValue())
+                .setHeight(fromWidthScaleFactor(60))
+                .setWidth(fromWidthScaleFactor(100))
                 .setText("Calculate Best Minion")
-                .setTextScale(fromWidthScaleFactor(1).getValue())
+                .setTextScale(fromWidthScaleFactor(1))
 
                 .setChildOf(bestMinionBar);
 
