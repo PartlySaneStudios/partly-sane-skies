@@ -51,10 +51,10 @@ class MainMenuOptionMenu(nextRunnable: Runnable): WindowScreen(ElementaVersion.V
         y = CenterConstraint() - 7.25.percent
         width = 60.percent
         height = 40.percent
-        color = Color(15, 15, 15, 100).constraint
+        color = Color(15, 15, 15, 115).constraint
     } childOf transparentBlock
 
-    private val headingText = UIWrappedText("Like the new main menu?", centered = true).constrain {
+    private val headingText = UIWrappedText("Keep the new main menu?", centered = true).constrain {
         x = CenterConstraint()
         y = 30.percent
         width = 40.percent
@@ -75,11 +75,19 @@ class MainMenuOptionMenu(nextRunnable: Runnable): WindowScreen(ElementaVersion.V
         y = 55.percent
         width = 15.percent
         height = 5.percent
-        color = Color(90, 150, 100, 75).constraint
+        color = Color(90, 150, 100, 90).constraint
     }.onMouseClickConsumer {
         config.customMainMenu = true
         nextRunnable.run()
-    } childOf transparentBlock
+    }.onMouseEnter {
+        for (child in this.children) {
+            child.setColor(Color(200, 200, 200))
+        }
+    }.onMouseLeave {
+        for (child in this.children) {
+            child.setColor(Color.white)
+        }
+    }  childOf transparentBlock
 
     private val yesText = UIWrappedText("Yes, keep the new main menu", centered = true).constrain {
         width = 90.percent
@@ -94,13 +102,21 @@ class MainMenuOptionMenu(nextRunnable: Runnable): WindowScreen(ElementaVersion.V
         y = 55.percent
         width = 15.percent
         height = 5.percent
-        color = Color(75, 37, 45, 75).constraint
+        color = Color(75, 37, 45, 90).constraint
     }.onMouseClickConsumer {
         config.customMainMenu = false
         nextRunnable.run()
-    } childOf transparentBlock
+    }.onMouseEnter {
+        for (child in this.children) {
+            child.setColor(Color(200, 200, 200))
+        }
+    }.onMouseLeave {
+        for (child in this.children) {
+            child.setColor(Color.white)
+        }
+    }  childOf transparentBlock
 
-    private val noText = UIWrappedText("No, return to default menu", centered = true).constrain {
+    private val noText = UIWrappedText("No, return to the default menu", centered = true).constrain {
         width = 90.percent
         x = CenterConstraint()
         y = CenterConstraint()
