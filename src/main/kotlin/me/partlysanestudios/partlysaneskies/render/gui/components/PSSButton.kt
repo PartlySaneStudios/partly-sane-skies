@@ -42,7 +42,6 @@ class PSSButton {
 
         textComponent = UIWrappedText(text, false, Color(0, 0, 0, 0), true).constrain {
             width = 100.percent
-            height = 100.percent
             x = CenterConstraint()
             y = CenterConstraint()
             color = Color.white.constraint
@@ -67,7 +66,6 @@ class PSSButton {
 
         textComponent = UIWrappedText(text, false, Color(0, 0, 0, 0), true).constrain {
             width = 100.percent
-            height = 100.percent
             x = CenterConstraint()
             y = CenterConstraint()
             this.color = Color.white.constraint
