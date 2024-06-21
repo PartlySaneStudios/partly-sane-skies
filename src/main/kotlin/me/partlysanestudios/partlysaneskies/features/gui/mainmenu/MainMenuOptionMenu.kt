@@ -21,7 +21,6 @@ class MainMenuOptionMenu(nextRunnable: Runnable): WindowScreen(ElementaVersion.V
         width = 100.percent
         height = 100.percent
         color = Color(0, 0, 0).constraint
-
     } childOf window
 
     private val backgroundImage = ResourceLocation("partlysaneskies", "textures/gui/main_menu/image_3_blurred.png").uiImage.constrain {
@@ -39,24 +38,32 @@ class MainMenuOptionMenu(nextRunnable: Runnable): WindowScreen(ElementaVersion.V
         color = Color(0, 0, 0, 0).constraint
     } childOf backgroundImage
 
+    private val darkerRectangle = UIRoundedRectangle(7.5f).constrain {
+        x = CenterConstraint()
+        y = CenterConstraint() - 17.5.percent
+        width = 60.percent
+        height = 40.percent
+        color = Color(15, 15, 15, 150).constraint
+    } childOf transparentBlock
+
     private val headingText = UIWrappedText("Like the new main menu?", centered = true).constrain {
         x = CenterConstraint()
         y = 30.percent
         width = 40.percent
         textScale = 2.scaledPixels
-        color = Color(79, 103, 150).constraint
+        color = Color(100, 196, 255).constraint
     } childOf transparentBlock
 
     private val subheadingText = UIWrappedText("You can always disable this menu, or find other backgrounds later on in the config. (/pssc)", centered = true).constrain {
         x = CenterConstraint()
         y = 35.percent
         width = 50.percent
-        textScale = 1.scaledPixels
-        color = Color.lightGray.constraint
+        textScale = 1.5.scaledPixels
+        color = Color.white.constraint
     } childOf transparentBlock
 
     private val yesButton = UIRoundedRectangle(5.0f).constrain {
-        x = CenterConstraint() + 10.percent
+        x = CenterConstraint() - 12.percent
         y = 55.percent
         width = 15.percent
         height = 5.percent
@@ -71,11 +78,11 @@ class MainMenuOptionMenu(nextRunnable: Runnable): WindowScreen(ElementaVersion.V
         x = CenterConstraint()
         y = CenterConstraint()
         textScale = 1.scaledPixels
-        color = Color.lightGray.constraint
+        color = Color.white.constraint
     } childOf yesButton
 
     private val noButton = UIRoundedRectangle(5.0f).constrain {
-        x = CenterConstraint() - 10.percent
+        x = CenterConstraint() + 12.percent
         y = 55.percent
         width = 15.percent
         height = 5.percent
@@ -90,6 +97,6 @@ class MainMenuOptionMenu(nextRunnable: Runnable): WindowScreen(ElementaVersion.V
         x = CenterConstraint()
         y = CenterConstraint()
         textScale = 1.scaledPixels
-        color = Color.lightGray.constraint
+        color = Color.white.constraint
     } childOf noButton
 }
