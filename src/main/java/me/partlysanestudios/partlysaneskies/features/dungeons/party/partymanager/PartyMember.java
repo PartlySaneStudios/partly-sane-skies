@@ -471,7 +471,7 @@ public class PartyMember {
                 .setColor(new Color(60, 222, 79))
                 .setChildOf(memberBlock);
 
-        ElementaUtils.INSTANCE.uiImageFromResourceLocation(new ResourceLocation("partlysaneskies", "textures/gui/party_finder/refresh.png"))
+        ElementaUtils.INSTANCE.getUiImage(new ResourceLocation("partlysaneskies", "textures/gui/party_finder/refresh.png"))
                 .setX(new CenterConstraint())
                 .setY(new CenterConstraint())
                 .setWidth(new PixelConstraint(20f * scaleFactor))

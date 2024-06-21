@@ -6,13 +6,11 @@ import gg.essential.elementa.components.UIBlock
 import gg.essential.elementa.components.UIRoundedRectangle
 import gg.essential.elementa.components.UIWrappedText
 import gg.essential.elementa.constraints.CenterConstraint
-import gg.essential.elementa.dsl.childOf
-import gg.essential.elementa.dsl.constrain
-import gg.essential.elementa.dsl.constraint
-import gg.essential.elementa.dsl.percent
+import gg.essential.elementa.dsl.*
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
-import me.partlysanestudios.partlysaneskies.render.gui.components.PSSButton
 import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
+import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.uiImage
+import net.minecraft.util.ResourceLocation
 import java.awt.Color
 
 class MainMenuOptionMenu(nextRunnable: Runnable): WindowScreen(ElementaVersion.V5) {
@@ -26,43 +24,72 @@ class MainMenuOptionMenu(nextRunnable: Runnable): WindowScreen(ElementaVersion.V
 
     } childOf window
 
+    private val backgroundImage = ResourceLocation("partlysaneskies", "textures/gui/main_menu/image_3_blurred.png").uiImage.constrain {
+        x = CenterConstraint()
+        y = CenterConstraint()
+        width = 100.percent
+        height = 100.percent
+    } childOf backgroundBox
+
     private val transparentBlock = UIBlock().constrain {
         x = CenterConstraint()
         y = CenterConstraint()
         width = 100.percent
         height = 100.percent
         color = Color(0, 0, 0, 0).constraint
-    } childOf backgroundBox
+    } childOf backgroundImage
 
     private val headingText = UIWrappedText("Like the new main menu?", centered = true).constrain {
         x = CenterConstraint()
         y = 30.percent
         width = 40.percent
         textScale = 2.scaledPixels
+        color = Color(79, 103, 150).constraint
     } childOf transparentBlock
 
-    private val yesButton = PSSButton(Color.green)
-        .setX(33.percent)
-        .setY(66.percent)
-        .setWidth(15.percent)
-        .setHeight(5.percent)
-        .setTextScale(1.scaledPixels)
-        .setText("Yes, keep the Partly Sane Skies Menu")
-        .onMouseClickConsumer {
-            nextRunnable.run()
-        }
-        .setChildOf(transparentBlock)
+    private val subheadingText = UIWrappedText("You can always disable this menu, or find other backgrounds later on in the config. (/pssc)").constrain {
+        x = CenterConstraint()
+        y = 35.percent
+        width = 50.percent
+        textScale = 1.scaledPixels
+        color = Color.lightGray.constraint
+    } childOf transparentBlock
 
-    private val noButton = PSSButton(Color.red)
-        .setX(33.percent)
-        .setY(66.percent)
-        .setWidth(15.percent)
-        .setHeight(5.percent)
-        .setTextScale(1.scaledPixels)
-        .setText("No, return to default menu")
-        .onMouseClickConsumer {
-            config.customMainMenu = false
-            nextRunnable.run()
-        }
-        .setChildOf(transparentBlock)
+    private val yesButton = UIRoundedRectangle(5.0f).constrain {
+        x = CenterConstraint() + 67.percent
+        y = 60.percent
+        width = 15.percent
+        height = 5.percent
+        color = Color(90, 150, 100, 75).constraint
+    }.onMouseClickConsumer {
+        config.customMainMenu = true
+        nextRunnable.run()
+    } childOf transparentBlock
+
+    private val yesText = UIWrappedText("Yes, keep the Partly Sane Skies menu", centered = true).constrain {
+        width = 90.percent
+        x = CenterConstraint()
+        y = CenterConstraint()
+        textScale = 1.scaledPixels
+        color = Color.lightGray.constraint
+    } childOf yesButton
+
+    private val noButton = UIRoundedRectangle(5.0f).constrain {
+        x = CenterConstraint() - 67.percent
+        y = 60.percent
+        width = 15.percent
+        height = 5.percent
+        color = Color(75, 37, 45, 75).constraint
+    }.onMouseClickConsumer {
+        config.customMainMenu = false
+        nextRunnable.run()
+    } childOf transparentBlock
+
+    private val noText = UIWrappedText("No, return to default menu", centered = true).constrain {
+        width = 90.percent
+        x = CenterConstraint()
+        y = CenterConstraint()
+        textScale = 1.scaledPixels
+        color = Color.lightGray.constraint
+    } childOf noButton
 }

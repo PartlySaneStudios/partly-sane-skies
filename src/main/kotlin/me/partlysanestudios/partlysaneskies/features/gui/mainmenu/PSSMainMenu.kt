@@ -29,7 +29,7 @@ import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager
 import me.partlysanestudios.partlysaneskies.features.security.PrivacyMode.enablePrivacyMode
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager.accentColor
 import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
-import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.uiImageFromResourceLocation
+import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.uiImage
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.randInt
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils
 import net.minecraft.client.audio.PositionedSoundRecord
@@ -166,7 +166,7 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
     } childOf middleMenuBackground
 
     private val titleImage =
-        ResourceLocation("partlysaneskies", "textures/gui/main_menu/title_text.png").uiImageFromResourceLocation()
+        ResourceLocation("partlysaneskies", "textures/gui/main_menu/title_text.png").uiImage
             .constrain {
                 x = CenterConstraint()
                 y = 50.scaledPixels
@@ -448,7 +448,7 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
         return if (config.customMainMenuImage == 7) {
             UIImage.ofFile(File("./config/partly-sane-skies/background.png"))
         } else {
-            ResourceLocation("partlysaneskies", image).uiImageFromResourceLocation()
+            ResourceLocation("partlysaneskies", image).uiImage
         }
     }
 
