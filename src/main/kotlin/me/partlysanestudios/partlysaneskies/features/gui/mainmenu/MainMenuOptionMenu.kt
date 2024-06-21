@@ -47,7 +47,7 @@ class MainMenuOptionMenu(nextRunnable: Runnable): WindowScreen(ElementaVersion.V
         color = Color(79, 103, 150).constraint
     } childOf transparentBlock
 
-    private val subheadingText = UIWrappedText("You can always disable this menu, or find other backgrounds later on in the config. (/pssc)").constrain {
+    private val subheadingText = UIWrappedText("You can always disable this menu, or find other backgrounds later on in the config. (/pssc)", centered = true).constrain {
         x = CenterConstraint()
         y = 35.percent
         width = 50.percent
