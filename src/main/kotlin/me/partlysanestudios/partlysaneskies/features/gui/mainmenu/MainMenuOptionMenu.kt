@@ -56,7 +56,7 @@ class MainMenuOptionMenu(nextRunnable: Runnable): WindowScreen(ElementaVersion.V
     } childOf transparentBlock
 
     private val yesButton = UIRoundedRectangle(5.0f).constrain {
-        x = CenterConstraint() + 33.percent
+        x = CenterConstraint() + 10.percent
         y = 55.percent
         width = 15.percent
         height = 5.percent
@@ -75,7 +75,7 @@ class MainMenuOptionMenu(nextRunnable: Runnable): WindowScreen(ElementaVersion.V
     } childOf yesButton
 
     private val noButton = UIRoundedRectangle(5.0f).constrain {
-        x = CenterConstraint() - 33.percent
+        x = CenterConstraint() - 10.percent
         y = 55.percent
         width = 15.percent
         height = 5.percent
