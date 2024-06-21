@@ -41,6 +41,10 @@ class PSSButton {
         } childOf backgroundBlock
 
         textComponent = UIWrappedText(text, false, Color(0, 0, 0, 0), true).constrain {
+            width = 100.percent
+            height = 100.percent
+            x = CenterConstraint()
+            y = CenterConstraint()
             color = Color.white.constraint
         } childOf buttonTexture
     }
@@ -54,9 +58,18 @@ class PSSButton {
             this.color = color.toJavaColor().constraint
         }
 
-        buttonTexture = getCurrentButtonUIImage(color) childOf backgroundBlock
+        buttonTexture = getCurrentButtonUIImage(color).constrain {
+            width = 100.percent
+            height = 100.percent
+            x = CenterConstraint()
+            y = CenterConstraint()
+        } childOf backgroundBlock
 
         textComponent = UIWrappedText(text, false, Color(0, 0, 0, 0), true).constrain {
+            width = 100.percent
+            height = 100.percent
+            x = CenterConstraint()
+            y = CenterConstraint()
             this.color = Color.white.constraint
         } childOf buttonTexture
 

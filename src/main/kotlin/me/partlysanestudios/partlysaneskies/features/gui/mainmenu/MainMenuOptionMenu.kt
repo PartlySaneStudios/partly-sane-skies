@@ -51,6 +51,7 @@ class MainMenuOptionMenu(nextRunnable: Runnable): WindowScreen(ElementaVersion.V
         .onMouseClickConsumer {
             nextRunnable.run()
         }
+        .setChildOf(transparentBlock)
 
     private val noButton = PSSButton(Color.red)
         .setX(33.percent)
@@ -63,6 +64,5 @@ class MainMenuOptionMenu(nextRunnable: Runnable): WindowScreen(ElementaVersion.V
             config.customMainMenu = false
             nextRunnable.run()
         }
-
-
+        .setChildOf(transparentBlock)
 }
