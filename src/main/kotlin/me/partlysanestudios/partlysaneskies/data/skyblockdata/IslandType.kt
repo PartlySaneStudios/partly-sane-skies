@@ -22,17 +22,16 @@ enum class IslandType(val islandName: String) {
     DEEP_CAVERNS("Deep Caverns"),
     DWARVEN_MINES("Dwarven Mines"),
     CRYSTAL_HOLLOWS("Crystal Hollows"),
+    MINESHAFT("Mineshaft"),
     FARMING_ISLAND("The Farming Islands"),
-    WINTER_ISLAND("Jerry's Workshop"), // value by sh, unconfirmed
+    WINTER_ISLAND("Jerry's Workshop"),
     RIFT("The Rift"),
     CATACOMBS("Catacombs"),
     KUUDRA("Kuudra"),
 
     NONE("");
 
-    fun onIsland(): Boolean {
-        return this == IslandType.getCurrentIsland()
-    }
+    fun onIsland() = this == IslandType.getCurrentIsland()
 
     companion object {
         /**

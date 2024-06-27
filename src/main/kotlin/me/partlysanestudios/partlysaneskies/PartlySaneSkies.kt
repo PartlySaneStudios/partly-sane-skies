@@ -67,11 +67,11 @@ import me.partlysanestudios.partlysaneskies.features.gui.hud.LocationBannerDispl
 import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.DropBannerDisplay
 import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.DropWebhook
 import me.partlysanestudios.partlysaneskies.features.information.WikiArticleOpener
-import me.partlysanestudios.partlysaneskies.features.mining.MiningEvents
 import me.partlysanestudios.partlysaneskies.features.mining.PickaxeWarning
 import me.partlysanestudios.partlysaneskies.features.mining.crystalhollows.WormWarning
 import me.partlysanestudios.partlysaneskies.features.mining.crystalhollows.gemstonewaypoints.GemstoneData
 import me.partlysanestudios.partlysaneskies.features.mining.crystalhollows.gemstonewaypoints.GemstoneWaypointRender
+import me.partlysanestudios.partlysaneskies.features.mining.events.MiningEventNotifier
 import me.partlysanestudios.partlysaneskies.features.security.PrivacyMode
 import me.partlysanestudios.partlysaneskies.features.security.modschecker.ModChecker
 import me.partlysanestudios.partlysaneskies.features.skills.PetAlert
@@ -203,7 +203,6 @@ class PartlySaneSkies {
         registerEvent(this)
         registerEvent(PartyManager())
         registerEvent(PartyFriendManager())
-        registerEvent(MiningEvents())
         registerEvent(MinionData())
         registerEvent(SkyblockDataManager)
         registerEvent(DropBannerDisplay)
@@ -246,6 +245,7 @@ class PartlySaneSkies {
         registerEvent(CustomMainMenu.Companion)
         registerEvent(WrongToolCropWarning.CropToolData)
         registerEvent(PetAlert)
+        registerEvent(MiningEventNotifier)
 
 
         // Registers all client side commands

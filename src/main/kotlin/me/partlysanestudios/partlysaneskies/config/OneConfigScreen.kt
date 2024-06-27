@@ -1257,13 +1257,6 @@ object OneConfigScreen : Config(
 
 
     //Events
-    @Info(
-        type = InfoType.INFO,
-        text = "Some Events may not trigger, not all have been tested. If you find an event that doesn't trigger, please report it on our discord server.",
-        category = "Mining",
-        subcategory = "Events",
-        size = 2
-    )
     @Switch(name = "Main Toggle", description = "Toggles the events.", category = "Mining", subcategory = "Events")
     var miningEventsToggle = true
 
@@ -1364,14 +1357,6 @@ object OneConfigScreen : Config(
         max = 7f
     )
     var miningEventBannerTime = 3.5f
-
-    @Color(
-        name = "Event Banner Color",
-        description = "The color of the event banner text.",
-        category = "Mining",
-        subcategory = "Events"
-    )
-    var miningEventBannerColor = OneColor(255, 255, 255)
 
     // ------------- Category: Farming ---------------------------------
     //    Hoes
