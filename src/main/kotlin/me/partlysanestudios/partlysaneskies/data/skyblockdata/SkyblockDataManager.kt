@@ -100,9 +100,7 @@ object SkyblockDataManager {
     }
 
     fun getId(name: String): String {
-        return if (!nameToIdMap.containsKey(name)) {
-            ""
-        } else nameToIdMap[name]!!
+        return nameToIdMap[name] ?: ""
     }
 
     fun getItem(id: String): SkyblockItem? {

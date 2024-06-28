@@ -1919,6 +1919,14 @@ object OneConfigScreen : Config(
     )
     var testDevEnv = false
 
+    // Discord
+    @Switch(
+        name = "Show hidden webhooks in webhook menu",
+        category = "Dev",
+        subcategory = "Discord"
+    )
+    var showHiddenWebhooks = false
+
     // Example HUD
     @HUD(
         name = "Test Hud Element",
