@@ -65,6 +65,8 @@ import me.partlysanestudios.partlysaneskies.features.gui.RefreshKeybinds
 import me.partlysanestudios.partlysaneskies.features.gui.hud.CooldownHud
 import me.partlysanestudios.partlysaneskies.features.gui.hud.LocationBannerDisplay
 import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.DropBannerDisplay
+import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.DropWebhook
+import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.RareDropGUIManager
 import me.partlysanestudios.partlysaneskies.features.information.WikiArticleOpener
 import me.partlysanestudios.partlysaneskies.features.mining.MiningEvents
 import me.partlysanestudios.partlysaneskies.features.mining.PickaxeWarning
