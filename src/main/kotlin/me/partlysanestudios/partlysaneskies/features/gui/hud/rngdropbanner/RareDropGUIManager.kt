@@ -6,6 +6,8 @@ import me.partlysanestudios.partlysaneskies.utils.ChatUtils
 
 object RareDropGUIManager {
 
+    var filters = setOf("deine mum", "dein gesicht", "huso", "yay")
+
     fun registerCommand() {
         PSSCommand("raredrop")
             .addAlias("rd")
@@ -18,6 +20,9 @@ object RareDropGUIManager {
 
     fun addFilter(vararg filter: String) {
         ChatUtils.sendClientMessage("Added ${filter.size} filters")
+        filters += filter
+        RareDropGUI.update()
+        println(filters)
     }
 
     private fun openGui() {
