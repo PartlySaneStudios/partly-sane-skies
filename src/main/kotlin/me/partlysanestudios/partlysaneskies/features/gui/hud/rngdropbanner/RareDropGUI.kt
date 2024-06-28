@@ -11,10 +11,10 @@ package me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner
 import gg.essential.elementa.ElementaVersion
 import gg.essential.elementa.WindowScreen
 import gg.essential.elementa.components.UIBlock
-import gg.essential.elementa.components.UIText
 import gg.essential.elementa.constraints.CenterConstraint
 import gg.essential.elementa.dsl.*
 import gg.essential.universal.UMatrixStack
+import me.partlysanestudios.partlysaneskies.render.gui.components.PSSButton
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.applyBackground
 import java.awt.Color
 
@@ -45,32 +45,30 @@ object RareDropGUI : WindowScreen(ElementaVersion.V5) {
             y = 0.percent
         }.applyBackground() childOf backgroundBox
 
-        val presetsContainer = UIBlock().constrain {
+        updatePreset(backgroundBox)
+
+        window.draw(UMatrixStack())
+    }
+
+    private fun updatePreset(backgroundBox: UIBlock) {
+        val presetsContainer by UIBlock().constrain {
             width = 60.percent
             height = 20.percent
             x = 40.percent
             y = 80.percent
         }.applyBackground() childOf backgroundBox
 
-
-        RareDropGUIManager.presets.chunked(2).forEachIndexed { rowIndex, row ->
-            row.forEachIndexed { columnIndex, (presetName, items) ->
-                val presetButton = UIBlock().constrain {
-                    width = 50.percent
-                    height = 50.percent
-                    x = (50 * columnIndex).percent
-                    y = (50 * rowIndex).percent
-                }.onMouseClick {
-                    //RareDropGUIManager.addFilters(items)
-                } childOf presetsContainer
-
-                UIText(presetName).constrain {
-                    x = CenterConstraint()
-                    y = CenterConstraint()
-                } childOf presetButton
-            }
+        RareDropGUIManager.presets.forEachIndexed { columnIndex, (presetName, items) ->
+            PSSButton()
+                .setText(presetName)
+                .setX((15 * columnIndex + 5).percent)
+                .setY(CenterConstraint())
+                .setWidth(50f)
+                .setHeight(50f)
+                .setChildOf(presetsContainer)
+                .onMouseClickConsumer {
+                    RareDropGUIManager.addFilter(*items.toTypedArray())
+                }
         }
-
-        window.draw(UMatrixStack())
     }
 }
