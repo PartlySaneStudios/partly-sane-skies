@@ -109,6 +109,10 @@ object SkyblockDataManager {
         } else idToItemMap[id]
     }
 
+    fun getItemList(): List<SkyblockItem> {
+        return idToItemMap.values.toList()
+    }
+
     fun runUpdaterTick() {
         if (checkLastUpdate()) {
             lastAhUpdateTime = time

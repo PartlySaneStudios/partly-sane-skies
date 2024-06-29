@@ -16,12 +16,18 @@ import gg.essential.elementa.components.UIText
 import gg.essential.elementa.components.UIWrappedText
 import gg.essential.elementa.components.input.UITextInput
 import gg.essential.elementa.constraints.CenterConstraint
+import gg.essential.elementa.constraints.CramSiblingConstraint
 import gg.essential.elementa.constraints.SiblingConstraint
 import gg.essential.elementa.dsl.*
+import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager.primaryColor
 import me.partlysanestudios.partlysaneskies.render.gui.components.PSSButton
+import me.partlysanestudios.partlysaneskies.render.gui.components.PSSItemRender
 import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
+import net.minecraft.init.Items
+import net.minecraft.item.Item
+import net.minecraft.item.ItemStack
 import java.awt.Color
 
 class RareDropGUI : WindowScreen(ElementaVersion.V5) {
@@ -45,7 +51,7 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
         x = 5.percent
         y = 2.percent
         textScale = 1.5.scaledPixels
-        color = Color.gray.constraint
+        color = Color.lightGray.constraint
     } childOf createFilterContainer
 
     private val createFiltersSearchBar: UITextInput = UITextInput("Search...").constrain {
@@ -53,10 +59,11 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
         height = 5.percent
         x = 5.percent
         y = 7.percent
+        color = Color.gray.constraint
     }.onMouseClick {
         grabWindowFocus()
     }.onKeyType { _, _ ->
-        updateFilterList()
+        updateItems()
     } as UITextInput childOf createFilterContainer
 
     private val createFiltersScrollComponent = ScrollComponent(
@@ -89,6 +96,7 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
         height = 5.percent
         x = 5.percent
         y = 7.percent
+        color = Color.gray.constraint
     }.onMouseClick {
         grabWindowFocus()
     }.onKeyType { _, _ ->
@@ -118,18 +126,46 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
     fun update() {
         updateFilterList()
         addPresets()
+        updateItems()
     }
 
     private fun updateFilterList() {
         activeFiltersScrollComponent.clearChildren()
 
-        RareDropGUIManager.filters
+        RareDropGUIManager.activeFilters
             .filter { it.contains(activeFiltersSearchBar.getText(), ignoreCase = true) }
             .forEach { filter ->
-                UIText(filter).constrain {
+                val defaultText = "- $filter"
+                UIWrappedText(defaultText).constrain {
                     x = 0.percent
                     y = SiblingConstraint(1f)
+                    color = Color.lightGray.constraint
+                }.onMouseEnter {
+                    (this as UIWrappedText).setText("§m$defaultText  §r§o§8(click to remove)")
+                }.onMouseLeave {
+                    (this as UIWrappedText).setText(defaultText)
+                }.onMouseClick {
+                    RareDropGUIManager.activeFilters.remove(filter)
+                    update()
+                    sendChatMessage("Removed filter $filter")
                 } childOf activeFiltersScrollComponent
+            }
+    }
+
+    private fun updateItems() {
+        createFiltersScrollComponent.clearChildren()
+
+        SkyblockDataManager.getItemList()
+            .filter { it.name.contains(createFiltersSearchBar.getText(), ignoreCase = true) || it.id.contains(createFiltersSearchBar.getText(), ignoreCase = true) }
+            .forEach { item ->
+                val itemStack = ItemStack(Item.getByNameOrId(item.material.lowercase()) ?: Items.bucket)
+                val itemRender = PSSItemRender(itemStack, autoScaleWidth = true)
+                    .setWidth(5.percent)
+                    .setChildOf(createFiltersScrollComponent)
+
+                itemRender
+                    .setX(CramSiblingConstraint(5f))
+                    .setY(CramSiblingConstraint(5f))
             }
     }
 
