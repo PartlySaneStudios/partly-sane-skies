@@ -21,13 +21,11 @@ object RareDropGUIManager {
     fun addFilter(vararg filter: String) {
         ChatUtils.sendClientMessage("Added ${filter.size} filters")
         filters += filter
-        RareDropGUI.update()
         println(filters)
     }
 
     private fun openGui() {
-        RareDropGUI.update()
-        GuiUtils.displayScreen(RareDropGUI)
+        GuiUtils.displayScreen(RareDropGUI())
     }
 
     val presets = listOf(
