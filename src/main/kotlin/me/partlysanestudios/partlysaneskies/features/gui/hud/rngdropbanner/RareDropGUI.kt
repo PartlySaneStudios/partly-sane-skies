@@ -17,7 +17,10 @@ import gg.essential.elementa.components.UIWrappedText
 import gg.essential.elementa.components.input.UITextInput
 import gg.essential.elementa.constraints.CenterConstraint
 import gg.essential.elementa.constraints.SiblingConstraint
-import gg.essential.elementa.dsl.*
+import gg.essential.elementa.dsl.childOf
+import gg.essential.elementa.dsl.constrain
+import gg.essential.elementa.dsl.constraint
+import gg.essential.elementa.dsl.percent
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager.primaryColor
 import me.partlysanestudios.partlysaneskies.render.gui.components.PSSButton
@@ -48,7 +51,7 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
         color = Color.gray.constraint
     } childOf createFilterContainer
 
-    private val createFiltersSearchBar: UITextInput = UITextInput("Search...").constrain {
+    private val createFiltersSearchBar: UITextInput = UITextInput("AASearch...").constrain {
         width = 90.percent
         height = 5.percent
         x = 5.percent
@@ -144,6 +147,7 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
                 .setChildOf(presetsContainer)
                 .onMouseClickConsumer {
                     RareDropGUIManager.addFilter(*items.toTypedArray())
+                    updateFilterList()
                 }
         }
     }
