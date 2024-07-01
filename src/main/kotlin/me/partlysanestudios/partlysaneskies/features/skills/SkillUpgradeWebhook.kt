@@ -31,6 +31,7 @@ object SkillUpgradeWebhook: Webhook() {
         .setX(CenterConstraint())
         .setY(CenterConstraint())
         .setWidth(90.percent)
+
     override val id = "skillLevelUp"
     override val name = "Skill Level Up"
     override val description = "Send a webhook whenever you level up a skill"
