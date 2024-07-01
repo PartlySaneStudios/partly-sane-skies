@@ -1,6 +1,5 @@
 # Location Banner
-When enabled, Mod Checker automatically will check your mods list for outdated, suspicious, or unknown mods. These mods may not be on the list of verified mods.
-If you believe a mod is being falsely flagged, please report it in the PSS discord (/pssdiscord)
+Displays a banner with the location of the player.
 <!-- Feature Description -->
 
 <img src="/docs/images/location_banner.png" alt="Location Banner" width="750" height="400" style="text-align: center;">

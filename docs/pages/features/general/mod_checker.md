@@ -1,5 +1,5 @@
 # Mods Checker
-When enabled, Mod Checker automatically will check your mods list for outdated, suspicious, or unknown mods. These mods may not be on the list of verified mods.
+When enabled, Mod Checker automatically checks your mod list for outdated, suspicious, or unknown mods. These mods may not be on the list of verified mods.
 If you believe a mod is being falsely flagged, please report it in the PSS discord (/pssdiscord)
 <!-- Feature Description -->
 
@@ -16,7 +16,7 @@ Automatically verifies installed mods when the game launches.
 Enables automatic inclusion of beta versions during mod verification.
 
 ###  Show up-to-date mods:
-If turned off, conceals up-to-date mods in the Mods Checker chat message.
+If turned off, conceal up-to-date mods in the Mods Checker chat message.
 
 
 ## ⌨️ Relevant Commands:

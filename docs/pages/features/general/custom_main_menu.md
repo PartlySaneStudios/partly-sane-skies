@@ -31,7 +31,7 @@ Drop down menu of pre-determined*, Skyblock-related high-quality images:
 > Aerial View of Hub from Community House
 > 
 > 
-> Stunning Aerial View of Hub
+> Stunning Aerial View of the Hub
 > 
 > 
 > View from Hub Portal (Day)
@@ -46,7 +46,7 @@ Drop down menu of pre-determined*, Skyblock-related high-quality images:
 > Custom Image
 
 
-*There is an option to select a custom image, by placing it in the config folder of your game.
+*There is an option to select a custom image by placing it in the config folder of your game.
 By placing an image in this location: ``/config/partly-sane-skies/background.png``, you can select your own custom image 
 to display.
 

@@ -1,5 +1,6 @@
 # Crêpes
-Have you ever wanted to make crêpes, and don't have access to internet, but you somehow still have access to SkyBlock ? Well we've got you covered. Simply by doing `/crêpes`, you too can make crêpes using a recipe from an authentic Breton website. 
+Have you ever wanted to make crêpes, and don't have access to the internet, but you somehow still have access to SkyBlock? 
+Well, we've got you covered. Simply by doing `/crêpes`, you too can make crêpes using a recipe from an authentic Breton website. 
 <!-- Feature Description -->
 
 <img src="/docs/images/mod_checker.png" alt="Crepe" width="750" height="400" style="text-align: center;">

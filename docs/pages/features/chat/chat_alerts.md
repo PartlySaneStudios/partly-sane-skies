@@ -9,7 +9,7 @@ Using by adding a chat alert, chosen keywords/messages will be highlighted in ch
 ## 🎚️Config  Menu Options: 
 <!-- Options/toggles in the config menu, and what they do-->
 ### Send System Notification
-Sends a notification on your computer when a chat alert is triggered. 
+Send a notification on your computer when a chat alert is triggered. 
 
 
 ## ⌨️ Relevant Commands:
@@ -17,7 +17,7 @@ Sends a notification on your computer when a chat alert is triggered.
 
 These commands also work instead of /chatalerts:
 
-`/chatalert, /chal, /ca` -  Base command
+`/chatalert, /chal, /ca` - Base command
 `/ca add [keyword]` - Add a keyword
 `/ca remove [keyword]` - Removes a previously added chatalert keyword
 `/ca list` - Lists out all added chatalerts
