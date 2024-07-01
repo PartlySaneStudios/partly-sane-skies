@@ -10,7 +10,8 @@ import com.google.common.collect.ComparisonChain
 import com.google.common.collect.Ordering
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.data.cache.PetData
-import me.partlysanestudios.partlysaneskies.features.discord.webhooks.WebhookMenu
+import me.partlysanestudios.partlysaneskies.features.discord.webhooks.Webho
+okMenu
 import me.partlysanestudios.partlysaneskies.mixin.minecraft.MixinGuiChest
 import me.partlysanestudios.partlysaneskies.mixin.minecraft.MixinGuiContainer
 import me.partlysanestudios.partlysaneskies.mixin.minecraft.MixinGuiPlayerTabOverlay
