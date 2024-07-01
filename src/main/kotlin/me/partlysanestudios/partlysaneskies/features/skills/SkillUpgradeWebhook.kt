@@ -49,7 +49,7 @@ object SkillUpgradeWebhook: Webhook() {
 
         val (skill, oldLevel, newLevel) = regex.find(message)?.destructured ?: return
 
-        val oldLevelInt = if ("(\\d+)".toRegex().containsMatchIn(oldLevel)) {
+        val oldLevelInt = if ("\\d+".toRegex().containsMatchIn(oldLevel)) {
             oldLevel.toIntOrNull() ?: 0
         } else {
             oldLevel.romanNumeralToInt()
