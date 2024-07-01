@@ -56,8 +56,8 @@ class PSSItemRender(var item: ItemStack?, private val autoScaleWidth: Boolean = 
         return this
     }
 
-    fun setItemScale(constraint: PixelConstraint): UIComponent {
-        itemScale = constraint.value
+    fun setItemScale(constraint: WidthConstraint): UIComponent {
+        itemScale = constraint.cachedValue
         return this
     }
 }
