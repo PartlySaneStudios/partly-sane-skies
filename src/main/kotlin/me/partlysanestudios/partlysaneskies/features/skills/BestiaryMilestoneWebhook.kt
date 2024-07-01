@@ -54,15 +54,21 @@ object BestiaryMilestoneWebhook: Webhook() {
             return
         }
 
-        if (!regex.containsMatchIn(message)) {
-            return
-        }
-
         headingMessageSent = false
 
         val (oldLevel, newLevel) = regex.find(message)?.destructured ?: return
-        val oldLevelInt = oldLevel.romanNumeralToInt()
-        val newLevelInt = newLevel.romanNumeralToInt()
+        val oldLevelInt = if ("(\\d+)".toRegex().containsMatchIn(oldLevel)) {
+            oldLevel.toIntOrNull() ?: 0
+        } else {
+            oldLevel.romanNumeralToInt()
+        }
+
+        val newLevelInt = if ("(\\d+)".toRegex().containsMatchIn(newLevel)) {
+            newLevel.toIntOrNull() ?: 0
+        } else {
+            newLevel.romanNumeralToInt()
+        }
+
         if (config.find("multipleOf5")?.asBoolean == true && newLevelInt % 5 == 0) {
             trigger(oldLevelInt, newLevelInt)
         } else if (config.find("multipleOf10")?.asBoolean == true && newLevelInt % 10 == 0) {
