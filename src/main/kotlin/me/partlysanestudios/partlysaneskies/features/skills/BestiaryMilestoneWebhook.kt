@@ -46,6 +46,7 @@ object BestiaryMilestoneWebhook: Webhook() {
     private var headingMessageSent = false
 
     private val regex = "§8(\\w+)➡§e(\\w+)".toRegex()
+
     @SubscribeEvent
     fun onChatMessage(event: ClientChatReceivedEvent) {
         val message = event.message.formattedText
