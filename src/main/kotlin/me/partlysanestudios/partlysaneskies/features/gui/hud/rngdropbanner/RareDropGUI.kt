@@ -20,6 +20,7 @@ import gg.essential.elementa.dsl.childOf
 import gg.essential.elementa.dsl.constrain
 import gg.essential.elementa.dsl.constraint
 import gg.essential.elementa.dsl.percent
+import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.RareDropGUIManager.currentFilterType
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager.primaryColor
 import me.partlysanestudios.partlysaneskies.render.gui.components.PSSButton
@@ -50,7 +51,7 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
         color = Color.gray.constraint
     } childOf createFilterContainer
 
-    private val createFiltersInput = UITextInput("Create a Filter...").constrain {
+    private val createFiltersInput = UITextInput("Create a ${currentFilterType.displayName} Filter...").constrain {
         width = 90.percent
         height = 5.percent
         x = 5.percent
@@ -77,7 +78,7 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
         y = 0.percent
     } childOf backgroundBox
 
-    private val activeFiltersHeading = UIWrappedText("Active Filters:").constrain {
+    private val activeFiltersHeading = UIWrappedText("${currentFilterType.displayName} Filters:").constrain {
         width = 90.percent
         x = 5.percent
         y = 2.percent
@@ -122,7 +123,7 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
         addPresets()
 
         PSSButton()
-            .setText("Add Filter")
+            .setText("Add ${currentFilterType.displayName} Filter")
             .setX(5.percent)
             .setY(15.percent)
             .setHeight(40f)
