@@ -116,5 +116,18 @@ object RareDropGUIManager {
                 "Enchanted Obsidian",
             ),
         ),
+        RareDropPreset(
+            "Useless Garden Drops",
+            listOf(
+                "Beady Eyes",
+                "Buzzin' Beats Vinyl",
+                "Cicada Symphony Vinyl",
+                "Clipped Wings",
+                "DynaMITES Vinyl",
+                "Earthworm Ensemble Vinyl",
+                "Not Just A Pest Vinyl",
+                "Pretty Fly Vinyl",
+            )
+        )
     )
 }
