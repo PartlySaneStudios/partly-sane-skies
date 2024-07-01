@@ -95,8 +95,7 @@ object PetLevelUpWebhook: Webhook() {
                     fields = listOf(
                         EmbedField(
                             name = "${rarity.displayName} $name",
-                            value = ":tada: $levelString :tada:",
-                            inline = true
+                            value = ":tada: $levelString :tada:"
                         )
                     )
                 )
