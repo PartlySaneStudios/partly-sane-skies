@@ -52,7 +52,7 @@ object PetLevelUpWebhook: Webhook() {
         }
     }
 
-    val regex = "§r§aYour §r(§.)((\\w+(\\s\\w+)*)( ✦)?) §r§aleveled up to level §r§9(\\d+)§r§a!§r".toRegex()
+    private val regex = "§r§aYour §r(§.)((\\w+(\\s\\w+)*)( ✦)?) §r§aleveled up to level §r§9(\\d+)§r§a!§r".toRegex()
     @SubscribeEvent
     fun onChatMessage(event: ClientChatReceivedEvent) {
         val message = event.message.formattedText
