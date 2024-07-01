@@ -27,7 +27,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import java.awt.Color
 
 object BestiaryMilestoneWebhook: Webhook() {
-    override val icon = PSSItemRender(ItemStack(Items.diamond_pickaxe), true)
+    override val icon = PSSItemRender(ItemStack(Items.golden_sword), true)
         .setX(CenterConstraint())
         .setY(CenterConstraint())
         .setWidth(90.percent)
