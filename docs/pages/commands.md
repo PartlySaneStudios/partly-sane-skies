@@ -141,7 +141,7 @@ These commands also work instead of ``/clearpssdata``:
 
 ### Description
 
-Clears your Partly Sane Studios hashmap data.
+Clear your Partly Sane Studios hashmap data.
 
 
 </details>
@@ -201,8 +201,7 @@ These commands also work instead of ``/modchecker``:
 
 ### Description
 
-Converts a given amount of coins to the IRL cost of booster cookies in your selected currency(Configurable with /pss
-config)
+Convert a given number of coins to the IRL cost of booster cookies in your selected currency (Configurable with /pss config)
 
 </details>
 
@@ -444,8 +443,7 @@ These commands also work instead of ``/pssdiscord``:
 
 ### Description
 
-Sends a link to join the discord in
-chat. [Or you can just join here (https://discord.gg/v4PU3WeH7z)](https://discord.gg/v4PU3WeH7z)
+Send a link to join the discord in chat. [Or you can just join here](https://discord.gg/v4PU3WeH7z)
 
 ### Usage
 
@@ -476,7 +474,7 @@ These commands also work instead of ``/sanitycheck {username}``:
 
 ### Description
 
-Using a users SkyBlock join date and nethworth, the SanityCheck will calculate how sane you are.
+Using a users SkyBlock join date and networth, the SanityCheck will calculate how sane you are.
 
 </details>
 
@@ -527,8 +525,8 @@ These commands also work instead of ``/wordeditor``:
 
 ### Description
 
-Replaces a desired word in chat with any other word or phrase, such as changing "Flagmaster" to "FlagHater", but also "
-Flagmaster" to "Most active contributor".
+Replace a desired word in chat with any other word or phrase, such as changing "Flagmaster" to "FlagHater", but also 
+"Flagmaster" to "Most active contributor."
 
 ### Usage
 

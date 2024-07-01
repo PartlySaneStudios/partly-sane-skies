@@ -109,7 +109,7 @@ To view more information about commands, including how to use them, **[click her
 General and Miscellaneous features.
 
 ### Mods Checker
-When enabled, Mod Checker automatically checks your mods list for outdated, suspicious, or unknown mods. These mods may not be on the list of verified mods.
+When enabled, Mod Checker automatically checks your mod list for outdated, suspicious, or unknown mods. These mods may not be on the list of verified mods.
 If you believe a mod is being falsely flagged, please report it in the PSS discord (/pssdiscord)
 
 
