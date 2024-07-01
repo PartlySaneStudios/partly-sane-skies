@@ -43,6 +43,7 @@ object CropMilestoneWebhook: Webhook() {
     }
 
     val regex = "§lGARDEN MILESTONE §3(\\w+[\\s\\w+]*) §8(\\w+)➡§3(\\w+)".toRegex()
+
     @SubscribeEvent
     fun onChatMessage(event: ClientChatReceivedEvent) {
         val message = event.trueUnformattedMessage
