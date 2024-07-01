@@ -42,7 +42,7 @@ object MobBestiaryLevelUpWebhook: Webhook() {
         config.registerOption("useRomanNumerals", Toggle("Use Roman Numerals", "Use Roman Numerals instead of Arabic Numerals in the message", false))
     }
 
-    val regex = "§b(§.)(\\w+) §7§8(\\w+) §8➡§b §b(\\w+)".toRegex()
+    private val regex = "§b(§.)(\\w+) §7§8(\\w+) §8➡§b §b(\\w+)".toRegex()
     @SubscribeEvent
     fun onChatMessage(event: ClientChatReceivedEvent) {
         val message = event.message.formattedText
