@@ -43,6 +43,7 @@ object SkillUpgradeWebhook: Webhook() {
     }
 
     val regex = "SKILL LEVEL UP (\\w+) (\\w+)➜(\\w+)".toRegex()
+    
     @SubscribeEvent
     fun onChatMessage(event: ClientChatReceivedEvent) {
         val message = event.trueUnformattedMessage
