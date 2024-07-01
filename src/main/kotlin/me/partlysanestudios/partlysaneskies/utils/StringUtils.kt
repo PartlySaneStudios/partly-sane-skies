@@ -385,30 +385,30 @@ object StringUtils {
         }
 
         var number = this
-        val stringBuilder = StringBuilder()
-
-        fun appendRomanSymbols(value: Int, symbol: String) {
-            while (number >= value) {
-                stringBuilder.append(symbol)
-                number -= value
+        val stringBuilder = buildString {
+            fun appendRomanSymbols(value: Int, symbol: String) {
+                while (number >= value) {
+                    this.append(symbol)
+                    number -= value
+                }
             }
+
+            appendRomanSymbols(1000, "M")
+            appendRomanSymbols(900, "CM")
+            appendRomanSymbols(500, "D")
+            appendRomanSymbols(400, "CD")
+            appendRomanSymbols(100, "C")
+            appendRomanSymbols(90, "XC")
+            appendRomanSymbols(50, "L")
+            appendRomanSymbols(40, "XL")
+            appendRomanSymbols(10, "X")
+            appendRomanSymbols(9, "IX")
+            appendRomanSymbols(5, "V")
+            appendRomanSymbols(4, "IV")
+            appendRomanSymbols(1, "I")
         }
 
-        appendRomanSymbols(1000, "M")
-        appendRomanSymbols(900, "CM")
-        appendRomanSymbols(500, "D")
-        appendRomanSymbols(400, "CD")
-        appendRomanSymbols(100, "C")
-        appendRomanSymbols(90, "XC")
-        appendRomanSymbols(50, "L")
-        appendRomanSymbols(40, "XL")
-        appendRomanSymbols(10, "X")
-        appendRomanSymbols(9, "IX")
-        appendRomanSymbols(5, "V")
-        appendRomanSymbols(4, "IV")
-        appendRomanSymbols(1, "I")
-
-        return stringBuilder.toString()
+        return stringBuilder
     }
 
 }

@@ -48,7 +48,7 @@ object SkillUpgradeWebhook: Webhook() {
         val message = event.trueUnformattedMessage
 
         val (skill, oldLevel, newLevel) = regex.find(message)?.destructured ?: return
-        
+
         val oldLevelInt = if ("(\\d+)".toRegex().containsMatchIn(oldLevel)) {
             oldLevel.toIntOrNull() ?: 0
         } else {
