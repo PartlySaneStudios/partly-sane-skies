@@ -19,6 +19,9 @@ import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager.getCurr
 import java.awt.Color
 import java.util.function.Consumer
 
+/**
+ * Cannot be created at the top of classes, need to be inside methods to work.
+ */
 class PSSButton {
 
     private var backgroundBlock: UIBlock

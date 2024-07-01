@@ -2,8 +2,6 @@
 // Written by J10an15.
 // See LICENSE for copyright and license notices.
 //
-// Time Spent on this god awful GUI: 4h
-//
 
 
 package me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner
@@ -59,21 +57,6 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
     }.onMouseClick {
         grabWindowFocus()
     } as UITextInput childOf createFilterContainer
-
-    private val createFilterButton = PSSButton()
-        .setText("Add Filter")
-        .setY(15.percent)
-        .setX(5.percent)
-        .setHeight(40f)
-        .setWidth(50f)
-        .setChildOf(createFilterContainer)
-        .onMouseClickConsumer {
-            val text = createFiltersInput.getText()
-            if (text.isBlank()) return@onMouseClickConsumer
-            RareDropGUIManager.addFilter(text)
-            createFiltersInput.setText("")
-            updateFilterList()
-        }
 
     private val createFiltersScrollComponent = ScrollComponent(
         scrollIconColor = primaryColor.toJavaColor(),
@@ -136,6 +119,21 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
     fun update() {
         updateFilterList()
         addPresets()
+
+        val createFilterButton = PSSButton()
+            .setText("Add Filter")
+            .setX(5.percent)
+            .setY(15.percent)
+            .setHeight(40f)
+            .setWidth(50f)
+            .setChildOf(createFilterContainer)
+            .onMouseClickConsumer {
+                val text = createFiltersInput.getText()
+                if (text.isBlank()) return@onMouseClickConsumer
+                RareDropGUIManager.addFilter(text)
+                createFiltersInput.setText("")
+                updateFilterList()
+            }
     }
 
     private fun updateFilterList() {

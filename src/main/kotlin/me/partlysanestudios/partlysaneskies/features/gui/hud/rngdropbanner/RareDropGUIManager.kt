@@ -3,6 +3,7 @@ package me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner
 import cc.polyfrost.oneconfig.utils.gui.GuiUtils
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils
+import me.partlysanestudios.partlysaneskies.utils.StringUtils.pluralize
 
 object RareDropGUIManager {
 
@@ -19,9 +20,8 @@ object RareDropGUIManager {
     }
 
     fun addFilter(vararg filter: String) {
-        ChatUtils.sendClientMessage("Added ${filter.size} filters")
+        ChatUtils.sendClientMessage("Added ${"filter".pluralize(filter.size)}")
         filters += filter
-        println(filters)
     }
 
     private fun openGui() {
