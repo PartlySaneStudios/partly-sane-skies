@@ -31,7 +31,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import java.awt.Color
 
 object PetLevelUpWebhook: Webhook() {
-    override val icon = PSSItemRender(ItemStack(Items.diamond_pickaxe), true)
+    override val icon = PSSItemRender(ItemStack(Items.bone), true)
         .setX(CenterConstraint())
         .setY(CenterConstraint())
         .setWidth(90.percent)
