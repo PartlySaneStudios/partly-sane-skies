@@ -2,7 +2,7 @@
 When you get a rare drop, a Pumpkin Dicer or Melon Slicer like pop-up banner will appear, along with a sound, celebrating your drop.
 <!-- Feature Description -->
 
-<img src="/images/rng_drop_banner.png" alt="RNG Drop Banner" width="750" height="400" style="text-align: center;">
+<img src="/docs/images/rng_drop_banner.png" alt="RNG Drop Banner" width="750" height="400" style="text-align: center;">
 <!-- Feature image -->
 
 
@@ -22,7 +22,7 @@ Plays a little jingle of a song when a rare item is dropped.
 
 *N/A*
 
-More command info can be [found here](/pages/commands.md#clearpssdata)
+More command info can be [found here](/docs/pages/commands.md#clearpssdata)
 
 
 

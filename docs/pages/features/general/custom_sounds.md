@@ -2,7 +2,7 @@
 Instead of the normal noteblocks, there is now the option to use computer generated, discord sounds or even custom-composed instruments to play sounds such as SkyBlock music and sound effects.
 <!-- Feature Description -->
 
-<img src="/images/er" alt="clarionette" width="750" height="400" style="text-align: center;">
+<img src="/docs/images/er" alt="clarionette" width="750" height="400" style="text-align: center;">
 <!-- Feature image -->
 
 
@@ -68,7 +68,7 @@ Modifies the sound played when an explosion sound is played. Current Sounds:
 
 *N/A*
 
-More command info can be [found here](/pages/commands.md#clearpssdata)
+More command info can be [found here](/docs/pages/commands.md#clearpssdata)
 
 
 

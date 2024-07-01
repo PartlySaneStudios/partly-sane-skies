@@ -1,4 +1,4 @@
-<h1> <a href="#----"> <img src = "images/banner_image.png" alt="Banner" align="center"> </a> </h1>
+<h1> <a href="#----"> <img src = "docs/images/banner_image.png" alt="Banner" align="center"> </a> </h1>
 
 [//]: # (<h1 align="center"> Partly Sane Skies </h1>)
 <h4 align="center"> <sup> A Quality of Life SkyBlock Mod</sup> </h4>
@@ -24,7 +24,9 @@ Partly Sane Skies is a Minecraft mod for Hypixel SkyBlock, designed, built, and 
 
  >📋 - Credits including third party programs can be [found here](CREDITS.md)
  
- >📝 - Previous changelogs can be [found here](pages/changelogs/previous_changelogs.md)
+ >📝 - Previous changelogs can be [found here](docs/pages/changelogs/previous_changelogs.md)
+
+ >❓ - If you have any questions, please check the [FAQ](docs/pages/faq.md) before asking in the Discord.
 
  >🗃️ - Some other really cool mods can be [found here](https://sbmw.ca/mod-lists/skyblock-mod-list/)
 
@@ -35,12 +37,12 @@ Partly Sane Skies is a Minecraft mod for Hypixel SkyBlock, designed, built, and 
 ### Official Download Links: 
 
 <a href="https://modrinth.com/mod/partly-sane-skies">
-    <img src="images/modrinth_logo.svg" alt="Modrinth Logo" width="20" height="20" style="text-align: center;">
+    <img src="docs/images/modrinth_logo.svg" alt="Modrinth Logo" width="20" height="20" style="text-align: center;">
     <span style="font-size:larger;"><sup>Modrinth: Download "Featured Version" on sidebar</sup></span>
 </a>
 <br>
 <a href="https://github.com/PartlySaneStudios/partly-sane-skies/releases">
-    <img src="images/github_icon.png" alt="Github" width="20" height="20" style="text-align: center;">
+    <img src="docs/images/github_icon.png" alt="Github" width="20" height="20" style="text-align: center;">
     <span style="font-size:larger;"><sup>Github: Open the assets drop down for the latest version and download "partly-sane-skies".jar file.</sup></span>
 </a>
 
@@ -55,34 +57,34 @@ Place that mod in the mods folder of your Minecraft and you are good to go!
 <details>
   <summary> <b> ⌨️ Commands </b> </summary>
 
-[``/pss``:](pages/commands.md#pss) A help command for Partly Sane Skies
+[``/pss``:](docs/pages/commands.md#pss) A help command for Partly Sane Skies
 
-[``/pss config``, ``/pssconfig``:](pages/commands.md#pssconfig) A command to open the PSS Config menu. The keybinding can also be changed in the vanilla options' menu. Default: ``F7``
+[``/pss config``, ``/pssconfig``:](docs/pages/commands.md#pssconfig) A command to open the PSS Config menu. The keybinding can also be changed in the vanilla options' menu. Default: ``F7``
 
-[``/pssdisc``, ``/pssdiscord``:](pages/commands.md#pssdiscord) Sends a link to the discord. [Or you can just join here (https://discord.gg/v4PU3WeH7z)](https://discord.gg/v4PU3WeH7z)
+[``/pssdisc``, ``/pssdiscord``:](docs/pages/commands.md#pssdiscord) Sends a link to the discord. [Or you can just join here (https://discord.gg/v4PU3WeH7z)](https://discord.gg/v4PU3WeH7z)
 
-[``/skillup <username>``, ``/su <username>``:](pages/commands.md#skillup) Command to use the skill upgrade recommendation feature. (See Features)
+[``/skillup <username>``, ``/su <username>``:](docs/pages/commands.md#skillup) Command to use the skill upgrade recommendation feature. (See Features)
 
-[``/pm``, ``/partymanager``:](pages/commands.md#partymanager) Command to open the Party Manager. The keybinding can also be changed in the vanilla options' menu.
+[``/pm``, ``/partymanager``:](docs/pages/commands.md#partymanager) Command to open the Party Manager. The keybinding can also be changed in the vanilla options' menu.
 
-[``/permparty``, ``/permp``, ``/pp``:](pages/commands.md#permparty) Command to use Permanent Dungeon Party Selector. (See Features)
+[``/permparty``, ``/permp``, ``/pp``:](docs/pages/commands.md#permparty) Command to use Permanent Dungeon Party Selector. (See Features)
 
-[``/fp``, ``/pf``:](pages/commands.md#friendparty) Command to use Party All Friends. (See Features)
+[``/fp``, ``/pf``:](docs/pages/commands.md#friendparty) Command to use Party All Friends. (See Features)
 
-[``/chatalert``, ``/ca``, ``/chal``:](pages/commands.md#chatalerts) Command to use the Chat Alerts System. (See Features)
+[``/chatalert``, ``/ca``, ``/chal``:](docs/pages/commands.md#chatalerts) Command to use the Chat Alerts System. (See Features)
 
-[``//farmnotifier``, ``//fn``, ``//farmnotif``:](pages/commands.md#farmnotfier) Command to use the farm notifier system.
+[``//farmnotifier``, ``//fn``, ``//farmnotif``:](docs/pages/commands.md#farmnotfier) Command to use the farm notifier system.
 
 [``/wordeditor``, ``/wordedit``, ``/wr``, ``/wordreplace``, ``/wr``] Command to replace a word in the chat with another word or a phrase.
 
 </details>
 
-To view more information about commands, including how to use them, **[click here to visit the command page.](pages/commands.md)**
+To view more information about commands, including how to use them, **[click here to visit the command page.](docs/pages/commands.md)**
 
 <details>
   <summary> <b> 🛠️Config</b> </summary>
 
-  ![Config Menu](images/config_menu.png)
+  ![Config Menu](docs/images/config_menu.png)
 
 </details>
 
@@ -92,13 +94,13 @@ To view more information about commands, including how to use them, **[click her
 
 - Default Config Keybinding:  <code>F7</code>.
 
-- The config menu can also be accessed through the [custom main menu, with the 'options' button.](pages/features/general/custom_main_menu.md)
+- The config menu can also be accessed through the [custom main menu, with the 'options' button.](docs/pages/features/general/custom_main_menu.md)
 
 ## Top Features:
 
 ***Note: the features below are just a small selection all PSS features: these are just some of the more popular/liked features.***
 
-*To view the complete list of all features, **[click here to visit the complete features page.](pages/features/list.md)***
+*To view the complete list of all features, **[click here to visit the complete features page.](docs/pages/features/list.md)***
 <details>
   <summary> ⚙️ General/Miscellaneous Features </summary>
   
@@ -111,7 +113,7 @@ When enabled, Mod Checker automatically will check your mods list for outdated, 
 If you believe a mod is being falsely flagged, please report it in the PSS discord (/pssdiscord)
 
 
-<img src="/images/mod_checker.png" alt="Mod Checker" width="750" height="400" style="text-align: center;">
+<img src="/docs/images/mod_checker.png" alt="Mod Checker" width="750" height="400" style="text-align: center;">
 
 
 ### Privacy Mode
@@ -121,19 +123,19 @@ When enabled, Privacy Mode blocks other mods wanting to send data to their serve
 
 ### Custom Main Menu
 
-*For more information, [see the Custom Main Menu page](pages/features/general/custom_main_menu.md)*
+*For more information, [see the Custom Main Menu page](docs/pages/features/general/custom_main_menu.md)*
 
 Upon start up of Minecraft, a nice, SkyBlock themed main menu will display.
 There are various configurable options from SkyBlock-themed backgrounds,
 along with an option to select a random background.
 
-<img src="images/custom_main_menu.png" alt="Custom main menu" width="600" height="350" style="text-align: center;"> 
+<img src="docs/images/custom_main_menu.png" alt="Custom main menu" width="600" height="350" style="text-align: center;"> 
 
 ### RNG Drop Banner and Sound
 
 When you get a rare drop, a Pumpkin Dicer or Melon Slicer like pop-up banner will appear, along with a sound, celebrating your drop.
 
-<img src="images/rng_drop_banner.png" alt="RNG drop banner" width="600" height="350" style="text-align: center;"> 
+<img src="docs/images/rng_drop_banner.png" alt="RNG drop banner" width="600" height="350" style="text-align: center;"> 
 
 ### Custom Themes
 
@@ -147,7 +149,7 @@ Instead of the normal note blocks, there is now the option to use computer gener
 
 When switching to a new location region on SkyBlock, an MMO RPG style banner will appear, informing you that you have switched to a new region.
 
-<img src="images/location_banner.png" alt="Location Banner" width="600" height="350" style="text-align: center;"> 
+<img src="docs/images/location_banner.png" alt="Location Banner" width="600" height="350" style="text-align: center;"> 
 
 </details>
 
@@ -158,25 +160,25 @@ When switching to a new location region on SkyBlock, an MMO RPG style banner wil
 
 Using ``/ca``, you can add and remove specific phrases that will be highlighted when someone says them. Example: If you add the word "``flag``" (using ``/ca add flag``) to Chat Alerts, it will highlight the word and play a notification when someone says it.
 
-![Chat Alerts](images/chat_alerts.png)
+![Chat Alerts](docs/images/chat_alerts.png)
 
 ### Chat Color
 
 Private messages and messages that are sent in the Party, Guild, Guild Officer, or SkyBlock Co-op channels will now have the color of the channel they are sent in.
 
-![Chat Colors](images/chat_color.png)
+![Chat Colors](docs/images/chat_color.png)
 
 ### OwO Wanguage
 
 This feature basically changes all chat messages to use the owo language. Please don't use this; it literally breaks the chat completely. If you do, be warned.
 
-<img src="images/owowangauge.png" alt="Owolanguage" width="600" height="350" style="text-align: center;"> 
+<img src="docs/images/owowangauge.png" alt="Owolanguage" width="600" height="350" style="text-align: center;"> 
 
 ### Pet for Minion Information Display
 
 When opening the minion, your current pet selected will appear, along with the pet that you have set as favorite.
 
-<img src="images/pet_minion_display.png" alt="Pet Minion Display" width="600" height="450" style="text-align: center;"> 
+<img src="docs/images/pet_minion_display.png" alt="Pet Minion Display" width="600" height="450" style="text-align: center;"> 
 
 ### Nons Chat Color
 
@@ -187,13 +189,13 @@ This option is off by default but can be turned on in the PSS Config menu.
 
 Replace any word in chat to any other word, such as rp to reparty, FlagMaster to FlagHater or juju to nonbow
 
-![Word Editor 1](images/word_editor_1.png)
+![Word Editor 1](docs/images/word_editor_1.png)
 
-![Word Editor 2](images/word_editor_2.png)
+![Word Editor 2](docs/images/word_editor_2.png)
 
-![Word Editor 3](images/word_editor_3.png)
+![Word Editor 3](docs/images/word_editor_3.png)
 
-![Word Editor 4](images/word_editor_4.png)
+![Word Editor 4](docs/images/word_editor_4.png)
 
 </details>
 
@@ -209,7 +211,7 @@ kicking, party transfer buttons, etc. Included in the Party Manager GUI.
 You can open it by typing the command ``/pm`` or by using the keybinding.
 Default: ``M``
 
-<img src="images/party_manager.png" alt="Party Manager" width="600" height="350" style="text-align: center;"> 
+<img src="docs/images/party_manager.png" alt="Party Manager" width="600" height="350" style="text-align: center;"> 
 
 ### Custom Themes
 
@@ -240,7 +242,7 @@ In a perfectly balanced 5-player party, each player should get 20%.
 
 Your teammates are throwing because they don't know you don't need 100% of secrets on lower floors? This feature sends a warning to yourself with a banner and sound (which can be an air raid siren) and a party message for your teammates when all the required secrets are found for an S+ run. 
 
-<img src="images/required_secrets.png" alt="Required Secrets" width="600" height="350" style="text-align: center;">
+<img src="docs/images/required_secrets.png" alt="Required Secrets" width="600" height="350" style="text-align: center;">
 </details>
 
 <details>
@@ -252,20 +254,20 @@ Your teammates are throwing because they don't know you don't need 100% of secre
 
 Create a region where you will be notified when you reach it, using the same commands as world edit. See ``/farmnotif`` under the Commands section for more information.
 
-<img src="images/end_of_farm.png" alt="End of Farm Notifier" width="600" height="350" style="text-align: center;"> 
+<img src="docs/images/end_of_farm.png" alt="End of Farm Notifier" width="600" height="350" style="text-align: center;"> 
 
 ### Top Crops to Compost
 
 Shows you information about which crops are the best to use for the composter at the current moment in time.
 
-<img src="images/crop_compost.png" alt="Optimal Crop Compost" width="600" height="350" style="text-align: center;"> 
+<img src="docs/images/crop_compost.png" alt="Optimal Crop Compost" width="600" height="350" style="text-align: center;"> 
 
 
 ### Best SkyMart Profit
 
 Shows which items are the most profitable for the copper cost. (Which ones give the most coins per copper?)
 
-<img src="images/skymart_profit.png" alt="SkyMart Profit Image" width="600" height="350" style="text-align: center;">
+<img src="docs/images/skymart_profit.png" alt="SkyMart Profit Image" width="600" height="350" style="text-align: center;">
 </details>
 
 <details>
@@ -281,14 +283,14 @@ When you are mining in the Crystal Hollows and a worm or Scatha spawns, you get 
 
 The mining events reminder has a selective list of all Dwarven mines & crystal hollows events. These events can be enabled separately. You can be reminded with either a banner or a banner and sound. You can choose the banner's color and display time yourself. You can also get reminded 20 seconds before the event starts.
 
-<img src="images/mining_events.png" alt="Github Logo" width="600" height="350" style="text-align: center;"> 
+<img src="docs/images/mining_events.png" alt="Github Logo" width="600" height="350" style="text-align: center;"> 
 
 
 ### Pickaxe Ability Reminder
 
 Not always aware when the pickaxe cooldown is over? Not anymore! With the new pickaxe cooldown reminder, this won't happen anymore. Need a banner? We have that! Want color in it? It's already available! Sound? Of course. It also includes PTSD, the best feature of it all—the Air Raid Siren! You can also block right-clicks on your private island, so you'll never accidentally pickoboculus your island again.
 
-<img src="images/pickaxe_ability.png" alt="Pickaxe Ability" width="600" height="350" style="text-align: center;">
+<img src="docs/images/pickaxe_ability.png" alt="Pickaxe Ability" width="600" height="350" style="text-align: center;">
 </details>
 
 <details>
@@ -305,20 +307,20 @@ Never lose your coins to the void again! When the mod detects you do not have a 
 A brand-new auction house menu that gives you more information on prices, instant inflation, and mark up.
 Using that information, the menu highlights BIN items that are significantly below their value (Default: 13% below).
 
-<img src="images/custom_ah.png" alt="Custom AH" width="600" height="350" style="text-align: center;"> 
+<img src="docs/images/custom_ah.png" alt="Custom AH" width="600" height="350" style="text-align: center;"> 
 
 
 ### Best Minion Profit Calculator
 
 Using real time data, the mod will now display which configurations will result in the most profitable minions. Type of Fuel, Minion Upgrades, and type of minion can be filtered.
 
-<img src="images/best_minion_calculator.png" alt="Best Minion Calculator" width="600" height="350" style="text-align: center;"> 
+<img src="docs/images/best_minion_calculator.png" alt="Best Minion Calculator" width="600" height="350" style="text-align: center;"> 
 
 ### Best Bit Shop Profit
 
 A lot of people use the bits accumulated from booster cookies to convert to items to sell on the auction house. Instead of having to guess which items are the best and for what price, it will now recommend to you the items that sell for the most coins per bit.
 
-<img src="images/bit_shop_profit.png" alt="Github Logo" width="600" height="350" style="text-align: center;">
+<img src="docs/images/bit_shop_profit.png" alt="Github Logo" width="600" height="350" style="text-align: center;">
 </details>
 
 <details>

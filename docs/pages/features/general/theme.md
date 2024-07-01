@@ -5,7 +5,7 @@ Partly Sane Skies uses its own custom interfaces for things such as a custom Auc
 An example of a custom interface whose theme can be modified:
 
 
-<img src="/images/custom_ah.png" alt="Custom AH" width="750" height="400" style="text-align: center;">
+<img src="/docs/images/custom_ah.png" alt="Custom AH" width="750" height="400" style="text-align: center;">
 <!-- Feature image -->
 
 
@@ -75,7 +75,7 @@ Choose whether to enable Partly Sane Sky's theme to be modified by resource pack
 
 *N/A*
 
-More command info can be [found here](/pages/commands.md#clearpssdata)
+More command info can be [found here](/docs/pages/commands.md#clearpssdata)
 
 
 

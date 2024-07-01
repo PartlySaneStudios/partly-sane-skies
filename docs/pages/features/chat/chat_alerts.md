@@ -2,7 +2,7 @@
 Using by adding a chat alert, chosen keywords/messages will be highlighted in chat, and if `Send System Notification` config is selected, a notification will be sent.   
 <!-- Feature Description -->
 
-<img src="/images/mod_checker.png" alt="Mod Checker" width="750" height="400" style="text-align: center;">
+<img src="/docs/images/mod_checker.png" alt="Mod Checker" width="750" height="400" style="text-align: center;">
 <!-- Feature image -->
 
 
@@ -22,7 +22,7 @@ These commands also work instead of /chatalerts:
 `/ca remove [keyword]` - Removes a previously added chatalert keyword
 `/ca list` - Lists out all added chatalerts
 
-List of all Partly Sane Skies commands can [be found here](/pages/commands.md)
+List of all Partly Sane Skies commands can [be found here](/docs/pages/commands.md)
 
 
 

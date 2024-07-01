@@ -3,7 +3,7 @@ When enabled, Mod Checker automatically will check your mods list for outdated, 
 If you believe a mod is being falsely flagged, please report it in the PSS discord (/pssdiscord)
 <!-- Feature Description -->
 
-<img src="/images/mod_checker.png" alt="Custom main menu" width="750" height="400" style="text-align: center;">
+<img src="/docs/images/mod_checker.png" alt="Custom main menu" width="750" height="400" style="text-align: center;">
 <!-- Feature image -->
 
 
@@ -24,7 +24,7 @@ If turned off, conceals up-to-date mods in the Mods Checker chat message.
 
 *N/A*
 
-List of all Partly Sane Skies commands can [be found here](/pages/commands.md)
+List of all Partly Sane Skies commands can [be found here](/docs/pages/commands.md)
 
 
 

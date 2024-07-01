@@ -9,7 +9,7 @@ General and Miscellaneous features.
 ### Mod Checker
 
 When enabled, Mod Checker automatically will check your mods list for outdated, suspicious, or unknown mods. These mods may not be on the list of verified mods. If you believe a mod is being falsely flagged, please report it in the PSS discord (``/pssdiscord``)
-![image](/images/mod_checker.png)
+![image](/docs/images/mod_checker.png)
 
 ### Privacy
 
@@ -23,7 +23,7 @@ Upon start up of Minecraft, a nice, SkyBlock themed main menu will display.
 There are various configurable options from SkyBlock-themed backgrounds,
 along with an option to select a random background.
 
-![Custom Main Menu](/images/custom_main_menu.png)
+![Custom Main Menu](/docs/images/custom_main_menu.png)
 
 ### Fun Fact on Main Menu
 *For more information, [see the Custom Main Menu page](general/custom_main_menu.md)*
@@ -34,14 +34,14 @@ Displays a daily fun fact on the PSS custom main menu.
 
 A helpful command to help recommend what skill you should upgrade less. Using ``/skillup <username>`` or ``/su <username>`` will provide a list of recommended skills to upgrade.
 
-![Skill Upgrade Recommendation](/images/skill_upgrade.png)
+![Skill Upgrade Recommendation](/docs/images/skill_upgrade.png)
 
 ### RNG Drop Banner and Sound
 *For more information, [see the RNG Drop Banner](general/rng_drop_banner.md)*
 
 When you get a rare drop, a Pumpkin Dicer or Melon Slicer like pop-up banner will appear, along with a sound, celebrating your drop.
 
-![RNG Drop Banner](/images/rng_drop_banner.png)
+![RNG Drop Banner](/docs/images/rng_drop_banner.png)
 
 ## Custom Themes
 *For more information, [see the Custom Themes page](general/theme.md)*
@@ -58,7 +58,7 @@ Instead of the normal noteblocks, there is now the option to use computer genera
 
 When switching to a new location region on SkyBlock, an MMO RPG style banner will appear, informing you that you have switched to a new region.
 
-![Location Banner](/images/location_banner.png)
+![Location Banner](/docs/images/location_banner.png)
 
 ### Crêpes
 *For more information, [see the Crêpes page](general/crêpes.md)*
@@ -72,7 +72,7 @@ Have you ever wanted to make crêpes, and don't have access to internet, but you
 
 Using ``/ca``, you can add and remove specific phrases that will be highlighted when someone says them. Example: If you add the word "``flag``" (using ``/ca add flag``) to Chat Alerts, it will highlight the word and play a notification when someone says it.
 
-![Chat Alerts](/images/chat_alerts.png)
+![Chat Alerts](/docs/images/chat_alerts.png)
 
 ### System Tray Notifications
 Ever missed an important message or Dwarven Mines event? With the option to enable System Notifications, you will never miss them if you use the ChatAlert or Dwarven Events Feature
@@ -86,13 +86,13 @@ Ever missed an important message or Dwarven Mines event? With the option to enab
 
 Private messages and messages that are sent in the Party, Guild, Guild Officer, or SkyBlock Co-op channels will now have the color of the channel they are sent in.
 
-![Chat Colors](/images/chat_color.png)
+![Chat Colors](/docs/images/chat_color.png)
 
 ### OwO Wanguage
 
 This feature basically changes all chat messages to use the owo language. Please don't use this; it literally breaks the chat completely. If you do, be warned.
 
-![OwO Wanguage](/images/owowangauge.png)
+![OwO Wanguage](/docs/images/owowangauge.png)
 
 ### Incorrect Pet for Minion Alert
 
@@ -102,7 +102,7 @@ If you do not the right pet selected for leveling up minions, you will be warned
 
 When opening the minion, your current pet selected will appear, along with the pet that you have set as favourite.
 
-![Pet for Minion Information Display](/images/pet_minion_display.png)
+![Pet for Minion Information Display](/docs/images/pet_minion_display.png)
 
 ### Non Chat Color
 
@@ -113,16 +113,16 @@ This option is off by default but can be turned on in the PSS Config menu.
 
 Replace any word in chat to any other word, such as rp to reparty, Flagmaster to FlagHater or juju to nonbow
 
-![Word Editor 1](/images/word_editor_1.png)
+![Word Editor 1](/docs/images/word_editor_1.png)
 
 
-![Word Editor 2](/images/word_editor_2.png)
+![Word Editor 2](/docs/images/word_editor_2.png)
 
 
-![Word Editor 3](/images/word_editor_3.png)
+![Word Editor 3](/docs/images/word_editor_3.png)
 
 
-![Word Editor 4](/images/word_editor_4.png)
+![Word Editor 4](/docs/images/word_editor_4.png)
 
 
 ## Dungeon Features
@@ -134,7 +134,7 @@ kicking, party transfer buttons, etc. Included in the Party Manager GUI.
 You can open it by typing the command ``/pm`` or by using the keybinding.
 Default: ``M``
 
-![Party Manager](/images/party_manager.png)
+![Party Manager](/docs/images/party_manager.png)
 
 ### Pearl Refill
 Do you use pearls for your Dungeon runs and want to refill them backup to 16? With the Pearlrefill command you can automatically refill it back up to 16 from any other Stacksize, there is also a Keybind (Default P) and an option to enable auto refill at Dungeon start (use at your own risk)
@@ -162,7 +162,7 @@ In a perfectly balanced 5-player party, each player should get 20%.
 
 Calls out players who may be slacking in dungeons, using the Dungeon Player Rater. Uses a configurable automatated message. 
 
-![image](/images/dungeon_snitcher.png)
+![image](/docs/images/dungeon_snitcher.png)
 
 ### Auto GG at End of Dungeon
 
@@ -172,7 +172,7 @@ Automatically sends a "GG" in the chat at the end of a dungeon run.
 
 Your teammates are throwing because they don't know you don't need 100% of secrets on lower floors? This feature sends a warning to yourself with a banner and sound (which can be an air raid siren) and a party message for your teammates.
 
-![Required Secrets Notifier](/images/required_secrets.png)
+![Required Secrets Notifier](/docs/images/required_secrets.png)
 
 ## Farming
 
@@ -180,7 +180,7 @@ Your teammates are throwing because they don't know you don't need 100% of secre
 
 Create a region where you will be notified when you reach it, using the same commands as world edit. See ``/farmnotif`` under the Commands section for more information.
 
-![End of Farm Notifier](/images/end_of_farm.png)
+![End of Farm Notifier](/docs/images/end_of_farm.png)
 
 ### Block Right Clicks with Mathematical Hoes
 
@@ -190,21 +190,21 @@ When you are holding a mathematical hoe, right clicks will be cancelled to preve
 
 Shows you information about which crops are the best to use for the composter at the current moment in time.
 
-![Top Crops to Compost](/images/crop_compost.png)
+![Top Crops to Compost](/docs/images/crop_compost.png)
 
 ### Best Skymart Profit
 
 Shows which items are the most profitable for the copper cost. (Which ones give the most coins per copper?)
 
-![Skymart Profit](/images/skymart_profit.png)
+![Skymart Profit](/docs/images/skymart_profit.png)
 
 ### Visitors Logbook Stats
-![Visitor's Logbook Stats](/images/visitor_logbook.png)
+![Visitor's Logbook Stats](/docs/images/visitor_logbook.png)
 
 ### Treecap Cooldown
 
 Dispalys a cooldown bar inspired by the 1.9+ attack indicator. Has Monkey pet support.
-![(Cooldown showcase)](/images/treecap_cooldown.mp4) 
+![(Cooldown showcase)](/docs/images/treecap_cooldown.mp4) 
 
 ## Mining Features
 
@@ -215,13 +215,13 @@ When you are mining in the Crystal Hollows and a worm or Scatha spawns, you get 
 ### Mining Events Reminder
 
 The mining events reminder has a selective list of all dwarven mines & crystal hollows events. These events can be enabled separately. You can be reminded with either a banner or a banner and sound. You can choose the banner's color and display time yourself. You can also get reminded 20 seconds before the event starts.
-![Mining Events Reminder](/images/mining_events.png)
+![Mining Events Reminder](/docs/images/mining_events.png)
 
 ### Pickaxe Ability Reminder
 
 Not always aware when the pickaxe cooldown is over? Not anymore! With the new pickaxe cooldown reminder, this won't happen anymore. Need a banner? We have that! Want color in it? It's already available! Sound? Of course. It also includes PTSD, the best feature of it all—the Air Raid Siren! You can also block right-clicks on your private island, so you'll never accidentally pickoboculus your island again.
 
-![Pickaxe Ability Reminder](/images/pickaxe_ability.png)
+![Pickaxe Ability Reminder](/docs/images/pickaxe_ability.png)
 
 
 
@@ -234,7 +234,7 @@ Never lose your coins to the void again! When the mod detects you do not have a 
 ### Coins to Cookies Converter 
 
 Using ``/cookies2coins``, you can convert a given amount of coins to an equivalent value in a real life currency of your choosing. 
-![image](/images/cookies_to_coins.png)
+![image](/docs/images/cookies_to_coins.png)
 
 
 ### Enhanced Auction Menu and BIN Sniper
@@ -242,26 +242,26 @@ Using ``/cookies2coins``, you can convert a given amount of coins to an equivale
 A brand-new auction house menu that gives you more information on prices, instant inflation, and mark up.
 Using that information, the menu highlights BIN items that are significantly below their value (Default: 13% below).
 
-![Custom Main Menu](/images/custom_ah.png)
+![Custom Main Menu](/docs/images/custom_ah.png)
 
 ### Best Minion Profit Calculator
 
 Using real time data, the mod will now display which configurations will result in the most profitable minions.
 
-![Best Minion Calculator](/images/best_minion_calculator.png)
+![Best Minion Calculator](/docs/images/best_minion_calculator.png)
 
 ### Visitor Trade Cost
 
 Shows you information about the visitor trades.
 
-![Custom Main Menu](/images/garden_trade_cost.png)
+![Custom Main Menu](/docs/images/garden_trade_cost.png)
 
 
 ### Best Bit Shop Profit
 
 A lot of people use the bits accumulated from booster cookies to convert to items to sell on the auction house. Instead of having to guess which items are the best and for what price, it will now recommend to you the items that sell for the most coins per bit.
 
-![Bit Shop Profit](/images/bit_shop_profit.png)
+![Bit Shop Profit](/docs/images/bit_shop_profit.png)
 
 
 ## Shortcuts

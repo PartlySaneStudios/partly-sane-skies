@@ -9,7 +9,7 @@ along with an option to select a random background.
 Custom main menu with all features enabled:
 
 
-<img src="/images/custom_main_menu.png" alt="Custom main menu" width="750" height="400" style="text-align: center;">
+<img src="/docs/images/custom_main_menu.png" alt="Custom main menu" width="750" height="400" style="text-align: center;">
 <!-- Feature image -->
 
 
@@ -56,4 +56,4 @@ to display.
 
 *N/A*
 
-The list of all commands can be [found here](/pages/commands.md#clearpssdata)
+The list of all commands can be [found here](/docs/pages/commands.md#clearpssdata)

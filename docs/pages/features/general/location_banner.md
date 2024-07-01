@@ -3,7 +3,7 @@ When enabled, Mod Checker automatically will check your mods list for outdated, 
 If you believe a mod is being falsely flagged, please report it in the PSS discord (/pssdiscord)
 <!-- Feature Description -->
 
-<img src="/images/location_banner.png" alt="Location Banner" width="750" height="400" style="text-align: center;">
+<img src="/docs/images/location_banner.png" alt="Location Banner" width="750" height="400" style="text-align: center;">
 <!-- Feature image -->
 
 ## 🎚️Config  Menu Options: 
@@ -19,7 +19,7 @@ Choose for how long the location banner displays for. (Min 1s, Max 7s)
 
 *N/A*
 
-More command info can be [found here](/pages/commands.md#clearpssdata)
+More command info can be [found here](/docs/pages/commands.md#clearpssdata)
 
 
 
