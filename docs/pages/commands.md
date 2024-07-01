@@ -4,9 +4,10 @@
 <details>
   <summary> <code> /pss </code> </summary>
 
-## ``/pss`` 
+## ``/pss``
 
 ### Aliases
+
 These commands also work instead of ``/pss``:
 
 ``/helpss``
@@ -24,7 +25,9 @@ These commands also work instead of ``/pss``:
 ``/helpihavenoideawhatpartlysaneskiesis``
 
 ### Description
-Opens the config and displays information about Partly Sane Skies. Note, ``/pss`` also opens the config, while none of the aliases do.
+
+Opens the config and displays information about Partly Sane Skies. Note, ``/pss`` also opens the config, while none of
+the aliases do.
 
 ### Usage
 
@@ -38,9 +41,10 @@ Opens the config and displays information about Partly Sane Skies. Note, ``/pss`
 <details>
   <summary> <code> /pssconfig </code> </summary>
 
-## ``/pssconfig`` 
+## ``/pssconfig``
 
 ### Aliases
+
 These commands also work instead of ``/pssconfig``:
 
 ``/pss``
@@ -58,7 +62,9 @@ Along with the following aliases under the ``/pss`` command:
 ``/pss conf``
 
 ### Description
-Opens the configuration menu to edit all settings inside Partly Sane Skies. Note, ``/pss`` also prints the help message, while none of the aliases do.
+
+Opens the configuration menu to edit all settings inside Partly Sane Skies. Note, ``/pss`` also prints the help message,
+while none of the aliases do.
 
 ### Usage
 
@@ -82,6 +88,7 @@ These commands also work instead of ``/allowhoerightclick``:
 ``/ahrc``
 
 ### Description
+
 Allows hoe right clicks for a few moments or just once, depending on the config.
 
 ### Usage
@@ -95,7 +102,7 @@ Allows hoe right clicks for a few moments or just once, depending on the config.
 <details>
   <summary> <code> /chatalerts </code> </summary>
 
-## ``/chatalerts`` 
+## ``/chatalerts``
 
 ### Aliases
 
@@ -108,6 +115,7 @@ These commands also work instead of ``/chatalerts``:
 ``/ca``
 
 ### Description
+
 Allows certain messages to be highlighted in chat.
 
 </details>
@@ -133,7 +141,7 @@ These commands also work instead of ``/clearpssdata``:
 
 ### Description
 
-Clears your Partly Sane Studios hashmap data.  
+Clears your Partly Sane Studios hashmap data.
 
 
 </details>
@@ -153,6 +161,7 @@ These commands also work instead of ``/crepes``:
 ``/crêpes``
 
 ### Description
+
 Displays vital crêpe information
 
 ### Usage
@@ -191,7 +200,9 @@ These commands also work instead of ``/modchecker``:
 ``/c2c``
 
 ### Description
-Converts a given amount of coins to the IRL cost of booster cookies in your selected currency(Configurable with /pss config)
+
+Converts a given amount of coins to the IRL cost of booster cookies in your selected currency(Configurable with /pss
+config)
 
 </details>
 
@@ -200,7 +211,7 @@ Converts a given amount of coins to the IRL cost of booster cookies in your sele
 <details>
   <summary> <code> //farmnotfier </code> </summary>
 
-## ``//farmnotifier`` 
+## ``//farmnotifier``
 
 ### Aliases
 
@@ -217,31 +228,35 @@ These commands also work instead of ``//farmnotifier``:
 ``/farmnotif``
 
 ### Description
+
 Allows you to create areas where you will be notified you have reached the end of your farm.
 
 ### Usage
 
-``//farmnotifier list``: Lists all the locations where you have a farm notification, and their given number, and gives instructions on how to create a new farm notification.
+``//farmnotifier list``: Lists all the locations where you have a farm notification, and their given number, and gives
+instructions on how to create a new farm notification.
 
-``//farmnotifier remove [number]``: Removes a farm notifications from the list, given a valid ``number``. Numbers can be seen with ``/farmnotifier list``.
+``//farmnotifier remove [number]``: Removes a farm notifications from the list, given a valid ``number``. Numbers can be
+seen with ``/farmnotifier list``.
 
-``//farmnotifier show [index]``: Highlights the farm notification with the given ``index`` for a configurable amount of time. Indexes can be seen with ``/farmnotifier list``. In the config, enable "Show end of farm region" to see all highlighted regions at once for an unlimited amount of time.
+``//farmnotifier show [index]``: Highlights the farm notification with the given ``index`` for a configurable amount of
+time. Indexes can be seen with ``/farmnotifier list``. In the config, enable "Show end of farm region" to see all
+highlighted regions at once for an unlimited amount of time.
 <br>
 
 ### To create a new farm notification:
 
-
 1. Set the first corner of your notification area:
 
-    ``//pos1``: Sets one corner of the farm notification (Like using WorldEdit).
+   ``//pos1``: Sets one corner of the farm notification (Like using WorldEdit).
 
 2. Set the opposite corner of your notification area:
 
-    ``//pos2``: Sets the opposite corner of the farm notification (Like using WorldEdit).
+   ``//pos2``: Sets the opposite corner of the farm notification (Like using WorldEdit).
 
 3. Create the notification area
 
-    ``//create``: Creates a new farm notifier with the positions created with ``//pos1`` and ``//pos2``.
+   ``//create``: Creates a new farm notifier with the positions created with ``//pos1`` and ``//pos2``.
 
 </details>
 
@@ -250,7 +265,7 @@ Allows you to create areas where you will be notified you have reached the end o
 <details>
   <summary> <code> /friendparty </code> </summary>
 
-## ``/friendparty`` 
+## ``/friendparty``
 
 ### Aliases
 
@@ -261,6 +276,7 @@ These commands also work instead of ``/friendparty``:
 ``/pf``
 
 ### Description
+
 Parties friends that are online in your friends list.
 
 ### Usage
@@ -289,6 +305,7 @@ These commands also work instead of ``/minioncalculator``:
 ``/bm``
 
 ### Description
+
 Opens the most profitable minions feature
 
 ### Usage
@@ -310,15 +327,16 @@ These commands also work instead of ``/modchecker``:
 
 ``/updatepssdata``
 
-``/clearhashmap`` 
+``/clearhashmap``
 
 ``/clearpssdata``
 
-``/psscleardata`` 
+``/psscleardata``
 
 ``/pssclearcache``
 
 ### Description
+
 Clears Partly Sane Skies data
 
 
@@ -336,6 +354,7 @@ Clears Partly Sane Skies data
 ## ``/mutepetalert``
 
 ### Description
+
 Mutes the pet alert warning for a certain amount of time
 
 ### Usage
@@ -348,7 +367,7 @@ Mutes the pet alert warning for a certain amount of time
 <details>
   <summary> <code> /partymanager </code> </summary>
 
-## ``/partymanager`` 
+## ``/partymanager``
 
 ### Aliases
 
@@ -359,6 +378,7 @@ These commands also work instead of ``/partymanager``:
 ``/pm``
 
 ### Description
+
 Opens the Party Manager menu. You can also use the keybinding, which by default is ``M``.
 
 ### Usage
@@ -372,7 +392,7 @@ Opens the Party Manager menu. You can also use the keybinding, which by default 
 <details>
   <summary> <code> /permparty </code> </summary>
 
-## ``/permparty`` 
+## ``/permparty``
 
 ### Aliases
 
@@ -383,6 +403,7 @@ These commands also work instead of ``/permparty``:
 ``/pp``
 
 ### Description
+
 Allows you to save, party, add and remove players from a permanent dungeon party.
 
 ### Usage
@@ -393,9 +414,10 @@ Allows you to save, party, add and remove players from a permanent dungeon party
 
 ``/permparty new [partyid]``: Creates a new party with the ID ``partyid``
 
-``/permparty new [partyid] <partymembers>``: Creates a new party with the ID ``partyid`` and with the members ``partymembers``.
+``/permparty new [partyid] <partymembers>``: Creates a new party with the ID ``partyid`` and with the
+members ``partymembers``.
 
-``/permparty delete [partyid]``: Deletes a perm party. (Note: There is no way to undo this action). 
+``/permparty delete [partyid]``: Deletes a perm party. (Note: There is no way to undo this action).
 
 ``/permparty add [partyid] [partymember]``: Adds player ``partymember`` to the party ``partyid``.
 
@@ -408,7 +430,7 @@ Allows you to save, party, add and remove players from a permanent dungeon party
 <details>
   <summary> <code> /pssdiscord </code> </summary>
 
-## ``/pssdiscord`` 
+## ``/pssdiscord``
 
 ### Aliases
 
@@ -421,7 +443,9 @@ These commands also work instead of ``/pssdiscord``:
 ``/discord``
 
 ### Description
-Sends a link to join the discord in chat. [Or you can just join here (https://discord.gg/v4PU3WeH7z)](https://discord.gg/v4PU3WeH7z)
+
+Sends a link to join the discord in
+chat. [Or you can just join here (https://discord.gg/v4PU3WeH7z)](https://discord.gg/v4PU3WeH7z)
 
 ### Usage
 
@@ -451,6 +475,7 @@ These commands also work instead of ``/sanitycheck {username}``:
 ``/psssane {username}``
 
 ### Description
+
 Using a users SkyBlock join date and nethworth, the SanityCheck will calculate how sane you are.
 
 </details>
@@ -461,7 +486,7 @@ Using a users SkyBlock join date and nethworth, the SanityCheck will calculate h
 <details>
   <summary> <code> /skillup </code> </summary>
 
-## ``/skillup`` 
+## ``/skillup``
 
 ### Aliases
 
@@ -472,6 +497,7 @@ These commands also work instead of ``/skillup``:
 ``/su``
 
 ### Description
+
 Gives you recommendations as to the most important skills to upgrade.
 
 ### Usage
@@ -500,7 +526,10 @@ These commands also work instead of ``/wordeditor``:
 ``/wr``
 
 ### Description
-Replaces a desired word in chat with any other word or phrase, such as changing "Flagmaster" to "FlagHater", but also "Flagmaster" to "Most active contributor".
+
+Replaces a desired word in chat with any other word or phrase, such as changing "Flagmaster" to "FlagHater", but also "
+Flagmaster" to "Most active contributor".
+
 ### Usage
 
 ``/wordeditor add <word> <replacement> ``: Changes word to replacement word in chat

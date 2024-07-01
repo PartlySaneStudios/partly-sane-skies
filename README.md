@@ -43,7 +43,7 @@ Partly Sane Skies is a Minecraft mod for Hypixel SkyBlock, designed, built, and 
 <br>
 <a href="https://github.com/PartlySaneStudios/partly-sane-skies/releases">
     <img src="docs/images/github_icon.png" alt="Github" width="20" height="20" style="text-align: center;">
-    <span style="font-size:larger;"><sup>Github: Open the assets drop down for the latest version and download "partly-sane-skies".jar file.</sup></span>
+    <span style="font-size:larger;"><sup>Github: Open the asset drop down for the latest version and download "partly-sane-skies".jar file.</sup></span>
 </a>
 
 Place that mod in the mods folder of your Minecraft and you are good to go!
@@ -73,9 +73,9 @@ Place that mod in the mods folder of your Minecraft and you are good to go!
 
 [``/chatalert``, ``/ca``, ``/chal``:](docs/pages/commands.md#chatalerts) Command to use the Chat Alerts System. (See Features)
 
-[``//farmnotifier``, ``//fn``, ``//farmnotif``:](docs/pages/commands.md#farmnotfier) Command to use the farm notifier system.
+[``//farmnotifier``, ``//fn``, ``//farmnotif``:](docs/pages/commands.md#farmnotifier) Command to use the farm notifier system.
 
-[``/wordeditor``, ``/wordedit``, ``/wr``, ``/wordreplace``, ``/wr``] Command to replace a word in the chat with another word or a phrase.
+[``/wordeditor``, ``/wordedit``, ``/wr``, ``/wordreplace``, ``/wr``:](docs/pages/commands.md#wordeditor) Command to replace a word in the chat with another word or a phrase.
 
 </details>
 
@@ -98,7 +98,7 @@ To view more information about commands, including how to use them, **[click her
 
 ## Top Features:
 
-***Note: the features below are just a small selection all PSS features: these are just some of the more popular/liked features.***
+***Note: the features below are just a small selection of all PSS features: these are just some of the more popular/liked features.***
 
 *To view the complete list of all features, **[click here to visit the complete features page.](docs/pages/features/list.md)***
 <details>
@@ -109,7 +109,7 @@ To view more information about commands, including how to use them, **[click her
 General and Miscellaneous features.
 
 ### Mods Checker
-When enabled, Mod Checker automatically will check your mods list for outdated, suspicious, or unknown mods. These mods may not be on the list of verified mods.
+When enabled, Mod Checker automatically checks your mods list for outdated, suspicious, or unknown mods. These mods may not be on the list of verified mods.
 If you believe a mod is being falsely flagged, please report it in the PSS discord (/pssdiscord)
 
 
@@ -225,7 +225,7 @@ Do you use pearls for your Dungeon runs and want to refill them backup to 16? Wi
 ### Watcher Ready, Message, Warning, Siren and Sound
 
 When the watcher is done spawning mobs, a message will appear on your screen, along with an optional sound,
-party message and World War II (1939-1945) air raid siren in case the previous two don't get your attention.
+party message and World War II (1939–1945) air raid siren in case the previous two don't get your attention.
 
 ### Permanent Dungeon Party Selector
 
