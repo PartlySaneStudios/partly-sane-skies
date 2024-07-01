@@ -47,7 +47,7 @@ dependencies {
     implementation(shade("org.spongepowered:mixin:0.7.11-SNAPSHOT") {
         isTransitive = false
     })
-    implementation(shade("cc.polyfrost:oneconfig-wrapper-launchwrapper:1.0.0-beta+")!!)
+    implementation(shade("cc.polyfrost:oneconfig-wrapper-launchwrapper:1.0.0-beta17")!!)
 
     implementation(shade("com.github.NetheriteMiner:DiscordIPC:3106be5") {
         isTransitive = false
