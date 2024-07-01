@@ -46,11 +46,7 @@ object CropMilestoneWebhook: Webhook() {
     @SubscribeEvent
     fun onChatMessage(event: ClientChatReceivedEvent) {
         val message = event.trueUnformattedMessage
-
-        if (!regex.containsMatchIn(message)) {
-            return
-        }
-
+        
         val (crop, oldLevel, newLevel) = regex.find(message)?.destructured ?: return
         val oldLevelInt = if ("(\\d+)".toRegex().containsMatchIn(oldLevel)) {
             oldLevel.toIntOrNull() ?: 0
