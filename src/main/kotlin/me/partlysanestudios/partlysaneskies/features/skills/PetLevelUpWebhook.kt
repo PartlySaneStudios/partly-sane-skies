@@ -57,10 +57,6 @@ object PetLevelUpWebhook: Webhook() {
     fun onChatMessage(event: ClientChatReceivedEvent) {
         val message = event.message.formattedText
 
-        if (!regex.containsMatchIn(message)) {
-            return
-        }
-
         regex.find(message)?.let {
             val colorCode = it.groupValues[1]
             val petName = it.groupValues[2]
