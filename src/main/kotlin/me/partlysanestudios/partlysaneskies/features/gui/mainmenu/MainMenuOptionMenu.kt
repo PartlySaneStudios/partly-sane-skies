@@ -10,8 +10,10 @@ import gg.essential.elementa.dsl.*
 import gg.essential.universal.UMatrixStack
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.main
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
 import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
+import me.partlysanestudios.partlysaneskies.utils.ElementaUtils
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.uiImage
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils
 import net.minecraft.util.ResourceLocation
@@ -20,6 +22,7 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.*
+import kotlin.reflect.full.primaryConstructor
 
 class MainMenuOptionMenu(nextRunnable: Runnable): WindowScreen(ElementaVersion.V5) {
 
@@ -50,7 +53,7 @@ class MainMenuOptionMenu(nextRunnable: Runnable): WindowScreen(ElementaVersion.V
         x = CenterConstraint()
         y = CenterConstraint() - 7.25.percent
         width = 60.percent
-        height = 40.percent
+        height = 54.percent
         color = Color(15, 15, 15, 115).constraint
     } childOf transparentBlock
 
@@ -62,7 +65,7 @@ class MainMenuOptionMenu(nextRunnable: Runnable): WindowScreen(ElementaVersion.V
         color = Color(100, 196, 255).constraint
     } childOf transparentBlock
 
-    private val subheadingText = UIWrappedText("You can always disable this menu, or find other backgrounds later on in the Partly Sane Skies config. (/pssc)", centered = true).constrain {
+    private val subheadingText = UIWrappedText("You can always disable it later, or find other backgrounds later on in the Partly Sane Skies config. (/pssc)", centered = true).constrain {
         x = CenterConstraint()
         y = 35.percent
         width = 50.percent
@@ -72,9 +75,9 @@ class MainMenuOptionMenu(nextRunnable: Runnable): WindowScreen(ElementaVersion.V
 
     private val yesButton = UIRoundedRectangle(5.0f).constrain {
         x = CenterConstraint() - 12.percent
-        y = 55.percent
+        y = 45.percent
         width = 15.percent
-        height = 5.percent
+        height = 20.percent
         color = Color(90, 150, 100, 90).constraint
     }.onMouseClickConsumer {
         config.customMainMenu = true
@@ -92,16 +95,23 @@ class MainMenuOptionMenu(nextRunnable: Runnable): WindowScreen(ElementaVersion.V
     private val yesText = UIWrappedText("Yes, keep the new main menu", centered = true).constrain {
         width = 90.percent
         x = CenterConstraint()
-        y = CenterConstraint()
+        y = 10.percent
         textScale = 1.scaledPixels
         color = Color.white.constraint
     } childOf yesButton
 
+    private val pssExample = ResourceLocation("partlysaneskies", "textures/gui/main_menu/selection/pssexample.png").uiImage.constrain {
+        x = CenterConstraint()
+        y = 25.percent
+        width = 90.percent
+        height = 60.percent
+    } childOf yesButton
+
     private val noButton = UIRoundedRectangle(5.0f).constrain {
         x = CenterConstraint() + 12.percent
-        y = 55.percent
+        y = 46.percent
         width = 15.percent
-        height = 5.percent
+        height = 20.percent
         color = Color(75, 37, 45, 90).constraint
     }.onMouseClickConsumer {
         config.customMainMenu = false
@@ -114,12 +124,27 @@ class MainMenuOptionMenu(nextRunnable: Runnable): WindowScreen(ElementaVersion.V
         for (child in this.children) {
             child.setColor(Color.white)
         }
-    }  childOf transparentBlock
+    } childOf transparentBlock
+
+    private val sccExample = ResourceLocation("partlysaneskies", "textures/gui/main_menu/selection/sccexample.png").uiImage.constrain {
+        x = CenterConstraint()
+        y = 25.percent
+        width = 90.percent
+        height = 60.percent
+    } childOf noButton
+
+    private val sccTint = UIBlock().constrain {
+        x = CenterConstraint()
+        y = CenterConstraint()
+        width = 100.percent
+        height = 100.percent
+        color = Color(0, 0, 0, 75).constraint
+    } childOf sccExample
 
     private val noText = UIWrappedText("No, return to the default menu", centered = true).constrain {
         width = 90.percent
         x = CenterConstraint()
-        y = CenterConstraint()
+        y = 10.percent
         textScale = 1.scaledPixels
         color = Color.white.constraint
     } childOf noButton

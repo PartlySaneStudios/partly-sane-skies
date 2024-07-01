@@ -20,8 +20,12 @@ import gg.essential.elementa.dsl.*
 import gg.essential.universal.UMatrixStack
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.coreConfig
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.discordCode
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.isFirstLaunch
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
+import me.partlysanestudios.partlysaneskies.config.psconfig.Toggle.Companion.asBoolean
+import me.partlysanestudios.partlysaneskies.config.psconfig.Toggle.Companion.asToggle
 import me.partlysanestudios.partlysaneskies.data.api.GetRequest
 import me.partlysanestudios.partlysaneskies.data.api.Request
 import me.partlysanestudios.partlysaneskies.data.api.RequestsManager.newRequest
@@ -44,6 +48,7 @@ import net.minecraftforge.client.event.GuiOpenEvent
 import net.minecraftforge.fml.client.FMLClientHandler
 import net.minecraftforge.fml.client.GuiModList
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
+import net.minecraftforge.fml.common.Loader
 import java.awt.Color
 import java.io.File
 import java.time.LocalDateTime
@@ -61,17 +66,21 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
             if (config.privacyMode == 1) {
                 enablePrivacyMode()
             }
-            if (!config.customMainMenu) {
-                return
-            }
-            event.setCanceled(true)
+
 
             if (config.privacyMode == 1) {
                 enablePrivacyMode()
             }
-
-            minecraft.displayGuiScreen(PSSMainMenu())
-            minecraft.soundHandler.playSound(PositionedSoundRecord.create(ResourceLocation("partlysaneskies", "bell")))
+            if (Loader.isModLoaded("skyclientcosmetics") && coreConfig.find("promptedMainMenu")?.asBoolean != true) {
+                event.setCanceled(true)
+                coreConfig.find("promptedMainMenu")?.asToggle?.state = true
+                minecraft.displayGuiScreen(MainMenuOptionMenu { minecraft.displayGuiScreen(GuiMainMenu()) })
+                minecraft.soundHandler.playSound(PositionedSoundRecord.create(ResourceLocation("partlysaneskies", "bell")))
+            } else if (config.customMainMenu) {
+                event.setCanceled(true)
+                minecraft.displayGuiScreen(PSSMainMenu())
+                minecraft.soundHandler.playSound(PositionedSoundRecord.create(ResourceLocation("partlysaneskies", "bell")))
+            }
         }
 
         private var cachedFunFact: FunFact? = null
@@ -111,7 +120,7 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
         }
     }
 
-    private val backgroundBox = UIBlock().constrain {
+    val backgroundBox = UIBlock().constrain {
         width = 100.percent
         height = 100.percent
         x = CenterConstraint()

@@ -150,6 +150,10 @@ class PartlySaneSkies {
             }
 
         var latestVersion = "(Unknown)"
+
+        val coreConfig = Config()
+            .registerOption("alreadyStarted", Toggle("Already Started", "Has this already been started with PSS enabled?", false))
+            .registerOption("promptedMainMenu", Toggle("Prompted main menu", defaultState = false))
     }
 
     // Method runs at mod initialization
@@ -409,8 +413,7 @@ class PartlySaneSkies {
         }
     }
 
-    private val coreConfig = Config()
-        .registerOption("alreadyStarted", Toggle("Already Started", "Has this already been started with PSS enabled?", false))
+
     private fun registerCoreConfig() {
         ConfigManager.registerNewConfig("psscore.json", coreConfig)
     }
