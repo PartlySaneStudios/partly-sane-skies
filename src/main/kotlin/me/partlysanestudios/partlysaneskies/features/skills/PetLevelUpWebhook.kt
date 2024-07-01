@@ -36,7 +36,7 @@ object PetLevelUpWebhook: Webhook() {
         .setY(CenterConstraint())
         .setWidth(90.percent)
 
-    override val id = "skillLevelUp"
+    override val id = "petLevelUp"
     override val name = "Pet Level Up"
     override val description = "Send a webhook whenever you level up a pet"
 
