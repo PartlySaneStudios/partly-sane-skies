@@ -55,10 +55,7 @@ import me.partlysanestudios.partlysaneskies.features.farming.MathematicalHoeRigh
 import me.partlysanestudios.partlysaneskies.features.farming.WrongToolCropWarning
 import me.partlysanestudios.partlysaneskies.features.farming.endoffarmnotifer.EndOfFarmNotifier
 import me.partlysanestudios.partlysaneskies.features.farming.endoffarmnotifer.RangeHighlight
-import me.partlysanestudios.partlysaneskies.features.farming.garden.CompostValue
-import me.partlysanestudios.partlysaneskies.features.farming.garden.SkymartValue
-import me.partlysanestudios.partlysaneskies.features.farming.garden.VisitorLogbookStats
-import me.partlysanestudios.partlysaneskies.features.farming.garden.VisitorTradeValue
+import me.partlysanestudios.partlysaneskies.features.farming.garden.*
 import me.partlysanestudios.partlysaneskies.features.foraging.TreecapitatorCooldown
 import me.partlysanestudios.partlysaneskies.features.gui.CustomMainMenu
 import me.partlysanestudios.partlysaneskies.features.gui.RefreshKeybinds
@@ -246,6 +243,8 @@ class PartlySaneSkies {
         registerEvent(CustomMainMenu.Companion)
         registerEvent(WrongToolCropWarning.CropToolData)
         registerEvent(PetAlert)
+        registerEvent(SkillUpgradeWebhook)
+        registerEvent(CropMilestoneWebhook)
 
 
         // Registers all client side commands
@@ -278,6 +277,8 @@ class PartlySaneSkies {
 
         ExampleWebhook.register()
         DropWebhook.register()
+        SkillUpgradeWebhook.register()
+        CropMilestoneWebhook.register()
 
         ConfigManager.loadAllConfigs()
 
