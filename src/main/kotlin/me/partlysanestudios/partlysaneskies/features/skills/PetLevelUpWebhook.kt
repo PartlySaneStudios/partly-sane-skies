@@ -87,7 +87,7 @@ object PetLevelUpWebhook: Webhook() {
 
         WebhookData(
             url = PartlySaneSkies.config.discordWebhookURL,
-            content = " ",
+            content = "",
             embedData = listOf(
                 EmbedData(
                     title = "Pet Level Up!",
