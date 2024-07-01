@@ -407,7 +407,6 @@ object StringUtils {
             appendRomanSymbols(4, "IV")
             appendRomanSymbols(1, "I")
         }
-
         return stringBuilder
     }
 
