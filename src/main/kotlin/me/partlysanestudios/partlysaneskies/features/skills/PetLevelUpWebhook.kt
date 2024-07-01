@@ -48,7 +48,7 @@ object PetLevelUpWebhook: Webhook() {
         val rarities = arrayOf(Rarity.COMMON, Rarity.UNCOMMON, Rarity.RARE, Rarity.EPIC, Rarity.LEGENDARY, Rarity.MYTHIC)
         for (rarity in rarities) {
             val displayName = rarity.displayName
-            config.registerOption("send$displayName", Toggle("Send $displayName Pet", "Allow the webhook to send level ups for pets of ${displayName.lowercase()} rarity.", true))
+            config.registerOption("send$displayName", Toggle("Send $displayName Pets", "Allow the webhook to send level ups for pets of ${displayName.lowercase()} rarity.", true))
         }
     }
 
