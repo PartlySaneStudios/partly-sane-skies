@@ -42,6 +42,7 @@ object BestiaryLevelUpWebhook: Webhook() {
     }
 
     private val regex = "§b(§.)(\\w+[\\s\\w+]*) §7§8(\\w+) §8➡§b §b(\\w+)".toRegex()
+
     @SubscribeEvent
     fun onChatMessage(event: ClientChatReceivedEvent) {
         val message = event.message.formattedText
