@@ -93,7 +93,6 @@ object BestiaryLevelUpWebhook: Webhook() {
                         EmbedField(
                             name = mob,
                             value = ":tada: $oldLevelString ➜ $newLevelString :tada:",
-                            inline = true
                         )
                     )
                 )
