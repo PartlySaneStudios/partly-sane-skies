@@ -69,14 +69,11 @@ class AuctionElement(
 
     private val itemHeight = (heightConstraint.value * .667f)
 
-    private val itemRender: PSSItemRender = PSSItemRender(
-        itemstack
-    )
-        .setItemScale(heightConstraint / 16)
+    private val itemRender: PSSItemRender = PSSItemRender(itemstack, true)
         .setX(CenterConstraint())
         .setY(CenterConstraint())
-        .setWidth(itemHeight.pixels)
-        .setHeight(itemHeight.pixels)
+        .setWidth(100.percent)
+        .setHeight(100.percent)
         .setChildOf(box.component) as PSSItemRender
 
 
@@ -327,7 +324,7 @@ class AuctionElement(
 
 //        val itemX = boxHeight / 2
 
-        itemRender.setItemScale((boxHeight / 16)).setWidth(boxHeight).setHeight(boxHeight)
+        itemRender.setWidth(100.percent).setHeight(100.percent)
         nameComponent.setY((boxHeight + heightConstraint * 0.05))
             .setHeight((heightConstraint.value * .667).pixels)
             .setWidth((heightConstraint.value * 1.25).pixels)
