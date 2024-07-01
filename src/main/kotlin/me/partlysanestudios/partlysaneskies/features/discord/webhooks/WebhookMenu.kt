@@ -23,7 +23,9 @@ import me.partlysanestudios.partlysaneskies.config.psconfig.Toggle.Companion.asT
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
 import me.partlysanestudios.partlysaneskies.render.gui.components.PSSToggle
 import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
+import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.uiImageFromResourceLocation
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
+import net.minecraft.util.ResourceLocation
 import java.awt.Color
 
 class WebhookMenu: WindowScreen(ElementaVersion.V5) {
@@ -101,6 +103,15 @@ class WebhookMenu: WindowScreen(ElementaVersion.V5) {
         selectedIcon?.enabled = !(selectedIcon?.enabled ?: false)
         updateLocations()
     } childOf window
+
+    private val sideSwitchIcon = ResourceLocation("partlysaneskies", "textures/gui/webhookedit/sideswitch.png")
+        .uiImageFromResourceLocation()
+        .constrain {
+            x = CenterConstraint()
+            y = CenterConstraint()
+            width = 100.percent
+            height = 100.percent
+        } childOf sideSwitchButton
 
     private var webhookIcons = ArrayList<WebhookIcon>()
     private var selectedIcon: WebhookIcon? = null
