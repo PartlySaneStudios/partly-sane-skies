@@ -51,20 +51,34 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
         color = Color.gray.constraint
     } childOf createFilterContainer
 
-    private val createFiltersSearchBar: UITextInput = UITextInput("AASearch...").constrain {
+    private val createFiltersInput = UITextInput("Create a Filter...").constrain {
         width = 90.percent
         height = 5.percent
         x = 5.percent
         y = 7.percent
     }.onMouseClick {
         grabWindowFocus()
-    }.onKeyType { _, _ ->
-        updateFilterList()
     } as UITextInput childOf createFilterContainer
+
+    private val createFilterButton = PSSButton()
+        .setText("Add Filter")
+        .setY(15.percent)
+        .setX(5.percent)
+        .setHeight(40f)
+        .setWidth(50f)
+        .setChildOf(createFilterContainer)
+        .onMouseClickConsumer {
+            val text = createFiltersInput.getText()
+            if (text.isBlank()) return@onMouseClickConsumer
+            RareDropGUIManager.addFilter(text)
+            createFiltersInput.setText("")
+            updateFilterList()
+        }
 
     private val createFiltersScrollComponent = ScrollComponent(
         scrollIconColor = primaryColor.toJavaColor(),
-        innerPadding = 10f
+        innerPadding = 10f,
+        scrollAcceleration = 2f,
     ).constrain {
         width = 100.percent
         height = 90.percent
@@ -118,6 +132,7 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
     init {
         update()
     }
+
     fun update() {
         updateFilterList()
         addPresets()
