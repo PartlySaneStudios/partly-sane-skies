@@ -273,6 +273,38 @@ object StringUtils {
         }
     }
 
+    fun Char.romanCharToInt(): Int {
+        return when (this) {
+            'I' -> 1
+            'V' -> 5
+            'X' -> 10
+            'L' -> 50
+            'C' -> 100
+            'D' -> 500
+            'M' -> 1000
+            else -> throw IllegalArgumentException("Invalid Roman numeral character: $this")
+        }
+    }
+
+    fun String.romanNumeralToInt(): Int {
+        var total = 0
+        var prevValue = 0
+
+        for (char in this.reversed()) {
+            val currentValue = char.romanCharToInt()
+
+            if (currentValue < prevValue) {
+                total -= currentValue
+            } else {
+                total += currentValue
+            }
+
+            prevValue = currentValue
+        }
+
+        return total
+    }
+
     fun String.titleCase(): String {
         val titleCase = StringBuilder()
         var nextCharUpperCase = true
@@ -345,6 +377,38 @@ object StringUtils {
         } else {
             null
         }
+    }
+
+    fun Int.toRoman(): String {
+        if (this <= 0 || this > 3999) {
+            throw IllegalArgumentException("Number out of range (must be between 1 and 3999)")
+        }
+
+        var number = this
+        val stringBuilder = StringBuilder()
+
+        fun appendRomanSymbols(value: Int, symbol: String) {
+            while (number >= value) {
+                stringBuilder.append(symbol)
+                number -= value
+            }
+        }
+
+        appendRomanSymbols(1000, "M")
+        appendRomanSymbols(900, "CM")
+        appendRomanSymbols(500, "D")
+        appendRomanSymbols(400, "CD")
+        appendRomanSymbols(100, "C")
+        appendRomanSymbols(90, "XC")
+        appendRomanSymbols(50, "L")
+        appendRomanSymbols(40, "XL")
+        appendRomanSymbols(10, "X")
+        appendRomanSymbols(9, "IX")
+        appendRomanSymbols(5, "V")
+        appendRomanSymbols(4, "IV")
+        appendRomanSymbols(1, "I")
+
+        return stringBuilder.toString()
     }
 
 }

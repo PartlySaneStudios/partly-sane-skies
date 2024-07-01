@@ -73,6 +73,7 @@ import me.partlysanestudios.partlysaneskies.features.security.PrivacyMode
 import me.partlysanestudios.partlysaneskies.features.security.modschecker.ModChecker
 import me.partlysanestudios.partlysaneskies.features.skills.PetAlert
 import me.partlysanestudios.partlysaneskies.features.skills.SkillUpgradeRecommendation
+import me.partlysanestudios.partlysaneskies.features.skills.SkillUpgradeWebhook
 import me.partlysanestudios.partlysaneskies.features.sound.EnhancedSound
 import me.partlysanestudios.partlysaneskies.features.sound.Prank
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
