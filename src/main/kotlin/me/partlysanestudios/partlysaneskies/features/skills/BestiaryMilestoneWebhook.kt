@@ -103,7 +103,6 @@ object BestiaryMilestoneWebhook: Webhook() {
                         EmbedField(
                             name = "Milestone",
                             value = ":tada: $oldLevelString ➜ $newLevelString :tada:",
-                            inline = true
                         )
                     )
                 )
