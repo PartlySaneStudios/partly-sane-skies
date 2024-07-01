@@ -75,9 +75,9 @@ class MainMenuOptionMenu(nextRunnable: Runnable): WindowScreen(ElementaVersion.V
 
     private val yesButton = UIRoundedRectangle(5.0f).constrain {
         x = CenterConstraint() - 12.percent
-        y = 45.percent
-        width = 15.percent
-        height = 20.percent
+        y = 40.percent
+        width = 20.percent
+        height = 25.percent
         color = Color(90, 150, 100, 90).constraint
     }.onMouseClickConsumer {
         config.customMainMenu = true
@@ -104,14 +104,14 @@ class MainMenuOptionMenu(nextRunnable: Runnable): WindowScreen(ElementaVersion.V
         x = CenterConstraint()
         y = 25.percent
         width = 90.percent
-        height = 60.percent
+        height = 70.percent
     } childOf yesButton
 
     private val noButton = UIRoundedRectangle(5.0f).constrain {
         x = CenterConstraint() + 12.percent
-        y = 46.percent
-        width = 15.percent
-        height = 20.percent
+        y = 40.percent
+        width = 20.percent
+        height = 25.percent
         color = Color(75, 37, 45, 90).constraint
     }.onMouseClickConsumer {
         config.customMainMenu = false
@@ -130,7 +130,7 @@ class MainMenuOptionMenu(nextRunnable: Runnable): WindowScreen(ElementaVersion.V
         x = CenterConstraint()
         y = 25.percent
         width = 90.percent
-        height = 60.percent
+        height = 70.percent
     } childOf noButton
 
     private val sccTint = UIBlock().constrain {
@@ -138,7 +138,7 @@ class MainMenuOptionMenu(nextRunnable: Runnable): WindowScreen(ElementaVersion.V
         y = CenterConstraint()
         width = 100.percent
         height = 100.percent
-        color = Color(0, 0, 0, 75).constraint
+        color = Color(0, 0, 0, 100).constraint
     } childOf sccExample
 
     private val noText = UIWrappedText("No, return to the default menu", centered = true).constrain {
