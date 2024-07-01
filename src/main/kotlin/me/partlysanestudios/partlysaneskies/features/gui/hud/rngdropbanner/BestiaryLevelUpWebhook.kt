@@ -16,7 +16,6 @@ import me.partlysanestudios.partlysaneskies.features.discord.webhooks.EmbedField
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.Webhook
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.WebhookData
 import me.partlysanestudios.partlysaneskies.render.gui.components.PSSItemRender
-import me.partlysanestudios.partlysaneskies.utils.ChatUtils.trueUnformattedMessage
 import me.partlysanestudios.partlysaneskies.utils.ImageUtils.asHex
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.romanNumeralToInt
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.toRoman
@@ -26,14 +25,14 @@ import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import java.awt.Color
 
-object MobBestiaryLevelUpWebhook: Webhook() {
+object BestiaryLevelUpWebhook: Webhook() {
     override val icon = PSSItemRender(ItemStack(Items.rotten_flesh), true)
         .setX(CenterConstraint())
         .setY(CenterConstraint())
         .setWidth(90.percent)
 
     override val id = "mobBestiary"
-    override val name = "Mob Bestiary Level Up"
+    override val name = "Bestiary Level Up"
     override val description = "Send a webhook whenever you unlock a new level of bestiary of a specific mob"
 
     init {

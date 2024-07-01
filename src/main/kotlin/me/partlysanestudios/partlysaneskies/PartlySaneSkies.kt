@@ -74,7 +74,7 @@ import me.partlysanestudios.partlysaneskies.features.mining.crystalhollows.gemst
 import me.partlysanestudios.partlysaneskies.features.mining.crystalhollows.gemstonewaypoints.GemstoneWaypointRender
 import me.partlysanestudios.partlysaneskies.features.security.PrivacyMode
 import me.partlysanestudios.partlysaneskies.features.security.modschecker.ModChecker
-import me.partlysanestudios.partlysaneskies.features.skills.MobBestiaryLevelUpWebhook
+import me.partlysanestudios.partlysaneskies.features.skills.BestiaryLevelUpWebhook
 import me.partlysanestudios.partlysaneskies.features.skills.PetAlert
 import me.partlysanestudios.partlysaneskies.features.skills.SkillUpgradeRecommendation
 import me.partlysanestudios.partlysaneskies.features.skills.SkillUpgradeWebhook
@@ -249,7 +249,7 @@ class PartlySaneSkies {
         registerEvent(WrongToolCropWarning.CropToolData)
         registerEvent(PetAlert)
         registerEvent(SkillUpgradeWebhook)
-        registerEvent(MobBestiaryLevelUpWebhook)
+        registerEvent(BestiaryLevelUpWebhook)
 
 
         // Registers all client side commands
@@ -283,7 +283,7 @@ class PartlySaneSkies {
         ExampleWebhook.register()
         DropWebhook.register()
         SkillUpgradeWebhook.register()
-        MobBestiaryLevelUpWebhook.register()
+        BestiaryLevelUpWebhook.register()
 
         ConfigManager.loadAllConfigs()
 
