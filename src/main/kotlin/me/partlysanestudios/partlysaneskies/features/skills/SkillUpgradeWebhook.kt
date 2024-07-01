@@ -55,7 +55,7 @@ object SkillUpgradeWebhook: Webhook() {
             oldLevel.romanNumeralToInt()
         }
 
-        val newLevelInt = if ("(\\d+)".toRegex().containsMatchIn(oldLevel)) {
+        val newLevelInt = if ("(\\d+)".toRegex().containsMatchIn(newLevel)) {
             newLevel.toIntOrNull() ?: 0
         } else {
             newLevel.romanNumeralToInt()
