@@ -8,13 +8,16 @@ package me.partlysanestudios.partlysaneskies.render.gui.components
 import gg.essential.elementa.UIComponent
 import gg.essential.elementa.constraints.PixelConstraint
 import gg.essential.elementa.constraints.WidthConstraint
+import gg.essential.elementa.dsl.percent
+import gg.essential.elementa.dsl.pixel
+import gg.essential.elementa.dsl.pixels
 import gg.essential.universal.UMatrixStack
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
 import net.minecraft.client.gui.FontRenderer
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.item.ItemStack
 
-class PSSItemRender(var item: ItemStack?, val autoScaleWidth: Boolean = false) : UIComponent() {
+class PSSItemRender(var item: ItemStack?, private val autoScaleWidth: Boolean = false) : UIComponent() {
 
     private var itemScale = 1f
 
@@ -27,6 +30,7 @@ class PSSItemRender(var item: ItemStack?, val autoScaleWidth: Boolean = false) :
 
     private fun drawItemStack(stack: ItemStack?, x: Int, y: Int, altText: String) {
         if (autoScaleWidth) {
+            this.constraints.height = this.constraints.width.cachedValue.pixels
             setScaleBasedOnWidth(this.constraints.width)
         }
         val itemRenderer = minecraft.renderItem
@@ -46,7 +50,7 @@ class PSSItemRender(var item: ItemStack?, val autoScaleWidth: Boolean = false) :
     }
 
     fun setScaleBasedOnWidth(pixelConstraint: WidthConstraint): UIComponent {
-        setItemScale(PixelConstraint(pixelConstraint.cachedValue / 16))
+        setItemScale((pixelConstraint.cachedValue / 16).pixels)
         return this
     }
 
