@@ -7,11 +7,7 @@ package me.partlysanestudios.partlysaneskies.render.gui.components
 
 import gg.essential.elementa.UIComponent
 import gg.essential.elementa.constraints.PixelConstraint
-import gg.essential.elementa.constraints.ScaleConstraint
 import gg.essential.elementa.constraints.WidthConstraint
-import gg.essential.elementa.dsl.div
-import gg.essential.elementa.dsl.percent
-import gg.essential.elementa.dsl.pixel
 import gg.essential.elementa.dsl.pixels
 import gg.essential.universal.UMatrixStack
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
