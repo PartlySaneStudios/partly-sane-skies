@@ -94,7 +94,6 @@ object CropMilestoneWebhook: Webhook() {
                         EmbedField(
                             name = crop,
                             value = ":tada: $oldLevelString ➜ $newLevelString :tada:",
-                            inline = true
                         )
                     )
                 )
