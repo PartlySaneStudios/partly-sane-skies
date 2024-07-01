@@ -120,7 +120,7 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
         updateFilterList()
         addPresets()
 
-        val createFilterButton = PSSButton()
+        PSSButton()
             .setText("Add Filter")
             .setX(5.percent)
             .setY(15.percent)
