@@ -385,7 +385,7 @@ object StringUtils {
         }
 
         var number = this
-        val stringBuilder = buildString {
+        return buildString {
             fun appendRomanSymbols(value: Int, symbol: String) {
                 while (number >= value) {
                     this.append(symbol)
@@ -407,8 +407,6 @@ object StringUtils {
             appendRomanSymbols(4, "IV")
             appendRomanSymbols(1, "I")
         }
-
-        return stringBuilder
     }
 
 }
