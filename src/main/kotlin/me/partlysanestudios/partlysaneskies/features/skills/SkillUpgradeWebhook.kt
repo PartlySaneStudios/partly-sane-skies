@@ -60,7 +60,7 @@ object SkillUpgradeWebhook: Webhook() {
         } else {
             newLevel.romanNumeralToInt()
         }
-        
+
         if (config.find("multipleOf5")?.asBoolean == true && newLevelInt % 5 == 0) {
             trigger(skill, oldLevelInt, newLevelInt)
         } else if (config.find("multipleOf10")?.asBoolean == true && newLevelInt % 10 == 0) {
