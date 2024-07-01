@@ -47,13 +47,18 @@ object SkillUpgradeWebhook: Webhook() {
     fun onChatMessage(event: ClientChatReceivedEvent) {
         val message = event.trueUnformattedMessage
 
-        if (!regex.containsMatchIn(message)) {
-            return
+        val (skill, oldLevel, newLevel) = regex.find(message)?.destructured ?: return
+        val oldLevelInt = if ("(\\d+)".toRegex().containsMatchIn(oldLevel)) {
+            oldLevel.toIntOrNull() ?: 0
+        } else {
+            oldLevel.romanNumeralToInt()
         }
 
-        val (skill, oldLevel, newLevel) = regex.find(message)?.destructured ?: return
-        val oldLevelInt = oldLevel.romanNumeralToInt()
-        val newLevelInt = newLevel.romanNumeralToInt()
+        val newLevelInt = if ("(\\d+)".toRegex().containsMatchIn(oldLevel)) {
+            newLevel.toIntOrNull() ?: 0
+        } else {
+            newLevel.romanNumeralToInt()
+        }
         if (config.find("multipleOf5")?.asBoolean == true && newLevelInt % 5 == 0) {
             trigger(skill, oldLevelInt, newLevelInt)
         } else if (config.find("multipleOf10")?.asBoolean == true && newLevelInt % 10 == 0) {
