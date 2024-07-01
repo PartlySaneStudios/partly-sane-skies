@@ -114,7 +114,7 @@ object RareDropGUIManager {
                 "Enchanted Eye of Ender",
                 "Enchanted End Stone",
                 "Enchanted Obsidian",
-            )
-        )
+            ),
+        ),
     )
 }

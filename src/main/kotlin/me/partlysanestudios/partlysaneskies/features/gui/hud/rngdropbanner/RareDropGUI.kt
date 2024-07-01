@@ -14,6 +14,7 @@ import gg.essential.elementa.components.UIText
 import gg.essential.elementa.components.UIWrappedText
 import gg.essential.elementa.components.input.UITextInput
 import gg.essential.elementa.constraints.CenterConstraint
+import gg.essential.elementa.constraints.CramSiblingConstraint
 import gg.essential.elementa.constraints.SiblingConstraint
 import gg.essential.elementa.dsl.childOf
 import gg.essential.elementa.dsl.constrain
@@ -97,7 +98,7 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
 
     private val activeFiltersScrollComponent = ScrollComponent(
         scrollIconColor = primaryColor.toJavaColor(),
-        innerPadding = 10f
+        innerPadding = 10f,
     ).constrain {
         width = 100.percent
         height = 90.percent
@@ -142,9 +143,17 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
         RareDropGUIManager.filters
             .filter { it.contains(activeFiltersSearchBar.getText(), ignoreCase = true) }
             .forEach { filter ->
-                UIText(filter).constrain {
+                UIText("§cx").constrain {
                     x = 0.percent
-                    y = SiblingConstraint(1f)
+                    y = SiblingConstraint(4f)
+                }.onMouseClick {
+                    RareDropGUIManager.filters -= filter
+                    updateFilterList()
+                } childOf activeFiltersScrollComponent
+
+                UIText(filter).constrain {
+                    x = 5.percent
+                    y = CramSiblingConstraint()
                 } childOf activeFiltersScrollComponent
             }
     }
