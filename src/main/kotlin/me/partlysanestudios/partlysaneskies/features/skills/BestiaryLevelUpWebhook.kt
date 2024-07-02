@@ -16,7 +16,6 @@ import me.partlysanestudios.partlysaneskies.features.discord.webhooks.EmbedField
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.Webhook
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.WebhookData
 import me.partlysanestudios.partlysaneskies.render.gui.components.PSSItemRender
-import me.partlysanestudios.partlysaneskies.utils.ChatUtils.trueUnformattedMessage
 import me.partlysanestudios.partlysaneskies.utils.ImageUtils.asHex
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.romanNumeralToInt
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.toRoman
@@ -26,15 +25,15 @@ import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import java.awt.Color
 
-object SkillUpgradeWebhook: Webhook() {
-    override val icon = PSSItemRender(ItemStack(Items.diamond_pickaxe), true)
+object BestiaryLevelUpWebhook: Webhook() {
+    override val icon = PSSItemRender(ItemStack(Items.rotten_flesh), true)
         .setX(CenterConstraint())
         .setY(CenterConstraint())
         .setWidth(90.percent)
 
-    override val id = "skillLevelUp"
-    override val name = "Skill Level Up"
-    override val description = "Send a webhook whenever you level up a skill"
+    override val id = "mobBestiary"
+    override val name = "Bestiary Level Up"
+    override val description = "Send a webhook whenever you unlock a new level of bestiary of a specific mob"
 
     init {
         config.registerOption("multipleOf5", Toggle("Send only multiples of 5", "Only send multiples of 5 (Lvl 5, 10, 15, etc.)", false))
@@ -42,14 +41,13 @@ object SkillUpgradeWebhook: Webhook() {
         config.registerOption("useRomanNumerals", Toggle("Use Roman Numerals", "Use Roman Numerals instead of Arabic Numerals in the message", false))
     }
 
-    val regex = "SKILL LEVEL UP (\\w+) (\\w+)➜(\\w+)".toRegex()
-    
+    private val regex = "§b(§.)(\\w+[\\s\\w+]*) §7§8(\\w+) §8➡§b §b(\\w+)".toRegex()
+
     @SubscribeEvent
     fun onChatMessage(event: ClientChatReceivedEvent) {
-        val message = event.trueUnformattedMessage
+        val message = event.message.formattedText
 
-        val (skill, oldLevel, newLevel) = regex.find(message)?.destructured ?: return
-
+        val (_, mob, oldLevel, newLevel) = regex.find(message)?.destructured ?: return
         val oldLevelInt = if ("\\d+".toRegex().containsMatchIn(oldLevel)) {
             oldLevel.toIntOrNull() ?: 0
         } else {
@@ -63,15 +61,15 @@ object SkillUpgradeWebhook: Webhook() {
         }
 
         if (config.find("multipleOf5")?.asBoolean == true && newLevelInt % 5 == 0) {
-            trigger(skill, oldLevelInt, newLevelInt)
+            trigger(mob, oldLevelInt, newLevelInt)
         } else if (config.find("multipleOf10")?.asBoolean == true && newLevelInt % 10 == 0) {
-            trigger(skill, oldLevelInt, newLevelInt)
+            trigger(mob, oldLevelInt, newLevelInt)
         } else if (config.find("multipleOf5")?.asBoolean == false && config.find("multipleOf10")?.asBoolean == false) {
-            trigger(skill, oldLevelInt, newLevelInt)
+            trigger(mob, oldLevelInt, newLevelInt)
         }
     }
 
-    private fun trigger(skill: String, oldLevel: Int, newLevel: Int) {
+    private fun trigger(mob: String, oldLevel: Int, newLevel: Int) {
 
         val oldLevelString = if (config.find("useRomanNumerals")?.asBoolean == true) {
             oldLevel.toRoman()
@@ -90,13 +88,12 @@ object SkillUpgradeWebhook: Webhook() {
             content = " ",
             embedData = listOf(
                 EmbedData(
-                    title = "Skill Level Up!",
+                    title = "Bestiary Level Up!",
                     color = Color(125, 255, 125).asHex,
                     fields = listOf(
                         EmbedField(
-                            name = skill,
+                            name = mob,
                             value = ":tada: $oldLevelString ➜ $newLevelString :tada:",
-                            inline = true
                         )
                     )
                 )

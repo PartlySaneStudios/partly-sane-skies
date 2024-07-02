@@ -348,8 +348,8 @@ object StringUtils {
         }
     }
 
-    fun String.colorCodeToColor(): Color {
-        return when (this) {
+    fun String.colorCodeToColor(): Color =
+        when (this) {
             "§a" -> Color(85, 255, 85)
             "§b" -> Color(85, 255, 255)
             "§c" -> Color(255, 85, 85)
@@ -368,7 +368,6 @@ object StringUtils {
             "§0" -> Color(0, 0, 0)
             else -> Color.white
         }
-    }
 
     fun List<String>.nextAfter(element: String): String? {
         val index = this.indexOf(element)
