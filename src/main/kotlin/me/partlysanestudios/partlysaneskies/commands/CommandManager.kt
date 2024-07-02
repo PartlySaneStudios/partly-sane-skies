@@ -27,7 +27,7 @@ object CommandManager {
 
             @Throws(CommandException::class)
             override fun processCommand(sender: ICommandSender, args: Array<String>) {
-                pssCommand.runRunnable(sender, args)
+                pssCommand.runRunnable(args)
             }
 
             override fun canCommandSenderUseCommand(sender: ICommandSender): Boolean = true

@@ -6,7 +6,6 @@ package me.partlysanestudios.partlysaneskies.commands
 
 import me.partlysanestudios.partlysaneskies.commands.CommandManager.registerCommand
 import net.minecraft.command.ICommand
-import net.minecraft.command.ICommandSender
 
 class PSSCommand(val name: String) {
 
@@ -20,7 +19,7 @@ class PSSCommand(val name: String) {
 
     constructor(
         name: String,
-        aliases: MutableList<String>,
+        aliases: MutableList<String> = mutableListOf(),
         description: String,
         runnable: PSSCommandRunnable,
     ) : this(name, aliases, description) {
@@ -41,20 +40,17 @@ class PSSCommand(val name: String) {
         return this
     }
 
-    // java classes don't like when it wants it to return Unit
     fun setRunnable(runnable: PSSCommandRunnable): PSSCommand {
         this.runnable = runnable
         return this
     }
-
-    fun setRunnable(function: (Array<String>) -> Unit) = setRunnable(PSSCommandRunnable(function))
 
     fun setDescription(description: String): PSSCommand {
         this.description = description
         return this
     }
 
-    fun runRunnable(sender: ICommandSender, args: Array<String>) = runnable.run(args)
+    fun runRunnable(args: Array<String>) = runnable.run(args)
 
     fun register(): ICommand? = registerCommand(this)
 }
