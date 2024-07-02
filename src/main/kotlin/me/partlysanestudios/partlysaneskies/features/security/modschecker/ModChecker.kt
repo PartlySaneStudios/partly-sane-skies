@@ -35,9 +35,9 @@ object ModChecker {
     fun registerModCheckCommand() {
         PSSCommand(
             "modcheck", ArrayList(), "Checks the mods in your mod folder if they are updated"
-        ) { _: ICommandSender, a: Array<String> ->
+        ) { args: Array<String> ->
             Thread {
-                if (a.isNotEmpty()) {
+                if (args.isNotEmpty()) {
                     sendClientMessage("Loading... (using data from custom repository)")
                     loadModDataFromRepo(
                         getRepoOwner(),
