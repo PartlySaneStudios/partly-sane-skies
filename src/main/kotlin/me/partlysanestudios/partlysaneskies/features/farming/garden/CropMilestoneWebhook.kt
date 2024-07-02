@@ -42,7 +42,7 @@ object CropMilestoneWebhook: Webhook() {
         config.registerOption("useRomanNumerals", Toggle("Use Roman Numerals", "Use Roman Numerals instead of Arabic Numerals in the message", false))
     }
 
-    private val regex = "\\s*§b§lGARDEN MILESTONE §3(\\w+[\\s\\w+]*) §8(\\w+)➡§3(\\w+)".toRegex()
+    private val regex = "\\s*§b§lGARDEN MILESTONE §3(\\w+[\\s\\w+]*) §8(\\w+)➜§3(\\w+)".toRegex()
 
     @SubscribeEvent
     fun onChatMessage(event: ClientChatReceivedEvent) {
