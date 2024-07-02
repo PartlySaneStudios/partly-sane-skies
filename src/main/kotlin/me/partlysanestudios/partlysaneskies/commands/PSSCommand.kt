@@ -10,9 +10,11 @@ import net.minecraft.command.ICommandSender
 
 class PSSCommand(val name: String) {
 
-    private var aliases: MutableList<String> = ArrayList<String>()
-    private var description: String = ""
-    private var runnable = PSSCommandRunnable { _: ICommandSender?, _: Array<String> -> }
+    var aliases: MutableList<String> = mutableListOf()
+        private set
+    var description: String = ""
+        private set
+    private var runnable = PSSCommandRunnable{}
     var iCommand: ICommand? = null
     var isRegistered = false
 
@@ -33,44 +35,26 @@ class PSSCommand(val name: String) {
         this.aliases = aliases
     }
 
-    fun addAlias(alias: String): PSSCommand {
-        aliases.add(alias)
-        return this
-    }
 
     fun addAlias(vararg aliases: String): PSSCommand {
         this.aliases.addAll(aliases)
         return this
     }
 
+    // java classes don't like when it wants it to return Unit
     fun setRunnable(runnable: PSSCommandRunnable): PSSCommand {
         this.runnable = runnable
         return this
     }
+
+    fun setRunnable(function: (Array<String>) -> Unit) = setRunnable(PSSCommandRunnable(function))
 
     fun setDescription(description: String): PSSCommand {
         this.description = description
         return this
     }
 
-    fun runRunnable(sender: ICommandSender, args: Array<String>) {
-        runnable.run(sender, args)
-    }
+    fun runRunnable(sender: ICommandSender, args: Array<String>) = runnable.run(args)
 
-    fun register(): ICommand? {
-        return registerCommand(this)
-    }
-
-    fun setICommand(iCommand: ICommand?): PSSCommand {
-        this.iCommand = iCommand
-        return this
-    }
-
-    fun getAliases(): List<String> {
-        return aliases
-    }
-
-    fun getDescription(): String {
-        return description
-    }
+    fun register(): ICommand? = registerCommand(this)
 }
