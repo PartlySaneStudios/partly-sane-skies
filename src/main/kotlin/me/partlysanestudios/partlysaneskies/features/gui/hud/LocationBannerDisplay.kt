@@ -57,7 +57,7 @@ object LocationBannerDisplay {
             return
         }
         if (regionName.isNotEmpty()) {
-            color = colorCodeToColor(regionName.substring(3, 5))
+            color = regionName.substring(3, 5).colorCodeToColor()
         }
         if (color == Color.white) {
             color = Color(170, 170, 170)

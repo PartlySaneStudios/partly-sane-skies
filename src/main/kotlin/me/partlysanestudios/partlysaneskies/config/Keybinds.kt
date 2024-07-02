@@ -16,8 +16,8 @@ import me.partlysanestudios.partlysaneskies.features.farming.MathematicalHoeRigh
 import me.partlysanestudios.partlysaneskies.features.information.WikiArticleOpener
 import me.partlysanestudios.partlysaneskies.features.skills.PetAlert
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.onCooldown
-import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.containerInventory
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.clickOnSlot
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.containerInventory
 import net.minecraft.client.gui.inventory.GuiChest
 import net.minecraft.event.ClickEvent
 import net.minecraft.util.ChatComponentText

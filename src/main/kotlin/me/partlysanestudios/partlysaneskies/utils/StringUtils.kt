@@ -1,5 +1,5 @@
 //
-// Written by Su386.
+// Written by Su386 and J10a1n15.
 // See LICENSE for copyright and license notices.
 //
 
@@ -31,6 +31,18 @@ object StringUtils {
     }
 
     /**
+     * Removes all color codes from a list of strings
+     * @return The list of strings without color codes
+     */
+    fun List<String>.removeColorCodes() = this.map { it.removeColorCodes() }
+
+    /**
+     * Removes all color codes from a string
+     * @return The string without color codes
+     */
+    fun String.removeResets() = this.replace("§r", "")
+
+    /**
      * Wraps text to a given number of characters
      * @param charNumber The number of characters to wrap the text to
      * @return The wrapped text
@@ -39,13 +51,15 @@ object StringUtils {
         val charArray = this.toCharArray()
         val words: MutableList<String> = ArrayList()
         val chars: MutableList<Char> = ArrayList()
+
         for (c in charArray) if (c == ' ') {
-            words.add(charArrayToString(chars))
+            words.add(chars.joinToString(""))
             chars.clear()
         } else {
             chars.add(c)
         }
-        words.add(charArrayToString(chars))
+
+        words.add(chars.joinToString(""))
 
         // ----------------------------------------
         var charsOnLine = 0
@@ -89,17 +103,6 @@ object StringUtils {
         return wrappedText.toString()
     }
 
-    /**
-     * Converts a list of characters to a string
-     * @param chars The list of characters to convert
-     * @return The string
-     */
-    fun charArrayToString(chars: List<Char>): String {
-        val string = StringBuilder()
-        for (c in chars) string.append(c)
-        return string.toString()
-    }
-
     fun stripLeading(str: String): String {
         var str = str
         if (str == "") {
@@ -112,21 +115,12 @@ object StringUtils {
         return str
     }
 
-    fun String.pluralize(number: Number): String{
+    fun String.pluralize(number: Number): String {
         return if (number == 1) {
             this
         } else {
             "${this}s"
         }
-    }
-
-    // Returns a new list with all format codes removed
-    fun List<String>.removeColorCodes(): ArrayList<String> {
-        val newList = ArrayList<String>()
-        for (oldLine in this) {
-            newList.add(oldLine.removeColorCodes())
-        }
-        return newList
     }
 
     fun stripTrailing(str: String): String {
@@ -279,12 +273,43 @@ object StringUtils {
         }
     }
 
+    fun Char.romanCharToInt(): Int {
+        return when (this) {
+            'I' -> 1
+            'V' -> 5
+            'X' -> 10
+            'L' -> 50
+            'C' -> 100
+            'D' -> 500
+            'M' -> 1000
+            else -> throw IllegalArgumentException("Invalid Roman numeral character: $this")
+        }
+    }
+
+    fun String.romanNumeralToInt(): Int {
+        var total = 0
+        var prevValue = 0
+
+        for (char in this.reversed()) {
+            val currentValue = char.romanCharToInt()
+
+            if (currentValue < prevValue) {
+                total -= currentValue
+            } else {
+                total += currentValue
+            }
+
+            prevValue = currentValue
+        }
+
+        return total
+    }
+
     fun String.titleCase(): String {
-        val str = this
         val titleCase = StringBuilder()
         var nextCharUpperCase = true
-        for (i in str.indices) {
-            val ch = str.substring(i, i + 1)
+        for (i in this.indices) {
+            val ch = this.substring(i, i + 1)
             if (ch != " " && !nextCharUpperCase) {
                 titleCase.append(ch.lowercase(Locale.getDefault()))
                 continue
@@ -323,26 +348,64 @@ object StringUtils {
         }
     }
 
-    fun colorCodeToColor(colorCode: String): Color {
-        val colorCodeToColor = HashMap<String, Color>()
-        colorCodeToColor["§a"] = Color(85, 255, 85)
-        colorCodeToColor["§b"] = Color(85, 255, 255)
-        colorCodeToColor["§c"] = Color(255, 85, 85)
-        colorCodeToColor["§d"] = Color(255, 85, 255)
-        colorCodeToColor["§e"] = Color(255, 255, 85)
-        colorCodeToColor["§f"] = Color(0, 0, 0)
-        colorCodeToColor["§1"] = Color(0, 0, 170)
-        colorCodeToColor["§2"] = Color(0, 170, 0)
-        colorCodeToColor["§3"] = Color(0, 170, 170)
-        colorCodeToColor["§4"] = Color(170, 0, 0)
-        colorCodeToColor["§5"] = Color(170, 0, 170)
-        colorCodeToColor["§6"] = Color(255, 170, 0)
-        colorCodeToColor["§7"] = Color(170, 170, 170)
-        colorCodeToColor["§8"] = Color(85, 85, 85)
-        colorCodeToColor["§9"] = Color(85, 85, 255)
-        colorCodeToColor["§0"] = Color(0, 0, 0)
-        return if (colorCodeToColor[colorCode] != null) {
-            colorCodeToColor[colorCode]!!
-        } else Color.white
+    fun String.colorCodeToColor(): Color =
+        when (this) {
+            "§a" -> Color(85, 255, 85)
+            "§b" -> Color(85, 255, 255)
+            "§c" -> Color(255, 85, 85)
+            "§d" -> Color(255, 85, 255)
+            "§e" -> Color(255, 255, 85)
+            "§f" -> Color(0, 0, 0)
+            "§1" -> Color(0, 0, 170)
+            "§2" -> Color(0, 170, 0)
+            "§3" -> Color(0, 170, 170)
+            "§4" -> Color(170, 0, 0)
+            "§5" -> Color(170, 0, 170)
+            "§6" -> Color(255, 170, 0)
+            "§7" -> Color(170, 170, 170)
+            "§8" -> Color(85, 85, 85)
+            "§9" -> Color(85, 85, 255)
+            "§0" -> Color(0, 0, 0)
+            else -> Color.white
+        }
+
+    fun List<String>.nextAfter(element: String): String? {
+        val index = this.indexOf(element)
+        return if (index in 0 until this.size - 1) {
+            this[index + 1]
+        } else {
+            null
+        }
     }
+
+    fun Int.toRoman(): String {
+        if (this <= 0 || this > 3999) {
+            throw IllegalArgumentException("Number out of range (must be between 1 and 3999)")
+        }
+
+        var number = this
+        return buildString {
+            fun appendRomanSymbols(value: Int, symbol: String) {
+                while (number >= value) {
+                    this.append(symbol)
+                    number -= value
+                }
+            }
+
+            appendRomanSymbols(1000, "M")
+            appendRomanSymbols(900, "CM")
+            appendRomanSymbols(500, "D")
+            appendRomanSymbols(400, "CD")
+            appendRomanSymbols(100, "C")
+            appendRomanSymbols(90, "XC")
+            appendRomanSymbols(50, "L")
+            appendRomanSymbols(40, "XL")
+            appendRomanSymbols(10, "X")
+            appendRomanSymbols(9, "IX")
+            appendRomanSymbols(5, "V")
+            appendRomanSymbols(4, "IV")
+            appendRomanSymbols(1, "I")
+        }
+    }
+
 }

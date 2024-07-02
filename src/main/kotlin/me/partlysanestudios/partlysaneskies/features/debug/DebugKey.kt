@@ -3,6 +3,7 @@
 // See LICENSE for copyright and license notices.
 //
 
+
 package me.partlysanestudios.partlysaneskies.features.debug
 
 import cc.polyfrost.oneconfig.config.core.OneColor
@@ -14,6 +15,7 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.time
 import me.partlysanestudios.partlysaneskies.data.cache.StatsData
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.IslandType
+import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity
 import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.minecraft.render.RenderWaypointEvent
 import me.partlysanestudios.partlysaneskies.features.dungeons.PlayerRating
@@ -70,11 +72,13 @@ object DebugKey {
         if (config.debugAddSlacker) {
             PlayerRating.rackPoints("FlagTheSlacker", "Debug Slacker")
         }
+
         if (config.debugSpawnWaypoint) {
             val originalPos = minecraft.thePlayer.position
             val modifiedPoint = Point3d(originalPos.x - 1.0, originalPos.y.toDouble(), originalPos.z - 1.0)
             waypointPoint = modifiedPoint
         }
+
         if (config.debugSendSystemNotification) {
             SystemNotification.showNotification("Debug mode: ${isDebugMode()}")
         }
@@ -86,6 +90,7 @@ object DebugKey {
 
             }.start()
         }
+
         if (config.debugPrintCurrentLocationFromIslandType) {
             sendClientMessage("Island Type: ${IslandType.getCurrentIsland()}")
         }
@@ -93,17 +98,21 @@ object DebugKey {
         if (config.debugLogCachedF7Puzzles) {
             TerminalWaypoints.logCachedPuzzles()
         }
+
         if (config.debugPrintCurrentCachedStats) {
             sendClientMessage("Health: ${StatsData.currentHealth}/${StatsData.maxHealth}, Defense: ${StatsData.defense}, Mana: ${StatsData.currentMana}/${StatsData.maxMana}")
         }
 
         if (config.debugRenderRNGBanner) {
-            DropBannerDisplay.drop = Drop("Test Name", "Test Category", Color.MAGENTA, "§d", 69, time)
+            DropBannerDisplay.dropToRender = Drop("Test Name", "Test Category", Color.MAGENTA, Rarity.UNOBTAINABLE, 69, time)
         }
         if (config.debugCylinder) {
             cylinderPoint = Point3d.atPlayer()
         }
 
+        if (config.debugSendDiscordWebhook) {
+            ExampleWebhook.trigger()
+        }
         if (config.debugScanCrystalHollowsCrystals) {
             Thread {
                 CrystalHollowsGemstoneMapper.scanWorld()
@@ -154,6 +163,7 @@ object DebugKey {
     }
 
     private var waypointPoint = Point3d(0.0, 0.0, 0.0)
+
     @SubscribePSSEvent
     fun onWaypointRender(event: RenderWaypointEvent) {
         if (isDebugMode() && config.debugSpawnWaypoint) {
@@ -162,6 +172,7 @@ object DebugKey {
     }
 
     private var cylinderPoint = Point3d(0.0, 0.0, 0.0)
+
     @SubscribeEvent
     fun onWorldRenderLast(event: RenderWorldLastEvent) {
 
@@ -188,7 +199,12 @@ object DebugKey {
         val worldRenderer = tessellator.worldRenderer
 
         worldRenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION)
-        GlStateManager.color(ThemeManager.accentColor.toJavaColor().red/255f, ThemeManager.accentColor.toJavaColor().green/255f, ThemeManager.accentColor.toJavaColor().blue/255f, (ThemeManager.accentColor.toJavaColor().alpha/255f) * .667f)
+        GlStateManager.color(
+            ThemeManager.accentColor.toJavaColor().red / 255f,
+            ThemeManager.accentColor.toJavaColor().green / 255f,
+            ThemeManager.accentColor.toJavaColor().blue / 255f,
+            (ThemeManager.accentColor.toJavaColor().alpha / 255f) * .667f
+        )
         worldRenderer.drawCylinderFill(cylinderPoint, 8.0, 20.0)
         tessellator.draw()
 

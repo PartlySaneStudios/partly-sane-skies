@@ -9,12 +9,15 @@ package me.partlysanestudios.partlysaneskies.utils
 import com.google.common.collect.ComparisonChain
 import com.google.common.collect.Ordering
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
+import me.partlysanestudios.partlysaneskies.data.cache.PetData
+import me.partlysanestudios.partlysaneskies.features.discord.webhooks.WebhookMenu
 import me.partlysanestudios.partlysaneskies.mixin.minecraft.MixinGuiChest
 import me.partlysanestudios.partlysaneskies.mixin.minecraft.MixinGuiContainer
 import me.partlysanestudios.partlysaneskies.mixin.minecraft.MixinGuiPlayerTabOverlay
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils.getItemId
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import net.minecraft.client.gui.GuiPlayerTabOverlay
+import net.minecraft.client.gui.GuiScreen
 import net.minecraft.client.gui.inventory.GuiChest
 import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.client.network.NetworkPlayerInfo
@@ -39,7 +42,7 @@ object MinecraftUtils {
      * Changes made:
      * - Small rewrites
      * - Translated to kotlin
-    */
+     */
     private val playerOrdering = Ordering.from { overlay1: NetworkPlayerInfo?, overlay2: NetworkPlayerInfo? ->
         comparePlayers(
             overlay1!!, overlay2!!
@@ -60,6 +63,10 @@ object MinecraftUtils {
         } catch (e: Exception) {
             ArrayList()
         }
+    }
+
+    fun displayGuiScreen(guiScreen: GuiScreen) {
+        Thread { PartlySaneSkies.minecraft.addScheduledTask { PartlySaneSkies.minecraft.displayGuiScreen(guiScreen) } }.start()
     }
 
     private fun comparePlayers(overlay1: NetworkPlayerInfo, overlay2: NetworkPlayerInfo): Int {
@@ -131,34 +138,39 @@ object MinecraftUtils {
     /**
      * @return The inventory of the player at the bottom of the gui. ([GuiChest.upperChestInventory] field)
      */
-    val GuiChest.playerInventory: IInventory get() {
-        return (this as MixinGuiChest).`partlysaneskies$getUpperChestInventory`()
-    }
+    val GuiChest.playerInventory: IInventory
+        get() {
+            return (this as MixinGuiChest).`partlysaneskies$getUpperChestInventory`()
+        }
 
     /**
      * @return The inventory of any container at the top of the gui. ([GuiChest.lowerChestInventory] field)
      */
-    val GuiChest.containerInventory: IInventory get() {
-        return (this as MixinGuiChest).`partlysaneskies$getLowerChestInventory`()
-    }
+    val GuiChest.containerInventory: IInventory
+        get() {
+            return (this as MixinGuiChest).`partlysaneskies$getLowerChestInventory`()
+        }
 
     /**
      * @return the [GuiChest.xSize] field that is protected in the GuiContainer class
      */
-    val GuiContainer.xSize: Int get() {
-        return (this as MixinGuiContainer).`partlysaneskies$getXSize`()
-    }
+    val GuiContainer.xSize: Int
+        get() {
+            return (this as MixinGuiContainer).`partlysaneskies$getXSize`()
+        }
 
     /**
      * @return the [GuiChest.ySize] field that is protected in the GuiContainer class
      */
-    val GuiContainer.ySize: Int get() {
-        return (this as MixinGuiContainer).`partlysaneskies$getYSize`()
-    }
+    val GuiContainer.ySize: Int
+        get() {
+            return (this as MixinGuiContainer).`partlysaneskies$getYSize`()
+        }
 
-    val GuiPlayerTabOverlay.footer: IChatComponent get() {
-        return (this as MixinGuiPlayerTabOverlay).`partlySaneSkies$getFooter`()
-    }
+    val GuiPlayerTabOverlay.footer: IChatComponent
+        get() {
+            return (this as MixinGuiPlayerTabOverlay).`partlySaneSkies$getFooter`()
+        }
 
     fun ItemStack.getLore(): java.util.ArrayList<String> {
         if (!this.hasTagCompound() || !this.tagCompound.hasKey("display") || !this.tagCompound.getCompoundTag(
@@ -243,12 +255,11 @@ object MinecraftUtils {
     fun getAllPets(): List<Entity> {
         val petEntities: MutableList<Entity> = java.util.ArrayList()
         val armorStandEntities = getAllArmorStands()
-        val pattern = """§8\[§7Lv(\d+)§8] (§\w)([\w']+)\s*('s)? (\w+)""".toRegex()
 
         // For every armor stand in the game, check if it's pet by looking for the level tag in front of the name.
-        // Ex: "*[Lv*100] Su386's Black Cat"
+        // Ex: "[Lv100] Black Cat"
         for (entity in armorStandEntities) {
-            if (pattern.find(entity.name) != null) {
+            if (PetData.petNameRegex.find(entity.name) != null) {
                 petEntities.add(entity) // If so, add it to the list
             }
         }

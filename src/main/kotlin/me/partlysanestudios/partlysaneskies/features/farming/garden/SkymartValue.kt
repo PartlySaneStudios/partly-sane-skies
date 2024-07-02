@@ -33,7 +33,7 @@ import net.minecraft.client.gui.inventory.GuiChest
 import net.minecraftforge.client.event.GuiScreenEvent
 import java.awt.Color
 
-object SkymartValue: SidePanel() {
+object SkymartValue : SidePanel() {
     override val panelBaseComponent: UIComponent = UIBlock().applyBackground().constrain {
         x = 800.scaledPixels
         y = CenterConstraint()

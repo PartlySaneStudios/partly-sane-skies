@@ -9,12 +9,14 @@ import com.google.gson.Gson
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand
+import me.partlysanestudios.partlysaneskies.data.api.GetRequest
 import me.partlysanestudios.partlysaneskies.data.api.Request
 import me.partlysanestudios.partlysaneskies.data.api.RequestsManager.newRequest
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager.getRepoName
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager.getRepoOwner
 import me.partlysanestudios.partlysaneskies.features.debug.DebugKey.isDebugMode
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
+import me.partlysanestudios.partlysaneskies.utils.SystemUtils
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.copyStringToClipboard
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.isValidURL
 import net.minecraft.command.ICommandSender
@@ -33,7 +35,7 @@ object ModChecker {
     fun registerModCheckCommand() {
         PSSCommand(
             "modcheck", ArrayList(), "Checks the mods in your mod folder if they are updated"
-        ) { s: ICommandSender, a: Array<String> ->
+        ) { _: ICommandSender, a: Array<String> ->
             Thread {
                 if (a.isNotEmpty()) {
                     sendClientMessage("Loading... (using data from custom repository)")
@@ -71,6 +73,11 @@ object ModChecker {
     }
 
     fun run() {
+        if (SystemUtils.isDevelopmentEnvironment()) {
+            sendClientMessage("§cYou are running in a development environment. Mod checking is disabled.")
+            return
+        }
+
         var modsFound = 0
         val chatMessage: IChatComponent = ChatComponentText("")
         val debugBuilder = StringBuilder()
@@ -292,7 +299,7 @@ object ModChecker {
         } else {
             config.apiUrl + "/v1/pss/publicdata?owner=" + userName + "&repo=" + repoName + "&path=/data/mods.json"
         }
-        newRequest(Request(url, { request: Request ->
+        newRequest(GetRequest(url, { request: Request ->
             knownMods = ArrayList()
             try {
                 knownMods = read(Gson().fromJson(request.getResponse(), ModDataJson::class.java))

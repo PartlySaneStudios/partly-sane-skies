@@ -14,17 +14,16 @@ import me.partlysanestudios.partlysaneskies.features.debug.DebugKey
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils
 import org.apache.logging.log4j.Level
-import java.io.File
 import java.time.Instant
-import java.time.OffsetDateTime
-import java.util.*
-import javax.net.ssl.*
 
 
-const val NORMAL_APPLICATION_ID = 1195613263845666849
-const val SBE_BAD_APPLICATION_ID = 1195625408167686175
+
 
 object DiscordRPC {
+    private const val NORMAL_APPLICATION_ID = 1195613263845666849
+    private const val SBE_BAD_APPLICATION_ID = 1195625408167686175
+
+
     private var lastName = "sbe bad"
     private var lastMessage = "Playing Hypixel Skyblock"
     private var startTimeStamp = Instant.now()

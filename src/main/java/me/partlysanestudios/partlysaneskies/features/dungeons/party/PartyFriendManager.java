@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PartyFriendManager {
-    private static boolean isWaitingForMembers = false;
     private static final List<String> partyList = new ArrayList<>();
+    private static boolean isWaitingForMembers = false;
     private static int page = 0;
 
     public static void startPartyManager() {
@@ -35,6 +35,26 @@ public class PartyFriendManager {
                     PartyFriendManager.startPartyManager();
                 })
                 .register();
+    }
+
+    public static void partyAll() {
+        long timeDelay = 500L;
+
+        for (String member : partyList) {
+            final long finalTimeDelay = timeDelay;
+            new Thread(() -> {
+                try {
+
+                    Thread.sleep(finalTimeDelay);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                PartlySaneSkies.Companion.getMinecraft().addScheduledTask(() -> PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/party invite " + member));
+
+            }).start();
+
+            timeDelay += 500L;
+        }
     }
 
     @SubscribeEvent
@@ -67,26 +87,6 @@ public class PartyFriendManager {
             isWaitingForMembers = true;
             page++;
             PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/friend list " + page);
-        }
-    }
-
-    public static void partyAll() {
-        long timeDelay = 500L;
-
-        for (String member : partyList) {
-            final long finalTimeDelay = timeDelay;
-            new Thread(() -> {
-                try {
-
-                    Thread.sleep(finalTimeDelay);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                PartlySaneSkies.Companion.getMinecraft().addScheduledTask(() -> PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/party invite " + member));
-
-            }).start();
-
-            timeDelay += 500L;
         }
     }
 }

@@ -38,14 +38,12 @@ import net.minecraftforge.client.event.GuiScreenEvent
 import java.awt.Color
 import java.util.regex.Matcher
 import java.util.regex.Pattern
-import kotlin.collections.HashMap
 import kotlin.collections.component1
 import kotlin.collections.component2
-import kotlin.collections.iterator
 import kotlin.collections.set
 import kotlin.math.ceil
 
-object CompostValue: SidePanel() {
+object CompostValue : SidePanel() {
     override val panelBaseComponent: UIComponent = UIBlock().applyBackground().constrain {
         x = 800.scaledPixels
         y = CenterConstraint()
@@ -81,7 +79,8 @@ object CompostValue: SidePanel() {
             maxCompost = getOrganicMatterLimit(composter)
 
             updateString()
-        } catch (_: NullPointerException) { }
+        } catch (_: NullPointerException) {
+        }
     }
 
     override fun shouldDisplayPanel(): Boolean {
@@ -133,7 +132,11 @@ object CompostValue: SidePanel() {
             compostAmount = getMaxCompostAbleToMake()
         }
 
-        textString += "§7x§d${compostAmount.round(0).formatNumber()}§7 Compost currently sells for §d${(compostSellPrice * compostAmount).round(1).formatNumber()}§7 coins.\n§8(${compostSellPrice.round(1).formatNumber()}/Compost)"
+        textString += "§7x§d${
+            compostAmount.round(0).formatNumber()
+        }§7 Compost currently sells for §d${
+            (compostSellPrice * compostAmount).round(1).formatNumber()
+        }§7 coins.\n§8(${compostSellPrice.round(1).formatNumber()}/Compost)"
 
         textComponent.setText(textString)
     }
@@ -151,7 +154,11 @@ object CompostValue: SidePanel() {
             if (maxCompost == fillLevel) {
                 compostAmount = getMaxCompostAbleToMake()
             }
-            str += "§6${i}. §7x§d${ceil(cropPerCompost * compostAmount).formatNumber()} ${cropName}§7 costing §d${(costPerCompost * compostAmount).round(1).formatNumber()}§7 coins to fill. \n§8(x${ceil(cropPerCompost).formatNumber()}/Compost)\n"
+            str += "§6${i}. §7x§d${ceil(cropPerCompost * compostAmount).formatNumber()} ${cropName}§7 costing §d${
+                (costPerCompost * compostAmount).round(
+                    1
+                ).formatNumber()
+            }§7 coins to fill. \n§8(x${ceil(cropPerCompost).formatNumber()}/Compost)\n"
             i++
             if (i > 5) {
                 break

@@ -22,8 +22,10 @@ import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import me.partlysanestudios.partlysaneskies.config.Keybinds
 import me.partlysanestudios.partlysaneskies.config.OneConfigScreen
+import me.partlysanestudios.partlysaneskies.config.psconfig.ConfigManager
 import me.partlysanestudios.partlysaneskies.data.cache.PetData
 import me.partlysanestudios.partlysaneskies.data.cache.StatsData
+import me.partlysanestudios.partlysaneskies.data.cache.VisitorLogbookData
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager
 import me.partlysanestudios.partlysaneskies.events.EventManager
@@ -36,31 +38,34 @@ import me.partlysanestudios.partlysaneskies.features.chat.WordEditor
 import me.partlysanestudios.partlysaneskies.features.commands.*
 import me.partlysanestudios.partlysaneskies.features.debug.DebugKey
 import me.partlysanestudios.partlysaneskies.features.debug.ExampleHud
+import me.partlysanestudios.partlysaneskies.features.debug.ExampleWebhook
 import me.partlysanestudios.partlysaneskies.features.discord.DiscordRPC
+import me.partlysanestudios.partlysaneskies.features.discord.webhooks.WebhookMenu
 import me.partlysanestudios.partlysaneskies.features.dungeons.*
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.PartyFriendManager
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.partymanager.PartyManager
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.permpartyselector.PermPartyManager
 import me.partlysanestudios.partlysaneskies.features.economy.BitsShopValue
-import me.partlysanestudios.partlysaneskies.features.economy.CoinsToBoosterCookieConversion
+import me.partlysanestudios.partlysaneskies.features.economy.CoinsToBoosterCookies
 import me.partlysanestudios.partlysaneskies.features.economy.NoCookieWarning
 import me.partlysanestudios.partlysaneskies.features.economy.auctionhousemenu.AuctionHouseGui
 import me.partlysanestudios.partlysaneskies.features.economy.minioncalculator.MinionData
 import me.partlysanestudios.partlysaneskies.features.economy.minioncalculator.ProfitMinionCalculator
 import me.partlysanestudios.partlysaneskies.features.farming.MathematicalHoeRightClicks
-import me.partlysanestudios.partlysaneskies.features.farming.VisitorLogbookStats
 import me.partlysanestudios.partlysaneskies.features.farming.WrongToolCropWarning
 import me.partlysanestudios.partlysaneskies.features.farming.endoffarmnotifer.EndOfFarmNotifier
 import me.partlysanestudios.partlysaneskies.features.farming.endoffarmnotifer.RangeHighlight
 import me.partlysanestudios.partlysaneskies.features.farming.garden.CompostValue
-import me.partlysanestudios.partlysaneskies.features.farming.garden.VisitorTradeValue
 import me.partlysanestudios.partlysaneskies.features.farming.garden.SkymartValue
+import me.partlysanestudios.partlysaneskies.features.farming.garden.VisitorLogbookStats
+import me.partlysanestudios.partlysaneskies.features.farming.garden.VisitorTradeValue
 import me.partlysanestudios.partlysaneskies.features.foraging.TreecapitatorCooldown
 import me.partlysanestudios.partlysaneskies.features.gui.CustomMainMenu
 import me.partlysanestudios.partlysaneskies.features.gui.RefreshKeybinds
 import me.partlysanestudios.partlysaneskies.features.gui.hud.CooldownHud
 import me.partlysanestudios.partlysaneskies.features.gui.hud.LocationBannerDisplay
 import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.DropBannerDisplay
+import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.DropWebhook
 import me.partlysanestudios.partlysaneskies.features.information.WikiArticleOpener
 import me.partlysanestudios.partlysaneskies.features.mining.PickaxeWarning
 import me.partlysanestudios.partlysaneskies.features.mining.crystalhollows.WormWarning
@@ -69,8 +74,12 @@ import me.partlysanestudios.partlysaneskies.features.mining.crystalhollows.gemst
 import me.partlysanestudios.partlysaneskies.features.mining.events.MiningEventNotifier
 import me.partlysanestudios.partlysaneskies.features.security.PrivacyMode
 import me.partlysanestudios.partlysaneskies.features.security.modschecker.ModChecker
+import me.partlysanestudios.partlysaneskies.features.skills.BestiaryMilestoneWebhook
+import me.partlysanestudios.partlysaneskies.features.skills.BestiaryLevelUpWebhook
 import me.partlysanestudios.partlysaneskies.features.skills.PetAlert
+import me.partlysanestudios.partlysaneskies.features.skills.PetLevelUpWebhook
 import me.partlysanestudios.partlysaneskies.features.skills.SkillUpgradeRecommendation
+import me.partlysanestudios.partlysaneskies.features.skills.SkillUpgradeWebhook
 import me.partlysanestudios.partlysaneskies.features.sound.EnhancedSound
 import me.partlysanestudios.partlysaneskies.features.sound.Prank
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
@@ -143,7 +152,7 @@ class PartlySaneSkies {
 
     // Method runs at mod initialization
     @Mod.EventHandler
-    fun init(event: FMLInitializationEvent?) {
+    fun init(event: FMLInitializationEvent) {
         log(Level.INFO, "Hallo World!")
         pssMinecraft = Minecraft.getMinecraft()
 
@@ -177,6 +186,11 @@ class PartlySaneSkies {
                 e.printStackTrace()
             }
             try {
+                VisitorLogbookData.load()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+            try {
                 EndOfFarmNotifier.load()
             } catch (e: IOException) {
                 e.printStackTrace()
@@ -200,7 +214,7 @@ class PartlySaneSkies {
         registerEvent(RangeHighlight)
         registerEvent(BannerRenderer)
         registerEvent(VisitorLogbookStats)
-        registerEvent(CoinsToBoosterCookieConversion)
+        registerEvent(CoinsToBoosterCookies)
         registerEvent(EndOfFarmNotifier)
         registerEvent(RefreshKeybinds)
         registerEvent(AutoGG)
@@ -236,6 +250,10 @@ class PartlySaneSkies {
         registerEvent(WrongToolCropWarning.CropToolData)
         registerEvent(PetAlert)
         registerEvent(MiningEventNotifier)
+        registerEvent(SkillUpgradeWebhook)
+        registerEvent(BestiaryMilestoneWebhook)
+        registerEvent(BestiaryLevelUpWebhook)
+        registerEvent(PetLevelUpWebhook)
 
 
         // Registers all client side commands
@@ -257,16 +275,26 @@ class PartlySaneSkies {
         EndOfFarmNotifier.registerCreateRangeCommand()
         EndOfFarmNotifier.registerFarmNotifierCommand()
         EndOfFarmNotifier.registerWandCommand()
-        CoinsToBoosterCookieConversion.registerCommand()
+        CoinsToBoosterCookies.registerCommand()
         ProfitMinionCalculator.registerCommand()
         MathematicalHoeRightClicks.registerCommand()
         WordEditor.registerWordEditorCommand()
         PlayerRating.registerReprintCommand()
         ModChecker.registerModCheckCommand()
         ItemRefill.registerCommand()
+        WebhookMenu.registerWebhookCommand()
+
+        ExampleWebhook.register()
+        DropWebhook.register()
+        SkillUpgradeWebhook.register()
+        BestiaryMilestoneWebhook.register()
+        BestiaryLevelUpWebhook.register()
+        PetLevelUpWebhook.register()
+
+        ConfigManager.loadAllConfigs()
 
 
-        //Use polyfrost EventManager cuz chatSendEvent makes transforming chat messages may easier
+        //Use Polyfrost EventManager cuz chatSendEvent makes transforming chat messages may easier
         cc.polyfrost.oneconfig.events.EventManager.INSTANCE.register(ChatTransformer)
 
         DebugKey.init()
@@ -318,7 +346,7 @@ class PartlySaneSkies {
 
     // Method runs every tick
     @SubscribeEvent
-    fun clientTick(evnt: ClientTickEvent) {
+    fun clientTick(event: ClientTickEvent) {
         config.resetBrokenStringsTick()
         LocationBannerDisplay.checkLocationTick()
         EndOfFarmNotifier.checkAllRangesTick()
@@ -326,6 +354,7 @@ class PartlySaneSkies {
         PetAlert.runPetAlertTick()
         ThemeManager.tick()
         PetData.tick()
+        VisitorLogbookData.scanForVisitors()
         HealthAlert.checkPlayerTick()
         RequiredSecretsFound.tick()
         NoCookieWarning.checkCoinsTick()

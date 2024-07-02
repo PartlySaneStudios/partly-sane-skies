@@ -20,7 +20,6 @@ class PSSHorizontalCooldown(
     private val widthConstraint: WidthConstraint,
     private val heightConstraint: HeightConstraint
 ) {
-
     private var cooldown: Cooldown? = null
 
     val boundingBox = UIRoundedRectangle(2f).constrain {

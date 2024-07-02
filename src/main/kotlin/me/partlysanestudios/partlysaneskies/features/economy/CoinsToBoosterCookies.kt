@@ -15,9 +15,9 @@ package me.partlysanestudios.partlysaneskies.features.economy
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
+import me.partlysanestudios.partlysaneskies.commands.PSSCommand
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager
-import me.partlysanestudios.partlysaneskies.commands.PSSCommand
 import me.partlysanestudios.partlysaneskies.features.debug.DebugKey
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.floor
@@ -29,27 +29,31 @@ import net.minecraft.command.ICommandSender
 import kotlin.math.abs
 import kotlin.math.ceil
 
-object CoinsToBoosterCookieConversion {
+object CoinsToBoosterCookies {
 
     private val playerName: String by lazy { PartlySaneSkies.minecraft.thePlayer.name }
     private const val boosterCookieItemId: String = "BOOSTER_COOKIE"
     private const val boosterCookiePath: String = "constants/booster_cookie_price.json"
     private val configCurr get(): Int = PartlySaneSkies.config.prefCurr
-    private val orderOfCurrency = arrayOf("AUD", "BRL", "CAD", "DKK", "EUR", "KPW", "NOK", "NZD", "PLN", "GBP", "SEK", "USD")
+    private val orderOfCurrency =
+        arrayOf("AUD", "BRL", "CAD", "DKK", "EUR", "KPW", "NOK", "NZD", "PLN", "GBP", "SEK", "USD")
 
 
     private fun currencyFormatting(money: String): String {
 //        Formats the currency to be the right preferred symbol
-        val boosterCookieData: JsonObject = JsonParser().parse(PublicDataManager.getFile(boosterCookiePath)).getAsJsonObject()
+        val boosterCookieData: JsonObject =
+            JsonParser().parse(PublicDataManager.getFile(boosterCookiePath)).getAsJsonObject()
         val prefCurr: String = orderOfCurrency[configCurr]
         val prefCurrSymbol: String = boosterCookieData["currencysymbols"].asJsonObject.get(prefCurr).asString
-        val prefCurrSymbolPlacementPrecede: Boolean = boosterCookieData["currencysymbolprecedes"].asJsonObject.get(prefCurr).asBoolean
+        val prefCurrSymbolPlacementPrecede: Boolean =
+            boosterCookieData["currencysymbolprecedes"].asJsonObject.get(prefCurr).asBoolean
         return if (!prefCurrSymbolPlacementPrecede) {
             "$money$prefCurrSymbol"
         } else {
             "$prefCurrSymbol$money"
         }
     }
+
     fun registerCommand() {
         PSSCommand("coins2cookies")
             .addAlias("/coinstocookies")
@@ -68,13 +72,16 @@ object CoinsToBoosterCookieConversion {
                 Thread({
                     if (a.size == 1 && a[0].toDoubleOrNull() != null) {
 //                        Gets the public data json
-                        val boosterCookieData: JsonObject = JsonParser().parse(PublicDataManager.getFile(
-                            boosterCookiePath
-                        )).getAsJsonObject()
+                        val boosterCookieData: JsonObject = JsonParser().parse(
+                            PublicDataManager.getFile(
+                                boosterCookiePath
+                            )
+                        ).getAsJsonObject()
 //                        Preferred currency
                         val prefCurr: String = orderOfCurrency[configCurr]
 //                        The cost of the smallest skyblock gem package in preferred currency
-                        val sSGPInPreferredCurrency = boosterCookieData["storehypixelnet"].asJsonObject.get(prefCurr).asDouble
+                        val sSGPInPreferredCurrency =
+                            boosterCookieData["storehypixelnet"].asJsonObject.get(prefCurr).asDouble
 //                        Gets the amount of cookies
                         val cookieQuantity = convertCoinsToBoosterCookies(a[0].toDouble())
 //                        Gets the amount of gem packages
@@ -84,9 +91,7 @@ object CoinsToBoosterCookieConversion {
 
 //                        Sends message
                         ChatUtils.sendClientMessage("§6${abs(a[0].toDouble()).formatNumber()} coins §etoday is equivalent to §6${cookieQuantity.round(3).formatNumber()} Booster Cookies, or §2${currencyFormatting(money = (dollars.formatNumber()))} §e(excluding sales taxes and other fees).")
-                        ChatUtils.sendClientMessage("§7(For reference, Booster Cookies today are worth ${ceil(SkyblockDataManager.getItem(
-                            boosterCookieItemId
-                        )?.getBuyPrice() ?: 0.0).round(1).formatNumber()} coins. Note that the developers of Partly Sane Skies do not support IRL trading; the /c2c command is intended for educational purposes.)", true)
+                        ChatUtils.sendClientMessage("§7(For reference, Booster Cookies today are worth ${ceil(SkyblockDataManager.getItem(boosterCookieItemId)?.getBuyPrice() ?: 0.0).round(1).formatNumber()} coins. Note that the developers of Partly Sane Skies do not support IRL trading; the /c2c command is intended for educational purposes.)", true)
                         if (DebugKey.isDebugMode()) { // Optional debug message
                             ChatUtils.sendClientMessage("§eIf the currency symbol doesn't look right, please report this to us via §9/pssdiscord §eso we can find a replacement symbol that Minecraft 1.8.9 can render.", true)
                         }
@@ -113,18 +118,20 @@ object CoinsToBoosterCookieConversion {
     }
 
 
-//    Returns the amount of gem packages a given number of coins is worth
+    //    Returns the amount of gem packages a given number of coins is worth
 //    Can be fractional
     private fun convertCoinsToGemPackages(coins: Double): Double {
 //        Gets the value of one booster cookie
         val boosterCookieBuyPrice = SkyblockDataManager.getItem(boosterCookieItemId)?.getBuyPrice() ?: 0.0
 
 //    Gets the data for booster cookies
-        val boosterCookieDataJsonObject = JsonParser().parse(PublicDataManager.getFile(boosterCookiePath)).getAsJsonObject()
+        val boosterCookieDataJsonObject =
+            JsonParser().parse(PublicDataManager.getFile(boosterCookiePath)).getAsJsonObject()
 //    Gets how many gems one booster cookie is worth
         val boosterCookieInGems = boosterCookieDataJsonObject.getJsonFromPath("ingame/onecookiegem")?.asDouble ?: 325.0
 //    Gets the smallest amount of
-        val smallestSkyblockGemsPackage = boosterCookieDataJsonObject.getJsonFromPath("storehypixelnet/smallestgembundle")?.asDouble ?: 675.0
+        val smallestSkyblockGemsPackage =
+            boosterCookieDataJsonObject.getJsonFromPath("storehypixelnet/smallestgembundle")?.asDouble ?: 675.0
 
         return ((convertCoinsToBoosterCookies(coins) * boosterCookieInGems) / smallestSkyblockGemsPackage) //math adapted from NEU: https://github.com/NotEnoughUpdates/NotEnoughUpdates/blob/master/src/main/java/io/github/moulberry/notenoughupdates/profileviewer/BasicPage.java#L342
     }

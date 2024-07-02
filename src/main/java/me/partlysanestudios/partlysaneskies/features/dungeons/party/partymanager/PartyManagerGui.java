@@ -8,8 +8,8 @@ package me.partlysanestudios.partlysaneskies.features.dungeons.party.partymanage
 import gg.essential.elementa.ElementaVersion;
 import gg.essential.elementa.UIComponent;
 import gg.essential.elementa.WindowScreen;
-import gg.essential.elementa.components.*;
 import gg.essential.elementa.components.Window;
+import gg.essential.elementa.components.*;
 import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
 import gg.essential.elementa.constraints.ScaleConstraint;
@@ -102,7 +102,7 @@ public class PartyManagerGui extends WindowScreen {
     }
 
     public void createPartyManagementButtons(UIComponent topBarBlock, float scaleFactor,
-            List<PartyMember> partyMembers) {
+                                             List<PartyMember> partyMembers) {
 
         new PSSButton(new Color(255, 0, 0))
                 .setX(new PixelConstraint(10f * scaleFactor))
@@ -133,7 +133,7 @@ public class PartyManagerGui extends WindowScreen {
                 .setText("Reparty")
                 .setTextScale(1.5f)
                 .onMouseClickConsumer(event -> PartyManager.reparty(partyMembers));
-        
+
         new PSSButton()
                 .setX(new PixelConstraint(315f * scaleFactor))
                 .setY(new PixelConstraint(10 * scaleFactor))
@@ -263,7 +263,6 @@ public class PartyManagerGui extends WindowScreen {
                 .setText("F7")
                 .setTextScale(scaleFactor)
                 .onMouseClickConsumer(event -> PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/joindungeon CATACOMBS_FLOOR_SEVEN"));
-
 
 
         new PSSButton()

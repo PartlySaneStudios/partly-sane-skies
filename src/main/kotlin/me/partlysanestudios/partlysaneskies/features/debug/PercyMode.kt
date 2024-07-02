@@ -10,8 +10,8 @@ import com.google.gson.*
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
-import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getItemstackList
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.containerInventory
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getItemstackList
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.playerInventory
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils
 import net.minecraft.client.gui.inventory.GuiChest
@@ -53,11 +53,11 @@ object PercyMode {
 
     private fun getEntityDump(): JsonElement {
         val jsonArray = JsonArray()
-        val entities = ArrayList(PartlySaneSkies.minecraft.theWorld?.getLoadedEntityList()?: ArrayList())
+        val entities = ArrayList(PartlySaneSkies.minecraft.theWorld?.getLoadedEntityList() ?: ArrayList())
         for (entity in entities) {
             val jsonObject = JsonObject()
-            val name = entity.name?: ""
-            try{
+            val name = entity.name ?: ""
+            try {
                 val nbt = NBTTagCompound()
 
                 entity.writeToNBT(nbt)
@@ -79,13 +79,13 @@ object PercyMode {
     private fun getInventoryDump(): JsonObject {
         val nbt = NBTTagList()
         PartlySaneSkies.minecraft.thePlayer?.inventory?.writeToNBT(nbt)
-        return Gson().toJsonTree(nbt)?.asJsonObject?: JsonObject()
+        return Gson().toJsonTree(nbt)?.asJsonObject ?: JsonObject()
     }
 
     private fun getPlayerDump(): JsonObject {
         val nbt = NBTTagCompound()
         PartlySaneSkies.minecraft.thePlayer?.writeToNBT(nbt)
-        return Gson().toJsonTree(nbt)?.asJsonObject?: JsonObject()
+        return Gson().toJsonTree(nbt)?.asJsonObject ?: JsonObject()
     }
 
     private fun getTimeDump(): JsonObject {

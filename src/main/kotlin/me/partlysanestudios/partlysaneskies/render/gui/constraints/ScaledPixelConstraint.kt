@@ -7,16 +7,19 @@ import gg.essential.elementa.constraints.resolution.ConstraintVisitor
 import gg.essential.elementa.dsl.pixels
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils
 
-class ScaledPixelConstraint(var value: Float, val alignOpposite: Boolean = false, val alignOutside: Boolean = false): MasterConstraint {
+class ScaledPixelConstraint(var value: Float, val alignOpposite: Boolean = false, val alignOutside: Boolean = false) :
+    MasterConstraint {
     companion object {
-        val Number.scaledPixels: ScaledPixelConstraint get() {
-            return ScaledPixelConstraint((this.toDouble()).toFloat(), alignOpposite = false, alignOutside = false)
-        }
+        val Number.scaledPixels: ScaledPixelConstraint
+            get() {
+                return ScaledPixelConstraint((this.toDouble()).toFloat(), alignOpposite = false, alignOutside = false)
+            }
 
         fun Number.scaledPixels(alignOpposite: Boolean = false, alignOutside: Boolean = false): ScaledPixelConstraint {
             return ScaledPixelConstraint((this.toDouble()).toFloat(), alignOpposite, alignOutside)
         }
     }
+
     override var cachedValue = 0f
     override var constrainTo: UIComponent? = null
     override var recalculate = true

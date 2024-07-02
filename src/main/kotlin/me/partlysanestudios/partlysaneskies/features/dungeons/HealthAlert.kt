@@ -18,10 +18,10 @@ import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import net.minecraft.client.audio.PositionedSoundRecord
 import net.minecraft.util.ResourceLocation
-import java.awt.Color
 
 
 object HealthAlert {
+
     private var lastWarnTime = 0L
 
     private fun isPlayerLowOnHealth(): Boolean {
@@ -37,10 +37,10 @@ object HealthAlert {
             }
 
             // TODO: do with regex
-            val indexOfFirstSpace = line.indexOf(" ")
-            val indexOfSecondSpace = line.indexOf(" ", indexOfFirstSpace + 1)
+            val indexOfFirstSpace = line.indexOf(" ").takeIf { it >= 0 } ?: return false
+            val indexOfSecondSpace = line.indexOf(" ", indexOfFirstSpace + 1).takeIf { it >= 0 } ?: return false
             val health = line.substring(indexOfSecondSpace)
-            if (PartlySaneSkies.config.colouredHealerAlert == 1) {
+            if (config.colouredHealerAlert == 1) {
                 return health.contains("§e") || health.indexOf("§c") != health.lastIndexOf("§c")
             }
             return health.indexOf("§c") != health.lastIndexOf("§c")
@@ -50,7 +50,7 @@ object HealthAlert {
     }
 
     private fun alertWhenPlayerLowOnHealth(): Boolean {
-        if (!config.alertOutsideDungeons && !IslandType.CATACOMBS.onIsland()){
+        if (!config.alertOutsideDungeons && !IslandType.CATACOMBS.onIsland()) {
             return false
         }
 
@@ -77,7 +77,13 @@ object HealthAlert {
                 return
             }
             lastWarnTime = PartlySaneSkies.time
-            BannerRenderer.renderNewBanner(PSSBanner("A player in your party is low", 3500, color = config.partyMemberLowColor.toJavaColor()))
+            BannerRenderer.renderNewBanner(
+                PSSBanner(
+                    "A player in your party is low",
+                    3500,
+                    color = config.partyMemberLowColor.toJavaColor()
+                )
+            )
             PartlySaneSkies.minecraft.soundHandler
                 .playSound(PositionedSoundRecord.create(ResourceLocation("partlysaneskies", "bell")))
         }
@@ -91,7 +97,13 @@ object HealthAlert {
                 return
             }
             lastWarnTime = PartlySaneSkies.time
-            BannerRenderer.renderNewBanner(PSSBanner("Your health is low", 3500, color = config.playerLowColor.toJavaColor()))
+            BannerRenderer.renderNewBanner(
+                PSSBanner(
+                    "Your health is low",
+                    3500,
+                    color = config.playerLowColor.toJavaColor()
+                )
+            )
             PartlySaneSkies.minecraft.soundHandler
                 .playSound(PositionedSoundRecord.create(ResourceLocation("partlysaneskies", "bell")))
         }

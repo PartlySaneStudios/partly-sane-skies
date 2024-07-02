@@ -22,6 +22,7 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.discordCode
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
+import me.partlysanestudios.partlysaneskies.data.api.GetRequest
 import me.partlysanestudios.partlysaneskies.data.api.Request
 import me.partlysanestudios.partlysaneskies.data.api.RequestsManager.newRequest
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager
@@ -42,7 +43,6 @@ import net.minecraftforge.client.event.GuiOpenEvent
 import net.minecraftforge.fml.client.FMLClientHandler
 import net.minecraftforge.fml.client.GuiModList
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import org.apache.logging.log4j.Level
 import java.awt.Color
 import java.io.File
 import java.time.LocalDateTime
@@ -50,7 +50,7 @@ import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.*
 
-class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
+class CustomMainMenu : WindowScreen(ElementaVersion.V5) {
     companion object {
         @SubscribeEvent
         fun onGuiOpen(event: GuiOpenEvent) {
@@ -80,7 +80,7 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
             }
             val url = config.apiUrl + "/v1/pss/funfact"
             val lock = Lock()
-            newRequest(Request(url, { request: Request ->
+            newRequest(GetRequest(url, { request: Request ->
                 try {
                     val factInfo = JsonParser().parse(request.getResponse()).getAsJsonObject()
                     val fact = factInfo["funFact"].asString
@@ -133,7 +133,7 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
         color = Color(0, 0, 0, 75).constraint
     } childOf backgroundImage
 
-    private val topLeftMiddleMenuSide  =  UIRoundedRectangle(5.0f).constrain {
+    private val topLeftMiddleMenuSide = UIRoundedRectangle(5.0f).constrain {
         x = (-2).scaledPixels
         y = (-5).scaledPixels
         height = 50.scaledPixels
@@ -141,7 +141,7 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
         color = accentColor.toJavaColor().constraint
     } childOf middleMenuBackground
 
-    private val leftMiddleMenuSide =  UIRoundedRectangle(5.0f).constrain {
+    private val leftMiddleMenuSide = UIRoundedRectangle(5.0f).constrain {
         x = (-2).scaledPixels
         y = 50.scaledPixels + 75.scaledPixels + 5.scaledPixels
         height = 100.percent
@@ -157,7 +157,7 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
         color = accentColor.toJavaColor().constraint
     } childOf middleMenuBackground
 
-    private val rightMiddleMenuSide =  UIRoundedRectangle(5.0f).constrain {
+    private val rightMiddleMenuSide = UIRoundedRectangle(5.0f).constrain {
         x = 100.percent
         y = 50.scaledPixels + 75.scaledPixels + 5.scaledPixels
         height = 100.percent
@@ -165,14 +165,19 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
         color = accentColor.toJavaColor().constraint
     } childOf middleMenuBackground
 
-    private val titleImage = ResourceLocation("partlysaneskies", "textures/gui/main_menu/title_text.png").uiImageFromResourceLocation().constrain {
-        x = CenterConstraint()
-        y = 50.scaledPixels
-        height = 75.scaledPixels
-        width = (75 * (473.0 / 166.0)).scaledPixels // Ratio between width and height * height
-    } childOf middleMenuBackground
+    private val titleImage =
+        ResourceLocation("partlysaneskies", "textures/gui/main_menu/title_text.png").uiImageFromResourceLocation()
+            .constrain {
+                x = CenterConstraint()
+                y = 50.scaledPixels
+                height = 75.scaledPixels
+                width = (75 * (473.0 / 166.0)).scaledPixels // Ratio between width and height * height
+            } childOf middleMenuBackground
 
-    private val updateWarning = UIWrappedText(text = "Your version of Partly Sane Skies is out of date.\nPlease update to the latest version", centered = true).constrain {
+    private val updateWarning = UIWrappedText(
+        text = "Your version of Partly Sane Skies is out of date.\nPlease update to the latest version",
+        centered = true
+    ).constrain {
         textScale = 2.25.scaledPixels
         x = CenterConstraint()
         y = 133.scaledPixels
@@ -247,7 +252,8 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
         width = middleMenuBackground.getWidth().pixels
         color = Color(0, 0, 0, 0).constraint
     }.onMouseClick {
-        FMLClientHandler.instance().connectToServer(GuiMultiplayer(minecraft.currentScreen), ServerData("AddictionGame", "hypixel.net", false))
+        FMLClientHandler.instance()
+            .connectToServer(GuiMultiplayer(minecraft.currentScreen), ServerData("AddictionGame", "hypixel.net", false))
     }.onMouseEnter {
         for (child in this.children) {
             child.setColor(Color(200, 200, 200))
@@ -411,7 +417,7 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
         )
 
         val image: String = if (config.customMainMenuImage == 0) {
-            "textures/gui/main_menu/" + images[randInt(1, images.size)]
+            "textures/gui/main_menu/" + images[randInt(1, images.size - 1)]
         } else if (config.customMainMenuImage < 7) {
             "textures/gui/main_menu/" + images[config.customMainMenuImage]
         } else {
@@ -437,6 +443,7 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
             updateWarning.setColor(Color.red)
         }
     }
+
     private var funFactDivideBar: UIComponent? = null
 
     private class FunFact(val title: String, val description: String) {
@@ -446,7 +453,7 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
 
     private fun displayFunFacts(startX: XConstraint, startY: YConstraint, parent: UIComponent) {
         val funFact = getFunFact()
-        createFunFact(funFact, startX, startY,  parent)
+        createFunFact(funFact, startX, startY, parent)
 
         if (config.displayAnnouncementsCustomMainMenu) {
             if (funFact.descriptionComponent != null) {
@@ -464,7 +471,7 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
         }
     }
 
-    private class Lock: Object()
+    private class Lock : Object()
 
     private fun createFunFact(funFact: FunFact, startX: XConstraint, startY: YConstraint, parent: UIComponent) {
         val funFactHeading = UIWrappedText().constrain {
@@ -492,7 +499,7 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
         var descriptionComponent: UIWrappedText? = null
     }
 
-    private fun displayAnnouncements( startX: XConstraint, startY: YConstraint, parent: UIComponent) {
+    private fun displayAnnouncements(startX: XConstraint, startY: YConstraint, parent: UIComponent) {
         Thread {
             val data = PublicDataManager.getFile("main_menu.json")
             val jsonObject = JsonParser().parse(data).asJsonObject
@@ -515,7 +522,12 @@ class CustomMainMenu: WindowScreen(ElementaVersion.V5) {
     }
 
 
-    private fun createAnnouncements(announcements: ArrayList<Announcement>, startX: XConstraint, startY: YConstraint, startParent: UIComponent) {
+    private fun createAnnouncements(
+        announcements: ArrayList<Announcement>,
+        startX: XConstraint,
+        startY: YConstraint,
+        startParent: UIComponent
+    ) {
         val padY = 25.scaledPixels
         var parent = startParent
 

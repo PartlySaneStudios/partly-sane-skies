@@ -21,7 +21,13 @@ import me.partlysanestudios.partlysaneskies.utils.StringUtils.formatNumber
 
 import java.awt.Color
 
-class MarketInformationBar(xConstraint: XConstraint, yConstraint: YConstraint, heightConstraint: HeightConstraint, widthConstraint: WidthConstraint, textScaleFactor: Float) {
+class MarketInformationBar(
+    xConstraint: XConstraint,
+    yConstraint: YConstraint,
+    heightConstraint: HeightConstraint,
+    widthConstraint: WidthConstraint,
+    textScaleFactor: Float
+) {
     private val baseBlock: UIBlock = UIBlock().constrain {
         color = Color(0, 0, 0, 0).constraint
         x = xConstraint
@@ -86,7 +92,7 @@ class MarketInformationBar(xConstraint: XConstraint, yConstraint: YConstraint, h
             "\n&eEnding In: \n&8&o(Unknown)\n\n"
         }
 
-        if (auction.getAmount() > 1 ) {
+        if (auction.getAmount() > 1) {
             info += "\n\n\n"
             info += "\n&eQuantity: &6${auction.getAmount().toDouble().formatNumber()}"
             info += "\n&eCost Per Item: &6${auction.getCostPerAmount().round(2).formatNumber()} coins"
@@ -95,7 +101,7 @@ class MarketInformationBar(xConstraint: XConstraint, yConstraint: YConstraint, h
 
         info += "&eMarket Stats:\n\n\n"
         info += if (auction.hasLowestBin()) {
-            "\n&bCurrent Lowest Bin: &e${auction.getLowestBin().round( 2).formatNumber()}"
+            "\n&bCurrent Lowest Bin: &e${auction.getLowestBin().round(2).formatNumber()}"
         } else {
             "\n&bCurrent Lowest Bin: \n&8&o(Unknown)\n\n"
         }
@@ -113,7 +119,11 @@ class MarketInformationBar(xConstraint: XConstraint, yConstraint: YConstraint, h
         }
 
         info += if (auction.hasLowestBin()) {
-            "\n&bItem Mark up: \n&e${(auction.getPrice() / auction.getLowestBin() / auction.getAmount() * 100 - 100).round(2).formatNumber()}%\n"
+            "\n&bItem Mark up: \n&e${
+                (auction.getPrice() / auction.getLowestBin() / auction.getAmount() * 100 - 100).round(
+                    2
+                ).formatNumber()
+            }%\n"
         } else {
             "\n&bItem Mark up: \n&8&o(Unknown)\n"
         }

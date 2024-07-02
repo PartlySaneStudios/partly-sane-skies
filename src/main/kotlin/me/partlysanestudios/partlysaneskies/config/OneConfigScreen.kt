@@ -1,7 +1,8 @@
 //
-// Written by Su386.
+// Written by Su386 and J10a1n15.
 // See LICENSE for copyright and license notices.
 //
+
 
 package me.partlysanestudios.partlysaneskies.config
 
@@ -140,6 +141,15 @@ object OneConfigScreen : Config(
         subcategory = "Discord"
     )
     var discordRPCDescription = "Playing Hypixel Skyblock"
+
+    @Text(
+        name = "Discord Webhook URL",
+        description = "The URL of the discord webhook to send the message to.",
+        category = "General",
+        subcategory = "Discord",
+        size = 2
+    )
+    var discordWebhookURL = ""
 
     //    Appearance
     @Dropdown(
@@ -719,19 +729,19 @@ object OneConfigScreen : Config(
     )
     var watcherReadyAirRaidSiren = false
 
-    // Pretify Skytils Mimic Killed
+    // Prettify Skytils Mimic Killed
     @Switch(
         name = "Pretty Mimic Killed",
-        description = "Changes the skytils mimic killed message to be more visually appealing",
+        description = "Changes the Skytils mimic killed message to be more visually appealing",
         category = "Dungeons",
         subcategory = "Pretty Mimic Killed Message"
     )
     var prettyMimicKilled = true
 
-    // Pretify Skytils Mimic Killed
+    // Prettify Skytils Mimic Killed
     @Text(
         name = "Pretty Mimic Killed Message",
-        description = "Changes the skytils mimic killed message to be more visually appealing",
+        description = "Changes the Skytils mimic killed message to be more visually appealing",
         category = "Dungeons",
         subcategory = "Pretty Mimic Killed Message"
     )
@@ -1186,6 +1196,16 @@ object OneConfigScreen : Config(
         size = 2
     )
     var showGemstoneBeam = false
+
+    @Slider(
+        name = "Brightness",
+        description = "The brightness of the beam and block Highlight.",
+        category = "Mining",
+        subcategory = "Gemstone Waypoints",
+        min = 0f,
+        max = 1f
+    )
+    var gemstoneBrightness = 1f
 
     @Switch(
         name = "Show Topaz Waypoints",
@@ -1836,6 +1856,13 @@ object OneConfigScreen : Config(
     var debugRenderRNGBanner = false
 
     @Switch(
+        name = "Send Discord Webhook",
+        description = "Sends a discord webhook.",
+        category = "Dev"
+    )
+    var debugSendDiscordWebhook = false
+  
+    @Switch(
         name = "Generate Cylinder",
         description = "Generates a cylinder.",
         category = "Dev",
@@ -1876,6 +1903,14 @@ object OneConfigScreen : Config(
         category = "Dev"
     )
     var testDevEnv = false
+
+    // Discord
+    @Switch(
+        name = "Show hidden webhooks in webhook menu",
+        category = "Dev",
+        subcategory = "Discord"
+    )
+    var showHiddenWebhooks = false
 
     // Example HUD
     @HUD(

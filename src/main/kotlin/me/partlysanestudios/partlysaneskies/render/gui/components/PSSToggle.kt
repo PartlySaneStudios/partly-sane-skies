@@ -7,33 +7,26 @@ package me.partlysanestudios.partlysaneskies.render.gui.components
 import gg.essential.elementa.UIComponent
 import gg.essential.elementa.components.UIBlock
 import gg.essential.elementa.components.UIImage
-import gg.essential.elementa.constraints.CenterConstraint
-import gg.essential.elementa.constraints.PixelConstraint
-import gg.essential.elementa.constraints.XConstraint
-import gg.essential.elementa.constraints.YConstraint
+import gg.essential.elementa.constraints.*
+import gg.essential.elementa.dsl.childOf
+import gg.essential.elementa.dsl.constrain
+import gg.essential.elementa.dsl.percent
 import gg.essential.elementa.events.UIClickEvent
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager.getCurrentToggleUIImage
-import net.minecraft.util.ResourceLocation
 import java.awt.Color
 import java.util.function.Consumer
 
 class PSSToggle {
-
-    private var width = 0f
-    private var height = 0f
-    private var xConstraint: XConstraint? = null
-    private var yConstraint: YConstraint? = null
     private var state = false
-    private var backgroundBlock: UIBlock
-    private var buttonTexture: UIImage
+    private var backgroundBlock: UIBlock = UIBlock()
+        .setColor(Color(0, 0, 0, 0)) as UIBlock
 
-    init {
-        backgroundBlock = UIBlock()
-            .setColor(Color(0, 0, 0, 0)) as UIBlock
-        buttonTexture = getCurrentToggleUIImage(false)
-            .setChildOf(backgroundBlock) as UIImage
-        buttonTexture.onMouseClickConsumer { s: UIClickEvent? -> }
-    }
+    private var buttonTexture: UIImage = getCurrentToggleUIImage(false).constrain {
+        x = CenterConstraint()
+        y = CenterConstraint()
+        width = 100.percent
+        height = 100.percent
+    } childOf backgroundBlock
 
     fun toggleState(): PSSToggle {
         return setState(!state)
@@ -48,59 +41,46 @@ class PSSToggle {
         return this.state
     }
 
-    fun updateState(): PSSToggle {
+    private fun updateState(): PSSToggle {
         val children = buttonTexture.children
         backgroundBlock.removeChild(buttonTexture)
-        if (state) {
-            buttonTexture = getCurrentToggleUIImage(true)
-                .setWidth(PixelConstraint(width))
-                .setHeight(PixelConstraint(height))
-                .setX(CenterConstraint())
-                .setY(CenterConstraint())
-                .setChildOf(backgroundBlock) as UIImage
+
+        buttonTexture = if (state) {
+            getCurrentToggleUIImage(true)
         } else {
-            buttonTexture = getCurrentToggleUIImage(false)
-                .setWidth(PixelConstraint(width))
-                .setHeight(PixelConstraint(height))
-                .setX(CenterConstraint())
-                .setY(CenterConstraint())
-                .setChildOf(backgroundBlock) as UIImage
+            getCurrentToggleUIImage(false)
+        }.constrain {
+            width = 100.percent
+            height = 100.percent
+            x = CenterConstraint()
+            y = CenterConstraint()
         }
+
+        backgroundBlock.insertChildAt(buttonTexture, 0)
+
         for (child in children) {
             child.setChildOf(buttonTexture)
         }
         return this
     }
 
-    fun setHeight(height: Float): PSSToggle {
-        backgroundBlock.setHeight(PixelConstraint(height))
-        buttonTexture.setHeight(PixelConstraint(height))
-            .setX(CenterConstraint())
-            .setY(CenterConstraint())
-        this.height = height
+    fun setHeight(height: HeightConstraint): PSSToggle {
+        backgroundBlock.setHeight(height)
         return this
     }
 
-    fun setWidth(width: Float): PSSToggle {
-        backgroundBlock.setWidth(PixelConstraint(width))
-        buttonTexture.setWidth(PixelConstraint(width))
-            .setX(CenterConstraint())
-            .setY(CenterConstraint())
-        this.width = width
+    fun setWidth(width: WidthConstraint): PSSToggle {
+        backgroundBlock.setWidth(width)
         return this
     }
 
-    fun setX(xPos: XConstraint?): PSSToggle {
-        backgroundBlock.setX(xPos!!)
-        buttonTexture.setX(CenterConstraint())
-        xConstraint = xPos
+    fun setX(xPos: XConstraint): PSSToggle {
+        backgroundBlock.setX(xPos)
         return this
     }
 
-    fun setY(yPos: YConstraint?): PSSToggle {
-        backgroundBlock.setY(yPos!!)
-        buttonTexture.setY(CenterConstraint())
-        yConstraint = yPos
+    fun setY(yPos: YConstraint): PSSToggle {
+        backgroundBlock.setY(yPos)
         return this
     }
 
@@ -111,15 +91,25 @@ class PSSToggle {
     }
 
     val component: UIComponent
-        get() = buttonTexture
+        get() = backgroundBlock
 
-    fun insertComponentBeforeBackground(component: UIComponent?): PSSToggle {
-        backgroundBlock.insertChildBefore(component!!, buttonTexture)
+    fun insertComponentBeforeBackground(component: UIComponent): PSSToggle {
+        backgroundBlock.insertChildBefore(component, buttonTexture)
         return this
     }
 
-    fun setChildOf(parent: UIComponent?): PSSToggle {
-        backgroundBlock.setChildOf(parent!!)
+    fun hide(instantly: Boolean = false) {
+        backgroundBlock.hide(instantly)
+        buttonTexture.hide(instantly)
+    }
+
+    fun unhide(instantly: Boolean = false) {
+        backgroundBlock.unhide(instantly)
+        buttonTexture.unhide(instantly)
+    }
+
+    fun setChildOf(parent: UIComponent): PSSToggle {
+        backgroundBlock.setChildOf(parent)
         return this
     }
 }
