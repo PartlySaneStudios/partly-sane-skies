@@ -7,9 +7,11 @@
 package me.partlysanestudios.partlysaneskies.utils
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
+import me.partlysanestudios.partlysaneskies.utils.StringUtils.matches
 import java.awt.Color
 import java.text.DecimalFormat
 import java.util.*
+import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 object StringUtils {
@@ -379,9 +381,7 @@ object StringUtils {
     }
 
     fun Int.toRoman(): String {
-        if (this <= 0 || this > 3999) {
-            throw IllegalArgumentException("Number out of range (must be between 1 and 3999)")
-        }
+        require(this in 1 until 4000) { "Number out of range (must be between 1 and 3999)" }
 
         var number = this
         return buildString {
@@ -406,6 +406,18 @@ object StringUtils {
             appendRomanSymbols(4, "IV")
             appendRomanSymbols(1, "I")
         }
+    }
+
+    fun Pattern.matches(string: String): Boolean = matcher(string).matches()
+
+    fun <T> Pattern.getMatcher(string: String, matcher: Matcher.() -> T): T? {
+        val matched = matcher(string)
+        return if (matched.matches()) matcher(matched) else null
+    }
+
+    fun Pattern.matchGroup(string: String, group: String): String? {
+        val matched = matcher(string)
+        return if (matched.matches()) matched.group(group) else null
     }
 
 }
