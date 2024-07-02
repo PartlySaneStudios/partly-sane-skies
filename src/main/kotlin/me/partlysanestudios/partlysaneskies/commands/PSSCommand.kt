@@ -34,7 +34,6 @@ class PSSCommand(val name: String) {
         this.aliases = aliases
     }
 
-
     fun addAlias(vararg aliases: String): PSSCommand {
         this.aliases.addAll(aliases)
         return this
