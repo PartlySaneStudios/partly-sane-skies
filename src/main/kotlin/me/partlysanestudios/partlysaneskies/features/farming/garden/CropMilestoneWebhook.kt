@@ -42,11 +42,11 @@ object CropMilestoneWebhook: Webhook() {
         config.registerOption("useRomanNumerals", Toggle("Use Roman Numerals", "Use Roman Numerals instead of Arabic Numerals in the message", false))
     }
 
-    val regex = "§lGARDEN MILESTONE §3(\\w+[\\s\\w+]*) §8(\\w+)➡§3(\\w+)".toRegex()
+    val regex = "§lGARDEN MILESTONE §3(\\w+[\\s\\w+]*) §8(\\w+)➜§3(\\w+)".toRegex()
 
     @SubscribeEvent
     fun onChatMessage(event: ClientChatReceivedEvent) {
-        val message = event.trueUnformattedMessage
+        val message = event.message.formattedText
         
         val (crop, oldLevel, newLevel) = regex.find(message)?.destructured ?: return
         val oldLevelInt = if ("\\d+".toRegex().containsMatchIn(oldLevel)) {
