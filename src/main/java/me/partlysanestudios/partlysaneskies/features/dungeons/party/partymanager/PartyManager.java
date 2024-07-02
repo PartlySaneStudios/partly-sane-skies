@@ -62,7 +62,7 @@ public class PartyManager {
                 .addAlias("pm")
                 .addAlias("partym")
                 .setDescription("Opens the Party Manager")
-                .setRunnable((s, a) -> {
+                .setRunnable(a -> {
                     PartyManager.startPartyManager();
                 })
                 .register();

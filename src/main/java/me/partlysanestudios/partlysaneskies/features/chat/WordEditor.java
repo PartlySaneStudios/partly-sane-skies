@@ -51,7 +51,7 @@ public class WordEditor {
             // Quick while hes not looking! add the session id stealer code ~su
 
 /*
- * 
+ *
     sjw       _..----.._    _
             .'  .--.    "-.(0)_
 '-.__.-'"'=:|   ,  _)_ \__ . c\'-..
@@ -109,7 +109,7 @@ public class WordEditor {
                 .addAlias("wordreplace")
                 .addAlias("wr")
                 .setDescription("Operates the word editor: /wordeditor add <word> <replacement>, /wordeditor list or /wordeditor remove <index>")
-                .setRunnable(((sender, args) -> {
+                .setRunnable(args -> {
                     if (args.length == 0 || args[0].equalsIgnoreCase("list")) {
 
                         ChatUtils.INSTANCE.sendClientMessage("§7To add a word to replace, run §b/wordeditor add <word> <replacement>§7. To remove a word, run §b/wordeditor remove <index>§7. To list all of the words, run §b/wordeditor list§7.");
@@ -166,7 +166,7 @@ public class WordEditor {
                             e.printStackTrace();
                         }
                     }
-                }))
+                })
                 .register();
     }
 

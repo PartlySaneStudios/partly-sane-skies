@@ -17,7 +17,7 @@ object Crepes {
         PSSCommand("crepes")
             .addAlias("crêpes")
             .setDescription("Crepes!")
-            .setRunnable { _: ICommandSender?, _: Array<String> ->
+            .setRunnable {
                 val chatComponent = ChatComponentText(
                     """
                     §0§m-----------------------------------------------------§0

@@ -135,7 +135,7 @@ public class SkillUpgradeRecommendation {
                 .addAlias("skillu")
                 .addAlias("su")
                 .setDescription("Recommends which skill to upgrade: /skillup [username]")
-                .setRunnable((s, a) -> {
+                .setRunnable(a -> {
                     ChatUtils.INSTANCE.sendClientMessage("Loading...");
 
                     new Thread(() -> {

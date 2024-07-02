@@ -22,15 +22,15 @@ object SanityCheck {
         PSSCommand("sanitycheck")
             .addAlias("checksanity", "psssanity", "pssinsanity", "pssinsane", "psssane")
             .setDescription("Checks for one's sanity. This command is purely for fun; do not take its results seriously.")
-            .setRunnable { _: ICommandSender?, a: Array<String> ->
+            .setRunnable {args: Array<String> ->
                 ChatUtils.sendClientMessage("Attempting to begin sanity analysis...")
                 Thread {
                     var username = playerName
-                    if (a.size > 1) {
+                    if (args.size > 1) {
                         ChatUtils.sendClientMessage("Correct Usage: /sanitycheck {username}")
                         return@Thread
-                    } else if (a.size == 1) {
-                        username = a[0]
+                    } else if (args.size == 1) {
+                        username = args[0]
                     }
                     if (validateUsernameByRegex(username)) {
                         val sanityCheckDataJsonObject: JsonObject = JsonParser().parse(

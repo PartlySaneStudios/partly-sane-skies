@@ -34,9 +34,8 @@ object ItemRefill {
             .addAlias("refillpearl")
             .addAlias("pr")
             .setDescription("Refills your dungeon items.")
-            .setRunnable { s: ICommandSender, a: Array<String> ->
-                runItemRefil()
-            }.register()
+            .setRunnable { runItemRefil() }
+            .register()
     }
 
     @SubscribeEvent

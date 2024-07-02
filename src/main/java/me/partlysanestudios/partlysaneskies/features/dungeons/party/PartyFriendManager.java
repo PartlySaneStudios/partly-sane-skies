@@ -31,7 +31,7 @@ public class PartyFriendManager {
                 .addAlias("fp")
                 .addAlias("pf")
                 .setDescription("Parties all friends in the friend list")
-                .setRunnable((s, a) -> {
+                .setRunnable(a -> {
                     PartyFriendManager.startPartyManager();
                 })
                 .register();

@@ -65,12 +65,12 @@ object CoinsToBoosterCookies {
             .addAlias("psscoi2cok")
             .addAlias("coinstocookies")
             .setDescription("Converts a given amount of coins to the IRL cost of booster cookies in your selected currency via §9/pssc§b.")
-            .setRunnable { s: ICommandSender, a: Array<String> ->
+            .setRunnable { args: Array<String> ->
                 ChatUtils.sendClientMessage("Loading...")
 
 //                Creates a new thread so we don't pause the entirety of the game to perform a request that won't work because a game tick needs to pass to be able to run
                 Thread({
-                    if (a.size == 1 && a[0].toDoubleOrNull() != null) {
+                    if (args.size == 1 && args[0].toDoubleOrNull() != null) {
 //                        Gets the public data json
                         val boosterCookieData: JsonObject = JsonParser().parse(
                             PublicDataManager.getFile(
@@ -83,26 +83,26 @@ object CoinsToBoosterCookies {
                         val sSGPInPreferredCurrency =
                             boosterCookieData["storehypixelnet"].asJsonObject.get(prefCurr).asDouble
 //                        Gets the amount of cookies
-                        val cookieQuantity = convertCoinsToBoosterCookies(a[0].toDouble())
+                        val cookieQuantity = convertCoinsToBoosterCookies(args[0].toDouble())
 //                        Gets the amount of gem packages
-                        val gemPackages: Double = ceil(convertCoinsToGemPackages(a[0].toDouble()))
+                        val gemPackages: Double = ceil(convertCoinsToGemPackages(args[0].toDouble()))
 //                        Cost in irl money
                         val dollars: Double = (gemPackages * sSGPInPreferredCurrency).floor(2)
 
 //                        Sends message
-                        ChatUtils.sendClientMessage("§6${abs(a[0].toDouble()).formatNumber()} coins §etoday is equivalent to §6${cookieQuantity.round(3).formatNumber()} Booster Cookies, or §2${currencyFormatting(money = (dollars.formatNumber()))} §e(excluding sales taxes and other fees).")
+                        ChatUtils.sendClientMessage("§6${abs(args[0].toDouble()).formatNumber()} coins §etoday is equivalent to §6${cookieQuantity.round(3).formatNumber()} Booster Cookies, or §2${currencyFormatting(money = (dollars.formatNumber()))} §e(excluding sales taxes and other fees).")
                         ChatUtils.sendClientMessage("§7(For reference, Booster Cookies today are worth ${ceil(SkyblockDataManager.getItem(boosterCookieItemId)?.getBuyPrice() ?: 0.0).round(1).formatNumber()} coins. Note that the developers of Partly Sane Skies do not support IRL trading; the /c2c command is intended for educational purposes.)", true)
                         if (DebugKey.isDebugMode()) { // Optional debug message
                             ChatUtils.sendClientMessage("§eIf the currency symbol doesn't look right, please report this to us via §9/pssdiscord §eso we can find a replacement symbol that Minecraft 1.8.9 can render.", true)
                         }
-                    } else if (a.isEmpty() || a.size == 1) {
+                    } else if (args.isEmpty() || args.size == 1) {
                         runNetworthToCoins(playerName)
-                    } else if (a[0].contentEquals("networth", true) || a[0].contentEquals("nw", true)) {
-                        if (a.size == 1) {
+                    } else if (args[0].contentEquals("networth", true) || args[0].contentEquals("nw", true)) {
+                        if (args.size == 1) {
                             ChatUtils.sendClientMessage("Correct Usage: /coins2cookies networth {username}")
                             return@Thread
                         }
-                        runNetworthToCoins(a[1])
+                        runNetworthToCoins(args[1])
                     } else {
                         ChatUtils.sendClientMessage("§cPlease enter a valid number for your §6coins to cookies §cconversion and try again.")
                         return@Thread

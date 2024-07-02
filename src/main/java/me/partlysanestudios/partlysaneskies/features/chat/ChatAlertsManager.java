@@ -23,6 +23,7 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ChatAlertsManager {
     static String DATA_PATH_NAME = "./config/partly-sane-skies/chatAlertsData.json";
@@ -61,7 +62,7 @@ public class ChatAlertsManager {
                 .addAlias("chatAlert")
                 .addAlias("chal")
                 .setDescription("Operates the chat alerts feature: /chatalerts <add/remove/list> ")
-                .setRunnable(((sender, args) -> {
+                .setRunnable(args -> {
                     // If the user doesn't provide any arguments whatsoever print message
                     if (args.length == 0) {
                         ChatUtils.INSTANCE.sendClientMessage("§cIncorrect usage. Correct usage: /chatalerts add/remove/list");
@@ -125,7 +126,7 @@ public class ChatAlertsManager {
                             ChatUtils.INSTANCE.sendClientMessage("§cIncorrect usage. Correct usage: /chatalerts add/remove/list");
                             break;
                     }
-                }))
+                })
                 .register();
     }
 

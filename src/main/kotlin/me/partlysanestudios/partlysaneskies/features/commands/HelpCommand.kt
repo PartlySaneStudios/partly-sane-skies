@@ -19,7 +19,7 @@ object HelpCommand {
         PSSCommand("pssconfig")
             .addAlias("pssc", "pssconf")
             .setDescription("Opens the config menu")
-            .setRunnable { _: ICommandSender, _: Array<String> ->
+            .setRunnable {
                 sendClientMessage("§bOpening config menu...")
                 enqueueRenderOperation(Runnable { config.openGui() })
             }
@@ -29,20 +29,20 @@ object HelpCommand {
     fun registerPSSCommand() {
         PSSCommand("pss")
             .setDescription("Prints help message and opens the config menu")
-            .setRunnable { _: ICommandSender?, _: Array<String> ->
+            .setRunnable {
                 printHelpMessage()
                 sendClientMessage("§bOpening config menu...")
                 enqueueRenderOperation(Runnable { config.openGui() })
             }.register()
     }
 
-    private var configAliases: List<String> = mutableListOf("conf", "c", "config")
+    private var configAliases: Set<String> = setOf("conf", "c", "config")
     fun registerHelpCommand() {
         PSSCommand("psshelp")
             .addAlias("pssh", "helpss", "helppss", "pshelp", "helpihavenoideawhatpartlysaneskiesis")
             .setDescription("Show the Partly Sane Skies help message")
-            .setRunnable { _: ICommandSender?, a: Array<String> ->
-                if (a.isNotEmpty() && configAliases.contains(a[0].lowercase(Locale.getDefault()))) {
+            .setRunnable { args: Array<String> ->
+                if (args.isNotEmpty() && configAliases.contains(args[0].lowercase(Locale.getDefault()))) {
                     sendClientMessage("Opening config GUI...")
                     enqueueRenderOperation(Runnable { config.openGui() })
                     return@setRunnable
@@ -87,10 +87,10 @@ Partly Sane Skies is a mod developed by Su386 and FlagMaster. This mod aims to b
         for ((_, command) in CommandManager.commandList) {
             str.append("\n")
             str.append("\n §b> /").append(command.name)
-            for (alias in command.getAliases()) {
+            for (alias in command.aliases) {
                 str.append(", /").append(alias)
             }
-            str.append("\n§3    > ").append(command.getDescription())
+            str.append("\n§3    > ").append(command.description)
         }
         str.append("\n§3§m-----------------------------------------------------§r")
         sendClientMessage(str.toString(), true)
