@@ -49,7 +49,6 @@ class PSSButton {
         x = CenterConstraint()
         y = CenterConstraint()
         width = 100.percent
-        height = 100.percent
         color = Color.white.constraint
     } childOf backgroundBlock
 
