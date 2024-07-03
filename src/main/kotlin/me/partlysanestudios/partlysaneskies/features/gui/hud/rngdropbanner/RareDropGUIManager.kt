@@ -43,7 +43,7 @@ object RareDropGUIManager {
         PSSCommand("raredrop")
             .addAlias("rd")
             .setDescription("Opens the Rare Drop GUI")
-            .setRunnable { _, _ ->
+            .setRunnable { _ ->
                 openGui()
             }
             .register()
