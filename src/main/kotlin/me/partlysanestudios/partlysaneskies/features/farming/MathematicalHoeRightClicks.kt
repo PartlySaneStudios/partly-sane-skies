@@ -82,7 +82,7 @@ object MathematicalHoeRightClicks {
             .addAlias("allowhoerightclicks")
             .addAlias("ahrc")
             .setDescription("Allows hoe right clicks for a few minutes")
-            .setRunnable { s: ICommandSender, a: Array<String> ->
+            .setRunnable {
                 val canRightClickHoe =
                     onCooldown(lastAllowHoeRightClickTime, (config.allowRightClickTime * 60L * 1000L).toLong())
 

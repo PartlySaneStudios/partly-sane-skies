@@ -70,7 +70,7 @@ public class PermPartyManager {
                 .addAlias("pp")
                 .addAlias("permp")
                 .setDescription("Operates the perm party manager: /permparty [<partyid>/add/remove/list/delete/new/fav]")
-                .setRunnable((sender, args) -> {
+                .setRunnable(args -> {
                     if (args.length == 0) {
                         ChatUtils.INSTANCE.sendClientMessage(
                                 (
@@ -239,7 +239,7 @@ public class PermPartyManager {
         return true;
     }
 
-    // Sets the party as the favorite party 
+    // Sets the party as the favorite party
     public static boolean favoriteParty(String name) {
         // Removes all favorites from other parties
         for (Entry<String, PermParty> en : permPartyMap.entrySet()) {

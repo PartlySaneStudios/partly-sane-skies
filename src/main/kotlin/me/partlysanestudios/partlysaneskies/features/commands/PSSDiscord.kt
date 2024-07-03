@@ -18,7 +18,7 @@ object PSSDiscord {
         PSSCommand("pssdiscord")
             .addAlias("pssdisc", "pssd", "psdisc", "psdiscord")
             .setDescription("Join the Partly Sane Studios PSSDiscord Server")
-            .setRunnable { _: ICommandSender?, _: Array<String> ->
+            .setRunnable {
                 // Creates a new message with the correct text
                 val message = ChatComponentText(PartlySaneSkies.CHAT_PREFIX + "§9Join the discord: https://discord.gg/$discordCode")
                 // Sets the text to be clickable with a link
