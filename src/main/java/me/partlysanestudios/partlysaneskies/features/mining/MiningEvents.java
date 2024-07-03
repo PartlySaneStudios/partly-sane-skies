@@ -84,10 +84,8 @@ public class MiningEvents {
         if (message.contains("§r§c§lGOBLIN RAID STARTED!") && PartlySaneSkies.Companion.getConfig().getMiningGoblinRaidSound()) {
             showBanner = true;
             PartlySaneSkies.Companion.getMinecraft().thePlayer.playSound("partlysaneskies:bell", 100, 1);
-            if (PartlySaneSkies.Companion.getConfig().getMiningShowEventBanner())
-                displayText = "Goblin Raid Event Started!";
-            if (PartlySaneSkies.Companion.getConfig().getMiningSendSystemNotifications() && !Display.isActive())
-                SystemNotification.INSTANCE.showNotification("Goblin Raid Event Started!");
+            if (PartlySaneSkies.Companion.getConfig().getMiningShowEventBanner()) displayText = "Goblin Raid Event Started!";
+            if (PartlySaneSkies.Companion.getConfig().getMiningSendSystemNotifications() && !Display.isActive()) SystemNotification.INSTANCE.showNotification("Goblin Raid Event Started!");
         }
 
         // Raffle
@@ -106,14 +104,14 @@ public class MiningEvents {
         }
 
         // Gourmand
-        if (message.contains("§eThe §bMithril Gourmand §eevent starts in §a20 §eseconds!") && PartlySaneSkies.Companion.getConfig().getMiningMithrilGourmandSound() && PartlySaneSkies.Companion.getConfig().getMiningWarn20sBeforeEvent()) {
+        if (message.contains("§eThe §bMithril Gourmand §eevent starts in §a20 §eseconds!") && PartlySaneSkies.Companion.getConfig().getMiningMithrilGourmandSound() && PartlySaneSkies.Companion.getConfig().getMiningWarn20sBeforeEvent()){
             showBanner = true;
             PartlySaneSkies.Companion.getMinecraft().thePlayer.playSound("partlysaneskies:bell", 100, 1);
             if (PartlySaneSkies.Companion.getConfig().getMiningShowEventBanner()) displayText = "Mithril Gourmand Event in 20s!";
             if (PartlySaneSkies.Companion.getConfig().getMiningSendSystemNotifications() && !Display.isActive()) SystemNotification.INSTANCE.showNotification("Mithril Gourmand Event in 20s!");
         }
 
-        if (message.contains("§r§b§lMITHRIL GOURMAND STARTED!") && PartlySaneSkies.Companion.getConfig().getMiningMithrilGourmandSound()) {
+        if (message.contains("§r§b§lMITHRIL GOURMAND STARTED!") && PartlySaneSkies.Companion.getConfig().getMiningMithrilGourmandSound()){
             showBanner = true;
             PartlySaneSkies.Companion.getMinecraft().thePlayer.playSound("partlysaneskies:bell", 100, 1);
             if (PartlySaneSkies.Companion.getConfig().getMiningShowEventBanner()) displayText = "Mithril Gourmand Event Started!";
@@ -121,7 +119,7 @@ public class MiningEvents {
         }
 
         // Powder Ghast
-        if (message.contains("§6The sound of pickaxes clashing against the rock has attracted the attention of the §r§6§lPOWDER GHAST!") && PartlySaneSkies.Companion.getConfig().getMiningPowderGhastSound()) {
+        if (message.contains("§6The sound of pickaxes clashing against the rock has attracted the attention of the §r§6§lPOWDER GHAST!") && PartlySaneSkies.Companion.getConfig().getMiningPowderGhastSound()){
             showBanner = true;
             PartlySaneSkies.Companion.getMinecraft().thePlayer.playSound("partlysaneskies:bell", 100, 1);
             if (PartlySaneSkies.Companion.getConfig().getMiningShowEventBanner()) displayText = "Powder Ghast Spawned!";
@@ -129,7 +127,7 @@ public class MiningEvents {
         }
 
         // Fallen Star
-        if (message.contains("§eA §r§5Fallen Star §r§ehas crashed at") && PartlySaneSkies.Companion.getConfig().getMiningFallenStarSound()) {
+        if (message.contains("§eA §r§5Fallen Star §r§ehas crashed at") && PartlySaneSkies.Companion.getConfig().getMiningFallenStarSound()){
             showBanner = true;
             PartlySaneSkies.Companion.getMinecraft().thePlayer.playSound("partlysaneskies:bell", 100, 1);
             if (PartlySaneSkies.Companion.getConfig().getMiningShowEventBanner()) displayText = "Fallen Star Spawned!";
