@@ -1,16 +1,35 @@
 package me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner
 
 import cc.polyfrost.oneconfig.utils.gui.GuiUtils
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import com.google.gson.JsonParser
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.pluralize
+import java.io.File
+import java.io.FileWriter
+import java.io.IOException
+import java.io.Reader
+import java.nio.file.Files
+import java.nio.file.Paths
 
 object RareDropGUIManager {
+
+    private var filters: MutableMap<FilterType, Set<String>> = mutableMapOf()
+    private const val CONFIG_PATH = "./config/partly-sane-skies/rareDropFilters.json"
 
     var currentFilterType: FilterType = FilterType.BLACKLIST
         get() = FilterType.BLACKLIST
         set(value) {
             field = value
+            saveData()
+        }
+
+    var currentFilter: Set<String>
+        get() = filters[currentFilterType] ?: emptySet()
+        set(value) {
+            filters[currentFilterType] = value
         }
 
     fun registerCommand() {
@@ -25,7 +44,8 @@ object RareDropGUIManager {
 
     fun addFilter(vararg filters: String) {
         ChatUtils.sendClientMessage("Added ${"filter".pluralize(filters.size)}")
-        currentFilterType.filter += filters
+        currentFilter += filters
+        saveData()
     }
 
     private fun openGui() {
@@ -135,8 +155,46 @@ object RareDropGUIManager {
         ),
     )
 
-    enum class FilterType(val displayName: String, var filter: Set<String>) {
-        BLACKLIST("Blacklist", mutableSetOf()),
-        WHITELIST("Whitelist", mutableSetOf()),
+    enum class FilterType(val displayName: String) {
+        BLACKLIST("Blacklist"),
+        WHITELIST("Whitelist"),
     }
+
+    @Throws(IOException::class)
+    fun saveData() {
+        val file = File(CONFIG_PATH)
+        file.createNewFile()
+        val gson = GsonBuilder()
+            .setPrettyPrinting()
+            .serializeSpecialFloatingPointValues()
+            .create()
+        val writer = FileWriter(file)
+        writer.write(gson.toJson(filters))
+        writer.close()
+    }
+
+    @Throws(IOException::class)
+    fun loadData() {
+        val file = File(CONFIG_PATH)
+        file.setWritable(true)
+
+        if (file.createNewFile()) {
+            val writer = FileWriter(file)
+            writer.write(Gson().toJson(emptyMap<FilterType, Set<String>>()))
+            writer.close()
+        }
+
+        val reader: Reader = Files.newBufferedReader(Paths.get(file.path))
+        val jsonElement = JsonParser().parse(reader)
+        reader.close()
+
+        filters = mutableMapOf<FilterType, Set<String>>().apply {
+            jsonElement.asJsonObject.entrySet().forEach { (key, value) ->
+                val filterType = FilterType.valueOf(key)
+                val filterSet = value.asJsonArray.map { it.asString }.toSet()
+                this[filterType] = filterSet
+            }
+        }
+    }
+
 }

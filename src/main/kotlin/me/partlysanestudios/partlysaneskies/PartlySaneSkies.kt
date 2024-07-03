@@ -35,13 +35,23 @@ import me.partlysanestudios.partlysaneskies.features.chat.ChatAlertsManager
 import me.partlysanestudios.partlysaneskies.features.chat.ChatManager
 import me.partlysanestudios.partlysaneskies.features.chat.ChatTransformer
 import me.partlysanestudios.partlysaneskies.features.chat.WordEditor
-import me.partlysanestudios.partlysaneskies.features.commands.*
+import me.partlysanestudios.partlysaneskies.features.commands.Crepes
+import me.partlysanestudios.partlysaneskies.features.commands.HelpCommand
+import me.partlysanestudios.partlysaneskies.features.commands.PSSDiscord
+import me.partlysanestudios.partlysaneskies.features.commands.SanityCheck
+import me.partlysanestudios.partlysaneskies.features.commands.Version
 import me.partlysanestudios.partlysaneskies.features.debug.DebugKey
 import me.partlysanestudios.partlysaneskies.features.debug.ExampleHud
 import me.partlysanestudios.partlysaneskies.features.debug.ExampleWebhook
 import me.partlysanestudios.partlysaneskies.features.discord.DiscordRPC
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.WebhookMenu
-import me.partlysanestudios.partlysaneskies.features.dungeons.*
+import me.partlysanestudios.partlysaneskies.features.dungeons.AutoGG
+import me.partlysanestudios.partlysaneskies.features.dungeons.HealthAlert
+import me.partlysanestudios.partlysaneskies.features.dungeons.ItemRefill
+import me.partlysanestudios.partlysaneskies.features.dungeons.PlayerRating
+import me.partlysanestudios.partlysaneskies.features.dungeons.RequiredSecretsFound
+import me.partlysanestudios.partlysaneskies.features.dungeons.TerminalWaypoints
+import me.partlysanestudios.partlysaneskies.features.dungeons.WatcherReady
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.PartyFriendManager
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.partymanager.PartyManager
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.permpartyselector.PermPartyManager
@@ -195,6 +205,11 @@ class PartlySaneSkies {
             }
             try {
                 WordEditor.load()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+            try {
+                RareDropGUIManager.loadData()
             } catch (e: IOException) {
                 e.printStackTrace()
             }

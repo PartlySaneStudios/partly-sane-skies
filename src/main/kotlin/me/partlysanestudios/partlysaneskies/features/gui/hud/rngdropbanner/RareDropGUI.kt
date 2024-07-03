@@ -20,6 +20,7 @@ import gg.essential.elementa.dsl.childOf
 import gg.essential.elementa.dsl.constrain
 import gg.essential.elementa.dsl.constraint
 import gg.essential.elementa.dsl.percent
+import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.RareDropGUIManager.currentFilter
 import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.RareDropGUIManager.currentFilterType
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager.primaryColor
@@ -141,14 +142,15 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
     private fun updateFilterList() {
         activeFiltersScrollComponent.clearChildren()
 
-        currentFilterType.filter
+        currentFilter
             .filter { it.contains(activeFiltersSearchBar.getText(), ignoreCase = true) }
             .forEach { filter ->
                 UIText("§cx").constrain {
                     x = 0.percent
                     y = SiblingConstraint(4f)
                 }.onMouseClick {
-                    currentFilterType.filter -= filter
+                    currentFilter -= filter
+                    RareDropGUIManager.saveData()
                     updateFilterList()
                 } childOf activeFiltersScrollComponent
 
