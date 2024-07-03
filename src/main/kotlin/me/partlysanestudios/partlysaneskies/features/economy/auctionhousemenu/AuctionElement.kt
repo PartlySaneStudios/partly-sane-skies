@@ -61,8 +61,8 @@ class AuctionElement(
     private val box: PSSButton = PSSButton()
         .setX(CenterConstraint())
         .setY(CenterConstraint())
-        .setWidth(heightConstraint.value)
-        .setHeight(heightConstraint.value)
+        .setWidth(heightConstraint)
+        .setHeight(heightConstraint)
         .setColor(getRarityColor())
         .setChildOf(boundingBox)
         .onMouseClickConsumer {
@@ -324,7 +324,7 @@ class AuctionElement(
         this.heightConstraint = heightConstraint
         val boxHeight = heightConstraint.value * 2 / 3.0f
         val boxY = 0
-        box.setWidth(boxHeight).setHeight(boxHeight)
+        box.setWidth(boxHeight.pixels).setHeight(boxHeight.pixels)
         box.setY(boxY.pixels)
 
 
