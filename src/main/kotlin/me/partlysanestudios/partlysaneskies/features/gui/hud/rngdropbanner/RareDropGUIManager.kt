@@ -31,6 +31,9 @@ object RareDropGUIManager {
             filters[currentFilterType] = value
         }
 
+    fun isAllowedDrop(drop: String) = (FilterType.WHITELIST.isEnabled() && currentFilter.contains(drop)) ||
+        (FilterType.BLACKLIST.isEnabled() && !currentFilter.contains(drop))
+
     fun registerCommand() {
         PSSCommand("raredrop")
             .addAlias("rd")
@@ -91,6 +94,9 @@ object RareDropGUIManager {
     enum class FilterType(val displayName: String) {
         BLACKLIST("Blacklist"),
         WHITELIST("Whitelist"),
+        ;
+
+        fun isEnabled() = this == currentFilterType
     }
 
     @Throws(IOException::class)

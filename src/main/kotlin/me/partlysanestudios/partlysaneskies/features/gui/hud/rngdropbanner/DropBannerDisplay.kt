@@ -19,6 +19,7 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.time
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity.Companion.getRarityFromColorCode
+import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.RareDropGUIManager.isAllowedDrop
 import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.onCooldown
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.colorCodeToColor
@@ -69,8 +70,13 @@ object DropBannerDisplay {
         val (dropCategoryColor, dropCategory, dropColor, name, magicFind) = match.destructured
 
         val rarity = dropColor.getRarityFromColorCode()
-        // TODO: add check for blocked drop
         if (checkRarity(rarity)) {
+            return
+        }
+
+        println(name)
+
+        if (!isAllowedDrop(name.trim())) {
             return
         }
 
