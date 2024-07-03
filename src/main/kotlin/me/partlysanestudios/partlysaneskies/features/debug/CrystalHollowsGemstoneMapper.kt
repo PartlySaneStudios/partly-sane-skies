@@ -21,7 +21,7 @@ import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
-import java.util.*
+import java.util.LinkedList
 
 object CrystalHollowsGemstoneMapper {
 
@@ -66,12 +66,7 @@ object CrystalHollowsGemstoneMapper {
                     gemstoneCoords.add(point)
                     extractGemstone(point, gemstoneCoords)
 
-                    gemstones.add(
-                        Gemstone(
-                            gemstoneCoords,
-                            world.getBlockState(point.toBlockPosInt()).block.localizedName
-                        )
-                    )
+                    gemstones.add(Gemstone(gemstoneCoords, world.getBlockState(point.toBlockPosInt()).block.localizedName))
                 }
             }
         }

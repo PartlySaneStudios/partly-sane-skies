@@ -76,16 +76,7 @@ object ThemeManager {
             for (data: ToggleData in toggleDataList) {
                 try {
                     val color = data.color
-                    data.image.applyTexture(
-                        ReleasedDynamicTexture(
-                            loadImage(
-                                getCurrentToggleFile(
-                                    data.isSelected,
-                                    color
-                                ).path
-                            )
-                        )
-                    )
+                    data.image.applyTexture(ReleasedDynamicTexture(loadImage(getCurrentToggleFile(data.isSelected, color).path)))
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }

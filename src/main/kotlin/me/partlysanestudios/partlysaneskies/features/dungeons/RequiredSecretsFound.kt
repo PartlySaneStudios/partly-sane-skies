@@ -61,23 +61,9 @@ object RequiredSecretsFound {
                 }
                 if (config.secretsSound) {
                     if (config.secretsAirRaidSiren) {
-                        minecraft.soundHandler.playSound(
-                            PositionedSoundRecord.create(
-                                ResourceLocation(
-                                    "partlysaneskies",
-                                    "airraidsiren"
-                                )
-                            )
-                        )
+                        minecraft.soundHandler.playSound(PositionedSoundRecord.create(ResourceLocation("partlysaneskies", "airraidsiren")))
                     } else {
-                        minecraft.soundHandler.playSound(
-                            PositionedSoundRecord.create(
-                                ResourceLocation(
-                                    "partlysaneskies",
-                                    "bell"
-                                )
-                            )
-                        )
+                        minecraft.soundHandler.playSound(PositionedSoundRecord.create(ResourceLocation("partlysaneskies", "bell")))
                     }
                 }
                 alreadySendThisRun = true

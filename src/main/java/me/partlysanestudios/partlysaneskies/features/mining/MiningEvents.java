@@ -32,67 +32,53 @@ public class MiningEvents {
         if (message.contains("The §b2x Powder §eevent starts in §a20 §eseconds!") && PartlySaneSkies.Companion.getConfig().getMining2xPowderSound() && PartlySaneSkies.Companion.getConfig().getMiningWarn20sBeforeEvent()) {
             showBanner = true;
             PartlySaneSkies.Companion.getMinecraft().thePlayer.playSound("partlysaneskies:bell", 100, 1);
-            if (PartlySaneSkies.Companion.getConfig().getMiningShowEventBanner())
-                displayText = "2x Powder Event in 20s!";
-            if (PartlySaneSkies.Companion.getConfig().getMiningSendSystemNotifications() && !Display.isActive())
-                SystemNotification.INSTANCE.showNotification("2x Powder Event in 20s!");
+            if (PartlySaneSkies.Companion.getConfig().getMiningShowEventBanner()) displayText = "2x Powder Event in 20s!";
+            if (PartlySaneSkies.Companion.getConfig().getMiningSendSystemNotifications() && !Display.isActive()) SystemNotification.INSTANCE.showNotification("2x Powder Event in 20s!");
         }
 
         if (message.contains("§l2X POWDER STARTED!") && PartlySaneSkies.Companion.getConfig().getMining2xPowderSound()) {
             showBanner = true;
             PartlySaneSkies.Companion.getMinecraft().thePlayer.playSound("partlysaneskies:bell", 100, 1);
-            if (PartlySaneSkies.Companion.getConfig().getMiningShowEventBanner())
-                displayText = "2x Powder Event Started!";
-            if (PartlySaneSkies.Companion.getConfig().getMiningSendSystemNotifications() && !Display.isActive())
-                SystemNotification.INSTANCE.showNotification("2x Powder Event Started!");
+            if (PartlySaneSkies.Companion.getConfig().getMiningShowEventBanner()) displayText = "2x Powder Event Started!";
+            if (PartlySaneSkies.Companion.getConfig().getMiningSendSystemNotifications() && !Display.isActive()) SystemNotification.INSTANCE.showNotification("2x Powder Event Started!");
         }
 
         // Gone with the wind
         if (message.contains("The §9Gone with the Wind §eevent starts in §a20 §eseconds!") && PartlySaneSkies.Companion.getConfig().getMiningGoneWithTheWindSound() && PartlySaneSkies.Companion.getConfig().getMiningWarn20sBeforeEvent()) {
             showBanner = true;
             PartlySaneSkies.Companion.getMinecraft().thePlayer.playSound("partlysaneskies:bell", 100, 1);
-            if (PartlySaneSkies.Companion.getConfig().getMiningShowEventBanner())
-                displayText = "Gone with the Wind Event in 20s!";
-            if (PartlySaneSkies.Companion.getConfig().getMiningSendSystemNotifications() && !Display.isActive())
-                SystemNotification.INSTANCE.showNotification("Gone with the Wind Event in 20s!");
+            if (PartlySaneSkies.Companion.getConfig().getMiningShowEventBanner()) displayText = "Gone with the Wind Event in 20s!";
+            if (PartlySaneSkies.Companion.getConfig().getMiningSendSystemNotifications() && !Display.isActive()) SystemNotification.INSTANCE.showNotification("Gone with the Wind Event in 20s!");
         }
 
         if (message.contains("§r§9§lGONE WITH THE WIND STARTED!") && PartlySaneSkies.Companion.getConfig().getMiningGoneWithTheWindSound()) {
             showBanner = true;
             PartlySaneSkies.Companion.getMinecraft().thePlayer.playSound("partlysaneskies:bell", 100, 1);
-            if (PartlySaneSkies.Companion.getConfig().getMiningShowEventBanner())
-                displayText = "Gone with the Wind Event Started!";
-            if (PartlySaneSkies.Companion.getConfig().getMiningSendSystemNotifications() && !Display.isActive())
-                SystemNotification.INSTANCE.showNotification("Gone with the Wind Event Started!");
+            if (PartlySaneSkies.Companion.getConfig().getMiningShowEventBanner()) displayText = "Gone with the Wind Event Started!";
+            if (PartlySaneSkies.Companion.getConfig().getMiningSendSystemNotifications() && !Display.isActive()) SystemNotification.INSTANCE.showNotification("Gone with the Wind Event Started!");
         }
 
         // Better Together
         if (message.contains("The §dBetter Together §eevent starts in §a20 §eseconds!") && PartlySaneSkies.Companion.getConfig().getMiningBetterTogetherSound() && PartlySaneSkies.Companion.getConfig().getMiningWarn20sBeforeEvent()) {
             showBanner = true;
             PartlySaneSkies.Companion.getMinecraft().thePlayer.playSound("partlysaneskies:bell", 100, 1);
-            if (PartlySaneSkies.Companion.getConfig().getMiningShowEventBanner())
-                displayText = "Better Together Event in 20s!";
-            if (PartlySaneSkies.Companion.getConfig().getMiningSendSystemNotifications() && !Display.isActive())
-                SystemNotification.INSTANCE.showNotification("Better Together Event in 20s!");
+            if (PartlySaneSkies.Companion.getConfig().getMiningShowEventBanner()) displayText = "Better Together Event in 20s!";
+            if (PartlySaneSkies.Companion.getConfig().getMiningSendSystemNotifications() && !Display.isActive()) SystemNotification.INSTANCE.showNotification("Better Together Event in 20s!");
         }
 
         if (message.contains("§r§d§lBETTER TOGETHER STARTED!") && PartlySaneSkies.Companion.getConfig().getMiningBetterTogetherSound()) {
             showBanner = true;
             PartlySaneSkies.Companion.getMinecraft().thePlayer.playSound("partlysaneskies:bell", 100, 1);
-            if (PartlySaneSkies.Companion.getConfig().getMiningShowEventBanner())
-                displayText = "Better Together Event Started!";
-            if (PartlySaneSkies.Companion.getConfig().getMiningSendSystemNotifications() && !Display.isActive())
-                SystemNotification.INSTANCE.showNotification("Better Together Event Started!");
+            if (PartlySaneSkies.Companion.getConfig().getMiningShowEventBanner()) displayText = "Better Together Event Started!";
+            if (PartlySaneSkies.Companion.getConfig().getMiningSendSystemNotifications() && !Display.isActive()) SystemNotification.INSTANCE.showNotification("Better Together Event Started!");
         }
 
         // Goblin Raid
         if (message.contains("§eThe §cGoblin Raid §eevent starts in §a20 §eseconds!") && PartlySaneSkies.Companion.getConfig().getMiningGoblinRaidSound() && PartlySaneSkies.Companion.getConfig().getMiningWarn20sBeforeEvent()) {
             showBanner = true;
             PartlySaneSkies.Companion.getMinecraft().thePlayer.playSound("partlysaneskies:bell", 100, 1);
-            if (PartlySaneSkies.Companion.getConfig().getMiningShowEventBanner())
-                displayText = "Goblin Raid Event in 20s!";
-            if (PartlySaneSkies.Companion.getConfig().getMiningSendSystemNotifications() && !Display.isActive())
-                SystemNotification.INSTANCE.showNotification("Goblin Raid Event in 20s!");
+            if (PartlySaneSkies.Companion.getConfig().getMiningShowEventBanner()) displayText = "Goblin Raid Event in 20s!";
+            if (PartlySaneSkies.Companion.getConfig().getMiningSendSystemNotifications() && !Display.isActive()) SystemNotification.INSTANCE.showNotification("Goblin Raid Event in 20s!");
         }
 
         if (message.contains("§r§c§lGOBLIN RAID STARTED!") && PartlySaneSkies.Companion.getConfig().getMiningGoblinRaidSound()) {
@@ -109,35 +95,29 @@ public class MiningEvents {
             showBanner = true;
             PartlySaneSkies.Companion.getMinecraft().thePlayer.playSound("partlysaneskies:bell", 100, 1);
             if (PartlySaneSkies.Companion.getConfig().getMiningShowEventBanner()) displayText = "Raffle Event in 20s!";
-            if (PartlySaneSkies.Companion.getConfig().getMiningSendSystemNotifications() && !Display.isActive())
-                SystemNotification.INSTANCE.showNotification("Raffle Event in 20s!");
+            if (PartlySaneSkies.Companion.getConfig().getMiningSendSystemNotifications() && !Display.isActive()) SystemNotification.INSTANCE.showNotification("Raffle Event in 20s!");
         }
 
         if (message.contains("§r§6§lRAFFLE STARTED!") && PartlySaneSkies.Companion.getConfig().getMiningRaffleSound()) {
             showBanner = true;
             PartlySaneSkies.Companion.getMinecraft().thePlayer.playSound("partlysaneskies:bell", 100, 1);
             if (PartlySaneSkies.Companion.getConfig().getMiningShowEventBanner()) displayText = "Raffle Event Started!";
-            if (PartlySaneSkies.Companion.getConfig().getMiningSendSystemNotifications() && !Display.isActive())
-                SystemNotification.INSTANCE.showNotification("Raffle Event Started!");
+            if (PartlySaneSkies.Companion.getConfig().getMiningSendSystemNotifications() && !Display.isActive()) SystemNotification.INSTANCE.showNotification("Raffle Event Started!");
         }
 
         // Gourmand
         if (message.contains("§eThe §bMithril Gourmand §eevent starts in §a20 §eseconds!") && PartlySaneSkies.Companion.getConfig().getMiningMithrilGourmandSound() && PartlySaneSkies.Companion.getConfig().getMiningWarn20sBeforeEvent()) {
             showBanner = true;
             PartlySaneSkies.Companion.getMinecraft().thePlayer.playSound("partlysaneskies:bell", 100, 1);
-            if (PartlySaneSkies.Companion.getConfig().getMiningShowEventBanner())
-                displayText = "Mithril Gourmand Event in 20s!";
-            if (PartlySaneSkies.Companion.getConfig().getMiningSendSystemNotifications() && !Display.isActive())
-                SystemNotification.INSTANCE.showNotification("Mithril Gourmand Event in 20s!");
+            if (PartlySaneSkies.Companion.getConfig().getMiningShowEventBanner()) displayText = "Mithril Gourmand Event in 20s!";
+            if (PartlySaneSkies.Companion.getConfig().getMiningSendSystemNotifications() && !Display.isActive()) SystemNotification.INSTANCE.showNotification("Mithril Gourmand Event in 20s!");
         }
 
         if (message.contains("§r§b§lMITHRIL GOURMAND STARTED!") && PartlySaneSkies.Companion.getConfig().getMiningMithrilGourmandSound()) {
             showBanner = true;
             PartlySaneSkies.Companion.getMinecraft().thePlayer.playSound("partlysaneskies:bell", 100, 1);
-            if (PartlySaneSkies.Companion.getConfig().getMiningShowEventBanner())
-                displayText = "Mithril Gourmand Event Started!";
-            if (PartlySaneSkies.Companion.getConfig().getMiningSendSystemNotifications() && !Display.isActive())
-                SystemNotification.INSTANCE.showNotification("Mithril Gourmand Event Started!");
+            if (PartlySaneSkies.Companion.getConfig().getMiningShowEventBanner()) displayText = "Mithril Gourmand Event Started!";
+            if (PartlySaneSkies.Companion.getConfig().getMiningSendSystemNotifications() && !Display.isActive()) SystemNotification.INSTANCE.showNotification("Mithril Gourmand Event Started!");
         }
 
         // Powder Ghast
@@ -145,8 +125,7 @@ public class MiningEvents {
             showBanner = true;
             PartlySaneSkies.Companion.getMinecraft().thePlayer.playSound("partlysaneskies:bell", 100, 1);
             if (PartlySaneSkies.Companion.getConfig().getMiningShowEventBanner()) displayText = "Powder Ghast Spawned!";
-            if (PartlySaneSkies.Companion.getConfig().getMiningSendSystemNotifications() && !Display.isActive())
-                SystemNotification.INSTANCE.showNotification("Powder Ghast Spawned!");
+            if (PartlySaneSkies.Companion.getConfig().getMiningSendSystemNotifications() && !Display.isActive()) SystemNotification.INSTANCE.showNotification("Powder Ghast Spawned!");
         }
 
         // Fallen Star
@@ -154,8 +133,7 @@ public class MiningEvents {
             showBanner = true;
             PartlySaneSkies.Companion.getMinecraft().thePlayer.playSound("partlysaneskies:bell", 100, 1);
             if (PartlySaneSkies.Companion.getConfig().getMiningShowEventBanner()) displayText = "Fallen Star Spawned!";
-            if (PartlySaneSkies.Companion.getConfig().getMiningSendSystemNotifications() && !Display.isActive())
-                SystemNotification.INSTANCE.showNotification("Fallen Star Spawned!");
+            if (PartlySaneSkies.Companion.getConfig().getMiningSendSystemNotifications() && !Display.isActive()) SystemNotification.INSTANCE.showNotification("Fallen Star Spawned!");
         }
 
         if (showBanner) {
