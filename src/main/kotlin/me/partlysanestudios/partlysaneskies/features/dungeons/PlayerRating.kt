@@ -173,7 +173,7 @@ object PlayerRating {
     fun registerReprintCommand() {
         PSSCommand(
             "reprintscore", mutableListOf("rps", "rs"), "Reprints the last score in a dungeon run"
-        ) { _: ICommandSender?, _: Array<String> -> reprintLastScore() }.register()
+        ) { reprintLastScore() }.register()
     }
 
     @SubscribePSSEvent

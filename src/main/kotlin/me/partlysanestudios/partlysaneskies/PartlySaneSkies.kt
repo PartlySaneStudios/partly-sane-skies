@@ -119,11 +119,8 @@ class PartlySaneSkies {
         var discordCode = "v4PU3WeH7z"
         val config: OneConfigScreen = OneConfigScreen
 
-        val minecraft: Minecraft
-            get() {
-                return pssMinecraft ?: Minecraft.getMinecraft()
-            }
-        private var pssMinecraft: Minecraft? = null
+        lateinit var minecraft: Minecraft
+            private set
 
         // Names of all the ranks to remove from people's names
         val RANK_NAMES = arrayOf(
@@ -151,7 +148,7 @@ class PartlySaneSkies {
     @Mod.EventHandler
     fun init(event: FMLInitializationEvent) {
         log(Level.INFO, "Hallo World!")
-        pssMinecraft = Minecraft.getMinecraft()
+        minecraft = Minecraft.getMinecraft()
 
         // Creates the partly-sane-skies directory if not already made
         File("./config/partly-sane-skies/").mkdirs()
