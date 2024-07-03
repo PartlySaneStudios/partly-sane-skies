@@ -7,16 +7,11 @@ import me.partlysanestudios.partlysaneskies.utils.StringUtils.pluralize
 
 object RareDropGUIManager {
 
-    var currentFilterType = FilterType.BLACKLIST
-
-    var filter
-        get() = currentFilterType.filter
+    var currentFilterType: FilterType = FilterType.BLACKLIST
+        get() = FilterType.BLACKLIST
         set(value) {
-            currentFilterType.filter = value
+            field = value
         }
-
-    private var whiteList = setOf<String>()
-    private var blackList = setOf<String>()
 
     fun registerCommand() {
         PSSCommand("raredrop")
@@ -30,7 +25,7 @@ object RareDropGUIManager {
 
     fun addFilter(vararg filters: String) {
         ChatUtils.sendClientMessage("Added ${"filter".pluralize(filters.size)}")
-        filter += filters
+        currentFilterType.filter += filters
     }
 
     private fun openGui() {
@@ -141,7 +136,7 @@ object RareDropGUIManager {
     )
 
     enum class FilterType(val displayName: String, var filter: Set<String>) {
-        BLACKLIST("Blacklist", blackList),
-        WHITELIST("Whitelist", whiteList),
+        BLACKLIST("Blacklist", mutableSetOf()),
+        WHITELIST("Whitelist", mutableSetOf()),
     }
 }

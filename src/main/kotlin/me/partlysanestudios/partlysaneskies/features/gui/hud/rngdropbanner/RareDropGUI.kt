@@ -141,14 +141,14 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
     private fun updateFilterList() {
         activeFiltersScrollComponent.clearChildren()
 
-        RareDropGUIManager.filter
+        currentFilterType.filter
             .filter { it.contains(activeFiltersSearchBar.getText(), ignoreCase = true) }
             .forEach { filter ->
                 UIText("§cx").constrain {
                     x = 0.percent
                     y = SiblingConstraint(4f)
                 }.onMouseClick {
-                    RareDropGUIManager.filter -= filter
+                    currentFilterType.filter -= filter
                     updateFilterList()
                 } childOf activeFiltersScrollComponent
 
