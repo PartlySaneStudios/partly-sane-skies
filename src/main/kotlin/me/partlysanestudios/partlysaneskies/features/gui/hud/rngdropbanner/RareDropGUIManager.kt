@@ -1,3 +1,8 @@
+//
+// Written by J10an15.
+// See LICENSE for copyright and license notices.
+//
+
 package me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner
 
 import cc.polyfrost.oneconfig.utils.gui.GuiUtils
