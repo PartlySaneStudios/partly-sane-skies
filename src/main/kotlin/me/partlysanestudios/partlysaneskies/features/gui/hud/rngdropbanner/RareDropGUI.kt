@@ -122,21 +122,7 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
     fun update() {
         updateFilterList()
         addPresets()
-
-        PSSButton()
-            .setText("Add ${currentFilterType.displayName} Filter")
-            .setX(5.percent)
-            .setY(15.percent)
-            .setHeight(40f)
-            .setWidth(50f)
-            .setChildOf(createFilterContainer)
-            .onMouseClickConsumer {
-                val text = createFiltersInput.getText()
-                if (text.isBlank()) return@onMouseClickConsumer
-                RareDropGUIManager.addFilter(text)
-                createFiltersInput.setText("")
-                updateFilterList()
-            }
+        addFilterCreationButtons()
     }
 
     private fun updateFilterList() {
@@ -161,14 +147,46 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
             }
     }
 
+    private fun addFilterCreationButtons() {
+        PSSButton()
+            .setText("Add ${currentFilterType.displayName} Filter")
+            .setX(5.percent)
+            .setY(15.percent)
+            .setHeight(50f)
+            .setWidth(60f)
+            .setChildOf(createFilterContainer)
+            .onMouseClickConsumer {
+                val text = createFiltersInput.getText()
+                if (text.isBlank()) return@onMouseClickConsumer
+                RareDropGUIManager.addFilter(text)
+                createFiltersInput.setText("")
+                updateFilterList()
+            }
+
+        val opposite = RareDropGUIManager.FilterType.entries.first { it != currentFilterType }
+        PSSButton()
+            .setText("Switch to ${opposite.displayName}")
+            .setX(5.percent)
+            .setY(SiblingConstraint(5f))
+            .setHeight(50f)
+            .setWidth(60f)
+            .setChildOf(createFilterContainer)
+            .onMouseClickConsumer {
+                currentFilterType = opposite
+                RareDropGUIManager.saveData()
+                update()
+                activeFiltersHeading.setText("${currentFilterType.displayName} Filters:")
+            }
+    }
+
     private fun addPresets() {
         RareDropGUIManager.presets.forEachIndexed { columnIndex, (presetName, items) ->
             PSSButton()
                 .setText(presetName)
                 .setX((15 * columnIndex + 5).percent)
                 .setY(CenterConstraint())
-                .setWidth(50f)
                 .setHeight(50f)
+                .setWidth(60f)
                 .setChildOf(presetsContainer)
                 .onMouseClickConsumer {
                     RareDropGUIManager.addFilter(*items.toTypedArray())
