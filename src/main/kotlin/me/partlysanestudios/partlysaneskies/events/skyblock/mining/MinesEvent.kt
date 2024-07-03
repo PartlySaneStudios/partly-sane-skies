@@ -13,22 +13,22 @@ import me.partlysanestudios.partlysaneskies.utils.HypixelUtils.inAdvancedMiningI
 
 class MinesEvent(val miningEvent: MiningEvent) {
     companion object {
-        internal fun onMessageRecieved(functionList: List<EventManager.EventFunction>, formattedMessage: String) {
+        internal fun onMessageReceived(functionList: List<EventManager.EventFunction>, formattedMessage: String) {
             if (!inAdvancedMiningIsland()) return
 
-            MiningEvent.entries.forEach {
-                if (it.triggeredEvent(formattedMessage)) {
-                    ChatUtils.sendClientMessage("Triggered event: ${it.event}")
+            MiningEvent.entries
+                .firstOrNull { it.triggeredEvent(formattedMessage) }
+                ?.let { event ->
+                    ChatUtils.sendClientMessage("Triggered event: ${event.event}")
                     for (function in functionList) {
                         try {
-                            function.function.call(function.obj, it)
-                        } catch (exception: Exception) {
-                            exception.printStackTrace()
+                            ChatUtils.sendClientMessage("Calling function: ${function.function.name}")
+                            function.function.call(function.obj, MinesEvent(event))
+                        } catch (e: Exception) {
+                            e.printStackTrace()
                         }
                     }
                 }
-
-            }
         }
     }
 }

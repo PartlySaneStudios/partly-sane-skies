@@ -34,7 +34,7 @@ object EventManager {
             if (functionParameters.size != 2) { // if there is not only 1 parameter (param 1 is always the instance parameter
                 log(
                     Level.WARN,
-                    "Unable to add ${function.name} due to incorrect number of function parameters (${functionParameters.size}"
+                    "Unable to add ${function.name} due to incorrect number of function parameters (${functionParameters.size}",
                 )
                 continue
             }
@@ -50,18 +50,15 @@ object EventManager {
 
     @SubscribeEvent
     fun onScreenRender(event: RenderWorldLastEvent) {
-        RenderWaypointEvent.onEventCall(
-            event.partialTicks,
-            registeredFunctions[RenderWaypointEvent::class] ?: ArrayList()
-        )
+        RenderWaypointEvent.onEventCall(event.partialTicks, registeredFunctions[RenderWaypointEvent::class] ?: ArrayList())
     }
 
     @SubscribeEvent
-    fun onChatRecievedEvent(event: ClientChatReceivedEvent) {
+    fun onChatReceivedEvent(event: ClientChatReceivedEvent) {
         val message = event.message.formattedText
-        DungeonStartEvent.onMessageRecieved(registeredFunctions[DungeonStartEvent::class] ?: ArrayList(), message)
-        DungeonEndEvent.onMessageRecieved(registeredFunctions[DungeonEndEvent::class] ?: ArrayList(), message)
-        MinesEvent.onMessageRecieved(registeredFunctions[MinesEvent::class] ?: ArrayList(), message)
+        DungeonStartEvent.onMessageReceived(registeredFunctions[DungeonStartEvent::class] ?: ArrayList(), message)
+        DungeonEndEvent.onMessageReceived(registeredFunctions[DungeonEndEvent::class] ?: ArrayList(), message)
+        MinesEvent.onMessageReceived(registeredFunctions[MinesEvent::class] ?: ArrayList(), message)
     }
 
     internal class EventFunction(val obj: Any, val function: KFunction<*>)
