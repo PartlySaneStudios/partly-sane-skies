@@ -65,10 +65,7 @@ import me.partlysanestudios.partlysaneskies.features.farming.MathematicalHoeRigh
 import me.partlysanestudios.partlysaneskies.features.farming.WrongToolCropWarning
 import me.partlysanestudios.partlysaneskies.features.farming.endoffarmnotifer.EndOfFarmNotifier
 import me.partlysanestudios.partlysaneskies.features.farming.endoffarmnotifer.RangeHighlight
-import me.partlysanestudios.partlysaneskies.features.farming.garden.CompostValue
-import me.partlysanestudios.partlysaneskies.features.farming.garden.SkymartValue
-import me.partlysanestudios.partlysaneskies.features.farming.garden.VisitorLogbookStats
-import me.partlysanestudios.partlysaneskies.features.farming.garden.VisitorTradeValue
+import me.partlysanestudios.partlysaneskies.features.farming.garden.*
 import me.partlysanestudios.partlysaneskies.features.foraging.TreecapitatorCooldown
 import me.partlysanestudios.partlysaneskies.features.gui.CustomMainMenu
 import me.partlysanestudios.partlysaneskies.features.gui.RefreshKeybinds
@@ -85,7 +82,10 @@ import me.partlysanestudios.partlysaneskies.features.mining.crystalhollows.gemst
 import me.partlysanestudios.partlysaneskies.features.mining.crystalhollows.gemstonewaypoints.GemstoneWaypointRender
 import me.partlysanestudios.partlysaneskies.features.security.PrivacyMode
 import me.partlysanestudios.partlysaneskies.features.security.modschecker.ModChecker
+import me.partlysanestudios.partlysaneskies.features.skills.BestiaryMilestoneWebhook
+import me.partlysanestudios.partlysaneskies.features.skills.BestiaryLevelUpWebhook
 import me.partlysanestudios.partlysaneskies.features.skills.PetAlert
+import me.partlysanestudios.partlysaneskies.features.skills.PetLevelUpWebhook
 import me.partlysanestudios.partlysaneskies.features.skills.SkillUpgradeRecommendation
 import me.partlysanestudios.partlysaneskies.features.skills.SkillUpgradeWebhook
 import me.partlysanestudios.partlysaneskies.features.sound.EnhancedSound
@@ -130,11 +130,8 @@ class PartlySaneSkies {
         var discordCode = "v4PU3WeH7z"
         val config: OneConfigScreen = OneConfigScreen
 
-        val minecraft: Minecraft
-            get() {
-                return pssMinecraft ?: Minecraft.getMinecraft()
-            }
-        private var pssMinecraft: Minecraft? = null
+        lateinit var minecraft: Minecraft
+            private set
 
         // Names of all the ranks to remove from people's names
         val RANK_NAMES = arrayOf(
@@ -162,7 +159,7 @@ class PartlySaneSkies {
     @Mod.EventHandler
     fun init(event: FMLInitializationEvent) {
         log(Level.INFO, "Hallo World!")
-        pssMinecraft = Minecraft.getMinecraft()
+        minecraft = Minecraft.getMinecraft()
 
         // Creates the partly-sane-skies directory if not already made
         File("./config/partly-sane-skies/").mkdirs()
@@ -264,6 +261,10 @@ class PartlySaneSkies {
         registerEvent(WrongToolCropWarning.CropToolData)
         registerEvent(PetAlert)
         registerEvent(SkillUpgradeWebhook)
+        registerEvent(CropMilestoneWebhook)
+        registerEvent(BestiaryMilestoneWebhook)
+        registerEvent(BestiaryLevelUpWebhook)
+        registerEvent(PetLevelUpWebhook)
 
 
         // Registers all client side commands
@@ -298,6 +299,10 @@ class PartlySaneSkies {
         ExampleWebhook.register()
         DropWebhook.register()
         SkillUpgradeWebhook.register()
+        CropMilestoneWebhook.register()
+        BestiaryMilestoneWebhook.register()
+        BestiaryLevelUpWebhook.register()
+        PetLevelUpWebhook.register()
 
         ConfigManager.loadAllConfigs()
 

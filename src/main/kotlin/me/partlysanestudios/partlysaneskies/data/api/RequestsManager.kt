@@ -9,7 +9,8 @@ package me.partlysanestudios.partlysaneskies.data.api
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.utils.MathUtils
 import java.io.IOException
-import java.util.*
+import java.util.LinkedList
+import java.util.Queue
 
 object RequestsManager {
 
@@ -66,6 +67,12 @@ object RequestsManager {
             }
 
         } else {
+            var loggedUrl = element.getURL().toString()
+
+            if (loggedUrl.startsWith("https://discord.com/api/webhooks/")) {
+                loggedUrl = "https://discord.com/api/webhooks/****/****"
+            }
+
             // Creates a new thread to execute request
             Thread(Runnable {
                 try {
@@ -84,7 +91,7 @@ object RequestsManager {
                     element.getWhatToRunWhenFinished()?.run(element)
                     e.printStackTrace()
                 }
-            }, "Request to ${element.getURL()}").start()
+            }, "Request to $loggedUrl").start()
         }
     }
 

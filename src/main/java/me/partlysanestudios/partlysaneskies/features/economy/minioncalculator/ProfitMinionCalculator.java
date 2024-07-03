@@ -70,7 +70,7 @@ public class ProfitMinionCalculator extends WindowScreen {
                 .addAlias("bestminion")
                 .addAlias("mc")
                 .setDescription("Opens the best minion calculator")
-                .setRunnable((s, a) -> {
+                .setRunnable(a -> {
                     ChatUtils.INSTANCE.sendClientMessage("§bOpening Minion Calculator...");
                     MinecraftUtils.INSTANCE.displayGuiScreen(new ProfitMinionCalculator(ElementaVersion.V2));
                 })
