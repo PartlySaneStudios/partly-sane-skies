@@ -74,8 +74,6 @@ object DropBannerDisplay {
             return
         }
 
-        println(name)
-
         if (!isAllowedDrop(name.trim())) {
             return
         }
