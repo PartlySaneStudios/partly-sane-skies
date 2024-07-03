@@ -204,14 +204,7 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
         width = middleMenuBackground.getWidth().pixels
         color = Color(0, 0, 0, 0).constraint
     }.onMouseClick {
-        val runnable = {
-            mc.displayGuiScreen(GuiSelectWorld(this@PSSMainMenu))
-        }
-        if (PartlySaneSkies.isFirstLaunch) {
-            mc.displayGuiScreen(MainMenuOptionMenu(runnable))
-        } else {
-            runnable.invoke()
-        }
+        mc.displayGuiScreen(GuiSelectWorld(this@PSSMainMenu))
     }.onMouseEnter {
         for (child in this.children) {
             child.setColor(Color(200, 200, 200))
@@ -244,14 +237,7 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
         width = middleMenuBackground.getWidth().pixels
         color = Color(0, 0, 0, 0).constraint
     }.onMouseClick {
-        val runnable = {
-            mc.displayGuiScreen(GuiMultiplayer(this@PSSMainMenu))
-        }
-        if (PartlySaneSkies.isFirstLaunch) {
-            mc.displayGuiScreen(MainMenuOptionMenu(runnable))
-        } else {
-            runnable.invoke()
-        }
+        mc.displayGuiScreen(GuiMultiplayer(this@PSSMainMenu))
     }.onMouseEnter {
         for (child in this.children) {
             child.setColor(Color(200, 200, 200))
@@ -276,15 +262,10 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
         width = middleMenuBackground.getWidth().pixels
         color = Color(0, 0, 0, 0).constraint
     }.onMouseClick {
-        val runnable = {
-            FMLClientHandler.instance()
-                .connectToServer(GuiMultiplayer(minecraft.currentScreen), ServerData("tomato", "hypixel.net", false))
-        }
-        if (PartlySaneSkies.isFirstLaunch) {
-            mc.displayGuiScreen(MainMenuOptionMenu(runnable))
-        } else {
-            runnable.invoke()
-        }
+        FMLClientHandler.instance()
+            .connectToServer(GuiMultiplayer(minecraft.currentScreen), ServerData("tomato", "hypixel.net", false))
+
+        
     }.onMouseEnter {
         for (child in this.children) {
             child.setColor(Color(200, 200, 200))
