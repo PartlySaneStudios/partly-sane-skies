@@ -148,6 +148,6 @@ object RareDropGUIManager {
             }
         }
 
-        currentFilterType = FilterType.valueOf(jsonObject.get("currentFilterType").asString)
+        currentFilterType = FilterType.valueOf(jsonObject["currentFilterType"].asString)
     }
 }
