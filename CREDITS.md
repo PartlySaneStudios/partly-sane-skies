@@ -26,6 +26,8 @@ Discord and GitHub information for all contributors.
 
 - @salamibrod ([@DerGruenkohl](https://github.com/DerGruenkohl))
 
+- @empa_ ([@ItsEmpa](https://github.com/ItsEmpa/))
+
 ## Artists
 
 The FurfSky team does all textures labeled FurfSky. This includes:
