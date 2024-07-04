@@ -20,6 +20,7 @@ import gg.essential.elementa.dsl.childOf
 import gg.essential.elementa.dsl.constrain
 import gg.essential.elementa.dsl.constraint
 import gg.essential.elementa.dsl.percent
+import gg.essential.elementa.dsl.pixels
 import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.RareDropGUIManager.currentFilter
 import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.RareDropGUIManager.currentFilterType
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
@@ -152,8 +153,8 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
             .setText("Add ${currentFilterType.displayName} Filter")
             .setX(5.percent)
             .setY(15.percent)
-            .setHeight(50f)
-            .setWidth(60f)
+            .setHeight(50.pixels)
+            .setWidth(60.pixels)
             .setChildOf(createFilterContainer)
             .onMouseClickConsumer {
                 val text = createFiltersInput.getText()
@@ -168,8 +169,8 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
             .setText("Switch to ${opposite.displayName}")
             .setX(5.percent)
             .setY(SiblingConstraint(5f))
-            .setHeight(50f)
-            .setWidth(60f)
+            .setHeight(50.pixels)
+            .setWidth(60.pixels)
             .setChildOf(createFilterContainer)
             .onMouseClickConsumer {
                 currentFilterType = opposite
@@ -185,8 +186,8 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
                 .setText(presetName)
                 .setX((15 * columnIndex + 5).percent)
                 .setY(CenterConstraint())
-                .setHeight(50f)
-                .setWidth(60f)
+                .setHeight(50.pixels)
+                .setWidth(60.pixels)
                 .setChildOf(presetsContainer)
                 .onMouseClickConsumer {
                     RareDropGUIManager.addFilter(*items.toTypedArray())
