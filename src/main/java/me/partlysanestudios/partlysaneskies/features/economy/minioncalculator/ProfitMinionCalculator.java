@@ -70,7 +70,7 @@ public class ProfitMinionCalculator extends WindowScreen {
                 .addAlias("bestminion")
                 .addAlias("mc")
                 .setDescription("Opens the best minion calculator")
-                .setRunnable((s, a) -> {
+                .setRunnable(a -> {
                     ChatUtils.INSTANCE.sendClientMessage("§bOpening Minion Calculator...");
                     MinecraftUtils.INSTANCE.displayGuiScreen(new ProfitMinionCalculator(ElementaVersion.V2));
                 })
@@ -208,6 +208,7 @@ public class ProfitMinionCalculator extends WindowScreen {
                     .setX(fromWidthScaleFactor(10))
                     .setY(new PixelConstraint(yPos))
                     .setWidth(new PixelConstraint(leftBar.getLeft() - mainTextScrollComponent.getLeft() - fromWidthScaleFactor(20).getValue()))
+                    .setHeight(fromWidthScaleFactor(40))
                     .setChildOf(mainTextScrollComponent);
 
             PSSToggle toggle = new PSSToggle()

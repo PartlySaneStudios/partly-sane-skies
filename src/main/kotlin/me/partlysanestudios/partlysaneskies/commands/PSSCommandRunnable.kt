@@ -4,8 +4,6 @@
 //
 package me.partlysanestudios.partlysaneskies.commands
 
-import net.minecraft.command.ICommandSender
-
 fun interface PSSCommandRunnable {
-    fun run(sender: ICommandSender, args: Array<String>)
+    fun run(args: Array<String>)
 }

@@ -22,55 +22,43 @@ import java.util.function.Consumer
 
 class PSSButton {
 
-    private var backgroundBlock: UIBlock
-    private var buttonTexture: UIImage
-    private var textComponent: UIWrappedText
-    private var text: String
+    private var color: OneColor
+    private var text: String = ""
+    private val onMouseClick = ArrayList<Consumer<UIClickEvent>>()
+
+    private val backgroundBlock = UIBlock().constrain {
+        color = Color(0, 0, 0, 0).constraint
+    }.onMouseClick {
+        for (method in onMouseClick) {
+            method.accept(it)
+        }
+    }
+
+    private var buttonTexture = currentButtonUIImage.constrain {
+        x = CenterConstraint()
+        y = CenterConstraint()
+        width = 100.percent
+        height = 100.percent
+    } childOf backgroundBlock
+
+    private val textComponent = UIWrappedText(text, false, Color(0, 0, 0, 0), true).constrain {
+        x = CenterConstraint()
+        y = CenterConstraint()
+        width = 100.percent
+        color = Color.white.constraint
+    } childOf backgroundBlock
 
     constructor() {
         text = ""
-        backgroundBlock = UIBlock().constrain {
-            color = Color(0, 0, 0, 0).constraint
-        }
-
-        buttonTexture = currentButtonUIImage.constrain {
-            width = 100.percent
-            height = 100.percent
-            x = CenterConstraint()
-            y = CenterConstraint()
-        } childOf backgroundBlock
-
-        textComponent = UIWrappedText(text, false, Color(0, 0, 0, 0), true).constrain {
-            width = 100.percent
-            x = CenterConstraint()
-            y = CenterConstraint()
-            color = Color.white.constraint
-        } childOf buttonTexture
+        color = OneColor(0, 0, 0, 0)
     }
 
     constructor(color: Color) : this(OneColor(color))
 
     constructor(color: OneColor) {
         text = ""
-
-        backgroundBlock = UIBlock().constrain {
-            this.color = color.toJavaColor().constraint
-        }
-
-        buttonTexture = getCurrentButtonUIImage(color).constrain {
-            width = 100.percent
-            height = 100.percent
-            x = CenterConstraint()
-            y = CenterConstraint()
-        } childOf backgroundBlock
-
-        textComponent = UIWrappedText(text, false, Color(0, 0, 0, 0), true).constrain {
-            width = 100.percent
-            x = CenterConstraint()
-            y = CenterConstraint()
-            this.color = Color.white.constraint
-        } childOf buttonTexture
-
+        backgroundBlock.setColor(color.toJavaColor())
+        this.color = color
     }
 
     fun setHeight(height: HeightConstraint): PSSButton {
@@ -105,11 +93,14 @@ class PSSButton {
     fun setColor(color: OneColor): PSSButton {
         backgroundBlock.removeChild(buttonTexture)
         buttonTexture = getCurrentButtonUIImage(color).constrain {
-            width = 100.percent
-            height = 100.percent
             x = CenterConstraint()
             y = CenterConstraint()
+            width = 100.percent
+            height = 100.percent
         } childOf backgroundBlock
+
+        textComponent childOf buttonTexture
+
         backgroundBlock.setColor(color.toJavaColor())
         return this
     }
@@ -117,11 +108,14 @@ class PSSButton {
     fun setDefaultColor(): PSSButton {
         backgroundBlock.removeChild(buttonTexture)
         buttonTexture = currentButtonUIImage.constrain {
-            width = 100.percent
-            height = 100.percent
             x = CenterConstraint()
             y = CenterConstraint()
+            width = 100.percent
+            height = 100.percent
         } childOf backgroundBlock
+
+        textComponent childOf buttonTexture
+
         backgroundBlock.setColor(Color(0, 0, 0, 0))
         return this
     }
@@ -138,7 +132,7 @@ class PSSButton {
     }
 
     fun onMouseClickConsumer(method: Consumer<UIClickEvent>): PSSButton {
-        backgroundBlock.onMouseClickConsumer(method)
+        onMouseClick.add(method)
         return this
     }
 

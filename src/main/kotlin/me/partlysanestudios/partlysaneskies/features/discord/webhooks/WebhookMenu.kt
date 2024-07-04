@@ -32,7 +32,7 @@ class WebhookMenu: WindowScreen(ElementaVersion.V5) {
         fun registerWebhookCommand() {
             PSSCommand("webhook")
                 .addAlias("webhooks", "wh", "discordwebhook", "discordwebhooks")
-                .setRunnable { _, _ -> MinecraftUtils.displayGuiScreen(WebhookMenu())}
+                .setRunnable { MinecraftUtils.displayGuiScreen(WebhookMenu()) }
                 .setDescription("Opens the menu to edit webhook events")
                 .register()
         }
