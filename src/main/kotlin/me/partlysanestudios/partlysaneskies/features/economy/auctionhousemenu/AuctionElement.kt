@@ -318,7 +318,7 @@ class AuctionElement(
         this.heightConstraint = heightConstraint
         val boxHeight = heightConstraint * 2 / 3.0f
         val boxY = 0
-        box.setWidth(boxHeight.pixels).setHeight(boxHeight.pixels)
+        box.setWidth(boxHeight).setHeight(boxHeight)
         box.setY(boxY.pixels)
 
 
