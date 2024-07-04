@@ -16,12 +16,14 @@ import java.nio.file.Paths
 
 object WordEditor {
 
+    private const val WORD_EDITOR_PATH = "./config/partly-sane-skies/wordEditor.json"
+
     // TODO change to map?
     var wordsToEdit: Array<Array<String>> = arrayOf()
         private set
 
     fun load() {
-        val file = File("./config/partly-sane-skies/wordEditor.json")
+        val file = File(WORD_EDITOR_PATH)
         file.setWritable(true)
         if (file.createNewFile()) {
             FileWriter(file).use { it.write(Gson().toJson(arrayOf<Array<String>>())) }
@@ -31,7 +33,7 @@ object WordEditor {
     }
 
     fun save() {
-        val file = File("./config/partly-sane-skies/wordEditor.json")
+        val file = File(WORD_EDITOR_PATH)
         file.createNewFile()
         val gson: Gson = GsonBuilder()
             .setPrettyPrinting()

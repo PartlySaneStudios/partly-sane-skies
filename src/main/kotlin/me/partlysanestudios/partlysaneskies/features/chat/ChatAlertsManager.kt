@@ -6,7 +6,6 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand
 import me.partlysanestudios.partlysaneskies.system.SystemNotification
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils
-import me.partlysanestudios.partlysaneskies.utils.StringUtils
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.formatNumber
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import net.minecraft.util.ChatComponentText
@@ -17,8 +16,6 @@ import java.io.FileWriter
 import java.io.IOException
 import java.nio.file.Files
 import java.nio.file.Paths
-import java.util.ArrayList
-import java.util.Locale
 
 object ChatAlertsManager {
     private const val DATA_PATH_NAME = "./config/partly-sane-skies/chatAlertsData.json"
@@ -46,9 +43,7 @@ object ChatAlertsManager {
 
     fun registerCommand() {
         PSSCommand("chatalerts")
-            .addAlias("ca")
-            .addAlias("chatAlert")
-            .addAlias("chal")
+            .addAlias("ca", "chatAlert", "chal")
             .setDescription("Operates the chat alerts feature: /chatalerts <add/remove/list> ")
             .setRunnable { args ->
                 when {
@@ -67,7 +62,7 @@ object ChatAlertsManager {
                             if (args.size == 1) {
                                 ChatUtils.sendClientMessage("§cIncorrect usage. Correct usage: /chatalerts remove [number]")
                             } else {
-                                val id = args[1].toIntOrNull()?.let { removeAlert(it) } ?: run {
+                                args[1].toIntOrNull()?.let { removeAlert(it) } ?: run {
                                     ChatUtils.sendClientMessage("§c\"${args[1]}\" could not be read as a number. Correct Usage: /chatalerts remove [number]")
                                 }
                             }
@@ -88,7 +83,7 @@ object ChatAlertsManager {
         }
     }
 
-    fun addAlert(alert: String) {
+    private fun addAlert(alert: String) {
         chatAlertsList += alert
         try {
             save()
@@ -101,7 +96,7 @@ object ChatAlertsManager {
 
     fun getChatAlertCount(): Int = chatAlertsList.size
 
-    fun listAlerts() {
+    private fun listAlerts() {
         val message = StringBuilder("§d§m-----------------------------------------------------\n§bChat Alerts:\n§d§m-----------------------------------------------------\n")
         chatAlertsList.forEachIndexed { index, alert ->
             message.append("${(index+1).formatNumber()}: $alert\n")
@@ -109,7 +104,7 @@ object ChatAlertsManager {
         ChatUtils.sendClientMessage(message.toString())
     }
 
-    fun removeAlert(id: Int) {
+    private fun removeAlert(id: Int) {
         if (id > chatAlertsList.size || id <= 0) {
             ChatUtils.sendClientMessage("§cChat alert number $id was not found. Please enter a valid number.")
             return

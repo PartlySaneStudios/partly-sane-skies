@@ -66,11 +66,11 @@ object ChatColors {
         else -> ""
     }
 
-    private val prefixPattern = "(?<chat>Party|Guild|Officer|To|From|Co-op) >?".toPattern()
+    private val prefixPattern = "(?<chat>Party|Guild|Officer|To|From|Co-op) >?.*".toPattern()
 
     fun getPrefix(message: String): String = prefixPattern.matchGroup(message.removeColorCodes(), "chat") ?: ""
 
-    fun insertColor(message: String, color: String): String {
+    private fun insertColor(message: String, color: String): String {
         var messageStartIndex = -1
 
         for (prefix in ChatAlertsManager.MESSAGE_PREFIXES) {
@@ -82,12 +82,9 @@ object ChatColors {
 
         if (messageStartIndex == -1) return message
 
-        var messageString = message.substring(messageStartIndex)
         val preMessageString = message.substring(0, messageStartIndex)
+        val messageString = message.substring(messageStartIndex)
 
-        messageString = messageString.removeColorCodes()
-        messageString = color + messageString
-
-        return preMessageString + messageString
+        return preMessageString + color + messageString.removeColorCodes()
     }
 }
