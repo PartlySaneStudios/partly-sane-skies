@@ -16,21 +16,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Pseudo
 @Mixin(targets = "gg.essential.network.connectionmanager.telemetry.TelemetryManager", remap = false)
 public class MixinEssentialsTelemetryManager {
-    @Inject(method = "sendHardwareAndOSTelemetry*", at = @At("HEAD"), cancellable = true)
-    public void onSendHardwareAndOSTelemetryHead(CallbackInfo ci) {
-        if (PartlySaneSkies.Companion.getConfig() == null) {
-            return;
-        }
-        if (PrivacyMode.INSTANCE.shouldBlockTelemetry()) {
-            ci.cancel();
-        }
-    }
 
-    @Inject(method = "enqueue*", at = @At("HEAD"), cancellable = true)
-    public void onEnqueueHead(CallbackInfo ci) {
-        if (PartlySaneSkies.Companion.getConfig() == null) {
-            return;
-        }
+    @Inject(method = {"sendHardwareAndOSTelemetry*", "enqueue*"}, at = @At("HEAD"), cancellable = true)
+    public void onTelemetry(CallbackInfo ci) {
+        if (PartlySaneSkies.Companion.getConfig() == null) return;
         if (PrivacyMode.INSTANCE.shouldBlockTelemetry()) {
             ci.cancel();
         }
