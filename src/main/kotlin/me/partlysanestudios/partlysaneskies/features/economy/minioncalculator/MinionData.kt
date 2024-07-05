@@ -8,24 +8,24 @@ import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.data.LoadPublicDataEvent
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.round
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.formatNumber
-import me.partlysanestudios.partlysaneskies.utils.SystemUtils
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.getJsonFromPath
-import org.apache.logging.log4j.Level
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.seconds
 
 object MinionData {
     // A hashmap with the key as the minion id, and the value as the minion object
-    val minionMap = mutableMapOf<String, Minion>()
+    private val minionMap = mutableMapOf<String, Minion>()
 
     // A hashmap with the key as the id of the fuel, and the value as the fuel object
-    val fuelMap = mutableMapOf<String, MinionFuel>()
+    private val fuelMap = mutableMapOf<String, MinionFuel>()
 
     // The URL with the location of the minion data
     private const val MINIONS_DATA_URL = "constants/minion_data.json"
 
     // init: runs before the request ------ CALL THIS TO INIT
 
-    fun getMostProfitMinionString(hours: Double, upgrades: Array<Minion.Upgrade>, fuel: MinionFuel?) = buildString {
-        append("§7In §6$hours§7 hour(s): (Upgrade:${upgrades.asList()})")
+    fun getMostProfitMinionString(hours: Double, upgrades: List<Minion.Upgrade>, fuel: MinionFuel?) = buildString {
+        append("§7In §6$hours§7 hour(s): (Upgrade:${upgrades})")
         val mostProfitableMinions = getBestMinions(upgrades, fuel)
 
         mostProfitableMinions.forEachIndexed { i, (minion, _) ->
@@ -33,25 +33,27 @@ object MinionData {
         }
     }
 
-    fun getBestMinions(upgrade: Array<Minion.Upgrade>, fuel: MinionFuel?): List<Pair<Minion, Double>> =
+    fun getBestMinions(upgrade: List<Minion.Upgrade>, fuel: MinionFuel?): List<Pair<Minion, Double>> =
         minionMap.map { (_, minion) ->
             minion to minion.getTotalProfitPerMinute(minion.maxTier, upgrade, fuel)
         }.sortedByDescending { it.second }
 
 
     @JvmStatic // TODO: replace with getBestMinions
-    fun getMostProfitMinion(upgrades: Array<Minion.Upgrade>, fuel: MinionFuel?): LinkedHashMap<Minion, Double> {
+    fun getMostProfitMinion(upgrades: List<Minion.Upgrade>, fuel: MinionFuel?): LinkedHashMap<Minion, Double> {
         val priceMap = HashMap<Minion, Double>()
 
-        for ((id, minion) in minionMap) {
+        for ((_, minion) in minionMap) {
             priceMap[minion] = minion.getTotalProfitPerMinute(minion.maxTier, upgrades, fuel)
         }
         return sortMap(priceMap)
     }
 
+
     @JvmStatic
     fun getMinion(id: String): Minion? = minionMap[id]
 
+    // TODO: remove
     // Sorts the hashmap in descending order
     @JvmStatic
     fun sortMap(map: HashMap<Minion, Double>): LinkedHashMap<Minion, Double> {
@@ -91,108 +93,93 @@ object MinionData {
     }
 
     class Minion(val id: String, obj: JsonObject) {
-        val displayName: String = obj.getJsonFromPath("/displayName")?.asString ?: ""
-        val drops = HashMap<String, Double>()
-        val cooldowns = HashMap<Int, Double>()
-        val category: String = obj.getJsonFromPath("/category")?.asString ?: ""
+        val displayName: String = obj.getJsonFromPath("/display_name")?.asString ?: id
+        private val drops = mutableMapOf<String, Double>()
+        private val cooldowns = mutableMapOf<Int, Duration>()
+        private val category: String = obj.getJsonFromPath("/category")?.asString ?: ""
         val maxTier: Int = obj.getJsonFromPath("/maxTier")?.asInt ?: 11
-        private val kraumpusSpeedIncrease = arrayOf("SNOW_GENERATOR")
+
+        private val kraumpusSpeedIncrease = setOf("SNOW_GENERATOR")
 
         init {
             obj.getJsonFromPath("/drops")?.asJsonObject?.let { dropsJson ->
                 for ((dropId, dropValue) in dropsJson.entrySet()) {
                     drops[dropId] = dropValue.asDouble
+                    drops[dropId] = dropValue.asDouble
                 }
             }
             obj.getJsonFromPath("/cooldown")?.asJsonObject?.let { cooldownJson ->
                 for ((tier, cooldownValue) in cooldownJson.entrySet()) {
-                    cooldowns[tier.toInt()] = cooldownValue.asDouble
+                    cooldowns[tier.toInt()] = cooldownValue.asDouble.seconds
                 }
             }
         }
 
         override fun toString(): String = "$id: Drops:$drops Cooldowns:$cooldowns"
 
-        fun getBaseItemsPerMinute(tier: Int, upgrades: Array<Upgrade>, fuel: MinionFuel?): HashMap<String, Double> {
-            val upgradesList = upgrades.toList()
-            var cooldownInSeconds = cooldowns[tier] ?: cooldowns[maxTier] ?: Double.MAX_VALUE
+        fun getBaseItemsPerMinute(tier: Int, upgrades: List<Upgrade>, fuel: MinionFuel?): MutableMap<String, Double> {
+            var cooldown = cooldowns[tier] ?: cooldowns[maxTier] ?: Duration.INFINITE
 
             var speedUpgrade = 0.0
-            if (upgradesList.contains(Upgrade.MINION_EXPANDER)) speedUpgrade += 0.05
-            if (upgradesList.contains(Upgrade.FLYCATCHER_UPGRADE)) speedUpgrade += 0.2
-            if (upgradesList.contains(Upgrade.SOULFLOW_ENGINE) || upgradesList.contains(Upgrade.LESSER_SOULFLOW_ENGINE)) speedUpgrade -= 0.5
-            if (upgradesList.contains(Upgrade.SOULFLOW_ENGINE) && id == "VOIDLING_GENERATOR") speedUpgrade += 0.03 * tier
+            if (upgrades.contains(Upgrade.MINION_EXPANDER)) speedUpgrade += 0.05
+            if (upgrades.contains(Upgrade.FLYCATCHER_UPGRADE)) speedUpgrade += 0.2
+            if (upgrades.contains(Upgrade.SOULFLOW_ENGINE) || upgrades.contains(Upgrade.LESSER_SOULFLOW_ENGINE)) speedUpgrade -= 0.5
+            if (upgrades.contains(Upgrade.SOULFLOW_ENGINE) && id == "VOIDLING_GENERATOR") speedUpgrade += 0.03 * tier
 
             fuel?.let { speedUpgrade += it.upgrade }
 
-            cooldownInSeconds /= (1 + speedUpgrade)
-
-            // Calculates the correct cooldown in minutes
-            val cooldownInMinute = cooldownInSeconds / 60.0
+            cooldown /= (1 + speedUpgrade)
 
             // Adds the items generated
-            val items = HashMap<String, Double>()
-            for ((dropId, dropValue) in drops) {
-                items[dropId] = (1 / (2 * cooldownInMinute)) * dropValue
-            }
+            val items = drops.mapValues { (_, dropValue) ->
+                (1 / (2 * cooldown.inWholeMinutes)) * dropValue
+            }.toMutableMap()
 
             // Adds the fuel in subtracted amount
-            if (fuel != null && fuel.duration != -1.0) {
-                items[fuel.id] = -fuel.amountNeeded(1.0)
+            fuel?.amountNeeded()?.let {
+                items[fuel.id] = -it
             }
 
             // Totals the number of items produced
-            var baseItemsProduced = 0
-            for (itemQuantity in items.values) {
-                baseItemsProduced += itemQuantity.toInt()
-            }
+            val baseItemsProduced = items.values.sum()
 
             // Adds the gifts generated by Krampus helm
-            if (upgradesList.contains(Upgrade.KRAMPUS_HELMET)) {
-                if (kraumpusSpeedIncrease.contains(id)) {
-                    items["RED_GIFT"] = baseItemsProduced * 0.0045 / 100 * 4
-                } else {
-                    items["RED_GIFT"] = baseItemsProduced * 0.0045 / 100
-                }
+            if (Upgrade.KRAMPUS_HELMET in upgrades) {
+                val produced = (baseItemsProduced * 0.045 / 100)
+                items["RED_GIFT"] = if (id in kraumpusSpeedIncrease) produced * 4 else produced
             }
 
             // Adds the diamonds generated by diamond spreading
-            if (upgradesList.contains(Upgrade.DIAMOND_SPREADING)) {
+            if (Upgrade.DIAMOND_SPREADING in upgrades) {
                 items["DIAMOND"] = baseItemsProduced * 0.1
             }
 
             // Adds the potato generated by potato spreading
-            if (upgradesList.contains(Upgrade.POTATO_SPREADING)) {
+            if (Upgrade.POTATO_SPREADING in upgrades) {
                 items["POTATO_ITEM"] = baseItemsProduced * 0.05
             }
 
             // Added the soulflow generated by the soulflow engines
-            if (upgradesList.contains(Upgrade.SOULFLOW_ENGINE) || upgradesList.contains(Upgrade.LESSER_SOULFLOW_ENGINE)) {
+            val soulflowUpgrades = setOf(Upgrade.SOULFLOW_ENGINE, Upgrade.LESSER_SOULFLOW_ENGINE)
+            if (soulflowUpgrades.any { it in upgrades }) {
                 items["RAW_SOULFLOW"] = 1.0 / 3
             }
 
             return items
         }
 
-        fun getTotalProfitPerMinute(tier: Int, upgrades: Array<Upgrade>, fuel: MinionFuel?): Double {
+        fun getTotalProfitPerMinute(tier: Int, upgrades: List<Upgrade>, fuel: MinionFuel?): Double {
             var totalProfit = 0.0
 
             for ((itemId, amount) in getBaseItemsPerMinute(tier, upgrades, fuel)) {
-                var price = 0.0
-                try {
-                    price = SkyblockDataManager.getItem(itemId)?.getBestPrice() ?: 0.0
-                } catch (e: NullPointerException) {
-                    SystemUtils.log(Level.WARN, "$itemId: DOES NOT HAVE PRICE")
-                }
-
+                val price = runCatching { SkyblockDataManager.getItem(itemId)?.getBestPrice() }.getOrNull() ?: 0.0
                 totalProfit += price * amount
             }
 
             return totalProfit
         }
 
-        fun costBreakdown(tier: Int, hours: Double, upgrades: Array<Upgrade>, fuel: MinionFuel?): String {
-            // Creates a color for each prefix
+        fun costBreakdown(tier: Int, hours: Double, upgrades: List<Upgrade>, fuel: MinionFuel?) = buildString {
             val colorPrefix = when (category) {
                 "COMBAT" -> "§c"
                 "FARMING" -> "§a"
@@ -201,60 +188,41 @@ object MinionData {
                 "FISHING" -> "§b"
                 else -> "§7"
             }
+            append("$colorPrefix$displayName§7:")
 
-            val str = StringBuilder("$colorPrefix$displayName§:")
-
-            for ((itemId, amountPerMinute) in getBaseItemsPerMinute(maxTier, upgrades, fuel)) {
+            for ((itemId, amountPerMinute) in getBaseItemsPerMinute(tier, upgrades, fuel)) {
                 // Individual price of the item
                 var price = SkyblockDataManager.getItem(itemId)?.getBestPrice() ?: 0.0
                 price = price.round(1) // rounded to 1 decimal place
 
                 // Total amount of money made by the item
-                var totalItemProfit = amountPerMinute
-                totalItemProfit *= 60 * hours
-                totalItemProfit = totalItemProfit.round(1) // rounded to 1 decimal place
-
-                str.append("\n§7   §6x").append(totalItemProfit.formatNumber()).append("§7 §6")
-                    .append(SkyblockDataManager.getItem(itemId)?.name).append("§7 for ")
-                    .append(price.formatNumber()).append(" coins each.")
+                val totalItemProfit = (amountPerMinute * 60 * hours).round(1)
+                append("\n   ")
+                append("§6x${totalItemProfit.formatNumber()} ")
+                append("§6${SkyblockDataManager.getItem(itemId)?.name} ")
+                append("§7for ${price.formatNumber()} coins each.")
             }
-
-            // Total amount of money made in given hours by the minion
-            var totalMinionProfit = getTotalProfitPerMinute(tier, upgrades, fuel)
-            totalMinionProfit *= 60 * hours
-            totalMinionProfit = totalMinionProfit.round(1) // rounded to 1 decimal place
-
-            str.append("\n§7   Total: §6").append(totalMinionProfit.formatNumber()).append("§7 coins in ")
-                .append(hours.formatNumber()).append(" hours.")
-
-            return str.toString()
         }
 
         enum class Upgrade {
             DIAMOND_SPREADING,
             KRAMPUS_HELMET,
             POTATO_SPREADING,
+            LESSER_SOULFLOW_ENGINE,
+            SOULFLOW_ENGINE,
             MINION_EXPANDER,
             FLYCATCHER_UPGRADE,
-            LESSER_SOULFLOW_ENGINE,
-            SOULFLOW_ENGINE
         }
     }
 
-    class MinionFuel(val id: String, val duration: Double, val upgrade: Double) {
+    class MinionFuel(val id: String, private val duration: Double?, val upgrade: Double) {
         constructor(id: String, obj: JsonObject) : this(
             id,
-            obj.getJsonFromPath("duration")?.asDouble ?: 0.0,
+            obj.getJsonFromPath("duration")?.asDouble,
             obj.getJsonFromPath("speed_upgrade")?.asDouble ?: 0.0
         )
 
         // Returns the amount of fuel needed for the duration specified (in minutes)
-        fun amountNeeded(minuteDuration: Double): Double {
-            return if (duration == -1.0) {
-                -1.0
-            } else {
-                minuteDuration / duration
-            }
-        }
+        fun amountNeeded(minuteDuration: Double = 1.0): Double? = duration?.let { minuteDuration / it }
     }
 }
