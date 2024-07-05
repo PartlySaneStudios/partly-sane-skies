@@ -440,7 +440,7 @@ public class PartyMember {
                 .setHeight(new PixelConstraint(55f * scaleFactor))
                 .setChildOf(memberBlock)
                 .setText("Kick")
-                .setTextScale(scaleFactor)
+                .setTextScale(new PixelConstraint(scaleFactor))
                 .onMouseClickConsumer(event -> PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/party kick " + this.username));
 
         new PSSButton()
@@ -450,7 +450,7 @@ public class PartyMember {
                 .setHeight(new PixelConstraint(55f * scaleFactor))
                 .setChildOf(memberBlock)
                 .setText("Promote")
-                .setTextScale(scaleFactor)
+                .setTextScale(new PixelConstraint(scaleFactor))
                 .onMouseClickConsumer(event -> PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/party promote " + this.username));
 
         new PSSButton()
@@ -460,7 +460,7 @@ public class PartyMember {
                 .setHeight(new PixelConstraint(55f * scaleFactor))
                 .setChildOf(memberBlock)
                 .setText("Transfer")
-                .setTextScale(scaleFactor)
+                .setTextScale(new PixelConstraint(scaleFactor))
                 .onMouseClickConsumer(event -> PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/party transfer " + this.username));
 
         UIComponent refreshButton = new UIRoundedRectangle(10f)
@@ -471,7 +471,7 @@ public class PartyMember {
                 .setColor(new Color(60, 222, 79))
                 .setChildOf(memberBlock);
 
-        ElementaUtils.INSTANCE.uiImageFromResourceLocation(new ResourceLocation("partlysaneskies", "textures/gui/party_finder/refresh.png"))
+        ElementaUtils.INSTANCE.getUiImage(new ResourceLocation("partlysaneskies", "textures/gui/party_finder/refresh.png"))
                 .setX(new CenterConstraint())
                 .setY(new CenterConstraint())
                 .setWidth(new PixelConstraint(20f * scaleFactor))

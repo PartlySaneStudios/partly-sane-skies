@@ -14,7 +14,7 @@ import gg.essential.elementa.dsl.constrain
 import gg.essential.elementa.dsl.pixels
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
-import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.uiImageFromResourceLocation
+import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.uiImage
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
 
 import net.minecraft.inventory.IInventory
@@ -97,7 +97,7 @@ class CategoriesBar(
                 } else {
                     topBarImagePaths[i]
                 }
-            ResourceLocation("partlysaneskies", imagePath).uiImageFromResourceLocation().constrain {
+            ResourceLocation("partlysaneskies", imagePath).uiImage.constrain {
                 x = CenterConstraint()
                 y = CenterConstraint()
                 width = imageSide.pixels

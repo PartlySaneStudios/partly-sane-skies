@@ -364,7 +364,7 @@ public class ProfitMinionCalculator extends WindowScreen {
                 .setHeight(fromWidthScaleFactor(60))
                 .setWidth(fromWidthScaleFactor(100))
                 .setText("Calculate Best Minion")
-                .setTextScale(fromWidthScaleFactor(1).getValue())
+                .setTextScale(fromWidthScaleFactor(1))
 
                 .setChildOf(bestMinionBar);
 

@@ -9,12 +9,7 @@ import gg.essential.elementa.UIComponent
 import gg.essential.elementa.components.UIBlock
 import gg.essential.elementa.components.UIImage
 import gg.essential.elementa.components.UIWrappedText
-import gg.essential.elementa.constraints.CenterConstraint
-import gg.essential.elementa.constraints.HeightConstraint
-import gg.essential.elementa.constraints.PixelConstraint
-import gg.essential.elementa.constraints.WidthConstraint
-import gg.essential.elementa.constraints.XConstraint
-import gg.essential.elementa.constraints.YConstraint
+import gg.essential.elementa.constraints.*
 import gg.essential.elementa.dsl.childOf
 import gg.essential.elementa.dsl.constrain
 import gg.essential.elementa.dsl.constraint
@@ -26,6 +21,7 @@ import java.awt.Color
 import java.util.function.Consumer
 
 class PSSButton {
+
     private var color: OneColor
     private var text: String = ""
     private val onMouseClick = ArrayList<Consumer<UIClickEvent>>()
@@ -85,13 +81,13 @@ class PSSButton {
         return this
     }
 
-    fun setChildOf(parent: UIComponent?): PSSButton {
-        backgroundBlock.setChildOf(parent!!)
+    fun setChildOf(parent: UIComponent): PSSButton {
+        backgroundBlock.setChildOf(parent)
         return this
     }
 
-    fun setColor(color: Color?): PSSButton {
-        return setColor(OneColor(color!!))
+    fun setColor(color: Color): PSSButton {
+        return setColor(OneColor(color))
     }
 
     fun setColor(color: OneColor): PSSButton {
@@ -121,7 +117,6 @@ class PSSButton {
         textComponent childOf buttonTexture
 
         backgroundBlock.setColor(Color(0, 0, 0, 0))
-        color = OneColor(0, 0, 0, 0)
         return this
     }
 
@@ -131,8 +126,8 @@ class PSSButton {
         return this
     }
 
-    fun setTextScale(scale: Float): PSSButton {
-        textComponent.setTextScale(PixelConstraint(scale))
+    fun setTextScale(scale: HeightConstraint): PSSButton {
+        textComponent.setTextScale(scale)
         return this
     }
 
