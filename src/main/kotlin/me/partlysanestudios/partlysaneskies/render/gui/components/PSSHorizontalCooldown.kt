@@ -66,6 +66,7 @@ class PSSHorizontalCooldown(
     }
 
     fun tick() {
+        val cooldown = this.cooldown
         if (cooldown == null) {
             displayBox.setColor(Color(0, 0, 0, 0).constraint)
             boundingBox.setColor(Color(0, 0, 0, 0).constraint)
@@ -74,18 +75,18 @@ class PSSHorizontalCooldown(
             return
         }
 
-        if (cooldown?.isCooldownActive() != true) {
-            cooldown = null
+        if (!cooldown.isCooldownActive()) {
+            this.cooldown = null
             return
         }
 
-        val percentRemaining = (cooldown?.getTimeRemaining()?.toFloat() ?: 0f) / ( cooldown?.getTotalTime()?.toFloat() ?: 1f)
+        val percentRemaining = cooldown.getTimeRemaining().toFloat() / cooldown.getTotalTime().toFloat()
 
         val percentComplete = 1 - percentRemaining
 
         val displayBoxColor = Color.RED.weightedAverage(percentRemaining, Color.GREEN, percentComplete)
 
-        itemRender.item = cooldown?.getItemToDisplay()
+        itemRender.item = cooldown.getItemToDisplay()
         boundingBox.setColor(Color(0f, 0f, 0f, .4f))
         displayBox.setColor(displayBoxColor)
         displayBox.setWidth((percentComplete * 100).percent)
