@@ -40,13 +40,11 @@ class PSSHorizontalCooldown(
         color = Color(255, 0, 0).constraint
     } childOf boundingBox
 
-    private val itemRender = PSSItemRender(null)
-        .setScaleBasedOnWidth((boundingBox.getHeight() * 1.75).pixels)
-        .setX((-35).percent)
-        .setY(CenterConstraint())
-        .setHeight((boundingBox.getHeight() * 1.75).pixels)
-        .setWidth((boundingBox.getHeight() * 1.75).pixels)
-        .setChildOf(boundingBox) as PSSItemRender
+    private val itemRender = PSSItemRender(null, autoScaleWidth = true).constrain {
+        width = 1.75.percent
+        x = (-35).percent
+        y = CenterConstraint()
+    } childOf boundingBox
 
     fun setChildOf(parent: UIComponent): PSSHorizontalCooldown {
         boundingBox.setChildOf(parent)
@@ -81,13 +79,13 @@ class PSSHorizontalCooldown(
             return
         }
 
-        val percentRemaining = cooldown!!.getTimeRemaining().toFloat() / cooldown!!.getTotalTime().toFloat()
+        val percentRemaining = (cooldown?.getTimeRemaining()?.toFloat() ?: 0f) / ( cooldown?.getTotalTime()?.toFloat() ?: 1f)
 
         val percentComplete = 1 - percentRemaining
 
         val displayBoxColor = Color.RED.weightedAverage(percentRemaining, Color.GREEN, percentComplete)
 
-        itemRender.item = cooldown!!.getItemToDisplay()
+        itemRender.item = cooldown?.getItemToDisplay()
         boundingBox.setColor(Color(0f, 0f, 0f, .4f))
         displayBox.setColor(displayBoxColor)
         displayBox.setWidth((percentComplete * 100).percent)
