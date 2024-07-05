@@ -10,6 +10,7 @@ import gg.essential.elementa.UIComponent
 import gg.essential.elementa.components.UIRoundedRectangle
 import gg.essential.elementa.constraints.*
 import gg.essential.elementa.dsl.*
+import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
 import me.partlysanestudios.partlysaneskies.render.gui.hud.cooldown.Cooldown
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.weightedAverage
 import java.awt.Color
@@ -23,7 +24,7 @@ class PSSHorizontalCooldown(
     private var cooldown: Cooldown? = null
 
     val boundingBox = UIRoundedRectangle(2f).constrain {
-        radius = 4f.pixels
+        radius = 4f.scaledPixels
         x = xConstraint
         y = yConstraint
         height = heightConstraint
@@ -32,7 +33,7 @@ class PSSHorizontalCooldown(
     }
 
     private val displayBox = UIRoundedRectangle(2f).constrain {
-        radius = 4f.pixels
+        radius = 4f.scaledPixels
         x = 0f.pixels
         y = 0f.pixels
         height = 100f.percent
