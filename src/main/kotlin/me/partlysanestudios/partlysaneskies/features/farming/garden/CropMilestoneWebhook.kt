@@ -16,7 +16,6 @@ import me.partlysanestudios.partlysaneskies.features.discord.webhooks.EmbedField
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.Webhook
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.WebhookData
 import me.partlysanestudios.partlysaneskies.render.gui.components.PSSItemRender
-import me.partlysanestudios.partlysaneskies.utils.ChatUtils.trueUnformattedMessage
 import me.partlysanestudios.partlysaneskies.utils.ImageUtils.asHex
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.romanNumeralToInt
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.toRoman
@@ -26,7 +25,7 @@ import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import java.awt.Color
 
-object CropMilestoneWebhook: Webhook() {
+object CropMilestoneWebhook : Webhook() {
     override val icon = PSSItemRender(ItemStack(Items.reeds), true)
         .setX(CenterConstraint())
         .setY(CenterConstraint())
@@ -46,8 +45,10 @@ object CropMilestoneWebhook: Webhook() {
 
     @SubscribeEvent
     fun onChatMessage(event: ClientChatReceivedEvent) {
+        if (!enabled) return
+
         val message = event.message.formattedText
-        
+
         val (crop, oldLevel, newLevel) = regex.find(message)?.destructured ?: return
         val oldLevelInt = if ("\\d+".toRegex().containsMatchIn(oldLevel)) {
             oldLevel.toIntOrNull() ?: 0
@@ -95,10 +96,10 @@ object CropMilestoneWebhook: Webhook() {
                         EmbedField(
                             name = crop,
                             value = ":tada: $oldLevelString ➜ $newLevelString :tada:",
-                        )
-                    )
-                )
-            )
+                        ),
+                    ),
+                ),
+            ),
         ).send()
     }
 }
