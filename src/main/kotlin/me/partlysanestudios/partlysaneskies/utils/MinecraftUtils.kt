@@ -10,9 +10,9 @@ import com.google.common.collect.ComparisonChain
 import com.google.common.collect.Ordering
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.data.cache.PetData
-import me.partlysanestudios.partlysaneskies.mixin.minecraft.MixinGuiChest
-import me.partlysanestudios.partlysaneskies.mixin.minecraft.MixinGuiContainer
-import me.partlysanestudios.partlysaneskies.mixin.minecraft.MixinGuiPlayerTabOverlay
+import me.partlysanestudios.partlysaneskies.mixin.minecraft.accessors.GuiChestAccessor
+import me.partlysanestudios.partlysaneskies.mixin.minecraft.accessors.GuiContainerAccessor
+import me.partlysanestudios.partlysaneskies.mixin.minecraft.accessors.GuiPlayerTabOverlayAccessor
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils.getItemId
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import net.minecraft.client.gui.GuiPlayerTabOverlay
@@ -138,38 +138,28 @@ object MinecraftUtils {
      * @return The inventory of the player at the bottom of the gui. ([GuiChest.upperChestInventory] field)
      */
     val GuiChest.playerInventory: IInventory
-        get() {
-            return (this as MixinGuiChest).`partlysaneskies$getUpperChestInventory`()
-        }
+        get() = (this as GuiChestAccessor).`partlysaneskies$getUpperChestInventory`()
 
     /**
      * @return The inventory of any container at the top of the gui. ([GuiChest.lowerChestInventory] field)
      */
     val GuiChest.containerInventory: IInventory
-        get() {
-            return (this as MixinGuiChest).`partlysaneskies$getLowerChestInventory`()
-        }
+        get() = (this as GuiChestAccessor).`partlysaneskies$getLowerChestInventory`()
 
     /**
      * @return the [GuiChest.xSize] field that is protected in the GuiContainer class
      */
     val GuiContainer.xSize: Int
-        get() {
-            return (this as MixinGuiContainer).`partlysaneskies$getXSize`()
-        }
+        get() = (this as GuiContainerAccessor).`partlysaneskies$getXSize`()
 
     /**
      * @return the [GuiChest.ySize] field that is protected in the GuiContainer class
      */
     val GuiContainer.ySize: Int
-        get() {
-            return (this as MixinGuiContainer).`partlysaneskies$getYSize`()
-        }
+        get() = (this as GuiContainerAccessor).`partlysaneskies$getYSize`()
 
     val GuiPlayerTabOverlay.footer: IChatComponent
-        get() {
-            return (this as MixinGuiPlayerTabOverlay).`partlySaneSkies$getFooter`()
-        }
+        get() = (this as GuiPlayerTabOverlayAccessor).`partlySaneSkies$getFooter`()
 
     fun ItemStack.getLore(): java.util.ArrayList<String> {
         if (!this.hasTagCompound() || !this.tagCompound.hasKey("display") || !this.tagCompound.getCompoundTag(

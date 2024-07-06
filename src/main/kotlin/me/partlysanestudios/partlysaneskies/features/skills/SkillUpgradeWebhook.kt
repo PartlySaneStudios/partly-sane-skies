@@ -26,7 +26,7 @@ import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import java.awt.Color
 
-object SkillUpgradeWebhook: Webhook() {
+object SkillUpgradeWebhook : Webhook() {
     override val icon = PSSItemRender(ItemStack(Items.diamond_pickaxe), true)
         .setX(CenterConstraint())
         .setY(CenterConstraint())
@@ -43,9 +43,11 @@ object SkillUpgradeWebhook: Webhook() {
     }
 
     val regex = "SKILL LEVEL UP (\\w+) (\\w+)➜(\\w+)".toRegex()
-    
+
     @SubscribeEvent
     fun onChatMessage(event: ClientChatReceivedEvent) {
+        if (!enabled) return
+
         val message = event.trueUnformattedMessage
 
         val (skill, oldLevel, newLevel) = regex.find(message)?.destructured ?: return
@@ -96,11 +98,11 @@ object SkillUpgradeWebhook: Webhook() {
                         EmbedField(
                             name = skill,
                             value = ":tada: $oldLevelString ➜ $newLevelString :tada:",
-                            inline = true
-                        )
-                    )
-                )
-            )
+                            inline = true,
+                        ),
+                    ),
+                ),
+            ),
         ).send()
     }
 }
