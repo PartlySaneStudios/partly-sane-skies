@@ -35,13 +35,23 @@ import me.partlysanestudios.partlysaneskies.features.chat.ChatAlertsManager
 import me.partlysanestudios.partlysaneskies.features.chat.ChatManager
 import me.partlysanestudios.partlysaneskies.features.chat.ChatTransformer
 import me.partlysanestudios.partlysaneskies.features.chat.WordEditor
-import me.partlysanestudios.partlysaneskies.features.commands.*
+import me.partlysanestudios.partlysaneskies.features.commands.Crepes
+import me.partlysanestudios.partlysaneskies.features.commands.HelpCommand
+import me.partlysanestudios.partlysaneskies.features.commands.PSSDiscord
+import me.partlysanestudios.partlysaneskies.features.commands.SanityCheck
+import me.partlysanestudios.partlysaneskies.features.commands.Version
 import me.partlysanestudios.partlysaneskies.features.debug.DebugKey
 import me.partlysanestudios.partlysaneskies.features.debug.ExampleHud
 import me.partlysanestudios.partlysaneskies.features.debug.ExampleWebhook
 import me.partlysanestudios.partlysaneskies.features.discord.DiscordRPC
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.WebhookMenu
-import me.partlysanestudios.partlysaneskies.features.dungeons.*
+import me.partlysanestudios.partlysaneskies.features.dungeons.AutoGG
+import me.partlysanestudios.partlysaneskies.features.dungeons.HealthAlert
+import me.partlysanestudios.partlysaneskies.features.dungeons.ItemRefill
+import me.partlysanestudios.partlysaneskies.features.dungeons.PlayerRating
+import me.partlysanestudios.partlysaneskies.features.dungeons.RequiredSecretsFound
+import me.partlysanestudios.partlysaneskies.features.dungeons.TerminalWaypoints
+import me.partlysanestudios.partlysaneskies.features.dungeons.WatcherReady
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.PartyFriendManager
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.partymanager.PartyManager
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.permpartyselector.PermPartyManager
@@ -55,7 +65,11 @@ import me.partlysanestudios.partlysaneskies.features.farming.MathematicalHoeRigh
 import me.partlysanestudios.partlysaneskies.features.farming.WrongToolCropWarning
 import me.partlysanestudios.partlysaneskies.features.farming.endoffarmnotifer.EndOfFarmNotifier
 import me.partlysanestudios.partlysaneskies.features.farming.endoffarmnotifer.RangeHighlight
-import me.partlysanestudios.partlysaneskies.features.farming.garden.*
+import me.partlysanestudios.partlysaneskies.features.farming.garden.CompostValue
+import me.partlysanestudios.partlysaneskies.features.farming.garden.CropMilestoneWebhook
+import me.partlysanestudios.partlysaneskies.features.farming.garden.SkymartValue
+import me.partlysanestudios.partlysaneskies.features.farming.garden.VisitorLogbookStats
+import me.partlysanestudios.partlysaneskies.features.farming.garden.VisitorTradeValue
 import me.partlysanestudios.partlysaneskies.features.foraging.TreecapitatorCooldown
 import me.partlysanestudios.partlysaneskies.features.gui.CustomMainMenu
 import me.partlysanestudios.partlysaneskies.features.gui.RefreshKeybinds
@@ -71,8 +85,8 @@ import me.partlysanestudios.partlysaneskies.features.mining.crystalhollows.gemst
 import me.partlysanestudios.partlysaneskies.features.mining.crystalhollows.gemstonewaypoints.GemstoneWaypointRender
 import me.partlysanestudios.partlysaneskies.features.security.PrivacyMode
 import me.partlysanestudios.partlysaneskies.features.security.modschecker.ModChecker
-import me.partlysanestudios.partlysaneskies.features.skills.BestiaryMilestoneWebhook
 import me.partlysanestudios.partlysaneskies.features.skills.BestiaryLevelUpWebhook
+import me.partlysanestudios.partlysaneskies.features.skills.BestiaryMilestoneWebhook
 import me.partlysanestudios.partlysaneskies.features.skills.PetAlert
 import me.partlysanestudios.partlysaneskies.features.skills.PetLevelUpWebhook
 import me.partlysanestudios.partlysaneskies.features.skills.SkillUpgradeRecommendation
@@ -202,7 +216,7 @@ class PartlySaneSkies {
         registerEvent(PartyManager())
         registerEvent(PartyFriendManager())
         registerEvent(MiningEvents())
-        registerEvent(MinionData())
+        registerEvent(MinionData)
         registerEvent(SkyblockDataManager)
         registerEvent(DropBannerDisplay)
         registerEvent(ChatManager)

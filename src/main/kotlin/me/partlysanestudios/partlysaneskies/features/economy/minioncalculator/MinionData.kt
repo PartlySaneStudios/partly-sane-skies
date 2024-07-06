@@ -17,7 +17,7 @@ object MinionData {
     private val minionMap = mutableMapOf<String, Minion>()
 
     // A hashmap with the key as the id of the fuel, and the value as the fuel object
-    private val fuelMap = mutableMapOf<String, MinionFuel>()
+    internal val fuelMap = mutableMapOf<String, MinionFuel>()
 
     // The URL with the location of the minion data
     private const val MINIONS_DATA_URL = "constants/minion_data.json"
@@ -96,7 +96,7 @@ object MinionData {
         val displayName: String = obj.getJsonFromPath("/display_name")?.asString ?: id
         private val drops = mutableMapOf<String, Double>()
         private val cooldowns = mutableMapOf<Int, Duration>()
-        private val category: String = obj.getJsonFromPath("/category")?.asString ?: ""
+        internal val category: String = obj.getJsonFromPath("/category")?.asString ?: ""
         val maxTier: Int = obj.getJsonFromPath("/maxTier")?.asInt ?: 11
 
         private val kraumpusSpeedIncrease = setOf("SNOW_GENERATOR")
@@ -118,7 +118,7 @@ object MinionData {
         override fun toString(): String = "$id: Drops:$drops Cooldowns:$cooldowns"
 
         fun getBaseItemsPerMinute(tier: Int, upgrades: List<Upgrade>, fuel: MinionFuel?): MutableMap<String, Double> {
-            var cooldown = cooldowns[tier] ?: cooldowns[maxTier] ?: Duration.INFINITE
+            var cooldown = cooldowns[tier] ?: cooldowns[maxTier] ?: 1.seconds
 
             var speedUpgrade = 0.0
             if (upgrades.contains(Upgrade.MINION_EXPANDER)) speedUpgrade += 0.05
@@ -132,7 +132,7 @@ object MinionData {
 
             // Adds the items generated
             val items = drops.mapValues { (_, dropValue) ->
-                (1 / (2 * cooldown.inWholeMinutes)) * dropValue
+                (1 / (2 * cooldown.inWholeMinutes).coerceAtLeast(1L)) * dropValue
             }.toMutableMap()
 
             // Adds the fuel in subtracted amount
