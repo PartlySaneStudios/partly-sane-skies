@@ -123,9 +123,6 @@ import java.net.MalformedURLException
 @Mod(modid = PartlySaneSkies.MODID, version = PartlySaneSkies.VERSION, name = PartlySaneSkies.NAME)
 class PartlySaneSkies {
     companion object {
-        @JvmStatic
-        fun main(args: Array<String>) {
-        }
 
         val LOGGER: Logger = LogManager.getLogger("Partly Sane Skies")
         const val MODID = "@MOD_ID@"
@@ -136,8 +133,9 @@ class PartlySaneSkies {
         const val CHAT_PREFIX = "§r§b§lPartly Sane Skies§r§7>> §r"
         var discordCode = "v4PU3WeH7z"
         val config: OneConfigScreen = OneConfigScreen
-        private var cachedFirstLaunch = false
-        val isFirstLaunch get() = cachedFirstLaunch
+
+        var cachedFirstLaunch = false
+            private set
 
         lateinit var minecraft: Minecraft
             private set
