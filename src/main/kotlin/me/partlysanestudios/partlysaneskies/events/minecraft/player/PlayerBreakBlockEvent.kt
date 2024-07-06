@@ -10,7 +10,6 @@ import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Point3d
 import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Point3d.Companion.toPoint3d
 import net.minecraft.util.BlockPos
 import net.minecraft.util.EnumFacing
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable
 
 class PlayerBreakBlockEvent(val point: Point3d, val side: EnumFacing) {
     companion object {
@@ -26,8 +25,9 @@ class PlayerBreakBlockEvent(val point: Point3d, val side: EnumFacing) {
         }
 
         // Called from the mixin because writing this code in java is about 50 times harder
-        internal fun onPlayerBreakBlock(blockPos: BlockPos, side: EnumFacing, cir: CallbackInfoReturnable<Boolean>) {
-            callEvent(EventManager.registeredFunctions[PlayerBreakBlockEvent::class] ?: ArrayList(), blockPos, side)
+        // that's called a hook
+        internal fun onPlayerBreakBlock(blockPos: BlockPos, side: EnumFacing) {
+            callEvent(EventManager.registeredFunctions[PlayerBreakBlockEvent::class] ?: return, blockPos, side)
         }
     }
 }

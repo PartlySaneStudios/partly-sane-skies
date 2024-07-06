@@ -27,13 +27,12 @@
 package me.partlysanestudios.partlysaneskies.features.farming.endoffarmnotifer
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
-import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Point3d
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.IslandType
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
-import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Range3d
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils
 import me.partlysanestudios.partlysaneskies.utils.ImageUtils.applyOpacity
-
+import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Point3d
+import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Range3d
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.Tessellator
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats
@@ -63,20 +62,42 @@ object RangeHighlight {
                 color = color.applyOpacity((.4 * 255).toInt())
             }
 
-            val effectiveRange = Range3d(range.sortedPoints[0].x, range.sortedPoints[0].y, range.sortedPoints[0].z, range.sortedPoints[1].x + 1, range.sortedPoints[1].y + 1, range.sortedPoints[1].z + 1)
+            val effectiveRange = Range3d(
+                range.sortedPoints[0].x,
+                range.sortedPoints[0].y,
+                range.sortedPoints[0].z,
+                range.sortedPoints[1].x + 1,
+                range.sortedPoints[1].y + 1,
+                range.sortedPoints[1].z + 1
+            )
             renderBox(effectiveRange, event.partialTicks, color)
         }
     }
+
     fun renderBox(range: Range3d, partialTicks: Float, color: Color) {
         try {
             renderBoxFaces(range, color, false, partialTicks)
             renderBoxEdges(range, false, partialTicks)
 
-            val pos1Block = Range3d(range.sortedPoints[0].x, range.sortedPoints[0].y, range.sortedPoints[0].z, range.sortedPoints[0].x + 1, range.sortedPoints[0].y + 1, range.sortedPoints[0].z + 1)
+            val pos1Block = Range3d(
+                range.sortedPoints[0].x,
+                range.sortedPoints[0].y,
+                range.sortedPoints[0].z,
+                range.sortedPoints[0].x + 1,
+                range.sortedPoints[0].y + 1,
+                range.sortedPoints[0].z + 1
+            )
             renderBoxFaces(pos1Block, Color(255, 100, 100, (.75 * 255).toInt()), false, partialTicks)
             renderBoxEdges(pos1Block, false, partialTicks)
 
-            val pos2Block = Range3d(range.sortedPoints[1].x, range.sortedPoints[1].y, range.sortedPoints[1].z, range.sortedPoints[1].x - 1, range.sortedPoints[1].y - 1, range.sortedPoints[1].z - 1)
+            val pos2Block = Range3d(
+                range.sortedPoints[1].x,
+                range.sortedPoints[1].y,
+                range.sortedPoints[1].z,
+                range.sortedPoints[1].x - 1,
+                range.sortedPoints[1].y - 1,
+                range.sortedPoints[1].z - 1
+            )
             renderBoxFaces(pos2Block, Color(100, 100, 255, (.75 * 255).toInt()), false, partialTicks)
             renderBoxEdges(pos2Block, false, partialTicks)
         } catch (e: NullPointerException) {
@@ -86,8 +107,13 @@ object RangeHighlight {
 
     }
 
-//        Renders the faces of a box given a range
-    private fun renderBoxFaces(range: Range3d, color: Color, renderRelativeToPlayer: Boolean = false, partialTicks: Float) {
+    //        Renders the faces of a box given a range
+    private fun renderBoxFaces(
+        range: Range3d,
+        color: Color,
+        renderRelativeToPlayer: Boolean = false,
+        partialTicks: Float
+    ) {
 //            Sets the correct state
         GlStateManager.enableBlend()
         GlStateManager.disableLighting()
@@ -112,7 +138,7 @@ object RangeHighlight {
         var z1 = range.sortedPoints[0].z
         var z2 = range.sortedPoints[1].z
 
-        if(!renderRelativeToPlayer) {
+        if (!renderRelativeToPlayer) {
             val playerPos = getExactPlayerPosition(partialTicks)
             //            Gets the x y z adn z where 1 is the smaller coordinate and 2 is the bigger one
             x1 = range.sortedPoints[0].x - playerPos.x
@@ -205,7 +231,7 @@ object RangeHighlight {
 
         var z1 = range.sortedPoints[0].z
         var z2 = range.sortedPoints[1].z
-        if(!renderRelativeToPlayer) {
+        if (!renderRelativeToPlayer) {
             val playerPos = getExactPlayerPosition(partialTicks)
             //            Gets the x y z adn z where 1 is the smaller coordinate and 2 is the bigger one
             x1 = range.sortedPoints[0].x - playerPos.x

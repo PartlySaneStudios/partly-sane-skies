@@ -6,19 +6,20 @@ package me.partlysanestudios.partlysaneskies.commands
 
 import me.partlysanestudios.partlysaneskies.commands.CommandManager.registerCommand
 import net.minecraft.command.ICommand
-import net.minecraft.command.ICommandSender
 
 class PSSCommand(val name: String) {
 
-    private var aliases: MutableList<String> = ArrayList<String>()
-    private var description: String = ""
-    private var runnable = PSSCommandRunnable { _: ICommandSender?, _: Array<String> -> }
+    var aliases: MutableList<String> = mutableListOf()
+        private set
+    var description: String = ""
+        private set
+    private var runnable = PSSCommandRunnable{}
     var iCommand: ICommand? = null
     var isRegistered = false
 
     constructor(
         name: String,
-        aliases: MutableList<String>,
+        aliases: MutableList<String> = mutableListOf(),
         description: String,
         runnable: PSSCommandRunnable,
     ) : this(name, aliases, description) {
@@ -31,11 +32,6 @@ class PSSCommand(val name: String) {
 
     constructor(name: String, aliases: MutableList<String>) : this(name) {
         this.aliases = aliases
-    }
-
-    fun addAlias(alias: String): PSSCommand {
-        aliases.add(alias)
-        return this
     }
 
     fun addAlias(vararg aliases: String): PSSCommand {
@@ -53,24 +49,7 @@ class PSSCommand(val name: String) {
         return this
     }
 
-    fun runRunnable(sender: ICommandSender, args: Array<String>) {
-        runnable.run(sender, args)
-    }
+    fun runRunnable(args: Array<String>) = runnable.run(args)
 
-    fun register(): ICommand? {
-        return registerCommand(this)
-    }
-
-    fun setICommand(iCommand: ICommand?): PSSCommand {
-        this.iCommand = iCommand
-        return this
-    }
-
-    fun getAliases(): List<String> {
-        return aliases
-    }
-
-    fun getDescription(): String {
-        return description
-    }
+    fun register(): ICommand? = registerCommand(this)
 }

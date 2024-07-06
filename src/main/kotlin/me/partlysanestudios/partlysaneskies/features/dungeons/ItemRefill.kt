@@ -18,12 +18,11 @@ import net.minecraft.command.ICommandSender
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.gameevent.InputEvent
 import java.util.*
-import kotlin.collections.HashMap
 
 object ItemRefill {
     @SubscribePSSEvent
     fun onDungeonStart(event: DungeonStartEvent) {
-        if (!PartlySaneSkies.config.autoItemRefill) return
+        if (!config.autoItemRefill) return
         runItemRefil()
     }
 
@@ -35,9 +34,8 @@ object ItemRefill {
             .addAlias("refillpearl")
             .addAlias("pr")
             .setDescription("Refills your dungeon items.")
-            .setRunnable { s: ICommandSender, a: Array<String> ->
-                runItemRefil()
-            }.register()
+            .setRunnable { runItemRefil() }
+            .register()
     }
 
     @SubscribeEvent
@@ -49,7 +47,7 @@ object ItemRefill {
     }
 
     private fun runItemRefil() {
-        Thread() {
+        Thread {
             val list = ArrayList<String>()
 
             if (config.refillPearls) {

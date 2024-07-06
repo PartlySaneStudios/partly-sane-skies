@@ -59,12 +59,12 @@ object BannerRenderer : Gui() {
 
         if (displayText.getText() != bannerToRender.text) {
             displayText.setText(bannerToRender.text)
-            .constrain {
-                textScale = calculatedTextScale.pixels
-                x = CenterConstraint()
-                y = (window.getHeight() * .125f).pixels
-                color = bannerToRender.getFadedColor().constraint
-            } childOf window
+                .constrain {
+                    textScale = calculatedTextScale.pixels
+                    x = CenterConstraint()
+                    y = (window.getHeight() * .125f).pixels
+                    color = bannerToRender.getFadedColor().constraint
+                } childOf window
         } else if (displayText.getTextScale() != calculatedTextScale.pixels.value) {
             displayText.setTextScale(calculatedTextScale.pixels)
         }

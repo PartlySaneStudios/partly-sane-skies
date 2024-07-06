@@ -9,7 +9,7 @@ package me.partlysanestudios.partlysaneskies.utils
 import gg.essential.elementa.UIComponent
 import gg.essential.elementa.components.UIImage
 import gg.essential.elementa.constraints.CenterConstraint
-import gg.essential.elementa.constraints.PixelConstraint
+import gg.essential.elementa.dsl.percent
 import gg.essential.universal.UResolution
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
 import net.minecraft.client.Minecraft
@@ -23,24 +23,26 @@ object ElementaUtils {
 
     val windowHeight: Int get() = UResolution.scaledHeight
     val windowWidth: Int get() = UResolution.scaledWidth
-    val scaleFactor: Double get() {
-        val constantWidth = 1280.0
-        val constantHeight = 800.0
+    val scaleFactor: Double
+        get() {
+            val constantWidth = 1280.0
+            val constantHeight = 800.0
 
 
-        val width = windowWidth
-        val height = windowHeight
+            val width = windowWidth
+            val height = windowHeight
 
 
-        return if (width < height) {
-            width / constantWidth
-        } else {
-            height / constantHeight
+            return if (width < height) {
+                width / constantWidth
+            } else {
+                height / constantHeight
+            }
         }
-    }
 
 
-    fun ResourceLocation.uiImageFromResourceLocation(): UIImage {
+    val ResourceLocation.uiImage: UIImage
+        get() {
         return try {
             val resource = Minecraft.getMinecraft().resourceManager.getResource(this)
             UIImage(CompletableFuture.supplyAsync {
@@ -65,19 +67,21 @@ object ElementaUtils {
         }
     }
 
-    fun UIComponent.applyBackground() {
+    fun UIComponent.applyBackground(): UIComponent {
         val image = ThemeManager.currentBackgroundUIImage
             .setX(CenterConstraint())
             .setY(CenterConstraint())
-            .setWidth(PixelConstraint(this.getWidth()))
-            .setHeight(PixelConstraint(this.getHeight())) as UIImage
+            .setWidth(100.percent)
+            .setHeight(100.percent) as UIImage
         this.insertChildAt(image, 0)
+
+        return this
     }
 
     fun Color.weightedAverage(thisColorWeight: Float, otherColor: Color, otherColorWeight: Float): Color {
         val totalWeight = thisColorWeight + otherColorWeight
-        val thisColorPercent = thisColorWeight/totalWeight
-        val otherColorPercent = otherColorWeight/totalWeight
+        val thisColorPercent = thisColorWeight / totalWeight
+        val otherColorPercent = otherColorWeight / totalWeight
 
         var finalR = this.red * thisColorPercent + otherColor.red * otherColorPercent
         var finalG = this.green * thisColorPercent + otherColor.green * otherColorPercent
@@ -114,7 +118,7 @@ object ElementaUtils {
 
 
 
-        return Color(finalR/255f, finalG/255f, finalB/255f, finalA/255f)
+        return Color(finalR / 255f, finalG / 255f, finalB / 255f, finalA / 255f)
 
     }
 }

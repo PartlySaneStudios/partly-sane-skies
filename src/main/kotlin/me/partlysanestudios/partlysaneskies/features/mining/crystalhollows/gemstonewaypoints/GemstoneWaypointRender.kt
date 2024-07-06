@@ -1,5 +1,5 @@
 //
-// Written by Su386.
+// Written by Su386 and j10a1n15.
 // See LICENSE for copyright and license notices.
 //
 
@@ -14,6 +14,7 @@ import me.partlysanestudios.partlysaneskies.render.waypoint.Waypoint
 import me.partlysanestudios.partlysaneskies.utils.ImageUtils.applyOpacity
 import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Point2d
 import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Point3d
+import java.awt.Color
 
 object GemstoneWaypointRender {
 
@@ -66,11 +67,20 @@ object GemstoneWaypointRender {
                         if (gemstone.size < config.gemstoneMinSize) {
                             continue
                         }
+                        val brightness = config.gemstoneBrightness
+                        val originalColor = gemstone.type.color
+
+                        val darkerColor = Color(
+                            (originalColor.red * brightness).toInt(),
+                            (originalColor.green * brightness).toInt(),
+                            (originalColor.blue * brightness).toInt()
+                        )
+
                         val waypoint = Waypoint(
                             "${gemstone.type.displayName} Gemstone | Size: ${gemstone.size}",
                             gemstone.block.toBlockPos(),
-                            outlineColor = gemstone.type.color.applyOpacity(255),
-                            fillColor = gemstone.type.color.applyOpacity(100),
+                            outlineColor = darkerColor.applyOpacity(255),
+                            fillColor = darkerColor.applyOpacity(100),
                             showBeam = config.showGemstoneBeam
                         )
                         event.pipeline.add(waypoint)

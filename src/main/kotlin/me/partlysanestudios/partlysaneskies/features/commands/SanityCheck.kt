@@ -22,15 +22,15 @@ object SanityCheck {
         PSSCommand("sanitycheck")
             .addAlias("checksanity", "psssanity", "pssinsanity", "pssinsane", "psssane")
             .setDescription("Checks for one's sanity. This command is purely for fun; do not take its results seriously.")
-            .setRunnable { _: ICommandSender?, a: Array<String> ->
+            .setRunnable {args: Array<String> ->
                 ChatUtils.sendClientMessage("Attempting to begin sanity analysis...")
                 Thread {
                     var username = playerName
-                    if (a.size > 1) {
+                    if (args.size > 1) {
                         ChatUtils.sendClientMessage("Correct Usage: /sanitycheck {username}")
                         return@Thread
-                    } else if (a.size == 1) {
-                        username = a[0]
+                    } else if (args.size == 1) {
+                        username = args[0]
                     }
                     if (validateUsernameByRegex(username)) {
                         val sanityCheckDataJsonObject: JsonObject = JsonParser().parse(
@@ -38,14 +38,19 @@ object SanityCheck {
                                 sanityCheckPath
                             )
                         ).getAsJsonObject()
-                        val highestSkyblockNetworth: Double = sanityCheckDataJsonObject.getJsonFromPath("highestnwlong")?.asLong?.toDouble() ?: 360567766418.0
-                        val oldestSkyblockFirstJoin: Long = sanityCheckDataJsonObject.getJsonFromPath("oldestprofileunixlong")?.asLong ?: 1560276201428
+                        val highestSkyblockNetworth =
+                            sanityCheckDataJsonObject.getJsonFromPath("highestnwlong")?.asLong?.toDouble()
+                                ?: 360567766418.0
+                        val oldestSkyblockFirstJoin =
+                            sanityCheckDataJsonObject.getJsonFromPath("oldestprofileunixlong")?.asLong
+                                ?: 1560276201428
                         val currentProfileNetworth: Double = SkyCryptUtils.getSkyCryptNetworth(username)
                         val currentProfileFirstJoin: Long = SkyCryptUtils.getFirstJoinEpoch(username)
 
                         if (currentProfileNetworth != -1.0 && currentProfileFirstJoin != -1L) {
                             val networthRatio = 1.0 - (currentProfileNetworth / highestSkyblockNetworth)
-                            val firstJoinRatio = 1.0 - (currentProfileFirstJoin.toDouble() / oldestSkyblockFirstJoin.toDouble())
+                            val firstJoinRatio =
+                                1.0 - (currentProfileFirstJoin.toDouble() / oldestSkyblockFirstJoin.toDouble())
                             ChatUtils.sendClientMessage("§a${if (username != playerName) "$username is" else "You are"} ${(networthRatio * 100) + (firstJoinRatio * 100)}% insane.")
                         } else {
                             ChatUtils.sendClientMessage("§eIt appears that $username does not qualify for a PSS sanity check, due to current API circumstances. Try again later, or report this to us via §9/pssdiscord §eif this issue persists.")

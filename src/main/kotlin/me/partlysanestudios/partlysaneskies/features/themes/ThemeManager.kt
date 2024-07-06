@@ -9,7 +9,7 @@ import gg.essential.elementa.components.UIImage
 import gg.essential.universal.utils.ReleasedDynamicTexture
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
-import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.uiImageFromResourceLocation
+import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.uiImage
 import me.partlysanestudios.partlysaneskies.utils.ImageUtils.loadImage
 import me.partlysanestudios.partlysaneskies.utils.ImageUtils.replaceColor
 import me.partlysanestudios.partlysaneskies.utils.ImageUtils.saveImage
@@ -87,16 +87,11 @@ object ThemeManager {
 
     val currentBackgroundUIImage: UIImage
         get() {
-            val image: UIImage = if (config.disableThemes) {
-                ResourceLocation(
-                    "partlysaneskies",
-                    "textures/gui/base_color_background.png"
-                ).uiImageFromResourceLocation()
+            val image: UIImage = if (config.disableThemes) { ResourceLocation("partlysaneskies", "textures/gui/base_color_background.png").uiImage
             } else {
                 try {
                     UIImage.ofFile(currentBackgroundFile)
-                } catch (e: IOException) {
-                    ResourceLocation("partlysaneskies","textures/gui/base_color_background.png").uiImageFromResourceLocation()
+                } catch (e: IOException) { ResourceLocation("partlysaneskies", "textures/gui/base_color_background.png").uiImage
                 }
             }
             backgroundUIImages.add(image)
@@ -109,18 +104,16 @@ object ThemeManager {
         val image: UIImage
         if (config.disableThemes) {
             image = if ((accentColor == ThemeManager.accentColor)) {
-                ResourceLocation("partlysaneskies","textures/gui/base_color_button.png").uiImageFromResourceLocation()
+                ResourceLocation("partlysaneskies", "textures/gui/base_color_button.png").uiImage
             } else {
-                ResourceLocation("partlysaneskies","textures/gui/base_color_button_transparent.png").uiImageFromResourceLocation()
+                ResourceLocation("partlysaneskies", "textures/gui/base_color_button_transparent.png").uiImage
             }
         } else {
             image = try {
                 UIImage.ofFile(getCurrentButtonFile(accentColor))
             } catch (e: IOException) {
-                if ((accentColor == ThemeManager.accentColor)) {
-                    ResourceLocation("partlysaneskies","textures/gui/base_color_button.png").uiImageFromResourceLocation()
-                } else {
-                    ResourceLocation("partlysaneskies","textures/gui/base_color_button_transparent.png").uiImageFromResourceLocation()
+                if ((accentColor == ThemeManager.accentColor)) { ResourceLocation("partlysaneskies", "textures/gui/base_color_button.png").uiImage
+                } else { ResourceLocation("partlysaneskies", "textures/gui/base_color_button_transparent.png").uiImage
                 }
             }
         }
@@ -137,18 +130,18 @@ object ThemeManager {
         var image: UIImage
         if (config.disableThemes) {
             image = if (selected) {
-                ResourceLocation("partlysaneskies","textures/gui/selected_toggle.png").uiImageFromResourceLocation()
+                ResourceLocation("partlysaneskies", "textures/gui/selected_toggle.png").uiImage
             } else {
-                ResourceLocation("partlysaneskies","textures/gui/unselected_toggle.png").uiImageFromResourceLocation()
+                ResourceLocation("partlysaneskies", "textures/gui/unselected_toggle.png").uiImage
             }
         }
         image = try {
             UIImage.ofFile(getCurrentToggleFile(selected, accentColor))
         } catch (e: IOException) {
             if (selected) {
-                ResourceLocation("partlysaneskies","textures/gui/selected_toggle.png").uiImageFromResourceLocation()
+                ResourceLocation("partlysaneskies", "textures/gui/selected_toggle.png").uiImage
             } else {
-                ResourceLocation("partlysaneskies","textures/gui/unselected_toggle.png").uiImageFromResourceLocation()
+                ResourceLocation("partlysaneskies", "textures/gui/unselected_toggle.png").uiImage
             }
         }
 
@@ -267,7 +260,8 @@ object ThemeManager {
             return filePath.toFile()
         }
 
-        val backgroundResourceLocation = ResourceLocation("partlysaneskies", "textures/debug_gui_textures/background.png")
+        val backgroundResourceLocation =
+            ResourceLocation("partlysaneskies", "textures/debug_gui_textures/background.png")
         val debugTexture: IResource = minecraft.resourceManager.getResource(backgroundResourceLocation)
         val debugImage: BufferedImage = TextureUtil.readBufferedImage(debugTexture.inputStream)
         folderPath.toFile().mkdirs()
@@ -334,8 +328,7 @@ object ThemeManager {
         return filePath.toFile()
     }
 
-    class ButtonData(val image: UIImage, val color: OneColor) {
-    }
+    class ButtonData(val image: UIImage, val color: OneColor)
 
     class ToggleData(val image: UIImage, selected: Boolean, val color: OneColor) {
         val isSelected: Boolean = selected

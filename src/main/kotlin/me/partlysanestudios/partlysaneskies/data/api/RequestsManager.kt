@@ -9,7 +9,8 @@ package me.partlysanestudios.partlysaneskies.data.api
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.utils.MathUtils
 import java.io.IOException
-import java.util.*
+import java.util.LinkedList
+import java.util.Queue
 
 object RequestsManager {
 
@@ -18,7 +19,7 @@ object RequestsManager {
 
 
     val thread = Thread({
-        while(true) {
+        while (true) {
             try {
                 run()
 
@@ -42,7 +43,7 @@ object RequestsManager {
         }
 
         // The time in milliseconds between requests
-        val timeBetweenRequests = Math.round((PartlySaneSkies.config.timeBetweenRequests?: .5F) * 1000).toLong()
+        val timeBetweenRequests = Math.round(PartlySaneSkies.config.timeBetweenRequests * 1000).toLong()
         // If the time has not elapsed between requests
         if (MathUtils.onCooldown(lastRequestTime, timeBetweenRequests)) {
             return
@@ -56,17 +57,7 @@ object RequestsManager {
             return
         }
         if (element.isMainThread()) {
-            if (PartlySaneSkies.minecraft != null) {
-                PartlySaneSkies.minecraft.addScheduledTask {
-                    try {
-                        element.startRequest()
-                    } catch (e: IOException) {
-                        element.setFailed("{THREW_IOEXEPCTION}")
-                        e.printStackTrace()
-                    }
-                }
-
-            } else {
+            PartlySaneSkies.minecraft.addScheduledTask {
                 try {
                     element.startRequest()
                 } catch (e: IOException) {
@@ -76,6 +67,12 @@ object RequestsManager {
             }
 
         } else {
+            var loggedUrl = element.getURL().toString()
+
+            if (loggedUrl.startsWith("https://discord.com/api/webhooks/")) {
+                loggedUrl = "https://discord.com/api/webhooks/****/****"
+            }
+
             // Creates a new thread to execute request
             Thread(Runnable {
                 try {
@@ -94,7 +91,7 @@ object RequestsManager {
                     element.getWhatToRunWhenFinished()?.run(element)
                     e.printStackTrace()
                 }
-            }, "Request to ${element.getURL()}").start()
+            }, "Request to $loggedUrl").start()
         }
     }
 

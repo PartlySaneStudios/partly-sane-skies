@@ -74,7 +74,7 @@ object MathematicalHoeRightClicks {
                 return false
             }
             val heldItem = minecraft.thePlayer.heldItem ?: return false
-            return hoes!!.contains(heldItem.getItemId())
+            return hoes.contains(heldItem.getItemId())
         }
 
     fun registerCommand() {
@@ -82,7 +82,7 @@ object MathematicalHoeRightClicks {
             .addAlias("allowhoerightclicks")
             .addAlias("ahrc")
             .setDescription("Allows hoe right clicks for a few minutes")
-            .setRunnable { s: ICommandSender, a: Array<String> ->
+            .setRunnable {
                 val canRightClickHoe =
                     onCooldown(lastAllowHoeRightClickTime, (config.allowRightClickTime * 60L * 1000L).toLong())
 
@@ -100,8 +100,14 @@ object MathematicalHoeRightClicks {
 
                     0
                 } else {
-                    val message: IChatComponent = ChatComponentText("${PartlySaneSkies.CHAT_PREFIX}§bThe ability to right-click with a hoe has been §aenabled§b for ${config.allowRightClickTime} minutes.\n§dClick this message or run /allowhoerightclick to disable right-clicks again.")
-                    message.chatStyle.setChatClickEvent(ClickEvent(ClickEvent.Action.RUN_COMMAND, "/allowhoerightclick"))
+                    val message: IChatComponent =
+                        ChatComponentText("${PartlySaneSkies.CHAT_PREFIX}§bThe ability to right-click with a hoe has been §aenabled§b for ${config.allowRightClickTime} minutes.\n§dClick this message or run /allowhoerightclick to disable right-clicks again.")
+                    message.chatStyle.setChatClickEvent(
+                        ClickEvent(
+                            ClickEvent.Action.RUN_COMMAND,
+                            "/allowhoerightclick"
+                        )
+                    )
 
                     minecraft.ingameGUI.chatGUI.printChatMessage(message)
 

@@ -23,15 +23,20 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ChatAlertsManager {
     static String DATA_PATH_NAME = "./config/partly-sane-skies/chatAlertsData.json";
     static ArrayList<String> chatAlertsList = new ArrayList<>();
+    // All the different message prefixes
+    static String[] MESSAGE_PREFIXES = new String[]{"§r§7: ", "§r§f: ", "§f: "};
+    /// All the none color format codes
+    static String[] NON_COLOR_CODES = new String[]{"§r", "§o", "§n", "§m", "§l", "§k"};
 
     // Loads all the chat alerts data
     public static void load() throws IOException {
         File file = new File(DATA_PATH_NAME);
-        
+
         // If the file doesn't exist, fill it with an empty array list to prevent NullPointerException
         if (file.createNewFile()) {
             file.setWritable(true);
@@ -57,7 +62,7 @@ public class ChatAlertsManager {
                 .addAlias("chatAlert")
                 .addAlias("chal")
                 .setDescription("Operates the chat alerts feature: /chatalerts <add/remove/list> ")
-                .setRunnable(((sender, args) -> {
+                .setRunnable(args -> {
                     // If the user doesn't provide any arguments whatsoever print message
                     if (args.length == 0) {
                         ChatUtils.INSTANCE.sendClientMessage("§cIncorrect usage. Correct usage: /chatalerts add/remove/list");
@@ -106,7 +111,8 @@ public class ChatAlertsManager {
                             int id;
                             try {
                                 id = Integer.parseInt(args[1]);
-                            } catch (NumberFormatException e) { // If the number cannot be parsed, prints an error message
+                            } catch (
+                                    NumberFormatException e) { // If the number cannot be parsed, prints an error message
                                 ChatUtils.INSTANCE.sendClientMessage("§c\"" + args[1] + "\" could not be read as a number. Correct Usage: /chatalerts remove [number]");
                                 break;
                             }
@@ -120,7 +126,7 @@ public class ChatAlertsManager {
                             ChatUtils.INSTANCE.sendClientMessage("§cIncorrect usage. Correct usage: /chatalerts add/remove/list");
                             break;
                     }
-                }))
+                })
                 .register();
     }
 
@@ -147,7 +153,7 @@ public class ChatAlertsManager {
     public static void addAlert(String alert) {
         // Adds the alert
         chatAlertsList.add(alert);
-        
+
         // Tries to save
         try {
             save();
@@ -172,8 +178,8 @@ public class ChatAlertsManager {
 
         // Creates the index number on the left of the message
         int i = 1;
-        
-        // For each alert, format it so its ##. [alert] 
+
+        // For each alert, format it so its ##. [alert]
         for (String alert : chatAlertsList) {
             message.append(StringUtils.INSTANCE.formatNumber(i)).append(": ").append(alert).append("\n");
             i++;
@@ -208,9 +214,6 @@ public class ChatAlertsManager {
         ChatUtils.INSTANCE.sendClientMessage("§bChat Alert number §d" + id + " §b(\"§d" + message + "§b\") was successfully removed.");
     }
 
-    // All the different message prefixes
-    static String[] MESSAGE_PREFIXES = new String[] {"§r§7: ", "§r§f: ", "§f: "};
-
     // I love overloading
     public static IChatComponent checkChatAlert(IChatComponent message) {
         return checkChatAlert(message, false);
@@ -226,7 +229,7 @@ public class ChatAlertsManager {
         // Checks all the different message prefixes so that it works with nons
         for (String messagePrefix : MESSAGE_PREFIXES) {
             beginMessageIndex = formattedMessage.indexOf(messagePrefix);
-            
+
             // If it finds it, stops checking the rest
             if (beginMessageIndex != -1) {
                 break;
@@ -265,21 +268,21 @@ public class ChatAlertsManager {
 
             // Number of color codes in the whole string
             int numOfColorCodeTotal = numOfColorCodes(formattedMessage);
-            // Number of color codes not including the last §r 
-            int numOfColorCodeBefore = numOfColorCodeTotal - 1; 
+            // Number of color codes not including the last §r
+            int numOfColorCodeBefore = numOfColorCodeTotal - 1;
             // Index of the alert in formatted string
-            int alertIndexFormatted = numOfColorCodeBefore * 2 + alertIndexUnformatted; 
+            int alertIndexFormatted = numOfColorCodeBefore * 2 + alertIndexUnformatted;
 
             // Inserts the previous color code right after the alert
             char[] charsToAdd = getLastColorCode(formattedMessage.substring(0, alertIndexFormatted + 1)).toCharArray();
             messageBuilder.insert(alertIndexFormatted + alert.length(), charsToAdd, 0, charsToAdd.length);
-            
+
             // Inserts a purple and bold color code to highlight the message right before the alert
             charsToAdd = ("§d§l").toCharArray();
             messageBuilder.insert(alertIndexFormatted, charsToAdd, 0, charsToAdd.length);
 
             // Sends System Tray
-            if (PartlySaneSkies.Companion.getConfig().getChatAlertSendSystemNotification() && !Display.isActive() && sendSystemNotification ){
+            if (PartlySaneSkies.Companion.getConfig().getChatAlertSendSystemNotification() && !Display.isActive() && sendSystemNotification) {
                 SystemNotification.INSTANCE.showNotification(StringUtils.INSTANCE.removeColorCodes(message.getFormattedText()));
             }
 
@@ -304,8 +307,6 @@ public class ChatAlertsManager {
         return i;
     }
 
-    /// All the none color format codes
-    static String[] NON_COLOR_CODES = new String[] {"§r", "§o", "§n", "§m", "§l", "§k"};
     // Returns the last color code in a string
     private static String getLastColorCode(String str) {
         String currentCode = "";

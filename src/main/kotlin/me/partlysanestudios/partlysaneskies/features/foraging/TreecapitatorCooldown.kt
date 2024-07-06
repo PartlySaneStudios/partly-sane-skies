@@ -23,7 +23,7 @@ import net.minecraft.nbt.NBTTagList
 import net.minecraft.nbt.NBTTagString
 
 
-object TreecapitatorCooldown: Cooldown() {
+object TreecapitatorCooldown : Cooldown() {
     init {
         CooldownManager.registerCooldown(this)
     }

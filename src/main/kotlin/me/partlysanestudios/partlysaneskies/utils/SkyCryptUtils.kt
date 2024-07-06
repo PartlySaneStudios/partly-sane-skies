@@ -3,6 +3,7 @@ package me.partlysanestudios.partlysaneskies.utils
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
+import me.partlysanestudios.partlysaneskies.data.api.GetRequest
 import me.partlysanestudios.partlysaneskies.data.api.Request
 import me.partlysanestudios.partlysaneskies.data.api.RequestRunnable
 import me.partlysanestudios.partlysaneskies.data.api.RequestsManager
@@ -20,10 +21,6 @@ object SkyCryptUtils {
         val skyCryptObject = obtainSkyCryptPlayerJSONData(username)
         val profileData = (skyCryptObject["profiles"] as JsonObject)
         if (DebugKey.isDebugMode()) ChatUtils.sendClientMessage("§eProfiles obtained.")
-        if (profileData == null) {
-            ChatUtils.sendClientMessage("§ePSS is having trouble accessing your profile data over SkyCrypt. Please try again; if this continues please report this to us via §9/discord§e.")
-            return 0.0
-        }
         val currentProfile: JsonObject = findCurrentProfile(profileData)
         networth = currentProfile.getJsonFromPath(skyCryptNetworthPath)?.asDouble ?: -1.0
         if (DebugKey.isDebugMode()) ChatUtils.sendClientMessage("§eCurrent profile and its networth found.")
@@ -35,10 +32,6 @@ object SkyCryptUtils {
         val skyCryptObject = obtainSkyCryptPlayerJSONData(username)
         val profileData = (skyCryptObject["profiles"] as JsonObject)
         if (DebugKey.isDebugMode()) ChatUtils.sendClientMessage("§eProfiles obtained.")
-        if (profileData == null) {
-            ChatUtils.sendClientMessage("§ePSS is having trouble accessing your profile data over SkyCrypt. Please try again; if this continues please report this to us via §9/discord§e.")
-            return -1L
-        }
         val currentProfile: JsonObject = findCurrentProfile(profileData)
         firstJoinEpoch = currentProfile.getJsonFromPath(skyCryptFirstJoinPath)?.asLong ?: -1L
         return firstJoinEpoch
@@ -47,7 +40,7 @@ object SkyCryptUtils {
     private fun obtainSkyCryptPlayerJSONData(username: String): JsonObject {
         lateinit var skyCryptObject: JsonObject
         RequestsManager.newRequest(
-            Request((skyCryptProfileURL + username),
+            GetRequest((skyCryptProfileURL + username),
                 RequestRunnable { r: Request ->
                     if (!r.hasSucceeded()) {
                         ChatUtils.sendClientMessage("§ePSS is having trouble contacting SkyCrypt's API. Please try again; if this continues please report this to us via §9/discord§e.")

@@ -72,7 +72,7 @@ class Angle private constructor(private val radians: Double) {
      * @return The number of degrees this angle represents
      */
     fun asDegrees(): Double {
-        return (180/ PI) * radians
+        return (180 / PI) * radians
     }
 
     /**
@@ -81,7 +81,6 @@ class Angle private constructor(private val radians: Double) {
     fun asRadians(): Double {
         return radians
     }
-
 
 
     operator fun minus(i: Number): Angle {

@@ -14,7 +14,7 @@ import gg.essential.elementa.dsl.constrain
 import gg.essential.elementa.dsl.pixels
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
-import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.uiImageFromResourceLocation
+import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.uiImage
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getLore
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
@@ -24,7 +24,13 @@ import net.minecraft.util.ResourceLocation
 import java.awt.Color
 import java.util.*
 
-class SettingsBar (val xConstraint: XConstraint, val yConstraint: YConstraint, val heightConstraint: HeightConstraint, val widthConstraint: WidthConstraint, val inventory: IInventory) {
+class SettingsBar(
+    val xConstraint: XConstraint,
+    val yConstraint: YConstraint,
+    val heightConstraint: HeightConstraint,
+    val widthConstraint: WidthConstraint,
+    val inventory: IInventory
+) {
     private var bottomBarImagePaths = arrayOf(
         "textures/gui/custom_ah/left_arrow_icon.png",
         "textures/gui/custom_ah/reset_icon.png",
@@ -70,6 +76,7 @@ class SettingsBar (val xConstraint: XConstraint, val yConstraint: YConstraint, v
     private val imageSide = settingHeight * .9
 
     private val settingList = ArrayList<UIComponent>()
+
     init {
         val paneType = inventory.getStackInSlot(1).itemDamage
 
@@ -166,8 +173,7 @@ class SettingsBar (val xConstraint: XConstraint, val yConstraint: YConstraint, v
                     exception.printStackTrace()
                 }
                 imagePath = imagePath.replace("no_filter", filterImageName)
-            }
-            else if (slot == 52) {
+            } else if (slot == 52) {
                 var binSelectedLine = ""
                 var binImageName = "all"
                 try {
@@ -192,7 +198,7 @@ class SettingsBar (val xConstraint: XConstraint, val yConstraint: YConstraint, v
 
 
 
-            ResourceLocation("partlysaneskies", imagePath).uiImageFromResourceLocation().constrain {
+            ResourceLocation("partlysaneskies", imagePath).uiImage.constrain {
                 x = CenterConstraint()
                 y = CenterConstraint()
                 width = imageSide.pixels
@@ -211,7 +217,7 @@ class SettingsBar (val xConstraint: XConstraint, val yConstraint: YConstraint, v
         }
     }
 
-    fun loadItemInformationBar(informationBar: ItemInformationBar){
+    fun loadItemInformationBar(informationBar: ItemInformationBar) {
         for (i in 0 until settingList.size) {
             val slot = i + 46
 
@@ -236,7 +242,6 @@ class SettingsBar (val xConstraint: XConstraint, val yConstraint: YConstraint, v
     fun setChildOf(component: UIComponent) {
         bottomBar.setChildOf(component)
     }
-
 
 
     fun update() {

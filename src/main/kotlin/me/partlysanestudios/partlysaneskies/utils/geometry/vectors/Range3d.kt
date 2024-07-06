@@ -8,7 +8,7 @@ import kotlin.math.max
 import kotlin.math.min
 
 class Range3d(private val point1: Point3d, private val point2: Point3d) {
-    constructor(x1: Double, y1: Double, z1: Double, x2: Double, y2: Double, z2: Double): this (
+    constructor(x1: Double, y1: Double, z1: Double, x2: Double, y2: Double, z2: Double) : this(
         Point3d(x1, y1, z1),
         Point3d(x2, y2, z2)
     )
@@ -29,6 +29,7 @@ class Range3d(private val point1: Point3d, private val point2: Point3d) {
     fun isInRange(point3d: Point3d): Boolean {
         return isInRange(point3d.x, point3d.y, point3d.z)
     }
+
     fun isInRange(x: Double, y: Double, z: Double): Boolean {
         if (smallCoordinate.x <= x && x - 1 <= largeCoordinate.x) {
             if (smallCoordinate.y - 1 <= y && y - 1 <= largeCoordinate.y) {

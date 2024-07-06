@@ -19,8 +19,7 @@ import gg.essential.universal.UMatrixStack
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.features.debug.DebugKey
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
-import me.partlysanestudios.partlysaneskies.utils.ChatUtils
-import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getSeparateUpperLowerInventories
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.containerInventory
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import net.minecraft.client.gui.inventory.GuiChest
 import net.minecraft.inventory.IInventory
@@ -32,7 +31,8 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
     private val sideBarHeightPercent = PartlySaneSkies.config.auctionHouseSideBarHeight
     private val sideBarWidthPercent = PartlySaneSkies.config.auctionHouseSideBarWidth
     private val sideBarPadding = 1 + PartlySaneSkies.config.auctionSideBarPadding
-    private val textScale = window.getWidth() / 1075.0f * heightPercent/.333f * PartlySaneSkies.config.auctionHouseTextScale
+    private val textScale =
+        window.getWidth() / 1075.0f * heightPercent / .333f * PartlySaneSkies.config.auctionHouseTextScale
 
     private val sizeHeight = window.getHeight() * heightPercent
     private val sizeWidth = sizeHeight * 1.4725
@@ -64,18 +64,42 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
     private val itemInformationBarX = -(sideBarWidth * sideBarPadding)
     private val auctionInformationBarX = (sideBarWidth * (sideBarPadding - 1)) + backgroundImage.getWidth()
 
-    private val itemInformationBar = ItemInformationBar(itemInformationBarX.pixels , CenterConstraint(), sideBarHeight.pixels, sideBarWidth.pixels, textScale)
+    private val itemInformationBar = ItemInformationBar(
+        itemInformationBarX.pixels,
+        CenterConstraint(),
+        sideBarHeight.pixels,
+        sideBarWidth.pixels,
+        textScale
+    )
 
 
-    private val marketInformationBar = MarketInformationBar(auctionInformationBarX.pixels , CenterConstraint(), sideBarHeight.pixels, sideBarWidth.pixels, textScale)
+    private val marketInformationBar = MarketInformationBar(
+        auctionInformationBarX.pixels,
+        CenterConstraint(),
+        sideBarHeight.pixels,
+        sideBarWidth.pixels,
+        textScale
+    )
 
     private val categoriesBarHeight = 0.1665 * sizeHeight
     private val categoriesBarY = backgroundImage.getTop() - pad - categoriesBarHeight
-    private val categoriesBar = CategoriesBar(CenterConstraint(), categoriesBarY.pixels, categoriesBarHeight.pixels, sizeWidth.pixels, defaultAuctionInventory)
+    private val categoriesBar = CategoriesBar(
+        CenterConstraint(),
+        categoriesBarY.pixels,
+        categoriesBarHeight.pixels,
+        sizeWidth.pixels,
+        defaultAuctionInventory
+    )
 
 
     private val settingsBarY = backgroundImage.getBottom() + pad
-    private val settingsBar = SettingsBar(CenterConstraint(), settingsBarY.pixels, categoriesBarHeight.pixels, sizeWidth.pixels, defaultAuctionInventory)
+    private val settingsBar = SettingsBar(
+        CenterConstraint(),
+        settingsBarY.pixels,
+        categoriesBarHeight.pixels,
+        sizeWidth.pixels,
+        defaultAuctionInventory
+    )
 
     private val auctions = getAuctions(defaultAuctionInventory)
 
@@ -158,9 +182,6 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
     }
 
 
-
-
-
     companion object {
         fun tick() {
             if (!PartlySaneSkies.config.customAhGui) {
@@ -175,11 +196,8 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
                 return
             }
 
-            if (gui.getSeparateUpperLowerInventories().isNullOrEmpty()){
-                return
-            }
 
-            if (!isAhGui(gui.getSeparateUpperLowerInventories()[0])) {
+            if (!isAhGui(gui.containerInventory)) {
 //                ChatUtils.sendClientMessage("Not AH Gui")
                 return
             }
@@ -195,9 +213,9 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
 //            val inventory = MinecraftUtils.getSeparateUpperLowerInventories(event.gui)[0]
 
 //            ChatUtils.sendClientMessage("Opening menu")
-            val inventory = gui.getSeparateUpperLowerInventories()[0]
+            val inventory = gui.containerInventory
 //            event.isCanceled = true
-            if (isAuctionHouseFullyLoaded(inventory!!)) {
+            if (isAuctionHouseFullyLoaded(inventory)) {
                 val ahGui = AuctionHouseGui(inventory)
                 PartlySaneSkies.minecraft.displayGuiScreen(ahGui)
                 return
@@ -218,26 +236,14 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
                 .contains("Auctions: \"")
         }
 
-        private fun openMenu() {
-            var inventory = PartlySaneSkies.minecraft.currentScreen.getSeparateUpperLowerInventories()[0]
+        private fun openMenu(): AuctionHouseGui {
+            var inventory = (PartlySaneSkies.minecraft.currentScreen as GuiChest).containerInventory
 
-            if (inventory == null) {
-                ChatUtils.sendClientMessage("Error opening auction house. Inventory not open.")
-
-                return
-            }
-            if (isAuctionHouseFullyLoaded(inventory)) {
-//                ChatUtils.sendClientMessage("Auction house is already loaded")
-                inventory = PartlySaneSkies.minecraft.currentScreen.getSeparateUpperLowerInventories()[0]
-                val gui = AuctionHouseGui(inventory!!)
-                PartlySaneSkies.minecraft.displayGuiScreen(gui)
+            return if (isAuctionHouseFullyLoaded(inventory)) {
+                inventory = (PartlySaneSkies.minecraft.currentScreen as GuiChest).containerInventory
+                AuctionHouseGui(inventory)
             } else {
-                Thread {
-                    PartlySaneSkies.minecraft.addScheduledTask {
-//                        ChatUtils.sendClientMessage("Trying again")
-                        openMenu()
-                    }
-                }.start()
+                openMenu()
             }
         }
 
@@ -247,7 +253,8 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
                 if (convertSlotToChestCoordinate(i)[0] <= 2 ||
                     convertSlotToChestCoordinate(i)[0] == 9 ||
                     convertSlotToChestCoordinate(i)[1] == 1 ||
-                    convertSlotToChestCoordinate(i)[1] == 6) {
+                    convertSlotToChestCoordinate(i)[1] == 6
+                ) {
                     continue
                 }
 

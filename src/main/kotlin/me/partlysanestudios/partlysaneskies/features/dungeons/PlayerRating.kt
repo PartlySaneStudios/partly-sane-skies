@@ -24,8 +24,6 @@ import me.partlysanestudios.partlysaneskies.utils.StringUtils.stripTrailing
 import net.minecraft.command.ICommandSender
 import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import org.apache.logging.log4j.Level
-import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
 
 object PlayerRating {
 
@@ -44,7 +42,7 @@ object PlayerRating {
     private var totalPoints = 0
 
     private var lastMessage = ""
-    
+
     @SubscribePSSEvent
     fun initPatterns(event: LoadPublicDataEvent) {
         currentPlayer = minecraft.session.username
@@ -102,14 +100,16 @@ object PlayerRating {
         var str = StringBuilder()
         if (config.enhancedDungeonPlayerBreakdown == 0) {
             for ((key) in playerPointCategoryMap) {
-                val playerStr = "§d$key  §9" + ((totalPlayerPoints[key]?.toDouble() ?: 0.0) / totalPoints * 100.0).round(0) + "%§7 | "
+                val totalPoints = ((totalPlayerPoints[key]?.toDouble() ?: 0.0) / totalPoints * 100.0).round(0)
+                val playerStr = "§d$key  §9$totalPoints%§7 | "
                 str.append(playerStr)
             }
             return str.toString()
         }
         str.append("§a§nDungeon Overview:\n\n")
         for ((playerName, value) in playerPointCategoryMap) {
-            val playerStr = StringBuilder("§d$playerName§7 completed §d" + ((totalPlayerPoints[playerName]?.toDouble() ?: 0.0) / totalPoints * 100.0).round(0) + "%§7 of the dungeon.\n")
+            val totalPoints = ((totalPlayerPoints[playerName]?.toDouble() ?: 0.0) / totalPoints * 100.0).round(0)
+            val playerStr = StringBuilder("§d$playerName§7 completed §d$totalPoints%§7 of the dungeon.\n")
             if (config.enhancedDungeonPlayerBreakdown == 2) {
                 playerStr.append("§2   Breakdown:\n")
                 for ((key, value1) in value) {
@@ -130,7 +130,8 @@ object PlayerRating {
         val str = java.lang.StringBuilder()
         str.append("Partly Sane Skies > ")
         for ((key) in playerPointCategoryMap) {
-            val playerStr = "$key  " + ((totalPlayerPoints[key]?.toDouble() ?: 0.0) / totalPoints * 100.0).round(0) + "% | "
+            val totalPoints = ((totalPlayerPoints[key]?.toDouble() ?: 0.0) / totalPoints * 100.0).round(0)
+            val playerStr = "$key  $totalPoints% | "
             str.append(playerStr)
         }
         return str.toString()
@@ -152,7 +153,7 @@ object PlayerRating {
             if (!(key.containsMatchIn(message.removeColorCodes()))) {
                 continue
             }
-            
+
             val (playerName) = key.find(message)?.destructured ?: return
             rackPoints(playerName, value)
         }
@@ -172,7 +173,7 @@ object PlayerRating {
     fun registerReprintCommand() {
         PSSCommand(
             "reprintscore", mutableListOf("rps", "rs"), "Reprints the last score in a dungeon run"
-        ) { _: ICommandSender?, _: Array<String> -> reprintLastScore() }.register()
+        ) { reprintLastScore() }.register()
     }
 
     @SubscribePSSEvent
@@ -216,9 +217,7 @@ object PlayerRating {
                         throw RuntimeException(e)
                     }
                     minecraft.addScheduledTask {
-                        minecraft.thePlayer.sendChatMessage(
-                            "/pc $str"
-                        )
+                        minecraft.thePlayer.sendChatMessage("/pc $str")
                     }
                 }
             }
@@ -238,7 +237,7 @@ object PlayerRating {
         if (!IslandType.CATACOMBS.onIsland()) {
             return
         }
-        
+
         handleMessage(event.message.unformattedText)
     }
 }

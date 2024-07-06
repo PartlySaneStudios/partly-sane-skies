@@ -10,6 +10,7 @@ import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
+import net.minecraft.launchwrapper.Launch
 import net.minecraft.nbt.CompressedStreamTools
 import net.minecraft.nbt.NBTTagCompound
 import org.apache.logging.log4j.Level
@@ -32,10 +33,14 @@ object SystemUtils {
      * @param level The level to log the message at
      * @param message The message to log
      */
-    fun log(level: Level?, message: String) {
+    fun log(level: Level = Level.INFO, message: String) {
         for (line in message.split("\n".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()) {
             PartlySaneSkies.LOGGER.log(level, line)
         }
+    }
+
+    fun log(message: String) {
+        log(Level.INFO, message)
     }
 
     fun base64ToNbt(base64String: String): NBTTagCompound {
@@ -179,4 +184,10 @@ object SystemUtils {
 //        Gets the last object as a JsonElement
         return obj!![splitPath[splitPath.size - 1]]
     }
+
+    /**
+     * @author https://www.minecraftforum.net/forums/mapping-and-modding-java-edition/minecraft-mods/modification-development/2423852-detecting-the-development-environment-solved
+     * @return True if the environment is a development environment
+     */
+    fun isDevelopmentEnvironment(): Boolean = (Launch.blackboard["fml.deobfuscatedEnvironment"] as Boolean?) ?: false
 }

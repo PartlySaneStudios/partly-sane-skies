@@ -25,12 +25,6 @@ import java.net.MalformedURLException;
 
 public class PartyMember {
 
-    public enum PartyRank {
-        MEMBER,
-        MODERATOR,
-        LEADER
-    }
-
     public String username;
     public PartyRank rank;
     public int secretCount;
@@ -39,18 +33,14 @@ public class PartyMember {
     public double combatLevel;
     public double secretsPerRun;
     public double averageSkillLevel;
-
     public String helmetName = "(Unknown)";
     public String chestplateName = "(Unknown)";
     public String leggingsName = "(Unknown)";
     public String bootsName = "(Unknown)";
     public int arrowCount = -1;
     public String arrowCountString = "(Unknown)";
-
     public String petName = "(Unknown)";
-
     public String selectedDungeonClass = "(Unknown)";
-
     public int f1Runs;
     public int f2Runs;
     public int f3Runs;
@@ -58,7 +48,6 @@ public class PartyMember {
     public int f5Runs;
     public int f6Runs;
     public int f7Runs;
-
     public int m1Runs;
     public int m2Runs;
     public int m3Runs;
@@ -66,13 +55,11 @@ public class PartyMember {
     public int m5Runs;
     public int m6Runs;
     public int m7Runs;
-
     public double health;
     public double defense;
     public double intelligence;
     public double effectHealth;
     SkyblockPlayer player;
-
     // Creates a new party member based on the username and partyRank
     public PartyMember(String username, PartyRank partyRank) {
         this.username = username;
@@ -131,7 +118,7 @@ public class PartyMember {
 
         this.arrowCount = player.getArrowCount();
         this.arrowCountString = String.valueOf(this.arrowCount);
-        if (arrowCount == -1) { 
+        if (arrowCount == -1) {
             this.arrowCountString = "(Unknown)";
         }
 
@@ -174,7 +161,6 @@ public class PartyMember {
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
 
-        
 
         new UIText(this.selectedDungeonClass)
                 .setTextScale(new PixelConstraint(scaleFactor))
@@ -267,21 +253,18 @@ public class PartyMember {
     }
 
     public Color colorFloorRuns(int floorRuns) {
-        if(!PartlySaneSkies.Companion.getConfig().getToggleRunColors()) {
+        if (!PartlySaneSkies.Companion.getConfig().getToggleRunColors()) {
             return Color.WHITE;
         }
 
         if (floorRuns <= PartlySaneSkies.Companion.getConfig().getRunColorsRedMax()) {
             return Color.RED;
-        }
-        else if (floorRuns <= PartlySaneSkies.Companion.getConfig().getRunColorsYellowMax()) {
+        } else if (floorRuns <= PartlySaneSkies.Companion.getConfig().getRunColorsYellowMax()) {
             return Color.YELLOW;
-        }
-        else {
+        } else {
             return Color.GREEN;
         }
     }
-
 
     private void createMemberBlockColumnThree(UIComponent memberBlock, float scaleFactor) {
         new UIText("Runs:")
@@ -430,7 +413,7 @@ public class PartyMember {
                 .setY(new PixelConstraint(155f * scaleFactor))
                 .setColor(Color.white)
                 .setChildOf(memberBlock);
-        
+
         Color arrowWarningColor = Color.white;
         if (this.arrowCount < PartlySaneSkies.Companion.getConfig().getArrowLowCount()) {
             arrowWarningColor = Color.red;
@@ -453,31 +436,31 @@ public class PartyMember {
         new PSSButton()
                 .setX(new PixelConstraint(800 * scaleFactor))
                 .setY(new PixelConstraint(15 * scaleFactor))
-                .setWidth(125f * scaleFactor)
-                .setHeight(55f * scaleFactor)
+                .setWidth(new PixelConstraint(125f * scaleFactor))
+                .setHeight(new PixelConstraint(55f * scaleFactor))
                 .setChildOf(memberBlock)
                 .setText("Kick")
-                .setTextScale(scaleFactor)
+                .setTextScale(new PixelConstraint(scaleFactor))
                 .onMouseClickConsumer(event -> PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/party kick " + this.username));
-        
+
         new PSSButton()
                 .setX(new PixelConstraint(800 * scaleFactor))
                 .setY(new PixelConstraint(75 * scaleFactor))
-                .setWidth(125f * scaleFactor)
-                .setHeight(55f * scaleFactor)
+                .setWidth(new PixelConstraint(125f * scaleFactor))
+                .setHeight(new PixelConstraint(55f * scaleFactor))
                 .setChildOf(memberBlock)
                 .setText("Promote")
-                .setTextScale(scaleFactor)
+                .setTextScale(new PixelConstraint(scaleFactor))
                 .onMouseClickConsumer(event -> PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/party promote " + this.username));
 
         new PSSButton()
                 .setX(new PixelConstraint(800 * scaleFactor))
                 .setY(new PixelConstraint(135 * scaleFactor))
-                .setWidth(125f * scaleFactor)
-                .setHeight(55f * scaleFactor)
+                .setWidth(new PixelConstraint(125f * scaleFactor))
+                .setHeight(new PixelConstraint(55f * scaleFactor))
                 .setChildOf(memberBlock)
                 .setText("Transfer")
-                .setTextScale(scaleFactor)
+                .setTextScale(new PixelConstraint(scaleFactor))
                 .onMouseClickConsumer(event -> PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/party transfer " + this.username));
 
         UIComponent refreshButton = new UIRoundedRectangle(10f)
@@ -488,7 +471,7 @@ public class PartyMember {
                 .setColor(new Color(60, 222, 79))
                 .setChildOf(memberBlock);
 
-        ElementaUtils.INSTANCE.uiImageFromResourceLocation(new ResourceLocation("partlysaneskies", "textures/gui/party_finder/refresh.png"))
+        ElementaUtils.INSTANCE.getUiImage(new ResourceLocation("partlysaneskies", "textures/gui/party_finder/refresh.png"))
                 .setX(new CenterConstraint())
                 .setY(new CenterConstraint())
                 .setWidth(new PixelConstraint(20f * scaleFactor))
@@ -500,5 +483,11 @@ public class PartyMember {
             PartlySaneSkies.Companion.getMinecraft().displayGuiScreen(null);
             PartyManager.startPartyManager();
         });
+    }
+
+    public enum PartyRank {
+        MEMBER,
+        MODERATOR,
+        LEADER
     }
 }
