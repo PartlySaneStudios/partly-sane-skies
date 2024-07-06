@@ -192,8 +192,8 @@ class ProfitMinionCalculator(version: ElementaVersion) : WindowScreen(version) {
             val fuelContainer = PSSButton()
                 .setX(fromWidthScaleFactor(10f))
                 .setY(PixelConstraint(yPos))
-                .setWidth(leftBar.getLeft() - mainTextScrollComponent.getLeft() - fromWidthScaleFactor(20f).value)
-                .setHeight(fromWidthScaleFactor(40f).value)
+                .setWidth(PixelConstraint(leftBar.getLeft() - mainTextScrollComponent.getLeft() - fromWidthScaleFactor(20f).value))
+                .setHeight(fromWidthScaleFactor(40f))
                 .setChildOf(mainTextScrollComponent)
 
             val toggle = PSSToggle()
@@ -248,8 +248,8 @@ class ProfitMinionCalculator(version: ElementaVersion) : WindowScreen(version) {
                     ),
                 )
                 .setY(PixelConstraint(yPos))
-                .setWidth(mainTextScrollComponent.getRight() - rightBar.getRight() - rightBar.getWidth() - fromWidthScaleFactor(20f).value)
-                .setHeight(fromWidthScaleFactor(40f).value)
+                .setWidth(PixelConstraint(mainTextScrollComponent.getRight() - rightBar.getRight() - rightBar.getWidth() - fromWidthScaleFactor(20f).value))
+                .setHeight(fromWidthScaleFactor(40f))
                 .setChildOf(mainTextScrollComponent)
 
             val toggle = PSSToggle()
@@ -295,8 +295,8 @@ class ProfitMinionCalculator(version: ElementaVersion) : WindowScreen(version) {
             val button = PSSButton()
                 .setX(PixelConstraint(xPos))
                 .setY(CenterConstraint())
-                .setWidth(blockWidth)
-                .setHeight(categoriesBar.getHeight() * .9f)
+                .setWidth(PixelConstraint(blockWidth))
+                .setHeight(PixelConstraint(categoriesBar.getHeight() * .9f))
                 .setChildOf(categoriesBar)
 
             button.setText(categoriesColorMap[category] + category.titleCase())
@@ -346,10 +346,10 @@ class ProfitMinionCalculator(version: ElementaVersion) : WindowScreen(version) {
         val button = PSSButton(Color.green)
             .setX(fromWidthScaleFactor(180f))
             .setY(CenterConstraint())
-            .setHeight(fromWidthScaleFactor(60f).value)
-            .setWidth(fromWidthScaleFactor(100f).value)
+            .setHeight(fromWidthScaleFactor(60f))
+            .setWidth(fromWidthScaleFactor(100f))
             .setText("Calculate Best Minion")
-            .setTextScale(fromWidthScaleFactor(1f).value)
+            .setTextScale(fromWidthScaleFactor(1f))
 
             .setChildOf(bestMinionBar)
 
