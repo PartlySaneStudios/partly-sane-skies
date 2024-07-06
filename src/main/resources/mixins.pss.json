@@ -1,13 +1,13 @@
 {
-  "package": "me.partlysanestudios.partlysaneskies.mixin",
-  "mixins": [
-    "mods.MixinDungeonGuideCollectDiagnostics",
-    "mods.MixinEssentialsTelemetryManager"
-  ],
-  "client": [
-      "minecraft.accessors.GuiChestAccessor",
-      "minecraft.accessors.GuiContainerAccessor",
-      "minecraft.accessors.GuiPlayerTabOverlayAccessor",
-      "minecraft.MixinPlayerControllerMP"
-  ]
+    "package": "me.partlysanestudios.partlysaneskies.mixin",
+    "mixins": [
+        "mods.MixinDungeonGuideCollectDiagnostics",
+        "mods.MixinEssentialsTelemetryManager"
+    ],
+    "client": [
+        "minecraft.MixinPlayerControllerMP",
+        "minecraft.accessors.GuiChestAccessor",
+        "minecraft.accessors.GuiContainerAccessor",
+        "minecraft.accessors.GuiPlayerTabOverlayAccessor"
+    ]
 }

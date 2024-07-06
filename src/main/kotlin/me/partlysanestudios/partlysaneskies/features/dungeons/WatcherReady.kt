@@ -15,7 +15,6 @@ import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 
 object WatcherReady {
-
     @SubscribeEvent
     fun watcherReadyChatEvent(event: ClientChatReceivedEvent) {
         if (event.message.unformattedText.startsWith("[BOSS] The Watcher: That will be enough for now.")) {
@@ -25,8 +24,8 @@ object WatcherReady {
                         "Watcher Ready!",
                         (config.watcherReadyBannerTime * 1000).toLong(),
                         3.0f,
-                        config.watcherReadyBannerColor.toJavaColor()
-                    )
+                        config.watcherReadyBannerColor.toJavaColor(),
+                    ),
                 )
             }
             if (config.watcherReadyChatMessage) {
@@ -35,15 +34,15 @@ object WatcherReady {
             if (config.watcherReadySound) {
                 minecraft.soundHandler.playSound(
                     PositionedSoundRecord.create(
-                        ResourceLocation("partlysaneskies", "bell")
-                    )
+                        ResourceLocation("partlysaneskies", "bell"),
+                    ),
                 )
             }
             if (config.watcherReadyAirRaidSiren) {
                 minecraft.soundHandler.playSound(
                     PositionedSoundRecord.create(
-                        ResourceLocation("partlysaneskies", "airraidsiren")
-                    )
+                        ResourceLocation("partlysaneskies", "airraidsiren"),
+                    ),
                 )
             }
         }

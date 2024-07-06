@@ -3,12 +3,15 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.features.economy.auctionhousemenu
 
 import gg.essential.elementa.UIComponent
 import gg.essential.elementa.components.UIBlock
-import gg.essential.elementa.constraints.*
+import gg.essential.elementa.constraints.CenterConstraint
+import gg.essential.elementa.constraints.HeightConstraint
+import gg.essential.elementa.constraints.WidthConstraint
+import gg.essential.elementa.constraints.XConstraint
+import gg.essential.elementa.constraints.YConstraint
 import gg.essential.elementa.dsl.childOf
 import gg.essential.elementa.dsl.constrain
 import gg.essential.elementa.dsl.pixels
@@ -18,56 +21,57 @@ import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.uiImage
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getLore
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
-
 import net.minecraft.inventory.IInventory
 import net.minecraft.util.ResourceLocation
 import java.awt.Color
-import java.util.*
+import java.util.Locale
 
 class SettingsBar(
     val xConstraint: XConstraint,
     val yConstraint: YConstraint,
     val heightConstraint: HeightConstraint,
     val widthConstraint: WidthConstraint,
-    val inventory: IInventory
+    val inventory: IInventory,
 ) {
-    private var bottomBarImagePaths = arrayOf(
-        "textures/gui/custom_ah/left_arrow_icon.png",
-        "textures/gui/custom_ah/reset_icon.png",
-        "textures/gui/custom_ah/search_icon.png",
-        "textures/gui/custom_ah/go_back_icon.png",
-        "textures/gui/custom_ah/sort_filter/unknown.png",
-        "textures/gui/custom_ah/rarity_filter/no_filter.png",
-        "textures/gui/custom_ah/type/all.png",
-        "textures/gui/custom_ah/right_arrow_icon.png"
-    )
+    private var bottomBarImagePaths =
+        arrayOf(
+            "textures/gui/custom_ah/left_arrow_icon.png",
+            "textures/gui/custom_ah/reset_icon.png",
+            "textures/gui/custom_ah/search_icon.png",
+            "textures/gui/custom_ah/go_back_icon.png",
+            "textures/gui/custom_ah/sort_filter/unknown.png",
+            "textures/gui/custom_ah/rarity_filter/no_filter.png",
+            "textures/gui/custom_ah/type/all.png",
+            "textures/gui/custom_ah/right_arrow_icon.png",
+        )
 
-    private var bottomBarFurfSkyImagePaths = arrayOf(
-        "textures/gui/custom_ah/furfsky/left_arrow_icon.png",
-        "textures/gui/custom_ah/furfsky/reset_icon.png",
-        "textures/gui/custom_ah/furfsky/search_icon.png",
-        "textures/gui/custom_ah/furfsky/go_back_icon.png",
-        "textures/gui/custom_ah/furfsky/sort_filter/unknown.png",
-        "textures/gui/custom_ah/furfsky/rarity_filter/no_filter.png",
-        "textures/gui/custom_ah/furfsky/type/all.png",
-        "textures/gui/custom_ah/furfsky/right_arrow_icon.png"
-    )
+    private var bottomBarFurfSkyImagePaths =
+        arrayOf(
+            "textures/gui/custom_ah/furfsky/left_arrow_icon.png",
+            "textures/gui/custom_ah/furfsky/reset_icon.png",
+            "textures/gui/custom_ah/furfsky/search_icon.png",
+            "textures/gui/custom_ah/furfsky/go_back_icon.png",
+            "textures/gui/custom_ah/furfsky/sort_filter/unknown.png",
+            "textures/gui/custom_ah/furfsky/rarity_filter/no_filter.png",
+            "textures/gui/custom_ah/furfsky/type/all.png",
+            "textures/gui/custom_ah/furfsky/right_arrow_icon.png",
+        )
 
+    private val bottomBar =
+        UIBlock()
+            .setX(xConstraint)
+            .setY(yConstraint)
+            .setWidth(widthConstraint)
+            .setHeight(heightConstraint)
+            .setColor(Color(0, 0, 0, 0))
 
-    private val bottomBar = UIBlock()
-        .setX(xConstraint)
-        .setY(yConstraint)
-        .setWidth(widthConstraint)
-        .setHeight(heightConstraint)
-        .setColor(Color(0, 0, 0, 0))
-
-    private val bottomBarImage = ThemeManager.currentBackgroundUIImage
-        .setX(CenterConstraint())
-        .setY(CenterConstraint())
-        .setWidth(widthConstraint)
-        .setHeight(heightConstraint)
-        .setChildOf(bottomBar)
-
+    private val bottomBarImage =
+        ThemeManager.currentBackgroundUIImage
+            .setX(CenterConstraint())
+            .setY(CenterConstraint())
+            .setWidth(widthConstraint)
+            .setHeight(heightConstraint)
+            .setChildOf(bottomBar)
 
     var selectedItem = -1
 
@@ -93,12 +97,14 @@ class SettingsBar(
         for (i in 0..7) {
             val slot = i + 46
 
-            val icon = UIBlock().constrain {
-                x = (settingWidth * i + settingWidth * .1).pixels
-                y = CenterConstraint()
-                width = (settingWidth * .8).pixels
-                height = settingHeight.pixels
-            }.setColor(Color(0, 0, 0, 0)) childOf bottomBarImage
+            val icon =
+                UIBlock()
+                    .constrain {
+                        x = (settingWidth * i + settingWidth * .1).pixels
+                        y = CenterConstraint()
+                        width = (settingWidth * .8).pixels
+                        height = settingHeight.pixels
+                    }.setColor(Color(0, 0, 0, 0)) childOf bottomBarImage
 
             var imagePath: String = bottomBarImagePaths[i]
             if (PartlySaneSkies.config.customAhGuiTextures == 1) {
@@ -196,8 +202,6 @@ class SettingsBar(
                 imagePath = imagePath.replace("all", binImageName)
             }
 
-
-
             ResourceLocation("partlysaneskies", imagePath).uiImage.constrain {
                 x = CenterConstraint()
                 y = CenterConstraint()
@@ -243,7 +247,6 @@ class SettingsBar(
         bottomBar.setChildOf(component)
     }
 
-
     fun update() {
         if (settingList.size > selectedItem && selectedItem != -1) {
             for (element in settingList) {
@@ -252,5 +255,4 @@ class SettingsBar(
             settingList[selectedItem].setColor(ThemeManager.accentColor.toJavaColor())
         }
     }
-
 }

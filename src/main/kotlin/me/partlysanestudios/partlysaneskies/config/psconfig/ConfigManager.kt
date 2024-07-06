@@ -3,7 +3,6 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.config.psconfig
 
 import com.google.gson.GsonBuilder
@@ -11,15 +10,16 @@ import com.google.gson.JsonParser
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
 import org.apache.logging.log4j.Level
 import java.io.FileWriter
-import java.nio.file.Files
 import kotlin.io.path.Path
 
 object ConfigManager {
-
     private val configs = HashMap<String, Config>()
 
     // Save path should not include the /config/partly-sane-skies/
-    fun registerNewConfig(savePath: String, config: Config) {
+    fun registerNewConfig(
+        savePath: String,
+        config: Config,
+    ) {
         var path = savePath
         if (savePath.startsWith("/")) {
             path = savePath.substring(1)
@@ -43,7 +43,10 @@ object ConfigManager {
         }
     }
 
-    fun saveConfig(savePath: String, config: Config) {
+    fun saveConfig(
+        savePath: String,
+        config: Config,
+    ) {
         val path = Path("./config/partly-sane-skies/$savePath")
         val file = path.toFile()
         file.parentFile.mkdirs()
@@ -64,7 +67,10 @@ object ConfigManager {
         writer.close()
     }
 
-    private fun loadConfig(savePath: String, config: Config) {
+    private fun loadConfig(
+        savePath: String,
+        config: Config,
+    ) {
         val path = Path("./config/partly-sane-skies/$savePath")
 
         val file = path.toFile()
@@ -84,6 +90,5 @@ object ConfigManager {
                 e.printStackTrace()
             }
         }
-
     }
 }

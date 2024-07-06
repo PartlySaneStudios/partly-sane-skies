@@ -3,7 +3,6 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.events
 
 import me.partlysanestudios.partlysaneskies.events.minecraft.render.RenderWaypointEvent
@@ -33,7 +32,7 @@ object EventManager {
             if (functionParameters.size != 2) { // if there is not only 1 parameter (param 1 is always the instance parameter
                 log(
                     Level.WARN,
-                    "Unable to add ${function.name} due to incorrect number of function parameters (${functionParameters.size}"
+                    "Unable to add ${function.name} due to incorrect number of function parameters (${functionParameters.size}",
                 )
                 continue
             }
@@ -51,7 +50,7 @@ object EventManager {
     fun onScreenRender(event: RenderWorldLastEvent) {
         RenderWaypointEvent.onEventCall(
             event.partialTicks,
-            registeredFunctions[RenderWaypointEvent::class] ?: ArrayList()
+            registeredFunctions[RenderWaypointEvent::class] ?: ArrayList(),
         )
     }
 
@@ -62,5 +61,8 @@ object EventManager {
         DungeonEndEvent.onMessageRecieved(registeredFunctions[DungeonEndEvent::class] ?: ArrayList(), message)
     }
 
-    internal class EventFunction(val obj: Any, val function: KFunction<*>)
+    internal class EventFunction(
+        val obj: Any,
+        val function: KFunction<*>,
+    )
 }

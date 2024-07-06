@@ -3,7 +3,6 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.features.discord.webhooks
 
 import me.partlysanestudios.partlysaneskies.data.api.PostRequest
@@ -12,11 +11,10 @@ import me.partlysanestudios.partlysaneskies.utils.ChatUtils
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils
 import java.net.URL
 
-
 data class WebhookData(
     var url: String,
     var content: String? = null,
-    var embedData: List<EmbedData>? = null
+    var embedData: List<EmbedData>? = null,
 ) {
     fun send() {
         if (content == null && embedData == null) {
@@ -28,12 +26,13 @@ data class WebhookData(
             return
         }
 
-        val urlObj = try {
-            URL(url)
-        } catch (expt: Exception) {
-            ChatUtils.sendClientMessage("Discord Webhook URL is invalid")
-            return
-        }
+        val urlObj =
+            try {
+                URL(url)
+            } catch (expt: Exception) {
+                ChatUtils.sendClientMessage("Discord Webhook URL is invalid")
+                return
+            }
 
         RequestsManager.newRequest(
             PostRequest(
@@ -49,8 +48,8 @@ data class WebhookData(
                 WebhookSerializer.serialize(this),
                 false,
                 false,
-                true
-            )
+                true,
+            ),
         )
     }
 }

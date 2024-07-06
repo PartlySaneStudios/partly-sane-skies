@@ -11,7 +11,11 @@ package me.partlysanestudios.partlysaneskies.data.skyblockdata
  * @param colorCode: the color code relating to that rarity
  * @param displayName: a prettier version of the enum name used for display
  */
-enum class Rarity(val order: Int, val colorCode: String, val displayName: String) : Comparable<Rarity> {
+enum class Rarity(
+    val order: Int,
+    val colorCode: String,
+    val displayName: String,
+) : Comparable<Rarity> {
     UNKNOWN(-1, "", "Unknown"),
     COMMON(0, "§f", "Common"),
     UNCOMMON(1, "§a", "Uncommon"),
@@ -23,14 +27,15 @@ enum class Rarity(val order: Int, val colorCode: String, val displayName: String
     ULTIMATE_COSMETIC(7, "§4", "Ultimate Cosmetic"),
     SPECIAL(8, "§c", "Special"),
     VERY_SPECIAL(9, "§c", "Very Special"),
-    UNOBTAINABLE(10, "§4", "Admin");
+    UNOBTAINABLE(10, "§4", "Admin"),
+    ;
 
     companion object {
         /**
          * @return the rarity associated with a color code
          */
-        fun String.getRarityFromColorCode(): Rarity {
-            return when (this) {
+        fun String.getRarityFromColorCode(): Rarity =
+            when (this) {
                 COMMON.colorCode -> COMMON
                 UNCOMMON.colorCode -> UNCOMMON
                 RARE.colorCode -> RARE
@@ -45,7 +50,5 @@ enum class Rarity(val order: Int, val colorCode: String, val displayName: String
 
                 else -> UNKNOWN
             }
-
-        }
     }
 }

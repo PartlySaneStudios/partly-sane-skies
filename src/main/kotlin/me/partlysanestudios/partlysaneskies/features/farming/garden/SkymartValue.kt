@@ -34,21 +34,23 @@ import net.minecraftforge.client.event.GuiScreenEvent
 import java.awt.Color
 
 object SkymartValue : SidePanel() {
-    override val panelBaseComponent: UIComponent = UIBlock().applyBackground().constrain {
-        x = 800.scaledPixels
-        y = CenterConstraint()
-        width = 225.scaledPixels
-        height = 350.scaledPixels
-        color = Color(0, 0, 0, 0).constraint
-    }
+    override val panelBaseComponent: UIComponent =
+        UIBlock().applyBackground().constrain {
+            x = 800.scaledPixels
+            y = CenterConstraint()
+            width = 225.scaledPixels
+            height = 350.scaledPixels
+            color = Color(0, 0, 0, 0).constraint
+        }
 
-    private val textComponent = UIWrappedText().constrain {
-        x = CenterConstraint()
-        y = CenterConstraint()
-        height = 95.percent
-        width = 95.percent
-        textScale = 1.scaledPixels
-    } childOf panelBaseComponent
+    private val textComponent =
+        UIWrappedText().constrain {
+            x = CenterConstraint()
+            y = CenterConstraint()
+            height = 95.percent
+            width = 95.percent
+            textScale = 1.scaledPixels
+        } childOf panelBaseComponent
 
     override fun shouldDisplayPanel(): Boolean {
         if (!config.skymartValue) {
@@ -65,9 +67,10 @@ object SkymartValue : SidePanel() {
 
         val skymart = (minecraft.currentScreen as GuiChest).containerInventory
 
-        return skymart.displayName.formattedText.removeColorCodes().contains("SkyMart")
+        return skymart.displayName.formattedText
+            .removeColorCodes()
+            .contains("SkyMart")
     }
-
 
     private val copperCost = HashMap<String, Int>()
 
@@ -81,7 +84,6 @@ object SkymartValue : SidePanel() {
         textComponent.setText(textString)
     }
 
-
     @SubscribePSSEvent
     fun initCopperValues(event: LoadPublicDataEvent) {
         val str = getFile("constants/skymart_copper.json")
@@ -90,7 +92,6 @@ object SkymartValue : SidePanel() {
             copperCost[key] = value.asInt
         }
     }
-
 
     private fun getString(): String {
         var str = ""
@@ -102,9 +103,10 @@ object SkymartValue : SidePanel() {
         val sortedMap = map.sortMap()
         var i = 1
         for ((key, value) in sortedMap) {
-
             val item = getItem(key) ?: SkyblockItem.emptyItem
-            str += "§6$i. §d${item.name}§7 costs §d${copperCost[key]?.formatNumber() ?: 0}§7 copper and sells for §d${item.getSellPrice().round(1).formatNumber()}§7 coins \n§8 (${value.round(1).formatNumber()} coins per copper)\n"
+            str += "§6$i. §d${item.name}§7 costs §d${copperCost[key]?.formatNumber() ?: 0}§7 copper and sells for §d${
+                item.getSellPrice().round(1).formatNumber()
+            }§7 coins \n§8 (${value.round(1).formatNumber()} coins per copper)\n"
 
             i++
             if (i > 5) {

@@ -3,7 +3,6 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.features.dungeons
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
@@ -19,43 +18,46 @@ object AutoGG {
             return
         }
         if (event.message.formattedText.contains("§r§fTeam Score:")) {
-            Thread({
-                Thread.sleep((PartlySaneSkies.config.autoGGCooldown * 1000).toLong())
-                val input = event.message.unformattedText
-                val regex = "\\((.*?)\\)"
+            Thread(
+                {
+                    Thread.sleep((PartlySaneSkies.config.autoGGCooldown * 1000).toLong())
+                    val input = event.message.unformattedText
+                    val regex = "\\((.*?)\\)"
 
-                val pattern: Pattern = Pattern.compile(regex)
-                val matcher: Matcher = pattern.matcher(input)
+                    val pattern: Pattern = Pattern.compile(regex)
+                    val matcher: Matcher = pattern.matcher(input)
 
-                if (matcher.find()) {
-                    val score: String = matcher.group(1)
-                    if (score.equals("S+")) {
-                        val message = if (PartlySaneSkies.config.sendAutoGGInWhatChat == 0) {
-                            "/pc " + PartlySaneSkies.config.autoGGMessageSPlus
+                    if (matcher.find()) {
+                        val score: String = matcher.group(1)
+                        if (score.equals("S+")) {
+                            val message =
+                                if (PartlySaneSkies.config.sendAutoGGInWhatChat == 0) {
+                                    "/pc " + PartlySaneSkies.config.autoGGMessageSPlus
+                                } else {
+                                    "/ac " + PartlySaneSkies.config.autoGGMessageSPlus
+                                }
+                            PartlySaneSkies.minecraft.thePlayer.sendChatMessage(message)
+                        } else if (score.equals("S")) {
+                            val message =
+                                if (PartlySaneSkies.config.sendAutoGGInWhatChat == 0) {
+                                    "/pc " + PartlySaneSkies.config.autoGGMessageS
+                                } else {
+                                    "/ac " + PartlySaneSkies.config.autoGGMessageS
+                                }
+                            PartlySaneSkies.minecraft.thePlayer.sendChatMessage(message)
                         } else {
-                            "/ac " + PartlySaneSkies.config.autoGGMessageSPlus
+                            val message =
+                                if (PartlySaneSkies.config.sendAutoGGInWhatChat == 0) {
+                                    "/pc " + PartlySaneSkies.config.autoGGMessageOther
+                                } else {
+                                    "/ac " + PartlySaneSkies.config.autoGGMessageOther
+                                }
+                            PartlySaneSkies.minecraft.thePlayer.sendChatMessage(message)
                         }
-                        PartlySaneSkies.minecraft.thePlayer.sendChatMessage(message)
-
-                    } else if (score.equals("S")) {
-                        val message = if (PartlySaneSkies.config.sendAutoGGInWhatChat == 0) {
-                            "/pc " + PartlySaneSkies.config.autoGGMessageS
-                        } else {
-                            "/ac " + PartlySaneSkies.config.autoGGMessageS
-                        }
-                        PartlySaneSkies.minecraft.thePlayer.sendChatMessage(message)
-
-                    } else {
-                        val message = if (PartlySaneSkies.config.sendAutoGGInWhatChat == 0) {
-                            "/pc " + PartlySaneSkies.config.autoGGMessageOther
-                        } else {
-                            "/ac " + PartlySaneSkies.config.autoGGMessageOther
-                        }
-                        PartlySaneSkies.minecraft.thePlayer.sendChatMessage(message)
-
                     }
-                }
-            }, "AutoGG wait").start()
+                },
+                "AutoGG wait",
+            ).start()
         }
     }
 }

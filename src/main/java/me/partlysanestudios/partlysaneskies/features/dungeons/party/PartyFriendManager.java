@@ -28,13 +28,13 @@ public class PartyFriendManager {
 
     public static void registerCommand() {
         new PSSCommand("friendparty")
-                .addAlias("fp")
-                .addAlias("pf")
-                .setDescription("Parties all friends in the friend list")
-                .setRunnable(a -> {
-                    PartyFriendManager.startPartyManager();
-                })
-                .register();
+            .addAlias("fp")
+            .addAlias("pf")
+            .setDescription("Parties all friends in the friend list")
+            .setRunnable(a -> {
+                PartyFriendManager.startPartyManager();
+            })
+            .register();
     }
 
     public static void partyAll() {

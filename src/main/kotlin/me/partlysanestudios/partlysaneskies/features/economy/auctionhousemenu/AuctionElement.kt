@@ -3,7 +3,6 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.features.economy.auctionhousemenu
 
 import gg.essential.elementa.UIComponent
@@ -14,7 +13,14 @@ import gg.essential.elementa.constraints.CenterConstraint
 import gg.essential.elementa.constraints.PixelConstraint
 import gg.essential.elementa.constraints.XConstraint
 import gg.essential.elementa.constraints.YConstraint
-import gg.essential.elementa.dsl.*
+import gg.essential.elementa.dsl.childOf
+import gg.essential.elementa.dsl.constrain
+import gg.essential.elementa.dsl.constraint
+import gg.essential.elementa.dsl.div
+import gg.essential.elementa.dsl.percent
+import gg.essential.elementa.dsl.pixels
+import gg.essential.elementa.dsl.plus
+import gg.essential.elementa.dsl.times
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
@@ -26,7 +32,7 @@ import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getLore
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import net.minecraft.item.ItemStack
 import java.awt.Color
-import java.util.*
+import java.util.Locale
 
 class AuctionElement(
     private val slot: Int,
@@ -34,63 +40,64 @@ class AuctionElement(
     private var xConstraint: XConstraint,
     private var yConstraint: YConstraint,
     private var heightConstraint: PixelConstraint,
-    val textScale: Float
+    val textScale: Float,
 ) {
-
     private val skyblockItem = SkyblockDataManager.getItem(itemstack?.getItemId() ?: "")
 
-    private val boundingBox = UIBlock().constrain {
-        x = xConstraint
-        y = yConstraint
-        width = (heightConstraint.value).pixels
-        height = (heightConstraint.value).pixels
-        color = Color(0, 0, 0, 0).constraint
-    }
-
-    private val highlightBox = UIRoundedRectangle(7.5f).constrain {
-        x = CenterConstraint()
-        y = CenterConstraint()
-        width = (heightConstraint * 1.2)
-        height = (heightConstraint * 1.2)
-        color = Color(0, 0, 0, 0).constraint
-    } childOf boundingBox
-
-    private val box: PSSButton = PSSButton()
-        .setX(CenterConstraint())
-        .setY(CenterConstraint())
-        .setWidth(heightConstraint)
-        .setHeight(heightConstraint)
-        .setColor(getRarityColor())
-        .setChildOf(boundingBox)
-        .onMouseClickConsumer {
-            clickAuction()
+    private val boundingBox =
+        UIBlock().constrain {
+            x = xConstraint
+            y = yConstraint
+            width = (heightConstraint.value).pixels
+            height = (heightConstraint.value).pixels
+            color = Color(0, 0, 0, 0).constraint
         }
 
+    private val highlightBox =
+        UIRoundedRectangle(7.5f).constrain {
+            x = CenterConstraint()
+            y = CenterConstraint()
+            width = (heightConstraint * 1.2)
+            height = (heightConstraint * 1.2)
+            color = Color(0, 0, 0, 0).constraint
+        } childOf boundingBox
+
+    private val box: PSSButton =
+        PSSButton()
+            .setX(CenterConstraint())
+            .setY(CenterConstraint())
+            .setWidth(heightConstraint)
+            .setHeight(heightConstraint)
+            .setColor(getRarityColor())
+            .setChildOf(boundingBox)
+            .onMouseClickConsumer {
+                clickAuction()
+            }
 
     private val itemHeight = (heightConstraint.value * .667f)
 
-    private val itemRender: PSSItemRender = PSSItemRender(itemstack, true)
-        .setX(CenterConstraint())
-        .setY(CenterConstraint())
-        .setWidth(100.percent)
-        .setHeight(100.percent)
-        .setChildOf(box.component) as PSSItemRender
+    private val itemRender: PSSItemRender =
+        PSSItemRender(itemstack, true)
+            .setX(CenterConstraint())
+            .setY(CenterConstraint())
+            .setWidth(100.percent)
+            .setHeight(100.percent)
+            .setChildOf(box.component) as PSSItemRender
 
-
-    private val nameComponent = UIWrappedText(getName(), centered = true).constrain {
-        x = CenterConstraint()
-        y = itemHeight.pixels
-        width = (heightConstraint.value * 1.25).pixels
-        height = (heightConstraint.value * .667).pixels
-    }.setTextScale(textScale.pixels) childOf boundingBox
+    private val nameComponent =
+        UIWrappedText(getName(), centered = true)
+            .constrain {
+                x = CenterConstraint()
+                y = itemHeight.pixels
+                width = (heightConstraint.value * 1.25).pixels
+                height = (heightConstraint.value * .667).pixels
+            }.setTextScale(textScale.pixels) childOf boundingBox
 
     init {
 
         boundingBox.onMouseClick {
             clickAuction()
         }
-
-
     }
 
     fun highlightIfCheapBin() {
@@ -120,7 +127,6 @@ class AuctionElement(
         boundingBox.onMouseLeave {
             informationBar.clearInfo()
         }
-
     }
 
     private fun clickAuction() {
@@ -133,7 +139,6 @@ class AuctionElement(
         }
         val loreList: List<String> = itemstack.getLore()
         for (line in loreList) {
-
             if (line.removeColorCodes().contains("Buy it now: ")) {
                 return true
             }
@@ -156,9 +161,9 @@ class AuctionElement(
         val loreList: List<String> = itemstack.getLore()
         var buyItNowPrice = ""
         for (line in loreList) {
-            if (line.removeColorCodes().contains("Buy it now:")
-                || line.removeColorCodes().contains("Top bid:")
-                || line.removeColorCodes().contains("Starting bid:")
+            if (line.removeColorCodes().contains("Buy it now:") ||
+                line.removeColorCodes().contains("Top bid:") ||
+                line.removeColorCodes().contains("Starting bid:")
             ) {
                 buyItNowPrice = line.removeColorCodes().replace("[^0-9]".toRegex(), "")
             }
@@ -169,9 +174,7 @@ class AuctionElement(
         return buyItNowPrice.toLong()
     }
 
-    fun getCostPerAmount(): Double {
-        return getPrice() / getAmount().toDouble()
-    }
+    fun getCostPerAmount(): Double = getPrice() / getAmount().toDouble()
 
     private fun isCheapBin(): Boolean {
         val sellingPrice = getPrice()
@@ -185,9 +188,7 @@ class AuctionElement(
         return sellingPrice <= averageAhPrice * (PartlySaneSkies.config.BINSniperPercent / 100.0)
     }
 
-    fun getName(): String {
-        return itemstack?.displayName ?: ""
-    }
+    fun getName(): String = itemstack?.displayName ?: ""
 
     fun getAverageLowestBin(): Double {
         if (SkyblockDataManager.getItem(skyblockItem?.id ?: "") == null) {
@@ -195,7 +196,9 @@ class AuctionElement(
         }
         return if (SkyblockDataManager.getItem(skyblockItem?.id ?: "")?.hasAverageLowestBin() != true) {
             0.0
-        } else SkyblockDataManager.getItem(skyblockItem?.id ?: "")?.averageLowestBin ?: 0.0
+        } else {
+            SkyblockDataManager.getItem(skyblockItem?.id ?: "")?.averageLowestBin ?: 0.0
+        }
     }
 
     fun getLowestBin(): Double {
@@ -210,17 +213,19 @@ class AuctionElement(
         return SkyblockDataManager.getItem(skyblockItem?.id ?: "")?.getSellPrice() ?: 0.0
     }
 
-    fun hasLowestBin(): Boolean {
-        return if (SkyblockDataManager.getItem(skyblockItem?.id ?: "") == null) {
+    fun hasLowestBin(): Boolean =
+        if (SkyblockDataManager.getItem(skyblockItem?.id ?: "") == null) {
             false
-        } else SkyblockDataManager.getItem(skyblockItem?.id ?: "")?.hasSellPrice() ?: false
-    }
+        } else {
+            SkyblockDataManager.getItem(skyblockItem?.id ?: "")?.hasSellPrice() ?: false
+        }
 
-    fun hasAverageLowestBin(): Boolean {
-        return if (SkyblockDataManager.getItem(skyblockItem?.id ?: "") == null) {
+    fun hasAverageLowestBin(): Boolean =
+        if (SkyblockDataManager.getItem(skyblockItem?.id ?: "") == null) {
             false
-        } else SkyblockDataManager.getItem(skyblockItem?.id ?: "")?.hasAverageLowestBin() ?: false
-    }
+        } else {
+            SkyblockDataManager.getItem(skyblockItem?.id ?: "")?.hasAverageLowestBin() ?: false
+        }
 
     fun getFormattedEndingTime(): String {
         if (itemstack == null) {
@@ -250,16 +255,17 @@ class AuctionElement(
         if (itemstack == null) {
             return ""
         }
-        val lastLineOfLore = try {
-            val loreList = itemstack.getLore()
-            if (loreList.size - 7 - 1 < 0) {
+        val lastLineOfLore =
+            try {
+                val loreList = itemstack.getLore()
+                if (loreList.size - 7 - 1 < 0) {
+                    return ""
+                }
+                loreList[loreList.size - 7 - 1].removeColorCodes()
+            } catch (exception: NullPointerException) {
+                exception.printStackTrace()
                 return ""
             }
-            loreList[loreList.size - 7 - 1].removeColorCodes()
-        } catch (exception: NullPointerException) {
-            exception.printStackTrace()
-            return ""
-        }
 
         if (lastLineOfLore.uppercase(Locale.getDefault()).contains("UNCOMMON")) {
             str = "UNCOMMON"
@@ -321,17 +327,17 @@ class AuctionElement(
         box.setWidth(boxHeight).setHeight(boxHeight)
         box.setY(boxY.pixels)
 
-
 //        val itemX = boxHeight / 2
 
         itemRender.setWidth(100.percent).setHeight(100.percent)
-        nameComponent.setY((boxHeight + heightConstraint * 0.05))
+        nameComponent
+            .setY((boxHeight + heightConstraint * 0.05))
             .setHeight((heightConstraint.value * .667).pixels)
             .setWidth((heightConstraint.value * 1.25).pixels)
 
-        highlightBox.setHeight((heightConstraint.value * 1.25).pixels)
+        highlightBox
+            .setHeight((heightConstraint.value * 1.25).pixels)
             .setWidth((heightConstraint.value * 1.25).pixels)
-
 
         this.heightConstraint = heightConstraint
 
@@ -342,5 +348,4 @@ class AuctionElement(
         boundingBox.setChildOf(parent)
         return this
     }
-
 }

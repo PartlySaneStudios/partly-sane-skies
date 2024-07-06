@@ -9,7 +9,9 @@ package me.partlysanestudios.partlysaneskies.data.skyblockdata
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 
-enum class IslandType(val islandName: String) {
+enum class IslandType(
+    val islandName: String,
+) {
     HUB("Hub"),
     DUNGEON_HUB("Dungeon Hub"),
     PRIVATE_ISLAND("Private Island"),
@@ -28,11 +30,10 @@ enum class IslandType(val islandName: String) {
     CATACOMBS("Catacombs"),
     KUUDRA("Kuudra"),
 
-    NONE("");
+    NONE(""),
+    ;
 
-    fun onIsland(): Boolean {
-        return this == IslandType.getCurrentIsland()
-    }
+    fun onIsland(): Boolean = this == IslandType.getCurrentIsland()
 
     companion object {
         /**
@@ -42,7 +43,12 @@ enum class IslandType(val islandName: String) {
         fun getCurrentIsland(): IslandType {
             for (line in MinecraftUtils.getTabList()) {
                 if (line.removeColorCodes().startsWith("Area: ") || line.removeColorCodes().startsWith("Dungeon: ")) {
-                    val islandName = line.removeColorCodes().replace("Area: ", "").replace("Dungeon: ", "").trim()
+                    val islandName =
+                        line
+                            .removeColorCodes()
+                            .replace("Area: ", "")
+                            .replace("Dungeon: ", "")
+                            .trim()
 
                     return IslandType.entries.firstOrNull { it.islandName.equals(islandName, ignoreCase = true) }
                         ?: NONE

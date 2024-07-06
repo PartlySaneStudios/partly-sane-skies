@@ -3,7 +3,6 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.features.chat
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
@@ -19,7 +18,6 @@ import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.fml.common.eventhandler.EventPriority
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import java.util.regex.Pattern
-
 
 object ChatManager {
     @SubscribeEvent(priority = EventPriority.LOWEST)
@@ -58,9 +56,9 @@ object ChatManager {
                 PositionedSoundRecord.create(
                     ResourceLocation(
                         "partlysaneskies",
-                        "flute_scale"
-                    )
-                )
+                        "flute_scale",
+                    ),
+                ),
             )
             messageToSend = ChatAlertsManager.checkChatAlert(messageToSend, true)
         }
@@ -83,14 +81,14 @@ object ChatManager {
         }
 
         if (config.prettyMimicKilled) {
-            messageToSend = ChatComponentText(
-                messageToSend.formattedText.replace(
-                    "\$SKYTILS-DUNGEON-SCORE-MIMIC\$",
-                    config.prettyMimicKilledString
+            messageToSend =
+                ChatComponentText(
+                    messageToSend.formattedText.replace(
+                        "\$SKYTILS-DUNGEON-SCORE-MIMIC\$",
+                        config.prettyMimicKilledString,
+                    ),
                 )
-            )
         }
-
 
         messageToSend.chatStyle = event.message.chatStyle.createDeepCopy()
 
@@ -104,7 +102,9 @@ object ChatManager {
                 HoverEvent(event.message.chatStyle.chatHoverEvent.action, event.message.chatStyle.chatHoverEvent.value)
         }
 
-        PartlySaneSkies.minecraft.ingameGUI?.chatGUI?.printChatMessage(messageToSend)
+        PartlySaneSkies.minecraft.ingameGUI
+            ?.chatGUI
+            ?.printChatMessage(messageToSend)
     }
 
     fun IChatComponent.hasClickAction(): Boolean {
@@ -129,7 +129,9 @@ object ChatManager {
         }
 
 //        If the chat has no value for the action
-        else if (this.chatStyle.chatClickEvent.value.isEmpty()) {
+        else if (this.chatStyle.chatClickEvent.value
+                .isEmpty()
+        ) {
             return false
         }
 
@@ -158,7 +160,9 @@ object ChatManager {
         }
 
 //        If the chat has no value for the action
-        else if (this.chatStyle.chatHoverEvent.value.unformattedText.isEmpty()) {
+        else if (this.chatStyle.chatHoverEvent.value.unformattedText
+                .isEmpty()
+        ) {
             return false
         }
 
@@ -178,9 +182,7 @@ object ChatManager {
         return containedUrls
     }
 
-    fun IChatComponent.extractUrls(): List<String> {
-        return extractUrls(this.unformattedText.removeColorCodes())
-    }
+    fun IChatComponent.extractUrls(): List<String> = extractUrls(this.unformattedText.removeColorCodes())
 
     //    Returns if we interact with chat at all
 //    ADD A CHECK FOR ANY FEATURE THAT MODIFIES AN EXISTING CHAT MESSAGE
@@ -210,7 +212,7 @@ object ChatManager {
         return false
     }
 
-    //ALSO HERE, DON'T FORGET
+    // ALSO HERE, DON'T FORGET
     private fun IChatComponent.doChatMessageModify(): Boolean {
         if (this.formattedText.startsWith("{\"server\":")) {
             return false
@@ -218,9 +220,10 @@ object ChatManager {
         if (this.formattedText.startsWith(PartlySaneSkies.CHAT_PREFIX)) {
             return false
         }
-        if (ChatColors.getChatColor(
-                ChatColors.getPrefix(this.formattedText)
-            ).isNotEmpty()
+        if (ChatColors
+                .getChatColor(
+                    ChatColors.getPrefix(this.formattedText),
+                ).isNotEmpty()
         ) {
             return true
         } else if (!ChatAlertsManager.checkChatAlert(this).formattedText.equals(this.formattedText)) {
@@ -230,7 +233,7 @@ object ChatManager {
         } else if (WordEditor.shouldEditMessage(this)) {
             return true
         } else if (config.owoLanguage) {
-            return true //there is almost no way this will never not trigger
+            return true // there is almost no way this will never not trigger
         } else {
             return false
         }

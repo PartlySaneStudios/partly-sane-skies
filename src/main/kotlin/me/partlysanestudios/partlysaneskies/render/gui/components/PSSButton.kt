@@ -7,9 +7,12 @@ package me.partlysanestudios.partlysaneskies.render.gui.components
 import cc.polyfrost.oneconfig.config.core.OneColor
 import gg.essential.elementa.UIComponent
 import gg.essential.elementa.components.UIBlock
-import gg.essential.elementa.components.UIImage
 import gg.essential.elementa.components.UIWrappedText
-import gg.essential.elementa.constraints.*
+import gg.essential.elementa.constraints.CenterConstraint
+import gg.essential.elementa.constraints.HeightConstraint
+import gg.essential.elementa.constraints.WidthConstraint
+import gg.essential.elementa.constraints.XConstraint
+import gg.essential.elementa.constraints.YConstraint
 import gg.essential.elementa.dsl.childOf
 import gg.essential.elementa.dsl.constrain
 import gg.essential.elementa.dsl.constraint
@@ -21,32 +24,35 @@ import java.awt.Color
 import java.util.function.Consumer
 
 class PSSButton {
-
     private var color: OneColor
     private var text: String = ""
     private val onMouseClick = ArrayList<Consumer<UIClickEvent>>()
 
-    private val backgroundBlock = UIBlock().constrain {
-        color = Color(0, 0, 0, 0).constraint
-    }.onMouseClick {
-        for (method in onMouseClick) {
-            method.accept(it)
-        }
-    }
+    private val backgroundBlock =
+        UIBlock()
+            .constrain {
+                color = Color(0, 0, 0, 0).constraint
+            }.onMouseClick {
+                for (method in onMouseClick) {
+                    method.accept(it)
+                }
+            }
 
-    private var buttonTexture = currentButtonUIImage.constrain {
-        x = CenterConstraint()
-        y = CenterConstraint()
-        width = 100.percent
-        height = 100.percent
-    } childOf backgroundBlock
+    private var buttonTexture =
+        currentButtonUIImage.constrain {
+            x = CenterConstraint()
+            y = CenterConstraint()
+            width = 100.percent
+            height = 100.percent
+        } childOf backgroundBlock
 
-    private val textComponent = UIWrappedText(text, false, Color(0, 0, 0, 0), true).constrain {
-        x = CenterConstraint()
-        y = CenterConstraint()
-        width = 100.percent
-        color = Color.white.constraint
-    } childOf backgroundBlock
+    private val textComponent =
+        UIWrappedText(text, false, Color(0, 0, 0, 0), true).constrain {
+            x = CenterConstraint()
+            y = CenterConstraint()
+            width = 100.percent
+            color = Color.white.constraint
+        } childOf backgroundBlock
 
     constructor() {
         text = ""
@@ -86,9 +92,7 @@ class PSSButton {
         return this
     }
 
-    fun setColor(color: Color): PSSButton {
-        return setColor(OneColor(color))
-    }
+    fun setColor(color: Color): PSSButton = setColor(OneColor(color))
 
     fun setColor(color: OneColor): PSSButton {
         backgroundBlock.removeChild(buttonTexture)

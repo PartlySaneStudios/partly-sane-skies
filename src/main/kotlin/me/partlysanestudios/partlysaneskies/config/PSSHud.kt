@@ -26,7 +26,7 @@ abstract class PSSHud(
     protected var x: Float = 0.0F,
     protected var y: Float = 0.0F,
     var positionAlignment: Int = 0,
-    var scale: Float = 1.0f
+    var scale: Float = 1.0f,
 ) {
     /**
      * Whether the current rendering cycle is an example (when the user is configuring the main menu)
@@ -38,33 +38,43 @@ abstract class PSSHud(
      *
      * @return The OneConfig hud
      */
-    open val oneConfigHud = object : Hud(enabled, x, y, positionAlignment, scale) {
-        override fun draw(matrices: UMatrixStack?, x: Float, y: Float, scale: Float, example: Boolean) {
-            this@PSSHud.x = x
-            this@PSSHud.y = y
-            this@PSSHud.scale = scale
-            this@PSSHud.example = example
-        }
-
-        override fun getWidth(scale: Float, example: Boolean): Float {
-            return try {
-                this@PSSHud.getWidth(scale, example)
-            } catch (e: Exception) {
-                e.printStackTrace()
-                0.0F
+    open val oneConfigHud =
+        object : Hud(enabled, x, y, positionAlignment, scale) {
+            override fun draw(
+                matrices: UMatrixStack?,
+                x: Float,
+                y: Float,
+                scale: Float,
+                example: Boolean,
+            ) {
+                this@PSSHud.x = x
+                this@PSSHud.y = y
+                this@PSSHud.scale = scale
+                this@PSSHud.example = example
             }
-        }
 
-        override fun getHeight(scale: Float, example: Boolean): Float {
-            return try {
-                this@PSSHud.getHeight(scale, example)
-            } catch (e: Exception) {
-                e.printStackTrace()
-                0.0F
-            }
-        }
-    }
+            override fun getWidth(
+                scale: Float,
+                example: Boolean,
+            ): Float =
+                try {
+                    this@PSSHud.getWidth(scale, example)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    0.0F
+                }
 
+            override fun getHeight(
+                scale: Float,
+                example: Boolean,
+            ): Float =
+                try {
+                    this@PSSHud.getHeight(scale, example)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    0.0F
+                }
+        }
 
     /**
      * @return Height of the Hud's bounding box in pixels
@@ -72,7 +82,10 @@ abstract class PSSHud(
      * @param scale the current scale
      * @param example whether it is an example or not
      */
-    abstract fun getHeight(scale: Float, example: Boolean): Float
+    abstract fun getHeight(
+        scale: Float,
+        example: Boolean,
+    ): Float
 
     /**
      * @return Width of the Hud's bounding box in pixels
@@ -80,7 +93,8 @@ abstract class PSSHud(
      * @param scale the current scale
      * @param example whether it is an example or not
      */
-    abstract fun getWidth(scale: Float, example: Boolean): Float
-
-
+    abstract fun getWidth(
+        scale: Float,
+        example: Boolean,
+    ): Float
 }

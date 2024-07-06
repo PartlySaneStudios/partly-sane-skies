@@ -3,12 +3,15 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.features.economy.auctionhousemenu
 
 import gg.essential.elementa.UIComponent
 import gg.essential.elementa.components.UIBlock
-import gg.essential.elementa.constraints.*
+import gg.essential.elementa.constraints.CenterConstraint
+import gg.essential.elementa.constraints.HeightConstraint
+import gg.essential.elementa.constraints.WidthConstraint
+import gg.essential.elementa.constraints.XConstraint
+import gg.essential.elementa.constraints.YConstraint
 import gg.essential.elementa.dsl.childOf
 import gg.essential.elementa.dsl.constrain
 import gg.essential.elementa.dsl.pixels
@@ -16,7 +19,6 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.uiImage
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
-
 import net.minecraft.inventory.IInventory
 import net.minecraft.util.ResourceLocation
 import java.awt.Color
@@ -26,40 +28,43 @@ class CategoriesBar(
     val yConstraint: YConstraint,
     val heightConstraint: HeightConstraint,
     val widthConstraint: WidthConstraint,
-    val inventory: IInventory
+    val inventory: IInventory,
 ) {
-    val topBarImagePaths = arrayOf(
-        "textures/gui/custom_ah/weapons_icon.png",
-        "textures/gui/custom_ah/armor_icon.png",
-        "textures/gui/custom_ah/accessories_icon.png",
-        "textures/gui/custom_ah/consumables_icon.png",
-        "textures/gui/custom_ah/block_icon.png",
-        "textures/gui/custom_ah/misc_icon.png"
-    )
+    val topBarImagePaths =
+        arrayOf(
+            "textures/gui/custom_ah/weapons_icon.png",
+            "textures/gui/custom_ah/armor_icon.png",
+            "textures/gui/custom_ah/accessories_icon.png",
+            "textures/gui/custom_ah/consumables_icon.png",
+            "textures/gui/custom_ah/block_icon.png",
+            "textures/gui/custom_ah/misc_icon.png",
+        )
 
-    val topBarFurfSkyImagePaths = arrayOf(
-        "textures/gui/custom_ah/furfsky/weapons_icon.png",
-        "textures/gui/custom_ah/furfsky/armor_icon.png",
-        "textures/gui/custom_ah/furfsky/accessories_icon.png",
-        "textures/gui/custom_ah/furfsky/consumables_icon.png",
-        "textures/gui/custom_ah/furfsky/block_icon.png",
-        "textures/gui/custom_ah/furfsky/misc_icon.png"
-    )
+    val topBarFurfSkyImagePaths =
+        arrayOf(
+            "textures/gui/custom_ah/furfsky/weapons_icon.png",
+            "textures/gui/custom_ah/furfsky/armor_icon.png",
+            "textures/gui/custom_ah/furfsky/accessories_icon.png",
+            "textures/gui/custom_ah/furfsky/consumables_icon.png",
+            "textures/gui/custom_ah/furfsky/block_icon.png",
+            "textures/gui/custom_ah/furfsky/misc_icon.png",
+        )
 
-    private val topBar = UIBlock()
-        .setX(xConstraint)
-        .setY(yConstraint)
-        .setWidth(widthConstraint)
-        .setHeight(heightConstraint)
-        .setColor(Color(0, 0, 0, 0))
+    private val topBar =
+        UIBlock()
+            .setX(xConstraint)
+            .setY(yConstraint)
+            .setWidth(widthConstraint)
+            .setHeight(heightConstraint)
+            .setColor(Color(0, 0, 0, 0))
 
-    private val topBarImage = ThemeManager.currentBackgroundUIImage
-        .setX(CenterConstraint())
-        .setY(CenterConstraint())
-        .setWidth(widthConstraint)
-        .setHeight(heightConstraint)
-        .setChildOf(topBar)
-
+    private val topBarImage =
+        ThemeManager.currentBackgroundUIImage
+            .setX(CenterConstraint())
+            .setY(CenterConstraint())
+            .setWidth(widthConstraint)
+            .setHeight(heightConstraint)
+            .setChildOf(topBar)
 
     var selectedItem = -1
 
@@ -84,12 +89,14 @@ class CategoriesBar(
 
         for (i in 0..5) {
             val slot = i * 9
-            val icon = UIBlock().constrain {
-                x = (categoryWidth * i + categoryWidth * .1).pixels
-                y = CenterConstraint()
-                width = (categoryWidth * .8).pixels
-                height = categoryHeight.pixels
-            }.setColor(Color(0, 0, 0, 0)) childOf topBarImage
+            val icon =
+                UIBlock()
+                    .constrain {
+                        x = (categoryWidth * i + categoryWidth * .1).pixels
+                        y = CenterConstraint()
+                        width = (categoryWidth * .8).pixels
+                        height = categoryHeight.pixels
+                    }.setColor(Color(0, 0, 0, 0)) childOf topBarImage
 
             var imagePath =
                 if (PartlySaneSkies.config.customAhGuiTextures == 1) {
@@ -141,7 +148,6 @@ class CategoriesBar(
     fun setChildOf(component: UIComponent) {
         topBar.setChildOf(component)
     }
-
 
     fun update() {
         if (categoryList.size > selectedItem && selectedItem != -1) {

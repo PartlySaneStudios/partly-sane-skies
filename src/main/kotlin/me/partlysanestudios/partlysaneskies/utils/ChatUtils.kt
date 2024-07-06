@@ -3,7 +3,6 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.utils
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
@@ -23,7 +22,8 @@ object ChatUtils {
     fun visPrint(print: Any) {
         SystemUtils.log(Level.INFO, "\n\n\n$print\n\n\n".trimIndent())
         try {
-            PartlySaneSkies.minecraft.ingameGUI.chatGUI.printChatMessage(ChatComponentText("\n            $print"))
+            PartlySaneSkies.minecraft.ingameGUI.chatGUI
+                .printChatMessage(ChatComponentText("\n            $print"))
             val stringSelection = StringSelection(print.toString())
             try {
                 val clipboard = Toolkit.getDefaultToolkit().systemClipboard
@@ -35,14 +35,13 @@ object ChatUtils {
     }
 
     fun sendClientMessage(chatComponent: IChatComponent?) {
-        PartlySaneSkies.minecraft.ingameGUI.chatGUI.printChatMessage(chatComponent)
+        PartlySaneSkies.minecraft.ingameGUI.chatGUI
+            .printChatMessage(chatComponent)
     }
 
     fun sendClientMessage(text: String) {
         sendClientMessage(text, false)
     }
-
-
 
     val ClientChatReceivedEvent.trueUnformattedMessage get() = this.message.unformattedText.removeColorCodes()
 
@@ -51,7 +50,10 @@ object ChatUtils {
      * @param text The message to send.
      * @param silent If true, Sends a message discretely without the Prefix Partly Sane Skies >:
      */
-    fun sendClientMessage(text: String, silent: Boolean = false) {
+    fun sendClientMessage(
+        text: String,
+        silent: Boolean = false,
+    ) {
         if (silent) {
             try {
                 sendClientMessage(ChatComponentText(text))

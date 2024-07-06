@@ -28,7 +28,6 @@ private const val defaultHeight = 7
 private const val defaultPadding = 120f
 
 object CooldownHud : PSSHud(true, 960F - defaultWidth / 2, 561.6F, 0, 1.0F) {
-
     private val exampleCooldowns = ArrayList<ExampleCooldown>()
     private val cooldownElements = ArrayList<PSSHorizontalCooldown>()
     private val window = Window(ElementaVersion.V2)
@@ -40,13 +39,13 @@ object CooldownHud : PSSHud(true, 960F - defaultWidth / 2, 561.6F, 0, 1.0F) {
 
         cooldownElements.add(previousCooldownElement)
         for (i in 2..cooldownsDisplayableAtOnce) {
-            val newCooldownElement = PSSHorizontalCooldown(
-                CenterConstraint(),
-                defaultPadding.percent,
-                defaultWidth.pixels,
-                defaultHeight.pixels
-            )
-                .setChildOf(previousCooldownElement.boundingBox)
+            val newCooldownElement =
+                PSSHorizontalCooldown(
+                    CenterConstraint(),
+                    defaultPadding.percent,
+                    defaultWidth.pixels,
+                    defaultHeight.pixels,
+                ).setChildOf(previousCooldownElement.boundingBox)
             previousCooldownElement = newCooldownElement
             cooldownElements.add(newCooldownElement)
         }
@@ -77,7 +76,6 @@ object CooldownHud : PSSHud(true, 960F - defaultWidth / 2, 561.6F, 0, 1.0F) {
             }
 
             for (i in 0..<exampleCooldowns.size) {
-
                 val cooldown = exampleCooldowns[i]
                 val cooldownElement = cooldownElements[i]
                 cooldownElement.setCooldownToDisplay(cooldown)
@@ -85,15 +83,17 @@ object CooldownHud : PSSHud(true, 960F - defaultWidth / 2, 561.6F, 0, 1.0F) {
         } else {
             exampleCooldowns.clear()
             val activeCooldownList = CooldownManager.getActiveCooldowns()
-            val sortedActiveCooldownsList = activeCooldownList.sortedBy {
-                it.getTimeRemaining()
-            }
+            val sortedActiveCooldownsList =
+                activeCooldownList.sortedBy {
+                    it.getTimeRemaining()
+                }
 
-            val cooldownsToDisplay = if (sortedActiveCooldownsList.size > cooldownsDisplayableAtOnce) {
-                cooldownsDisplayableAtOnce
-            } else {
-                sortedActiveCooldownsList.size
-            }
+            val cooldownsToDisplay =
+                if (sortedActiveCooldownsList.size > cooldownsDisplayableAtOnce) {
+                    cooldownsDisplayableAtOnce
+                } else {
+                    sortedActiveCooldownsList.size
+                }
 
             for (cooldownElement in cooldownElements) {
                 cooldownElement.setCooldownToDisplay(null)
@@ -110,11 +110,15 @@ object CooldownHud : PSSHud(true, 960F - defaultWidth / 2, 561.6F, 0, 1.0F) {
         window.draw(gg.essential.universal.UMatrixStack())
     }
 
-    override fun getWidth(scale: Float, example: Boolean): Float {
-        return defaultWidth * scale
-    }
+    override fun getWidth(
+        scale: Float,
+        example: Boolean,
+    ): Float = defaultWidth * scale
 
-    override fun getHeight(scale: Float, example: Boolean): Float {
+    override fun getHeight(
+        scale: Float,
+        example: Boolean,
+    ): Float {
         val totalBarHeights = cooldownsDisplayableAtOnce * defaultHeight * scale
         val totalPadding = defaultPadding.percentOfWindow.value * scale * (cooldownsDisplayableAtOnce - 1)
         return totalBarHeights + totalPadding

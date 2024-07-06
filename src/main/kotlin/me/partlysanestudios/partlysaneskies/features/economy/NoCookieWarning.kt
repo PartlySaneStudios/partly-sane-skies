@@ -16,10 +16,9 @@ import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import net.minecraft.client.audio.PositionedSoundRecord
 import net.minecraft.util.ResourceLocation
 import java.awt.Color
-import java.util.*
+import java.util.Locale
 
 object NoCookieWarning {
-
     private const val TEXT_SCALE = 2.5f
     private var displayString = ""
     private var lastWarnTime = 0L
@@ -28,18 +27,24 @@ object NoCookieWarning {
     // determined
     private fun hasBoosterCookie(): Int {
         for (chatComponent in minecraft.ingameGUI.tabList.footer.siblings) {
-            if (chatComponent.formattedText.removeColorCodes().lowercase(Locale.getDefault())
+            if (chatComponent.formattedText
+                    .removeColorCodes()
+                    .lowercase(Locale.getDefault())
                     .contains("not active! obtain booster cookies")
             ) {
                 return 0
             }
         }
-        return if (minecraft.ingameGUI.tabList.footer.siblings.isEmpty()) -1 else 1
+        return if (minecraft.ingameGUI.tabList.footer.siblings
+                .isEmpty()
+        ) {
+            -1
+        } else {
+            1
+        }
     }
 
-    private fun hasLotsOfCoins(): Boolean {
-        return getCoins() > config.maxWithoutCookie
-    }
+    private fun hasLotsOfCoins(): Boolean = getCoins() > config.maxWithoutCookie
 
     private fun warn() {
         lastWarnTime = time
@@ -52,17 +57,14 @@ object NoCookieWarning {
     private val timeSinceLastWarn: Long
         get() = time - lastWarnTime
 
-    private fun checkExpire(): Boolean {
-        return timeSinceLastWarn > config.noCookieWarnTime * 1000
-    }
+    private fun checkExpire(): Boolean = timeSinceLastWarn > config.noCookieWarnTime * 1000
 
-    private fun checkWarnAgain(): Boolean {
-        return if (timeSinceLastWarn > config.noCookieWarnCooldown * 1000) {
+    private fun checkWarnAgain(): Boolean =
+        if (timeSinceLastWarn > config.noCookieWarnCooldown * 1000) {
             true
         } else {
             false
         }
-    }
 
     fun checkCoinsTick() {
         if (!isSkyblock()) {
@@ -84,5 +86,4 @@ object NoCookieWarning {
         warn()
         lastWarnTime = time
     }
-
 }

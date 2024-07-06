@@ -3,7 +3,6 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.features.skills
 
 import gg.essential.elementa.constraints.CenterConstraint
@@ -27,24 +26,41 @@ import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 
 object PetLevelUpWebhook : Webhook() {
-    override val icon = PSSItemRender(ItemStack(Items.bone), true)
-        .setX(CenterConstraint())
-        .setY(CenterConstraint())
-        .setWidth(90.percent)
+    override val icon =
+        PSSItemRender(ItemStack(Items.bone), true)
+            .setX(CenterConstraint())
+            .setY(CenterConstraint())
+            .setWidth(90.percent)
 
     override val id = "petLevelUp"
     override val name = "Pet Level Up"
     override val description = "Send a webhook whenever you level up a pet"
 
     init {
-        config.registerOption("multipleOf10", Toggle("Send only multiples of 10", "Only send multiples of 10 (Lvl 10, 20, 30, etc.)", false))
-        config.registerOption("level100", Toggle("Send only when pet reaches level 100", "Only send a webhook when the pet reaches level 100", false))
-        config.registerOption("useRomanNumerals", Toggle("Use Roman Numerals", "Use Roman Numerals instead of Arabic Numerals in the message", false))
+        config.registerOption(
+            "multipleOf10",
+            Toggle("Send only multiples of 10", "Only send multiples of 10 (Lvl 10, 20, 30, etc.)", false),
+        )
+        config.registerOption(
+            "level100",
+            Toggle("Send only when pet reaches level 100", "Only send a webhook when the pet reaches level 100", false),
+        )
+        config.registerOption(
+            "useRomanNumerals",
+            Toggle("Use Roman Numerals", "Use Roman Numerals instead of Arabic Numerals in the message", false),
+        )
 
         val rarities = arrayOf(Rarity.COMMON, Rarity.UNCOMMON, Rarity.RARE, Rarity.EPIC, Rarity.LEGENDARY, Rarity.MYTHIC)
         for (rarity in rarities) {
             val displayName = rarity.displayName
-            config.registerOption("send$displayName", Toggle("Send $displayName Pets", "Allow the webhook to send level ups for pets of ${displayName.lowercase()} rarity.", true))
+            config.registerOption(
+                "send$displayName",
+                Toggle(
+                    "Send $displayName Pets",
+                    "Allow the webhook to send level ups for pets of ${displayName.lowercase()} rarity.",
+                    true,
+                ),
+            )
         }
     }
 
@@ -77,28 +93,35 @@ object PetLevelUpWebhook : Webhook() {
         }
     }
 
-    private fun trigger(name: String, level: Int, rarity: Rarity) {
-        val levelString = if (config.find("useRomanNumerals")?.asBoolean == true) {
-            level.toRoman()
-        } else {
-            level.toString()
-        }
+    private fun trigger(
+        name: String,
+        level: Int,
+        rarity: Rarity,
+    ) {
+        val levelString =
+            if (config.find("useRomanNumerals")?.asBoolean == true) {
+                level.toRoman()
+            } else {
+                level.toString()
+            }
 
         WebhookData(
             url = PartlySaneSkies.config.discordWebhookURL,
             content = " ",
-            embedData = listOf(
-                EmbedData(
-                    title = "Pet Level Up!",
-                    color = rarity.colorCode.colorCodeToColor().asHex,
-                    fields = listOf(
-                        EmbedField(
-                            name = "${rarity.displayName} $name",
-                            value = ":tada: $levelString :tada:",
-                        ),
+            embedData =
+                listOf(
+                    EmbedData(
+                        title = "Pet Level Up!",
+                        color = rarity.colorCode.colorCodeToColor().asHex,
+                        fields =
+                            listOf(
+                                EmbedField(
+                                    name = "${rarity.displayName} $name",
+                                    value = ":tada: $levelString :tada:",
+                                ),
+                            ),
                     ),
                 ),
-            ),
         ).send()
     }
 }

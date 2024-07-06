@@ -15,8 +15,10 @@ import net.minecraft.client.gui.FontRenderer
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.item.ItemStack
 
-class PSSItemRender(var item: ItemStack?, private val autoScaleWidth: Boolean = false) : UIComponent() {
-
+class PSSItemRender(
+    var item: ItemStack?,
+    private val autoScaleWidth: Boolean = false,
+) : UIComponent() {
     private var itemScale = 1f
 
     override fun draw(matrixStack: UMatrixStack) {
@@ -26,7 +28,12 @@ class PSSItemRender(var item: ItemStack?, private val autoScaleWidth: Boolean = 
         super.afterDraw(matrixStack)
     }
 
-    private fun drawItemStack(stack: ItemStack?, x: Int, y: Int, altText: String) {
+    private fun drawItemStack(
+        stack: ItemStack?,
+        x: Int,
+        y: Int,
+        altText: String,
+    ) {
         if (autoScaleWidth) {
             this.constraints.height = this.constraints.width.cachedValue.pixels
             setScaleBasedOnWidth(this.constraints.width)

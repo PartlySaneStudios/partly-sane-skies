@@ -76,16 +76,15 @@ object WrongToolCropWarning {
         }
     }
 
-    private fun getCrop(unlocalizedName: String): CropToolData.Crop? {
-        return if (!CropToolData.jsonObject.has(unlocalizedName)) {
+    private fun getCrop(unlocalizedName: String): CropToolData.Crop? =
+        if (!CropToolData.jsonObject.has(unlocalizedName)) {
             null
         } else {
             CropToolData.serializeCrop(
                 unlocalizedName,
-                CropToolData.jsonObject[unlocalizedName]?.asJsonObject ?: JsonObject()
+                CropToolData.jsonObject[unlocalizedName]?.asJsonObject ?: JsonObject(),
             )
         }
-    }
 
     private fun getAllCrops(): List<CropToolData.Crop> {
         val list = ArrayList<CropToolData.Crop>()
@@ -107,23 +106,24 @@ object WrongToolCropWarning {
                 JsonParser().parse(PublicDataManager.getFile("constants/crop_tools.json")).asJsonObject ?: JsonObject()
         }
 
-        fun serializeCrop(cropUnlocalizedName: String, cropObject: JsonObject): Crop {
-            return Crop(
+        fun serializeCrop(
+            cropUnlocalizedName: String,
+            cropObject: JsonObject,
+        ): Crop =
+            Crop(
                 unlocalizedName = cropUnlocalizedName,
                 mathematicalHoeIds = cropObject["math"]?.asJsonArray?.map { it.asString } ?: ArrayList(),
                 otherSkyblockHoes = cropObject["other_skyblock"]?.asJsonArray?.map { it.asString } ?: ArrayList(),
                 otherMinecraftHoes = cropObject["other_minecraft"]?.asJsonArray?.map { it.asString } ?: ArrayList(),
-                requireReplenish = cropObject["require_replenish"]?.asBoolean ?: false
+                requireReplenish = cropObject["require_replenish"]?.asBoolean ?: false,
             )
-        }
 
         internal class Crop(
             val unlocalizedName: String,
             val mathematicalHoeIds: List<String>,
             val otherSkyblockHoes: List<String>,
             val otherMinecraftHoes: List<String>,
-            val requireReplenish: Boolean
-
+            val requireReplenish: Boolean,
         )
     }
 }

@@ -21,7 +21,6 @@ class LoadPublicDataEvent {
                     } catch (e: Exception) {
                         e.printStackTrace()
                     } finally {
-
                     }
                 }
             }.start()

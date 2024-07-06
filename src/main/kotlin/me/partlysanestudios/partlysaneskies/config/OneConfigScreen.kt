@@ -3,12 +3,18 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.config
 
 import cc.polyfrost.oneconfig.config.Config
-import cc.polyfrost.oneconfig.config.annotations.*
+import cc.polyfrost.oneconfig.config.annotations.Color
+import cc.polyfrost.oneconfig.config.annotations.Dropdown
+import cc.polyfrost.oneconfig.config.annotations.HUD
+import cc.polyfrost.oneconfig.config.annotations.Info
+import cc.polyfrost.oneconfig.config.annotations.KeyBind
 import cc.polyfrost.oneconfig.config.annotations.Number
+import cc.polyfrost.oneconfig.config.annotations.Slider
+import cc.polyfrost.oneconfig.config.annotations.Switch
+import cc.polyfrost.oneconfig.config.annotations.Text
 import cc.polyfrost.oneconfig.config.core.OneColor
 import cc.polyfrost.oneconfig.config.core.OneKeyBind
 import cc.polyfrost.oneconfig.config.data.InfoType
@@ -21,7 +27,7 @@ import org.lwjgl.input.Keyboard
 object OneConfigScreen : Config(
     // Available mod types: PVP, HUD, UTIL_QOL, HYPIXEL, SKYBLOCK
     Mod("Partly Sane Skies", ModType.SKYBLOCK, "/assets/partlysaneskies/textures/logo_oneconfig.png"),
-    "partly-sane-skies/config.json"
+    "partly-sane-skies/config.json",
 ) {
     fun resetBrokenStringsTick() {
         if (arrowLowChatMessage.isEmpty()) {
@@ -88,11 +94,10 @@ object OneConfigScreen : Config(
      * // SUBCATEGORY_NAME
      */
 
-
     // ------------- Category: General ---------------------------------
     @Info(
         type = InfoType.INFO,
-        text = "Hover over an option to see a description and more information."
+        text = "Hover over an option to see a description and more information.",
     )
     var ignored = false
 
@@ -101,7 +106,7 @@ object OneConfigScreen : Config(
         description = "Select the update channel you want to use.",
         category = "General",
         subcategory = "Updates",
-        options = ["Release", "Pre-release"]
+        options = ["Release", "Pre-release"],
     )
     var releaseChannel = "@RELEASE_CHANNEL@".toInt()
 
@@ -109,14 +114,14 @@ object OneConfigScreen : Config(
     @Switch(
         name = "Discord RPC",
         category = "General",
-        subcategory = "Discord"
+        subcategory = "Discord",
     )
     var discordRPC = true
 
     @Switch(
         name = "Only show Discord RPC when in Skyblock",
         category = "General",
-        subcategory = "Discord"
+        subcategory = "Discord",
     )
     var discordRPCOnlySkyblock = false
 
@@ -124,21 +129,21 @@ object OneConfigScreen : Config(
         name = "Playing...",
         category = "General",
         subcategory = "Discord",
-        options = ["Hypixel Skyblock", "sbe bad"]
+        options = ["Hypixel Skyblock", "sbe bad"],
     )
     var discordPlayingMode = 0
 
     @Text(
         name = "Discord Game Name",
         category = "General",
-        subcategory = "Discord"
+        subcategory = "Discord",
     )
     var discordRPCName = "sbe bad"
 
     @Text(
         name = "Discord Game Description",
         category = "General",
-        subcategory = "Discord"
+        subcategory = "Discord",
     )
     var discordRPCDescription = "Playing Hypixel Skyblock"
 
@@ -147,7 +152,7 @@ object OneConfigScreen : Config(
         description = "The URL of the discord webhook to send the message to.",
         category = "General",
         subcategory = "Discord",
-        size = 2
+        size = 2,
     )
     var discordWebhookURL = ""
 
@@ -157,7 +162,7 @@ object OneConfigScreen : Config(
         description = "The separator between different hundreds places.",
         category = "General",
         subcategory = "Appearance",
-        options = ["Commas (1,000,000)", "Spaces (1 000 000)", "Periods (1.000.000)"]
+        options = ["Commas (1,000,000)", "Spaces (1 000 000)", "Periods (1.000.000)"],
     )
     var hundredsPlaceFormat = 1
 
@@ -166,7 +171,7 @@ object OneConfigScreen : Config(
         description = "The character to represent decimal places.",
         category = "General",
         subcategory = "Appearance",
-        options = ["Commas (1,52)", "Periods (1.52)"]
+        options = ["Commas (1,52)", "Periods (1.52)"],
     )
     var decimalPlaceFormat = 1
 
@@ -174,7 +179,7 @@ object OneConfigScreen : Config(
         name = "24 hour time",
         description = "Display time in 24-hour hour time (15:30) instead of 12 hour time (3:30 PM).",
         category = "General",
-        subcategory = "Appearance"
+        subcategory = "Appearance",
     )
     var hour24time = false
 
@@ -183,7 +188,7 @@ object OneConfigScreen : Config(
         description = "Select your preferred currency conversion for the /c2c command. Currencies are listed in alphabetical order. Default currency is USD.",
         category = "General",
         subcategory = "Appearance",
-        options = ["AUD (Australian Dollar)", "BRL (Brazilian Real)", "CAD (Canadian Dollar)", "DKK (Danish Krone)", "EUR (Euro)", "KPW (North Korean Won)", "NOK (Norwegian Krone)", "NZD (New Zealand Dollar)", "PLN (Polish Zloty)", "GBP (Pound Sterling)", "SEK (Swedish Krona)", "USD (United States Dollar)"]
+        options = ["AUD (Australian Dollar)", "BRL (Brazilian Real)", "CAD (Canadian Dollar)", "DKK (Danish Krone)", "EUR (Euro)", "KPW (North Korean Won)", "NOK (Norwegian Krone)", "NZD (New Zealand Dollar)", "PLN (Polish Zloty)", "GBP (Pound Sterling)", "SEK (Swedish Krona)", "USD (United States Dollar)"],
     )
     var prefCurr = 11
 
@@ -193,7 +198,7 @@ object OneConfigScreen : Config(
         category = "General",
         subcategory = "Appearance",
         min = 0.1f,
-        max = 2f
+        max = 2f,
     )
     var bannerSize = 1f
 
@@ -202,7 +207,7 @@ object OneConfigScreen : Config(
         name = "Show a Custom Minecraft Main Menu",
         description = "Show a custom main menu with a background image and announcements",
         category = "General",
-        subcategory = "Main Menu"
+        subcategory = "Main Menu",
     )
     var customMainMenu = true
 
@@ -210,7 +215,7 @@ object OneConfigScreen : Config(
         name = "Announcements on Main Menu",
         description = "Display announcements such as recent skyblock updates on the main menu.",
         category = "General",
-        subcategory = "Main Menu"
+        subcategory = "Main Menu",
     )
     var displayAnnouncementsCustomMainMenu = true
 
@@ -218,7 +223,7 @@ object OneConfigScreen : Config(
         name = "Fun Facts on Main Menu",
         description = "Display cool facts on the main menu.",
         category = "General",
-        subcategory = "Main Menu"
+        subcategory = "Main Menu",
     )
     var displayFunFactsOnCustomMainMenu = true
 
@@ -228,35 +233,34 @@ object OneConfigScreen : Config(
         category = "General",
         subcategory = "Main Menu",
         size = 2,
-        options = ["Random Image", "View of Main Hub Mountain", "Aerial View of Hub from Community House", "Stunning Aerial View of Hub", "View from Hub Portal (Day)", "Hub Portal (Night)", "Wolf Ruins", "Custom Image"]
+        options = ["Random Image", "View of Main Hub Mountain", "Aerial View of Hub from Community House", "Stunning Aerial View of Hub", "View from Hub Portal (Day)", "Hub Portal (Night)", "Wolf Ruins", "Custom Image"],
     )
     var customMainMenuImage = 1
-
 
     // Mods Checker
     @Switch(
         name = "Check Mods On Startup",
         description = "Automatically Send Message on Startup.",
         category = "General",
-        subcategory = "Mods Checker"
+        subcategory = "Mods Checker",
     )
     var checkModsOnStartup = true
 
+    // if someone boots their game the first time when after this got added,
+    // it will default to true, so it will check for beta mods
     @Switch(
         name = "Use Beta Versions",
         description = "Use the beta version of mods instead of normal versions.",
         category = "General",
-        subcategory = "Mods Checker"
+        subcategory = "Mods Checker",
     )
-    // if someone boots their game the first time when after this got added,
-    // it will default to true, so it will check for beta mods
     var lookForBetaMods = "0" != "@RELEASE_CHANNEL@"
 
     @Switch(
         name = "Show up to date mods",
         description = "Show mods that are up to date.",
         category = "General",
-        subcategory = "Mods Checker"
+        subcategory = "Mods Checker",
     )
     var showUpToDateMods = true
 
@@ -270,8 +274,8 @@ object OneConfigScreen : Config(
             "[Off] Always allow mods to send telemetry",
             "[Protected] Block telemetry after startup (recommended)",
             "[Strong] Block telemetry after mod initialization ",
-            "[Strict] Always block telemetry (May causes crashes)"
-        ]
+            "[Strict] Always block telemetry (May causes crashes)",
+        ],
     )
     var privacyMode = 1
 
@@ -280,7 +284,7 @@ object OneConfigScreen : Config(
         name = "Config Hotkey",
         description = "The keybind to open the config menu.",
         category = "General",
-        subcategory = "Config"
+        subcategory = "Config",
     )
     var oneConfigKeybind = OneKeyBind(Keyboard.KEY_F7)
 
@@ -289,7 +293,7 @@ object OneConfigScreen : Config(
         name = "Help Hotkey",
         description = "The keybind to show the mod commands.",
         category = "General",
-        subcategory = "Help"
+        subcategory = "Help",
     )
     var helpKeybind = OneKeyBind(Keyboard.KEY_H)
 
@@ -300,7 +304,7 @@ object OneConfigScreen : Config(
         description = "Pick from one of our 9 custom designed themes.",
         category = "Themes",
         subcategory = "Theme",
-        options = ["Classic (Dark)", "Royal Dark (Dark)", "Midnight Forest (Dark)", "Moonless Night (Very Dark)", "Stormy Night (Very Dark)", "The Void (Very Dark)", "Classic (Light)", "Royal Light (Light)", "Partly Cloudy (Light)", "Waterfall (Colorful)", "Jungle (Colorful)", "Dunes (Colorful)"]
+        options = ["Classic (Dark)", "Royal Dark (Dark)", "Midnight Forest (Dark)", "Moonless Night (Very Dark)", "Stormy Night (Very Dark)", "The Void (Very Dark)", "Classic (Light)", "Royal Light (Light)", "Partly Cloudy (Light)", "Waterfall (Colorful)", "Jungle (Colorful)", "Dunes (Colorful)"],
     )
     var themeIndex = 0
 
@@ -309,7 +313,7 @@ object OneConfigScreen : Config(
         name = "Use custom accent color",
         description = "Uses the default Partly Sane Skies accent color.",
         category = "Themes",
-        subcategory = "Accent Color"
+        subcategory = "Accent Color",
     )
     var useCustomAccentColor = false
 
@@ -317,7 +321,7 @@ object OneConfigScreen : Config(
         name = "Custom Accent Color",
         description = "Choose a custom accent color for your game.",
         category = "Themes",
-        subcategory = "Accent Color"
+        subcategory = "Accent Color",
     )
     var accentColor = OneColor(1, 255, 255, 255)
 
@@ -326,7 +330,7 @@ object OneConfigScreen : Config(
         name = "Create your own Theme",
         description = "Enable to be able to create your own custom themes.",
         category = "Themes",
-        subcategory = "Custom Themes"
+        subcategory = "Custom Themes",
     )
     var customTheme = false
 
@@ -334,7 +338,7 @@ object OneConfigScreen : Config(
         name = "Custom Primary Color",
         description = "Choose a custom primary color for your game.",
         category = "Themes",
-        subcategory = "Custom Themes"
+        subcategory = "Custom Themes",
     )
     var primaryColor = OneColor(42, 43, 46, 255)
 
@@ -342,7 +346,7 @@ object OneConfigScreen : Config(
         name = "Custom Secondary Color",
         description = "Choose a custom secondary color for your game.",
         category = "Themes",
-        subcategory = "Custom Themes"
+        subcategory = "Custom Themes",
     )
     var secondaryColor = OneColor(42, 43, 46, 255)
 
@@ -351,7 +355,7 @@ object OneConfigScreen : Config(
         name = "Disable themes to use resource packs",
         description = "Disable themes to be able to use resource packs to modify Partly Sane Skies menus.",
         category = "Themes",
-        subcategory = "Resource Packs"
+        subcategory = "Resource Packs",
     )
     var disableThemes = false
 
@@ -361,7 +365,7 @@ object OneConfigScreen : Config(
         name = "Rare Drop Banner",
         description = "On rare drop, get a Pumpkin Dicer like banner.",
         category = "SkyBlock",
-        subcategory = "Rare Drop"
+        subcategory = "Rare Drop",
     )
     var rareDropBanner = false
 
@@ -371,7 +375,7 @@ object OneConfigScreen : Config(
         category = "SkyBlock",
         subcategory = "Rare Drop",
         min = 1f,
-        max = 7f
+        max = 7f,
     )
     var rareDropBannerTime = 3.5f
 
@@ -379,7 +383,7 @@ object OneConfigScreen : Config(
         name = "Custom Rare Drop Sound",
         description = "Plays a custom sound when you get a rare drop.",
         category = "SkyBlock",
-        subcategory = "Rare Drop"
+        subcategory = "Rare Drop",
     )
     var rareDropBannerSound = false
 
@@ -387,7 +391,7 @@ object OneConfigScreen : Config(
         name = "Block Common Drops",
         description = "Blocks Drops with the rarity of Common.",
         category = "SkyBlock",
-        subcategory = "Rare Drop"
+        subcategory = "Rare Drop",
     )
     var blockCommonDrops = false
 
@@ -395,7 +399,7 @@ object OneConfigScreen : Config(
         name = "Block Uncommon Drops",
         description = "Blocks Drops with the rarity of Uncommon.",
         category = "SkyBlock",
-        subcategory = "Rare Drop"
+        subcategory = "Rare Drop",
     )
     var blockUncommonDrops = false
 
@@ -403,7 +407,7 @@ object OneConfigScreen : Config(
         name = "Block Rare Drops",
         description = "Blocks Drops with the rarity of Rare.",
         category = "SkyBlock",
-        subcategory = "Rare Drop"
+        subcategory = "Rare Drop",
     )
     var blockRareDrops = false
 
@@ -411,7 +415,7 @@ object OneConfigScreen : Config(
         name = "Block Epic Drops",
         description = "Blocks Drops with the rarity of Epic.",
         category = "SkyBlock",
-        subcategory = "Rare Drop"
+        subcategory = "Rare Drop",
     )
     var blockEpicDrops = false
 
@@ -419,7 +423,7 @@ object OneConfigScreen : Config(
         name = "Block Legendary Drops",
         description = "Blocks Drops with the rarity of Legendary.",
         category = "SkyBlock",
-        subcategory = "Rare Drop"
+        subcategory = "Rare Drop",
     )
     var blockLegendaryDrops = false
 
@@ -428,7 +432,7 @@ object OneConfigScreen : Config(
         name = "Location Banner",
         description = "An MMO RPG style banner shows up when you switch locations.",
         category = "SkyBlock",
-        subcategory = "Location Banner"
+        subcategory = "Location Banner",
     )
     var locationBannerDisplay = false
 
@@ -438,7 +442,7 @@ object OneConfigScreen : Config(
         category = "SkyBlock",
         subcategory = "Location Banner",
         min = 1f,
-        max = 7f
+        max = 7f,
     )
     var locationBannerTime = 3.5f
 
@@ -447,7 +451,7 @@ object OneConfigScreen : Config(
         name = "Open Wiki Automatically",
         description = "When the Open Wiki Article Keybind is used, automatically open the article without confirmation first.",
         category = "SkyBlock",
-        subcategory = "Open Wiki"
+        subcategory = "Open Wiki",
     )
     var openWikiAutomatically = true
 
@@ -455,7 +459,7 @@ object OneConfigScreen : Config(
         name = "Wiki Article Opener Hotkey",
         description = "The keybind to open the wiki article.",
         category = "SkyBlock",
-        subcategory = "Open Wiki"
+        subcategory = "Open Wiki",
     )
     var wikiKeybind = OneKeyBind(Keyboard.KEY_NONE)
 
@@ -464,7 +468,7 @@ object OneConfigScreen : Config(
         name = "Incorrect Pet for Minion Alert",
         description = "Warns you if you don't have the right pet for leveling up the minions, that way you never lose any pet EXP because you still have your level 100 dungeon pet activated.\nRequires pets to be visible.",
         category = "SkyBlock",
-        subcategory = "Incorrect Pet for Minion Alert"
+        subcategory = "Incorrect Pet for Minion Alert",
     )
     var incorrectPetForMinionAlert = false
 
@@ -472,7 +476,7 @@ object OneConfigScreen : Config(
         name = "Selected Pet Information",
         description = "Gives you information about the currently selected pet while in the minion menu.\nRequires pets to be visible.",
         category = "SkyBlock",
-        subcategory = "Incorrect Pet for Minion Alert"
+        subcategory = "Incorrect Pet for Minion Alert",
     )
     var selectedPetInformation = false
 
@@ -480,7 +484,7 @@ object OneConfigScreen : Config(
         name = "Air Raid Siren",
         description = "Plays a WWII air raid siren when you have the wrong pet. \nPros: \nKeeps you up at late night grinds \n(RECOMMENDED, ESPECIALLY AT 3 AM).",
         category = "SkyBlock",
-        subcategory = "Incorrect Pet for Minion Alert"
+        subcategory = "Incorrect Pet for Minion Alert",
     )
     var incorrectPetForMinionAlertSiren = false
 
@@ -488,7 +492,7 @@ object OneConfigScreen : Config(
         name = "Refresh Keybind (Ctrl + R / Command + R / F5)",
         description = "Refresh any menu with a \"Refresh\" button with (Ctrl + R) or (Command + R), depending on your operating system.\nOr just use (F5).",
         category = "SkyBlock",
-        subcategory = "Refresh Keybind"
+        subcategory = "Refresh Keybind",
     )
     var refreshKeybind = false
 
@@ -498,7 +502,7 @@ object OneConfigScreen : Config(
         category = "SkyBlock",
         subcategory = "Incorrect Pet for Minion Alert",
         size = 2,
-        secure = true
+        secure = true,
     )
     var selectedPet = ""
 
@@ -508,7 +512,7 @@ object OneConfigScreen : Config(
         category = "SkyBlock",
         subcategory = "Incorrect Pet for Minion Alert",
         min = 1f,
-        max = 15f
+        max = 15f,
     )
     var petAlertMuteTime = 7.5f
 
@@ -516,7 +520,7 @@ object OneConfigScreen : Config(
         name = "Favorite Pet Hotkey",
         description = "The keybind to favorite the pet you have selected.",
         category = "SkyBlock",
-        subcategory = "Incorrect Pet for Minion Alert"
+        subcategory = "Incorrect Pet for Minion Alert",
     )
     var favouritePetKeybind = OneKeyBind(Keyboard.KEY_NONE)
 
@@ -526,7 +530,7 @@ object OneConfigScreen : Config(
         description = "Choose the instrument type for the note block sounds.",
         category = "SkyBlock",
         subcategory = "Enhanced SkyBlock Sounds",
-        options = ["Default SkyBlock Noteblocks", "Clarinet (Live)", "Clarinet (Computer)", "Electric Piano", "Flute", "Organ", "Piano", "String Orchestra", "Trombone", "Trumpet", "Violin", "Wind Ensemble", "Discord New Message Sound", "Kazoo"]
+        options = ["Default SkyBlock Noteblocks", "Clarinet (Live)", "Clarinet (Computer)", "Electric Piano", "Flute", "Organ", "Piano", "String Orchestra", "Trombone", "Trumpet", "Violin", "Wind Ensemble", "Discord New Message Sound", "Kazoo"],
     )
     var customSoundOption = 0
 
@@ -535,7 +539,7 @@ object OneConfigScreen : Config(
         description = "Choose the explosion sound.",
         category = "SkyBlock",
         subcategory = "Enhanced SkyBlock Sounds",
-        options = ["Default", "Off", "Realistic"]
+        options = ["Default", "Off", "Realistic"],
     )
     var customExplosion = 0
 
@@ -544,7 +548,7 @@ object OneConfigScreen : Config(
         name = "Wardrobe Menu Hotkey",
         description = "The keybind to open the wardrobe menu.",
         category = "SkyBlock",
-        subcategory = "Shortcuts"
+        subcategory = "Shortcuts",
     )
     var wardrobeKeybind = OneKeyBind(Keyboard.KEY_NONE)
 
@@ -552,7 +556,7 @@ object OneConfigScreen : Config(
         name = "Pet Menu Hotkey",
         description = "The keybind to open the pet menu.",
         category = "SkyBlock",
-        subcategory = "Shortcuts"
+        subcategory = "Shortcuts",
     )
     var petKeybind = OneKeyBind(Keyboard.KEY_NONE)
 
@@ -560,7 +564,7 @@ object OneConfigScreen : Config(
         name = "Crafting Menu Hotkey",
         description = "The keybind to open the crafting menu.",
         category = "SkyBlock",
-        subcategory = "Shortcuts"
+        subcategory = "Shortcuts",
     )
     var craftKeybind = OneKeyBind(Keyboard.KEY_NONE)
 
@@ -568,7 +572,7 @@ object OneConfigScreen : Config(
         name = "Storage Menu Hotkey",
         description = "The keybind to open the storage menu.",
         category = "SkyBlock",
-        subcategory = "Shortcuts"
+        subcategory = "Shortcuts",
     )
     var storageKeybind = OneKeyBind(Keyboard.KEY_NONE)
 
@@ -576,7 +580,7 @@ object OneConfigScreen : Config(
     @HUD(
         name = "Cooldown HUD",
         category = "SkyBlock",
-        subcategory = "Cooldown HUD"
+        subcategory = "Cooldown HUD",
     )
     var cooldownHud = CooldownHud.oneConfigHud
 
@@ -586,7 +590,7 @@ object OneConfigScreen : Config(
         name = "Automatically kick offline on party manager load",
         description = "Automatically kicks offline members in your party when you open party manager.",
         category = "Dungeons",
-        subcategory = "Party Manager"
+        subcategory = "Party Manager",
     )
     var autoKickOfflinePartyManager = false
 
@@ -594,7 +598,7 @@ object OneConfigScreen : Config(
         name = "Warn Low Arrows in Chat",
         description = "Warns you party when a member has low arrows.",
         category = "Dungeons",
-        subcategory = "Party Manager"
+        subcategory = "Party Manager",
     )
     var warnLowArrowsInChat = false
 
@@ -603,7 +607,7 @@ object OneConfigScreen : Config(
         description = "Message to send when a player has low arrows.\nUse {player} to signify the player's username, and {count} to signify the remaining arrow count.",
         category = "Dungeons",
         subcategory = "Party Manager",
-        size = 2
+        size = 2,
     )
     var arrowLowChatMessage = "Partly Sane Skies > Warning! {player} only has {count} arrows remaining!"
 
@@ -613,7 +617,7 @@ object OneConfigScreen : Config(
         description = "The amount of arrows you must have to be considered low on arrows.",
         category = "Dungeons",
         min = 0f,
-        max = 1000f
+        max = 1000f,
     )
     var arrowLowCount = 300
 
@@ -621,7 +625,7 @@ object OneConfigScreen : Config(
         name = "Get data on party join",
         description = "Automatically gets the data for party members someone joins the party. This saves time and reduces the chance of the data not being able to be accessed.",
         category = "Dungeons",
-        subcategory = "Party Manager"
+        subcategory = "Party Manager",
     )
     var getDataOnJoin = true
 
@@ -629,7 +633,7 @@ object OneConfigScreen : Config(
         name = "Arrow Low Warning Upon Player Join",
         description = "Automatically sends the low arrow warning when the player joins the party, as opposed to waiting for the menu to open.",
         category = "Dungeons",
-        subcategory = "Party Manager"
+        subcategory = "Party Manager",
     )
     var warnLowArrowsOnPlayerJoin = false
 
@@ -637,7 +641,7 @@ object OneConfigScreen : Config(
         name = "Toggle Run Colors in Partymanager",
         description = "Toggles the colors of the runs in the party manager.",
         category = "Dungeons",
-        subcategory = "Party Manager"
+        subcategory = "Party Manager",
     )
     var toggleRunColors = true
 
@@ -647,7 +651,7 @@ object OneConfigScreen : Config(
         category = "Dungeons",
         subcategory = "Party Manager",
         min = 0f,
-        max = Int.MAX_VALUE.toFloat()
+        max = Int.MAX_VALUE.toFloat(),
     )
     var runColorsRedMax = 1
 
@@ -657,7 +661,7 @@ object OneConfigScreen : Config(
         category = "Dungeons",
         subcategory = "Party Manager",
         min = 0f,
-        max = Int.MAX_VALUE.toFloat()
+        max = Int.MAX_VALUE.toFloat(),
     )
     var runColorsYellowMax = 9
 
@@ -665,7 +669,7 @@ object OneConfigScreen : Config(
         name = "Hotkey",
         description = "The keybind to open the party manager.",
         subcategory = "Party Manager",
-        category = "Dungeons"
+        category = "Dungeons",
     )
     var partyManagerKeybind = OneKeyBind(Keyboard.KEY_M)
 
@@ -674,7 +678,7 @@ object OneConfigScreen : Config(
         name = "Watcher Ready Warning",
         description = "Sends a warning when the watcher is done spawning mobs.",
         category = "Dungeons",
-        subcategory = "Watcher Ready"
+        subcategory = "Watcher Ready",
     )
     var watcherReadyBanner = false
 
@@ -682,7 +686,7 @@ object OneConfigScreen : Config(
         name = "Watcher Ready Sound",
         description = "Plays a sound when the watcher is done spawning mobs.",
         category = "Dungeons",
-        subcategory = "Watcher Ready"
+        subcategory = "Watcher Ready",
     )
     var watcherReadySound = false
 
@@ -692,7 +696,7 @@ object OneConfigScreen : Config(
         category = "Dungeons",
         subcategory = "Watcher Ready",
         min = 1f,
-        max = 7f
+        max = 7f,
     )
     var watcherReadyBannerTime = 3.5f
 
@@ -700,7 +704,7 @@ object OneConfigScreen : Config(
         name = "Watcher Ready Banner Color",
         description = "The color of the watcher ready text.",
         category = "Dungeons",
-        subcategory = "Watcher Ready"
+        subcategory = "Watcher Ready",
     )
     var watcherReadyBannerColor = OneColor(255, 45, 6)
 
@@ -708,7 +712,7 @@ object OneConfigScreen : Config(
         name = "Watcher Ready Chat Message",
         description = "Send a message to your party when watcher is done spawning mobs.",
         category = "Dungeons",
-        subcategory = "Watcher Ready"
+        subcategory = "Watcher Ready",
     )
     var watcherReadyChatMessage = false
 
@@ -717,7 +721,7 @@ object OneConfigScreen : Config(
         description = "Message to send when the watcher is ready to clear.",
         category = "Dungeons",
         subcategory = "Watcher Ready",
-        size = 2
+        size = 2,
     )
     var watcherChatMessage = "Partly Sane Skies > The watcher is done spawning mobs. Ready to clear."
 
@@ -725,7 +729,7 @@ object OneConfigScreen : Config(
         name = "Air Raid Siren",
         description = "Plays a WWII air raid siren when the watcher is done spawning mobs. \nPros: \nKeeps you up at late night grinds \n(RECOMMENDED, ESPECIALLY AT 3 AM)",
         category = "Dungeons",
-        subcategory = "Watcher Ready"
+        subcategory = "Watcher Ready",
     )
     var watcherReadyAirRaidSiren = false
 
@@ -734,7 +738,7 @@ object OneConfigScreen : Config(
         name = "Pretty Mimic Killed",
         description = "Changes the Skytils mimic killed message to be more visually appealing",
         category = "Dungeons",
-        subcategory = "Pretty Mimic Killed Message"
+        subcategory = "Pretty Mimic Killed Message",
     )
     var prettyMimicKilled = true
 
@@ -743,7 +747,7 @@ object OneConfigScreen : Config(
         name = "Pretty Mimic Killed Message",
         description = "Changes the Skytils mimic killed message to be more visually appealing",
         category = "Dungeons",
-        subcategory = "Pretty Mimic Killed Message"
+        subcategory = "Pretty Mimic Killed Message",
     )
     var prettyMimicKilledString = "Mimic Killed!"
 
@@ -752,7 +756,7 @@ object OneConfigScreen : Config(
         name = "Enable Waypoints for Terminals, Devices and Levers",
         description = "Enables waypoints for terminals, devices and levers in Phase 3 of Floor 7.",
         category = "Dungeons",
-        subcategory = "Terminal Waypoints"
+        subcategory = "Terminal Waypoints",
     )
     var terminalWaypoints = true
 
@@ -761,7 +765,7 @@ object OneConfigScreen : Config(
         name = "Auto Pearl Refill",
         description = "Automatically refills your pearls when a run starts.",
         category = "Dungeons",
-        subcategory = "Pearl Refill"
+        subcategory = "Pearl Refill",
     )
     var autoPearlRefill = false
 
@@ -769,7 +773,7 @@ object OneConfigScreen : Config(
         name = "Refill Pearls Hotkey",
         description = "The keybind to automatically refill your pearls.",
         category = "Dungeons",
-        subcategory = "Pearl Refill"
+        subcategory = "Pearl Refill",
     )
     var pearlRefillKeybind = OneKeyBind(Keyboard.KEY_P)
 
@@ -778,7 +782,7 @@ object OneConfigScreen : Config(
         name = "Auto Item Refill",
         description = "Automatically refills your utility items when a run starts.",
         category = "Dungeons",
-        subcategory = "Item Refill"
+        subcategory = "Item Refill",
     )
     var autoItemRefill = false
 
@@ -786,7 +790,7 @@ object OneConfigScreen : Config(
         name = "Refill Items Hotkey",
         description = "The keybind to automatically refill your pearls.",
         category = "Dungeons",
-        subcategory = "Item Refill"
+        subcategory = "Item Refill",
     )
     var itemRefillKeybind = OneKeyBind(Keyboard.KEY_P)
 
@@ -794,7 +798,7 @@ object OneConfigScreen : Config(
         name = "Refill Ender Pearls",
         description = "Refills ender pearls",
         category = "Dungeons",
-        subcategory = "Item Refill"
+        subcategory = "Item Refill",
     )
     var refillPearls = true
 
@@ -802,7 +806,7 @@ object OneConfigScreen : Config(
         name = "Refill Superboom Tnt",
         description = "Refills superboom tnt",
         category = "Dungeons",
-        subcategory = "Item Refill"
+        subcategory = "Item Refill",
     )
     var refillSuperboomTnt = true
 
@@ -810,7 +814,7 @@ object OneConfigScreen : Config(
         name = "Refill Spirit Leaps",
         description = "Refills spirit leaps",
         category = "Dungeons",
-        subcategory = "Item Refill"
+        subcategory = "Item Refill",
     )
     var refillSpiritLeaps = true
 
@@ -818,7 +822,7 @@ object OneConfigScreen : Config(
         name = "Refill Decoys",
         description = "Refills decoy",
         category = "Dungeons",
-        subcategory = "Item Refill"
+        subcategory = "Item Refill",
     )
     var refillDecoys = false
 
@@ -827,7 +831,7 @@ object OneConfigScreen : Config(
         name = "Alert when dungeon team members are low",
         description = "Displays a banner when a teammate in Dungeons has low health.",
         category = "Dungeons",
-        subcategory = "Health Alert"
+        subcategory = "Health Alert",
     )
     var healerAlert = false
 
@@ -835,7 +839,7 @@ object OneConfigScreen : Config(
         name = "Alert when you are low",
         description = "Displays a banner when you are low on health.",
         category = "Dungeons",
-        subcategory = "Health Alert"
+        subcategory = "Health Alert",
     )
     var alertWhenPlayerLow = false
 
@@ -843,7 +847,7 @@ object OneConfigScreen : Config(
         name = "Alert outside of dungeons",
         description = "Alert outside of dungeons.",
         category = "Dungeons",
-        subcategory = "Health Alert"
+        subcategory = "Health Alert",
     )
     var alertOutsideDungeons = false
 
@@ -852,7 +856,7 @@ object OneConfigScreen : Config(
         description = "Choose at what percentage healer alert will trigger.",
         category = "Dungeons",
         subcategory = "Health Alert",
-        options = ["25% Health", "50% Health"]
+        options = ["25% Health", "50% Health"],
     )
     var colouredHealerAlert = 0
 
@@ -862,10 +866,9 @@ object OneConfigScreen : Config(
         category = "Dungeons",
         subcategory = "Health Alert",
         min = 1f,
-        max = 15f
+        max = 15f,
     )
     var healerAlertCooldownSlider = 3.5f
-
 
     @Color(
         name = "Party Members Low Color",
@@ -886,7 +889,7 @@ object OneConfigScreen : Config(
         name = "Required Secrets Found Banner",
         description = "Sends a warning when all required secrets have been found.",
         category = "Dungeons",
-        subcategory = "Required Secrets Found"
+        subcategory = "Required Secrets Found",
     )
     var secretsBanner = false
 
@@ -894,7 +897,7 @@ object OneConfigScreen : Config(
         name = "Required Secrets Found Sound",
         description = "Plays a sound when all required secrets have been found.",
         category = "Dungeons",
-        subcategory = "Required Secrets Found"
+        subcategory = "Required Secrets Found",
     )
     var secretsSound = false
 
@@ -904,7 +907,7 @@ object OneConfigScreen : Config(
         category = "Dungeons",
         subcategory = "Required Secrets Found",
         min = 1f,
-        max = 7f
+        max = 7f,
     )
     var secretsBannerTime = 3.5f
 
@@ -912,7 +915,7 @@ object OneConfigScreen : Config(
         name = "Required Secrets Found Banner Color",
         description = "The color of the required secrets found text.",
         category = "Dungeons",
-        subcategory = "Required Secrets Found"
+        subcategory = "Required Secrets Found",
     )
     var secretsBannerColor = OneColor(255, 45, 6)
 
@@ -920,7 +923,7 @@ object OneConfigScreen : Config(
         name = "Required Secrets Found Chat Message",
         description = "Send a message to your party when all required secrets have been found.",
         category = "Dungeons",
-        subcategory = "Required Secrets Found"
+        subcategory = "Required Secrets Found",
     )
     var secretsChatMessage = false
 
@@ -929,7 +932,7 @@ object OneConfigScreen : Config(
         description = "Message to send when all required secrets have been found.",
         category = "Dungeons",
         subcategory = "Required Secrets Found",
-        size = 2
+        size = 2,
     )
     var secretsChatMessageString = "Partly Sane Skies > All required secrets have been found!"
 
@@ -937,7 +940,7 @@ object OneConfigScreen : Config(
         name = "Air Raid Siren",
         description = "Plays a WWII air raid siren when all required secrets have been found. \nPros: \nKeeps you up at late night grinds \n(RECOMMENDED, ESPECIALLY AT 3 AM)",
         category = "Dungeons",
-        subcategory = "Required Secrets Found"
+        subcategory = "Required Secrets Found",
     )
     var secretsAirRaidSiren = false
 
@@ -946,7 +949,7 @@ object OneConfigScreen : Config(
         name = "Dungeon Player Breakdown",
         description = "At the end of the dungeon, send a message informing you how much of the dungeon each player has completed.",
         category = "Dungeons",
-        subcategory = "Dungeon Player Breakdown"
+        subcategory = "Dungeon Player Breakdown",
     )
     var dungeonPlayerBreakdown = false
 
@@ -955,7 +958,7 @@ object OneConfigScreen : Config(
         description = "Shows more information about how many blessings and secrets each player collected.",
         category = "Dungeons",
         subcategory = "Dungeon Player Breakdown",
-        options = ["Condensed", "Standard", "Enhanced"]
+        options = ["Condensed", "Standard", "Enhanced"],
     )
     var enhancedDungeonPlayerBreakdown = 1
 
@@ -965,7 +968,7 @@ object OneConfigScreen : Config(
         category = "Dungeons",
         subcategory = "Dungeon Player Breakdown",
         min = 0f,
-        max = 20f
+        max = 20f,
     )
     var dungeonPlayerBreakdownDelay = 1f
 
@@ -973,7 +976,7 @@ object OneConfigScreen : Config(
         name = "Send in Party Chat",
         description = "Send a condensed version to the rest of your party.",
         category = "Dungeons",
-        subcategory = "Dungeon Player Breakdown"
+        subcategory = "Dungeon Player Breakdown",
     )
     var partyChatDungeonPlayerBreakdown = false
 
@@ -981,7 +984,7 @@ object OneConfigScreen : Config(
         name = "Dungeon Snitcher",
         description = "Automatically sends messages recommending to kick party members.",
         category = "Dungeons",
-        subcategory = "Dungeon Player Breakdown"
+        subcategory = "Dungeon Player Breakdown",
     )
     var dungeonSnitcher = false
 
@@ -991,7 +994,7 @@ object OneConfigScreen : Config(
         category = "Dungeons",
         subcategory = "Dungeon Player Breakdown",
         min = 0f,
-        max = 50f
+        max = 50f,
     )
     var dungeonSnitcherPercent = 7.5f
 
@@ -1000,7 +1003,7 @@ object OneConfigScreen : Config(
         name = "Enable Automatic GG message",
         description = "Sends an automatic gg message of your choosing whenever a dungeon is complete.",
         category = "Dungeons",
-        subcategory = "Auto GG"
+        subcategory = "Auto GG",
     )
     var autoGgEnabled = false
 
@@ -1010,7 +1013,7 @@ object OneConfigScreen : Config(
         category = "Dungeons",
         subcategory = "Auto GG",
         min = 0f,
-        max = 10f
+        max = 10f,
     )
     var autoGGCooldown = 1.5f
 
@@ -1019,7 +1022,7 @@ object OneConfigScreen : Config(
         description = "Where to send the auto gg message.",
         category = "Dungeons",
         subcategory = "Auto GG",
-        options = ["Party Chat", "All Chat"]
+        options = ["Party Chat", "All Chat"],
     )
     var sendAutoGGInWhatChat = 0
 
@@ -1027,7 +1030,7 @@ object OneConfigScreen : Config(
         name = "Text when S+ score",
         description = "Sends this message whenever a dungeon is complete and the score is S+.",
         category = "Dungeons",
-        subcategory = "Auto GG"
+        subcategory = "Auto GG",
     )
     var autoGGMessageSPlus = "GG Easy"
 
@@ -1035,7 +1038,7 @@ object OneConfigScreen : Config(
         name = "Text when S score",
         description = "Sends this message whenever a dungeon is complete and the score is S.",
         category = "Dungeons",
-        subcategory = "Auto GG"
+        subcategory = "Auto GG",
     )
     var autoGGMessageS = "GG"
 
@@ -1043,7 +1046,7 @@ object OneConfigScreen : Config(
         name = "Text when other score",
         description = "Sends this message whenever a dungeon is complete and the score is not S+/S.",
         category = "Dungeons",
-        subcategory = "Auto GG"
+        subcategory = "Auto GG",
     )
     var autoGGMessageOther = "Welp, GG"
 
@@ -1053,7 +1056,7 @@ object OneConfigScreen : Config(
         name = "Worm Warning Banner",
         description = "A banner appears on your screen when a worm spawns.",
         category = "Mining",
-        subcategory = "Worm Warning"
+        subcategory = "Worm Warning",
     )
     var wormWarningBanner = false
 
@@ -1061,7 +1064,7 @@ object OneConfigScreen : Config(
         name = "Worm Warning Banner Color",
         description = "The color of the worm warning text.",
         category = "Mining",
-        subcategory = "Worm Warning"
+        subcategory = "Worm Warning",
     )
     var wormWarningBannerColor = OneColor(34, 255, 0)
 
@@ -1071,7 +1074,7 @@ object OneConfigScreen : Config(
         category = "Mining",
         subcategory = "Worm Warning",
         min = 1f,
-        max = 7f
+        max = 7f,
     )
     var wormWarningBannerTime = 3.5f
 
@@ -1079,16 +1082,16 @@ object OneConfigScreen : Config(
         name = "Worm Warning Sound",
         description = "Plays a sound when a worm spawns.",
         category = "Mining",
-        subcategory = "Worm Warning"
+        subcategory = "Worm Warning",
     )
     var wormWarningBannerSound = false
 
-    //Pickaxes
+    // Pickaxes
     @Switch(
         name = "Pickaxe Ability Ready Banner",
         description = "A banner appears on your screen when your pickaxe ability is ready.",
         category = "Mining",
-        subcategory = "Pickaxes"
+        subcategory = "Pickaxes",
     )
     var pickaxeAbilityReadyBanner = true
 
@@ -1096,7 +1099,7 @@ object OneConfigScreen : Config(
         name = "Banner Text",
         description = "The text that appears on the banner when your pickaxe ability is ready.",
         category = "Mining",
-        subcategory = "Pickaxes"
+        subcategory = "Pickaxes",
     )
     var pickaxeAbilityReadyBannerText = "Pickaxe Ability Ready!"
 
@@ -1104,7 +1107,7 @@ object OneConfigScreen : Config(
         name = "Pickaxe Ability Ready Sound",
         description = "Plays a sound when your pickaxe ability is ready.",
         category = "Mining",
-        subcategory = "Pickaxes"
+        subcategory = "Pickaxes",
     )
     var pickaxeAbilityReadySound = false
 
@@ -1112,7 +1115,7 @@ object OneConfigScreen : Config(
         name = "Use Air Raid Siren for Pickaxe Ability Ready",
         description = "Plays a WWII air raid siren when your pickaxe ability is ready. \nPros: \nKeeps you up at late night grinds \n(RECOMMENDED, ESPECIALLY AT 3 AM)",
         category = "Mining",
-        subcategory = "Pickaxes"
+        subcategory = "Pickaxes",
     )
     var pickaxeAbilityReadySiren = false
 
@@ -1120,7 +1123,7 @@ object OneConfigScreen : Config(
         name = "Hide Ready Message from Chat",
         description = "Hides the message that appears in chat when your pickaxe ability is ready.",
         category = "Mining",
-        subcategory = "Pickaxes"
+        subcategory = "Pickaxes",
     )
     var hideReadyMessageFromChat = false
 
@@ -1128,7 +1131,7 @@ object OneConfigScreen : Config(
         name = "Warn only on mining islands.",
         description = "Makes it less annoying when you don't want to mine.",
         category = "Mining",
-        subcategory = "Pickaxes"
+        subcategory = "Pickaxes",
     )
     var onlyGiveWarningOnMiningIsland = true
 
@@ -1138,7 +1141,7 @@ object OneConfigScreen : Config(
         category = "Mining",
         subcategory = "Pickaxes",
         min = 1f,
-        max = 7f
+        max = 7f,
     )
     var pickaxeBannerTime = 3.5f
 
@@ -1146,7 +1149,7 @@ object OneConfigScreen : Config(
         name = "Ready Banner Color",
         description = "The color of the ready banner text.",
         category = "Mining",
-        subcategory = "Pickaxes"
+        subcategory = "Pickaxes",
     )
     var pickaxeBannerColor = OneColor(255, 255, 0)
 
@@ -1154,7 +1157,7 @@ object OneConfigScreen : Config(
         name = "Block Ability on Private Island (UAYOR)",
         description = "Blocks the use of pickaxe abilities on your private island. (Use at your own risk)",
         category = "Mining",
-        subcategory = "Pickaxes"
+        subcategory = "Pickaxes",
     )
     var blockAbilityOnPrivateIsland = false
 
@@ -1164,7 +1167,7 @@ object OneConfigScreen : Config(
         description = "Shows Topaz waypoints",
         category = "Mining",
         subcategory = "Gemstone Waypoints",
-        size = 2
+        size = 2,
     )
     var renderGemstoneWaypoints = false
 
@@ -1174,7 +1177,7 @@ object OneConfigScreen : Config(
         category = "Mining",
         subcategory = "Gemstone Waypoints",
         min = 1f,
-        max = 16f
+        max = 16f,
     )
     var gemstoneWaypointRenderDistance = 6
 
@@ -1184,7 +1187,7 @@ object OneConfigScreen : Config(
         category = "Mining",
         subcategory = "Gemstone Waypoints",
         min = 0f,
-        max = 100f
+        max = 100f,
     )
     var gemstoneMinSize = 15
 
@@ -1193,7 +1196,7 @@ object OneConfigScreen : Config(
         description = "Show a beam going from the waypoint to the top of the world. Disable with large amounts of waypoints",
         category = "Mining",
         subcategory = "Gemstone Waypoints",
-        size = 2
+        size = 2,
     )
     var showGemstoneBeam = false
 
@@ -1203,7 +1206,7 @@ object OneConfigScreen : Config(
         category = "Mining",
         subcategory = "Gemstone Waypoints",
         min = 0f,
-        max = 1f
+        max = 1f,
     )
     var gemstoneBrightness = 1f
 
@@ -1211,7 +1214,7 @@ object OneConfigScreen : Config(
         name = "Show Topaz Waypoints",
         description = "Shows Topaz waypoints",
         category = "Mining",
-        subcategory = "Gemstone Waypoints"
+        subcategory = "Gemstone Waypoints",
     )
     var topazWaypoints = true
 
@@ -1219,7 +1222,7 @@ object OneConfigScreen : Config(
         name = "Show Ruby Waypoints",
         description = "Shows Ruby waypoints",
         category = "Mining",
-        subcategory = "Gemstone Waypoints"
+        subcategory = "Gemstone Waypoints",
     )
     var rubyWaypoints = true
 
@@ -1227,7 +1230,7 @@ object OneConfigScreen : Config(
         name = "Show Sapphire Waypoints",
         description = "Shows Sapphire waypoints",
         category = "Mining",
-        subcategory = "Gemstone Waypoints"
+        subcategory = "Gemstone Waypoints",
     )
     var sapphireWaypoints = true
 
@@ -1235,7 +1238,7 @@ object OneConfigScreen : Config(
         name = "Show Amethyst Waypoints",
         description = "Shows Amethyst waypoints",
         category = "Mining",
-        subcategory = "Gemstone Waypoints"
+        subcategory = "Gemstone Waypoints",
     )
     var amethystWaypoints = true
 
@@ -1243,7 +1246,7 @@ object OneConfigScreen : Config(
         name = "Show Amber Waypoints",
         description = "Shows Amber waypoints",
         category = "Mining",
-        subcategory = "Gemstone Waypoints"
+        subcategory = "Gemstone Waypoints",
     )
     var amberWaypoints = true
 
@@ -1251,18 +1254,17 @@ object OneConfigScreen : Config(
         name = "Show Jade Waypoints",
         description = "Shows Jade waypoints",
         category = "Mining",
-        subcategory = "Gemstone Waypoints"
+        subcategory = "Gemstone Waypoints",
     )
     var jadeWaypoints = true
 
-
-    //Events
+    // Events
     @Info(
         type = InfoType.INFO,
         text = "Some Events may not trigger, not all have been tested. If you find an event that doesn't trigger, please report it on our discord server.",
         category = "Mining",
         subcategory = "Events",
-        size = 2
+        size = 2,
     )
     @Switch(name = "Main Toggle", description = "Toggles the events.", category = "Mining", subcategory = "Events")
     var miningEventsToggle = true
@@ -1271,7 +1273,7 @@ object OneConfigScreen : Config(
         name = "Show Event Banner",
         description = "Shows a banner when an enabled event is going active.",
         category = "Mining",
-        subcategory = "Events"
+        subcategory = "Events",
     )
     var miningShowEventBanner = true
 
@@ -1279,7 +1281,7 @@ object OneConfigScreen : Config(
         name = "Send System Notifications",
         description = "Sends a system notification when an event is going active.",
         category = "Mining",
-        subcategory = "Events"
+        subcategory = "Events",
     )
     var miningSendSystemNotifications = false
 
@@ -1287,7 +1289,7 @@ object OneConfigScreen : Config(
         name = "Also warn 20s before event activation",
         description = "Shows a banner and plays sound 20s before an enabled event is going active.",
         category = "Mining",
-        subcategory = "Events"
+        subcategory = "Events",
     )
     var miningWarn20sBeforeEvent = false
 
@@ -1295,7 +1297,7 @@ object OneConfigScreen : Config(
         name = "2x Powder activation sound",
         description = "Plays a sound when 2x Powder event is going active.",
         category = "Mining",
-        subcategory = "Events"
+        subcategory = "Events",
     )
     var mining2xPowderSound = false
 
@@ -1303,7 +1305,7 @@ object OneConfigScreen : Config(
         name = "Gone with the wind activation sound",
         description = "Plays a sound when Gone with the wind event is going active.",
         category = "Mining",
-        subcategory = "Events"
+        subcategory = "Events",
     )
     var miningGoneWithTheWindSound = false
 
@@ -1311,7 +1313,7 @@ object OneConfigScreen : Config(
         name = "Better Together activation sound",
         description = "Plays a sound when Better Together event is going active.",
         category = "Mining",
-        subcategory = "Events"
+        subcategory = "Events",
     )
     var miningBetterTogetherSound = false
 
@@ -1319,7 +1321,7 @@ object OneConfigScreen : Config(
         name = "Goblin Raid activation sound",
         description = "Plays a sound when Goblin Raid event is going active.",
         category = "Mining",
-        subcategory = "Events"
+        subcategory = "Events",
     )
     var miningGoblinRaidSound = false
 
@@ -1327,7 +1329,7 @@ object OneConfigScreen : Config(
         name = "Raffle activation sound",
         description = "Plays a sound when Raffle event is going active.",
         category = "Mining",
-        subcategory = "Events"
+        subcategory = "Events",
     )
     var miningRaffleSound = false
 
@@ -1335,7 +1337,7 @@ object OneConfigScreen : Config(
         name = "Mithril Gourmand activation sound",
         description = "Plays a sound when Mithril Gourmand event is going active.",
         category = "Mining",
-        subcategory = "Events"
+        subcategory = "Events",
     )
     var miningMithrilGourmandSound = false
 
@@ -1343,7 +1345,7 @@ object OneConfigScreen : Config(
         name = "Powder Ghast activation sound",
         description = "Plays a sound when Powder Ghast is about to spawn.",
         category = "Mining",
-        subcategory = "Events"
+        subcategory = "Events",
     )
     var miningPowderGhastSound = false
 
@@ -1351,7 +1353,7 @@ object OneConfigScreen : Config(
         name = "Fallen Star activation sound",
         description = "Plays a sound when Fallen Star is about to spawn.",
         category = "Mining",
-        subcategory = "Events"
+        subcategory = "Events",
     )
     var miningFallenStarSound = false
 
@@ -1361,7 +1363,7 @@ object OneConfigScreen : Config(
         category = "Mining",
         subcategory = "Events",
         min = 1f,
-        max = 7f
+        max = 7f,
     )
     var miningEventBannerTime = 3.5f
 
@@ -1369,7 +1371,7 @@ object OneConfigScreen : Config(
         name = "Event Banner Color",
         description = "The color of the event banner text.",
         category = "Mining",
-        subcategory = "Events"
+        subcategory = "Events",
     )
     var miningEventBannerColor = OneColor(255, 255, 255)
 
@@ -1379,7 +1381,7 @@ object OneConfigScreen : Config(
         name = "Stop right clicks on Mathematical Hoes",
         description = "Cancels the right click on mathematical hoes to prevent it from opening the recipes list. (Use at your own risk)",
         category = "Farming",
-        subcategory = "Hoes"
+        subcategory = "Hoes",
     )
     var blockHoeRightClicks = false
 
@@ -1389,7 +1391,7 @@ object OneConfigScreen : Config(
         category = "Farming",
         subcategory = "Hoes",
         min = 1f,
-        max = 15f
+        max = 15f,
     )
     var allowRightClickTime = 3f
 
@@ -1397,7 +1399,7 @@ object OneConfigScreen : Config(
         name = "Allow Hoe Right Clicks Opener Hotkey",
         description = "The keybind to open the allow hoe right click menu.",
         category = "Farming",
-        subcategory = "Hoes"
+        subcategory = "Hoes",
     )
     var allowHoeRightClickKeybind = OneKeyBind(Keyboard.KEY_NONE)
 
@@ -1406,7 +1408,7 @@ object OneConfigScreen : Config(
         name = "Show end of farm regions",
         description = "Highlights your regions.",
         category = "Farming",
-        subcategory = "End of Farm Notifier"
+        subcategory = "End of Farm Notifier",
     )
     var showFarmRegions = true
 
@@ -1416,7 +1418,7 @@ object OneConfigScreen : Config(
         category = "Farming",
         subcategory = "End of Farm Notifier",
         min = 1f,
-        max = 5f
+        max = 5f,
     )
     var farmnotifierChimeTime = 3f
 
@@ -1426,7 +1428,7 @@ object OneConfigScreen : Config(
         category = "Farming",
         subcategory = "End of Farm Notifier",
         min = 1f,
-        max = 120f
+        max = 120f,
     )
     var farmHightlightTime = 30f
 
@@ -1435,7 +1437,7 @@ object OneConfigScreen : Config(
         name = "Visitor Trade Cost",
         description = "Gives you information about the cost of visitor trades.",
         category = "Farming",
-        subcategory = "Garden Visitors"
+        subcategory = "Garden Visitors",
     )
     var gardenShopTradeInfo = false
 
@@ -1443,7 +1445,7 @@ object OneConfigScreen : Config(
         name = "Display Garden Visitor Stats",
         description = "Shows visited/accepted stats per NPC rarity.\nPros: based on item tooltips, which might capture more Garden visitor data\n(especially if you had Garden visitors before you installed SkyHanni).\nCons: Only shows for current Visitor's Logbook page and not all pages.",
         category = "Farming",
-        subcategory = "Garden Visitors"
+        subcategory = "Garden Visitors",
     )
     var visitorLogbookStats = false
 
@@ -1452,7 +1454,7 @@ object OneConfigScreen : Config(
         name = "Wrong Tool for Crop Enabled",
         description = "When enabled, a warning will appear, notifying you that you are using the wrong tool for the current crop.",
         category = "Farming",
-        subcategory = "Wrong Tool for Crop"
+        subcategory = "Wrong Tool for Crop",
     )
     var wrongToolForCropEnabled = false
 
@@ -1460,7 +1462,7 @@ object OneConfigScreen : Config(
         name = "Allow Mathematical Hoes",
         description = "When enabled, mathematical hoes will be considered a valid tool.",
         category = "Farming",
-        subcategory = "Wrong Tool for Crop"
+        subcategory = "Wrong Tool for Crop",
     )
     var mathematicalHoeValid = true
 
@@ -1468,7 +1470,7 @@ object OneConfigScreen : Config(
         name = "Allow Other SkyBlock Tools",
         description = "When enabled, other SkyBlock tools will be considered a valid tool.",
         category = "Farming",
-        subcategory = "Wrong Tool for Crop"
+        subcategory = "Wrong Tool for Crop",
     )
     var otherSkyblockToolsValid = true
 
@@ -1476,7 +1478,7 @@ object OneConfigScreen : Config(
         name = "Allow Right Tool Type",
         description = "When enabled, the system only looks for the right tool type (hoes, etc.).",
         category = "Farming",
-        subcategory = "Wrong Tool for Crop"
+        subcategory = "Wrong Tool for Crop",
     )
     var vanillaToolsValid = false
 
@@ -1484,7 +1486,7 @@ object OneConfigScreen : Config(
         name = "Require Replenish",
         description = "When enabled, the tool must have replenish if it is to be used on a replenishable crop.",
         category = "Farming",
-        subcategory = "Wrong Tool for Crop"
+        subcategory = "Wrong Tool for Crop",
     )
     var requireReplenish = true
 
@@ -1492,7 +1494,7 @@ object OneConfigScreen : Config(
         name = "Air Raid Siren",
         description = "When enabled, the warning will contain an air raid siren.",
         category = "Farming",
-        subcategory = "Wrong Tool for Crop"
+        subcategory = "Wrong Tool for Crop",
     )
     var wrongToolForCropAirRaid = false
 
@@ -1502,7 +1504,7 @@ object OneConfigScreen : Config(
         category = "Farming",
         subcategory = "Wrong Tool for Crop",
         min = 1f,
-        max = 7f
+        max = 7f,
     )
     var wrongToolForCropBannerTime = 3.5f
 
@@ -1512,7 +1514,7 @@ object OneConfigScreen : Config(
         category = "Farming",
         subcategory = "Wrong Tool for Crop",
         min = 1f,
-        max = 7f
+        max = 7f,
     )
     var wrongToolForCropCooldown = 3.5f
 
@@ -1521,7 +1523,7 @@ object OneConfigScreen : Config(
         name = "Best Crops to Compost",
         description = "Gives you information about which crops are the best to compost.",
         category = "Farming",
-        subcategory = "Composter"
+        subcategory = "Composter",
     )
     var bestCropsToCompost = false
 
@@ -1530,7 +1532,7 @@ object OneConfigScreen : Config(
         name = "SkyMart Value",
         description = "Gives you information about the best value crops to compost.",
         category = "Farming",
-        subcategory = "SkyMart"
+        subcategory = "SkyMart",
     )
     var skymartValue = false
 
@@ -1540,7 +1542,7 @@ object OneConfigScreen : Config(
         name = "Treecapitator Cooldown Indicator Enabled",
         description = "Displays a cooldown indicator below your crosshair whenever your treecapitator is on cooldown.",
         category = "Foraging",
-        subcategory = "Treecapitator Cooldown Indicator"
+        subcategory = "Treecapitator Cooldown Indicator",
     )
     var treecapCooldown = false
 
@@ -1548,7 +1550,7 @@ object OneConfigScreen : Config(
         name = "Use Monkey Pet",
         description = "Use the monkey pet to dynamically adjust the length of the cooldown.",
         category = "Foraging",
-        subcategory = "Treecapitator Cooldown Indicator"
+        subcategory = "Treecapitator Cooldown Indicator",
     )
     var treecapCooldownMonkeyPet = true
 
@@ -1558,7 +1560,7 @@ object OneConfigScreen : Config(
         name = "Best Item for Bits",
         description = "Gives you information about which item in the Bits Shop is the best to sell.",
         category = "Economy",
-        subcategory = "Community Center"
+        subcategory = "Community Center",
     )
     var bestBitShopItem = false
 
@@ -1566,7 +1568,7 @@ object OneConfigScreen : Config(
         name = "Only Show Affordable Items",
         description = "When making recommendations for what you can buy, only recommend the items that you are able to afford.",
         category = "Economy",
-        subcategory = "Community Center"
+        subcategory = "Community Center",
     )
     var bitShopOnlyShowAffordable = true
 
@@ -1576,7 +1578,7 @@ object OneConfigScreen : Config(
         category = "Economy",
         subcategory = "BIN Sniper",
         min = 0f,
-        max = 100f
+        max = 100f,
     )
     var BINSniperPercent = 87f
 
@@ -1585,7 +1587,7 @@ object OneConfigScreen : Config(
         name = "Custom Auction House GUI",
         description = "Toggle using the custom Auction House GUI and BIN Sniper Helper.",
         category = "Economy",
-        subcategory = "Auction House"
+        subcategory = "Auction House",
     )
     var customAhGui = true
 
@@ -1594,7 +1596,7 @@ object OneConfigScreen : Config(
         description = "Use either the Partly Sane Studios developed textures, or the FurfSky Reborn developed textures\n\nAll of the textures under FurfSky Reborn are fully developed by the FurfSky Reborn team.\nhttps://furfsky.net/",
         category = "Economy",
         subcategory = "Auction House",
-        options = ["Partly Sane Studios", "FurfSky Reborn"]
+        options = ["Partly Sane Studios", "FurfSky Reborn"],
     )
     var customAhGuiTextures = 1
 
@@ -1604,7 +1606,7 @@ object OneConfigScreen : Config(
         category = "Economy",
         subcategory = "Auction House",
         min = .1f,
-        max = 1f
+        max = 1f,
     )
     var masterAuctionHouseScale = .333333f
 
@@ -1613,7 +1615,7 @@ object OneConfigScreen : Config(
         category = "Economy",
         subcategory = "Auction House",
         min = 0f,
-        max = .2f
+        max = .2f,
     )
     var auctionHouseItemPadding = .075f
 
@@ -1622,7 +1624,7 @@ object OneConfigScreen : Config(
         category = "Economy",
         subcategory = "Auction House",
         min = .25f,
-        max = 2f
+        max = 2f,
     )
     var auctionHouseSideBarHeight = 1.333f
 
@@ -1631,7 +1633,7 @@ object OneConfigScreen : Config(
         category = "Economy",
         subcategory = "Auction House",
         min = .25f,
-        max = 2f
+        max = 2f,
     )
     var auctionHouseSideBarWidth = .667f
 
@@ -1640,7 +1642,7 @@ object OneConfigScreen : Config(
         category = "Economy",
         subcategory = "Auction House",
         min = -.5f,
-        max = .5f
+        max = .5f,
     )
     var auctionSideBarPadding = .05f
 
@@ -1649,7 +1651,7 @@ object OneConfigScreen : Config(
         category = "Economy",
         subcategory = "Auction House",
         min = .11f,
-        max = 2f
+        max = 2f,
     )
     var auctionHouseTextScale = .75f
 
@@ -1658,7 +1660,7 @@ object OneConfigScreen : Config(
         name = "Excessive Coin and No Booster Cookie",
         description = "Warns you if you have a lot of coins in your purse and no booster cookie.",
         category = "Economy",
-        subcategory = "Excessive Coin Warning"
+        subcategory = "Excessive Coin Warning",
     )
     var noCookieWarning = false
 
@@ -1668,7 +1670,7 @@ object OneConfigScreen : Config(
         category = "Economy",
         subcategory = "Excessive Coin Warning",
         min = 0f,
-        max = Int.MAX_VALUE.toFloat()
+        max = Int.MAX_VALUE.toFloat(),
     )
     var maxWithoutCookie = 750000
 
@@ -1678,7 +1680,7 @@ object OneConfigScreen : Config(
         category = "Economy",
         subcategory = "Excessive Coin Warning",
         min = 1f,
-        max = 7f
+        max = 7f,
     )
     var noCookieWarnTime = 3.5f
 
@@ -1688,7 +1690,7 @@ object OneConfigScreen : Config(
         category = "Economy",
         subcategory = "Excessive Coin Warning",
         min = 1f,
-        max = 300f
+        max = 300f,
     )
     var noCookieWarnCooldown = 20f
 
@@ -1698,7 +1700,7 @@ object OneConfigScreen : Config(
         name = "Word Editor Main Toggle",
         description = "Allows you to edit words in chat. Can be configured with /wordeditor.",
         category = "Chat",
-        subcategory = "Word Editor"
+        subcategory = "Word Editor",
     )
     var wordEditor = true
 
@@ -1707,16 +1709,16 @@ object OneConfigScreen : Config(
         name = "Send System Notification",
         description = "Sends a system notification when a message triggered by the Chat Alert was send.",
         category = "Chat",
-        subcategory = "Chat Alerts"
+        subcategory = "Chat Alerts",
     )
     var chatAlertSendSystemNotification = false
 
-    //Chat Colors
+    // Chat Colors
     @Switch(
         name = "Color Private Messages",
         description = "Private messages pink to make them more visible in busy lobbies.",
         category = "Chat",
-        subcategory = "Chat Color"
+        subcategory = "Chat Color",
     )
     var colorPrivateMessages = false
 
@@ -1724,7 +1726,7 @@ object OneConfigScreen : Config(
         name = "Color Nons Messages",
         description = "Color messages from the non-ranked players to white to make them more visible in busy lobbies.",
         category = "Chat",
-        subcategory = "Chat Color"
+        subcategory = "Chat Color",
     )
     var colorNonMessages = false
 
@@ -1732,7 +1734,7 @@ object OneConfigScreen : Config(
         name = "Color Party Chat",
         description = "Color messages from the party chat blue to make them more visible in busy lobbies.",
         category = "Chat",
-        subcategory = "Chat Color"
+        subcategory = "Chat Color",
     )
     var colorPartyChat = false
 
@@ -1740,7 +1742,7 @@ object OneConfigScreen : Config(
         name = "Color Guild Chat",
         description = "Color messages from the guild chat green to make them more visible in busy lobbies.",
         category = "Chat",
-        subcategory = "Chat Color"
+        subcategory = "Chat Color",
     )
     var colorGuildChat = false
 
@@ -1748,7 +1750,7 @@ object OneConfigScreen : Config(
         name = "Color Guild Officer Chat",
         description = "Color messages from the guild officer chat aqua to make them more visible in busy lobbies.",
         category = "Chat",
-        subcategory = "Chat Color"
+        subcategory = "Chat Color",
     )
     var colorOfficerChat = false
 
@@ -1756,7 +1758,7 @@ object OneConfigScreen : Config(
         name = "SkyBlock Co-op Chat",
         description = "Color messages from the SkyBlock coop chat aqua to make them more visible in busy lobbies.",
         category = "Chat",
-        subcategory = "Chat Color"
+        subcategory = "Chat Color",
     )
     var colorCoopChat = false
 
@@ -1764,16 +1766,16 @@ object OneConfigScreen : Config(
         name = "Visible Colors",
         description = "Converts the custom colors mentioned above to more visible colors. Dark Green -> Light Green and Blue -> Gold. (Recommended)",
         category = "Chat",
-        subcategory = "Chat Color"
+        subcategory = "Chat Color",
     )
     var visibleColors = false
 
-    //Fun
+    // Fun
     @Switch(
         name = "OwO Language toggle",
         description = "Replaces all chat messages with OwO language.\nThis feature basically breaks the whole chat, so please be warned.",
         category = "Chat",
-        subcategory = "Fun"
+        subcategory = "Fun",
     )
     var owoLanguage = false
 
@@ -1781,7 +1783,7 @@ object OneConfigScreen : Config(
         name = "OwO Chat Transformer",
         description = "Transforms every chat message you send into OwO language.",
         category = "Chat",
-        subcategory = "Fun"
+        subcategory = "Fun",
     )
     var transformOWO = false
 
@@ -1789,94 +1791,94 @@ object OneConfigScreen : Config(
     @KeyBind(
         name = "Debug Hotkey",
         description = "The keybind to toggle the debug mode.",
-        category = "Dev"
+        category = "Dev",
     )
     var debugKeybind = OneKeyBind(Keyboard.KEY_NONE)
 
     @Switch(
         name = "Debug Mode",
         description = "Toggles the debug mode.",
-        category = "Dev"
+        category = "Dev",
     )
     var debugMode = false
 
     @Switch(
         name = "Render TEST Banner",
         description = "Renders a test banner on your screen.",
-        category = "Dev"
+        category = "Dev",
     )
     var debugRenderTestBanner = false
 
     @Switch(
         name = "Chat Analyser",
         description = "Analyse chat messages and print them to the console.",
-        category = "Dev"
+        category = "Dev",
     )
     var debugChatAnalyser = false
 
     @Switch(
         name = "Add a slacker to the party",
         description = "Adds a slacker to the party.",
-        category = "Dev"
+        category = "Dev",
     )
     var debugAddSlacker = false
 
     @Switch(
         name = "Spawn Waypoint",
         description = "Spawns a waypoint at your current location.",
-        category = "Dev"
+        category = "Dev",
     )
     var debugSpawnWaypoint = false
 
     @Switch(
         name = "Send a system notification",
         description = "Sends a system notification.",
-        category = "Dev"
+        category = "Dev",
     )
     var debugSendSystemNotification = false
 
     @Switch(
         name = "Print pet world parsing information",
         description = "Prints information about the pet world parsing.",
-        category = "Dev"
+        category = "Dev",
     )
     var debugPrintPetWorldParsingInformation = false
 
     @Switch(
         name = "Print current location from Island Type",
         description = "Prints your current location from the island type.",
-        category = "Dev"
+        category = "Dev",
     )
     var debugPrintCurrentLocationFromIslandType = false
 
     @Switch(
         name = "Log cached F7 puzzles",
         description = "Logs cached F7 puzzles.",
-        category = "Dev"
+        category = "Dev",
     )
     var debugLogCachedF7Puzzles = false
 
     @Switch(
         name = "Print Current Cached Stats",
         description = "Prints the current cached stats.",
-        category = "Dev"
+        category = "Dev",
     )
     var debugPrintCurrentCachedStats = false
 
     @Switch(
         name = "Render RNG Drop Banner",
         description = "Renders an RNG Drop Banner.",
-        category = "Dev"
+        category = "Dev",
     )
     var debugRenderRNGBanner = false
 
     @Switch(
         name = "Send Discord Webhook",
         description = "Sends a discord webhook.",
-        category = "Dev"
+        category = "Dev",
     )
     var debugSendDiscordWebhook = false
-  
+
     @Switch(
         name = "Generate Cylinder",
         description = "Generates a cylinder.",
@@ -1901,21 +1903,21 @@ object OneConfigScreen : Config(
     @Switch(
         name = "Remove Crystal Nucleus Coords from Crystal hollows pretty data",
         description = "Don't use this pt. 3",
-        category = "Dev"
+        category = "Dev",
     )
     var debugConvertPrettyDataToNoNucleus = false
 
     @Switch(
         name = "Log display size",
         description = "Logs the width and height of the display",
-        category = "Dev"
+        category = "Dev",
     )
     var debugLogDisplaySize = false
 
     @Switch(
         name = "Display inventory information",
         description = "Logs the chest contents, xSize and ySize of a GuiChest",
-        category = "Dev"
+        category = "Dev",
     )
     var testDevEnv = false
 
@@ -1923,7 +1925,7 @@ object OneConfigScreen : Config(
     @Switch(
         name = "Show hidden webhooks in webhook menu",
         category = "Dev",
-        subcategory = "Discord"
+        subcategory = "Discord",
     )
     var showHiddenWebhooks = false
 
@@ -1931,7 +1933,7 @@ object OneConfigScreen : Config(
     @HUD(
         name = "Test Hud Element",
         category = "Dev",
-        subcategory = "Example HUD"
+        subcategory = "Example HUD",
     )
     var hud = ExampleHud.oneConfigHud
 
@@ -1940,7 +1942,7 @@ object OneConfigScreen : Config(
         name = "Percy Mode",
         description = "Toggles Percy Mode.",
         category = "Dev",
-        subcategory = "Percy Mode"
+        subcategory = "Percy Mode",
     )
     var percyMode = false
 
@@ -1948,7 +1950,7 @@ object OneConfigScreen : Config(
         name = "Current Screen",
         description = "Dumps the current screen.",
         category = "Dev",
-        subcategory = "Percy Mode"
+        subcategory = "Percy Mode",
     )
     var debugCurrentScreenDump = false
 
@@ -1956,7 +1958,7 @@ object OneConfigScreen : Config(
         name = "Entity Dump",
         description = "Dumps all entities.",
         category = "Dev",
-        subcategory = "Percy Mode"
+        subcategory = "Percy Mode",
     )
     var debugEntityDump = false
 
@@ -1964,7 +1966,7 @@ object OneConfigScreen : Config(
         name = "Inventory Dump",
         description = "Dumps your inventory.",
         category = "Dev",
-        subcategory = "Percy Mode"
+        subcategory = "Percy Mode",
     )
     var debugInventoryDump = false
 
@@ -1972,7 +1974,7 @@ object OneConfigScreen : Config(
         name = "Player Dump",
         description = "Dumps all players.",
         category = "Dev",
-        subcategory = "Percy Mode"
+        subcategory = "Percy Mode",
     )
     var debugPlayerDump = false
 
@@ -1983,7 +1985,7 @@ object OneConfigScreen : Config(
         category = "Dev",
         subcategory = "API",
         min = .1f,
-        max = 30f
+        max = 30f,
     )
     var timeBetweenRequests = 0.5f
 
@@ -1993,7 +1995,7 @@ object OneConfigScreen : Config(
         category = "Dev",
         subcategory = "API",
         min = 0f,
-        max = 90f
+        max = 90f,
     )
     var playerDataCacheTime = 5
 
@@ -2001,7 +2003,7 @@ object OneConfigScreen : Config(
         name = "Print errors in chat",
         description = "Send errors on getting data in chat (Recommended, however if you get spammed or have a bad internet connection, turn it off).",
         category = "Dev",
-        subcategory = "API"
+        subcategory = "API",
     )
     var printApiErrors = true
 
@@ -2010,7 +2012,7 @@ object OneConfigScreen : Config(
         description = "Change the owner of the repo used for public data.",
         category = "Dev",
         subcategory = "API Source",
-        secure = true
+        secure = true,
     )
     var repoOwner = "PartlySaneStudios"
 
@@ -2019,7 +2021,7 @@ object OneConfigScreen : Config(
         description = "Change the name of the repo used for public data.",
         category = "Dev",
         subcategory = "API Source",
-        secure = true
+        secure = true,
     )
     var repoName = "partly-sane-skies-public-data"
 
@@ -2027,14 +2029,14 @@ object OneConfigScreen : Config(
         name = "API URL",
         category = "Dev",
         subcategory = "API Source",
-        secure = true
+        secure = true,
     )
     var apiUrl = "http://partlysanecloud.su386.dev"
 
     @Switch(
         name = "Load API Data Directly from GitHub",
         category = "Dev",
-        subcategory = "API Source"
+        subcategory = "API Source",
     )
     var useGithubForPublicData = false
 

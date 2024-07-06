@@ -25,14 +25,15 @@ object ExampleHud : PSSHud(false, 50.0F, 50.0F) {
 
     private val window = Window(ElementaVersion.V2)
 
-    private val box = UIBlock()
-        .constrain {
-            x = 50.pixels
-            y = 50.pixels
-            height = DEFAULT_HEIGHT.pixels
-            width = DEFAULT_WIDTH.pixels
-            color = DEFAULT_COLOR.constraint
-        } childOf window
+    private val box =
+        UIBlock()
+            .constrain {
+                x = 50.pixels
+                y = 50.pixels
+                height = DEFAULT_HEIGHT.pixels
+                width = DEFAULT_WIDTH.pixels
+                color = DEFAULT_COLOR.constraint
+            } childOf window
 
     @SubscribeEvent
     fun onScreenRender(event: RenderGameOverlayEvent.Text) {
@@ -44,20 +45,23 @@ object ExampleHud : PSSHud(false, 50.0F, 50.0F) {
         box.setY(y.pixels)
         box.setHeight((scale * DEFAULT_HEIGHT).pixels)
         box.setWidth((scale * DEFAULT_WIDTH).pixels)
-        val color = if (example) {
-            EXAMPLE_COLOR
-        } else {
-            DEFAULT_COLOR
-        }
+        val color =
+            if (example) {
+                EXAMPLE_COLOR
+            } else {
+                DEFAULT_COLOR
+            }
         box.setColor(color)
         window.draw(gg.essential.universal.UMatrixStack())
     }
 
-    override fun getWidth(scale: Float, example: Boolean): Float {
-        return scale * 5
-    }
+    override fun getWidth(
+        scale: Float,
+        example: Boolean,
+    ): Float = scale * 5
 
-    override fun getHeight(scale: Float, example: Boolean): Float {
-        return scale * 5
-    }
+    override fun getHeight(
+        scale: Float,
+        example: Boolean,
+    ): Float = scale * 5
 }

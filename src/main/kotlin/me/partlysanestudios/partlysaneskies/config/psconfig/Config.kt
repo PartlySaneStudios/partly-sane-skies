@@ -3,7 +3,6 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.config.psconfig
 
 import com.google.gson.JsonElement
@@ -12,10 +11,10 @@ import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
 import org.apache.logging.log4j.Level
 
 class Config : ConfigOption() {
-
     companion object {
         val ConfigOption.asConfig get() = this as Config
     }
+
     // Recursively find paths for options
     fun find(path: String): ConfigOption? {
         val indexOfSplit = path.indexOf("/")
@@ -34,8 +33,12 @@ class Config : ConfigOption() {
     }
 
     private val options = LinkedHashMap<String, ConfigOption>()
+
     // Recursively create new options to get to the path
-    fun registerOption(path: String, configOption: ConfigOption): Config {
+    fun registerOption(
+        path: String,
+        configOption: ConfigOption,
+    ): Config {
         val indexOfSplit = path.indexOf("/")
 
         if (indexOfSplit == -1) {
@@ -55,9 +58,7 @@ class Config : ConfigOption() {
         return this
     }
 
-    fun getAllOptions(): LinkedHashMap<String, ConfigOption> {
-        return options.clone() as LinkedHashMap<String, ConfigOption>
-    }
+    fun getAllOptions(): LinkedHashMap<String, ConfigOption> = options.clone() as LinkedHashMap<String, ConfigOption>
 
     override fun loadFromJson(element: JsonElement) {
         val obj = element.asJsonObject
@@ -67,7 +68,6 @@ class Config : ConfigOption() {
             if (obj.has(option.key)) {
                 try {
                     option.value.loadFromJson(obj.get(option.key))
-
                 } catch (e: Exception) {
                     log(Level.ERROR, "Error loading option ${option.key}")
                     throw e
@@ -86,9 +86,13 @@ class Config : ConfigOption() {
     }
 
     var savePath: String? = null
+
     fun save() {
         if (parent == null) {
-            ConfigManager.saveConfig(savePath ?: throw IllegalArgumentException("Unable to Save. No save path provided. Config is not registered."), this)
+            ConfigManager.saveConfig(
+                savePath ?: throw IllegalArgumentException("Unable to Save. No save path provided. Config is not registered."),
+                this,
+            )
         } else {
             (parent as? Config)?.save() ?: throw IllegalArgumentException("Unable to save. Parent of config is not a config.")
         }

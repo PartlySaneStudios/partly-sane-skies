@@ -3,7 +3,6 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.data.cache
 
 import com.google.gson.Gson
@@ -38,8 +37,8 @@ object PetData {
 
     val petNameRegex = "§.\\[Lvl (\\d+)] (§.)(\\w+(\\s\\w+)*)(?: ✦)?".toRegex()
 
-
     var lastSaveTime = -1L
+
     fun tick() {
         parsePetGuiForCache()
         parsePetFromTablist()
@@ -48,10 +47,12 @@ object PetData {
         }
 
         lastSaveTime = PartlySaneSkies.time
-        Thread({
-            save()
-        }, "Pet Data Save").start()
-
+        Thread(
+            {
+                save()
+            },
+            "Pet Data Save",
+        ).start()
     }
 
     @Throws(IOException::class)
@@ -138,7 +139,6 @@ object PetData {
 
         val petLevelUpRegex = "§r§aYour §r(§.)(\\w+(\\s\\w+)*)( ✦)? §r§aleveled up to level §r§9(\\d+)§r§a!§r".toRegex()
         if (petLevelUpRegex.find(event.message.formattedText) != null) {
-
             // Find the match
             val matchResult = petLevelUpRegex.find(event.message.formattedText)
 
@@ -158,12 +158,10 @@ object PetData {
             // Extract the pet level and name
             val (petLevel, colorCode, petName) = matchResult.destructured
 
-
             petDataJson?.currentPetLevel = petLevel.toInt()
             petDataJson?.currentPetName = petName
             petDataJson?.currentPetRarity = colorCode.getRarityFromColorCode()
             petDataJson?.petNameLevelMap?.get(petDataJson?.currentPetRarity)?.put(petName, petLevel.toInt())
-
         }
     }
 
@@ -209,7 +207,9 @@ object PetData {
             return false
         }
         val upper = currentScreen.containerInventory
-        return upper.displayName.formattedText.removeColorCodes().contains("Pets")
+        return upper.displayName.formattedText
+            .removeColorCodes()
+            .contains("Pets")
     }
 
     /**
@@ -220,7 +220,6 @@ object PetData {
      * @property petNameLevelMap: A two-dimensional map with the rarity as the first key, and a hashmap containing the pet name as the key and the pet level as the value as the value
      */
     private class PetDataJson {
-
         @Expose
         var currentPetName: String = ""
 

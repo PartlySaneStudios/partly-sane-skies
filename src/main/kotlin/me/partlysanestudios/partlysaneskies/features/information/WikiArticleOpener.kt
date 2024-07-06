@@ -18,7 +18,6 @@ import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 
 object WikiArticleOpener {
-
     private var isWaitingForArticle = false
 
     @SubscribeEvent
@@ -26,11 +25,17 @@ object WikiArticleOpener {
         if (!isWaitingForArticle) {
             return
         }
-        if (e.message.formattedText.removeColorCodes().contains("Invalid")) {
+        if (e.message.formattedText
+                .removeColorCodes()
+                .contains("Invalid")
+        ) {
             isWaitingForArticle = false
             return
         }
-        if (!e.message.formattedText.removeColorCodes().contains("Click HERE")) {
+        if (!e.message.formattedText
+                .removeColorCodes()
+                .contains("Click HERE")
+        ) {
             return
         }
         isWaitingForArticle = false
@@ -76,4 +81,3 @@ object WikiArticleOpener {
 // hi ca_mo - j10a
 
 // Nearly forgot camo. Camo is now in kt (even better than full hd) - Su386
-

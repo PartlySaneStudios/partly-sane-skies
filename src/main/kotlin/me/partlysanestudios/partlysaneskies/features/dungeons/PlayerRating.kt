@@ -21,12 +21,10 @@ import me.partlysanestudios.partlysaneskies.utils.MathUtils.round
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.stripLeading
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.stripTrailing
-import net.minecraft.command.ICommandSender
 import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 
 object PlayerRating {
-
     private var currentPlayer = ""
 
     private var positiveRegexs = HashMap<Regex, String>()
@@ -57,7 +55,10 @@ object PlayerRating {
         }
     }
 
-    fun rackPoints(playerString: String, category: String) {
+    fun rackPoints(
+        playerString: String,
+        category: String,
+    ) {
         var player = playerString
         if (player.equals("You", ignoreCase = true)) {
             player = currentPlayer
@@ -113,7 +114,8 @@ object PlayerRating {
             if (config.enhancedDungeonPlayerBreakdown == 2) {
                 playerStr.append("§2   Breakdown:\n")
                 for ((key, value1) in value) {
-                    playerStr.append("     §d")
+                    playerStr
+                        .append("     §d")
                         .append((value1.toDouble() / (categoryPointMap[key] ?: 0) * 100.0).round(0))
                         .append("%§7 of ")
                         .append(key)
@@ -172,7 +174,9 @@ object PlayerRating {
 
     fun registerReprintCommand() {
         PSSCommand(
-            "reprintscore", mutableListOf("rps", "rs"), "Reprints the last score in a dungeon run"
+            "reprintscore",
+            mutableListOf("rps", "rs"),
+            "Reprints the last score in a dungeon run",
         ) { reprintLastScore() }.register()
     }
 

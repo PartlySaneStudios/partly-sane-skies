@@ -3,13 +3,12 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.utils
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import java.awt.Color
 import java.text.DecimalFormat
-import java.util.*
+import java.util.Locale
 import java.util.regex.Pattern
 
 object StringUtils {
@@ -52,11 +51,13 @@ object StringUtils {
         val words: MutableList<String> = ArrayList()
         val chars: MutableList<Char> = ArrayList()
 
-        for (c in charArray) if (c == ' ') {
-            words.add(chars.joinToString(""))
-            chars.clear()
-        } else {
-            chars.add(c)
+        for (c in charArray) {
+            if (c == ' ') {
+                words.add(chars.joinToString(""))
+                chars.clear()
+            } else {
+                chars.add(c)
+            }
         }
 
         words.add(chars.joinToString(""))
@@ -115,13 +116,12 @@ object StringUtils {
         return str
     }
 
-    fun String.pluralize(number: Number): String {
-        return if (number == 1) {
+    fun String.pluralize(number: Number): String =
+        if (number == 1) {
             this
         } else {
             "${this}s"
         }
-    }
 
     fun stripTrailing(str: String): String {
         var str = str
@@ -183,7 +183,10 @@ object StringUtils {
         return formattedNum
     }
 
-    fun stripTrailingChars(str: String, chars: String): String {
+    fun stripTrailingChars(
+        str: String,
+        chars: String,
+    ): String {
         var str = str
         if (str == "") {
             return str
@@ -208,7 +211,11 @@ object StringUtils {
      * @param key The key to use to get the result
      * @return The result
      */
-    fun recognisePattern(input: String, pattern: String, key: String): String {
+    fun recognisePattern(
+        input: String,
+        pattern: String,
+        key: String,
+    ): String {
         var result = input
 
         // Gets finds the index where the key will start, because it will be the same across
@@ -218,19 +225,19 @@ object StringUtils {
             result = result.substring(keyIndex)
         }
 
-
         // Gets the first few letters after the key in the pattern
         val patternEndKeyIndex = keyIndex + key.length
         val charsAfterKey: String
 
         // If the key is the last thing in the pattern, return the result
-        charsAfterKey = if (patternEndKeyIndex == pattern.length) {
-            return result
-        } else if (patternEndKeyIndex + 4 <= pattern.length) {
-            pattern.substring(patternEndKeyIndex, patternEndKeyIndex + 4)
-        } else {
-            pattern.substring(patternEndKeyIndex)
-        }
+        charsAfterKey =
+            if (patternEndKeyIndex == pattern.length) {
+                return result
+            } else if (patternEndKeyIndex + 4 <= pattern.length) {
+                pattern.substring(patternEndKeyIndex, patternEndKeyIndex + 4)
+            } else {
+                pattern.substring(patternEndKeyIndex)
+            }
 
         // Uses those characters to get the end of the string in the
         // input, not the pattern
@@ -242,7 +249,11 @@ object StringUtils {
         return result
     }
 
-    fun isPattern(input: String, pattern: String, key: String): Boolean {
+    fun isPattern(
+        input: String,
+        pattern: String,
+        key: String,
+    ): Boolean {
         // Gets finds the index where the key will start, because it will be the same across
         // both patterns
         val result = recognisePattern(input, pattern, key)
@@ -251,7 +262,11 @@ object StringUtils {
         return patternWithoutKey == inputWithoutKey
     }
 
-    fun startsWithPattern(input: String, pattern: String, key: String): Boolean {
+    fun startsWithPattern(
+        input: String,
+        pattern: String,
+        key: String,
+    ): Boolean {
         val result = recognisePattern(input, pattern, key)
         val patternWithoutKey = replaceFirst(pattern, key, "")
         val inputWithoutKey = replaceFirst(input, result, "")
@@ -262,7 +277,11 @@ object StringUtils {
         return beginningOfInputWithoutKey == patternWithoutKey
     }
 
-    fun replaceFirst(string: String, key: String, replacement: String): String {
+    fun replaceFirst(
+        string: String,
+        key: String,
+        replacement: String,
+    ): String {
         val index = string.indexOf(key)
         return if (index != -1) { // Make sure the search string was found
             val before = string.substring(0, index)
@@ -273,8 +292,8 @@ object StringUtils {
         }
     }
 
-    fun Char.romanCharToInt(): Int {
-        return when (this) {
+    fun Char.romanCharToInt(): Int =
+        when (this) {
             'I' -> 1
             'V' -> 5
             'X' -> 10
@@ -284,7 +303,6 @@ object StringUtils {
             'M' -> 1000
             else -> throw IllegalArgumentException("Invalid Roman numeral character: $this")
         }
-    }
 
     fun String.romanNumeralToInt(): Int {
         var total = 0
@@ -385,7 +403,10 @@ object StringUtils {
 
         var number = this
         return buildString {
-            fun appendRomanSymbols(value: Int, symbol: String) {
+            fun appendRomanSymbols(
+                value: Int,
+                symbol: String,
+            ) {
                 while (number >= value) {
                     this.append(symbol)
                     number -= value
@@ -407,5 +428,4 @@ object StringUtils {
             appendRomanSymbols(1, "I")
         }
     }
-
 }

@@ -3,7 +3,6 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.events.minecraft.render
 
 import me.partlysanestudios.partlysaneskies.events.EventManager
@@ -12,11 +11,13 @@ import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Point3d.Compa
 import net.minecraft.client.Minecraft
 
 class RenderWaypointEvent(
-    val pipeline: WaypointRenderPipeline
+    val pipeline: WaypointRenderPipeline,
 ) {
-
     companion object {
-        internal fun onEventCall(partialTicks: Float, functions: List<EventManager.EventFunction>) {
+        internal fun onEventCall(
+            partialTicks: Float,
+            functions: List<EventManager.EventFunction>,
+        ) {
             val pipeline = WaypointRenderPipeline()
 
             for (function in functions) {
@@ -45,6 +46,7 @@ class RenderWaypointEvent(
         }
 
         // Written partially by j10a1n15
+
         /**
          * Renders all the waypoints in the pipeline
          *

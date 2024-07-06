@@ -8,34 +8,25 @@ package me.partlysanestudios.partlysaneskies.utils.geometry.vectors
 import kotlin.math.pow
 import kotlin.math.sqrt
 
-open class Point2d(val x: Double, val y: Double) {
-    fun getPointX(): Double {
-        return x
-    }
+open class Point2d(
+    val x: Double,
+    val y: Double,
+) {
+    fun getPointX(): Double = x
 
-    fun getPointY(): Double {
-        return y
-    }
+    fun getPointY(): Double = y
 
-    fun distanceTo(point2: Point2d): Double {
-        return sqrt(
+    fun distanceTo(point2: Point2d): Double =
+        sqrt(
             (point2.getPointX() - this.getPointX()).pow(2.0) +
-                    (point2.getPointY() - this.getPointY()).pow(2.0)
+                (point2.getPointY() - this.getPointY()).pow(2.0),
         )
-    }
 
-    override fun toString(): String {
-        return "Point2d(x=$x, y=$y)"
-    }
+    override fun toString(): String = "Point2d(x=$x, y=$y)"
 
+    operator fun plus(point: Point2d): Point2d = Point2d(point.x + this.x, point.y + this.y)
 
-    operator fun plus(point: Point2d): Point2d {
-        return Point2d(point.x + this.x, point.y + this.y)
-    }
-
-    operator fun minus(point: Point2d): Point2d {
-        return Point2d(point.x - this.x, point.y - this.y)
-    }
+    operator fun minus(point: Point2d): Point2d = Point2d(point.x - this.x, point.y - this.y)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

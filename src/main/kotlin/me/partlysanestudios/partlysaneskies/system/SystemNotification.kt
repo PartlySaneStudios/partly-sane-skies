@@ -3,7 +3,6 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.system
 
 import java.awt.SystemTray
@@ -30,8 +29,10 @@ object SystemNotification {
             val tray = SystemTray.getSystemTray()
 
             // Custom Icon doesnt seem to be possible anyway sooo idk
-            val image = Toolkit.getDefaultToolkit()
-                .createImage(URL("https://cdn.modrinth.com/data/jlWHBQtc/8be3d6a35e683c41f9ddf086fd6d56146a494d75.jpeg"))
+            val image =
+                Toolkit
+                    .getDefaultToolkit()
+                    .createImage(URL("https://cdn.modrinth.com/data/jlWHBQtc/8be3d6a35e683c41f9ddf086fd6d56146a494d75.jpeg"))
             val trayIcon = TrayIcon(image, "PartlySaneSkies")
 
             trayIcon.setImageAutoSize(true)

@@ -3,13 +3,20 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.render.gui.components
 
 import gg.essential.elementa.UIComponent
 import gg.essential.elementa.components.UIRoundedRectangle
-import gg.essential.elementa.constraints.*
-import gg.essential.elementa.dsl.*
+import gg.essential.elementa.constraints.CenterConstraint
+import gg.essential.elementa.constraints.HeightConstraint
+import gg.essential.elementa.constraints.WidthConstraint
+import gg.essential.elementa.constraints.XConstraint
+import gg.essential.elementa.constraints.YConstraint
+import gg.essential.elementa.dsl.childOf
+import gg.essential.elementa.dsl.constrain
+import gg.essential.elementa.dsl.constraint
+import gg.essential.elementa.dsl.percent
+import gg.essential.elementa.dsl.pixels
 import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
 import me.partlysanestudios.partlysaneskies.render.gui.hud.cooldown.Cooldown
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.weightedAverage
@@ -19,33 +26,36 @@ class PSSHorizontalCooldown(
     private val xConstraint: XConstraint,
     private val yConstraint: YConstraint,
     private val widthConstraint: WidthConstraint,
-    private val heightConstraint: HeightConstraint
+    private val heightConstraint: HeightConstraint,
 ) {
     private var cooldown: Cooldown? = null
 
-    val boundingBox = UIRoundedRectangle(2f).constrain {
-        radius = 4f.scaledPixels
-        x = xConstraint
-        y = yConstraint
-        height = heightConstraint
-        width = widthConstraint
-        color = Color(0, 0, 0, 0).constraint
-    }
+    val boundingBox =
+        UIRoundedRectangle(2f).constrain {
+            radius = 4f.scaledPixels
+            x = xConstraint
+            y = yConstraint
+            height = heightConstraint
+            width = widthConstraint
+            color = Color(0, 0, 0, 0).constraint
+        }
 
-    private val displayBox = UIRoundedRectangle(2f).constrain {
-        radius = 4f.scaledPixels
-        x = 0f.pixels
-        y = 0f.pixels
-        height = 100f.percent
-        width = 0f.pixels
-        color = Color(255, 0, 0).constraint
-    } childOf boundingBox
+    private val displayBox =
+        UIRoundedRectangle(2f).constrain {
+            radius = 4f.scaledPixels
+            x = 0f.pixels
+            y = 0f.pixels
+            height = 100f.percent
+            width = 0f.pixels
+            color = Color(255, 0, 0).constraint
+        } childOf boundingBox
 
-    private val itemRender = PSSItemRender(null, autoScaleWidth = true).constrain {
-        width = 1.75.percent
-        x = (-35).percent
-        y = CenterConstraint()
-    } childOf boundingBox
+    private val itemRender =
+        PSSItemRender(null, autoScaleWidth = true).constrain {
+            width = 1.75.percent
+            x = (-35).percent
+            y = CenterConstraint()
+        } childOf boundingBox
 
     fun setChildOf(parent: UIComponent): PSSHorizontalCooldown {
         boundingBox.setChildOf(parent)

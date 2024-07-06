@@ -3,7 +3,6 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.features.discord.webhooks
 
 import gg.essential.elementa.ElementaVersion
@@ -12,7 +11,13 @@ import gg.essential.elementa.components.ScrollComponent
 import gg.essential.elementa.components.UIBlock
 import gg.essential.elementa.components.UIWrappedText
 import gg.essential.elementa.constraints.CenterConstraint
-import gg.essential.elementa.dsl.*
+import gg.essential.elementa.dsl.childOf
+import gg.essential.elementa.dsl.constrain
+import gg.essential.elementa.dsl.constraint
+import gg.essential.elementa.dsl.minus
+import gg.essential.elementa.dsl.percent
+import gg.essential.elementa.dsl.pixels
+import gg.essential.elementa.dsl.plus
 import gg.essential.universal.UMatrixStack
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand
@@ -27,7 +32,7 @@ import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
 import net.minecraft.util.ResourceLocation
 import java.awt.Color
 
-class WebhookMenu: WindowScreen(ElementaVersion.V5) {
+class WebhookMenu : WindowScreen(ElementaVersion.V5) {
     companion object {
         fun registerWebhookCommand() {
             PSSCommand("webhook")
@@ -38,79 +43,89 @@ class WebhookMenu: WindowScreen(ElementaVersion.V5) {
         }
     }
 
-    private val inactiveWebhooksPanel = ThemeManager.currentBackgroundUIImage.constrain {
-        x = CenterConstraint()  - (300 / 2).scaledPixels - (75 / 2).scaledPixels
-        y = CenterConstraint() - 20.scaledPixels - (150 / 2).scaledPixels
-        width = 300.scaledPixels
-        height = 350.scaledPixels
-    } childOf window
+    private val inactiveWebhooksPanel =
+        ThemeManager.currentBackgroundUIImage.constrain {
+            x = CenterConstraint() - (300 / 2).scaledPixels - (75 / 2).scaledPixels
+            y = CenterConstraint() - 20.scaledPixels - (150 / 2).scaledPixels
+            width = 300.scaledPixels
+            height = 350.scaledPixels
+        } childOf window
 
-    private val inactiveWebhookText = UIWrappedText("Inactive Webhooks:").constrain {
-        x = 15.scaledPixels
-        y = 10.scaledPixels
-        width = (300 - (7 * 2)).scaledPixels
-        textScale = 1.5.scaledPixels
-        color = Color.red.constraint
-    } childOf inactiveWebhooksPanel
+    private val inactiveWebhookText =
+        UIWrappedText("Inactive Webhooks:").constrain {
+            x = 15.scaledPixels
+            y = 10.scaledPixels
+            width = (300 - (7 * 2)).scaledPixels
+            textScale = 1.5.scaledPixels
+            color = Color.red.constraint
+        } childOf inactiveWebhooksPanel
 
-    private val activeWebhooksPanel  = ThemeManager.currentBackgroundUIImage.constrain {
-        x = CenterConstraint() + (300 / 2).scaledPixels + (75 / 2).scaledPixels
-        y = CenterConstraint() - 20.scaledPixels - (150 / 2).scaledPixels
-        width = 300.scaledPixels
-        height = 350.scaledPixels
-    } childOf window
+    private val activeWebhooksPanel =
+        ThemeManager.currentBackgroundUIImage.constrain {
+            x = CenterConstraint() + (300 / 2).scaledPixels + (75 / 2).scaledPixels
+            y = CenterConstraint() - 20.scaledPixels - (150 / 2).scaledPixels
+            width = 300.scaledPixels
+            height = 350.scaledPixels
+        } childOf window
 
-    private val activeWebhookText = UIWrappedText("Active Webhooks:").constrain {
-        x = 15.scaledPixels
-        y = 10.scaledPixels
-        width = (300 - (7 * 2)).scaledPixels
-        textScale = 1.5.scaledPixels
-        color = Color.green.constraint
-    } childOf activeWebhooksPanel
+    private val activeWebhookText =
+        UIWrappedText("Active Webhooks:").constrain {
+            x = 15.scaledPixels
+            y = 10.scaledPixels
+            width = (300 - (7 * 2)).scaledPixels
+            textScale = 1.5.scaledPixels
+            color = Color.green.constraint
+        } childOf activeWebhooksPanel
 
-    private val webhookOptionsPanel = ThemeManager.currentBackgroundUIImage.constrain {
-        x = CenterConstraint()
-        y = CenterConstraint() + 20.scaledPixels + (300 / 2).scaledPixels
-        width = (300 + 300 + 75).scaledPixels
-        height = 150.scaledPixels
-    } childOf window
+    private val webhookOptionsPanel =
+        ThemeManager.currentBackgroundUIImage.constrain {
+            x = CenterConstraint()
+            y = CenterConstraint() + 20.scaledPixels + (300 / 2).scaledPixels
+            width = (300 + 300 + 75).scaledPixels
+            height = 150.scaledPixels
+        } childOf window
 
-    private val webhookOptionsList = ScrollComponent().constrain {
-        x = CenterConstraint()
-        y = CenterConstraint()
-        width = 100.percent
-        height = 100.percent
-    } childOf webhookOptionsPanel
-
-    private val webhookOptionsHeader = UIWrappedText().constrain {
-        x = 15.scaledPixels
-        y = 10.scaledPixels
-        width = 100.percent
-        textScale = 1.5.scaledPixels
-    } childOf webhookOptionsList
-
-    private val sideSwitchButton = ThemeManager.currentBackgroundUIImage.constrain {
-        x = CenterConstraint()
-        y = CenterConstraint() - (300 / 2).scaledPixels + 20.scaledPixels
-        width = 50.scaledPixels
-        height = 50.scaledPixels
-    }.onMouseClick {
-        if (selectedIcon == null) {
-            return@onMouseClick
-        }
-
-        selectedIcon?.enabled = !(selectedIcon?.enabled ?: false)
-        updateLocations()
-    } childOf window
-
-    private val sideSwitchIcon = ResourceLocation("partlysaneskies", "textures/gui/webhookedit/sideswitch.png")
-        .uiImage
-        .constrain {
+    private val webhookOptionsList =
+        ScrollComponent().constrain {
             x = CenterConstraint()
             y = CenterConstraint()
             width = 100.percent
             height = 100.percent
-        } childOf sideSwitchButton
+        } childOf webhookOptionsPanel
+
+    private val webhookOptionsHeader =
+        UIWrappedText().constrain {
+            x = 15.scaledPixels
+            y = 10.scaledPixels
+            width = 100.percent
+            textScale = 1.5.scaledPixels
+        } childOf webhookOptionsList
+
+    private val sideSwitchButton =
+        ThemeManager.currentBackgroundUIImage
+            .constrain {
+                x = CenterConstraint()
+                y = CenterConstraint() - (300 / 2).scaledPixels + 20.scaledPixels
+                width = 50.scaledPixels
+                height = 50.scaledPixels
+            }.onMouseClick {
+                if (selectedIcon == null) {
+                    return@onMouseClick
+                }
+
+                selectedIcon?.enabled = !(selectedIcon?.enabled ?: false)
+                updateLocations()
+            } childOf window
+
+    private val sideSwitchIcon =
+        ResourceLocation("partlysaneskies", "textures/gui/webhookedit/sideswitch.png")
+            .uiImage
+            .constrain {
+                x = CenterConstraint()
+                y = CenterConstraint()
+                width = 100.percent
+                height = 100.percent
+            } childOf sideSwitchButton
 
     private var webhookIcons = ArrayList<WebhookIcon>()
     private var selectedIcon: WebhookIcon? = null
@@ -159,7 +174,6 @@ class WebhookMenu: WindowScreen(ElementaVersion.V5) {
             var y = 30
             val width = 20
             for (key in selectedConfig.getAllOptions().keys) {
-
                 if (x + width > 100) {
                     y += 30
                     x = startX
@@ -185,6 +199,7 @@ class WebhookMenu: WindowScreen(ElementaVersion.V5) {
             }
         }
     }
+
     private fun updateLocations() {
         val enabled = ArrayList<WebhookIcon>()
         val disabled = ArrayList<WebhookIcon>()
@@ -245,8 +260,12 @@ class WebhookMenu: WindowScreen(ElementaVersion.V5) {
         }
     }
 
-
-    override fun onDrawScreen(matrixStack: UMatrixStack, mouseX: Int, mouseY: Int, partialTicks: Float) {
+    override fun onDrawScreen(
+        matrixStack: UMatrixStack,
+        mouseX: Int,
+        mouseY: Int,
+        partialTicks: Float,
+    ) {
         super.onDrawScreen(matrixStack, mouseX, mouseY, partialTicks)
 
         for (icon in webhookIcons) {
@@ -264,43 +283,51 @@ class WebhookMenu: WindowScreen(ElementaVersion.V5) {
         }
     }
 
-    private class WebhookIcon(val webhookEvent: Webhook) {
+    private class WebhookIcon(
+        val webhookEvent: Webhook,
+    ) {
         var hovering = false
         var menu: WebhookMenu? = null
 
-        val text: MutableList<String> get() {
-            val list = arrayListOf<String>()
-            list.add("§d${webhookEvent.name}")
-            for (line in (webhookEvent.description).split("\n")) {
-                list.add("§7$line")
+        val text: MutableList<String>
+            get() {
+                val list = arrayListOf<String>()
+                list.add("§d${webhookEvent.name}")
+                for (line in (webhookEvent.description).split("\n")) {
+                    list.add("§7$line")
+                }
+                return list
             }
-            return list
-        }
-        var enabled: Boolean get() {
-            return webhookEvent.enabled
-        } set(value) {
-            webhookEvent.enabled = value
-        }
-        val iconBox = UIBlock().onMouseEnter {
-            hovering = true
-        }.onMouseLeave {
-            hovering = false
-        }.onMouseClick {
-            if (menu?.selectedIcon == this@WebhookIcon) {
-                menu?.selectedIcon = null
-            } else {
-                menu?.selectedIcon = this@WebhookIcon
+        var enabled: Boolean
+            get() {
+                return webhookEvent.enabled
             }
+            set(value) {
+                webhookEvent.enabled = value
+            }
+        val iconBox =
+            UIBlock()
+                .onMouseEnter {
+                    hovering = true
+                }.onMouseLeave {
+                    hovering = false
+                }.onMouseClick {
+                    if (menu?.selectedIcon == this@WebhookIcon) {
+                        menu?.selectedIcon = null
+                    } else {
+                        menu?.selectedIcon = this@WebhookIcon
+                    }
 
-            menu?.updateSelected()
-        }
+                    menu?.updateSelected()
+                }
 
-        val toggle = PSSToggle()
-            .setHeight(100.percent)
-            .setWidth(100.percent)
-            .setX(CenterConstraint())
-            .setY(CenterConstraint())
-            .setChildOf(iconBox)
+        val toggle =
+            PSSToggle()
+                .setHeight(100.percent)
+                .setWidth(100.percent)
+                .setX(CenterConstraint())
+                .setY(CenterConstraint())
+                .setChildOf(iconBox)
 
         init {
             webhookEvent.icon.constrain {
@@ -311,39 +338,47 @@ class WebhookMenu: WindowScreen(ElementaVersion.V5) {
         }
     }
 
-    private class WebhookOption(val config: Config, val optionPath: String) {
+    private class WebhookOption(
+        val config: Config,
+        val optionPath: String,
+    ) {
         var hovering = false
         var menu: WebhookMenu? = null
 
-        val parameterBlock = UIBlock().onMouseEnter {
-            hovering = true
-        }.onMouseLeave {
-            hovering = false
-        }
+        val parameterBlock =
+            UIBlock()
+                .onMouseEnter {
+                    hovering = true
+                }.onMouseLeave {
+                    hovering = false
+                }
 
-        val toggle = PSSToggle()
-            .setX(0.percent)
-            .setY(0.percent)
-            .setHeight(100.percent)
-            .setWidth(20.scaledPixels)
-            .setChildOf(parameterBlock)
+        val toggle =
+            PSSToggle()
+                .setX(0.percent)
+                .setY(0.percent)
+                .setHeight(100.percent)
+                .setWidth(20.scaledPixels)
+                .setChildOf(parameterBlock)
 
-        val textComponent = UIWrappedText(centered = false).constrain {
-            x = 0.pixels(alignOpposite = true)
-            y = CenterConstraint()
-            textScale = 1.scaledPixels
-            width = 70.percent
-        } childOf parameterBlock
+        val textComponent =
+            UIWrappedText(centered = false).constrain {
+                x = 0.pixels(alignOpposite = true)
+                y = CenterConstraint()
+                textScale = 1.scaledPixels
+                width = 70.percent
+            } childOf parameterBlock
 
-        val text: MutableList<String> get() {
-            val list = arrayListOf<String>()
+        val text: MutableList<String>
+            get() {
+                val list = arrayListOf<String>()
 
-            for (line in (config.find(optionPath)?.asToggle?.description ?: "").split("\n")) {
-                list.add("§7$line")
+                for (line in (config.find(optionPath)?.asToggle?.description ?: "").split("\n")) {
+                    list.add("§7$line")
+                }
+
+                return list
             }
-
-            return list
-        }
 
         init {
             parameterBlock.onMouseClickConsumer {
@@ -353,7 +388,7 @@ class WebhookMenu: WindowScreen(ElementaVersion.V5) {
             }
 
             toggle.setState(config.find(optionPath)?.asToggle?.state ?: false)
-            textComponent.setText("§7${config.find(optionPath)?.asToggle?.name ?: "(Unknown)"}" )
+            textComponent.setText("§7${config.find(optionPath)?.asToggle?.name ?: "(Unknown)"}")
         }
 
         fun syncToggle() {

@@ -3,7 +3,6 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.features.economy.auctionhousemenu
 
 import gg.essential.elementa.ElementaVersion
@@ -26,7 +25,9 @@ import net.minecraft.inventory.IInventory
 import net.minecraft.item.Item
 import java.awt.Color
 
-class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(ElementaVersion.V2) {
+class AuctionHouseGui(
+    defaultAuctionInventory: IInventory,
+) : WindowScreen(ElementaVersion.V2) {
     private val heightPercent = PartlySaneSkies.config.masterAuctionHouseScale
     private val sideBarHeightPercent = PartlySaneSkies.config.auctionHouseSideBarHeight
     private val sideBarWidthPercent = PartlySaneSkies.config.auctionHouseSideBarWidth
@@ -43,63 +44,66 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
     private val totalRows = 4
     private val totalColumns = 6
 
-    private val baseBlock: UIBlock = UIBlock().constrain {
-        color = Color(0, 0, 0, 0).constraint
-        x = CenterConstraint()
-        y = CenterConstraint()
-        height = sizeHeight.pixels
-        width = sizeWidth.pixels
-    } childOf window
+    private val baseBlock: UIBlock =
+        UIBlock().constrain {
+            color = Color(0, 0, 0, 0).constraint
+            x = CenterConstraint()
+            y = CenterConstraint()
+            height = sizeHeight.pixels
+            width = sizeWidth.pixels
+        } childOf window
 
-    private val backgroundImage: UIImage = ThemeManager.currentBackgroundUIImage.constrain {
-        x = CenterConstraint()
-        y = CenterConstraint()
-        height = sizeHeight.pixels
-        width = sizeWidth.pixels
-    } childOf baseBlock
-
+    private val backgroundImage: UIImage =
+        ThemeManager.currentBackgroundUIImage.constrain {
+            x = CenterConstraint()
+            y = CenterConstraint()
+            height = sizeHeight.pixels
+            width = sizeWidth.pixels
+        } childOf baseBlock
 
     private val sideBarHeight = sideBarHeightPercent * sizeHeight
     private val sideBarWidth = sizeWidth * sideBarWidthPercent
     private val itemInformationBarX = -(sideBarWidth * sideBarPadding)
     private val auctionInformationBarX = (sideBarWidth * (sideBarPadding - 1)) + backgroundImage.getWidth()
 
-    private val itemInformationBar = ItemInformationBar(
-        itemInformationBarX.pixels,
-        CenterConstraint(),
-        sideBarHeight.pixels,
-        sideBarWidth.pixels,
-        textScale
-    )
+    private val itemInformationBar =
+        ItemInformationBar(
+            itemInformationBarX.pixels,
+            CenterConstraint(),
+            sideBarHeight.pixels,
+            sideBarWidth.pixels,
+            textScale,
+        )
 
-
-    private val marketInformationBar = MarketInformationBar(
-        auctionInformationBarX.pixels,
-        CenterConstraint(),
-        sideBarHeight.pixels,
-        sideBarWidth.pixels,
-        textScale
-    )
+    private val marketInformationBar =
+        MarketInformationBar(
+            auctionInformationBarX.pixels,
+            CenterConstraint(),
+            sideBarHeight.pixels,
+            sideBarWidth.pixels,
+            textScale,
+        )
 
     private val categoriesBarHeight = 0.1665 * sizeHeight
     private val categoriesBarY = backgroundImage.getTop() - pad - categoriesBarHeight
-    private val categoriesBar = CategoriesBar(
-        CenterConstraint(),
-        categoriesBarY.pixels,
-        categoriesBarHeight.pixels,
-        sizeWidth.pixels,
-        defaultAuctionInventory
-    )
-
+    private val categoriesBar =
+        CategoriesBar(
+            CenterConstraint(),
+            categoriesBarY.pixels,
+            categoriesBarHeight.pixels,
+            sizeWidth.pixels,
+            defaultAuctionInventory,
+        )
 
     private val settingsBarY = backgroundImage.getBottom() + pad
-    private val settingsBar = SettingsBar(
-        CenterConstraint(),
-        settingsBarY.pixels,
-        categoriesBarHeight.pixels,
-        sizeWidth.pixels,
-        defaultAuctionInventory
-    )
+    private val settingsBar =
+        SettingsBar(
+            CenterConstraint(),
+            settingsBarY.pixels,
+            categoriesBarHeight.pixels,
+            sizeWidth.pixels,
+            defaultAuctionInventory,
+        )
 
     private val auctions = getAuctions(defaultAuctionInventory)
 
@@ -130,21 +134,19 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
                 }
             }
         }
-
-
     }
-
 
     private fun getAuctions(inventory: IInventory): Array<Array<AuctionElement>> {
         val items = getAuctionContents(inventory)
         var indexOfItems = 0
 
-        val auctions: Array<Array<AuctionElement>> = Array(totalRows) {
-            Array(totalColumns) {
-                indexOfItems++
-                items[indexOfItems - 1]
+        val auctions: Array<Array<AuctionElement>> =
+            Array(totalRows) {
+                Array(totalColumns) {
+                    indexOfItems++
+                    items[indexOfItems - 1]
+                }
             }
-        }
 
         return auctions
     }
@@ -152,9 +154,12 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
     private fun getAuctionContents(inventory: IInventory): List<AuctionElement> {
         val list: MutableList<AuctionElement> = ArrayList()
         for (i in 0..53) {
-            if (convertSlotToChestCoordinate(i)[0] <= 2 || convertSlotToChestCoordinate(i)[0] == 9 || convertSlotToChestCoordinate(
-                    i
-                )[1] == 1 || convertSlotToChestCoordinate(i)[1] == 6
+            if (convertSlotToChestCoordinate(i)[0] <= 2 ||
+                convertSlotToChestCoordinate(i)[0] == 9 ||
+                convertSlotToChestCoordinate(
+                    i,
+                )[1] == 1 ||
+                convertSlotToChestCoordinate(i)[1] == 6
             ) {
                 continue
             }
@@ -164,8 +169,12 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
         return list
     }
 
-
-    override fun onDrawScreen(matrixStack: UMatrixStack, mouseX: Int, mouseY: Int, partialTicks: Float) {
+    override fun onDrawScreen(
+        matrixStack: UMatrixStack,
+        mouseX: Int,
+        mouseY: Int,
+        partialTicks: Float,
+    ) {
         super.onDrawScreen(matrixStack, mouseX, mouseY, partialTicks)
 
         itemInformationBar.update()
@@ -181,7 +190,6 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
         window.draw(matrixStack)
     }
 
-
     companion object {
         fun tick() {
             if (!PartlySaneSkies.config.customAhGui) {
@@ -191,11 +199,9 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
             val gui = PartlySaneSkies.minecraft.currentScreen ?: return
 //            ChatUtils.sendClientMessage("A gui has been opened")
 
-
             if (gui !is GuiChest) {
                 return
             }
-
 
             if (!isAhGui(gui.containerInventory)) {
 //                ChatUtils.sendClientMessage("Not AH Gui")
@@ -231,9 +237,12 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
             if (PartlySaneSkies.minecraft.currentScreen !is GuiChest) {
                 return false
             }
-            return inventory.displayName.formattedText.removeColorCodes()
-                .contains("Auctions Browser") || inventory.displayName.formattedText.removeColorCodes()
-                .contains("Auctions: \"")
+            return inventory.displayName.formattedText
+                .removeColorCodes()
+                .contains("Auctions Browser") ||
+                inventory.displayName.formattedText
+                    .removeColorCodes()
+                    .contains("Auctions: \"")
         }
 
         private fun openMenu(): AuctionHouseGui {
@@ -270,7 +279,6 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
                     }
 //                    ChatUtils.sendClientMessage("Slot $i is broken")
                     return false
-
                 }
             }
 
