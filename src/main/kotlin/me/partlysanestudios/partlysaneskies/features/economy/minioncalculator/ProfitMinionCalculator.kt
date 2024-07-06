@@ -478,19 +478,12 @@ class ProfitMinionCalculator(version: ElementaVersion) : WindowScreen(version) {
                         1 -> testUpgrades = listOf(upgrade1)
                         2 -> testUpgrades = listOf(upgrade1, upgrade2)
                     }
-                    val bestMinionsMap = MinionData.getMostProfitMinion(testUpgrades, fuel)
 
-                    //                        Gets the price of the current test
-                    var testMinionPrice = Int.MIN_VALUE.toDouble()
-                    for (`val` in bestMinionsMap.values) {
-                        if (`val` > testMinionPrice) {
-                            testMinionPrice = `val`
+                    MinionData.getBestMinions(testUpgrades, fuel).maxByOrNull { it.second }?.let { (_ , bestPrice) ->
+                        if (bestPrice > bestProfit) {
+                            bestUpgrades = testUpgrades
+                            bestMinionFuel = fuel
                         }
-                    }
-
-                    if (testMinionPrice > bestProfit) {
-                        bestUpgrades = testUpgrades
-                        bestMinionFuel = fuel
                     }
 
                     println(testUpgrades)
@@ -499,8 +492,8 @@ class ProfitMinionCalculator(version: ElementaVersion) : WindowScreen(version) {
         }
 
         resetFuels()
-        if (bestMinionFuel != null) {
-            changeFuel(bestMinionFuel.id, true)
+        bestMinionFuel?.let {
+            changeFuel(it.id, true)
         }
 
         resetUpgrades()
