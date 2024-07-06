@@ -4,14 +4,15 @@
 //
 
 
-package me.partlysanestudios.partlysaneskies.mixin.minecraft;
+package me.partlysanestudios.partlysaneskies.mixin.minecraft.accessors;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin(GuiContainer.class)
-public interface MixinGuiContainer {
+public interface GuiContainerAccessor {
+
     @Accessor("xSize")
     int partlysaneskies$getXSize();
 

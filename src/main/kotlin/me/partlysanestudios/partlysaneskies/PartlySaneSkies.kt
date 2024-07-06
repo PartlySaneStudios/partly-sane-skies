@@ -120,7 +120,12 @@ import java.io.File
 import java.io.IOException
 import java.net.MalformedURLException
 
-@Mod(modid = PartlySaneSkies.MODID, version = PartlySaneSkies.VERSION, name = PartlySaneSkies.NAME)
+@Mod(
+    modid = PartlySaneSkies.MODID,
+    version = PartlySaneSkies.VERSION,
+    name = PartlySaneSkies.NAME,
+    clientSideOnly = true,
+)
 class PartlySaneSkies {
     companion object {
 
