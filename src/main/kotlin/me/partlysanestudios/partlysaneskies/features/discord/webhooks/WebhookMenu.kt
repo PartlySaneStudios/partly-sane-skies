@@ -15,7 +15,6 @@ import gg.essential.elementa.constraints.CenterConstraint
 import gg.essential.elementa.dsl.*
 import gg.essential.universal.UMatrixStack
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
-import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand
 import me.partlysanestudios.partlysaneskies.config.psconfig.Config
 import me.partlysanestudios.partlysaneskies.config.psconfig.Toggle
@@ -23,7 +22,7 @@ import me.partlysanestudios.partlysaneskies.config.psconfig.Toggle.Companion.asT
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
 import me.partlysanestudios.partlysaneskies.render.gui.components.PSSToggle
 import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
-import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.uiImageFromResourceLocation
+import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.uiImage
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
 import net.minecraft.util.ResourceLocation
 import java.awt.Color
@@ -105,7 +104,7 @@ class WebhookMenu: WindowScreen(ElementaVersion.V5) {
     } childOf window
 
     private val sideSwitchIcon = ResourceLocation("partlysaneskies", "textures/gui/webhookedit/sideswitch.png")
-        .uiImageFromResourceLocation()
+        .uiImage
         .constrain {
             x = CenterConstraint()
             y = CenterConstraint()
