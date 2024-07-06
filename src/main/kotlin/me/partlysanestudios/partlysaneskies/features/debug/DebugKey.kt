@@ -19,7 +19,6 @@ import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity
 import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.minecraft.render.RenderWaypointEvent
 import me.partlysanestudios.partlysaneskies.features.dungeons.GoldorWall
-import me.partlysanestudios.partlysaneskies.features.dungeons.TerminalWaypoints
 import me.partlysanestudios.partlysaneskies.features.dungeons.PlayerRating
 import me.partlysanestudios.partlysaneskies.features.dungeons.TerminalWaypoints
 import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.Drop
@@ -113,7 +112,7 @@ object DebugKey {
             GoldorWall.lastGoldorPos = Point3d.atPlayer()
             GoldorWall.lastFacingDirection = minecraft.thePlayer?.horizontalFacing?.axis
         }
-        
+
         if (config.debugCylinder) {
             cylinderPoint = Point3d.atPlayer()
         }
@@ -211,7 +210,7 @@ object DebugKey {
             ThemeManager.accentColor.toJavaColor().red / 255f,
             ThemeManager.accentColor.toJavaColor().green / 255f,
             ThemeManager.accentColor.toJavaColor().blue / 255f,
-            (ThemeManager.accentColor.toJavaColor().alpha / 255f) * .667f
+            (ThemeManager.accentColor.toJavaColor().alpha / 255f) * .667f,
         )
         worldRenderer.drawCylinderFill(cylinderPoint, 8.0, 20.0)
         tessellator.draw()

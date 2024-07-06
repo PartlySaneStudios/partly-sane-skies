@@ -50,6 +50,7 @@ import me.partlysanestudios.partlysaneskies.features.debug.ExampleWebhook
 import me.partlysanestudios.partlysaneskies.features.discord.DiscordRPC
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.WebhookMenu
 import me.partlysanestudios.partlysaneskies.features.dungeons.AutoGG
+import me.partlysanestudios.partlysaneskies.features.dungeons.GoldorWall
 import me.partlysanestudios.partlysaneskies.features.dungeons.HealthAlert
 import me.partlysanestudios.partlysaneskies.features.dungeons.ItemRefill
 import me.partlysanestudios.partlysaneskies.features.dungeons.PlayerRating
