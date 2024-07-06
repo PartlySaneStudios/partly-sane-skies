@@ -38,6 +38,10 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
         color = Color(0, 0, 0, 0).constraint
     } childOf window
 
+
+    /**
+     * Create Filter Container
+     */
     private val createFilterContainer = ThemeManager.currentBackgroundUIImage.constrain {
         width = 60.percent
         height = 75.percent
@@ -73,6 +77,39 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
         y = 10.percent
     } childOf createFilterContainer
 
+    private val createFilterButton = PSSButton()
+        .setText("Add ${currentFilterType.displayName} Filter")
+        .setX(5.percent)
+        .setY(15.percent)
+        .setHeight(50.pixels)
+        .setWidth(60.pixels)
+        .setChildOf(createFilterContainer)
+        .onMouseClickConsumer {
+            val text = createFiltersInput.getText()
+            if (text.isBlank()) return@onMouseClickConsumer
+            RareDropGUIManager.addFilter(text)
+            createFiltersInput.setText("")
+            updateFilterList()
+        }
+
+    private var opposite = RareDropGUIManager.FilterType.entries.first { it != currentFilterType }
+    private val switchTypeButton = PSSButton()
+        .setText("Switch to ${opposite.displayName}")
+        .setX(5.percent)
+        .setY(SiblingConstraint(5f))
+        .setHeight(50.pixels)
+        .setWidth(60.pixels)
+        .setChildOf(createFilterContainer)
+        .onMouseClickConsumer {
+            currentFilterType = opposite
+            opposite = RareDropGUIManager.FilterType.entries.first { it != currentFilterType }
+            RareDropGUIManager.saveData()
+            update()
+        }
+
+    /**
+     * Active Filter Container
+     */
     private val activeFiltersContainer = ThemeManager.currentBackgroundUIImage.constrain {
         width = 35.percent
         height = 100.percent
@@ -109,6 +146,10 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
         y = 10.percent
     } childOf activeFiltersContainer
 
+
+    /**
+     * Presets Container
+     */
     private val presetsContainer = ThemeManager.currentBackgroundUIImage.constrain {
         width = 60.percent
         height = 20.percent
@@ -116,14 +157,33 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
         y = 80.percent
     } childOf backgroundBox
 
+    private val presetButtons = RareDropGUIManager.presets.forEachIndexed { columnIndex, (presetName, items) ->
+        PSSButton()
+            .setText(presetName)
+            .setX((15 * columnIndex + 5).percent)
+            .setY(CenterConstraint())
+            .setHeight(50.pixels)
+            .setWidth(60.pixels)
+            .setChildOf(presetsContainer)
+            .onMouseClickConsumer {
+                RareDropGUIManager.addFilter(*items.toTypedArray())
+                updateFilterList()
+            }
+    }
+
     init {
         update()
     }
 
-    fun update() {
+    private fun update() {
         updateFilterList()
-        addPresets()
-        addFilterCreationButtons()
+        updateTitles()
+    }
+
+    private fun updateTitles() {
+        activeFiltersHeading.setText("${currentFilterType.displayName} Filters:")
+        createFilterButton.setText("Add ${currentFilterType.displayName} Filter")
+        switchTypeButton.setText("Switch to ${opposite.displayName}")
     }
 
     private fun updateFilterList() {
@@ -146,53 +206,5 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
                     y = CramSiblingConstraint()
                 } childOf activeFiltersScrollComponent
             }
-    }
-
-    private fun addFilterCreationButtons() {
-        PSSButton()
-            .setText("Add ${currentFilterType.displayName} Filter")
-            .setX(5.percent)
-            .setY(15.percent)
-            .setHeight(50.pixels)
-            .setWidth(60.pixels)
-            .setChildOf(createFilterContainer)
-            .onMouseClickConsumer {
-                val text = createFiltersInput.getText()
-                if (text.isBlank()) return@onMouseClickConsumer
-                RareDropGUIManager.addFilter(text)
-                createFiltersInput.setText("")
-                updateFilterList()
-            }
-
-        val opposite = RareDropGUIManager.FilterType.entries.first { it != currentFilterType }
-        PSSButton()
-            .setText("Switch to ${opposite.displayName}")
-            .setX(5.percent)
-            .setY(SiblingConstraint(5f))
-            .setHeight(50.pixels)
-            .setWidth(60.pixels)
-            .setChildOf(createFilterContainer)
-            .onMouseClickConsumer {
-                currentFilterType = opposite
-                RareDropGUIManager.saveData()
-                update()
-                activeFiltersHeading.setText("${currentFilterType.displayName} Filters:")
-            }
-    }
-
-    private fun addPresets() {
-        RareDropGUIManager.presets.forEachIndexed { columnIndex, (presetName, items) ->
-            PSSButton()
-                .setText(presetName)
-                .setX((15 * columnIndex + 5).percent)
-                .setY(CenterConstraint())
-                .setHeight(50.pixels)
-                .setWidth(60.pixels)
-                .setChildOf(presetsContainer)
-                .onMouseClickConsumer {
-                    RareDropGUIManager.addFilter(*items.toTypedArray())
-                    updateFilterList()
-                }
-        }
     }
 }
