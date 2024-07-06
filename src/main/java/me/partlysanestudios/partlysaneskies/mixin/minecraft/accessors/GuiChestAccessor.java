@@ -3,7 +3,7 @@
 // See LICENSE for copyright and license notices.
 //
 
-package me.partlysanestudios.partlysaneskies.mixin.minecraft;
+package me.partlysanestudios.partlysaneskies.mixin.minecraft.accessors;
 
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.inventory.IInventory;
@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin(GuiChest.class)
-public interface MixinGuiChest {
+public interface GuiChestAccessor {
 
     @Accessor("upperChestInventory")
     IInventory partlysaneskies$getUpperChestInventory();
