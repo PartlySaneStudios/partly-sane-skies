@@ -11,7 +11,6 @@ import gg.essential.elementa.dsl.percent
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.config.psconfig.Toggle
 import me.partlysanestudios.partlysaneskies.config.psconfig.Toggle.Companion.asBoolean
-import me.partlysanestudios.partlysaneskies.data.cache.PetData
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity.Companion.getRarityFromColorCode
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.EmbedData
@@ -19,18 +18,15 @@ import me.partlysanestudios.partlysaneskies.features.discord.webhooks.EmbedField
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.Webhook
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.WebhookData
 import me.partlysanestudios.partlysaneskies.render.gui.components.PSSItemRender
-import me.partlysanestudios.partlysaneskies.utils.ChatUtils.trueUnformattedMessage
 import me.partlysanestudios.partlysaneskies.utils.ImageUtils.asHex
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.colorCodeToColor
-import me.partlysanestudios.partlysaneskies.utils.StringUtils.romanNumeralToInt
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.toRoman
 import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
 import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import java.awt.Color
 
-object PetLevelUpWebhook: Webhook() {
+object PetLevelUpWebhook : Webhook() {
     override val icon = PSSItemRender(ItemStack(Items.bone), true)
         .setX(CenterConstraint())
         .setY(CenterConstraint())
@@ -56,6 +52,8 @@ object PetLevelUpWebhook: Webhook() {
 
     @SubscribeEvent
     fun onChatMessage(event: ClientChatReceivedEvent) {
+        if (!enabled) return
+
         val message = event.message.formattedText
 
         regex.find(message)?.let {
@@ -96,11 +94,11 @@ object PetLevelUpWebhook: Webhook() {
                     fields = listOf(
                         EmbedField(
                             name = "${rarity.displayName} $name",
-                            value = ":tada: $levelString :tada:"
-                        )
-                    )
-                )
-            )
+                            value = ":tada: $levelString :tada:",
+                        ),
+                    ),
+                ),
+            ),
         ).send()
     }
 }

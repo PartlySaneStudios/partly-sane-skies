@@ -69,7 +69,11 @@ import me.partlysanestudios.partlysaneskies.features.farming.MathematicalHoeRigh
 import me.partlysanestudios.partlysaneskies.features.farming.WrongToolCropWarning
 import me.partlysanestudios.partlysaneskies.features.farming.endoffarmnotifer.EndOfFarmNotifier
 import me.partlysanestudios.partlysaneskies.features.farming.endoffarmnotifer.RangeHighlight
-import me.partlysanestudios.partlysaneskies.features.farming.garden.*
+import me.partlysanestudios.partlysaneskies.features.farming.garden.CompostValue
+import me.partlysanestudios.partlysaneskies.features.farming.garden.CropMilestoneWebhook
+import me.partlysanestudios.partlysaneskies.features.farming.garden.SkymartValue
+import me.partlysanestudios.partlysaneskies.features.farming.garden.VisitorLogbookStats
+import me.partlysanestudios.partlysaneskies.features.farming.garden.VisitorTradeValue
 import me.partlysanestudios.partlysaneskies.features.foraging.TreecapitatorCooldown
 import me.partlysanestudios.partlysaneskies.features.gui.RefreshKeybinds
 import me.partlysanestudios.partlysaneskies.features.gui.hud.CooldownHud
@@ -86,8 +90,8 @@ import me.partlysanestudios.partlysaneskies.features.mining.crystalhollows.gemst
 import me.partlysanestudios.partlysaneskies.features.mining.crystalhollows.gemstonewaypoints.GemstoneWaypointRender
 import me.partlysanestudios.partlysaneskies.features.security.PrivacyMode
 import me.partlysanestudios.partlysaneskies.features.security.modschecker.ModChecker
-import me.partlysanestudios.partlysaneskies.features.skills.BestiaryMilestoneWebhook
 import me.partlysanestudios.partlysaneskies.features.skills.BestiaryLevelUpWebhook
+import me.partlysanestudios.partlysaneskies.features.skills.BestiaryMilestoneWebhook
 import me.partlysanestudios.partlysaneskies.features.skills.PetAlert
 import me.partlysanestudios.partlysaneskies.features.skills.PetLevelUpWebhook
 import me.partlysanestudios.partlysaneskies.features.skills.SkillUpgradeRecommendation
@@ -117,7 +121,12 @@ import java.io.File
 import java.io.IOException
 import java.net.MalformedURLException
 
-@Mod(modid = PartlySaneSkies.MODID, version = PartlySaneSkies.VERSION, name = PartlySaneSkies.NAME)
+@Mod(
+    modid = PartlySaneSkies.MODID,
+    version = PartlySaneSkies.VERSION,
+    name = PartlySaneSkies.NAME,
+    clientSideOnly = true,
+)
 class PartlySaneSkies {
     companion object {
         @JvmStatic
