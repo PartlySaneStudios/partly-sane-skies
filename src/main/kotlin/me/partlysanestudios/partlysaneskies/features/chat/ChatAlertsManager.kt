@@ -87,11 +87,11 @@ object ChatAlertsManager {
         chatAlertsList += alert
         try {
             save()
+            ChatUtils.sendClientMessage("§b\"§d$alert§b\" was successfully added as alert number §d${chatAlertsList.size}§b.")
         } catch (e: IOException) {
-            ChatUtils.sendClientMessage("§cChat Alerts was unable to save. Please try again.")
             e.printStackTrace()
+            ChatUtils.sendClientMessage("§cChat Alerts was unable to save. Please try again.")
         }
-        ChatUtils.sendClientMessage("§b\"§d$alert§b\" was successfully added as alert number §d${chatAlertsList.size}§b.")
     }
 
     fun getChatAlertCount(): Int = chatAlertsList.size
