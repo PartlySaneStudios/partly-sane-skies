@@ -30,6 +30,8 @@ class ProfitMinionCalculator(version: ElementaVersion) : WindowScreen(version) {
             "FARMING" to "§a",
             "COMBAT" to "§c",
         )
+        private var hours = 24.0
+        private val uselessUpgrades = setOf("Auto-Smelter", "Compactor", "Super Compactor", "Dwarven Super Compactor")
         fun registerCommand() {
             PSSCommand("minioncalculator")
                 .addAlias("minioncalc", "bestminion", "mc")
@@ -44,19 +46,17 @@ class ProfitMinionCalculator(version: ElementaVersion) : WindowScreen(version) {
     private var upgradeSlotsUnavailable = 0
     private var selectedFuel: MinionData.MinionFuel? = null
     private var upgrades = listOf<MinionData.Minion.Upgrade>()
-    private var hours = 24.0
     private var selectedCategory = "ALL"
-    lateinit var backgroundBox: UIComponent
-    lateinit var mainTextScrollComponent: ScrollComponent
-    lateinit var backgroundImage: UIComponent
-    lateinit var leftBar: UIComponent
-    lateinit var rightBar: UIComponent
-    lateinit var categoriesBar: UIComponent
-    lateinit var bestMinionBar: UIComponent
+    private lateinit var backgroundBox: UIComponent
+    private lateinit var mainTextScrollComponent: ScrollComponent
+    private lateinit var backgroundImage: UIComponent
+    private lateinit var leftBar: UIComponent
+    private lateinit var rightBar: UIComponent
+    private lateinit var categoriesBar: UIComponent
+    private lateinit var bestMinionBar: UIComponent
     private var fuelToggles = HashMap<String, PSSToggle>()
     private var minionTexts = mutableListOf<UIComponent>()
     private var upgradeToggleMap = HashMap<MinionData.Minion.Upgrade, PSSToggle>()
-    private val uselessUpgrades = setOf("Auto-Smelter", "Compactor", "Super Compactor", "Dwarven Super Compactor")
 
     init {
         setUpBackground()
@@ -67,7 +67,7 @@ class ProfitMinionCalculator(version: ElementaVersion) : WindowScreen(version) {
         addBestMinionCalculator()
     }
 
-    fun setUpBackground() {
+    private fun setUpBackground() {
         backgroundBox = UIBlock()
             .setX(CenterConstraint())
             .setY(CenterConstraint())
