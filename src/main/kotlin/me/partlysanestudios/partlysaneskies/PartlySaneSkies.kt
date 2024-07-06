@@ -22,7 +22,11 @@ import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import me.partlysanestudios.partlysaneskies.config.Keybinds
 import me.partlysanestudios.partlysaneskies.config.OneConfigScreen
+import me.partlysanestudios.partlysaneskies.config.psconfig.Config
 import me.partlysanestudios.partlysaneskies.config.psconfig.ConfigManager
+import me.partlysanestudios.partlysaneskies.config.psconfig.Toggle
+import me.partlysanestudios.partlysaneskies.config.psconfig.Toggle.Companion.asBoolean
+import me.partlysanestudios.partlysaneskies.config.psconfig.Toggle.Companion.asToggle
 import me.partlysanestudios.partlysaneskies.data.cache.PetData
 import me.partlysanestudios.partlysaneskies.data.cache.StatsData
 import me.partlysanestudios.partlysaneskies.data.cache.VisitorLogbookData
@@ -71,12 +75,12 @@ import me.partlysanestudios.partlysaneskies.features.farming.garden.SkymartValue
 import me.partlysanestudios.partlysaneskies.features.farming.garden.VisitorLogbookStats
 import me.partlysanestudios.partlysaneskies.features.farming.garden.VisitorTradeValue
 import me.partlysanestudios.partlysaneskies.features.foraging.TreecapitatorCooldown
-import me.partlysanestudios.partlysaneskies.features.gui.CustomMainMenu
 import me.partlysanestudios.partlysaneskies.features.gui.RefreshKeybinds
 import me.partlysanestudios.partlysaneskies.features.gui.hud.CooldownHud
 import me.partlysanestudios.partlysaneskies.features.gui.hud.LocationBannerDisplay
 import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.DropBannerDisplay
 import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.DropWebhook
+import me.partlysanestudios.partlysaneskies.features.gui.mainmenu.PSSMainMenu
 import me.partlysanestudios.partlysaneskies.features.information.WikiArticleOpener
 import me.partlysanestudios.partlysaneskies.features.mining.MiningEvents
 import me.partlysanestudios.partlysaneskies.features.mining.PickaxeWarning
@@ -132,6 +136,8 @@ class PartlySaneSkies {
         const val CHAT_PREFIX = "§r§b§lPartly Sane Skies§r§7>> §r"
         var discordCode = "v4PU3WeH7z"
         val config: OneConfigScreen = OneConfigScreen
+        private var cachedFirstLaunch = false
+        val isFirstLaunch get() = cachedFirstLaunch
 
         lateinit var minecraft: Minecraft
             private set
@@ -156,6 +162,10 @@ class PartlySaneSkies {
             }
 
         var latestVersion = "(Unknown)"
+
+        val coreConfig = Config()
+            .registerOption("alreadyStarted", Toggle("Already Started", "Has this already been started with PSS enabled?", false))
+            .registerOption("promptedMainMenu", Toggle("Prompted main menu", defaultState = false))
     }
 
     // Method runs at mod initialization
@@ -172,7 +182,7 @@ class PartlySaneSkies {
             PublicDataManager.getFile("main_menu.json")
         }.start()
         Thread {
-            CustomMainMenu.loadFunFact()
+            PSSMainMenu.loadFunFact()
         }.start()
 
         // Loads extra json data
@@ -255,7 +265,7 @@ class PartlySaneSkies {
         registerEvent(BitsShopValue)
         registerEvent(SkymartValue)
         registerEvent(VisitorTradeValue)
-        registerEvent(CustomMainMenu.Companion)
+        registerEvent(PSSMainMenu)
         registerEvent(WrongToolCropWarning.CropToolData)
         registerEvent(PetAlert)
         registerEvent(SkillUpgradeWebhook)
@@ -293,6 +303,7 @@ class PartlySaneSkies {
         ItemRefill.registerCommand()
         WebhookMenu.registerWebhookCommand()
 
+        registerCoreConfig()
         ExampleWebhook.register()
         DropWebhook.register()
         SkillUpgradeWebhook.register()
@@ -300,6 +311,8 @@ class PartlySaneSkies {
         BestiaryMilestoneWebhook.register()
         BestiaryLevelUpWebhook.register()
         PetLevelUpWebhook.register()
+
+
 
         ConfigManager.loadAllConfigs()
 
@@ -337,6 +350,9 @@ class PartlySaneSkies {
         if (config.privacyMode == 2) {
             PrivacyMode.enablePrivacyMode()
         }
+
+        checkFirstLaunch()
+
         // Finished loading
         log(Level.INFO, "Partly Sane Skies has loaded (Version: ${VERSION}).")
     }
@@ -409,6 +425,19 @@ class PartlySaneSkies {
             discordCode = "v4PU3WeH7z"
             e.printStackTrace()
         }
+    }
+
+    private fun checkFirstLaunch() {
+        if (coreConfig.find("alreadyStarted")?.asBoolean != true) {
+            cachedFirstLaunch = true
+            coreConfig.find("alreadyStarted")?.asToggle?.state = true
+            log("Partly Sane Skies starting for the first time")
+        }
+    }
+
+
+    private fun registerCoreConfig() {
+        ConfigManager.registerNewConfig("psscore.json", coreConfig)
     }
 
     @SubscribeEvent

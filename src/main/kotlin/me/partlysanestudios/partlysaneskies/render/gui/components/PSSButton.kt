@@ -9,10 +9,11 @@ import gg.essential.elementa.UIComponent
 import gg.essential.elementa.components.UIBlock
 import gg.essential.elementa.components.UIImage
 import gg.essential.elementa.components.UIWrappedText
-import gg.essential.elementa.constraints.CenterConstraint
-import gg.essential.elementa.constraints.PixelConstraint
-import gg.essential.elementa.constraints.XConstraint
-import gg.essential.elementa.constraints.YConstraint
+import gg.essential.elementa.constraints.*
+import gg.essential.elementa.dsl.childOf
+import gg.essential.elementa.dsl.constrain
+import gg.essential.elementa.dsl.constraint
+import gg.essential.elementa.dsl.percent
 import gg.essential.elementa.events.UIClickEvent
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager.currentButtonUIImage
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager.getCurrentButtonUIImage
@@ -21,104 +22,101 @@ import java.util.function.Consumer
 
 class PSSButton {
 
-    private var backgroundBlock: UIBlock
-    private var buttonTexture: UIImage
-    private var textComponent: UIWrappedText
-    private var width = 0f
-    private var height = 0f
-    private var xConstraint: XConstraint? = null
-    private var yConstraint: YConstraint? = null
     private var color: OneColor
-    private var text: String
+    private var text: String = ""
+    private val onMouseClick = ArrayList<Consumer<UIClickEvent>>()
+
+    private val backgroundBlock = UIBlock().constrain {
+        color = Color(0, 0, 0, 0).constraint
+    }.onMouseClick {
+        for (method in onMouseClick) {
+            method.accept(it)
+        }
+    }
+
+    private var buttonTexture = currentButtonUIImage.constrain {
+        x = CenterConstraint()
+        y = CenterConstraint()
+        width = 100.percent
+        height = 100.percent
+    } childOf backgroundBlock
+
+    private val textComponent = UIWrappedText(text, false, Color(0, 0, 0, 0), true).constrain {
+        x = CenterConstraint()
+        y = CenterConstraint()
+        width = 100.percent
+        color = Color.white.constraint
+    } childOf backgroundBlock
 
     constructor() {
         text = ""
-        backgroundBlock = UIBlock()
-            .setColor(Color(0, 0, 0, 0)) as UIBlock
-        buttonTexture = currentButtonUIImage
-            .setChildOf(backgroundBlock) as UIImage
-        textComponent = UIWrappedText(text, false, Color(0, 0, 0, 0), true)
-            .setColor(Color(255, 255, 255, 255))
-            .setChildOf(buttonTexture) as UIWrappedText
         color = OneColor(0, 0, 0, 0)
     }
 
-    constructor(color: Color?) : this(OneColor(color!!))
+    constructor(color: Color) : this(OneColor(color))
 
     constructor(color: OneColor) {
         text = ""
-        backgroundBlock = UIBlock()
-            .setColor(color.toJavaColor()) as UIBlock
-        buttonTexture = getCurrentButtonUIImage(color)
-            .setChildOf(backgroundBlock) as UIImage
-        textComponent = UIWrappedText(text, false, Color(0, 0, 0, 0), true)
-            .setColor(Color(255, 255, 255, 255))
-            .setChildOf(buttonTexture) as UIWrappedText
+        backgroundBlock.setColor(color.toJavaColor())
         this.color = color
     }
 
-    fun setHeight(height: Float): PSSButton {
-        backgroundBlock.setHeight(PixelConstraint(height))
-        buttonTexture.setHeight(PixelConstraint(height))
-        this.height = height
+    fun setHeight(height: HeightConstraint): PSSButton {
+        backgroundBlock.setHeight(height)
         return this
     }
 
-    fun setWidth(width: Float): PSSButton {
-        backgroundBlock.setWidth(PixelConstraint(width))
-        buttonTexture.setWidth(PixelConstraint(width))
-        textComponent.setWidth(PixelConstraint(width))
-        this.width = width
+    fun setWidth(width: WidthConstraint): PSSButton {
+        backgroundBlock.setWidth(width)
         return this
     }
 
-    fun setX(xPos: XConstraint?): PSSButton {
-        backgroundBlock.setX(xPos!!)
-        buttonTexture.setX(CenterConstraint())
-        textComponent.setX(CenterConstraint())
-        xConstraint = xPos
+    fun setX(xPos: XConstraint): PSSButton {
+        backgroundBlock.setX(xPos)
         return this
     }
 
-    fun setY(yPos: YConstraint?): PSSButton {
-        backgroundBlock.setY(yPos!!)
-        buttonTexture.setY(CenterConstraint())
-        textComponent.setY(CenterConstraint())
-        yConstraint = yPos
+    fun setY(yPos: YConstraint): PSSButton {
+        backgroundBlock.setY(yPos)
         return this
     }
 
-    fun setChildOf(parent: UIComponent?): PSSButton {
-        backgroundBlock.setChildOf(parent!!)
+    fun setChildOf(parent: UIComponent): PSSButton {
+        backgroundBlock.setChildOf(parent)
         return this
     }
 
-    fun setColor(color: Color?): PSSButton {
-        return setColor(OneColor(color!!))
+    fun setColor(color: Color): PSSButton {
+        return setColor(OneColor(color))
     }
 
     fun setColor(color: OneColor): PSSButton {
         backgroundBlock.removeChild(buttonTexture)
-        buttonTexture = getCurrentButtonUIImage(color)
-            .setWidth(PixelConstraint(width))
-            .setHeight(PixelConstraint(height))
-            .setX(CenterConstraint())
-            .setY(CenterConstraint())
-            .setChildOf(backgroundBlock) as UIImage
+        buttonTexture = getCurrentButtonUIImage(color).constrain {
+            x = CenterConstraint()
+            y = CenterConstraint()
+            width = 100.percent
+            height = 100.percent
+        } childOf backgroundBlock
+
+        textComponent childOf buttonTexture
+
         backgroundBlock.setColor(color.toJavaColor())
         return this
     }
 
     fun setDefaultColor(): PSSButton {
         backgroundBlock.removeChild(buttonTexture)
-        buttonTexture = currentButtonUIImage
-            .setWidth(PixelConstraint(width))
-            .setHeight(PixelConstraint(height))
-            .setX(CenterConstraint())
-            .setY(CenterConstraint())
-            .setChildOf(backgroundBlock) as UIImage
+        buttonTexture = currentButtonUIImage.constrain {
+            x = CenterConstraint()
+            y = CenterConstraint()
+            width = 100.percent
+            height = 100.percent
+        } childOf backgroundBlock
+
+        textComponent childOf buttonTexture
+
         backgroundBlock.setColor(Color(0, 0, 0, 0))
-        color = OneColor(0, 0, 0, 0)
         return this
     }
 
@@ -128,13 +126,13 @@ class PSSButton {
         return this
     }
 
-    fun setTextScale(scale: Float): PSSButton {
-        textComponent.setTextScale(PixelConstraint(scale))
+    fun setTextScale(scale: HeightConstraint): PSSButton {
+        textComponent.setTextScale(scale)
         return this
     }
 
     fun onMouseClickConsumer(method: Consumer<UIClickEvent>): PSSButton {
-        backgroundBlock.onMouseClickConsumer(method)
+        onMouseClick.add(method)
         return this
     }
 
@@ -156,8 +154,8 @@ class PSSButton {
         return this
     }
 
-    fun insertComponentBeforeBackground(component: UIComponent?): PSSButton {
-        backgroundBlock.insertChildBefore(component!!, buttonTexture)
+    fun insertComponentBeforeBackground(component: UIComponent): PSSButton {
+        backgroundBlock.insertChildBefore(component, buttonTexture)
         return this
     }
 }
