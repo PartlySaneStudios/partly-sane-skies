@@ -39,6 +39,10 @@ object SystemUtils {
         }
     }
 
+    fun log(message: String) {
+        log(Level.INFO, message)
+    }
+
     fun base64ToNbt(base64String: String): NBTTagCompound {
         val bytes = Base64.getDecoder().decode(base64String)
         return CompressedStreamTools.readCompressed(ByteArrayInputStream(bytes))
