@@ -44,12 +44,12 @@ class ProfitMinionCalculator(version: ElementaVersion) : WindowScreen(version) {
                 }.register()
         }
 
-        private val soulflowUpgrades = setOf(MinionData.Minion.Upgrade.LESSER_SOULFLOW_ENGINE, MinionData.Minion.Upgrade.SOULFLOW_ENGINE)
+        private val soulflowUpgrades = setOf(MinionUpgrade.LESSER_SOULFLOW_ENGINE, MinionUpgrade.SOULFLOW_ENGINE)
     }
 
     private var upgradeSlotsUnavailable = 0
-    private var selectedFuel: MinionData.MinionFuel? = null
-    private var upgrades = listOf<MinionData.Minion.Upgrade>()
+    private var selectedFuel: MinionFuel? = null
+    private var upgrades = listOf<MinionUpgrade>()
     private var selectedCategory = "ALL"
     private lateinit var backgroundBox: UIComponent
     private lateinit var mainTextScrollComponent: ScrollComponent
@@ -60,7 +60,7 @@ class ProfitMinionCalculator(version: ElementaVersion) : WindowScreen(version) {
     private lateinit var bestMinionBar: UIComponent
     private var fuelToggles = mapOf<String, PSSToggle>()
     private var minionTexts = listOf<UIComponent>()
-    private var upgradeToggleMap = mapOf<MinionData.Minion.Upgrade, PSSToggle>()
+    private var upgradeToggleMap = mapOf<MinionUpgrade, PSSToggle>()
 
     init {
         setUpBackground()
@@ -128,7 +128,6 @@ class ProfitMinionCalculator(version: ElementaVersion) : WindowScreen(version) {
             .setChildOf(window)
     }
 
-    //    Adds the most profitable minion's text to the middle section. Also returns a list with the objects in order
     private fun addMinionBreakdownText(category: String) = buildList {
         selectedCategory = category
         val mostProfitableMinions = MinionData.getBestMinions(upgrades, selectedFuel)
@@ -212,14 +211,14 @@ class ProfitMinionCalculator(version: ElementaVersion) : WindowScreen(version) {
         }
     }
 
-    private fun addMinionUpgradeButtons(): Map<MinionData.Minion.Upgrade, PSSToggle> {
-        val components = mutableMapOf<MinionData.Minion.Upgrade, PSSToggle>()
+    private fun addMinionUpgradeButtons(): Map<MinionUpgrade, PSSToggle> {
+        val components = mutableMapOf<MinionUpgrade, PSSToggle>()
 
         var yPos = fromWidthScaleFactor(5f).value
         val textPad = fromWidthScaleFactor(5f).value
         val buttonPad = fromWidthScaleFactor(7f).value
 
-        for (upgrade in MinionData.Minion.Upgrade.entries) {
+        for (upgrade in MinionUpgrade.entries) {
             val upgradeId = upgrade.toString()
 
             val upgradeItem = getItem(upgradeId) ?: continue
@@ -341,9 +340,7 @@ class ProfitMinionCalculator(version: ElementaVersion) : WindowScreen(version) {
         }
     }
 
-    //    Sets the upgrades array to the current selected upgrade at index 0, and the
-    //    second most recently selected upgrade at index 1
-    private fun changeUpgrade(selectedUpgrade: MinionData.Minion.Upgrade?) {
+    private fun changeUpgrade(selectedUpgrade: MinionUpgrade?) {
         mainTextScrollComponent.scrollToTop(false)
 
         val prevUpgrade = upgrades.firstOrNull()
@@ -398,8 +395,8 @@ class ProfitMinionCalculator(version: ElementaVersion) : WindowScreen(version) {
     private fun getBestMinionSettings() {
         val availableSlots = (2 - upgradeSlotsUnavailable).coerceAtLeast(0)
 
-        var bestUpgrades = listOf<MinionData.Minion.Upgrade>()
-        var bestMinionFuel: MinionData.MinionFuel? = null
+        var bestUpgrades = listOf<MinionUpgrade>()
+        var bestMinionFuel: MinionFuel? = null
         var bestProfit = Double.NEGATIVE_INFINITY
 
         for (fuel in MinionData.fuelMap.values) {
@@ -420,8 +417,8 @@ class ProfitMinionCalculator(version: ElementaVersion) : WindowScreen(version) {
         bestUpgrades.forEach { changeUpgrade(it) }
     }
 
-    private fun getUpgradeCombinations(availableSlots: Int): List<List<MinionData.Minion.Upgrade>> {
-        val upgrades = MinionData.Minion.Upgrade.entries
+    private fun getUpgradeCombinations(availableSlots: Int): List<List<MinionUpgrade>> {
+        val upgrades = MinionUpgrade.entries
         return when (availableSlots) {
             1 -> upgrades.map { listOf(it) }
             2 -> upgrades.flatMap { first ->
