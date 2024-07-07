@@ -50,7 +50,7 @@ object ImageUtils {
         return image
     }
 
-    fun Color.applyOpacity(opacity: Int): Color = Color(this.red, this.green, this.blue, opacity)
+    fun Color.applyOpacity(opacity: Int): Color = Color(red, green, blue, opacity)
 
     val Color.asHex: Int
         get() = red shl 16 or (green shl 8) or blue
