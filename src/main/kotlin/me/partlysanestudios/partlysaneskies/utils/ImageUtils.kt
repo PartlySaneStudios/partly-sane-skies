@@ -26,30 +26,14 @@ object ImageUtils {
     @Throws(IOException::class)
     fun loadImage(path: String): BufferedImage = ImageIO.read(File(path))
 
-    fun replaceColor(
-        image: BufferedImage,
-        oldColor: Color,
-        newColor: Color,
-    ): BufferedImage =
-        replaceColor(
-            image,
-            OneColor(oldColor),
-            OneColor(
-                newColor,
-            ),
-        )
+    fun replaceColor(image: BufferedImage, oldColor: Color, newColor: Color): BufferedImage =
+        replaceColor(image, OneColor(oldColor), OneColor(newColor))
 
-    fun replaceColor(
-        image: BufferedImage,
-        oldColor: OneColor,
-        newColor: Color,
-    ): BufferedImage = replaceColor(image, oldColor, OneColor(newColor))
+    fun replaceColor(image: BufferedImage, oldColor: OneColor, newColor: Color): BufferedImage =
+        replaceColor(image, oldColor, OneColor(newColor))
 
-    fun replaceColor(
-        image: BufferedImage,
-        oldColor: Color,
-        newColor: OneColor,
-    ): BufferedImage = replaceColor(image, OneColor(oldColor), newColor)
+    fun replaceColor(image: BufferedImage, oldColor: Color, newColor: OneColor): BufferedImage =
+        replaceColor(image, OneColor(oldColor), newColor)
 
     fun replaceColor(image: BufferedImage, oldColor: OneColor, newColor: OneColor): BufferedImage {
         val width = image.width

@@ -37,31 +37,29 @@ object ElementaUtils {
         }
 
     val ResourceLocation.uiImage: UIImage
-        get() {
-            return try {
-                val resource = Minecraft.getMinecraft().resourceManager.getResource(this)
-                UIImage(
-                    CompletableFuture.supplyAsync {
+        get() = try {
+            val resource = Minecraft.getMinecraft().resourceManager.getResource(this)
+            UIImage(
+                CompletableFuture.supplyAsync {
+                    try {
+                        return@supplyAsync ImageIO.read(resource.inputStream)
+                    } catch (e: IOException) {
+                        e.printStackTrace()
+                    } finally {
                         try {
-                            return@supplyAsync ImageIO.read(resource.inputStream)
+                            resource.inputStream.close()
                         } catch (e: IOException) {
                             e.printStackTrace()
-                        } finally {
-                            try {
-                                resource.inputStream.close()
-                            } catch (e: IOException) {
-                                e.printStackTrace()
-                            }
                         }
-                        null
-                    },
-                )
-            } catch (exception: NullPointerException) {
-                UIImage.ofResource("/assets/partlysaneskies/" + this.resourcePath)
-                //            return UIImage.ofResource("/assets/partlysaneskies/textures/null_texture.png");
-            } catch (exception: IOException) {
-                UIImage.ofResource("/assets/partlysaneskies/" + this.resourcePath)
-            }
+                    }
+                    null
+                },
+            )
+        } catch (exception: NullPointerException) {
+            UIImage.ofResource("/assets/partlysaneskies/" + this.resourcePath)
+            //            return UIImage.ofResource("/assets/partlysaneskies/textures/null_texture.png");
+        } catch (exception: IOException) {
+            UIImage.ofResource("/assets/partlysaneskies/" + this.resourcePath)
         }
 
     fun UIComponent.applyBackground(): UIComponent {
