@@ -245,7 +245,6 @@ class ProfitMinionCalculator(version: ElementaVersion) : WindowScreen(version) {
 
             val textXPos: Float = toggle.component.getWidth() + textPad
 
-
             val upgradeItemName: String = upgradeItem.name
 
             val upgradeItemColor: String = upgradeItem.rarity.colorCode
