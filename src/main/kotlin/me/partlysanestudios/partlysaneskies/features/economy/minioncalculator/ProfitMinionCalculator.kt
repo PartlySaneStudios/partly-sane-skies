@@ -8,6 +8,7 @@ import gg.essential.elementa.components.UIBlock
 import gg.essential.elementa.components.UIWrappedText
 import gg.essential.elementa.constraints.CenterConstraint
 import gg.essential.elementa.constraints.PixelConstraint
+import gg.essential.elementa.dsl.pixels
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager.getItem
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager.accentColor
@@ -83,30 +84,30 @@ class ProfitMinionCalculator(version: ElementaVersion) : WindowScreen(version) {
         backgroundImage = currentBackgroundUIImage
             .setX(CenterConstraint())
             .setY(CenterConstraint())
-            .setHeight(PixelConstraint(backgroundBox.getHeight()))
-            .setWidth(PixelConstraint(backgroundBox.getWidth()))
+            .setHeight(backgroundBox.getHeight().pixels)
+            .setWidth(backgroundBox.getWidth().pixels)
             .setChildOf(backgroundBox)
 
         mainTextScrollComponent = (ScrollComponent()
             .setY(CenterConstraint())
             .setX(CenterConstraint())
-            .setWidth(PixelConstraint(backgroundBox.getWidth()))
-            .setHeight(PixelConstraint(backgroundBox.getHeight()))
+            .setWidth(backgroundBox.getWidth().pixels)
+            .setHeight(backgroundBox.getHeight().pixels)
             .setColor(Color.red)
             .setChildOf(backgroundImage) as ScrollComponent)
 
         leftBar = UIBlock()
-            .setX(PixelConstraint(backgroundImage.getWidth() * (1 / 5f)))
+            .setX((backgroundImage.getWidth() * (1 / 5f)).pixels)
             .setY(CenterConstraint())
-            .setHeight(PixelConstraint(backgroundImage.getHeight() * .85f))
+            .setHeight((backgroundImage.getHeight() * .85f).pixels)
             .setWidth(fromWidthScaleFactor(2f))
             .setColor(accentColor.toJavaColor())
             .setChildOf(backgroundImage)
 
         rightBar = UIBlock()
-            .setX(PixelConstraint(backgroundImage.getWidth() * (4 / 5f)))
+            .setX((backgroundImage.getWidth() * (4 / 5f)).pixels)
             .setY(CenterConstraint())
-            .setHeight(PixelConstraint(backgroundImage.getHeight() * .85f))
+            .setHeight((backgroundImage.getHeight() * .85f).pixels)
             .setWidth(fromWidthScaleFactor(2f))
             .setColor(accentColor.toJavaColor())
             .setChildOf(backgroundImage)
@@ -115,16 +116,16 @@ class ProfitMinionCalculator(version: ElementaVersion) : WindowScreen(version) {
         val categoriesBarPad = fromWidthScaleFactor(5f).value
         categoriesBar = currentBackgroundUIImage
             .setX(CenterConstraint())
-            .setY(PixelConstraint(backgroundBox.getTop() - (categoriesBarHeight + categoriesBarPad)))
-            .setWidth(PixelConstraint(backgroundBox.getWidth()))
-            .setHeight(PixelConstraint(categoriesBarHeight))
+            .setY((backgroundBox.getTop() - (categoriesBarHeight + categoriesBarPad)).pixels)
+            .setWidth((backgroundBox.getWidth()).pixels)
+            .setHeight(categoriesBarHeight.pixels)
             .setChildOf(window)
 
         bestMinionBar = currentBackgroundUIImage
             .setX(CenterConstraint())
-            .setY(PixelConstraint(backgroundBox.getBottom() + categoriesBarPad))
-            .setWidth(PixelConstraint(backgroundBox.getWidth() / 3f))
-            .setHeight(PixelConstraint(categoriesBarHeight))
+            .setY((backgroundBox.getBottom() + categoriesBarPad).pixels)
+            .setWidth((backgroundBox.getWidth() / 3f).pixels)
+            .setHeight(categoriesBarHeight.pixels)
             .setChildOf(window)
     }
 
@@ -143,18 +144,18 @@ class ProfitMinionCalculator(version: ElementaVersion) : WindowScreen(version) {
             val string = "§7${index+1}. ${minion.costBreakdown(minion.maxTier, HOURS, upgrades, selectedFuel)}"
             val text = UIWrappedText(string)
                 .setText(string)
-                .setX(PixelConstraint(leftBar.getRight() + fromWidthScaleFactor(7f).value))
-                .setY(PixelConstraint(yPos))
-                .setWidth(PixelConstraint(rightBar.getLeft() - leftBar.getRight() - fromWidthScaleFactor(14f).value))
+                .setX((leftBar.getRight() + fromWidthScaleFactor(7f).value).pixels)
+                .setY(yPos.pixels)
+                .setWidth((rightBar.getLeft() - leftBar.getRight() - fromWidthScaleFactor(14f).value).pixels)
                 .setTextScale(fromWidthScaleFactor(1f))
                 .setColor(Color.WHITE)
                 .setTextScale(fromWidthScaleFactor(1f))
                 .setChildOf(mainTextScrollComponent)
 
             val border = UIBlock()
-                .setX(PixelConstraint(leftBar.getRight() - text.getLeft() + barNegation))
-                .setY(PixelConstraint(text.getHeight() + barOffset))
-                .setWidth(PixelConstraint(rightBar.getLeft() - leftBar.getRight() - 2 * barNegation))
+                .setX((leftBar.getRight() - text.getLeft() + barNegation).pixels)
+                .setY((text.getHeight() + barOffset).pixels)
+                .setWidth((rightBar.getLeft() - leftBar.getRight() - 2 * barNegation).pixels)
                 .setHeight(fromWidthScaleFactor(1f))
                 .setColor(accentColor.toJavaColor())
                 .setChildOf(text)
@@ -176,8 +177,8 @@ class ProfitMinionCalculator(version: ElementaVersion) : WindowScreen(version) {
 
             val fuelContainer = PSSButton()
                 .setX(fromWidthScaleFactor(10f))
-                .setY(PixelConstraint(yPos))
-                .setWidth(PixelConstraint(leftBar.getLeft() - mainTextScrollComponent.getLeft() - fromWidthScaleFactor(20f).value))
+                .setY(yPos.pixels)
+                .setWidth((leftBar.getLeft() - mainTextScrollComponent.getLeft() - fromWidthScaleFactor(20f).value).pixels)
                 .setHeight(fromWidthScaleFactor(40f))
                 .setChildOf(mainTextScrollComponent)
 
@@ -194,9 +195,9 @@ class ProfitMinionCalculator(version: ElementaVersion) : WindowScreen(version) {
             val fuelRarityColor: String = fuelItem.rarity.colorCode
 
             UIWrappedText(fuelRarityColor + fuelDisplayName)
-                .setX(PixelConstraint(textXPos))
+                .setX(textXPos.pixels)
                 .setY(CenterConstraint())
-                .setWidth(PixelConstraint(backgroundBox.getWidth() - textXPos))
+                .setWidth((backgroundBox.getWidth() - textXPos).pixels)
                 .setColor(Color.white)
                 .setTextScale(fromWidthScaleFactor(1f))
                 .setChildOf(fuelContainer.component) as UIWrappedText
@@ -223,15 +224,9 @@ class ProfitMinionCalculator(version: ElementaVersion) : WindowScreen(version) {
 
             val upgradeItem = getItem(upgradeId) ?: continue
             val upgradeContainer = PSSButton()
-                .setX(
-                    PixelConstraint(
-                        rightBar.getRight() - rightBar.getWidth() - mainTextScrollComponent.getLeft() + fromWidthScaleFactor(
-                            10f,
-                        ).value,
-                    ),
-                )
-                .setY(PixelConstraint(yPos))
-                .setWidth(PixelConstraint(mainTextScrollComponent.getRight() - rightBar.getRight() - rightBar.getWidth() - fromWidthScaleFactor(20f).value))
+                .setX((rightBar.getRight() - rightBar.getWidth() - mainTextScrollComponent.getLeft() + fromWidthScaleFactor(10f,).value).pixels)
+                .setY(yPos.pixels)
+                .setWidth((mainTextScrollComponent.getRight() - rightBar.getRight() - rightBar.getWidth() - fromWidthScaleFactor(20f).value).pixels)
                 .setHeight(fromWidthScaleFactor(40f))
                 .setChildOf(mainTextScrollComponent)
 
@@ -249,7 +244,7 @@ class ProfitMinionCalculator(version: ElementaVersion) : WindowScreen(version) {
             val upgradeItemColor: String = upgradeItem.rarity.colorCode
 
             UIWrappedText(upgradeItemColor + upgradeItemName)
-                .setX(PixelConstraint(textXPos))
+                .setX(textXPos.pixels)
                 .setY(CenterConstraint())
                 .setColor(Color.white)
                 .setTextScale(fromWidthScaleFactor(1f))
@@ -275,10 +270,10 @@ class ProfitMinionCalculator(version: ElementaVersion) : WindowScreen(version) {
         var xPos = pad
         for ((category, color) in categories) {
             val button = PSSButton()
-                .setX(PixelConstraint(xPos))
+                .setX(xPos.pixels)
                 .setY(CenterConstraint())
-                .setWidth(PixelConstraint(blockWidth))
-                .setHeight(PixelConstraint(categoriesBar.getHeight() * .9f))
+                .setWidth(blockWidth.pixels)
+                .setHeight((categoriesBar.getHeight() * 0.9f).pixels)
                 .setChildOf(categoriesBar)
 
             button.setText(color + category.titleCase())
@@ -300,7 +295,7 @@ class ProfitMinionCalculator(version: ElementaVersion) : WindowScreen(version) {
             heightPos += yPad
             val toggle = PSSToggle()
                 .setX(fromWidthScaleFactor(10f))
-                .setY(PixelConstraint(heightPos))
+                .setY(heightPos.pixels)
                 .setHeight(fromWidthScaleFactor(12f))
                 .setWidth(fromWidthScaleFactor(12f))
                 .setChildOf(bestMinionBar)
@@ -344,12 +339,12 @@ class ProfitMinionCalculator(version: ElementaVersion) : WindowScreen(version) {
         mainTextScrollComponent.scrollToTop(false)
 
         val prevUpgrade = upgrades.firstOrNull()
-        resetUpgradeToggles()
-
         upgrades = listOfNotNull(
             selectedUpgrade,
             prevUpgrade
         )
+        resetUpgradeToggles()
+
         upgrades.forEach { upgradeToggleMap[it]?.setState(true) }
     }
 
@@ -390,7 +385,7 @@ class ProfitMinionCalculator(version: ElementaVersion) : WindowScreen(version) {
         return addMinionBreakdownText(selectedCategory)
     }
 
-    private fun fromWidthScaleFactor(pos: Float): PixelConstraint = PixelConstraint((pos * (window.getWidth() / 1000.0)).toFloat())
+    private fun fromWidthScaleFactor(pos: Float): PixelConstraint = (pos * (window.getWidth() / 1000.0)).pixels
 
     private fun getBestMinionSettings() {
         val availableSlots = (2 - upgradeSlotsUnavailable).coerceAtLeast(0)
