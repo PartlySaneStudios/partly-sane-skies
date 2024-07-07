@@ -30,9 +30,9 @@ class ProfitMinionCalculator(version: ElementaVersion) : WindowScreen(version) {
             "COMBAT" to "§c",
         )
 
-        private var hours = 24.0
+        private const val HOURS = 24.0
 
-        private val uselessUpgrades = listOf("Auto-Smelter", "Compactor", "Super Compactor", "Dwarven Super Compactor")
+        private val uselessUpgrades = listOf("Auto-Smelter", "Compactor", "Super Compactor", "Dwarven Super Compactor", "Enchanted Shears")
 
         fun registerCommand() {
             PSSCommand("minioncalculator")
@@ -40,7 +40,7 @@ class ProfitMinionCalculator(version: ElementaVersion) : WindowScreen(version) {
                 .setDescription("Opens the Profit Minion Calculator")
                 .setRunnable {
                     ChatUtils.sendClientMessage("§bOpening Minion Calculator...")
-                    MinecraftUtils.displayGuiScreen(ProfitMinionCalculator(@Suppress("DEPRECATION") ElementaVersion.V2))
+                    MinecraftUtils.displayGuiScreen(ProfitMinionCalculator(ElementaVersion.V5))
                 }.register()
         }
 
@@ -140,7 +140,7 @@ class ProfitMinionCalculator(version: ElementaVersion) : WindowScreen(version) {
             val minion = pair.first
             if (category != "ALL" && minion.category != category) continue
 
-            val string = "§7${index+1}. ${minion.costBreakdown(minion.maxTier, hours, upgrades, selectedFuel)}"
+            val string = "§7${index+1}. ${minion.costBreakdown(minion.maxTier, HOURS, upgrades, selectedFuel)}"
             val text = UIWrappedText(string)
                 .setText(string)
                 .setX(PixelConstraint(leftBar.getRight() + fromWidthScaleFactor(7f).value))
