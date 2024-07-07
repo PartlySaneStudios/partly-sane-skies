@@ -55,13 +55,7 @@ object ExampleHud : PSSHud(false, 50.0F, 50.0F) {
         window.draw(gg.essential.universal.UMatrixStack())
     }
 
-    override fun getWidth(
-        scale: Float,
-        example: Boolean,
-    ): Float = scale * 5
+    override fun getWidth(scale: Float, example: Boolean): Float = scale * 5
 
-    override fun getHeight(
-        scale: Float,
-        example: Boolean,
-    ): Float = scale * 5
+    override fun getHeight(scale: Float, example: Boolean): Float = scale * 5
 }

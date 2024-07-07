@@ -110,15 +110,9 @@ object CooldownHud : PSSHud(true, 960F - defaultWidth / 2, 561.6F, 0, 1.0F) {
         window.draw(gg.essential.universal.UMatrixStack())
     }
 
-    override fun getWidth(
-        scale: Float,
-        example: Boolean,
-    ): Float = defaultWidth * scale
+    override fun getWidth(scale: Float, example: Boolean): Float = defaultWidth * scale
 
-    override fun getHeight(
-        scale: Float,
-        example: Boolean,
-    ): Float {
+    override fun getHeight(scale: Float, example: Boolean): Float {
         val totalBarHeights = cooldownsDisplayableAtOnce * defaultHeight * scale
         val totalPadding = defaultPadding.percentOfWindow.value * scale * (cooldownsDisplayableAtOnce - 1)
         return totalBarHeights + totalPadding

@@ -183,10 +183,7 @@ object StringUtils {
         return formattedNum
     }
 
-    fun stripTrailingChars(
-        str: String,
-        chars: String,
-    ): String {
+    fun stripTrailingChars(str: String, chars: String): String {
         var str = str
         if (str == "") {
             return str
@@ -211,11 +208,7 @@ object StringUtils {
      * @param key The key to use to get the result
      * @return The result
      */
-    fun recognisePattern(
-        input: String,
-        pattern: String,
-        key: String,
-    ): String {
+    fun recognisePattern(input: String, pattern: String, key: String): String {
         var result = input
 
         // Gets finds the index where the key will start, because it will be the same across
@@ -249,11 +242,7 @@ object StringUtils {
         return result
     }
 
-    fun isPattern(
-        input: String,
-        pattern: String,
-        key: String,
-    ): Boolean {
+    fun isPattern(input: String, pattern: String, key: String): Boolean {
         // Gets finds the index where the key will start, because it will be the same across
         // both patterns
         val result = recognisePattern(input, pattern, key)
@@ -262,11 +251,7 @@ object StringUtils {
         return patternWithoutKey == inputWithoutKey
     }
 
-    fun startsWithPattern(
-        input: String,
-        pattern: String,
-        key: String,
-    ): Boolean {
+    fun startsWithPattern(input: String, pattern: String, key: String): Boolean {
         val result = recognisePattern(input, pattern, key)
         val patternWithoutKey = replaceFirst(pattern, key, "")
         val inputWithoutKey = replaceFirst(input, result, "")
@@ -277,11 +262,7 @@ object StringUtils {
         return beginningOfInputWithoutKey == patternWithoutKey
     }
 
-    fun replaceFirst(
-        string: String,
-        key: String,
-        replacement: String,
-    ): String {
+    fun replaceFirst(string: String, key: String, replacement: String): String {
         val index = string.indexOf(key)
         return if (index != -1) { // Make sure the search string was found
             val before = string.substring(0, index)
@@ -403,10 +384,7 @@ object StringUtils {
 
         var number = this
         return buildString {
-            fun appendRomanSymbols(
-                value: Int,
-                symbol: String,
-            ) {
+            fun appendRomanSymbols(value: Int, symbol: String) {
                 while (number >= value) {
                     this.append(symbol)
                     number -= value

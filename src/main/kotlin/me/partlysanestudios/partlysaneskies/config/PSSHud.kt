@@ -82,10 +82,7 @@ abstract class PSSHud(
      * @param scale the current scale
      * @param example whether it is an example or not
      */
-    abstract fun getHeight(
-        scale: Float,
-        example: Boolean,
-    ): Float
+    abstract fun getHeight(scale: Float, example: Boolean): Float
 
     /**
      * @return Width of the Hud's bounding box in pixels
@@ -93,8 +90,5 @@ abstract class PSSHud(
      * @param scale the current scale
      * @param example whether it is an example or not
      */
-    abstract fun getWidth(
-        scale: Float,
-        example: Boolean,
-    ): Float
+    abstract fun getWidth(scale: Float, example: Boolean): Float
 }

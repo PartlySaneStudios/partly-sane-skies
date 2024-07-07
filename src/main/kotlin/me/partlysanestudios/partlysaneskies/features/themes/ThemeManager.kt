@@ -164,9 +164,7 @@ object ThemeManager {
         get() = getBackgroundWithColor(primaryColor, secondaryColor, accentColor)
 
     val currentButtonFile: File
-        get() {
-            return getCurrentButtonFile(accentColor)
-        }
+        get()= getCurrentButtonFile(accentColor)
 
     fun getCurrentButtonFile(accentColor: OneColor): File = getButtonWithColor(primaryColor, secondaryColor, accentColor)
 
@@ -183,56 +181,31 @@ object ThemeManager {
         }
 
     val primaryColor: OneColor
-        get() {
-            return if (!config.customTheme) {
-                val themeIndex: Int = config.themeIndex
-                OneColor(defaultThemes[themeIndex].primaryColor)
-            } else {
-                config.primaryColor
-            }
-        }
+        get() = if (!config.customTheme) OneColor(defaultThemes[config.themeIndex].primaryColor) else config.primaryColor
+
     val darkPrimaryColor: OneColor
-        get() {
-            return OneColor(darkenColor(primaryColor))
-        }
+        get() = OneColor(darkenColor(primaryColor))
+
     val lightPrimaryColor: OneColor
-        get() {
-            return OneColor(lightenColor(primaryColor))
-        }
+        get() = OneColor(lightenColor(primaryColor))
+
     val secondaryColor: OneColor
-        get() {
-            return if (!config.customTheme) {
-                val themeIndex: Int = config.themeIndex
-                OneColor(defaultThemes[themeIndex].secondaryColor)
-            } else {
-                config.secondaryColor
-            }
-        }
+        get() = if (!config.customTheme) OneColor(defaultThemes[config.themeIndex].secondaryColor) else config.secondaryColor
+
     val darkSecondaryColor: OneColor
-        get() {
-            return OneColor(darkenColor(secondaryColor))
-        }
+        get() = OneColor(darkenColor(secondaryColor))
+
     val lightSecondaryColor: OneColor
-        get() {
-            return OneColor(lightenColor(secondaryColor))
-        }
+        get() = OneColor(lightenColor(secondaryColor))
+
     val accentColor: OneColor
-        get() {
-            return if (!config.useCustomAccentColor) {
-                val themeIndex: Int = config.themeIndex
-                OneColor(defaultThemes[themeIndex].defaultAccentColor)
-            } else {
-                config.accentColor
-            }
-        }
+        get() = if (!config.useCustomAccentColor) OneColor(defaultThemes[config.themeIndex].defaultAccentColor) else config.accentColor
+
     val darkAccentColor: Color
-        get() {
-            return darkenColor(accentColor)
-        }
+        get() = darkenColor(accentColor)
+
     val lightAccentColor: Color
-        get() {
-            return lightenColor(accentColor)
-        }
+        get() = lightenColor(accentColor)
 
     private fun darkenColor(color: OneColor): Color = darkenColor(color.toJavaColor())
 
@@ -253,11 +226,7 @@ object ThemeManager {
     }
 
     @Throws(IOException::class)
-    fun getBackgroundWithColor(
-        primaryColor: OneColor,
-        secondaryColor: OneColor,
-        accentColor: OneColor,
-    ): File {
+    fun getBackgroundWithColor(primaryColor: OneColor, secondaryColor: OneColor, accentColor: OneColor): File {
         val primaryColorHex: String = Integer.toHexString(primaryColor.getRGB() and 0xffffff)
         val secondaryColorHex: String = Integer.toHexString(secondaryColor.getRGB() and 0xffffff)
         val accentColorHex: String = Integer.toHexString(accentColor.getRGB() and 0xffffff)
@@ -283,11 +252,7 @@ object ThemeManager {
     }
 
     @Throws(IOException::class)
-    fun getButtonWithColor(
-        primaryColor: OneColor,
-        secondaryColor: OneColor,
-        accentColor: OneColor,
-    ): File {
+    fun getButtonWithColor(primaryColor: OneColor, secondaryColor: OneColor, accentColor: OneColor): File {
         val primaryHex: String = Integer.toHexString(primaryColor.getRGB() and 0xffffff)
         val secondaryColorHex: String = Integer.toHexString(secondaryColor.getRGB() and 0xffffff)
         val accentColorHex: String = Integer.toHexString(accentColor.getRGB() and 0xffffff)
@@ -316,11 +281,7 @@ object ThemeManager {
     }
 
     @Throws(IOException::class)
-    fun getToggleWithColor(
-        primaryColor: OneColor,
-        secondaryColor: OneColor,
-        accentColor: OneColor,
-    ): File {
+    fun getToggleWithColor(primaryColor: OneColor, secondaryColor: OneColor, accentColor: OneColor): File {
         val primaryColorHex: String = Integer.toHexString(primaryColor.getRGB() and 0xffffff)
         val secondaryColorHex: String = Integer.toHexString(secondaryColor.getRGB() and 0xffffff)
         val accentColorHex: String = Integer.toHexString(accentColor.getRGB() and 0xffffff)
@@ -347,16 +308,9 @@ object ThemeManager {
         return filePath.toFile()
     }
 
-    class ButtonData(
-        val image: UIImage,
-        val color: OneColor,
-    )
+    class ButtonData(val image: UIImage, val color: OneColor)
 
-    class ToggleData(
-        val image: UIImage,
-        selected: Boolean,
-        val color: OneColor,
-    ) {
+    class ToggleData(val image: UIImage, selected: Boolean, val color: OneColor) {
         val isSelected: Boolean = selected
     }
 

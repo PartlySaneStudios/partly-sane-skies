@@ -63,10 +63,7 @@ object GemstoneData {
         return Gemstone(type, block, size)
     }
 
-    enum class GemstoneType(
-        val displayName: String,
-        val color: Color,
-    ) {
+    enum class GemstoneType(val displayName: String, val color: Color) {
         TOPAZ("Topaz", Color(0xFFFF55)),
         RUBY("Ruby", Color(0xFF5555)),
         AMETHYST("Amethyst", Color(0xFF55FF)),
@@ -75,11 +72,7 @@ object GemstoneData {
         SAPPHIRE("Sapphire", Color(0x5555FF)),
     }
 
-    class Gemstone(
-        val type: GemstoneType,
-        val block: Point3d,
-        val size: Int,
-    ) {
+    class Gemstone(val type: GemstoneType, val block: Point3d, val size: Int) {
         val chunk: Point2d get() = block.toChunk()
     }
 }

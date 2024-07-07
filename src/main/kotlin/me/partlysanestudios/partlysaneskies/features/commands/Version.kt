@@ -15,9 +15,7 @@ import net.minecraft.util.ChatComponentText
 object Version {
     fun registerVersionCommand() {
         PSSCommand("partlysaneskiesversion")
-            .addAlias("pssversion")
-            .addAlias("pssv")
-            .addAlias("partlysaneskiesv")
+            .addAlias("pssversion", "pssv", "partlysaneskiesv")
             .setDescription("Prints the version of Partly Sane Skies you are using")
             .setRunnable {
                 val chatcomponent =

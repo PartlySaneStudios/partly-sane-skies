@@ -52,11 +52,7 @@ object PercyMode {
         jsonObject.add("inventories", screenObj)
         jsonObject.add(
             "class",
-            Gson().toJsonTree(
-                PartlySaneSkies.minecraft.currentScreen
-                    ?.javaClass
-                    ?.name ?: "",
-            ),
+            Gson().toJsonTree(PartlySaneSkies.minecraft.currentScreen?.javaClass?.name ?: ""),
         )
 
         return jsonObject
@@ -89,9 +85,7 @@ object PercyMode {
 
     private fun getInventoryDump(): JsonObject {
         val nbt = NBTTagList()
-        PartlySaneSkies.minecraft.thePlayer
-            ?.inventory
-            ?.writeToNBT(nbt)
+        PartlySaneSkies.minecraft.thePlayer?.inventory?.writeToNBT(nbt)
         return Gson().toJsonTree(nbt)?.asJsonObject ?: JsonObject()
     }
 

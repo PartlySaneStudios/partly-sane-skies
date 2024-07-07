@@ -61,8 +61,5 @@ object EventManager {
         DungeonEndEvent.onMessageRecieved(registeredFunctions[DungeonEndEvent::class] ?: ArrayList(), message)
     }
 
-    internal class EventFunction(
-        val obj: Any,
-        val function: KFunction<*>,
-    )
+    internal class EventFunction(val obj: Any, val function: KFunction<*>)
 }

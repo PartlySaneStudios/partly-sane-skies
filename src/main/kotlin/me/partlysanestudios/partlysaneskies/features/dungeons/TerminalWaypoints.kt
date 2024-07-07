@@ -152,10 +152,7 @@ object TerminalWaypoints {
         return null
     }
 
-    class F7Puzzle(
-        val pos: Point3d,
-        val type: Type,
-    ) {
+    class F7Puzzle(val pos: Point3d, val type: Type) {
         var active = false
 
         enum class Type(

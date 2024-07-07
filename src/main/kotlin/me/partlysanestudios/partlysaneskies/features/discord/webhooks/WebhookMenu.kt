@@ -260,12 +260,7 @@ class WebhookMenu : WindowScreen(ElementaVersion.V5) {
         }
     }
 
-    override fun onDrawScreen(
-        matrixStack: UMatrixStack,
-        mouseX: Int,
-        mouseY: Int,
-        partialTicks: Float,
-    ) {
+    override fun onDrawScreen(matrixStack: UMatrixStack, mouseX: Int, mouseY: Int, partialTicks: Float) {
         super.onDrawScreen(matrixStack, mouseX, mouseY, partialTicks)
 
         for (icon in webhookIcons) {
@@ -283,9 +278,7 @@ class WebhookMenu : WindowScreen(ElementaVersion.V5) {
         }
     }
 
-    private class WebhookIcon(
-        val webhookEvent: Webhook,
-    ) {
+    private class WebhookIcon(val webhookEvent: Webhook) {
         var hovering = false
         var menu: WebhookMenu? = null
 
@@ -299,19 +292,15 @@ class WebhookMenu : WindowScreen(ElementaVersion.V5) {
                 return list
             }
         var enabled: Boolean
-            get() {
-                return webhookEvent.enabled
-            }
+            get() = webhookEvent.enabled
             set(value) {
                 webhookEvent.enabled = value
             }
         val iconBox =
             UIBlock()
-                .onMouseEnter {
-                    hovering = true
-                }.onMouseLeave {
-                    hovering = false
-                }.onMouseClick {
+                .onMouseEnter { hovering = true }
+                .onMouseLeave { hovering = false }
+                .onMouseClick {
                     if (menu?.selectedIcon == this@WebhookIcon) {
                         menu?.selectedIcon = null
                     } else {
@@ -338,10 +327,7 @@ class WebhookMenu : WindowScreen(ElementaVersion.V5) {
         }
     }
 
-    private class WebhookOption(
-        val config: Config,
-        val optionPath: String,
-    ) {
+    private class WebhookOption(val config: Config, val optionPath: String) {
         var hovering = false
         var menu: WebhookMenu? = null
 

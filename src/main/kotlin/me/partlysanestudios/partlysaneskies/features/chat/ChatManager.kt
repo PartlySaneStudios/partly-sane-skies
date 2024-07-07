@@ -102,9 +102,7 @@ object ChatManager {
                 HoverEvent(event.message.chatStyle.chatHoverEvent.action, event.message.chatStyle.chatHoverEvent.value)
         }
 
-        PartlySaneSkies.minecraft.ingameGUI
-            ?.chatGUI
-            ?.printChatMessage(messageToSend)
+        PartlySaneSkies.minecraft.ingameGUI?.chatGUI?.printChatMessage(messageToSend)
     }
 
     fun IChatComponent.hasClickAction(): Boolean {
@@ -129,9 +127,7 @@ object ChatManager {
         }
 
 //        If the chat has no value for the action
-        else if (this.chatStyle.chatClickEvent.value
-                .isEmpty()
-        ) {
+        else if (this.chatStyle.chatClickEvent.value.isEmpty()) {
             return false
         }
 
@@ -160,9 +156,7 @@ object ChatManager {
         }
 
 //        If the chat has no value for the action
-        else if (this.chatStyle.chatHoverEvent.value.unformattedText
-                .isEmpty()
-        ) {
+        else if (this.chatStyle.chatHoverEvent.value.unformattedText.isEmpty()) {
             return false
         }
 
@@ -220,11 +214,7 @@ object ChatManager {
         if (this.formattedText.startsWith(PartlySaneSkies.CHAT_PREFIX)) {
             return false
         }
-        if (ChatColors
-                .getChatColor(
-                    ChatColors.getPrefix(this.formattedText),
-                ).isNotEmpty()
-        ) {
+        if (ChatColors.getChatColor(ChatColors.getPrefix(formattedText)).isNotEmpty()) {
             return true
         } else if (!ChatAlertsManager.checkChatAlert(this).formattedText.equals(this.formattedText)) {
             return true

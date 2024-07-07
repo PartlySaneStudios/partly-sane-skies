@@ -95,9 +95,7 @@ object SkyblockDataManager {
             JsonParser().parse(getFile("constants/bits_shop.json")).getAsJsonObject().getAsJsonObject("bits_shop")
         for ((id, value) in bitsShopObject.entrySet()) {
             val bitCost = value.asInt
-            val item =
-                getItem(id)
-                    ?: continue
+            val item = getItem(id) ?: continue
             bitIds.add(item.id)
             item.bitCost = bitCost
         }

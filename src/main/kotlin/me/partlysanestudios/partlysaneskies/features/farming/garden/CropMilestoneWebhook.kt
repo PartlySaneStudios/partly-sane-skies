@@ -79,11 +79,7 @@ object CropMilestoneWebhook : Webhook() {
         }
     }
 
-    private fun trigger(
-        crop: String,
-        oldLevel: Int,
-        newLevel: Int,
-    ) {
+    private fun trigger(crop: String, oldLevel: Int, newLevel: Int) {
         val oldLevelString =
             if (config.find("useRomanNumerals")?.asBoolean == true) {
                 oldLevel.toRoman()

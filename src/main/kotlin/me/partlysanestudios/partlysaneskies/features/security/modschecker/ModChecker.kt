@@ -290,10 +290,7 @@ object ModChecker {
             .printChatMessage(chatMessage)
     }
 
-    private fun insertCharacterAfterNewLine(
-        originalString: String,
-        insertionChar: String,
-    ): String {
+    private fun insertCharacterAfterNewLine(originalString: String, insertionChar: String): String {
         val stringBuilder = StringBuilder()
         for (c in originalString.toCharArray()) {
             stringBuilder.append(c)

@@ -67,9 +67,7 @@ object SkymartValue : SidePanel() {
 
         val skymart = (minecraft.currentScreen as GuiChest).containerInventory
 
-        return skymart.displayName.formattedText
-            .removeColorCodes()
-            .contains("SkyMart")
+        return skymart.displayName.formattedText.removeColorCodes().contains("SkyMart")
     }
 
     private val copperCost = HashMap<String, Int>()

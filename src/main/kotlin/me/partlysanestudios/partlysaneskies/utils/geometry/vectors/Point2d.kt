@@ -8,10 +8,7 @@ package me.partlysanestudios.partlysaneskies.utils.geometry.vectors
 import kotlin.math.pow
 import kotlin.math.sqrt
 
-open class Point2d(
-    val x: Double,
-    val y: Double,
-) {
+open class Point2d(val x: Double, val y: Double) {
     fun getPointX(): Double = x
 
     fun getPointY(): Double = y

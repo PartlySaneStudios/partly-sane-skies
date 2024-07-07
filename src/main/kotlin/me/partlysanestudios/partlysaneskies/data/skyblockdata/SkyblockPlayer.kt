@@ -17,9 +17,7 @@ import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
 import net.minecraft.nbt.NBTTagList
 import org.apache.logging.log4j.Level
 
-class SkyblockPlayer(
-    val username: String,
-) {
+class SkyblockPlayer(val username: String) {
     private var selectedProfileUUID: String = ""
     var lastUpdateTime: Long = 0
     var uuid: String = ""

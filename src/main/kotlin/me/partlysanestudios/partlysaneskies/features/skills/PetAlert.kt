@@ -226,9 +226,7 @@ object PetAlert : SidePanel() {
         }
 
         val upper = (minecraft.currentScreen as GuiChest).containerInventory
-        return upper.displayName.formattedText
-            .removeColorCodes()
-            .contains("Pets")
+        return upper.displayName.formattedText.removeColorCodes().contains("Pets")
     }
 
     private fun parsePetNameFromItem(name: String): String {

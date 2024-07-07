@@ -107,10 +107,7 @@ object CompostValue : SidePanel() {
         if (collectCompostButtonName != "Collect Compost") {
             return false
         }
-        if (!composter.displayName.formattedText
-                .removeColorCodes()
-                .contains("Composter")
-        ) {
+        if (!composter.displayName.formattedText.removeColorCodes().contains("Composter")) {
             return false
         }
 

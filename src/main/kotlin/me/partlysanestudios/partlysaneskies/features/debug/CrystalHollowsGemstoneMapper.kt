@@ -255,10 +255,7 @@ object CrystalHollowsGemstoneMapper {
         writer.close()
     }
 
-    private fun extractGemstone(
-        point: Point3d,
-        gemstoneCoords: ArrayList<Point3d>,
-    ) {
+    private fun extractGemstone(point: Point3d, gemstoneCoords: ArrayList<Point3d>, ) {
         for (x in -1..1) {
             for (y in -1..1) {
                 for (z in -1..1) {
@@ -288,10 +285,7 @@ object CrystalHollowsGemstoneMapper {
 
     private fun isGlass(blockState: IBlockState): Boolean = blockState.block.material == Material.glass
 
-    private class Gemstone(
-        val coordinates: List<Point3d>,
-        val type: String,
-    ) {
+    private class Gemstone(val coordinates: List<Point3d>, val type: String) {
         val geographicMiddle: Point3d
             get() {
                 var xPoints = 0.0

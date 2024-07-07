@@ -11,16 +11,9 @@ import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Point3d.Compa
 import net.minecraft.util.BlockPos
 import net.minecraft.util.EnumFacing
 
-class PlayerBreakBlockEvent(
-    val point: Point3d,
-    val side: EnumFacing,
-) {
+class PlayerBreakBlockEvent(val point: Point3d, val side: EnumFacing) {
     companion object {
-        private fun callEvent(
-            functions: List<EventManager.EventFunction>,
-            pos: BlockPos,
-            side: EnumFacing,
-        ) {
+        private fun callEvent(functions: List<EventManager.EventFunction>, pos: BlockPos, side: EnumFacing) {
             for (function in functions) {
                 try {
                     val event = PlayerBreakBlockEvent(pos.toPoint3d(), side)
@@ -33,10 +26,7 @@ class PlayerBreakBlockEvent(
 
         // Called from the mixin because writing this code in java is about 50 times harder
         // that's called a hook
-        internal fun onPlayerBreakBlock(
-            blockPos: BlockPos,
-            side: EnumFacing,
-        ) {
+        internal fun onPlayerBreakBlock(blockPos: BlockPos, side: EnumFacing) {
             callEvent(EventManager.registeredFunctions[PlayerBreakBlockEvent::class] ?: return, blockPos, side)
         }
     }

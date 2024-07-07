@@ -207,9 +207,7 @@ object PetData {
             return false
         }
         val upper = currentScreen.containerInventory
-        return upper.displayName.formattedText
-            .removeColorCodes()
-            .contains("Pets")
+        return upper.displayName.formattedText.removeColorCodes().contains("Pets")
     }
 
     /**

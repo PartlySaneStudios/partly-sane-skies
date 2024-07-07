@@ -55,10 +55,7 @@ object PlayerRating {
         }
     }
 
-    fun rackPoints(
-        playerString: String,
-        category: String,
-    ) {
+    fun rackPoints(playerString: String, category: String) {
         var player = playerString
         if (player.equals("You", ignoreCase = true)) {
             player = currentPlayer

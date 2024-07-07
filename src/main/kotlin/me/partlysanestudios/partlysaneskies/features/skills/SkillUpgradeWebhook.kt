@@ -81,11 +81,7 @@ object SkillUpgradeWebhook : Webhook() {
         }
     }
 
-    private fun trigger(
-        skill: String,
-        oldLevel: Int,
-        newLevel: Int,
-    ) {
+    private fun trigger(skill: String, oldLevel: Int, newLevel: Int) {
         val oldLevelString =
             if (config.find("useRomanNumerals")?.asBoolean == true) {
                 oldLevel.toRoman()

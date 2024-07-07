@@ -144,9 +144,7 @@ object VisitorLogbookData {
             return false
         }
         val logbook = screen.containerInventory
-        return logbook.displayName.formattedText
-            .removeColorCodes()
-            .contains("Visitor's Logbook")
+        return logbook.displayName.formattedText.removeColorCodes().contains("Visitor's Logbook")
     }
 
     class Visitor(

@@ -87,10 +87,7 @@ object BestiaryMilestoneWebhook : Webhook() {
         }
     }
 
-    private fun trigger(
-        oldLevel: Int,
-        newLevel: Int,
-    ) {
+    private fun trigger(oldLevel: Int, newLevel: Int) {
         val oldLevelString =
             if (config.find("useRomanNumerals")?.asBoolean == true) {
                 oldLevel.toRoman()

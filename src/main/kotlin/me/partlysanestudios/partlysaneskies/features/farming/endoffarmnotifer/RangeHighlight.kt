@@ -71,11 +71,7 @@ object RangeHighlight {
         }
     }
 
-    fun renderBox(
-        range: Range3d,
-        partialTicks: Float,
-        color: Color,
-    ) {
+    fun renderBox(range: Range3d, partialTicks: Float, color: Color) {
         try {
             renderBoxFaces(range, color, false, partialTicks)
             renderBoxEdges(range, false, partialTicks)
@@ -209,11 +205,7 @@ object RangeHighlight {
         GlStateManager.disableBlend()
     }
 
-    fun renderBoxEdges(
-        range: Range3d,
-        renderRelativeToPlayer: Boolean = false,
-        partialTicks: Float,
-    ) {
+    fun renderBoxEdges(range: Range3d, renderRelativeToPlayer: Boolean = false, partialTicks: Float) {
         //            Sets the correct state
         GlStateManager.enableBlend()
         GlStateManager.disableLighting()

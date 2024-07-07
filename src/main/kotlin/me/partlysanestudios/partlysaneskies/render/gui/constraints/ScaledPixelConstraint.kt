@@ -14,14 +14,10 @@ class ScaledPixelConstraint(
 ) : MasterConstraint {
     companion object {
         val Number.scaledPixels: ScaledPixelConstraint
-            get() {
-                return ScaledPixelConstraint((this.toDouble()).toFloat(), alignOpposite = false, alignOutside = false)
-            }
+            get() = ScaledPixelConstraint((this.toDouble()).toFloat(), alignOpposite = false, alignOutside = false)
 
-        fun Number.scaledPixels(
-            alignOpposite: Boolean = false,
-            alignOutside: Boolean = false,
-        ): ScaledPixelConstraint = ScaledPixelConstraint((this.toDouble()).toFloat(), alignOpposite, alignOutside)
+        fun Number.scaledPixels(alignOpposite: Boolean = false, alignOutside: Boolean = false, ): ScaledPixelConstraint =
+            ScaledPixelConstraint((toDouble()).toFloat(), alignOpposite, alignOutside)
     }
 
     override var cachedValue = 0f

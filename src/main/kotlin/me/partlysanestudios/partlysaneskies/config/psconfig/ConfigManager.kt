@@ -43,10 +43,7 @@ object ConfigManager {
         }
     }
 
-    fun saveConfig(
-        savePath: String,
-        config: Config,
-    ) {
+    fun saveConfig(savePath: String, config: Config) {
         val path = Path("./config/partly-sane-skies/$savePath")
         val file = path.toFile()
         file.parentFile.mkdirs()
@@ -67,10 +64,7 @@ object ConfigManager {
         writer.close()
     }
 
-    private fun loadConfig(
-        savePath: String,
-        config: Config,
-    ) {
+    private fun loadConfig(savePath: String, config: Config) {
         val path = Path("./config/partly-sane-skies/$savePath")
 
         val file = path.toFile()

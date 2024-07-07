@@ -76,8 +76,7 @@ public class PermPartyManager {
 
     public static void registerCommand() {
         new PSSCommand("permparty")
-            .addAlias("pp")
-            .addAlias("permp")
+            .addAlias("pp", "permp")
             .setDescription("Operates the perm party manager: /permparty [<partyid>/add/remove/list/delete/new/fav]")
             .setRunnable(args -> {
                 if (args.length == 0) {

@@ -93,11 +93,7 @@ object PetLevelUpWebhook : Webhook() {
         }
     }
 
-    private fun trigger(
-        name: String,
-        level: Int,
-        rarity: Rarity,
-    ) {
+    private fun trigger(name: String, level: Int, rarity: Rarity) {
         val levelString =
             if (config.find("useRomanNumerals")?.asBoolean == true) {
                 level.toRoman()

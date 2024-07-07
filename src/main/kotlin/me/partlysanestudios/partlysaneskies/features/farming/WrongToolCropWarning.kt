@@ -106,10 +106,7 @@ object WrongToolCropWarning {
                 JsonParser().parse(PublicDataManager.getFile("constants/crop_tools.json")).asJsonObject ?: JsonObject()
         }
 
-        fun serializeCrop(
-            cropUnlocalizedName: String,
-            cropObject: JsonObject,
-        ): Crop =
+        fun serializeCrop(cropUnlocalizedName: String, cropObject: JsonObject): Crop =
             Crop(
                 unlocalizedName = cropUnlocalizedName,
                 mathematicalHoeIds = cropObject["math"]?.asJsonArray?.map { it.asString } ?: ArrayList(),

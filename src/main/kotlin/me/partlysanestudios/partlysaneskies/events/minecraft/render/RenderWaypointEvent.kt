@@ -10,14 +10,9 @@ import me.partlysanestudios.partlysaneskies.render.waypoint.Waypoint
 import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Point3d.Companion.toPoint3d
 import net.minecraft.client.Minecraft
 
-class RenderWaypointEvent(
-    val pipeline: WaypointRenderPipeline,
-) {
+class RenderWaypointEvent(val pipeline: WaypointRenderPipeline) {
     companion object {
-        internal fun onEventCall(
-            partialTicks: Float,
-            functions: List<EventManager.EventFunction>,
-        ) {
+        internal fun onEventCall(partialTicks: Float, functions: List<EventManager.EventFunction>) {
             val pipeline = WaypointRenderPipeline()
 
             for (function in functions) {

@@ -18,10 +18,7 @@ object ImageUtils {
     private const val IMAGE_SAVE_PATH = "./config/partly-sane-skies/image_variants/"
 
     @Throws(IOException::class)
-    fun saveImage(
-        image: BufferedImage,
-        path: Path,
-    ) {
+    fun saveImage(image: BufferedImage, path: Path) {
         val output = path.toFile()
         ImageIO.write(image, "PNG", output)
     }
@@ -54,11 +51,7 @@ object ImageUtils {
         newColor: OneColor,
     ): BufferedImage = replaceColor(image, OneColor(oldColor), newColor)
 
-    fun replaceColor(
-        image: BufferedImage,
-        oldColor: OneColor,
-        newColor: OneColor,
-    ): BufferedImage {
+    fun replaceColor(image: BufferedImage, oldColor: OneColor, newColor: OneColor): BufferedImage {
         val width = image.width
         val height = image.height
         for (x in 0 until width) {
@@ -76,13 +69,5 @@ object ImageUtils {
     fun Color.applyOpacity(opacity: Int): Color = Color(this.red, this.green, this.blue, opacity)
 
     val Color.asHex: Int
-        get() {
-            // Get RGB components and combine them
-            val red = this.red
-            val green = this.green
-            val blue = this.blue
-
-            // Combine into a single integer (shift and bitwise OR)
-            return red shl 16 or (green shl 8) or blue
-        }
+        get() = red shl 16 or (green shl 8) or blue
 }

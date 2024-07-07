@@ -7,9 +7,7 @@ package me.partlysanestudios.partlysaneskies.commands
 import me.partlysanestudios.partlysaneskies.commands.CommandManager.registerCommand
 import net.minecraft.command.ICommand
 
-class PSSCommand(
-    val name: String,
-) {
+class PSSCommand(val name: String) {
     var aliases: MutableList<String> = mutableListOf()
         private set
     var description: String = ""

@@ -131,10 +131,7 @@ class PSSBanner(
         return this.color.applyOpacity(alpha)
     }
 
-    private fun getAlpha(
-        timeStarted: Long,
-        displayLengthSeconds: Double,
-    ): Short {
+    private fun getAlpha(timeStarted: Long, displayLengthSeconds: Double): Short {
         val displayLength = displayLengthSeconds * 1000
 
         val fadeLength = displayLength * (1 / 6.0)

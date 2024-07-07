@@ -169,20 +169,14 @@ class PartlySaneSkies {
                 "[NPC]",
             )
         val time: Long
-            // Returns the time in milliseconds
             get() = System.currentTimeMillis()
-        val isLatestVersion: Boolean
-            get() {
-                return if (DOGFOOD) {
-                    true
-                } else if (latestVersion == "(Unknown)") {
-                    true
-                } else {
-                    VERSION == latestVersion
-                }
-            }
 
-        var latestVersion = "(Unknown)"
+        private const val UNKNOWN_VERSION = "(Unknown)"
+
+        val isLatestVersion: Boolean
+            get() = DOGFOOD || latestVersion == UNKNOWN_VERSION || VERSION == latestVersion
+
+        var latestVersion = UNKNOWN_VERSION
 
         val coreConfig =
             Config()
@@ -335,8 +329,7 @@ class PartlySaneSkies {
         ConfigManager.loadAllConfigs()
 
         // Use Polyfrost EventManager cuz chatSendEvent makes transforming chat messages may easier
-        cc.polyfrost.oneconfig.events.EventManager.INSTANCE
-            .register(ChatTransformer)
+        cc.polyfrost.oneconfig.events.EventManager.INSTANCE.register(ChatTransformer)
 
         DebugKey.init()
 
@@ -426,12 +419,12 @@ class PartlySaneSkies {
             // latestVersionDescription = modInfo.get("latest_version_description").getAsString();
             // latestVersionDate = modInfo.get("latest_version_release_date").getAsString();
         } catch (e: NullPointerException) {
-            latestVersion = "(Unknown)"
+            latestVersion = UNKNOWN_VERSION
             e.printStackTrace()
             // latestVersionDate = "(Unknown)";
             // latestVersionDescription = "";
         } catch (e: IllegalStateException) {
-            latestVersion = "(Unknown)"
+            latestVersion = UNKNOWN_VERSION
             e.printStackTrace()
         }
 

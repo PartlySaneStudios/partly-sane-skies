@@ -505,19 +505,12 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
 
     private var funFactDivideBar: UIComponent? = null
 
-    private class FunFact(
-        val title: String,
-        val description: String,
-    ) {
+    private class FunFact(val title: String, val description: String) {
         var titleComponent: UIComponent? = null
         var descriptionComponent: UIComponent? = null
     }
 
-    private fun displayFunFacts(
-        startX: XConstraint,
-        startY: YConstraint,
-        parent: UIComponent,
-    ) {
+    private fun displayFunFacts(startX: XConstraint, startY: YConstraint, parent: UIComponent) {
         val funFact = getFunFact()
         createFunFact(funFact, startX, startY, parent)
 
@@ -538,12 +531,7 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
 
     private class Lock : Object()
 
-    private fun createFunFact(
-        funFact: FunFact,
-        startX: XConstraint,
-        startY: YConstraint,
-        parent: UIComponent,
-    ) {
+    private fun createFunFact(funFact: FunFact, startX: XConstraint, startY: YConstraint, parent: UIComponent) {
         val funFactHeading =
             UIWrappedText().constrain {
                 x = startX
@@ -566,21 +554,12 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
         funFact.descriptionComponent = funFactText
     }
 
-    private class Announcement(
-        val title: String,
-        val description: String,
-        val date: String,
-        val link: String,
-    ) {
+    private class Announcement(val title: String, val description: String, val date: String, val link: String) {
         var titleComponent: UIWrappedText? = null
         var descriptionComponent: UIWrappedText? = null
     }
 
-    private fun displayAnnouncements(
-        startX: XConstraint,
-        startY: YConstraint,
-        parent: UIComponent,
-    ) {
+    private fun displayAnnouncements(startX: XConstraint, startY: YConstraint, parent: UIComponent) {
         Thread {
             val data = PublicDataManager.getFile("main_menu.json")
             val jsonObject = JsonParser().parse(data).asJsonObject
@@ -655,12 +634,7 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
         }
     }
 
-    override fun onDrawScreen(
-        matrixStack: UMatrixStack,
-        mouseX: Int,
-        mouseY: Int,
-        partialTicks: Float,
-    ) {
+    override fun onDrawScreen(matrixStack: UMatrixStack, mouseX: Int, mouseY: Int, partialTicks: Float) {
         super.onDrawScreen(matrixStack, mouseX, mouseY, partialTicks)
 
         val userZoneId = ZoneId.systemDefault()

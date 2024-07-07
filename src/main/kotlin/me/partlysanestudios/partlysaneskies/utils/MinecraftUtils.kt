@@ -71,10 +71,7 @@ object MinecraftUtils {
         Thread { PartlySaneSkies.minecraft.addScheduledTask { PartlySaneSkies.minecraft.displayGuiScreen(guiScreen) } }.start()
     }
 
-    private fun comparePlayers(
-        overlay1: NetworkPlayerInfo,
-        overlay2: NetworkPlayerInfo,
-    ): Int {
+    private fun comparePlayers(overlay1: NetworkPlayerInfo, overlay2: NetworkPlayerInfo): Int {
         val team1 = overlay1.playerTeam
         val team2 = overlay2.playerTeam
         return ComparisonChain
@@ -215,10 +212,7 @@ object MinecraftUtils {
         )
     }
 
-    fun isArrOfStringsInLore(
-        arr: Array<String?>,
-        lore: Array<String>,
-    ): Boolean {
+    fun isArrOfStringsInLore(arr: Array<String?>, lore: Array<String>): Boolean {
         for (line in lore) {
             for (arrItem in arr) {
                 if (line.contains(arrItem!!)) {

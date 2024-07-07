@@ -50,10 +50,7 @@ object ChatUtils {
      * @param text The message to send.
      * @param silent If true, Sends a message discretely without the Prefix Partly Sane Skies >:
      */
-    fun sendClientMessage(
-        text: String,
-        silent: Boolean = false,
-    ) {
+    fun sendClientMessage(text: String, silent: Boolean = false) {
         if (silent) {
             try {
                 sendClientMessage(ChatComponentText(text))

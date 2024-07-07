@@ -25,9 +25,7 @@ import net.minecraft.inventory.IInventory
 import net.minecraft.item.Item
 import java.awt.Color
 
-class AuctionHouseGui(
-    defaultAuctionInventory: IInventory,
-) : WindowScreen(ElementaVersion.V2) {
+class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(ElementaVersion.V2) {
     private val heightPercent = PartlySaneSkies.config.masterAuctionHouseScale
     private val sideBarHeightPercent = PartlySaneSkies.config.auctionHouseSideBarHeight
     private val sideBarWidthPercent = PartlySaneSkies.config.auctionHouseSideBarWidth
@@ -169,12 +167,7 @@ class AuctionHouseGui(
         return list
     }
 
-    override fun onDrawScreen(
-        matrixStack: UMatrixStack,
-        mouseX: Int,
-        mouseY: Int,
-        partialTicks: Float,
-    ) {
+    override fun onDrawScreen(matrixStack: UMatrixStack, mouseX: Int, mouseY: Int, partialTicks: Float) {
         super.onDrawScreen(matrixStack, mouseX, mouseY, partialTicks)
 
         itemInformationBar.update()

@@ -226,10 +226,7 @@ object VisitorTradeValue : SidePanel() {
         return -1
     }
 
-    private fun getItemCost(
-        itemId: String,
-        quantity: Int,
-    ): Double {
+    private fun getItemCost(itemId: String, quantity: Int): Double {
         return quantity * (getItem(itemId)?.getBuyPrice() ?: return 0.0)
     }
 

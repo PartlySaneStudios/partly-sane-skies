@@ -132,8 +132,7 @@ public class SkillUpgradeRecommendation {
 
     public static void registerCommand() {
         new PSSCommand("skillup")
-            .addAlias("skillu")
-            .addAlias("su")
+            .addAlias("skillu", "su")
             .setDescription("Recommends which skill to upgrade: /skillup [username]")
             .setRunnable(a -> {
                 ChatUtils.INSTANCE.sendClientMessage("Loading...");

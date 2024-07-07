@@ -35,10 +35,7 @@ class Config : ConfigOption() {
     private val options = LinkedHashMap<String, ConfigOption>()
 
     // Recursively create new options to get to the path
-    fun registerOption(
-        path: String,
-        configOption: ConfigOption,
-    ): Config {
+    fun registerOption(path: String, configOption: ConfigOption): Config {
         val indexOfSplit = path.indexOf("/")
 
         if (indexOfSplit == -1) {

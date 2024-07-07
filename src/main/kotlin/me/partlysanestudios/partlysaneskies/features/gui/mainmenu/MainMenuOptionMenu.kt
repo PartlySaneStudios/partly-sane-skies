@@ -31,9 +31,7 @@ import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 
-class MainMenuOptionMenu(
-    nextRunnable: Runnable,
-) : WindowScreen(ElementaVersion.V5) {
+class MainMenuOptionMenu(nextRunnable: Runnable) : WindowScreen(ElementaVersion.V5) {
     private val backgroundBox =
         UIBlock().constrain {
             x = CenterConstraint()
@@ -205,12 +203,7 @@ class MainMenuOptionMenu(
                 SystemUtils.openLink("https://github.com/PartlySaneStudios/partly-sane-skies")
             } childOf transparentBlock
 
-    override fun onDrawScreen(
-        matrixStack: UMatrixStack,
-        mouseX: Int,
-        mouseY: Int,
-        partialTicks: Float,
-    ) {
+    override fun onDrawScreen(matrixStack: UMatrixStack, mouseX: Int, mouseY: Int, partialTicks: Float) {
         super.onDrawScreen(matrixStack, mouseX, mouseY, partialTicks)
 
         val userZoneId = ZoneId.systemDefault()
