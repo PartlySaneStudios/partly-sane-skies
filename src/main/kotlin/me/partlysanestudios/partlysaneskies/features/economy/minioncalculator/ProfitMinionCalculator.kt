@@ -21,8 +21,7 @@ import java.awt.Color
 
 class ProfitMinionCalculator(version: ElementaVersion) : WindowScreen(version) {
     companion object {
-        val categories = listOf("ALL", "FORAGING", "MINING", "FISHING", "FARMING", "COMBAT")
-        val categoriesColorMap = hashMapOf(
+        val categories = mapOf(
             "ALL" to "§b",
             "FORAGING" to "§6",
             "MINING" to "§7",
@@ -30,8 +29,11 @@ class ProfitMinionCalculator(version: ElementaVersion) : WindowScreen(version) {
             "FARMING" to "§a",
             "COMBAT" to "§c",
         )
+
         private var hours = 24.0
-        private val uselessUpgrades = setOf("Auto-Smelter", "Compactor", "Super Compactor", "Dwarven Super Compactor")
+
+        private val uselessUpgrades = listOf("Auto-Smelter", "Compactor", "Super Compactor", "Dwarven Super Compactor")
+
         fun registerCommand() {
             PSSCommand("minioncalculator")
                 .addAlias("minioncalc", "bestminion", "mc")
@@ -41,6 +43,8 @@ class ProfitMinionCalculator(version: ElementaVersion) : WindowScreen(version) {
                     MinecraftUtils.displayGuiScreen(ProfitMinionCalculator(@Suppress("DEPRECATION") ElementaVersion.V2))
                 }.register()
         }
+
+        private val soulflowUpgrades = setOf(MinionData.Minion.Upgrade.LESSER_SOULFLOW_ENGINE, MinionData.Minion.Upgrade.SOULFLOW_ENGINE)
     }
 
     private var upgradeSlotsUnavailable = 0
@@ -55,8 +59,8 @@ class ProfitMinionCalculator(version: ElementaVersion) : WindowScreen(version) {
     private lateinit var categoriesBar: UIComponent
     private lateinit var bestMinionBar: UIComponent
     private var fuelToggles = HashMap<String, PSSToggle>()
-    private var minionTexts = mutableListOf<UIComponent>()
-    private var upgradeToggleMap = HashMap<MinionData.Minion.Upgrade, PSSToggle>()
+    private var minionTexts = listOf<UIComponent>()
+    private var upgradeToggleMap = mapOf<MinionData.Minion.Upgrade, PSSToggle>()
 
     init {
         setUpBackground()
@@ -125,67 +129,51 @@ class ProfitMinionCalculator(version: ElementaVersion) : WindowScreen(version) {
     }
 
     //    Adds the most profitable minion's text to the middle section. Also returns a list with the objects in order
-    fun addMinionBreakdownText(category: String): ArrayList<UIComponent> {
+    private fun addMinionBreakdownText(category: String) = buildList {
         selectedCategory = category
-        val components = ArrayList<UIComponent>()
-        //        Most profitable minions
-        val mostProfitableMinions: java.util.HashMap<MinionData.Minion, Double?> = MinionData.getMostProfitMinion(
-            upgrades,
-            selectedFuel,
-        )
-        var i = 1 // Rank
+        val mostProfitableMinions = MinionData.getBestMinions(upgrades, selectedFuel)
 
-        //        Starting y location
         var yPos = fromWidthScaleFactor(10f).value
-        //        Offset between the top of the text and the bar
         val barOffset = fromWidthScaleFactor(10f).value
-        //        Distance between the bar and the edge of the middle section
         val barNegation = fromWidthScaleFactor(66f).value
 
-        for ((key) in mostProfitableMinions) {
-            if (!(category == "ALL" || key.category == category)) {
-                continue
-            }
-            //            Creates a string with the Minion name, and it's cost breakdown
-            val str = "§7" + i + ". " + key.costBreakdown(key.maxTier, hours, upgrades, selectedFuel)
+        for ((index, pair) in mostProfitableMinions.withIndex()) {
+            val minion = pair.first
+            if (category != "ALL" && minion.category != category) continue
 
-            //            Creates a WrappedText object with said string
-            val text = UIWrappedText(str)
-                .setText(str)
-                .setX(PixelConstraint(leftBar.getRight() + fromWidthScaleFactor(7f).value)) // sets it 7 scales pixels off the right side of the left bar
+            val string = "§7${index+1}. ${minion.costBreakdown(minion.maxTier, hours, upgrades, selectedFuel)}"
+            val text = UIWrappedText(string)
+                .setText(string)
+                .setX(PixelConstraint(leftBar.getRight() + fromWidthScaleFactor(7f).value))
                 .setY(PixelConstraint(yPos))
-                .setWidth(PixelConstraint(rightBar.getLeft() - leftBar.getRight() - fromWidthScaleFactor(14f).value)) // set the width to the distance between the two bars with 7 scale pixels of padding on either side
-                .setTextScale(fromWidthScaleFactor(1f)) //Sets the text scale to 1 scale unit
+                .setWidth(PixelConstraint(rightBar.getLeft() - leftBar.getRight() - fromWidthScaleFactor(14f).value))
+                .setTextScale(fromWidthScaleFactor(1f))
                 .setColor(Color.WHITE)
                 .setTextScale(fromWidthScaleFactor(1f))
                 .setChildOf(mainTextScrollComponent)
 
-            //            Creates a line separating the text
             val border = UIBlock()
                 .setX(PixelConstraint(leftBar.getRight() - text.getLeft() + barNegation))
                 .setY(PixelConstraint(text.getHeight() + barOffset))
-                .setWidth(PixelConstraint(rightBar.getLeft() - leftBar.getRight() - 2 * barNegation)) // set the width to the distance between the two bars with barNegation scale pixels of padding on either side
+                .setWidth(PixelConstraint(rightBar.getLeft() - leftBar.getRight() - 2 * barNegation))
                 .setHeight(fromWidthScaleFactor(1f))
                 .setColor(accentColor.toJavaColor())
                 .setChildOf(text)
 
-            components.add(text)
+            add(text)
 
             yPos = border.getBottom() + barOffset - mainTextScrollComponent.getTop()
-            i++
         }
-
-        return components
     }
 
-    fun addFuelButtons(): java.util.HashMap<String, PSSToggle> {
+    private fun addFuelButtons(): java.util.HashMap<String, PSSToggle> {
         val components = java.util.HashMap<String, PSSToggle>()
 
         var yPos = fromWidthScaleFactor(5f).value
         val textPad = fromWidthScaleFactor(5f).value
         val buttonPad = fromWidthScaleFactor(7f).value
 
-        for ((_, value) in MinionData.fuelMap) {
+        for (value in MinionData.fuelMap.values) {
             val fuelId = value.id
             val fuelItem = getItem(fuelId) ?: continue
 
@@ -228,8 +216,8 @@ class ProfitMinionCalculator(version: ElementaVersion) : WindowScreen(version) {
         return components
     }
 
-    fun addMinionUpgradeButtons(): java.util.HashMap<MinionData.Minion.Upgrade, PSSToggle> {
-        val components = java.util.HashMap<MinionData.Minion.Upgrade, PSSToggle>()
+    private fun addMinionUpgradeButtons(): Map<MinionData.Minion.Upgrade, PSSToggle> {
+        val components = mutableMapOf<MinionData.Minion.Upgrade, PSSToggle>()
 
         var yPos = fromWidthScaleFactor(5f).value
         val textPad = fromWidthScaleFactor(5f).value
@@ -286,12 +274,12 @@ class ProfitMinionCalculator(version: ElementaVersion) : WindowScreen(version) {
         return components
     }
 
-    fun addCategories() {
+    private fun addCategories() {
         val pad = fromWidthScaleFactor(10f).value
         val blockWidth = (categoriesBar.getWidth() - (categories.size + 1) * pad) / categories.size
 
         var xPos = pad
-        for (category in categories) {
+        for ((category, color) in categories) {
             val button = PSSButton()
                 .setX(PixelConstraint(xPos))
                 .setY(CenterConstraint())
@@ -299,7 +287,7 @@ class ProfitMinionCalculator(version: ElementaVersion) : WindowScreen(version) {
                 .setHeight(PixelConstraint(categoriesBar.getHeight() * .9f))
                 .setChildOf(categoriesBar)
 
-            button.setText(categoriesColorMap[category] + category.titleCase())
+            button.setText(color + category.titleCase())
 
             button.onMouseClickConsumer {
                 selectedCategory = category
@@ -310,7 +298,7 @@ class ProfitMinionCalculator(version: ElementaVersion) : WindowScreen(version) {
         }
     }
 
-    fun addBestMinionCalculator() {
+    private fun addBestMinionCalculator() {
         var heightPos = 0f
         val yPad = fromWidthScaleFactor(6f).value
 
@@ -360,70 +348,39 @@ class ProfitMinionCalculator(version: ElementaVersion) : WindowScreen(version) {
 
     //    Sets the upgrades array to the current selected upgrade at index 0, and the
     //    second most recently selected upgrade at index 1
-    fun changeUpgrade(selectedUpgrade: MinionData.Minion.Upgrade?) {
+    private fun changeUpgrade(selectedUpgrade: MinionData.Minion.Upgrade?) {
         mainTextScrollComponent.scrollToTop(false)
 
         val prevUpgrade = upgrades.firstOrNull()
-
         resetUpgradeToggles()
 
-        val temp = java.util.ArrayList<MinionData.Minion.Upgrade>()
-        //        If the selected upgrade is not equal to null, add it
-        if (selectedUpgrade != null) {
-            temp.add(selectedUpgrade)
-        }
-        if (prevUpgrade != null) {
-            temp.add(prevUpgrade)
-        }
-
-        //        Creates a new upgrade array with the right size
-        upgrades = listOf()
-
-        //        Adds all selected upgrades to the upgrade array
-        for (i in temp.indices) {
-            upgrades += temp[i]
-        }
-
-        //        Resets all the toggles
-        resetUpgradeToggles()
-
-        //        Enables the selected toggles
-        for (up in upgrades) {
-            upgradeToggleMap[up]!!.setState(true)
-        }
-
-        //        Refreshes minion data
-        minionTexts = updateMinionData()
+        upgrades = listOfNotNull(
+            selectedUpgrade,
+            prevUpgrade
+        )
+        upgrades.forEach { upgradeToggleMap[it]?.setState(true) }
     }
 
-    fun resetFuelToggles() {
-        for (toggle in fuelToggles.values) {
-            toggle.setState(false)
-        }
-    }
+    private fun resetFuelToggles() = fuelToggles.values.forEach { it.setState(false) }
 
-    fun resetUpgradeToggles() {
-        for (toggle in upgradeToggleMap.values) {
-            toggle.setState(false)
-        }
-    }
+    private fun resetUpgradeToggles() = upgradeToggleMap.values.forEach { it.setState(false) }
 
-    fun resetFuels() {
+    private fun resetFuels() {
         selectedFuel = null
         resetFuelToggles()
     }
 
-    fun resetUpgrades() {
+    private fun resetUpgrades() {
         upgrades = listOf()
         resetUpgradeToggles()
     }
 
-    fun changeFuel(fuelId: String?, state: Boolean) {
+    private fun changeFuel(fuelId: String?, state: Boolean) {
         mainTextScrollComponent.scrollToTop(false)
         resetFuelToggles()
         val toggle = fuelToggles[fuelId]
         selectedFuel = null
-        toggle!!.setState(state)
+        toggle?.setState(state)
         if (state) {
             selectedFuel = MinionData.fuelMap[fuelId]
         }
@@ -431,74 +388,53 @@ class ProfitMinionCalculator(version: ElementaVersion) : WindowScreen(version) {
         minionTexts = updateMinionData()
     }
 
-    fun updateMinionData(): MutableList<UIComponent> {
+    private fun updateMinionData(): List<UIComponent> {
         for (minionText in minionTexts) {
             minionText.clearChildren()
             minionText.parent.removeChild(minionText)
         }
-        minionTexts.clear()
+        minionTexts = listOf()
 
         return addMinionBreakdownText(selectedCategory)
     }
 
-    private fun fromWidthScaleFactor(pos: Float): PixelConstraint {
-        return PixelConstraint((pos * (window.getWidth() / 1000.0)).toFloat())
-    }
+    private fun fromWidthScaleFactor(pos: Float): PixelConstraint = PixelConstraint((pos * (window.getWidth() / 1000.0)).toFloat())
 
-    fun getBestMinionSettings() {
-        val bestProfit = Int.MIN_VALUE.toDouble()
-
-        var availableSlots = 2 - upgradeSlotsUnavailable
-        if (availableSlots < 0) {
-            availableSlots = 0
-        }
-
+    private fun getBestMinionSettings() {
+        val availableSlots = (2 - upgradeSlotsUnavailable).coerceAtLeast(0)
 
         var bestUpgrades = listOf<MinionData.Minion.Upgrade>()
         var bestMinionFuel: MinionData.MinionFuel? = null
+        var bestProfit = Double.NEGATIVE_INFINITY
 
-        var possibleCombos: Long = 0
-        for (fuel in MinionData.fuelMap.values) { // Best fuel
-            for (upgrade1 in MinionData.Minion.Upgrade.entries) { // Best upgrade 1
-                for (upgrade2 in MinionData.Minion.Upgrade.entries) { // Best Upgrade 2;
-                    possibleCombos++
-                    if (upgrade1 == upgrade2) {
-                        continue
-                    }
-                    if (upgrade1 == MinionData.Minion.Upgrade.LESSER_SOULFLOW_ENGINE && upgrade2 == MinionData.Minion.Upgrade.SOULFLOW_ENGINE) {
-                        continue
-                    }
-                    if (upgrade2 == MinionData.Minion.Upgrade.LESSER_SOULFLOW_ENGINE && upgrade1 == MinionData.Minion.Upgrade.SOULFLOW_ENGINE) {
-                        continue
-                    }
-
-                    var testUpgrades: List<MinionData.Minion.Upgrade> = listOf()
-                    when (availableSlots) {
-                        0 -> testUpgrades = listOf()
-                        1 -> testUpgrades = listOf(upgrade1)
-                        2 -> testUpgrades = listOf(upgrade1, upgrade2)
-                    }
-
-                    MinionData.getBestMinions(testUpgrades, fuel).maxByOrNull { it.second }?.let { (_ , bestPrice) ->
-                        if (bestPrice > bestProfit) {
-                            bestUpgrades = testUpgrades
-                            bestMinionFuel = fuel
-                        }
-                    }
-
-                    println(testUpgrades)
+        for (fuel in MinionData.fuelMap.values) {
+            for (upgrades in getUpgradeCombinations(availableSlots)) {
+                val profit = MinionData.getBestMinions(upgrades, fuel).maxByOrNull { it.second }?.second ?: continue
+                if (profit > bestProfit) {
+                    bestProfit = profit
+                    bestUpgrades = upgrades
+                    bestMinionFuel = fuel
                 }
             }
         }
 
         resetFuels()
-        bestMinionFuel?.let {
-            changeFuel(it.id, true)
-        }
+        bestMinionFuel?.let { changeFuel(it.id, true) }
 
         resetUpgrades()
-        for (upgrade in bestUpgrades) {
-            changeUpgrade(upgrade)
+        bestUpgrades.forEach { changeUpgrade(it) }
+    }
+
+    private fun getUpgradeCombinations(availableSlots: Int): List<List<MinionData.Minion.Upgrade>> {
+        val upgrades = MinionData.Minion.Upgrade.entries
+        return when (availableSlots) {
+            1 -> upgrades.map { listOf(it) }
+            2 -> upgrades.flatMap { first ->
+                upgrades.filter { second ->
+                    first != second && !(first in soulflowUpgrades && second in soulflowUpgrades)
+                }.map { listOf(first, it) }
+            }
+            else -> listOf()
         }
     }
 }

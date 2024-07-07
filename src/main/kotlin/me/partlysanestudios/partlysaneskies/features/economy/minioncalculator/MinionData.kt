@@ -13,22 +13,18 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
 object MinionData {
-    // A hashmap with the key as the minion id, and the value as the minion object
+
     private val minionMap = mutableMapOf<String, Minion>()
 
-    // A hashmap with the key as the id of the fuel, and the value as the fuel object
     internal val fuelMap = mutableMapOf<String, MinionFuel>()
 
-    // The URL with the location of the minion data
     private const val MINIONS_DATA_URL = "constants/minion_data.json"
-
-    // init: runs before the request ------ CALL THIS TO INIT
 
     fun getMostProfitMinionString(hours: Double, upgrades: List<Minion.Upgrade>, fuel: MinionFuel?) = buildString {
         append("§7In §6$hours§7 hour(s): (Upgrade:${upgrades})")
         val mostProfitableMinions = getBestMinions(upgrades, fuel)
 
-        mostProfitableMinions.forEachIndexed { i, (minion, _) ->
+        mostProfitableMinions.forEachIndexed { i, (minion) ->
             append("\n\n§7${i+1}.${minion.costBreakdown(minion.maxTier, hours, upgrades, fuel)}")
         }
     }
@@ -37,35 +33,6 @@ object MinionData {
         minionMap.map { (_, minion) ->
             minion to minion.getTotalProfitPerMinute(minion.maxTier, upgrade, fuel)
         }.sortedByDescending { it.second }
-
-
-    @JvmStatic // TODO: replace with getBestMinions
-    fun getMostProfitMinion(upgrades: List<Minion.Upgrade>, fuel: MinionFuel?): LinkedHashMap<Minion, Double> {
-        val priceMap = HashMap<Minion, Double>()
-
-        for ((_, minion) in minionMap) {
-            priceMap[minion] = minion.getTotalProfitPerMinute(minion.maxTier, upgrades, fuel)
-        }
-        return sortMap(priceMap)
-    }
-
-
-    @JvmStatic
-    fun getMinion(id: String): Minion? = minionMap[id]
-
-    // TODO: remove
-    // Sorts the hashmap in descending order
-    @JvmStatic
-    fun sortMap(map: HashMap<Minion, Double>): LinkedHashMap<Minion, Double> {
-        val list = map.entries.sortedByDescending { it.value }
-
-        val sortedMap = LinkedHashMap<Minion, Double>()
-        for (entry in list) {
-            sortedMap[entry.key] = entry.value
-        }
-
-        return sortedMap
-    }
 
     // Runs after the request
     @SubscribePSSEvent
@@ -93,7 +60,7 @@ object MinionData {
     }
 
     class Minion(val id: String, obj: JsonObject) {
-        val displayName: String = obj.getJsonFromPath("/display_name")?.asString ?: id
+        val displayName: String = obj.getJsonFromPath("/displayName")?.asString ?: id
         private val drops = mutableMapOf<String, Double>()
         private val cooldowns = mutableMapOf<Int, Duration>()
         internal val category: String = obj.getJsonFromPath("/category")?.asString ?: ""
