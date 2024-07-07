@@ -58,7 +58,7 @@ class ProfitMinionCalculator(version: ElementaVersion) : WindowScreen(version) {
     private lateinit var rightBar: UIComponent
     private lateinit var categoriesBar: UIComponent
     private lateinit var bestMinionBar: UIComponent
-    private var fuelToggles = HashMap<String, PSSToggle>()
+    private var fuelToggles = mapOf<String, PSSToggle>()
     private var minionTexts = listOf<UIComponent>()
     private var upgradeToggleMap = mapOf<MinionData.Minion.Upgrade, PSSToggle>()
 
@@ -166,9 +166,7 @@ class ProfitMinionCalculator(version: ElementaVersion) : WindowScreen(version) {
         }
     }
 
-    private fun addFuelButtons(): java.util.HashMap<String, PSSToggle> {
-        val components = java.util.HashMap<String, PSSToggle>()
-
+    private fun addFuelButtons() = buildMap {
         var yPos = fromWidthScaleFactor(5f).value
         val textPad = fromWidthScaleFactor(5f).value
         val buttonPad = fromWidthScaleFactor(7f).value
@@ -208,12 +206,10 @@ class ProfitMinionCalculator(version: ElementaVersion) : WindowScreen(version) {
                 toggle.toggleState()
                 changeFuel(fuelId, toggle.getState())
             }
-            components[fuelId] = toggle
+            put(fuelId, toggle)
 
             yPos = fuelContainer.component.getBottom() + buttonPad - mainTextScrollComponent.getTop()
         }
-
-        return components
     }
 
     private fun addMinionUpgradeButtons(): Map<MinionData.Minion.Upgrade, PSSToggle> {
