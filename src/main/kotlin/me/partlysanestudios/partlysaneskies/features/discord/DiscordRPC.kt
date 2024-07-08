@@ -109,7 +109,6 @@ object DiscordRPC {
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
-            } finally {
             }
 
             try {

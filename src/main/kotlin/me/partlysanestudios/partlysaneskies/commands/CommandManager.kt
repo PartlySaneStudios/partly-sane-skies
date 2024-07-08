@@ -26,25 +26,15 @@ object CommandManager {
                 override fun getCommandAliases(): List<String> = pssCommand.aliases
 
                 @Throws(CommandException::class)
-                override fun processCommand(
-                    sender: ICommandSender,
-                    args: Array<String>,
-                ) {
+                override fun processCommand(sender: ICommandSender, args: Array<String>) {
                     pssCommand.runRunnable(args)
                 }
 
                 override fun canCommandSenderUseCommand(sender: ICommandSender): Boolean = true
 
-                override fun addTabCompletionOptions(
-                    sender: ICommandSender,
-                    args: Array<String>,
-                    pos: BlockPos,
-                ): List<String> = ArrayList()
+                override fun addTabCompletionOptions(sender: ICommandSender, args: Array<String>, pos: BlockPos): List<String> = ArrayList()
 
-                override fun isUsernameIndex(
-                    args: Array<String>,
-                    index: Int,
-                ): Boolean = false
+                override fun isUsernameIndex(args: Array<String>, index: Int): Boolean = false
 
                 override fun compareTo(other: ICommand): Int = commandName.compareTo(other.commandName)
             }

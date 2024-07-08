@@ -77,8 +77,7 @@ object MathematicalHoeRightClicks {
 
     fun registerCommand() {
         PSSCommand("allowhoerightclick")
-            .addAlias("allowhoerightclicks")
-            .addAlias("ahrc")
+            .addAlias("allowhoerightclicks", "ahrc")
             .setDescription("Allows hoe right clicks for a few minutes")
             .setRunnable {
                 val canRightClickHoe =

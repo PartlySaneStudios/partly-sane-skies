@@ -46,9 +46,9 @@ data class WebhookData(
                     ChatUtils.sendClientMessage("Discord Webhook sent")
                 },
                 WebhookSerializer.serialize(this),
-                false,
-                false,
-                true,
+                inMainThread = false,
+                executeOnNextFrame = false,
+                acceptAllCertificates = true,
             ),
         )
     }

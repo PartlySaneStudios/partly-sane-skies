@@ -35,9 +35,7 @@ object NoCookieWarning {
                 return 0
             }
         }
-        return if (minecraft.ingameGUI.tabList.footer.siblings
-                .isEmpty()
-        ) {
+        return if (minecraft.ingameGUI.tabList.footer.siblings.isEmpty()) {
             -1
         } else {
             1

@@ -34,16 +34,15 @@ object ExampleWebhook : Webhook() {
                     description = "Test Description",
                     url = "https://www.google.com",
                     color = 0xFF00FF,
-                    fields =
-                        listOf(
-                            EmbedField(
-                                name = "Test Field Name",
-                                value = "Test Field Value",
-                                inline = true,
-                            ),
-                        ),
-                ),
-            ),
+                    fields = listOf(
+                        EmbedField(
+                            name = "Test Field Name",
+                            value = "Test Field Value",
+                            inline = true
+                        )
+                    )
+                )
+            )
         ).send()
     }
 

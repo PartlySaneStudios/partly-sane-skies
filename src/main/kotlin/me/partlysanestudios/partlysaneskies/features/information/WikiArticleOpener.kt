@@ -75,3 +75,5 @@ object WikiArticleOpener {
 // hi ca_mo - j10a
 
 // Nearly forgot camo. Camo is now in kt (even better than full hd) - Su386
+
+// hi ca_mo!!! - empa

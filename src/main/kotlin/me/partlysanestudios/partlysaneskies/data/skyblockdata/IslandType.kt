@@ -46,8 +46,7 @@ enum class IslandType(val islandName: String) {
                         .replace("Dungeon: ", "")
                         .trim()
 
-                    return IslandType.entries.firstOrNull { it.islandName.equals(islandName, ignoreCase = true) }
-                        ?: NONE
+                    return IslandType.entries.firstOrNull { it.islandName.equals(islandName, ignoreCase = true) } ?: NONE
                 }
             }
 

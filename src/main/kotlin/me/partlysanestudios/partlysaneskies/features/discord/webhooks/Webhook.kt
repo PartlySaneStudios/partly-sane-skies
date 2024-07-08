@@ -12,9 +12,7 @@ import me.partlysanestudios.partlysaneskies.config.psconfig.Toggle
 import me.partlysanestudios.partlysaneskies.config.psconfig.Toggle.Companion.asBoolean
 import me.partlysanestudios.partlysaneskies.config.psconfig.Toggle.Companion.asToggle
 
-abstract class Webhook(
-    defaultEnabledState: Boolean = false,
-) {
+abstract class Webhook(defaultEnabledState: Boolean = false) {
     companion object {
         private const val WEBHOOK_FOLDER_PATH = "webhooks/"
     }

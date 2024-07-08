@@ -25,13 +25,12 @@ import java.awt.Color
 
 object DropWebhook : Webhook() {
     override val icon
-        get() =
-            PSSItemRender(ItemStack(Items.gold_ingot), true).constrain {
-                width = 80.percent
-                height = 80.percent
-                x = CenterConstraint()
-                y = CenterConstraint()
-            }
+        get() = PSSItemRender(ItemStack(Items.gold_ingot), true).constrain {
+            width = 80.percent
+            height = 80.percent
+            x = CenterConstraint()
+            y = CenterConstraint()
+        }
 
     override val id: String = "rngdrop"
     override val name: String = "RNG Drop"
@@ -59,33 +58,25 @@ object DropWebhook : Webhook() {
         val name = drop.name
         val description = "${drop.magicFind}% ✯ Magic Find!"
 
-        val color =
-            if (drop.dropRarity == Rarity.UNKNOWN) {
-                Color.white.asHex
-            } else {
-                drop.dropRarity.colorCode
-                    .colorCodeToColor()
-                    .asHex
-            }
+        val color = if (drop.dropRarity == Rarity.UNKNOWN) Color.white.asHex else drop.dropRarity.colorCode.colorCodeToColor().asHex
 
         WebhookData(
             url = PartlySaneSkies.config.discordWebhookURL,
             content = " ",
-            embedData =
-                listOf(
-                    EmbedData(
-                        title = title,
-                        color = color,
-                        fields =
-                            listOf(
-                                EmbedField(
-                                    name = name,
-                                    value = description,
-                                    inline = true,
-                                ),
+            embedData = listOf(
+                EmbedData(
+                    title = title,
+                    color = color,
+                    fields =
+                        listOf(
+                            EmbedField(
+                                name = name,
+                                value = description,
+                                inline = true,
                             ),
-                    ),
+                        ),
                 ),
+            ),
         ).send()
     }
 

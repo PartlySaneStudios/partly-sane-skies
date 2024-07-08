@@ -16,10 +16,7 @@ object ConfigManager {
     private val configs = HashMap<String, Config>()
 
     // Save path should not include the /config/partly-sane-skies/
-    fun registerNewConfig(
-        savePath: String,
-        config: Config,
-    ) {
+    fun registerNewConfig(savePath: String, config: Config) {
         var path = savePath
         if (savePath.startsWith("/")) {
             path = savePath.substring(1)

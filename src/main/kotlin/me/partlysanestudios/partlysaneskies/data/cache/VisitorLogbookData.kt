@@ -103,22 +103,19 @@ object VisitorLogbookData {
                 }
             }
 
-            val texture =
-                item.tagCompound
-                    ?.getCompoundTag("SkullOwner")
-                    ?.getCompoundTag("Properties")
-                    ?.getTagList("textures", 10)
-                    ?.getCompoundTagAt(0)
-                    ?.getString("Value") ?: ""
+            val texture = item.tagCompound
+                ?.getCompoundTag("SkullOwner")
+                ?.getCompoundTag("Properties")
+                ?.getTagList("textures", 10)
+                ?.getCompoundTagAt(0)
+                ?.getString("Value") ?: ""
 
             val visitor = Visitor(displayName, rarity, texture, timesVisited, timesAccepted)
             data?.visitors?.set("$displayName+$texture", visitor)
         }
 
         Thread(
-            {
-                save()
-            },
+            { save() },
             "Visitor Data Save",
         ).start()
     }

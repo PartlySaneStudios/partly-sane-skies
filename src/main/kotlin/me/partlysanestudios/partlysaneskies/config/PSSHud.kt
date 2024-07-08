@@ -53,10 +53,7 @@ abstract class PSSHud(
                 this@PSSHud.example = example
             }
 
-            override fun getWidth(
-                scale: Float,
-                example: Boolean,
-            ): Float =
+            override fun getWidth(scale: Float, example: Boolean): Float =
                 try {
                     this@PSSHud.getWidth(scale, example)
                 } catch (e: Exception) {
@@ -64,10 +61,7 @@ abstract class PSSHud(
                     0.0F
                 }
 
-            override fun getHeight(
-                scale: Float,
-                example: Boolean,
-            ): Float =
+            override fun getHeight(scale: Float, example: Boolean): Float =
                 try {
                     this@PSSHud.getHeight(scale, example)
                 } catch (e: Exception) {
