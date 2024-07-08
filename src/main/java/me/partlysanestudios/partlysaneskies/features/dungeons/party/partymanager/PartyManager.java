@@ -60,11 +60,8 @@ public class PartyManager {
     public static void registerCommand() {
         new PSSCommand("partymanager")
             .addAlias("pm", "partypm")
-            .addAlias("partym")
             .setDescription("Opens the Party Manager")
-            .setRunnable(a -> {
-                PartyManager.startPartyManager();
-            })
+            .setRunnable(a -> PartyManager.startPartyManager())
             .register();
     }
 
