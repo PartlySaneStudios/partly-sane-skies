@@ -192,7 +192,7 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
         currentFilter
             .filter { it.contains(activeFiltersSearchBar.getText(), ignoreCase = true) }
             .forEach { filter ->
-                UIText("§cx").constrain {
+                val xText = UIText("§cx").constrain {
                     x = 0.percent
                     y = SiblingConstraint(4f)
                 }.onMouseClick {
@@ -201,10 +201,16 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
                     updateFilterList()
                 } childOf activeFiltersScrollComponent
 
-                UIText(filter).constrain {
+                val filterText = UIText(filter).constrain {
                     x = 5.percent
                     y = CramSiblingConstraint()
                 } childOf activeFiltersScrollComponent
+                
+                xText.onMouseEnter {
+                    filterText.setText("§m$filter")
+                }.onMouseLeave {
+                    filterText.setText(filter)
+                }
             }
     }
 }
