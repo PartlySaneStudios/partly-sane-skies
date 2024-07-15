@@ -563,7 +563,7 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
                 width = 100.percent
                 textScale = 1.33.scaledPixels
             }.setText(
-                "§8${announcement.date}§r\n§7${announcement.description}"
+                "§8${announcement.date}§r\n§7${announcement.description.replace("\n", "\n§7")}"
             ).onMouseClick {
                 SystemUtils.openLink(announcement.link)
             } childOf title
