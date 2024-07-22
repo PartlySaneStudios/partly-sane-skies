@@ -65,8 +65,8 @@ object EventManager {
     @SubscribePSSEvent
     fun onChat(event: PSSChatEvent) {
         val message = event.message
-        DungeonStartEvent.onMessageRecieved(registeredFunctions[DungeonStartEvent::class] ?: ArrayList(), message)
-        DungeonEndEvent.onMessageRecieved(registeredFunctions[DungeonEndEvent::class] ?: ArrayList(), message)
+        DungeonStartEvent.onMessageReceived(registeredFunctions[DungeonStartEvent::class] ?: ArrayList(), message)
+        DungeonEndEvent.onMessageReceived(registeredFunctions[DungeonEndEvent::class] ?: ArrayList(), message)
         MinesEvent.onMessageReceived(registeredFunctions[MinesEvent::class] ?: ArrayList(), message)
     }
 
