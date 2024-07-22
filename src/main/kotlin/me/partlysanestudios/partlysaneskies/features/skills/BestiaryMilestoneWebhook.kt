@@ -11,6 +11,8 @@ import gg.essential.elementa.dsl.percent
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.config.psconfig.Toggle
 import me.partlysanestudios.partlysaneskies.config.psconfig.Toggle.Companion.asBoolean
+import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
+import me.partlysanestudios.partlysaneskies.events.minecraft.PSSChatEvent
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.EmbedData
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.EmbedField
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.Webhook
@@ -21,8 +23,6 @@ import me.partlysanestudios.partlysaneskies.utils.StringUtils.romanNumeralToInt
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.toRoman
 import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
-import net.minecraftforge.client.event.ClientChatReceivedEvent
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import java.awt.Color
 
 object BestiaryMilestoneWebhook : Webhook() {
@@ -46,11 +46,11 @@ object BestiaryMilestoneWebhook : Webhook() {
 
     private val regex = "§8(\\w+)➡§e(\\w+)".toRegex()
 
-    @SubscribeEvent
-    fun onChatMessage(event: ClientChatReceivedEvent) {
+    @SubscribePSSEvent
+    fun onChatMessage(event: PSSChatEvent) {
         if (!enabled) return
 
-        val message = event.message.formattedText
+        val message = event.message
         if (message.contains("§lBESTIARY MILESTONE")) {
             headingMessageSent = true
             return

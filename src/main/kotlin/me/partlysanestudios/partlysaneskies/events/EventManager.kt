@@ -6,12 +6,14 @@
 
 package me.partlysanestudios.partlysaneskies.events
 
+import me.partlysanestudios.partlysaneskies.events.minecraft.PSSChatEvent
 import me.partlysanestudios.partlysaneskies.events.minecraft.render.RenderWaypointEvent
 import me.partlysanestudios.partlysaneskies.events.skyblock.dungeons.DungeonEndEvent
 import me.partlysanestudios.partlysaneskies.events.skyblock.dungeons.DungeonStartEvent
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
 import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.client.event.RenderWorldLastEvent
+import net.minecraftforge.fml.common.eventhandler.EventPriority
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import org.apache.logging.log4j.Level
 import kotlin.reflect.KClass
@@ -33,7 +35,7 @@ object EventManager {
             if (functionParameters.size != 2) { // if there is not only 1 parameter (param 1 is always the instance parameter
                 log(
                     Level.WARN,
-                    "Unable to add ${function.name} due to incorrect number of function parameters (${functionParameters.size}"
+                    "Unable to add ${function.name} due to incorrect number of function parameters (${functionParameters.size}",
                 )
                 continue
             }
@@ -51,13 +53,20 @@ object EventManager {
     fun onScreenRender(event: RenderWorldLastEvent) {
         RenderWaypointEvent.onEventCall(
             event.partialTicks,
-            registeredFunctions[RenderWaypointEvent::class] ?: ArrayList()
+            registeredFunctions[RenderWaypointEvent::class] ?: ArrayList(),
         )
     }
 
-    @SubscribeEvent
-    fun onChatRecievedEvent(event: ClientChatReceivedEvent) {
-        val message = event.message.formattedText
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    fun onChatReceivedEvent(event: ClientChatReceivedEvent) {
+        if (event.type.toInt() != 0) return
+
+        PSSChatEvent.onMessageReceived(registeredFunctions[PSSChatEvent::class] ?: ArrayList(), event.message)
+    }
+
+    @SubscribePSSEvent
+    fun onChat(event: PSSChatEvent) {
+        val message = event.message
         DungeonStartEvent.onMessageRecieved(registeredFunctions[DungeonStartEvent::class] ?: ArrayList(), message)
         DungeonEndEvent.onMessageRecieved(registeredFunctions[DungeonEndEvent::class] ?: ArrayList(), message)
     }
