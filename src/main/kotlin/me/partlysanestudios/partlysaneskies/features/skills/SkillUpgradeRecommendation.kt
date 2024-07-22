@@ -99,8 +99,7 @@ object SkillUpgradeRecommendation {
 
     fun registerCommand() {
         PSSCommand("skillup")
-            .addAlias("skillu")
-            .addAlias("su")
+            .addAlias("skillu", "su")
             .setDescription("Recommends which skill to upgrade: /skillup [username]")
             .setRunnable { args: Array<String> ->
                 sendClientMessage("Loading...")
