@@ -8,7 +8,6 @@ package me.partlysanestudios.partlysaneskies.events.skyblock.mining
 
 import me.partlysanestudios.partlysaneskies.events.EventManager
 import me.partlysanestudios.partlysaneskies.features.mining.events.MiningEvent
-import me.partlysanestudios.partlysaneskies.utils.ChatUtils
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils.inAdvancedMiningIsland
 
 class MinesEvent(val miningEvent: MiningEvent) {
@@ -19,10 +18,8 @@ class MinesEvent(val miningEvent: MiningEvent) {
             MiningEvent.entries
                 .firstOrNull { it.triggeredEvent(formattedMessage) }
                 ?.let { event ->
-                    ChatUtils.sendClientMessage("Triggered event: ${event.event}")
                     for (function in functionList) {
                         try {
-                            ChatUtils.sendClientMessage("Calling function: ${function.function.name}")
                             function.function.call(function.obj, MinesEvent(event))
                         } catch (e: Exception) {
                             e.printStackTrace()
