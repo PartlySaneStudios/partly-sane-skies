@@ -4,7 +4,7 @@ import me.partlysanestudios.partlysaneskies.events.EventManager
 
 class DungeonEndEvent {
     companion object {
-        internal fun onMessageRecieved(functionList: List<EventManager.EventFunction>, formattedMessage: String) {
+        internal fun onMessageReceived(functionList: List<EventManager.EventFunction>, formattedMessage: String) {
             if (formattedMessage.contains("§r§c☠ §r§eDefeated §r")) {
                 for (function in functionList) {
                     try {

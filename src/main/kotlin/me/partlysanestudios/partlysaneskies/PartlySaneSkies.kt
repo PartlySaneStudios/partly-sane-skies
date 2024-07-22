@@ -82,11 +82,11 @@ import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.DropB
 import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.DropWebhook
 import me.partlysanestudios.partlysaneskies.features.gui.mainmenu.PSSMainMenu
 import me.partlysanestudios.partlysaneskies.features.information.WikiArticleOpener
-import me.partlysanestudios.partlysaneskies.features.mining.MiningEvents
 import me.partlysanestudios.partlysaneskies.features.mining.PickaxeWarning
 import me.partlysanestudios.partlysaneskies.features.mining.crystalhollows.WormWarning
 import me.partlysanestudios.partlysaneskies.features.mining.crystalhollows.gemstonewaypoints.GemstoneData
 import me.partlysanestudios.partlysaneskies.features.mining.crystalhollows.gemstonewaypoints.GemstoneWaypointRender
+import me.partlysanestudios.partlysaneskies.features.mining.events.MiningEventNotifier
 import me.partlysanestudios.partlysaneskies.features.security.PrivacyMode
 import me.partlysanestudios.partlysaneskies.features.security.modschecker.ModChecker
 import me.partlysanestudios.partlysaneskies.features.skills.BestiaryLevelUpWebhook
@@ -230,7 +230,6 @@ class PartlySaneSkies {
         registerEvent(this)
         registerEvent(PartyManager())
         registerEvent(PartyFriendManager())
-        registerEvent(MiningEvents())
         registerEvent(MinionData())
         registerEvent(SkyblockDataManager)
         registerEvent(DropBannerDisplay)
@@ -273,6 +272,7 @@ class PartlySaneSkies {
         registerEvent(PSSMainMenu)
         registerEvent(WrongToolCropWarning.CropToolData)
         registerEvent(PetAlert)
+        registerEvent(MiningEventNotifier)
         registerEvent(SkillUpgradeWebhook)
         registerEvent(CropMilestoneWebhook)
         registerEvent(BestiaryMilestoneWebhook)

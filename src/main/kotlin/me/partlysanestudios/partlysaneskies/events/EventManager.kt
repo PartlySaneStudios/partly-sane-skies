@@ -10,6 +10,7 @@ import me.partlysanestudios.partlysaneskies.events.minecraft.PSSChatEvent
 import me.partlysanestudios.partlysaneskies.events.minecraft.render.RenderWaypointEvent
 import me.partlysanestudios.partlysaneskies.events.skyblock.dungeons.DungeonEndEvent
 import me.partlysanestudios.partlysaneskies.events.skyblock.dungeons.DungeonStartEvent
+import me.partlysanestudios.partlysaneskies.events.skyblock.mining.MinesEvent
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
 import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.client.event.RenderWorldLastEvent
@@ -51,10 +52,7 @@ object EventManager {
 
     @SubscribeEvent
     fun onScreenRender(event: RenderWorldLastEvent) {
-        RenderWaypointEvent.onEventCall(
-            event.partialTicks,
-            registeredFunctions[RenderWaypointEvent::class] ?: ArrayList(),
-        )
+        RenderWaypointEvent.onEventCall(event.partialTicks, registeredFunctions[RenderWaypointEvent::class] ?: ArrayList())
     }
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
@@ -69,6 +67,7 @@ object EventManager {
         val message = event.message
         DungeonStartEvent.onMessageRecieved(registeredFunctions[DungeonStartEvent::class] ?: ArrayList(), message)
         DungeonEndEvent.onMessageRecieved(registeredFunctions[DungeonEndEvent::class] ?: ArrayList(), message)
+        MinesEvent.onMessageReceived(registeredFunctions[MinesEvent::class] ?: ArrayList(), message)
     }
 
     internal class EventFunction(val obj: Any, val function: KFunction<*>)
