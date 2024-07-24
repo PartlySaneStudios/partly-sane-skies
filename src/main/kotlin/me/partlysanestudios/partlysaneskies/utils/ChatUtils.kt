@@ -7,10 +7,10 @@
 package me.partlysanestudios.partlysaneskies.utils
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
+import me.partlysanestudios.partlysaneskies.events.minecraft.PSSChatEvent
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import net.minecraft.util.ChatComponentText
 import net.minecraft.util.IChatComponent
-import net.minecraftforge.client.event.ClientChatReceivedEvent
 import org.apache.logging.log4j.Level
 import java.awt.Toolkit
 import java.awt.datatransfer.StringSelection
@@ -44,7 +44,7 @@ object ChatUtils {
 
 
 
-    val ClientChatReceivedEvent.trueUnformattedMessage get() = this.message.unformattedText.removeColorCodes()
+    val PSSChatEvent.trueUnformattedMessage get() = this.component.unformattedText.removeColorCodes()
 
     /**
      * Sends a message to the client.

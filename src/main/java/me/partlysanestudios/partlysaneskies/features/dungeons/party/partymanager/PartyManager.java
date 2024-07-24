@@ -7,6 +7,8 @@ package me.partlysanestudios.partlysaneskies.features.dungeons.party.partymanage
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand;
+import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent;
+import me.partlysanestudios.partlysaneskies.events.minecraft.PSSChatEvent;
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
@@ -166,13 +168,13 @@ public class PartyManager {
         }
     }
 
-    @SubscribeEvent
-    public void onMemberJoin(ClientChatReceivedEvent event) {
+    @SubscribePSSEvent
+    public void onChatMemberJoin(PSSChatEvent event) {
         if (!PartlySaneSkies.Companion.getConfig().getGetDataOnJoin()) {
             return;
         }
 
-        String unformattedMessage = event.message.getUnformattedText();
+        String unformattedMessage = event.getComponent().getUnformattedText();
         // If the message is not a join dungeon message
         if (!(unformattedMessage.startsWith("Party Finder >") || unformattedMessage.contains("joined the dungeon group!"))) {
             return;
