@@ -7,6 +7,7 @@
 package me.partlysanestudios.partlysaneskies.utils
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
+import me.partlysanestudios.partlysaneskies.data.skyblockdata.IslandType
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.stripLeading
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.stripTrailing
@@ -136,4 +137,7 @@ object HypixelUtils {
     fun ItemStack.getItemAttributes(): NBTTagCompound? {
         return this.tagCompound?.getCompoundTag("ExtraAttributes")
     }
+
+    fun inAdvancedMiningIsland() =
+        IslandType.DWARVEN_MINES.onIsland() || IslandType.CRYSTAL_HOLLOWS.onIsland() || IslandType.MINESHAFT.onIsland()
 }

@@ -16,13 +16,18 @@ import gg.essential.elementa.components.UIWrappedText
 import gg.essential.elementa.constraints.CenterConstraint
 import gg.essential.elementa.constraints.XConstraint
 import gg.essential.elementa.constraints.YConstraint
-import gg.essential.elementa.dsl.*
+import gg.essential.elementa.dsl.childOf
+import gg.essential.elementa.dsl.constrain
+import gg.essential.elementa.dsl.constraint
+import gg.essential.elementa.dsl.minus
+import gg.essential.elementa.dsl.percent
+import gg.essential.elementa.dsl.pixels
+import gg.essential.elementa.dsl.plus
 import gg.essential.universal.UMatrixStack
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.coreConfig
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.discordCode
-import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.isFirstLaunch
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
 import me.partlysanestudios.partlysaneskies.config.psconfig.Toggle.Companion.asBoolean
 import me.partlysanestudios.partlysaneskies.config.psconfig.Toggle.Companion.asToggle
@@ -35,6 +40,7 @@ import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager.accentC
 import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.uiImage
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.randInt
+import me.partlysanestudios.partlysaneskies.utils.StringUtils.lastUsedColorCode
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
 import net.minecraft.client.audio.PositionedSoundRecord
@@ -47,14 +53,14 @@ import net.minecraft.util.ResourceLocation
 import net.minecraftforge.client.event.GuiOpenEvent
 import net.minecraftforge.fml.client.FMLClientHandler
 import net.minecraftforge.fml.client.GuiModList
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.Loader
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import java.awt.Color
 import java.io.File
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
-import java.util.*
+import java.util.Locale
 
 class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
     companion object {
@@ -90,24 +96,29 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
             }
             val url = config.apiUrl + "/v1/pss/funfact"
             val lock = Lock()
-            newRequest(GetRequest(url, { request: Request ->
-                try {
-                    val factInfo = JsonParser().parse(request.getResponse()).getAsJsonObject()
-                    val fact = factInfo["funFact"].asString
-                    log("Response: $factInfo")
-                    log("Fun Fact: $fact")
+            newRequest(
+                GetRequest(
+                    url,
+                    { request: Request ->
+                        try {
+                            val factInfo = JsonParser().parse(request.getResponse()).getAsJsonObject()
+                            val fact = factInfo["funFact"].asString
+                            log("Response: $factInfo")
+                            log("Fun Fact: $fact")
 
-                    cachedFunFact = FunFact("Fact of the Day", fact)
-                    synchronized(lock) {
-                        lock.notifyAll()
-                    }
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                    synchronized(lock) {
-                        lock.notifyAll()
-                    }
-                }
-            }))
+                            cachedFunFact = FunFact("Fact of the Day", fact)
+                            synchronized(lock) {
+                                lock.notifyAll()
+                            }
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                            synchronized(lock) {
+                                lock.notifyAll()
+                            }
+                        }
+                    },
+                ),
+            )
             synchronized(lock) {
                 lock.wait()
             }
@@ -186,7 +197,7 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
 
     private val updateWarning = UIWrappedText(
         text = "Your version of Partly Sane Skies is out of date.\nPlease update to the latest version",
-        centered = true
+        centered = true,
     ).constrain {
         textScale = 2.25.scaledPixels
         x = CenterConstraint()
@@ -265,7 +276,7 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
         FMLClientHandler.instance()
             .connectToServer(GuiMultiplayer(minecraft.currentScreen), ServerData("tomato", "hypixel.net", false))
 
-        
+
     }.onMouseEnter {
         for (child in this.children) {
             child.setColor(Color(200, 200, 200))
@@ -425,7 +436,7 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
             "image_3.png",
             "image_4.png",
             "image_5.png",
-            "image_6.png"
+            "image_6.png",
         )
 
         val image: String = if (config.customMainMenuImage == 0) {
@@ -538,7 +549,7 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
         announcements: ArrayList<Announcement>,
         startX: XConstraint,
         startY: YConstraint,
-        startParent: UIComponent
+        startParent: UIComponent,
     ) {
         val padY = 25.scaledPixels
         var parent = startParent
@@ -552,10 +563,12 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
                 width = 300.scaledPixels
                 textScale = 1.5.scaledPixels
             }.setText(
-                "§e${announcement.title}"
+                "§e${announcement.title}",
             ).onMouseClick {
                 SystemUtils.openLink(announcement.link)
             } childOf parent
+
+            val lastColor = announcement.description.lastUsedColorCode() ?: "§7"
 
             val description = UIWrappedText().constrain {
                 x = 0.percent
@@ -563,7 +576,7 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
                 width = 100.percent
                 textScale = 1.33.scaledPixels
             }.setText(
-                "§8${announcement.date}§r\n§7${announcement.description}"
+                "§8${announcement.date}§r\n§7${announcement.description.replace("\n", "\n$lastColor")}",
             ).onMouseClick {
                 SystemUtils.openLink(announcement.link)
             } childOf title
