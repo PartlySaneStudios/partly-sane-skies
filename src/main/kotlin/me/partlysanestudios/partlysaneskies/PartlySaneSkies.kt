@@ -80,6 +80,7 @@ import me.partlysanestudios.partlysaneskies.features.gui.hud.CooldownHud
 import me.partlysanestudios.partlysaneskies.features.gui.hud.LocationBannerDisplay
 import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.DropBannerDisplay
 import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.DropWebhook
+import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.RareDropGUIManager
 import me.partlysanestudios.partlysaneskies.features.gui.mainmenu.PSSMainMenu
 import me.partlysanestudios.partlysaneskies.features.information.WikiArticleOpener
 import me.partlysanestudios.partlysaneskies.features.mining.MiningEvents
@@ -223,6 +224,11 @@ class PartlySaneSkies {
             } catch (e: IOException) {
                 e.printStackTrace()
             }
+            try {
+                RareDropGUIManager.loadData()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
         }.start()
 
 
@@ -306,6 +312,7 @@ class PartlySaneSkies {
         PlayerRating.registerReprintCommand()
         ModChecker.registerModCheckCommand()
         ItemRefill.registerCommand()
+        RareDropGUIManager.registerCommand()
         WebhookMenu.registerWebhookCommand()
 
         registerCoreConfig()
@@ -327,8 +334,6 @@ class PartlySaneSkies {
 
         DebugKey.init()
 
-        // Initializes skill upgrade recommendation
-        SkillUpgradeRecommendation.populateSkillMap()
         try {
             SkyblockDataManager.updateAll()
         } catch (e: IOException) {

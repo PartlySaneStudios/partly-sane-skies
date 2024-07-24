@@ -9,7 +9,6 @@ import com.google.gson.JsonParser
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.time
 import me.partlysanestudios.partlysaneskies.data.api.GetRequest
-import me.partlysanestudios.partlysaneskies.data.api.Request
 import me.partlysanestudios.partlysaneskies.data.api.RequestsManager
 import me.partlysanestudios.partlysaneskies.utils.MathUtils
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.titleCase
