@@ -9,7 +9,6 @@ package me.partlysanestudios.partlysaneskies.utils
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import java.awt.Color
 import java.text.DecimalFormat
-import java.util.*
 import java.util.regex.Pattern
 
 object StringUtils {
@@ -115,13 +114,7 @@ object StringUtils {
         return str
     }
 
-    fun String.pluralize(number: Number): String {
-        return if (number == 1) {
-            this
-        } else {
-            "${this}s"
-        }
-    }
+    fun String.pluralize(number: Number): String = this + if (number != 1) "s" else ""
 
     fun stripTrailing(str: String): String {
         var str = str
@@ -305,25 +298,7 @@ object StringUtils {
         return total
     }
 
-    fun String.titleCase(): String {
-        val titleCase = StringBuilder()
-        var nextCharUpperCase = true
-        for (i in this.indices) {
-            val ch = this.substring(i, i + 1)
-            if (ch != " " && !nextCharUpperCase) {
-                titleCase.append(ch.lowercase(Locale.getDefault()))
-                continue
-            }
-            if (nextCharUpperCase) {
-                titleCase.append(ch.uppercase(Locale.getDefault()))
-                nextCharUpperCase = false
-                continue
-            }
-            titleCase.append(ch.lowercase(Locale.getDefault()))
-            nextCharUpperCase = true
-        }
-        return titleCase.toString()
-    }
+    fun String.titleCase() = split(" ").joinToString(" ") { it.lowercase().replaceFirstChar { c -> c.uppercase() } }
 
     fun String.parseAbbreviatedNumber(): Double {
         try {

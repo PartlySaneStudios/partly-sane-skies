@@ -16,13 +16,18 @@ import gg.essential.elementa.components.UIWrappedText
 import gg.essential.elementa.constraints.CenterConstraint
 import gg.essential.elementa.constraints.XConstraint
 import gg.essential.elementa.constraints.YConstraint
-import gg.essential.elementa.dsl.*
+import gg.essential.elementa.dsl.childOf
+import gg.essential.elementa.dsl.constrain
+import gg.essential.elementa.dsl.constraint
+import gg.essential.elementa.dsl.minus
+import gg.essential.elementa.dsl.percent
+import gg.essential.elementa.dsl.pixels
+import gg.essential.elementa.dsl.plus
 import gg.essential.universal.UMatrixStack
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.coreConfig
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.discordCode
-import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.isFirstLaunch
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
 import me.partlysanestudios.partlysaneskies.config.psconfig.Toggle.Companion.asBoolean
 import me.partlysanestudios.partlysaneskies.config.psconfig.Toggle.Companion.asToggle
@@ -47,14 +52,14 @@ import net.minecraft.util.ResourceLocation
 import net.minecraftforge.client.event.GuiOpenEvent
 import net.minecraftforge.fml.client.FMLClientHandler
 import net.minecraftforge.fml.client.GuiModList
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.Loader
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import java.awt.Color
 import java.io.File
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
-import java.util.*
+import java.util.Locale
 
 class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
     companion object {
@@ -265,7 +270,7 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
         FMLClientHandler.instance()
             .connectToServer(GuiMultiplayer(minecraft.currentScreen), ServerData("tomato", "hypixel.net", false))
 
-        
+
     }.onMouseEnter {
         for (child in this.children) {
             child.setColor(Color(200, 200, 200))
