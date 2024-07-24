@@ -9,7 +9,6 @@ package me.partlysanestudios.partlysaneskies.utils
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import java.awt.Color
 import java.text.DecimalFormat
-import java.util.*
 import java.util.regex.Pattern
 
 object StringUtils {
@@ -311,15 +310,15 @@ object StringUtils {
         for (i in this.indices) {
             val ch = this.substring(i, i + 1)
             if (ch != " " && !nextCharUpperCase) {
-                titleCase.append(ch.lowercase(Locale.getDefault()))
+                titleCase.append(ch.lowercase())
                 continue
             }
             if (nextCharUpperCase) {
-                titleCase.append(ch.uppercase(Locale.getDefault()))
+                titleCase.append(ch.uppercase())
                 nextCharUpperCase = false
                 continue
             }
-            titleCase.append(ch.lowercase(Locale.getDefault()))
+            titleCase.append(ch.lowercase())
             nextCharUpperCase = true
         }
         return titleCase.toString()
@@ -408,4 +407,13 @@ object StringUtils {
         }
     }
 
+    fun String.lastUsedColorCode(startIndex: Int = 0, endIndex: Int = this.length): String? {
+        val colorCodes = "0123456789abcdef"
+        val regex = Regex("§[${colorCodes}]")
+
+        val subString = this.substring(startIndex, endIndex)
+        val matches = regex.findAll(subString)
+
+        return matches.lastOrNull()?.value
+    }
 }

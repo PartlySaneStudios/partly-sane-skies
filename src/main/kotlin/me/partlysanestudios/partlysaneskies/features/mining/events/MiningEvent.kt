@@ -1,3 +1,9 @@
+//
+// Written by J10a1n15.
+// See LICENSE for copyright and license notices.
+//
+
+
 package me.partlysanestudios.partlysaneskies.features.mining.events
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
