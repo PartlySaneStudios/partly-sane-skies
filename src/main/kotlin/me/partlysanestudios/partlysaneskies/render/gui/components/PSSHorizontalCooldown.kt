@@ -10,6 +10,7 @@ import gg.essential.elementa.UIComponent
 import gg.essential.elementa.components.UIRoundedRectangle
 import gg.essential.elementa.constraints.*
 import gg.essential.elementa.dsl.*
+import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
 import me.partlysanestudios.partlysaneskies.render.gui.hud.cooldown.Cooldown
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.weightedAverage
 import java.awt.Color
@@ -23,7 +24,7 @@ class PSSHorizontalCooldown(
     private var cooldown: Cooldown? = null
 
     val boundingBox = UIRoundedRectangle(2f).constrain {
-        radius = 4f.pixels
+        radius = 4f.scaledPixels
         x = xConstraint
         y = yConstraint
         height = heightConstraint
@@ -32,7 +33,7 @@ class PSSHorizontalCooldown(
     }
 
     private val displayBox = UIRoundedRectangle(2f).constrain {
-        radius = 4f.pixels
+        radius = 4f.scaledPixels
         x = 0f.pixels
         y = 0f.pixels
         height = 100f.percent
@@ -40,13 +41,11 @@ class PSSHorizontalCooldown(
         color = Color(255, 0, 0).constraint
     } childOf boundingBox
 
-    private val itemRender = PSSItemRender(null)
-        .setScaleBasedOnWidth((boundingBox.getHeight() * 1.75).pixels)
-        .setX((-35).percent)
-        .setY(CenterConstraint())
-        .setHeight((boundingBox.getHeight() * 1.75).pixels)
-        .setWidth((boundingBox.getHeight() * 1.75).pixels)
-        .setChildOf(boundingBox) as PSSItemRender
+    private val itemRender = PSSItemRender(null, autoScaleWidth = true).constrain {
+        width = 1.75.percent
+        x = (-35).percent
+        y = CenterConstraint()
+    } childOf boundingBox
 
     fun setChildOf(parent: UIComponent): PSSHorizontalCooldown {
         boundingBox.setChildOf(parent)
@@ -68,6 +67,7 @@ class PSSHorizontalCooldown(
     }
 
     fun tick() {
+        val cooldown = this.cooldown
         if (cooldown == null) {
             displayBox.setColor(Color(0, 0, 0, 0).constraint)
             boundingBox.setColor(Color(0, 0, 0, 0).constraint)
@@ -76,18 +76,18 @@ class PSSHorizontalCooldown(
             return
         }
 
-        if (cooldown?.isCooldownActive() != true) {
-            cooldown = null
+        if (!cooldown.isCooldownActive()) {
+            this.cooldown = null
             return
         }
 
-        val percentRemaining = cooldown!!.getTimeRemaining().toFloat() / cooldown!!.getTotalTime().toFloat()
+        val percentRemaining = cooldown.getTimeRemaining().toFloat() / cooldown.getTotalTime().toFloat()
 
         val percentComplete = 1 - percentRemaining
 
         val displayBoxColor = Color.RED.weightedAverage(percentRemaining, Color.GREEN, percentComplete)
 
-        itemRender.item = cooldown!!.getItemToDisplay()
+        itemRender.item = cooldown.getItemToDisplay()
         boundingBox.setColor(Color(0f, 0f, 0f, .4f))
         displayBox.setColor(displayBoxColor)
         displayBox.setWidth((percentComplete * 100).percent)

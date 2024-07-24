@@ -313,15 +313,15 @@ object StringUtils {
         for (i in this.indices) {
             val ch = this.substring(i, i + 1)
             if (ch != " " && !nextCharUpperCase) {
-                titleCase.append(ch.lowercase(Locale.getDefault()))
+                titleCase.append(ch.lowercase())
                 continue
             }
             if (nextCharUpperCase) {
-                titleCase.append(ch.uppercase(Locale.getDefault()))
+                titleCase.append(ch.uppercase())
                 nextCharUpperCase = false
                 continue
             }
-            titleCase.append(ch.lowercase(Locale.getDefault()))
+            titleCase.append(ch.lowercase())
             nextCharUpperCase = true
         }
         return titleCase.toString()

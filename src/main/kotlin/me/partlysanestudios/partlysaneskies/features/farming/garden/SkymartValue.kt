@@ -104,7 +104,9 @@ object SkymartValue : SidePanel() {
         for ((key, value) in sortedMap) {
 
             val item = getItem(key) ?: SkyblockItem.emptyItem
-            str += "§6$i. §d${item.name}§7 costs §d${copperCost[key]?.formatNumber() ?: 0}§7 copper and sells for §d${item.getSellPrice().round(1).formatNumber()}§7 coins \n§8 (${value.round(1).formatNumber()} coins per copper)\n"
+            str += "§6$i. §d${item.name}§7 costs §d${copperCost[key]?.formatNumber() ?: 0}§7 copper and sells for §d${
+                item.getSellPrice().round(1).formatNumber()
+            }§7 coins \n§8 (${value.round(1).formatNumber()} coins per copper)\n"
 
             i++
             if (i > 5) {

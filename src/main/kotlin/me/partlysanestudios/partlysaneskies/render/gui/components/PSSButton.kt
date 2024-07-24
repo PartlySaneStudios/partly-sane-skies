@@ -7,9 +7,12 @@ package me.partlysanestudios.partlysaneskies.render.gui.components
 import cc.polyfrost.oneconfig.config.core.OneColor
 import gg.essential.elementa.UIComponent
 import gg.essential.elementa.components.UIBlock
-import gg.essential.elementa.components.UIImage
 import gg.essential.elementa.components.UIWrappedText
-import gg.essential.elementa.constraints.*
+import gg.essential.elementa.constraints.CenterConstraint
+import gg.essential.elementa.constraints.HeightConstraint
+import gg.essential.elementa.constraints.WidthConstraint
+import gg.essential.elementa.constraints.XConstraint
+import gg.essential.elementa.constraints.YConstraint
 import gg.essential.elementa.dsl.childOf
 import gg.essential.elementa.dsl.constrain
 import gg.essential.elementa.dsl.constraint
