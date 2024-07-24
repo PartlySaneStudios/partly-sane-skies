@@ -44,7 +44,7 @@ object ThemeManager {
         Theme("Partly Cloudy (Light)", Color(245, 245, 245), Color(84, 95, 117), Color(217, 114, 255)),
         Theme("Waterfall (Colorful)", Color(214, 237, 246), Color(172, 215, 236), Color(108, 197, 81)),
         Theme("Jungle (Colorful)", Color(201, 227, 172), Color(144, 190, 109), Color(254, 100, 163)),
-        Theme("Dunes (Colorful)", Color(229, 177, 129), Color(222, 107, 72), Color(131, 34, 50))
+        Theme("Dunes (Colorful)", Color(229, 177, 129), Color(222, 107, 72), Color(131, 34, 50)),
     )
 
     fun tick() {
@@ -87,11 +87,13 @@ object ThemeManager {
 
     val currentBackgroundUIImage: UIImage
         get() {
-            val image: UIImage = if (config.disableThemes) { ResourceLocation("partlysaneskies", "textures/gui/base_color_background.png").uiImage
+            val image: UIImage = if (config.disableThemes) {
+                ResourceLocation("partlysaneskies", "textures/gui/base_color_background.png").uiImage
             } else {
                 try {
                     UIImage.ofFile(currentBackgroundFile)
-                } catch (e: IOException) { ResourceLocation("partlysaneskies", "textures/gui/base_color_background.png").uiImage
+                } catch (e: IOException) {
+                    ResourceLocation("partlysaneskies", "textures/gui/base_color_background.png").uiImage
                 }
             }
             backgroundUIImages.add(image)
@@ -101,19 +103,20 @@ object ThemeManager {
         get() = getCurrentButtonUIImage(accentColor)
 
     fun getCurrentButtonUIImage(accentColor: OneColor): UIImage {
-        val image: UIImage
-        if (config.disableThemes) {
-            image = if ((accentColor == ThemeManager.accentColor)) {
+        val image = if (config.disableThemes) {
+            if ((accentColor == ThemeManager.accentColor)) {
                 ResourceLocation("partlysaneskies", "textures/gui/base_color_button.png").uiImage
             } else {
                 ResourceLocation("partlysaneskies", "textures/gui/base_color_button_transparent.png").uiImage
             }
         } else {
-            image = try {
+            try {
                 UIImage.ofFile(getCurrentButtonFile(accentColor))
             } catch (e: IOException) {
-                if ((accentColor == ThemeManager.accentColor)) { ResourceLocation("partlysaneskies", "textures/gui/base_color_button.png").uiImage
-                } else { ResourceLocation("partlysaneskies", "textures/gui/base_color_button_transparent.png").uiImage
+                if ((accentColor == ThemeManager.accentColor)) {
+                    ResourceLocation("partlysaneskies", "textures/gui/base_color_button.png").uiImage
+                } else {
+                    ResourceLocation("partlysaneskies", "textures/gui/base_color_button_transparent.png").uiImage
                 }
             }
         }
@@ -233,7 +236,7 @@ object ThemeManager {
         val averageR: Int = (color.red * .761).toInt()
         val averageG: Int = (color.green * .761).toInt()
         val averageB: Int = (color.blue * .761).toInt()
-        return Color(averageR, averageG, averageB, color.getTransparency())
+        return Color(averageR, averageG, averageB, color.alpha)
     }
 
     private fun lightenColor(color: OneColor): Color {
@@ -293,10 +296,7 @@ object ThemeManager {
         filePath.toFile().createNewFile()
         replaceColor(debugImage, PRIMARY_DEBUG_COLOR, primaryColor)
         replaceColor(debugImage, SECONDARY_DEBUG_COLOR, secondaryColor)
-        replaceColor(
-            debugImage, ACCENT_DEBUG_COLOR,
-            (accentColor)
-        )
+        replaceColor(debugImage, ACCENT_DEBUG_COLOR, accentColor)
         saveImage(debugImage, filePath)
         return filePath.toFile()
     }
@@ -320,10 +320,7 @@ object ThemeManager {
         filePath.toFile().createNewFile()
         replaceColor(debugImage, PRIMARY_DEBUG_COLOR, primaryColor)
         replaceColor(debugImage, SECONDARY_DEBUG_COLOR, secondaryColor)
-        replaceColor(
-            debugImage, ACCENT_DEBUG_COLOR,
-            (accentColor)
-        )
+        replaceColor(debugImage, ACCENT_DEBUG_COLOR, accentColor)
         saveImage(debugImage, filePath)
         return filePath.toFile()
     }
