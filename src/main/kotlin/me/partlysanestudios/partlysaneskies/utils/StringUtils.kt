@@ -9,7 +9,7 @@ package me.partlysanestudios.partlysaneskies.utils
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import java.awt.Color
 import java.text.DecimalFormat
-import java.util.*
+import java.util.Locale
 import java.util.regex.Pattern
 
 object StringUtils {
@@ -405,6 +405,16 @@ object StringUtils {
             appendRomanSymbols(5, "V")
             appendRomanSymbols(4, "IV")
             appendRomanSymbols(1, "I")
+        }
+    }
+
+    fun String.lastUsedColorCode(): String? {
+        val colorCodes = "0123456789abcdefklmnor"
+        val colorCode = colorCodes.indexOfLast { this.contains("§$it") }
+        return if (colorCode != -1) {
+            "§${colorCodes[colorCode]}"
+        } else {
+            null
         }
     }
 
