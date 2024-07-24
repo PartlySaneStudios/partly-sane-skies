@@ -43,16 +43,14 @@ class WebhookMenu : WindowScreen(ElementaVersion.V5) {
         }
     }
 
-    private val inactiveWebhooksPanel =
-        ThemeManager.currentBackgroundUIImage.constrain {
+    private val inactiveWebhooksPanel = ThemeManager.currentBackgroundUIImage.constrain {
             x = CenterConstraint() - (300 / 2).scaledPixels - (75 / 2).scaledPixels
             y = CenterConstraint() - 20.scaledPixels - (150 / 2).scaledPixels
             width = 300.scaledPixels
             height = 350.scaledPixels
         } childOf window
 
-    private val inactiveWebhookText =
-        UIWrappedText("Inactive Webhooks:").constrain {
+    private val inactiveWebhookText = UIWrappedText("Inactive Webhooks:").constrain {
             x = 15.scaledPixels
             y = 10.scaledPixels
             width = (300 - (7 * 2)).scaledPixels
@@ -60,16 +58,14 @@ class WebhookMenu : WindowScreen(ElementaVersion.V5) {
             color = Color.red.constraint
         } childOf inactiveWebhooksPanel
 
-    private val activeWebhooksPanel =
-        ThemeManager.currentBackgroundUIImage.constrain {
+    private val activeWebhooksPanel = ThemeManager.currentBackgroundUIImage.constrain {
             x = CenterConstraint() + (300 / 2).scaledPixels + (75 / 2).scaledPixels
             y = CenterConstraint() - 20.scaledPixels - (150 / 2).scaledPixels
             width = 300.scaledPixels
             height = 350.scaledPixels
         } childOf window
 
-    private val activeWebhookText =
-        UIWrappedText("Active Webhooks:").constrain {
+    private val activeWebhookText = UIWrappedText("Active Webhooks:").constrain {
             x = 15.scaledPixels
             y = 10.scaledPixels
             width = (300 - (7 * 2)).scaledPixels
@@ -77,33 +73,28 @@ class WebhookMenu : WindowScreen(ElementaVersion.V5) {
             color = Color.green.constraint
         } childOf activeWebhooksPanel
 
-    private val webhookOptionsPanel =
-        ThemeManager.currentBackgroundUIImage.constrain {
+    private val webhookOptionsPanel = ThemeManager.currentBackgroundUIImage.constrain {
             x = CenterConstraint()
             y = CenterConstraint() + 20.scaledPixels + (300 / 2).scaledPixels
             width = (300 + 300 + 75).scaledPixels
             height = 150.scaledPixels
         } childOf window
 
-    private val webhookOptionsList =
-        ScrollComponent().constrain {
+    private val webhookOptionsList = ScrollComponent().constrain {
             x = CenterConstraint()
             y = CenterConstraint()
             width = 100.percent
             height = 100.percent
         } childOf webhookOptionsPanel
 
-    private val webhookOptionsHeader =
-        UIWrappedText().constrain {
+    private val webhookOptionsHeader = UIWrappedText().constrain {
             x = 15.scaledPixels
             y = 10.scaledPixels
             width = 100.percent
             textScale = 1.5.scaledPixels
         } childOf webhookOptionsList
 
-    private val sideSwitchButton =
-        ThemeManager.currentBackgroundUIImage
-            .constrain {
+    private val sideSwitchButton = ThemeManager.currentBackgroundUIImage.constrain {
                 x = CenterConstraint()
                 y = CenterConstraint() - (300 / 2).scaledPixels + 20.scaledPixels
                 width = 50.scaledPixels
@@ -117,8 +108,7 @@ class WebhookMenu : WindowScreen(ElementaVersion.V5) {
                 updateLocations()
             } childOf window
 
-    private val sideSwitchIcon =
-        ResourceLocation("partlysaneskies", "textures/gui/webhookedit/sideswitch.png")
+    private val sideSwitchIcon = ResourceLocation("partlysaneskies", "textures/gui/webhookedit/sideswitch.png")
             .uiImage
             .constrain {
                 x = CenterConstraint()
