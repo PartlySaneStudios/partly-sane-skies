@@ -9,7 +9,6 @@ package me.partlysanestudios.partlysaneskies.utils
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import java.awt.Color
 import java.text.DecimalFormat
-import java.util.Locale
 import java.util.regex.Pattern
 
 object StringUtils {
@@ -408,14 +407,13 @@ object StringUtils {
         }
     }
 
-    fun String.lastUsedColorCode(): String? {
-        val colorCodes = "0123456789abcdefklmnor"
-        val colorCode = colorCodes.indexOfLast { this.contains("§$it") }
-        return if (colorCode != -1) {
-            "§${colorCodes[colorCode]}"
-        } else {
-            null
-        }
-    }
+    fun String.lastUsedColorCode(startIndex: Int = 0, endIndex: Int = this.length - 1): String? {
+        val colorCodes = "0123456789abcdef"
+        val regex = Regex("§[${colorCodes}]")
 
+        val subString = this.substring(startIndex, endIndex + 1)
+        val matches = regex.findAll(subString)
+
+        return matches.lastOrNull()?.value
+    }
 }
