@@ -38,6 +38,7 @@ object Keybinds {
         if (OneConfigScreen.favouritePetKeybind.isActive()) {
             PetAlert.favouritePet()
         }
+        if (!Keyboard.isCreated()) return
         if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
             if (PartlySaneSkies.minecraft.currentScreen is AuctionHouseGui ||
                 PartlySaneSkies.minecraft.currentScreen is GuiChest &&

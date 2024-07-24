@@ -29,7 +29,7 @@ object RefreshKeybinds {
 
     @SubscribeEvent
     fun onGuiKeyboardInput(event: GuiScreenEvent.KeyboardInputEvent.Pre) {
-        if (!PartlySaneSkies.config.refreshKeybind) return
+        if (!PartlySaneSkies.config.refreshKeybind || !Keyboard.isCreated()) return
         checkKeybinds(event)
     }
 

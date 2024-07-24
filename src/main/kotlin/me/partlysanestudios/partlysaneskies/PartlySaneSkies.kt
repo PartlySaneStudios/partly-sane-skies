@@ -340,8 +340,6 @@ class PartlySaneSkies {
 
         DebugKey.init()
 
-        // Initializes skill upgrade recommendation
-        SkillUpgradeRecommendation.populateSkillMap()
         try {
             SkyblockDataManager.updateAll()
         } catch (e: IOException) {
