@@ -41,7 +41,8 @@ object ElementaUtils {
         }
 
 
-    fun ResourceLocation.uiImageFromResourceLocation(): UIImage {
+    val ResourceLocation.uiImage: UIImage
+        get() {
         return try {
             val resource = Minecraft.getMinecraft().resourceManager.getResource(this)
             UIImage(CompletableFuture.supplyAsync {

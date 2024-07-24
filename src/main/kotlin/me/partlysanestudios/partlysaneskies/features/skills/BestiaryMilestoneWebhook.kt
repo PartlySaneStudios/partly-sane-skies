@@ -16,7 +16,6 @@ import me.partlysanestudios.partlysaneskies.features.discord.webhooks.EmbedField
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.Webhook
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.WebhookData
 import me.partlysanestudios.partlysaneskies.render.gui.components.PSSItemRender
-import me.partlysanestudios.partlysaneskies.utils.ChatUtils.trueUnformattedMessage
 import me.partlysanestudios.partlysaneskies.utils.ImageUtils.asHex
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.romanNumeralToInt
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.toRoman
@@ -26,7 +25,7 @@ import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import java.awt.Color
 
-object BestiaryMilestoneWebhook: Webhook() {
+object BestiaryMilestoneWebhook : Webhook() {
     override val icon = PSSItemRender(ItemStack(Items.golden_sword), true)
         .setX(CenterConstraint())
         .setY(CenterConstraint())
@@ -49,6 +48,8 @@ object BestiaryMilestoneWebhook: Webhook() {
 
     @SubscribeEvent
     fun onChatMessage(event: ClientChatReceivedEvent) {
+        if (!enabled) return
+
         val message = event.message.formattedText
         if (message.contains("§lBESTIARY MILESTONE")) {
             headingMessageSent = true
@@ -104,10 +105,10 @@ object BestiaryMilestoneWebhook: Webhook() {
                         EmbedField(
                             name = "Milestone",
                             value = ":tada: $oldLevelString ➜ $newLevelString :tada:",
-                        )
-                    )
-                )
-            )
+                        ),
+                    ),
+                ),
+            ),
         ).send()
     }
 }

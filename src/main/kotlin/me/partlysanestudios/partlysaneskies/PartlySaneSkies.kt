@@ -22,7 +22,11 @@ import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import me.partlysanestudios.partlysaneskies.config.Keybinds
 import me.partlysanestudios.partlysaneskies.config.OneConfigScreen
+import me.partlysanestudios.partlysaneskies.config.psconfig.Config
 import me.partlysanestudios.partlysaneskies.config.psconfig.ConfigManager
+import me.partlysanestudios.partlysaneskies.config.psconfig.Toggle
+import me.partlysanestudios.partlysaneskies.config.psconfig.Toggle.Companion.asBoolean
+import me.partlysanestudios.partlysaneskies.config.psconfig.Toggle.Companion.asToggle
 import me.partlysanestudios.partlysaneskies.data.cache.PetData
 import me.partlysanestudios.partlysaneskies.data.cache.StatsData
 import me.partlysanestudios.partlysaneskies.data.cache.VisitorLogbookData
@@ -35,13 +39,23 @@ import me.partlysanestudios.partlysaneskies.features.chat.ChatAlertsManager
 import me.partlysanestudios.partlysaneskies.features.chat.ChatManager
 import me.partlysanestudios.partlysaneskies.features.chat.ChatTransformer
 import me.partlysanestudios.partlysaneskies.features.chat.WordEditor
-import me.partlysanestudios.partlysaneskies.features.commands.*
+import me.partlysanestudios.partlysaneskies.features.commands.Crepes
+import me.partlysanestudios.partlysaneskies.features.commands.HelpCommand
+import me.partlysanestudios.partlysaneskies.features.commands.PSSDiscord
+import me.partlysanestudios.partlysaneskies.features.commands.SanityCheck
+import me.partlysanestudios.partlysaneskies.features.commands.Version
 import me.partlysanestudios.partlysaneskies.features.debug.DebugKey
 import me.partlysanestudios.partlysaneskies.features.debug.ExampleHud
 import me.partlysanestudios.partlysaneskies.features.debug.ExampleWebhook
 import me.partlysanestudios.partlysaneskies.features.discord.DiscordRPC
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.WebhookMenu
-import me.partlysanestudios.partlysaneskies.features.dungeons.*
+import me.partlysanestudios.partlysaneskies.features.dungeons.AutoGG
+import me.partlysanestudios.partlysaneskies.features.dungeons.HealthAlert
+import me.partlysanestudios.partlysaneskies.features.dungeons.ItemRefill
+import me.partlysanestudios.partlysaneskies.features.dungeons.PlayerRating
+import me.partlysanestudios.partlysaneskies.features.dungeons.RequiredSecretsFound
+import me.partlysanestudios.partlysaneskies.features.dungeons.TerminalWaypoints
+import me.partlysanestudios.partlysaneskies.features.dungeons.WatcherReady
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.PartyFriendManager
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.partymanager.PartyManager
 import me.partlysanestudios.partlysaneskies.features.dungeons.party.permpartyselector.PermPartyManager
@@ -55,14 +69,19 @@ import me.partlysanestudios.partlysaneskies.features.farming.MathematicalHoeRigh
 import me.partlysanestudios.partlysaneskies.features.farming.WrongToolCropWarning
 import me.partlysanestudios.partlysaneskies.features.farming.endoffarmnotifer.EndOfFarmNotifier
 import me.partlysanestudios.partlysaneskies.features.farming.endoffarmnotifer.RangeHighlight
-import me.partlysanestudios.partlysaneskies.features.farming.garden.*
+import me.partlysanestudios.partlysaneskies.features.farming.garden.CompostValue
+import me.partlysanestudios.partlysaneskies.features.farming.garden.CropMilestoneWebhook
+import me.partlysanestudios.partlysaneskies.features.farming.garden.SkymartValue
+import me.partlysanestudios.partlysaneskies.features.farming.garden.VisitorLogbookStats
+import me.partlysanestudios.partlysaneskies.features.farming.garden.VisitorTradeValue
 import me.partlysanestudios.partlysaneskies.features.foraging.TreecapitatorCooldown
-import me.partlysanestudios.partlysaneskies.features.gui.CustomMainMenu
 import me.partlysanestudios.partlysaneskies.features.gui.RefreshKeybinds
 import me.partlysanestudios.partlysaneskies.features.gui.hud.CooldownHud
 import me.partlysanestudios.partlysaneskies.features.gui.hud.LocationBannerDisplay
 import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.DropBannerDisplay
 import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.DropWebhook
+import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.RareDropGUIManager
+import me.partlysanestudios.partlysaneskies.features.gui.mainmenu.PSSMainMenu
 import me.partlysanestudios.partlysaneskies.features.information.WikiArticleOpener
 import me.partlysanestudios.partlysaneskies.features.mining.PickaxeWarning
 import me.partlysanestudios.partlysaneskies.features.mining.crystalhollows.WormWarning
@@ -71,8 +90,8 @@ import me.partlysanestudios.partlysaneskies.features.mining.crystalhollows.gemst
 import me.partlysanestudios.partlysaneskies.features.mining.events.MiningEventNotifier
 import me.partlysanestudios.partlysaneskies.features.security.PrivacyMode
 import me.partlysanestudios.partlysaneskies.features.security.modschecker.ModChecker
-import me.partlysanestudios.partlysaneskies.features.skills.BestiaryMilestoneWebhook
 import me.partlysanestudios.partlysaneskies.features.skills.BestiaryLevelUpWebhook
+import me.partlysanestudios.partlysaneskies.features.skills.BestiaryMilestoneWebhook
 import me.partlysanestudios.partlysaneskies.features.skills.PetAlert
 import me.partlysanestudios.partlysaneskies.features.skills.PetLevelUpWebhook
 import me.partlysanestudios.partlysaneskies.features.skills.SkillUpgradeRecommendation
@@ -102,7 +121,12 @@ import java.io.File
 import java.io.IOException
 import java.net.MalformedURLException
 
-@Mod(modid = PartlySaneSkies.MODID, version = PartlySaneSkies.VERSION, name = PartlySaneSkies.NAME)
+@Mod(
+    modid = PartlySaneSkies.MODID,
+    version = PartlySaneSkies.VERSION,
+    name = PartlySaneSkies.NAME,
+    clientSideOnly = true,
+)
 class PartlySaneSkies {
     companion object {
         @JvmStatic
@@ -118,6 +142,8 @@ class PartlySaneSkies {
         const val CHAT_PREFIX = "§r§b§lPartly Sane Skies§r§7>> §r"
         var discordCode = "v4PU3WeH7z"
         val config: OneConfigScreen = OneConfigScreen
+        private var cachedFirstLaunch = false
+        val isFirstLaunch get() = cachedFirstLaunch
 
         lateinit var minecraft: Minecraft
             private set
@@ -142,6 +168,10 @@ class PartlySaneSkies {
             }
 
         var latestVersion = "(Unknown)"
+
+        val coreConfig = Config()
+            .registerOption("alreadyStarted", Toggle("Already Started", "Has this already been started with PSS enabled?", false))
+            .registerOption("promptedMainMenu", Toggle("Prompted main menu", defaultState = false))
     }
 
     // Method runs at mod initialization
@@ -158,7 +188,7 @@ class PartlySaneSkies {
             PublicDataManager.getFile("main_menu.json")
         }.start()
         Thread {
-            CustomMainMenu.loadFunFact()
+            PSSMainMenu.loadFunFact()
         }.start()
 
         // Loads extra json data
@@ -191,6 +221,11 @@ class PartlySaneSkies {
             }
             try {
                 WordEditor.load()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+            try {
+                RareDropGUIManager.loadData()
             } catch (e: IOException) {
                 e.printStackTrace()
             }
@@ -240,7 +275,7 @@ class PartlySaneSkies {
         registerEvent(BitsShopValue)
         registerEvent(SkymartValue)
         registerEvent(VisitorTradeValue)
-        registerEvent(CustomMainMenu.Companion)
+        registerEvent(PSSMainMenu)
         registerEvent(WrongToolCropWarning.CropToolData)
         registerEvent(PetAlert)
         registerEvent(MiningEventNotifier)
@@ -277,8 +312,10 @@ class PartlySaneSkies {
         PlayerRating.registerReprintCommand()
         ModChecker.registerModCheckCommand()
         ItemRefill.registerCommand()
+        RareDropGUIManager.registerCommand()
         WebhookMenu.registerWebhookCommand()
 
+        registerCoreConfig()
         ExampleWebhook.register()
         DropWebhook.register()
         SkillUpgradeWebhook.register()
@@ -286,6 +323,8 @@ class PartlySaneSkies {
         BestiaryMilestoneWebhook.register()
         BestiaryLevelUpWebhook.register()
         PetLevelUpWebhook.register()
+
+
 
         ConfigManager.loadAllConfigs()
 
@@ -323,6 +362,9 @@ class PartlySaneSkies {
         if (config.privacyMode == 2) {
             PrivacyMode.enablePrivacyMode()
         }
+
+        checkFirstLaunch()
+
         // Finished loading
         log(Level.INFO, "Partly Sane Skies has loaded (Version: ${VERSION}).")
     }
@@ -395,6 +437,19 @@ class PartlySaneSkies {
             discordCode = "v4PU3WeH7z"
             e.printStackTrace()
         }
+    }
+
+    private fun checkFirstLaunch() {
+        if (coreConfig.find("alreadyStarted")?.asBoolean != true) {
+            cachedFirstLaunch = true
+            coreConfig.find("alreadyStarted")?.asToggle?.state = true
+            log("Partly Sane Skies starting for the first time")
+        }
+    }
+
+
+    private fun registerCoreConfig() {
+        ConfigManager.registerNewConfig("psscore.json", coreConfig)
     }
 
     @SubscribeEvent
