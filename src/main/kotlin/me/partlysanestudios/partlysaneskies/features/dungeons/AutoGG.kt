@@ -6,23 +6,22 @@
 package me.partlysanestudios.partlysaneskies.features.dungeons
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
-import net.minecraftforge.client.event.ClientChatReceivedEvent
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
+import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
+import me.partlysanestudios.partlysaneskies.events.minecraft.PSSChatEvent
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 object AutoGG {
-    @SubscribeEvent
-    fun handleChatEvent(event: ClientChatReceivedEvent) {
+    @SubscribePSSEvent
+    fun onChat(event: PSSChatEvent) {
         if (!PartlySaneSkies.config.autoGgEnabled) {
             return
         }
-        if (event.message.formattedText.contains("§r§fTeam Score:")) {
-            Thread(
-                {
-                    Thread.sleep((PartlySaneSkies.config.autoGGCooldown * 1000).toLong())
-                    val input = event.message.unformattedText
-                    val regex = "\\((.*?)\\)"
+        if (event.message.contains("§r§fTeam Score:")) {
+            Thread({
+                Thread.sleep((PartlySaneSkies.config.autoGGCooldown * 1000).toLong())
+                val input = event.component.unformattedText
+                val regex = "\\((.*?)\\)"
 
                     val pattern: Pattern = Pattern.compile(regex)
                     val matcher: Matcher = pattern.matcher(input)

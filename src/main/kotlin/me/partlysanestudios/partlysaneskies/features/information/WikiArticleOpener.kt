@@ -7,6 +7,8 @@ package me.partlysanestudios.partlysaneskies.features.information
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
+import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
+import me.partlysanestudios.partlysaneskies.events.minecraft.PSSChatEvent
 import me.partlysanestudios.partlysaneskies.features.economy.auctionhousemenu.AuctionHouseGui
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils.getItemId
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils.isSkyblock
@@ -14,26 +16,24 @@ import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.openLink
 import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.item.ItemStack
-import net.minecraftforge.client.event.ClientChatReceivedEvent
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 
 object WikiArticleOpener {
     private var isWaitingForArticle = false
 
-    @SubscribeEvent
-    fun openArticle(e: ClientChatReceivedEvent) {
+    @SubscribePSSEvent
+    fun onChat(e: PSSChatEvent) {
         if (!isWaitingForArticle) {
             return
         }
-        if (e.message.formattedText.removeColorCodes().contains("Invalid")) {
+        if (e.component.unformattedText.contains("Invalid")) {
             isWaitingForArticle = false
             return
         }
-        if (!e.message.formattedText.removeColorCodes().contains("Click HERE")) {
+        if (!e.component.unformattedText.removeColorCodes().contains("Click HERE")) {
             return
         }
         isWaitingForArticle = false
-        val wikiLink = e.message.chatStyle.chatClickEvent.value
+        val wikiLink = e.component.chatStyle.chatClickEvent.value
         if (config.openWikiAutomatically) {
             openLink(wikiLink)
         }

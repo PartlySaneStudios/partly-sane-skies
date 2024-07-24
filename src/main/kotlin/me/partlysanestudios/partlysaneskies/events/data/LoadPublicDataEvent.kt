@@ -20,7 +20,6 @@ class LoadPublicDataEvent {
                         function.function.call(function.obj, event)
                     } catch (e: Exception) {
                         e.printStackTrace()
-                    } finally {
                     }
                 }
             }.start()

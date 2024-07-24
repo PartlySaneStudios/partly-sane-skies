@@ -20,10 +20,11 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.time
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity.Companion.getRarityFromColorCode
 import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.RareDropGUIManager.isAllowedDrop
+import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
+import me.partlysanestudios.partlysaneskies.events.minecraft.PSSChatEvent
 import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.onCooldown
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.colorCodeToColor
-import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.client.event.RenderGameOverlayEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import java.awt.Color
@@ -65,9 +66,9 @@ object DropBannerDisplay {
             y = PixelConstraint(topText.getBottom() + window.getHeight() * TEXT_SPACING_FACTOR)
         } childOf window
 
-    @SubscribeEvent
-    fun onChatMessage(event: ClientChatReceivedEvent) {
-        val formattedMessage = event.message.formattedText
+    @SubscribePSSEvent
+    fun onChatMessage(event: PSSChatEvent) {
+        val formattedMessage = event.message
 
         val match = RARE_DROP_REGEX.find(formattedMessage) ?: return
         val (dropCategoryColor, dropCategory, dropColor, name, magicFind) = match.destructured

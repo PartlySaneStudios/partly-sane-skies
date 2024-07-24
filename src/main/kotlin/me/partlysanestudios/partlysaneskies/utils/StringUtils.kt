@@ -406,4 +406,14 @@ object StringUtils {
             appendRomanSymbols(1, "I")
         }
     }
+
+    fun String.lastUsedColorCode(startIndex: Int = 0, endIndex: Int = this.length): String? {
+        val colorCodes = "0123456789abcdef"
+        val regex = Regex("§[${colorCodes}]")
+
+        val subString = this.substring(startIndex, endIndex)
+        val matches = regex.findAll(subString)
+
+        return matches.lastOrNull()?.value
+    }
 }

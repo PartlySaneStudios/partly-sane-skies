@@ -40,6 +40,7 @@ import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager.accentC
 import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.uiImage
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.randInt
+import me.partlysanestudios.partlysaneskies.utils.StringUtils.lastUsedColorCode
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
 import net.minecraft.client.audio.PositionedSoundRecord
@@ -202,19 +203,18 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
                 width = (75 * (473.0 / 166.0)).scaledPixels // Ratio between width and height * height
             } childOf middleMenuBackground
 
-    private val updateWarning =
-        UIWrappedText(
-            text = "Your version of Partly Sane Skies is out of date.\nPlease update to the latest version",
-            centered = true,
-        ).constrain {
-            textScale = 2.25.scaledPixels
-            x = CenterConstraint()
-            y = 133.scaledPixels
-            width = 700.scaledPixels
-            color = Color(0, 0, 0, 0).constraint
-        }.onMouseClick {
-            SystemUtils.openLink("https://github.com/PartlySaneStudios/partly-sane-skies/releases")
-        } childOf middleMenuBackground
+    private val updateWarning = UIWrappedText(
+        text = "Your version of Partly Sane Skies is out of date.\nPlease update to the latest version",
+        centered = true,
+    ).constrain {
+        textScale = 2.25.scaledPixels
+        x = CenterConstraint()
+        y = 133.scaledPixels
+        width = 700.scaledPixels
+        color = Color(0, 0, 0, 0).constraint
+    }.onMouseClick {
+        SystemUtils.openLink("https://github.com/PartlySaneStudios/partly-sane-skies/releases")
+    } childOf middleMenuBackground
 
     private val singlePlayerButton =
         UIBlock()
@@ -463,16 +463,15 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
             } childOf backgroundImage
 
     private fun getBackgroundImage(): UIImage {
-        val images =
-            arrayOf(
-                "random -- this option will never be called",
-                "image_1.png",
-                "image_2.png",
-                "image_3.png",
-                "image_4.png",
-                "image_5.png",
-                "image_6.png",
-            )
+        val images = arrayOf(
+            "random -- this option will never be called",
+            "image_1.png",
+            "image_2.png",
+            "image_3.png",
+            "image_4.png",
+            "image_5.png",
+            "image_6.png",
+        )
 
         val image: String =
             if (config.customMainMenuImage == 0) {
@@ -593,31 +592,29 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
         var yConstraint: YConstraint = startY
         var xConstraint: XConstraint = startX
         for (announcement in announcements) {
-            val title =
-                UIWrappedText()
-                    .constrain {
-                        x = xConstraint
-                        y = yConstraint
-                        width = 300.scaledPixels
-                        textScale = 1.5.scaledPixels
-                    }.setText(
-                        "§e${announcement.title}",
-                    ).onMouseClick {
-                        SystemUtils.openLink(announcement.link)
-                    } childOf parent
+            val title = UIWrappedText().constrain {
+                x = xConstraint
+                y = yConstraint
+                width = 300.scaledPixels
+                textScale = 1.5.scaledPixels
+            }.setText(
+                "§e${announcement.title}",
+            ).onMouseClick {
+                SystemUtils.openLink(announcement.link)
+            } childOf parent
 
-            val description =
-                UIWrappedText()
-                    .constrain {
-                        x = 0.percent
-                        y = 100.percent + 5.scaledPixels
-                        width = 100.percent
-                        textScale = 1.33.scaledPixels
-                    }.setText(
-                        "§8${announcement.date}§r\n§7${announcement.description}",
-                    ).onMouseClick {
-                        SystemUtils.openLink(announcement.link)
-                    } childOf title
+            val lastColor = announcement.description.lastUsedColorCode() ?: "§7"
+
+            val description = UIWrappedText().constrain {
+                x = 0.percent
+                y = 100.percent + 5.scaledPixels
+                width = 100.percent
+                textScale = 1.33.scaledPixels
+            }.setText(
+                "§8${announcement.date}§r\n§7${announcement.description.replace("\n", "\n$lastColor")}",
+            ).onMouseClick {
+                SystemUtils.openLink(announcement.link)
+            } childOf title
 
             announcement.titleComponent = title as UIWrappedText
             announcement.descriptionComponent = description as UIWrappedText

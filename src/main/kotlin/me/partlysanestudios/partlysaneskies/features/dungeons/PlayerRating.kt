@@ -14,6 +14,7 @@ import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager.getFi
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.IslandType
 import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.data.LoadPublicDataEvent
+import me.partlysanestudios.partlysaneskies.events.minecraft.PSSChatEvent
 import me.partlysanestudios.partlysaneskies.events.skyblock.dungeons.DungeonEndEvent
 import me.partlysanestudios.partlysaneskies.events.skyblock.dungeons.DungeonStartEvent
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
@@ -21,8 +22,6 @@ import me.partlysanestudios.partlysaneskies.utils.MathUtils.round
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.stripLeading
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.stripTrailing
-import net.minecraftforge.client.event.ClientChatReceivedEvent
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 
 object PlayerRating {
     private var currentPlayer = ""
@@ -178,7 +177,7 @@ object PlayerRating {
     }
 
     @SubscribePSSEvent
-    fun onDungeonStart(event: DungeonStartEvent?) {
+    fun onDungeonStart(event: DungeonStartEvent) {
         if (!(config.dungeonPlayerBreakdown || config.dungeonSnitcher)) {
             return
         }
@@ -186,7 +185,7 @@ object PlayerRating {
     }
 
     @SubscribePSSEvent
-    fun onDungeonEnd(event: DungeonEndEvent?) {
+    fun onDungeonEnd(event: DungeonEndEvent) {
         if (!(config.dungeonPlayerBreakdown || config.dungeonSnitcher)) {
             return
         }
@@ -226,12 +225,12 @@ object PlayerRating {
         reset()
     }
 
-    @SubscribeEvent
-    fun onChatEvent(event: ClientChatReceivedEvent) {
+    @SubscribePSSEvent
+    fun onChatEvent(event: PSSChatEvent) {
         if (!(config.dungeonPlayerBreakdown || config.dungeonSnitcher)) {
             return
         }
-        if (event.message.unformattedText.contains("You are playing on profile:")) {
+        if (event.component.unformattedText.contains("You are playing on profile:")) {
             reset()
             return
         }
@@ -239,6 +238,6 @@ object PlayerRating {
             return
         }
 
-        handleMessage(event.message.unformattedText)
+        handleMessage(event.component.unformattedText)
     }
 }

@@ -18,19 +18,18 @@ import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.event.entity.player.PlayerInteractEvent
 import net.minecraftforge.fml.common.eventhandler.EventPriority
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import java.util.regex.Pattern
 
 object PickaxeWarning {
-    private val pattern = Pattern.compile("(Mining Speed Boost|Pickobulus|Maniac Miner|Vein Seeker) is now available!")
-    private val pickaxeAbilities =
-        arrayOf<String?>(
-            "Mining Speed Boost",
-            "Pickobulus",
-            "Maniac Miner",
-            "Vein Seeker",
-            "Hazardous Miner",
-            "Gemstone Infusion",
-        )
+
+    private val pattern = "(Mining Speed Boost|Pickobulus|Maniac Miner|Vein Seeker|Hazardous Miner|Gemstone Infusion) is now available!".toPattern()
+    private val pickaxeAbilities = arrayOf<String?>(
+        "Mining Speed Boost",
+        "Pickobulus",
+        "Maniac Miner",
+        "Vein Seeker",
+        "Hazardous Miner",
+        "Gemstone Infusion"
+    )
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     fun onChat(event: ClientChatReceivedEvent) {

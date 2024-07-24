@@ -7,9 +7,9 @@ package me.partlysanestudios.partlysaneskies.features.dungeons.party;
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand;
+import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent;
+import me.partlysanestudios.partlysaneskies.events.minecraft.PSSChatEvent;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
-import net.minecraftforge.client.event.ClientChatReceivedEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,15 +57,15 @@ public class PartyFriendManager {
         }
     }
 
-    @SubscribeEvent
-    public void getMembers(ClientChatReceivedEvent event) {
+    @SubscribePSSEvent
+    public void onChat(PSSChatEvent event) {
         if (!isWaitingForMembers) {
             return;
         }
-        if (event.message.getUnformattedText().startsWith("-----------------------------------------------------")) {
+        if (event.getComponent().getUnformattedText().startsWith("-----------------------------------------------------")) {
             isWaitingForMembers = false;
         }
-        String message = StringUtils.INSTANCE.removeColorCodes(event.message.getFormattedText());
+        String message = StringUtils.INSTANCE.removeColorCodes(event.getMessage());
 
         String[] rows = message.split("\n");
 

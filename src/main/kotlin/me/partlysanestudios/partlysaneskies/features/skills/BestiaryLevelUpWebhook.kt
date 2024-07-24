@@ -10,6 +10,8 @@ import gg.essential.elementa.dsl.percent
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.config.psconfig.Toggle
 import me.partlysanestudios.partlysaneskies.config.psconfig.Toggle.Companion.asBoolean
+import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
+import me.partlysanestudios.partlysaneskies.events.minecraft.PSSChatEvent
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.EmbedData
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.EmbedField
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.Webhook
@@ -20,8 +22,6 @@ import me.partlysanestudios.partlysaneskies.utils.StringUtils.romanNumeralToInt
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.toRoman
 import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
-import net.minecraftforge.client.event.ClientChatReceivedEvent
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import java.awt.Color
 
 object BestiaryLevelUpWebhook : Webhook() {
@@ -49,9 +49,9 @@ object BestiaryLevelUpWebhook : Webhook() {
 
     private val regex = "§b(§.)(\\w+[\\s\\w+]*) §7§8(\\w+) §8➡§b §b(\\w+)".toRegex()
 
-    @SubscribeEvent
-    fun onChatMessage(event: ClientChatReceivedEvent) {
-        val message = event.message.formattedText
+    @SubscribePSSEvent
+    fun onChatMessage(event: PSSChatEvent) {
+        val message = event.message
 
         val (_, mob, oldLevel, newLevel) = regex.find(message)?.destructured ?: return
         val oldLevelInt =

@@ -1266,7 +1266,6 @@ object OneConfigScreen : Config(
         subcategory = "Events",
         size = 2,
     )
-    @Switch(name = "Main Toggle", description = "Toggles the events.", category = "Mining", subcategory = "Events")
     var miningEventsToggle = true
 
     @Switch(
@@ -1366,14 +1365,6 @@ object OneConfigScreen : Config(
         max = 7f,
     )
     var miningEventBannerTime = 3.5f
-
-    @Color(
-        name = "Event Banner Color",
-        description = "The color of the event banner text.",
-        category = "Mining",
-        subcategory = "Events",
-    )
-    var miningEventBannerColor = OneColor(255, 255, 255)
 
     // ------------- Category: Farming ---------------------------------
     //    Hoes

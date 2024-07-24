@@ -16,6 +16,7 @@ import me.partlysanestudios.partlysaneskies.data.cache.StatsData
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.IslandType
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity
 import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
+import me.partlysanestudios.partlysaneskies.events.minecraft.PSSChatEvent
 import me.partlysanestudios.partlysaneskies.events.minecraft.render.RenderWaypointEvent
 import me.partlysanestudios.partlysaneskies.features.dungeons.PlayerRating
 import me.partlysanestudios.partlysaneskies.features.dungeons.TerminalWaypoints
@@ -40,7 +41,6 @@ import net.minecraft.client.gui.inventory.GuiChest
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.Tessellator
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats
-import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.client.event.RenderWorldLastEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import org.apache.logging.log4j.Level
@@ -148,11 +148,11 @@ object DebugKey {
     }
 
     // Runs chat analyzer for debug mode
-    @SubscribeEvent
-    fun chatAnalyzer(event: ClientChatReceivedEvent) {
+    @SubscribePSSEvent
+    fun onChat(event: PSSChatEvent) {
         if (isDebugMode() && config.debugChatAnalyser) {
-            log(Level.INFO, event.message.formattedText)
-            copyStringToClipboard(event.message.formattedText)
+            log(Level.INFO, event.message)
+            copyStringToClipboard(event.message)
         }
     }
 

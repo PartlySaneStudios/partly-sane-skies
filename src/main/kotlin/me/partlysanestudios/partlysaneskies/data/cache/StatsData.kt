@@ -18,7 +18,7 @@ object StatsData {
     private var cachedMaxMana = -1.0
 
     @SubscribeEvent
-    fun onChatMessage(event: ClientChatReceivedEvent) {
+    fun onActionbar(event: ClientChatReceivedEvent) {
         if (event.type != 2.toByte()) {
             return
         }
