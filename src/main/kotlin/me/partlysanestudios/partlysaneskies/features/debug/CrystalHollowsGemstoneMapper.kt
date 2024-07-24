@@ -101,8 +101,7 @@ object CrystalHollowsGemstoneMapper {
                 val coordObj = coordElement.asJsonObject
                 val point = Point3d(coordObj.get("x").asDouble, coordObj.get("y").asDouble, coordObj.get("z").asDouble)
                 try {
-                    val color =
-                        world
+                    val color = world
                             .getBlockState(point.toBlockPosInt())
                             .getValue(PropertyEnum.create("color", EnumDyeColor::class.java))
                     val type = "COLOR_$color"
@@ -113,7 +112,6 @@ object CrystalHollowsGemstoneMapper {
 
                     map[type]?.add(coordObj)
                 } catch (e: Exception) {
-                    e.printStackTrace()
                     continue
                 }
             }

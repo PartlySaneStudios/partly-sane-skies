@@ -213,7 +213,7 @@ object ThemeManager {
         val averageR: Int = (color.red * .761).toInt()
         val averageG: Int = (color.green * .761).toInt()
         val averageB: Int = (color.blue * .761).toInt()
-        return Color(averageR, averageG, averageB, color.getTransparency())
+        return Color(averageR, averageG, averageB, color.alpha)
     }
 
     private fun lightenColor(color: OneColor): Color = lightenColor(color.toJavaColor())
@@ -271,11 +271,7 @@ object ThemeManager {
         filePath.toFile().createNewFile()
         replaceColor(debugImage, PRIMARY_DEBUG_COLOR, primaryColor)
         replaceColor(debugImage, SECONDARY_DEBUG_COLOR, secondaryColor)
-        replaceColor(
-            debugImage,
-            ACCENT_DEBUG_COLOR,
-            (accentColor),
-        )
+        replaceColor(debugImage, ACCENT_DEBUG_COLOR, accentColor)
         saveImage(debugImage, filePath)
         return filePath.toFile()
     }
@@ -299,11 +295,7 @@ object ThemeManager {
         filePath.toFile().createNewFile()
         replaceColor(debugImage, PRIMARY_DEBUG_COLOR, primaryColor)
         replaceColor(debugImage, SECONDARY_DEBUG_COLOR, secondaryColor)
-        replaceColor(
-            debugImage,
-            ACCENT_DEBUG_COLOR,
-            (accentColor),
-        )
+        replaceColor(debugImage, ACCENT_DEBUG_COLOR, accentColor)
         saveImage(debugImage, filePath)
         return filePath.toFile()
     }

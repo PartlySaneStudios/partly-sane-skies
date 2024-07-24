@@ -64,7 +64,8 @@ class Config : ConfigOption() {
             // If the parameter exists
             if (obj.has(option.key)) {
                 try {
-                    option.value.loadFromJson(obj.get(option.key))
+                    option.value.loadFromJson(obj[option.key])
+
                 } catch (e: Exception) {
                     log(Level.ERROR, "Error loading option ${option.key}")
                     throw e
