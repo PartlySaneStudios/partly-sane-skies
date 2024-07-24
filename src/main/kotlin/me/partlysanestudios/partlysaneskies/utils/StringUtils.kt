@@ -407,11 +407,11 @@ object StringUtils {
         }
     }
 
-    fun String.lastUsedColorCode(startIndex: Int = 0, endIndex: Int = this.length - 1): String? {
+    fun String.lastUsedColorCode(startIndex: Int = 0, endIndex: Int = this.length): String? {
         val colorCodes = "0123456789abcdef"
         val regex = Regex("§[${colorCodes}]")
 
-        val subString = this.substring(startIndex, endIndex + 1)
+        val subString = this.substring(startIndex, endIndex)
         val matches = regex.findAll(subString)
 
         return matches.lastOrNull()?.value
