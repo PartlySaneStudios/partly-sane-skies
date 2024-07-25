@@ -76,9 +76,16 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
             (this as UITextInput).setText("")
             updateFilterList()
         }
+
         this.setColor(Color.lightGray)
 
         updateCreateFilterAutocomplete()
+    }.onMouseEnter {
+        this.setColor(Color.lightGray)
+    }.onMouseLeave {
+        if ((this as UITextInput).getText().isEmpty()) {
+            this.setColor(Color.gray)
+        }
     } as UITextInput childOf createFilterContainer
 
     private val createFiltersScrollComponent = ScrollComponent(
@@ -93,7 +100,7 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
     } childOf createFilterContainer
 
     private val createFilterButton = PSSButton()
-        .setText("Add ${currentFilterType.displayName} Filter")
+        .setText("Add to ${currentFilterType.displayName} Filter")
         .setX(5.percent)
         .setY(11.percent)
         .setHeight(50.scaledPixels)
@@ -140,7 +147,7 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
         y = 0.percent
     } childOf backgroundBox
 
-    private val activeFiltersHeading = UIWrappedText("${currentFilterType.displayName} Filters:").constrain {
+    private val activeFiltersHeading = UIWrappedText("Active ${currentFilterType.displayName} Filters:").constrain {
         width = 90.percent
         x = 5.percent
         y = 2.percent
@@ -158,6 +165,12 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
         grabWindowFocus()
     }.onKeyType { _, _ ->
         updateFilterList()
+    }.onMouseEnter {
+        this.setColor(Color.lightGray)
+    }.onMouseLeave {
+        if ((this as UITextInput).getText().isEmpty()) {
+            this.setColor(Color.gray)
+        }
     } as UITextInput childOf activeFiltersContainer
 
     private val activeFiltersScrollComponent = ScrollComponent(
@@ -167,7 +180,7 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
         width = 100.percent
         height = 90.percent
         x = 0.percent
-        y = 10.percent
+        y = 7.percent
     } childOf activeFiltersContainer
 
 
@@ -296,7 +309,7 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
     }
 
     private fun updateTitles() {
-        activeFiltersHeading.setText("${currentFilterType.displayName} Filters:")
+        activeFiltersHeading.setText("Active ${currentFilterType.displayName} Filters:")
         createFilterButton.setText("Add to ${currentFilterType.displayName}")
         switchTypeButton.setText("Switch to ${opposite.displayName} Mode")
     }
