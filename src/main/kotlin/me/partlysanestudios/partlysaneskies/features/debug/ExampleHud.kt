@@ -25,15 +25,13 @@ object ExampleHud : PSSHud(false, 50.0F, 50.0F) {
 
     private val window = Window(ElementaVersion.V2)
 
-    private val box =
-        UIBlock()
-            .constrain {
-                x = 50.pixels
-                y = 50.pixels
-                height = DEFAULT_HEIGHT.pixels
-                width = DEFAULT_WIDTH.pixels
-                color = DEFAULT_COLOR.constraint
-            } childOf window
+    private val box = UIBlock().constrain {
+        x = 50.pixels
+        y = 50.pixels
+        height = DEFAULT_HEIGHT.pixels
+        width = DEFAULT_WIDTH.pixels
+        color = DEFAULT_COLOR.constraint
+    } childOf window
 
     @SubscribeEvent
     fun onScreenRender(event: RenderGameOverlayEvent.Text) {
