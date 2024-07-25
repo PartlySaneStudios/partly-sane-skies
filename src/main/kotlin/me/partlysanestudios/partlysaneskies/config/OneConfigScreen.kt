@@ -1266,6 +1266,12 @@ object OneConfigScreen : Config(
         subcategory = "Events",
         size = 2,
     )
+    @Switch(
+        name = "Main Toggle", 
+        description = "Toggles the events.", 
+        category = "Mining", 
+        subcategory = "Events"
+    )
     var miningEventsToggle = true
 
     @Switch(
