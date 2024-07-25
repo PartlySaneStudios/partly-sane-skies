@@ -20,6 +20,7 @@ import gg.essential.elementa.dsl.percent
 import gg.essential.elementa.events.UIClickEvent
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager.currentButtonUIImage
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager.getCurrentButtonUIImage
+import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
 import me.partlysanestudios.partlysaneskies.utils.ImageUtils.minus
 import me.partlysanestudios.partlysaneskies.utils.ImageUtils.plus
 import java.awt.Color
@@ -51,6 +52,7 @@ class PSSButton {
         y = CenterConstraint()
         width = 100.percent
         color = Color.lightGray.constraint
+        textScale = 1.scaledPixels
     } childOf backgroundBlock
 
     constructor() {

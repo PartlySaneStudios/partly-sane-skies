@@ -21,6 +21,7 @@ import gg.essential.elementa.dsl.constrain
 import gg.essential.elementa.dsl.constraint
 import gg.essential.elementa.dsl.percent
 import gg.essential.elementa.dsl.pixels
+import gg.essential.elementa.dsl.plus
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager
 import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.RareDropGUIManager.currentFilter
 import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.RareDropGUIManager.currentFilterType
@@ -65,6 +66,7 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
         height = 5.percent
         x = 5.percent
         y = 7.percent
+        textScale = 1.scaledPixels
         color = Color.gray.constraint
     }.onMouseClick {
         grabWindowFocus()
@@ -160,6 +162,7 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
         height = 5.percent
         x = 5.percent
         y = 6.percent
+        textScale = 1.scaledPixels
         color = Color.gray.constraint
     }.onMouseClick {
         grabWindowFocus()
@@ -194,11 +197,19 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
         y = 80.percent
     } childOf backgroundBox
 
+    private val presetsHeading = UIWrappedText("Add Bulk Items:").constrain {
+        x = 4.percent
+        y = 10.percent
+        width = 92.percent
+        textScale = 1.5.scaledPixels
+        color = Color.green.constraint
+    } childOf presetsContainer
+
     private val presetButtons = RareDropGUIManager.presets.forEachIndexed { columnIndex, (presetName, items) ->
         PSSButton()
             .setText(presetName)
             .setX((15 * columnIndex + 5).percent)
-            .setY(CenterConstraint())
+            .setY(CenterConstraint() + 10.percent)
             .setHeight(50.scaledPixels)
             .setWidth(60.scaledPixels)
             .setChildOf(presetsContainer)
@@ -212,11 +223,10 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
         update()
     }
 
-
     private fun createAutoCompletedItem(itemName: String, itemColor: Color) {
         val boundingBox = UIBlock().constrain {
-            x = CramSiblingConstraint(20f)
-            y = CramSiblingConstraint(5f)
+            x = CramSiblingConstraint(10f)
+            y = CramSiblingConstraint(10f)
             width = 48.percent
             height = 7.percent
             color = Color(0,0 ,0, 0).constraint
@@ -236,7 +246,6 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
             y = CenterConstraint()
             width = 90.percent
             height = 100.percent
-            textScale = 1.scaledPixels
             color = Color(0, 0, 0, 0).constraint
         }.onMouseClick {
             if (it.mouseButton != 0) {
@@ -366,5 +375,3 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
             }
     }
 }
-
-
