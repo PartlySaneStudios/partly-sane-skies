@@ -42,13 +42,19 @@ class PSSButton {
         y = CenterConstraint()
         width = 100.percent
         height = 100.percent
+    }.onMouseEnter {
+        this.setWidth(105.percent)
+        this.setHeight(105.percent)
+    }.onMouseLeave {
+        this.setWidth(100.percent)
+        this.setHeight(100.percent)
     } childOf backgroundBlock
 
     private val textComponent = UIWrappedText(text, false, Color(0, 0, 0, 0), true).constrain {
         x = CenterConstraint()
         y = CenterConstraint()
         width = 100.percent
-        color = Color.white.constraint
+        color = Color.lightGray.constraint
     } childOf backgroundBlock
 
     constructor() {

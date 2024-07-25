@@ -74,4 +74,44 @@ object ImageUtils {
         // Combine into a single integer (shift and bitwise OR)
         return red shl 16 or (green shl 8) or blue
     }
+
+    operator fun Color.plus(color: Color): Color {
+        val red = if (this.red + color.red > 255) {
+            0
+        } else {
+            this.red + color.red
+        }
+        val blue = if (this.blue + color.blue > 255) {
+            0
+        } else {
+            this.blue + color.blue
+        }
+        val green = if (this.green + color.green > 255) {
+            0
+        } else {
+            this.green + color.green
+        }
+
+        return Color(red, green, blue)
+    }
+
+    operator fun Color.minus(color: Color): Color {
+        val red = if (this.red - color.red < 0) {
+            0
+        } else {
+            this.red - color.red
+        }
+        val blue = if (this.blue - color.blue < 0) {
+            0
+        } else {
+            this.blue - color.blue
+        }
+        val green = if (this.green - color.green < 0) {
+            0
+        } else {
+            this.green - color.green
+        }
+
+        return Color(red, green, blue)
+    }
 }

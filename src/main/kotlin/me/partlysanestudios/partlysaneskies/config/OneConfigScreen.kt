@@ -427,7 +427,7 @@ object OneConfigScreen : Config(
     var blockLegendaryDrops = false
 
     @Button(
-        name = "Blacklist Individual Items",
+        name = "Filter Individual Items",
         text = "Open Menu",
         description = "Click to open a menu to blacklist individual items.",
         category = "SkyBlock",

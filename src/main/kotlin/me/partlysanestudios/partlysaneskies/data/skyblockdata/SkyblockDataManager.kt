@@ -15,6 +15,7 @@ import me.partlysanestudios.partlysaneskies.data.api.RequestsManager.newRequest
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager.getFile
 import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.data.LoadPublicDataEvent
+import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import java.io.IOException
 import java.net.MalformedURLException
 
@@ -78,7 +79,7 @@ object SkyblockDataManager {
                         )
 
                         idToItemMap[en.get("itemId").asString] = skyblockItem
-                        nameToIdMap[en.get("name").asString] = en.get("itemId").asString
+                        nameToIdMap[en.get("name").asString.removeColorCodes()] = en.get("itemId").asString
 
                     }
 
@@ -99,15 +100,9 @@ object SkyblockDataManager {
         }
     }
 
-    fun getId(name: String): String {
-        return nameToIdMap[name] ?: ""
-    }
+    fun getId(name: String): String = nameToIdMap[name.removeColorCodes()] ?: ""
 
-    fun getItem(id: String): SkyblockItem? {
-        return if (!idToItemMap.containsKey(id)) {
-            null
-        } else idToItemMap[id]
-    }
+    fun getItem(id: String): SkyblockItem? = idToItemMap[id]
 
     fun runUpdaterTick() {
         if (checkLastUpdate()) {
@@ -122,6 +117,8 @@ object SkyblockDataManager {
             lastAhUpdateTime = time
         }
     }
+
+    fun getAllItems(): List<String> = idToItemMap.keys.toList()
 
     //    --------------------------- Skills ---------------------------
     private var idToSkillMap = HashMap<String, SkyblockSkill>()
@@ -171,9 +168,7 @@ object SkyblockDataManager {
         )
     }
 
-    fun getSkill(skillId: String): SkyblockSkill? {
-        return idToSkillMap[skillId]
-    }
+    fun getSkill(skillId: String): SkyblockSkill? = idToSkillMap[skillId]
 
     //    --------------------------- Players ---------------------------
     private val playerCache = HashMap<String, SkyblockPlayer>()
