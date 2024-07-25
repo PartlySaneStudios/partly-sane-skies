@@ -331,10 +331,6 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
                     x = 0.pixels
                     y = CenterConstraint()
                     width = 10.percent
-                }.onMouseClick {
-                    currentFilter -= filter
-                    RareDropGUIManager.saveData()
-                    updateFilterList()
                 } childOf box
 
                 val filterText = UIWrappedText(filter).constrain {
@@ -350,6 +346,14 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
                     height = 3.percent
                     width = 90.percent
                     color = Color(0, 0, 0, 0).constraint
+                }.onMouseClick {
+                    currentFilter -= filter
+                    RareDropGUIManager.saveData()
+                    updateFilterList()
+                }.onMouseEnter {
+                    filterText.setText("§m$filter")
+                }.onMouseLeave {
+                    filterText.setText(filter)
                 }
 
                 val id = SkyblockDataManager.getId(filter)
@@ -359,12 +363,6 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
                     Color.lightGray
                 }
                 filterText.setColor(color)
-                
-                box.onMouseEnter {
-                    filterText.setText("§m$filter")
-                }.onMouseLeave {
-                    filterText.setText(filter)
-                }
             }
     }
 }
