@@ -284,31 +284,24 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
 
     private fun updateCreateFilterAutocomplete() {
         autoCompleteScrollComponent.clearChildren()
+        val searchText = createFiltersSearchBar.getText()
 
-        if (createFiltersSearchBar.getText().isBlank()) {
-            createFiltersSearchBar.setColor(Color.gray)
-        } else {
-            createFiltersSearchBar.setColor(Color.lightGray)
-        }
+        createFiltersSearchBar.setColor(if (searchText.isBlank()) Color.gray else Color.lightGray)
 
-        val allId = SkyblockDataManager.getAllItems().sorted()
-
-        var i = 0
-        for (id in allId) {
-            if (i > 100) {
-                break
+        SkyblockDataManager.getAllItems()
+            .sorted()
+            .asSequence()
+            .take(100)
+            .mapNotNull { id ->
+                SkyblockDataManager.getItem(id)?.takeIf {
+                    id.contains(searchText, ignoreCase = true) || it.name.contains(searchText, ignoreCase = true)
+                }?.let { item ->
+                    item.name to item.rarity.colorCode.colorCodeToColor()
+                }
             }
-            val item = SkyblockDataManager.getItem(id)
-            if (
-                !id.contains(createFiltersSearchBar.getText(), ignoreCase = true) &&
-                item?.name?.contains(createFiltersSearchBar.getText(), ignoreCase = true) != true
-            ) {
-                continue
+            .forEach { (name, color) ->
+                createAutoCompletedItem(name, color)
             }
-
-            createAutoCompletedItem(item?.name ?: id, item?.rarity?.colorCode?.colorCodeToColor() ?: Color.lightGray)
-            i++
-        }
     }
 
     private fun update() {
