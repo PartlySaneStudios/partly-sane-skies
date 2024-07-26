@@ -3,7 +3,6 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.events
 
 import me.partlysanestudios.partlysaneskies.events.minecraft.PSSChatEvent

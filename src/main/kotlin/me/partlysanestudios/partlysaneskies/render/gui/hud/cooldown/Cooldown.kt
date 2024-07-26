@@ -10,22 +10,17 @@ import me.partlysanestudios.partlysaneskies.utils.MathUtils
 import net.minecraft.item.ItemStack
 
 abstract class Cooldown {
-
     private var startingTime = -1L
 
     /**
      * @return Starting time of cooldown in milliseconds
      */
-    fun getStartingTime(): Long {
-        return startingTime
-    }
+    fun getStartingTime(): Long = startingTime
 
     /**
      * @return Ending time of the cooldown in milliseconds
      */
-    fun getEndingTime(): Long {
-        return getStartingTime() + getTotalTime()
-    }
+    fun getEndingTime(): Long = getStartingTime() + getTotalTime()
 
     /**
      * @return Total time of the cooldown in milliseconds
@@ -35,9 +30,7 @@ abstract class Cooldown {
     /**
      * @return Time remaining of the cooldown in milliseconds
      */
-    fun getTimeRemaining(): Long {
-        return getEndingTime() - PartlySaneSkies.time
-    }
+    fun getTimeRemaining(): Long = getEndingTime() - PartlySaneSkies.time
 
     /**
      * Starts the cooldown by setting the starting time to now
@@ -49,9 +42,7 @@ abstract class Cooldown {
     /*
      * Returns true if the cooldown is active, false if it is not
      */
-    fun isCooldownActive(): Boolean {
-        return MathUtils.onCooldown(startingTime, getTotalTime())
-    }
+    fun isCooldownActive(): Boolean = MathUtils.onCooldown(startingTime, getTotalTime())
 
     /*
      * Returns the name of the cooldown

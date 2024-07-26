@@ -7,7 +7,11 @@ package me.partlysanestudios.partlysaneskies.render.gui.components
 import gg.essential.elementa.UIComponent
 import gg.essential.elementa.components.UIBlock
 import gg.essential.elementa.components.UIImage
-import gg.essential.elementa.constraints.*
+import gg.essential.elementa.constraints.CenterConstraint
+import gg.essential.elementa.constraints.HeightConstraint
+import gg.essential.elementa.constraints.WidthConstraint
+import gg.essential.elementa.constraints.XConstraint
+import gg.essential.elementa.constraints.YConstraint
 import gg.essential.elementa.dsl.childOf
 import gg.essential.elementa.dsl.constrain
 import gg.essential.elementa.dsl.percent
@@ -21,40 +25,38 @@ class PSSToggle {
     private var backgroundBlock: UIBlock = UIBlock()
         .setColor(Color(0, 0, 0, 0)) as UIBlock
 
-    private var buttonTexture: UIImage = getCurrentToggleUIImage(false).constrain {
-        x = CenterConstraint()
-        y = CenterConstraint()
-        width = 100.percent
-        height = 100.percent
-    } childOf backgroundBlock
+    private var buttonTexture: UIImage = getCurrentToggleUIImage(false)
+        .constrain {
+            x = CenterConstraint()
+            y = CenterConstraint()
+            width = 100.percent
+            height = 100.percent
+        } childOf backgroundBlock
 
-    fun toggleState(): PSSToggle {
-        return setState(!state)
-    }
+    fun toggleState(): PSSToggle = setState(!state)
 
     fun setState(state: Boolean): PSSToggle {
         this.state = state
         return updateState()
     }
 
-    fun getState(): Boolean {
-        return this.state
-    }
+    fun getState(): Boolean = this.state
 
     private fun updateState(): PSSToggle {
         val children = buttonTexture.children
         backgroundBlock.removeChild(buttonTexture)
 
-        buttonTexture = if (state) {
-            getCurrentToggleUIImage(true)
-        } else {
-            getCurrentToggleUIImage(false)
-        }.constrain {
-            width = 100.percent
-            height = 100.percent
-            x = CenterConstraint()
-            y = CenterConstraint()
-        }
+        buttonTexture =
+            if (state) {
+                getCurrentToggleUIImage(true)
+            } else {
+                getCurrentToggleUIImage(false)
+            }.constrain {
+                width = 100.percent
+                height = 100.percent
+                x = CenterConstraint()
+                y = CenterConstraint()
+            }
 
         backgroundBlock.insertChildAt(buttonTexture, 0)
 

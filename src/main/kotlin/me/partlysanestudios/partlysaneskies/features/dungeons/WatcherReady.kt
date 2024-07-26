@@ -25,8 +25,8 @@ object WatcherReady {
                         "Watcher Ready!",
                         (config.watcherReadyBannerTime * 1000).toLong(),
                         3.0f,
-                        config.watcherReadyBannerColor.toJavaColor()
-                    )
+                        config.watcherReadyBannerColor.toJavaColor(),
+                    ),
                 )
             }
             if (config.watcherReadyChatMessage) {
@@ -35,15 +35,15 @@ object WatcherReady {
             if (config.watcherReadySound) {
                 minecraft.soundHandler.playSound(
                     PositionedSoundRecord.create(
-                        ResourceLocation("partlysaneskies", "bell")
-                    )
+                        ResourceLocation("partlysaneskies", "bell"),
+                    ),
                 )
             }
             if (config.watcherReadyAirRaidSiren) {
                 minecraft.soundHandler.playSound(
                     PositionedSoundRecord.create(
-                        ResourceLocation("partlysaneskies", "airraidsiren")
-                    )
+                        ResourceLocation("partlysaneskies", "airraidsiren"),
+                    ),
                 )
             }
         }

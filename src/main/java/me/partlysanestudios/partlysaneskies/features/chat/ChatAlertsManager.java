@@ -23,7 +23,6 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class ChatAlertsManager {
     static String DATA_PATH_NAME = "./config/partly-sane-skies/chatAlertsData.json";
@@ -58,76 +57,76 @@ public class ChatAlertsManager {
 
     public static void registerCommand() {
         new PSSCommand("chatalerts")
-                .addAlias("ca")
-                .addAlias("chatAlert")
-                .addAlias("chal")
-                .setDescription("Operates the chat alerts feature: /chatalerts <add/remove/list> ")
-                .setRunnable(args -> {
-                    // If the user doesn't provide any arguments whatsoever print message
-                    if (args.length == 0) {
+            .addAlias("ca")
+            .addAlias("chatAlert")
+            .addAlias("chal")
+            .setDescription("Operates the chat alerts feature: /chatalerts <add/remove/list> ")
+            .setRunnable(args -> {
+                // If the user doesn't provide any arguments whatsoever print message
+                if (args.length == 0) {
+                    ChatUtils.INSTANCE.sendClientMessage("§cIncorrect usage. Correct usage: /chatalerts add/remove/list");
+                    return;
+                }
+
+                // Looks at the first argument given
+                switch (args[0]) {
+                    // If the user does /chatalerts list
+                    case "list":
+                        ChatAlertsManager.listAlerts();
+                        break;
+
+                    // If the user does /chatalerts add
+                    case "add":
+                        // Prints error message if no message alert is given
+                        if (args.length == 1) {
+                            ChatUtils.INSTANCE.sendClientMessage("§cIncorrect usage. Correct usage: /chatalerts add [alert]");
+                            break;
+                        }
+
+                        // Adds each argument as a space
+                        StringBuilder alert = new StringBuilder();
+                        for (int i = 1; i < args.length; i++) {
+                            alert.append(args[i]);
+                            alert.append(" ");
+                        }
+
+                        // Removes any leading or trailing spaces
+                        alert = new StringBuilder(StringUtils.INSTANCE.stripLeading(alert.toString()));
+                        alert = new StringBuilder(StringUtils.INSTANCE.stripTrailing(alert.toString()));
+
+                        ChatAlertsManager.addAlert(alert.toString());
+
+                        break;
+
+                    // If the user does /chatalerts remove
+                    case "remove":
+                        // If no number is given
+                        if (args.length == 1) {
+                            ChatUtils.INSTANCE.sendClientMessage("§cIncorrect usage. Correct usage: /chatalerts remove [number]");
+                            break;
+                        }
+
+                        // Tries to parse the number given as a number
+                        int id;
+                        try {
+                            id = Integer.parseInt(args[1]);
+                        } catch (
+                            NumberFormatException e) { // If the number cannot be parsed, prints an error message
+                            ChatUtils.INSTANCE.sendClientMessage("§c\"" + args[1] + "\" could not be read as a number. Correct Usage: /chatalerts remove [number]");
+                            break;
+                        }
+
+                        // Removes the chat alert
+                        ChatAlertsManager.removeAlert(id);
+                        break;
+
+                    // If none of the above are given
+                    default:
                         ChatUtils.INSTANCE.sendClientMessage("§cIncorrect usage. Correct usage: /chatalerts add/remove/list");
-                        return;
-                    }
-
-                    // Looks at the first argument given
-                    switch (args[0]) {
-                        // If the user does /chatalerts list
-                        case "list":
-                            ChatAlertsManager.listAlerts();
-                            break;
-
-                        // If the user does /chatalerts add
-                        case "add":
-                            // Prints error message if no message alert is given
-                            if (args.length == 1) {
-                                ChatUtils.INSTANCE.sendClientMessage("§cIncorrect usage. Correct usage: /chatalerts add [alert]");
-                                break;
-                            }
-
-                            // Adds each argument as a space
-                            StringBuilder alert = new StringBuilder();
-                            for (int i = 1; i < args.length; i++) {
-                                alert.append(args[i]);
-                                alert.append(" ");
-                            }
-
-                            // Removes any leading or trailing spaces
-                            alert = new StringBuilder(StringUtils.INSTANCE.stripLeading(alert.toString()));
-                            alert = new StringBuilder(StringUtils.INSTANCE.stripTrailing(alert.toString()));
-
-                            ChatAlertsManager.addAlert(alert.toString());
-
-                            break;
-
-                        // If the user does /chatalerts remove
-                        case "remove":
-                            // If no number is given
-                            if (args.length == 1) {
-                                ChatUtils.INSTANCE.sendClientMessage("§cIncorrect usage. Correct usage: /chatalerts remove [number]");
-                                break;
-                            }
-
-                            // Tries to parse the number given as a number
-                            int id;
-                            try {
-                                id = Integer.parseInt(args[1]);
-                            } catch (
-                                    NumberFormatException e) { // If the number cannot be parsed, prints an error message
-                                ChatUtils.INSTANCE.sendClientMessage("§c\"" + args[1] + "\" could not be read as a number. Correct Usage: /chatalerts remove [number]");
-                                break;
-                            }
-
-                            // Removes the chat alert
-                            ChatAlertsManager.removeAlert(id);
-                            break;
-
-                        // If none of the above are given
-                        default:
-                            ChatUtils.INSTANCE.sendClientMessage("§cIncorrect usage. Correct usage: /chatalerts add/remove/list");
-                            break;
-                    }
-                })
-                .register();
+                        break;
+                }
+            })
+            .register();
     }
 
     // Saves all the chat alerts data
@@ -174,7 +173,7 @@ public class ChatAlertsManager {
     public static void listAlerts() {
         // Creates header message
         StringBuilder message = new StringBuilder("§d§m-----------------------------------------------------\n§bChat Alerts:" +
-                "\n§d§m-----------------------------------------------------\n");
+            "\n§d§m-----------------------------------------------------\n");
 
         // Creates the index number on the left of the message
         int i = 1;

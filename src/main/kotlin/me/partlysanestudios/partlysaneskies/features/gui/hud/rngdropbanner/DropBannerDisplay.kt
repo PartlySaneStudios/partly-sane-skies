@@ -34,8 +34,9 @@ object DropBannerDisplay {
 
     // Whenever someone updates the regex, please replace the regex in the following link:
     // Regex: https://regex101.com/r/lPUJeH/8
-    private val RARE_DROP_REGEX = "(?:§r)*(?<dropCategoryColor>§.)(?:§.)+(?<dropCategory>[\\w\\s]*[CD]ROP!) (?:§.)+\\(?(?:§.)*(?:\\d+x )?(?:§.)*(?<dropColor>§.)(?<name>◆?[\\s\\w]+)(?:§.)+\\)? ?(?:(?:§.)+)?(?:\\((?:\\+(?:§.)*(?<magicFind>\\d+)% (?:§.)+✯ Magic Find(?:§.)*|[\\w\\s]+)\\))?".toRegex()
-
+    private val RARE_DROP_REGEX =
+        "(?:§r)*(?<dropCategoryColor>§.)(?:§.)+(?<dropCategory>[\\w\\s]*[CD]ROP!) (?:§.)+\\(?(?:§.)*(?:\\d+x )?(?:§.)*(?<dropColor>§.)(?<name>◆?[\\s\\w]+)(?:§.)+\\)? ?(?:(?:§.)+)?(?:\\((?:\\+(?:§.)*(?<magicFind>\\d+)% (?:§.)+✯ Magic Find(?:§.)*|[\\w\\s]+)\\))?"
+            .toRegex()
 
     private const val SMALL_TEXT_SCALE = 2.5f
     private const val BIG_TEXT_SCALE = 5f
@@ -49,19 +50,21 @@ object DropBannerDisplay {
     private var topString = ""
     private var dropNameString = ""
 
-    private var topText = UIWrappedText(centered = true).constrain {
-        textScale = (BIG_TEXT_SCALE * config.bannerSize).scaledPixels
-        width = 100.percent
-        x = CenterConstraint()
-        y = BANNER_HEIGHT_FACTOR.percent
-    } childOf window
+    private var topText =
+        UIWrappedText(centered = true).constrain {
+            textScale = (BIG_TEXT_SCALE * config.bannerSize).scaledPixels
+            width = 100.percent
+            x = CenterConstraint()
+            y = BANNER_HEIGHT_FACTOR.percent
+        } childOf window
 
-    private var dropNameText = UIWrappedText(centered = true).constrain {
-        textScale = (SMALL_TEXT_SCALE * config.bannerSize).scaledPixels
-        width = 100.percent
-        x = CenterConstraint()
-        y = PixelConstraint(topText.getBottom() + window.getHeight() * TEXT_SPACING_FACTOR)
-    } childOf window
+    private var dropNameText =
+        UIWrappedText(centered = true).constrain {
+            textScale = (SMALL_TEXT_SCALE * config.bannerSize).scaledPixels
+            width = 100.percent
+            x = CenterConstraint()
+            y = PixelConstraint(topText.getBottom() + window.getHeight() * TEXT_SPACING_FACTOR)
+        } childOf window
 
     @SubscribePSSEvent
     fun onChatMessage(event: PSSChatEvent) {
@@ -106,19 +109,20 @@ object DropBannerDisplay {
         }
 
         var categoryColor = item.dropCategoryColor
-        dropNameString = "${item.dropRarity.colorCode}${item.name} ${if (item.magicFind > 0) "§b(+${item.magicFind}% ✯ Magic Find)" else ""}"
+        dropNameString =
+            "${item.dropRarity.colorCode}${item.name} ${if (item.magicFind > 0) "§b(+${item.magicFind}% ✯ Magic Find)" else ""}"
         topString = item.dropCategory
 
         if (
-            (time - item.timeDropped > TEXT_BLINK_START_FACTOR * config.rareDropBannerTime * 1000)
-            &&
+            (time - item.timeDropped > TEXT_BLINK_START_FACTOR * config.rareDropBannerTime * 1000) &&
             (time - item.timeDropped < TEXT_BLINK_END_FACTOR * config.rareDropBannerTime * 1000)
         ) {
-            categoryColor = if (Math.round((item.timeDropped - time) / 1000f * 4) % 2 == 0) {
-                Color.white
-            } else {
-                item.dropCategoryColor
-            }
+            categoryColor =
+                if (Math.round((item.timeDropped - time) / 1000f * 4) % 2 == 0) {
+                    Color.white
+                } else {
+                    item.dropCategoryColor
+                }
         }
 
         if (!onCooldown(item.timeDropped, (config.rareDropBannerTime * 1000).toLong())) {
@@ -142,8 +146,8 @@ object DropBannerDisplay {
         window.draw(UMatrixStack())
     }
 
-    private fun checkRarity(rarity: Rarity): Boolean {
-        return when {
+    private fun checkRarity(rarity: Rarity): Boolean =
+        when {
             rarity == Rarity.COMMON && config.blockCommonDrops -> true
             rarity == Rarity.UNCOMMON && config.blockUncommonDrops -> true
             rarity == Rarity.RARE && config.blockRareDrops -> true
@@ -151,5 +155,4 @@ object DropBannerDisplay {
             rarity == Rarity.LEGENDARY && config.blockLegendaryDrops -> true
             else -> false
         }
-    }
 }

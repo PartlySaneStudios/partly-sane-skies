@@ -3,7 +3,6 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.features.discord
 
 import com.jagrosh.discordipc.IPCClient
@@ -16,17 +15,14 @@ import me.partlysanestudios.partlysaneskies.utils.SystemUtils
 import org.apache.logging.log4j.Level
 import java.time.Instant
 
-
-
-
 object DiscordRPC {
     private const val NORMAL_APPLICATION_ID = 1195613263845666849
     private const val SBE_BAD_APPLICATION_ID = 1195625408167686175
 
-
     private var lastName = "sbe bad"
     private var lastMessage = "Playing Hypixel Skyblock"
     private var startTimeStamp = Instant.now()
+
     fun init() {
         startTimeStamp = Instant.now()
 
@@ -71,7 +67,6 @@ object DiscordRPC {
         return if (config.discordRPCOnlySkyblock) { // if true, check if it's in skyblock// if not in skyblock return true
             // if in skyblock, return true
             HypixelUtils.isSkyblock()
-
         } else { // if the rpc in enabled, but the only in skyblock is disabled, return true
             true
         }
@@ -79,21 +74,23 @@ object DiscordRPC {
 
     fun run() {
         val sbeBadMode = config.discordPlayingMode == 1
-        val applicationId = if (sbeBadMode) {
-            SBE_BAD_APPLICATION_ID
-        } else {
-            NORMAL_APPLICATION_ID
-        }
-        val client = IPCClient(applicationId)
-        client.setListener(object : IPCListener {
-            override fun onReady(client: IPCClient) {
-                val builder: RichPresence.Builder = buildActivity()
-
-                client.sendRichPresence(builder.build())
+        val applicationId =
+            if (sbeBadMode) {
+                SBE_BAD_APPLICATION_ID
+            } else {
+                NORMAL_APPLICATION_ID
             }
-        })
-        client.connect()
+        val client = IPCClient(applicationId)
+        client.setListener(
+            object : IPCListener {
+                override fun onReady(client: IPCClient) {
+                    val builder: RichPresence.Builder = buildActivity()
 
+                    client.sendRichPresence(builder.build())
+                }
+            },
+        )
+        client.connect()
 
         while (true) {
             // If it should run or if the mode has changed, return so the run function can be called again with the right application id
@@ -109,14 +106,10 @@ object DiscordRPC {
 
                     val builder = buildActivity()
                     client.sendRichPresence(builder.build())
-
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
-            } finally {
-
             }
-
 
             try {
                 // Sleep a bit to save CPU
@@ -125,15 +118,14 @@ object DiscordRPC {
                 e.printStackTrace()
             }
         }
-
     }
 
-    fun buildActivity(): RichPresence.Builder {
-        return RichPresence.Builder().setState(config.discordRPCName)
+    fun buildActivity(): RichPresence.Builder =
+        RichPresence
+            .Builder()
+            .setState(config.discordRPCName)
             .setDetails(config.discordRPCDescription)
             .setStartTimestamp(startTimeStamp.epochSecond)
             .setLargeImage("large_logo", "")
             .setSmallImage("small_logo", "Partly Sane Skies by Partly Sane Studios")
-    }
-
 }

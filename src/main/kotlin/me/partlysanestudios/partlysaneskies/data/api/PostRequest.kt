@@ -8,8 +8,11 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.URL
 import java.security.cert.X509Certificate
-import javax.net.ssl.*
-
+import javax.net.ssl.HostnameVerifier
+import javax.net.ssl.HttpsURLConnection
+import javax.net.ssl.SSLContext
+import javax.net.ssl.TrustManager
+import javax.net.ssl.X509TrustManager
 
 class PostRequest(
     url: URL,
@@ -26,7 +29,7 @@ class PostRequest(
         inMainThread: Boolean = false,
         executeOnNextFrame: Boolean = false,
         acceptAllCertificates: Boolean = false,
-    ): this(URL(url), function, postContent, inMainThread, executeOnNextFrame, acceptAllCertificates)
+    ) : this(URL(url), function, postContent, inMainThread, executeOnNextFrame, acceptAllCertificates)
 
     //    Constructor without certificate option
     @Deprecated("Use constructor with acceptAllCertificates option")
@@ -36,7 +39,7 @@ class PostRequest(
         postContent: String,
         inMainThread: Boolean = false,
         executeOnNextFrame: Boolean = false,
-    ): this(url, function, postContent, inMainThread, executeOnNextFrame, false)
+    ) : this(url, function, postContent, inMainThread, executeOnNextFrame, false)
 
     //    Constructor without certificates option
     @Deprecated("Use constructor with acceptAllCertificates option")
@@ -46,7 +49,7 @@ class PostRequest(
         postContent: String,
         inMainThread: Boolean = false,
         executeOnNextFrame: Boolean = false,
-    ): this(URL(url), function, postContent, inMainThread, executeOnNextFrame, false)
+    ) : this(URL(url), function, postContent, inMainThread, executeOnNextFrame, false)
 
     override fun startRequest() {
         // Opens a new connection with the url
@@ -56,11 +59,22 @@ class PostRequest(
         connection.setRequestProperty("Content-Type", "application/json")
         if (acceptAllCertificates) {
             // Create a trust manager that does not validate certificate chains
-            val trustAllCerts = arrayOf<TrustManager>(object : X509TrustManager {
-                override fun getAcceptedIssuers(): Array<X509Certificate> = arrayOf()
-                override fun checkClientTrusted(chain: Array<X509Certificate>, authType: String) {}
-                override fun checkServerTrusted(chain: Array<X509Certificate>, authType: String) {}
-            })
+            val trustAllCerts =
+                arrayOf<TrustManager>(
+                    object : X509TrustManager {
+                        override fun getAcceptedIssuers(): Array<X509Certificate> = arrayOf()
+
+                        override fun checkClientTrusted(
+                            chain: Array<X509Certificate>,
+                            authType: String,
+                        ) {}
+
+                        override fun checkServerTrusted(
+                            chain: Array<X509Certificate>,
+                            authType: String,
+                        ) {}
+                    },
+                )
 
             // Install the all-trusting trust manager for a specific SSL context
             val sslContext = SSLContext.getInstance("SSL")
@@ -96,25 +110,25 @@ class PostRequest(
             if (PartlySaneSkies.config.printApiErrors) {
                 ChatUtils.sendClientMessage(
                     """
-                Error: ${connection.getResponseMessage()}:${connection.getResponseCode()}
-                Contact PSS admins for more information
-                """.trimIndent()
+                    Error: ${connection.getResponseMessage()}:${connection.getResponseCode()}
+                    Contact PSS admins for more information
+                    """.trimIndent(),
                 )
             } else {
                 SystemUtils.log(
                     Level.ERROR,
                     """
-                Error: ${connection.getResponseMessage()}:${connection.getResponseCode()}
-                Contact PSS admins for more information
-                """.trimIndent()
+                    Error: ${connection.getResponseMessage()}:${connection.getResponseCode()}
+                    Contact PSS admins for more information
+                    """.trimIndent(),
                 )
             }
             SystemUtils.log(
                 Level.ERROR,
                 """
-            Error: ${connection.getResponseMessage()}:${connection.getResponseCode()}
-            URL: $url
-            """.trimIndent()
+                Error: ${connection.getResponseMessage()}:${connection.getResponseCode()}
+                URL: $url
+                """.trimIndent(),
             )
             // Disconnect the connection
             connection.disconnect()

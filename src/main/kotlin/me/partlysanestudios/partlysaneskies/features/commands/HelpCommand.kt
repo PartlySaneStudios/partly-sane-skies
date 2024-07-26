@@ -9,12 +9,10 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.commands.CommandManager
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
-import net.minecraft.command.ICommandSender
 import org.lwjgl.input.Keyboard
-import java.util.*
+import java.util.Locale
 
 object HelpCommand {
-
     fun registerConfigCommand() {
         PSSCommand("pssconfig")
             .addAlias("pssc", "pssconf")
@@ -22,8 +20,7 @@ object HelpCommand {
             .setRunnable {
                 sendClientMessage("§bOpening config menu...")
                 enqueueRenderOperation(Runnable { config.openGui() })
-            }
-            .register()
+            }.register()
     }
 
     fun registerPSSCommand() {
@@ -37,6 +34,7 @@ object HelpCommand {
     }
 
     private var configAliases: Set<String> = setOf("conf", "c", "config")
+
     fun registerHelpCommand() {
         PSSCommand("psshelp")
             .addAlias("pssh", "helpss", "helppss", "pshelp", "helpihavenoideawhatpartlysaneskiesis")
@@ -64,8 +62,9 @@ object HelpCommand {
         }
 
     fun printHelpMessage() {
-        val str = StringBuilder(
-            """§3§m-----------------------------------------------------§r
+        val str =
+            StringBuilder(
+                """§3§m-----------------------------------------------------§r
 
 §b§l§nWelcome to Partly Sane Skies!§r
 Partly Sane Skies is a mod developed by Su386 and FlagMaster. This mod aims to be a quality of life mod for Hypixel SkyBlock.
@@ -82,8 +81,8 @@ Partly Sane Skies is a mod developed by Su386 and FlagMaster. This mod aims to b
  §5> Visit the GitHub
     §5> §dAll of the features wouldn't fit in this message, so check out the GitHub to see all of the features.
 §3§m-----------------------------------------------------§r
-§dCommands:""" // Can't trim indent because it will mess with formatting
-        )
+§dCommands:""", // Can't trim indent because it will mess with formatting
+            )
         for ((_, command) in CommandManager.commandList) {
             str.append("\n")
             str.append("\n §b> /").append(command.name)

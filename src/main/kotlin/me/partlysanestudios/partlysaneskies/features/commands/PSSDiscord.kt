@@ -9,7 +9,6 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.discordCode
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand
-import net.minecraft.command.ICommandSender
 import net.minecraft.event.ClickEvent
 import net.minecraft.util.ChatComponentText
 

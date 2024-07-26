@@ -3,7 +3,6 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.utils
 
 import com.google.gson.JsonElement
@@ -25,9 +24,7 @@ import java.io.InputStreamReader
 import java.net.*
 import java.util.*
 
-
 object SystemUtils {
-
     /**
      * Logs a message to the console
      * @param level The level to log the message at
@@ -48,7 +45,6 @@ object SystemUtils {
         return CompressedStreamTools.readCompressed(ByteArrayInputStream(bytes))
     }
 
-
     /**
      * Copies a string to the clipboard
      * @param string The string to copy
@@ -59,13 +55,9 @@ object SystemUtils {
 
     private fun getTransferableString(string: String): Transferable {
         return object : Transferable {
-            override fun getTransferDataFlavors(): Array<DataFlavor> {
-                return arrayOf(DataFlavor.stringFlavor)
-            }
+            override fun getTransferDataFlavors(): Array<DataFlavor> = arrayOf(DataFlavor.stringFlavor)
 
-            override fun isDataFlavorSupported(flavor: DataFlavor): Boolean {
-                return DataFlavor.stringFlavor.equals(flavor)
-            }
+            override fun isDataFlavorSupported(flavor: DataFlavor): Boolean = DataFlavor.stringFlavor.equals(flavor)
 
             @Throws(UnsupportedFlavorException::class)
             override fun getTransferData(flavor: DataFlavor): Any {
@@ -76,7 +68,6 @@ object SystemUtils {
             }
         }
     }
-
 
     @Deprecated("Use RequestManager and Requests instead")
     @Throws(IOException::class)
@@ -99,37 +90,36 @@ object SystemUtils {
             if (PartlySaneSkies.config.printApiErrors) {
                 sendClientMessage(
                     """
-                        Error: ${httpURLConnection.getResponseMessage()}:${httpURLConnection.getResponseCode()}
-                        Contact PSS admins for more information
-                        """.trimIndent()
+                    Error: ${httpURLConnection.getResponseMessage()}:${httpURLConnection.getResponseCode()}
+                    Contact PSS admins for more information
+                    """.trimIndent(),
                 )
             } else {
                 log(
                     Level.ERROR,
                     """
-                        Error: ${httpURLConnection.getResponseMessage()}:${httpURLConnection.getResponseCode()}
-                        Contact PSS admins for more information
-                        """.trimIndent()
+                    Error: ${httpURLConnection.getResponseMessage()}:${httpURLConnection.getResponseCode()}
+                    Contact PSS admins for more information
+                    """.trimIndent(),
                 )
             }
             log(
                 Level.ERROR,
                 """
-                    Error: ${httpURLConnection.getResponseMessage()}:${httpURLConnection.getResponseCode()}
-                    URL: $urlString
-                    """.trimIndent()
+                Error: ${httpURLConnection.getResponseMessage()}:${httpURLConnection.getResponseCode()}
+                URL: $urlString
+                """.trimIndent(),
             )
             httpURLConnection.disconnect()
             "Error$responseCode"
         }
     }
 
-
     /**
      * Checks if a string is a valid URL
      */
-    fun isValidURL(urlString: String?): Boolean {
-        return try {
+    fun isValidURL(urlString: String?): Boolean =
+        try {
             // Create a URL object
             URL(urlString)
 
@@ -139,7 +129,6 @@ object SystemUtils {
             // MalformedURLException is thrown if the URL is not valid
             false
         }
-    }
 
     /**
      * Opens a link in the default browser

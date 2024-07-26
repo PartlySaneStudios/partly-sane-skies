@@ -24,7 +24,6 @@ import java.nio.file.Paths
 import kotlin.io.path.Path
 
 object VisitorLogbookData {
-
     private var data: VisitorLogBookJson? = null
     private val jsonPath = Path("./config/partly-sane-skies/visitorLogbook.json")
 
@@ -104,17 +103,21 @@ object VisitorLogbookData {
                 }
             }
 
-            val texture =
-                item.tagCompound?.getCompoundTag("SkullOwner")?.getCompoundTag("Properties")?.getTagList("textures", 10)
-                    ?.getCompoundTagAt(0)?.getString("Value") ?: ""
+            val texture = item.tagCompound
+                ?.getCompoundTag("SkullOwner")
+                ?.getCompoundTag("Properties")
+                ?.getTagList("textures", 10)
+                ?.getCompoundTagAt(0)
+                ?.getString("Value") ?: ""
 
             val visitor = Visitor(displayName, rarity, texture, timesVisited, timesAccepted)
             data?.visitors?.set("$displayName+$texture", visitor)
         }
 
-        Thread({
-            save()
-        }, "Visitor Data Save").start()
+        Thread(
+            { save() },
+            "Visitor Data Save",
+        ).start()
     }
 
     fun getVisitor(name: String): Visitor? {
@@ -124,18 +127,14 @@ object VisitorLogbookData {
                 if (visitor.name == name) {
                     return visitor
                 }
-
             }
             return null
-
         } else {
             return visitor
         }
     }
 
-    fun getAllVisitors(): MutableCollection<Visitor> {
-        return data?.visitors?.values ?: ArrayList()
-    }
+    fun getAllVisitors(): MutableCollection<Visitor> = data?.visitors?.values ?: ArrayList()
 
     fun isVisitorLogbook(screen: GuiScreen): Boolean {
         if (screen !is GuiChest) {

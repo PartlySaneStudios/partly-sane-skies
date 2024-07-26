@@ -33,9 +33,8 @@ object SkyblockDataManager {
     private var nameToIdMap = HashMap<String, String>()
     private var idToItemMap = HashMap<String, SkyblockItem>()
     private var lastAhUpdateTime = time
-    private fun checkLastUpdate(): Boolean {
-        return time >= lastAhUpdateTime + 1000 * 60 * 5
-    }
+
+    private fun checkLastUpdate(): Boolean = time >= lastAhUpdateTime + 1000 * 60 * 5
 
     fun updateAll() {
         lastAhUpdateTime = time
@@ -45,7 +44,8 @@ object SkyblockDataManager {
     @Throws(IOException::class)
     private fun updateItems() {
         newRequest(
-            GetRequest("${config.apiUrl}/v1/hypixel/skyblockitem",
+            GetRequest(
+                "${config.apiUrl}/v1/hypixel/skyblockitem",
                 RequestRunnable { s: Request ->
                     val itemDataString = s.getResponse()
                     if (!s.hasSucceeded()) {
@@ -56,34 +56,37 @@ object SkyblockDataManager {
 
                     for (product in products) {
                         val en = product.asJsonObject
-                        val rarity = try {
-                            Rarity.valueOf(en.get("rarity")?.asString ?: "")
-                        } catch (e: IllegalArgumentException) {
-                            Rarity.UNKNOWN
-                        }
+                        val rarity =
+                            try {
+                                Rarity.valueOf(en.get("rarity")?.asString ?: "")
+                            } catch (e: IllegalArgumentException) {
+                                Rarity.UNKNOWN
+                            }
 
-                        val skyblockItem = SkyblockItem(
-                            en.get("itemId").asString,
-                            rarity,
-                            en.get("name")?.asString ?: "",
-                            en.get("npcSell")?.asDouble ?: 0.0,
-                            en.get("bazaarBuy")?.asDouble ?: 0.0,
-                            en.get("bazaarSell")?.asDouble ?: 0.0,
-                            en.get("averageBazaarBuy")?.asDouble ?: 0.0,
-                            en.get("averageBazaarSell")?.asDouble ?: 0.0,
-                            en.get("lowestBin")?.asDouble ?: 0.0,
-                            en.get("averageLowestBin")?.asDouble ?: 0.0,
-                            en.get("material")?.asString ?: "",
-                            en.get("unstackable")?.asBoolean ?: false
-                        )
+                        val skyblockItem =
+                            SkyblockItem(
+                                en.get("itemId").asString,
+                                rarity,
+                                en.get("name")?.asString ?: "",
+                                en.get("npcSell")?.asDouble ?: 0.0,
+                                en.get("bazaarBuy")?.asDouble ?: 0.0,
+                                en.get("bazaarSell")?.asDouble ?: 0.0,
+                                en.get("averageBazaarBuy")?.asDouble ?: 0.0,
+                                en.get("averageBazaarSell")?.asDouble ?: 0.0,
+                                en.get("lowestBin")?.asDouble ?: 0.0,
+                                en.get("averageLowestBin")?.asDouble ?: 0.0,
+                                en.get("material")?.asString ?: "",
+                                en.get("unstackable")?.asBoolean ?: false,
+                            )
 
                         idToItemMap[en.get("itemId").asString] = skyblockItem
                         nameToIdMap[en.get("name").asString] = en.get("itemId").asString
-
                     }
-
-                }, inMainThread = false, executeOnNextFrame = false, acceptAllCertificates = false
-            )
+                },
+                inMainThread = false,
+                executeOnNextFrame = false,
+                acceptAllCertificates = false,
+            ),
         )
     }
 
@@ -92,22 +95,20 @@ object SkyblockDataManager {
             JsonParser().parse(getFile("constants/bits_shop.json")).getAsJsonObject().getAsJsonObject("bits_shop")
         for ((id, value) in bitsShopObject.entrySet()) {
             val bitCost = value.asInt
-            val item = getItem(id)
-                ?: continue
+            val item = getItem(id) ?: continue
             bitIds.add(item.id)
             item.bitCost = bitCost
         }
     }
 
-    fun getId(name: String): String {
-        return nameToIdMap[name] ?: ""
-    }
+    fun getId(name: String): String = nameToIdMap[name] ?: ""
 
-    fun getItem(id: String): SkyblockItem? {
-        return if (!idToItemMap.containsKey(id)) {
+    fun getItem(id: String): SkyblockItem? =
+        if (!idToItemMap.containsKey(id)) {
             null
-        } else idToItemMap[id]
-    }
+        } else {
+            idToItemMap[id]
+        }
 
     fun runUpdaterTick() {
         if (checkLastUpdate()) {
@@ -129,7 +130,8 @@ object SkyblockDataManager {
     @Throws(MalformedURLException::class)
     fun initSkills() {
         newRequest(
-            GetRequest("https://api.hypixel.net/resources/skyblock/skills",
+            GetRequest(
+                "https://api.hypixel.net/resources/skyblock/skills",
                 RequestRunnable { s: Request ->
                     val itemDataString = s.getResponse()
                     if (!s.hasSucceeded()) {
@@ -166,17 +168,18 @@ object SkyblockDataManager {
                         //                Adds the skill to the map
                         idToSkillMap[id] = skill
                     }
-                }, false, false
-            )
+                },
+                false,
+                false,
+            ),
         )
     }
 
-    fun getSkill(skillId: String): SkyblockSkill? {
-        return idToSkillMap[skillId]
-    }
+    fun getSkill(skillId: String): SkyblockSkill? = idToSkillMap[skillId]
 
     //    --------------------------- Players ---------------------------
     private val playerCache = HashMap<String, SkyblockPlayer>()
+
     fun getPlayer(username: String): SkyblockPlayer {
         val player: SkyblockPlayer?
         if (playerCache.containsKey(username)) {

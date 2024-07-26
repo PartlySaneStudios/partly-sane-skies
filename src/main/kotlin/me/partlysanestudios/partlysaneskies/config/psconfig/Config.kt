@@ -3,7 +3,6 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.config.psconfig
 
 import com.google.gson.JsonElement
@@ -12,7 +11,6 @@ import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
 import org.apache.logging.log4j.Level
 
 class Config : ConfigOption() {
-
     companion object {
         val ConfigOption.asConfig get() = this as Config
     }
@@ -86,10 +84,12 @@ class Config : ConfigOption() {
     }
 
     var savePath: String? = null
+
     fun save() {
         if (parent == null) {
             ConfigManager.saveConfig(
-                savePath ?: throw IllegalArgumentException("Unable to Save. No save path provided. Config is not registered."), this,
+                savePath ?: throw IllegalArgumentException("Unable to Save. No save path provided. Config is not registered."),
+                this,
             )
         } else {
             (parent as? Config)?.save() ?: throw IllegalArgumentException("Unable to save. Parent of config is not a config.")

@@ -11,7 +11,6 @@ import me.partlysanestudios.partlysaneskies.features.debug.DebugKey
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.getJsonFromPath
 
 object SkyCryptUtils {
-
     private val skyCryptProfileURL: String = "https://sky.shiiyu.moe/api/v2/profile/"
     private val skyCryptNetworthPath: String = "data/networth/networth"
     private val skyCryptFirstJoinPath: String = "raw/first_join"
@@ -40,16 +39,19 @@ object SkyCryptUtils {
     private fun obtainSkyCryptPlayerJSONData(username: String): JsonObject {
         lateinit var skyCryptObject: JsonObject
         RequestsManager.newRequest(
-            GetRequest((skyCryptProfileURL + username),
+            GetRequest(
+                (skyCryptProfileURL + username),
                 RequestRunnable { r: Request ->
                     if (!r.hasSucceeded()) {
-                        ChatUtils.sendClientMessage("§ePSS is having trouble contacting SkyCrypt's API. Please try again; if this continues please report this to us via §9/discord§e.")
+                        ChatUtils.sendClientMessage(
+                            "§ePSS is having trouble contacting SkyCrypt's API. Please try again; if this continues please report this to us via §9/discord§e.",
+                        )
                         return@RequestRunnable
                     }
                     if (DebugKey.isDebugMode()) ChatUtils.sendClientMessage("§eSuccessfully contacted SkyCrypt's API.")
                     skyCryptObject = (JsonParser().parse(r.getResponse()) as JsonObject)
-                }
-            )
+                },
+            ),
         )
         return skyCryptObject
     }
