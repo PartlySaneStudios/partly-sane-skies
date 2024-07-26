@@ -22,6 +22,7 @@ import cc.polyfrost.oneconfig.config.data.InfoType
 import cc.polyfrost.oneconfig.config.data.Mod
 import cc.polyfrost.oneconfig.config.data.ModType
 import me.partlysanestudios.partlysaneskies.features.debug.ExampleHud
+import me.partlysanestudios.partlysaneskies.features.discord.webhooks.WebhookMenu
 import me.partlysanestudios.partlysaneskies.features.gui.hud.CooldownHud
 import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.RareDropGUI
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
@@ -113,25 +114,25 @@ object OneConfigScreen : Config(
     )
     var releaseChannel = "@RELEASE_CHANNEL@".toInt()
 
-    //    Discord
+    //    Discord RPC
     @Switch(
         name = "Discord RPC",
         category = "General",
-        subcategory = "Discord",
+        subcategory = "Discord RPC",
     )
     var discordRPC = true
 
     @Switch(
         name = "Only show Discord RPC when in Skyblock",
         category = "General",
-        subcategory = "Discord",
+        subcategory = "Discord RPC",
     )
     var discordRPCOnlySkyblock = false
 
     @Dropdown(
         name = "Playing...",
         category = "General",
-        subcategory = "Discord",
+        subcategory = "Discord RPC",
         options = ["Hypixel Skyblock", "sbe bad"],
     )
     var discordPlayingMode = 0
@@ -139,22 +140,35 @@ object OneConfigScreen : Config(
     @Text(
         name = "Discord Game Name",
         category = "General",
-        subcategory = "Discord",
+        subcategory = "Discord RPC",
     )
     var discordRPCName = "sbe bad"
 
     @Text(
         name = "Discord Game Description",
         category = "General",
-        subcategory = "Discord",
+        subcategory = "Discord RPC",
     )
     var discordRPCDescription = "Playing Hypixel Skyblock"
+
+    // Discord Webhooks
+    @Button(
+        name = "Enable, Disable, and Manage Webhooks",
+        text = "Open Menu",
+        description = "Manage individual webhooks",
+        category = "General",
+        subcategory = "Discord Webhooks",
+        size = 2,
+    )
+    val openDiscordWebhooks = Runnable {
+        MinecraftUtils.displayGuiScreen(WebhookMenu())
+    }
 
     @Text(
         name = "Discord Webhook URL",
         description = "The URL of the discord webhook to send the message to.",
         category = "General",
-        subcategory = "Discord",
+        subcategory = "Discord Webhooks",
         size = 2,
     )
     var discordWebhookURL = ""
