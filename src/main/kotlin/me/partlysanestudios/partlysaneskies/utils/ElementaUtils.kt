@@ -3,7 +3,6 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.utils
 
 import gg.essential.elementa.UIComponent
@@ -20,7 +19,6 @@ import java.util.concurrent.CompletableFuture
 import javax.imageio.ImageIO
 
 object ElementaUtils {
-
     val windowHeight: Int get() = UResolution.scaledHeight
     val windowWidth: Int get() = UResolution.scaledWidth
     val scaleFactor: Double
@@ -28,10 +26,8 @@ object ElementaUtils {
             val constantWidth = 1280.0
             val constantHeight = 800.0
 
-
             val width = windowWidth
             val height = windowHeight
-
 
             return if (width < height) {
                 width / constantWidth
@@ -40,45 +36,49 @@ object ElementaUtils {
             }
         }
 
-
     val ResourceLocation.uiImage: UIImage
-        get() {
-        return try {
+        get() = try {
             val resource = Minecraft.getMinecraft().resourceManager.getResource(this)
-            UIImage(CompletableFuture.supplyAsync {
-                try {
-                    return@supplyAsync ImageIO.read(resource.inputStream)
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                } finally {
+            UIImage(
+                CompletableFuture.supplyAsync {
                     try {
-                        resource.inputStream.close()
+                        return@supplyAsync ImageIO.read(resource.inputStream)
                     } catch (e: IOException) {
                         e.printStackTrace()
+                    } finally {
+                        try {
+                            resource.inputStream.close()
+                        } catch (e: IOException) {
+                            e.printStackTrace()
+                        }
                     }
-                }
-                null
-            })
+                    null
+                },
+            )
         } catch (exception: NullPointerException) {
             UIImage.ofResource("/assets/partlysaneskies/" + this.resourcePath)
             //            return UIImage.ofResource("/assets/partlysaneskies/textures/null_texture.png");
         } catch (exception: IOException) {
             UIImage.ofResource("/assets/partlysaneskies/" + this.resourcePath)
         }
-    }
 
     fun UIComponent.applyBackground(): UIComponent {
-        val image = ThemeManager.currentBackgroundUIImage
-            .setX(CenterConstraint())
-            .setY(CenterConstraint())
-            .setWidth(100.percent)
-            .setHeight(100.percent) as UIImage
+        val image =
+            ThemeManager.currentBackgroundUIImage
+                .setX(CenterConstraint())
+                .setY(CenterConstraint())
+                .setWidth(100.percent)
+                .setHeight(100.percent) as UIImage
         this.insertChildAt(image, 0)
 
         return this
     }
 
-    fun Color.weightedAverage(thisColorWeight: Float, otherColor: Color, otherColorWeight: Float): Color {
+    fun Color.weightedAverage(
+        thisColorWeight: Float,
+        otherColor: Color,
+        otherColorWeight: Float,
+    ): Color {
         val totalWeight = thisColorWeight + otherColorWeight
         val thisColorPercent = thisColorWeight / totalWeight
         val otherColorPercent = otherColorWeight / totalWeight
@@ -87,7 +87,6 @@ object ElementaUtils {
         var finalG = this.green * thisColorPercent + otherColor.green * otherColorPercent
         var finalB = this.blue * thisColorPercent + otherColor.blue * otherColorPercent
         var finalA = this.alpha * thisColorPercent + otherColor.alpha * otherColorPercent
-
 
         if (finalR > 255) {
             finalR = 255f
@@ -102,7 +101,6 @@ object ElementaUtils {
             finalA = 255f
         }
 
-
         if (finalR < 0) {
             finalR = 0f
         }
@@ -116,9 +114,6 @@ object ElementaUtils {
             finalA = 0f
         }
 
-
-
         return Color(finalR / 255f, finalG / 255f, finalB / 255f, finalA / 255f)
-
     }
 }

@@ -17,7 +17,12 @@ import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils;
 import org.apache.logging.log4j.Level;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 public class MinionData {
     //    A hashmap with the key as the minion id, and the value as the minion object

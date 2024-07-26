@@ -3,9 +3,9 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.events
 
+import me.partlysanestudios.partlysaneskies.events.minecraft.PSSChatEvent
 import me.partlysanestudios.partlysaneskies.events.minecraft.render.RenderWaypointEvent
 import me.partlysanestudios.partlysaneskies.events.skyblock.dungeons.DungeonEndEvent
 import me.partlysanestudios.partlysaneskies.events.skyblock.dungeons.DungeonStartEvent
@@ -13,6 +13,7 @@ import me.partlysanestudios.partlysaneskies.events.skyblock.mining.MinesEvent
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
 import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.client.event.RenderWorldLastEvent
+import net.minecraftforge.fml.common.eventhandler.EventPriority
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import org.apache.logging.log4j.Level
 import kotlin.reflect.KClass
@@ -53,9 +54,16 @@ object EventManager {
         RenderWaypointEvent.onEventCall(event.partialTicks, registeredFunctions[RenderWaypointEvent::class] ?: ArrayList())
     }
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
     fun onChatReceivedEvent(event: ClientChatReceivedEvent) {
-        val message = event.message.formattedText
+        if (event.type.toInt() != 0) return
+
+        PSSChatEvent.onMessageReceived(registeredFunctions[PSSChatEvent::class] ?: ArrayList(), event.message)
+    }
+
+    @SubscribePSSEvent
+    fun onChat(event: PSSChatEvent) {
+        val message = event.message
         DungeonStartEvent.onMessageReceived(registeredFunctions[DungeonStartEvent::class] ?: ArrayList(), message)
         DungeonEndEvent.onMessageReceived(registeredFunctions[DungeonEndEvent::class] ?: ArrayList(), message)
         MinesEvent.onMessageReceived(registeredFunctions[MinesEvent::class] ?: ArrayList(), message)

@@ -29,7 +29,8 @@ enum class IslandType(val islandName: String) {
     CATACOMBS("Catacombs"),
     KUUDRA("Kuudra"),
 
-    NONE("");
+    NONE(""),
+    ;
 
     fun onIsland() = this == IslandType.getCurrentIsland()
 
@@ -41,10 +42,12 @@ enum class IslandType(val islandName: String) {
         fun getCurrentIsland(): IslandType {
             for (line in MinecraftUtils.getTabList()) {
                 if (line.removeColorCodes().startsWith("Area: ") || line.removeColorCodes().startsWith("Dungeon: ")) {
-                    val islandName = line.removeColorCodes().replace("Area: ", "").replace("Dungeon: ", "").trim()
+                    val islandName = line.removeColorCodes()
+                        .replace("Area: ", "")
+                        .replace("Dungeon: ", "")
+                        .trim()
 
-                    return IslandType.entries.firstOrNull { it.islandName.equals(islandName, ignoreCase = true) }
-                        ?: NONE
+                    return IslandType.entries.firstOrNull { it.islandName.equals(islandName, ignoreCase = true) } ?: NONE
                 }
             }
 

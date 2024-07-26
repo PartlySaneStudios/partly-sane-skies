@@ -3,7 +3,6 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.render
 
 import me.partlysanestudios.partlysaneskies.utils.geometry.orientation.Axis
@@ -13,8 +12,10 @@ import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Range3d
 import net.minecraft.client.renderer.WorldRenderer
 
 object RenderPrimitives {
-
-    fun WorldRenderer.drawDiagonalFaceFill(range: Range3d, axisOfRotation: Axis) {
+    fun WorldRenderer.drawDiagonalFaceFill(
+        range: Range3d,
+        axisOfRotation: Axis,
+    ) {
         val p1 = range.points[0]
         val p2 = range.points[1]
         val p3: Point3d
@@ -42,7 +43,6 @@ object RenderPrimitives {
         this.pos(p4.x, p4.y, p4.z).endVertex() // bottom right
     }
 
-
     /**
      * Renders a flat face on the plane of the given axis
      * @param p1 a two-dimensional point where x will be the first point in the order (x, y, z)
@@ -50,7 +50,12 @@ object RenderPrimitives {
      * @param axis the plane that the face will be parallel to
      * @param constantDimension the non changing dimension (for the x plane, z stays constant; for the y plane, y stays constant; for the z plane, x stays constant)
      */
-    fun WorldRenderer.drawPerpendicularFaceFill(p1: Point2d, p2: Point2d, axis: Axis, constantDimension: Double) {
+    fun WorldRenderer.drawPerpendicularFaceFill(
+        p1: Point2d,
+        p2: Point2d,
+        axis: Axis,
+        constantDimension: Double,
+    ) {
 //        If the plane is on the x plane, then the z stays constant
         when (axis) {
             Axis.X_AXIS -> {
@@ -94,7 +99,12 @@ object RenderPrimitives {
      * @param axis the plane that the face will be parallel to
      * @param constantDimension the non changing dimension (for the x plane, z stays constant; for the y plane, y stays constant; for the z plane, x stays constant)
      */
-    fun WorldRenderer.drawPerpendicularFaceOutline(p1: Point2d, p2: Point2d, axis: Axis, constantDimension: Double) {
+    fun WorldRenderer.drawPerpendicularFaceOutline(
+        p1: Point2d,
+        p2: Point2d,
+        axis: Axis,
+        constantDimension: Double,
+    ) {
         //        If the plane is on the x plane, then the z stays constant
         when (axis) {
             Axis.X_AXIS -> {
@@ -137,7 +147,6 @@ object RenderPrimitives {
                 val (x1, x2) = listOf(p1.x, p2.x).sorted()
                 val (y1, y2) = listOf(p1.y, p2.y).sorted()
 
-
                 this.pos(constantDimension, x1, y1).endVertex()
                 this.pos(constantDimension, x2, y1).endVertex()
 
@@ -159,7 +168,10 @@ object RenderPrimitives {
      * @param p1 One corner of the box to draw
      * @param p2 Opposite corner of the box to draw
      */
-    fun WorldRenderer.drawBoxOutline(p1: Point3d, p2: Point3d) {
+    fun WorldRenderer.drawBoxOutline(
+        p1: Point3d,
+        p2: Point3d,
+    ) {
         val (x1, x2) = listOf(p1.x, p2.x).sorted()
         val (y1, y2) = listOf(p1.y, p2.y).sorted()
         val (z1, z2) = listOf(p1.z, p2.z).sorted()
@@ -178,14 +190,16 @@ object RenderPrimitives {
         this.drawPerpendicularFaceOutline(Point2d(y1, z1), Point2d(y2, z2), Axis.Z_AXIS, x2)
     }
 
-
     /**
      * Draws a cube's faces
      *
      * @param p1 One corner of the box to draw
      * @param p2 Opposite corner of the box to draw
      */
-    fun WorldRenderer.drawBoxFill(p1: Point3d, p2: Point3d) {
+    fun WorldRenderer.drawBoxFill(
+        p1: Point3d,
+        p2: Point3d,
+    ) {
         val (x1, x2) = listOf(p1.x, p2.x).sorted()
         val (y1, y2) = listOf(p1.y, p2.y).sorted()
         val (z1, z2) = listOf(p1.z, p2.z).sorted()
@@ -203,6 +217,4 @@ object RenderPrimitives {
 //        x face back (x is constant)
         this.drawPerpendicularFaceFill(Point2d(y1, z1), Point2d(y2, z2), Axis.Z_AXIS, x2)
     }
-
-
 }

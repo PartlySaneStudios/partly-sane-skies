@@ -3,7 +3,6 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.config.psconfig
 
 import com.google.gson.JsonElement
@@ -13,8 +12,8 @@ import me.partlysanestudios.partlysaneskies.config.psconfig.Config.Companion.asC
 class Toggle(
     val name: String,
     val description: String = "",
-    defaultState: Boolean = false
-): ConfigOption() {
+    defaultState: Boolean = false,
+) : ConfigOption() {
     companion object {
         val ConfigOption.asToggle get() = this as Toggle
         val ConfigOption.asBoolean get() = this.asToggle.state
@@ -32,9 +31,5 @@ class Toggle(
         state = element.asBoolean
     }
 
-    override fun saveToJson(): JsonElement {
-        return JsonParser().parse(state.toString())
-    }
-
-
+    override fun saveToJson(): JsonElement = JsonParser().parse(state.toString())
 }

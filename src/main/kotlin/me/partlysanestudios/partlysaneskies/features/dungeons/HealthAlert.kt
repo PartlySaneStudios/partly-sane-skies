@@ -3,7 +3,6 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.features.dungeons
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
@@ -19,16 +18,13 @@ import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import net.minecraft.client.audio.PositionedSoundRecord
 import net.minecraft.util.ResourceLocation
 
-
 object HealthAlert {
-
     private var lastWarnTime = 0L
 
     private fun isPlayerLowOnHealth(): Boolean {
         if (!IslandType.CATACOMBS.onIsland()) {
             return false
         }
-
 
         val scoreBoard = MinecraftUtils.getScoreboardLines()
         for (line in scoreBoard) {
@@ -44,7 +40,6 @@ object HealthAlert {
                 return health.contains("§e") || health.indexOf("§c") != health.lastIndexOf("§c")
             }
             return health.indexOf("§c") != health.lastIndexOf("§c")
-
         }
         return false
     }
@@ -54,11 +49,12 @@ object HealthAlert {
             return false
         }
 
-        val healthPercent = if (config.colouredHealerAlert == 1) {
-            .25
-        } else {
-            .5
-        }
+        val healthPercent =
+            if (config.colouredHealerAlert == 1) {
+                .25
+            } else {
+                .5
+            }
 
         return if (StatsData.currentHealth / StatsData.maxHealth < healthPercent) {
             true
@@ -71,7 +67,7 @@ object HealthAlert {
         if (isPlayerLowOnHealth() && OneConfigScreen.healerAlert) {
             if (MathUtils.onCooldown(
                     lastWarnTime,
-                    (config.healerAlertCooldownSlider * 1000).toLong()
+                    (config.healerAlertCooldownSlider * 1000).toLong(),
                 )
             ) {
                 return
@@ -81,8 +77,8 @@ object HealthAlert {
                 PSSBanner(
                     "A player in your party is low",
                     3500,
-                    color = config.partyMemberLowColor.toJavaColor()
-                )
+                    color = config.partyMemberLowColor.toJavaColor(),
+                ),
             )
             PartlySaneSkies.minecraft.soundHandler
                 .playSound(PositionedSoundRecord.create(ResourceLocation("partlysaneskies", "bell")))
@@ -91,7 +87,7 @@ object HealthAlert {
         if (alertWhenPlayerLowOnHealth() && config.alertWhenPlayerLow) {
             if (MathUtils.onCooldown(
                     lastWarnTime,
-                    (config.healerAlertCooldownSlider * 1000).toLong()
+                    (config.healerAlertCooldownSlider * 1000).toLong(),
                 )
             ) {
                 return
@@ -101,8 +97,8 @@ object HealthAlert {
                 PSSBanner(
                     "Your health is low",
                     3500,
-                    color = config.playerLowColor.toJavaColor()
-                )
+                    color = config.playerLowColor.toJavaColor(),
+                ),
             )
             PartlySaneSkies.minecraft.soundHandler
                 .playSound(PositionedSoundRecord.create(ResourceLocation("partlysaneskies", "bell")))

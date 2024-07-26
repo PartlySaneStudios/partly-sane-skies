@@ -20,7 +20,6 @@ import net.minecraft.client.audio.PositionedSoundRecord
 import net.minecraft.util.ResourceLocation
 
 object RequiredSecretsFound {
-
     private var alreadySendThisRun = false
     private var lastCheckTime = time
 
@@ -39,7 +38,7 @@ object RequiredSecretsFound {
         if (alreadySendThisRun) {
             return
         }
-        if (lastCheckTime + 100 > time) { //checks every 100ms
+        if (lastCheckTime + 100 > time) { // checks every 100ms
             return
         }
         lastCheckTime = time
@@ -52,8 +51,8 @@ object RequiredSecretsFound {
                             "Required Secrets Found!",
                             (config.secretsBannerTime * 1000).toLong(),
                             3.0f,
-                            config.secretsBannerColor.toJavaColor()
-                        )
+                            config.secretsBannerColor.toJavaColor(),
+                        ),
                     )
                 }
                 if (config.secretsChatMessage) {

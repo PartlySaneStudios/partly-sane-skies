@@ -7,26 +7,26 @@ package me.partlysanestudios.partlysaneskies.features.dungeons
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
+import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
+import me.partlysanestudios.partlysaneskies.events.minecraft.PSSChatEvent
 import me.partlysanestudios.partlysaneskies.render.gui.hud.BannerRenderer.renderNewBanner
 import me.partlysanestudios.partlysaneskies.render.gui.hud.PSSBanner
 import net.minecraft.client.audio.PositionedSoundRecord
 import net.minecraft.util.ResourceLocation
-import net.minecraftforge.client.event.ClientChatReceivedEvent
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 
 object WatcherReady {
 
-    @SubscribeEvent
-    fun watcherReadyChatEvent(event: ClientChatReceivedEvent) {
-        if (event.message.unformattedText.startsWith("[BOSS] The Watcher: That will be enough for now.")) {
+    @SubscribePSSEvent
+    fun onChat(event: PSSChatEvent) {
+        if (event.component.unformattedText.startsWith("[BOSS] The Watcher: That will be enough for now.")) {
             if (config.watcherReadyBanner) {
                 renderNewBanner(
                     PSSBanner(
                         "Watcher Ready!",
                         (config.watcherReadyBannerTime * 1000).toLong(),
                         3.0f,
-                        config.watcherReadyBannerColor.toJavaColor()
-                    )
+                        config.watcherReadyBannerColor.toJavaColor(),
+                    ),
                 )
             }
             if (config.watcherReadyChatMessage) {
@@ -35,15 +35,15 @@ object WatcherReady {
             if (config.watcherReadySound) {
                 minecraft.soundHandler.playSound(
                     PositionedSoundRecord.create(
-                        ResourceLocation("partlysaneskies", "bell")
-                    )
+                        ResourceLocation("partlysaneskies", "bell"),
+                    ),
                 )
             }
             if (config.watcherReadyAirRaidSiren) {
                 minecraft.soundHandler.playSound(
                     PositionedSoundRecord.create(
-                        ResourceLocation("partlysaneskies", "airraidsiren")
-                    )
+                        ResourceLocation("partlysaneskies", "airraidsiren"),
+                    ),
                 )
             }
         }

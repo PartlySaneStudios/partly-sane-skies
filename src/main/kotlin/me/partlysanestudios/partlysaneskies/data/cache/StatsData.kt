@@ -4,7 +4,7 @@ import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 
 object StatsData {
-    //Public variables
+    // Public variables
     val currentHealth: Double get() = cachedCurrentHealth
     val maxHealth: Double get() = cachedMaxHealth
     val defense: Double get() = cachedCurrentDefense
@@ -18,7 +18,7 @@ object StatsData {
     private var cachedMaxMana = -1.0
 
     @SubscribeEvent
-    fun onChatMessage(event: ClientChatReceivedEvent) {
+    fun onActionbar(event: ClientChatReceivedEvent) {
         if (event.type != 2.toByte()) {
             return
         }

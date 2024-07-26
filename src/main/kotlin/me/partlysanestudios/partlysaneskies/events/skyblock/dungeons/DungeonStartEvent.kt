@@ -3,7 +3,6 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.events.skyblock.dungeons
 
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.IslandType

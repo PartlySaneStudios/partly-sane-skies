@@ -19,7 +19,6 @@ import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.copyStringToClipboard
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.isValidURL
-import net.minecraft.command.ICommandSender
 import net.minecraft.event.ClickEvent
 import net.minecraft.event.HoverEvent
 import net.minecraft.util.ChatComponentText
@@ -34,14 +33,16 @@ import java.security.MessageDigest
 object ModChecker {
     fun registerModCheckCommand() {
         PSSCommand(
-            "modcheck", ArrayList(), "Checks the mods in your mod folder if they are updated"
+            "modcheck",
+            ArrayList(),
+            "Checks the mods in your mod folder if they are updated",
         ) { args: Array<String> ->
             Thread {
                 if (args.isNotEmpty()) {
                     sendClientMessage("Loading... (using data from custom repository)")
                     loadModDataFromRepo(
                         getRepoOwner(),
-                        getRepoName()
+                        getRepoName(),
                     )
                 } else {
                     sendClientMessage("Loading...")
@@ -54,22 +55,25 @@ object ModChecker {
 
     private var knownMods: List<KnownMod> = ArrayList<KnownMod>()
     private var hasRunOnStartup = false
+
     fun runOnStartup() {
-        Thread(Runnable {
-            if (!config.checkModsOnStartup) {
-                return@Runnable
-            }
-            try {
-                Thread.sleep(5000)
-            } catch (e: InterruptedException) {
-                throw RuntimeException(e)
-            }
-            if (!hasRunOnStartup) {
-                hasRunOnStartup = true
-                sendClientMessage("Loading...")
-                loadModDataFromRepo()
-            }
-        }).start()
+        Thread(
+            Runnable {
+                if (!config.checkModsOnStartup) {
+                    return@Runnable
+                }
+                try {
+                    Thread.sleep(5000)
+                } catch (e: InterruptedException) {
+                    throw RuntimeException(e)
+                }
+                if (!hasRunOnStartup) {
+                    hasRunOnStartup = true
+                    sendClientMessage("Loading...")
+                    loadModDataFromRepo()
+                }
+            },
+        ).start()
     }
 
     fun run() {
@@ -126,7 +130,11 @@ object ModChecker {
                 debugBuilder.append("\n ")
             }
         }
-        chatMessage.appendSibling(ChatComponentText("\n§7Disclaimer: You should always exercise caution when downloading things from the internet. The PSS Mod Checker is not foolproof. Use at your own risk."))
+        chatMessage.appendSibling(
+            ChatComponentText(
+                "\n§7Disclaimer: You should always exercise caution when downloading things from the internet. The PSS Mod Checker is not foolproof. Use at your own risk.",
+            ),
+        )
         if (config.showUpToDateMods) {
             if (knownMods.isNotEmpty()) {
                 chatMessage.appendSibling(
@@ -135,8 +143,8 @@ object ModChecker {
                         
                         
                         §6Up to date Mods: (${knownMods.size})
-                        """.trimIndent()
-                    )
+                        """.trimIndent(),
+                    ),
                 )
             }
             for (container in knownMods) {
@@ -147,16 +155,17 @@ object ModChecker {
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
-                val mod = findModFromHash(hash)
-                    ?: continue
+                val mod =
+                    findModFromHash(hash)
+                        ?: continue
                 val message: IChatComponent = ChatComponentText("\n§a${mod.name} §7is up to date")
                 if (isValidURL(mod.downloadLink)) {
                     message.chatStyle.setChatClickEvent(ClickEvent(ClickEvent.Action.OPEN_URL, mod.downloadLink))
                     message.chatStyle.setChatHoverEvent(
                         HoverEvent(
                             HoverEvent.Action.SHOW_TEXT,
-                            ChatComponentText("Click for the official website for " + mod.name + "!")
-                        )
+                            ChatComponentText("Click for the official website for " + mod.name + "!"),
+                        ),
                     )
                 }
                 chatMessage.appendSibling(message)
@@ -182,8 +191,8 @@ object ModChecker {
                 message.chatStyle.setChatHoverEvent(
                     HoverEvent(
                         HoverEvent.Action.SHOW_TEXT,
-                        ChatComponentText("Click for the official website for " + mod.name + "!")
-                    )
+                        ChatComponentText("Click for the official website for " + mod.name + "!"),
+                    ),
                 )
             }
             chatMessage.appendSibling(message)
@@ -195,8 +204,8 @@ object ModChecker {
                     
                     
                     §cUnknown Mods: (${unknownMods.size})
-                    """.trimIndent()
-                )
+                    """.trimIndent(),
+                ),
             )
             chatMessage.appendSibling(ChatComponentText("\n§7These mods have not been verified by PSS admins!"))
         }
@@ -223,8 +232,8 @@ object ModChecker {
                     message.chatStyle.setChatHoverEvent(
                         HoverEvent(
                             HoverEvent.Action.SHOW_TEXT,
-                            ChatComponentText("Click for the official website for " + mod.name + "!")
-                        )
+                            ChatComponentText("Click for the official website for " + mod.name + "!"),
+                        ),
                     )
                 }
             } catch (e: IllegalStateException) {
@@ -233,30 +242,32 @@ object ModChecker {
             chatMessage.appendSibling(message)
             debugBuilder.append(
                 """
-                    
-                    "${container.modId}": {
-                    """.trimIndent()
+                
+                "${container.modId}": {
+                """.trimIndent(),
             )
             debugBuilder.append("\n    \"name\": \"$modName\",")
             debugBuilder.append(
                 """
-    "download": "${container.metadata.url}","""
+    "download": "${container.metadata.url}",""",
             )
             debugBuilder.append("\n    \"versions\": {")
             debugBuilder.append(
                 """
-        "${container.version}": "$hash""""
+        "${container.version}": "$hash"""",
             )
             debugBuilder.append("\n    },")
             debugBuilder.append("\n    \"betaVersions\": {")
             debugBuilder.append(
                 """
-        "${container.version}": "$hash""""
+        "${container.version}": "$hash"""",
             )
             debugBuilder.append("\n    }")
             debugBuilder.append("\n},")
         }
-        chatMessage.appendSibling(ChatComponentText("\n\n§9If you believe any of these mods may be a mistake, report it in the PSS discord! §7(/pssdiscord)"))
+        chatMessage.appendSibling(
+            ChatComponentText("\n\n§9If you believe any of these mods may be a mistake, report it in the PSS discord! §7(/pssdiscord)"),
+        )
         if (isDebugMode()) {
             sendClientMessage(
                 """
@@ -264,12 +275,12 @@ object ModChecker {
                     ${
                     insertCharacterAfterNewLine(
                         debugBuilder.toString(),
-                        "§8"
+                        "§8",
                     )
                 }
                     
                     
-                    """.trimIndent()
+                """.trimIndent(),
             )
             copyStringToClipboard("```json\n$debugBuilder\n```")
         }
@@ -294,21 +305,27 @@ object ModChecker {
         userName: String = "PartlySaneStudios",
         repoName: String = "partly-sane-skies-public-data",
     ) {
-        val url: String = if (config.useGithubForPublicData) {
-            "https://raw.githubusercontent.com/$userName/$repoName/main/data/mods.json"
-        } else {
-            config.apiUrl + "/v1/pss/publicdata?owner=" + userName + "&repo=" + repoName + "&path=/data/mods.json"
-        }
-        newRequest(GetRequest(url, { request: Request ->
-            knownMods = ArrayList()
-            try {
-                knownMods = read(Gson().fromJson(request.getResponse(), ModDataJson::class.java))
-                run()
-            } catch (e: Exception) {
-                sendClientMessage("§cError reading the mod data from repo!")
-                e.printStackTrace()
+        val url: String =
+            if (config.useGithubForPublicData) {
+                "https://raw.githubusercontent.com/$userName/$repoName/main/data/mods.json"
+            } else {
+                config.apiUrl + "/v1/pss/publicdata?owner=" + userName + "&repo=" + repoName + "&path=/data/mods.json"
             }
-        }))
+        newRequest(
+            GetRequest(
+                url,
+                { request: Request ->
+                    knownMods = ArrayList()
+                    try {
+                        knownMods = read(Gson().fromJson(request.getResponse(), ModDataJson::class.java))
+                        run()
+                    } catch (e: Exception) {
+                        sendClientMessage("§cError reading the mod data from repo!")
+                        e.printStackTrace()
+                    }
+                },
+            ),
+        )
     }
 
     private fun read(modData: ModDataJson): List<KnownMod> {

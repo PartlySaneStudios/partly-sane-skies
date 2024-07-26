@@ -3,13 +3,11 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.render.gui.hud.cooldown
 
-import java.util.*
+import java.util.LinkedList
 
 object CooldownManager {
-
     private val cooldowns = ArrayList<Cooldown>()
 
     fun getActiveCooldowns(): List<Cooldown> {

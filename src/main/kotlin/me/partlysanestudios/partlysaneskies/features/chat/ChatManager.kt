@@ -3,7 +3,6 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.features.chat
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
@@ -19,7 +18,6 @@ import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.fml.common.eventhandler.EventPriority
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import java.util.regex.Pattern
-
 
 object ChatManager {
     @SubscribeEvent(priority = EventPriority.LOWEST)
@@ -42,9 +40,9 @@ object ChatManager {
                 PositionedSoundRecord.create(
                     ResourceLocation(
                         "partlysaneskies",
-                        "flute_scale"
-                    )
-                )
+                        "flute_scale",
+                    ),
+                ),
             )
             messageToSend = ChatAlertsManager.checkChatAlert(messageToSend, true)
         }
@@ -58,14 +56,14 @@ object ChatManager {
         }
 
         if (config.prettyMimicKilled) {
-            messageToSend = ChatComponentText(
-                messageToSend.formattedText.replace(
-                    "\$SKYTILS-DUNGEON-SCORE-MIMIC\$",
-                    config.prettyMimicKilledString
+            messageToSend =
+                ChatComponentText(
+                    messageToSend.formattedText.replace(
+                        "\$SKYTILS-DUNGEON-SCORE-MIMIC\$",
+                        config.prettyMimicKilledString,
+                    ),
                 )
-            )
         }
-
 
         if (messageToSend == event.message) return
 
@@ -114,7 +112,7 @@ object ChatManager {
             (WordEditor.wordsToEdit.isNotEmpty() && wordEditor) || owoLanguage
     }
 
-    //ALSO HERE, DON'T FORGET
+    // ALSO HERE, DON'T FORGET
     private fun IChatComponent.doChatMessageModify(): Boolean {
         if (formattedText.startsWith("{\"server\":")) return false
         if (formattedText.startsWith(PartlySaneSkies.CHAT_PREFIX)) return false

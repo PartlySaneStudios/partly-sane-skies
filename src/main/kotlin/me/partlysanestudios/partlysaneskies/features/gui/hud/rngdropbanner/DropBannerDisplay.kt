@@ -20,10 +20,11 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.time
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity.Companion.getRarityFromColorCode
 import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.RareDropGUIManager.isAllowedDrop
+import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
+import me.partlysanestudios.partlysaneskies.events.minecraft.PSSChatEvent
 import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.onCooldown
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.colorCodeToColor
-import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.client.event.RenderGameOverlayEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import java.awt.Color
@@ -33,8 +34,9 @@ object DropBannerDisplay {
 
     // Whenever someone updates the regex, please replace the regex in the following link:
     // Regex: https://regex101.com/r/lPUJeH/8
-    private val RARE_DROP_REGEX = "(?:§r)*(?<dropCategoryColor>§.)(?:§.)+(?<dropCategory>[\\w\\s]*[CD]ROP!) (?:§.)+\\(?(?:§.)*(?:\\d+x )?(?:§.)*(?<dropColor>§.)(?<name>◆?[\\s\\w]+)(?:§.)+\\)? ?(?:(?:§.)+)?(?:\\((?:\\+(?:§.)*(?<magicFind>\\d+)% (?:§.)+✯ Magic Find(?:§.)*|[\\w\\s]+)\\))?".toRegex()
-
+    private val RARE_DROP_REGEX =
+        "(?:§r)*(?<dropCategoryColor>§.)(?:§.)+(?<dropCategory>[\\w\\s]*[CD]ROP!) (?:§.)+\\(?(?:§.)*(?:\\d+x )?(?:§.)*(?<dropColor>§.)(?<name>◆?[\\s\\w]+)(?:§.)+\\)? ?(?:(?:§.)+)?(?:\\((?:\\+(?:§.)*(?<magicFind>\\d+)% (?:§.)+✯ Magic Find(?:§.)*|[\\w\\s]+)\\))?"
+            .toRegex()
 
     private const val SMALL_TEXT_SCALE = 2.5f
     private const val BIG_TEXT_SCALE = 5f
@@ -48,23 +50,25 @@ object DropBannerDisplay {
     private var topString = ""
     private var dropNameString = ""
 
-    private var topText = UIWrappedText(centered = true).constrain {
-        textScale = (BIG_TEXT_SCALE * config.bannerSize).scaledPixels
-        width = 100.percent
-        x = CenterConstraint()
-        y = BANNER_HEIGHT_FACTOR.percent
-    } childOf window
+    private var topText =
+        UIWrappedText(centered = true).constrain {
+            textScale = (BIG_TEXT_SCALE * config.bannerSize).scaledPixels
+            width = 100.percent
+            x = CenterConstraint()
+            y = BANNER_HEIGHT_FACTOR.percent
+        } childOf window
 
-    private var dropNameText = UIWrappedText(centered = true).constrain {
-        textScale = (SMALL_TEXT_SCALE * config.bannerSize).scaledPixels
-        width = 100.percent
-        x = CenterConstraint()
-        y = PixelConstraint(topText.getBottom() + window.getHeight() * TEXT_SPACING_FACTOR)
-    } childOf window
+    private var dropNameText =
+        UIWrappedText(centered = true).constrain {
+            textScale = (SMALL_TEXT_SCALE * config.bannerSize).scaledPixels
+            width = 100.percent
+            x = CenterConstraint()
+            y = PixelConstraint(topText.getBottom() + window.getHeight() * TEXT_SPACING_FACTOR)
+        } childOf window
 
-    @SubscribeEvent
-    fun onChatMessage(event: ClientChatReceivedEvent) {
-        val formattedMessage = event.message.formattedText
+    @SubscribePSSEvent
+    fun onChatMessage(event: PSSChatEvent) {
+        val formattedMessage = event.message
 
         val match = RARE_DROP_REGEX.find(formattedMessage) ?: return
         val (dropCategoryColor, dropCategory, dropColor, name, magicFind) = match.destructured
@@ -105,19 +109,20 @@ object DropBannerDisplay {
         }
 
         var categoryColor = item.dropCategoryColor
-        dropNameString = "${item.dropRarity.colorCode}${item.name} ${if (item.magicFind > 0) "§b(+${item.magicFind}% ✯ Magic Find)" else ""}"
+        dropNameString =
+            "${item.dropRarity.colorCode}${item.name} ${if (item.magicFind > 0) "§b(+${item.magicFind}% ✯ Magic Find)" else ""}"
         topString = item.dropCategory
 
         if (
-            (time - item.timeDropped > TEXT_BLINK_START_FACTOR * config.rareDropBannerTime * 1000)
-            &&
+            (time - item.timeDropped > TEXT_BLINK_START_FACTOR * config.rareDropBannerTime * 1000) &&
             (time - item.timeDropped < TEXT_BLINK_END_FACTOR * config.rareDropBannerTime * 1000)
         ) {
-            categoryColor = if (Math.round((item.timeDropped - time) / 1000f * 4) % 2 == 0) {
-                Color.white
-            } else {
-                item.dropCategoryColor
-            }
+            categoryColor =
+                if (Math.round((item.timeDropped - time) / 1000f * 4) % 2 == 0) {
+                    Color.white
+                } else {
+                    item.dropCategoryColor
+                }
         }
 
         if (!onCooldown(item.timeDropped, (config.rareDropBannerTime * 1000).toLong())) {
@@ -141,8 +146,8 @@ object DropBannerDisplay {
         window.draw(UMatrixStack())
     }
 
-    private fun checkRarity(rarity: Rarity): Boolean {
-        return when {
+    private fun checkRarity(rarity: Rarity): Boolean =
+        when {
             rarity == Rarity.COMMON && config.blockCommonDrops -> true
             rarity == Rarity.UNCOMMON && config.blockUncommonDrops -> true
             rarity == Rarity.RARE && config.blockRareDrops -> true
@@ -150,5 +155,4 @@ object DropBannerDisplay {
             rarity == Rarity.LEGENDARY && config.blockLegendaryDrops -> true
             else -> false
         }
-    }
 }

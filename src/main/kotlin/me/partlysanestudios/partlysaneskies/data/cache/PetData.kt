@@ -3,7 +3,6 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.data.cache
 
 import com.google.gson.Gson
@@ -12,6 +11,8 @@ import com.google.gson.annotations.Expose
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity.Companion.getRarityFromColorCode
+import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
+import me.partlysanestudios.partlysaneskies.events.minecraft.PSSChatEvent
 import me.partlysanestudios.partlysaneskies.utils.MathUtils
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.containerInventory
@@ -19,8 +20,6 @@ import me.partlysanestudios.partlysaneskies.utils.StringUtils.nextAfter
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeResets
 import net.minecraft.client.gui.inventory.GuiChest
-import net.minecraftforge.client.event.ClientChatReceivedEvent
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import java.io.FileWriter
 import java.io.IOException
 import java.io.Reader
@@ -38,8 +37,8 @@ object PetData {
 
     val petNameRegex = "§.\\[Lvl (\\d+)] (§.)(\\w+(\\s\\w+)*)(?: ✦)?".toRegex()
 
-
     var lastSaveTime = -1L
+
     fun tick() {
         parsePetGuiForCache()
         parsePetFromTablist()
@@ -48,10 +47,10 @@ object PetData {
         }
 
         lastSaveTime = PartlySaneSkies.time
-        Thread({
-            save()
-        }, "Pet Data Save").start()
-
+        Thread(
+            { save() },
+            "Pet Data Save",
+        ).start()
     }
 
     @Throws(IOException::class)
@@ -109,23 +108,23 @@ object PetData {
      */
     fun getCurrentPetRarity() = petDataJson?.currentPetRarity ?: Rarity.UNKNOWN
 
-    @SubscribeEvent
-    fun parseFromChat(event: ClientChatReceivedEvent) {
+    @SubscribePSSEvent
+    fun onChat(event: PSSChatEvent) {
 //        Parse despawn message
-        if (event.message.unformattedText.startsWith("You despawned your")) {
+        if (event.component.unformattedText.startsWith("You despawned your")) {
             petDataJson?.currentPetName = ""
             petDataJson?.currentPetLevel = -1
             petDataJson?.currentPetRarity = Rarity.UNKNOWN
         }
 
-        if (event.message.unformattedText.startsWith("You summoned your")) {
+        if (event.component.unformattedText.startsWith("You summoned your")) {
             // Define the regular expression pattern
             val regex = "§r§aYou summoned your §r(§.)(\\w+(\\s\\w+)*)( ✦)?§r§a!§r"
             // Create a Pattern object
             val pattern: Pattern = Pattern.compile(regex)
 
             // Create a Matcher object
-            val matcher: Matcher = pattern.matcher(event.message.formattedText)
+            val matcher: Matcher = pattern.matcher(event.message)
             if (!matcher.find()) {
                 return
             }
@@ -137,10 +136,10 @@ object PetData {
         }
 
         val petLevelUpRegex = "§r§aYour §r(§.)(\\w+(\\s\\w+)*)( ✦)? §r§aleveled up to level §r§9(\\d+)§r§a!§r".toRegex()
-        if (petLevelUpRegex.find(event.message.formattedText) != null) {
+        if (petLevelUpRegex.find(event.message) != null) {
 
             // Find the match
-            val matchResult = petLevelUpRegex.find(event.message.formattedText)
+            val matchResult = petLevelUpRegex.find(event.message)
 
             // Extract pet name and level if a match is found
             matchResult?.let {
@@ -153,17 +152,15 @@ object PetData {
             }
         }
 
-        if (petNameRegex.find(event.message.formattedText) != null) {
-            val matchResult = petNameRegex.find(event.message.formattedText)!!
+        if (petNameRegex.find(event.message) != null) {
+            val matchResult = petNameRegex.find(event.message)!!
             // Extract the pet level and name
             val (petLevel, colorCode, petName) = matchResult.destructured
-
 
             petDataJson?.currentPetLevel = petLevel.toInt()
             petDataJson?.currentPetName = petName
             petDataJson?.currentPetRarity = colorCode.getRarityFromColorCode()
             petDataJson?.petNameLevelMap?.get(petDataJson?.currentPetRarity)?.put(petName, petLevel.toInt())
-
         }
     }
 
@@ -220,7 +217,6 @@ object PetData {
      * @property petNameLevelMap: A two-dimensional map with the rarity as the first key, and a hashmap containing the pet name as the key and the pet level as the value as the value
      */
     private class PetDataJson {
-
         @Expose
         var currentPetName: String = ""
 

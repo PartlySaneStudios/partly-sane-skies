@@ -20,7 +20,7 @@ import me.partlysanestudios.partlysaneskies.utils.MathUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 import net.minecraft.util.ResourceLocation;
 
-import java.awt.*;
+import java.awt.Color;
 import java.net.MalformedURLException;
 
 public class PartyMember {
@@ -60,6 +60,7 @@ public class PartyMember {
     public double intelligence;
     public double effectHealth;
     SkyblockPlayer player;
+
     // Creates a new party member based on the username and partyRank
     public PartyMember(String username, PartyRank partyRank) {
         this.username = username;
@@ -155,19 +156,19 @@ public class PartyMember {
     public void createBlock(UIComponent memberBlock, float scaleFactor, PartyManagerGui partyManagerGui) {
         // Name plate
         new UIText(this.username)
-                .setTextScale(new PixelConstraint(3f * scaleFactor))
-                .setX(new PixelConstraint(20f * scaleFactor))
-                .setY(new PixelConstraint(20f * scaleFactor))
-                .setColor(Color.white)
-                .setChildOf(memberBlock);
+            .setTextScale(new PixelConstraint(3f * scaleFactor))
+            .setX(new PixelConstraint(20f * scaleFactor))
+            .setY(new PixelConstraint(20f * scaleFactor))
+            .setColor(Color.white)
+            .setChildOf(memberBlock);
 
 
         new UIText(this.selectedDungeonClass)
-                .setTextScale(new PixelConstraint(scaleFactor))
-                .setX(new PixelConstraint(150f * scaleFactor))
-                .setY(new PixelConstraint(50f * scaleFactor))
-                .setColor(Color.white)
-                .setChildOf(memberBlock);
+            .setTextScale(new PixelConstraint(scaleFactor))
+            .setX(new PixelConstraint(150f * scaleFactor))
+            .setY(new PixelConstraint(50f * scaleFactor))
+            .setColor(Color.white)
+            .setChildOf(memberBlock);
         createMemberBlockColumnOne(memberBlock, scaleFactor);
         createMemberBlockColumnTwo(memberBlock, scaleFactor);
         createMemberBlockColumnThree(memberBlock, scaleFactor);
@@ -179,76 +180,76 @@ public class PartyMember {
     private void createMemberBlockColumnOne(UIComponent memberBlock, float scaleFactor) {
 
         new UIText("Catacombs Level: " + StringUtils.INSTANCE.formatNumber(MathUtils.INSTANCE.round(this.catacombsLevel, 2)))
-                .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
-                .setX(new PixelConstraint(20f * scaleFactor))
-                .setY(new PixelConstraint(135f * scaleFactor))
-                .setColor(StringUtils.INSTANCE.colorCodeToColor("§c"))
-                .setChildOf(memberBlock);
+            .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
+            .setX(new PixelConstraint(20f * scaleFactor))
+            .setY(new PixelConstraint(135f * scaleFactor))
+            .setColor(StringUtils.INSTANCE.colorCodeToColor("§c"))
+            .setChildOf(memberBlock);
 
         new UIText("Average Skill Level " + StringUtils.INSTANCE.formatNumber(MathUtils.INSTANCE.round(this.averageSkillLevel, 2)))
-                .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
-                .setX(new PixelConstraint(20f * scaleFactor))
-                .setY(new PixelConstraint(150f * scaleFactor))
-                .setColor(Color.white)
-                .setChildOf(memberBlock);
+            .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
+            .setX(new PixelConstraint(20f * scaleFactor))
+            .setY(new PixelConstraint(150f * scaleFactor))
+            .setColor(Color.white)
+            .setChildOf(memberBlock);
 
         new UIText("Combat Level: " + StringUtils.INSTANCE.formatNumber(MathUtils.INSTANCE.round(this.combatLevel, 2)))
-                .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
-                .setX(new PixelConstraint(20f * scaleFactor))
-                .setY(new PixelConstraint(165f * scaleFactor))
-                .setColor(Color.white)
-                .setChildOf(memberBlock);
+            .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
+            .setX(new PixelConstraint(20f * scaleFactor))
+            .setY(new PixelConstraint(165f * scaleFactor))
+            .setColor(Color.white)
+            .setChildOf(memberBlock);
     }
 
     private void createMemberBlockColumnTwo(UIComponent memberBlock, float scaleFactor) {
         new UIText("Secrets: " + StringUtils.INSTANCE.formatNumber(this.secretCount))
-                .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
-                .setX(new PixelConstraint(150f * scaleFactor))
-                .setY(new PixelConstraint(74f * scaleFactor))
-                .setColor(Color.white)
-                .setChildOf(memberBlock);
+            .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
+            .setX(new PixelConstraint(150f * scaleFactor))
+            .setY(new PixelConstraint(74f * scaleFactor))
+            .setColor(Color.white)
+            .setChildOf(memberBlock);
 
         new UIText("Secrets Per Run: " + StringUtils.INSTANCE.formatNumber(MathUtils.INSTANCE.round(this.secretsPerRun, 2)))
-                .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
-                .setX(new PixelConstraint(150f * scaleFactor))
-                .setY(new PixelConstraint(90f * scaleFactor))
-                .setColor(Color.white)
-                .setChildOf(memberBlock);
+            .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
+            .setX(new PixelConstraint(150f * scaleFactor))
+            .setY(new PixelConstraint(90f * scaleFactor))
+            .setColor(Color.white)
+            .setChildOf(memberBlock);
 
         new UIText("SkyBlock Level: " + MathUtils.INSTANCE.round(this.skyblockLevel, 1))
-                .setTextScale(new PixelConstraint(scaleFactor))
-                .setX(new PixelConstraint(20f * scaleFactor))
-                .setY(new PixelConstraint(50f * scaleFactor))
-                .setColor(Color.white)
-                .setChildOf(memberBlock);
+            .setTextScale(new PixelConstraint(scaleFactor))
+            .setX(new PixelConstraint(20f * scaleFactor))
+            .setY(new PixelConstraint(50f * scaleFactor))
+            .setColor(Color.white)
+            .setChildOf(memberBlock);
 
         new UIText("❤ " + StringUtils.INSTANCE.formatNumber(Math.round(this.health)))
-                .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
-                .setX(new PixelConstraint(20f * scaleFactor))
-                .setY(new PixelConstraint(75f * scaleFactor))
-                .setColor(StringUtils.INSTANCE.colorCodeToColor("§c"))
-                .setChildOf(memberBlock);
+            .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
+            .setX(new PixelConstraint(20f * scaleFactor))
+            .setY(new PixelConstraint(75f * scaleFactor))
+            .setColor(StringUtils.INSTANCE.colorCodeToColor("§c"))
+            .setChildOf(memberBlock);
 
         new UIText("❈ " + StringUtils.INSTANCE.formatNumber(Math.round(this.defense)))
-                .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
-                .setX(new PixelConstraint(20f * scaleFactor))
-                .setY(new PixelConstraint(90f * scaleFactor))
-                .setColor(StringUtils.INSTANCE.colorCodeToColor("§a"))
-                .setChildOf(memberBlock);
+            .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
+            .setX(new PixelConstraint(20f * scaleFactor))
+            .setY(new PixelConstraint(90f * scaleFactor))
+            .setColor(StringUtils.INSTANCE.colorCodeToColor("§a"))
+            .setChildOf(memberBlock);
 
         new UIText("EHP: " + StringUtils.INSTANCE.formatNumber(Math.round(this.effectHealth)))
-                .setTextScale((new PixelConstraint(1.3f * scaleFactor)))
-                .setX(new PixelConstraint(20f * scaleFactor))
-                .setY(new PixelConstraint(105f * scaleFactor))
-                .setColor(new Color(45, 133, 48))
-                .setChildOf(memberBlock);
+            .setTextScale((new PixelConstraint(1.3f * scaleFactor)))
+            .setX(new PixelConstraint(20f * scaleFactor))
+            .setY(new PixelConstraint(105f * scaleFactor))
+            .setColor(new Color(45, 133, 48))
+            .setChildOf(memberBlock);
 
         new UIText("✎ " + StringUtils.INSTANCE.formatNumber(Math.round(this.intelligence)))
-                .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
-                .setX(new PixelConstraint(20f * scaleFactor))
-                .setY(new PixelConstraint(120f * scaleFactor))
-                .setColor(StringUtils.INSTANCE.colorCodeToColor("§b"))
-                .setChildOf(memberBlock);
+            .setTextScale((new PixelConstraint(1.333f * scaleFactor)))
+            .setX(new PixelConstraint(20f * scaleFactor))
+            .setY(new PixelConstraint(120f * scaleFactor))
+            .setColor(StringUtils.INSTANCE.colorCodeToColor("§b"))
+            .setChildOf(memberBlock);
 
     }
 
@@ -268,151 +269,151 @@ public class PartyMember {
 
     private void createMemberBlockColumnThree(UIComponent memberBlock, float scaleFactor) {
         new UIText("Runs:")
-                .setTextScale(new PixelConstraint(2.5f * scaleFactor))
-                .setX(new PixelConstraint(390f * scaleFactor))
-                .setY(new PixelConstraint(20f * scaleFactor))
-                .setColor(Color.white)
-                .setChildOf(memberBlock);
+            .setTextScale(new PixelConstraint(2.5f * scaleFactor))
+            .setX(new PixelConstraint(390f * scaleFactor))
+            .setY(new PixelConstraint(20f * scaleFactor))
+            .setColor(Color.white)
+            .setChildOf(memberBlock);
 
 // TODO: please for the love of god automate this whenever you rewrite this code
         new UIText("Floor 1: " + StringUtils.INSTANCE.formatNumber(this.f1Runs))
-                .setTextScale(new PixelConstraint(1.3f * scaleFactor))
-                .setX(new PixelConstraint(340f * scaleFactor))
-                .setY(new PixelConstraint(50f * scaleFactor))
-                .setColor(colorFloorRuns(this.f1Runs))
-                .setChildOf(memberBlock);
+            .setTextScale(new PixelConstraint(1.3f * scaleFactor))
+            .setX(new PixelConstraint(340f * scaleFactor))
+            .setY(new PixelConstraint(50f * scaleFactor))
+            .setColor(colorFloorRuns(this.f1Runs))
+            .setChildOf(memberBlock);
 
         new UIText("Floor 2: " + StringUtils.INSTANCE.formatNumber(this.f2Runs))
-                .setTextScale(new PixelConstraint(1.3f * scaleFactor))
-                .setX(new PixelConstraint(340f * scaleFactor))
-                .setY(new PixelConstraint(70f * scaleFactor))
-                .setColor(colorFloorRuns(this.f2Runs))
-                .setChildOf(memberBlock);
+            .setTextScale(new PixelConstraint(1.3f * scaleFactor))
+            .setX(new PixelConstraint(340f * scaleFactor))
+            .setY(new PixelConstraint(70f * scaleFactor))
+            .setColor(colorFloorRuns(this.f2Runs))
+            .setChildOf(memberBlock);
 
         new UIText("Floor 3: " + StringUtils.INSTANCE.formatNumber(this.f3Runs))
-                .setTextScale(new PixelConstraint(1.3f * scaleFactor))
-                .setX(new PixelConstraint(340f * scaleFactor))
-                .setY(new PixelConstraint(90f * scaleFactor))
-                .setColor(colorFloorRuns(this.f3Runs))
-                .setChildOf(memberBlock);
+            .setTextScale(new PixelConstraint(1.3f * scaleFactor))
+            .setX(new PixelConstraint(340f * scaleFactor))
+            .setY(new PixelConstraint(90f * scaleFactor))
+            .setColor(colorFloorRuns(this.f3Runs))
+            .setChildOf(memberBlock);
 
         new UIText("Floor 4: " + StringUtils.INSTANCE.formatNumber(this.f4Runs))
-                .setTextScale(new PixelConstraint(1.3f * scaleFactor))
-                .setX(new PixelConstraint(340f * scaleFactor))
-                .setY(new PixelConstraint(110f * scaleFactor))
-                .setColor(colorFloorRuns(this.f4Runs))
-                .setChildOf(memberBlock);
+            .setTextScale(new PixelConstraint(1.3f * scaleFactor))
+            .setX(new PixelConstraint(340f * scaleFactor))
+            .setY(new PixelConstraint(110f * scaleFactor))
+            .setColor(colorFloorRuns(this.f4Runs))
+            .setChildOf(memberBlock);
 
         new UIText("Floor 5: " + StringUtils.INSTANCE.formatNumber(this.f5Runs))
-                .setTextScale(new PixelConstraint(1.3f * scaleFactor))
-                .setX(new PixelConstraint(340f * scaleFactor))
-                .setY(new PixelConstraint(130f * scaleFactor))
-                .setColor(colorFloorRuns(this.f5Runs))
-                .setChildOf(memberBlock);
+            .setTextScale(new PixelConstraint(1.3f * scaleFactor))
+            .setX(new PixelConstraint(340f * scaleFactor))
+            .setY(new PixelConstraint(130f * scaleFactor))
+            .setColor(colorFloorRuns(this.f5Runs))
+            .setChildOf(memberBlock);
 
         new UIText("Floor 6: " + StringUtils.INSTANCE.formatNumber(this.f6Runs))
-                .setTextScale(new PixelConstraint(1.3f * scaleFactor))
-                .setX(new PixelConstraint(340f * scaleFactor))
-                .setY(new PixelConstraint(150f * scaleFactor))
-                .setColor(colorFloorRuns(this.f6Runs))
-                .setChildOf(memberBlock);
+            .setTextScale(new PixelConstraint(1.3f * scaleFactor))
+            .setX(new PixelConstraint(340f * scaleFactor))
+            .setY(new PixelConstraint(150f * scaleFactor))
+            .setColor(colorFloorRuns(this.f6Runs))
+            .setChildOf(memberBlock);
 
         new UIText("Floor 7: " + StringUtils.INSTANCE.formatNumber(this.f7Runs))
-                .setTextScale(new PixelConstraint(1.3f * scaleFactor))
-                .setX(new PixelConstraint(340f * scaleFactor))
-                .setY(new PixelConstraint(170f * scaleFactor))
-                .setColor(colorFloorRuns(this.f7Runs))
-                .setChildOf(memberBlock);
+            .setTextScale(new PixelConstraint(1.3f * scaleFactor))
+            .setX(new PixelConstraint(340f * scaleFactor))
+            .setY(new PixelConstraint(170f * scaleFactor))
+            .setColor(colorFloorRuns(this.f7Runs))
+            .setChildOf(memberBlock);
 
         new UIText("Master 1: " + StringUtils.INSTANCE.formatNumber(this.m1Runs))
-                .setTextScale(new PixelConstraint(1.3f * scaleFactor))
-                .setX(new PixelConstraint(460f * scaleFactor))
-                .setY(new PixelConstraint(50f * scaleFactor))
-                .setColor(colorFloorRuns(this.m1Runs))
-                .setChildOf(memberBlock);
+            .setTextScale(new PixelConstraint(1.3f * scaleFactor))
+            .setX(new PixelConstraint(460f * scaleFactor))
+            .setY(new PixelConstraint(50f * scaleFactor))
+            .setColor(colorFloorRuns(this.m1Runs))
+            .setChildOf(memberBlock);
 
         new UIText("Master 2: " + StringUtils.INSTANCE.formatNumber(this.m2Runs))
-                .setTextScale(new PixelConstraint(1.3f * scaleFactor))
-                .setX(new PixelConstraint(460f * scaleFactor))
-                .setY(new PixelConstraint(70f * scaleFactor))
-                .setColor(colorFloorRuns(this.m2Runs))
-                .setChildOf(memberBlock);
+            .setTextScale(new PixelConstraint(1.3f * scaleFactor))
+            .setX(new PixelConstraint(460f * scaleFactor))
+            .setY(new PixelConstraint(70f * scaleFactor))
+            .setColor(colorFloorRuns(this.m2Runs))
+            .setChildOf(memberBlock);
 
         new UIText("Master 3: " + StringUtils.INSTANCE.formatNumber(this.m3Runs))
-                .setTextScale(new PixelConstraint(1.3f * scaleFactor))
-                .setX(new PixelConstraint(460f * scaleFactor))
-                .setY(new PixelConstraint(90f * scaleFactor))
-                .setColor(colorFloorRuns(this.m3Runs))
-                .setChildOf(memberBlock);
+            .setTextScale(new PixelConstraint(1.3f * scaleFactor))
+            .setX(new PixelConstraint(460f * scaleFactor))
+            .setY(new PixelConstraint(90f * scaleFactor))
+            .setColor(colorFloorRuns(this.m3Runs))
+            .setChildOf(memberBlock);
 
         new UIText("Master 4: " + StringUtils.INSTANCE.formatNumber(this.m4Runs))
-                .setTextScale(new PixelConstraint(1.3f * scaleFactor))
-                .setX(new PixelConstraint(460f * scaleFactor))
-                .setY(new PixelConstraint(110f * scaleFactor))
-                .setColor(colorFloorRuns(this.m4Runs))
-                .setChildOf(memberBlock);
+            .setTextScale(new PixelConstraint(1.3f * scaleFactor))
+            .setX(new PixelConstraint(460f * scaleFactor))
+            .setY(new PixelConstraint(110f * scaleFactor))
+            .setColor(colorFloorRuns(this.m4Runs))
+            .setChildOf(memberBlock);
 
         new UIText("Master 5: " + StringUtils.INSTANCE.formatNumber(this.m5Runs))
-                .setTextScale(new PixelConstraint(1.3f * scaleFactor))
-                .setX(new PixelConstraint(460f * scaleFactor))
-                .setY(new PixelConstraint(130f * scaleFactor))
-                .setColor(colorFloorRuns(this.m5Runs))
-                .setChildOf(memberBlock);
+            .setTextScale(new PixelConstraint(1.3f * scaleFactor))
+            .setX(new PixelConstraint(460f * scaleFactor))
+            .setY(new PixelConstraint(130f * scaleFactor))
+            .setColor(colorFloorRuns(this.m5Runs))
+            .setChildOf(memberBlock);
 
         new UIText("Master 6: " + StringUtils.INSTANCE.formatNumber(this.m6Runs))
-                .setTextScale(new PixelConstraint(1.3f * scaleFactor))
-                .setX(new PixelConstraint(460f * scaleFactor))
-                .setY(new PixelConstraint(150f * scaleFactor))
-                .setColor(colorFloorRuns(this.m6Runs))
-                .setChildOf(memberBlock);
+            .setTextScale(new PixelConstraint(1.3f * scaleFactor))
+            .setX(new PixelConstraint(460f * scaleFactor))
+            .setY(new PixelConstraint(150f * scaleFactor))
+            .setColor(colorFloorRuns(this.m6Runs))
+            .setChildOf(memberBlock);
 
         new UIText("Master 7: " + StringUtils.INSTANCE.formatNumber(this.m7Runs))
-                .setTextScale(new PixelConstraint(1.3f * scaleFactor))
-                .setX(new PixelConstraint(460f * scaleFactor))
-                .setY(new PixelConstraint(170f * scaleFactor))
-                .setColor(colorFloorRuns(this.m7Runs))
-                .setChildOf(memberBlock);
+            .setTextScale(new PixelConstraint(1.3f * scaleFactor))
+            .setX(new PixelConstraint(460f * scaleFactor))
+            .setY(new PixelConstraint(170f * scaleFactor))
+            .setColor(colorFloorRuns(this.m7Runs))
+            .setChildOf(memberBlock);
     }
 
     private void createMemberBlockColumnFour(UIComponent memberBlock, float scaleFactor) {
         new UIText("Gear:")
-                .setTextScale(new PixelConstraint(2.5f * scaleFactor))
-                .setX(new PixelConstraint(580f * scaleFactor))
-                .setY(new PixelConstraint(20f * scaleFactor))
-                .setColor(Color.white)
-                .setChildOf(memberBlock);
+            .setTextScale(new PixelConstraint(2.5f * scaleFactor))
+            .setX(new PixelConstraint(580f * scaleFactor))
+            .setY(new PixelConstraint(20f * scaleFactor))
+            .setColor(Color.white)
+            .setChildOf(memberBlock);
 
         new UIWrappedText(this.helmetName)
-                .setTextScale(new PixelConstraint(1.15f * scaleFactor))
-                .setWidth(new PixelConstraint(200 * scaleFactor))
-                .setX(new PixelConstraint(580f * scaleFactor))
-                .setY(new PixelConstraint(50f * scaleFactor))
-                .setColor(Color.white)
-                .setChildOf(memberBlock);
+            .setTextScale(new PixelConstraint(1.15f * scaleFactor))
+            .setWidth(new PixelConstraint(200 * scaleFactor))
+            .setX(new PixelConstraint(580f * scaleFactor))
+            .setY(new PixelConstraint(50f * scaleFactor))
+            .setColor(Color.white)
+            .setChildOf(memberBlock);
 
         new UIWrappedText(this.chestplateName)
-                .setTextScale(new PixelConstraint(1.15f * scaleFactor))
-                .setWidth(new PixelConstraint(200 * scaleFactor))
-                .setX(new PixelConstraint(580f * scaleFactor))
-                .setY(new PixelConstraint(85f * scaleFactor))
-                .setColor(Color.white)
-                .setChildOf(memberBlock);
+            .setTextScale(new PixelConstraint(1.15f * scaleFactor))
+            .setWidth(new PixelConstraint(200 * scaleFactor))
+            .setX(new PixelConstraint(580f * scaleFactor))
+            .setY(new PixelConstraint(85f * scaleFactor))
+            .setColor(Color.white)
+            .setChildOf(memberBlock);
 
         new UIWrappedText(this.leggingsName)
-                .setTextScale(new PixelConstraint(1.15f * scaleFactor))
-                .setWidth(new PixelConstraint(200 * scaleFactor))
-                .setX(new PixelConstraint(580f * scaleFactor))
-                .setY(new PixelConstraint(120f * scaleFactor))
-                .setColor(Color.white)
-                .setChildOf(memberBlock);
+            .setTextScale(new PixelConstraint(1.15f * scaleFactor))
+            .setWidth(new PixelConstraint(200 * scaleFactor))
+            .setX(new PixelConstraint(580f * scaleFactor))
+            .setY(new PixelConstraint(120f * scaleFactor))
+            .setColor(Color.white)
+            .setChildOf(memberBlock);
 
         new UIWrappedText(this.bootsName)
-                .setTextScale(new PixelConstraint(1.15f * scaleFactor))
-                .setWidth(new PixelConstraint(200 * scaleFactor))
-                .setX(new PixelConstraint(580f * scaleFactor))
-                .setY(new PixelConstraint(155f * scaleFactor))
-                .setColor(Color.white)
-                .setChildOf(memberBlock);
+            .setTextScale(new PixelConstraint(1.15f * scaleFactor))
+            .setWidth(new PixelConstraint(200 * scaleFactor))
+            .setX(new PixelConstraint(580f * scaleFactor))
+            .setY(new PixelConstraint(155f * scaleFactor))
+            .setColor(Color.white)
+            .setChildOf(memberBlock);
 
         Color arrowWarningColor = Color.white;
         if (this.arrowCount < PartlySaneSkies.Companion.getConfig().getArrowLowCount()) {
@@ -425,58 +426,58 @@ public class PartyMember {
             }
         }
         new UIText("Arrows Remaining: " + this.arrowCountString)
-                .setTextScale(new PixelConstraint(1.15f * scaleFactor))
-                .setX(new PixelConstraint(580f * scaleFactor))
-                .setY(new PixelConstraint(190f * scaleFactor))
-                .setColor(arrowWarningColor)
-                .setChildOf(memberBlock);
+            .setTextScale(new PixelConstraint(1.15f * scaleFactor))
+            .setX(new PixelConstraint(580f * scaleFactor))
+            .setY(new PixelConstraint(190f * scaleFactor))
+            .setColor(arrowWarningColor)
+            .setChildOf(memberBlock);
     }
 
     private void createMemberBlockColumnFive(UIComponent memberBlock, float scaleFactor) {
         new PSSButton()
-                .setX(new PixelConstraint(800 * scaleFactor))
-                .setY(new PixelConstraint(15 * scaleFactor))
-                .setWidth(new PixelConstraint(125f * scaleFactor))
-                .setHeight(new PixelConstraint(55f * scaleFactor))
-                .setChildOf(memberBlock)
-                .setText("Kick")
-                .setTextScale(new PixelConstraint(scaleFactor))
-                .onMouseClickConsumer(event -> PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/party kick " + this.username));
+            .setX(new PixelConstraint(800 * scaleFactor))
+            .setY(new PixelConstraint(15 * scaleFactor))
+            .setWidth(new PixelConstraint(125f * scaleFactor))
+            .setHeight(new PixelConstraint(55f * scaleFactor))
+            .setChildOf(memberBlock)
+            .setText("Kick")
+            .setTextScale(new PixelConstraint(scaleFactor))
+            .onMouseClickConsumer(event -> PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/party kick " + this.username));
 
         new PSSButton()
-                .setX(new PixelConstraint(800 * scaleFactor))
-                .setY(new PixelConstraint(75 * scaleFactor))
-                .setWidth(new PixelConstraint(125f * scaleFactor))
-                .setHeight(new PixelConstraint(55f * scaleFactor))
-                .setChildOf(memberBlock)
-                .setText("Promote")
-                .setTextScale(new PixelConstraint(scaleFactor))
-                .onMouseClickConsumer(event -> PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/party promote " + this.username));
+            .setX(new PixelConstraint(800 * scaleFactor))
+            .setY(new PixelConstraint(75 * scaleFactor))
+            .setWidth(new PixelConstraint(125f * scaleFactor))
+            .setHeight(new PixelConstraint(55f * scaleFactor))
+            .setChildOf(memberBlock)
+            .setText("Promote")
+            .setTextScale(new PixelConstraint(scaleFactor))
+            .onMouseClickConsumer(event -> PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/party promote " + this.username));
 
         new PSSButton()
-                .setX(new PixelConstraint(800 * scaleFactor))
-                .setY(new PixelConstraint(135 * scaleFactor))
-                .setWidth(new PixelConstraint(125f * scaleFactor))
-                .setHeight(new PixelConstraint(55f * scaleFactor))
-                .setChildOf(memberBlock)
-                .setText("Transfer")
-                .setTextScale(new PixelConstraint(scaleFactor))
-                .onMouseClickConsumer(event -> PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/party transfer " + this.username));
+            .setX(new PixelConstraint(800 * scaleFactor))
+            .setY(new PixelConstraint(135 * scaleFactor))
+            .setWidth(new PixelConstraint(125f * scaleFactor))
+            .setHeight(new PixelConstraint(55f * scaleFactor))
+            .setChildOf(memberBlock)
+            .setText("Transfer")
+            .setTextScale(new PixelConstraint(scaleFactor))
+            .onMouseClickConsumer(event -> PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/party transfer " + this.username));
 
         UIComponent refreshButton = new UIRoundedRectangle(10f)
-                .setX(new PixelConstraint(memberBlock.getWidth() - 30f * scaleFactor))
-                .setY(new PixelConstraint(10f * scaleFactor))
-                .setWidth(new PixelConstraint(20f * scaleFactor))
-                .setHeight(new PixelConstraint(20f * scaleFactor))
-                .setColor(new Color(60, 222, 79))
-                .setChildOf(memberBlock);
+            .setX(new PixelConstraint(memberBlock.getWidth() - 30f * scaleFactor))
+            .setY(new PixelConstraint(10f * scaleFactor))
+            .setWidth(new PixelConstraint(20f * scaleFactor))
+            .setHeight(new PixelConstraint(20f * scaleFactor))
+            .setColor(new Color(60, 222, 79))
+            .setChildOf(memberBlock);
 
         ElementaUtils.INSTANCE.getUiImage(new ResourceLocation("partlysaneskies", "textures/gui/party_finder/refresh.png"))
-                .setX(new CenterConstraint())
-                .setY(new CenterConstraint())
-                .setWidth(new PixelConstraint(20f * scaleFactor))
-                .setHeight(new PixelConstraint(20f * scaleFactor))
-                .setChildOf(refreshButton);
+            .setX(new CenterConstraint())
+            .setY(new CenterConstraint())
+            .setWidth(new PixelConstraint(20f * scaleFactor))
+            .setHeight(new PixelConstraint(20f * scaleFactor))
+            .setChildOf(refreshButton);
 
         refreshButton.onMouseClickConsumer(event -> {
             player.setLastUpdateTime(0);
