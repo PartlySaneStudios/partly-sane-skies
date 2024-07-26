@@ -1,5 +1,5 @@
 //
-// Written by Su386.
+// Written by Su386 and ItsEmpa.
 // See LICENSE for copyright and license notices.
 //
 
