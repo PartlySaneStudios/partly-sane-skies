@@ -34,8 +34,8 @@ import net.minecraftforge.client.event.GuiScreenEvent
 import java.awt.Color
 
 object SkymartValue : SidePanel() {
-    override val panelBaseComponent: UIComponent =
-        UIBlock().applyBackground().constrain {
+    override val panelBaseComponent: UIComponent = UIBlock().applyBackground()
+        .constrain {
             x = 800.scaledPixels
             y = CenterConstraint()
             width = 225.scaledPixels
@@ -43,8 +43,8 @@ object SkymartValue : SidePanel() {
             color = Color(0, 0, 0, 0).constraint
         }
 
-    private val textComponent =
-        UIWrappedText().constrain {
+    private val textComponent = UIWrappedText()
+        .constrain {
             x = CenterConstraint()
             y = CenterConstraint()
             height = 95.percent

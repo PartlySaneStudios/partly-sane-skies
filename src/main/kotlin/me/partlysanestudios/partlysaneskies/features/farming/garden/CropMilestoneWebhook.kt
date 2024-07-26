@@ -25,11 +25,10 @@ import net.minecraft.item.ItemStack
 import java.awt.Color
 
 object CropMilestoneWebhook : Webhook() {
-    override val icon =
-        PSSItemRender(ItemStack(Items.reeds), true)
-            .setX(CenterConstraint())
-            .setY(CenterConstraint())
-            .setWidth(90.percent)
+    override val icon = PSSItemRender(ItemStack(Items.reeds), true)
+        .setX(CenterConstraint())
+        .setY(CenterConstraint())
+        .setWidth(90.percent)
 
     override val id = "cropMilestone"
     override val name = "Crop Milestone"

@@ -26,11 +26,10 @@ import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
 
 object PetLevelUpWebhook : Webhook() {
-    override val icon =
-        PSSItemRender(ItemStack(Items.bone), true)
-            .setX(CenterConstraint())
-            .setY(CenterConstraint())
-            .setWidth(90.percent)
+    override val icon = PSSItemRender(ItemStack(Items.bone), true)
+        .setX(CenterConstraint())
+        .setY(CenterConstraint())
+        .setWidth(90.percent)
 
     override val id = "petLevelUp"
     override val name = "Pet Level Up"

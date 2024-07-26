@@ -149,26 +149,25 @@ class PartlySaneSkies {
             private set
 
         // Names of all the ranks to remove from people's names
-        val RANK_NAMES =
-            arrayOf(
-                "[VIP]",
-                "[VIP+]",
-                "[MVP]",
-                "[MVP+]",
-                "[MVP++]",
-                "[YOUTUBE]",
-                "[MOJANG]",
-                "[EVENTS]",
-                "[MCP]",
-                "[PIG]",
-                "[PIG+]",
-                "[PIG++]",
-                "[PIG+++]",
-                "[GM]",
-                "[ADMIN]",
-                "[OWNER]",
-                "[NPC]",
-            )
+        val RANK_NAMES = arrayOf(
+            "[VIP]",
+            "[VIP+]",
+            "[MVP]",
+            "[MVP+]",
+            "[MVP++]",
+            "[YOUTUBE]",
+            "[MOJANG]",
+            "[EVENTS]",
+            "[MCP]",
+            "[PIG]",
+            "[PIG+]",
+            "[PIG++]",
+            "[PIG+++]",
+            "[GM]",
+            "[ADMIN]",
+            "[OWNER]",
+            "[NPC]",
+        )
         val time: Long
             get() = System.currentTimeMillis()
 
@@ -179,10 +178,9 @@ class PartlySaneSkies {
 
         var latestVersion = UNKNOWN_VERSION
 
-        val coreConfig =
-            Config()
-                .registerOption("alreadyStarted", Toggle("Already Started", "Has this already been started with PSS enabled?", false))
-                .registerOption("promptedMainMenu", Toggle("Prompted main menu", defaultState = false))
+        val coreConfig = Config()
+            .registerOption("alreadyStarted", Toggle("Already Started", "Has this already been started with PSS enabled?", false))
+            .registerOption("promptedMainMenu", Toggle("Prompted main menu", defaultState = false))
     }
 
     // Method runs at mod initialization

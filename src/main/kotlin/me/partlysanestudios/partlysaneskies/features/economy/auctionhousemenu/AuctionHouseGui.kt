@@ -42,66 +42,60 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
     private val totalRows = 4
     private val totalColumns = 6
 
-    private val baseBlock: UIBlock =
-        UIBlock().constrain {
-            color = Color(0, 0, 0, 0).constraint
-            x = CenterConstraint()
-            y = CenterConstraint()
-            height = sizeHeight.pixels
-            width = sizeWidth.pixels
-        } childOf window
+    private val baseBlock: UIBlock = UIBlock().constrain {
+        color = Color(0, 0, 0, 0).constraint
+        x = CenterConstraint()
+        y = CenterConstraint()
+        height = sizeHeight.pixels
+        width = sizeWidth.pixels
+    } childOf window
 
-    private val backgroundImage: UIImage =
-        ThemeManager.currentBackgroundUIImage.constrain {
-            x = CenterConstraint()
-            y = CenterConstraint()
-            height = sizeHeight.pixels
-            width = sizeWidth.pixels
-        } childOf baseBlock
+    private val backgroundImage: UIImage = ThemeManager.currentBackgroundUIImage.constrain {
+        x = CenterConstraint()
+        y = CenterConstraint()
+        height = sizeHeight.pixels
+        width = sizeWidth.pixels
+    } childOf baseBlock
 
     private val sideBarHeight = sideBarHeightPercent * sizeHeight
     private val sideBarWidth = sizeWidth * sideBarWidthPercent
     private val itemInformationBarX = -(sideBarWidth * sideBarPadding)
     private val auctionInformationBarX = (sideBarWidth * (sideBarPadding - 1)) + backgroundImage.getWidth()
 
-    private val itemInformationBar =
-        ItemInformationBar(
-            itemInformationBarX.pixels,
-            CenterConstraint(),
-            sideBarHeight.pixels,
-            sideBarWidth.pixels,
-            textScale,
-        )
+    private val itemInformationBar = ItemInformationBar(
+        itemInformationBarX.pixels,
+        CenterConstraint(),
+        sideBarHeight.pixels,
+        sideBarWidth.pixels,
+        textScale,
+    )
 
-    private val marketInformationBar =
-        MarketInformationBar(
-            auctionInformationBarX.pixels,
-            CenterConstraint(),
-            sideBarHeight.pixels,
-            sideBarWidth.pixels,
-            textScale,
-        )
+    private val marketInformationBar = MarketInformationBar(
+        auctionInformationBarX.pixels,
+        CenterConstraint(),
+        sideBarHeight.pixels,
+        sideBarWidth.pixels,
+        textScale,
+    )
 
     private val categoriesBarHeight = 0.1665 * sizeHeight
     private val categoriesBarY = backgroundImage.getTop() - pad - categoriesBarHeight
-    private val categoriesBar =
-        CategoriesBar(
-            CenterConstraint(),
-            categoriesBarY.pixels,
-            categoriesBarHeight.pixels,
-            sizeWidth.pixels,
-            defaultAuctionInventory,
-        )
+    private val categoriesBar = CategoriesBar(
+        CenterConstraint(),
+        categoriesBarY.pixels,
+        categoriesBarHeight.pixels,
+        sizeWidth.pixels,
+        defaultAuctionInventory,
+    )
 
     private val settingsBarY = backgroundImage.getBottom() + pad
-    private val settingsBar =
-        SettingsBar(
-            CenterConstraint(),
-            settingsBarY.pixels,
-            categoriesBarHeight.pixels,
-            sizeWidth.pixels,
-            defaultAuctionInventory,
-        )
+    private val settingsBar = SettingsBar(
+        CenterConstraint(),
+        settingsBarY.pixels,
+        categoriesBarHeight.pixels,
+        sizeWidth.pixels,
+        defaultAuctionInventory,
+    )
 
     private val auctions = getAuctions(defaultAuctionInventory)
 

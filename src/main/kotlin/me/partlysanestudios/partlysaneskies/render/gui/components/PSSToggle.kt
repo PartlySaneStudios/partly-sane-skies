@@ -22,12 +22,11 @@ import java.util.function.Consumer
 
 class PSSToggle {
     private var state = false
-    private var backgroundBlock: UIBlock =
-        UIBlock()
-            .setColor(Color(0, 0, 0, 0)) as UIBlock
+    private var backgroundBlock: UIBlock = UIBlock()
+        .setColor(Color(0, 0, 0, 0)) as UIBlock
 
-    private var buttonTexture: UIImage =
-        getCurrentToggleUIImage(false).constrain {
+    private var buttonTexture: UIImage = getCurrentToggleUIImage(false)
+        .constrain {
             x = CenterConstraint()
             y = CenterConstraint()
             width = 100.percent

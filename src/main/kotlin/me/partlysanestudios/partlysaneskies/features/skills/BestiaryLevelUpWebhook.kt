@@ -25,11 +25,10 @@ import net.minecraft.item.ItemStack
 import java.awt.Color
 
 object BestiaryLevelUpWebhook : Webhook() {
-    override val icon =
-        PSSItemRender(ItemStack(Items.rotten_flesh), true)
-            .setX(CenterConstraint())
-            .setY(CenterConstraint())
-            .setWidth(90.percent)
+    override val icon = PSSItemRender(ItemStack(Items.rotten_flesh), true)
+        .setX(CenterConstraint())
+        .setY(CenterConstraint())
+        .setWidth(90.percent)
 
     override val id = "mobBestiary"
     override val name = "Bestiary Level Up"

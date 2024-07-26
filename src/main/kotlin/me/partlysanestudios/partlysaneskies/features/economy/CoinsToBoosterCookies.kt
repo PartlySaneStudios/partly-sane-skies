@@ -53,7 +53,7 @@ object CoinsToBoosterCookies {
 
     fun registerCommand() {
         PSSCommand("coins2cookies")
-            .addAlias("coinstocookies", "psscoi2cok", "coi2cok", "c2c")
+            .addAlias("coinstocookies", "psscoi2cok", "c2c")
             .setDescription("Converts a given amount of coins to the IRL cost of booster cookies in your selected currency via §9/pssc§b.")
             .setRunnable { args: Array<String> ->
                 ChatUtils.sendClientMessage("Loading...")

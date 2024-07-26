@@ -33,45 +33,41 @@ class SettingsBar(
     val widthConstraint: WidthConstraint,
     val inventory: IInventory,
 ) {
-    private var bottomBarImagePaths =
-        arrayOf(
-            "textures/gui/custom_ah/left_arrow_icon.png",
-            "textures/gui/custom_ah/reset_icon.png",
-            "textures/gui/custom_ah/search_icon.png",
-            "textures/gui/custom_ah/go_back_icon.png",
-            "textures/gui/custom_ah/sort_filter/unknown.png",
-            "textures/gui/custom_ah/rarity_filter/no_filter.png",
-            "textures/gui/custom_ah/type/all.png",
-            "textures/gui/custom_ah/right_arrow_icon.png",
-        )
+    private var bottomBarImagePaths = arrayOf(
+        "textures/gui/custom_ah/left_arrow_icon.png",
+        "textures/gui/custom_ah/reset_icon.png",
+        "textures/gui/custom_ah/search_icon.png",
+        "textures/gui/custom_ah/go_back_icon.png",
+        "textures/gui/custom_ah/sort_filter/unknown.png",
+        "textures/gui/custom_ah/rarity_filter/no_filter.png",
+        "textures/gui/custom_ah/type/all.png",
+        "textures/gui/custom_ah/right_arrow_icon.png",
+    )
 
-    private var bottomBarFurfSkyImagePaths =
-        arrayOf(
-            "textures/gui/custom_ah/furfsky/left_arrow_icon.png",
-            "textures/gui/custom_ah/furfsky/reset_icon.png",
-            "textures/gui/custom_ah/furfsky/search_icon.png",
-            "textures/gui/custom_ah/furfsky/go_back_icon.png",
-            "textures/gui/custom_ah/furfsky/sort_filter/unknown.png",
-            "textures/gui/custom_ah/furfsky/rarity_filter/no_filter.png",
-            "textures/gui/custom_ah/furfsky/type/all.png",
-            "textures/gui/custom_ah/furfsky/right_arrow_icon.png",
-        )
+    private var bottomBarFurfSkyImagePaths = arrayOf(
+        "textures/gui/custom_ah/furfsky/left_arrow_icon.png",
+        "textures/gui/custom_ah/furfsky/reset_icon.png",
+        "textures/gui/custom_ah/furfsky/search_icon.png",
+        "textures/gui/custom_ah/furfsky/go_back_icon.png",
+        "textures/gui/custom_ah/furfsky/sort_filter/unknown.png",
+        "textures/gui/custom_ah/furfsky/rarity_filter/no_filter.png",
+        "textures/gui/custom_ah/furfsky/type/all.png",
+        "textures/gui/custom_ah/furfsky/right_arrow_icon.png",
+    )
 
-    private val bottomBar =
-        UIBlock()
-            .setX(xConstraint)
-            .setY(yConstraint)
-            .setWidth(widthConstraint)
-            .setHeight(heightConstraint)
-            .setColor(Color(0, 0, 0, 0))
+    private val bottomBar = UIBlock()
+        .setX(xConstraint)
+        .setY(yConstraint)
+        .setWidth(widthConstraint)
+        .setHeight(heightConstraint)
+        .setColor(Color(0, 0, 0, 0))
 
-    private val bottomBarImage =
-        ThemeManager.currentBackgroundUIImage
-            .setX(CenterConstraint())
-            .setY(CenterConstraint())
-            .setWidth(widthConstraint)
-            .setHeight(heightConstraint)
-            .setChildOf(bottomBar)
+    private val bottomBarImage = ThemeManager.currentBackgroundUIImage
+        .setX(CenterConstraint())
+        .setY(CenterConstraint())
+        .setWidth(widthConstraint)
+        .setHeight(heightConstraint)
+        .setChildOf(bottomBar)
 
     var selectedItem = -1
 
@@ -97,14 +93,13 @@ class SettingsBar(
         for (i in 0..7) {
             val slot = i + 46
 
-            val icon =
-                UIBlock()
-                    .constrain {
-                        x = (settingWidth * i + settingWidth * .1).pixels
-                        y = CenterConstraint()
-                        width = (settingWidth * .8).pixels
-                        height = settingHeight.pixels
-                    }.setColor(Color(0, 0, 0, 0)) childOf bottomBarImage
+            val icon = UIBlock()
+                .constrain {
+                    x = (settingWidth * i + settingWidth * .1).pixels
+                    y = CenterConstraint()
+                    width = (settingWidth * .8).pixels
+                    height = settingHeight.pixels
+                }.setColor(Color(0, 0, 0, 0)) childOf bottomBarImage
 
             var imagePath: String = bottomBarImagePaths[i]
             if (PartlySaneSkies.config.customAhGuiTextures == 1) {

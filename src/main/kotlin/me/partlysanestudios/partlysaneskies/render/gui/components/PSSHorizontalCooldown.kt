@@ -30,8 +30,8 @@ class PSSHorizontalCooldown(
 ) {
     private var cooldown: Cooldown? = null
 
-    val boundingBox =
-        UIRoundedRectangle(2f).constrain {
+    val boundingBox = UIRoundedRectangle(2f)
+        .constrain {
             radius = 4f.scaledPixels
             x = xConstraint
             y = yConstraint
@@ -40,8 +40,8 @@ class PSSHorizontalCooldown(
             color = Color(0, 0, 0, 0).constraint
         }
 
-    private val displayBox =
-        UIRoundedRectangle(2f).constrain {
+    private val displayBox = UIRoundedRectangle(2f)
+        .constrain {
             radius = 4f.scaledPixels
             x = 0f.pixels
             y = 0f.pixels
@@ -50,8 +50,8 @@ class PSSHorizontalCooldown(
             color = Color(255, 0, 0).constraint
         } childOf boundingBox
 
-    private val itemRender =
-        PSSItemRender(null, autoScaleWidth = true).constrain {
+    private val itemRender = PSSItemRender(null, autoScaleWidth = true)
+        .constrain {
             width = 1.75.percent
             x = (-35).percent
             y = CenterConstraint()

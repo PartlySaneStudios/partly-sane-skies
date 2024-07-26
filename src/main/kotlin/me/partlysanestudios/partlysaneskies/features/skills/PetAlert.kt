@@ -42,8 +42,8 @@ import net.minecraftforge.client.event.GuiScreenEvent
 import java.awt.Color
 
 object PetAlert : SidePanel() {
-    override val panelBaseComponent: UIComponent =
-        UIBlock().applyBackground().constrain {
+    override val panelBaseComponent: UIComponent = UIBlock().applyBackground()
+        .constrain {
             x = 800.scaledPixels
             y = CenterConstraint()
             width = 175.scaledPixels
@@ -51,8 +51,8 @@ object PetAlert : SidePanel() {
             color = Color(0, 0, 0, 0).constraint
         }
 
-    private val textComponent =
-        UIWrappedText(centered = true).constrain {
+    private val textComponent = UIWrappedText(centered = true)
+        .constrain {
             x = CenterConstraint()
             y = CenterConstraint()
             width = 95.percent

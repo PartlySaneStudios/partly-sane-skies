@@ -26,11 +26,10 @@ import net.minecraft.item.ItemStack
 import java.awt.Color
 
 object SkillUpgradeWebhook : Webhook() {
-    override val icon =
-        PSSItemRender(ItemStack(Items.diamond_pickaxe), true)
-            .setX(CenterConstraint())
-            .setY(CenterConstraint())
-            .setWidth(90.percent)
+    override val icon = PSSItemRender(ItemStack(Items.diamond_pickaxe), true)
+        .setX(CenterConstraint())
+        .setY(CenterConstraint())
+        .setWidth(90.percent)
 
     override val id = "skillLevelUp"
     override val name = "Skill Level Up"

@@ -30,44 +30,40 @@ class MarketInformationBar(
     widthConstraint: WidthConstraint,
     textScaleFactor: Float,
 ) {
-    private val baseBlock: UIBlock =
-        UIBlock().constrain {
-            color = Color(0, 0, 0, 0).constraint
-            x = xConstraint
-            y = yConstraint
-            height = heightConstraint
-            width = widthConstraint
-        }
+    private val baseBlock: UIBlock = UIBlock().constrain {
+        color = Color(0, 0, 0, 0).constraint
+        x = xConstraint
+        y = yConstraint
+        height = heightConstraint
+        width = widthConstraint
+    }
 
-    private val backgroundImage: UIImage =
-        ThemeManager.currentBackgroundUIImage.constrain {
-            x = CenterConstraint()
-            y = CenterConstraint()
-            height = heightConstraint
-            width = widthConstraint
-        } childOf baseBlock
+    private val backgroundImage: UIImage = ThemeManager.currentBackgroundUIImage.constrain {
+        x = CenterConstraint()
+        y = CenterConstraint()
+        height = heightConstraint
+        width = widthConstraint
+    } childOf baseBlock
 
     private var headerString = ""
 
     private var descriptionString = ""
 
-    private val header: UIWrappedText =
-        UIWrappedText(centered = true) constrain {
-            x = CenterConstraint()
-            y = 10.pixels
-            height = heightConstraint
-            width = widthConstraint
-            textScale = (1.5f * textScaleFactor).pixels
-        } childOf backgroundImage
+    private val header: UIWrappedText = UIWrappedText(centered = true) constrain {
+        x = CenterConstraint()
+        y = 10.pixels
+        height = heightConstraint
+        width = widthConstraint
+        textScale = (1.5f * textScaleFactor).pixels
+    } childOf backgroundImage
 
-    private val description: UIWrappedText =
-        UIWrappedText(centered = true) constrain {
-            x = CenterConstraint()
-            y = 40.pixels
-            height = heightConstraint
-            width = widthConstraint
-            textScale = (1.0f * textScaleFactor).pixels
-        } childOf backgroundImage
+    private val description: UIWrappedText = UIWrappedText(centered = true) constrain {
+        x = CenterConstraint()
+        y = 40.pixels
+        height = heightConstraint
+        width = widthConstraint
+        textScale = (1.0f * textScaleFactor).pixels
+    } childOf backgroundImage
 
     init {
         description.setText(descriptionString)

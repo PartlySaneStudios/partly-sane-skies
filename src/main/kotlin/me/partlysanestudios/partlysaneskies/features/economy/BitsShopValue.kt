@@ -33,8 +33,8 @@ import java.awt.Color
 import java.io.IOException
 
 object BitsShopValue : SidePanel() {
-    override val panelBaseComponent: UIComponent =
-        UIBlock().applyBackground().constrain {
+    override val panelBaseComponent: UIComponent = UIBlock().applyBackground()
+        .constrain {
             x = 800.scaledPixels
             y = CenterConstraint()
             width = 225.scaledPixels
@@ -42,8 +42,8 @@ object BitsShopValue : SidePanel() {
             color = Color(0, 0, 0, 0).constraint
         }
 
-    private val textComponent =
-        UIWrappedText().constrain {
+    private val textComponent = UIWrappedText()
+        .constrain {
             x = CenterConstraint()
             y = CenterConstraint()
             height = 95.percent

@@ -27,14 +27,13 @@ object BannerRenderer : Gui() {
 
     private val window = Window(ElementaVersion.V2)
 
-    private var displayText: UIText =
-        UIText("{EMPTY BANNER}")
-            .constrain {
-                textScale = 5F.pixels
-                x = CenterConstraint()
-                y = CenterConstraint()
-                color = Color(255, 255, 255, 0).constraint
-            }.setColor(Color(255, 255, 255, 0)) as UIText childOf window
+    private var displayText: UIText = UIText("{EMPTY BANNER}")
+        .constrain {
+            textScale = 5F.pixels
+            x = CenterConstraint()
+            y = CenterConstraint()
+            color = Color(255, 255, 255, 0).constraint
+        }.setColor(Color(255, 255, 255, 0)) as UIText childOf window
 
     @SubscribeEvent
     fun onScreenRender(event: RenderGameOverlayEvent.Text) {

@@ -28,26 +28,25 @@ class PSSButton {
     private var text: String = ""
     private val onMouseClick = ArrayList<Consumer<UIClickEvent>>()
 
-    private val backgroundBlock =
-        UIBlock()
-            .constrain {
-                color = Color(0, 0, 0, 0).constraint
-            }.onMouseClick {
-                for (method in onMouseClick) {
-                    method.accept(it)
-                }
+    private val backgroundBlock = UIBlock()
+        .constrain {
+            color = Color(0, 0, 0, 0).constraint
+        }.onMouseClick {
+            for (method in onMouseClick) {
+                method.accept(it)
             }
+        }
 
-    private var buttonTexture =
-        currentButtonUIImage.constrain {
+    private var buttonTexture = currentButtonUIImage
+        .constrain {
             x = CenterConstraint()
             y = CenterConstraint()
             width = 100.percent
             height = 100.percent
         } childOf backgroundBlock
 
-    private val textComponent =
-        UIWrappedText(text, false, Color(0, 0, 0, 0), true).constrain {
+    private val textComponent = UIWrappedText(text, false, Color(0, 0, 0, 0), true)
+        .constrain {
             x = CenterConstraint()
             y = CenterConstraint()
             width = 100.percent

@@ -44,57 +44,51 @@ class AuctionElement(
 ) {
     private val skyblockItem = SkyblockDataManager.getItem(itemstack?.getItemId() ?: "")
 
-    private val boundingBox =
-        UIBlock().constrain {
-            x = xConstraint
-            y = yConstraint
-            width = (heightConstraint.value).pixels
-            height = (heightConstraint.value).pixels
-            color = Color(0, 0, 0, 0).constraint
+    private val boundingBox = UIBlock().constrain {
+        x = xConstraint
+        y = yConstraint
+        width = (heightConstraint.value).pixels
+        height = (heightConstraint.value).pixels
+        color = Color(0, 0, 0, 0).constraint
+    }
+
+    private val highlightBox = UIRoundedRectangle(7.5f).constrain {
+        x = CenterConstraint()
+        y = CenterConstraint()
+        width = (heightConstraint * 1.2)
+        height = (heightConstraint * 1.2)
+        color = Color(0, 0, 0, 0).constraint
+    } childOf boundingBox
+
+    private val box: PSSButton = PSSButton()
+        .setX(CenterConstraint())
+        .setY(CenterConstraint())
+        .setWidth(heightConstraint)
+        .setHeight(heightConstraint)
+        .setColor(getRarityColor())
+        .setChildOf(boundingBox)
+        .onMouseClickConsumer {
+            clickAuction()
         }
-
-    private val highlightBox =
-        UIRoundedRectangle(7.5f).constrain {
-            x = CenterConstraint()
-            y = CenterConstraint()
-            width = (heightConstraint * 1.2)
-            height = (heightConstraint * 1.2)
-            color = Color(0, 0, 0, 0).constraint
-        } childOf boundingBox
-
-    private val box: PSSButton =
-        PSSButton()
-            .setX(CenterConstraint())
-            .setY(CenterConstraint())
-            .setWidth(heightConstraint)
-            .setHeight(heightConstraint)
-            .setColor(getRarityColor())
-            .setChildOf(boundingBox)
-            .onMouseClickConsumer {
-                clickAuction()
-            }
 
     private val itemHeight = (heightConstraint.value * .667f)
 
-    private val itemRender: PSSItemRender =
-        PSSItemRender(itemstack, true)
-            .setX(CenterConstraint())
-            .setY(CenterConstraint())
-            .setWidth(100.percent)
-            .setHeight(100.percent)
-            .setChildOf(box.component) as PSSItemRender
+    private val itemRender: PSSItemRender = PSSItemRender(itemstack, true)
+        .setX(CenterConstraint())
+        .setY(CenterConstraint())
+        .setWidth(100.percent)
+        .setHeight(100.percent)
+        .setChildOf(box.component) as PSSItemRender
 
-    private val nameComponent =
-        UIWrappedText(getName(), centered = true)
-            .constrain {
-                x = CenterConstraint()
-                y = itemHeight.pixels
-                width = (heightConstraint.value * 1.25).pixels
-                height = (heightConstraint.value * .667).pixels
-            }.setTextScale(textScale.pixels) childOf boundingBox
+    private val nameComponent = UIWrappedText(getName(), centered = true)
+        .constrain {
+            x = CenterConstraint()
+            y = itemHeight.pixels
+            width = (heightConstraint.value * 1.25).pixels
+            height = (heightConstraint.value * .667).pixels
+        }.setTextScale(textScale.pixels) childOf boundingBox
 
     init {
-
         boundingBox.onMouseClick {
             clickAuction()
         }
