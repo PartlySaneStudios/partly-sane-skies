@@ -20,6 +20,9 @@ import gg.essential.elementa.dsl.percent
 import gg.essential.elementa.events.UIClickEvent
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager.currentButtonUIImage
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager.getCurrentButtonUIImage
+import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
+import me.partlysanestudios.partlysaneskies.utils.ImageUtils.minus
+import me.partlysanestudios.partlysaneskies.utils.ImageUtils.plus
 import java.awt.Color
 import java.util.function.Consumer
 
@@ -45,13 +48,13 @@ class PSSButton {
             height = 100.percent
         } childOf backgroundBlock
 
-    private val textComponent = UIWrappedText(text, false, Color(0, 0, 0, 0), true)
-        .constrain {
-            x = CenterConstraint()
-            y = CenterConstraint()
-            width = 100.percent
-            color = Color.white.constraint
-        } childOf backgroundBlock
+    private val textComponent = UIWrappedText(text, false, Color(0, 0, 0, 0), true).constrain {
+        x = CenterConstraint()
+        y = CenterConstraint()
+        width = 100.percent
+        color = Color.lightGray.constraint
+        textScale = 1.scaledPixels
+    } childOf backgroundBlock
 
     constructor() {
         text = ""
@@ -64,6 +67,18 @@ class PSSButton {
         text = ""
         backgroundBlock.setColor(color.toJavaColor())
         this.color = color
+    }
+
+    init {
+        backgroundBlock.onMouseEnter {
+            buttonTexture.setWidth(105.percent)
+            buttonTexture.setHeight(105.percent)
+            textComponent.setColor(textComponent.getColor() - Color(68, 68, 68))
+        }.onMouseLeave {
+            buttonTexture.setWidth(100.percent)
+            buttonTexture.setHeight(100.percent)
+            textComponent.setColor(textComponent.getColor() + Color(68, 68, 68))
+        }
     }
 
     fun setHeight(height: HeightConstraint): PSSButton {

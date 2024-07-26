@@ -6,6 +6,7 @@
 package me.partlysanestudios.partlysaneskies.config
 
 import cc.polyfrost.oneconfig.config.Config
+import cc.polyfrost.oneconfig.config.annotations.Button
 import cc.polyfrost.oneconfig.config.annotations.Color
 import cc.polyfrost.oneconfig.config.annotations.Dropdown
 import cc.polyfrost.oneconfig.config.annotations.HUD
@@ -22,6 +23,8 @@ import cc.polyfrost.oneconfig.config.data.Mod
 import cc.polyfrost.oneconfig.config.data.ModType
 import me.partlysanestudios.partlysaneskies.features.debug.ExampleHud
 import me.partlysanestudios.partlysaneskies.features.gui.hud.CooldownHud
+import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.RareDropGUI
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
 import org.lwjgl.input.Keyboard
 
 object OneConfigScreen : Config(
@@ -426,6 +429,18 @@ object OneConfigScreen : Config(
         subcategory = "Rare Drop",
     )
     var blockLegendaryDrops = false
+
+    @Button(
+        name = "Filter Individual Items",
+        text = "Open Menu",
+        description = "Click to open a menu to blacklist individual items.",
+        category = "SkyBlock",
+        subcategory = "Rare Drop",
+        size = 2
+    )
+    val rareDropFilterButton = Runnable {
+        MinecraftUtils.displayGuiScreen(RareDropGUI())
+    }
 
     // Location Banner
     @Switch(

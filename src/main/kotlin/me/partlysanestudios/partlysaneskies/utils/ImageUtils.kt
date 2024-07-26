@@ -52,6 +52,45 @@ object ImageUtils {
 
     fun Color.applyOpacity(opacity: Int): Color = Color(red, green, blue, opacity)
 
+    operator fun Color.plus(color: Color): Color {
+        val red = if (this.red + color.red > 255) {
+            255
+        } else {
+            this.red + color.red
+        }
+        val blue = if (this.blue + color.blue > 255) {
+            255
+        } else {
+            this.blue + color.blue
+        }
+        val green = if (this.green + color.green > 255) {
+            255
+        } else {
+            this.green + color.green
+        }
+
+        return Color(red, green, blue)
+    }
+
+    operator fun Color.minus(color: Color): Color {
+        val red = if (this.red - color.red < 0) {
+            0
+        } else {
+            this.red - color.red
+        }
+        val blue = if (this.blue - color.blue < 0) {
+            0
+        } else {
+            this.blue - color.blue
+        }
+        val green = if (this.green - color.green < 0) {
+            0
+        } else {
+            this.green - color.green
+        }
+
+        return Color(red, green, blue)
+    }
     val Color.asHex: Int
         get() = red shl 16 or (green shl 8) or blue
 }
