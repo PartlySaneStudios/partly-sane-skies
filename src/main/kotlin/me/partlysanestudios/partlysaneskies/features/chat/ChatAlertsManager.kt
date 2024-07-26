@@ -1,3 +1,8 @@
+//
+// Written by Su386 and ItsEmpa.
+// See LICENSE for copyright and license notices.
+//
+
 package me.partlysanestudios.partlysaneskies.features.chat
 
 import com.google.gson.Gson
