@@ -80,7 +80,8 @@ object SkyblockDataManager {
                                 en.get("unstackable")?.asBoolean ?: false,
                             )
 
-                        nameToIdMap[en.get("name").asString.removeColorCodes()] = en.get("itemId").asString
+                        idToItemMap[skyblockItem.id] = skyblockItem
+                        nameToIdMap[skyblockItem.name.removeColorCodes()] = skyblockItem.id
                     }
                 },
                 inMainThread = false,
