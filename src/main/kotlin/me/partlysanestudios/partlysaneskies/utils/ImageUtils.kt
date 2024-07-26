@@ -77,17 +77,17 @@ object ImageUtils {
 
     operator fun Color.plus(color: Color): Color {
         val red = if (this.red + color.red > 255) {
-            0
+            255
         } else {
             this.red + color.red
         }
         val blue = if (this.blue + color.blue > 255) {
-            0
+            255
         } else {
             this.blue + color.blue
         }
         val green = if (this.green + color.green > 255) {
-            0
+            255
         } else {
             this.green + color.green
         }
