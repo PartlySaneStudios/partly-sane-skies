@@ -3,7 +3,6 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.features.discord.webhooks
 
 data class EmbedData(
@@ -11,5 +10,5 @@ data class EmbedData(
     var description: String? = null,
     var url: String? = null,
     var color: Int? = null,
-    var fields: List<EmbedField>? = null
+    var fields: List<EmbedField>? = null,
 )

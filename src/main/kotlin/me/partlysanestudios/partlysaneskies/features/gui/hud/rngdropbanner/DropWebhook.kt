@@ -3,7 +3,6 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner
 
 import gg.essential.elementa.constraints.CenterConstraint
@@ -41,7 +40,10 @@ object DropWebhook : Webhook() {
         val rarities = arrayOf(Rarity.COMMON, Rarity.UNCOMMON, Rarity.RARE, Rarity.EPIC, Rarity.LEGENDARY, Rarity.MYTHIC, Rarity.DIVINE)
         for (rarity in rarities) {
             val displayName = rarity.displayName
-            config.registerOption("send$displayName", Toggle("Send $displayName Drops", "Allow the webhook to send drops of ${displayName.lowercase()} rarity.", true))
+            config.registerOption(
+                "send$displayName",
+                Toggle("Send $displayName Drops", "Allow the webhook to send drops of ${displayName.lowercase()} rarity.", true),
+            )
         }
     }
 
@@ -56,11 +58,7 @@ object DropWebhook : Webhook() {
         val name = drop.name
         val description = "${drop.magicFind}% ✯ Magic Find!"
 
-        val color = if (drop.dropRarity == Rarity.UNKNOWN) {
-            Color.white.asHex
-        } else {
-            drop.dropRarity.colorCode.colorCodeToColor().asHex
-        }
+        val color = if (drop.dropRarity == Rarity.UNKNOWN) Color.white.asHex else drop.dropRarity.colorCode.colorCodeToColor().asHex
 
         WebhookData(
             url = PartlySaneSkies.config.discordWebhookURL,
@@ -69,13 +67,14 @@ object DropWebhook : Webhook() {
                 EmbedData(
                     title = title,
                     color = color,
-                    fields = listOf(
-                        EmbedField(
-                            name = name,
-                            value = description,
-                            inline = true,
+                    fields =
+                        listOf(
+                            EmbedField(
+                                name = name,
+                                value = description,
+                                inline = true,
+                            ),
                         ),
-                    ),
                 ),
             ),
         ).send()

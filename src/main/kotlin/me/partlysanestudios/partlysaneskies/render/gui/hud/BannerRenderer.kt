@@ -17,7 +17,6 @@ import gg.essential.universal.UMatrixStack
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.utils.ImageUtils.applyOpacity
 import me.partlysanestudios.partlysaneskies.utils.MathUtils
-
 import net.minecraft.client.gui.Gui
 import net.minecraftforge.client.event.RenderGameOverlayEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
@@ -28,14 +27,12 @@ object BannerRenderer : Gui() {
 
     private val window = Window(ElementaVersion.V2)
 
-
     private var displayText: UIText = UIText("{EMPTY BANNER}")
         .constrain {
             textScale = 5F.pixels
             x = CenterConstraint()
             y = CenterConstraint()
             color = Color(255, 255, 255, 0).constraint
-
         }.setColor(Color(255, 255, 255, 0)) as UIText childOf window
 
     @SubscribeEvent
@@ -58,7 +55,8 @@ object BannerRenderer : Gui() {
         val calculatedTextScale = (bannerToRender.textScale * PartlySaneSkies.config.bannerSize)
 
         if (displayText.getText() != bannerToRender.text) {
-            displayText.setText(bannerToRender.text)
+            displayText
+                .setText(bannerToRender.text)
                 .constrain {
                     textScale = calculatedTextScale.pixels
                     x = CenterConstraint()
@@ -83,7 +81,6 @@ object BannerRenderer : Gui() {
 //                ChatUtils.sendClientMessage("Banner: ${banner.text} is out of date ${banner.renderStartTime}, ${banner.lengthOfTimeToRender}")
                 bannerList.removeAt(i)
             }
-
         }
     }
 
@@ -113,7 +110,7 @@ class PSSBanner(
     val text: String,
     val lengthOfTimeToRender: Long,
     val textScale: Float = 5f,
-    private val color: Color = Color.red
+    private val color: Color = Color.red,
 ) {
     val creationTime = PartlySaneSkies.time
 
@@ -123,13 +120,9 @@ class PSSBanner(
         this.renderStartTime = PartlySaneSkies.time
     }
 
-    fun isOutOfDate(): Boolean {
-        return !MathUtils.onCooldown(renderStartTime, lengthOfTimeToRender)
-    }
+    fun isOutOfDate(): Boolean = !MathUtils.onCooldown(renderStartTime, lengthOfTimeToRender)
 
-    fun hasStartedRendering(): Boolean {
-        return renderStartTime == -1L
-    }
+    fun hasStartedRendering(): Boolean = renderStartTime == -1L
 
     fun getFadedColor(): Color {
         val alpha = getAlpha(renderStartTime, lengthOfTimeToRender / 1000.0).toInt()
@@ -139,7 +132,6 @@ class PSSBanner(
 
     private fun getAlpha(timeStarted: Long, displayLengthSeconds: Double): Short {
         val displayLength = displayLengthSeconds * 1000
-
 
         val fadeLength = displayLength * (1 / 6.0)
         val timeSinceStarted = PartlySaneSkies.time - timeStarted
@@ -156,7 +148,4 @@ class PSSBanner(
             0
         }
     }
-
 }
-
-

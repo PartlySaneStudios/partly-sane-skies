@@ -3,12 +3,12 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.utils
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import java.awt.Color
 import java.text.DecimalFormat
+import java.util.Locale
 import java.util.regex.Pattern
 
 object StringUtils {
@@ -51,11 +51,13 @@ object StringUtils {
         val words: MutableList<String> = ArrayList()
         val chars: MutableList<Char> = ArrayList()
 
-        for (c in charArray) if (c == ' ') {
-            words.add(chars.joinToString(""))
-            chars.clear()
-        } else {
-            chars.add(c)
+        for (c in charArray) {
+            if (c == ' ') {
+                words.add(chars.joinToString(""))
+                chars.clear()
+            } else {
+                chars.add(c)
+            }
         }
 
         words.add(chars.joinToString(""))
@@ -114,13 +116,12 @@ object StringUtils {
         return str
     }
 
-    fun String.pluralize(number: Number): String {
-        return if (number == 1) {
+    fun String.pluralize(number: Number): String =
+        if (number == 1) {
             this
         } else {
             "${this}s"
         }
-    }
 
     fun stripTrailing(str: String): String {
         var str = str
@@ -217,19 +218,19 @@ object StringUtils {
             result = result.substring(keyIndex)
         }
 
-
         // Gets the first few letters after the key in the pattern
         val patternEndKeyIndex = keyIndex + key.length
         val charsAfterKey: String
 
         // If the key is the last thing in the pattern, return the result
-        charsAfterKey = if (patternEndKeyIndex == pattern.length) {
-            return result
-        } else if (patternEndKeyIndex + 4 <= pattern.length) {
-            pattern.substring(patternEndKeyIndex, patternEndKeyIndex + 4)
-        } else {
-            pattern.substring(patternEndKeyIndex)
-        }
+        charsAfterKey =
+            if (patternEndKeyIndex == pattern.length) {
+                return result
+            } else if (patternEndKeyIndex + 4 <= pattern.length) {
+                pattern.substring(patternEndKeyIndex, patternEndKeyIndex + 4)
+            } else {
+                pattern.substring(patternEndKeyIndex)
+            }
 
         // Uses those characters to get the end of the string in the
         // input, not the pattern
@@ -272,8 +273,8 @@ object StringUtils {
         }
     }
 
-    fun Char.romanCharToInt(): Int {
-        return when (this) {
+    fun Char.romanCharToInt(): Int =
+        when (this) {
             'I' -> 1
             'V' -> 5
             'X' -> 10
@@ -283,7 +284,6 @@ object StringUtils {
             'M' -> 1000
             else -> throw IllegalArgumentException("Invalid Roman numeral character: $this")
         }
-    }
 
     fun String.romanNumeralToInt(): Int {
         var total = 0

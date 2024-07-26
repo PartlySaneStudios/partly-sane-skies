@@ -3,7 +3,6 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.features.farming.garden
 
 import gg.essential.elementa.UIComponent
@@ -33,21 +32,23 @@ import net.minecraftforge.client.event.GuiScreenEvent
 import java.awt.Color
 
 object VisitorTradeValue : SidePanel() {
-    override val panelBaseComponent: UIComponent = UIBlock().applyBackground().constrain {
-        x = 800.scaledPixels
-        y = CenterConstraint()
-        width = 225.scaledPixels
-        height = 350.scaledPixels
-        color = Color(0, 0, 0, 0).constraint
-    }
+    override val panelBaseComponent: UIComponent = UIBlock().applyBackground()
+        .constrain {
+            x = 800.scaledPixels
+            y = CenterConstraint()
+            width = 225.scaledPixels
+            height = 350.scaledPixels
+            color = Color(0, 0, 0, 0).constraint
+        }
 
-    private val textComponent = UIWrappedText().constrain {
-        x = CenterConstraint()
-        y = CenterConstraint()
-        height = 95.percent
-        width = 95.percent
-        textScale = 1.scaledPixels
-    } childOf panelBaseComponent
+    private val textComponent = UIWrappedText()
+        .constrain {
+            x = CenterConstraint()
+            y = CenterConstraint()
+            height = 95.percent
+            width = 95.percent
+            textScale = 1.scaledPixels
+        } childOf panelBaseComponent
 
     override fun shouldDisplayPanel(): Boolean {
         if (!config.gardenShopTradeInfo) {
@@ -93,32 +94,34 @@ object VisitorTradeValue : SidePanel() {
 
         val totalCost = getTotalCost()
 
-        textString += if (totalCost > 0) {
-            "§e§lTotal Cost: §r§d${totalCost.round(2).formatNumber()}\n\n"
-        } else {
-            "§e§lTotal Cost: §o§8(Unknown)§r\n\n"
-        }
+        textString +=
+            if (totalCost > 0) {
+                "§e§lTotal Cost: §r§d${totalCost.round(2).formatNumber()}\n\n"
+            } else {
+                "§e§lTotal Cost: §o§8(Unknown)§r\n\n"
+            }
 
         textString += "§e§lCopper Received: §r§d${getCopperReturn().round(2).formatNumber()}\n\n"
 
-
         val pricePerCopper: Double = getTotalCost() / getCopperReturn()
-        textString += if (pricePerCopper > 0) {
-            "§e§lCoins/Copper: §r§d${pricePerCopper.round(2).formatNumber()}\n\n"
-        } else {
-            "§e§lCoins/Copper: §o§8(Unknown)§r\n\n"
-        }
+        textString +=
+            if (pricePerCopper > 0) {
+                "§e§lCoins/Copper: §r§d${pricePerCopper.round(2).formatNumber()}\n\n"
+            } else {
+                "§e§lCoins/Copper: §o§8(Unknown)§r\n\n"
+            }
 
         var priceBreakdown = ""
         val coinCostMap: HashMap<String, Double> = getCoinCostMap()
         for ((key, value) in getQuantityCostMap().entries) {
             val cost = coinCostMap[key] ?: continue
 
-            priceBreakdown += if (cost >= 0) {
-                "§7x§d${value}§7 $key for a total of §d${cost.round(2).formatNumber()}§7 coins.\n"
-            } else {
-                "§7x§d$value §7$key for a total of §o§8(Unknown)§r§7 coins.\n"
-            }
+            priceBreakdown +=
+                if (cost >= 0) {
+                    "§7x§d$value§7 $key for a total of §d${cost.round(2).formatNumber()}§7 coins.\n"
+                } else {
+                    "§7x§d$value §7$key for a total of §o§8(Unknown)§r§7 coins.\n"
+                }
         }
 
         textString += "§e§lPrice Breakdown:§r\n"
@@ -250,5 +253,4 @@ object VisitorTradeValue : SidePanel() {
 
         return totalCost
     }
-
 }

@@ -3,7 +3,6 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.render.waypoint
 
 import me.partlysanestudios.partlysaneskies.render.RenderPrimitives.drawBoxFill
@@ -17,9 +16,12 @@ import net.minecraft.util.BlockPos
 import org.lwjgl.opengl.GL11
 import java.awt.Color
 
-
 object BlockHighlightRenderer {
-    fun renderColoredBlockHighlight(pos: BlockPos, outlineColor: Color, fillColor: Color) {
+    fun renderColoredBlockHighlight(
+        pos: BlockPos,
+        outlineColor: Color,
+        fillColor: Color,
+    ) {
         val minecraft = Minecraft.getMinecraft()
         val renderManager = minecraft.renderManager
         val tessellator = Tessellator.getInstance()
@@ -46,18 +48,17 @@ object BlockHighlightRenderer {
             outlineColor.red / 255f,
             outlineColor.green / 255f,
             outlineColor.blue / 255f,
-            outlineColor.alpha / 255f
+            outlineColor.alpha / 255f,
         )
         worldRenderer.drawBoxOutline(Point3d(x, y, z), Point3d(x + 1, y + 1, z + 1))
         tessellator.draw()
-
 
         worldRenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION)
         GlStateManager.color(
             fillColor.red / 255f,
             fillColor.green / 255f,
             fillColor.blue / 255f,
-            fillColor.alpha / 255f
+            fillColor.alpha / 255f,
         )
         worldRenderer.drawBoxFill(Point3d(x, y, z), Point3d(x + 1, y + 1, z + 1))
         tessellator.draw()
@@ -66,7 +67,6 @@ object BlockHighlightRenderer {
         GlStateManager.enableTexture2D()
         GlStateManager.disableBlend()
         GlStateManager.enableDepth()
-
 
         GlStateManager.popMatrix()
     }

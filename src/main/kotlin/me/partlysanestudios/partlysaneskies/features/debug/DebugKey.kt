@@ -3,7 +3,6 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.features.debug
 
 import cc.polyfrost.oneconfig.config.core.OneColor
@@ -49,21 +48,16 @@ import org.lwjgl.opengl.GL11
 import java.awt.Color
 
 object DebugKey {
-
     fun init() {
         config.debugMode = false
     }
 
-
-    fun isDebugMode(): Boolean {
-        return config.debugMode
-    }
+    fun isDebugMode(): Boolean = config.debugMode
 
     // Runs when debug key is pressed
     fun onDebugKeyPress() {
         config.debugMode = !config.debugMode
         sendClientMessage("Debug mode: " + isDebugMode())
-
 
         if (config.debugRenderTestBanner) {
             renderNewBanner(PSSBanner("Test", 5000L, 5f, OneColor(255, 0, 255, 1).toJavaColor()))
@@ -87,7 +81,6 @@ object DebugKey {
             Thread {
                 sendClientMessage("Dumping...")
                 PercyMode.dump()
-
             }.start()
         }
 
@@ -100,7 +93,9 @@ object DebugKey {
         }
 
         if (config.debugPrintCurrentCachedStats) {
-            sendClientMessage("Health: ${StatsData.currentHealth}/${StatsData.maxHealth}, Defense: ${StatsData.defense}, Mana: ${StatsData.currentMana}/${StatsData.maxMana}")
+            sendClientMessage(
+                "Health: ${StatsData.currentHealth}/${StatsData.maxHealth}, Defense: ${StatsData.defense}, Mana: ${StatsData.currentMana}/${StatsData.maxMana}",
+            )
         }
 
         if (config.debugRenderRNGBanner) {
@@ -150,7 +145,6 @@ object DebugKey {
                 sendClientMessage("ySize: ${chest.ySize}")
             }
         }
-
     }
 
     // Runs chat analyzer for debug mode
@@ -175,7 +169,6 @@ object DebugKey {
 
     @SubscribeEvent
     fun onWorldRenderLast(event: RenderWorldLastEvent) {
-
         if (!(isDebugMode() && config.debugCylinder)) {
             return
         }
@@ -193,7 +186,6 @@ object DebugKey {
         GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO)
         GL11.glLineWidth(4.0f)
 
-
 //            Gets the tessellator
         val tessellator = Tessellator.getInstance() // from my understanding it's just a tesseract but for nerdier nerds
         val worldRenderer = tessellator.worldRenderer
@@ -203,7 +195,7 @@ object DebugKey {
             ThemeManager.accentColor.toJavaColor().red / 255f,
             ThemeManager.accentColor.toJavaColor().green / 255f,
             ThemeManager.accentColor.toJavaColor().blue / 255f,
-            (ThemeManager.accentColor.toJavaColor().alpha / 255f) * .667f
+            (ThemeManager.accentColor.toJavaColor().alpha / 255f) * .667f,
         )
         worldRenderer.drawCylinderFill(cylinderPoint, 8.0, 20.0)
         tessellator.draw()

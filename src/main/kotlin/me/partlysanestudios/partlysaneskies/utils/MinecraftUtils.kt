@@ -3,7 +3,6 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.utils
 
 import com.google.common.collect.ComparisonChain
@@ -42,27 +41,31 @@ object MinecraftUtils {
      * - Small rewrites
      * - Translated to kotlin
      */
-    private val playerOrdering = Ordering.from { overlay1: NetworkPlayerInfo?, overlay2: NetworkPlayerInfo? ->
-        comparePlayers(
-            overlay1!!, overlay2!!
-        )
-    }
+    private val playerOrdering =
+        Ordering.from { overlay1: NetworkPlayerInfo?, overlay2: NetworkPlayerInfo? ->
+            comparePlayers(
+                overlay1!!,
+                overlay2!!,
+            )
+        }
 
     @SideOnly(Side.CLIENT)
-    fun getTabList(): List<String> {
-        return try {
-            val players = PartlySaneSkies.minecraft.thePlayer.sendQueue.playerInfoMap.stream()
-                .sorted(playerOrdering)
-                .collect(Collectors.toList())
-            players.stream()
+    fun getTabList(): List<String> =
+        try {
+            val players =
+                PartlySaneSkies.minecraft.thePlayer.sendQueue.playerInfoMap
+                    .stream()
+                    .sorted(playerOrdering)
+                    .collect(Collectors.toList())
+            players
+                .stream()
                 .map { info: NetworkPlayerInfo? ->
-                    PartlySaneSkies.minecraft.ingameGUI.tabList.getPlayerName(info)
-                }
-                .collect(Collectors.toList())
+                    PartlySaneSkies.minecraft.ingameGUI.tabList
+                        .getPlayerName(info)
+                }.collect(Collectors.toList())
         } catch (e: Exception) {
             ArrayList()
         }
-    }
 
     fun displayGuiScreen(guiScreen: GuiScreen) {
         Thread { PartlySaneSkies.minecraft.addScheduledTask { PartlySaneSkies.minecraft.displayGuiScreen(guiScreen) } }.start()
@@ -71,12 +74,12 @@ object MinecraftUtils {
     private fun comparePlayers(overlay1: NetworkPlayerInfo, overlay2: NetworkPlayerInfo): Int {
         val team1 = overlay1.playerTeam
         val team2 = overlay2.playerTeam
-        return ComparisonChain.start()
+        return ComparisonChain
+            .start()
             .compare(
                 if (team1 != null) team1.registeredName else "",
-                if (team2 != null) team2.registeredName else ""
-            )
-            .compare(overlay1.gameProfile.name, overlay2.gameProfile.name)
+                if (team2 != null) team2.registeredName else "",
+            ).compare(overlay1.gameProfile.name, overlay2.gameProfile.name)
             .result()
     }
 
@@ -85,8 +88,12 @@ object MinecraftUtils {
      * @return the name of the scoreboard
      */
     fun getScoreboardName(color: Boolean = false): String =
-        (PartlySaneSkies.minecraft.thePlayer?.worldScoreboard?.getObjectiveInDisplaySlot(1)?.displayName ?: "")
-            .let { if (color) it else it.removeColorCodes() }
+        (
+            PartlySaneSkies.minecraft.thePlayer
+                ?.worldScoreboard
+                ?.getObjectiveInDisplaySlot(1)
+                ?.displayName ?: ""
+        ).let { if (color) it else it.removeColorCodes() }
 
     fun IInventory.getItemstackList(): ArrayList<ItemStack> {
         val list = ArrayList<ItemStack>()
@@ -94,9 +101,7 @@ object MinecraftUtils {
         for (i in 0..53) {
             try {
                 list.add(this.getStackInSlot(i) ?: continue)
-
             } catch (_: IndexOutOfBoundsException) {
-
             }
         }
 
@@ -106,8 +111,8 @@ object MinecraftUtils {
     /**
      * @return the scoreboard lines
      */
-    fun getScoreboardLines(): List<String> {
-        return try {
+    fun getScoreboardLines(): List<String> =
+        try {
             val scoreboard = PartlySaneSkies.minecraft.theWorld.scoreboard
             val objective = scoreboard.getObjectiveInDisplaySlot(1)
             val scoreCollection = scoreboard.getSortedScores(objective)
@@ -116,8 +121,8 @@ object MinecraftUtils {
                 scoreLines.add(
                     ScorePlayerTeam.formatPlayerName(
                         scoreboard.getPlayersTeam(score.playerName),
-                        score.playerName
-                    )
+                        score.playerName,
+                    ),
                 )
             }
             scoreLines
@@ -128,11 +133,8 @@ object MinecraftUtils {
             e.printStackTrace()
             emptyList()
         }
-    }
 
-    fun getCurrentlyHoldingItem(): ItemStack? {
-        return PartlySaneSkies.minecraft.thePlayer?.heldItem
-    }
+    fun getCurrentlyHoldingItem(): ItemStack? = PartlySaneSkies.minecraft.thePlayer?.heldItem
 
     /**
      * @return The inventory of the player at the bottom of the gui. ([GuiChest.upperChestInventory] field)
@@ -162,9 +164,12 @@ object MinecraftUtils {
         get() = (this as GuiPlayerTabOverlayAccessor).`partlySaneSkies$getFooter`()
 
     fun ItemStack.getLore(): java.util.ArrayList<String> {
-        if (!this.hasTagCompound() || !this.tagCompound.hasKey("display") || !this.tagCompound.getCompoundTag(
-                "display"
-            ).hasKey("Lore")
+        if (!this.hasTagCompound() ||
+            !this.tagCompound.hasKey("display") ||
+            !this.tagCompound
+                .getCompoundTag(
+                    "display",
+                ).hasKey("Lore")
         ) {
             return java.util.ArrayList()
         }
@@ -192,7 +197,7 @@ object MinecraftUtils {
             slot,
             1,
             0,
-            PartlySaneSkies.minecraft.thePlayer
+            PartlySaneSkies.minecraft.thePlayer,
         )
     }
 
@@ -203,7 +208,7 @@ object MinecraftUtils {
             slot,
             0,
             0,
-            PartlySaneSkies.minecraft.thePlayer
+            PartlySaneSkies.minecraft.thePlayer,
         )
     }
 
@@ -221,9 +226,7 @@ object MinecraftUtils {
     /**
      * @return all the entities loaded in the world
      */
-    fun getAllEntitiesInWorld(): List<Entity> {
-        return PartlySaneSkies.minecraft.theWorld?.getLoadedEntityList() ?: ArrayList()
-    }
+    fun getAllEntitiesInWorld(): List<Entity> = PartlySaneSkies.minecraft.theWorld?.getLoadedEntityList() ?: ArrayList()
 
     fun getAllPlayersInWorld(): List<Entity> {
         val playerEntities: MutableList<Entity> = java.util.ArrayList()
@@ -301,4 +304,3 @@ object MinecraftUtils {
         return itemCount
     }
 }
-

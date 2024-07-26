@@ -22,7 +22,6 @@ import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.nbt.NBTTagList
 import net.minecraft.nbt.NBTTagString
 
-
 object TreecapitatorCooldown : Cooldown() {
     init {
         CooldownManager.registerCooldown(this)
@@ -31,17 +30,20 @@ object TreecapitatorCooldown : Cooldown() {
     override fun getTotalTime(): Long {
         var cooldown = 2000L
 
-        if (PetData.getCurrentPetName() == "Monkey" && PetData.getCurrentPetRarity().order >= Rarity.LEGENDARY.order && PetData.getCurrentPetLevel() != -1 && PartlySaneSkies.config.treecapCooldownMonkeyPet) {
+        if (PetData.getCurrentPetName() == "Monkey" &&
+            PetData.getCurrentPetRarity().order >= Rarity.LEGENDARY.order &&
+            PetData.getCurrentPetLevel() != -1 &&
+            PartlySaneSkies.config.treecapCooldownMonkeyPet
+        ) {
             cooldown -= (cooldown * PetData.getCurrentPetLevel() / 200.0).toLong()
         }
         return cooldown
     }
 
-    override fun getDisplayName(): String {
-        return "Treecapitator"
-    }
+    override fun getDisplayName(): String = "Treecapitator"
 
     private var treecapitatorAxe: ItemStack? = null
+
     override fun getItemToDisplay(): ItemStack {
         if (treecapitatorAxe == null) {
             val itemStack = ItemStack(Items.golden_axe)
@@ -51,18 +53,19 @@ object TreecapitatorCooldown : Cooldown() {
             val displayCompound = compound.getCompoundTag("display") ?: NBTTagCompound()
             val loreList = NBTTagList()
 
-            val lore = arrayOf(
-                "§9Efficiency V",
-                "§7Increases how quickly your tool",
-                "§7breaks blocks.",
-                "",
-                "§7A forceful Gold Axe which can break",
-                "§7a large amount of logs in a single hit!",
-                "§8Cooldown: §a2s",
-                "",
-                "§7§8This item can be reforged!",
-                "§5§lEPIC AXE"
-            )
+            val lore =
+                arrayOf(
+                    "§9Efficiency V",
+                    "§7Increases how quickly your tool",
+                    "§7breaks blocks.",
+                    "",
+                    "§7A forceful Gold Axe which can break",
+                    "§7a large amount of logs in a single hit!",
+                    "§8Cooldown: §a2s",
+                    "",
+                    "§7§8This item can be reforged!",
+                    "§5§lEPIC AXE",
+                )
 
             // Convert lore strings to NBTTagString and add them to the list
             for (line in lore) {
@@ -98,7 +101,6 @@ object TreecapitatorCooldown : Cooldown() {
         if (isCooldownActive()) { // Checks if it a
             return
         }
-
 
         if (!isWood(event.point)) { // Checks if the block is wood
             return

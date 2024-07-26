@@ -14,7 +14,6 @@ import me.partlysanestudios.partlysaneskies.render.gui.hud.BannerRenderer.render
 import me.partlysanestudios.partlysaneskies.render.gui.hud.PSSBanner
 
 object WormWarning {
-
     private var wormWarningString = ""
     private var wormWarningBannerTime: Long = 0
 
@@ -29,8 +28,8 @@ object WormWarning {
                         wormWarningString,
                         (config.wormWarningBannerTime * 1000).toLong(),
                         3f,
-                        config.wormWarningBannerColor.toJavaColor()
-                    )
+                        config.wormWarningBannerColor.toJavaColor(),
+                    ),
                 )
             }
             if (config.wormWarningBannerSound) {

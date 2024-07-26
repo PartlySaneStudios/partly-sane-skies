@@ -24,7 +24,6 @@ import me.partlysanestudios.partlysaneskies.utils.StringUtils.stripLeading
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.stripTrailing
 
 object PlayerRating {
-
     private var currentPlayer = ""
 
     private var positiveRegexs = HashMap<Regex, String>()
@@ -111,7 +110,8 @@ object PlayerRating {
             if (config.enhancedDungeonPlayerBreakdown == 2) {
                 playerStr.append("§2   Breakdown:\n")
                 for ((key, value1) in value) {
-                    playerStr.append("     §d")
+                    playerStr
+                        .append("     §d")
                         .append((value1.toDouble() / (categoryPointMap[key] ?: 0) * 100.0).round(0))
                         .append("%§7 of ")
                         .append(key)
@@ -170,7 +170,9 @@ object PlayerRating {
 
     fun registerReprintCommand() {
         PSSCommand(
-            "reprintscore", mutableListOf("rps", "rs"), "Reprints the last score in a dungeon run"
+            "reprintscore",
+            mutableListOf("rps", "rs"),
+            "Reprints the last score in a dungeon run",
         ) { reprintLastScore() }.register()
     }
 

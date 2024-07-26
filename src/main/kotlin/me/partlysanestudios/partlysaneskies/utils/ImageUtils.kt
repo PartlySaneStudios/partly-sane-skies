@@ -3,7 +3,6 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.utils
 
 import cc.polyfrost.oneconfig.config.core.OneColor
@@ -18,7 +17,6 @@ object ImageUtils {
     //    Save all images in ./config/partly-sane-skies/image_variants/{name of base image}/{name of coloured image}
     private const val IMAGE_SAVE_PATH = "./config/partly-sane-skies/image_variants/"
 
-
     @Throws(IOException::class)
     fun saveImage(image: BufferedImage, path: Path) {
         val output = path.toFile()
@@ -26,25 +24,16 @@ object ImageUtils {
     }
 
     @Throws(IOException::class)
-    fun loadImage(path: String): BufferedImage {
-        return ImageIO.read(File(path))
-    }
+    fun loadImage(path: String): BufferedImage = ImageIO.read(File(path))
 
-    fun replaceColor(image: BufferedImage, oldColor: Color, newColor: Color): BufferedImage {
-        return replaceColor(
-            image, OneColor(oldColor), OneColor(
-                newColor
-            )
-        )
-    }
+    fun replaceColor(image: BufferedImage, oldColor: Color, newColor: Color): BufferedImage =
+        replaceColor(image, OneColor(oldColor), OneColor(newColor))
 
-    fun replaceColor(image: BufferedImage, oldColor: OneColor, newColor: Color): BufferedImage {
-        return replaceColor(image, oldColor, OneColor(newColor))
-    }
+    fun replaceColor(image: BufferedImage, oldColor: OneColor, newColor: Color): BufferedImage =
+        replaceColor(image, oldColor, OneColor(newColor))
 
-    fun replaceColor(image: BufferedImage, oldColor: Color, newColor: OneColor): BufferedImage {
-        return replaceColor(image, OneColor(oldColor), newColor)
-    }
+    fun replaceColor(image: BufferedImage, oldColor: Color, newColor: OneColor): BufferedImage =
+        replaceColor(image, OneColor(oldColor), newColor)
 
     fun replaceColor(image: BufferedImage, oldColor: OneColor, newColor: OneColor): BufferedImage {
         val width = image.width
@@ -61,19 +50,7 @@ object ImageUtils {
         return image
     }
 
-    fun Color.applyOpacity(opacity: Int): Color {
-        return Color(this.red, this.green, this.blue, opacity)
-    }
-
-    val Color.asHex: Int get() {
-        // Get RGB components and combine them
-        val red = this.red
-        val green = this.green
-        val blue = this.blue
-
-        // Combine into a single integer (shift and bitwise OR)
-        return red shl 16 or (green shl 8) or blue
-    }
+    fun Color.applyOpacity(opacity: Int): Color = Color(red, green, blue, opacity)
 
     operator fun Color.plus(color: Color): Color {
         val red = if (this.red + color.red > 255) {
@@ -114,4 +91,6 @@ object ImageUtils {
 
         return Color(red, green, blue)
     }
+    val Color.asHex: Int
+        get() = red shl 16 or (green shl 8) or blue
 }

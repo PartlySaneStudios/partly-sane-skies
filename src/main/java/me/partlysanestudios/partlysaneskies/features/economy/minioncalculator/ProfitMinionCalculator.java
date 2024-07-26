@@ -13,7 +13,6 @@ import gg.essential.elementa.components.UIBlock;
 import gg.essential.elementa.components.UIWrappedText;
 import gg.essential.elementa.constraints.CenterConstraint;
 import gg.essential.elementa.constraints.PixelConstraint;
-import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand;
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager;
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockItem;
@@ -24,8 +23,12 @@ import me.partlysanestudios.partlysaneskies.utils.ChatUtils;
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 
-import java.awt.*;
-import java.util.*;
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class ProfitMinionCalculator extends WindowScreen {
     static final String[] categories = {"ALL", "FORAGING", "MINING", "FISHING", "FARMING", "COMBAT"};
@@ -66,72 +69,72 @@ public class ProfitMinionCalculator extends WindowScreen {
 
     public static void registerCommand() {
         new PSSCommand("minioncalculator")
-                .addAlias("minioncalc")
-                .addAlias("bestminion")
-                .addAlias("mc")
-                .setDescription("Opens the best minion calculator")
-                .setRunnable(a -> {
-                    ChatUtils.INSTANCE.sendClientMessage("§bOpening Minion Calculator...");
-                    MinecraftUtils.INSTANCE.displayGuiScreen(new ProfitMinionCalculator(ElementaVersion.V2));
-                })
-                .register();
+            .addAlias("minioncalc")
+            .addAlias("bestminion")
+            .addAlias("mc")
+            .setDescription("Opens the best minion calculator")
+            .setRunnable(a -> {
+                ChatUtils.INSTANCE.sendClientMessage("§bOpening Minion Calculator...");
+                MinecraftUtils.INSTANCE.displayGuiScreen(new ProfitMinionCalculator(ElementaVersion.V2));
+            })
+            .register();
     }
 
     public void setUpBackground() {
         this.backgroundBox = new UIBlock()
-                .setX(new CenterConstraint())
-                .setY(new CenterConstraint())
-                .setHeight(fromWidthScaleFactor(333))
-                .setWidth(fromWidthScaleFactor(850))
-                .setColor(Color.red)
-                .setChildOf(getWindow());
+            .setX(new CenterConstraint())
+            .setY(new CenterConstraint())
+            .setHeight(fromWidthScaleFactor(333))
+            .setWidth(fromWidthScaleFactor(850))
+            .setColor(Color.red)
+            .setChildOf(getWindow());
 
         this.backgroundImage = ThemeManager.INSTANCE.getCurrentBackgroundUIImage()
-                .setX(new CenterConstraint())
-                .setY(new CenterConstraint())
-                .setHeight(new PixelConstraint(backgroundBox.getHeight()))
-                .setWidth(new PixelConstraint(backgroundBox.getWidth()))
-                .setChildOf(backgroundBox);
+            .setX(new CenterConstraint())
+            .setY(new CenterConstraint())
+            .setHeight(new PixelConstraint(backgroundBox.getHeight()))
+            .setWidth(new PixelConstraint(backgroundBox.getWidth()))
+            .setChildOf(backgroundBox);
 
         this.mainTextScrollComponent = (ScrollComponent) new ScrollComponent()
-                .setY(new CenterConstraint())
-                .setX(new CenterConstraint())
-                .setWidth(new PixelConstraint(backgroundBox.getWidth()))
-                .setHeight(new PixelConstraint(backgroundBox.getHeight()))
-                .setColor(Color.red)
-                .setChildOf(backgroundImage);
+            .setY(new CenterConstraint())
+            .setX(new CenterConstraint())
+            .setWidth(new PixelConstraint(backgroundBox.getWidth()))
+            .setHeight(new PixelConstraint(backgroundBox.getHeight()))
+            .setColor(Color.red)
+            .setChildOf(backgroundImage);
 
         this.leftBar = new UIBlock()
-                .setX(new PixelConstraint(backgroundImage.getWidth() * (1 / 5f)))
-                .setY(new CenterConstraint())
-                .setHeight(new PixelConstraint(backgroundImage.getHeight() * .85f))
-                .setWidth(fromWidthScaleFactor(2f))
-                .setColor(ThemeManager.INSTANCE.getAccentColor().toJavaColor())
-                .setChildOf(backgroundImage);
+            .setX(new PixelConstraint(backgroundImage.getWidth() * (1 / 5f)))
+            .setY(new CenterConstraint())
+            .setHeight(new PixelConstraint(backgroundImage.getHeight() * .85f))
+            .setWidth(fromWidthScaleFactor(2f))
+            .setColor(ThemeManager.INSTANCE.getAccentColor().toJavaColor())
+            .setChildOf(backgroundImage);
 
         this.rightBar = new UIBlock()
-                .setX(new PixelConstraint(backgroundImage.getWidth() * (4 / 5f)))
-                .setY(new CenterConstraint())
-                .setHeight(new PixelConstraint(backgroundImage.getHeight() * .85f))
-                .setWidth(fromWidthScaleFactor(2f))
-                .setColor(ThemeManager.INSTANCE.getAccentColor().toJavaColor())
-                .setChildOf(backgroundImage);
+            .setX(new PixelConstraint(backgroundImage.getWidth() * (4 / 5f)))
+            .setY(new CenterConstraint())
+            .setHeight(new PixelConstraint(backgroundImage.getHeight() * .85f))
+            .setWidth(fromWidthScaleFactor(2f))
+            .setColor(ThemeManager.INSTANCE.getAccentColor().toJavaColor())
+            .setChildOf(backgroundImage);
 
         float categoriesBarHeight = fromWidthScaleFactor(75).getValue();
         float categoriesBarPad = fromWidthScaleFactor(5).getValue();
         this.categoriesBar = ThemeManager.INSTANCE.getCurrentBackgroundUIImage()
-                .setX(new CenterConstraint())
-                .setY(new PixelConstraint(backgroundBox.getTop() - (categoriesBarHeight + categoriesBarPad)))
-                .setWidth(new PixelConstraint(backgroundBox.getWidth()))
-                .setHeight(new PixelConstraint(categoriesBarHeight))
-                .setChildOf(getWindow());
+            .setX(new CenterConstraint())
+            .setY(new PixelConstraint(backgroundBox.getTop() - (categoriesBarHeight + categoriesBarPad)))
+            .setWidth(new PixelConstraint(backgroundBox.getWidth()))
+            .setHeight(new PixelConstraint(categoriesBarHeight))
+            .setChildOf(getWindow());
 
         this.bestMinionBar = ThemeManager.INSTANCE.getCurrentBackgroundUIImage()
-                .setX(new CenterConstraint())
-                .setY(new PixelConstraint(backgroundBox.getBottom() + categoriesBarPad))
-                .setWidth(new PixelConstraint(backgroundBox.getWidth() / 3f))
-                .setHeight(new PixelConstraint(categoriesBarHeight))
-                .setChildOf(getWindow());
+            .setX(new CenterConstraint())
+            .setY(new PixelConstraint(backgroundBox.getBottom() + categoriesBarPad))
+            .setWidth(new PixelConstraint(backgroundBox.getWidth() / 3f))
+            .setHeight(new PixelConstraint(categoriesBarHeight))
+            .setChildOf(getWindow());
     }
 
     //    Adds the most profitable minion's text to the middle section. Also returns a list with the objects in order
@@ -158,23 +161,23 @@ public class ProfitMinionCalculator extends WindowScreen {
 
 //            Creates a WrappedText object with said string
             UIComponent text = new UIWrappedText(str)
-                    .setText(str)
-                    .setX(new PixelConstraint(leftBar.getRight() + fromWidthScaleFactor(7).getValue())) // sets it 7 scales pixels off the right side of the left bar
-                    .setY(new PixelConstraint(yPos))
-                    .setWidth(new PixelConstraint(rightBar.getLeft() - leftBar.getRight() - fromWidthScaleFactor(14).getValue())) // set the width to the distance between the two bars with 7 scale pixels of padding on either side
-                    .setTextScale(fromWidthScaleFactor(1)) //Sets the text scale to 1 scale unit
-                    .setColor(Color.WHITE)
-                    .setTextScale(fromWidthScaleFactor(1))
-                    .setChildOf(mainTextScrollComponent);
+                .setText(str)
+                .setX(new PixelConstraint(leftBar.getRight() + fromWidthScaleFactor(7).getValue())) // sets it 7 scales pixels off the right side of the left bar
+                .setY(new PixelConstraint(yPos))
+                .setWidth(new PixelConstraint(rightBar.getLeft() - leftBar.getRight() - fromWidthScaleFactor(14).getValue())) // set the width to the distance between the two bars with 7 scale pixels of padding on either side
+                .setTextScale(fromWidthScaleFactor(1)) //Sets the text scale to 1 scale unit
+                .setColor(Color.WHITE)
+                .setTextScale(fromWidthScaleFactor(1))
+                .setChildOf(mainTextScrollComponent);
 
 //            Creates a line separating the text
             UIComponent border = new UIBlock()
-                    .setX(new PixelConstraint(leftBar.getRight() - text.getLeft() + barNegation))
-                    .setY(new PixelConstraint(text.getHeight() + barOffset))
-                    .setWidth(new PixelConstraint(rightBar.getLeft() - leftBar.getRight() - 2 * barNegation)) // set the width to the distance between the two bars with barNegation scale pixels of padding on either side
-                    .setHeight(fromWidthScaleFactor(1f))
-                    .setColor(ThemeManager.INSTANCE.getAccentColor().toJavaColor())
-                    .setChildOf(text);
+                .setX(new PixelConstraint(leftBar.getRight() - text.getLeft() + barNegation))
+                .setY(new PixelConstraint(text.getHeight() + barOffset))
+                .setWidth(new PixelConstraint(rightBar.getLeft() - leftBar.getRight() - 2 * barNegation)) // set the width to the distance between the two bars with barNegation scale pixels of padding on either side
+                .setHeight(fromWidthScaleFactor(1f))
+                .setColor(ThemeManager.INSTANCE.getAccentColor().toJavaColor())
+                .setChildOf(text);
 
             components.add(text);
 
@@ -205,18 +208,18 @@ public class ProfitMinionCalculator extends WindowScreen {
             }
 
             PSSButton fuelContainer = new PSSButton()
-                    .setX(fromWidthScaleFactor(10))
-                    .setY(new PixelConstraint(yPos))
-                    .setWidth(new PixelConstraint(leftBar.getLeft() - mainTextScrollComponent.getLeft() - fromWidthScaleFactor(20).getValue()))
-                    .setHeight(fromWidthScaleFactor(40))
-                    .setChildOf(mainTextScrollComponent);
+                .setX(fromWidthScaleFactor(10))
+                .setY(new PixelConstraint(yPos))
+                .setWidth(new PixelConstraint(leftBar.getLeft() - mainTextScrollComponent.getLeft() - fromWidthScaleFactor(20).getValue()))
+                .setHeight(fromWidthScaleFactor(40))
+                .setChildOf(mainTextScrollComponent);
 
             PSSToggle toggle = new PSSToggle()
-                    .setX(fromWidthScaleFactor(0))
-                    .setY(new CenterConstraint())
-                    .setWidth(fromWidthScaleFactor(25))
-                    .setHeight(fromWidthScaleFactor(25))
-                    .setChildOf(fuelContainer.getComponent());
+                .setX(fromWidthScaleFactor(0))
+                .setY(new CenterConstraint())
+                .setWidth(fromWidthScaleFactor(25))
+                .setHeight(fromWidthScaleFactor(25))
+                .setChildOf(fuelContainer.getComponent());
             float textXPos = toggle.getComponent().getWidth() + textPad;
 
             String fuelDisplayName = fuelItem.getName();
@@ -224,12 +227,12 @@ public class ProfitMinionCalculator extends WindowScreen {
             String fuelRarityColor = fuelItem.getRarity().getColorCode();
 
             UIWrappedText text = (UIWrappedText) new UIWrappedText(fuelRarityColor + fuelDisplayName)
-                    .setX(new PixelConstraint(textXPos))
-                    .setY(new CenterConstraint())
-                    .setWidth(new PixelConstraint(backgroundBox.getWidth() - textXPos))
-                    .setColor(Color.white)
-                    .setTextScale(fromWidthScaleFactor(1))
-                    .setChildOf(fuelContainer.getComponent());
+                .setX(new PixelConstraint(textXPos))
+                .setY(new CenterConstraint())
+                .setWidth(new PixelConstraint(backgroundBox.getWidth() - textXPos))
+                .setColor(Color.white)
+                .setTextScale(fromWidthScaleFactor(1))
+                .setChildOf(fuelContainer.getComponent());
 
             fuelContainer.onMouseClickConsumer(s -> {
                 toggle.toggleState();
@@ -261,18 +264,18 @@ public class ProfitMinionCalculator extends WindowScreen {
             }
 
             PSSButton upgradeContainer = new PSSButton()
-                    .setX(new PixelConstraint(rightBar.getRight() - rightBar.getWidth() - mainTextScrollComponent.getLeft() + fromWidthScaleFactor(10).getValue()))
-                    .setY(new PixelConstraint(yPos))
-                    .setWidth(new PixelConstraint(mainTextScrollComponent.getRight() - rightBar.getRight() - rightBar.getWidth() - fromWidthScaleFactor(20).getValue()))
-                    .setHeight(fromWidthScaleFactor(40))
-                    .setChildOf(mainTextScrollComponent);
+                .setX(new PixelConstraint(rightBar.getRight() - rightBar.getWidth() - mainTextScrollComponent.getLeft() + fromWidthScaleFactor(10).getValue()))
+                .setY(new PixelConstraint(yPos))
+                .setWidth(new PixelConstraint(mainTextScrollComponent.getRight() - rightBar.getRight() - rightBar.getWidth() - fromWidthScaleFactor(20).getValue()))
+                .setHeight(fromWidthScaleFactor(40))
+                .setChildOf(mainTextScrollComponent);
 
             PSSToggle toggle = new PSSToggle()
-                    .setX(fromWidthScaleFactor(0))
-                    .setY(new CenterConstraint())
-                    .setWidth(fromWidthScaleFactor(25))
-                    .setHeight(fromWidthScaleFactor(25))
-                    .setChildOf(upgradeContainer.getComponent());
+                .setX(fromWidthScaleFactor(0))
+                .setY(new CenterConstraint())
+                .setWidth(fromWidthScaleFactor(25))
+                .setHeight(fromWidthScaleFactor(25))
+                .setChildOf(upgradeContainer.getComponent());
             float textXPos = toggle.getComponent().getWidth() + textPad;
 
 
@@ -281,11 +284,11 @@ public class ProfitMinionCalculator extends WindowScreen {
             String upgradeItemColor = upgradeItem.getRarity().getColorCode();
 
             UIWrappedText text = (UIWrappedText) new UIWrappedText(upgradeItemColor + upgradeItemName)
-                    .setX(new PixelConstraint(textXPos))
-                    .setY(new CenterConstraint())
-                    .setColor(Color.white)
-                    .setTextScale(fromWidthScaleFactor(1))
-                    .setChildOf(upgradeContainer.getComponent());
+                .setX(new PixelConstraint(textXPos))
+                .setY(new CenterConstraint())
+                .setColor(Color.white)
+                .setTextScale(fromWidthScaleFactor(1))
+                .setChildOf(upgradeContainer.getComponent());
 
             upgradeContainer.onMouseClickConsumer(s -> {
                 toggle.toggleState();
@@ -307,11 +310,11 @@ public class ProfitMinionCalculator extends WindowScreen {
         float xPos = pad;
         for (String category : categories) {
             PSSButton button = new PSSButton()
-                    .setX(new PixelConstraint(xPos))
-                    .setY(new CenterConstraint())
-                    .setWidth(new PixelConstraint(blockWidth))
-                    .setHeight(new PixelConstraint(categoriesBar.getHeight() * .9f))
-                    .setChildOf(categoriesBar);
+                .setX(new PixelConstraint(xPos))
+                .setY(new CenterConstraint())
+                .setWidth(new PixelConstraint(blockWidth))
+                .setHeight(new PixelConstraint(categoriesBar.getHeight() * .9f))
+                .setChildOf(categoriesBar);
 
             button.setText(categoriesColorMap.get(category) + StringUtils.INSTANCE.titleCase(category));
 
@@ -331,11 +334,11 @@ public class ProfitMinionCalculator extends WindowScreen {
         for (String upgrade : uselessUpgrades) {
             heightPos += yPad;
             PSSToggle toggle = new PSSToggle()
-                    .setX(fromWidthScaleFactor(10))
-                    .setY(new PixelConstraint(heightPos))
-                    .setHeight(fromWidthScaleFactor(12))
-                    .setWidth(fromWidthScaleFactor(12))
-                    .setChildOf(bestMinionBar);
+                .setX(fromWidthScaleFactor(10))
+                .setY(new PixelConstraint(heightPos))
+                .setHeight(fromWidthScaleFactor(12))
+                .setWidth(fromWidthScaleFactor(12))
+                .setChildOf(bestMinionBar);
 
             toggle.onMouseClickConsumer(s -> {
                 toggle.toggleState();
@@ -348,25 +351,25 @@ public class ProfitMinionCalculator extends WindowScreen {
             });
 
             UIWrappedText text = (UIWrappedText) new UIWrappedText(upgrade)
-                    .setX(fromWidthScaleFactor(13))
-                    .setY(new CenterConstraint())
-                    .setHeight(fromWidthScaleFactor(5))
-                    .setTextScale(fromWidthScaleFactor(.75f))
-                    .setColor(Color.gray)
-                    .setChildOf(toggle.getComponent());
+                .setX(fromWidthScaleFactor(13))
+                .setY(new CenterConstraint())
+                .setHeight(fromWidthScaleFactor(5))
+                .setTextScale(fromWidthScaleFactor(.75f))
+                .setColor(Color.gray)
+                .setChildOf(toggle.getComponent());
 
             heightPos += fromWidthScaleFactor(12).getValue();
         }
 
         PSSButton button = new PSSButton(Color.green)
-                .setX(fromWidthScaleFactor(180))
-                .setY(new CenterConstraint())
-                .setHeight(fromWidthScaleFactor(60))
-                .setWidth(fromWidthScaleFactor(100))
-                .setText("Calculate Best Minion")
-                .setTextScale(fromWidthScaleFactor(1))
+            .setX(fromWidthScaleFactor(180))
+            .setY(new CenterConstraint())
+            .setHeight(fromWidthScaleFactor(60))
+            .setWidth(fromWidthScaleFactor(100))
+            .setText("Calculate Best Minion")
+            .setTextScale(fromWidthScaleFactor(1))
 
-                .setChildOf(bestMinionBar);
+            .setChildOf(bestMinionBar);
 
         button.onMouseClickConsumer(s -> {
             getBestMinionSettings();

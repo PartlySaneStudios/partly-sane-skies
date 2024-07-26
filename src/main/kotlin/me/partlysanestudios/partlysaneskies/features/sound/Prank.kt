@@ -5,14 +5,12 @@
 
 package me.partlysanestudios.partlysaneskies.features.sound
 
-
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.utils.MathUtils
 import net.minecraft.client.audio.PositionedSoundRecord
 import net.minecraft.util.ResourceLocation
 import java.time.LocalDate
 import java.time.Month
-
 
 private const val numOfSounds = 7
 private var lastPrankTime = PartlySaneSkies.time
@@ -29,9 +27,7 @@ private var lastPrankTime = PartlySaneSkies.time
 */
 
 object Prank {
-
     var shouldPrankREPO = false
-
 
     fun setPrankKillSwitch(value: Boolean) {
         shouldPrankREPO = value
@@ -74,4 +70,3 @@ object Prank {
         }
     }
 }
-

@@ -3,7 +3,6 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.data.api
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
@@ -13,29 +12,29 @@ import java.util.LinkedList
 import java.util.Queue
 
 object RequestsManager {
-
     private val requestsQueue: Queue<Request> = LinkedList()
     private var lastRequestTime: Long = 0
 
+    val thread =
+        Thread(
+            {
+                while (true) {
+                    try {
+                        run()
+                    } catch (exception: Exception) {
+                        exception.printStackTrace()
+                    } finally {
+                    }
 
-    val thread = Thread({
-        while (true) {
-            try {
-                run()
-
-            } catch (exception: Exception) {
-                exception.printStackTrace()
-            } finally {
-
-            }
-
-            try {
-                Thread.sleep(50)
-            } catch (e: InterruptedException) {
-                e.printStackTrace()
-            }
-        }
-    }, "Partly Sane Skies Request Manager").start()
+                    try {
+                        Thread.sleep(50)
+                    } catch (e: InterruptedException) {
+                        e.printStackTrace()
+                    }
+                }
+            },
+            "Partly Sane Skies Request Manager",
+        ).start()
 
     private fun run() {
         if (requestsQueue.isEmpty()) {
@@ -65,7 +64,6 @@ object RequestsManager {
                     e.printStackTrace()
                 }
             }
-
         } else {
             var loggedUrl = element.getURL().toString()
 
@@ -74,24 +72,27 @@ object RequestsManager {
             }
 
             // Creates a new thread to execute request
-            Thread(Runnable {
-                try {
-                    element.startRequest()
-                } catch (e: IOException) {
-                    element.setFailed("")
-                    // If supposed to run in the next frame, run in the next frame
-                    if (element.isRunNextFrame()) {
-                        PartlySaneSkies.minecraft.addScheduledTask {
-                            element.getWhatToRunWhenFinished()!!.run(element)
+            Thread(
+                Runnable {
+                    try {
+                        element.startRequest()
+                    } catch (e: IOException) {
+                        element.setFailed("")
+                        // If supposed to run in the next frame, run in the next frame
+                        if (element.isRunNextFrame()) {
+                            PartlySaneSkies.minecraft.addScheduledTask {
+                                element.getWhatToRunWhenFinished()!!.run(element)
+                            }
+                            return@Runnable
                         }
-                        return@Runnable
-                    }
 
-                    // Runs on current thread
-                    element.getWhatToRunWhenFinished()?.run(element)
-                    e.printStackTrace()
-                }
-            }, "Request to $loggedUrl").start()
+                        // Runs on current thread
+                        element.getWhatToRunWhenFinished()?.run(element)
+                        e.printStackTrace()
+                    }
+                },
+                "Request to $loggedUrl",
+            ).start()
         }
     }
 

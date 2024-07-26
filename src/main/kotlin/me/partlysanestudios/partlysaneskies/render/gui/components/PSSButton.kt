@@ -27,25 +27,26 @@ import java.awt.Color
 import java.util.function.Consumer
 
 class PSSButton {
-
     private var color: OneColor
     private var text: String = ""
     private val onMouseClick = ArrayList<Consumer<UIClickEvent>>()
 
-    private val backgroundBlock = UIBlock().constrain {
-        color = Color(0, 0, 0, 0).constraint
-    }.onMouseClick {
-        for (method in onMouseClick) {
-            method.accept(it)
+    private val backgroundBlock = UIBlock()
+        .constrain {
+            color = Color(0, 0, 0, 0).constraint
+        }.onMouseClick {
+            for (method in onMouseClick) {
+                method.accept(it)
+            }
         }
-    }
 
-    private var buttonTexture = currentButtonUIImage.constrain {
-        x = CenterConstraint()
-        y = CenterConstraint()
-        width = 100.percent
-        height = 100.percent
-    } childOf backgroundBlock
+    private var buttonTexture = currentButtonUIImage
+        .constrain {
+            x = CenterConstraint()
+            y = CenterConstraint()
+            width = 100.percent
+            height = 100.percent
+        } childOf backgroundBlock
 
     private val textComponent = UIWrappedText(text, false, Color(0, 0, 0, 0), true).constrain {
         x = CenterConstraint()
@@ -105,9 +106,7 @@ class PSSButton {
         return this
     }
 
-    fun setColor(color: Color): PSSButton {
-        return setColor(OneColor(color))
-    }
+    fun setColor(color: Color): PSSButton = setColor(OneColor(color))
 
     fun setColor(color: OneColor): PSSButton {
         backgroundBlock.removeChild(buttonTexture)

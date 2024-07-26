@@ -44,21 +44,23 @@ import kotlin.collections.set
 import kotlin.math.ceil
 
 object CompostValue : SidePanel() {
-    override val panelBaseComponent: UIComponent = UIBlock().applyBackground().constrain {
-        x = 800.scaledPixels
-        y = CenterConstraint()
-        width = 225.scaledPixels
-        height = 350.scaledPixels
-        color = Color(0, 0, 0, 0).constraint
-    }
+    override val panelBaseComponent: UIComponent = UIBlock().applyBackground()
+        .constrain {
+            x = 800.scaledPixels
+            y = CenterConstraint()
+            width = 225.scaledPixels
+            height = 350.scaledPixels
+            color = Color(0, 0, 0, 0).constraint
+        }
 
-    private val textComponent = UIWrappedText().constrain {
-        x = CenterConstraint()
-        y = CenterConstraint()
-        height = 95.percent
-        width = 95.percent
-        textScale = 1.scaledPixels
-    } childOf panelBaseComponent
+    private val textComponent = UIWrappedText()
+        .constrain {
+            x = CenterConstraint()
+            y = CenterConstraint()
+            height = 95.percent
+            width = 95.percent
+            textScale = 1.scaledPixels
+        } childOf panelBaseComponent
 
     private var maxCompost = 0.0
     private var fillLevel = 0.0
@@ -154,9 +156,9 @@ object CompostValue : SidePanel() {
             if (maxCompost == fillLevel) {
                 compostAmount = getMaxCompostAbleToMake()
             }
-            str += "§6${i}. §7x§d${ceil(cropPerCompost * compostAmount).formatNumber()} ${cropName}§7 costing §d${
+            str += "§6$i. §7x§d${ceil(cropPerCompost * compostAmount).formatNumber()} $cropName§7 costing §d${
                 (costPerCompost * compostAmount).round(
-                    1
+                    1,
                 ).formatNumber()
             }§7 coins to fill. \n§8(x${ceil(cropPerCompost).formatNumber()}/Compost)\n"
             i++
@@ -180,10 +182,7 @@ object CompostValue : SidePanel() {
         }
     }
 
-
-    private fun getCompostCost(inventory: IInventory): Double {
-        return getCompostCostString(inventory).parseAbbreviatedNumber()
-    }
+    private fun getCompostCost(inventory: IInventory): Double = getCompostCostString(inventory).parseAbbreviatedNumber()
 
     private fun getCompostCostString(composterInventory: IInventory): String {
         val infoItem = composterInventory.getStackInSlot(46)
@@ -241,17 +240,11 @@ object CompostValue : SidePanel() {
         }
     }
 
-    private fun getOrganicMatterLimit(inventory: IInventory): Double {
-        return getOrganicMatterLimitString(inventory).parseAbbreviatedNumber()
-    }
+    private fun getOrganicMatterLimit(inventory: IInventory): Double = getOrganicMatterLimitString(inventory).parseAbbreviatedNumber()
 
-    private fun getMaxCompostAbleToMake(): Double {
-        return maxCompost / compostCost
-    }
+    private fun getMaxCompostAbleToMake(): Double = maxCompost / compostCost
 
-    private fun getCurrentCompostAbleToMake(): Double {
-        return (maxCompost - fillLevel) / compostCost
-    }
+    private fun getCurrentCompostAbleToMake(): Double = (maxCompost - fillLevel) / compostCost
 
     private fun getOrganicMatterLimitString(composterInventory: IInventory): String {
         val infoItem = composterInventory.getStackInSlot(46)

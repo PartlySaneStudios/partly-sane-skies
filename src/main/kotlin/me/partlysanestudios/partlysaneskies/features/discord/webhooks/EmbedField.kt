@@ -3,11 +3,10 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.features.discord.webhooks
 
 data class EmbedField(
     var name: String,
     var value: String,
-    var inline: Boolean = false
+    var inline: Boolean = false,
 )

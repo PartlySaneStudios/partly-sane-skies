@@ -61,13 +61,10 @@ public class PartyManager {
 
     public static void registerCommand() {
         new PSSCommand("partymanager")
-                .addAlias("pm")
-                .addAlias("partym")
-                .setDescription("Opens the Party Manager")
-                .setRunnable(a -> {
-                    PartyManager.startPartyManager();
-                })
-                .register();
+            .addAlias("pm", "partypm")
+            .setDescription("Opens the Party Manager")
+            .setRunnable(a -> PartyManager.startPartyManager())
+            .register();
     }
 
     private static void processList(String str, PartyMember.PartyRank rank) {
@@ -267,8 +264,8 @@ public class PartyManager {
             event.setCanceled(true);
             // Sends an error message
             ChatUtils.INSTANCE.sendClientMessage(("§9§m-----------------------------------------------------\n " +
-                    "§r§cError: Could not run Party Manager." +
-                    "\n§r§cYou are not currently in a party."
+                "§r§cError: Could not run Party Manager." +
+                "\n§r§cYou are not currently in a party."
             ));
             // Resets
             isMembersListed = false;

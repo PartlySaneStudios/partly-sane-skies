@@ -3,7 +3,6 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.features.economy.auctionhousemenu
 
 import gg.essential.elementa.ElementaVersion
@@ -58,7 +57,6 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
         width = sizeWidth.pixels
     } childOf baseBlock
 
-
     private val sideBarHeight = sideBarHeightPercent * sizeHeight
     private val sideBarWidth = sizeWidth * sideBarWidthPercent
     private val itemInformationBarX = -(sideBarWidth * sideBarPadding)
@@ -69,16 +67,15 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
         CenterConstraint(),
         sideBarHeight.pixels,
         sideBarWidth.pixels,
-        textScale
+        textScale,
     )
-
 
     private val marketInformationBar = MarketInformationBar(
         auctionInformationBarX.pixels,
         CenterConstraint(),
         sideBarHeight.pixels,
         sideBarWidth.pixels,
-        textScale
+        textScale,
     )
 
     private val categoriesBarHeight = 0.1665 * sizeHeight
@@ -88,9 +85,8 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
         categoriesBarY.pixels,
         categoriesBarHeight.pixels,
         sizeWidth.pixels,
-        defaultAuctionInventory
+        defaultAuctionInventory,
     )
-
 
     private val settingsBarY = backgroundImage.getBottom() + pad
     private val settingsBar = SettingsBar(
@@ -98,7 +94,7 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
         settingsBarY.pixels,
         categoriesBarHeight.pixels,
         sizeWidth.pixels,
-        defaultAuctionInventory
+        defaultAuctionInventory,
     )
 
     private val auctions = getAuctions(defaultAuctionInventory)
@@ -130,21 +126,19 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
                 }
             }
         }
-
-
     }
-
 
     private fun getAuctions(inventory: IInventory): Array<Array<AuctionElement>> {
         val items = getAuctionContents(inventory)
         var indexOfItems = 0
 
-        val auctions: Array<Array<AuctionElement>> = Array(totalRows) {
-            Array(totalColumns) {
-                indexOfItems++
-                items[indexOfItems - 1]
+        val auctions: Array<Array<AuctionElement>> =
+            Array(totalRows) {
+                Array(totalColumns) {
+                    indexOfItems++
+                    items[indexOfItems - 1]
+                }
             }
-        }
 
         return auctions
     }
@@ -152,9 +146,12 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
     private fun getAuctionContents(inventory: IInventory): List<AuctionElement> {
         val list: MutableList<AuctionElement> = ArrayList()
         for (i in 0..53) {
-            if (convertSlotToChestCoordinate(i)[0] <= 2 || convertSlotToChestCoordinate(i)[0] == 9 || convertSlotToChestCoordinate(
-                    i
-                )[1] == 1 || convertSlotToChestCoordinate(i)[1] == 6
+            if (convertSlotToChestCoordinate(i)[0] <= 2 ||
+                convertSlotToChestCoordinate(i)[0] == 9 ||
+                convertSlotToChestCoordinate(
+                    i,
+                )[1] == 1 ||
+                convertSlotToChestCoordinate(i)[1] == 6
             ) {
                 continue
             }
@@ -163,7 +160,6 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
         }
         return list
     }
-
 
     override fun onDrawScreen(matrixStack: UMatrixStack, mouseX: Int, mouseY: Int, partialTicks: Float) {
         super.onDrawScreen(matrixStack, mouseX, mouseY, partialTicks)
@@ -181,7 +177,6 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
         window.draw(matrixStack)
     }
 
-
     companion object {
         fun tick() {
             if (!PartlySaneSkies.config.customAhGui) {
@@ -191,11 +186,9 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
             val gui = PartlySaneSkies.minecraft.currentScreen ?: return
 //            ChatUtils.sendClientMessage("A gui has been opened")
 
-
             if (gui !is GuiChest) {
                 return
             }
-
 
             if (!isAhGui(gui.containerInventory)) {
 //                ChatUtils.sendClientMessage("Not AH Gui")
@@ -231,9 +224,12 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
             if (PartlySaneSkies.minecraft.currentScreen !is GuiChest) {
                 return false
             }
-            return inventory.displayName.formattedText.removeColorCodes()
-                .contains("Auctions Browser") || inventory.displayName.formattedText.removeColorCodes()
-                .contains("Auctions: \"")
+            return inventory.displayName.formattedText
+                .removeColorCodes()
+                .contains("Auctions Browser") ||
+                inventory.displayName.formattedText
+                    .removeColorCodes()
+                    .contains("Auctions: \"")
         }
 
         private fun openMenu(): AuctionHouseGui {
@@ -270,7 +266,6 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
                     }
 //                    ChatUtils.sendClientMessage("Slot $i is broken")
                     return false
-
                 }
             }
 

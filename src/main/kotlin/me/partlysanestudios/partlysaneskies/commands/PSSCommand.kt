@@ -8,12 +8,11 @@ import me.partlysanestudios.partlysaneskies.commands.CommandManager.registerComm
 import net.minecraft.command.ICommand
 
 class PSSCommand(val name: String) {
-
     var aliases: MutableList<String> = mutableListOf()
         private set
     var description: String = ""
         private set
-    private var runnable = PSSCommandRunnable{}
+    private var runnable = PSSCommandRunnable {}
     var iCommand: ICommand? = null
     var isRegistered = false
 

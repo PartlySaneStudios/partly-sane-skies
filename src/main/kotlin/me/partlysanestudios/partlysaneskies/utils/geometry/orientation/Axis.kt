@@ -8,5 +8,5 @@ package me.partlysanestudios.partlysaneskies.utils.geometry.orientation
 enum class Axis {
     X_AXIS,
     Y_AXIS,
-    Z_AXIS
+    Z_AXIS,
 }

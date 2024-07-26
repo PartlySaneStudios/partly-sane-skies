@@ -18,7 +18,6 @@ import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.item.ItemStack
 
 object WikiArticleOpener {
-
     private var isWaitingForArticle = false
 
     @SubscribePSSEvent
@@ -77,3 +76,4 @@ object WikiArticleOpener {
 
 // Nearly forgot camo. Camo is now in kt (even better than full hd) - Su386
 
+// hi ca_mo!!! - empa

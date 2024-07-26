@@ -3,7 +3,6 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.config
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
@@ -41,16 +40,20 @@ object Keybinds {
         }
         if (!Keyboard.isCreated()) return
         if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
-            if (PartlySaneSkies.minecraft.currentScreen is AuctionHouseGui || PartlySaneSkies.minecraft.currentScreen is GuiChest && isAhGui(
-                    (PartlySaneSkies.minecraft.currentScreen as GuiChest).containerInventory
+            if (PartlySaneSkies.minecraft.currentScreen is AuctionHouseGui ||
+                PartlySaneSkies.minecraft.currentScreen is GuiChest &&
+                isAhGui(
+                    (PartlySaneSkies.minecraft.currentScreen as GuiChest).containerInventory,
                 )
             ) {
                 clickOnSlot(46)
             }
         }
         if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
-            if (PartlySaneSkies.minecraft.currentScreen is AuctionHouseGui || PartlySaneSkies.minecraft.currentScreen is GuiChest && isAhGui(
-                    (PartlySaneSkies.minecraft.currentScreen as GuiChest).containerInventory
+            if (PartlySaneSkies.minecraft.currentScreen is AuctionHouseGui ||
+                PartlySaneSkies.minecraft.currentScreen is GuiChest &&
+                isAhGui(
+                    (PartlySaneSkies.minecraft.currentScreen as GuiChest).containerInventory,
                 )
             ) {
                 clickOnSlot(53)
@@ -85,25 +88,31 @@ object Keybinds {
             PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/storage")
         }
         if (OneConfigScreen.allowHoeRightClickKeybind.isActive()) {
-            val canRightClickHoe = onCooldown(
-                MathematicalHoeRightClicks.lastAllowHoeRightClickTime,
-                (OneConfigScreen.allowRightClickTime * 60L * 1000L).toLong()
-            )
-            if (canRightClickHoe) {
-                val message: IChatComponent = ChatComponentText(
-                    PartlySaneSkies.CHAT_PREFIX + """§dThe ability to right-click with a hoe has been §cdisabled§d again.
-§dClick this message or run /allowhoerightclick to allow right-clicks for ${OneConfigScreen.allowRightClickTime} again."""
+            val canRightClickHoe =
+                onCooldown(
+                    MathematicalHoeRightClicks.lastAllowHoeRightClickTime,
+                    (OneConfigScreen.allowRightClickTime * 60L * 1000L).toLong(),
                 )
+            if (canRightClickHoe) {
+                val message: IChatComponent =
+                    ChatComponentText(
+                        PartlySaneSkies.CHAT_PREFIX + """§dThe ability to right-click with a hoe has been §cdisabled§d again.
+§dClick this message or run /allowhoerightclick to allow right-clicks for ${OneConfigScreen.allowRightClickTime} again.""",
+                    )
                 message.chatStyle.setChatClickEvent(ClickEvent(ClickEvent.Action.RUN_COMMAND, "/allowhoerightclick"))
-                PartlySaneSkies.minecraft.ingameGUI.chatGUI.printChatMessage(message)
+                PartlySaneSkies.minecraft.ingameGUI.chatGUI
+                    .printChatMessage(message)
                 MathematicalHoeRightClicks.lastAllowHoeRightClickTime = 0
             } else {
-                val message: IChatComponent = ChatComponentText(
-                    PartlySaneSkies.CHAT_PREFIX + """§dThe ability to right-click with a hoe has been §aenabled§d for ${OneConfigScreen.allowRightClickTime} minutes.
-§dClick this message or run /allowhoerightclick to disable right-clicks again."""
-                )
+                val message: IChatComponent =
+                    ChatComponentText(
+                        PartlySaneSkies.CHAT_PREFIX +
+                            """§dThe ability to right-click with a hoe has been §aenabled§d for ${OneConfigScreen.allowRightClickTime} minutes.
+§dClick this message or run /allowhoerightclick to disable right-clicks again.""",
+                    )
                 message.chatStyle.setChatClickEvent(ClickEvent(ClickEvent.Action.RUN_COMMAND, "/allowhoerightclick"))
-                PartlySaneSkies.minecraft.ingameGUI.chatGUI.printChatMessage(message)
+                PartlySaneSkies.minecraft.ingameGUI.chatGUI
+                    .printChatMessage(message)
                 MathematicalHoeRightClicks.lastAllowHoeRightClickTime = PartlySaneSkies.time
             }
         }

@@ -3,7 +3,6 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.render.waypoint
 
 import me.partlysanestudios.partlysaneskies.render.RenderPrimitives.drawBoxFill
@@ -17,7 +16,11 @@ import org.lwjgl.opengl.GL11
 import java.awt.Color
 
 object BeamRenderer {
-    fun renderBeam(pos: BlockPos, outlineColor: Color, fillColor: Color) {
+    fun renderBeam(
+        pos: BlockPos,
+        outlineColor: Color,
+        fillColor: Color,
+    ) {
         val minecraft = Minecraft.getMinecraft()
         val renderManager = minecraft.renderManager
         val tessellator = Tessellator.getInstance()
@@ -39,13 +42,12 @@ object BeamRenderer {
         val y = pos.y.toDouble() + 1
         val z = pos.z.toDouble() + .333
 
-
         worldRenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION)
         GlStateManager.color(
             fillColor.red / 255f,
             fillColor.green / 255f,
             fillColor.blue / 255f,
-            fillColor.alpha / 255f
+            fillColor.alpha / 255f,
         )
 
         worldRenderer.drawBoxFill(Point3d(x, y, z), Point3d(x + .333, 256.0, z + .333))

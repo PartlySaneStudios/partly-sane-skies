@@ -47,8 +47,8 @@ object PickaxeWarning {
                         config.pickaxeAbilityReadyBannerText,
                         (config.pickaxeBannerTime * 1000).toLong(),
                         4.0f,
-                        config.pickaxeBannerColor.toJavaColor()
-                    )
+                        config.pickaxeBannerColor.toJavaColor(),
+                    ),
                 )
             }
             if (config.pickaxeAbilityReadySound) {

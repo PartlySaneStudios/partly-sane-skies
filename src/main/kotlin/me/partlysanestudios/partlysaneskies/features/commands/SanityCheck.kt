@@ -8,11 +8,9 @@ import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils
 import me.partlysanestudios.partlysaneskies.utils.SkyCryptUtils
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.getJsonFromPath
-import net.minecraft.command.ICommandSender
 import java.util.regex.Pattern
 
 object SanityCheck {
-
     private val playerName: String by lazy { PartlySaneSkies.minecraft.thePlayer.name }
     private const val sanityCheckPath: String = "constants/sanity_check_data.json"
     private const val usernameRegex: String = "^[a-zA-Z0-9_]{2,16}\$"
@@ -22,7 +20,7 @@ object SanityCheck {
         PSSCommand("sanitycheck")
             .addAlias("checksanity", "psssanity", "pssinsanity", "pssinsane", "psssane")
             .setDescription("Checks for one's sanity. This command is purely for fun; do not take its results seriously.")
-            .setRunnable {args: Array<String> ->
+            .setRunnable { args: Array<String> ->
                 ChatUtils.sendClientMessage("Attempting to begin sanity analysis...")
                 Thread {
                     var username = playerName
@@ -33,11 +31,13 @@ object SanityCheck {
                         username = args[0]
                     }
                     if (validateUsernameByRegex(username)) {
-                        val sanityCheckDataJsonObject: JsonObject = JsonParser().parse(
-                            PublicDataManager.getFile(
-                                sanityCheckPath
-                            )
-                        ).getAsJsonObject()
+                        val sanityCheckDataJsonObject: JsonObject =
+                            JsonParser()
+                                .parse(
+                                    PublicDataManager.getFile(
+                                        sanityCheckPath,
+                                    ),
+                                ).getAsJsonObject()
                         val highestSkyblockNetworth =
                             sanityCheckDataJsonObject.getJsonFromPath("highestnwlong")?.asLong?.toDouble()
                                 ?: 360567766418.0
@@ -51,9 +51,13 @@ object SanityCheck {
                             val networthRatio = 1.0 - (currentProfileNetworth / highestSkyblockNetworth)
                             val firstJoinRatio =
                                 1.0 - (currentProfileFirstJoin.toDouble() / oldestSkyblockFirstJoin.toDouble())
-                            ChatUtils.sendClientMessage("§a${if (username != playerName) "$username is" else "You are"} ${(networthRatio * 100) + (firstJoinRatio * 100)}% insane.")
+                            ChatUtils.sendClientMessage(
+                                "§a${if (username != playerName) "$username is" else "You are"} ${(networthRatio * 100) + (firstJoinRatio * 100)}% insane.",
+                            )
                         } else {
-                            ChatUtils.sendClientMessage("§eIt appears that $username does not qualify for a PSS sanity check, due to current API circumstances. Try again later, or report this to us via §9/pssdiscord §eif this issue persists.")
+                            ChatUtils.sendClientMessage(
+                                "§eIt appears that $username does not qualify for a PSS sanity check, due to current API circumstances. Try again later, or report this to us via §9/pssdiscord §eif this issue persists.",
+                            )
                         }
                     } else {
                         ChatUtils.sendClientMessage("§cPlease enter a valid Minecraft username to perform a §9/sanitycheck §con.")
@@ -63,8 +67,5 @@ object SanityCheck {
             }.register()
     }
 
-    private fun validateUsernameByRegex(username: String): Boolean {
-        return usernamePattern.matcher(username).find()
-    }
-
+    private fun validateUsernameByRegex(username: String): Boolean = usernamePattern.matcher(username).find()
 }

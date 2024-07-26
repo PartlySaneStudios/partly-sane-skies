@@ -3,7 +3,6 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.render.waypoint
 
 import me.partlysanestudios.partlysaneskies.render.TextRenderer
@@ -19,9 +18,8 @@ class Waypoint(
     val showBeam: Boolean = true,
     val showBlockHighlight: Boolean = true,
     val showLabel: Boolean = true,
-    val showDistance: Boolean = true
+    val showDistance: Boolean = true,
 ) {
-
     /**
      * Render the waypoint
      *
