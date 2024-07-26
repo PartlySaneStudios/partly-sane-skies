@@ -332,6 +332,7 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
                     x = 0.pixels
                     y = CenterConstraint()
                     width = 10.percent
+                    textScale = 1.5.scaledPixels
                 } childOf box
 
                 val filterText = UIWrappedText(filter).constrain {
