@@ -33,6 +33,16 @@ class PSSToggle {
             height = 100.percent
         } childOf backgroundBlock
 
+    init {
+        backgroundBlock.onMouseEnter {
+            buttonTexture.setWidth(105.percent)
+            buttonTexture.setHeight(105.percent)
+        }.onMouseLeave {
+            buttonTexture.setWidth(100.percent)
+            buttonTexture.setHeight(100.percent)
+        }
+    }
+
     fun toggleState(): PSSToggle = setState(!state)
 
     fun setState(state: Boolean): PSSToggle {
