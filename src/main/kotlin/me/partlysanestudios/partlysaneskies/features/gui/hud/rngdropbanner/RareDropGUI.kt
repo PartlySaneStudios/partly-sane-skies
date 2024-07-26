@@ -1,5 +1,5 @@
 //
-// Written by J10an15.
+// Written by J10an15 and Su386.
 // See LICENSE for copyright and license notices.
 //
 
@@ -22,6 +22,7 @@ import gg.essential.elementa.dsl.constraint
 import gg.essential.elementa.dsl.percent
 import gg.essential.elementa.dsl.pixels
 import gg.essential.elementa.dsl.plus
+import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager
 import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.RareDropGUIManager.currentFilter
 import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.RareDropGUIManager.currentFilterType
@@ -57,16 +58,16 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
         width = 90.percent
         x = 5.percent
         y = 2.percent
-        textScale = 1.5.scaledPixels
+        textScale = 2.5.scaledPixels
         color = Color.lightGray.constraint
     } childOf createFilterContainer
 
     private val createFiltersSearchBar = UITextInput("Search Items...").constrain {
         width = 90.percent
-        height = 5.percent
+        height = 3.percent
         x = 5.percent
-        y = 7.percent
-        textScale = 1.scaledPixels
+        y = SiblingConstraint() + 2.percent
+        textScale = 1.5.scaledPixels
         color = Color.gray.constraint
     }.onMouseClick {
         grabWindowFocus()
@@ -90,21 +91,10 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
         }
     } as UITextInput childOf createFilterContainer
 
-    private val createFiltersScrollComponent = ScrollComponent(
-        scrollIconColor = primaryColor.toJavaColor(),
-        innerPadding = 10f,
-        scrollAcceleration = 2f,
-    ).constrain {
-        width = 100.percent
-        height = 90.percent
-        x = 0.percent
-        y = 10.percent
-    } childOf createFilterContainer
-
     private val createFilterButton = PSSButton()
         .setText("Add to ${currentFilterType.displayName} Filter")
-        .setX(5.percent)
-        .setY(11.percent)
+        .setX(CramSiblingConstraint() + 5.percent)
+        .setY(CramSiblingConstraint() + 2.percent)
         .setHeight(50.scaledPixels)
         .setWidth(60.scaledPixels)
         .setChildOf(createFilterContainer)
@@ -119,8 +109,8 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
     private var opposite = RareDropGUIManager.FilterType.entries.first { it != currentFilterType }
     private val switchTypeButton = PSSButton()
         .setText("Switch to ${opposite.displayName}")
-        .setX(SiblingConstraint(7f))
-        .setY(11.percent)
+        .setX(CramSiblingConstraint() + 2.percent)
+        .setY(CramSiblingConstraint())
         .setHeight(50.scaledPixels)
         .setWidth(90.scaledPixels)
         .setChildOf(createFilterContainer)
@@ -133,7 +123,7 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
 
     private val autoCompleteScrollComponent = ScrollComponent().constrain {
         x = CenterConstraint()
-        y = SiblingConstraint(11f)
+        y = SiblingConstraint() + 2.percent
         width = 90.percent
         height = 70.percent
         color = Color.red.constraint
@@ -153,16 +143,16 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
         width = 90.percent
         x = 5.percent
         y = 2.percent
-        textScale = 1.5.scaledPixels
+        textScale = 2.5.scaledPixels
         color = Color.green.constraint
     } childOf activeFiltersContainer
 
     private val activeFiltersSearchBar: UITextInput = UITextInput("Search Filters...").constrain {
         width = 90.percent
-        height = 5.percent
+        height = 3.percent
         x = 5.percent
-        y = 6.percent
-        textScale = 1.scaledPixels
+        y = SiblingConstraint() + 2.percent
+        textScale = 1.5.scaledPixels
         color = Color.gray.constraint
     }.onMouseClick {
         grabWindowFocus()
@@ -183,7 +173,7 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
         width = 100.percent
         height = 90.percent
         x = 0.percent
-        y = 7.percent
+        y = SiblingConstraint() + 1.percent
     } childOf activeFiltersContainer
 
 
@@ -228,7 +218,7 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
             x = CramSiblingConstraint(10f)
             y = CramSiblingConstraint(10f)
             width = 48.percent
-            height = 7.percent
+            height = 8.5.percent
             color = Color(0,0 ,0, 0).constraint
         } childOf autoCompleteScrollComponent
 
@@ -288,6 +278,8 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
 
         createFiltersSearchBar.setColor(if (searchText.isBlank()) Color.gray else Color.lightGray)
 
+        val addedNames = mutableSetOf<String>()
+
         SkyblockDataManager.getAllItems()
             .sorted()
             .asSequence()
@@ -295,8 +287,15 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
                 SkyblockDataManager.getItem(id)?.takeIf {
                     id.contains(searchText, ignoreCase = true) || it.name.contains(searchText, ignoreCase = true)
                 }?.let { item ->
-                    item.name to item.rarity.colorCode.colorCodeToColor()
+                    item.name to if (item.rarity == Rarity.UNKNOWN) {
+                        Color.white
+                    } else {
+                        item.rarity.colorCode.colorCodeToColor()
+                    }
                 }
+            }
+            .filter { (name, _) ->
+                addedNames.add(name)
             }
             .take(100)
             .forEach { (name, color) ->
@@ -338,14 +337,14 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
                 val filterText = UIWrappedText(filter).constrain {
                     x = SiblingConstraint(4f)
                     y = CenterConstraint()
-                    textScale = 1.scaledPixels
+                    textScale = 1.5.scaledPixels
                     width = 90.percent
                 } childOf box
 
                 box.constrain {
                     x = 0.percent
                     y = SiblingConstraint(4f)
-                    height = 3.percent
+                    height = 4.percent
                     width = 90.percent
                     color = Color(0, 0, 0, 0).constraint
                 }.onMouseClick {
