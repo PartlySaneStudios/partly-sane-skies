@@ -151,13 +151,15 @@ class WebhookMenu : WindowScreen(ElementaVersion.V5) {
 
     private fun updateParameters() {
         val selectedConfig = selectedIcon?.webhookEvent?.config
-        if (selectedConfig == null) {
-            for (param in activeParameters) {
-                param.parameterBlock.hide(true)
-                webhookOptionsHeader.setText("")
-            }
-            activeParameters.clear()
-        } else {
+
+        for (param in activeParameters) {
+            param.parameterBlock.hide(true)
+            param.parameterBlock.parent.removeChild(param.parameterBlock)
+            webhookOptionsHeader.setText("")
+        }
+        activeParameters.clear()
+
+        if (selectedConfig != null) {
             val startX = 3.0
 
             var x = startX
@@ -320,11 +322,6 @@ class WebhookMenu : WindowScreen(ElementaVersion.V5) {
         var menu: WebhookMenu? = null
 
         val parameterBlock = UIBlock()
-            .onMouseEnter {
-                hovering = true
-            }.onMouseLeave {
-                hovering = false
-            }
 
         val toggle = PSSToggle()
             .setX(0.percent)
@@ -338,6 +335,7 @@ class WebhookMenu : WindowScreen(ElementaVersion.V5) {
             y = CenterConstraint()
             textScale = 1.scaledPixels
             width = 70.percent
+            color = Color.lightGray.constraint
         } childOf parameterBlock
 
         val text: MutableList<String>
@@ -356,6 +354,12 @@ class WebhookMenu : WindowScreen(ElementaVersion.V5) {
                 toggle.toggleState()
                 config.find(optionPath)?.asToggle?.state = toggle.getState()
                 menu?.updateLocations()
+            }.onMouseEnter {
+                hovering = true
+                textComponent.setColor(Color.gray)
+            }.onMouseLeave {
+                hovering = false
+                textComponent.setColor(Color.lightGray)
             }
 
             toggle.setState(config.find(optionPath)?.asToggle?.state ?: false)

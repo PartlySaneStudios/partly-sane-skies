@@ -169,6 +169,7 @@ object OneConfigScreen : Config(
         description = "The URL of the discord webhook to send the message to.",
         category = "General",
         subcategory = "Discord Webhooks",
+        secure = true,
         size = 2,
     )
     var discordWebhookURL = ""
