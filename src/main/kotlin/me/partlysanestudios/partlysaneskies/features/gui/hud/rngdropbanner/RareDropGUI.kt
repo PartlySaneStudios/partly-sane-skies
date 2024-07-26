@@ -291,7 +291,6 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
         SkyblockDataManager.getAllItems()
             .sorted()
             .asSequence()
-            .take(100)
             .mapNotNull { id ->
                 SkyblockDataManager.getItem(id)?.takeIf {
                     id.contains(searchText, ignoreCase = true) || it.name.contains(searchText, ignoreCase = true)
@@ -299,6 +298,7 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
                     item.name to item.rarity.colorCode.colorCodeToColor()
                 }
             }
+            .take(100)
             .forEach { (name, color) ->
                 createAutoCompletedItem(name, color)
             }
