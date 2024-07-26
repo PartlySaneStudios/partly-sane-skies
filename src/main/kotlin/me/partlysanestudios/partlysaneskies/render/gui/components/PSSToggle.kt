@@ -37,6 +37,9 @@ class PSSToggle {
         backgroundBlock.onMouseEnter {
             buttonTexture.setWidth(105.percent)
             buttonTexture.setHeight(105.percent)
+        }.onMouseLeave {
+            buttonTexture.setWidth(100.percent)
+            buttonTexture.setHeight(100.percent)
         }
     }
 
