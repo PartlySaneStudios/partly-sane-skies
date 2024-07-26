@@ -75,7 +75,7 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
             val text = (this as UITextInput).getText()
             if (text.isBlank()) return@onKeyType
             RareDropGUIManager.addFilter(text)
-            (this as UITextInput).setText("")
+            this.setText("")
             updateFilterList()
         }
 
@@ -237,7 +237,7 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
             x = 0.pixels
             y = CenterConstraint()
             width = 100.percent
-            textScale = 1.scaledPixels
+            textScale = 1.5.scaledPixels
             color = itemColor.constraint
         }
 
