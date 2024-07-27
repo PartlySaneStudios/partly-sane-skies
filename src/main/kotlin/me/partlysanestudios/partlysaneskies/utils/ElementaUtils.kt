@@ -37,8 +37,7 @@ object ElementaUtils {
             }
         }
 
-    val textScale: Double
-        get() = OneConfigScreen.textScale.toDouble()
+    val textScale: Double get() = OneConfigScreen.textScale.toDouble()
 
     val ResourceLocation.uiImage: UIImage
         get() = try {
