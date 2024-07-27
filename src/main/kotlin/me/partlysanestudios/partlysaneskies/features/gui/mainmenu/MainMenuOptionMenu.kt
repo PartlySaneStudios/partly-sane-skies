@@ -72,7 +72,7 @@ class MainMenuOptionMenu(nextRunnable: Runnable) : WindowScreen(ElementaVersion.
             x = CenterConstraint()
             y = 30.percent
             width = 40.percent
-            textScale = 2.scaledPixels
+            textScale = 2.textScaledPixels
             color = Color(100, 196, 255).constraint
         } childOf transparentBlock
 
@@ -83,7 +83,7 @@ class MainMenuOptionMenu(nextRunnable: Runnable) : WindowScreen(ElementaVersion.
             x = CenterConstraint()
             y = 35.percent
             width = 50.percent
-            textScale = 1.scaledPixels
+            textScale = 1.textScaledPixels
             color = Color.white.constraint
         } childOf transparentBlock
 
@@ -112,7 +112,7 @@ class MainMenuOptionMenu(nextRunnable: Runnable) : WindowScreen(ElementaVersion.
             width = 90.percent
             x = CenterConstraint()
             y = 10.percent
-            textScale = 1.scaledPixels
+            textScale = 1.textScaledPixels
             color = Color.white.constraint
         } childOf yesButton
 
@@ -166,7 +166,7 @@ class MainMenuOptionMenu(nextRunnable: Runnable) : WindowScreen(ElementaVersion.
             width = 90.percent
             x = CenterConstraint()
             y = 10.percent
-            textScale = 1.scaledPixels
+            textScale = 1.textScaledPixels
             color = Color.white.constraint
         } childOf noButton
 
@@ -175,14 +175,14 @@ class MainMenuOptionMenu(nextRunnable: Runnable) : WindowScreen(ElementaVersion.
             x = CenterConstraint()
             y = 10.scaledPixels(alignOpposite = true)
             color = Color.white.constraint
-            textScale = 1.scaledPixels
+            textScale = 1.textScaledPixels
         } childOf transparentBlock
 
     private val discordText = UIWrappedText("Discord: discord.gg/${PartlySaneSkies.discordCode}")
         .constrain {
             x = 10.scaledPixels
             y = 10.scaledPixels(alignOpposite = true)
-            textScale = 1.scaledPixels
+            textScale = 1.textScaledPixels
             color = Color(69, 79, 191).constraint
         }.onMouseClick {
             SystemUtils.openLink("https://discord.gg/${PartlySaneSkies.discordCode}")
@@ -192,7 +192,7 @@ class MainMenuOptionMenu(nextRunnable: Runnable) : WindowScreen(ElementaVersion.
         .constrain {
             x = 10.scaledPixels(alignOpposite = true)
             y = 10.scaledPixels(alignOpposite = true)
-            textScale = 1.scaledPixels
+            textScale = 1.textScaledPixels
             color = ThemeManager.accentColor.toJavaColor().constraint
         }.onMouseClick {
             SystemUtils.openLink("https://github.com/PartlySaneStudios/partly-sane-skies")

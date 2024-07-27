@@ -59,7 +59,7 @@ object CompostValue : SidePanel() {
             y = CenterConstraint()
             height = 95.percent
             width = 95.percent
-            textScale = 1.scaledPixels
+            textScale = 1.textScaledPixels
         } childOf panelBaseComponent
 
     private var maxCompost = 0.0

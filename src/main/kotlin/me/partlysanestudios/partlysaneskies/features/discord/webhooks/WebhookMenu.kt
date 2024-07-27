@@ -54,7 +54,7 @@ class WebhookMenu : WindowScreen(ElementaVersion.V5) {
         x = 15.scaledPixels
         y = 10.scaledPixels
         width = (300 - (7 * 2)).scaledPixels
-        textScale = 1.5.scaledPixels
+        textScale = 1.5.textScaledPixels
         color = Color.red.constraint
     } childOf inactiveWebhooksPanel
 
@@ -69,7 +69,7 @@ class WebhookMenu : WindowScreen(ElementaVersion.V5) {
             x = 15.scaledPixels
             y = 10.scaledPixels
             width = (300 - (7 * 2)).scaledPixels
-            textScale = 1.5.scaledPixels
+            textScale = 1.5.textScaledPixels
             color = Color.green.constraint
         } childOf activeWebhooksPanel
 
@@ -91,7 +91,7 @@ class WebhookMenu : WindowScreen(ElementaVersion.V5) {
         x = 15.scaledPixels
         y = 10.scaledPixels
         width = 100.percent
-        textScale = 1.5.scaledPixels
+        textScale = 1.5.textScaledPixels
     } childOf webhookOptionsList
 
     private val sideSwitchButton = ThemeManager.currentBackgroundUIImage.constrain {
@@ -333,7 +333,7 @@ class WebhookMenu : WindowScreen(ElementaVersion.V5) {
         val textComponent = UIWrappedText(centered = false).constrain {
             x = 0.pixels(alignOpposite = true)
             y = CenterConstraint()
-            textScale = 1.scaledPixels
+            textScale = 1.textScaledPixels
             width = 70.percent
             color = Color.lightGray.constraint
         } childOf parameterBlock

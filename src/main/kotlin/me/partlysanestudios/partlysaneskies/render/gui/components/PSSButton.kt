@@ -53,7 +53,7 @@ class PSSButton {
         y = CenterConstraint()
         width = 100.percent
         color = Color.lightGray.constraint
-        textScale = 1.scaledPixels
+        textScale = 1.textScaledPixels
     } childOf backgroundBlock
 
     constructor() {

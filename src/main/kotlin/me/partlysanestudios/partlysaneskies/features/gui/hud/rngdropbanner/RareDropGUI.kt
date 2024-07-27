@@ -30,6 +30,7 @@ import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager.primaryColor
 import me.partlysanestudios.partlysaneskies.render.gui.components.PSSButton
 import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
+import me.partlysanestudios.partlysaneskies.render.gui.constraints.TextScaledPixelConstraint.Companion.textScaledPixels
 import me.partlysanestudios.partlysaneskies.utils.ImageUtils.minus
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.colorCodeToColor
 import org.lwjgl.input.Keyboard
@@ -58,7 +59,7 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
         width = 90.percent
         x = 5.percent
         y = 2.percent
-        textScale = 2.5.scaledPixels
+        textScale = 2.5.textScaledPixels
         color = Color.lightGray.constraint
     } childOf createFilterContainer
 
@@ -67,7 +68,7 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
         height = 3.percent
         x = 5.percent
         y = SiblingConstraint() + 2.percent
-        textScale = 1.5.scaledPixels
+        textScale = 1.5.textScaledPixels
         color = Color.gray.constraint
     }.onMouseClick {
         grabWindowFocus()
@@ -143,7 +144,7 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
         width = 90.percent
         x = 5.percent
         y = 2.percent
-        textScale = 2.5.scaledPixels
+        textScale = 2.5.textScaledPixels
         color = Color.green.constraint
     } childOf activeFiltersContainer
 
@@ -152,7 +153,7 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
         height = 3.percent
         x = 5.percent
         y = SiblingConstraint() + 2.percent
-        textScale = 1.5.scaledPixels
+        textScale = 1.5.textScaledPixels
         color = Color.gray.constraint
     }.onMouseClick {
         grabWindowFocus()
@@ -191,7 +192,7 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
         x = 4.percent
         y = 10.percent
         width = 92.percent
-        textScale = 1.5.scaledPixels
+        textScale = 1.5.textScaledPixels
         color = Color.green.constraint
     } childOf presetsContainer
 
@@ -227,7 +228,7 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
             x = 0.pixels
             y = CenterConstraint()
             width = 100.percent
-            textScale = 1.5.scaledPixels
+            textScale = 1.5.textScaledPixels
             color = itemColor.constraint
         }
 
@@ -257,7 +258,7 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
             y = CenterConstraint()
             width = 10.percent
             height = 100.percent
-            textScale = 3.scaledPixels
+            textScale = 3.textScaledPixels
             color = Color.lightGray.constraint
         }.onMouseClick {
             if (it.mouseButton != 0) {
@@ -332,13 +333,13 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
                     x = 0.pixels
                     y = CenterConstraint()
                     width = 10.percent
-                    textScale = 1.5.scaledPixels
+                    textScale = 1.5.textScaledPixels
                 } childOf box
 
                 val filterText = UIWrappedText(filter).constrain {
                     x = SiblingConstraint(4f)
                     y = CenterConstraint()
-                    textScale = 1.5.scaledPixels
+                    textScale = 1.5.textScaledPixels
                     width = 90.percent
                 } childOf box
 
