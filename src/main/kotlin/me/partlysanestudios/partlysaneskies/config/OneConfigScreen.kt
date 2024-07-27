@@ -220,6 +220,16 @@ object OneConfigScreen : Config(
     )
     var bannerSize = 1f
 
+    @Slider(
+        name = "Side Panel Padding",
+        description = "The padding between the side panel and the edge of the Inventory.",
+        category = "General",
+        subcategory = "Appearance",
+        min = 0f,
+        max = 50f,
+    )
+    var sidePanelPadding = 10f
+
     // Main Menu
     @Switch(
         name = "Show a Custom Minecraft Main Menu",
