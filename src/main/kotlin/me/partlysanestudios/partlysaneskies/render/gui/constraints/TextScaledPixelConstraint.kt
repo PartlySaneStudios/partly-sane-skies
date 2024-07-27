@@ -47,8 +47,6 @@ class TextScaledPixelConstraint(
     override fun getYPositionImpl(component: UIComponent): Float =
         (value * ElementaUtils.scaleFactor * ElementaUtils.textScale).pixels(alignOpposite, alignOutside).getYPositionImpl(component)
 
-    override fun visitImpl(
-        visitor: ConstraintVisitor,
-        type: ConstraintType,
-    ) = (value * ElementaUtils.scaleFactor * ElementaUtils.textScale).pixels(alignOpposite, alignOutside).visitImpl(visitor, type)
+    override fun visitImpl(visitor: ConstraintVisitor, type: ConstraintType,) =
+        (value * ElementaUtils.scaleFactor * ElementaUtils.textScale).pixels(alignOpposite, alignOutside).visitImpl(visitor, type)
 }

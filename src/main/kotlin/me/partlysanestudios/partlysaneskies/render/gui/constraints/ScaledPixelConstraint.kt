@@ -39,8 +39,6 @@ open class ScaledPixelConstraint(
     override fun getYPositionImpl(component: UIComponent): Float =
         (value * ElementaUtils.scaleFactor).pixels(alignOpposite, alignOutside).getYPositionImpl(component)
 
-    override fun visitImpl(
-        visitor: ConstraintVisitor,
-        type: ConstraintType,
-    ) = (value * ElementaUtils.scaleFactor).pixels(alignOpposite, alignOutside).visitImpl(visitor, type)
+    override fun visitImpl(visitor: ConstraintVisitor, type: ConstraintType) =
+        (value * ElementaUtils.scaleFactor).pixels(alignOpposite, alignOutside).visitImpl(visitor, type)
 }
