@@ -20,6 +20,7 @@ import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManage
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager.initBitValues
 import me.partlysanestudios.partlysaneskies.features.gui.SidePanel
 import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
+import me.partlysanestudios.partlysaneskies.render.gui.constraints.TextScaledPixelConstraint.Companion.textScaledPixels
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.applyBackground
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils.getBits
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.round
@@ -48,7 +49,7 @@ object BitsShopValue : SidePanel() {
             y = CenterConstraint()
             height = 95.percent
             width = 95.percent
-            textScale = 1.scaledPixels
+            textScale = 1.textScaledPixels
         } childOf panelBaseComponent
 
     override fun onPanelRender(event: GuiScreenEvent.BackgroundDrawnEvent) {

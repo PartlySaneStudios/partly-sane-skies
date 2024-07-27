@@ -38,6 +38,7 @@ import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager
 import me.partlysanestudios.partlysaneskies.features.security.PrivacyMode.enablePrivacyMode
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager.accentColor
 import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
+import me.partlysanestudios.partlysaneskies.render.gui.constraints.TextScaledPixelConstraint.Companion.textScaledPixels
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.uiImage
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.randInt
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.lastUsedColorCode
@@ -206,7 +207,7 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
         text = "Your version of Partly Sane Skies is out of date.\nPlease update to the latest version",
         centered = true,
     ).constrain {
-        textScale = 2.25.scaledPixels
+        textScale = 2.25.textScaledPixels
         x = CenterConstraint()
         y = 133.scaledPixels
         width = 700.scaledPixels
@@ -238,7 +239,7 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
         .constrain {
             x = CenterConstraint()
             y = CenterConstraint()
-            textScale = 1.scaledPixels
+            textScale = 1.textScaledPixels
             color = Color.white.constraint
         }.onMouseEnter {
             for (child in this.children) {
@@ -273,7 +274,7 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
         .constrain {
             x = CenterConstraint()
             y = CenterConstraint()
-            textScale = 1.scaledPixels
+            textScale = 1.textScaledPixels
             color = Color.white.constraint
         } childOf multiPlayerButton
 
@@ -302,7 +303,7 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
         .constrain {
             x = CenterConstraint()
             y = CenterConstraint()
-            textScale = 1.scaledPixels
+            textScale = 1.textScaledPixels
             color = Color.white.constraint
         } childOf joinHypixelButton
 
@@ -329,7 +330,7 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
         .constrain {
             x = CenterConstraint()
             y = CenterConstraint()
-            textScale = 1.scaledPixels
+            textScale = 1.textScaledPixels
             color = Color.white.constraint
         } childOf modsButton
 
@@ -356,7 +357,7 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
         .constrain {
             x = CenterConstraint()
             y = CenterConstraint()
-            textScale = 1.scaledPixels
+            textScale = 1.textScaledPixels
             color = Color.white.constraint
         } childOf optionsButton
 
@@ -419,7 +420,7 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
         .constrain {
             x = CenterConstraint()
             y = CenterConstraint()
-            textScale = 1.scaledPixels
+            textScale = 1.textScaledPixels
             color = Color.white.constraint
         } childOf quitButton
 
@@ -435,7 +436,7 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
         .constrain {
             x = 10.scaledPixels
             y = 10.scaledPixels(alignOpposite = true)
-            textScale = 1.scaledPixels
+            textScale = 1.textScaledPixels
             color = Color(69, 79, 191).constraint
         }.onMouseClick {
             SystemUtils.openLink("https://discord.gg/$discordCode")
@@ -445,7 +446,7 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
         .constrain {
             x = 10.scaledPixels(alignOpposite = true)
             y = 10.scaledPixels(alignOpposite = true)
-            textScale = 1.scaledPixels
+            textScale = 1.textScaledPixels
             color = accentColor.toJavaColor().constraint
         }.onMouseClick {
             SystemUtils.openLink("https://github.com/PartlySaneStudios/partly-sane-skies")
@@ -525,7 +526,7 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
                 x = startX
                 y = startY
                 width = 300.scaledPixels
-                textScale = 1.5.scaledPixels
+                textScale = 1.5.textScaledPixels
             } childOf parent
         funFactHeading.setText("§e${funFact.title}")
 
@@ -585,7 +586,7 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
                 x = xConstraint
                 y = yConstraint
                 width = 300.scaledPixels
-                textScale = 1.5.scaledPixels
+                textScale = 1.5.textScaledPixels
             }.setText(
                 "§e${announcement.title}",
             ).onMouseClick {

@@ -10,6 +10,7 @@ import gg.essential.elementa.components.UIImage
 import gg.essential.elementa.constraints.CenterConstraint
 import gg.essential.elementa.dsl.percent
 import gg.essential.universal.UResolution
+import me.partlysanestudios.partlysaneskies.config.OneConfigScreen
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
 import net.minecraft.client.Minecraft
 import net.minecraft.util.ResourceLocation
@@ -35,6 +36,8 @@ object ElementaUtils {
                 height / constantHeight
             }
         }
+
+    val textScale: Double get() = OneConfigScreen.textScale.toDouble()
 
     val ResourceLocation.uiImage: UIImage
         get() = try {

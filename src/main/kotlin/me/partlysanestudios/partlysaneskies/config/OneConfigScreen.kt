@@ -201,6 +201,16 @@ object OneConfigScreen : Config(
     )
     var hour24time = false
 
+    @Slider(
+        name = "Text Scale",
+        description = "Increase the global text scale across most Partly Sane Skies menus",
+        category = "General",
+        subcategory = "Appearance",
+        min = 0.0f,
+        max = 3.0f,
+    )
+    var textScale = 1.0f
+
     @Dropdown(
         name = "Preferred Currency",
         description = "Select your preferred currency conversion for the /c2c command. Currencies are listed in alphabetical order. Default currency is USD.",

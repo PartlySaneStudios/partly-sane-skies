@@ -22,6 +22,7 @@ import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.data.LoadPublicDataEvent
 import me.partlysanestudios.partlysaneskies.features.gui.SidePanel
 import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
+import me.partlysanestudios.partlysaneskies.render.gui.constraints.TextScaledPixelConstraint.Companion.textScaledPixels
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.applyBackground
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.round
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.sortMap
@@ -59,7 +60,7 @@ object CompostValue : SidePanel() {
             y = CenterConstraint()
             height = 95.percent
             width = 95.percent
-            textScale = 1.scaledPixels
+            textScale = 1.textScaledPixels
         } childOf panelBaseComponent
 
     private var maxCompost = 0.0

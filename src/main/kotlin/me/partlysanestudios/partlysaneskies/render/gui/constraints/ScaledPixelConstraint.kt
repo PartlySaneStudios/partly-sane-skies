@@ -7,17 +7,17 @@ import gg.essential.elementa.constraints.resolution.ConstraintVisitor
 import gg.essential.elementa.dsl.pixels
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils
 
-class ScaledPixelConstraint(
+open class ScaledPixelConstraint(
     var value: Float,
     val alignOpposite: Boolean = false,
     val alignOutside: Boolean = false,
 ) : MasterConstraint {
     companion object {
         val Number.scaledPixels: ScaledPixelConstraint
-            get() = ScaledPixelConstraint((this.toDouble()).toFloat(), alignOpposite = false, alignOutside = false)
+            get() = ScaledPixelConstraint(this.toFloat(), alignOpposite = false, alignOutside = false)
 
-        fun Number.scaledPixels(alignOpposite: Boolean = false, alignOutside: Boolean = false, ): ScaledPixelConstraint =
-            ScaledPixelConstraint((toDouble()).toFloat(), alignOpposite, alignOutside)
+        fun Number.scaledPixels(alignOpposite: Boolean = false, alignOutside: Boolean = false): ScaledPixelConstraint =
+            ScaledPixelConstraint(this.toFloat(), alignOpposite, alignOutside)
     }
 
     override var cachedValue = 0f
@@ -39,8 +39,6 @@ class ScaledPixelConstraint(
     override fun getYPositionImpl(component: UIComponent): Float =
         (value * ElementaUtils.scaleFactor).pixels(alignOpposite, alignOutside).getYPositionImpl(component)
 
-    override fun visitImpl(
-        visitor: ConstraintVisitor,
-        type: ConstraintType,
-    ) = (value * ElementaUtils.scaleFactor).pixels(alignOpposite, alignOutside).visitImpl(visitor, type)
+    override fun visitImpl(visitor: ConstraintVisitor, type: ConstraintType) =
+        (value * ElementaUtils.scaleFactor).pixels(alignOpposite, alignOutside).visitImpl(visitor, type)
 }
