@@ -21,11 +21,11 @@ class TextScaledPixelConstraint(
     constructor(value: Float): this(value, false, false)
 
     companion object {
-        val Number.textScaledPixels: ScaledPixelConstraint
-            get() = ScaledPixelConstraint(this.toFloat(), alignOpposite = false, alignOutside = false)
+        val Number.textScaledPixels: TextScaledPixelConstraint
+            get() = TextScaledPixelConstraint(this.toFloat(), alignOpposite = false, alignOutside = false)
 
-        fun Number.textScaledPixels(alignOpposite: Boolean = false, alignOutside: Boolean = false): ScaledPixelConstraint =
-            ScaledPixelConstraint(this.toFloat(), alignOpposite, alignOutside)
+        fun Number.textScaledPixels(alignOpposite: Boolean = false, alignOutside: Boolean = false): TextScaledPixelConstraint =
+            TextScaledPixelConstraint(this.toFloat(), alignOpposite, alignOutside)
     }
 
     override var cachedValue = 0f
