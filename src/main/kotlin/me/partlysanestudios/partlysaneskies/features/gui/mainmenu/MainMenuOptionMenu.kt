@@ -22,6 +22,7 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
 import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
+import me.partlysanestudios.partlysaneskies.render.gui.constraints.TextScaledPixelConstraint.Companion.textScaledPixels
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.uiImage
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils
 import net.minecraft.util.ResourceLocation

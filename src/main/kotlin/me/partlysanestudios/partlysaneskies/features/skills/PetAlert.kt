@@ -24,6 +24,7 @@ import me.partlysanestudios.partlysaneskies.data.cache.PetData.getCurrentPetRari
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity
 import me.partlysanestudios.partlysaneskies.features.gui.SidePanel
 import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
+import me.partlysanestudios.partlysaneskies.render.gui.constraints.TextScaledPixelConstraint.Companion.textScaledPixels
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.applyBackground
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils.getItemId

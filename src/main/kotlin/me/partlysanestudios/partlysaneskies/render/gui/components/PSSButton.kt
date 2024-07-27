@@ -21,6 +21,7 @@ import gg.essential.elementa.events.UIClickEvent
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager.currentButtonUIImage
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager.getCurrentButtonUIImage
 import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
+import me.partlysanestudios.partlysaneskies.render.gui.constraints.TextScaledPixelConstraint.Companion.textScaledPixels
 import me.partlysanestudios.partlysaneskies.utils.ImageUtils.minus
 import me.partlysanestudios.partlysaneskies.utils.ImageUtils.plus
 import java.awt.Color

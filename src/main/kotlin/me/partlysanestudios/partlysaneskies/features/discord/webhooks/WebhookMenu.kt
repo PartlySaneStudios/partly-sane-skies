@@ -27,6 +27,7 @@ import me.partlysanestudios.partlysaneskies.config.psconfig.Toggle.Companion.asT
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
 import me.partlysanestudios.partlysaneskies.render.gui.components.PSSToggle
 import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
+import me.partlysanestudios.partlysaneskies.render.gui.constraints.TextScaledPixelConstraint.Companion.textScaledPixels
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.uiImage
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
 import net.minecraft.util.ResourceLocation

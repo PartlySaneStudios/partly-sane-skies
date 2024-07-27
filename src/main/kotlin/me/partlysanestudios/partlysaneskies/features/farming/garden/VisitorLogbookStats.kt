@@ -33,6 +33,7 @@ import me.partlysanestudios.partlysaneskies.data.cache.VisitorLogbookData.isVisi
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity
 import me.partlysanestudios.partlysaneskies.features.gui.SidePanel
 import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
+import me.partlysanestudios.partlysaneskies.render.gui.constraints.TextScaledPixelConstraint.Companion.textScaledPixels
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.applyBackground
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.formatNumber
 import net.minecraftforge.client.event.GuiScreenEvent
