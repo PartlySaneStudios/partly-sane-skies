@@ -26,6 +26,7 @@ import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManage
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
 import me.partlysanestudios.partlysaneskies.render.gui.components.PSSButton
 import me.partlysanestudios.partlysaneskies.render.gui.components.PSSItemRender
+import me.partlysanestudios.partlysaneskies.render.gui.constraints.TextScaledPixelConstraint.Companion.textScaledPixels
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils.getItemId
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getLore
@@ -86,7 +87,7 @@ class AuctionElement(
             y = itemHeight.pixels
             width = (heightConstraint.value * 1.25).pixels
             height = (heightConstraint.value * .667).pixels
-        }.setTextScale(textScale.pixels) childOf boundingBox
+        }.setTextScale(textScale.textScaledPixels) childOf boundingBox
 
     init {
         boundingBox.onMouseClick {

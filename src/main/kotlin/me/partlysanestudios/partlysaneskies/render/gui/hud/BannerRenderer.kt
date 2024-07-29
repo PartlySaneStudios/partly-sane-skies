@@ -15,6 +15,8 @@ import gg.essential.elementa.dsl.constraint
 import gg.essential.elementa.dsl.pixels
 import gg.essential.universal.UMatrixStack
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
+import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
+import me.partlysanestudios.partlysaneskies.render.gui.constraints.TextScaledPixelConstraint.Companion.textScaledPixels
 import me.partlysanestudios.partlysaneskies.utils.ImageUtils.applyOpacity
 import me.partlysanestudios.partlysaneskies.utils.MathUtils
 import net.minecraft.client.gui.Gui
@@ -29,11 +31,11 @@ object BannerRenderer : Gui() {
 
     private var displayText: UIText = UIText("{EMPTY BANNER}")
         .constrain {
-            textScale = 5F.pixels
+            textScale = 5F.scaledPixels
             x = CenterConstraint()
             y = CenterConstraint()
             color = Color(255, 255, 255, 0).constraint
-        }.setColor(Color(255, 255, 255, 0)) as UIText childOf window
+        } childOf window
 
     @SubscribeEvent
     fun onScreenRender(event: RenderGameOverlayEvent.Text) {
@@ -58,13 +60,13 @@ object BannerRenderer : Gui() {
             displayText
                 .setText(bannerToRender.text)
                 .constrain {
-                    textScale = calculatedTextScale.pixels
+                    textScale = calculatedTextScale.textScaledPixels
                     x = CenterConstraint()
                     y = (window.getHeight() * .125f).pixels
                     color = bannerToRender.getFadedColor().constraint
                 } childOf window
         } else if (displayText.getTextScale() != calculatedTextScale.pixels.value) {
-            displayText.setTextScale(calculatedTextScale.pixels)
+            displayText.setTextScale(calculatedTextScale.textScaledPixels)
         }
 
 //        ChatUtils.sendClientMessage(bannerToRender.getFadedColor().alpha.toString())

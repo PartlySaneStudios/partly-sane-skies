@@ -393,7 +393,7 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
         .constrain {
             x = CenterConstraint()
             y = CenterConstraint()
-            textScale = 0.735.scaledPixels
+            textScale = 0.735.textScaledPixels
             color = Color.white.constraint
         } childOf pssOptionsButton
 
@@ -535,7 +535,7 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
                 x = 0.percent
                 y = 100.percent + 5.scaledPixels
                 width = 100.percent
-                textScale = 1.33.scaledPixels
+                textScale = 1.33.textScaledPixels
             } childOf funFactHeading
         funFactText.setText("§7${funFact.description}")
 
@@ -599,7 +599,7 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
                 x = 0.percent
                 y = 100.percent + 5.scaledPixels
                 width = 100.percent
-                textScale = 1.33.scaledPixels
+                textScale = 1.33.textScaledPixels
             }.setText(
                 "§8${announcement.date}§r\n§7${announcement.description.replace("\n", "\n$lastColor")}",
             ).onMouseClick {

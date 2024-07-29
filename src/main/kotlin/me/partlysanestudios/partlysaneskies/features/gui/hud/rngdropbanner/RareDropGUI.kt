@@ -10,7 +10,6 @@ import gg.essential.elementa.ElementaVersion
 import gg.essential.elementa.WindowScreen
 import gg.essential.elementa.components.ScrollComponent
 import gg.essential.elementa.components.UIBlock
-import gg.essential.elementa.components.UIText
 import gg.essential.elementa.components.UIWrappedText
 import gg.essential.elementa.components.input.UITextInput
 import gg.essential.elementa.constraints.CenterConstraint

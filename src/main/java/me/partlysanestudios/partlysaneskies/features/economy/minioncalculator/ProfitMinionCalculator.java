@@ -19,6 +19,7 @@ import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockItem;
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager;
 import me.partlysanestudios.partlysaneskies.render.gui.components.PSSButton;
 import me.partlysanestudios.partlysaneskies.render.gui.components.PSSToggle;
+import me.partlysanestudios.partlysaneskies.render.gui.constraints.TextScaledPixelConstraint;
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils;
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
@@ -165,9 +166,8 @@ public class ProfitMinionCalculator extends WindowScreen {
                 .setX(new PixelConstraint(leftBar.getRight() + fromWidthScaleFactor(7).getValue())) // sets it 7 scales pixels off the right side of the left bar
                 .setY(new PixelConstraint(yPos))
                 .setWidth(new PixelConstraint(rightBar.getLeft() - leftBar.getRight() - fromWidthScaleFactor(14).getValue())) // set the width to the distance between the two bars with 7 scale pixels of padding on either side
-                .setTextScale(fromWidthScaleFactor(1)) //Sets the text scale to 1 scale unit
+                .setTextScale(new TextScaledPixelConstraint(1)) //Sets the text scale to 1 scale unit
                 .setColor(Color.WHITE)
-                .setTextScale(fromWidthScaleFactor(1))
                 .setChildOf(mainTextScrollComponent);
 
 //            Creates a line separating the text
@@ -231,7 +231,7 @@ public class ProfitMinionCalculator extends WindowScreen {
                 .setY(new CenterConstraint())
                 .setWidth(new PixelConstraint(backgroundBox.getWidth() - textXPos))
                 .setColor(Color.white)
-                .setTextScale(fromWidthScaleFactor(1))
+                .setTextScale(new TextScaledPixelConstraint(1))
                 .setChildOf(fuelContainer.getComponent());
 
             fuelContainer.onMouseClickConsumer(s -> {
@@ -287,7 +287,7 @@ public class ProfitMinionCalculator extends WindowScreen {
                 .setX(new PixelConstraint(textXPos))
                 .setY(new CenterConstraint())
                 .setColor(Color.white)
-                .setTextScale(fromWidthScaleFactor(1))
+                .setTextScale(new TextScaledPixelConstraint(1))
                 .setChildOf(upgradeContainer.getComponent());
 
             upgradeContainer.onMouseClickConsumer(s -> {
@@ -354,7 +354,7 @@ public class ProfitMinionCalculator extends WindowScreen {
                 .setX(fromWidthScaleFactor(13))
                 .setY(new CenterConstraint())
                 .setHeight(fromWidthScaleFactor(5))
-                .setTextScale(fromWidthScaleFactor(.75f))
+                .setTextScale(new TextScaledPixelConstraint(.75f))
                 .setColor(Color.gray)
                 .setChildOf(toggle.getComponent());
 
@@ -367,7 +367,7 @@ public class ProfitMinionCalculator extends WindowScreen {
             .setHeight(fromWidthScaleFactor(60))
             .setWidth(fromWidthScaleFactor(100))
             .setText("Calculate Best Minion")
-            .setTextScale(fromWidthScaleFactor(1))
+            .setTextScale(new TextScaledPixelConstraint(1))
 
             .setChildOf(bestMinionBar);
 
