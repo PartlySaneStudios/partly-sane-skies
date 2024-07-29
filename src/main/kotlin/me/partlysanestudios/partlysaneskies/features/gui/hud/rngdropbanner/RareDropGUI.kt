@@ -281,7 +281,6 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
         val addedNames = mutableSetOf<String>()
 
         SkyblockDataManager.getAllItems()
-            .sorted()
             .asSequence()
             .mapNotNull { id ->
                 SkyblockDataManager.getItem(id)?.takeIf {
@@ -294,6 +293,7 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
                     }
                 }
             }
+            .sortedBy { it.first }
             .filter { (name, _) ->
                 addedNames.add(name)
             }
