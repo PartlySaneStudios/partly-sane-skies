@@ -23,6 +23,7 @@ import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.RareD
 import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.minecraft.PSSChatEvent
 import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
+import me.partlysanestudios.partlysaneskies.render.gui.constraints.TextScaledPixelConstraint.Companion.textScaledPixels
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.onCooldown
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.colorCodeToColor
 import net.minecraftforge.client.event.RenderGameOverlayEvent
@@ -52,7 +53,7 @@ object DropBannerDisplay {
 
     private var topText =
         UIWrappedText(centered = true).constrain {
-            textScale = (BIG_TEXT_SCALE * config.bannerSize).scaledPixels
+            textScale = (BIG_TEXT_SCALE * config.bannerSize).textScaledPixels
             width = 100.percent
             x = CenterConstraint()
             y = BANNER_HEIGHT_FACTOR.percent
@@ -60,7 +61,7 @@ object DropBannerDisplay {
 
     private var dropNameText =
         UIWrappedText(centered = true).constrain {
-            textScale = (SMALL_TEXT_SCALE * config.bannerSize).scaledPixels
+            textScale = (SMALL_TEXT_SCALE * config.bannerSize).textScaledPixels
             width = 100.percent
             x = CenterConstraint()
             y = PixelConstraint(topText.getBottom() + window.getHeight() * TEXT_SPACING_FACTOR)

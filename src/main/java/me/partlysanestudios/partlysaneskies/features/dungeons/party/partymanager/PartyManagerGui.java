@@ -20,6 +20,7 @@ import gg.essential.universal.UMatrixStack;
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager;
 import me.partlysanestudios.partlysaneskies.render.gui.components.PSSButton;
+import me.partlysanestudios.partlysaneskies.render.gui.constraints.TextScaledPixelConstraint;
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils;
 
 import java.awt.Color;
@@ -114,7 +115,7 @@ public class PartyManagerGui extends WindowScreen {
             .setHeight(new PixelConstraint(55f * scaleFactor))
             .setChildOf(topBarBlock)
             .setText("Disband")
-            .setTextScale(new PixelConstraint(1.5f))
+            .setTextScale(new TextScaledPixelConstraint(1.5f))
             .onMouseClickConsumer(event -> PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/party disband"));
 
         new PSSButton()
@@ -124,7 +125,7 @@ public class PartyManagerGui extends WindowScreen {
             .setHeight(new PixelConstraint(55f * scaleFactor))
             .setChildOf(topBarBlock)
             .setText("Kick Offline")
-            .setTextScale(new PixelConstraint(1.25f))
+            .setTextScale(new TextScaledPixelConstraint(1.25f))
             .onMouseClickConsumer(event -> PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/party kickoffline"));
 
         new PSSButton()
@@ -134,7 +135,7 @@ public class PartyManagerGui extends WindowScreen {
             .setHeight(new PixelConstraint(55f * scaleFactor))
             .setChildOf(topBarBlock)
             .setText("Reparty")
-            .setTextScale(new PixelConstraint(1.5f))
+            .setTextScale(new TextScaledPixelConstraint(1.5f))
             .onMouseClickConsumer(event -> PartyManager.reparty(partyMembers));
 
         new PSSButton()
@@ -144,7 +145,7 @@ public class PartyManagerGui extends WindowScreen {
             .setHeight(new PixelConstraint(55f * scaleFactor))
             .setChildOf(topBarBlock)
             .setText("Ask if ready")
-            .setTextScale(new PixelConstraint(1.25f))
+            .setTextScale(new TextScaledPixelConstraint(1.25f))
             .onMouseClickConsumer(event -> PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/pc Ready?"));
 
         String partyBreakdown = "Party Size: " + partyMembers.size() + "\n";
@@ -159,7 +160,7 @@ public class PartyManagerGui extends WindowScreen {
         }
 
         partyBreakdownComponent = (UIWrappedText) new UIWrappedText("Party Size: " + partyMembers.size() + "\n")
-            .setTextScale(new PixelConstraint(1 * scaleFactor))
+            .setTextScale(new TextScaledPixelConstraint(1))
             .setX(new PixelConstraint(425f * scaleFactor))
             .setY(new PixelConstraint(10f * scaleFactor))
             .setColor(Color.white)
@@ -192,7 +193,7 @@ public class PartyManagerGui extends WindowScreen {
 
     public void createJoinFloorButtons(UIComponent topBarBlock, float scaleFactor) {
         new UIText("Join Dungeon Floor:")
-            .setTextScale(new PixelConstraint(2 * scaleFactor))
+            .setTextScale(new TextScaledPixelConstraint(2))
             .setX(new PixelConstraint(20f * scaleFactor))
             .setY(new PixelConstraint(115f * scaleFactor))
             .setChildOf(topBarBlock);
@@ -204,7 +205,7 @@ public class PartyManagerGui extends WindowScreen {
             .setHeight(new PixelConstraint(35f * scaleFactor))
             .setChildOf(topBarBlock)
             .setText("F1")
-            .setTextScale(new PixelConstraint(scaleFactor))
+            .setTextScale(new TextScaledPixelConstraint(1))
             .onMouseClickConsumer(event -> PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/joindungeon CATACOMBS_FLOOR_ONE"));
 
         new PSSButton()
@@ -214,7 +215,7 @@ public class PartyManagerGui extends WindowScreen {
             .setHeight(new PixelConstraint(35f * scaleFactor))
             .setChildOf(topBarBlock)
             .setText("F2")
-            .setTextScale(new PixelConstraint(scaleFactor))
+            .setTextScale(new TextScaledPixelConstraint(1))
             .onMouseClickConsumer(event -> PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/joindungeon CATACOMBS_FLOOR_TWO"));
 
         new PSSButton()
@@ -224,7 +225,7 @@ public class PartyManagerGui extends WindowScreen {
             .setHeight(new PixelConstraint(35f * scaleFactor))
             .setChildOf(topBarBlock)
             .setText("F3")
-            .setTextScale(new PixelConstraint(scaleFactor))
+            .setTextScale(new TextScaledPixelConstraint(1))
             .onMouseClickConsumer(event -> PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/joindungeon CATACOMBS_FLOOR_THREE"));
 
         new PSSButton()
@@ -234,7 +235,7 @@ public class PartyManagerGui extends WindowScreen {
             .setHeight(new PixelConstraint(35f * scaleFactor))
             .setChildOf(topBarBlock)
             .setText("F4")
-            .setTextScale(new PixelConstraint(scaleFactor))
+            .setTextScale(new TextScaledPixelConstraint(1))
             .onMouseClickConsumer(event -> PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/joindungeon CATACOMBS_FLOOR_FOUR"));
 
         new PSSButton()
@@ -244,7 +245,7 @@ public class PartyManagerGui extends WindowScreen {
             .setHeight(new PixelConstraint(35f * scaleFactor))
             .setChildOf(topBarBlock)
             .setText("F5")
-            .setTextScale(new PixelConstraint(scaleFactor))
+            .setTextScale(new TextScaledPixelConstraint(1))
             .onMouseClickConsumer(event -> PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/joindungeon CATACOMBS_FLOOR_FIVE"));
 
         new PSSButton()
@@ -254,7 +255,7 @@ public class PartyManagerGui extends WindowScreen {
             .setHeight(new PixelConstraint(35f * scaleFactor))
             .setChildOf(topBarBlock)
             .setText("F6")
-            .setTextScale(new PixelConstraint(scaleFactor))
+            .setTextScale(new TextScaledPixelConstraint(1))
             .onMouseClickConsumer(event -> PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/joindungeon CATACOMBS_FLOOR_SIX"));
 
         new PSSButton()
@@ -264,7 +265,7 @@ public class PartyManagerGui extends WindowScreen {
             .setHeight(new PixelConstraint(35f * scaleFactor))
             .setChildOf(topBarBlock)
             .setText("F7")
-            .setTextScale(new PixelConstraint(scaleFactor))
+            .setTextScale(new TextScaledPixelConstraint(1))
             .onMouseClickConsumer(event -> PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/joindungeon CATACOMBS_FLOOR_SEVEN"));
 
 
@@ -275,7 +276,7 @@ public class PartyManagerGui extends WindowScreen {
             .setHeight(new PixelConstraint(35f * scaleFactor))
             .setChildOf(topBarBlock)
             .setText("M1")
-            .setTextScale(new PixelConstraint(scaleFactor))
+            .setTextScale(new TextScaledPixelConstraint(1))
             .onMouseClickConsumer(event -> PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/joindungeon MASTER_CATACOMBS_FLOOR_ONE"));
 
         new PSSButton()
@@ -285,7 +286,7 @@ public class PartyManagerGui extends WindowScreen {
             .setHeight(new PixelConstraint(35f * scaleFactor))
             .setChildOf(topBarBlock)
             .setText("M2")
-            .setTextScale(new PixelConstraint(scaleFactor))
+            .setTextScale(new TextScaledPixelConstraint(1))
             .onMouseClickConsumer(event -> PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/joindungeon MASTER_CATACOMBS_FLOOR_TWO"));
 
         new PSSButton()
@@ -295,7 +296,7 @@ public class PartyManagerGui extends WindowScreen {
             .setHeight(new PixelConstraint(35f * scaleFactor))
             .setChildOf(topBarBlock)
             .setText("M3")
-            .setTextScale(new PixelConstraint(scaleFactor))
+            .setTextScale(new TextScaledPixelConstraint(1))
             .onMouseClickConsumer(event -> PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/joindungeon MASTER_CATACOMBS_FLOOR_THREE"));
 
         new PSSButton()
@@ -305,7 +306,7 @@ public class PartyManagerGui extends WindowScreen {
             .setHeight(new PixelConstraint(35f * scaleFactor))
             .setChildOf(topBarBlock)
             .setText("M4")
-            .setTextScale(new PixelConstraint(scaleFactor))
+            .setTextScale(new TextScaledPixelConstraint(1))
             .onMouseClickConsumer(event -> PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/joindungeon MASTER_CATACOMBS_FLOOR_FOUR"));
 
         new PSSButton()
@@ -315,7 +316,7 @@ public class PartyManagerGui extends WindowScreen {
             .setHeight(new PixelConstraint(35f * scaleFactor))
             .setChildOf(topBarBlock)
             .setText("M5")
-            .setTextScale(new PixelConstraint(scaleFactor))
+            .setTextScale(new TextScaledPixelConstraint(1))
             .onMouseClickConsumer(event -> PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/joindungeon MASTER_CATACOMBS_FLOOR_FIVE"));
 
         new PSSButton()
@@ -325,7 +326,7 @@ public class PartyManagerGui extends WindowScreen {
             .setHeight(new PixelConstraint(35f * scaleFactor))
             .setChildOf(topBarBlock)
             .setText("M6")
-            .setTextScale(new PixelConstraint(scaleFactor))
+            .setTextScale(new TextScaledPixelConstraint(1))
             .onMouseClickConsumer(event -> PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/joindungeon MASTER_CATACOMBS_FLOOR_SIX"));
 
         new PSSButton()
@@ -335,7 +336,7 @@ public class PartyManagerGui extends WindowScreen {
             .setHeight(new PixelConstraint(35f * scaleFactor))
             .setChildOf(topBarBlock)
             .setText("M7")
-            .setTextScale(new PixelConstraint(scaleFactor))
+            .setTextScale(new TextScaledPixelConstraint(1))
             .onMouseClickConsumer(event -> PartlySaneSkies.Companion.getMinecraft().thePlayer.sendChatMessage("/joindungeon MASTER_CATACOMBS_FLOOR_SEVEN"));
     }
 

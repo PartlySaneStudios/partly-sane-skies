@@ -10,7 +10,6 @@ import gg.essential.elementa.ElementaVersion
 import gg.essential.elementa.WindowScreen
 import gg.essential.elementa.components.ScrollComponent
 import gg.essential.elementa.components.UIBlock
-import gg.essential.elementa.components.UIText
 import gg.essential.elementa.components.UIWrappedText
 import gg.essential.elementa.components.input.UITextInput
 import gg.essential.elementa.constraints.CenterConstraint
@@ -282,7 +281,6 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
         val addedNames = mutableSetOf<String>()
 
         SkyblockDataManager.getAllItems()
-            .sorted()
             .asSequence()
             .mapNotNull { id ->
                 SkyblockDataManager.getItem(id)?.takeIf {
@@ -295,6 +293,7 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
                     }
                 }
             }
+            .sortedBy { it.first }
             .filter { (name, _) ->
                 addedNames.add(name)
             }

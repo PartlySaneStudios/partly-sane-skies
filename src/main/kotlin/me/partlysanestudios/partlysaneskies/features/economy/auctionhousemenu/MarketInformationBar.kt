@@ -19,6 +19,7 @@ import gg.essential.elementa.dsl.constrain
 import gg.essential.elementa.dsl.constraint
 import gg.essential.elementa.dsl.pixels
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
+import me.partlysanestudios.partlysaneskies.render.gui.constraints.TextScaledPixelConstraint.Companion.textScaledPixels
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.round
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.formatNumber
 import java.awt.Color
@@ -54,7 +55,7 @@ class MarketInformationBar(
         y = 10.pixels
         height = heightConstraint
         width = widthConstraint
-        textScale = (1.5f * textScaleFactor).pixels
+        textScale = (1.5f * textScaleFactor).textScaledPixels
     } childOf backgroundImage
 
     private val description: UIWrappedText = UIWrappedText(centered = true) constrain {
@@ -62,7 +63,7 @@ class MarketInformationBar(
         y = 40.pixels
         height = heightConstraint
         width = widthConstraint
-        textScale = (1.0f * textScaleFactor).pixels
+        textScale = (1.0f * textScaleFactor).textScaledPixels
     } childOf backgroundImage
 
     init {
