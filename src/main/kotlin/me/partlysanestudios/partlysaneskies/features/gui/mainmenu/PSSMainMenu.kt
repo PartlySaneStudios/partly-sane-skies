@@ -79,7 +79,6 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
             }
             if (Loader.isModLoaded("skyclientcosmetics") && coreConfig.find("promptedMainMenu")?.asBoolean != true) {
                 event.setCanceled(true)
-                coreConfig.find("promptedMainMenu")?.asToggle?.state = true
                 minecraft.displayGuiScreen(MainMenuOptionMenu { minecraft.displayGuiScreen(GuiMainMenu()) })
                 minecraft.soundHandler.playSound(PositionedSoundRecord.create(ResourceLocation("partlysaneskies", "bell")))
             } else if (config.customMainMenu) {

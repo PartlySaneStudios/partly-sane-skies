@@ -20,6 +20,8 @@ import gg.essential.elementa.dsl.plus
 import gg.essential.universal.UMatrixStack
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.coreConfig
+import me.partlysanestudios.partlysaneskies.config.psconfig.Toggle.Companion.asToggle
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
 import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
 import me.partlysanestudios.partlysaneskies.render.gui.constraints.TextScaledPixelConstraint.Companion.textScaledPixels
@@ -97,6 +99,7 @@ class MainMenuOptionMenu(nextRunnable: Runnable) : WindowScreen(ElementaVersion.
             color = Color(90, 150, 100, 90).constraint
         }.onMouseClickConsumer {
             config.customMainMenu = true
+            coreConfig.find("promptedMainMenu")?.asToggle?.state = true
             nextRunnable.run()
         }.onMouseEnter {
             for (child in this.children) {
@@ -134,6 +137,7 @@ class MainMenuOptionMenu(nextRunnable: Runnable) : WindowScreen(ElementaVersion.
             color = Color(75, 37, 45, 90).constraint
         }.onMouseClickConsumer {
             config.customMainMenu = false
+            coreConfig.find("promptedMainMenu")?.asToggle?.state = true
             nextRunnable.run()
         }.onMouseEnter {
             for (child in this.children) {
