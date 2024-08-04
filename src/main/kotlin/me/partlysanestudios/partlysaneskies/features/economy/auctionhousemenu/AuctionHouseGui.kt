@@ -17,7 +17,6 @@ import gg.essential.elementa.dsl.pixels
 import gg.essential.universal.UMatrixStack
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
-import me.partlysanestudios.partlysaneskies.utils.ChatUtils
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.containerInventory
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import net.minecraft.client.gui.inventory.GuiChest
@@ -200,34 +199,20 @@ class AuctionHouseGui(defaultAuctionInventory: IInventory) : WindowScreen(Elemen
         }
 
         fun isAhGui(inventory: IInventory): Boolean = inventory.displayName.formattedText
+            .removeColorCodes()
+            .contains("Auctions Browser") ||
+            inventory.displayName.formattedText
                 .removeColorCodes()
-                .contains("Auctions Browser") ||
-                inventory.displayName.formattedText
-                    .removeColorCodes()
-                    .contains("Auctions: \"")
+                .contains("Auctions: \"")
 
-        private fun openMenu(): AuctionHouseGui? {
-            var attempts = 0
-            val maxAttempts = 5
-
-            while (attempts < maxAttempts) {
-                val gui = PartlySaneSkies.minecraft.currentScreen
-                if (gui is GuiChest) {
-                    val inventory = gui.containerInventory
-                    if (isAuctionHouseFullyLoaded(inventory)) {
-                        return AuctionHouseGui(inventory)
-                    }
-                }
-                attempts++
-                try {
-                    Thread.sleep(100)
-                } catch (e: InterruptedException) {
-                    e.printStackTrace()
+        private fun openMenu() {
+            val gui = PartlySaneSkies.minecraft.currentScreen
+            if (gui is GuiChest) {
+                val inventory = gui.containerInventory
+                if (isAuctionHouseFullyLoaded(inventory)) {
+                    AuctionHouseGui(inventory)
                 }
             }
-
-            ChatUtils.sendClientMessage("§cUnable to open Auction House menu after $maxAttempts attempts")
-            return null
         }
 
 
