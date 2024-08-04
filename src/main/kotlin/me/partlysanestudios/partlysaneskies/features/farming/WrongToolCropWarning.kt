@@ -11,6 +11,7 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.time
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager
+import me.partlysanestudios.partlysaneskies.data.skyblockdata.IslandType
 import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.data.LoadPublicDataEvent
 import me.partlysanestudios.partlysaneskies.events.minecraft.player.PlayerBreakBlockEvent
@@ -29,14 +30,12 @@ object WrongToolCropWarning {
 
     @SubscribePSSEvent
     fun onBlockBreak(event: PlayerBreakBlockEvent) {
-        if (!config.wrongToolForCropEnabled) {
-            return
-        }
-        if (onCooldown(lastWarnTime, (config.wrongToolForCropCooldown * 1000).toLong())) {
-            return
-        }
+        if (!config.wrongToolForCropEnabled) return
+        if (onCooldown(lastWarnTime, (config.wrongToolForCropCooldown * 1000).toLong())) return
+        if (IslandType.CATACOMBS.onIsland()) return
+
         val block = minecraft.theWorld.getBlockState(event.point.toBlockPos())?.block
-        val unlocalizedName = block?.unlocalizedName ?: ""
+        val unlocalizedName = block?.unlocalizedName ?: return
 
         val crop = getCrop(unlocalizedName) ?: return
 
