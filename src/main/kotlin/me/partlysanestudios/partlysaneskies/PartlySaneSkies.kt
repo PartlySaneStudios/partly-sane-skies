@@ -499,7 +499,7 @@ class PartlySaneSkies {
                     .chatGUI
                     .printChatMessage(skyclientMessage)
                 val githubMessage =
-                    ChatComponentText("§9If you are not using SkyClient, click here go to the github and download the latest version.")
+                    ChatComponentText("§9If you are not using SkyClient, click here go to the GitHub and download the latest version.")
                 githubMessage.chatStyle.setChatClickEvent(
                     ClickEvent(
                         ClickEvent.Action.OPEN_URL,
