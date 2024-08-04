@@ -103,7 +103,6 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
                         try {
                             val factInfo = JsonParser().parse(request.getResponse()).getAsJsonObject()
                             val fact = factInfo["funFact"].asString
-                            log("Response: $factInfo")
                             log("Fun Fact: $fact")
 
                             cachedFunFact = FunFact("Fact of the Day", fact)
