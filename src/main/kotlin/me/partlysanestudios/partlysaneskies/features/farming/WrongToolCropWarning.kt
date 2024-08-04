@@ -11,6 +11,7 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.time
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager
+import me.partlysanestudios.partlysaneskies.data.skyblockdata.IslandType
 import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.data.LoadPublicDataEvent
 import me.partlysanestudios.partlysaneskies.events.minecraft.player.PlayerBreakBlockEvent
@@ -29,14 +30,12 @@ object WrongToolCropWarning {
 
     @SubscribePSSEvent
     fun onBlockBreak(event: PlayerBreakBlockEvent) {
-        if (!config.wrongToolForCropEnabled) {
-            return
-        }
-        if (onCooldown(lastWarnTime, (config.wrongToolForCropCooldown * 1000).toLong())) {
-            return
-        }
+        if (!config.wrongToolForCropEnabled) return
+        if (onCooldown(lastWarnTime, (config.wrongToolForCropCooldown * 1000).toLong())) return
+        if (IslandType.CATACOMBS.onIsland()) return
+
         val block = minecraft.theWorld.getBlockState(event.point.toBlockPos())?.block
-        val unlocalizedName = block?.unlocalizedName ?: ""
+        val unlocalizedName = block?.unlocalizedName ?: return
 
         val crop = getCrop(unlocalizedName) ?: return
 
@@ -76,16 +75,15 @@ object WrongToolCropWarning {
         }
     }
 
-    private fun getCrop(unlocalizedName: String): CropToolData.Crop? {
-        return if (!CropToolData.jsonObject.has(unlocalizedName)) {
+    private fun getCrop(unlocalizedName: String): CropToolData.Crop? =
+        if (!CropToolData.jsonObject.has(unlocalizedName)) {
             null
         } else {
             CropToolData.serializeCrop(
                 unlocalizedName,
-                CropToolData.jsonObject[unlocalizedName]?.asJsonObject ?: JsonObject()
+                CropToolData.jsonObject[unlocalizedName]?.asJsonObject ?: JsonObject(),
             )
         }
-    }
 
     private fun getAllCrops(): List<CropToolData.Crop> {
         val list = ArrayList<CropToolData.Crop>()
@@ -107,23 +105,21 @@ object WrongToolCropWarning {
                 JsonParser().parse(PublicDataManager.getFile("constants/crop_tools.json")).asJsonObject ?: JsonObject()
         }
 
-        fun serializeCrop(cropUnlocalizedName: String, cropObject: JsonObject): Crop {
-            return Crop(
+        fun serializeCrop(cropUnlocalizedName: String, cropObject: JsonObject): Crop =
+            Crop(
                 unlocalizedName = cropUnlocalizedName,
                 mathematicalHoeIds = cropObject["math"]?.asJsonArray?.map { it.asString } ?: ArrayList(),
                 otherSkyblockHoes = cropObject["other_skyblock"]?.asJsonArray?.map { it.asString } ?: ArrayList(),
                 otherMinecraftHoes = cropObject["other_minecraft"]?.asJsonArray?.map { it.asString } ?: ArrayList(),
-                requireReplenish = cropObject["require_replenish"]?.asBoolean ?: false
+                requireReplenish = cropObject["require_replenish"]?.asBoolean ?: false,
             )
-        }
 
         internal class Crop(
             val unlocalizedName: String,
             val mathematicalHoeIds: List<String>,
             val otherSkyblockHoes: List<String>,
             val otherMinecraftHoes: List<String>,
-            val requireReplenish: Boolean
-
+            val requireReplenish: Boolean,
         )
     }
 }

@@ -16,27 +16,32 @@ import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Range3d
 import net.minecraft.client.renderer.WorldRenderer
 
 object RenderEuclid {
-
     /**
      * @param baseCenter The center of the base of the cylinder
      * @param height The height of the cylinder
      * @param radius The radius of the cylinder
      * @param numOfSides Because this is minecraft, the cylinder is an approximation using a regular polygons. Because of this, the function should really be called "drawRegularPolygonalPrism"
      */
-    fun WorldRenderer.drawCylinderFill(baseCenter: Point3d, radius: Double, height: Double, numOfSides: Int = 48) {
+    fun WorldRenderer.drawCylinderFill(
+        baseCenter: Point3d,
+        radius: Double,
+        height: Double,
+        numOfSides: Int = 48,
+    ) {
         val pointPairs: ArrayList<Range3d> = ArrayList()
 
-
-        var lastX = calculatePoint(
-            radius,
-            numOfSides,
-            0
-        ).x + baseCenter.x // Set the first x = (cos(angle) * r = 0) + the center of the circle
-        var lastZ = calculatePoint(
-            radius,
-            numOfSides,
-            0
-        ).y + baseCenter.z // Set the first z = (sin(angle) * r = r) + the center of the circle
+        var lastX =
+            calculatePoint(
+                radius,
+                numOfSides,
+                0,
+            ).x + baseCenter.x // Set the first x = (cos(angle) * r = 0) + the center of the circle
+        var lastZ =
+            calculatePoint(
+                radius,
+                numOfSides,
+                0,
+            ).y + baseCenter.z // Set the first z = (sin(angle) * r = r) + the center of the circle
         val firstX = lastX
         val firstZ = lastZ
         // Go around the circle, connecting the previous side to the next side
@@ -66,21 +71,27 @@ object RenderEuclid {
      * @param radius The radius of the cylinder
      * @param numOfSides Because this is minecraft, the cylinder is an approximation using a regular polygons. Because of this, the function should really be called "drawRegularPolygonalPrism"
      */
-    fun WorldRenderer.drawCylinderOutline(baseCenter: Point3d, radius: Double, height: Double, numOfSides: Int = 48) {
+    fun WorldRenderer.drawCylinderOutline(
+        baseCenter: Point3d,
+        radius: Double,
+        height: Double,
+        numOfSides: Int = 48,
+    ) {
         val bottomPointPairs: ArrayList<Range3d> = ArrayList()
         val topPointPairs: ArrayList<Range3d> = ArrayList()
 
-
-        var lastX = calculatePoint(
-            radius,
-            numOfSides,
-            0
-        ).x + baseCenter.x // Set the first x = (cos(angle) * r = 0) + the center of the circle
-        var lastZ = calculatePoint(
-            radius,
-            numOfSides,
-            0
-        ).y + baseCenter.z // Set the first z = (sin(angle) * r = r) + the center of the circle
+        var lastX =
+            calculatePoint(
+                radius,
+                numOfSides,
+                0,
+            ).x + baseCenter.x // Set the first x = (cos(angle) * r = 0) + the center of the circle
+        var lastZ =
+            calculatePoint(
+                radius,
+                numOfSides,
+                0,
+            ).y + baseCenter.z // Set the first z = (sin(angle) * r = r) + the center of the circle
         val firstX = lastX
         val firstZ = lastZ
         // Go around the circle, connecting the previous side to the next side
@@ -105,8 +116,8 @@ object RenderEuclid {
         topPointPairs.add(
             Range3d(
                 Point3d(lastX, baseCenter.y + height, lastZ),
-                Point3d(firstX, baseCenter.y + height, firstZ)
-            )
+                Point3d(firstX, baseCenter.y + height, firstZ),
+            ),
         )
 
         // Draw the sides
@@ -122,11 +133,14 @@ object RenderEuclid {
         }
     }
 
-    private fun calculatePoint(radius: Double, numOfSides: Int, currentSide: Int): Point2d {
+    private fun calculatePoint(
+        radius: Double,
+        numOfSides: Int,
+        currentSide: Int,
+    ): Point2d {
         val angle = ((360 / numOfSides) * currentSide).toAngleFromDegrees()
         val x = cos(angle) * radius
         val y = sin(angle) * radius
         return Point2d(x, y)
     }
-
 }

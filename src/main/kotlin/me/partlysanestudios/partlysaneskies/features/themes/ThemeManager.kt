@@ -32,20 +32,21 @@ object ThemeManager {
     private val backgroundUIImages: ArrayList<UIImage> = ArrayList()
     private val buttonDataList: ArrayList<ButtonData> = ArrayList()
     private val toggleDataList: ArrayList<ToggleData> = ArrayList()
-    private val defaultThemes: Array<Theme> = arrayOf(
-        Theme("Classic (Dark)", Color(46, 47, 50), Color(37, 38, 41), Color(1, 255, 255)),
-        Theme("Royal Dark (Dark)", Color(46, 47, 50), Color(39, 31, 43), Color(91, 192, 235)),
-        Theme("Midnight Forest (Dark)", Color(46, 47, 50), Color(40, 50, 38), Color(35, 206, 107)),
-        Theme("Moonless Night (Very Dark)", Color(24, 24, 27), Color(15, 17, 20), Color(8, 124, 167)),
-        Theme("Stormy Night (Very Dark)", Color(23, 23, 34), Color(5, 5, 27), Color(94, 74, 227)),
-        Theme("The Void (Very Dark)", Color(14, 17, 21), Color(5, 5, 12), Color(113, 179, 64)),
-        Theme("Classic (Light)", Color(245, 245, 245), Color(213, 210, 195), Color(42, 84, 209)),
-        Theme("Royal Light (Light)", Color(245, 245, 245), Color(127, 106, 147), Color(242, 97, 87)),
-        Theme("Partly Cloudy (Light)", Color(245, 245, 245), Color(84, 95, 117), Color(217, 114, 255)),
-        Theme("Waterfall (Colorful)", Color(214, 237, 246), Color(172, 215, 236), Color(108, 197, 81)),
-        Theme("Jungle (Colorful)", Color(201, 227, 172), Color(144, 190, 109), Color(254, 100, 163)),
-        Theme("Dunes (Colorful)", Color(229, 177, 129), Color(222, 107, 72), Color(131, 34, 50))
-    )
+    private val defaultThemes: Array<Theme> =
+        arrayOf(
+            Theme("Classic (Dark)", Color(46, 47, 50), Color(37, 38, 41), Color(1, 255, 255)),
+            Theme("Royal Dark (Dark)", Color(46, 47, 50), Color(39, 31, 43), Color(91, 192, 235)),
+            Theme("Midnight Forest (Dark)", Color(46, 47, 50), Color(40, 50, 38), Color(35, 206, 107)),
+            Theme("Moonless Night (Very Dark)", Color(24, 24, 27), Color(15, 17, 20), Color(8, 124, 167)),
+            Theme("Stormy Night (Very Dark)", Color(23, 23, 34), Color(5, 5, 27), Color(94, 74, 227)),
+            Theme("The Void (Very Dark)", Color(14, 17, 21), Color(5, 5, 12), Color(113, 179, 64)),
+            Theme("Classic (Light)", Color(245, 245, 245), Color(213, 210, 195), Color(42, 84, 209)),
+            Theme("Royal Light (Light)", Color(245, 245, 245), Color(127, 106, 147), Color(242, 97, 87)),
+            Theme("Partly Cloudy (Light)", Color(245, 245, 245), Color(84, 95, 117), Color(217, 114, 255)),
+            Theme("Waterfall (Colorful)", Color(214, 237, 246), Color(172, 215, 236), Color(108, 197, 81)),
+            Theme("Jungle (Colorful)", Color(201, 227, 172), Color(144, 190, 109), Color(254, 100, 163)),
+            Theme("Dunes (Colorful)", Color(229, 177, 129), Color(222, 107, 72), Color(131, 34, 50)),
+        )
 
     fun tick() {
         if (!config.useCustomAccentColor) {
@@ -87,13 +88,16 @@ object ThemeManager {
 
     val currentBackgroundUIImage: UIImage
         get() {
-            val image: UIImage = if (config.disableThemes) { ResourceLocation("partlysaneskies", "textures/gui/base_color_background.png").uiImage
-            } else {
-                try {
-                    UIImage.ofFile(currentBackgroundFile)
-                } catch (e: IOException) { ResourceLocation("partlysaneskies", "textures/gui/base_color_background.png").uiImage
+            val image: UIImage =
+                if (config.disableThemes) {
+                    ResourceLocation("partlysaneskies", "textures/gui/base_color_background.png").uiImage
+                } else {
+                    try {
+                        UIImage.ofFile(currentBackgroundFile)
+                    } catch (e: IOException) {
+                        ResourceLocation("partlysaneskies", "textures/gui/base_color_background.png").uiImage
+                    }
                 }
-            }
             backgroundUIImages.add(image)
             return image
         }
@@ -103,47 +107,54 @@ object ThemeManager {
     fun getCurrentButtonUIImage(accentColor: OneColor): UIImage {
         val image: UIImage
         if (config.disableThemes) {
-            image = if ((accentColor == ThemeManager.accentColor)) {
-                ResourceLocation("partlysaneskies", "textures/gui/base_color_button.png").uiImage
-            } else {
-                ResourceLocation("partlysaneskies", "textures/gui/base_color_button_transparent.png").uiImage
-            }
-        } else {
-            image = try {
-                UIImage.ofFile(getCurrentButtonFile(accentColor))
-            } catch (e: IOException) {
-                if ((accentColor == ThemeManager.accentColor)) { ResourceLocation("partlysaneskies", "textures/gui/base_color_button.png").uiImage
-                } else { ResourceLocation("partlysaneskies", "textures/gui/base_color_button_transparent.png").uiImage
+            image =
+                if ((accentColor == ThemeManager.accentColor)) {
+                    ResourceLocation("partlysaneskies", "textures/gui/base_color_button.png").uiImage
+                } else {
+                    ResourceLocation("partlysaneskies", "textures/gui/base_color_button_transparent.png").uiImage
                 }
-            }
+        } else {
+            image =
+                try {
+                    UIImage.ofFile(getCurrentButtonFile(accentColor))
+                } catch (e: IOException) {
+                    if ((accentColor == ThemeManager.accentColor)) {
+                        ResourceLocation("partlysaneskies", "textures/gui/base_color_button.png").uiImage
+                    } else {
+                        ResourceLocation("partlysaneskies", "textures/gui/base_color_button_transparent.png").uiImage
+                    }
+                }
         }
 
         buttonDataList.add(ButtonData(image, accentColor))
         return image
     }
 
-    fun getCurrentToggleUIImage(selected: Boolean): UIImage {
-        return getCurrentToggleUIImage(selected, accentColor)
-    }
+    fun getCurrentToggleUIImage(selected: Boolean): UIImage = getCurrentToggleUIImage(selected, accentColor)
 
-    fun getCurrentToggleUIImage(selected: Boolean, accentColor: OneColor): UIImage {
+    fun getCurrentToggleUIImage(
+        selected: Boolean,
+        accentColor: OneColor,
+    ): UIImage {
         var image: UIImage
         if (config.disableThemes) {
-            image = if (selected) {
-                ResourceLocation("partlysaneskies", "textures/gui/selected_toggle.png").uiImage
-            } else {
-                ResourceLocation("partlysaneskies", "textures/gui/unselected_toggle.png").uiImage
-            }
+            image =
+                if (selected) {
+                    ResourceLocation("partlysaneskies", "textures/gui/selected_toggle.png").uiImage
+                } else {
+                    ResourceLocation("partlysaneskies", "textures/gui/unselected_toggle.png").uiImage
+                }
         }
-        image = try {
-            UIImage.ofFile(getCurrentToggleFile(selected, accentColor))
-        } catch (e: IOException) {
-            if (selected) {
-                ResourceLocation("partlysaneskies", "textures/gui/selected_toggle.png").uiImage
-            } else {
-                ResourceLocation("partlysaneskies", "textures/gui/unselected_toggle.png").uiImage
+        image =
+            try {
+                UIImage.ofFile(getCurrentToggleFile(selected, accentColor))
+            } catch (e: IOException) {
+                if (selected) {
+                    ResourceLocation("partlysaneskies", "textures/gui/selected_toggle.png").uiImage
+                } else {
+                    ResourceLocation("partlysaneskies", "textures/gui/unselected_toggle.png").uiImage
+                }
             }
-        }
 
         toggleDataList.add(ToggleData(image, selected, accentColor))
         return image
@@ -153,92 +164,59 @@ object ThemeManager {
         get() = getBackgroundWithColor(primaryColor, secondaryColor, accentColor)
 
     val currentButtonFile: File
-        get() {
-            return getCurrentButtonFile(accentColor)
-        }
+        get()= getCurrentButtonFile(accentColor)
 
-    fun getCurrentButtonFile(accentColor: OneColor): File {
-        return getButtonWithColor(primaryColor, secondaryColor, accentColor)
-    }
+    fun getCurrentButtonFile(accentColor: OneColor): File = getButtonWithColor(primaryColor, secondaryColor, accentColor)
 
-    fun getCurrentToggleFile(selected: Boolean): File {
-        return getCurrentToggleFile(selected, accentColor)
-    }
+    fun getCurrentToggleFile(selected: Boolean): File = getCurrentToggleFile(selected, accentColor)
 
-    fun getCurrentToggleFile(selected: Boolean, accentColor: OneColor): File {
-        return if (selected) {
+    fun getCurrentToggleFile(
+        selected: Boolean,
+        accentColor: OneColor,
+    ): File =
+        if (selected) {
             getToggleWithColor(primaryColor, secondaryColor, accentColor)
         } else {
             getToggleWithColor(primaryColor, secondaryColor, secondaryColor)
         }
-    }
 
     val primaryColor: OneColor
-        get() {
-            return if (!config.customTheme) {
-                val themeIndex: Int = config.themeIndex
-                OneColor(defaultThemes[themeIndex].primaryColor)
-            } else {
-                config.primaryColor
-            }
-        }
-    val darkPrimaryColor: OneColor
-        get() {
-            return OneColor(darkenColor(primaryColor))
-        }
-    val lightPrimaryColor: OneColor
-        get() {
-            return OneColor(lightenColor(primaryColor))
-        }
-    val secondaryColor: OneColor
-        get() {
-            return if (!config.customTheme) {
-                val themeIndex: Int = config.themeIndex
-                OneColor(defaultThemes[themeIndex].secondaryColor)
-            } else {
-                config.secondaryColor
-            }
-        }
-    val darkSecondaryColor: OneColor
-        get() {
-            return OneColor(darkenColor(secondaryColor))
-        }
-    val lightSecondaryColor: OneColor
-        get() {
-            return OneColor(lightenColor(secondaryColor))
-        }
-    val accentColor: OneColor
-        get() {
-            return if (!config.useCustomAccentColor) {
-                val themeIndex: Int = config.themeIndex
-                OneColor(defaultThemes[themeIndex].defaultAccentColor)
-            } else {
-                config.accentColor
-            }
-        }
-    val darkAccentColor: Color
-        get() {
-            return darkenColor(accentColor)
-        }
-    val lightAccentColor: Color
-        get() {
-            return lightenColor(accentColor)
-        }
+        get() = if (!config.customTheme) OneColor(defaultThemes[config.themeIndex].primaryColor) else config.primaryColor
 
-    private fun darkenColor(color: OneColor): Color {
-        return darkenColor(color.toJavaColor())
-    }
+    val darkPrimaryColor: OneColor
+        get() = OneColor(darkenColor(primaryColor))
+
+    val lightPrimaryColor: OneColor
+        get() = OneColor(lightenColor(primaryColor))
+
+    val secondaryColor: OneColor
+        get() = if (!config.customTheme) OneColor(defaultThemes[config.themeIndex].secondaryColor) else config.secondaryColor
+
+    val darkSecondaryColor: OneColor
+        get() = OneColor(darkenColor(secondaryColor))
+
+    val lightSecondaryColor: OneColor
+        get() = OneColor(lightenColor(secondaryColor))
+
+    val accentColor: OneColor
+        get() = if (!config.useCustomAccentColor) OneColor(defaultThemes[config.themeIndex].defaultAccentColor) else config.accentColor
+
+    val darkAccentColor: Color
+        get() = darkenColor(accentColor)
+
+    val lightAccentColor: Color
+        get() = lightenColor(accentColor)
+
+    private fun darkenColor(color: OneColor): Color = darkenColor(color.toJavaColor())
 
     private fun darkenColor(color: Color): Color {
         val averageR: Int = (color.red * .761).toInt()
         val averageG: Int = (color.green * .761).toInt()
         val averageB: Int = (color.blue * .761).toInt()
-        return Color(averageR, averageG, averageB, color.getTransparency())
+        return Color(averageR, averageG, averageB, color.alpha)
     }
 
-    private fun lightenColor(color: OneColor): Color {
-        return lightenColor(color.toJavaColor())
-    }
+    private fun lightenColor(color: OneColor): Color = lightenColor(color.toJavaColor())
 
     private fun lightenColor(color: Color): Color {
         val averageR: Int = (color.red * .798 + 255 * .202).toInt()
@@ -293,10 +271,7 @@ object ThemeManager {
         filePath.toFile().createNewFile()
         replaceColor(debugImage, PRIMARY_DEBUG_COLOR, primaryColor)
         replaceColor(debugImage, SECONDARY_DEBUG_COLOR, secondaryColor)
-        replaceColor(
-            debugImage, ACCENT_DEBUG_COLOR,
-            (accentColor)
-        )
+        replaceColor(debugImage, ACCENT_DEBUG_COLOR, accentColor)
         saveImage(debugImage, filePath)
         return filePath.toFile()
     }
@@ -320,10 +295,7 @@ object ThemeManager {
         filePath.toFile().createNewFile()
         replaceColor(debugImage, PRIMARY_DEBUG_COLOR, primaryColor)
         replaceColor(debugImage, SECONDARY_DEBUG_COLOR, secondaryColor)
-        replaceColor(
-            debugImage, ACCENT_DEBUG_COLOR,
-            (accentColor)
-        )
+        replaceColor(debugImage, ACCENT_DEBUG_COLOR, accentColor)
         saveImage(debugImage, filePath)
         return filePath.toFile()
     }
@@ -332,8 +304,12 @@ object ThemeManager {
 
     class ToggleData(val image: UIImage, selected: Boolean, val color: OneColor) {
         val isSelected: Boolean = selected
-
     }
 
-    class Theme(val name: String, val primaryColor: Color, val secondaryColor: Color, val defaultAccentColor: Color)
+    class Theme(
+        val name: String,
+        val primaryColor: Color,
+        val secondaryColor: Color,
+        val defaultAccentColor: Color,
+    )
 }

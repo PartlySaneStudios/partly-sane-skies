@@ -3,14 +3,12 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.features.chat
 
 import cc.polyfrost.oneconfig.events.event.ChatSendEvent
 import cc.polyfrost.oneconfig.libs.eventbus.Subscribe
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
-
 
 // Currently only using to owoify send chat messages (meow)
 object ChatTransformer {
@@ -57,7 +55,5 @@ object ChatTransformer {
         }.start()
     }
 
-    private fun doChatTransform(): Boolean {
-        return config.transformOWO
-    }
+    private fun doChatTransform(): Boolean = config.transformOWO
 }

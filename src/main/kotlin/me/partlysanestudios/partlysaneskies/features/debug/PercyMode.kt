@@ -3,10 +3,14 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.features.debug
 
-import com.google.gson.*
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import com.google.gson.JsonArray
+import com.google.gson.JsonElement
+import com.google.gson.JsonObject
+import com.google.gson.JsonPrimitive
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
@@ -46,7 +50,10 @@ object PercyMode {
         }
 
         jsonObject.add("inventories", screenObj)
-        jsonObject.add("class", Gson().toJsonTree(PartlySaneSkies.minecraft.currentScreen?.javaClass?.name ?: ""))
+        jsonObject.add(
+            "class",
+            Gson().toJsonTree(PartlySaneSkies.minecraft.currentScreen?.javaClass?.name ?: ""),
+        )
 
         return jsonObject
     }
@@ -117,7 +124,6 @@ object PercyMode {
         return fullObject
     }
 
-
     private fun dumpToFile(jsonObject: JsonObject) {
         // Format the Instant to a human-readable date and time
         // Convert epoch time to LocalDateTime
@@ -129,7 +135,7 @@ object PercyMode {
 
         File("./config/partly-sane-skies/dumps/").mkdirs()
         // Declares the file
-        val file = File("./config/partly-sane-skies/dumps/percy-dump-${formattedDate}.json")
+        val file = File("./config/partly-sane-skies/dumps/percy-dump-$formattedDate.json")
         file.createNewFile()
         file.setWritable(true)
         // Creates a new Gson object to save the data
@@ -143,7 +149,6 @@ object PercyMode {
     private fun dumpToClipboard(jsonObject: JsonObject) {
         SystemUtils.copyStringToClipboard(Gson().toJson(jsonObject))
     }
-
 
     fun dump() {
         dumpToFile(getFullDump())

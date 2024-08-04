@@ -22,17 +22,17 @@ enum class IslandType(val islandName: String) {
     DEEP_CAVERNS("Deep Caverns"),
     DWARVEN_MINES("Dwarven Mines"),
     CRYSTAL_HOLLOWS("Crystal Hollows"),
+    MINESHAFT("Mineshaft"),
     FARMING_ISLAND("The Farming Islands"),
-    WINTER_ISLAND("Jerry's Workshop"), // value by sh, unconfirmed
+    WINTER_ISLAND("Jerry's Workshop"),
     RIFT("The Rift"),
     CATACOMBS("Catacombs"),
     KUUDRA("Kuudra"),
 
-    NONE("");
+    NONE(""),
+    ;
 
-    fun onIsland(): Boolean {
-        return this == IslandType.getCurrentIsland()
-    }
+    fun onIsland() = this == IslandType.getCurrentIsland()
 
     companion object {
         /**
@@ -42,10 +42,12 @@ enum class IslandType(val islandName: String) {
         fun getCurrentIsland(): IslandType {
             for (line in MinecraftUtils.getTabList()) {
                 if (line.removeColorCodes().startsWith("Area: ") || line.removeColorCodes().startsWith("Dungeon: ")) {
-                    val islandName = line.removeColorCodes().replace("Area: ", "").replace("Dungeon: ", "").trim()
+                    val islandName = line.removeColorCodes()
+                        .replace("Area: ", "")
+                        .replace("Dungeon: ", "")
+                        .trim()
 
-                    return IslandType.entries.firstOrNull { it.islandName.equals(islandName, ignoreCase = true) }
-                        ?: NONE
+                    return IslandType.entries.firstOrNull { it.islandName.equals(islandName, ignoreCase = true) } ?: NONE
                 }
             }
 

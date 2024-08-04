@@ -3,7 +3,6 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.features.mining.crystalhollows.gemstonewaypoints
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
@@ -17,7 +16,6 @@ import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Point3d
 import java.awt.Color
 
 object GemstoneWaypointRender {
-
     @SubscribePSSEvent
     fun onWaypointRenderEvent(event: RenderWaypointEvent) {
         if (!config.renderGemstoneWaypoints) {
@@ -70,24 +68,25 @@ object GemstoneWaypointRender {
                         val brightness = config.gemstoneBrightness
                         val originalColor = gemstone.type.color
 
-                        val darkerColor = Color(
-                            (originalColor.red * brightness).toInt(),
-                            (originalColor.green * brightness).toInt(),
-                            (originalColor.blue * brightness).toInt()
-                        )
+                        val darkerColor =
+                            Color(
+                                (originalColor.red * brightness).toInt(),
+                                (originalColor.green * brightness).toInt(),
+                                (originalColor.blue * brightness).toInt(),
+                            )
 
-                        val waypoint = Waypoint(
-                            "${gemstone.type.displayName} Gemstone | Size: ${gemstone.size}",
-                            gemstone.block.toBlockPos(),
-                            outlineColor = darkerColor.applyOpacity(255),
-                            fillColor = darkerColor.applyOpacity(100),
-                            showBeam = config.showGemstoneBeam
-                        )
+                        val waypoint =
+                            Waypoint(
+                                "${gemstone.type.displayName} Gemstone | Size: ${gemstone.size}",
+                                gemstone.block.toBlockPos(),
+                                outlineColor = darkerColor.applyOpacity(255),
+                                fillColor = darkerColor.applyOpacity(100),
+                                showBeam = config.showGemstoneBeam,
+                            )
                         event.pipeline.add(waypoint)
                     }
                 }
             }
         }
-
     }
 }

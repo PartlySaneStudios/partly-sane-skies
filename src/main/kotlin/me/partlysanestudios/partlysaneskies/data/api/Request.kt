@@ -3,19 +3,10 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.data.api
 
-import me.partlysanestudios.partlysaneskies.PartlySaneSkies
-import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
-import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
-import org.apache.logging.log4j.Level
-import java.io.BufferedReader
 import java.io.IOException
-import java.io.InputStreamReader
-import java.net.HttpURLConnection
 import java.net.URL
-import java.security.cert.X509Certificate
 import javax.net.ssl.*
 
 /**
@@ -31,7 +22,7 @@ abstract class Request(
     internal val function: RequestRunnable?,
     internal val inMainThread: Boolean = false,
     internal val executeOnNextFrame: Boolean = false,
-    internal val acceptAllCertificates: Boolean = false
+    internal val acceptAllCertificates: Boolean = false,
 ) {
     //    Constructor with string url and certificate option
     constructor(
@@ -39,7 +30,7 @@ abstract class Request(
         function: RequestRunnable?,
         inMainThread: Boolean = false,
         executeOnNextFrame: Boolean = false,
-        acceptAllCertificates: Boolean = false
+        acceptAllCertificates: Boolean = false,
     ) : this(URL(url), function, inMainThread, executeOnNextFrame, acceptAllCertificates)
 
     //    Constructor without certificate option
@@ -47,7 +38,7 @@ abstract class Request(
         url: URL,
         function: RequestRunnable?,
         inMainThread: Boolean = false,
-        executeOnNextFrame: Boolean = false
+        executeOnNextFrame: Boolean = false,
     ) : this(url, function, inMainThread, executeOnNextFrame, false)
 
     //    Constructor without certificates option
@@ -55,7 +46,7 @@ abstract class Request(
         url: String,
         function: RequestRunnable?,
         inMainThread: Boolean = false,
-        executeOnNextFrame: Boolean = false
+        executeOnNextFrame: Boolean = false,
     ) : this(URL(url), function, inMainThread, executeOnNextFrame, false)
 
     // A string that contains the response message (not body)
@@ -74,7 +65,6 @@ abstract class Request(
     // A list that contains all the HTTP codes where the request should rerun
     internal var tryAgainOnCodes = ArrayList<Int>()
 
-
     /**
      * Flags the request as failed
      *
@@ -82,7 +72,6 @@ abstract class Request(
      */
     fun setFailed(reason: String = "") {
         if (reason != "") {
-
             this.responseMessage = reason
         }
         this.hasFailed = true
@@ -91,12 +80,12 @@ abstract class Request(
     /**
      * @return if the request has failed
      */
-    fun hasSucceeded(): Boolean {
-        return if (responseCode !in 200..299) {
+    fun hasSucceeded(): Boolean =
+        if (responseCode !in 200..299) {
             false
-        } else !hasFailed
-    }
-
+        } else {
+            !hasFailed
+        }
 
     /**
      * Sends the get request
@@ -107,16 +96,12 @@ abstract class Request(
     /**
      * @return the request runnable
      */
-    fun getWhatToRunWhenFinished(): RequestRunnable? {
-        return function
-    }
+    fun getWhatToRunWhenFinished(): RequestRunnable? = function
 
     /**
      * @return the request url
      */
-    fun getURL(): URL {
-        return url
-    }
+    fun getURL(): URL = url
 
     /**
      * Adds codes to the try again list. Whenever the response encounters one of these codes, it will send a new request.
@@ -142,21 +127,15 @@ abstract class Request(
     /**
      * @return if the request will run in the main thread
      */
-    fun isMainThread(): Boolean {
-        return inMainThread
-    }
+    fun isMainThread(): Boolean = inMainThread
 
     /**
      * @return if the RequestManager will run the RequestRunnable in the main thread on the next frame
      */
-    fun isRunNextFrame(): Boolean {
-        return executeOnNextFrame
-    }
+    fun isRunNextFrame(): Boolean = executeOnNextFrame
 
     /**
      * @return the error message and response code
      */
-    fun getErrorMessage(): String {
-        return "Error: " + this.responseMessage + ":" + this.responseCode
-    }
+    fun getErrorMessage(): String = "Error: " + this.responseMessage + ":" + this.responseCode
 }

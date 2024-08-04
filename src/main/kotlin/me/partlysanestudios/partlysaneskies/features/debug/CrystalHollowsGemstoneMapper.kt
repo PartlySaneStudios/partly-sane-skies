@@ -21,10 +21,9 @@ import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
-import java.util.*
+import java.util.LinkedList
 
 object CrystalHollowsGemstoneMapper {
-
     private val range = Range3d(Point3d(201.0, 30.0, 201.0), Point3d(824.0, 189.0, 824.0))
     private val world = minecraft.theWorld
     private var alreadyCheckedCoords = ArrayList<Point3d>()
@@ -32,7 +31,8 @@ object CrystalHollowsGemstoneMapper {
     fun scanWorld() {
         alreadyCheckedCoords = ArrayList()
         val rangeSize =
-            (range.sortedPoints[1].x - range.sortedPoints[0].x) * (range.sortedPoints[1].y - range.sortedPoints[0].y) * (range.sortedPoints[1].z - range.sortedPoints[0].z)
+            (range.sortedPoints[1].x - range.sortedPoints[0].x) * (range.sortedPoints[1].y - range.sortedPoints[0].y) *
+                (range.sortedPoints[1].z - range.sortedPoints[0].z)
         var checkedBlocks = 0
         val gemstones = LinkedList<Gemstone>()
         val startTime = time
@@ -49,7 +49,7 @@ object CrystalHollowsGemstoneMapper {
                     val minutesLeft = timeLeft / 1000 / 60
                     sendClientMessage(
                         "Checking block (${x.formatNumber()}, ${y.formatNumber()}, ${z.formatNumber()})\n${checkedBlocks.formatNumber()} / ${rangeSize.formatNumber()} " +
-                                "(${(checkedBlocks / rangeSize * 100).round(1)}%, ${minutesLeft.round(2).formatNumber()} minutes left)..."
+                            "(${(checkedBlocks / rangeSize * 100).round(1)}%, ${minutesLeft.round(2).formatNumber()} minutes left)...",
                     )
                     val point = Point3d(x.toDouble(), y.toDouble(), z.toDouble())
 
@@ -75,7 +75,6 @@ object CrystalHollowsGemstoneMapper {
         sendClientMessage("Data dumped data")
     }
 
-
     fun getPrettyData() {
         val filePath = File("./config/partly-sane-skies/rawgemstone.json")
         sendClientMessage("Loading data...")
@@ -90,7 +89,7 @@ object CrystalHollowsGemstoneMapper {
             i++
             sendClientMessage(
                 "Converting crystal ${i.formatNumber()} of ${totalLength.formatNumber()} " +
-                        "(${(i / totalLength * 100).round(1).formatNumber()}%)..."
+                    "(${(i / totalLength * 100).round(1).formatNumber()}%)...",
             )
             val obj = element.asJsonObject
 
@@ -102,8 +101,9 @@ object CrystalHollowsGemstoneMapper {
                 val coordObj = coordElement.asJsonObject
                 val point = Point3d(coordObj.get("x").asDouble, coordObj.get("y").asDouble, coordObj.get("z").asDouble)
                 try {
-                    val color = world.getBlockState(point.toBlockPosInt())
-                        .getValue(PropertyEnum.create("color", EnumDyeColor::class.java))
+                    val color = world
+                            .getBlockState(point.toBlockPosInt())
+                            .getValue(PropertyEnum.create("color", EnumDyeColor::class.java))
                     val type = "COLOR_$color"
 
                     if (!map.contains(type)) {
@@ -112,7 +112,6 @@ object CrystalHollowsGemstoneMapper {
 
                     map[type]?.add(coordObj)
                 } catch (e: Exception) {
-                    e.printStackTrace()
                     continue
                 }
             }
@@ -128,11 +127,12 @@ object CrystalHollowsGemstoneMapper {
                     sumZ += coordObj.get("z").asDouble
                 }
 
-                val averagePoint = Point3d(
-                    (sumX / en.value.size).round(1),
-                    (sumY / en.value.size).round(1),
-                    (sumZ / en.value.size).round(1)
-                )
+                val averagePoint =
+                    Point3d(
+                        (sumX / en.value.size).round(1),
+                        (sumY / en.value.size).round(1),
+                        (sumZ / en.value.size).round(1),
+                    )
 
                 try {
                     val type = en.key
@@ -149,7 +149,6 @@ object CrystalHollowsGemstoneMapper {
         sendClientMessage("Data dumped.")
     }
 
-
     fun removeNucleusCords() {
         val filePath = File("./config/partly-sane-skies/prettygemstone.json")
         sendClientMessage("Loading data...")
@@ -164,7 +163,7 @@ object CrystalHollowsGemstoneMapper {
         for (element in jsonArray) {
             sendClientMessage(
                 "Converting crystal ${i.formatNumber()} of ${totalLength.formatNumber()} " +
-                        "(${(i / totalLength * 100).round(1).formatNumber()}%)..."
+                    "(${(i / totalLength * 100).round(1).formatNumber()}%)...",
             )
 
             val obj = element.asJsonObject
@@ -191,7 +190,6 @@ object CrystalHollowsGemstoneMapper {
         val size: Int,
     )
 
-
     private fun dumpGemstoneData(gemstones: List<Gemstone>) {
         val json = GsonBuilder().setPrettyPrinting().create().toJson(gemstones)
         // Format the Instant to a human-readable date and time
@@ -204,7 +202,7 @@ object CrystalHollowsGemstoneMapper {
 
         File("./config/partly-sane-skies/dumps/").mkdirs()
         // Declares the file
-        val file = File("./config/partly-sane-skies/dumps/gemstone-dump-${formattedDate}.json")
+        val file = File("./config/partly-sane-skies/dumps/gemstone-dump-$formattedDate.json")
         file.createNewFile()
         file.setWritable(true)
         // Saves the data to the file
@@ -225,7 +223,7 @@ object CrystalHollowsGemstoneMapper {
 
         File("./config/partly-sane-skies/dumps/").mkdirs()
         // Declares the file
-        val file = File("./config/partly-sane-skies/dumps/pretty-gemstone-dump-${formattedDate}.json")
+        val file = File("./config/partly-sane-skies/dumps/pretty-gemstone-dump-$formattedDate.json")
         file.createNewFile()
         file.setWritable(true)
         // Saves teh data to the file
@@ -246,7 +244,7 @@ object CrystalHollowsGemstoneMapper {
 
         File("./config/partly-sane-skies/dumps/").mkdirs()
         // Declares the file
-        val file = File("./config/partly-sane-skies/dumps/nonucleus-gemstone-dump-${formattedDate}.json")
+        val file = File("./config/partly-sane-skies/dumps/nonucleus-gemstone-dump-$formattedDate.json")
         file.createNewFile()
         file.setWritable(true)
         // Saves the data to the file
@@ -255,7 +253,7 @@ object CrystalHollowsGemstoneMapper {
         writer.close()
     }
 
-    private fun extractGemstone(point: Point3d, gemstoneCoords: ArrayList<Point3d>) {
+    private fun extractGemstone(point: Point3d, gemstoneCoords: ArrayList<Point3d>, ) {
         for (x in -1..1) {
             for (y in -1..1) {
                 for (z in -1..1) {
@@ -283,10 +281,7 @@ object CrystalHollowsGemstoneMapper {
         }
     }
 
-    private fun isGlass(blockState: IBlockState): Boolean {
-        return blockState.block.material == Material.glass
-    }
-
+    private fun isGlass(blockState: IBlockState): Boolean = blockState.block.material == Material.glass
 
     private class Gemstone(val coordinates: List<Point3d>, val type: String) {
         val geographicMiddle: Point3d
@@ -294,7 +289,6 @@ object CrystalHollowsGemstoneMapper {
                 var xPoints = 0.0
                 var yPoints = 0.0
                 var zPoints = 0.0
-
 
                 for (point in coordinates) {
                     xPoints += point.x
@@ -304,6 +298,5 @@ object CrystalHollowsGemstoneMapper {
 
                 return Point3d(xPoints / coordinates.size, yPoints / coordinates.size, zPoints / coordinates.size)
             }
-
     }
 }

@@ -14,6 +14,7 @@ import gg.essential.elementa.dsl.pixels
 import gg.essential.elementa.dsl.plus
 import gg.essential.universal.UMatrixStack
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.xSize
@@ -34,7 +35,7 @@ abstract class SidePanel {
      * The distance between the edge of the chest Gui and the edge of the panel.
      * Used by the [alignPanel] function.
      */
-    open val pad: XConstraint = 10.scaledPixels
+    open val pad: XConstraint get() = config.sidePanelPadding.scaledPixels
 
     private var parented = false
     internal val window = Window(ElementaVersion.V5)

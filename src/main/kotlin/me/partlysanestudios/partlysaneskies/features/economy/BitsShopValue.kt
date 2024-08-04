@@ -20,6 +20,7 @@ import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManage
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager.initBitValues
 import me.partlysanestudios.partlysaneskies.features.gui.SidePanel
 import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
+import me.partlysanestudios.partlysaneskies.render.gui.constraints.TextScaledPixelConstraint.Companion.textScaledPixels
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.applyBackground
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils.getBits
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.round
@@ -33,21 +34,23 @@ import java.awt.Color
 import java.io.IOException
 
 object BitsShopValue : SidePanel() {
-    override val panelBaseComponent: UIComponent = UIBlock().applyBackground().constrain {
-        x = 800.scaledPixels
-        y = CenterConstraint()
-        width = 225.scaledPixels
-        height = 350.scaledPixels
-        color = Color(0, 0, 0, 0).constraint
-    }
+    override val panelBaseComponent: UIComponent = UIBlock().applyBackground()
+        .constrain {
+            x = 800.scaledPixels
+            y = CenterConstraint()
+            width = 225.scaledPixels
+            height = 350.scaledPixels
+            color = Color(0, 0, 0, 0).constraint
+        }
 
-    private val textComponent = UIWrappedText().constrain {
-        x = CenterConstraint()
-        y = CenterConstraint()
-        height = 95.percent
-        width = 95.percent
-        textScale = 1.scaledPixels
-    } childOf panelBaseComponent
+    private val textComponent = UIWrappedText()
+        .constrain {
+            x = CenterConstraint()
+            y = CenterConstraint()
+            height = 95.percent
+            width = 95.percent
+            textScale = 1.textScaledPixels
+        } childOf panelBaseComponent
 
     override fun onPanelRender(event: GuiScreenEvent.BackgroundDrawnEvent) {
         alignPanel()
@@ -107,8 +110,8 @@ object BitsShopValue : SidePanel() {
         for ((key, value) in sortedMap) {
             val item = getItem(key) ?: continue
             str += "§6$i. §d ${item.name}§7 costs §d${item.bitCost.formatNumber()}§7 bits " +
-                    "and sells for §d${item.getSellPrice().round(1).formatNumber()}§7 coins " +
-                    "\n§8 (${value.round(1).formatNumber()} coins per bit)\n"
+                "and sells for §d${item.getSellPrice().round(1).formatNumber()}§7 coins " +
+                "\n§8 (${value.round(1).formatNumber()} coins per bit)\n"
             i++
             if (i > 5) {
                 break

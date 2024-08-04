@@ -81,13 +81,14 @@ import me.partlysanestudios.partlysaneskies.features.gui.hud.CooldownHud
 import me.partlysanestudios.partlysaneskies.features.gui.hud.LocationBannerDisplay
 import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.DropBannerDisplay
 import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.DropWebhook
+import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.RareDropGUIManager
 import me.partlysanestudios.partlysaneskies.features.gui.mainmenu.PSSMainMenu
 import me.partlysanestudios.partlysaneskies.features.information.WikiArticleOpener
-import me.partlysanestudios.partlysaneskies.features.mining.MiningEvents
 import me.partlysanestudios.partlysaneskies.features.mining.PickaxeWarning
 import me.partlysanestudios.partlysaneskies.features.mining.crystalhollows.WormWarning
 import me.partlysanestudios.partlysaneskies.features.mining.crystalhollows.gemstonewaypoints.GemstoneData
 import me.partlysanestudios.partlysaneskies.features.mining.crystalhollows.gemstonewaypoints.GemstoneWaypointRender
+import me.partlysanestudios.partlysaneskies.features.mining.events.MiningEventNotifier
 import me.partlysanestudios.partlysaneskies.features.security.PrivacyMode
 import me.partlysanestudios.partlysaneskies.features.security.modschecker.ModChecker
 import me.partlysanestudios.partlysaneskies.features.skills.BestiaryLevelUpWebhook
@@ -150,24 +151,33 @@ class PartlySaneSkies {
 
         // Names of all the ranks to remove from people's names
         val RANK_NAMES = arrayOf(
-            "[VIP]", "[VIP+]", "[MVP]", "[MVP+]", "[MVP++]", "[YOUTUBE]", "[MOJANG]",
-            "[EVENTS]", "[MCP]", "[PIG]", "[PIG+]", "[PIG++]", "[PIG+++]", "[GM]", "[ADMIN]", "[OWNER]", "[NPC]"
+            "[VIP]",
+            "[VIP+]",
+            "[MVP]",
+            "[MVP+]",
+            "[MVP++]",
+            "[YOUTUBE]",
+            "[MOJANG]",
+            "[EVENTS]",
+            "[MCP]",
+            "[PIG]",
+            "[PIG+]",
+            "[PIG++]",
+            "[PIG+++]",
+            "[GM]",
+            "[ADMIN]",
+            "[OWNER]",
+            "[NPC]",
         )
         val time: Long
-            // Returns the time in milliseconds
             get() = System.currentTimeMillis()
-        val isLatestVersion: Boolean
-            get() {
-                return if (DOGFOOD) {
-                    true
-                } else if (latestVersion == "(Unknown)") {
-                    true
-                } else {
-                    VERSION == latestVersion
-                }
-            }
 
-        var latestVersion = "(Unknown)"
+        private const val UNKNOWN_VERSION = "(Unknown)"
+
+        val isLatestVersion: Boolean
+            get() = DOGFOOD || latestVersion == UNKNOWN_VERSION || VERSION == latestVersion
+
+        var latestVersion = UNKNOWN_VERSION
 
         val coreConfig = Config()
             .registerOption("alreadyStarted", Toggle("Already Started", "Has this already been started with PSS enabled?", false))
@@ -224,14 +234,17 @@ class PartlySaneSkies {
             } catch (e: IOException) {
                 e.printStackTrace()
             }
+            try {
+                RareDropGUIManager.loadData()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
         }.start()
-
 
         // Registers all the events
         registerEvent(this)
         registerEvent(PartyManager())
         registerEvent(PartyFriendManager())
-        registerEvent(MiningEvents())
         registerEvent(MinionData())
         registerEvent(SkyblockDataManager)
         registerEvent(DropBannerDisplay)
@@ -275,12 +288,12 @@ class PartlySaneSkies {
         registerEvent(PSSMainMenu)
         registerEvent(WrongToolCropWarning.CropToolData)
         registerEvent(PetAlert)
+        registerEvent(MiningEventNotifier)
         registerEvent(SkillUpgradeWebhook)
         registerEvent(CropMilestoneWebhook)
         registerEvent(BestiaryMilestoneWebhook)
         registerEvent(BestiaryLevelUpWebhook)
         registerEvent(PetLevelUpWebhook)
-
 
         // Registers all client side commands
         HelpCommand.registerPSSCommand()
@@ -308,6 +321,7 @@ class PartlySaneSkies {
         PlayerRating.registerReprintCommand()
         ModChecker.registerModCheckCommand()
         ItemRefill.registerCommand()
+        RareDropGUIManager.registerCommand()
         WebhookMenu.registerWebhookCommand()
 
         registerCoreConfig()
@@ -319,18 +333,13 @@ class PartlySaneSkies {
         BestiaryLevelUpWebhook.register()
         PetLevelUpWebhook.register()
 
-
-
         ConfigManager.loadAllConfigs()
 
-
-        //Use Polyfrost EventManager cuz chatSendEvent makes transforming chat messages may easier
+        // Use Polyfrost EventManager cuz chatSendEvent makes transforming chat messages may easier
         cc.polyfrost.oneconfig.events.EventManager.INSTANCE.register(ChatTransformer)
 
         DebugKey.init()
 
-        // Initializes skill upgrade recommendation
-        SkillUpgradeRecommendation.populateSkillMap()
         try {
             SkyblockDataManager.updateAll()
         } catch (e: IOException) {
@@ -345,13 +354,16 @@ class PartlySaneSkies {
         LoadPublicDataEvent.onDataLoad()
 
         // Loads user player data for PartyManager
-        Thread({
-            try {
-                SkyblockDataManager.getPlayer(minecraft.session?.username ?: "")
-            } catch (e: MalformedURLException) {
-                e.printStackTrace()
-            }
-        }, "Init Data").start()
+        Thread(
+            {
+                try {
+                    SkyblockDataManager.getPlayer(minecraft.session?.username ?: "")
+                } catch (e: MalformedURLException) {
+                    e.printStackTrace()
+                }
+            },
+            "Init Data",
+        ).start()
         Thread { DiscordRPC.init() }.start()
 
         if (config.privacyMode == 2) {
@@ -361,7 +373,7 @@ class PartlySaneSkies {
         checkFirstLaunch()
 
         // Finished loading
-        log(Level.INFO, "Partly Sane Skies has loaded (Version: ${VERSION}).")
+        log(Level.INFO, "Partly Sane Skies has loaded (Version: $VERSION).")
     }
 
     private fun registerEvent(obj: Any) {
@@ -400,23 +412,24 @@ class PartlySaneSkies {
         val data = PublicDataManager.getFile("main_menu.json")
         val jsonObj = JsonParser().parse(data).asJsonObject
         try {
-            latestVersion = if (config.releaseChannel == 0) {
-                val modInfo: JsonObject = jsonObj.getAsJsonObject("mod_info")
-                modInfo["latest_version"].asString
-            } else {
-                val modInfo: JsonObject = jsonObj.getAsJsonObject("prerelease_channel")
-                modInfo["latest_version"].asString
-            }
+            latestVersion =
+                if (config.releaseChannel == 0) {
+                    val modInfo: JsonObject = jsonObj.getAsJsonObject("mod_info")
+                    modInfo["latest_version"].asString
+                } else {
+                    val modInfo: JsonObject = jsonObj.getAsJsonObject("prerelease_channel")
+                    modInfo["latest_version"].asString
+                }
 
             // latestVersionDescription = modInfo.get("latest_version_description").getAsString();
             // latestVersionDate = modInfo.get("latest_version_release_date").getAsString();
         } catch (e: NullPointerException) {
-            latestVersion = "(Unknown)"
+            latestVersion = UNKNOWN_VERSION
             e.printStackTrace()
             // latestVersionDate = "(Unknown)";
             // latestVersionDescription = "";
         } catch (e: IllegalStateException) {
-            latestVersion = "(Unknown)"
+            latestVersion = UNKNOWN_VERSION
             e.printStackTrace()
         }
 
@@ -442,7 +455,6 @@ class PartlySaneSkies {
         }
     }
 
-
     private fun registerCoreConfig() {
         ConfigManager.registerNewConfig("psscore.json", coreConfig)
     }
@@ -459,7 +471,7 @@ class PartlySaneSkies {
                 val discordMessage: IChatComponent =
                     ChatComponentText("§9The Partly Sane Skies PSSDiscord server: https://discord.gg/$discordCode")
                 discordMessage.chatStyle.setChatClickEvent(
-                    ClickEvent(ClickEvent.Action.OPEN_URL, "https://discord.gg/$discordCode")
+                    ClickEvent(ClickEvent.Action.OPEN_URL, "https://discord.gg/$discordCode"),
                 )
                 sendClientMessage("§b§m--------------------------------------------------", true)
                 sendClientMessage("§cWe noticed you're using a dogfood version of Partly Sane Skies.", false)
@@ -489,18 +501,18 @@ class PartlySaneSkies {
                     .chatGUI
                     .printChatMessage(skyclientMessage)
                 val githubMessage =
-                    ChatComponentText("§9If you are not using SkyClient, click here go to the github and download the latest version.")
+                    ChatComponentText("§9If you are not using SkyClient, click here go to the GitHub and download the latest version.")
                 githubMessage.chatStyle.setChatClickEvent(
                     ClickEvent(
                         ClickEvent.Action.OPEN_URL,
-                        "https://github.com/PartlySaneStudios/partly-sane-skies/releases"
-                    )
+                        "https://github.com/PartlySaneStudios/partly-sane-skies/releases",
+                    ),
                 )
                 githubMessage.chatStyle.setChatHoverEvent(
                     HoverEvent(
                         HoverEvent.Action.SHOW_TEXT,
-                        ChatComponentText("Click here to open the downloads page")
-                    )
+                        ChatComponentText("Click here to open the downloads page"),
+                    ),
                 )
                 minecraft.ingameGUI
                     .chatGUI
@@ -512,5 +524,4 @@ class PartlySaneSkies {
 
     // Sends a ping to the count API to track the number of users per day
     private fun trackLoad() {}
-
 }

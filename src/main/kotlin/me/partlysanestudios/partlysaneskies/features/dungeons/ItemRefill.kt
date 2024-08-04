@@ -3,7 +3,6 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.features.dungeons
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
@@ -14,10 +13,9 @@ import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.skyblock.dungeons.DungeonStartEvent
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.countItemInInventory
-import net.minecraft.command.ICommandSender
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.gameevent.InputEvent
-import java.util.*
+import java.util.Locale
 
 object ItemRefill {
     @SubscribePSSEvent
@@ -43,7 +41,6 @@ object ItemRefill {
         if (config.itemRefillKeybind.isActive()) {
             runItemRefil()
         }
-
     }
 
     private fun runItemRefil() {
@@ -74,12 +71,13 @@ object ItemRefill {
                 val itemName = SkyblockDataManager.getItem(entry.key)?.name ?: ""
                 if (entry.value < maxStackSize) {
                     ChatUtils.sendClientMessage("Refilling ${maxStackSize - entry.value} ${itemName}s...")
-                    PartlySaneSkies.minecraft.thePlayer.sendChatMessage("/gfs ${entry.key.lowercase(Locale.getDefault())} ${maxStackSize - entry.value}")
+                    PartlySaneSkies.minecraft.thePlayer.sendChatMessage(
+                        "/gfs ${entry.key.lowercase(Locale.getDefault())} ${maxStackSize - entry.value}",
+                    )
                 }
 
                 Thread.sleep(2000)
             }
         }.start()
-
     }
 }
