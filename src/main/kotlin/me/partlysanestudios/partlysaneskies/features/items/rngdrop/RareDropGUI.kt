@@ -1,3 +1,9 @@
+//
+// Written by J10a1n15 and Su386.
+// See LICENSE for copyright and license notices.
+//
+
+
 package me.partlysanestudios.partlysaneskies.features.items.rngdrop
 
 import gg.essential.elementa.ElementaVersion
@@ -12,6 +18,8 @@ import gg.essential.elementa.constraints.SiblingConstraint
 import gg.essential.elementa.dsl.*
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager
+import me.partlysanestudios.partlysaneskies.features.items.rngdrop.RareDropGUIManager.currentFilter
+import me.partlysanestudios.partlysaneskies.features.items.rngdrop.RareDropGUIManager.currentFilterType
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
 import me.partlysanestudios.partlysaneskies.render.gui.components.PSSButton
 import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
