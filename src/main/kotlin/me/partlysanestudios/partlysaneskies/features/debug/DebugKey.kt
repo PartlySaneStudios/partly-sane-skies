@@ -20,8 +20,9 @@ import me.partlysanestudios.partlysaneskies.events.minecraft.PSSChatEvent
 import me.partlysanestudios.partlysaneskies.events.minecraft.render.RenderWaypointEvent
 import me.partlysanestudios.partlysaneskies.features.dungeons.PlayerRating
 import me.partlysanestudios.partlysaneskies.features.dungeons.TerminalWaypoints
-import me.partlysanestudios.partlysaneskies.features.items.rngdrop.Drop
+import me.partlysanestudios.partlysaneskies.features.gui.hud.DropBannerDisplay
 import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.DropBannerDisplay
+import me.partlysanestudios.partlysaneskies.features.items.rngdrop.Drop
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
 import me.partlysanestudios.partlysaneskies.render.RenderEuclid.drawCylinderFill
 import me.partlysanestudios.partlysaneskies.render.RenderEuclid.drawCylinderOutline
