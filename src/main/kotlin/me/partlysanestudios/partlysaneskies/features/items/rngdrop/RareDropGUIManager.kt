@@ -1,9 +1,10 @@
 //
-// Written by J10an15.
+// Written by J10a1n15.
 // See LICENSE for copyright and license notices.
 //
 
-package me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner
+
+package me.partlysanestudios.partlysaneskies.features.items.rngdrop
 
 import cc.polyfrost.oneconfig.utils.gui.GuiUtils
 import com.google.gson.Gson
@@ -76,7 +77,7 @@ object RareDropGUIManager {
                 "Zombie Commander Helmet", "Zombie Commander Chestplate", "Zombie Commander Leggings", "Zombie Commander Boots",
                 "Zombie Knight Helmet", "Zombie Knight Chestplate", "Zombie Knight Leggings", "Zombie Knight Boots",
                 "Zombie Lord Helmet", "Zombie Lord Chestplate", "Zombie Lord Leggings", "Zombie Lord Boots",
-                "Zombie Soldier Helmet", "Zombie Soldier Chestplate", "Zombie Soldier Leggings", "Zombie Soldier Boots",
+                "Zombie Soldier Helmet", "Zombie Soldier Chestplate", "Zombie Soldier Leggings", "Zombie Soldier Boots"
             ),
         ),
         RareDropPreset(

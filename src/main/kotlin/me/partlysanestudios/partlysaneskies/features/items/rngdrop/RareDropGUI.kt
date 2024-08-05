@@ -1,10 +1,10 @@
 //
-// Written by J10an15 and Su386.
+// Written by J10a1n15 and Su386.
 // See LICENSE for copyright and license notices.
 //
 
 
-package me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner
+package me.partlysanestudios.partlysaneskies.features.items.rngdrop
 
 import gg.essential.elementa.ElementaVersion
 import gg.essential.elementa.WindowScreen
@@ -23,10 +23,9 @@ import gg.essential.elementa.dsl.pixels
 import gg.essential.elementa.dsl.plus
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager
-import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.RareDropGUIManager.currentFilter
-import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.RareDropGUIManager.currentFilterType
+import me.partlysanestudios.partlysaneskies.features.items.rngdrop.RareDropGUIManager.currentFilter
+import me.partlysanestudios.partlysaneskies.features.items.rngdrop.RareDropGUIManager.currentFilterType
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
-import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager.primaryColor
 import me.partlysanestudios.partlysaneskies.render.gui.components.PSSButton
 import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
 import me.partlysanestudios.partlysaneskies.render.gui.constraints.TextScaledPixelConstraint.Companion.textScaledPixels
@@ -167,7 +166,7 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
     } as UITextInput childOf activeFiltersContainer
 
     private val activeFiltersScrollComponent = ScrollComponent(
-        scrollIconColor = primaryColor.toJavaColor(),
+        scrollIconColor = ThemeManager.primaryColor.toJavaColor(),
         innerPadding = 10f,
     ).constrain {
         width = 100.percent
@@ -219,7 +218,7 @@ class RareDropGUI : WindowScreen(ElementaVersion.V5) {
             y = CramSiblingConstraint(10f)
             width = 48.percent
             height = 8.5.percent
-            color = Color(0,0 ,0, 0).constraint
+            color = Color(0, 0, 0, 0).constraint
         } childOf autoCompleteScrollComponent
 
 

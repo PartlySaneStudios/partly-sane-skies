@@ -77,12 +77,12 @@ import me.partlysanestudios.partlysaneskies.features.farming.garden.VisitorTrade
 import me.partlysanestudios.partlysaneskies.features.foraging.TreecapitatorCooldown
 import me.partlysanestudios.partlysaneskies.features.gui.RefreshKeybinds
 import me.partlysanestudios.partlysaneskies.features.gui.hud.CooldownHud
+import me.partlysanestudios.partlysaneskies.features.gui.hud.DropBannerDisplay
 import me.partlysanestudios.partlysaneskies.features.gui.hud.LocationBannerDisplay
-import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.DropBannerDisplay
-import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.DropWebhook
-import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.RareDropGUIManager
 import me.partlysanestudios.partlysaneskies.features.gui.mainmenu.PSSMainMenu
 import me.partlysanestudios.partlysaneskies.features.information.WikiArticleOpener
+import me.partlysanestudios.partlysaneskies.features.items.rngdrop.DropWebhook
+import me.partlysanestudios.partlysaneskies.features.items.rngdrop.RareDropGUIManager
 import me.partlysanestudios.partlysaneskies.features.mining.PickaxeWarning
 import me.partlysanestudios.partlysaneskies.features.mining.crystalhollows.WormWarning
 import me.partlysanestudios.partlysaneskies.features.mining.crystalhollows.gemstonewaypoints.GemstoneData
