@@ -24,7 +24,7 @@ import cc.polyfrost.oneconfig.config.data.ModType
 import me.partlysanestudios.partlysaneskies.features.debug.ExampleHud
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.WebhookMenu
 import me.partlysanestudios.partlysaneskies.features.gui.hud.CooldownHud
-import me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner.RareDropGUI
+import me.partlysanestudios.partlysaneskies.features.items.rndropbanner.RareDropGUI
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
 import org.lwjgl.input.Keyboard
 
