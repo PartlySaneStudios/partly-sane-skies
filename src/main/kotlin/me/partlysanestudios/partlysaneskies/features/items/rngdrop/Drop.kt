@@ -1,4 +1,4 @@
-package me.partlysanestudios.partlysaneskies.features.items.rndropbanner
+package me.partlysanestudios.partlysaneskies.features.items.rngdrop
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity

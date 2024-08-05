@@ -3,7 +3,7 @@
 // See LICENSE for copyright and license notices.
 //
 
-package me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner
+package me.partlysanestudios.partlysaneskies.features.gui.hud
 
 import gg.essential.elementa.ElementaVersion
 import gg.essential.elementa.components.UIWrappedText
@@ -19,12 +19,11 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.time
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity.Companion.getRarityFromColorCode
-import me.partlysanestudios.partlysaneskies.features.items.rndropbanner.RareDropGUIManager.isAllowedDrop
+import me.partlysanestudios.partlysaneskies.features.items.rngdrop.RareDropGUIManager.isAllowedDrop
 import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.minecraft.PSSChatEvent
-import me.partlysanestudios.partlysaneskies.features.items.rndropbanner.Drop
-import me.partlysanestudios.partlysaneskies.features.items.rndropbanner.DropWebhook
-import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
+import me.partlysanestudios.partlysaneskies.features.items.rngdrop.Drop
+import me.partlysanestudios.partlysaneskies.features.items.rngdrop.DropWebhook
 import me.partlysanestudios.partlysaneskies.render.gui.constraints.TextScaledPixelConstraint.Companion.textScaledPixels
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.onCooldown
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.colorCodeToColor

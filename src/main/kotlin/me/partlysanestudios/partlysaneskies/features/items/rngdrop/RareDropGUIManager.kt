@@ -1,4 +1,4 @@
-package me.partlysanestudios.partlysaneskies.features.items.rndropbanner
+package me.partlysanestudios.partlysaneskies.features.items.rngdrop
 
 import cc.polyfrost.oneconfig.utils.gui.GuiUtils
 import com.google.gson.Gson

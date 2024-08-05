@@ -1,4 +1,4 @@
-package me.partlysanestudios.partlysaneskies.features.items.rndropbanner
+package me.partlysanestudios.partlysaneskies.features.items.rngdrop
 
 import gg.essential.elementa.ElementaVersion
 import gg.essential.elementa.WindowScreen
