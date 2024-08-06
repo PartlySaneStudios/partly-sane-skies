@@ -50,6 +50,7 @@ object BestiaryLevelUpWebhook : Webhook() {
 
     @SubscribePSSEvent
     fun onChatMessage(event: PSSChatEvent) {
+        if (!enabled) return
         val message = event.message
 
         val (_, mob, oldLevel, newLevel) = regex.find(message)?.destructured ?: return
