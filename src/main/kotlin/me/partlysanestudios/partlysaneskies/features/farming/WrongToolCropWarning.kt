@@ -32,7 +32,7 @@ object WrongToolCropWarning {
     fun onBlockBreak(event: PlayerBreakBlockEvent) {
         if (!config.wrongToolForCropEnabled) return
         if (onCooldown(lastWarnTime, (config.wrongToolForCropCooldown * 1000).toLong())) return
-        if (IslandType.CATACOMBS.onIsland()) return
+        if (!IslandType.inAnyIsland(IslandType.GARDEN, IslandType.FARMING_ISLAND, IslandType.HUB, IslandType.CRIMSON_ISLE)) return
 
         val block = minecraft.theWorld.getBlockState(event.point.toBlockPos())?.block
         val unlocalizedName = block?.unlocalizedName ?: return
