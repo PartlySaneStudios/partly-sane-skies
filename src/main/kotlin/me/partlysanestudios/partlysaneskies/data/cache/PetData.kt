@@ -13,8 +13,8 @@ import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity.Companion.getRarityFromColorCode
 import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.minecraft.PSSChatEvent
+import me.partlysanestudios.partlysaneskies.events.minecraft.TablistUpdateEvent
 import me.partlysanestudios.partlysaneskies.utils.MathUtils
-import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.containerInventory
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.nextAfter
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
@@ -41,7 +41,6 @@ object PetData {
 
     fun tick() {
         parsePetGuiForCache()
-        parsePetFromTablist()
         if (MathUtils.onCooldown(lastSaveTime, (60 * 1000L * .25).toLong())) {
             return
         }
@@ -164,10 +163,9 @@ object PetData {
         }
     }
 
-    private fun parsePetFromTablist() {
-        val tablist = MinecraftUtils.getTabList()
-
-        val pet = tablist.nextAfter("§e§lPet:")?.removeResets()?.trim() ?: return
+    @SubscribePSSEvent
+    fun parsePetFromTablist(event: TablistUpdateEvent) {
+        val pet = event.list.nextAfter("§e§lPet:")?.removeResets()?.trim() ?: return
 
         petNameRegex.find(pet)?.let {
             val (petLevel, colorCode, petName) = it.destructured
