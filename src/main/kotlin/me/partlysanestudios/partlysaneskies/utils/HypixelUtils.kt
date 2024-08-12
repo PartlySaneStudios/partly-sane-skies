@@ -139,7 +139,7 @@ object HypixelUtils {
      */
     fun ItemStack.getItemAttributes(): NBTTagCompound? = this.tagCompound?.getCompoundTag("ExtraAttributes")
 
-    fun inAdvancedMiningIsland() = IslandType.inAnyIsland(IslandType.DWARVEN_MINES, IslandType.CRYSTAL_HOLLOWS, IslandType.MINESHAFT)
+    fun inAdvancedMiningIsland() = IslandType.onIslands(IslandType.DWARVEN_MINES, IslandType.CRYSTAL_HOLLOWS, IslandType.MINESHAFT)
 
 
     @SubscribePSSEvent
