@@ -6,8 +6,7 @@
 
 package me.partlysanestudios.partlysaneskies.data.skyblockdata
 
-import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
-import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
+import me.partlysanestudios.partlysaneskies.utils.HypixelUtils
 
 enum class IslandType(val islandName: String) {
     HUB("Hub"),
@@ -32,26 +31,13 @@ enum class IslandType(val islandName: String) {
     NONE(""),
     ;
 
-    fun onIsland() = this == IslandType.getCurrentIsland()
+    fun onIsland() = this == HypixelUtils.currentIsland
 
     companion object {
         /**
-         * Gets the current island type from the tablist
-         * @return The current island type
+         * @param islandTypes The island types to check for
+         * @return True if the player is on any of the specified islands
          */
-        fun getCurrentIsland(): IslandType {
-            for (line in MinecraftUtils.getTabList()) {
-                if (line.removeColorCodes().startsWith("Area: ") || line.removeColorCodes().startsWith("Dungeon: ")) {
-                    val islandName = line.removeColorCodes()
-                        .replace("Area: ", "")
-                        .replace("Dungeon: ", "")
-                        .trim()
-
-                    return IslandType.entries.firstOrNull { it.islandName.equals(islandName, ignoreCase = true) } ?: NONE
-                }
-            }
-
-            return NONE
-        }
+        fun inAnyIsland(vararg islandTypes: IslandType) = islandTypes.any { it.onIsland() }
     }
 }

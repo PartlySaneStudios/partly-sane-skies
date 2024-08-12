@@ -6,10 +6,12 @@
 package me.partlysanestudios.partlysaneskies.events
 
 import me.partlysanestudios.partlysaneskies.events.minecraft.PSSChatEvent
+import me.partlysanestudios.partlysaneskies.events.minecraft.TablistUpdateEvent
 import me.partlysanestudios.partlysaneskies.events.minecraft.render.RenderWaypointEvent
 import me.partlysanestudios.partlysaneskies.events.skyblock.dungeons.DungeonEndEvent
 import me.partlysanestudios.partlysaneskies.events.skyblock.dungeons.DungeonStartEvent
 import me.partlysanestudios.partlysaneskies.events.skyblock.mining.MinesEvent
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
 import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.client.event.RenderWorldLastEvent
@@ -22,6 +24,9 @@ import kotlin.reflect.full.hasAnnotation
 import kotlin.reflect.full.memberFunctions
 
 object EventManager {
+
+    private var oldTablist = emptyList<String>()
+
     internal val registeredFunctions = HashMap<KClass<*>, ArrayList<EventFunction>>()
 
     fun register(obj: Any) {
@@ -46,6 +51,15 @@ object EventManager {
             }
             registeredFunctions[paramClass]?.add(EventFunction(obj, function)) // adds the function to a list to call
             log(Level.INFO, "Registered ${function.name} from ${obj.javaClass.name} in PSS events")
+        }
+    }
+
+    fun tick() {
+        val tablist = MinecraftUtils.getTabList()
+
+        if (tablist != oldTablist) {
+            TablistUpdateEvent.onUpdate(registeredFunctions[TablistUpdateEvent::class] ?: ArrayList(), tablist)
+            oldTablist = tablist
         }
     }
 

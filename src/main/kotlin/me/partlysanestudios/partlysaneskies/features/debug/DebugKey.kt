@@ -13,7 +13,6 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.time
 import me.partlysanestudios.partlysaneskies.data.cache.StatsData
-import me.partlysanestudios.partlysaneskies.data.skyblockdata.IslandType
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity
 import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.minecraft.PSSChatEvent
@@ -30,6 +29,7 @@ import me.partlysanestudios.partlysaneskies.render.gui.hud.PSSBanner
 import me.partlysanestudios.partlysaneskies.render.waypoint.Waypoint
 import me.partlysanestudios.partlysaneskies.system.SystemNotification
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
+import me.partlysanestudios.partlysaneskies.utils.HypixelUtils
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.containerInventory
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getItemstackList
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.xSize
@@ -85,7 +85,7 @@ object DebugKey {
         }
 
         if (config.debugPrintCurrentLocationFromIslandType) {
-            sendClientMessage("Island Type: ${IslandType.getCurrentIsland()}")
+            sendClientMessage("Island Type: ${HypixelUtils.currentIsland}")
         }
 
         if (config.debugLogCachedF7Puzzles) {

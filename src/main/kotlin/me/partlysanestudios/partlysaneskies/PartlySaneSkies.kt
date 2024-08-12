@@ -102,6 +102,7 @@ import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager
 import me.partlysanestudios.partlysaneskies.render.gui.hud.BannerRenderer
 import me.partlysanestudios.partlysaneskies.render.gui.hud.cooldown.CooldownManager
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
+import me.partlysanestudios.partlysaneskies.utils.HypixelUtils
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
 import net.minecraft.client.Minecraft
 import net.minecraft.event.ClickEvent
@@ -242,6 +243,7 @@ class PartlySaneSkies {
 
         // Registers all the events
         registerEvent(this)
+        registerEvent(HypixelUtils)
         registerEvent(PartyManager())
         registerEvent(PartyFriendManager())
         registerEvent(MinionData())
@@ -399,10 +401,10 @@ class PartlySaneSkies {
         PetData.tick()
         VisitorLogbookData.scanForVisitors()
         HealthAlert.checkPlayerTick()
-        RequiredSecretsFound.tick()
         NoCookieWarning.checkCoinsTick()
         Prank.checkPrankTick()
         AuctionHouseGui.tick()
+        EventManager.tick()
     }
 
     @SubscribePSSEvent

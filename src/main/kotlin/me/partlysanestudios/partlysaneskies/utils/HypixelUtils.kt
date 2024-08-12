@@ -7,6 +7,8 @@ package me.partlysanestudios.partlysaneskies.utils
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.IslandType
+import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
+import me.partlysanestudios.partlysaneskies.events.minecraft.TablistUpdateEvent
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.stripLeading
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.stripTrailing
@@ -15,6 +17,9 @@ import net.minecraft.nbt.NBTTagCompound
 import java.util.Locale
 
 object HypixelUtils {
+
+    var currentIsland: IslandType? = null
+
     // Returns if the current gamemode is skyblock
     fun isSkyblock(): Boolean = MinecraftUtils.getScoreboardName().lowercase(Locale.getDefault()).contains("skyblock")
 
@@ -134,6 +139,17 @@ object HypixelUtils {
      */
     fun ItemStack.getItemAttributes(): NBTTagCompound? = this.tagCompound?.getCompoundTag("ExtraAttributes")
 
-    fun inAdvancedMiningIsland() =
-        IslandType.DWARVEN_MINES.onIsland() || IslandType.CRYSTAL_HOLLOWS.onIsland() || IslandType.MINESHAFT.onIsland()
+    fun inAdvancedMiningIsland() = IslandType.inAnyIsland(IslandType.DWARVEN_MINES, IslandType.CRYSTAL_HOLLOWS, IslandType.MINESHAFT)
+
+
+    @SubscribePSSEvent
+    fun onTablistUpdate(event: TablistUpdateEvent) {
+        currentIsland = event.list
+            .map { it.removeColorCodes().trim() }
+            .firstOrNull { it.startsWith("Area: ") || it.startsWith("Dungeon: ") }
+            ?.let { line ->
+                val islandName = line.replace("Area: ", "").replace("Dungeon: ", "").trim()
+                IslandType.entries.firstOrNull { it.islandName.equals(islandName, ignoreCase = true) }
+            }
+    }
 }
