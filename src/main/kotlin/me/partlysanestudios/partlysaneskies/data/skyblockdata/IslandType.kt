@@ -35,9 +35,9 @@ enum class IslandType(val islandName: String) {
 
     companion object {
         /**
-         * @param islandTypes The island types to check for
+         * @param islandTypes The island to check for
          * @return True if the player is on any of the specified islands
          */
-        fun inAnyIsland(vararg islandTypes: IslandType) = islandTypes.any { it.onIsland() }
+        fun onIslands(vararg islandTypes: IslandType) = islandTypes.any { it.onIsland() }
     }
 }
