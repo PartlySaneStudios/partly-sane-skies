@@ -24,13 +24,13 @@ import org.apache.logging.log4j.Level.INFO
 import java.awt.Color
 
 object TerminalWaypoints {
-
-    private val boundingBoxes = arrayOf(
-        Range3d(118.0, 103.0, 27.0, 90.0, 157.0, 124.0),
-        Range3d(118.0, 103.0, 145.0, 19.0, 157.0, 120.0),
-        Range3d(-4.0, 103.0, 145.0, 19.0, 157.0, 50.0),
-        Range3d(-3.0, 103.0, 26.0, 92.0, 157.0, 53.0)
-    )
+    private val boundingBoxes =
+        arrayOf(
+            Range3d(118.0, 103.0, 27.0, 90.0, 157.0, 124.0),
+            Range3d(118.0, 103.0, 145.0, 19.0, 157.0, 120.0),
+            Range3d(-4.0, 103.0, 145.0, 19.0, 157.0, 50.0),
+            Range3d(-3.0, 103.0, 26.0, 92.0, 157.0, 53.0),
+        )
     private val cachedPuzzles = ArrayList<F7Puzzle>()
 
     fun logCachedPuzzles() {
@@ -53,38 +53,37 @@ object TerminalWaypoints {
 
         updateAllPuzzles()
 
-
         for (puzzle in cachedPuzzles) {
             if (playerBoundingBox?.isInRange(puzzle.pos) != true) {
                 continue
             }
-            val waypoint = if (puzzle.active) { // Active
-                Waypoint(
-                    puzzle.type.displayName,
-                    puzzle.pos.toBlockPosInt(),
-                    fillColor = Color.green.applyOpacity(50),
-                    outlineColor = Color.green.applyOpacity(125)
-                )
-            } else if (puzzle.isPlayerNearby()) { // Inactive but someone nearby
-                Waypoint(
-                    puzzle.type.displayName,
-                    puzzle.pos.toBlockPosInt(),
-                    fillColor = Color.orange.applyOpacity(50),
-                    outlineColor = Color.orange.applyOpacity(125)
-                )
-            } else { // Inactive
-                Waypoint(
-                    puzzle.type.displayName,
-                    puzzle.pos.toBlockPosInt(),
-                    fillColor = Color.red.applyOpacity(50),
-                    outlineColor = Color.red.applyOpacity(125)
-                )
-            }
+            val waypoint =
+                if (puzzle.active) { // Active
+                    Waypoint(
+                        puzzle.type.displayName,
+                        puzzle.pos.toBlockPosInt(),
+                        fillColor = Color.green.applyOpacity(50),
+                        outlineColor = Color.green.applyOpacity(125),
+                    )
+                } else if (puzzle.isPlayerNearby()) { // Inactive but someone nearby
+                    Waypoint(
+                        puzzle.type.displayName,
+                        puzzle.pos.toBlockPosInt(),
+                        fillColor = Color.orange.applyOpacity(50),
+                        outlineColor = Color.orange.applyOpacity(125),
+                    )
+                } else { // Inactive
+                    Waypoint(
+                        puzzle.type.displayName,
+                        puzzle.pos.toBlockPosInt(),
+                        fillColor = Color.red.applyOpacity(50),
+                        outlineColor = Color.red.applyOpacity(125),
+                    )
+                }
 
             event.pipeline.add(waypoint)
         }
     }
-
 
     @SubscribePSSEvent
     fun onDungeonStart(event: DungeonStartEvent) { // Yes I wrote the entire event system just so that I wouldn't have to call a chat event here
@@ -144,7 +143,6 @@ object TerminalWaypoints {
         return puzzles
     }
 
-
     private fun getCurrentBoundingBox(point3d: Point3d): Range3d? {
         for (boundingBox in boundingBoxes) {
             if (boundingBox.isInRange(point3d)) {
@@ -157,10 +155,14 @@ object TerminalWaypoints {
     class F7Puzzle(val pos: Point3d, val type: Type) {
         var active = false
 
-        enum class Type(val activeArmorStandName: String, val inactiveArmorStandName: String, val displayName: String) {
+        enum class Type(
+            val activeArmorStandName: String,
+            val inactiveArmorStandName: String,
+            val displayName: String,
+        ) {
             TERMINAL("Active Terminal", "Inactive Terminal", "Terminal"),
             LEVER("Activated", "Not Activated", "Lever"),
-            DEVICE("Active", "Inactive", "Device")
+            DEVICE("Active", "Inactive", "Device"),
         }
 
         fun isPlayerNearby(): Boolean {
@@ -175,8 +177,6 @@ object TerminalWaypoints {
             return false
         }
 
-        override fun toString(): String {
-            return "F7Puzzle(pos=$pos, type=$type, active=$active)"
-        }
+        override fun toString(): String = "F7Puzzle(pos=$pos, type=$type, active=$active)"
     }
 }

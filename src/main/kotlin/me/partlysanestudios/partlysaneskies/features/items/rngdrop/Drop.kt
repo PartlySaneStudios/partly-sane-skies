@@ -3,9 +3,10 @@
 // See LICENSE for copyright and license notices.
 //
 
-package me.partlysanestudios.partlysaneskies.features.gui.hud.rngdropbanner
 
-import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.time
+package me.partlysanestudios.partlysaneskies.features.items.rngdrop
+
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity
 import java.awt.Color
 
@@ -20,5 +21,5 @@ class Drop(
     var displayTime = 0
 
     val isStillDisplay: Boolean
-        get() = timeDropped + displayTime < time
+        get() = timeDropped + displayTime < PartlySaneSkies.time
 }

@@ -12,7 +12,6 @@
  *
  */
 
-
 package me.partlysanestudios.partlysaneskies.features.gui
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
@@ -30,7 +29,7 @@ object RefreshKeybinds {
 
     @SubscribeEvent
     fun onGuiKeyboardInput(event: GuiScreenEvent.KeyboardInputEvent.Pre) {
-        if (!PartlySaneSkies.config.refreshKeybind) return
+        if (!PartlySaneSkies.config.refreshKeybind || !Keyboard.isCreated()) return
         checkKeybinds(event)
     }
 
@@ -44,8 +43,10 @@ object RefreshKeybinds {
         val refreshKeyDownMacOS: Boolean =
             ((Keyboard.isKeyDown(Keyboard.KEY_LMETA) xor Keyboard.isKeyDown(Keyboard.KEY_RMETA)) && keyRDown)
         if (
-            (keyFnFiveDown) xor ((refreshKeyDownWindowsLinux && !operatingSystem.contains("mac"))
-                    || (refreshKeyDownMacOS && operatingSystem.contains("mac")))
+            (keyFnFiveDown) xor (
+                (refreshKeyDownWindowsLinux && !operatingSystem.contains("mac")) ||
+                    (refreshKeyDownMacOS && operatingSystem.contains("mac"))
+            )
         ) {
             val container: ContainerChest = (gui).inventorySlots as ContainerChest
             for (i: Int in 0..53) {

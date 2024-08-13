@@ -38,8 +38,10 @@ import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager
 import me.partlysanestudios.partlysaneskies.features.security.PrivacyMode.enablePrivacyMode
 import me.partlysanestudios.partlysaneskies.features.themes.ThemeManager.accentColor
 import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
+import me.partlysanestudios.partlysaneskies.render.gui.constraints.TextScaledPixelConstraint.Companion.textScaledPixels
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.uiImage
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.randInt
+import me.partlysanestudios.partlysaneskies.utils.StringUtils.lastUsedColorCode
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
 import net.minecraft.client.audio.PositionedSoundRecord
@@ -72,13 +74,11 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
                 enablePrivacyMode()
             }
 
-
             if (config.privacyMode == 1) {
                 enablePrivacyMode()
             }
             if (Loader.isModLoaded("skyclientcosmetics") && coreConfig.find("promptedMainMenu")?.asBoolean != true) {
                 event.setCanceled(true)
-                coreConfig.find("promptedMainMenu")?.asToggle?.state = true
                 minecraft.displayGuiScreen(MainMenuOptionMenu { minecraft.displayGuiScreen(GuiMainMenu()) })
                 minecraft.soundHandler.playSound(PositionedSoundRecord.create(ResourceLocation("partlysaneskies", "bell")))
             } else if (config.customMainMenu) {
@@ -89,30 +89,35 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
         }
 
         private var cachedFunFact: FunFact? = null
+
         private fun getFunFact(): FunFact {
             if (cachedFunFact != null) {
                 return cachedFunFact ?: FunFact("", "")
             }
             val url = config.apiUrl + "/v1/pss/funfact"
             val lock = Lock()
-            newRequest(GetRequest(url, { request: Request ->
-                try {
-                    val factInfo = JsonParser().parse(request.getResponse()).getAsJsonObject()
-                    val fact = factInfo["funFact"].asString
-                    log("Response: $factInfo")
-                    log("Fun Fact: $fact")
+            newRequest(
+                GetRequest(
+                    url,
+                    { request: Request ->
+                        try {
+                            val factInfo = JsonParser().parse(request.getResponse()).getAsJsonObject()
+                            val fact = factInfo["funFact"].asString
+                            log("Fun Fact: $fact")
 
-                    cachedFunFact = FunFact("Fact of the Day", fact)
-                    synchronized(lock) {
-                        lock.notifyAll()
-                    }
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                    synchronized(lock) {
-                        lock.notifyAll()
-                    }
-                }
-            }))
+                            cachedFunFact = FunFact("Fact of the Day", fact)
+                            synchronized(lock) {
+                                lock.notifyAll()
+                            }
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                            synchronized(lock) {
+                                lock.notifyAll()
+                            }
+                        }
+                    },
+                ),
+            )
             synchronized(lock) {
                 lock.wait()
             }
@@ -125,63 +130,70 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
         }
     }
 
-    val backgroundBox = UIBlock().constrain {
-        width = 100.percent
-        height = 100.percent
-        x = CenterConstraint()
-        y = CenterConstraint()
-        color = Color(0, 0, 0, 0).constraint
-    } childOf window
+    val backgroundBox = UIBlock()
+        .constrain {
+            width = 100.percent
+            height = 100.percent
+            x = CenterConstraint()
+            y = CenterConstraint()
+            color = Color(0, 0, 0, 0).constraint
+        } childOf window
 
-    private val backgroundImage = getBackgroundImage().constrain {
-        width = 100.percent
-        height = 100.percent
-        x = CenterConstraint()
-        y = CenterConstraint()
-    } childOf backgroundBox
+    private val backgroundImage = getBackgroundImage()
+        .constrain {
+            width = 100.percent
+            height = 100.percent
+            x = CenterConstraint()
+            y = CenterConstraint()
+        } childOf backgroundBox
 
-    private val middleMenuBackground = UIBlock().constrain {
-        x = 350.scaledPixels
-        y = CenterConstraint()
-        height = 100.percent
-        width = 125.scaledPixels
-        color = Color(0, 0, 0, 75).constraint
-    } childOf backgroundImage
+    private val middleMenuBackground = UIBlock()
+        .constrain {
+            x = 350.scaledPixels
+            y = CenterConstraint()
+            height = 100.percent
+            width = 125.scaledPixels
+            color = Color(0, 0, 0, 75).constraint
+        } childOf backgroundImage
 
-    private val topLeftMiddleMenuSide = UIRoundedRectangle(5.0f).constrain {
-        x = (-2).scaledPixels
-        y = (-5).scaledPixels
-        height = 50.scaledPixels
-        width = 2.scaledPixels
-        color = accentColor.toJavaColor().constraint
-    } childOf middleMenuBackground
+    private val topLeftMiddleMenuSide = UIRoundedRectangle(5.0f)
+        .constrain {
+            x = (-2).scaledPixels
+            y = (-5).scaledPixels
+            height = 50.scaledPixels
+            width = 2.scaledPixels
+            color = accentColor.toJavaColor().constraint
+        } childOf middleMenuBackground
 
-    private val leftMiddleMenuSide = UIRoundedRectangle(5.0f).constrain {
-        x = (-2).scaledPixels
-        y = 50.scaledPixels + 75.scaledPixels + 5.scaledPixels
-        height = 100.percent
-        width = 2.scaledPixels
-        color = accentColor.toJavaColor().constraint
-    } childOf middleMenuBackground
+    private val leftMiddleMenuSide = UIRoundedRectangle(5.0f)
+        .constrain {
+            x = (-2).scaledPixels
+            y = 50.scaledPixels + 75.scaledPixels + 5.scaledPixels
+            height = 100.percent
+            width = 2.scaledPixels
+            color = accentColor.toJavaColor().constraint
+        } childOf middleMenuBackground
 
-    private val topRightMiddleMenuSide = UIRoundedRectangle(5.0f).constrain {
-        x = 100.percent
-        y = (-5).scaledPixels
-        height = 50.scaledPixels
-        width = 2.scaledPixels
-        color = accentColor.toJavaColor().constraint
-    } childOf middleMenuBackground
+    private val topRightMiddleMenuSide = UIRoundedRectangle(5.0f)
+        .constrain {
+            x = 100.percent
+            y = (-5).scaledPixels
+            height = 50.scaledPixels
+            width = 2.scaledPixels
+            color = accentColor.toJavaColor().constraint
+        } childOf middleMenuBackground
 
-    private val rightMiddleMenuSide = UIRoundedRectangle(5.0f).constrain {
-        x = 100.percent
-        y = 50.scaledPixels + 75.scaledPixels + 5.scaledPixels
-        height = 100.percent
-        width = 2.scaledPixels
-        color = accentColor.toJavaColor().constraint
-    } childOf middleMenuBackground
+    private val rightMiddleMenuSide = UIRoundedRectangle(5.0f)
+        .constrain {
+            x = 100.percent
+            y = 50.scaledPixels + 75.scaledPixels + 5.scaledPixels
+            height = 100.percent
+            width = 2.scaledPixels
+            color = accentColor.toJavaColor().constraint
+        } childOf middleMenuBackground
 
-    private val titleImage =
-        ResourceLocation("partlysaneskies", "textures/gui/main_menu/title_text.png").uiImage
+    private val titleImage = ResourceLocation("partlysaneskies", "textures/gui/main_menu/title_text.png")
+            .uiImage
             .constrain {
                 x = CenterConstraint()
                 y = 50.scaledPixels
@@ -191,9 +203,9 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
 
     private val updateWarning = UIWrappedText(
         text = "Your version of Partly Sane Skies is out of date.\nPlease update to the latest version",
-        centered = true
+        centered = true,
     ).constrain {
-        textScale = 2.25.scaledPixels
+        textScale = 2.25.textScaledPixels
         x = CenterConstraint()
         y = 133.scaledPixels
         width = 700.scaledPixels
@@ -202,225 +214,241 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
         SystemUtils.openLink("https://github.com/PartlySaneStudios/partly-sane-skies/releases")
     } childOf middleMenuBackground
 
-    private val singlePlayerButton = UIBlock().constrain {
-        x = CenterConstraint()
-        y = 200.scaledPixels
-        height = 40.scaledPixels
-        width = middleMenuBackground.getWidth().pixels
-        color = Color(0, 0, 0, 0).constraint
-    }.onMouseClick {
-        mc.displayGuiScreen(GuiSelectWorld(this@PSSMainMenu))
-    }.onMouseEnter {
-        for (child in this.children) {
-            child.setColor(Color(200, 200, 200))
-        }
-    }.onMouseLeave {
-        for (child in this.children) {
-            child.setColor(Color.white)
-        }
-    } childOf middleMenuBackground
+    private val singlePlayerButton = UIBlock()
+        .constrain {
+            x = CenterConstraint()
+            y = 200.scaledPixels
+            height = 40.scaledPixels
+            width = middleMenuBackground.getWidth().pixels
+            color = Color(0, 0, 0, 0).constraint
+        }.onMouseClick {
+            mc.displayGuiScreen(GuiSelectWorld(this@PSSMainMenu))
+        }.onMouseEnter {
+            for (child in this.children) {
+                child.setColor(Color(200, 200, 200))
+            }
+        }.onMouseLeave {
+            for (child in this.children) {
+                child.setColor(Color.white)
+            }
+        } childOf middleMenuBackground
 
-    private val singlePlayerText = UIWrappedText("Singleplayer", centered = true).constrain {
-        x = CenterConstraint()
-        y = CenterConstraint()
-        textScale = 1.scaledPixels
-        color = Color.white.constraint
-    }.onMouseEnter {
-        for (child in this.children) {
-            child.setColor(Color(200, 200, 200))
-        }
-    }.onMouseLeave {
-        for (child in this.children) {
-            child.setColor(Color.white)
-        }
-    } childOf singlePlayerButton
+    private val singlePlayerText = UIWrappedText("Singleplayer", centered = true)
+        .constrain {
+            x = CenterConstraint()
+            y = CenterConstraint()
+            textScale = 1.textScaledPixels
+            color = Color.white.constraint
+        }.onMouseEnter {
+            for (child in this.children) {
+                child.setColor(Color(200, 200, 200))
+            }
+        }.onMouseLeave {
+            for (child in this.children) {
+                child.setColor(Color.white)
+            }
+        } childOf singlePlayerButton
 
-    private val multiPlayerButton = UIBlock().constrain {
-        x = CenterConstraint()
-        y = 240.scaledPixels
-        height = 40.scaledPixels
-        width = middleMenuBackground.getWidth().pixels
-        color = Color(0, 0, 0, 0).constraint
-    }.onMouseClick {
-        mc.displayGuiScreen(GuiMultiplayer(this@PSSMainMenu))
-    }.onMouseEnter {
-        for (child in this.children) {
-            child.setColor(Color(200, 200, 200))
-        }
-    }.onMouseLeave {
-        for (child in this.children) {
-            child.setColor(Color.white)
-        }
-    } childOf middleMenuBackground
+    private val multiPlayerButton = UIBlock()
+        .constrain {
+            x = CenterConstraint()
+            y = 240.scaledPixels
+            height = 40.scaledPixels
+            width = middleMenuBackground.getWidth().pixels
+            color = Color(0, 0, 0, 0).constraint
+        }.onMouseClick {
+            mc.displayGuiScreen(GuiMultiplayer(this@PSSMainMenu))
+        }.onMouseEnter {
+            for (child in this.children) {
+                child.setColor(Color(200, 200, 200))
+            }
+        }.onMouseLeave {
+            for (child in this.children) {
+                child.setColor(Color.white)
+            }
+        } childOf middleMenuBackground
 
-    private val multiPlayerText = UIWrappedText("Multiplayer", centered = true).constrain {
-        x = CenterConstraint()
-        y = CenterConstraint()
-        textScale = 1.scaledPixels
-        color = Color.white.constraint
-    } childOf multiPlayerButton
+    private val multiPlayerText = UIWrappedText("Multiplayer", centered = true)
+        .constrain {
+            x = CenterConstraint()
+            y = CenterConstraint()
+            textScale = 1.textScaledPixels
+            color = Color.white.constraint
+        } childOf multiPlayerButton
 
-    private val joinHypixelButton = UIBlock().constrain {
-        x = CenterConstraint()
-        y = 280.scaledPixels
-        height = 40.scaledPixels
-        width = middleMenuBackground.getWidth().pixels
-        color = Color(0, 0, 0, 0).constraint
-    }.onMouseClick {
-        FMLClientHandler.instance()
-            .connectToServer(GuiMultiplayer(minecraft.currentScreen), ServerData("tomato", "hypixel.net", false))
+    private val joinHypixelButton = UIBlock()
+        .constrain {
+            x = CenterConstraint()
+            y = 280.scaledPixels
+            height = 40.scaledPixels
+            width = middleMenuBackground.getWidth().pixels
+            color = Color(0, 0, 0, 0).constraint
+        }.onMouseClick {
+            FMLClientHandler
+                .instance()
+                .connectToServer(GuiMultiplayer(minecraft.currentScreen), ServerData("tomato", "hypixel.net", false))
+        }.onMouseEnter {
+            for (child in this.children) {
+                child.setColor(Color(200, 200, 200))
+            }
+        }.onMouseLeave {
+            for (child in this.children) {
+                child.setColor(Color.white)
+            }
+        } childOf middleMenuBackground
 
+    private val joinHypixelText = UIWrappedText("Join Hypixel", centered = true)
+        .constrain {
+            x = CenterConstraint()
+            y = CenterConstraint()
+            textScale = 1.textScaledPixels
+            color = Color.white.constraint
+        } childOf joinHypixelButton
 
-    }.onMouseEnter {
-        for (child in this.children) {
-            child.setColor(Color(200, 200, 200))
-        }
-    }.onMouseLeave {
-        for (child in this.children) {
-            child.setColor(Color.white)
-        }
-    } childOf middleMenuBackground
+    private val modsButton = UIBlock()
+        .constrain {
+            x = CenterConstraint()
+            y = 320.scaledPixels
+            height = 40.scaledPixels
+            width = middleMenuBackground.getWidth().pixels
+            color = Color(0, 0, 0, 0).constraint
+        }.onMouseClick {
+            mc.displayGuiScreen(GuiModList(this@PSSMainMenu))
+        }.onMouseEnter {
+            for (child in this.children) {
+                child.setColor(Color(200, 200, 200))
+            }
+        }.onMouseLeave {
+            for (child in this.children) {
+                child.setColor(Color.white)
+            }
+        } childOf middleMenuBackground
 
-    private val joinHypixelText = UIWrappedText("Join Hypixel", centered = true).constrain {
-        x = CenterConstraint()
-        y = CenterConstraint()
-        textScale = 1.scaledPixels
-        color = Color.white.constraint
-    } childOf joinHypixelButton
+    private val modsText = UIWrappedText("Mods", centered = true)
+        .constrain {
+            x = CenterConstraint()
+            y = CenterConstraint()
+            textScale = 1.textScaledPixels
+            color = Color.white.constraint
+        } childOf modsButton
 
-    private val modsButton = UIBlock().constrain {
-        x = CenterConstraint()
-        y = 320.scaledPixels
-        height = 40.scaledPixels
-        width = middleMenuBackground.getWidth().pixels
-        color = Color(0, 0, 0, 0).constraint
-    }.onMouseClick {
-        mc.displayGuiScreen(GuiModList(this@PSSMainMenu))
-    }.onMouseEnter {
-        for (child in this.children) {
-            child.setColor(Color(200, 200, 200))
-        }
-    }.onMouseLeave {
-        for (child in this.children) {
-            child.setColor(Color.white)
-        }
-    } childOf middleMenuBackground
+    private val optionsButton = UIBlock()
+        .constrain {
+            x = CenterConstraint()
+            y = 380.scaledPixels
+            height = 20.scaledPixels
+            width = 100.percent
+            color = Color(0, 0, 0, 0).constraint
+        }.onMouseClick {
+            mc.displayGuiScreen(GuiOptions(this@PSSMainMenu, mc.gameSettings))
+        }.onMouseEnter {
+            for (child in this.children) {
+                child.setColor(Color(200, 200, 200))
+            }
+        }.onMouseLeave {
+            for (child in this.children) {
+                child.setColor(Color.white)
+            }
+        } childOf middleMenuBackground
 
-    private val modsText = UIWrappedText("Mods", centered = true).constrain {
-        x = CenterConstraint()
-        y = CenterConstraint()
-        textScale = 1.scaledPixels
-        color = Color.white.constraint
-    } childOf modsButton
+    private val optionsText = UIWrappedText("Options", centered = true)
+        .constrain {
+            x = CenterConstraint()
+            y = CenterConstraint()
+            textScale = 1.textScaledPixels
+            color = Color.white.constraint
+        } childOf optionsButton
 
-    private val optionsButton = UIBlock().constrain {
-        x = CenterConstraint()
-        y = 380.scaledPixels
-        height = 20.scaledPixels
-        width = 100.percent
-        color = Color(0, 0, 0, 0).constraint
-    }.onMouseClick {
-        mc.displayGuiScreen(GuiOptions(this@PSSMainMenu, mc.gameSettings))
-    }.onMouseEnter {
-        for (child in this.children) {
-            child.setColor(Color(200, 200, 200))
-        }
-    }.onMouseLeave {
-        for (child in this.children) {
-            child.setColor(Color.white)
-        }
-    } childOf middleMenuBackground
+    private val optionsDivide = UIRoundedRectangle(5.0f)
+        .constrain {
+            x = CenterConstraint()
+            y = 400.scaledPixels
+            height = 1.scaledPixels
+            width = 90.percent
+            color = accentColor.toJavaColor().constraint
+        } childOf middleMenuBackground
 
-    private val optionsText = UIWrappedText("Options", centered = true).constrain {
-        x = CenterConstraint()
-        y = CenterConstraint()
-        textScale = 1.scaledPixels
-        color = Color.white.constraint
-    } childOf optionsButton
+    private val pssOptionsButton = UIBlock()
+        .constrain {
+            x = CenterConstraint()
+            y = 400.scaledPixels
+            height = 20.scaledPixels
+            width = 100.percent
+            color = Color(0, 0, 0, 0).constraint
+        }.onMouseClick {
+            config.openGui()
+        }.onMouseEnter {
+            for (child in this.children) {
+                child.setColor(Color(200, 200, 200))
+            }
+        }.onMouseLeave {
+            for (child in this.children) {
+                child.setColor(Color.white)
+            }
+        } childOf middleMenuBackground
 
-    private val optionsDivide = UIRoundedRectangle(5.0f).constrain {
-        x = CenterConstraint()
-        y = 400.scaledPixels
-        height = 1.scaledPixels
-        width = 90.percent
-        color = accentColor.toJavaColor().constraint
-    } childOf middleMenuBackground
+    private val pssOptionsText = UIWrappedText("Partly Sane Skies Config", centered = true)
+        .constrain {
+            x = CenterConstraint()
+            y = CenterConstraint()
+            textScale = 0.735.textScaledPixels
+            color = Color.white.constraint
+        } childOf pssOptionsButton
 
-    private val pssOptionsButton = UIBlock().constrain {
-        x = CenterConstraint()
-        y = 400.scaledPixels
-        height = 20.scaledPixels
-        width = 100.percent
-        color = Color(0, 0, 0, 0).constraint
-    }.onMouseClick {
-        config.openGui()
-    }.onMouseEnter {
-        for (child in this.children) {
-            child.setColor(Color(200, 200, 200))
-        }
-    }.onMouseLeave {
-        for (child in this.children) {
-            child.setColor(Color.white)
-        }
-    } childOf middleMenuBackground
+    private val quitButton = UIBlock()
+        .constrain {
+            x = CenterConstraint()
+            y = 440.scaledPixels
+            height = 40.scaledPixels
+            width = 100.percent
+            color = Color(0, 0, 0, 0).constraint
+        }.onMouseClick {
+            mc.shutdown()
+        }.onMouseEnter {
+            for (child in this.children) {
+                child.setColor(Color(200, 200, 200))
+            }
+        }.onMouseLeave {
+            for (child in this.children) {
+                child.setColor(Color.white)
+            }
+        } childOf middleMenuBackground
 
-    private val pssOptionsText = UIWrappedText("Partly Sane Skies Config", centered = true).constrain {
-        x = CenterConstraint()
-        y = CenterConstraint()
-        textScale = 0.735.scaledPixels
-        color = Color.white.constraint
-    } childOf pssOptionsButton
+    private val quitText = UIWrappedText("Quit", centered = true)
+        .constrain {
+            x = CenterConstraint()
+            y = CenterConstraint()
+            textScale = 1.textScaledPixels
+            color = Color.white.constraint
+        } childOf quitButton
 
-    private val quitButton = UIBlock().constrain {
-        x = CenterConstraint()
-        y = 440.scaledPixels
-        height = 40.scaledPixels
-        width = 100.percent
-        color = Color(0, 0, 0, 0).constraint
-    }.onMouseClick {
-        mc.shutdown()
-    }.onMouseEnter {
-        for (child in this.children) {
-            child.setColor(Color(200, 200, 200))
-        }
-    }.onMouseLeave {
-        for (child in this.children) {
-            child.setColor(Color.white)
-        }
-    } childOf middleMenuBackground
+    private val timeText = UIWrappedText(centered = true)
+        .constrain {
+            x = CenterConstraint()
+            y = (100.percent - 10.scaledPixels)
+            color = Color.white.constraint
+            textScale = 0.5.scaledPixels
+        } childOf middleMenuBackground
 
-    private val quitText = UIWrappedText("Quit", centered = true).constrain {
-        x = CenterConstraint()
-        y = CenterConstraint()
-        textScale = 1.scaledPixels
-        color = Color.white.constraint
-    } childOf quitButton
+    private val discordText = UIWrappedText("Discord: discord.gg/$discordCode")
+        .constrain {
+            x = 10.scaledPixels
+            y = 10.scaledPixels(alignOpposite = true)
+            textScale = 1.textScaledPixels
+            color = Color(69, 79, 191).constraint
+        }.onMouseClick {
+            SystemUtils.openLink("https://discord.gg/$discordCode")
+        } childOf backgroundImage
 
-    private val timeText = UIWrappedText(centered = true).constrain {
-        x = CenterConstraint()
-        y = (100.percent - 10.scaledPixels)
-        color = Color.white.constraint
-        textScale = 0.5.scaledPixels
-    } childOf middleMenuBackground
-
-    private val discordText = UIWrappedText("Discord: discord.gg/$discordCode").constrain {
-        x = 10.scaledPixels
-        y = 10.scaledPixels(alignOpposite = true)
-        textScale = 1.scaledPixels
-        color = Color(69, 79, 191).constraint
-    }.onMouseClick {
-        SystemUtils.openLink("https://discord.gg/$discordCode")
-    } childOf backgroundImage
-
-    private val partlySaneSkiesText = UIWrappedText("Made by: Partly Sane Skies").constrain {
-        x = 10.scaledPixels(alignOpposite = true)
-        y = 10.scaledPixels(alignOpposite = true)
-        textScale = 1.scaledPixels
-        color = accentColor.toJavaColor().constraint
-    }.onMouseClick {
-        SystemUtils.openLink("https://github.com/PartlySaneStudios/partly-sane-skies")
-    } childOf backgroundImage
-
+    private val partlySaneSkiesText = UIWrappedText("Made by: Partly Sane Skies")
+        .constrain {
+            x = 10.scaledPixels(alignOpposite = true)
+            y = 10.scaledPixels(alignOpposite = true)
+            textScale = 1.textScaledPixels
+            color = accentColor.toJavaColor().constraint
+        }.onMouseClick {
+            SystemUtils.openLink("https://github.com/PartlySaneStudios/partly-sane-skies")
+        } childOf backgroundImage
 
     private fun getBackgroundImage(): UIImage {
         val images = arrayOf(
@@ -430,16 +458,17 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
             "image_3.png",
             "image_4.png",
             "image_5.png",
-            "image_6.png"
+            "image_6.png",
         )
 
-        val image: String = if (config.customMainMenuImage == 0) {
-            "textures/gui/main_menu/" + images[randInt(1, images.size - 1)]
-        } else if (config.customMainMenuImage < 7) {
-            "textures/gui/main_menu/" + images[config.customMainMenuImage]
-        } else {
-            ""
-        }
+        val image: String =
+            if (config.customMainMenuImage == 0) {
+                "textures/gui/main_menu/" + images[randInt(1, images.size - 1)]
+            } else if (config.customMainMenuImage < 7) {
+                "textures/gui/main_menu/" + images[config.customMainMenuImage]
+            } else {
+                ""
+            }
 
         return if (config.customMainMenuImage == 7) {
             UIImage.ofFile(File("./config/partly-sane-skies/background.png"))
@@ -484,27 +513,28 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
 
                 displayAnnouncements(0.percent, 100.percent + 32.scaledPixels, funFact.descriptionComponent ?: parent)
             }
-
         }
     }
 
     private class Lock : Object()
 
     private fun createFunFact(funFact: FunFact, startX: XConstraint, startY: YConstraint, parent: UIComponent) {
-        val funFactHeading = UIWrappedText().constrain {
-            x = startX
-            y = startY
-            width = 300.scaledPixels
-            textScale = 1.5.scaledPixels
-        } childOf parent
+        val funFactHeading =
+            UIWrappedText().constrain {
+                x = startX
+                y = startY
+                width = 300.scaledPixels
+                textScale = 1.5.textScaledPixels
+            } childOf parent
         funFactHeading.setText("§e${funFact.title}")
 
-        val funFactText = UIWrappedText().constrain {
-            x = 0.percent
-            y = 100.percent + 5.scaledPixels
-            width = 100.percent
-            textScale = 1.33.scaledPixels
-        } childOf funFactHeading
+        val funFactText =
+            UIWrappedText().constrain {
+                x = 0.percent
+                y = 100.percent + 5.scaledPixels
+                width = 100.percent
+                textScale = 1.33.textScaledPixels
+            } childOf funFactHeading
         funFactText.setText("§7${funFact.description}")
 
         funFact.titleComponent = funFactHeading
@@ -538,12 +568,11 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
         }.start()
     }
 
-
     private fun createAnnouncements(
         announcements: ArrayList<Announcement>,
         startX: XConstraint,
         startY: YConstraint,
-        startParent: UIComponent
+        startParent: UIComponent,
     ) {
         val padY = 25.scaledPixels
         var parent = startParent
@@ -555,20 +584,22 @@ class PSSMainMenu : WindowScreen(ElementaVersion.V5) {
                 x = xConstraint
                 y = yConstraint
                 width = 300.scaledPixels
-                textScale = 1.5.scaledPixels
+                textScale = 1.5.textScaledPixels
             }.setText(
-                "§e${announcement.title}"
+                "§e${announcement.title}",
             ).onMouseClick {
                 SystemUtils.openLink(announcement.link)
             } childOf parent
+
+            val lastColor = announcement.description.lastUsedColorCode() ?: "§7"
 
             val description = UIWrappedText().constrain {
                 x = 0.percent
                 y = 100.percent + 5.scaledPixels
                 width = 100.percent
-                textScale = 1.33.scaledPixels
+                textScale = 1.33.textScaledPixels
             }.setText(
-                "§8${announcement.date}§r\n§7${announcement.description}"
+                "§8${announcement.date}§r\n§7${announcement.description.replace("\n", "\n$lastColor")}",
             ).onMouseClick {
                 SystemUtils.openLink(announcement.link)
             } childOf title

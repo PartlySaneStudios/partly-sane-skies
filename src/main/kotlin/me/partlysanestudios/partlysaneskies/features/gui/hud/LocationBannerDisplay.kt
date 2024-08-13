@@ -15,10 +15,9 @@ import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.stripLeading
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.stripTrailing
 import java.awt.Color
-import java.util.*
+import java.util.Locale
 
 object LocationBannerDisplay {
-
     private var TEXT_SCALE = 5f
     private var lastLocation = ""
     private var lastLocationTime = time
@@ -68,9 +67,7 @@ object LocationBannerDisplay {
         renderNewBanner(PSSBanner(displayString, (config.locationBannerTime * 1000).toLong(), TEXT_SCALE, color))
     }
 
-    private fun checkExpire(): Boolean {
-        return timeSinceLastChange > config.locationBannerTime * 1000
-    }
+    private fun checkExpire(): Boolean = timeSinceLastChange > config.locationBannerTime * 1000
 
     private val timeSinceLastChange: Long
         get() = time - lastLocationTime

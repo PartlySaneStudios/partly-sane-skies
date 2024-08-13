@@ -3,14 +3,17 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.features.economy.auctionhousemenu
 
 import gg.essential.elementa.UIComponent
 import gg.essential.elementa.components.UIBlock
 import gg.essential.elementa.components.UIImage
 import gg.essential.elementa.components.UIWrappedText
-import gg.essential.elementa.constraints.*
+import gg.essential.elementa.constraints.CenterConstraint
+import gg.essential.elementa.constraints.HeightConstraint
+import gg.essential.elementa.constraints.WidthConstraint
+import gg.essential.elementa.constraints.XConstraint
+import gg.essential.elementa.constraints.YConstraint
 import gg.essential.elementa.dsl.childOf
 import gg.essential.elementa.dsl.constrain
 import gg.essential.elementa.dsl.constraint
@@ -23,7 +26,7 @@ class ItemInformationBar(
     yConstraint: YConstraint,
     heightConstraint: HeightConstraint,
     widthConstraint: WidthConstraint,
-    textScaleFactor: Float
+    textScaleFactor: Float,
 ) {
     private val baseBlock: UIBlock = UIBlock().constrain {
         color = Color(0, 0, 0, 0).constraint
@@ -60,7 +63,6 @@ class ItemInformationBar(
         textScale = (1.0f * textScaleFactor).pixels
     } childOf backgroundImage
 
-
     init {
         description.setText(descriptionString)
         header.setText(headerString)
@@ -89,5 +91,4 @@ class ItemInformationBar(
             header.setText(headerString)
         }
     }
-
 }

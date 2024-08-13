@@ -7,7 +7,7 @@ package me.partlysanestudios.partlysaneskies.data.skyblockdata
 
 import net.minecraft.item.Item
 import net.minecraft.util.ResourceLocation
-import java.util.*
+import java.util.Locale
 
 class SkyblockItem(
     val id: String,
@@ -21,7 +21,7 @@ class SkyblockItem(
     var lowestBin: Double,
     var averageLowestBin: Double,
     var material: String,
-    var unstackable: Boolean
+    var unstackable: Boolean,
 ) {
     companion object {
         val emptyItem = SkyblockItem("", Rarity.UNKNOWN, "", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, "", false)
@@ -29,8 +29,8 @@ class SkyblockItem(
 
     var bitCost = 0
 
-    fun getSellPrice(): Double {
-        return if (bazaarSellPrice != 0.0) {
+    fun getSellPrice(): Double =
+        if (bazaarSellPrice != 0.0) {
             bazaarSellPrice
         } else if (lowestBin != 0.0) {
             lowestBin
@@ -39,20 +39,18 @@ class SkyblockItem(
         } else {
             0.0
         }
-    }
 
-    fun getBuyPrice(): Double {
-        return if (bazaarBuyPrice != 0.0) {
+    fun getBuyPrice(): Double =
+        if (bazaarBuyPrice != 0.0) {
             bazaarBuyPrice
         } else if (lowestBin != 0.0) {
             lowestBin
         } else {
             0.0
         }
-    }
 
-    fun getAverageBuyPrice(): Double {
-        return if (averageBazaarBuy != 0.0) {
+    fun getAverageBuyPrice(): Double =
+        if (averageBazaarBuy != 0.0) {
             averageBazaarBuy
         } else if (lowestBin != 0.0) {
             averageLowestBin
@@ -61,10 +59,9 @@ class SkyblockItem(
         } else {
             0.0
         }
-    }
 
-    fun getAverageSellPrice(): Double {
-        return if (bazaarSellPrice != 0.0) {
+    fun getAverageSellPrice(): Double =
+        if (bazaarSellPrice != 0.0) {
             averageBazaarSell
         } else if (lowestBin != 0.0) {
             averageLowestBin
@@ -73,7 +70,6 @@ class SkyblockItem(
         } else {
             0.0
         }
-    }
 
     fun getBestPrice(): Double {
         val list = ArrayList<Double>()
@@ -84,49 +80,32 @@ class SkyblockItem(
         return list[list.size - 1]
     }
 
-    fun hasSellPrice(): Boolean {
-        return getSellPrice() != 0.0
-    }
+    fun hasSellPrice(): Boolean = getSellPrice() != 0.0
 
-    fun hasBuyPrice(): Boolean {
-        return getBuyPrice() != 0.0
-    }
+    fun hasBuyPrice(): Boolean = getBuyPrice() != 0.0
 
-    fun hasBitCost(): Boolean {
-        return bitCost != 0
-    }
+    fun hasBitCost(): Boolean = bitCost != 0
 
-    fun getStackSize(): Int {
-        return if (unstackable) {
+    fun getStackSize(): Int =
+        if (unstackable) {
             1
         } else {
-            Item.itemRegistry?.getObject(
-                ResourceLocation(
-                    "minecraft",
-                    material.lowercase(Locale.getDefault())
-                )
-            )?.itemStackLimit ?: 64
+            Item.itemRegistry
+                ?.getObject(
+                    ResourceLocation(
+                        "minecraft",
+                        material.lowercase(Locale.getDefault()),
+                    ),
+                )?.itemStackLimit ?: 64
         }
-    }
 
-    fun hasAverageLowestBin(): Boolean {
-        return averageLowestBin != 0.0
-    }
+    fun hasAverageLowestBin(): Boolean = averageLowestBin != 0.0
 
-    fun hasAverageBazaarSell(): Boolean {
-        return averageLowestBin != 0.0
-    }
+    fun hasAverageBazaarSell(): Boolean = averageLowestBin != 0.0
 
-    fun hasAverageBazaarBuy(): Boolean {
-        return averageLowestBin != 0.0
-    }
+    fun hasAverageBazaarBuy(): Boolean = averageLowestBin != 0.0
 
-    fun hasAverageSellPrice(): Boolean {
-        return getAverageSellPrice() != 0.0
-    }
+    fun hasAverageSellPrice(): Boolean = getAverageSellPrice() != 0.0
 
-    fun hasAverageBuyPrice(): Boolean {
-        return getAverageBuyPrice() != 0.0
-    }
-
+    fun hasAverageBuyPrice(): Boolean = getAverageBuyPrice() != 0.0
 }

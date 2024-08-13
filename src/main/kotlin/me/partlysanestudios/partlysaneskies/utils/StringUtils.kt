@@ -3,12 +3,14 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.utils
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
+import me.partlysanestudios.partlysaneskies.utils.StringUtils.matches
 import java.awt.Color
 import java.text.DecimalFormat
+import java.util.regex.Matcher
+import java.util.Locale
 import java.util.regex.Pattern
 
 object StringUtils {
@@ -51,11 +53,13 @@ object StringUtils {
         val words: MutableList<String> = ArrayList()
         val chars: MutableList<Char> = ArrayList()
 
-        for (c in charArray) if (c == ' ') {
-            words.add(chars.joinToString(""))
-            chars.clear()
-        } else {
-            chars.add(c)
+        for (c in charArray) {
+            if (c == ' ') {
+                words.add(chars.joinToString(""))
+                chars.clear()
+            } else {
+                chars.add(c)
+            }
         }
 
         words.add(chars.joinToString(""))
@@ -211,19 +215,19 @@ object StringUtils {
             result = result.substring(keyIndex)
         }
 
-
         // Gets the first few letters after the key in the pattern
         val patternEndKeyIndex = keyIndex + key.length
         val charsAfterKey: String
 
         // If the key is the last thing in the pattern, return the result
-        charsAfterKey = if (patternEndKeyIndex == pattern.length) {
-            return result
-        } else if (patternEndKeyIndex + 4 <= pattern.length) {
-            pattern.substring(patternEndKeyIndex, patternEndKeyIndex + 4)
-        } else {
-            pattern.substring(patternEndKeyIndex)
-        }
+        charsAfterKey =
+            if (patternEndKeyIndex == pattern.length) {
+                return result
+            } else if (patternEndKeyIndex + 4 <= pattern.length) {
+                pattern.substring(patternEndKeyIndex, patternEndKeyIndex + 4)
+            } else {
+                pattern.substring(patternEndKeyIndex)
+            }
 
         // Uses those characters to get the end of the string in the
         // input, not the pattern
@@ -266,8 +270,8 @@ object StringUtils {
         }
     }
 
-    fun Char.romanCharToInt(): Int {
-        return when (this) {
+    fun Char.romanCharToInt(): Int =
+        when (this) {
             'I' -> 1
             'V' -> 5
             'X' -> 10
@@ -277,7 +281,6 @@ object StringUtils {
             'M' -> 1000
             else -> throw IllegalArgumentException("Invalid Roman numeral character: $this")
         }
-    }
 
     fun String.romanNumeralToInt(): Int {
         var total = 0
@@ -330,7 +333,7 @@ object StringUtils {
             "§c" -> Color(255, 85, 85)
             "§d" -> Color(255, 85, 255)
             "§e" -> Color(255, 255, 85)
-            "§f" -> Color(0, 0, 0)
+            "§f" -> Color(255, 255, 255)
             "§1" -> Color(0, 0, 170)
             "§2" -> Color(0, 170, 0)
             "§3" -> Color(0, 170, 170)
@@ -354,9 +357,7 @@ object StringUtils {
     }
 
     fun Int.toRoman(): String {
-        if (this <= 0 || this > 3999) {
-            throw IllegalArgumentException("Number out of range (must be between 1 and 3999)")
-        }
+        require(this in 1 until 4000) { "Number out of range (must be between 1 and 3999)" }
 
         var number = this
         return buildString {
@@ -383,4 +384,25 @@ object StringUtils {
         }
     }
 
+    fun String.lastUsedColorCode(startIndex: Int = 0, endIndex: Int = this.length): String? {
+        val colorCodes = "0123456789abcdef"
+        val regex = Regex("§[${colorCodes}]")
+
+        val subString = this.substring(startIndex, endIndex)
+        val matches = regex.findAll(subString)
+
+        return matches.lastOrNull()?.value
+    }
+
+    fun Pattern.matches(string: String): Boolean = matcher(string).matches()
+
+    fun <T> Pattern.getMatcher(string: String, matcher: Matcher.() -> T): T? {
+        val matched = matcher(string)
+        return if (matched.matches()) matcher(matched) else null
+    }
+
+    fun Pattern.matchGroup(string: String, group: String): String? {
+        val matched = matcher(string)
+        return if (matched.matches()) matched.group(group) else null
+    }
 }

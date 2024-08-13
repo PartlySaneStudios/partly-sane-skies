@@ -10,14 +10,12 @@ import com.google.gson.GsonBuilder
 import com.google.gson.JsonParser
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand
-import me.partlysanestudios.partlysaneskies.commands.PSSCommandRunnable
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.IslandType
 import me.partlysanestudios.partlysaneskies.render.gui.hud.BannerRenderer.renderNewBanner
 import me.partlysanestudios.partlysaneskies.render.gui.hud.PSSBanner
 import me.partlysanestudios.partlysaneskies.utils.*
 import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Range3d
 import net.minecraft.client.audio.PositionedSoundRecord
-import net.minecraft.command.ICommandSender
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.event.entity.player.PlayerInteractEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
@@ -31,9 +29,7 @@ import java.nio.file.Paths
 import kotlin.math.max
 import kotlin.math.min
 
-
 object EndOfFarmNotifier {
-
     internal var ranges = ArrayList<Range3d>()
     private lateinit var selectedPos1: IntArray
     private lateinit var selectedPos2: IntArray
@@ -50,7 +46,7 @@ object EndOfFarmNotifier {
     fun checkAllRangesTick() {
         if (!MathUtils.onCooldown(
                 rangeToHighlightSetTime,
-                (PartlySaneSkies.config.farmHightlightTime * 1000).toLong() // damn we can english (it's called highlight)
+                (PartlySaneSkies.config.farmHightlightTime * 1000).toLong(), // damn we can english (it's called highlight)
             )
         ) {
             rangeToHighlight = null
@@ -61,7 +57,7 @@ object EndOfFarmNotifier {
         }
         if (MathUtils.onCooldown(
                 lastChimeTime,
-                (PartlySaneSkies.config.farmnotifierChimeTime * 1000).toLong()
+                (PartlySaneSkies.config.farmnotifierChimeTime * 1000).toLong(),
             )
         ) {
             return
@@ -75,8 +71,8 @@ object EndOfFarmNotifier {
                 displayString,
                 1000,
                 TEXT_SCALE.toFloat(),
-                Color.red
-            )
+                Color.red,
+            ),
         )
     }
 
@@ -88,14 +84,15 @@ object EndOfFarmNotifier {
             min(selectedPos1[1].toDouble(), selectedPos2[1].toDouble())
         val bigY: Double =
             max(selectedPos1[1].toDouble(), selectedPos2[1].toDouble())
-        val range = Range3d(
-            selectedPos1[0].toDouble(),
-            smallY,
-            selectedPos1[2].toDouble(),
-            selectedPos2[0].toDouble(),
-            bigY,
-            selectedPos2[2].toDouble()
-        )
+        val range =
+            Range3d(
+                selectedPos1[0].toDouble(),
+                smallY,
+                selectedPos1[2].toDouble(),
+                selectedPos2[0].toDouble(),
+                bigY,
+                selectedPos2[2].toDouble(),
+            )
         range.rangeName = name
         selectedPos1 = IntArray(0)
         selectedPos2 = IntArray(0)
@@ -122,9 +119,9 @@ object EndOfFarmNotifier {
             if (range.isInRange(
                     PartlySaneSkies.minecraft.thePlayer.posX,
                     PartlySaneSkies.minecraft.thePlayer.posY,
-                    PartlySaneSkies.minecraft.thePlayer.posZ
+                    PartlySaneSkies.minecraft.thePlayer.posZ,
                 )
-            ) { //Pos with decimals
+            ) { // Pos with decimals
                 return true
             }
         }
@@ -159,7 +156,7 @@ object EndOfFarmNotifier {
         val x = event.pos.x
         val y = event.pos.y
         val z = event.pos.z
-        ChatUtils.sendClientMessage("§7Set §bpositon ${pos}§7 to §b($x, $y, $z)§7")
+        ChatUtils.sendClientMessage("§7Set §bpositon $pos§7 to §b($x, $y, $z)§7")
         if (pos == 1) {
             selectedPos1 = intArrayOf(x, y, z)
             pos = 2
@@ -180,10 +177,11 @@ object EndOfFarmNotifier {
         val file = File("./config/partly-sane-skies/endOfFarmRanges.json")
         file.createNewFile()
         // Creates a new Gson object to save the data
-        val gson = GsonBuilder()
-            .setPrettyPrinting()
-            .serializeSpecialFloatingPointValues()
-            .create()
+        val gson =
+            GsonBuilder()
+                .setPrettyPrinting()
+                .serializeSpecialFloatingPointValues()
+                .create()
         // Saves teh data to the file
         val json = gson.toJson(ranges)
         val writer = FileWriter(file)
@@ -221,14 +219,15 @@ object EndOfFarmNotifier {
                 largeCoordinate[i] = element.asInt
                 i++
             }
-            val loadRange = Range3d(
-                smallCoordinate[0].toDouble(),
-                smallCoordinate[1].toDouble(),
-                smallCoordinate[2].toDouble(),
-                largeCoordinate[0].toDouble(),
-                largeCoordinate[1].toDouble(),
-                largeCoordinate[2].toDouble()
-            )
+            val loadRange =
+                Range3d(
+                    smallCoordinate[0].toDouble(),
+                    smallCoordinate[1].toDouble(),
+                    smallCoordinate[2].toDouble(),
+                    largeCoordinate[0].toDouble(),
+                    largeCoordinate[1].toDouble(),
+                    largeCoordinate[2].toDouble(),
+                )
             loadRange.rangeName = range["rangeName"].asString
             list.add(loadRange)
         }
@@ -245,18 +244,21 @@ object EndOfFarmNotifier {
                 if (args.size >= 3 && args[0].isNotEmpty() && args[1].isNotEmpty() && args[2].isNotEmpty()) {
                     try {
                         selectedPos1 = intArrayOf(args[0].toInt(), args[1].toInt(), args[2].toInt())
-                        ChatUtils.sendClientMessage("§7Set §bpositon 1§7 to §b(" + selectedPos1[0] + ", " + selectedPos1[1] + ", " + selectedPos1[2] + ")§7")
+                        ChatUtils.sendClientMessage(
+                            "§7Set §bpositon 1§7 to §b(" + selectedPos1[0] + ", " + selectedPos1[1] + ", " + selectedPos1[2] + ")§7",
+                        )
                     } catch (e: NumberFormatException) {
                         ChatUtils.sendClientMessage("§cPlease enter a valid number and try again.")
                     }
                 } else {
-                    with (PartlySaneSkies.minecraft.thePlayer) {
+                    with(PartlySaneSkies.minecraft.thePlayer) {
                         selectedPos2 = intArrayOf(position.x - 1, position.y, position.z - 1)
-                        ChatUtils.sendClientMessage("§7Set §bpositon 1§7 to §b(" + selectedPos1[0] + ", " + selectedPos1[1] + ", " + selectedPos1[2] + ")§7")
+                        ChatUtils.sendClientMessage(
+                            "§7Set §bpositon 1§7 to §b(" + selectedPos1[0] + ", " + selectedPos1[1] + ", " + selectedPos1[2] + ")§7",
+                        )
                     }
                 }
-            }
-            .register()
+            }.register()
     }
 
     fun registerPos2Command() {
@@ -266,18 +268,21 @@ object EndOfFarmNotifier {
                 if (args.size >= 3 && args[0].isNotEmpty() && args[1].isNotEmpty() && args[2].isNotEmpty()) {
                     try {
                         selectedPos2 = intArrayOf(args[0].toInt(), args[1].toInt(), args[2].toInt())
-                        ChatUtils.sendClientMessage("§7Set §bpositon 2§7 to §b(" + selectedPos2[0] + ", " + selectedPos2[1] + ", " + selectedPos2[2] + ")§7")
+                        ChatUtils.sendClientMessage(
+                            "§7Set §bpositon 2§7 to §b(" + selectedPos2[0] + ", " + selectedPos2[1] + ", " + selectedPos2[2] + ")§7",
+                        )
                     } catch (e: java.lang.NumberFormatException) {
                         ChatUtils.sendClientMessage("§cPlease enter a valid number and try again.")
                     }
                 } else {
-                    with (PartlySaneSkies.minecraft.thePlayer) {
+                    with(PartlySaneSkies.minecraft.thePlayer) {
                         selectedPos2 = intArrayOf(position.x - 1, position.y, position.z - 1)
-                        ChatUtils.sendClientMessage("§7Set §bpositon 2§7 to §b(" + selectedPos2[0] + ", " + selectedPos2[1] + ", " + selectedPos2[2] + ")§7")
+                        ChatUtils.sendClientMessage(
+                            "§7Set §bpositon 2§7 to §b(" + selectedPos2[0] + ", " + selectedPos2[1] + ", " + selectedPos2[2] + ")§7",
+                        )
                     }
                 }
-            }
-            .register()
+            }.register()
     }
 
     fun registerCreateRangeCommand() {
@@ -289,14 +294,15 @@ object EndOfFarmNotifier {
                     name = args[0]
                 }
                 if (name?.let { createNewRange(it) } == null) {
-                    ChatUtils.sendClientMessage("§cUnable to create a new farm notifier. Make sure both §b//pos1§c and §b//pos2§c have been selected.")
+                    ChatUtils.sendClientMessage(
+                        "§cUnable to create a new farm notifier. Make sure both §b//pos1§c and §b//pos2§c have been selected.",
+                    )
                     return@setRunnable
                 }
                 ChatUtils.sendClientMessage("§aCreated new Farm Notifier.")
                 selectedPos1 = IntArray(0)
                 selectedPos2 = IntArray(0)
-            }
-            .register()
+            }.register()
     }
 
     fun registerFarmNotifierCommand() {
@@ -309,7 +315,9 @@ object EndOfFarmNotifier {
             .setDescription("Operates the Farm Notifier feature: //fn [list/remove/highlight/show]")
             .setRunnable { a: Array<String> ->
                 if (a.isEmpty() || a[0].equals("list", ignoreCase = true)) {
-                    ChatUtils.sendClientMessage("§7To create a new farm notifier, run §b//pos1§7 at one end of your selection, then run §b//pos2§7 at the other end of your farm. Once the area has been selected, run §b//create§7.\n\n§b//farmnotifier§7 command:\n§b//fn remove <index>:§7 remove a given index from the list.\n§b//fn list:§7 lists all of the farm notifiers and their indexes")
+                    ChatUtils.sendClientMessage(
+                        "§7To create a new farm notifier, run §b//pos1§7 at one end of your selection, then run §b//pos2§7 at the other end of your farm. Once the area has been selected, run §b//create§7.\n\n§b//farmnotifier§7 command:\n§b//fn remove <index>:§7 remove a given index from the list.\n§b//fn list:§7 lists all of the farm notifiers and their indexes",
+                    )
                     listRanges()
                     return@setRunnable
                 }
@@ -318,12 +326,13 @@ object EndOfFarmNotifier {
                         ChatUtils.sendClientMessage("§cError: Must provide an index to remove")
                         return@setRunnable
                     }
-                    val i: Int = try {
-                        a[1].toInt()
-                    } catch (e: java.lang.NumberFormatException) {
-                        ChatUtils.sendClientMessage("§cPlease enter a valid index and try again.")
-                        return@setRunnable
-                    }
+                    val i: Int =
+                        try {
+                            a[1].toInt()
+                        } catch (e: java.lang.NumberFormatException) {
+                            ChatUtils.sendClientMessage("§cPlease enter a valid index and try again.")
+                            return@setRunnable
+                        }
                     if (i > ranges.size || i < 1) {
                         ChatUtils.sendClientMessage("§cPlease select a valid index and try again.")
                         return@setRunnable
@@ -343,12 +352,13 @@ object EndOfFarmNotifier {
                         return@setRunnable
                     }
 
-                    val i: Int = try {
-                        a[1].toInt()
-                    } catch (e: java.lang.NumberFormatException) {
-                        ChatUtils.sendClientMessage("§cPlease enter a valid number index and try again.")
-                        return@setRunnable
-                    }
+                    val i: Int =
+                        try {
+                            a[1].toInt()
+                        } catch (e: java.lang.NumberFormatException) {
+                            ChatUtils.sendClientMessage("§cPlease enter a valid number index and try again.")
+                            return@setRunnable
+                        }
                     if (i > ranges.size || i < 1) {
                         ChatUtils.sendClientMessage("§cPlease select a valid index and try again.")
                         return@setRunnable
@@ -356,8 +366,7 @@ object EndOfFarmNotifier {
                     rangeToHighlight = ranges[i - 1]
                     rangeToHighlightSetTime = PartlySaneSkies.time
                 }
-            }
-            .register()
+            }.register()
     }
 
     fun registerWandCommand() {
@@ -372,33 +381,36 @@ object EndOfFarmNotifier {
                 wandActive = !wandActive
                 ChatUtils.sendClientMessage(
                     "§7The wand is now " +
-                            if (wandActive) "§aactive§7. Use your §aSkyBlock menu §7to select a range using §bright click§7 as §3pos1§7 and then §3pos2§7. This is a §crepeating cycle§7. To disable the wand, run §b/wand§7 again."
-                            else "§cinactive§7."
+                        if (wandActive) {
+                            "§aactive§7. Use your §aSkyBlock menu §7to select a range using §bright click§7 as §3pos1§7 and then §3pos2§7. This is a §crepeating cycle§7. To disable the wand, run §b/wand§7 again."
+                        } else {
+                            "§cinactive§7."
+                        },
                 )
-            }
-            .register()
+            }.register()
     }
-
 
     /*
         EndOfFarmNotifier Utils
      */
     // Lists all the ranges to the chat
     private fun listRanges() {
-        val message = StringBuilder(
-            """
-         §d§m-----------------------------------------------------
-         §bEnd of Farms:
-         §d§m-----------------------------------------------------
-         
-         """.trimIndent()
-        )
+        val message =
+            StringBuilder(
+                """
+                §d§m-----------------------------------------------------
+                §bEnd of Farms:
+                §d§m-----------------------------------------------------
+                
+                """.trimIndent(),
+            )
 
         var i = 1
 
         // For each alert, format it so its ##. [range]
         for (range in ranges) {
-            message.append("§6")
+            message
+                .append("§6")
                 .append(i)
                 .append("§7: ")
                 .append(range.toString())

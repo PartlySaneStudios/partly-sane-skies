@@ -3,27 +3,31 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 package me.partlysanestudios.partlysaneskies.utils
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
+import me.partlysanestudios.partlysaneskies.data.skyblockdata.IslandType
+import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
+import me.partlysanestudios.partlysaneskies.events.minecraft.TablistUpdateEvent
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.stripLeading
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.stripTrailing
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
-import java.util.*
+import java.util.Locale
 
 object HypixelUtils {
+
+    var currentIsland: IslandType? = null
+
     // Returns if the current gamemode is skyblock
-    fun isSkyblock(): Boolean {
-        return MinecraftUtils.getScoreboardName().lowercase(Locale.getDefault()).contains("skyblock")
-    }
+    fun isSkyblock(): Boolean = MinecraftUtils.getScoreboardName().lowercase(Locale.getDefault()).contains("skyblock")
 
     // Returns if the current server is hypixel
     fun isHypixel(): Boolean {
         try {
-            return PartlySaneSkies.minecraft.currentServerData.serverIP.contains(".hypixel.net")
+            return PartlySaneSkies.minecraft.currentServerData.serverIP
+                .contains(".hypixel.net")
         } catch (ignored: NullPointerException) {
         }
         return false
@@ -83,10 +87,12 @@ object HypixelUtils {
         }
         return if (money == "") {
             0L
-        } else try {
-            money.toLong()
-        } catch (event: java.lang.NumberFormatException) {
-            0
+        } else {
+            try {
+                money.toLong()
+            } catch (event: java.lang.NumberFormatException) {
+                0
+            }
         }
     }
 
@@ -98,8 +104,8 @@ object HypixelUtils {
         val scoreboard = MinecraftUtils.getScoreboardLines()
         for (line in scoreboard) {
             if (
-                stripLeading(line).contains("⏣")
-                || stripLeading(line).contains("ф")
+                stripLeading(line).contains("⏣") ||
+                stripLeading(line).contains("ф")
             ) {
                 return stripLeading(line).replace(Regex("[⏣ф]"), "")
             }
@@ -111,9 +117,7 @@ object HypixelUtils {
      * Gets the item id from an item
      * @return The item id
      */
-    fun ItemStack.getItemId(): String {
-        return this.getItemAttributes()?.getString("id") ?: ""
-    }
+    fun ItemStack.getItemId(): String = this.getItemAttributes()?.getString("id") ?: ""
 
     fun ItemStack.getHypixelEnchants(): Map<String, Int> {
         val map = HashMap<String, Int>()
@@ -133,7 +137,19 @@ object HypixelUtils {
      * Gets the item attributes from an item
      * @return The item attributes
      */
-    fun ItemStack.getItemAttributes(): NBTTagCompound? {
-        return this.tagCompound?.getCompoundTag("ExtraAttributes")
+    fun ItemStack.getItemAttributes(): NBTTagCompound? = this.tagCompound?.getCompoundTag("ExtraAttributes")
+
+    fun inAdvancedMiningIsland() = IslandType.onIslands(IslandType.DWARVEN_MINES, IslandType.CRYSTAL_HOLLOWS, IslandType.MINESHAFT)
+
+
+    @SubscribePSSEvent
+    fun onTablistUpdate(event: TablistUpdateEvent) {
+        currentIsland = event.list
+            .map { it.removeColorCodes().trim() }
+            .firstOrNull { it.startsWith("Area: ") || it.startsWith("Dungeon: ") }
+            ?.let { line ->
+                val islandName = line.replace("Area: ", "").replace("Dungeon: ", "").trim()
+                IslandType.entries.firstOrNull { it.islandName.equals(islandName, ignoreCase = true) }
+            }
     }
 }

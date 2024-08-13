@@ -3,7 +3,6 @@
 // See LICENSE for copyright and license notices.
 //
 
-
 //
 // Time spent pulling hair out in this file:
 // Su386: 14.5 hours and 13 cups of tea
@@ -14,7 +13,6 @@
 // The thoughts and prayers of the ancients are with you (Stargate Reference)
 //
 
-
 //
 // Lets goooo it finally works (half of the issues were my own stupidity)
 //
@@ -22,7 +20,6 @@
 //
 // Still better than java tho
 //
-
 
 package me.partlysanestudios.partlysaneskies.features.farming.endoffarmnotifer
 
@@ -42,7 +39,6 @@ import org.lwjgl.opengl.GL11
 import java.awt.Color
 
 object RangeHighlight {
-
     @SubscribeEvent
     fun onRenderWorldLast(event: RenderWorldLastEvent) {
         if (!PartlySaneSkies.config.showFarmRegions && EndOfFarmNotifier.rangeToHighlight == null) {
@@ -62,14 +58,15 @@ object RangeHighlight {
                 color = color.applyOpacity((.4 * 255).toInt())
             }
 
-            val effectiveRange = Range3d(
-                range.sortedPoints[0].x,
-                range.sortedPoints[0].y,
-                range.sortedPoints[0].z,
-                range.sortedPoints[1].x + 1,
-                range.sortedPoints[1].y + 1,
-                range.sortedPoints[1].z + 1
-            )
+            val effectiveRange =
+                Range3d(
+                    range.sortedPoints[0].x,
+                    range.sortedPoints[0].y,
+                    range.sortedPoints[0].z,
+                    range.sortedPoints[1].x + 1,
+                    range.sortedPoints[1].y + 1,
+                    range.sortedPoints[1].z + 1,
+                )
             renderBox(effectiveRange, event.partialTicks, color)
         }
     }
@@ -79,32 +76,33 @@ object RangeHighlight {
             renderBoxFaces(range, color, false, partialTicks)
             renderBoxEdges(range, false, partialTicks)
 
-            val pos1Block = Range3d(
-                range.sortedPoints[0].x,
-                range.sortedPoints[0].y,
-                range.sortedPoints[0].z,
-                range.sortedPoints[0].x + 1,
-                range.sortedPoints[0].y + 1,
-                range.sortedPoints[0].z + 1
-            )
+            val pos1Block =
+                Range3d(
+                    range.sortedPoints[0].x,
+                    range.sortedPoints[0].y,
+                    range.sortedPoints[0].z,
+                    range.sortedPoints[0].x + 1,
+                    range.sortedPoints[0].y + 1,
+                    range.sortedPoints[0].z + 1,
+                )
             renderBoxFaces(pos1Block, Color(255, 100, 100, (.75 * 255).toInt()), false, partialTicks)
             renderBoxEdges(pos1Block, false, partialTicks)
 
-            val pos2Block = Range3d(
-                range.sortedPoints[1].x,
-                range.sortedPoints[1].y,
-                range.sortedPoints[1].z,
-                range.sortedPoints[1].x - 1,
-                range.sortedPoints[1].y - 1,
-                range.sortedPoints[1].z - 1
-            )
+            val pos2Block =
+                Range3d(
+                    range.sortedPoints[1].x,
+                    range.sortedPoints[1].y,
+                    range.sortedPoints[1].z,
+                    range.sortedPoints[1].x - 1,
+                    range.sortedPoints[1].y - 1,
+                    range.sortedPoints[1].z - 1,
+                )
             renderBoxFaces(pos2Block, Color(100, 100, 255, (.75 * 255).toInt()), false, partialTicks)
             renderBoxEdges(pos2Block, false, partialTicks)
         } catch (e: NullPointerException) {
             ChatUtils.sendClientMessage("Failed rendering of $range")
             throw RuntimeException(e)
         }
-
     }
 
     //        Renders the faces of a box given a range
@@ -112,7 +110,7 @@ object RangeHighlight {
         range: Range3d,
         color: Color,
         renderRelativeToPlayer: Boolean = false,
-        partialTicks: Float
+        partialTicks: Float,
     ) {
 //            Sets the correct state
         GlStateManager.enableBlend()
@@ -126,7 +124,6 @@ object RangeHighlight {
         val worldRenderer = tessellator.worldRenderer
 
         GlStateManager.color(color.red / 255f, color.blue / 255f, color.green / 255f, color.alpha / 255f)
-
 
         //            Gets the x y z adn z where 1 is the smaller coordinate and 2 is the bigger one
         var x1 = range.sortedPoints[0].x
@@ -150,7 +147,6 @@ object RangeHighlight {
             z1 = range.sortedPoints[0].z - playerPos.z
             z2 = range.sortedPoints[1].z - playerPos.z
         }
-
 
 //            ChatUtils.sendClientMessage("x1: $x1, x2: $x2, y1: $y1, y2: $y2, z1: $z1, z2: $z2")
 
@@ -209,7 +205,6 @@ object RangeHighlight {
         GlStateManager.disableBlend()
     }
 
-
     fun renderBoxEdges(range: Range3d, renderRelativeToPlayer: Boolean = false, partialTicks: Float) {
         //            Sets the correct state
         GlStateManager.enableBlend()
@@ -243,7 +238,6 @@ object RangeHighlight {
             z1 = range.sortedPoints[0].z - playerPos.z
             z2 = range.sortedPoints[1].z - playerPos.z
         }
-
 
         // Front face
         worldRenderer.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION)
@@ -334,5 +328,4 @@ object RangeHighlight {
 
         return Point3d(xPos, yPos, zPos)
     }
-
 }

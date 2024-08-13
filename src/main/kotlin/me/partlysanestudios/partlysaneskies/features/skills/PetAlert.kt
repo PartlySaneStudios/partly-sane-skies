@@ -24,6 +24,7 @@ import me.partlysanestudios.partlysaneskies.data.cache.PetData.getCurrentPetRari
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity
 import me.partlysanestudios.partlysaneskies.features.gui.SidePanel
 import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
+import me.partlysanestudios.partlysaneskies.render.gui.constraints.TextScaledPixelConstraint.Companion.textScaledPixels
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
 import me.partlysanestudios.partlysaneskies.utils.ElementaUtils.applyBackground
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils.getItemId
@@ -35,7 +36,6 @@ import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import net.minecraft.client.audio.PositionedSoundRecord
 import net.minecraft.client.gui.inventory.GuiChest
 import net.minecraft.client.gui.inventory.GuiContainer
-import net.minecraft.command.ICommandSender
 import net.minecraft.event.ClickEvent
 import net.minecraft.util.ChatComponentText
 import net.minecraft.util.ResourceLocation
@@ -43,21 +43,22 @@ import net.minecraftforge.client.event.GuiScreenEvent
 import java.awt.Color
 
 object PetAlert : SidePanel() {
+    override val panelBaseComponent: UIComponent = UIBlock().applyBackground()
+        .constrain {
+            x = 800.scaledPixels
+            y = CenterConstraint()
+            width = 175.scaledPixels
+            height = 100.scaledPixels
+            color = Color(0, 0, 0, 0).constraint
+        }
 
-    override val panelBaseComponent: UIComponent = UIBlock().applyBackground().constrain {
-        x = 800.scaledPixels
-        y = CenterConstraint()
-        width = 175.scaledPixels
-        height = 100.scaledPixels
-        color = Color(0, 0, 0, 0).constraint
-    }
-
-    private val textComponent = UIWrappedText(centered = true).constrain {
-        x = CenterConstraint()
-        y = CenterConstraint()
-        width = 95.percent
-        textScale = 1.scaledPixels
-    } childOf panelBaseComponent
+    private val textComponent = UIWrappedText(centered = true)
+        .constrain {
+            x = CenterConstraint()
+            y = CenterConstraint()
+            width = 95.percent
+            textScale = 1.textScaledPixels
+        } childOf panelBaseComponent
 
     override fun onPanelRender(event: GuiScreenEvent.BackgroundDrawnEvent) {
         alignPanel()
@@ -66,13 +67,14 @@ object PetAlert : SidePanel() {
             currentlySelectedPetName = "§8(Unknown)"
         }
 
-        val petColorCode = if (config.selectedPet.isEmpty()) {
-            "§d"
-        } else if (currentlySelectedPetName.equals(config.selectedPet, ignoreCase = true)) {
-            "§a"
-        } else {
-            "§c"
-        }
+        val petColorCode =
+            if (config.selectedPet.isEmpty()) {
+                "§d"
+            } else if (currentlySelectedPetName.equals(config.selectedPet, ignoreCase = true)) {
+                "§a"
+            } else {
+                "§c"
+            }
 
         var petLevel = ""
         if (getCurrentPetLevel() != -1) {
@@ -84,7 +86,8 @@ object PetAlert : SidePanel() {
             petRarity = getCurrentPetRarity().displayName + " "
         }
 
-        val textString = """
+        val textString =
+            """
             §eCurrently Selected Pet:
             $petColorCode$petLevel$petRarity$currentlySelectedPetName
             
@@ -97,6 +100,7 @@ object PetAlert : SidePanel() {
     private var lastMessageSendTime: Long = 0
     private var lastSoundTime: Long = 0
     private var lastMuteTime: Long = 0
+
     fun runPetAlertTick() {
         if (!config.incorrectPetForMinionAlert) {
             return
@@ -129,9 +133,9 @@ object PetAlert : SidePanel() {
                     PositionedSoundRecord.create(
                         ResourceLocation(
                             "partlysaneskies",
-                            "airraidsiren"
-                        )
-                    )
+                            "airraidsiren",
+                        ),
+                    ),
                 )
             }
 
@@ -139,11 +143,12 @@ object PetAlert : SidePanel() {
         }
 
         if (!onCooldown(lastMessageSendTime, 3000)) {
-            val message = ChatComponentText(
-                "${PartlySaneSkies.CHAT_PREFIX}§cYOU CURRENTLY HAVE $petName§c SELECTED AS YOUR PET. YOU WANTED TO UPGRADE $selectedPetName.\n§dClick this message or run /mutepetalert to mute the alert for ${config.petAlertMuteTime} ${
-                    "minutes".pluralize(config.petAlertMuteTime)
-                }."
-            )
+            val message =
+                ChatComponentText(
+                    "${PartlySaneSkies.CHAT_PREFIX}§cYOU CURRENTLY HAVE $petName§c SELECTED AS YOUR PET. YOU WANTED TO UPGRADE $selectedPetName.\n§dClick this message or run /mutepetalert to mute the alert for ${config.petAlertMuteTime} ${
+                        "minutes".pluralize(config.petAlertMuteTime)
+                    }.",
+                )
             message.chatStyle.setChatClickEvent(ClickEvent(ClickEvent.Action.RUN_COMMAND, "/mutepetalert"))
             minecraft.ingameGUI.chatGUI.printChatMessage(message)
             lastMessageSendTime = time
@@ -156,7 +161,10 @@ object PetAlert : SidePanel() {
         }
 
         val upper = (minecraft.currentScreen as GuiChest).containerInventory
-        val inventoryNameMatches = upper.displayName.formattedText.removeColorCodes().contains("Minion")
+        val inventoryNameMatches =
+            upper.displayName.formattedText
+                .removeColorCodes()
+                .contains("Minion")
         if (!inventoryNameMatches) {
             return false
         }
@@ -167,12 +175,10 @@ object PetAlert : SidePanel() {
         return displayName.contains("Minion")
     }
 
-
     fun favouritePet() {
         if (!isSkyblock()) {
             return
         }
-
 
         if (!isPetGui()) {
             return
@@ -196,7 +202,9 @@ object PetAlert : SidePanel() {
         PSSCommand("mutepetalert")
             .setDescription("Mutes the pet alert for a set amount of minutes.")
             .setRunnable {
-                sendClientMessage("§bPet alert has been muted for ${config.petAlertMuteTime} ${"minute".pluralize(config.petAlertMuteTime)}.")
+                sendClientMessage(
+                    "§bPet alert has been muted for ${config.petAlertMuteTime} ${"minute".pluralize(config.petAlertMuteTime)}.",
+                )
                 lastMuteTime = time
             }.register()
     }

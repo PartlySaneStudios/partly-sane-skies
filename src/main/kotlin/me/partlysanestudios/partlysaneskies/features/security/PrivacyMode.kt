@@ -5,18 +5,15 @@ import me.partlysanestudios.partlysaneskies.utils.SystemUtils
 import org.apache.logging.log4j.Level
 
 object PrivacyMode {
-
     private var enablePrivacyMode = false
 
-    fun shouldBlockTelemetry(): Boolean {
-        return PartlySaneSkies.config.privacyMode == 3 || (PartlySaneSkies.config.privacyMode != 0 && enablePrivacyMode)
-    }
+    fun shouldBlockTelemetry(): Boolean =
+        PartlySaneSkies.config.privacyMode == 3 || (PartlySaneSkies.config.privacyMode != 0 && enablePrivacyMode)
 
     fun enablePrivacyMode() {
         SystemUtils.log(
             Level.INFO,
-            "Privacy mode has been enabled. Privacy Mode Option: ${PartlySaneSkies.config.privacyMode}"
+            "Privacy mode has been enabled. Privacy Mode Option: ${PartlySaneSkies.config.privacyMode}",
         )
     }
-
 }
