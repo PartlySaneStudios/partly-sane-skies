@@ -20,6 +20,7 @@ package me.partlysanestudios.partlysaneskies
 
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
+import me.partlysanestudios.partlysaneskies.api.events.PssEvents
 import me.partlysanestudios.partlysaneskies.config.Keybinds
 import me.partlysanestudios.partlysaneskies.config.OneConfigScreen
 import me.partlysanestudios.partlysaneskies.config.psconfig.Config
@@ -377,16 +378,9 @@ class PartlySaneSkies {
     }
 
     private fun registerEvent(obj: Any) {
-        try {
-            EVENT_BUS.register(obj)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-        try {
-            EventManager.register(obj)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+        runCatching { EVENT_BUS.register(obj) }.onFailure { it.printStackTrace() }
+        runCatching { EventManager.register(obj) }.onFailure { it.printStackTrace() }
+        runCatching { PssEvents.register(obj) }.onFailure { it.printStackTrace() }
     }
 
     // Method runs every tick
