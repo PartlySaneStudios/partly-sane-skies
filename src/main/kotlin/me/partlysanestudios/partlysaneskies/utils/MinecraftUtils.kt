@@ -212,10 +212,10 @@ object MinecraftUtils {
         )
     }
 
-    fun isListOfStringsInLore(arr: List<String>, lore: Array<String>): Boolean {
+    fun isArrOfStringsInLore(arr: Array<String?>, lore: Array<String>): Boolean {
         for (line in lore) {
             for (arrItem in arr) {
-                if (line.contains(arrItem)) {
+                if (line.contains(arrItem!!)) {
                     return true
                 }
             }
