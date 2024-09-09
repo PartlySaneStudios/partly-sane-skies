@@ -1,3 +1,8 @@
+//
+// Written by ThatGravyBoat.
+// See LICENSE for copyright and license notices.
+//
+
 package me.partlysanestudios.partlysaneskies.api.events
 
 import org.apache.logging.log4j.Logger
@@ -7,12 +12,12 @@ import java.lang.invoke.MethodType
 import java.lang.reflect.Method
 import java.util.function.Consumer
 
-class EventHandler<T : PssEvent>(private val logger: Logger) {
+class EventHandler<T : PSSEvent>(private val logger: Logger) {
 
     private val listeners: MutableList<Listener> = mutableListOf()
     private var lastCancellableIndex: Int = -1
 
-    fun register(method: Method, instance: Any, options: PssEvent.Subscribe) {
+    fun register(method: Method, instance: Any, options: PSSEvent.Subscribe) {
         listeners.add(Listener(options, createEventConsumer(instance, method)))
         if (options.receiveCancelled) lastCancellableIndex = listeners.size - 1
     }
@@ -55,5 +60,5 @@ class EventHandler<T : PssEvent>(private val logger: Logger) {
 
     }
 
-    private data class Listener(val options: PssEvent.Subscribe, val consumer: Consumer<Any>)
+    private data class Listener(val options: PSSEvent.Subscribe, val consumer: Consumer<Any>)
 }
