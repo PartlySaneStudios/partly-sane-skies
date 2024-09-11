@@ -118,12 +118,7 @@ object StringUtils {
         return str
     }
 
-    fun String.pluralize(number: Number): String =
-        if (number == 1) {
-            this
-        } else {
-            "${this}s"
-        }
+    fun String.pluralize(number: Number): String = this + if (number != 1) "s" else ""
 
     fun stripTrailing(str: String): String {
         var str = str
@@ -306,25 +301,7 @@ object StringUtils {
         return total
     }
 
-    fun String.titleCase(): String {
-        val titleCase = StringBuilder()
-        var nextCharUpperCase = true
-        for (i in this.indices) {
-            val ch = this.substring(i, i + 1)
-            if (ch != " " && !nextCharUpperCase) {
-                titleCase.append(ch.lowercase())
-                continue
-            }
-            if (nextCharUpperCase) {
-                titleCase.append(ch.uppercase())
-                nextCharUpperCase = false
-                continue
-            }
-            titleCase.append(ch.lowercase())
-            nextCharUpperCase = true
-        }
-        return titleCase.toString()
-    }
+    fun String.titleCase() = split(" ").joinToString(" ") { it.lowercase().replaceFirstChar { c -> c.uppercase() } }
 
     fun String.parseAbbreviatedNumber(): Double {
         try {
