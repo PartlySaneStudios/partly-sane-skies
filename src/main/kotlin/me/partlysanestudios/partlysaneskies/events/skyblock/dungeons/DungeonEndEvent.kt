@@ -1,19 +1,10 @@
+//
+// Written by Su386.
+// See LICENSE for copyright and license notices.
+//
+
 package me.partlysanestudios.partlysaneskies.events.skyblock.dungeons
 
-import me.partlysanestudios.partlysaneskies.events.EventManager
+import me.partlysanestudios.partlysaneskies.api.events.PSSEvent
 
-class DungeonEndEvent {
-    companion object {
-        internal fun onMessageReceived(functionList: List<EventManager.EventFunction>, formattedMessage: String) {
-            if (formattedMessage.contains("§r§c☠ §r§eDefeated §r")) {
-                for (function in functionList) {
-                    try {
-                        function.function.call(function.obj, DungeonEndEvent())
-                    } catch (exception: Exception) {
-                        exception.printStackTrace()
-                    }
-                }
-            }
-        }
-    }
-}
+class DungeonEndEvent : PSSEvent()

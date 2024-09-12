@@ -8,20 +8,20 @@ package me.partlysanestudios.partlysaneskies.data.skyblockdata
 import com.google.gson.JsonParser
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.time
+import me.partlysanestudios.partlysaneskies.api.events.PSSEvent
 import me.partlysanestudios.partlysaneskies.data.api.GetRequest
 import me.partlysanestudios.partlysaneskies.data.api.Request
 import me.partlysanestudios.partlysaneskies.data.api.RequestRunnable
 import me.partlysanestudios.partlysaneskies.data.api.RequestsManager.newRequest
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager.getFile
-import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.data.LoadPublicDataEvent
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import java.io.IOException
 import java.net.MalformedURLException
 
 object SkyblockDataManager {
-    @SubscribePSSEvent
-    fun onDataLoad(event: LoadPublicDataEvent?) {
+    @PSSEvent.Subscribe
+    fun onDataLoad(event: LoadPublicDataEvent) {
         try {
             initBitValues()
         } catch (e: IOException) {

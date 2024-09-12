@@ -8,9 +8,9 @@ package me.partlysanestudios.partlysaneskies.features.farming.garden
 import gg.essential.elementa.constraints.CenterConstraint
 import gg.essential.elementa.dsl.percent
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
+import me.partlysanestudios.partlysaneskies.api.events.PSSEvent
 import me.partlysanestudios.partlysaneskies.config.psconfig.Toggle
 import me.partlysanestudios.partlysaneskies.config.psconfig.Toggle.Companion.asBoolean
-import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.minecraft.PSSChatEvent
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.EmbedData
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.EmbedField
@@ -48,7 +48,7 @@ object CropMilestoneWebhook : Webhook() {
 
     val regex = "§lGARDEN MILESTONE §3(\\w+[\\s\\w+]*) §8(\\w+)➜§3(\\w+)".toRegex()
 
-    @SubscribePSSEvent
+    @PSSEvent.Subscribe
     fun onChatMessage(event: PSSChatEvent) {
         if (!enabled) return
 

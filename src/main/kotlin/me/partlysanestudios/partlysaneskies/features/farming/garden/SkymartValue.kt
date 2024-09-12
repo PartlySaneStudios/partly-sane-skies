@@ -16,10 +16,10 @@ import gg.essential.elementa.dsl.constraint
 import gg.essential.elementa.dsl.percent
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
+import me.partlysanestudios.partlysaneskies.api.events.PSSEvent
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager.getFile
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager.getItem
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockItem
-import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.data.LoadPublicDataEvent
 import me.partlysanestudios.partlysaneskies.features.gui.SidePanel
 import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
@@ -83,7 +83,7 @@ object SkymartValue : SidePanel() {
         textComponent.setText(textString)
     }
 
-    @SubscribePSSEvent
+    @PSSEvent.Subscribe
     fun initCopperValues(event: LoadPublicDataEvent) {
         val str = getFile("constants/skymart_copper.json")
         val skymartObject = JsonParser().parse(str).getAsJsonObject().getAsJsonObject("skymart")

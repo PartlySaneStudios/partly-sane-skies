@@ -8,11 +8,11 @@ package me.partlysanestudios.partlysaneskies.features.skills
 import gg.essential.elementa.constraints.CenterConstraint
 import gg.essential.elementa.dsl.percent
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
+import me.partlysanestudios.partlysaneskies.api.events.PSSEvent
 import me.partlysanestudios.partlysaneskies.config.psconfig.Toggle
 import me.partlysanestudios.partlysaneskies.config.psconfig.Toggle.Companion.asBoolean
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity.Companion.getRarityFromColorCode
-import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.minecraft.PSSChatEvent
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.EmbedData
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.EmbedField
@@ -65,7 +65,7 @@ object PetLevelUpWebhook : Webhook() {
 
     private val regex = "§r§aYour §r(§.)((\\w+(\\s\\w+)*)( ✦)?) §r§aleveled up to level §r§9(\\d+)§r§a!§r".toRegex()
 
-    @SubscribePSSEvent
+    @PSSEvent.Subscribe
     fun onChatMessage(event: PSSChatEvent) {
         if (!enabled) return
 

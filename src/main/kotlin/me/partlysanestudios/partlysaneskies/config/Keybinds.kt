@@ -62,7 +62,7 @@ object Keybinds {
     }
 
     @SubscribeEvent
-    fun checkKeyBinds(event: InputEvent.KeyInputEvent?) {
+    fun checkKeyBinds(event: InputEvent.KeyInputEvent) {
         if (OneConfigScreen.debugKeybind.isActive()) {
             onDebugKeyPress()
         }

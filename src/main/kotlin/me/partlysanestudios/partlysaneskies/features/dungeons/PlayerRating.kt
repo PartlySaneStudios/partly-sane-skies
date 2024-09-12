@@ -9,10 +9,10 @@ import com.google.gson.JsonParser
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.RANK_NAMES
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
+import me.partlysanestudios.partlysaneskies.api.events.PSSEvent
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager.getFile
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.IslandType
-import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.data.LoadPublicDataEvent
 import me.partlysanestudios.partlysaneskies.events.minecraft.PSSChatEvent
 import me.partlysanestudios.partlysaneskies.events.skyblock.dungeons.DungeonEndEvent
@@ -40,7 +40,7 @@ object PlayerRating {
 
     private var lastMessage = ""
 
-    @SubscribePSSEvent
+    @PSSEvent.Subscribe
     fun initPatterns(event: LoadPublicDataEvent) {
         currentPlayer = minecraft.session.username
         val str = getFile("constants/dungeon_player_rate_regex_strings.json")
@@ -176,7 +176,7 @@ object PlayerRating {
         ) { reprintLastScore() }.register()
     }
 
-    @SubscribePSSEvent
+    @PSSEvent.Subscribe
     fun onDungeonStart(event: DungeonStartEvent) {
         if (!(config.dungeonPlayerBreakdown || config.dungeonSnitcher)) {
             return
@@ -184,7 +184,7 @@ object PlayerRating {
         reset()
     }
 
-    @SubscribePSSEvent
+    @PSSEvent.Subscribe
     fun onDungeonEnd(event: DungeonEndEvent) {
         if (!(config.dungeonPlayerBreakdown || config.dungeonSnitcher)) {
             return
@@ -225,7 +225,7 @@ object PlayerRating {
         reset()
     }
 
-    @SubscribePSSEvent
+    @PSSEvent.Subscribe
     fun onChatEvent(event: PSSChatEvent) {
         if (!(config.dungeonPlayerBreakdown || config.dungeonSnitcher)) {
             return

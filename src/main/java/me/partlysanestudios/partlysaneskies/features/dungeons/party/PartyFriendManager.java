@@ -6,8 +6,8 @@
 package me.partlysanestudios.partlysaneskies.features.dungeons.party;
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
+import me.partlysanestudios.partlysaneskies.api.events.PSSEvent;
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand;
-import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent;
 import me.partlysanestudios.partlysaneskies.events.minecraft.PSSChatEvent;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
 
@@ -57,7 +57,7 @@ public class PartyFriendManager {
         }
     }
 
-    @SubscribePSSEvent
+    @PSSEvent.Subscribe
     public void onChat(PSSChatEvent event) {
         if (!isWaitingForMembers) {
             return;

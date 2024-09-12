@@ -7,9 +7,9 @@ package me.partlysanestudios.partlysaneskies.features.dungeons
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
+import me.partlysanestudios.partlysaneskies.api.events.PSSEvent
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager
-import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.skyblock.dungeons.DungeonStartEvent
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.countItemInInventory
@@ -18,7 +18,7 @@ import net.minecraftforge.fml.common.gameevent.InputEvent
 import java.util.Locale
 
 object ItemRefill {
-    @SubscribePSSEvent
+    @PSSEvent.Subscribe
     fun onDungeonStart(event: DungeonStartEvent) {
         if (!config.autoItemRefill) return
         runItemRefil()
@@ -37,7 +37,7 @@ object ItemRefill {
     }
 
     @SubscribeEvent
-    fun checkKeyBinds(event: InputEvent.KeyInputEvent?) {
+    fun checkKeyBinds(event: InputEvent.KeyInputEvent) {
         if (config.itemRefillKeybind.isActive()) {
             runItemRefil()
         }

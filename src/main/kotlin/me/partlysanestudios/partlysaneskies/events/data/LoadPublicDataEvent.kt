@@ -5,28 +5,6 @@
 
 package me.partlysanestudios.partlysaneskies.events.data
 
-import me.partlysanestudios.partlysaneskies.events.EventManager
-import me.partlysanestudios.partlysaneskies.utils.SystemUtils
-import org.apache.logging.log4j.Level
+import me.partlysanestudios.partlysaneskies.api.events.PSSEvent
 
-class LoadPublicDataEvent {
-    companion object {
-        private fun callEvent(functions: List<EventManager.EventFunction>) {
-            Thread {
-                for (function in functions) {
-                    try {
-                        SystemUtils.log(Level.INFO, "Loading ${function.obj.javaClass.name} ${function.function.name}")
-                        val event = LoadPublicDataEvent()
-                        function.function.call(function.obj, event)
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                    }
-                }
-            }.start()
-        }
-
-        internal fun onDataLoad() {
-            callEvent(EventManager.registeredFunctions[LoadPublicDataEvent::class] ?: ArrayList())
-        }
-    }
-}
+class LoadPublicDataEvent : PSSEvent()

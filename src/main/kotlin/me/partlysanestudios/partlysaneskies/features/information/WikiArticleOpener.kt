@@ -7,7 +7,7 @@ package me.partlysanestudios.partlysaneskies.features.information
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
-import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
+import me.partlysanestudios.partlysaneskies.api.events.PSSEvent
 import me.partlysanestudios.partlysaneskies.events.minecraft.PSSChatEvent
 import me.partlysanestudios.partlysaneskies.features.economy.auctionhousemenu.AuctionHouseGui
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils.getItemId
@@ -20,7 +20,7 @@ import net.minecraft.item.ItemStack
 object WikiArticleOpener {
     private var isWaitingForArticle = false
 
-    @SubscribePSSEvent
+    @PSSEvent.Subscribe
     fun onChat(e: PSSChatEvent) {
         if (!isWaitingForArticle) {
             return

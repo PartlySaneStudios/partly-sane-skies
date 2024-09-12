@@ -10,9 +10,9 @@ import com.google.gson.JsonParser
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.time
+import me.partlysanestudios.partlysaneskies.api.events.PSSEvent
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.IslandType
-import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.data.LoadPublicDataEvent
 import me.partlysanestudios.partlysaneskies.events.minecraft.player.PlayerBreakBlockEvent
 import me.partlysanestudios.partlysaneskies.render.gui.hud.BannerRenderer.renderNewBanner
@@ -28,7 +28,7 @@ import net.minecraft.util.ResourceLocation
 object WrongToolCropWarning {
     private var lastWarnTime = -1L
 
-    @SubscribePSSEvent
+    @PSSEvent.Subscribe
     fun onBlockBreak(event: PlayerBreakBlockEvent) {
         if (!config.wrongToolForCropEnabled) return
         if (onCooldown(lastWarnTime, (config.wrongToolForCropCooldown * 1000).toLong())) return
@@ -99,10 +99,9 @@ object WrongToolCropWarning {
     internal object CropToolData {
         var jsonObject = JsonObject()
 
-        @SubscribePSSEvent
+        @PSSEvent.Subscribe
         fun loadData(event: LoadPublicDataEvent) {
-            jsonObject =
-                JsonParser().parse(PublicDataManager.getFile("constants/crop_tools.json")).asJsonObject ?: JsonObject()
+            jsonObject = JsonParser().parse(PublicDataManager.getFile("constants/crop_tools.json")).asJsonObject ?: JsonObject()
         }
 
         fun serializeCrop(cropUnlocalizedName: String, cropObject: JsonObject): Crop =

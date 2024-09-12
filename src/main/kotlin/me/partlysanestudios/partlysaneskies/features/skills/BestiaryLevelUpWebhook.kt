@@ -8,9 +8,9 @@ package me.partlysanestudios.partlysaneskies.features.skills
 import gg.essential.elementa.constraints.CenterConstraint
 import gg.essential.elementa.dsl.percent
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
+import me.partlysanestudios.partlysaneskies.api.events.PSSEvent
 import me.partlysanestudios.partlysaneskies.config.psconfig.Toggle
 import me.partlysanestudios.partlysaneskies.config.psconfig.Toggle.Companion.asBoolean
-import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.minecraft.PSSChatEvent
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.EmbedData
 import me.partlysanestudios.partlysaneskies.features.discord.webhooks.EmbedField
@@ -48,7 +48,7 @@ object BestiaryLevelUpWebhook : Webhook() {
 
     private val regex = "§b(§.)(\\w+[\\s\\w+]*) §7§8(\\w+) §8➡§b §b(\\w+)".toRegex()
 
-    @SubscribePSSEvent
+    @PSSEvent.Subscribe
     fun onChatMessage(event: PSSChatEvent) {
         if (!enabled) return
         val message = event.message

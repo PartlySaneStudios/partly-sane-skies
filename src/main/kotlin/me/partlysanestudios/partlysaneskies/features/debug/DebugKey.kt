@@ -12,9 +12,9 @@ import gg.essential.universal.UResolution
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.time
+import me.partlysanestudios.partlysaneskies.api.events.PSSEvent
 import me.partlysanestudios.partlysaneskies.data.cache.StatsData
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity
-import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.minecraft.PSSChatEvent
 import me.partlysanestudios.partlysaneskies.events.minecraft.render.RenderWaypointEvent
 import me.partlysanestudios.partlysaneskies.features.dungeons.PlayerRating
@@ -148,7 +148,7 @@ object DebugKey {
     }
 
     // Runs chat analyzer for debug mode
-    @SubscribePSSEvent
+    @PSSEvent.Subscribe
     fun onChat(event: PSSChatEvent) {
         if (isDebugMode() && config.debugChatAnalyser) {
             log(Level.INFO, event.message)
@@ -158,7 +158,7 @@ object DebugKey {
 
     private var waypointPoint = Point3d(0.0, 0.0, 0.0)
 
-    @SubscribePSSEvent
+    @PSSEvent.Subscribe
     fun onWaypointRender(event: RenderWaypointEvent) {
         if (isDebugMode() && config.debugSpawnWaypoint) {
             event.pipeline.add(Waypoint("Debug Waypoint", waypointPoint.toBlockPosInt()))

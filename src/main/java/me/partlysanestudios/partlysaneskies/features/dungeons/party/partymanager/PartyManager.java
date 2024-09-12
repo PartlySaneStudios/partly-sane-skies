@@ -6,13 +6,11 @@
 package me.partlysanestudios.partlysaneskies.features.dungeons.party.partymanager;
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies;
+import me.partlysanestudios.partlysaneskies.api.events.PSSEvent;
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand;
-import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent;
 import me.partlysanestudios.partlysaneskies.events.minecraft.PSSChatEvent;
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils;
 import me.partlysanestudios.partlysaneskies.utils.StringUtils;
-import net.minecraftforge.client.event.ClientChatReceivedEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -165,7 +163,7 @@ public class PartyManager {
         }
     }
 
-    @SubscribePSSEvent
+    @PSSEvent.Subscribe
     public void onChatMemberJoin(PSSChatEvent event) {
         if (!PartlySaneSkies.Companion.getConfig().getGetDataOnJoin()) {
             return;
@@ -192,20 +190,20 @@ public class PartyManager {
     }
 
     // Upon chat message receives, it will check to see if it is the party list
-    @SubscribeEvent
-    public void getMembers(ClientChatReceivedEvent event) {
+    @PSSEvent.Subscribe
+    public void getMembers(PSSChatEvent event) {
         // If it's not waiting for party members, it returns
         if (!isWaitingForMembers) {
             return;
         }
 
         // If the message says "leader"
-        if (event.message.getUnformattedText().startsWith("Party Leader: ")) {
+        if (event.getComponent().getUnformattedText().startsWith("Party Leader: ")) {
             // Hides the message
-            event.setCanceled(true);
+            event.cancel();
 
             // Gets the message contents
-            String text = event.message.getUnformattedText();
+            String text = event.getComponent().getUnformattedText();
             // Removes the header
             text = text.replace("Party Leader: ", "");
             // Processes the list
@@ -213,10 +211,10 @@ public class PartyManager {
         }
 
         // If the message says "Party Moderators: "
-        else if (event.message.getUnformattedText().startsWith("Party Moderators: ")) {
+        else if (event.getComponent().getUnformattedText().startsWith("Party Moderators: ")) {
             // Hides the message
-            event.setCanceled(true);
-            String text = event.message.getUnformattedText();
+            event.cancel();
+            String text = event.getComponent().getUnformattedText();
 
             // Removes the header
             text = text.replace("Party Moderators: ", "");
@@ -224,12 +222,12 @@ public class PartyManager {
         }
 
         // If the message says "Party Members: "
-        else if (event.message.getUnformattedText().startsWith("Party Members: ")) {
+        else if (event.getComponent().getUnformattedText().startsWith("Party Members: ")) {
             // Hides the message
-            event.setCanceled(true);
+            event.cancel();
 
             // Gets the message contents
-            String text = event.message.getUnformattedText();
+            String text = event.getComponent().getUnformattedText();
             // Removes the header
             text = text.replace("Party Members: ", "");
             // Processes the list
@@ -237,15 +235,15 @@ public class PartyManager {
         }
 
         // Hides the beginning of the "Party Members" list
-        else if (event.message.getUnformattedText().startsWith("Party Members (")) {
-            event.setCanceled(true);
+        else if (event.getComponent().getUnformattedText().startsWith("Party Members (")) {
+            event.cancel();
         }
 
         // Detects the closing line -----
         // when all the members have been listed and the bar appears, its end of the message
-        else if (isMembersListed && event.message.getUnformattedText().startsWith("-----------------------------------------------------")) {
+        else if (isMembersListed && event.getComponent().getUnformattedText().startsWith("-----------------------------------------------------")) {
             // Hides the message
-            event.setCanceled(true);
+            event.cancel();
             // Resets
             isMembersListed = false;
             isWaitingForMembers = false;
@@ -254,14 +252,14 @@ public class PartyManager {
         }
 
         // Hides the ---------------------
-        else if (event.message.getUnformattedText().startsWith("-----------------------------------------------------")) {
-            event.setCanceled(true);
+        else if (event.getComponent().getUnformattedText().startsWith("-----------------------------------------------------")) {
+            event.cancel();
         }
 
         // If the player is not in the party
-        else if (event.message.getUnformattedText().startsWith("You are not currently in a party.")) {
+        else if (event.getComponent().getUnformattedText().startsWith("You are not currently in a party.")) {
             // Hides message
-            event.setCanceled(true);
+            event.cancel();
             // Sends an error message
             ChatUtils.INSTANCE.sendClientMessage(("§9§m-----------------------------------------------------\n " +
                 "§r§cError: Could not run Party Manager." +

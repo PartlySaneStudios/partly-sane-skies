@@ -6,8 +6,8 @@
 package me.partlysanestudios.partlysaneskies.utils
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
+import me.partlysanestudios.partlysaneskies.api.events.PSSEvent
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.IslandType
-import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.minecraft.TablistUpdateEvent
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
 import me.partlysanestudios.partlysaneskies.utils.StringUtils.stripLeading
@@ -142,7 +142,7 @@ object HypixelUtils {
     fun inAdvancedMiningIsland() = IslandType.onIslands(IslandType.DWARVEN_MINES, IslandType.CRYSTAL_HOLLOWS, IslandType.MINESHAFT)
 
 
-    @SubscribePSSEvent
+    @PSSEvent.Subscribe
     fun onTablistUpdate(event: TablistUpdateEvent) {
         currentIsland = event.list
             .map { it.removeColorCodes().trim() }
