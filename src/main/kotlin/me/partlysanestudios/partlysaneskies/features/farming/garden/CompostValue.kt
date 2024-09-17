@@ -16,9 +16,9 @@ import gg.essential.elementa.dsl.constraint
 import gg.essential.elementa.dsl.percent
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
+import me.partlysanestudios.partlysaneskies.api.events.PSSEvent
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager.getItem
-import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.data.LoadPublicDataEvent
 import me.partlysanestudios.partlysaneskies.features.gui.SidePanel
 import me.partlysanestudios.partlysaneskies.render.gui.constraints.ScaledPixelConstraint.Companion.scaledPixels
@@ -115,7 +115,7 @@ object CompostValue : SidePanel() {
         return true
     }
 
-    @SubscribePSSEvent
+    @PSSEvent.Subscribe
     fun loadCompostValues(event: LoadPublicDataEvent) {
         val data = PublicDataManager.getFile("constants/organic_matter.json")
         val obj = JsonParser().parse(data).asJsonObject

@@ -6,8 +6,8 @@
 package me.partlysanestudios.partlysaneskies.features.mining.crystalhollows.gemstonewaypoints
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
+import me.partlysanestudios.partlysaneskies.api.events.PSSEvent
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.IslandType
-import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.minecraft.render.RenderWaypointEvent
 import me.partlysanestudios.partlysaneskies.render.waypoint.Waypoint
 import me.partlysanestudios.partlysaneskies.utils.ImageUtils.applyOpacity
@@ -16,7 +16,7 @@ import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Point3d
 import java.awt.Color
 
 object GemstoneWaypointRender {
-    @SubscribePSSEvent
+    @PSSEvent.Subscribe
     fun onWaypointRenderEvent(event: RenderWaypointEvent) {
         if (!config.renderGemstoneWaypoints) {
             return

@@ -9,9 +9,9 @@ import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.time
+import me.partlysanestudios.partlysaneskies.api.events.PSSEvent
 import me.partlysanestudios.partlysaneskies.commands.PSSCommand
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager.getFile
-import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.data.LoadPublicDataEvent
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils.getItemId
 import me.partlysanestudios.partlysaneskies.utils.MathUtils.onCooldown
@@ -26,8 +26,8 @@ object MathematicalHoeRightClicks {
     var lastAllowHoeRightClickTime: Long = 0
     private val hoes = ArrayList<String>()
 
-    @SubscribePSSEvent
-    fun loadHoes(event: LoadPublicDataEvent?) {
+    @PSSEvent.Subscribe
+    fun loadHoes(event: LoadPublicDataEvent) {
         val str = getFile("constants/mathematical_hoes.json")
         val array = JsonParser().parse(str).getAsJsonObject()["hoes"].getAsJsonArray()
         hoes.clear()

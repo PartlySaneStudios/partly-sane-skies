@@ -8,8 +8,8 @@ package me.partlysanestudios.partlysaneskies.features.mining.crystalhollows.gems
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.time
+import me.partlysanestudios.partlysaneskies.api.events.PSSEvent
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager
-import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.data.LoadPublicDataEvent
 import me.partlysanestudios.partlysaneskies.utils.SystemUtils.log
 import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Point2d
@@ -34,7 +34,7 @@ object GemstoneData {
         map[chunk]?.get(gemstone.type)?.add(gemstone)
     }
 
-    @SubscribePSSEvent
+    @PSSEvent.Subscribe
     fun loadJsonData(event: LoadPublicDataEvent) {
         Thread(
             {

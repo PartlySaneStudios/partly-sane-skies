@@ -5,23 +5,6 @@
 
 package me.partlysanestudios.partlysaneskies.events.skyblock.dungeons
 
-import me.partlysanestudios.partlysaneskies.data.skyblockdata.IslandType
-import me.partlysanestudios.partlysaneskies.events.EventManager
-import me.partlysanestudios.partlysaneskies.utils.StringUtils.removeColorCodes
+import me.partlysanestudios.partlysaneskies.api.events.PSSEvent
 
-class DungeonStartEvent {
-    companion object {
-        internal fun onMessageReceived(functionList: List<EventManager.EventFunction>, formattedMessage: String) {
-            val message = formattedMessage.removeColorCodes()
-            if (message.contains("Starting in 1 second.") && IslandType.CATACOMBS.onIsland()) {
-                for (function in functionList) {
-                    try {
-                        function.function.call(function.obj, DungeonStartEvent())
-                    } catch (exception: Exception) {
-                        exception.printStackTrace()
-                    }
-                }
-            }
-        }
-    }
-}
+class DungeonStartEvent : PSSEvent()

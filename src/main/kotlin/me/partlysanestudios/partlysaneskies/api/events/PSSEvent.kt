@@ -10,12 +10,12 @@ abstract class PSSEvent protected constructor() {
     var isCancelled = false
         private set
 
-    fun post() {
+    open fun post(): Boolean {
         PSSEvents.post(this)
+        return isCancelled
     }
 
     interface Cancellable {
-
         fun cancel() {
             (this as PSSEvent).isCancelled = true
         }

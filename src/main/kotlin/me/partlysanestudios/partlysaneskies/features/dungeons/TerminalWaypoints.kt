@@ -6,8 +6,8 @@
 package me.partlysanestudios.partlysaneskies.features.dungeons
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
+import me.partlysanestudios.partlysaneskies.api.events.PSSEvent
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.IslandType
-import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.minecraft.render.RenderWaypointEvent
 import me.partlysanestudios.partlysaneskies.events.skyblock.dungeons.DungeonStartEvent
 import me.partlysanestudios.partlysaneskies.features.debug.DebugKey
@@ -37,7 +37,7 @@ object TerminalWaypoints {
         log(INFO, cachedPuzzles.toString())
     }
 
-    @SubscribePSSEvent
+    @PSSEvent.Subscribe
     fun onWaypointRender(event: RenderWaypointEvent) {
         if (!config.terminalWaypoints) {
             return
@@ -85,8 +85,8 @@ object TerminalWaypoints {
         }
     }
 
-    @SubscribePSSEvent
-    fun onDungeonStart(event: DungeonStartEvent) { // Yes I wrote the entire event system just so that I wouldn't have to call a chat event here
+    @PSSEvent.Subscribe
+    fun onDungeonStart(event: DungeonStartEvent) {
         for (terminal in cachedPuzzles) {
             terminal.active = false
         }

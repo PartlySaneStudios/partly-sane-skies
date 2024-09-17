@@ -6,6 +6,7 @@
 package me.partlysanestudios.partlysaneskies.mixin.minecraft;
 
 import me.partlysanestudios.partlysaneskies.events.minecraft.player.PlayerBreakBlockEvent;
+import me.partlysanestudios.partlysaneskies.utils.geometry.vectors.Point3d;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -19,6 +20,6 @@ public class MixinPlayerControllerMP {
 
     @Inject(method = "onPlayerDestroyBlock", at = @At("HEAD"))
     private void onPlayerDestroyBlock(BlockPos pos, EnumFacing side, CallbackInfoReturnable<Boolean> cir) {
-        PlayerBreakBlockEvent.Companion.onPlayerBreakBlock$Partly_Sane_Skies(pos, side);
+        new PlayerBreakBlockEvent(Point3d.Companion.toPoint3d(pos), side).post();
     }
 }

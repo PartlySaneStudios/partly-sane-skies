@@ -9,9 +9,9 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.annotations.Expose
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
+import me.partlysanestudios.partlysaneskies.api.events.PSSEvent
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity.Companion.getRarityFromColorCode
-import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.minecraft.PSSChatEvent
 import me.partlysanestudios.partlysaneskies.events.minecraft.TablistUpdateEvent
 import me.partlysanestudios.partlysaneskies.utils.MathUtils
@@ -107,7 +107,7 @@ object PetData {
      */
     fun getCurrentPetRarity() = petDataJson?.currentPetRarity ?: Rarity.UNKNOWN
 
-    @SubscribePSSEvent
+    @PSSEvent.Subscribe
     fun onChat(event: PSSChatEvent) {
 //        Parse despawn message
         if (event.component.unformattedText.startsWith("You despawned your")) {
@@ -163,7 +163,7 @@ object PetData {
         }
     }
 
-    @SubscribePSSEvent
+    @PSSEvent.Subscribe
     fun parsePetFromTablist(event: TablistUpdateEvent) {
         val pet = event.list.nextAfter("§e§lPet:")?.removeResets()?.trim() ?: return
 

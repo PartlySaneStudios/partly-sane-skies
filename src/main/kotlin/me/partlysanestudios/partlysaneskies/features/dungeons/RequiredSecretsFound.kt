@@ -7,8 +7,8 @@ package me.partlysanestudios.partlysaneskies.features.dungeons
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.config
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.minecraft
+import me.partlysanestudios.partlysaneskies.api.events.PSSEvent
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.IslandType
-import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.minecraft.TablistUpdateEvent
 import me.partlysanestudios.partlysaneskies.events.skyblock.dungeons.DungeonStartEvent
 import me.partlysanestudios.partlysaneskies.render.gui.hud.BannerRenderer.renderNewBanner
@@ -21,12 +21,12 @@ import net.minecraft.util.ResourceLocation
 object RequiredSecretsFound {
     private var alreadySendThisRun = false
 
-    @SubscribePSSEvent
-    fun onDungeonStart(event: DungeonStartEvent?) {
+    @PSSEvent.Subscribe
+    fun onDungeonStart(event: DungeonStartEvent) {
         alreadySendThisRun = false
     }
 
-    @SubscribePSSEvent
+    @PSSEvent.Subscribe
     fun onTablistUpdate(event: TablistUpdateEvent) {
         if (!isSkyblock()) return
         if (!IslandType.CATACOMBS.onIsland()) return

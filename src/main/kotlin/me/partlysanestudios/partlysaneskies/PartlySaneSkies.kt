@@ -20,6 +20,7 @@ package me.partlysanestudios.partlysaneskies
 
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
+import me.partlysanestudios.partlysaneskies.api.events.PSSEvent
 import me.partlysanestudios.partlysaneskies.api.events.PSSEvents
 import me.partlysanestudios.partlysaneskies.config.Keybinds
 import me.partlysanestudios.partlysaneskies.config.OneConfigScreen
@@ -34,7 +35,6 @@ import me.partlysanestudios.partlysaneskies.data.cache.VisitorLogbookData
 import me.partlysanestudios.partlysaneskies.data.pssdata.PublicDataManager
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManager
 import me.partlysanestudios.partlysaneskies.events.EventManager
-import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.data.LoadPublicDataEvent
 import me.partlysanestudios.partlysaneskies.features.chat.ChatAlertsManager
 import me.partlysanestudios.partlysaneskies.features.chat.ChatManager
@@ -352,7 +352,7 @@ class PartlySaneSkies {
         } catch (e: IOException) {
             e.printStackTrace()
         }
-        LoadPublicDataEvent.onDataLoad()
+        LoadPublicDataEvent().post()
 
         // Loads user player data for PartyManager
         Thread(
@@ -379,7 +379,6 @@ class PartlySaneSkies {
 
     private fun registerEvent(obj: Any) {
         runCatching { EVENT_BUS.register(obj) }.onFailure { it.printStackTrace() }
-        runCatching { EventManager.register(obj) }.onFailure { it.printStackTrace() }
         runCatching { PSSEvents.register(obj) }.onFailure { it.printStackTrace() }
     }
 
@@ -401,7 +400,7 @@ class PartlySaneSkies {
         EventManager.tick()
     }
 
-    @SubscribePSSEvent
+    @PSSEvent.Subscribe
     fun loadMainMenuJson(event: LoadPublicDataEvent) {
         val data = PublicDataManager.getFile("main_menu.json")
         val jsonObj = JsonParser().parse(data).asJsonObject
@@ -454,7 +453,7 @@ class PartlySaneSkies {
     }
 
     @SubscribeEvent
-    fun onClientConnectedToServer(event: ClientConnectedToServerEvent?) {
+    fun onClientConnectedToServer(event: ClientConnectedToServerEvent) {
         if (DOGFOOD) {
             Thread {
                 try {

@@ -6,9 +6,9 @@
 package me.partlysanestudios.partlysaneskies.features.foraging
 
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies
+import me.partlysanestudios.partlysaneskies.api.events.PSSEvent
 import me.partlysanestudios.partlysaneskies.data.cache.PetData
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity
-import me.partlysanestudios.partlysaneskies.events.SubscribePSSEvent
 import me.partlysanestudios.partlysaneskies.events.minecraft.player.PlayerBreakBlockEvent
 import me.partlysanestudios.partlysaneskies.render.gui.hud.cooldown.Cooldown
 import me.partlysanestudios.partlysaneskies.render.gui.hud.cooldown.CooldownManager
@@ -85,7 +85,7 @@ object TreecapitatorCooldown : Cooldown() {
         return treecapitatorAxe ?: ItemStack(Items.golden_axe)
     }
 
-    @SubscribePSSEvent
+    @PSSEvent.Subscribe
     fun checkForCooldown(event: PlayerBreakBlockEvent) {
         if (!PartlySaneSkies.config.treecapCooldown) {
             return

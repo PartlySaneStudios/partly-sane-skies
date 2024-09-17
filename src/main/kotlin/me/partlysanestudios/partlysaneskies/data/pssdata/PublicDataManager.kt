@@ -110,7 +110,7 @@ object PublicDataManager {
                     )
                 fileCache.clear()
                 sendClientMessage(chatcomponent)
-                LoadPublicDataEvent.onDataLoad()
+                LoadPublicDataEvent().post()
             }.register()
     }
 
