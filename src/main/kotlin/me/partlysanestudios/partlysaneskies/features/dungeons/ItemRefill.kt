@@ -26,11 +26,7 @@ object ItemRefill {
 
     fun registerCommand() {
         PSSCommand("itemrefill")
-            .addAlias("refillitems")
-            .addAlias("ir")
-            .addAlias("pearlrefill")
-            .addAlias("refillpearl")
-            .addAlias("pr")
+            .addAlias("refillitems", "ir", "pearlrefill", "refillpearl", "pr")
             .setDescription("Refills your dungeon items.")
             .setRunnable { runItemRefil() }
             .register()
@@ -43,36 +39,24 @@ object ItemRefill {
         }
     }
 
-    private fun runItemRefil() {
+    private fun runItemRefill() {
         Thread {
-            val list = ArrayList<String>()
+            val list = mutableMapOf<String, Int>()
 
-            if (config.refillPearls) {
-                list.add("ENDER_PEARL")
-            }
-            if (config.refillDecoys) {
-                list.add("DUNGEON_DECOY")
-            }
-            if (config.refillSpiritLeaps) {
-                list.add("SPIRIT_LEAP")
-            }
-            if (config.refillSuperboomTnt) {
-                list.add("SUPERBOOM_TNT")
-            }
+            if (config.refillPearls) list["ENDER_PEARL"] = 16
+            if (config.refillDecoys) list["DUNGEON_DECOY"] = 64
+            if (config.refillSpiritLeaps) list["SPIRIT_LEAP"] = 16
+            if (config.refillSuperboomTnt) list["SUPERBOOM_TNT"] = 64
 
-            val itemAmount = HashMap<String, Int>()
-
-            for (item in list) {
-                itemAmount[item] = countItemInInventory(item)
-            }
-
-            for (entry in itemAmount.entries) {
-                val maxStackSize = SkyblockDataManager.getItem(entry.key)?.getStackSize() ?: 64
-                val itemName = SkyblockDataManager.getItem(entry.key)?.name ?: ""
-                if (entry.value < maxStackSize) {
-                    ChatUtils.sendClientMessage("Refilling ${maxStackSize - entry.value} ${itemName}s...")
+            list.forEach { (item, fallbackMax) ->
+                val currentAmount = countItemInInventory(item)
+                val maxStackSize = SkyblockDataManager.getItem(item)?.getStackSize() ?: fallbackMax
+                val itemName = SkyblockDataManager.getItem(item)?.name ?: ""
+                if (currentAmount < maxStackSize) {
+                    val diff = maxStackSize - currentAmount
+                    ChatUtils.sendClientMessage("Refilling ${diff} ${itemName.pluralize(diff)}s...")
                     PartlySaneSkies.minecraft.thePlayer.sendChatMessage(
-                        "/gfs ${entry.key.lowercase(Locale.getDefault())} ${maxStackSize - entry.value}",
+                        "/gfs ${item.lowercase()} ${diff}"
                     )
                 }
 
