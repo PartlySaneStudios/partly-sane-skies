@@ -20,7 +20,7 @@
 
 ## About
 
-Partly Sane Skies is a Minecraft mod for Hypixel SkyBlock, designed, built, and programmed by **Su386**, **J10a1n15**, and
+Partly Sane Skies is a Minecraft mod for Hypixel SkyBlock, designed, built, and programmed by **Su386**, **J10a1n15**, **FlagMaster**, and
 <a href="https://github.com/PartlySaneStudios/partly-sane-skies/graphs/contributors" ><b>many others!</b></a>
 
  >📋 - Credits including third party programs can be [found here](CREDITS.md)
