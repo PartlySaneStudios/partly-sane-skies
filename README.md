@@ -5,22 +5,23 @@
 
 <p align="center">
   <a href="https://github.com/PartlySaneStudios/partly-sane-skies/releases" target="_blank">
-    <img alt="Latest Release" src="https://img.shields.io/github/v/release/PartlySaneStudios/partly-sane-skies?color=%23007EA7&label=Latest%20Version&style=for-the-badge" />
+    <img alt="Latest Release" src="https://img.shields.io/github/v/release/PartlySaneStudios/partly-sane-skies?color=%2300a8a8&label=Latest%20Version&style=for-the-badge" />
   </a>
   <a href="https://github.com/PartlySaneStudios/partly-sane-skies/releases" target="_blank">
-    <img alt="Downloads" src="https://img.shields.io/github/downloads/PartlySaneStudios/partly-sane-skies/total?color=%23007EA7&label=GitHub Downloads&style=for-the-badge" />
+    <img alt="Downloads" src="https://img.shields.io/github/downloads/PartlySaneStudios/partly-sane-skies/total?color=%23007EA7&label=GitHub%20Downloads&style=for-the-badge" />
   </a>
   <a href="https://modrinth.com/mod/partly-sane-skies" target="_blank">
-    <img alt="Lines" src="https://img.shields.io/modrinth/dt/partly-sane-skies?color=%23007EA7&label=Modrinth Downloads&style=for-the-badge" />
+    <img alt="Lines" src="https://img.shields.io/modrinth/dt/partly-sane-skies?color=%2300A65A&label=Modrinth%20Downloads&style=for-the-badge" />
   </a>
   <a href="https://discord.gg/v4PU3WeH7z" target="_blank">
-    <img alt="Discord" src="https://img.shields.io/discord/1001847734766145607?color=%23007EA7&label=Discord&style=for-the-badge" />
+    <img alt="Discord" src="https://img.shields.io/discord/1001847734766145607?color=%235564f2&label=Discord&style=for-the-badge" />
   </a>
 </p>
 
 ## About
 
-Partly Sane Skies is a Minecraft mod for Hypixel SkyBlock, designed, built, and programmed by **Su386** and **FlagMaster**. 
+Partly Sane Skies is a Minecraft mod for Hypixel SkyBlock, designed, built, and programmed by **Su386**, **J10a1n15**, and
+<a href="https://github.com/PartlySaneStudios/partly-sane-skies/graphs/contributors" ><b>many others!</b></a>
 
  >📋 - Credits including third party programs can be [found here](CREDITS.md)
  
@@ -30,8 +31,16 @@ Partly Sane Skies is a Minecraft mod for Hypixel SkyBlock, designed, built, and 
 
  >🗃️ - Some other really cool mods can be [found here](https://sbmw.ca/mod-lists/skyblock-mod-list/)
 
-### <a href="https://discord.gg/v4PU3WeH7z"><img src="images/discord_logo.png" alt="Discord Logo" width="35" height="25" style="text-align: center;"></a> <sup>Discord</span></sup>
-[Click here to join the Discord](https://discord.gg/v4PU3WeH7z) for help, support, giveaways, and updates as they happen.
+
+<a href="https://discord.gg/v4PU3WeH7z">
+    <img src="docs/images/discord_logo.png" alt="Discord Logo" width="24" height="18" style="text-align: center;"> 
+    <a href="https://discord.gg/v4PU3WeH7z">
+        <b>Click here</b>
+    </a>
+    <b>
+         to join the Discord for help, support, giveaways, and updates as they happen!
+    </b>
+</a>
 
 ## Download:
 ### Official Download Links: 
@@ -46,7 +55,7 @@ Partly Sane Skies is a Minecraft mod for Hypixel SkyBlock, designed, built, and 
     <span style="font-size:larger;"><sup>Github: Open the asset drop down for the latest version and download "partly-sane-skies".jar file.</sup></span>
 </a>
 
-Place that mod in the mods folder of your Minecraft and you are good to go!
+Place that mod in the mods folder of your Minecraft instance and you are good to go!
 
 *There is no "reborn" or "revamped" version of Partly Sane Skies. If you do find one, please report it in the [Discord](https://discord.gg/v4PU3WeH7z).*
 
