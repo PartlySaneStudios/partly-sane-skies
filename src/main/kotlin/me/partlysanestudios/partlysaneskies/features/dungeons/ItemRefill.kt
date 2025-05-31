@@ -54,7 +54,7 @@ object ItemRefill {
                 val itemName = SkyblockDataManager.getItem(item)?.name ?: ""
                 if (currentAmount < maxStackSize) {
                     val diff = maxStackSize - currentAmount
-                    ChatUtils.sendClientMessage("Refilling $diff ${itemName.pluralize(diff)}s...")
+                    ChatUtils.sendClientMessage("Refilling $diff ${itemName.pluralize(diff)}...")
                     PartlySaneSkies.minecraft.thePlayer.sendChatMessage(
                         "/gfs ${item.lowercase()} $diff",
                     )
