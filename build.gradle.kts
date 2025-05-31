@@ -3,14 +3,14 @@ import dev.deftu.gradle.utils.GameSide
 plugins {
     java
     kotlin("jvm") version("2.0.0")
-    val dgtVersion = "1.28.1"
+    val dgtVersion = "2.35.0"
     id("dev.deftu.gradle.tools") version(dgtVersion)
     id("dev.deftu.gradle.tools.shadow") version(dgtVersion)
-    id("dev.deftu.gradle.tools.kotlin") version(dgtVersion)
+    id("dev.deftu.gradle.tools.jvm.kotlin") version(dgtVersion)
     id("dev.deftu.gradle.tools.bloom") version(dgtVersion)
     id("dev.deftu.gradle.tools.resources") version(dgtVersion)
     id("dev.deftu.gradle.tools.minecraft.loom") version(dgtVersion)
-    id("dev.deftu.gradle.tools.github-publishing") version(dgtVersion)
+    id("dev.deftu.gradle.tools.publishing.github") version(dgtVersion)
     id("dev.deftu.gradle.tools.minecraft.releases") version(dgtVersion)
 }
 
@@ -20,28 +20,26 @@ loom {
     }
 }
 
-toolkit.useDevAuth()
-
 toolkitLoomHelper {
     useTweaker("cc.polyfrost.oneconfig.loader.stage0.LaunchWrapperTweaker")
     disableRunConfigs(GameSide.SERVER)
     useForgeMixin("pss")
+    useDevAuth("+")
 }
 
 repositories {
     mavenCentral()
     mavenLocal()
     maven("https://repo.polyfrost.cc/releases")
-    maven("https://repo.sk1er.club/repository/maven-public/")
-    maven("https://repo.sk1er.club/repository/maven-releases/")
+    maven("https://repo.essential.gg/repository/maven-public")
     maven("https://repo.spongepowered.org/maven/")
 }
 
 dependencies {
-    implementation(shade("gg.essential:elementa-${mcData.versionStr}-${mcData.loader.name}:636") {
+    implementation(shade("gg.essential:elementa:704") {
         isTransitive = false
     })
-    implementation(shade("gg.essential:universalcraft-${mcData.versionStr}-${mcData.loader.name}:323") {
+    implementation(shade("gg.essential:universalcraft-${mcData.version}-${mcData.loader.friendlyString}:401") {
         isTransitive = false
     })
     implementation(shade("org.spongepowered:mixin:0.7.11-SNAPSHOT") {
@@ -55,7 +53,7 @@ dependencies {
     
     implementation(kotlin("stdlib"))
 
-    compileOnly("cc.polyfrost:oneconfig-${mcData.versionStr}-${mcData.loader.name}:0.2.2-alpha+")
+    compileOnly("cc.polyfrost:oneconfig-${mcData.version}-${mcData.loader.friendlyString}:0.2.2-alpha+")
 }
 
 toolkitReleases {
