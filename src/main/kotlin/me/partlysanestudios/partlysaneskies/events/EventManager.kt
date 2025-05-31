@@ -5,7 +5,6 @@
 
 package me.partlysanestudios.partlysaneskies.events
 
-import me.partlysanestudios.partlysaneskies.PartlySaneSkies
 import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.time
 import me.partlysanestudios.partlysaneskies.api.WaypointRenderPipeline
 import me.partlysanestudios.partlysaneskies.api.events.PSSEvent
@@ -24,7 +23,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 object EventManager {
 
     private var oldTablist = emptyList<String>()
-    private var lastDunegonStartEventSend: Long = 0
+    private var lastDungeonStartEventSend: Long = 0
     private var lastDungeonEndEventSend: Long = 0
 
     fun tick() {
@@ -53,9 +52,9 @@ object EventManager {
     @PSSEvent.Subscribe
     fun onChat(event: PSSChatEvent) {
         val message = event.message
-        if (message.contains("Starting in 1 second.") && IslandType.CATACOMBS.onIsland() && lastDunegonStartEventSend + 3000 < time) {
+        if (message.contains("Starting in 1 second.") && IslandType.CATACOMBS.onIsland() && lastDungeonStartEventSend + 3000 < time) {
             DungeonStartEvent().post()
-            lastDunegonStartEventSend = time
+            lastDungeonStartEventSend = time
         }
         if (message.contains("§r§c☠ §r§eDefeated §r") && lastDungeonEndEventSend + 3000 < time) {
             DungeonEndEvent().post()
