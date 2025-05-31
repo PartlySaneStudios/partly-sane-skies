@@ -54,7 +54,8 @@ object EventManager {
     fun onChat(event: PSSChatEvent) {
         val message = event.message
         if (message.contains("Starting in 1 second.") && IslandType.CATACOMBS.onIsland() && lastDunegonStartEventSend + 3000 < time) {
-            DungeonStartEvent().post().also { if (!it) lastDunegonStartEventSend = time }
+            DungeonStartEvent().post()
+            lastDunegonStartEventSend = time
         }
         if (message.contains("§r§c☠ §r§eDefeated §r") && lastDungeonEndEventSend + 3000 < time) {
             DungeonEndEvent().post()
