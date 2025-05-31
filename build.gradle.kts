@@ -31,6 +31,10 @@ repositories {
     mavenCentral()
     mavenLocal()
     maven("https://repo.polyfrost.cc/releases")
+    maven("https://maven.deftu.dev/releases")
+    maven("https://maven.fabricmc.net")
+    maven("https://maven.architectury.dev/")
+    maven("https://maven.minecraftforge.net")
     maven("https://repo.essential.gg/repository/maven-public")
     maven("https://repo.spongepowered.org/maven/")
 }
