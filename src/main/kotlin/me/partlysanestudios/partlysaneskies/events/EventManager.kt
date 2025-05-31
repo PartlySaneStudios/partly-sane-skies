@@ -45,7 +45,7 @@ object EventManager {
     fun onChatReceivedEvent(event: ClientChatReceivedEvent) {
         if (event.type.toInt() != 0) return
 
-        if (PSSChatEvent(event.message.formattedText, event.message).apply { if (event.isCanceled) cancel() }.post()) {
+        if (PSSChatEvent(event.message.formattedText, event.message).post()) {
             event.isCanceled = true
         }
     }
