@@ -5,6 +5,8 @@
 
 package me.partlysanestudios.partlysaneskies.events
 
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies
+import me.partlysanestudios.partlysaneskies.PartlySaneSkies.Companion.time
 import me.partlysanestudios.partlysaneskies.api.WaypointRenderPipeline
 import me.partlysanestudios.partlysaneskies.api.events.PSSEvent
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.IslandType
@@ -22,6 +24,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 object EventManager {
 
     private var oldTablist = emptyList<String>()
+    private var lastDunegonStartEventSend: Long = 0
+    private var lastDungeonEndEventSend: Long = 0
 
     fun tick() {
         val tablist = MinecraftUtils.getTabList()
@@ -41,7 +45,7 @@ object EventManager {
     fun onChatReceivedEvent(event: ClientChatReceivedEvent) {
         if (event.type.toInt() != 0) return
 
-        if (PSSChatEvent(event.message.formattedText, event.message).post()) {
+        if (PSSChatEvent(event.message.formattedText, event.message).apply { if (event.isCanceled) cancel() }.post()) {
             event.isCanceled = true
         }
     }
@@ -49,11 +53,11 @@ object EventManager {
     @PSSEvent.Subscribe
     fun onChat(event: PSSChatEvent) {
         val message = event.message
-        if (message.contains("Starting in 1 second.") && IslandType.CATACOMBS.onIsland()) {
-            DungeonStartEvent().post()
+        if (message.contains("Starting in 1 second.") && IslandType.CATACOMBS.onIsland() && lastDunegonStartEventSend + 3000 < time) {
+            DungeonStartEvent().post().also { if (!it) lastDunegonStartEventSend = time }
         }
-        if (message.contains("§r§c☠ §r§eDefeated §r")) {
-            DungeonEndEvent().post()
+        if (message.contains("§r§c☠ §r§eDefeated §r") && lastDungeonEndEventSend + 3000 < time) {
+            DungeonEndEvent().post().also { if (!it) lastDungeonEndEventSend = time }
         }
     }
 }

@@ -8,4 +8,7 @@ package me.partlysanestudios.partlysaneskies.events.minecraft
 import me.partlysanestudios.partlysaneskies.api.events.PSSEvent
 import net.minecraft.util.IChatComponent
 
-class PSSChatEvent(val message: String, val component: IChatComponent) : PSSEvent(), PSSEvent.Cancellable
+class PSSChatEvent(
+    val message: String,
+    val component: IChatComponent
+) : PSSEvent(), PSSEvent.Cancellable
