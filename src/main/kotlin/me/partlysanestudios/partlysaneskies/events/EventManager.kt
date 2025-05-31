@@ -57,7 +57,8 @@ object EventManager {
             DungeonStartEvent().post().also { if (!it) lastDunegonStartEventSend = time }
         }
         if (message.contains("§r§c☠ §r§eDefeated §r") && lastDungeonEndEventSend + 3000 < time) {
-            DungeonEndEvent().post().also { if (!it) lastDungeonEndEventSend = time }
+            DungeonEndEvent().post()
+            lastDungeonEndEventSend = time
         }
     }
 }
