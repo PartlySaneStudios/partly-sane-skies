@@ -13,29 +13,29 @@ import me.partlysanestudios.partlysaneskies.data.skyblockdata.SkyblockDataManage
 import me.partlysanestudios.partlysaneskies.events.skyblock.dungeons.DungeonStartEvent
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.countItemInInventory
+import me.partlysanestudios.partlysaneskies.utils.StringUtils.pluralize
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.gameevent.InputEvent
-import java.util.Locale
 
 object ItemRefill {
     @PSSEvent.Subscribe
     fun onDungeonStart(event: DungeonStartEvent) {
         if (!config.autoItemRefill) return
-        runItemRefil()
+        runItemRefill()
     }
 
     fun registerCommand() {
         PSSCommand("itemrefill")
             .addAlias("refillitems", "ir", "pearlrefill", "refillpearl", "pr")
             .setDescription("Refills your dungeon items.")
-            .setRunnable { runItemRefil() }
+            .setRunnable { runItemRefill() }
             .register()
     }
 
     @SubscribeEvent
     fun checkKeyBinds(event: InputEvent.KeyInputEvent) {
-        if (config.itemRefillKeybind.isActive()) {
-            runItemRefil()
+        if (config.itemRefillKeybind.isActive) {
+            runItemRefill()
         }
     }
 
@@ -54,9 +54,9 @@ object ItemRefill {
                 val itemName = SkyblockDataManager.getItem(item)?.name ?: ""
                 if (currentAmount < maxStackSize) {
                     val diff = maxStackSize - currentAmount
-                    ChatUtils.sendClientMessage("Refilling ${diff} ${itemName.pluralize(diff)}s...")
+                    ChatUtils.sendClientMessage("Refilling $diff ${itemName.pluralize(diff)}s...")
                     PartlySaneSkies.minecraft.thePlayer.sendChatMessage(
-                        "/gfs ${item.lowercase()} ${diff}"
+                        "/gfs ${item.lowercase()} $diff",
                     )
                 }
 
