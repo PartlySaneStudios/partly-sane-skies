@@ -130,79 +130,68 @@ object ChatAlertsManager {
     }
 
     fun checkChatAlert(message: IChatComponent, sendSystemNotification: Boolean): IChatComponent {
-        val formattedMessage = message.formattedText
-        var beginMessageIndex = -1
-        for (messagePrefix in MESSAGE_PREFIXES) {
-            beginMessageIndex = formattedMessage.indexOf(messagePrefix)
-            if (beginMessageIndex != -1) {
-                break
-            }
-        }
+        var formattedMessage = message.formattedText
+        val beginMessageIndex = formattedMessage.indexOfAny(MESSAGE_PREFIXES)
 
         if (beginMessageIndex == -1) {
             return message
         }
 
         val unformattedMessage = formattedMessage.removeColorCodes()
-        var rawMessage = formattedMessage.substring(beginMessageIndex)
-        rawMessage = rawMessage.removeColorCodes().replaceFirst(": ", "").trim()
-        val lowerCaseMessage = rawMessage.lowercase()
+        val lowercaseMessage = formattedMessage
+            .substring(beginMessageIndex)
+            .removeColorCodes()
+            .replaceFirst(": ", "")
+            .trim()
+            .lowercase()
 
-        for (alert in chatAlertsList) {
-            if (!lowerCaseMessage.contains(alert.lowercase())) {
-                continue
-            }
-            val messageBuilder = StringBuilder(formattedMessage)
-            val alertIndexUnformatted = unformattedMessage.lowercase().indexOf(alert.lowercase(), unformattedMessage.indexOf(rawMessage))
-            val numOfColorCodeTotal = numOfColorCodes(formattedMessage)
-            val numOfColorCodeBefore = numOfColorCodeTotal - 1
-            val alertIndexFormatted = numOfColorCodeBefore * 2 + alertIndexUnformatted
-            val charsToAdd = getLastColorCode(formattedMessage.substring(0, alertIndexFormatted + 1)).toCharArray()
-            messageBuilder.insert(alertIndexFormatted + alert.length, charsToAdd, 0, charsToAdd.size)
-            messageBuilder.insert(alertIndexFormatted, "§d§l".toCharArray(), 0, 3)
+        chatAlertsList.filter { lowercaseMessage.contains(it.lowercase()) }
+            .forEach {
+                var startIndex = beginMessageIndex
+                var indexOfAlert = unformattedMessage.indexOf(it.lowercase(), startIndex)
+                while (indexOfAlert != -1) {
+                    val formattedIndex = indexInFormattedString(formattedMessage, indexOfAlert)
+                    val oldCode = getLastColorCode(formattedMessage.substring(0, formattedIndex))
+                    formattedMessage = "${formattedMessage.substring(0, formattedIndex)}§d§l" +
+                        "${formattedMessage.substring(formattedIndex, formattedIndex + it.length)}§r$oldCode" +
+                        formattedMessage.substring(formattedIndex + it.length)
 
-            if (PartlySaneSkies.config.chatAlertSendSystemNotification && !Display.isActive() && sendSystemNotification) {
-                SystemNotification.showNotification(message.formattedText.removeColorCodes())
+                    startIndex = indexOfAlert + it.lowercase().length
+                    indexOfAlert = unformattedMessage.indexOf(it.lowercase(), startIndex)
+                }
             }
-            return ChatComponentText(messageBuilder.toString())
+
+        if (PartlySaneSkies.config.chatAlertSendSystemNotification && !Display.isActive() && sendSystemNotification) {
+            SystemNotification.showNotification(message.formattedText.removeColorCodes())
         }
-        return message
+        return ChatComponentText(formattedMessage.toString())
     }
 
-    private fun numOfColorCodes(str: String): Int {
-        var i = 0
-        val textBuilder = StringBuilder(str)
-        while (textBuilder.indexOf("§") != -1) {
-            textBuilder.deleteCharAt(textBuilder.indexOf("§") + 1)
-            textBuilder.deleteCharAt(textBuilder.indexOf("§"))
-            i++
+    private fun indexInFormattedString(formattedMessage: String, indexInUnformattedMessage: Int): Int {
+        var unformattedIndex = 0
+        var formattedIndex = 0
+        val unformattedMessage = formattedMessage.removeColorCodes()
+        while (
+            formattedIndex < formattedMessage.length &&
+            unformattedIndex < unformattedMessage.length
+        ) {
+            if (formattedMessage[formattedIndex] == '§') {
+                formattedIndex += 2
+            }
+            else {
+                unformattedIndex++
+                formattedIndex++
+            }
+            if (unformattedIndex == indexInUnformattedMessage) {
+                return formattedIndex
+            }
         }
-        return i
+
+        return 0
     }
 
     private fun getLastColorCode(str: String): String {
-        var currentCode = ""
-        val textBuilder = StringBuilder(str)
-        while (textBuilder.indexOf("§") != -1) {
-            var shouldContinue = false
-            for (code in NON_COLOR_CODES) {
-                if (textBuilder.indexOf("§") == -1 || textBuilder.substring(textBuilder.indexOf("§"), textBuilder.indexOf("§") + 2) != code) {
-                    continue
-                }
-                textBuilder.deleteCharAt(textBuilder.indexOf("§") + 1)
-                textBuilder.deleteCharAt(textBuilder.indexOf("§"))
-                shouldContinue = true
-                break
-            }
-
-            if (shouldContinue || textBuilder.indexOf("§") == -1) {
-                continue
-            }
-
-            currentCode = textBuilder.substring(textBuilder.indexOf("§"), textBuilder.indexOf("§") + 2)
-            textBuilder.deleteCharAt(textBuilder.indexOf("§") + 1)
-            textBuilder.deleteCharAt(textBuilder.indexOf("§"))
-        }
-        return currentCode
+        val index = str.lastIndexOf('§')
+        return str.substring(index, index + 2)
     }
 }
