@@ -131,24 +131,24 @@ object ChatAlertsManager {
 
     fun checkChatAlert(message: IChatComponent, sendSystemNotification: Boolean): IChatComponent {
         var formattedMessage = message.formattedText
-        val beginMessageIndex = formattedMessage.indexOfAny(MESSAGE_PREFIXES)
+        var beginMessageIndex = formattedMessage.indexOfAny(MESSAGE_PREFIXES)
 
         if (beginMessageIndex == -1) {
             return message
         }
+        beginMessageIndex = indexInUnformattedString(formattedMessage, beginMessageIndex)
 
         val unformattedMessage = formattedMessage.removeColorCodes()
-        val lowercaseMessage = formattedMessage
+        val cleanMessage = unformattedMessage
             .substring(beginMessageIndex)
-            .removeColorCodes()
             .replaceFirst(": ", "")
             .trim()
-            .lowercase()
 
-        chatAlertsList.filter { lowercaseMessage.contains(it.lowercase()) }
+        chatAlertsList.filter { cleanMessage.contains(it, true) }
+            .toSet()
             .forEach {
                 var startIndex = beginMessageIndex
-                var indexOfAlert = unformattedMessage.indexOf(it.lowercase(), startIndex)
+                var indexOfAlert = unformattedMessage.indexOf(it, startIndex, true)
                 while (indexOfAlert != -1) {
                     val formattedIndex = indexInFormattedString(formattedMessage, indexOfAlert)
                     val oldCode = getLastColorCode(formattedMessage.substring(0, formattedIndex))
@@ -156,8 +156,8 @@ object ChatAlertsManager {
                         "${formattedMessage.substring(formattedIndex, formattedIndex + it.length)}§r$oldCode" +
                         formattedMessage.substring(formattedIndex + it.length)
 
-                    startIndex = indexOfAlert + it.lowercase().length
-                    indexOfAlert = unformattedMessage.indexOf(it.lowercase(), startIndex)
+                    startIndex = indexOfAlert + it.length
+                    indexOfAlert = unformattedMessage.indexOf(it, startIndex, true)
                 }
             }
 
@@ -178,17 +178,21 @@ object ChatAlertsManager {
             if (formattedMessage[formattedIndex] == '§') {
                 formattedIndex += 2
             }
+            else if (unformattedIndex == indexInUnformattedMessage) {
+                return formattedIndex
+            }
             else {
                 unformattedIndex++
                 formattedIndex++
-            }
-            if (unformattedIndex == indexInUnformattedMessage) {
-                return formattedIndex
             }
         }
 
         return 0
     }
+
+    private fun indexInUnformattedString(formattedMessage: String, indexInFormattedMessage: Int): Int =
+        indexInFormattedMessage - 2 * formattedMessage.substring(0, indexInFormattedMessage)
+            .count { '§' == it }
 
     private fun getLastColorCode(str: String): String {
         val index = str.lastIndexOf('§')
