@@ -144,18 +144,22 @@ object ChatAlertsManager {
             .replaceFirst(": ", "")
             .trim()
 
-        chatAlertsList.filter { cleanMessage.contains(it, true) }
-            .toSet()
+        chatAlertsList.filter { cleanMessage.contains(it, true) && it.isNotEmpty()}
             .forEach {
                 var startIndex = beginMessageIndex
                 var indexOfAlert = unformattedMessage.indexOf(it, startIndex, true)
                 while (indexOfAlert != -1) {
-                    val formattedIndex = indexInFormattedString(formattedMessage, indexOfAlert)
-                    val oldCode = getLastColorCode(formattedMessage.substring(0, formattedIndex))
-                    formattedMessage = "${formattedMessage.substring(0, formattedIndex)}§d§l" +
-                        "${formattedMessage.substring(formattedIndex, formattedIndex + it.length)}§r$oldCode" +
-                        formattedMessage.substring(formattedIndex + it.length)
-
+                    if (
+                        !chatAlertsList.any {
+                            it2 -> it2.length > it.length && unformattedMessage.startsWith(it2, indexOfAlert, true)
+                        }
+                    ) {
+                        val formattedIndex = indexInFormattedString(formattedMessage, indexOfAlert)
+                        val oldCode = getLastColorCode(formattedMessage.substring(0, formattedIndex))
+                        formattedMessage = "${formattedMessage.substring(0, formattedIndex)}§d§l" +
+                            "${formattedMessage.substring(formattedIndex, formattedIndex + it.length)}§r$oldCode" +
+                            formattedMessage.substring(formattedIndex + it.length)
+                    }
                     startIndex = indexOfAlert + it.length
                     indexOfAlert = unformattedMessage.indexOf(it, startIndex, true)
                 }
