@@ -49,7 +49,7 @@ object ChatManager {
             messageToSend = ChatComponentText((WordEditor.handleWordEditorMessage(messageToSend.formattedText)))
         }
 
-        if (ChatAlertsManager.checkChatAlert(messageToSend)  != null) {
+        if (ChatAlertsManager.checkChatAlert(messageToSend) != null) {
             PartlySaneSkies.minecraft.soundHandler?.playSound(
                 PositionedSoundRecord.create(
                     ResourceLocation(
