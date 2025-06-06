@@ -3,7 +3,6 @@ import dev.deftu.gradle.utils.GameSide
 plugins {
     java
     kotlin("jvm")
-    val dgtVersion = "2.36.0"
     id("dev.deftu.gradle.multiversion")
     id("dev.deftu.gradle.tools")
     id("dev.deftu.gradle.tools.shadow")
@@ -26,11 +25,17 @@ toolkitLoomHelper {
         version = "1.0.0-alpha.106"
         loaderVersion = "1.1.0-alpha.46"
 
+//         usePolyMixin = true
+//         polyMixinVersion = "0.8.4+build.2"
+
         applyLoaderTweaker = true
+
+        for (module in arrayOf("commands", "config", "config-impl", "events", "internal", "ui", "utils")) {
+            +module
+        }
     }
 
 
-    useTweaker("cc.polyfrost.oneconfig.loader.stage0.LaunchWrapperTweaker")
     disableRunConfigs(GameSide.SERVER)
     if (mcData.isForge) {
         // Configures the Mixin tweaker if we are building for Forge.
