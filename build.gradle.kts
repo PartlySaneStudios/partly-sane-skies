@@ -3,7 +3,7 @@ import dev.deftu.gradle.utils.GameSide
 plugins {
     java
     kotlin("jvm")
-    val dgtVersion = "2.35.0"
+    val dgtVersion = "2.36.0"
     id("dev.deftu.gradle.multiversion")
     id("dev.deftu.gradle.tools")
     id("dev.deftu.gradle.tools.shadow")
