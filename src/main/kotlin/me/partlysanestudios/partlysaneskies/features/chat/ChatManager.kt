@@ -35,7 +35,21 @@ object ChatManager {
             messageToSend = ChatColors.detectNonMessage(messageToSend)
         }
 
-        if (ChatAlertsManager.checkChatAlert(messageToSend).formattedText != messageToSend.formattedText) {
+        if (config.prettyMimicKilled) {
+            messageToSend =
+                ChatComponentText(
+                    messageToSend.formattedText.replace(
+                        "\$SKYTILS-DUNGEON-SCORE-MIMIC\$",
+                        config.prettyMimicKilledString,
+                    ),
+                )
+        }
+
+        if (WordEditor.shouldEditMessage(messageToSend)) {
+            messageToSend = ChatComponentText((WordEditor.handleWordEditorMessage(messageToSend.formattedText)))
+        }
+
+        if (ChatAlertsManager.checkChatAlert(messageToSend)  != null) {
             PartlySaneSkies.minecraft.soundHandler?.playSound(
                 PositionedSoundRecord.create(
                     ResourceLocation(
@@ -47,22 +61,8 @@ object ChatManager {
             messageToSend = ChatAlertsManager.checkChatAlert(messageToSend, true)
         }
 
-        if (WordEditor.shouldEditMessage(messageToSend)) {
-            messageToSend = ChatComponentText((WordEditor.handleWordEditorMessage(messageToSend.formattedText)))
-        }
-
         if (config.owoLanguage) {
             messageToSend = ChatComponentText(OwO.owoify(messageToSend.formattedText))
-        }
-
-        if (config.prettyMimicKilled) {
-            messageToSend =
-                ChatComponentText(
-                    messageToSend.formattedText.replace(
-                        "\$SKYTILS-DUNGEON-SCORE-MIMIC\$",
-                        config.prettyMimicKilledString,
-                    ),
-                )
         }
 
         if (messageToSend == event.message) return
@@ -118,7 +118,7 @@ object ChatManager {
         if (formattedText.startsWith(PartlySaneSkies.CHAT_PREFIX)) return false
 
         return ChatColors.getChatColor(ChatColors.getPrefix(formattedText)).isNotEmpty() ||
-            ChatAlertsManager.checkChatAlert(this).formattedText != formattedText ||
+            ChatAlertsManager.checkChatAlert(this) != null ||
             ChatColors.detectNonMessage(this).formattedText != formattedText ||
             WordEditor.shouldEditMessage(this) || config.owoLanguage
     }

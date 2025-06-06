@@ -125,17 +125,18 @@ object ChatAlertsManager {
         ChatUtils.sendClientMessage("§bChat Alert number §d$id §b(\"§d$message§b\") was successfully removed.")
     }
 
-    fun checkChatAlert(message: IChatComponent): IChatComponent {
+    fun checkChatAlert(message: IChatComponent): IChatComponent? {
         return checkChatAlert(message, false)
     }
 
-    fun checkChatAlert(message: IChatComponent, sendSystemNotification: Boolean): IChatComponent {
+    fun checkChatAlert(message: IChatComponent, sendSystemNotification: Boolean): IChatComponent? {
         var formattedMessage = message.formattedText
         var beginMessageIndex = formattedMessage.indexOfAny(MESSAGE_PREFIXES)
 
         if (beginMessageIndex == -1) {
-            return message
+            return null
         }
+
         beginMessageIndex = indexInUnformattedString(formattedMessage, beginMessageIndex)
 
         val unformattedMessage = formattedMessage.removeColorCodes()
@@ -144,6 +145,9 @@ object ChatAlertsManager {
             .replaceFirst(": ", "")
             .trim()
 
+        if (!chatAlertsList.any { cleanMessage.contains(it, true) }) {
+            return null
+        }
         chatAlertsList.filter { cleanMessage.contains(it, true) && it.isNotEmpty()}
             .forEach {
                 var startIndex = beginMessageIndex
