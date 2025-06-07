@@ -1968,6 +1968,13 @@ object OneConfigScreen : Config(
     )
     var testDevEnv = false
 
+    @Switch(
+        name = "Print scoreboard",
+        description = "Dumps all scoreboard information.",
+        category = "Dev",
+    )
+    var debugScoreboardDump = false
+
     // Discord
     @Switch(
         name = "Show hidden webhooks in webhook menu",

@@ -30,6 +30,7 @@ import me.partlysanestudios.partlysaneskies.render.waypoint.Waypoint
 import me.partlysanestudios.partlysaneskies.system.SystemNotification
 import me.partlysanestudios.partlysaneskies.utils.ChatUtils.sendClientMessage
 import me.partlysanestudios.partlysaneskies.utils.HypixelUtils
+import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.containerInventory
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.getItemstackList
 import me.partlysanestudios.partlysaneskies.utils.MinecraftUtils.xSize
@@ -144,6 +145,13 @@ object DebugKey {
                 sendClientMessage("xSize: ${chest.xSize}")
                 sendClientMessage("ySize: ${chest.ySize}")
             }
+        }
+
+        if (config.debugScoreboardDump) {
+            sendClientMessage(
+                MinecraftUtils.getScoreboardLines().joinToString{ "\"$it\"\n"}
+                    .also { copyStringToClipboard(it) }
+            )
         }
     }
 

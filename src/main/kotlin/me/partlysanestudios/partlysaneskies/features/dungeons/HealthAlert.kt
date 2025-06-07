@@ -37,9 +37,9 @@ object HealthAlert {
             val indexOfSecondSpace = line.indexOf(" ", indexOfFirstSpace + 1).takeIf { it >= 0 } ?: return false
             val health = line.substring(indexOfSecondSpace)
             if (config.colouredHealerAlert == 1) {
-                return health.contains("§e") || health.indexOf("§c") != health.lastIndexOf("§c")
+                return (health.contains("§e") || health.indexOf("§c") != health.lastIndexOf("§c")) && !health.contains("§cDEAD")
             }
-            return health.indexOf("§c") != health.lastIndexOf("§c")
+            return health.indexOf("§c") != health.lastIndexOf("§c") && !health.contains("§cDEAD")
         }
         return false
     }
