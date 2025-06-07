@@ -17,6 +17,7 @@ import me.partlysanestudios.partlysaneskies.data.cache.StatsData
 import me.partlysanestudios.partlysaneskies.data.skyblockdata.Rarity
 import me.partlysanestudios.partlysaneskies.events.minecraft.PSSChatEvent
 import me.partlysanestudios.partlysaneskies.events.minecraft.render.RenderWaypointEvent
+import me.partlysanestudios.partlysaneskies.features.dungeons.GoldorWall
 import me.partlysanestudios.partlysaneskies.features.dungeons.PlayerRating
 import me.partlysanestudios.partlysaneskies.features.dungeons.TerminalWaypoints
 import me.partlysanestudios.partlysaneskies.features.gui.hud.DropBannerDisplay
@@ -102,6 +103,12 @@ object DebugKey {
         if (config.debugRenderRNGBanner) {
             DropBannerDisplay.dropToRender = Drop("Test Name", "Test Category", Color.MAGENTA, Rarity.UNOBTAINABLE, 69, time)
         }
+
+        if (config.debugGoldorWall) {
+            GoldorWall.lastGoldorPos = Point3d.atPlayer()
+            GoldorWall.lastFacingDirection = minecraft.thePlayer?.horizontalFacing?.axis
+        }
+
         if (config.debugCylinder) {
             cylinderPoint = Point3d.atPlayer()
         }
