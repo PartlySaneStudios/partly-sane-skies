@@ -2,28 +2,45 @@ import dev.deftu.gradle.utils.GameSide
 
 plugins {
     java
-    kotlin("jvm") version("2.0.0")
-    val dgtVersion = "2.35.0"
-    id("dev.deftu.gradle.tools") version(dgtVersion)
-    id("dev.deftu.gradle.tools.shadow") version(dgtVersion)
-    id("dev.deftu.gradle.tools.jvm.kotlin") version(dgtVersion)
-    id("dev.deftu.gradle.tools.bloom") version(dgtVersion)
-    id("dev.deftu.gradle.tools.resources") version(dgtVersion)
-    id("dev.deftu.gradle.tools.minecraft.loom") version(dgtVersion)
-    id("dev.deftu.gradle.tools.publishing.github") version(dgtVersion)
-    id("dev.deftu.gradle.tools.minecraft.releases") version(dgtVersion)
+    kotlin("jvm")
+    id("dev.deftu.gradle.multiversion")
+    id("dev.deftu.gradle.tools")
+    id("dev.deftu.gradle.tools.shadow")
+    id("dev.deftu.gradle.tools.jvm.kotlin")
+    id("dev.deftu.gradle.tools.bloom")
+    id("dev.deftu.gradle.tools.resources")
+    id("dev.deftu.gradle.tools.minecraft.loom")
+    id("dev.deftu.gradle.tools.publishing.github")
+    id("dev.deftu.gradle.tools.minecraft.releases")
 }
-
-loom {
-    forge {
-        pack200Provider.set(dev.architectury.pack200.java.Pack200Adapter())
-    }
-}
+//
+// loom {
+//     forge {
+//         pack200Provider.set(dev.architectury.pack200.java.Pack200Adapter())
+//     }
+// }
 
 toolkitLoomHelper {
-    useTweaker("cc.polyfrost.oneconfig.loader.stage0.LaunchWrapperTweaker")
+    useOneConfig {
+        version = "1.0.0-alpha.106"
+        loaderVersion = "1.1.0-alpha.46"
+
+//         usePolyMixin = true
+//         polyMixinVersion = "0.8.4+build.2"
+
+        applyLoaderTweaker = true
+
+        for (module in arrayOf("commands", "config", "config-impl", "events", "internal", "ui", "utils")) {
+            +module
+        }
+    }
+
+
     disableRunConfigs(GameSide.SERVER)
-    useForgeMixin("pss")
+    if (mcData.isForge) {
+        // Configures the Mixin tweaker if we are building for Forge.
+        useForgeMixin("pss")
+    }
     useDevAuth("+")
 }
 
@@ -39,25 +56,36 @@ repositories {
     maven("https://repo.spongepowered.org/maven/")
 }
 
-dependencies {
-    implementation(shade("gg.essential:elementa:704") {
-        isTransitive = false
-    })
-    implementation(shade("gg.essential:universalcraft-${mcData.version}-${mcData.loader.friendlyString}:401") {
-        isTransitive = false
-    })
-    implementation(shade("org.spongepowered:mixin:0.7.11-SNAPSHOT") {
-        isTransitive = false
-    })
-    implementation(shade("cc.polyfrost:oneconfig-wrapper-launchwrapper:1.0.0-beta17")!!)
 
+dependencies {
     implementation(shade("com.github.NetheriteMiner:DiscordIPC:3106be5") {
         isTransitive = false
     })
-    
-    implementation(kotlin("stdlib"))
 
-    compileOnly("cc.polyfrost:oneconfig-${mcData.version}-${mcData.loader.friendlyString}:0.2.2-alpha+")
+    implementation(shade("gg.essential:elementa:704") {
+        isTransitive = false
+    })
+
+    val universalCraftVersion = when(mcData.version.toString()) {
+        "1.16.5" -> "1.16.2"
+        "1.18.2" -> "1.18.1"
+        "1.21.1" -> "1.21"
+        "1.21.2" -> "1.21"
+        else -> mcData.version.toString()
+    }
+    implementation(shade("gg.essential:universalcraft-${universalCraftVersion}-${mcData.loader.friendlyString}:401") {
+        isTransitive = false
+    })
+
+    if (mcData.isFabric) {
+        if (mcData.isLegacyFabric) {
+            // 1.8.9 - 1.13
+            modImplementation("net.legacyfabric.legacy-fabric-api:legacy-fabric-api:${mcData.dependencies.legacyFabric.legacyFabricApiVersion}")
+        } else {
+            // 1.16.5+
+            modImplementation("net.fabricmc.fabric-api:fabric-api:${mcData.dependencies.fabric.fabricApiVersion}")
+        }
+    }
 }
 
 toolkitReleases {
