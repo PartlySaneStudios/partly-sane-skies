@@ -27,29 +27,26 @@ object ChatManager {
         if (event.type != 0.toByte()) return
         if (!event.message.doChatMessageModify()) return
 
-        var messageToSend = event.message
+        var formattedMessage = event.message.formattedText
 
-        if (ChatColors.getChatColor(ChatColors.getPrefix(messageToSend.formattedText)).isNotEmpty()) {
-            messageToSend = ChatColors.detectColorMessage(messageToSend)
-        } else if (ChatColors.detectNonMessage(messageToSend).formattedText != messageToSend.formattedText) {
-            messageToSend = ChatColors.detectNonMessage(messageToSend)
+        if (ChatColors.getChatColor(ChatColors.getPrefix(formattedMessage)).isNotEmpty()) {
+            formattedMessage = ChatColors.detectColorMessage(formattedMessage)
+        } else if (ChatColors.detectNonMessage(formattedMessage) != formattedMessage) {
+            formattedMessage = ChatColors.detectNonMessage(formattedMessage)
         }
 
         if (config.prettyMimicKilled) {
-            messageToSend =
-                ChatComponentText(
-                    messageToSend.formattedText.replace(
-                        "\$SKYTILS-DUNGEON-SCORE-MIMIC\$",
-                        config.prettyMimicKilledString,
-                    ),
-                )
+            formattedMessage = formattedMessage.replace(
+                "\$SKYTILS-DUNGEON-SCORE-MIMIC\$",
+                config.prettyMimicKilledString,
+            )
         }
 
-        if (WordEditor.shouldEditMessage(messageToSend)) {
-            messageToSend = ChatComponentText((WordEditor.handleWordEditorMessage(messageToSend.formattedText)))
+        if (WordEditor.shouldEditMessage(formattedMessage)) {
+            formattedMessage = WordEditor.handleWordEditorMessage(formattedMessage)
         }
 
-        if (ChatAlertsManager.checkChatAlert(messageToSend) != null) {
+        if (ChatAlertsManager.checkChatAlert(formattedMessage) != null) {
             PartlySaneSkies.minecraft.soundHandler?.playSound(
                 PositionedSoundRecord.create(
                     ResourceLocation(
@@ -58,36 +55,45 @@ object ChatManager {
                     ),
                 ),
             )
-            messageToSend = ChatAlertsManager.checkChatAlert(messageToSend, true)
+            formattedMessage = ChatAlertsManager.checkChatAlert(formattedMessage, true)
         }
 
         if (config.owoLanguage) {
-            messageToSend = ChatComponentText(OwO.owoify(messageToSend.formattedText))
+            formattedMessage = OwO.owoify(formattedMessage)
         }
 
-        if (messageToSend == event.message) return
+        if (formattedMessage == event.message.formattedText) return
 
+        val messageToSend = ChatComponentText(formattedMessage)
         event.isCanceled = true
         messageToSend.chatStyle = event.message.chatStyle.createDeepCopy()
 
-        val urls = messageToSend.extractUrls()
-        if (!messageToSend.hasClickAction() && !event.message.hasClickAction() && urls.isNotEmpty()) {
-            messageToSend.chatStyle.chatClickEvent = ClickEvent(ClickEvent.Action.OPEN_URL, urls[0])
-        }
+        messageToSend.chatStyle.chatClickEvent = event.message
+            ?.chatStyle
+            ?.createDeepCopy()
+            ?.chatClickEvent ?: event.message
+            ?.siblings
+            ?.firstOrNull { it.chatStyle.chatClickEvent != null }
+            ?.chatStyle
+            ?.chatClickEvent
 
-        if (!messageToSend.hasHoverAction() && event.message.hasHoverAction()) {
-            messageToSend.chatStyle.chatHoverEvent =
-                HoverEvent(event.message.chatStyle.chatHoverEvent.action, event.message.chatStyle.chatHoverEvent.value)
-        }
+        messageToSend.chatStyle.chatHoverEvent = event.message
+            ?.chatStyle
+            ?.createDeepCopy()
+            ?.chatHoverEvent ?: event.message
+            ?.siblings
+            ?.firstOrNull { it.chatStyle.chatHoverEvent != null }
+            ?.chatStyle
+            ?.chatHoverEvent
 
         PartlySaneSkies.minecraft.ingameGUI?.chatGUI?.printChatMessage(messageToSend)
     }
 
     fun IChatComponent.hasClickAction(): Boolean =
-        chatStyle?.takeIf { !it.isEmpty }?.chatClickEvent?.value?.isNotEmpty() ?: false
+        chatStyle?.chatClickEvent?.value?.isNotEmpty() ?: false
 
     fun IChatComponent.hasHoverAction(): Boolean =
-        chatStyle?.takeIf { !it.isEmpty }?.chatHoverEvent?.value?.unformattedText?.isNotEmpty() ?: false
+        chatStyle?.chatHoverEvent?.value?.unformattedText?.isNotEmpty() ?: false
 
     fun extractUrls(text: String): List<String> {
         val containedUrls = ArrayList<String>()
@@ -118,8 +124,8 @@ object ChatManager {
         if (formattedText.startsWith(PartlySaneSkies.CHAT_PREFIX)) return false
 
         return ChatColors.getChatColor(ChatColors.getPrefix(formattedText)).isNotEmpty() ||
-            ChatAlertsManager.checkChatAlert(this) != null ||
-            ChatColors.detectNonMessage(this).formattedText != formattedText ||
-            WordEditor.shouldEditMessage(this) || config.owoLanguage
+            ChatAlertsManager.checkChatAlert(this.formattedText) != null ||
+            ChatColors.detectNonMessage(this.formattedText) != formattedText ||
+            WordEditor.shouldEditMessage(this.formattedText) || config.owoLanguage
     }
 }

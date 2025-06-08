@@ -13,31 +13,28 @@ import net.minecraft.util.IChatComponent
 
 object ChatColors {
 
-    fun detectColorMessage(message: IChatComponent): IChatComponent {
-        val formattedMessage = message.formattedText
-        val prefix = getPrefix(formattedMessage)
+    fun detectColorMessage(message: String): String {
+        val prefix = getPrefix(message)
         if (prefix.isEmpty()) return message
 
         val color = getChatColor(prefix)
         return if (color.isEmpty()) message
-        else ChatComponentText(insertColor(formattedMessage, color))
+        else insertColor(message, color)
     }
 
-    fun detectNonMessage(message: IChatComponent): IChatComponent {
+    fun detectNonMessage(message: String): String {
         if (!PartlySaneSkies.config.colorNonMessages) return message
+        if (!message.contains("§r§7: ")) return message
 
-        val formattedMessage = message.formattedText
-        if (!formattedMessage.contains("§r§7: ")) return message
-
-        if (formattedMessage.startsWith("§dTo ") || formattedMessage.startsWith("§dFrom ")) {
+        if (message.startsWith("§dTo ") || message.startsWith("§dFrom ")) {
             return message
         }
 
-        val unformattedMessage = message.unformattedText
+        val unformattedMessage = message.removeColorCodes()
         val containsRankNames = PartlySaneSkies.RANK_NAMES.any { unformattedMessage.contains(it) }
 
         return if (containsRankNames) message
-        else ChatComponentText(insertColor(formattedMessage, "§r"))
+        else insertColor(message, "§r")
     }
 
     fun getChatColor(prefix: String): String = when (prefix.lowercase()) {
