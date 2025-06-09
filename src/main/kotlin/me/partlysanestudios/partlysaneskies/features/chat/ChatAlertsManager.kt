@@ -125,12 +125,12 @@ object ChatAlertsManager {
         ChatUtils.sendClientMessage("§bChat Alert number §d$id §b(\"§d$message§b\") was successfully removed.")
     }
 
-    fun checkChatAlert(message: IChatComponent): IChatComponent? {
+    fun checkChatAlert(message: String): String? {
         return checkChatAlert(message, false)
     }
 
-    fun checkChatAlert(message: IChatComponent, sendSystemNotification: Boolean): IChatComponent? {
-        var formattedMessage = message.formattedText
+    fun checkChatAlert(message: String, sendSystemNotification: Boolean): String? {
+        var formattedMessage = message
         var beginMessageIndex = formattedMessage.indexOfAny(MESSAGE_PREFIXES)
 
         if (beginMessageIndex == -1) {
@@ -170,9 +170,9 @@ object ChatAlertsManager {
             }
 
         if (PartlySaneSkies.config.chatAlertSendSystemNotification && !Display.isActive() && sendSystemNotification) {
-            SystemNotification.showNotification(message.formattedText.removeColorCodes())
+            SystemNotification.showNotification(message.removeColorCodes())
         }
-        return ChatComponentText(formattedMessage.toString())
+        return formattedMessage
     }
 
     private fun indexInFormattedString(formattedMessage: String, indexInUnformattedMessage: Int): Int {

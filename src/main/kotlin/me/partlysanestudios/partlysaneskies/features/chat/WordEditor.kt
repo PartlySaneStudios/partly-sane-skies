@@ -57,11 +57,10 @@ object WordEditor {
         return editedMessage
     }
 
-    fun shouldEditMessage(message: IChatComponent): Boolean {
+    fun shouldEditMessage(message: String): Boolean {
         if (!PartlySaneSkies.config.wordEditor) return false
 
-        val formattedMessage = message.formattedText
-        return wordsToEdit.any { (wordToReplace, _) -> wordToReplace in formattedMessage }
+        return wordsToEdit.any { (wordToReplace, _) -> wordToReplace in message.toLowerCase() }
     }
 
     // List all words configured for replacement
