@@ -55,14 +55,15 @@ class SkyblockPlayer(val username: String) {
     fun isExpired(): Boolean = !MathUtils.onCooldown(lastUpdateTime, config.playerDataCacheTime * 60 * 1000L)
 
     fun instantiateData() {
-        val requestURL = "https://mowojang.matdoes.dev/users/profiles/minecraft/$username"
+        val requestURL = "${config.apiUrl}/v1/pss/mojangapi/byname?name=$username"
 
         val lock = Lock()
 
         RequestsManager.newRequest(
             GetRequest(
-                requestURL,
-                { uuidRequest ->
+                url = requestURL,
+                acceptAllCertificates = true,
+                function = { uuidRequest ->
                     if (!uuidRequest.hasSucceeded()) {
                         synchronized(lock) {
                             lock.notifyAll()
@@ -80,8 +81,9 @@ class SkyblockPlayer(val username: String) {
                     val pssSkyblockPlayerUrl = "${config.apiUrl}/v1/hypixel/skyblockplayer?uuid=$uuid"
                     RequestsManager.newRequest(
                         GetRequest(
-                            pssSkyblockPlayerUrl,
-                            { skyblockPlayerResponse ->
+                            url = pssSkyblockPlayerUrl,
+                            acceptAllCertificates = true,
+                            function = { skyblockPlayerResponse ->
                                 if (!skyblockPlayerResponse.hasSucceeded()) {
                                     synchronized(lock) {
                                         lock.notifyAll()
