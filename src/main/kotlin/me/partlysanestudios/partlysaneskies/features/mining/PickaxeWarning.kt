@@ -72,7 +72,7 @@ object PickaxeWarning {
 
     @SubscribeEvent
     fun onClick(event: PlayerInteractEvent) {
-        if (config.blockAbilityOnPrivateIsland && !onIslands(IslandType.PRIVATE_ISLAND, IslandType.GARDEN)) return
+        if (!config.blockAbilityOnPrivateIsland || !onIslands(IslandType.PRIVATE_ISLAND, IslandType.GARDEN)) return
         if (event.action !in listOf(PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK, PlayerInteractEvent.Action.RIGHT_CLICK_AIR)) return
         if (getCurrentlyHoldingItem() == null) return
 
