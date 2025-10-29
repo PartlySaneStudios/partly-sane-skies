@@ -29,8 +29,8 @@ object PickaxeWarning {
         "Mining Speed Boost",
         "Pickobulus",
         "Maniac Miner",
-        "Vein Seeker",
-        "Hazardous Miner",
+        "Tunnel Vision",
+        "Sheer Force",
         "Gemstone Infusion",
     )
 
